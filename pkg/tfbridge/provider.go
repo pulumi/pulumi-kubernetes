@@ -21,32 +21,35 @@ import (
 	"golang.org/x/net/context"
 )
 
+const BridgePluginPrefix = "tf-"
+
 // Provider implements the Lumi resource provider operations for any Terraform plugin.
 type Provider struct {
 	host      *provider.HostClient                   // the RPC link back to the Lumi engine.
 	tf        terraform.ResourceProvider             // the Terraform resource provider to use.
-	mod       string                                 // the Terraform module name.
+	module    string                                 // the Terraform module name.
 	resources map[tokens.Type]terraform.ResourceType // a map of Lumi type tokens to Terraform type structs.
 }
 
 // NewProvider creates a new Lumi RPC server wired up to the given host and wrapping the given Terraform provider.
-func NewProvider(host *provider.HostClient, tf terraform.ResourceProvider, mod string) (*Provider, error) {
+func NewProvider(host *provider.HostClient, tf terraform.ResourceProvider, module string) (*Provider, error) {
 	// TODO: for all operations, redirect all [INFO], [DEBUG], etc. messages to the right log.
 	// TODO: audit computed logic to ensure we flow from Lumi's notion of unknowns to TF computeds properly.
 
 	prov := &Provider{
 		host:      host,
 		tf:        tf,
-		mod:       mod,
+		module:    module,
 		resources: make(map[tokens.Type]terraform.ResourceType),
 	}
 
 	// Fetch a list of all resource types handled by this provider and make a map.
 	for _, res := range tf.Resources() {
 		// FIXME: all of this token munging is pretty hokey.
-		contract.Assertf(strings.HasPrefix(res.Name, mod+"_"),
-			"Expected all Terraform resources in this module to have a '%v_' prefix", mod)
-		name := res.Name[len("aws_"):]                                       // strip off module prefix.
+		prefix := module + "_"
+		contract.Assertf(strings.HasPrefix(res.Name, prefix),
+			"Expected all Terraform resources in this module to have a '%v' prefix", prefix)
+		name := res.Name[len(prefix):]                                       // strip off module prefix.
 		tok := tokens.Type(string(prov.pkg()) + ":" + res.Name + ":" + name) // make a Lumi resource type token.
 		prov.resources[tok] = res                                            // associate the token with the type.
 	}
@@ -56,7 +59,7 @@ func NewProvider(host *provider.HostClient, tf terraform.ResourceProvider, mod s
 
 var _ lumirpc.ResourceProviderServer = (*Provider)(nil)
 
-func (p *Provider) pkg() tokens.Package      { return tokens.Package("tf-" + p.mod) }
+func (p *Provider) pkg() tokens.Package      { return tokens.Package(BridgePluginPrefix + p.module) }
 func (p *Provider) indexMod() tokens.Module  { return tokens.Module(p.pkg() + ":index") }
 func (p *Provider) configMod() tokens.Module { return tokens.Module(p.pkg() + ":config") }
 

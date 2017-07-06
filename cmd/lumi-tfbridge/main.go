@@ -3,15 +3,34 @@
 package main
 
 import (
+	"os"
+	"path/filepath"
+	"strings"
+
+	"github.com/pulumi/lumi/pkg/resource/plugin"
 	"github.com/pulumi/lumi/pkg/util/cmdutil"
+
 	"github.com/pulumi/terraform-bridge/pkg/tfbridge"
 )
 
 func main() {
-	// TODO: don't hard-code AWS; we need to arrange for this to be passed somehow from the provider package.
-	//     I am currently thinking of adding the ability for resource provider package manifests (Lumi.yamls) to
-	//     specify additional arguments passed to their providers at startup time.
-	if err := tfbridge.Serve("aws"); err != nil {
+	// To figure out the package that this process handles, we will look at the binary name.  It will be of the form:
+	//
+	//     lumi-resource-tf-xyz
+	//
+	// where xyz is the name of the package.  For example, lumi-resource-tf-aws.  This avoids needing any sort of
+	// command line configuration and takes advantage of the way in which resource provider plugins are installed.
+	bin := filepath.Base(os.Args[0])
+	prefix := plugin.ProviderPluginPrefix + tfbridge.BridgePluginPrefix
+	if !strings.HasPrefix(bin, prefix) {
+		cmdutil.ExitError("fatal: missing expected plugin prefix '%v': %v", prefix, bin)
+	}
+	module := bin[len(prefix):]
+	if module == "" {
+		cmdutil.ExitError("fatal: malformed plugin name; missing a module part: %v", bin)
+	}
+
+	if err := tfbridge.Serve(module); err != nil {
 		cmdutil.ExitError(err.Error())
 	}
 }

@@ -754,123 +754,123 @@
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/compiler/ast",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/compiler/binder",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/compiler/core",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/compiler/errors",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/compiler/metadata",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/compiler/symbols",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/compiler/types",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/compiler/types/predef",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/diag",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/diag/colors",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/encoding",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/eval",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/eval/rt",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/pack",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/resource",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/resource/plugin",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/resource/provider",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/tokens",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/util/cmdutil",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/util/contract",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/util/mapper",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/util/rpcutil",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/pkg/workspace",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/pulumi/lumi/sdk/go/pkg/lumirpc",
-			"Comment": "v0.3-25-g9babb4b",
-			"Rev": "9babb4b9936a849b16287cd2602ff25274061e50"
+			"Comment": "v0.3-28-gea0461d",
+			"Rev": "ea0461dadbb4a78bac38b99746ee2485275f4b96"
 		},
 		{
 			"ImportPath": "github.com/reconquest/loreley",

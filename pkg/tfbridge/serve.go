@@ -9,9 +9,9 @@ import (
 
 // Serve dynamically loads a Terraform plugin, fires up a Lumi resource provider listening to inbound gRPC traffic,
 // and actively bridges between the two, translating calls on one side into calls on the other.
-func Serve(mod string) error {
+func Serve(module string) error {
 	// Manufacture the path to the provider binary.
-	provBin := "terraform-provider-" + mod
+	provBin := "terraform-provider-" + module
 
 	// Load up the Terraform plugin dynamically so we can invoke CRUD methods on it.
 	plug, prov, err := Plugin(provBin)
@@ -22,7 +22,7 @@ func Serve(mod string) error {
 
 	// Create a new resource provider server and listen for and serve incoming connections.
 	return provider.Main(func(host *provider.HostClient) (lumirpc.ResourceProviderServer, error) {
-		bridge, err := NewProvider(host, prov, mod)
+		bridge, err := NewProvider(host, prov, module)
 		if err != nil {
 			return nil, err
 		}
