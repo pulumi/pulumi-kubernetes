@@ -129,21 +129,22 @@ func makeTerraformDiff(
 	old resource.PropertyMap, new resource.PropertyMap) (map[string]string, *terraform.InstanceDiff) {
 	var attrs map[string]string
 	diff := make(map[string]*terraform.ResourceAttrDiff)
-	if old != nil {
-		attrs = makeTerraformPropertyMap(old)
-		for p, v := range attrs {
-			if diff[p] == nil {
-				diff[p] = &terraform.ResourceAttrDiff{}
-			}
-			diff[p].Old = v
-		}
-	}
+	// Add all new property values.
 	if new != nil {
 		for p, v := range makeTerraformPropertyMap(new) {
 			if diff[p] == nil {
 				diff[p] = &terraform.ResourceAttrDiff{}
 			}
 			diff[p].New = v
+		}
+	}
+	// Now add all old property values, provided they exist in new.
+	if old != nil {
+		attrs = makeTerraformPropertyMap(old)
+		for p, v := range attrs {
+			if diff[p] != nil {
+				diff[p].Old = v
+			}
 		}
 	}
 	return attrs, &terraform.InstanceDiff{Attributes: diff}
