@@ -3,6 +3,8 @@
 package main
 
 import (
+	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -30,6 +32,10 @@ func main() {
 		cmdutil.ExitError("fatal: malformed plugin name; missing a module part: %v", bin)
 	}
 
+	// Suppress logging, since Terraform plugins will echo to log and we want to intercept it ourselves.
+	log.SetOutput(ioutil.Discard)
+
+	// Now serve it up!
 	if err := tfbridge.Serve(module); err != nil {
 		cmdutil.ExitError(err.Error())
 	}
