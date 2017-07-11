@@ -11,10 +11,8 @@ import (
 // be nice to be able to do this dynamically, so that we could invoke the command line with whatever source providers we
 // want.  Sadly, Go's dynamic plugin support is still iffy -- and non-existent on anything but Linux -- and so for now
 // we will simply statically link in all of the source providers.  Hey, it works.
-func Providers() map[string]ProviderInfo {
-	return map[string]ProviderInfo{
-		"aws": awsProvider(),
-	}
+var Providers = map[string]ProviderInfo{
+	"aws": awsProvider(),
 }
 
 // ProviderInfo contains information about a Terraform provider plugin that we will use to generate the Lumi

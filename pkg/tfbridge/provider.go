@@ -32,29 +32,16 @@ type Provider struct {
 }
 
 // NewProvider creates a new Lumi RPC server wired up to the given host and wrapping the given Terraform provider.
-func NewProvider(host *provider.HostClient, tf terraform.ResourceProvider, module string) (*Provider, error) {
+func NewProvider(host *provider.HostClient, tf terraform.ResourceProvider, module string) *Provider {
 	// TODO: for all operations, redirect all [INFO], [DEBUG], etc. messages to the right log.
 	// TODO: audit computed logic to ensure we flow from Lumi's notion of unknowns to TF computeds properly.
-
-	prov := &Provider{
-		host:      host,
-		tf:        tf,
-		module:    module,
-		resources: make(map[tokens.Type]terraform.ResourceType),
+	p := &Provider{
+		host:   host,
+		tf:     tf,
+		module: module,
 	}
-
-	// Fetch a list of all resource types handled by this provider and make a map.
-	for _, res := range tf.Resources() {
-		// FIXME: all of this token munging is pretty hokey.
-		prefix := module + "_"
-		contract.Assertf(strings.HasPrefix(res.Name, prefix),
-			"Expected all Terraform resources in this module to have a '%v' prefix", prefix)
-		name := TerraformToLumiName(res.Name[len(prefix):], true)            // strip off module prefix, uppercase.
-		tok := tokens.Type(string(prov.pkg()) + ":" + res.Name + ":" + name) // make a Lumi resource type token.
-		prov.resources[tok] = res                                            // associate the token with the type.
-	}
-
-	return prov, nil
+	p.initResourceMap()
+	return p
 }
 
 var _ lumirpc.ResourceProviderServer = (*Provider)(nil)
@@ -70,6 +57,42 @@ const NameProperty = "name"
 func (p *Provider) tfResource(t tokens.Type) (terraform.ResourceType, bool) {
 	res, has := p.resources[t]
 	return res, has
+}
+
+// initResourceMap creates a simple map from Lumi to Terraform resource type.
+func (p *Provider) initResourceMap() {
+	prefix := p.module + "_"        // all resources will have this prefix.
+	provinfo := Providers[p.module] // fetch name/schema overrides, if any.
+
+	// Fetch a list of all resource types handled by this provider and make a map.
+	p.resources = make(map[tokens.Type]terraform.ResourceType)
+	for _, res := range p.tf.Resources() {
+		var tok tokens.Type
+
+		// See if there is override information for this resource.  If yes, use that to decode the token.
+		if provinfo.Resources != nil {
+			if resinfo, has := provinfo.Resources[res.Name]; has {
+				tok = resinfo.Tok
+			}
+		}
+
+		// Otherwise, we default to the standard naming scheme.
+		if tok == "" {
+			// Strip off the module prefix (e.g., "aws_").
+			contract.Assertf(strings.HasPrefix(res.Name, prefix),
+				"Expected all Terraform resources in this module to have a '%v' prefix", prefix)
+			name := res.Name[len(prefix):]
+
+			// Create a camel name for the module and pascal for the resource type.
+			camelName := TerraformToLumiName(name, false)
+			pascalName := TerraformToLumiName(name, true)
+
+			// Now just manufacture a token with the package, module, and resource type name.
+			tok = tokens.Type(string(p.pkg()) + ":" + camelName + ":" + pascalName)
+		}
+
+		p.resources[tok] = res
+	}
 }
 
 // Some functions used below for name and value transformations.
