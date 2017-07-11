@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/pkg/errors"
 	"github.com/pulumi/lumi/pkg/diag"
 	"github.com/pulumi/lumi/pkg/tools"
 	"github.com/pulumi/lumi/pkg/util/cmdutil"
@@ -51,20 +52,21 @@ func (g *generator) Generate(provs map[string]tfbridge.ProviderInfo, path string
 }
 
 // generateProvider creates a single standalone Lumi package for the given provider.
-func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo, path string) error {
+func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo, root string) error {
 	var files []string
-	exports := make(map[string]string)
-	modules := make(map[string]string)
+	exports := make(map[string]string)               // a list of top-level exports.
+	modules := make(map[string]string)               // a list of modules to export individually.
+	submodules := make(map[string]map[string]string) // a map of sub-module name to exported members.
 
-	// Ensure the target exists.
-	if err := tools.EnsureDir(path); err != nil {
+	// Ensure the root path exists.
+	if err := tools.EnsureDir(root); err != nil {
 		return err
 	}
 
 	// Place all configuration variables into a single config module.
 	prov := provinfo.P
 	if len(prov.Schema) > 0 {
-		cfgfile, err := g.generateConfig(prov.Schema, path)
+		cfgfile, err := g.generateConfig(prov.Schema, root)
 		if err != nil {
 			return err
 		}
@@ -87,7 +89,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 					diag.Message("Resource %v not found in provider map; using default naming"), r)
 			}
 		}
-		result, err := g.generateResource(pkg, r, resmap[r], resinfo, path)
+		result, err := g.generateResource(pkg, r, resmap[r], resinfo, root)
 		if err != nil {
 			return err
 		}
@@ -95,8 +97,13 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 			// if no sub-module, export flatly in our own index.
 			exports[result.Name] = result.File
 		} else {
-			// if it's a sub-module, make sure to export its index as such.
-			modules[result.Submod] = result.Submodf
+			// otherwise, make sure to track this in the submodule so we can create and export it correctly.
+			submod := submodules[result.Submod]
+			if submod == nil {
+				submod = make(map[string]string)
+				submodules[result.Submod] = submod
+			}
+			submod[result.Name] = result.File
 		}
 		files = append(files, result.File)
 	}
@@ -117,19 +124,28 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 		}
 	}
 
+	// Generate any submodules and add them to the export list.
+	subs, err := g.generateSubmodules(submodules, root)
+	if err != nil {
+		return err
+	}
+	for sub, subf := range subs {
+		modules[sub] = subf
+	}
+
 	// Generate the index.ts file that reexports everything at the entrypoint.
-	ixfile, err := g.generateIndex(exports, modules, path)
+	ixfile, err := g.generateIndex(exports, modules, root)
 	if err != nil {
 		return err
 	}
 	files = append(files, ixfile)
 
 	// Finally, generate all of the package metadata: Lumi.yaml, package.json, and tsconfig.json.
-	return g.generatePackageMetadata(pkg, files, path)
+	return g.generatePackageMetadata(pkg, files, root)
 }
 
 // generateConfig takes a map of config variables and emits a config module to the given file.
-func (g *generator) generateConfig(cfg map[string]*schema.Schema, path string) (string, error) {
+func (g *generator) generateConfig(cfg map[string]*schema.Schema, root string) (string, error) {
 	// Sort the config variables to ensure they are emitted in a deterministic order.
 	var cfgkeys []string
 	for key := range cfg {
@@ -138,7 +154,7 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema, path string) (
 	sort.Strings(cfgkeys)
 
 	// Open up the file and spew a standard "code-generated" warning header.
-	file := filepath.Join(path, "config.ts")
+	file := filepath.Join(root, "config.ts")
 	w, err := tools.NewGenWriter(tfgen, file)
 	if err != nil {
 		return "", err
@@ -155,24 +171,41 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema, path string) (
 		w.Writefmtln("export let %v: %v;", propertyName(key), g.tfToJSTypeFlags(sch))
 	}
 	w.Writefmtln("")
-	return filepath.Rel(path, file)
+	return file, nil
 }
 
 type resourceResult struct {
-	Name    string // the resource name.
-	File    string // the resource filename.
-	Submod  string // the submodule name, if any.
-	Submodf string // the submodule file, if any.
+	Name   string // the resource name.
+	File   string // the resource filename.
+	Submod string // the submodule name, if any.
 }
 
 // generateResource generates a single module for the given resource.
 func (g *generator) generateResource(pkg string, rawname string,
-	res *schema.Resource, resinfo tfbridge.ResourceInfo, path string) (resourceResult, error) {
+	res *schema.Resource, resinfo tfbridge.ResourceInfo, root string) (resourceResult, error) {
 	// Transform the name as necessary.
 	resname, filename := resourceName(pkg, rawname, resinfo)
 
+	// Make a fully qualified file path that we will write to.
+	file := filepath.Join(root, filename+".ts")
+
+	// If the filename contains slashes, it is a sub-module, and we must ensure it exists.
+	var submod string
+	if slix := strings.Index(filename, "/"); slix != -1 {
+		// Extract the module and file parts.
+		submod = filename[:slix]
+		if strings.Index(filename[slix+1:], "/") != -1 {
+			return resourceResult{},
+				errors.Errorf("Modules nested more than one level deep not currently supported")
+		}
+
+		// Ensure the submodule directory exists.
+		if err := tools.EnsureFileDir(file); err != nil {
+			return resourceResult{}, err
+		}
+	}
+
 	// Open up the file and spew a standard "code-generated" warning header.
-	file := filepath.Join(path, filename+".ts")
 	w, err := tools.NewGenWriter(tfgen, file)
 	if err != nil {
 		return resourceResult{}, err
@@ -226,22 +259,37 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.Writefmtln("}")
 	w.Writefmtln("")
 
-	// Return the path as a relative path to the root, so that imports are relative.
-	relpath, err := filepath.Rel(path, file)
-	if err != nil {
-		return resourceResult{}, err
-	}
-
 	return resourceResult{
-		Name: resname,
-		File: relpath,
+		Name:   resname,
+		File:   file,
+		Submod: submod,
 	}, nil
 }
 
+// generateSubmodules creates a set of index files, if necessary, for the given submodules.  It returns a map of
+// submodule name to the generated index file, so that a caller can be sure to re-export it as necessary.
+func (g *generator) generateSubmodules(submodules map[string]map[string]string,
+	root string) (map[string]string, error) {
+	results := make(map[string]string)
+	var subs []string
+	for submod := range submodules {
+		subs = append(subs, submod)
+	}
+	sort.Strings(subs)
+	for _, sub := range subs {
+		index, err := g.generateIndex(submodules[sub], nil, filepath.Join(root, sub))
+		if err != nil {
+			return nil, err
+		}
+		results[sub] = index
+	}
+	return results, nil
+}
+
 // generateIndex creates a module index file for easy access to sub-modules and exports.
-func (g *generator) generateIndex(exports, modules map[string]string, path string) (string, error) {
+func (g *generator) generateIndex(exports, modules map[string]string, root string) (string, error) {
 	// Open up the file and spew a standard "code-generated" warning header.
-	file := filepath.Join(path, "index.ts")
+	file := filepath.Join(root, "index.ts")
 	w, err := tools.NewGenWriter(tfgen, file)
 	if err != nil {
 		return "", err
@@ -258,7 +306,11 @@ func (g *generator) generateIndex(exports, modules map[string]string, path strin
 		}
 		sort.Strings(mods)
 		for _, mod := range mods {
-			w.Writefmtln("import * as %v from \"%v\";", mod, relModule(modules[mod]))
+			rel, err := relModule(root, modules[mod])
+			if err != nil {
+				return "", err
+			}
+			w.Writefmtln("import * as %v from \"%v\";", mod, rel)
 		}
 		w.Writefmt("export {")
 		for i, mod := range mods {
@@ -280,39 +332,50 @@ func (g *generator) generateIndex(exports, modules map[string]string, path strin
 		}
 		sort.Strings(exps)
 		for _, exp := range exps {
-			w.Writefmtln("export * from \"%v\";", relModule(exports[exp]))
+			rel, err := relModule(root, exports[exp])
+			if err != nil {
+				return "", err
+			}
+			w.Writefmtln("export * from \"%v\";", rel)
 		}
 		w.Writefmtln("")
 	}
 
-	return filepath.Rel(path, file)
+	return file, nil
 }
 
-// relModule removes the path suffix from a module path.
-func relModule(mod string) string {
-	if strings.HasSuffix(mod, ".ts") {
-		mod = mod[:len(mod)-3]
+// relModule removes the path suffix from a module and makes it relative to the root path.
+func relModule(root string, mod string) (string, error) {
+	// Return the path as a relative path to the root, so that imports are relative.
+	file, err := filepath.Rel(root, mod)
+	if err != nil {
+		return "", err
 	}
-	return "./" + mod
+
+	if strings.HasSuffix(file, ".ts") {
+		file = file[:len(file)-3]
+	}
+
+	return "./" + file, nil
 }
 
 // generatePackageMetadata generates all the non-code metadata required by a Lumi package.
-func (g *generator) generatePackageMetadata(pkg string, files []string, path string) error {
+func (g *generator) generatePackageMetadata(pkg string, files []string, root string) error {
 	// There are three files to write out:
 	//     1) Lumi.yaml: Lumi package information
 	//     2) package.json: minimal NPM package metadata
 	//     3) tsconfig.json: instructions for TypeScript compilation
-	if err := g.generateLumiPackageMetadata(pkg, path); err != nil {
+	if err := g.generateLumiPackageMetadata(pkg, root); err != nil {
 		return err
 	}
-	if err := g.generateNPMPackageMetadata(pkg, path); err != nil {
+	if err := g.generateNPMPackageMetadata(pkg, root); err != nil {
 		return err
 	}
-	return g.generateTypeScriptProjectFile(pkg, files, path)
+	return g.generateTypeScriptProjectFile(pkg, files, root)
 }
 
-func (g *generator) generateLumiPackageMetadata(pkg string, path string) error {
-	w, err := tools.NewGenWriter(tfgen, filepath.Join(path, "Lumi.yaml"))
+func (g *generator) generateLumiPackageMetadata(pkg string, root string) error {
+	w, err := tools.NewGenWriter(tfgen, filepath.Join(root, "Lumi.yaml"))
 	if err != nil {
 		return err
 	}
@@ -325,8 +388,8 @@ func (g *generator) generateLumiPackageMetadata(pkg string, path string) error {
 	return nil
 }
 
-func (g *generator) generateNPMPackageMetadata(pkg string, path string) error {
-	w, err := tools.NewGenWriter(tfgen, filepath.Join(path, "package.json"))
+func (g *generator) generateNPMPackageMetadata(pkg string, root string) error {
+	w, err := tools.NewGenWriter(tfgen, filepath.Join(root, "package.json"))
 	if err != nil {
 		return err
 	}
@@ -338,8 +401,8 @@ func (g *generator) generateNPMPackageMetadata(pkg string, path string) error {
 	return nil
 }
 
-func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, path string) error {
-	w, err := tools.NewGenWriter(tfgen, filepath.Join(path, "tsconfig.json"))
+func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, root string) error {
+	w, err := tools.NewGenWriter(tfgen, filepath.Join(root, "tsconfig.json"))
 	if err != nil {
 		return err
 	}
@@ -359,10 +422,11 @@ func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, pa
 		if i != len(files)-1 {
 			suffix = ","
 		}
+		relfile, err := filepath.Rel(root, file)
 		if err != nil {
 			return err
 		}
-		w.Writefmtln("        \"%v\"%v", file, suffix)
+		w.Writefmtln("        \"%v\"%v", relfile, suffix)
 	}
 	w.Writefmtln(`    ]
 }
@@ -460,13 +524,7 @@ func resourceName(pkg string, rawname string, resinfo tfbridge.ResourceInfo) (st
 			tfbridge.TerraformToLumiName(name, false) // camelCase the filename.
 	}
 	// otherwise, a custom transformation exists; use it.
-	name := string(resinfo.Tok.Name())
-	mod := string(resinfo.Tok.Module().Name())
-	if ix := strings.LastIndex(mod, "/"); ix != -1 {
-		// TODO: submodules.
-		mod = mod[ix+1:]
-	}
-	return name, mod
+	return string(resinfo.Tok.Name()), string(resinfo.Tok.Module().Name())
 }
 
 // propertyName translates a Terraform underscore_cased_property_name into the JavaScript camelCasedPropertyName.
