@@ -10,7 +10,9 @@ import (
 	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/pulumi/lumi/pkg/diag"
 	"github.com/pulumi/lumi/pkg/tools"
+	"github.com/pulumi/lumi/pkg/util/cmdutil"
 	"github.com/pulumi/lumi/pkg/util/contract"
 
 	"github.com/pulumi/terraform-bridge/pkg/tfbridge"
@@ -41,7 +43,7 @@ func (g *generator) Generate(provs map[string]tfbridge.ProviderInfo, path string
 	// Enumerate each provider and generate its code into a distinct directory.
 	for _, p := range stableProviders(provs) {
 		// IDEA: let command lines specify different locations for different provider outputs.
-		if err := g.generateProvider(p, provs[p].P, filepath.Join(path, p)); err != nil {
+		if err := g.generateProvider(p, provs[p], filepath.Join(path, p)); err != nil {
 			return err
 		}
 	}
@@ -49,7 +51,7 @@ func (g *generator) Generate(provs map[string]tfbridge.ProviderInfo, path string
 }
 
 // generateProvider creates a single standalone Lumi package for the given provider.
-func (g *generator) generateProvider(pkg string, prov *schema.Provider, path string) error {
+func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo, path string) error {
 	var files []string
 	exports := make(map[string]string)
 	modules := make(map[string]string)
@@ -60,6 +62,7 @@ func (g *generator) generateProvider(pkg string, prov *schema.Provider, path str
 	}
 
 	// Place all configuration variables into a single config module.
+	prov := provinfo.P
 	if len(prov.Schema) > 0 {
 		cfgfile, err := g.generateConfig(prov.Schema, path)
 		if err != nil {
@@ -69,15 +72,49 @@ func (g *generator) generateProvider(pkg string, prov *schema.Provider, path str
 		files = append(files, cfgfile)
 	}
 
-	// For each resource, create its own dedicated file.
-	// TODO: we need to split these into nested sub-modules (ec2, s3, etc).
+	// For each resource, create its own dedicated type and module export.
+	resmap := prov.ResourcesMap
+	reshits := make(map[string]bool)
 	for _, r := range stableResources(prov.ResourcesMap) {
-		resfile, err := g.generateResource(pkg, r, prov.ResourcesMap[r], path)
+		var resinfo tfbridge.ResourceInfo
+		if prov.Resources != nil {
+			if ri, has := provinfo.Resources[r]; has {
+				resinfo = ri
+				reshits[r] = true
+			} else {
+				// if this has a map, but this resource wasn't found, issue a warning.
+				cmdutil.Diag().Warningf(
+					diag.Message("Resource %v not found in provider map; using default naming"), r)
+			}
+		}
+		result, err := g.generateResource(pkg, r, resmap[r], resinfo, path)
 		if err != nil {
 			return err
 		}
-		exports[r] = resfile // ensure we export flatly as part of index
-		files = append(files, resfile)
+		if result.Submod == "" {
+			// if no sub-module, export flatly in our own index.
+			exports[result.Name] = result.File
+		} else {
+			// if it's a sub-module, make sure to export its index as such.
+			modules[result.Submod] = result.Submodf
+		}
+		files = append(files, result.File)
+	}
+
+	// Emit a warning if there is a map but some names didn't match.
+	if provinfo.Resources != nil {
+		var resnames []string
+		for resname := range provinfo.Resources {
+			resnames = append(resnames, resname)
+		}
+		sort.Strings(resnames)
+		for _, resname := range resnames {
+			if !reshits[resname] {
+				cmdutil.Diag().Warningf(
+					diag.Message("Resource %v (%v) wasn't found in the Terraform module; possible name mismatch?"),
+					resname, provinfo.Resources[resname].Tok)
+			}
+		}
 	}
 
 	// Generate the index.ts file that reexports everything at the entrypoint.
@@ -121,13 +158,24 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema, path string) (
 	return filepath.Rel(path, file)
 }
 
+type resourceResult struct {
+	Name    string // the resource name.
+	File    string // the resource filename.
+	Submod  string // the submodule name, if any.
+	Submodf string // the submodule file, if any.
+}
+
 // generateResource generates a single module for the given resource.
-func (g *generator) generateResource(pkg string, name string, res *schema.Resource, path string) (string, error) {
+func (g *generator) generateResource(pkg string, rawname string,
+	res *schema.Resource, resinfo tfbridge.ResourceInfo, path string) (resourceResult, error) {
+	// Transform the name as necessary.
+	resname, filename := resourceName(pkg, rawname, resinfo)
+
 	// Open up the file and spew a standard "code-generated" warning header.
-	file := filepath.Join(path, name+".ts")
+	file := filepath.Join(path, filename+".ts")
 	w, err := tools.NewGenWriter(tfgen, file)
 	if err != nil {
-		return "", err
+		return resourceResult{}, err
 	}
 	defer contract.IgnoreClose(w)
 	w.EmitHeaderWarning()
@@ -137,7 +185,6 @@ func (g *generator) generateResource(pkg string, name string, res *schema.Resour
 	w.Writefmtln("")
 
 	// Generate the resource class.
-	resname := resourceName(pkg, name)
 	w.Writefmtln("export class %[1]v extends lumi.NamedResource implements %[1]vArgs {", resname)
 
 	// First, generate all instance properties.
@@ -179,7 +226,16 @@ func (g *generator) generateResource(pkg string, name string, res *schema.Resour
 	w.Writefmtln("}")
 	w.Writefmtln("")
 
-	return filepath.Rel(path, file)
+	// Return the path as a relative path to the root, so that imports are relative.
+	relpath, err := filepath.Rel(path, file)
+	if err != nil {
+		return resourceResult{}, err
+	}
+
+	return resourceResult{
+		Name: resname,
+		File: relpath,
+	}, nil
 }
 
 // generateIndex creates a module index file for easy access to sub-modules and exports.
@@ -288,16 +344,16 @@ func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, pa
 		return err
 	}
 	defer contract.IgnoreClose(w)
-	w.Writefmtln("{")
-	w.Writefmtln("    \"compilerOptions\": {")
-	w.Writefmtln("        \"outDir\": \".lumi/bin\",")
-	w.Writefmtln("        \"target\": \"es6\",")
-	w.Writefmtln("        \"module\": \"commonjs\",")
-	w.Writefmtln("        \"moduleResolution\": \"node\",")
-	w.Writefmtln("        \"declaration\": true,")
-	w.Writefmtln("        \"sourceMap\": true")
-	w.Writefmtln("    },")
-	w.Writefmtln("    \"files\": [")
+	w.Writefmtln(`{
+    "compilerOptions": {
+        "outDir": ".lumi/bin",
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "declaration": true,
+        "sourceMap": true
+    },
+    "files": [`)
 	for i, file := range files {
 		var suffix string
 		if i != len(files)-1 {
@@ -308,9 +364,9 @@ func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, pa
 		}
 		w.Writefmtln("        \"%v\"%v", file, suffix)
 	}
-	w.Writefmtln("    ]")
-	w.Writefmtln("}")
-	w.Writefmtln("")
+	w.Writefmtln(`    ]
+}
+`)
 	return nil
 }
 
@@ -394,11 +450,23 @@ func (g *generator) tfToJSTypeFlags(sch *schema.Schema) string {
 	return ts
 }
 
-// resourceName translates a Terraform underscore_cased_resource_name into the JavaScript PascalCasedResourceName.
-func resourceName(pkg string, res string) string {
-	contract.Assert(strings.HasPrefix(res, pkg+"_"))
-	name := res[len(pkg)+1:]
-	return tfbridge.TerraformToLumiName(name, true /*PascalCase*/)
+// resourceName translates a Terraform name into its Lumi name equivalent, plus a suggested filename.
+func resourceName(pkg string, rawname string, resinfo tfbridge.ResourceInfo) (string, string) {
+	if resinfo.Tok == "" {
+		// default transformations.
+		contract.Assert(strings.HasPrefix(rawname, pkg+"_"))
+		name := rawname[len(pkg)+1:]                     // strip off the pkg prefix.
+		return tfbridge.TerraformToLumiName(name, true), // PascalCase the resource name.
+			tfbridge.TerraformToLumiName(name, false) // camelCase the filename.
+	}
+	// otherwise, a custom transformation exists; use it.
+	name := string(resinfo.Tok.Name())
+	mod := string(resinfo.Tok.Module().Name())
+	if ix := strings.LastIndex(mod, "/"); ix != -1 {
+		// TODO: submodules.
+		mod = mod[ix+1:]
+	}
+	return name, mod
 }
 
 // propertyName translates a Terraform underscore_cased_property_name into the JavaScript camelCasedPropertyName.
