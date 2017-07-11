@@ -49,7 +49,7 @@ func NewProvider(host *provider.HostClient, tf terraform.ResourceProvider, modul
 		prefix := module + "_"
 		contract.Assertf(strings.HasPrefix(res.Name, prefix),
 			"Expected all Terraform resources in this module to have a '%v' prefix", prefix)
-		name := res.Name[len(prefix):]                                       // strip off module prefix.
+		name := TerraformToLumiName(res.Name[len(prefix):], true)            // strip off module prefix, uppercase.
 		tok := tokens.Type(string(prov.pkg()) + ":" + res.Name + ":" + name) // make a Lumi resource type token.
 		prov.resources[tok] = res                                            // associate the token with the type.
 	}
@@ -72,13 +72,31 @@ func (p *Provider) tfResource(t tokens.Type) (terraform.ResourceType, bool) {
 	return res, has
 }
 
-// numberRepl swaps out Lumi-style float64 for Terraform-style int numbers.
-func numberRepl(v resource.PropertyValue) (interface{}, bool) {
-	if v.IsNumber() {
-		return int(v.NumberValue()), true
+// Some functions used below for name and value transformations.
+var (
+	// lumiKeyRepl swaps out Lumi names for Terraform names.
+	lumiKeyRepl = func(k string) (string, bool) {
+		return LumiToTerraformName(string(k)), true
 	}
-	return nil, false
-}
+	// terraformKeyRepl swaps out Terraform names for Lumi names.
+	terraformKeyRepl = func(k string) (resource.PropertyKey, bool) {
+		return resource.PropertyKey(TerraformToLumiName(k, false)), true
+	}
+	// lumiValueRepl swaps out Lumi-style float64 for Terraform-style int numbers.
+	lumiValueRepl = func(v resource.PropertyValue) (interface{}, bool) {
+		if v.IsNumber() {
+			return int(v.NumberValue()), true
+		}
+		return nil, false
+	}
+	// terraformValueRepl does the reverse, and swaps out Terraform ints for Lumi float64s.
+	terraformValueRepl = func(v interface{}) (resource.PropertyValue, bool) {
+		if i, isint := v.(int); isint {
+			return resource.NewNumberProperty(float64(i)), true
+		}
+		return resource.PropertyValue{}, false
+	}
+)
 
 // terraformToLumiProps expands a Terraform-style flatmap into an expanded Lumi resource property map.
 func terraformToLumiProps(props map[string]string) resource.PropertyMap {
@@ -86,13 +104,13 @@ func terraformToLumiProps(props map[string]string) resource.PropertyMap {
 	for _, key := range flatmap.Map(props).Keys() {
 		res[key] = flatmap.Expand(props, key)
 	}
-	return resource.NewPropertyMapFromMap(res)
+	return resource.NewPropertyMapFromMapRepl(res, terraformKeyRepl, terraformValueRepl)
 }
 
 // makeTerraformConfig creates a Terraform config map, used in state and diff calculations, from a Lumi property map.
 func makeTerraformConfig(m resource.PropertyMap) (*terraform.ResourceConfig, error) {
 	// Convert the resource bag into an untyped map, and then create the resource config object.
-	ma := m.MapReplace(numberRepl)
+	ma := m.MapRepl(lumiKeyRepl, lumiValueRepl)
 	cfg, err := config.NewRawConfig(ma)
 	if err != nil {
 		return nil, err
@@ -112,7 +130,7 @@ func makeTerraformConfigFromRPC(m *pbstruct.Struct) (*terraform.ResourceConfig, 
 func makeTerraformPropertyMap(m resource.PropertyMap) map[string]string {
 	// Turn the resource properties into a map.  For the most part, this is a straight Mappable, but we use MapReplace
 	// because we use float64s and Terraform uses ints, to represent numbers.
-	props := m.MapReplace(numberRepl)
+	props := m.MapRepl(lumiKeyRepl, lumiValueRepl)
 	// FIXME: marshal/unmarshal sets properly.
 	return flatmap.Flatten(props)
 }

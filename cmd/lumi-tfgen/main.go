@@ -7,9 +7,10 @@ import (
 	"os"
 
 	"github.com/golang/glog"
+	"github.com/pulumi/lumi/pkg/util/cmdutil"
 	"github.com/spf13/cobra"
 
-	"github.com/pulumi/lumi/pkg/util/cmdutil"
+	"github.com/pulumi/terraform-bridge/pkg/tfbridge"
 )
 
 func main() {
@@ -40,7 +41,8 @@ func newTFGenCmd() *cobra.Command {
 		Run: cmdutil.RunFunc(func(cmd *cobra.Command, args []string) error {
 			// Let's generate some code!
 			g := newGenerator()
-			return g.Generate(terraformProviders(), out)
+			provs := tfbridge.Providers()
+			return g.Generate(provs, out)
 		}),
 		PersistentPostRun: func(cmd *cobra.Command, args []string) {
 			glog.Flush()

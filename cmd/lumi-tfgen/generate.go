@@ -12,6 +12,8 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pulumi/lumi/pkg/tools"
 	"github.com/pulumi/lumi/pkg/util/contract"
+
+	"github.com/pulumi/terraform-bridge/pkg/tfbridge"
 )
 
 type generator struct {
@@ -26,7 +28,7 @@ const tfgen = "the Lumi Terraform Bridge (TFGEN) Tool"
 // Generate creates Lumi packages out of one or more Terraform plugins.  It accepts a list of all of the input Terraform
 // providers, already bound statically to the code (since we cannot obtain schema information dynamically), walks them
 // and generates the Lumi code, and spews that code into the output directory, path.
-func (g *generator) Generate(provs map[string]*schema.Provider, path string) error {
+func (g *generator) Generate(provs map[string]tfbridge.ProviderInfo, path string) error {
 	// If the path is empty, default to the working directory.
 	if path == "" {
 		p, err := os.Getwd()
@@ -39,7 +41,7 @@ func (g *generator) Generate(provs map[string]*schema.Provider, path string) err
 	// Enumerate each provider and generate its code into a distinct directory.
 	for _, p := range stableProviders(provs) {
 		// IDEA: let command lines specify different locations for different provider outputs.
-		if err := g.generateProvider(p, provs[p], filepath.Join(path, p)); err != nil {
+		if err := g.generateProvider(p, provs[p].P, filepath.Join(path, p)); err != nil {
 			return err
 		}
 	}
@@ -113,7 +115,7 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema, path string) (
 		if sch.Description != "" {
 			// TODO: If there's a description, print it in the comment.
 		}
-		w.Writefmtln("export let %v: %v;", key, g.tfToJSTypeFlags(sch))
+		w.Writefmtln("export let %v: %v;", propertyName(key), g.tfToJSTypeFlags(sch))
 	}
 	w.Writefmtln("")
 	return filepath.Rel(path, file)
@@ -395,7 +397,8 @@ func (g *generator) tfToJSTypeFlags(sch *schema.Schema) string {
 // resourceName translates a Terraform underscore_cased_resource_name into the JavaScript PascalCasedResourceName.
 func resourceName(pkg string, res string) string {
 	contract.Assert(strings.HasPrefix(res, pkg+"_"))
-	return res[len(pkg)+1:]
+	name := res[len(pkg)+1:]
+	return tfbridge.TerraformToLumiName(name, true /*PascalCase*/)
 }
 
 // propertyName translates a Terraform underscore_cased_property_name into the JavaScript camelCasedPropertyName.
@@ -411,12 +414,14 @@ func propertyName(s string) string {
 		s = "_name"
 	} else if s == "id" {
 		s = "_id"
+	} else {
+		s = tfbridge.TerraformToLumiName(s, false /*no to PascalCase; we want camelCase*/)
 	}
 
 	return s
 }
 
-func stableProviders(provs map[string]*schema.Provider) []string {
+func stableProviders(provs map[string]tfbridge.ProviderInfo) []string {
 	var ps []string
 	for p := range provs {
 		ps = append(ps, p)
