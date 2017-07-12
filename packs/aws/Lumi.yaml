@@ -1,0 +1,5 @@
+name: tf-aws
+description: An auto-generated bridge to Terraform's aws provider.
+dependencies:
+    lumi: "*"
+
