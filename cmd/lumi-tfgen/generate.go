@@ -79,7 +79,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	reshits := make(map[string]bool)
 	for _, r := range stableResources(prov.ResourcesMap) {
 		var resinfo tfbridge.ResourceInfo
-		if prov.Resources != nil {
+		if provinfo.Resources != nil {
 			if ri, has := provinfo.Resources[r]; has {
 				resinfo = ri
 				reshits[r] = true
@@ -169,9 +169,7 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema, root string) (
 	// Now just emit a simple export for each variable.
 	for _, key := range cfgkeys {
 		sch := cfg[key]
-		if sch.Description != "" {
-			// TODO: If there's a description, print it in the comment.
-		}
+		// TODO: If there's a description, print it in the comment.
 		w.Writefmtln("export let %v: %v;", propertyName(key), g.tfToJSTypeFlags(sch))
 	}
 	w.Writefmtln("")
@@ -198,7 +196,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	if slix := strings.Index(filename, "/"); slix != -1 {
 		// Extract the module and file parts.
 		submod = filename[:slix]
-		if strings.Index(filename[slix+1:], "/") != -1 {
+		if strings.Contains(filename[slix+1:], "/") {
 			return resourceResult{},
 				errors.Errorf("Modules nested more than one level deep not currently supported")
 		}

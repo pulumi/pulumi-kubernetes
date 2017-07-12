@@ -21,6 +21,7 @@ import (
 	"golang.org/x/net/context"
 )
 
+// BridgePluginPrefix is prepended to all Terraform plugin names.
 const BridgePluginPrefix = "tf-"
 
 // Provider implements the Lumi resource provider operations for any Terraform plugin.
@@ -99,7 +100,7 @@ func (p *Provider) initResourceMap() {
 var (
 	// lumiKeyRepl swaps out Lumi names for Terraform names.
 	lumiKeyRepl = func(k string) (string, bool) {
-		return LumiToTerraformName(string(k)), true
+		return LumiToTerraformName(k), true
 	}
 	// terraformKeyRepl swaps out Terraform names for Lumi names.
 	terraformKeyRepl = func(k string) (resource.PropertyKey, bool) {

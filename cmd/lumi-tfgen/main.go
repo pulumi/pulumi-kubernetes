@@ -35,9 +35,6 @@ func newTFGenCmd() *cobra.Command {
 			"\n" +
 			"Note that there is no Lumi provider code required, because the standard\n" +
 			"lumi-tfbridge-provider plugin works against all Terraform provider plugins.\n",
-		PersistentPreRun: func(cmd *cobra.Command, args []string) {
-			cmdutil.InitLogging(logToStderr, verbose, true)
-		},
 		Run: cmdutil.RunFunc(func(cmd *cobra.Command, args []string) error {
 			// Let's generate some code!
 			g := newGenerator()
