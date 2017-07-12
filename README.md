@@ -19,3 +19,40 @@ behavior also leverages the Terraform provider schema, for operations like deter
 replacements.  Ultimately, however, all mutating runtime operations end up going through the standard dynamic plugin
 interface so that we don't need to get our hands dirty with various internal and stateful representations.
 
+## Development
+
+### Prerequisites
+
+Before doing any development, there are a few prerequisites to install:
+
+* Go: https://golang.org/dl
+* [Dep](https://github.com/golang/dep): $ go get -u github.com/golang/dep
+* [GoMetaLinter](https://github.com/alecthomas/gometalinter):
+    - $ go get -u github.com/alecthomas/gometalinter
+    - $ gometalinter --install
+
+### Building and Testing
+
+There is a `Makefile` in the root that builds and tests everything.
+
+To build, ensure `$GOPATH` is set, and clone into a standard Go workspace:
+
+    $ git clone git@github.com:pulumi/terraform-bridge $GOPATH/src/github.com/pulumi/terraform-bridge
+    $ cd $GOPATH/src/github.com/pulumi/terraform-bridge
+
+Before building, you will need to ensure dependencies have been restored to your enlistment:
+
+    $ dep ensure
+
+At this point you can run make to build and run tests:
+
+    $ make
+
+This installs the `lumi-tfgen` and `lumi-tfbridge` tools into $GOPATH/bin, which may now be run provided make exited
+successfully.  The `Makefile` also supports just running tests (`make test`), just running the linter (`make lint`),
+just running Govet (`make vet`), and so on.  Please refer to the `Makefile` for the full list of targets.
+
+The packages are built separately from the tools.  To generate all Lumi packages from the Terraform modules, you can
+run `make gen`.  This will output the latest into the `packs/` directory, which is version controlled.  To build all of
+the resulting packages, run `make packs` and, to install them, run `make install`.
+
