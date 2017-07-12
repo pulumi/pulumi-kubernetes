@@ -56,3 +56,17 @@ The packages are built separately from the tools.  To generate all Lumi packages
 run `make gen`.  This will output the latest into the `packs/` directory, which is version controlled.  To build all of
 the resulting packages, run `make packs` and, to install them, run `make install`.
 
+### Adding a New Terraform Provider
+
+It is relatively easy to add a new Terraform provider:
+
+* Add a new entry to the `Providers` map in [`pkg/tfbridge/providers.go`](
+  https://github.com/pulumi/terraform-bridge/blob/master/pkg/tfbridge/providers.go).
+* Add a new provider file, similar to [`pkg/tfbridge/providers_aws.go`](
+  https://github.com/pulumi/terraform-bridge/blob/master/pkg/tfbridge/providers_aws.go):
+    - It statically links with the provider `github.com/terraform-providers/terraform-provider-X`;
+    - There is the opportunity for optional gradual modularity, renaming, and typing, through the various maps.
+* Generate the `packs/` metadata using `lumi-tfbridge`.
+* Check in all of the above.
+
+
