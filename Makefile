@@ -29,12 +29,16 @@ banner:
 	@go version
 .PHONY: banner
 
-${PROJECT}/cmd/lumi-tfgen:
+$(TFGEN_BIN):
 	go install ${PROJECT}/cmd/lumi-tfgen
-${PROJECT}/cmd/lumi-tfbridge:
+$(TFBRIDGE_BIN):
 	go install ${PROJECT}/cmd/lumi-tfbridge
+.PHONY: $(TFGEN_BIN) $(TFBRIDGE_BIN)
 
-tools: ${PKG_TFGEN} ${PKG_TFBRIDGE} test
+build: $(TFGEN_BIN) $(TFBRIDGE_BIN)
+.PHONY: build
+
+tools: build test
 .PHONY: tools
 
 test:
