@@ -8,6 +8,18 @@
   version = "v0.10.0"
 
 [[projects]]
+  name = "github.com/Azure/azure-sdk-for-go"
+  packages = ["arm/appinsights","arm/cdn","arm/compute","arm/containerregistry","arm/containerservice","arm/disk","arm/documentdb","arm/eventhub","arm/keyvault","arm/network","arm/redis","arm/resources/resources","arm/scheduler","arm/servicebus","arm/sql","arm/storage","arm/trafficmanager","storage"]
+  revision = "59c277f1b488b81b1a5f944212f25b69bea8ece3"
+  version = "v10.1.0-beta"
+
+[[projects]]
+  name = "github.com/Azure/go-autorest"
+  packages = ["autorest","autorest/adal","autorest/azure","autorest/date","autorest/to","autorest/validation"]
+  revision = "10791a4516e77c53ab10f198f144804cca3d5b43"
+  version = "v8.1.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/apparentlymart/go-cidr"
   packages = ["cidr"]
@@ -36,6 +48,12 @@
   packages = ["spew"]
   revision = "346938d642f2ec3594ed81d874461961cd0faa76"
   version = "v1.1.0"
+
+[[projects]]
+  name = "github.com/dgrijalva/jwt-go"
+  packages = ["."]
+  revision = "d2709f9f1f31ebcda9651b03077758c1f3a0018c"
+  version = "v3.0.0"
 
 [[projects]]
   name = "github.com/ghodss/yaml"
@@ -99,6 +117,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/hashicorp/go-retryablehttp"
+  packages = ["."]
+  revision = "2d5f5dbd904dbad432492c3ca2c12c72c9e3045a"
+
+[[projects]]
+  branch = "master"
   name = "github.com/hashicorp/go-uuid"
   packages = ["."]
   revision = "64130c7a86d732268a38cb04cfbaf0cc987fda98"
@@ -156,6 +180,12 @@
   name = "github.com/jen20/awspolicyequivalence"
   packages = ["."]
   revision = "ed4c14ea400d756059e9312e409477a9ebf448f4"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/jen20/riviera"
+  packages = ["azure","dns","search","sql"]
+  revision = "7ee711f4d8cc27b811bde3907614ecd86e98c9bc"
 
 [[projects]]
   name = "github.com/jmespath/go-jmespath"
@@ -236,6 +266,12 @@
   version = "v1.1.0"
 
 [[projects]]
+  name = "github.com/satori/uuid"
+  packages = ["."]
+  revision = "879c5887cd475cd7864858769793b2ceb0d44feb"
+  version = "v1.1.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/spf13/cobra"
   packages = ["."]
@@ -257,6 +293,12 @@
   name = "github.com/terraform-providers/terraform-provider-aws"
   packages = ["aws"]
   revision = "c40ede8deb7781d61bd45f119007db6f99be9d32"
+  version = "v0.1.2"
+
+[[projects]]
+  name = "github.com/terraform-providers/terraform-provider-azurerm"
+  packages = ["azurerm"]
+  revision = "2ad10d4916aa0660bc739d14802150f345d18150"
   version = "v0.1.2"
 
 [[projects]]
@@ -327,6 +369,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ebd74013bdcf9e39e57cb818e141188f210a0b7adfbbf74ca864a3360514869c"
+  inputs-digest = "33ce19b97e4d3c00097fccc96ea29bb3584501f8fac0c4a81dd8962dc2399c94"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -60,6 +60,8 @@ the resulting packages, run `make packs` and, to install them, run `make install
 
 It is relatively easy to add a new Terraform provider:
 
+* Add a dependency on the Terraform provider:
+    - `$ dep ensure github.com/terraform-providers/terraform-provider-X`
 * Add a new entry to the `Providers` map in [`pkg/tfbridge/providers.go`](
   https://github.com/pulumi/terraform-bridge/blob/master/pkg/tfbridge/providers.go).
 * Add a new provider file, similar to [`pkg/tfbridge/providers_aws.go`](
