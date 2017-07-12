@@ -18,6 +18,7 @@ import (
 // we will simply statically link in all of the source providers.  Hey, it works.
 var Providers = map[string]ProviderInfo{
 	"aws": awsProvider(),
+	"gcp": gcpProvider(),
 }
 
 // ProviderInfo contains information about a Terraform provider plugin that we will use to generate the Lumi
