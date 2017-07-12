@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/golang/glog"
+	"github.com/pkg/errors"
 	"github.com/pulumi/lumi/pkg/util/cmdutil"
 	"github.com/spf13/cobra"
 
@@ -26,9 +27,12 @@ func newTFGenCmd() *cobra.Command {
 	var quiet bool
 	var verbose int
 	cmd := &cobra.Command{
-		Use:   "lumi-tfgen tf-provider",
+		Use:   "lumi-tfgen tf-provider [providers]",
 		Short: "The Lumi TFGen compiler generates Lumi metadata from a Terraform provider",
 		Long: "The Lumi TFGen compiler generates Lumi metadata from a Terraform provider.\n" +
+			"\n" +
+			"By default, TFGen will load all known Terraform providers.  If you wish to only\n" +
+			"generate a subset, specify them on the command line as [parameters].\n" +
 			"\n" +
 			"The tool will load the provider from your $PATH, inspect its contents dynamically,\n" +
 			"and generate all of the Lumi metadata necessary to consume the resources.\n" +
@@ -39,6 +43,18 @@ func newTFGenCmd() *cobra.Command {
 			// Let's generate some code!
 			g := newGenerator()
 			provs := tfbridge.Providers
+			if len(args) > 0 {
+				// If there are args, filter to just the providers specified.
+				filtered := make(map[string]tfbridge.ProviderInfo)
+				for _, arg := range args {
+					if provinfo, has := provs[arg]; has {
+						filtered[arg] = provinfo
+					} else {
+						return errors.Errorf("Provider '%v' not recognized", arg)
+					}
+				}
+				provs = filtered
+			}
 			if err := g.Generate(provs, out); err != nil {
 				return err
 			}
