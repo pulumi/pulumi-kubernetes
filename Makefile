@@ -52,22 +52,21 @@ gen:
 	$(TFGEN) --out packs/
 .PHONY: gen
 
-PACKS=$(wildcard packs/*)
-
-packs: $(PACKS)
-	cd $? && yarn link @lumi/lumi # ensure we resolve to Lumi's stdlib.
-	cd $? && lumijs # compile the LumiPack.
-	cd $? && lumi pack verify # ensure the pack verifies.
-.PHONY: packs
-
-install: $(PACKS)
-	$(eval PACK := $(notdir $?))
+BUILDPACKS=$(wildcard packs/*)
+$(BUILDPACKS):
+	$(eval PACK := $(notdir $@))
+	@$(ECHO) "[Building ${PACK} package:]"
+	cd packs/${PACK} && yarn link @lumi/lumi # ensure we resolve to Lumi's stdlib.
+	cd packs/${PACK} && lumijs # compile the LumiPack.
+	cd packs/${PACK} && lumi pack verify # ensure the pack verifies.
 	$(eval INSTALLDIR := ${LUMILIB_TF}${PACK})
+	@$(ECHO) "[Installing ${PACK} package to ${INSTALLDIR}:]"
 	mkdir -p ${INSTALLDIR}
 	cp -r packs/${PACK}/.lumi/bin ${INSTALLDIR}
 	cp ${TFBRIDGE_BIN} ${INSTALLDIR}/${LUMILIB_TFPLUG}${PACK}
 	cp packs/${PACK}/VERSION ${INSTALLDIR}
-.PHONY: install
+packs packs/: $(BUILDPACKS)
+.PHONY: $(BUILDPACKS) packs packs/
 
 clean: cleanpacks
 	rm -rf ${GOPATH}/bin/${TFGEN}
