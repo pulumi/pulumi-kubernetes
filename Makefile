@@ -62,7 +62,7 @@ $(BUILDPACKS):
 	$(eval INSTALLDIR := ${LUMILIB_TF}${PACK})
 	@$(ECHO) "[Installing ${PACK} package to ${INSTALLDIR}:]"
 	mkdir -p ${INSTALLDIR}
-	cp -r packs/${PACK}/.lumi/bin ${INSTALLDIR}
+	cp -r packs/${PACK}/.lumi/bin/* ${INSTALLDIR}
 	cp ${TFBRIDGE_BIN} ${INSTALLDIR}/${LUMILIB_TFPLUG}${PACK}
 	cp packs/${PACK}/VERSION ${INSTALLDIR}
 packs packs/: $(BUILDPACKS)
