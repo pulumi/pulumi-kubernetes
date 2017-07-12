@@ -4,7 +4,7 @@
 // Export sub-modules:
 import * as appinsights from "./appinsights/index";
 import * as cdn from "./cdn/index";
-import * as config from "./config";
+import * as config from "./config/index";
 import * as containerservice from "./containerservice/index";
 import * as cosmosdb from "./cosmosdb/index";
 import * as disk from "./disk/index";

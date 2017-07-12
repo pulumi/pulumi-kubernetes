@@ -8,7 +8,7 @@
         "sourceMap": true
     },
     "files": [
-        "config.ts",
+        "config/config.ts",
         "bigquery/dataSet.ts",
         "bigquery/table.ts",
         "bigtable/instance.ts",

@@ -15,7 +15,7 @@ import * as codecommit from "./codecommit/index";
 import * as codedeploy from "./codedeploy/index";
 import * as codepipeline from "./codepipeline/index";
 import * as cognito from "./cognito/index";
-import * as config from "./config";
+import * as config from "./config/index";
 import * as devicefarm from "./devicefarm/index";
 import * as directoryservice from "./directoryservice/index";
 import * as dms from "./dms/index";

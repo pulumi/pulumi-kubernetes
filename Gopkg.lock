@@ -292,8 +292,7 @@
 [[projects]]
   name = "github.com/terraform-providers/terraform-provider-aws"
   packages = ["aws"]
-  revision = "c40ede8deb7781d61bd45f119007db6f99be9d32"
-  version = "v0.1.2"
+  revision = "aec76dad824474a8b5ea9186c254656fa2062c9c"
 
 [[projects]]
   name = "github.com/terraform-providers/terraform-provider-azurerm"
@@ -369,6 +368,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "33ce19b97e4d3c00097fccc96ea29bb3584501f8fac0c4a81dd8962dc2399c94"
+  inputs-digest = "f6c5825016be2f346c4822ea2b0c6a2875148525caded1a2f6307906116301f6"
   solver-name = "gps-cdcl"
   solver-version = 1

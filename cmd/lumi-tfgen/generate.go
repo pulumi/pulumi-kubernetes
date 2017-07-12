@@ -71,7 +71,10 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 		if err != nil {
 			return err
 		}
-		modules["config"] = cfgfile // ensure we reexport as config
+		// ensure we export the config submodule and add its file to the project.
+		submodules["config"] = map[string]string{
+			"config": cfgfile,
+		}
 		files = append(files, cfgfile)
 	}
 
@@ -156,7 +159,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	return ioutil.WriteFile(filepath.Join(root, "VERSION"), []byte(versionInfo), 0600)
 }
 
-// generateConfig takes a map of config variables and emits a config module to the given file.
+// generateConfig takes a map of config variables and emits a config submodule to the given file.
 func (g *generator) generateConfig(cfg map[string]*schema.Schema, root string) (string, error) {
 	// Sort the config variables to ensure they are emitted in a deterministic order.
 	var cfgkeys []string
@@ -165,8 +168,15 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema, root string) (
 	}
 	sort.Strings(cfgkeys)
 
+	// Place a config.ts file underneath the config/ submodule directory.
+	file := filepath.Join(root, "config", "config.ts")
+
+	// Ensure the config subdirectory exists.
+	if err := tools.EnsureFileDir(file); err != nil {
+		return "", err
+	}
+
 	// Open up the file and spew a standard "code-generated" warning header.
-	file := filepath.Join(root, "config.ts")
 	w, err := tools.NewGenWriter(tfgen, file)
 	if err != nil {
 		return "", err

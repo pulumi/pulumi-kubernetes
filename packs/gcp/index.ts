@@ -4,7 +4,7 @@
 // Export sub-modules:
 import * as bigquery from "./bigquery/index";
 import * as bigtable from "./bigtable/index";
-import * as config from "./config";
+import * as config from "./config/index";
 import * as dns from "./dns/index";
 import * as gce from "./gce/index";
 import * as gke from "./gke/index";
