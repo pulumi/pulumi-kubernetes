@@ -3,7 +3,12 @@
 package tfbridge
 
 import (
+	"os"
+	"os/exec"
+	"path/filepath"
+
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/pkg/errors"
 	"github.com/pulumi/lumi/pkg/tokens"
 )
 
@@ -19,6 +24,7 @@ var Providers = map[string]ProviderInfo{
 // metadata.  It primarily contains a pointer to the Terraform schema, but can also contain specific name translations.
 type ProviderInfo struct {
 	P         *schema.Provider        // the TF provider/schema.
+	Git       GitInfo                 // the info about this provider's Git repo.
 	Resources map[string]ResourceInfo // a map of TF name to Lumi name; if a type is missing, standard mangling occurs.
 }
 
@@ -32,4 +38,43 @@ type ResourceInfo struct {
 type SchemaInfo struct {
 	Name   string                // a name to override the default; "" uses the default.
 	Fields map[string]SchemaInfo // a map of custom field names; if a type is missing, the default is used.
+}
+
+// GitInfo contains Git information about a provider.
+type GitInfo struct {
+	Repo      string // the Git repo for this provider.
+	Taggish   string // the Git tag info for this provider.
+	Commitish string // the Git commit info for this provider.
+}
+
+const (
+	tfGitHub         = "github.com"
+	tfProvidersOrg   = "terraform-providers"
+	tfProviderPrefix = "terraform-provider"
+)
+
+// getGitInfo fetches the taggish and commitish info for a provider's repo using a standard GOPATH location.
+func getGitInfo(prov string) (GitInfo, error) {
+	gopath := os.Getenv("GOPATH")
+	if gopath == "" {
+		return GitInfo{}, errors.New("GOPATH is not set; canot read provider's Git info")
+	}
+	tfdir := filepath.Join(gopath, "src", tfGitHub, tfProvidersOrg, tfProviderPrefix+"-"+prov)
+	descCmd := exec.Command("git", "describe", "--all", "--long")
+	descCmd.Dir = tfdir
+	descOut, err := descCmd.Output()
+	if err != nil {
+		return GitInfo{}, err
+	}
+	showRefCmd := exec.Command("git", "show-ref", "HEAD")
+	showRefCmd.Dir = tfdir
+	showRefOut, err := showRefCmd.Output()
+	if err != nil {
+		return GitInfo{}, err
+	}
+	return GitInfo{
+		Repo:      tfGitHub + "/" + tfProvidersOrg + "/" + tfProviderPrefix + "-" + prov,
+		Taggish:   string(descOut),
+		Commitish: string(showRefOut),
+	}, nil
 }

@@ -66,6 +66,7 @@ install: $(PACKS)
 	mkdir -p ${INSTALLDIR}
 	cp -r packs/${PACK}/.lumi/bin ${INSTALLDIR}
 	cp ${TFBRIDGE_BIN} ${INSTALLDIR}/${LUMILIB_TFPLUG}${PACK}
+	cp packs/${PACK}/VERSION ${INSTALLDIR}
 .PHONY: install
 
 clean: cleanpacks
