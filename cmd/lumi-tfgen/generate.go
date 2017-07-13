@@ -690,20 +690,20 @@ func (g *generator) tfToJSTypeFlags(sch *schema.Schema, custom tfbridge.SchemaIn
 // generateCustomImports traverses a custom schema map, deeply, to figure out the set of imported names and files that
 // will be required to access those names.  WARNING: this routine doesn't (yet) attempt to eliminate naming collisions.
 func generateCustomImports(w *tools.GenWriter,
-	custom map[string]tfbridge.SchemaInfo, pkg string, root string, curr string) error {
-	imps, err := gatherCustomImports(custom, pkg, root, curr)
-	if err != nil {
+	infos map[string]tfbridge.SchemaInfo, pkg string, root string, curr string) error {
+	imports := make(map[string][]string)
+	if err := gatherCustomImports(infos, imports, pkg, root, curr); err != nil {
 		return err
 	}
-	if imps != nil {
+	if len(imports) > 0 {
 		var impfiles []string
-		for impfile := range imps {
+		for impfile := range imports {
 			impfiles = append(impfiles, impfile)
 		}
 		sort.Strings(impfiles)
 		for _, impfile := range impfiles {
 			w.Writefmt("import {")
-			for i, impname := range imps[impfile] {
+			for i, impname := range imports[impfile] {
 				if i > 0 {
 					w.Writefmt(", ")
 				}
@@ -716,41 +716,55 @@ func generateCustomImports(w *tools.GenWriter,
 	return nil
 }
 
-func gatherCustomImports(custom map[string]tfbridge.SchemaInfo,
-	pkg string, root string, curr string) (map[string][]string, error) {
-	if custom == nil {
-		return nil, nil
-	}
-	results := make(map[string][]string)
-	for _, info := range custom {
-		// If this property has a custom schema type, and it isn't "simple" (e.g., string, etc), then we need to
-		// create a relative module import.  Note that we assume this is local to the current package!
-		if info.Type != "" && !tokens.Token(info.Type).Simple() {
-			haspkg := string(info.Type.Module().Package().Name())
-			exppkg := tfbridge.BridgePluginPrefix + pkg
-			if haspkg != exppkg {
-				return nil, errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, exppkg)
+// gatherCustomImports gathers imports from an entire map of schema info.
+func gatherCustomImports(infos map[string]tfbridge.SchemaInfo, imports map[string][]string,
+	pkg string, root string, curr string) error {
+	if infos != nil {
+		for _, info := range infos {
+			if err := gatherCustomImportsFrom(info, imports, pkg, root, curr); err != nil {
+				return err
 			}
-			mod := info.Type.Module().Name()
-			modfile := filepath.Join(root,
-				strings.Replace(string(mod), tokens.TokenDelimiter, string(filepath.Separator), -1))
-			relmod, err := relModule(curr, modfile)
-			if err != nil {
-				return nil, err
-			}
-			results[relmod] = append(results[modfile], string(info.Type.Name()))
 		}
-		// If the property has fields, then simply recurse and propagate any results, if any, to our map.
-		subs, err := gatherCustomImports(info.Fields, pkg, root, curr)
+	}
+	return nil
+}
+
+// gatherCustomImportsFrom gathers imports from a single schema info structure.
+func gatherCustomImportsFrom(info tfbridge.SchemaInfo, imports map[string][]string,
+	pkg string, root string, curr string) error {
+	// If this property has a custom schema type, and it isn't "simple" (e.g., string, etc), then we need to
+	// create a relative module import.  Note that we assume this is local to the current package!
+	if info.Type != "" && !tokens.Token(info.Type).Simple() {
+		haspkg := string(info.Type.Module().Package().Name())
+		exppkg := tfbridge.BridgePluginPrefix + pkg
+		if haspkg != exppkg {
+			return errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, exppkg)
+		}
+		mod := info.Type.Module().Name()
+		modfile := filepath.Join(root,
+			strings.Replace(string(mod), tokens.TokenDelimiter, string(filepath.Separator), -1))
+		relmod, err := relModule(curr, modfile)
 		if err != nil {
-			return nil, err
-		} else if subs != nil {
-			for subfile, subnames := range subs {
-				results[subfile] = append(results[subfile], subnames...)
-			}
+			return err
+		}
+		imports[relmod] = append(imports[modfile], string(info.Type.Name()))
+	}
+
+	// If the property has an element type, recurse and propagate any results.
+	if info.Elem != nil {
+		if err := gatherCustomImportsFrom(*info.Elem, imports, pkg, root, curr); err != nil {
+			return err
 		}
 	}
-	return results, nil
+
+	// If the property has fields, then simply recurse and propagate any results, if any, to our map.
+	if info.Fields != nil {
+		if err := gatherCustomImports(info.Fields, imports, pkg, root, curr); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // resourceName translates a Terraform name into its Lumi name equivalent, plus a suggested filename.
