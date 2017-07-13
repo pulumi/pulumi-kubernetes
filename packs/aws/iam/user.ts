@@ -22,6 +22,7 @@ export class User extends lumi.NamedResource implements UserArgs {
 
 export interface UserArgs {
     readonly arn?: string;
+    // Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices
     readonly forceDestroy?: boolean;
     readonly _name: string;
     readonly path?: string;

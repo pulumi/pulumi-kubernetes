@@ -40,6 +40,7 @@ export interface SecurityGroupRuleArgs {
     readonly self?: boolean;
     readonly sourceSecurityGroupId?: string;
     readonly toPort: number;
+    // Type of rule, ingress (inbound) or egress (outbound).
     readonly type: string;
 }
 

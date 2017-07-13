@@ -32,6 +32,7 @@ const (
 	tfgen              = "the Lumi Terraform Bridge (TFGEN) Tool"
 	defaultOutDir      = "packs/"
 	defaultOverlaysDir = "overlays/"
+	maxWidth           = 120 // the ideal maximum width of the generated file.
 )
 
 // Generate creates Lumi packages out of one or more Terraform plugins.  It accepts a list of all of the input Terraform
@@ -239,7 +240,7 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	for _, key := range cfgkeys {
 		// Generate a name and type to use for this key.
 		prop, typ := g.propTyp(key, cfg, custom)
-		// TODO: If there's a description, print it in the comment.
+		g.generateComment(w, cfg[key].Description, "")
 		w.Writefmtln("export let %v: %v;", prop, typ)
 	}
 	w.Writefmtln("")
@@ -311,6 +312,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	var props []string
 	var propflags []string
 	var proptypes []string
+	var schemas []*schema.Schema
 	for _, s := range stableSchemas(res.Schema) {
 		if sch := res.Schema[s]; sch.Removed == "" {
 			// TODO: print out the description.
@@ -321,6 +323,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 			props = append(props, prop)
 			propflags = append(propflags, flag)
 			proptypes = append(proptypes, typ)
+			schemas = append(schemas, sch)
 		}
 	}
 	if len(res.Schema) > 0 {
@@ -343,6 +346,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	// Next, generate the args interface for this class.
 	w.Writefmtln("export interface %vArgs {", resname)
 	for i, prop := range props {
+		g.generateComment(w, schemas[i].Description, "    ")
 		w.Writefmtln("    readonly %v%v: %v;", prop, propflags[i], proptypes[i])
 	}
 	w.Writefmtln("}")
@@ -569,6 +573,28 @@ func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, ou
 }
 `)
 	return nil
+}
+
+func (g *generator) generateComment(w *tools.GenWriter, comment string, prefix string) {
+	prefix += "// "
+	if comment != "" {
+		curr := 0
+		w.Writefmt(prefix)
+		for _, word := range strings.Fields(comment) {
+			if curr > 0 {
+				if curr+len(word)+1 > (maxWidth - len(prefix)) {
+					curr = 0
+					w.Writefmt("\n%v", prefix)
+				} else {
+					w.Writefmt(" ")
+					curr++
+				}
+			}
+			w.Writefmt(word)
+			curr += len(word)
+		}
+		w.Writefmtln("")
+	}
 }
 
 // propFlagTyp returns the property name, flag, and type to use for a given property/field/schema element.
