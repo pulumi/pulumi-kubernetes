@@ -29,11 +29,11 @@ banner:
 	@go version
 .PHONY: banner
 
-$(TFGEN_BIN):
+$(TFGEN_BIN) tfgen:
 	go install ${PROJECT}/cmd/lumi-tfgen
-$(TFBRIDGE_BIN):
+$(TFBRIDGE_BIN) tfbridge:
 	go install ${PROJECT}/cmd/lumi-tfbridge
-.PHONY: $(TFGEN_BIN) $(TFBRIDGE_BIN)
+.PHONY: $(TFGEN_BIN) tfgen $(TFBRIDGE_BIN) tfbridge
 
 build: $(TFGEN_BIN) $(TFBRIDGE_BIN)
 .PHONY: build
@@ -55,8 +55,8 @@ gen:
 ifeq ("${ONLYPACK}", "")
 ONLYPACK=*
 endif
-BUILDPACKS=$(wildcard packs/${ONLYPACK})
-$(BUILDPACKS):
+PACKS=$(wildcard packs/${ONLYPACK})
+$(PACKS):
 	$(eval PACK=$(notdir $@))
 	@$(ECHO) "[Building ${PACK} package:]"
 	cd packs/${PACK} && yarn link @lumi/lumi                   # ensure we resolve to Lumi's stdlib.
@@ -71,8 +71,8 @@ $(BUILDPACKS):
 	cp packs/${PACK}/package.json ${INSTALLDIR}                # ensure the result is a proper NPM package.
 	cp -r packs/${PACK}/node_modules ${INSTALLDIR}             # keep the links we installed.
 	cd ${INSTALLDIR} && yarn link --force                      # make the pack easily available for devs.
-packs packs/: $(BUILDPACKS)
-.PHONY: $(BUILDPACKS) packs packs/
+packs packs/: $(PACKS)
+.PHONY: $(PACKS) packs packs/
 
 clean: cleanpacks
 	rm -rf ${GOPATH}/bin/${TFGEN}
@@ -80,5 +80,7 @@ clean: cleanpacks
 .PHONY: clean
 
 cleanpacks: $(PACKS)
-	rm -rf ${LUMILIB_TF}$(notdir $?)
+	for pack in $?; do \
+		rm -rf ${LUMILIB_TF}$$(basename $$pack) ; \
+	done
 
