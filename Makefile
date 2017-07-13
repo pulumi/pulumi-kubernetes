@@ -52,22 +52,25 @@ gen:
 	$(TFGEN) --out packs/
 .PHONY: gen
 
-BUILDPACKS=$(wildcard packs/*)
+ifeq ("${ONLYPACK}", "")
+ONLYPACK=*
+endif
+BUILDPACKS=$(wildcard packs/${ONLYPACK})
 $(BUILDPACKS):
-	$(eval PACK := $(notdir $@))
+	$(eval PACK=$(notdir $@))
 	@$(ECHO) "[Building ${PACK} package:]"
-	cd packs/${PACK} && yarn link @lumi/lumi # ensure we resolve to Lumi's stdlib.
-	cd packs/${PACK} && lumijs # compile the LumiPack.
-	cd packs/${PACK} && lumi pack verify # ensure the pack verifies.
+	cd packs/${PACK} && yarn link @lumi/lumi                   # ensure we resolve to Lumi's stdlib.
+	cd packs/${PACK} && lumijs                                 # compile the LumiPack.
+	cd packs/${PACK} && lumi pack verify                       # ensure the pack verifies.
 	$(eval INSTALLDIR := ${LUMILIB_TF}${PACK})
 	@$(ECHO) "[Installing ${PACK} package to ${INSTALLDIR}:]"
 	mkdir -p ${INSTALLDIR}
-	cp packs/${PACK}/VERSION ${INSTALLDIR} # remember the version we gen'd this from.
-	cp -r packs/${PACK}/.lumi/bin/* ${INSTALLDIR} # copy the binary/metadata.
-	cp ${TFBRIDGE_BIN} ${INSTALLDIR}/${LUMILIB_TFPLUG}${PACK} # bring along the Lumi plugin.
-	cp packs/${PACK}/package.json ${INSTALLDIR} # ensure the result is a proper NPM package.
-	cp -r packs/${PACK}/node_modules ${INSTALLDIR} # keep the links we installed.
-	cd ${INSTALLDIR} && yarn link --force # for dev scenarios, make the pack easily available.
+	cp packs/${PACK}/VERSION ${INSTALLDIR}                     # remember the version we gen'd this from.
+	cp -r packs/${PACK}/.lumi/bin/* ${INSTALLDIR}              # copy the binary/metadata.
+	cp ${TFBRIDGE_BIN} ${INSTALLDIR}/${LUMILIB_TFPLUG}${PACK}  # bring along the Lumi plugin.
+	cp packs/${PACK}/package.json ${INSTALLDIR}                # ensure the result is a proper NPM package.
+	cp -r packs/${PACK}/node_modules ${INSTALLDIR}             # keep the links we installed.
+	cd ${INSTALLDIR} && yarn link --force                      # make the pack easily available for devs.
 packs packs/: $(BUILDPACKS)
 .PHONY: $(BUILDPACKS) packs packs/
 
