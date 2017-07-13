@@ -104,7 +104,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 					diag.Message("Resource %v not found in provider map; using default naming"), r)
 			}
 		}
-		result, err := g.generateResource(pkg, r, resmap[r], resinfo, outDir)
+		result, err := g.generateResource(pkg, r, resmap[r], resinfo, outDir, outDir)
 		if err != nil {
 			return err
 		}
@@ -208,14 +208,15 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	sort.Strings(cfgkeys)
 
 	// Place a config.ts file underneath the config/ submodule directory.
-	file := filepath.Join(outDir, "config", "config.ts")
+	confDir := filepath.Join(outDir, "config")
 
 	// Ensure the config subdirectory exists.
-	if err := tools.EnsureFileDir(file); err != nil {
+	if err := tools.EnsureDir(confDir); err != nil {
 		return "", err
 	}
 
 	// Open up the file and spew a standard "code-generated" warning header.
+	file := filepath.Join(confDir, "config.ts")
 	w, err := tools.NewGenWriter(tfgen, file)
 	if err != nil {
 		return "", err
@@ -224,7 +225,7 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	w.EmitHeaderWarning()
 
 	// First look for any custom types that will require any imports.
-	if err := generateCustomImports(w, custom, pkg, outDir); err != nil {
+	if err := generateCustomImports(w, custom, pkg, outDir, confDir); err != nil {
 		return "", err
 	}
 
@@ -236,6 +237,15 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 		w.Writefmtln("export let %v: %v;", prop, typ)
 	}
 	w.Writefmtln("")
+
+	// Ensure there weren't any custom fields that were unrecognized.
+	for key := range custom {
+		if _, has := cfg[key]; !has {
+			cmdutil.Diag().Warningf(
+				diag.Message("Custom config schema %v was not present in the Terraform metadata"), key)
+		}
+	}
+
 	return file, nil
 }
 
@@ -247,7 +257,7 @@ type resourceResult struct {
 
 // generateResource generates a single module for the given resource.
 func (g *generator) generateResource(pkg string, rawname string,
-	res *schema.Resource, resinfo tfbridge.ResourceInfo, outDir string) (resourceResult, error) {
+	res *schema.Resource, resinfo tfbridge.ResourceInfo, root, outDir string) (resourceResult, error) {
 	// Transform the name as necessary.
 	resname, filename := resourceName(pkg, rawname, resinfo)
 
@@ -284,7 +294,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 
 	// If there are imports required due to the custom schema info, emit them now.
 	custom := resinfo.Fields
-	if err := generateCustomImports(w, custom, pkg, outDir); err != nil {
+	if err := generateCustomImports(w, custom, pkg, outDir, filepath.Dir(file)); err != nil {
 		return resourceResult{}, err
 	}
 
@@ -331,6 +341,15 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 	w.Writefmtln("}")
 	w.Writefmtln("")
+
+	// Ensure there weren't any custom fields that were unrecognized.
+	for key := range custom {
+		if _, has := res.Schema[key]; !has {
+			cmdutil.Diag().Warningf(
+				diag.Message("Custom resource schema %v.%v was not present in the Terraform metadata"),
+				resname, key)
+		}
+	}
 
 	return resourceResult{
 		Name:   resname,
@@ -671,8 +690,8 @@ func (g *generator) tfToJSTypeFlags(sch *schema.Schema, custom tfbridge.SchemaIn
 // generateCustomImports traverses a custom schema map, deeply, to figure out the set of imported names and files that
 // will be required to access those names.  WARNING: this routine doesn't (yet) attempt to eliminate naming collisions.
 func generateCustomImports(w *tools.GenWriter,
-	custom map[string]tfbridge.SchemaInfo, pkg string, root string) error {
-	imps, err := gatherCustomImports(custom, pkg, root)
+	custom map[string]tfbridge.SchemaInfo, pkg string, root string, curr string) error {
+	imps, err := gatherCustomImports(custom, pkg, root, curr)
 	if err != nil {
 		return err
 	}
@@ -698,7 +717,7 @@ func generateCustomImports(w *tools.GenWriter,
 }
 
 func gatherCustomImports(custom map[string]tfbridge.SchemaInfo,
-	pkg string, root string) (map[string][]string, error) {
+	pkg string, root string, curr string) (map[string][]string, error) {
 	if custom == nil {
 		return nil, nil
 	}
@@ -713,15 +732,16 @@ func gatherCustomImports(custom map[string]tfbridge.SchemaInfo,
 				return nil, errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, exppkg)
 			}
 			mod := info.Type.Module().Name()
-			modfile := strings.Replace(string(mod), tokens.TokenDelimiter, string(filepath.Separator), -1)
-			relmod, err := relModule(modfile, root)
+			modfile := filepath.Join(root,
+				strings.Replace(string(mod), tokens.TokenDelimiter, string(filepath.Separator), -1))
+			relmod, err := relModule(curr, modfile)
 			if err != nil {
 				return nil, err
 			}
 			results[relmod] = append(results[modfile], string(info.Type.Name()))
 		}
 		// If the property has fields, then simply recurse and propagate any results, if any, to our map.
-		subs, err := gatherCustomImports(info.Fields, pkg, root)
+		subs, err := gatherCustomImports(info.Fields, pkg, root, curr)
 		if err != nil {
 			return nil, err
 		} else if subs != nil {

@@ -3,6 +3,8 @@
 
 import * as lumi from "@lumi/lumi";
 
+import {InstanceType} from "./instanceType";
+
 export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly ami: string;
     public readonly associatePublicIpAddress?: boolean;
@@ -14,7 +16,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly iamInstanceProfile?: string;
     public readonly instanceInitiatedShutdownBehavior?: string;
     public readonly instanceState?: string;
-    public readonly instanceType: string;
+    public readonly instanceType: InstanceType;
     public readonly ipv6AddressCount?: number;
     public readonly ipv6Addresses?: string[];
     public readonly keyName?: string;
@@ -85,7 +87,7 @@ export interface InstanceArgs {
     readonly iamInstanceProfile?: string;
     readonly instanceInitiatedShutdownBehavior?: string;
     readonly instanceState?: string;
-    readonly instanceType: string;
+    readonly instanceType: InstanceType;
     readonly ipv6AddressCount?: number;
     readonly ipv6Addresses?: string[];
     readonly keyName?: string;

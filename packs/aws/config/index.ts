@@ -3,4 +3,5 @@
 
 // Export members:
 export * from "./config";
+export * from "./require";
 

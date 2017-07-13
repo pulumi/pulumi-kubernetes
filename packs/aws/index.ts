@@ -54,3 +54,7 @@ import * as waf from "./waf/index";
 import * as wafregional from "./wafregional/index";
 export {apigateway, appautoscaling, autoscaling, cfg, cloudformation, cloudfront, cloudtrail, cloudwatch, codebuild, codecommit, codedeploy, codepipeline, cognito, config, devicefarm, directoryservice, dms, dynamodb, ebs, ec2, ecr, ecs, efs, elasticache, elasticbeanstalk, elasticloadbalancing, elasticloadbalancingv2, elasticsearch, elastictranscoder, emr, glacier, iam, inspector, kinesis, kms, lambda, lightsail, opsworks, rds, redshift, route53, s3, ses, sfn, simpledb, sns, sqs, ssm, waf, wafregional};
 
+// Export members:
+export * from "./arn";
+export * from "./region";
+
