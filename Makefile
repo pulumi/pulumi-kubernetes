@@ -62,9 +62,12 @@ $(BUILDPACKS):
 	$(eval INSTALLDIR := ${LUMILIB_TF}${PACK})
 	@$(ECHO) "[Installing ${PACK} package to ${INSTALLDIR}:]"
 	mkdir -p ${INSTALLDIR}
-	cp -r packs/${PACK}/.lumi/bin/* ${INSTALLDIR}
-	cp ${TFBRIDGE_BIN} ${INSTALLDIR}/${LUMILIB_TFPLUG}${PACK}
-	cp packs/${PACK}/VERSION ${INSTALLDIR}
+	cp packs/${PACK}/VERSION ${INSTALLDIR} # remember the version we gen'd this from.
+	cp -r packs/${PACK}/.lumi/bin/* ${INSTALLDIR} # copy the binary/metadata.
+	cp ${TFBRIDGE_BIN} ${INSTALLDIR}/${LUMILIB_TFPLUG}${PACK} # bring along the Lumi plugin.
+	cp packs/${PACK}/package.json ${INSTALLDIR} # ensure the result is a proper NPM package.
+	cp -r packs/${PACK}/node_modules ${INSTALLDIR} # keep the links we installed.
+	cd ${INSTALLDIR} && yarn link --force # for dev scenarios, make the pack easily available.
 packs packs/: $(BUILDPACKS)
 .PHONY: $(BUILDPACKS) packs packs/
 
