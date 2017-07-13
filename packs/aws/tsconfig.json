@@ -8,7 +8,7 @@
         "sourceMap": true
     },
     "files": [
-        "config/config.ts",
+        "config/vars.ts",
         "elasticloadbalancingv2/loadBalancer.ts",
         "elasticloadbalancingv2/listener.ts",
         "elasticloadbalancingv2/listenerRule.ts",

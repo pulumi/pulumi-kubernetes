@@ -2,6 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Export members:
-export * from "./config";
 export * from "./require";
+export * from "./vars";
 

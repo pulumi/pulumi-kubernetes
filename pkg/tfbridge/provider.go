@@ -49,7 +49,7 @@ var _ lumirpc.ResourceProviderServer = (*Provider)(nil)
 
 func (p *Provider) pkg() tokens.Package      { return tokens.Package(BridgePluginPrefix + p.module) }
 func (p *Provider) indexMod() tokens.Module  { return tokens.Module(p.pkg() + ":index") }
-func (p *Provider) configMod() tokens.Module { return tokens.Module(p.pkg() + ":config") }
+func (p *Provider) configMod() tokens.Module { return tokens.Module(p.pkg() + ":config/vars") }
 
 // NameProperty is the resource property used to assign names for URN assignment.
 const NameProperty = "name"

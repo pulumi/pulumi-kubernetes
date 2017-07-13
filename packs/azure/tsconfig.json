@@ -8,7 +8,7 @@
         "sourceMap": true
     },
     "files": [
-        "config/config.ts",
+        "config/vars.ts",
         "appinsights/insights.ts",
         "virtualmachine/availabilitySet.ts",
         "cdn/endpoint.ts",
