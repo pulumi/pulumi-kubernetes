@@ -11,8 +11,7 @@ TFBRIDGE_PKG    = ${PROJECT}/cmd/${TFBRIDGE}
 GOPKGS          = $(shell go list ./cmd/... ./pkg/... | grep -v /vendor/)
 LUMIROOT       ?= /usr/local/lumi
 LUMILIB         = ${LUMIROOT}/packs
-LUMILIB_TF      = ${LUMILIB}/tf-
-LUMILIB_TFPLUG  = lumi-resource-tf-
+LUMIPLUG        = lumi-resource
 TESTPARALLELISM = 10
 
 ECHO=echo -e
@@ -62,12 +61,12 @@ $(PACKS):
 	cd packs/${PACK} && yarn link @lumi/lumi                   # ensure we resolve to Lumi's stdlib.
 	cd packs/${PACK} && lumijs                                 # compile the LumiPack.
 	cd packs/${PACK} && lumi pack verify                       # ensure the pack verifies.
-	$(eval INSTALLDIR := ${LUMILIB_TF}${PACK})
+	$(eval INSTALLDIR := ${LUMILIB}/${PACK})
 	@$(ECHO) "[Installing ${PACK} package to ${INSTALLDIR}:]"
 	mkdir -p ${INSTALLDIR}
 	cp packs/${PACK}/VERSION ${INSTALLDIR}                     # remember the version we gen'd this from.
 	cp -r packs/${PACK}/.lumi/bin/* ${INSTALLDIR}              # copy the binary/metadata.
-	cp ${TFBRIDGE_BIN} ${INSTALLDIR}/${LUMILIB_TFPLUG}${PACK}  # bring along the Lumi plugin.
+	cp ${TFBRIDGE_BIN} ${INSTALLDIR}/${LUMIPLUG}-${PACK}       # bring along the Lumi plugin.
 	cp packs/${PACK}/package.json ${INSTALLDIR}                # ensure the result is a proper NPM package.
 	cp -r packs/${PACK}/node_modules ${INSTALLDIR}             # keep the links we installed.
 	cd ${INSTALLDIR} && yarn link --force                      # make the pack easily available for devs.
@@ -81,6 +80,6 @@ clean: cleanpacks
 
 cleanpacks: $(PACKS)
 	for pack in $?; do \
-		rm -rf ${LUMILIB_TF}$$(basename $$pack) ; \
+		rm -rf ${LUMILIB}/$$(basename $$pack) ; \
 	done
 

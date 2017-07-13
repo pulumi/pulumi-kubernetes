@@ -14,7 +14,7 @@ import (
 // all of the Google token components used below.
 const (
 	// packages:
-	gcpPkg = "tf-gcp"
+	gcpPkg = "gcp"
 	// modules:
 	bigqueryMod = "bigquery" // BigQuery
 	bigtableMod = "bigtable" // BigTable

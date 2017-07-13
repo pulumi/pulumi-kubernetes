@@ -21,9 +21,6 @@ import (
 	"golang.org/x/net/context"
 )
 
-// BridgePluginPrefix is prepended to all Terraform plugin names.
-const BridgePluginPrefix = "tf-"
-
 // Provider implements the Lumi resource provider operations for any Terraform plugin.
 type Provider struct {
 	host      *provider.HostClient                   // the RPC link back to the Lumi engine.
@@ -47,7 +44,7 @@ func NewProvider(host *provider.HostClient, tf terraform.ResourceProvider, modul
 
 var _ lumirpc.ResourceProviderServer = (*Provider)(nil)
 
-func (p *Provider) pkg() tokens.Package      { return tokens.Package(BridgePluginPrefix + p.module) }
+func (p *Provider) pkg() tokens.Package      { return tokens.Package(p.module) }
 func (p *Provider) indexMod() tokens.Module  { return tokens.Module(p.pkg() + ":index") }
 func (p *Provider) configMod() tokens.Module { return tokens.Module(p.pkg() + ":config/vars") }
 

@@ -18,12 +18,12 @@ import (
 func main() {
 	// To figure out the package that this process handles, we will look at the binary name.  It will be of the form:
 	//
-	//     lumi-resource-tf-xyz
+	//     lumi-resource-xyz
 	//
-	// where xyz is the name of the package.  For example, lumi-resource-tf-aws.  This avoids needing any sort of
+	// where xyz is the name of the package.  For example, lumi-resource-aws.  This avoids needing any sort of
 	// command line configuration and takes advantage of the way in which resource provider plugins are installed.
 	bin := filepath.Base(os.Args[0])
-	prefix := plugin.ProviderPluginPrefix + tfbridge.BridgePluginPrefix
+	prefix := plugin.ProviderPluginPrefix
 	if !strings.HasPrefix(bin, prefix) {
 		cmdutil.ExitError("fatal: missing expected plugin prefix '%v': %v", prefix, bin)
 	}

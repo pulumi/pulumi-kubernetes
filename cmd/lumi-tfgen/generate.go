@@ -315,7 +315,6 @@ func (g *generator) generateResource(pkg string, rawname string,
 	var schemas []*schema.Schema
 	for _, s := range stableSchemas(res.Schema) {
 		if sch := res.Schema[s]; sch.Removed == "" {
-			// TODO: print out the description.
 			// TODO: should we skip deprecated fields?
 			// TODO: figure out how to deal with sensitive fields.
 			prop, flag, typ := g.propFlagTyp(s, res.Schema, custom)
@@ -521,8 +520,8 @@ func (g *generator) generateLumiPackageMetadata(pkg string, outDir string) error
 		return err
 	}
 	defer contract.IgnoreClose(w)
-	w.Writefmtln("name: tf-%v", pkg) // TODO: remove "tf-" prefix after we shake out the kinks.
-	w.Writefmtln("description: An auto-generated bridge to Terraform's %v provider.", pkg)
+	w.Writefmtln("name: %v", pkg)
+	w.Writefmtln("description: A Lumi resource provider for %v.", pkg)
 	w.Writefmtln("dependencies:")
 	w.Writefmtln("    lumi: \"*\"")
 	w.Writefmtln("")
@@ -536,7 +535,7 @@ func (g *generator) generateNPMPackageMetadata(pkg string, outDir string) error 
 	}
 	defer contract.IgnoreClose(w)
 	w.Writefmtln("{")
-	w.Writefmtln("    \"name\": \"@lumi/tf-%v\"", pkg) // TODO: remove "tf-" prefix after we shake out the kinks.
+	w.Writefmtln("    \"name\": \"@lumi/%v\"", pkg)
 	w.Writefmtln("}")
 	w.Writefmtln("")
 	return nil
@@ -768,9 +767,8 @@ func gatherCustomImportsFrom(info tfbridge.SchemaInfo, imports map[string][]stri
 	// create a relative module import.  Note that we assume this is local to the current package!
 	if info.Type != "" && !tokens.Token(info.Type).Simple() {
 		haspkg := string(info.Type.Module().Package().Name())
-		exppkg := tfbridge.BridgePluginPrefix + pkg
-		if haspkg != exppkg {
-			return errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, exppkg)
+		if haspkg != pkg {
+			return errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, pkg)
 		}
 		mod := info.Type.Module().Name()
 		modfile := filepath.Join(root,

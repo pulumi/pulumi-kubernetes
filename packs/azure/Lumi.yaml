@@ -1,5 +1,5 @@
-name: tf-azure
-description: An auto-generated bridge to Terraform's azure provider.
+name: azure
+description: A Lumi resource provider for azure.
 dependencies:
     lumi: "*"
 

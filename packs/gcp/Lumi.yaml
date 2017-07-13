@@ -1,5 +1,5 @@
-name: tf-gcp
-description: An auto-generated bridge to Terraform's gcp provider.
+name: gcp
+description: A Lumi resource provider for gcp.
 dependencies:
     lumi: "*"
 
