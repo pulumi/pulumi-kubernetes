@@ -160,7 +160,13 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	if err != nil {
 		return err
 	}
-	for sub, subf := range subs {
+	var subnames []string
+	for sub := range subs {
+		subnames = append(subnames, sub)
+	}
+	sort.Strings(subnames)
+	for _, sub := range subnames {
+		subf := subs[sub]
 		if conflict, has := modules[sub]; has {
 			cmdutil.Diag().Errorf(
 				diag.Message("Conflicting submodule %v; exists for both %v and %v"), sub, conflict, subf)

@@ -63,16 +63,16 @@
         "storage/bucketAcl.ts",
         "storage/object.ts",
         "storage/objectAcl.ts",
+        "bigquery/index.ts",
         "bigtable/index.ts",
+        "config/index.ts",
+        "dns/index.ts",
         "gce/index.ts",
         "gke/index.ts",
         "project/index.ts",
         "pubsub/index.ts",
-        "storage/index.ts",
-        "bigquery/index.ts",
-        "config/index.ts",
-        "dns/index.ts",
         "sql/index.ts",
+        "storage/index.ts",
         "index.ts"
     ]
 }
