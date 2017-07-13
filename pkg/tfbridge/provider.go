@@ -31,7 +31,6 @@ type Provider struct {
 
 // NewProvider creates a new Lumi RPC server wired up to the given host and wrapping the given Terraform provider.
 func NewProvider(host *provider.HostClient, tf terraform.ResourceProvider, module string) *Provider {
-	// TODO: for all operations, redirect all [INFO], [DEBUG], etc. messages to the right log.
 	// TODO: audit computed logic to ensure we flow from Lumi's notion of unknowns to TF computeds properly.
 	p := &Provider{
 		host:   host,

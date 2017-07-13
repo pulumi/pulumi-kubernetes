@@ -4,7 +4,6 @@ package tfbridge
 
 import (
 	goplugin "github.com/hashicorp/go-plugin"
-	"github.com/hashicorp/terraform/terraform"
 	"github.com/pulumi/lumi/pkg/resource/provider"
 	"github.com/pulumi/lumi/sdk/go/pkg/lumirpc"
 )
@@ -26,15 +25,18 @@ func Serve(module string) error {
 		provBin := "terraform-provider-" + module
 
 		// Load up the Terraform plugin dynamically so we can invoke CRUD methods on it.
-		var err error
-		var prov terraform.ResourceProvider
-		plug, prov, err = Plugin(host, provBin)
+		plug, err := Plugin(host, provBin)
 		if err != nil {
 			return nil, err
 		}
 
+		// Put the plugin into debug-only output mode and enable real output just prior to returning.  This is to avoid
+		// spewing configuration information to the output until we're actually performing CRUD operations.
+		plug.Logger.Disable()
+		defer plug.Logger.Enable()
+
 		// Create a new bridge provider.
-		bridge := NewProvider(host, prov, module)
+		bridge := NewProvider(host, plug.Provider, module)
 
 		// Configure the provider with all of the state on the Lumi side.
 		// TODO: the semantics of this aren't quite what we want.  We already have some oddness around configuration

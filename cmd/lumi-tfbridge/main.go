@@ -33,6 +33,8 @@ func main() {
 	}
 
 	// Suppress logging, since Terraform plugins will echo to log and we want to intercept it ourselves.
+	// IDEA: there is undoubtedly a better way to do this.  It's too bad we are smashing all logging that happens in
+	//     this process (not that we have any).  We could instead fork the process and keep the current one pristine.
 	log.SetOutput(ioutil.Discard)
 
 	// Now serve it up!
