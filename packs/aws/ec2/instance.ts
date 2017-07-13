@@ -4,6 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 import {InstanceType} from "./instanceType";
+import {SecurityGroup} from "./securityGroup";
 
 export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly ami: string;
@@ -30,7 +31,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly publicDns?: string;
     public readonly publicIp?: string;
     public readonly rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];
-    public readonly securityGroups?: string[];
+    public readonly securityGroups?: SecurityGroup[];
     public readonly sourceDestCheck?: boolean;
     public readonly subnetId?: string;
     public readonly tags?: {[key: string]: any};
@@ -101,7 +102,7 @@ export interface InstanceArgs {
     readonly publicDns?: string;
     readonly publicIp?: string;
     readonly rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];
-    readonly securityGroups?: string[];
+    readonly securityGroups?: SecurityGroup[];
     readonly sourceDestCheck?: boolean;
     readonly subnetId?: string;
     readonly tags?: {[key: string]: any};
