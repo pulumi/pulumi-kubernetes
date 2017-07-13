@@ -28,6 +28,14 @@ type ProviderInfo struct {
 	P         *schema.Provider        // the TF provider/schema.
 	Git       GitInfo                 // the info about this provider's Git repo.
 	Resources map[string]ResourceInfo // a map of TF name to Lumi name; if a type is missing, standard mangling occurs.
+	Overlay   OverlayInfo             // optional overlay information for augmented code-generation.
+}
+
+// GitInfo contains Git information about a provider.
+type GitInfo struct {
+	Repo      string // the Git repo for this provider.
+	Taggish   string // the Git tag info for this provider.
+	Commitish string // the Git commit info for this provider.
 }
 
 // ResourceInfo is a top-level type exported by a provider.
@@ -42,11 +50,12 @@ type SchemaInfo struct {
 	Fields map[string]SchemaInfo // a map of custom field names; if a type is missing, the default is used.
 }
 
-// GitInfo contains Git information about a provider.
-type GitInfo struct {
-	Repo      string // the Git repo for this provider.
-	Taggish   string // the Git tag info for this provider.
-	Commitish string // the Git commit info for this provider.
+// OverlayInfo contains optional overlay information.  Each info has a 1:1 correspondence with a module and permits
+// extra files to be included from the overlays/ directory when building up packs/.  This allows augmented
+// code-generation for convenient things like helper functions, modules, and gradual typing.
+type OverlayInfo struct {
+	Files   []string
+	Modules map[string]OverlayInfo
 }
 
 const (

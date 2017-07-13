@@ -27,25 +27,35 @@ func newGenerator() *generator {
 	return &generator{}
 }
 
-const tfgen = "the Lumi Terraform Bridge (TFGEN) Tool"
+const (
+	tfgen              = "the Lumi Terraform Bridge (TFGEN) Tool"
+	defaultOutDir      = "packs/"
+	defaultOverlaysDir = "overlays/"
+)
 
 // Generate creates Lumi packages out of one or more Terraform plugins.  It accepts a list of all of the input Terraform
 // providers, already bound statically to the code (since we cannot obtain schema information dynamically), walks them
-// and generates the Lumi code, and spews that code into the output directory, path.
-func (g *generator) Generate(provs map[string]tfbridge.ProviderInfo, path string) error {
-	// If the path is empty, default to the working directory.
-	if path == "" {
+// and generates the Lumi code, and spews that code into the output directory.
+func (g *generator) Generate(provs map[string]tfbridge.ProviderInfo, outDir, overlaysDir string) error {
+	// If outDir or overlaysDir are empty, default to packs/ in the pwd.
+	if outDir == "" || overlaysDir == "" {
 		p, err := os.Getwd()
 		if err != nil {
 			return err
 		}
-		path = p
+		if outDir == "" {
+			outDir = filepath.Join(p, defaultOutDir)
+		}
+		if overlaysDir == "" {
+			overlaysDir = filepath.Join(defaultOverlaysDir)
+		}
 	}
 
 	// Enumerate each provider and generate its code into a distinct directory.
 	for _, p := range stableProviders(provs) {
-		// IDEA: let command lines specify different locations for different provider outputs.
-		if err := g.generateProvider(p, provs[p], filepath.Join(path, p)); err != nil {
+		out := filepath.Join(outDir, p)
+		overlays := filepath.Join(overlaysDir, p)
+		if err := g.generateProvider(p, provs[p], out, overlays); err != nil {
 			return err
 		}
 	}
@@ -53,21 +63,21 @@ func (g *generator) Generate(provs map[string]tfbridge.ProviderInfo, path string
 }
 
 // generateProvider creates a single standalone Lumi package for the given provider.
-func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo, root string) error {
+func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo, outDir, overlaysDir string) error {
 	var files []string
 	exports := make(map[string]string)               // a list of top-level exports.
 	modules := make(map[string]string)               // a list of modules to export individually.
 	submodules := make(map[string]map[string]string) // a map of sub-module name to exported members.
 
-	// Ensure the root path exists.
-	if err := tools.EnsureDir(root); err != nil {
+	// Ensure the output path exists.
+	if err := tools.EnsureDir(outDir); err != nil {
 		return err
 	}
 
 	// Place all configuration variables into a single config module.
 	prov := provinfo.P
 	if len(prov.Schema) > 0 {
-		cfgfile, err := g.generateConfig(prov.Schema, root)
+		cfgfile, err := g.generateConfig(prov.Schema, outDir)
 		if err != nil {
 			return err
 		}
@@ -93,7 +103,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 					diag.Message("Resource %v not found in provider map; using default naming"), r)
 			}
 		}
-		result, err := g.generateResource(pkg, r, resmap[r], resinfo, root)
+		result, err := g.generateResource(pkg, r, resmap[r], resinfo, outDir)
 		if err != nil {
 			return err
 		}
@@ -128,8 +138,24 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 		}
 	}
 
+	// Now go ahead and merge in any overlays into the modules if there are any.
+	for _, overfile := range provinfo.Overlay.Files {
+		// Copy the file into its place, and add it to the export and files list.
+		from := filepath.Join(overlaysDir, overfile)
+		to := filepath.Join(outDir, overfile)
+		overname := removeExtension(to, ".ts")
+		if _, has := exports[overname]; has {
+			return errors.Errorf("Overlay file %v conflicts with a generated file", to)
+		}
+		if err := copyFile(from, to); err != nil {
+			return err
+		}
+		exports[overname] = to
+		files = append(files, to)
+	}
+
 	// Generate any submodules and add them to the export list.
-	subs, err := g.generateSubmodules(submodules, root)
+	subs, extrafs, err := g.generateSubmodules(submodules, provinfo.Overlay.Modules, outDir, overlaysDir)
 	if err != nil {
 		return err
 	}
@@ -139,28 +165,39 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 				diag.Message("Conflicting submodule %v; exists for both %v and %v"), sub, conflict, subf)
 		}
 		modules[sub] = subf
+		files = append(files, subf)
 	}
+	files = append(files, extrafs...)
 
 	// Generate the index.ts file that reexports everything at the entrypoint.
-	ixfile, err := g.generateIndex(exports, modules, root)
+	ixfile, err := g.generateIndex(exports, modules, outDir)
 	if err != nil {
 		return err
 	}
 	files = append(files, ixfile)
 
 	// Generate all of the package metadata: Lumi.yaml, package.json, and tsconfig.json.
-	if err := g.generatePackageMetadata(pkg, files, root); err != nil {
+	if err := g.generatePackageMetadata(pkg, files, outDir); err != nil {
 		return err
 	}
 
 	// Finally, emit the version information in a special VERSION file so we know where it came from.
 	versionInfo := fmt.Sprintf("Generated by %s from:\nRepo: %s\nTaggish: %sCommitish: %s\n",
 		os.Args[0], provinfo.Git.Repo, provinfo.Git.Taggish, provinfo.Git.Commitish)
-	return ioutil.WriteFile(filepath.Join(root, "VERSION"), []byte(versionInfo), 0600)
+	return ioutil.WriteFile(filepath.Join(outDir, "VERSION"), []byte(versionInfo), 0600)
+}
+
+// copyFile is a stupid file copy routine.  It reads the file into memory to avoid messy OS-specific oddities.
+func copyFile(from, to string) error {
+	body, err := ioutil.ReadFile(from)
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(to, body, 0600)
 }
 
 // generateConfig takes a map of config variables and emits a config submodule to the given file.
-func (g *generator) generateConfig(cfg map[string]*schema.Schema, root string) (string, error) {
+func (g *generator) generateConfig(cfg map[string]*schema.Schema, outDir string) (string, error) {
 	// Sort the config variables to ensure they are emitted in a deterministic order.
 	var cfgkeys []string
 	for key := range cfg {
@@ -169,7 +206,7 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema, root string) (
 	sort.Strings(cfgkeys)
 
 	// Place a config.ts file underneath the config/ submodule directory.
-	file := filepath.Join(root, "config", "config.ts")
+	file := filepath.Join(outDir, "config", "config.ts")
 
 	// Ensure the config subdirectory exists.
 	if err := tools.EnsureFileDir(file); err != nil {
@@ -202,12 +239,12 @@ type resourceResult struct {
 
 // generateResource generates a single module for the given resource.
 func (g *generator) generateResource(pkg string, rawname string,
-	res *schema.Resource, resinfo tfbridge.ResourceInfo, root string) (resourceResult, error) {
+	res *schema.Resource, resinfo tfbridge.ResourceInfo, outDir string) (resourceResult, error) {
 	// Transform the name as necessary.
 	resname, filename := resourceName(pkg, rawname, resinfo)
 
 	// Make a fully qualified file path that we will write to.
-	file := filepath.Join(root, filename+".ts")
+	file := filepath.Join(outDir, filename+".ts")
 
 	// If the filename contains slashes, it is a sub-module, and we must ensure it exists.
 	var submod string
@@ -289,27 +326,60 @@ func (g *generator) generateResource(pkg string, rawname string,
 // generateSubmodules creates a set of index files, if necessary, for the given submodules.  It returns a map of
 // submodule name to the generated index file, so that a caller can be sure to re-export it as necessary.
 func (g *generator) generateSubmodules(submodules map[string]map[string]string,
-	root string) (map[string]string, error) {
-	results := make(map[string]string)
+	overlays map[string]tfbridge.OverlayInfo,
+	outDir string, overlaysDir string) (map[string]string, []string, error) {
+	results := make(map[string]string) // the resulting module map.
+	var extrafs []string               // the resulting "extra" files to include, if any.
+
+	// Sort the submodules by name so that we emit in a deterministic order.
 	var subs []string
 	for submod := range submodules {
 		subs = append(subs, submod)
 	}
 	sort.Strings(subs)
+
+	// Now for each module, generate the requisite index.
 	for _, sub := range subs {
-		index, err := g.generateIndex(submodules[sub], nil, filepath.Join(root, sub))
+		exports := submodules[sub]
+
+		// If there are any overlays for this sub-module, copy them and add them.
+		if overlays != nil {
+			if over, has := overlays[sub]; has {
+				for _, overfile := range over.Files {
+					from := filepath.Join(overlaysDir, sub, overfile)
+					to := filepath.Join(outDir, sub, overfile)
+					overname := removeExtension(to, ".ts")
+					if _, has := exports[overname]; has {
+						return nil, nil, errors.Errorf("Overlay file %v conflicts with a generated file", to)
+					}
+					if err := copyFile(from, to); err != nil {
+						return nil, nil, err
+					}
+					exports[overname] = to
+					extrafs = append(extrafs, to)
+				}
+				if over.Modules != nil {
+					cmdutil.Diag().Warningf(
+						diag.Message("Modules more than one level deep not supported; sub-overlays for %v skipped"),
+						sub)
+				}
+			}
+		}
+
+		index, err := g.generateIndex(exports, nil, filepath.Join(outDir, sub))
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		results[sub] = index
 	}
-	return results, nil
+
+	return results, extrafs, nil
 }
 
 // generateIndex creates a module index file for easy access to sub-modules and exports.
-func (g *generator) generateIndex(exports, modules map[string]string, root string) (string, error) {
+func (g *generator) generateIndex(exports, modules map[string]string, outDir string) (string, error) {
 	// Open up the file and spew a standard "code-generated" warning header.
-	file := filepath.Join(root, "index.ts")
+	file := filepath.Join(outDir, "index.ts")
 	w, err := tools.NewGenWriter(tfgen, file)
 	if err != nil {
 		return "", err
@@ -326,7 +396,7 @@ func (g *generator) generateIndex(exports, modules map[string]string, root strin
 		}
 		sort.Strings(mods)
 		for _, mod := range mods {
-			rel, err := relModule(root, modules[mod])
+			rel, err := relModule(outDir, modules[mod])
 			if err != nil {
 				return "", err
 			}
@@ -352,7 +422,7 @@ func (g *generator) generateIndex(exports, modules map[string]string, root strin
 		}
 		sort.Strings(exps)
 		for _, exp := range exps {
-			rel, err := relModule(root, exports[exp])
+			rel, err := relModule(outDir, exports[exp])
 			if err != nil {
 				return "", err
 			}
@@ -371,31 +441,34 @@ func relModule(root string, mod string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	return "./" + removeExtension(file, ".ts"), nil
+}
 
-	if strings.HasSuffix(file, ".ts") {
-		file = file[:len(file)-3]
+// removeExtension removes the file extension, if any.
+func removeExtension(file, ext string) string {
+	if strings.HasSuffix(file, ext) {
+		return file[:len(file)-len(ext)]
 	}
-
-	return "./" + file, nil
+	return file
 }
 
 // generatePackageMetadata generates all the non-code metadata required by a Lumi package.
-func (g *generator) generatePackageMetadata(pkg string, files []string, root string) error {
+func (g *generator) generatePackageMetadata(pkg string, files []string, outDir string) error {
 	// There are three files to write out:
 	//     1) Lumi.yaml: Lumi package information
 	//     2) package.json: minimal NPM package metadata
 	//     3) tsconfig.json: instructions for TypeScript compilation
-	if err := g.generateLumiPackageMetadata(pkg, root); err != nil {
+	if err := g.generateLumiPackageMetadata(pkg, outDir); err != nil {
 		return err
 	}
-	if err := g.generateNPMPackageMetadata(pkg, root); err != nil {
+	if err := g.generateNPMPackageMetadata(pkg, outDir); err != nil {
 		return err
 	}
-	return g.generateTypeScriptProjectFile(pkg, files, root)
+	return g.generateTypeScriptProjectFile(pkg, files, outDir)
 }
 
-func (g *generator) generateLumiPackageMetadata(pkg string, root string) error {
-	w, err := tools.NewGenWriter(tfgen, filepath.Join(root, "Lumi.yaml"))
+func (g *generator) generateLumiPackageMetadata(pkg string, outDir string) error {
+	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "Lumi.yaml"))
 	if err != nil {
 		return err
 	}
@@ -408,8 +481,8 @@ func (g *generator) generateLumiPackageMetadata(pkg string, root string) error {
 	return nil
 }
 
-func (g *generator) generateNPMPackageMetadata(pkg string, root string) error {
-	w, err := tools.NewGenWriter(tfgen, filepath.Join(root, "package.json"))
+func (g *generator) generateNPMPackageMetadata(pkg string, outDir string) error {
+	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "package.json"))
 	if err != nil {
 		return err
 	}
@@ -421,8 +494,8 @@ func (g *generator) generateNPMPackageMetadata(pkg string, root string) error {
 	return nil
 }
 
-func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, root string) error {
-	w, err := tools.NewGenWriter(tfgen, filepath.Join(root, "tsconfig.json"))
+func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, outDir string) error {
+	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "tsconfig.json"))
 	if err != nil {
 		return err
 	}
@@ -442,7 +515,7 @@ func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, ro
 		if i != len(files)-1 {
 			suffix = ","
 		}
-		relfile, err := filepath.Rel(root, file)
+		relfile, err := filepath.Rel(outDir, file)
 		if err != nil {
 			return err
 		}

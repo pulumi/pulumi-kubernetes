@@ -71,4 +71,13 @@ It is relatively easy to add a new Terraform provider:
 * Generate the `packs/` metadata using `lumi-tfbridge`.
 * Check in all of the above.
 
+### Augmenting Auto-Generated Code w/ Overlays
+
+The `overlays/` directory contains additional directives that the code generator obeys when creating the final
+`packs/`.  Namely, any additional types, functions, or entire modules in this directory may be merged into the
+resulting package.  This can be useful for helper modules and functions, in addition to gradual typing, such as using
+strongly typed enums in places where Terraform may only have weakly typed strings.
+
+To do this, first add the files in the appropriate package sub-directory, and then add the requisite directives
+to the provider file.  See `overlays/aws/` for an example of this in action.
 

@@ -23,7 +23,8 @@ func main() {
 
 func newTFGenCmd() *cobra.Command {
 	var logToStderr bool
-	var out string
+	var outDir string
+	var overlaysDir string
 	var quiet bool
 	var verbose int
 	cmd := &cobra.Command{
@@ -55,7 +56,7 @@ func newTFGenCmd() *cobra.Command {
 				}
 				provs = filtered
 			}
-			if err := g.Generate(provs, out); err != nil {
+			if err := g.Generate(provs, outDir, overlaysDir); err != nil {
 				return err
 			}
 			// If we succeeded at generate, but there were errors, exit unsuccessfully.
@@ -71,8 +72,10 @@ func newTFGenCmd() *cobra.Command {
 
 	cmd.PersistentFlags().BoolVar(
 		&logToStderr, "logtostderr", false, "Log to stderr instead of to files")
+	cmd.PersistentFlags().StringVarP(
+		&outDir, "out", "o", "", "Save generated package metadata to this directory")
 	cmd.PersistentFlags().StringVar(
-		&out, "out", "", "Save generated package metadata to this directory")
+		&overlaysDir, "overlays", "", "Use the target directory for overlays rather than the default of overlays/")
 	cmd.PersistentFlags().BoolVarP(
 		&quiet, "quiet", "q", false, "Suppress non-error output progress messages")
 	cmd.PersistentFlags().IntVarP(
