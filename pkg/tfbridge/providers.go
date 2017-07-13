@@ -27,6 +27,7 @@ var Providers = map[string]ProviderInfo{
 type ProviderInfo struct {
 	P         *schema.Provider        // the TF provider/schema.
 	Git       GitInfo                 // the info about this provider's Git repo.
+	Config    map[string]SchemaInfo   // a map of TF name to config schema overrides.
 	Resources map[string]ResourceInfo // a map of TF name to Lumi name; if a type is missing, standard mangling occurs.
 	Overlay   OverlayInfo             // optional overlay information for augmented code-generation.
 }
@@ -47,6 +48,8 @@ type ResourceInfo struct {
 // SchemaInfo contains optional name transformations to apply.
 type SchemaInfo struct {
 	Name   string                // a name to override the default; "" uses the default.
+	Type   tokens.Type           // a type to override the default; "" uses the default.
+	Elem   *SchemaInfo           // a schema override for elements for arrays, maps, and sets.
 	Fields map[string]SchemaInfo // a map of custom field names; if a type is missing, the default is used.
 }
 

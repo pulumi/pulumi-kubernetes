@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pkg/errors"
 	"github.com/pulumi/lumi/pkg/diag"
+	"github.com/pulumi/lumi/pkg/tokens"
 	"github.com/pulumi/lumi/pkg/tools"
 	"github.com/pulumi/lumi/pkg/util/cmdutil"
 	"github.com/pulumi/lumi/pkg/util/contract"
@@ -77,7 +78,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	// Place all configuration variables into a single config module.
 	prov := provinfo.P
 	if len(prov.Schema) > 0 {
-		cfgfile, err := g.generateConfig(prov.Schema, outDir)
+		cfgfile, err := g.generateConfig(pkg, prov.Schema, provinfo.Config, outDir)
 		if err != nil {
 			return err
 		}
@@ -197,7 +198,8 @@ func copyFile(from, to string) error {
 }
 
 // generateConfig takes a map of config variables and emits a config submodule to the given file.
-func (g *generator) generateConfig(cfg map[string]*schema.Schema, outDir string) (string, error) {
+func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
+	custom map[string]tfbridge.SchemaInfo, outDir string) (string, error) {
 	// Sort the config variables to ensure they are emitted in a deterministic order.
 	var cfgkeys []string
 	for key := range cfg {
@@ -221,11 +223,17 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema, outDir string)
 	defer contract.IgnoreClose(w)
 	w.EmitHeaderWarning()
 
+	// First look for any custom types that will require any imports.
+	if err := generateCustomImports(w, custom, pkg, outDir); err != nil {
+		return "", err
+	}
+
 	// Now just emit a simple export for each variable.
 	for _, key := range cfgkeys {
-		sch := cfg[key]
+		// Generate a name and type to use for this key.
+		prop, typ := g.propTyp(key, cfg, custom)
 		// TODO: If there's a description, print it in the comment.
-		w.Writefmtln("export let %v: %v;", propertyName(key), g.tfToJSTypeFlags(sch))
+		w.Writefmtln("export let %v: %v;", prop, typ)
 	}
 	w.Writefmtln("")
 	return file, nil
@@ -274,21 +282,29 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.Writefmtln("import * as lumi from \"@lumi/lumi\";")
 	w.Writefmtln("")
 
+	// If there are imports required due to the custom schema info, emit them now.
+	custom := resinfo.Fields
+	if err := generateCustomImports(w, custom, pkg, outDir); err != nil {
+		return resourceResult{}, err
+	}
+
 	// Generate the resource class.
 	w.Writefmtln("export class %[1]v extends lumi.NamedResource implements %[1]vArgs {", resname)
 
 	// First, generate all instance properties.
 	var props []string
-	var schemas []*schema.Schema
+	var propflags []string
+	var proptypes []string
 	for _, s := range stableSchemas(res.Schema) {
 		if sch := res.Schema[s]; sch.Removed == "" {
 			// TODO: print out the description.
 			// TODO: should we skip deprecated fields?
 			// TODO: figure out how to deal with sensitive fields.
-			prop := propertyName(s)
-			w.Writefmtln("    public readonly %v%v: %v;", prop, g.tfToJSFlags(sch), g.tfToJSType(sch))
+			prop, flag, typ := g.propFlagTyp(s, res.Schema, custom)
+			w.Writefmtln("    public readonly %v%v: %v;", prop, flag, typ)
 			props = append(props, prop)
-			schemas = append(schemas, sch)
+			propflags = append(propflags, flag)
+			proptypes = append(proptypes, typ)
 		}
 	}
 	if len(res.Schema) > 0 {
@@ -310,8 +326,8 @@ func (g *generator) generateResource(pkg string, rawname string,
 
 	// Next, generate the args interface for this class.
 	w.Writefmtln("export interface %vArgs {", resname)
-	for i, sch := range schemas {
-		w.Writefmtln("    readonly %v%v: %v;", props[i], g.tfToJSFlags(sch), g.tfToJSType(sch))
+	for i, prop := range props {
+		w.Writefmtln("    readonly %v%v: %v;", prop, propflags[i], proptypes[i])
 	}
 	w.Writefmtln("}")
 	w.Writefmtln("")
@@ -441,7 +457,10 @@ func relModule(root string, mod string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return "./" + removeExtension(file, ".ts"), nil
+	if !strings.HasPrefix(file, ".") {
+		file = "./" + file
+	}
+	return removeExtension(file, ".ts"), nil
 }
 
 // removeExtension removes the file extension, if any.
@@ -527,6 +546,42 @@ func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, ou
 	return nil
 }
 
+// propFlagTyp returns the property name, flag, and type to use for a given property/field/schema element.
+func (g *generator) propFlagTyp(key string, sch map[string]*schema.Schema,
+	custom map[string]tfbridge.SchemaInfo) (string, string, string) {
+	// Fetch the custom info if there is any, and use it to generate a name, flag, and type.
+	var info tfbridge.SchemaInfo
+	if custom != nil {
+		info = custom[key]
+	}
+
+	// Use the name override, if one exists, or use the standard name mangling otherwise.
+	prop := info.Name
+	if prop == "" {
+		prop = propertyName(key)
+	}
+
+	return prop, g.tfToJSFlags(sch[key]), g.tfToJSType(sch[key], info)
+}
+
+// propTyp returns the property name and type, without flags, to use for a given property/field/schema element.
+func (g *generator) propTyp(key string, sch map[string]*schema.Schema,
+	custom map[string]tfbridge.SchemaInfo) (string, string) {
+	// Fetch the custom info if there is any, and use it to generate a name and type.
+	var info tfbridge.SchemaInfo
+	if custom != nil {
+		info = custom[key]
+	}
+
+	// Use the name override, if one exists, or use the standard name mangling otherwise.
+	prop := info.Name
+	if prop == "" {
+		prop = propertyName(key)
+	}
+
+	return prop, g.tfToJSTypeFlags(sch[key], info)
+}
+
 // tsToJSFlags returns the JavaScript flags for a given schema property.
 func (g *generator) tfToJSFlags(sch *schema.Schema) string {
 	if sch.Optional || sch.Computed {
@@ -536,12 +591,19 @@ func (g *generator) tfToJSFlags(sch *schema.Schema) string {
 }
 
 // tfToJSType returns the JavaScript type name for a given schema property.
-func (g *generator) tfToJSType(sch *schema.Schema) string {
-	return g.tfToJSValueType(sch.Type, sch.Elem)
+func (g *generator) tfToJSType(sch *schema.Schema, custom tfbridge.SchemaInfo) string {
+	if custom.Type != "" {
+		return string(custom.Type.Name())
+	}
+	var elemcust tfbridge.SchemaInfo
+	if custom.Elem != nil {
+		elemcust = *custom.Elem
+	}
+	return g.tfToJSValueType(sch.Type, sch.Elem, elemcust)
 }
 
 // tfToJSValueType returns the JavaScript type name for a given schema value type and element kind.
-func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{}) string {
+func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{}, custom tfbridge.SchemaInfo) string {
 	switch vt {
 	case schema.TypeBool:
 		return "boolean"
@@ -550,14 +612,14 @@ func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{}) strin
 	case schema.TypeString:
 		return "string"
 	case schema.TypeList:
-		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem))
+		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom))
 	case schema.TypeMap:
-		return fmt.Sprintf("{[key: string]: %v}", g.tfElemToJSType(elem))
+		return fmt.Sprintf("{[key: string]: %v}", g.tfElemToJSType(elem, custom))
 	case schema.TypeSet:
 		// IDEA: we can't use ES6 sets here, because we're using values and not objects.  It would be possible to come
 		//     up with a ValueSet of some sorts, but that depends on things like shallowEquals which is known to be
 		//     brittle and implementation dependent.  For now, we will stick to arrays, and validate on the backend.
-		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem))
+		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom))
 	default:
 		contract.Failf("Unrecognized schema type: %v", vt)
 		return ""
@@ -566,7 +628,7 @@ func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{}) strin
 
 // tfElemToJSType returns the JavaScript type for a given schema element.  This element may be either a simple schema
 // property or a complex structure.  In the case of a complex structure, this will expand to its nominal type.
-func (g *generator) tfElemToJSType(elem interface{}) string {
+func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo) string {
 	// If there is no element type specified, we will accept anything.
 	if elem == nil {
 		return "any"
@@ -574,10 +636,10 @@ func (g *generator) tfElemToJSType(elem interface{}) string {
 
 	switch e := elem.(type) {
 	case schema.ValueType:
-		return g.tfToJSValueType(e, nil)
+		return g.tfToJSValueType(e, nil, custom)
 	case *schema.Schema:
 		// A simple type, just return its type name.
-		return g.tfToJSType(e)
+		return g.tfToJSType(e, custom)
 	case *schema.Resource:
 		// A complex type, just expand to its nominal type name.
 		// TODO: spill all complex structures in advance so that we don't have insane inline expansions.
@@ -586,9 +648,8 @@ func (g *generator) tfElemToJSType(elem interface{}) string {
 			if i > 0 {
 				t += ", "
 			}
-			sch := e.Schema[s]
-			s = propertyName(s)
-			t += fmt.Sprintf("%v%v: %v", s, g.tfToJSFlags(sch), g.tfToJSType(sch))
+			prop, flag, typ := g.propFlagTyp(s, e.Schema, custom.Fields)
+			t += fmt.Sprintf("%v%v: %v", prop, flag, typ)
 		}
 		return t + " }"
 	default:
@@ -599,12 +660,77 @@ func (g *generator) tfElemToJSType(elem interface{}) string {
 
 // tfToJSTypeFlags returns the JavaScript type name for a given schema property, just like tfToJSType, except that if
 // the schema is optional, we will emit an undefined union type (for non-field positions).
-func (g *generator) tfToJSTypeFlags(sch *schema.Schema) string {
-	ts := g.tfToJSType(sch)
+func (g *generator) tfToJSTypeFlags(sch *schema.Schema, custom tfbridge.SchemaInfo) string {
+	ts := g.tfToJSType(sch, custom)
 	if sch.Optional {
 		ts += " | undefined"
 	}
 	return ts
+}
+
+// generateCustomImports traverses a custom schema map, deeply, to figure out the set of imported names and files that
+// will be required to access those names.  WARNING: this routine doesn't (yet) attempt to eliminate naming collisions.
+func generateCustomImports(w *tools.GenWriter,
+	custom map[string]tfbridge.SchemaInfo, pkg string, root string) error {
+	imps, err := gatherCustomImports(custom, pkg, root)
+	if err != nil {
+		return err
+	}
+	if imps != nil {
+		var impfiles []string
+		for impfile := range imps {
+			impfiles = append(impfiles, impfile)
+		}
+		sort.Strings(impfiles)
+		for _, impfile := range impfiles {
+			w.Writefmt("import {")
+			for i, impname := range imps[impfile] {
+				if i > 0 {
+					w.Writefmt(", ")
+				}
+				w.Writefmt(impname)
+			}
+			w.Writefmtln("} from \"%v\";", impfile)
+		}
+		w.Writefmtln("")
+	}
+	return nil
+}
+
+func gatherCustomImports(custom map[string]tfbridge.SchemaInfo,
+	pkg string, root string) (map[string][]string, error) {
+	if custom == nil {
+		return nil, nil
+	}
+	results := make(map[string][]string)
+	for _, info := range custom {
+		// If this property has a custom schema type, and it isn't "simple" (e.g., string, etc), then we need to
+		// create a relative module import.  Note that we assume this is local to the current package!
+		if info.Type != "" && !tokens.Token(info.Type).Simple() {
+			haspkg := string(info.Type.Module().Package().Name())
+			exppkg := tfbridge.BridgePluginPrefix + pkg
+			if haspkg != exppkg {
+				return nil, errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, exppkg)
+			}
+			mod := info.Type.Module().Name()
+			modfile := strings.Replace(string(mod), tokens.TokenDelimiter, string(filepath.Separator), -1)
+			relmod, err := relModule(modfile, root)
+			if err != nil {
+				return nil, err
+			}
+			results[relmod] = append(results[modfile], string(info.Type.Name()))
+		}
+		// If the property has fields, then simply recurse and propagate any results, if any, to our map.
+		subs, err := gatherCustomImports(info.Fields, pkg, root)
+		if err != nil {
+			return nil, err
+		} else if subs != nil {
+			for subfile, subnames := range subs {
+				results[subfile] = append(results[subfile], subnames...)
+			}
+		}
+	}
+	return results, nil
 }
 
 // resourceName translates a Terraform name into its Lumi name equivalent, plus a suggested filename.
