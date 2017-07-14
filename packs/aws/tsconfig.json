@@ -323,6 +323,7 @@
         "config/require.ts",
         "ec2/instanceMaps.ts",
         "ec2/instanceType.ts",
+        "iam/managedPolicies.ts",
         "index.ts"
     ]
 }

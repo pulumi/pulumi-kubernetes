@@ -23,4 +23,5 @@ export * from "./user";
 export * from "./userLoginProfile";
 export * from "./userPolicy";
 export * from "./userPolicyAttachment";
+export * from "./managedPolicies";
 
