@@ -239,9 +239,10 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	// Now just emit a simple export for each variable.
 	for _, key := range cfgkeys {
 		// Generate a name and type to use for this key.
-		prop, typ := g.propTyp(key, cfg, custom)
-		g.generateComment(w, cfg[key].Description, "")
-		w.Writefmtln("export let %v: %v;", prop, typ)
+		if prop, typ := g.propTyp(key, cfg, custom); prop != "" {
+			g.generateComment(w, cfg[key].Description, "")
+			w.Writefmtln("export let %v: %v;", prop, typ)
+		}
 	}
 	w.Writefmtln("")
 
@@ -317,15 +318,16 @@ func (g *generator) generateResource(pkg string, rawname string,
 		if sch := res.Schema[s]; sch.Removed == "" {
 			// TODO: should we skip deprecated fields?
 			// TODO: figure out how to deal with sensitive fields.
-			prop, flag, typ := g.propFlagTyp(s, res.Schema, custom)
-			w.Writefmtln("    public readonly %v%v: %v;", prop, flag, typ)
-			props = append(props, prop)
-			propflags = append(propflags, flag)
-			proptypes = append(proptypes, typ)
-			schemas = append(schemas, sch)
+			if prop, flag, typ := g.propFlagTyp(s, res.Schema, custom); prop != "" {
+				w.Writefmtln("    public readonly %v%v: %v;", prop, flag, typ)
+				props = append(props, prop)
+				propflags = append(propflags, flag)
+				proptypes = append(proptypes, typ)
+				schemas = append(schemas, sch)
+			}
 		}
 	}
-	if len(res.Schema) > 0 {
+	if len(props) > 0 {
 		w.Writefmtln("")
 	}
 
@@ -694,12 +696,15 @@ func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo)
 		// A complex type, just expand to its nominal type name.
 		// TODO: spill all complex structures in advance so that we don't have insane inline expansions.
 		t := "{ "
-		for i, s := range stableSchemas(e.Schema) {
-			if i > 0 {
-				t += ", "
+		c := 0
+		for _, s := range stableSchemas(e.Schema) {
+			if prop, flag, typ := g.propFlagTyp(s, e.Schema, custom.Fields); prop != "" {
+				if c > 0 {
+					t += ", "
+				}
+				t += fmt.Sprintf("%v%v: %v", prop, flag, typ)
+				c++
 			}
-			prop, flag, typ := g.propFlagTyp(s, e.Schema, custom.Fields)
-			t += fmt.Sprintf("%v%v: %v", prop, flag, typ)
 		}
 		return t + " }"
 	default:
@@ -812,22 +817,20 @@ func resourceName(pkg string, rawname string, resinfo tfbridge.ResourceInfo) (st
 
 // propertyName translates a Terraform underscore_cased_property_name into the JavaScript camelCasedPropertyName.
 func propertyName(s string) string {
+	contract.Assertf(s != "pid", "Unexpected collision with Lumi resource pid property")
+	contract.Assertf(s != "upn", "Unexpected collision with Lumi resource upn property")
+
+	// If the property name is "name", use the Lumi name.  Return "" to instruct the caller to skip.
+	if s == "name" {
+		return ""
+	}
+
 	// BUGBUG: work around issue in the Elastic Transcoder where a field has a trailing ":".
 	if strings.HasSuffix(s, ":") {
 		s = s[:len(s)-1]
 	}
 
-	// If this property conflicts with resource's name or ID properties, rename it.
-	// BUGBUG: this isn't a great solution.  We need to figure out whether to keep the underlying ones or not.
-	if s == "name" {
-		s = "_name"
-	} else if s == "id" {
-		s = "_id"
-	} else {
-		s = tfbridge.TerraformToLumiName(s, false /*no to PascalCase; we want camelCase*/)
-	}
-
-	return s
+	return tfbridge.TerraformToLumiName(s, false /*no to PascalCase; we want camelCase*/)
 }
 
 func stableProviders(provs map[string]tfbridge.ProviderInfo) []string {
