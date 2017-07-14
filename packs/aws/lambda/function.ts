@@ -11,7 +11,6 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
     public readonly description?: string;
     public readonly environment?: { variables?: {[key: string]: string} }[];
     public readonly code?: lumi.asset.Archive;
-    public readonly functionName: string;
     public readonly handler: string;
     public readonly invokeArn?: string;
     public readonly kmsKeyArn?: string;
@@ -41,10 +40,6 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
         this.description = args.description;
         this.environment = args.environment;
         this.code = args.code;
-        if (args.functionName === undefined) {
-            throw new Error("Property argument 'functionName' is required, but was missing");
-        }
-        this.functionName = args.functionName;
         if (args.handler === undefined) {
             throw new Error("Property argument 'handler' is required, but was missing");
         }
@@ -93,7 +88,6 @@ export interface FunctionArgs {
     readonly description?: string;
     readonly environment?: { variables?: {[key: string]: string} }[];
     readonly code?: lumi.asset.Archive;
-    readonly functionName: string;
     readonly handler: string;
     readonly invokeArn?: string;
     readonly kmsKeyArn?: string;

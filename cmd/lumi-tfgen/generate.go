@@ -632,6 +632,12 @@ func (g *generator) propFlagTyp(key string, sch map[string]*schema.Schema,
 		prop = propertyName(key)
 	}
 
+	// If the property name is "name", use the Lumi name.  Return "" to instruct the caller to skip it, so that we
+	// don't emit a name that clashes with the underlying Lumi name used for URNs.
+	if prop == tfbridge.NameProperty {
+		prop = ""
+	}
+
 	return prop, g.tfToJSFlags(sch[key]), g.tfToJSType(sch[key], info)
 }
 
@@ -648,6 +654,12 @@ func (g *generator) propTyp(key string, sch map[string]*schema.Schema,
 	prop := info.Name
 	if prop == "" {
 		prop = propertyName(key)
+	}
+
+	// If the property name is "name", use the Lumi name.  Return "" to instruct the caller to skip it, so that we
+	// don't emit a name that clashes with the underlying Lumi name used for URNs.
+	if prop == tfbridge.NameProperty {
+		prop = ""
 	}
 
 	return prop, g.tfToJSTypeFlags(sch[key], info)
@@ -840,11 +852,6 @@ func resourceName(pkg string, rawname string, resinfo tfbridge.ResourceInfo) (st
 func propertyName(s string) string {
 	contract.Assertf(s != "pid", "Unexpected collision with Lumi resource pid property")
 	contract.Assertf(s != "upn", "Unexpected collision with Lumi resource upn property")
-
-	// If the property name is "name", use the Lumi name.  Return "" to instruct the caller to skip.
-	if s == "name" {
-		return ""
-	}
 
 	// BUGBUG: work around issue in the Elastic Transcoder where a field has a trailing ":".
 	if strings.HasSuffix(s, ":") {
