@@ -324,6 +324,7 @@
         "ec2/instanceMaps.ts",
         "ec2/instanceType.ts",
         "iam/managedPolicies.ts",
+        "lambda/runtimes.ts",
         "index.ts"
     ]
 }
