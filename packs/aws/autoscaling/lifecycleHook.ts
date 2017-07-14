@@ -8,18 +8,22 @@ export class LifecycleHook extends lumi.NamedResource implements LifecycleHookAr
     public readonly defaultResult?: string;
     public readonly heartbeatTimeout?: number;
     public readonly lifecycleTransition: string;
-    public readonly _name: string;
     public readonly notificationMetadata?: string;
     public readonly notificationTargetArn?: string;
     public readonly roleArn?: string;
 
     constructor(name: string, args: LifecycleHookArgs) {
         super(name);
+        if (args.autoscalingGroupName === undefined) {
+            throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");
+        }
         this.autoscalingGroupName = args.autoscalingGroupName;
         this.defaultResult = args.defaultResult;
         this.heartbeatTimeout = args.heartbeatTimeout;
+        if (args.lifecycleTransition === undefined) {
+            throw new Error("Property argument 'lifecycleTransition' is required, but was missing");
+        }
         this.lifecycleTransition = args.lifecycleTransition;
-        this._name = args._name;
         this.notificationMetadata = args.notificationMetadata;
         this.notificationTargetArn = args.notificationTargetArn;
         this.roleArn = args.roleArn;
@@ -31,7 +35,6 @@ export interface LifecycleHookArgs {
     readonly defaultResult?: string;
     readonly heartbeatTimeout?: number;
     readonly lifecycleTransition: string;
-    readonly _name: string;
     readonly notificationMetadata?: string;
     readonly notificationTargetArn?: string;
     readonly roleArn?: string;

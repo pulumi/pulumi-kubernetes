@@ -25,23 +25,56 @@ export class Table extends lumi.NamedResource implements TableArgs {
 
     constructor(name: string, args: TableArgs) {
         super(name);
+        if (args.creationTime === undefined) {
+            throw new Error("Property argument 'creationTime' is required, but was missing");
+        }
         this.creationTime = args.creationTime;
+        if (args.datasetId === undefined) {
+            throw new Error("Property argument 'datasetId' is required, but was missing");
+        }
         this.datasetId = args.datasetId;
         this.description = args.description;
+        if (args.etag === undefined) {
+            throw new Error("Property argument 'etag' is required, but was missing");
+        }
         this.etag = args.etag;
         this.expirationTime = args.expirationTime;
         this.friendlyName = args.friendlyName;
         this.labels = args.labels;
+        if (args.lastModifiedTime === undefined) {
+            throw new Error("Property argument 'lastModifiedTime' is required, but was missing");
+        }
         this.lastModifiedTime = args.lastModifiedTime;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
+        if (args.numBytes === undefined) {
+            throw new Error("Property argument 'numBytes' is required, but was missing");
+        }
         this.numBytes = args.numBytes;
+        if (args.numLongTermBytes === undefined) {
+            throw new Error("Property argument 'numLongTermBytes' is required, but was missing");
+        }
         this.numLongTermBytes = args.numLongTermBytes;
+        if (args.numRows === undefined) {
+            throw new Error("Property argument 'numRows' is required, but was missing");
+        }
         this.numRows = args.numRows;
         this.project = args.project;
         this.schema = args.schema;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
+        if (args.tableId === undefined) {
+            throw new Error("Property argument 'tableId' is required, but was missing");
+        }
         this.tableId = args.tableId;
         this.timePartitioning = args.timePartitioning;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
     }
 }

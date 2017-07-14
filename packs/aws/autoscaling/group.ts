@@ -12,14 +12,13 @@ export class Group extends lumi.NamedResource implements GroupArgs {
     public readonly forceDelete?: boolean;
     public readonly healthCheckGracePeriod?: number;
     public readonly healthCheckType?: string;
-    public readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, _name: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
+    public readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
     public readonly launchConfiguration: string;
     public readonly loadBalancers?: string[];
     public readonly maxSize: number;
     public readonly metricsGranularity?: string;
     public readonly minElbCapacity?: number;
     public readonly minSize: number;
-    public readonly _name?: string;
     public readonly namePrefix?: string;
     public readonly placementGroup?: string;
     public readonly protectFromScaleIn?: boolean;
@@ -34,6 +33,9 @@ export class Group extends lumi.NamedResource implements GroupArgs {
 
     constructor(name: string, args: GroupArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.availabilityZones = args.availabilityZones;
         this.defaultCooldown = args.defaultCooldown;
@@ -43,13 +45,21 @@ export class Group extends lumi.NamedResource implements GroupArgs {
         this.healthCheckGracePeriod = args.healthCheckGracePeriod;
         this.healthCheckType = args.healthCheckType;
         this.initialLifecycleHook = args.initialLifecycleHook;
+        if (args.launchConfiguration === undefined) {
+            throw new Error("Property argument 'launchConfiguration' is required, but was missing");
+        }
         this.launchConfiguration = args.launchConfiguration;
         this.loadBalancers = args.loadBalancers;
+        if (args.maxSize === undefined) {
+            throw new Error("Property argument 'maxSize' is required, but was missing");
+        }
         this.maxSize = args.maxSize;
         this.metricsGranularity = args.metricsGranularity;
         this.minElbCapacity = args.minElbCapacity;
+        if (args.minSize === undefined) {
+            throw new Error("Property argument 'minSize' is required, but was missing");
+        }
         this.minSize = args.minSize;
-        this._name = args._name;
         this.namePrefix = args.namePrefix;
         this.placementGroup = args.placementGroup;
         this.protectFromScaleIn = args.protectFromScaleIn;
@@ -73,14 +83,13 @@ export interface GroupArgs {
     readonly forceDelete?: boolean;
     readonly healthCheckGracePeriod?: number;
     readonly healthCheckType?: string;
-    readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, _name: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
+    readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
     readonly launchConfiguration: string;
     readonly loadBalancers?: string[];
     readonly maxSize: number;
     readonly metricsGranularity?: string;
     readonly minElbCapacity?: number;
     readonly minSize: number;
-    readonly _name?: string;
     readonly namePrefix?: string;
     readonly placementGroup?: string;
     readonly protectFromScaleIn?: boolean;

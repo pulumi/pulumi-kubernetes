@@ -13,7 +13,6 @@ export class LaunchConfiguration extends lumi.NamedResource implements LaunchCon
     public readonly imageId: string;
     public readonly instanceType: string;
     public readonly keyName?: string;
-    public readonly _name?: string;
     public readonly namePrefix?: string;
     public readonly placementTenancy?: string;
     public readonly rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];
@@ -31,10 +30,15 @@ export class LaunchConfiguration extends lumi.NamedResource implements LaunchCon
         this.enableMonitoring = args.enableMonitoring;
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
         this.iamInstanceProfile = args.iamInstanceProfile;
+        if (args.imageId === undefined) {
+            throw new Error("Property argument 'imageId' is required, but was missing");
+        }
         this.imageId = args.imageId;
+        if (args.instanceType === undefined) {
+            throw new Error("Property argument 'instanceType' is required, but was missing");
+        }
         this.instanceType = args.instanceType;
         this.keyName = args.keyName;
-        this._name = args._name;
         this.namePrefix = args.namePrefix;
         this.placementTenancy = args.placementTenancy;
         this.rootBlockDevice = args.rootBlockDevice;
@@ -56,7 +60,6 @@ export interface LaunchConfigurationArgs {
     readonly imageId: string;
     readonly instanceType: string;
     readonly keyName?: string;
-    readonly _name?: string;
     readonly namePrefix?: string;
     readonly placementTenancy?: string;
     readonly rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];

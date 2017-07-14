@@ -5,11 +5,10 @@ import * as lumi from "@lumi/lumi";
 
 export class Table extends lumi.NamedResource implements TableArgs {
     public readonly arn?: string;
-    public readonly attribute: { _name: string, type: string }[];
-    public readonly globalSecondaryIndex?: { hashKey: string, _name: string, nonKeyAttributes?: string[], projectionType: string, rangeKey?: string, readCapacity: number, writeCapacity: number }[];
+    public readonly attribute: { type: string }[];
+    public readonly globalSecondaryIndex?: { hashKey: string, nonKeyAttributes?: string[], projectionType: string, rangeKey?: string, readCapacity: number, writeCapacity: number }[];
     public readonly hashKey: string;
-    public readonly localSecondaryIndex?: { _name: string, nonKeyAttributes?: string[], projectionType: string, rangeKey: string }[];
-    public readonly _name: string;
+    public readonly localSecondaryIndex?: { nonKeyAttributes?: string[], projectionType: string, rangeKey: string }[];
     public readonly rangeKey?: string;
     public readonly readCapacity: number;
     public readonly streamArn?: string;
@@ -22,31 +21,50 @@ export class Table extends lumi.NamedResource implements TableArgs {
 
     constructor(name: string, args: TableArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.attribute === undefined) {
+            throw new Error("Property argument 'attribute' is required, but was missing");
+        }
         this.attribute = args.attribute;
         this.globalSecondaryIndex = args.globalSecondaryIndex;
+        if (args.hashKey === undefined) {
+            throw new Error("Property argument 'hashKey' is required, but was missing");
+        }
         this.hashKey = args.hashKey;
         this.localSecondaryIndex = args.localSecondaryIndex;
-        this._name = args._name;
         this.rangeKey = args.rangeKey;
+        if (args.readCapacity === undefined) {
+            throw new Error("Property argument 'readCapacity' is required, but was missing");
+        }
         this.readCapacity = args.readCapacity;
+        if (args.streamArn === undefined) {
+            throw new Error("Property argument 'streamArn' is required, but was missing");
+        }
         this.streamArn = args.streamArn;
         this.streamEnabled = args.streamEnabled;
+        if (args.streamLabel === undefined) {
+            throw new Error("Property argument 'streamLabel' is required, but was missing");
+        }
         this.streamLabel = args.streamLabel;
         this.streamViewType = args.streamViewType;
         this.tags = args.tags;
         this.ttl = args.ttl;
+        if (args.writeCapacity === undefined) {
+            throw new Error("Property argument 'writeCapacity' is required, but was missing");
+        }
         this.writeCapacity = args.writeCapacity;
     }
 }
 
 export interface TableArgs {
     readonly arn?: string;
-    readonly attribute: { _name: string, type: string }[];
-    readonly globalSecondaryIndex?: { hashKey: string, _name: string, nonKeyAttributes?: string[], projectionType: string, rangeKey?: string, readCapacity: number, writeCapacity: number }[];
+    readonly attribute: { type: string }[];
+    readonly globalSecondaryIndex?: { hashKey: string, nonKeyAttributes?: string[], projectionType: string, rangeKey?: string, readCapacity: number, writeCapacity: number }[];
     readonly hashKey: string;
-    readonly localSecondaryIndex?: { _name: string, nonKeyAttributes?: string[], projectionType: string, rangeKey: string }[];
-    readonly _name: string;
+    readonly localSecondaryIndex?: { nonKeyAttributes?: string[], projectionType: string, rangeKey: string }[];
     readonly rangeKey?: string;
     readonly readCapacity: number;
     readonly streamArn?: string;

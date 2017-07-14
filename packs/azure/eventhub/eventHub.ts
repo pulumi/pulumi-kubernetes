@@ -6,7 +6,6 @@ import * as lumi from "@lumi/lumi";
 export class EventHub extends lumi.NamedResource implements EventHubArgs {
     public readonly location: string;
     public readonly messageRetention: number;
-    public readonly _name: string;
     public readonly namespaceName: string;
     public readonly partitionCount: number;
     public readonly partitionIds?: string[];
@@ -14,12 +13,29 @@ export class EventHub extends lumi.NamedResource implements EventHubArgs {
 
     constructor(name: string, args: EventHubArgs) {
         super(name);
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
+        if (args.messageRetention === undefined) {
+            throw new Error("Property argument 'messageRetention' is required, but was missing");
+        }
         this.messageRetention = args.messageRetention;
-        this._name = args._name;
+        if (args.namespaceName === undefined) {
+            throw new Error("Property argument 'namespaceName' is required, but was missing");
+        }
         this.namespaceName = args.namespaceName;
+        if (args.partitionCount === undefined) {
+            throw new Error("Property argument 'partitionCount' is required, but was missing");
+        }
         this.partitionCount = args.partitionCount;
+        if (args.partitionIds === undefined) {
+            throw new Error("Property argument 'partitionIds' is required, but was missing");
+        }
         this.partitionIds = args.partitionIds;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
     }
 }
@@ -27,7 +43,6 @@ export class EventHub extends lumi.NamedResource implements EventHubArgs {
 export interface EventHubArgs {
     readonly location: string;
     readonly messageRetention: number;
-    readonly _name: string;
     readonly namespaceName: string;
     readonly partitionCount: number;
     readonly partitionIds?: string[];

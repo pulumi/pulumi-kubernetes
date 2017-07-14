@@ -6,14 +6,18 @@ import * as lumi from "@lumi/lumi";
 export class WebAcl extends lumi.NamedResource implements WebAclArgs {
     public readonly defaultAction: { type: string }[];
     public readonly metricName: string;
-    public readonly _name: string;
     public readonly rules?: { action: { type: string }[], priority: number, ruleId: string }[];
 
     constructor(name: string, args: WebAclArgs) {
         super(name);
+        if (args.defaultAction === undefined) {
+            throw new Error("Property argument 'defaultAction' is required, but was missing");
+        }
         this.defaultAction = args.defaultAction;
+        if (args.metricName === undefined) {
+            throw new Error("Property argument 'metricName' is required, but was missing");
+        }
         this.metricName = args.metricName;
-        this._name = args._name;
         this.rules = args.rules;
     }
 }
@@ -21,7 +25,6 @@ export class WebAcl extends lumi.NamedResource implements WebAclArgs {
 export interface WebAclArgs {
     readonly defaultAction: { type: string }[];
     readonly metricName: string;
-    readonly _name: string;
     readonly rules?: { action: { type: string }[], priority: number, ruleId: string }[];
 }
 

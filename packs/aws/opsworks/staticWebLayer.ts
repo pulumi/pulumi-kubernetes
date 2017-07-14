@@ -18,10 +18,9 @@ export class StaticWebLayer extends lumi.NamedResource implements StaticWebLayer
     public readonly drainElbOnShutdown?: boolean;
     public readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     public readonly elasticLoadBalancer?: string;
-    public readonly _id?: string;
+    public readonly id?: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceShutdownTimeout?: number;
-    public readonly _name?: string;
     public readonly stackId: string;
     public readonly systemPackages?: string[];
     public readonly useEbsOptimizedInstances?: boolean;
@@ -42,10 +41,15 @@ export class StaticWebLayer extends lumi.NamedResource implements StaticWebLayer
         this.drainElbOnShutdown = args.drainElbOnShutdown;
         this.ebsVolume = args.ebsVolume;
         this.elasticLoadBalancer = args.elasticLoadBalancer;
-        this._id = args._id;
+        if (args.id === undefined) {
+            throw new Error("Property argument 'id' is required, but was missing");
+        }
+        this.id = args.id;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
-        this._name = args._name;
+        if (args.stackId === undefined) {
+            throw new Error("Property argument 'stackId' is required, but was missing");
+        }
         this.stackId = args.stackId;
         this.systemPackages = args.systemPackages;
         this.useEbsOptimizedInstances = args.useEbsOptimizedInstances;
@@ -67,10 +71,9 @@ export interface StaticWebLayerArgs {
     readonly drainElbOnShutdown?: boolean;
     readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     readonly elasticLoadBalancer?: string;
-    readonly _id?: string;
+    readonly id?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceShutdownTimeout?: number;
-    readonly _name?: string;
     readonly stackId: string;
     readonly systemPackages?: string[];
     readonly useEbsOptimizedInstances?: boolean;

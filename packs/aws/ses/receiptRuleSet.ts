@@ -8,6 +8,9 @@ export class ReceiptRuleSet extends lumi.NamedResource implements ReceiptRuleSet
 
     constructor(name: string, args: ReceiptRuleSetArgs) {
         super(name);
+        if (args.ruleSetName === undefined) {
+            throw new Error("Property argument 'ruleSetName' is required, but was missing");
+        }
         this.ruleSetName = args.ruleSetName;
     }
 }

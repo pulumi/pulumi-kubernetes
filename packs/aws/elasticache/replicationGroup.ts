@@ -37,17 +37,35 @@ export class ReplicationGroup extends lumi.NamedResource implements ReplicationG
         this.automaticFailoverEnabled = args.automaticFailoverEnabled;
         this.availabilityZones = args.availabilityZones;
         this.clusterMode = args.clusterMode;
+        if (args.configurationEndpointAddress === undefined) {
+            throw new Error("Property argument 'configurationEndpointAddress' is required, but was missing");
+        }
         this.configurationEndpointAddress = args.configurationEndpointAddress;
         this.engine = args.engine;
         this.engineVersion = args.engineVersion;
         this.maintenanceWindow = args.maintenanceWindow;
+        if (args.nodeType === undefined) {
+            throw new Error("Property argument 'nodeType' is required, but was missing");
+        }
         this.nodeType = args.nodeType;
         this.notificationTopicArn = args.notificationTopicArn;
         this.numberCacheClusters = args.numberCacheClusters;
         this.parameterGroupName = args.parameterGroupName;
+        if (args.port === undefined) {
+            throw new Error("Property argument 'port' is required, but was missing");
+        }
         this.port = args.port;
+        if (args.primaryEndpointAddress === undefined) {
+            throw new Error("Property argument 'primaryEndpointAddress' is required, but was missing");
+        }
         this.primaryEndpointAddress = args.primaryEndpointAddress;
+        if (args.replicationGroupDescription === undefined) {
+            throw new Error("Property argument 'replicationGroupDescription' is required, but was missing");
+        }
         this.replicationGroupDescription = args.replicationGroupDescription;
+        if (args.replicationGroupId === undefined) {
+            throw new Error("Property argument 'replicationGroupId' is required, but was missing");
+        }
         this.replicationGroupId = args.replicationGroupId;
         this.securityGroupIds = args.securityGroupIds;
         this.securityGroupNames = args.securityGroupNames;

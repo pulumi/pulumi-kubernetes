@@ -18,9 +18,8 @@ export class Stack extends lumi.NamedResource implements StackArgs {
     public readonly defaultSshKeyName?: string;
     public readonly defaultSubnetId?: string;
     public readonly hostnameTheme?: string;
-    public readonly _id?: string;
+    public readonly id?: string;
     public readonly manageBerkshelf?: boolean;
-    public readonly _name: string;
     public readonly region: string;
     public readonly serviceRoleArn: string;
     public readonly stackEndpoint?: string;
@@ -38,17 +37,31 @@ export class Stack extends lumi.NamedResource implements StackArgs {
         this.customCookbooksSource = args.customCookbooksSource;
         this.customJson = args.customJson;
         this.defaultAvailabilityZone = args.defaultAvailabilityZone;
+        if (args.defaultInstanceProfileArn === undefined) {
+            throw new Error("Property argument 'defaultInstanceProfileArn' is required, but was missing");
+        }
         this.defaultInstanceProfileArn = args.defaultInstanceProfileArn;
         this.defaultOs = args.defaultOs;
         this.defaultRootDeviceType = args.defaultRootDeviceType;
         this.defaultSshKeyName = args.defaultSshKeyName;
         this.defaultSubnetId = args.defaultSubnetId;
         this.hostnameTheme = args.hostnameTheme;
-        this._id = args._id;
+        if (args.id === undefined) {
+            throw new Error("Property argument 'id' is required, but was missing");
+        }
+        this.id = args.id;
         this.manageBerkshelf = args.manageBerkshelf;
-        this._name = args._name;
+        if (args.region === undefined) {
+            throw new Error("Property argument 'region' is required, but was missing");
+        }
         this.region = args.region;
+        if (args.serviceRoleArn === undefined) {
+            throw new Error("Property argument 'serviceRoleArn' is required, but was missing");
+        }
         this.serviceRoleArn = args.serviceRoleArn;
+        if (args.stackEndpoint === undefined) {
+            throw new Error("Property argument 'stackEndpoint' is required, but was missing");
+        }
         this.stackEndpoint = args.stackEndpoint;
         this.useCustomCookbooks = args.useCustomCookbooks;
         this.useOpsworksSecurityGroups = args.useOpsworksSecurityGroups;
@@ -71,9 +84,8 @@ export interface StackArgs {
     readonly defaultSshKeyName?: string;
     readonly defaultSubnetId?: string;
     readonly hostnameTheme?: string;
-    readonly _id?: string;
+    readonly id?: string;
     readonly manageBerkshelf?: boolean;
-    readonly _name: string;
     readonly region: string;
     readonly serviceRoleArn: string;
     readonly stackEndpoint?: string;

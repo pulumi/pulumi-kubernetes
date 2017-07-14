@@ -15,13 +15,25 @@ export class TopicSubscription extends lumi.NamedResource implements TopicSubscr
 
     constructor(name: string, args: TopicSubscriptionArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.confirmationTimeoutInMinutes = args.confirmationTimeoutInMinutes;
         this.deliveryPolicy = args.deliveryPolicy;
+        if (args.endpoint === undefined) {
+            throw new Error("Property argument 'endpoint' is required, but was missing");
+        }
         this.endpoint = args.endpoint;
         this.endpointAutoConfirms = args.endpointAutoConfirms;
+        if (args.protocol === undefined) {
+            throw new Error("Property argument 'protocol' is required, but was missing");
+        }
         this.protocol = args.protocol;
         this.rawMessageDelivery = args.rawMessageDelivery;
+        if (args.topicArn === undefined) {
+            throw new Error("Property argument 'topicArn' is required, but was missing");
+        }
         this.topicArn = args.topicArn;
     }
 }

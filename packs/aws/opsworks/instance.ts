@@ -19,7 +19,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly elasticIp?: string;
     public readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
     public readonly hostname?: string;
-    public readonly _id?: string;
+    public readonly id?: string;
     public readonly infrastructureClass?: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceProfileArn?: string;
@@ -68,12 +68,18 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.elasticIp = args.elasticIp;
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
         this.hostname = args.hostname;
-        this._id = args._id;
+        if (args.id === undefined) {
+            throw new Error("Property argument 'id' is required, but was missing");
+        }
+        this.id = args.id;
         this.infrastructureClass = args.infrastructureClass;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceProfileArn = args.instanceProfileArn;
         this.instanceType = args.instanceType;
         this.lastServiceErrorId = args.lastServiceErrorId;
+        if (args.layerIds === undefined) {
+            throw new Error("Property argument 'layerIds' is required, but was missing");
+        }
         this.layerIds = args.layerIds;
         this.os = args.os;
         this.platform = args.platform;
@@ -93,6 +99,9 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.sshHostDsaKeyFingerprint = args.sshHostDsaKeyFingerprint;
         this.sshHostRsaKeyFingerprint = args.sshHostRsaKeyFingerprint;
         this.sshKeyName = args.sshKeyName;
+        if (args.stackId === undefined) {
+            throw new Error("Property argument 'stackId' is required, but was missing");
+        }
         this.stackId = args.stackId;
         this.state = args.state;
         this.status = args.status;
@@ -118,7 +127,7 @@ export interface InstanceArgs {
     readonly elasticIp?: string;
     readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
     readonly hostname?: string;
-    readonly _id?: string;
+    readonly id?: string;
     readonly infrastructureClass?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceProfileArn?: string;

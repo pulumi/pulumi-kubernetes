@@ -4,15 +4,13 @@
 import * as lumi from "@lumi/lumi";
 
 export class ConfgurationSet extends lumi.NamedResource implements ConfgurationSetArgs {
-    public readonly _name: string;
-
-    constructor(name: string, args: ConfgurationSetArgs) {
+    constructor(name: string, args?: ConfgurationSetArgs) {
         super(name);
-        this._name = args._name;
+        if (args !== undefined) {
+        }
     }
 }
 
 export interface ConfgurationSetArgs {
-    readonly _name: string;
 }
 

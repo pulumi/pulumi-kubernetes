@@ -6,7 +6,6 @@ import * as lumi from "@lumi/lumi";
 export class Extension extends lumi.NamedResource implements ExtensionArgs {
     public readonly autoUpgradeMinorVersion?: boolean;
     public readonly location: string;
-    public readonly _name: string;
     public readonly protectedSettings?: string;
     public readonly publisher: string;
     public readonly resourceGroupName: string;
@@ -19,15 +18,32 @@ export class Extension extends lumi.NamedResource implements ExtensionArgs {
     constructor(name: string, args: ExtensionArgs) {
         super(name);
         this.autoUpgradeMinorVersion = args.autoUpgradeMinorVersion;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
         this.protectedSettings = args.protectedSettings;
+        if (args.publisher === undefined) {
+            throw new Error("Property argument 'publisher' is required, but was missing");
+        }
         this.publisher = args.publisher;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.settings = args.settings;
         this.tags = args.tags;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
+        if (args.typeHandlerVersion === undefined) {
+            throw new Error("Property argument 'typeHandlerVersion' is required, but was missing");
+        }
         this.typeHandlerVersion = args.typeHandlerVersion;
+        if (args.virtualMachineName === undefined) {
+            throw new Error("Property argument 'virtualMachineName' is required, but was missing");
+        }
         this.virtualMachineName = args.virtualMachineName;
     }
 }
@@ -35,7 +51,6 @@ export class Extension extends lumi.NamedResource implements ExtensionArgs {
 export interface ExtensionArgs {
     readonly autoUpgradeMinorVersion?: boolean;
     readonly location: string;
-    readonly _name: string;
     readonly protectedSettings?: string;
     readonly publisher: string;
     readonly resourceGroupName: string;

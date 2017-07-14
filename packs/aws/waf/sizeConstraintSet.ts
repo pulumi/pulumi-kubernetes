@@ -4,18 +4,15 @@
 import * as lumi from "@lumi/lumi";
 
 export class SizeConstraintSet extends lumi.NamedResource implements SizeConstraintSetArgs {
-    public readonly _name: string;
     public readonly sizeConstraints?: { comparisonOperator: string, fieldToMatch: { data?: string, type: string }[], size: number, textTransformation: string }[];
 
     constructor(name: string, args: SizeConstraintSetArgs) {
         super(name);
-        this._name = args._name;
         this.sizeConstraints = args.sizeConstraints;
     }
 }
 
 export interface SizeConstraintSetArgs {
-    readonly _name: string;
     readonly sizeConstraints?: { comparisonOperator: string, fieldToMatch: { data?: string, type: string }[], size: number, textTransformation: string }[];
 }
 

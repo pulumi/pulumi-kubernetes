@@ -10,7 +10,6 @@ export class Directory extends lumi.NamedResource implements DirectoryArgs {
     public readonly description?: string;
     public readonly dnsIpAddresses?: string[];
     public readonly enableSso?: boolean;
-    public readonly _name: string;
     public readonly password: string;
     public readonly shortName?: string;
     public readonly size?: string;
@@ -19,13 +18,21 @@ export class Directory extends lumi.NamedResource implements DirectoryArgs {
 
     constructor(name: string, args: DirectoryArgs) {
         super(name);
+        if (args.accessUrl === undefined) {
+            throw new Error("Property argument 'accessUrl' is required, but was missing");
+        }
         this.accessUrl = args.accessUrl;
         this.alias = args.alias;
         this.connectSettings = args.connectSettings;
         this.description = args.description;
+        if (args.dnsIpAddresses === undefined) {
+            throw new Error("Property argument 'dnsIpAddresses' is required, but was missing");
+        }
         this.dnsIpAddresses = args.dnsIpAddresses;
         this.enableSso = args.enableSso;
-        this._name = args._name;
+        if (args.password === undefined) {
+            throw new Error("Property argument 'password' is required, but was missing");
+        }
         this.password = args.password;
         this.shortName = args.shortName;
         this.size = args.size;
@@ -41,7 +48,6 @@ export interface DirectoryArgs {
     readonly description?: string;
     readonly dnsIpAddresses?: string[];
     readonly enableSso?: boolean;
-    readonly _name: string;
     readonly password: string;
     readonly shortName?: string;
     readonly size?: string;

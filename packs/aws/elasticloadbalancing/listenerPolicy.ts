@@ -10,7 +10,13 @@ export class ListenerPolicy extends lumi.NamedResource implements ListenerPolicy
 
     constructor(name: string, args: ListenerPolicyArgs) {
         super(name);
+        if (args.loadBalancerName === undefined) {
+            throw new Error("Property argument 'loadBalancerName' is required, but was missing");
+        }
         this.loadBalancerName = args.loadBalancerName;
+        if (args.loadBalancerPort === undefined) {
+            throw new Error("Property argument 'loadBalancerPort' is required, but was missing");
+        }
         this.loadBalancerPort = args.loadBalancerPort;
         this.policyNames = args.policyNames;
     }

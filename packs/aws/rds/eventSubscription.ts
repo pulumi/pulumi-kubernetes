@@ -7,7 +7,6 @@ export class EventSubscription extends lumi.NamedResource implements EventSubscr
     public readonly customerAwsId?: string;
     public readonly enabled?: boolean;
     public readonly eventCategories?: string[];
-    public readonly _name: string;
     public readonly snsTopic: string;
     public readonly sourceIds?: string[];
     public readonly sourceType?: string;
@@ -15,10 +14,15 @@ export class EventSubscription extends lumi.NamedResource implements EventSubscr
 
     constructor(name: string, args: EventSubscriptionArgs) {
         super(name);
+        if (args.customerAwsId === undefined) {
+            throw new Error("Property argument 'customerAwsId' is required, but was missing");
+        }
         this.customerAwsId = args.customerAwsId;
         this.enabled = args.enabled;
         this.eventCategories = args.eventCategories;
-        this._name = args._name;
+        if (args.snsTopic === undefined) {
+            throw new Error("Property argument 'snsTopic' is required, but was missing");
+        }
         this.snsTopic = args.snsTopic;
         this.sourceIds = args.sourceIds;
         this.sourceType = args.sourceType;
@@ -30,7 +34,6 @@ export interface EventSubscriptionArgs {
     readonly customerAwsId?: string;
     readonly enabled?: boolean;
     readonly eventCategories?: string[];
-    readonly _name: string;
     readonly snsTopic: string;
     readonly sourceIds?: string[];
     readonly sourceType?: string;

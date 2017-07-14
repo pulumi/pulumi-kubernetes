@@ -10,8 +10,17 @@ export class DomainIdentity extends lumi.NamedResource implements DomainIdentity
 
     constructor(name: string, args: DomainIdentityArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.domain === undefined) {
+            throw new Error("Property argument 'domain' is required, but was missing");
+        }
         this.domain = args.domain;
+        if (args.verificationToken === undefined) {
+            throw new Error("Property argument 'verificationToken' is required, but was missing");
+        }
         this.verificationToken = args.verificationToken;
     }
 }

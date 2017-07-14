@@ -11,7 +11,13 @@ export class Certificate extends lumi.NamedResource implements CertificateArgs {
 
     constructor(name: string, args: CertificateArgs) {
         super(name);
+        if (args.certificateArn === undefined) {
+            throw new Error("Property argument 'certificateArn' is required, but was missing");
+        }
         this.certificateArn = args.certificateArn;
+        if (args.certificateId === undefined) {
+            throw new Error("Property argument 'certificateId' is required, but was missing");
+        }
         this.certificateId = args.certificateId;
         this.certificatePem = args.certificatePem;
         this.certificateWallet = args.certificateWallet;

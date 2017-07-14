@@ -9,7 +9,6 @@ export class NetworkSecurityRule extends lumi.NamedResource implements NetworkSe
     public readonly destinationAddressPrefix: string;
     public readonly destinationPortRange: string;
     public readonly direction: string;
-    public readonly _name: string;
     public readonly networkSecurityGroupName: string;
     public readonly priority: number;
     public readonly protocol: string;
@@ -19,17 +18,46 @@ export class NetworkSecurityRule extends lumi.NamedResource implements NetworkSe
 
     constructor(name: string, args: NetworkSecurityRuleArgs) {
         super(name);
+        if (args.access === undefined) {
+            throw new Error("Property argument 'access' is required, but was missing");
+        }
         this.access = args.access;
         this.description = args.description;
+        if (args.destinationAddressPrefix === undefined) {
+            throw new Error("Property argument 'destinationAddressPrefix' is required, but was missing");
+        }
         this.destinationAddressPrefix = args.destinationAddressPrefix;
+        if (args.destinationPortRange === undefined) {
+            throw new Error("Property argument 'destinationPortRange' is required, but was missing");
+        }
         this.destinationPortRange = args.destinationPortRange;
+        if (args.direction === undefined) {
+            throw new Error("Property argument 'direction' is required, but was missing");
+        }
         this.direction = args.direction;
-        this._name = args._name;
+        if (args.networkSecurityGroupName === undefined) {
+            throw new Error("Property argument 'networkSecurityGroupName' is required, but was missing");
+        }
         this.networkSecurityGroupName = args.networkSecurityGroupName;
+        if (args.priority === undefined) {
+            throw new Error("Property argument 'priority' is required, but was missing");
+        }
         this.priority = args.priority;
+        if (args.protocol === undefined) {
+            throw new Error("Property argument 'protocol' is required, but was missing");
+        }
         this.protocol = args.protocol;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.sourceAddressPrefix === undefined) {
+            throw new Error("Property argument 'sourceAddressPrefix' is required, but was missing");
+        }
         this.sourceAddressPrefix = args.sourceAddressPrefix;
+        if (args.sourcePortRange === undefined) {
+            throw new Error("Property argument 'sourcePortRange' is required, but was missing");
+        }
         this.sourcePortRange = args.sourcePortRange;
     }
 }
@@ -40,7 +68,6 @@ export interface NetworkSecurityRuleArgs {
     readonly destinationAddressPrefix: string;
     readonly destinationPortRange: string;
     readonly direction: string;
-    readonly _name: string;
     readonly networkSecurityGroupName: string;
     readonly priority: number;
     readonly protocol: string;

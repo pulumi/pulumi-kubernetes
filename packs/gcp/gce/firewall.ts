@@ -6,7 +6,6 @@ import * as lumi from "@lumi/lumi";
 export class Firewall extends lumi.NamedResource implements FirewallArgs {
     public readonly allow: { ports?: string[], protocol: string }[];
     public readonly description?: string;
-    public readonly _name: string;
     public readonly network: string;
     public readonly project?: string;
     public readonly selfLink?: string;
@@ -16,11 +15,19 @@ export class Firewall extends lumi.NamedResource implements FirewallArgs {
 
     constructor(name: string, args: FirewallArgs) {
         super(name);
+        if (args.allow === undefined) {
+            throw new Error("Property argument 'allow' is required, but was missing");
+        }
         this.allow = args.allow;
         this.description = args.description;
-        this._name = args._name;
+        if (args.network === undefined) {
+            throw new Error("Property argument 'network' is required, but was missing");
+        }
         this.network = args.network;
         this.project = args.project;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
         this.sourceRanges = args.sourceRanges;
         this.sourceTags = args.sourceTags;
@@ -31,7 +38,6 @@ export class Firewall extends lumi.NamedResource implements FirewallArgs {
 export interface FirewallArgs {
     readonly allow: { ports?: string[], protocol: string }[];
     readonly description?: string;
-    readonly _name: string;
     readonly network: string;
     readonly project?: string;
     readonly selfLink?: string;

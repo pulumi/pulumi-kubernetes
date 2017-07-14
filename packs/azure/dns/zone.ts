@@ -5,7 +5,6 @@ import * as lumi from "@lumi/lumi";
 
 export class Zone extends lumi.NamedResource implements ZoneArgs {
     public readonly maxNumberOfRecordSets?: string;
-    public readonly _name: string;
     public readonly nameServers?: string[];
     public readonly numberOfRecordSets?: string;
     public readonly resourceGroupName: string;
@@ -14,9 +13,14 @@ export class Zone extends lumi.NamedResource implements ZoneArgs {
     constructor(name: string, args: ZoneArgs) {
         super(name);
         this.maxNumberOfRecordSets = args.maxNumberOfRecordSets;
-        this._name = args._name;
+        if (args.nameServers === undefined) {
+            throw new Error("Property argument 'nameServers' is required, but was missing");
+        }
         this.nameServers = args.nameServers;
         this.numberOfRecordSets = args.numberOfRecordSets;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
     }
@@ -24,7 +28,6 @@ export class Zone extends lumi.NamedResource implements ZoneArgs {
 
 export interface ZoneArgs {
     readonly maxNumberOfRecordSets?: string;
-    readonly _name: string;
     readonly nameServers?: string[];
     readonly numberOfRecordSets?: string;
     readonly resourceGroupName: string;

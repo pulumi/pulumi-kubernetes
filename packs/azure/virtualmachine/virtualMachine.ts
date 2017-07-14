@@ -11,18 +11,17 @@ export class VirtualMachine extends lumi.NamedResource implements VirtualMachine
     public readonly diagnosticsProfile?: { bootDiagnostics: { enabled: boolean, storageUri: string }[] }[];
     public readonly licenseType?: string;
     public readonly location: string;
-    public readonly _name: string;
     public readonly networkInterfaceIds: string[];
     public readonly osProfile?: { adminPassword: string, adminUsername: string, computerName: string, customData?: string }[];
     public readonly osProfileLinuxConfig?: { disablePasswordAuthentication: boolean, sshKeys?: { keyData?: string, path: string }[] }[];
     public readonly osProfileSecrets?: { sourceVaultId: string, vaultCertificates?: { certificateStore?: string, certificateUrl: string }[] }[];
     public readonly osProfileWindowsConfig?: { additionalUnattendConfig?: { component: string, content: string, pass: string, settingName: string }[], enableAutomaticUpgrades?: boolean, provisionVmAgent?: boolean, winrm?: { certificateUrl?: string, protocol: string }[] }[];
-    public readonly plan?: { _name: string, product: string, publisher: string }[];
+    public readonly plan?: { product: string, publisher: string }[];
     public readonly primaryNetworkInterfaceId?: string;
     public readonly resourceGroupName: string;
-    public readonly storageDataDisk?: { caching?: string, createOption: string, diskSizeGb?: number, lun: number, managedDiskId?: string, managedDiskType?: string, _name: string, vhdUri?: string }[];
+    public readonly storageDataDisk?: { caching?: string, createOption: string, diskSizeGb?: number, lun: number, managedDiskId?: string, managedDiskType?: string, vhdUri?: string }[];
     public readonly storageImageReference?: { offer: string, publisher: string, sku: string, version?: string }[];
-    public readonly storageOsDisk: { caching?: string, createOption: string, diskSizeGb?: number, imageUri?: string, managedDiskId?: string, managedDiskType?: string, _name: string, osType?: string, vhdUri?: string }[];
+    public readonly storageOsDisk: { caching?: string, createOption: string, diskSizeGb?: number, imageUri?: string, managedDiskId?: string, managedDiskType?: string, osType?: string, vhdUri?: string }[];
     public readonly tags?: {[key: string]: any};
     public readonly vmSize: string;
 
@@ -34,8 +33,13 @@ export class VirtualMachine extends lumi.NamedResource implements VirtualMachine
         this.deleteOsDiskOnTermination = args.deleteOsDiskOnTermination;
         this.diagnosticsProfile = args.diagnosticsProfile;
         this.licenseType = args.licenseType;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.networkInterfaceIds === undefined) {
+            throw new Error("Property argument 'networkInterfaceIds' is required, but was missing");
+        }
         this.networkInterfaceIds = args.networkInterfaceIds;
         this.osProfile = args.osProfile;
         this.osProfileLinuxConfig = args.osProfileLinuxConfig;
@@ -43,11 +47,20 @@ export class VirtualMachine extends lumi.NamedResource implements VirtualMachine
         this.osProfileWindowsConfig = args.osProfileWindowsConfig;
         this.plan = args.plan;
         this.primaryNetworkInterfaceId = args.primaryNetworkInterfaceId;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.storageDataDisk = args.storageDataDisk;
         this.storageImageReference = args.storageImageReference;
+        if (args.storageOsDisk === undefined) {
+            throw new Error("Property argument 'storageOsDisk' is required, but was missing");
+        }
         this.storageOsDisk = args.storageOsDisk;
         this.tags = args.tags;
+        if (args.vmSize === undefined) {
+            throw new Error("Property argument 'vmSize' is required, but was missing");
+        }
         this.vmSize = args.vmSize;
     }
 }
@@ -60,18 +73,17 @@ export interface VirtualMachineArgs {
     readonly diagnosticsProfile?: { bootDiagnostics: { enabled: boolean, storageUri: string }[] }[];
     readonly licenseType?: string;
     readonly location: string;
-    readonly _name: string;
     readonly networkInterfaceIds: string[];
     readonly osProfile?: { adminPassword: string, adminUsername: string, computerName: string, customData?: string }[];
     readonly osProfileLinuxConfig?: { disablePasswordAuthentication: boolean, sshKeys?: { keyData?: string, path: string }[] }[];
     readonly osProfileSecrets?: { sourceVaultId: string, vaultCertificates?: { certificateStore?: string, certificateUrl: string }[] }[];
     readonly osProfileWindowsConfig?: { additionalUnattendConfig?: { component: string, content: string, pass: string, settingName: string }[], enableAutomaticUpgrades?: boolean, provisionVmAgent?: boolean, winrm?: { certificateUrl?: string, protocol: string }[] }[];
-    readonly plan?: { _name: string, product: string, publisher: string }[];
+    readonly plan?: { product: string, publisher: string }[];
     readonly primaryNetworkInterfaceId?: string;
     readonly resourceGroupName: string;
-    readonly storageDataDisk?: { caching?: string, createOption: string, diskSizeGb?: number, lun: number, managedDiskId?: string, managedDiskType?: string, _name: string, vhdUri?: string }[];
+    readonly storageDataDisk?: { caching?: string, createOption: string, diskSizeGb?: number, lun: number, managedDiskId?: string, managedDiskType?: string, vhdUri?: string }[];
     readonly storageImageReference?: { offer: string, publisher: string, sku: string, version?: string }[];
-    readonly storageOsDisk: { caching?: string, createOption: string, diskSizeGb?: number, imageUri?: string, managedDiskId?: string, managedDiskType?: string, _name: string, osType?: string, vhdUri?: string }[];
+    readonly storageOsDisk: { caching?: string, createOption: string, diskSizeGb?: number, imageUri?: string, managedDiskId?: string, managedDiskType?: string, osType?: string, vhdUri?: string }[];
     readonly tags?: {[key: string]: any};
     readonly vmSize: string;
 }

@@ -28,24 +28,69 @@ export class VpnConnection extends lumi.NamedResource implements VpnConnectionAr
     constructor(name: string, args: VpnConnectionArgs) {
         super(name);
         this.customerGatewayConfiguration = args.customerGatewayConfiguration;
+        if (args.customerGatewayId === undefined) {
+            throw new Error("Property argument 'customerGatewayId' is required, but was missing");
+        }
         this.customerGatewayId = args.customerGatewayId;
         this.routes = args.routes;
         this.staticRoutesOnly = args.staticRoutesOnly;
         this.tags = args.tags;
+        if (args.tunnel1Address === undefined) {
+            throw new Error("Property argument 'tunnel1Address' is required, but was missing");
+        }
         this.tunnel1Address = args.tunnel1Address;
+        if (args.tunnel1BgpAsn === undefined) {
+            throw new Error("Property argument 'tunnel1BgpAsn' is required, but was missing");
+        }
         this.tunnel1BgpAsn = args.tunnel1BgpAsn;
+        if (args.tunnel1BgpHoldtime === undefined) {
+            throw new Error("Property argument 'tunnel1BgpHoldtime' is required, but was missing");
+        }
         this.tunnel1BgpHoldtime = args.tunnel1BgpHoldtime;
+        if (args.tunnel1CgwInsideAddress === undefined) {
+            throw new Error("Property argument 'tunnel1CgwInsideAddress' is required, but was missing");
+        }
         this.tunnel1CgwInsideAddress = args.tunnel1CgwInsideAddress;
+        if (args.tunnel1PresharedKey === undefined) {
+            throw new Error("Property argument 'tunnel1PresharedKey' is required, but was missing");
+        }
         this.tunnel1PresharedKey = args.tunnel1PresharedKey;
+        if (args.tunnel1VgwInsideAddress === undefined) {
+            throw new Error("Property argument 'tunnel1VgwInsideAddress' is required, but was missing");
+        }
         this.tunnel1VgwInsideAddress = args.tunnel1VgwInsideAddress;
+        if (args.tunnel2Address === undefined) {
+            throw new Error("Property argument 'tunnel2Address' is required, but was missing");
+        }
         this.tunnel2Address = args.tunnel2Address;
+        if (args.tunnel2BgpAsn === undefined) {
+            throw new Error("Property argument 'tunnel2BgpAsn' is required, but was missing");
+        }
         this.tunnel2BgpAsn = args.tunnel2BgpAsn;
+        if (args.tunnel2BgpHoldtime === undefined) {
+            throw new Error("Property argument 'tunnel2BgpHoldtime' is required, but was missing");
+        }
         this.tunnel2BgpHoldtime = args.tunnel2BgpHoldtime;
+        if (args.tunnel2CgwInsideAddress === undefined) {
+            throw new Error("Property argument 'tunnel2CgwInsideAddress' is required, but was missing");
+        }
         this.tunnel2CgwInsideAddress = args.tunnel2CgwInsideAddress;
+        if (args.tunnel2PresharedKey === undefined) {
+            throw new Error("Property argument 'tunnel2PresharedKey' is required, but was missing");
+        }
         this.tunnel2PresharedKey = args.tunnel2PresharedKey;
+        if (args.tunnel2VgwInsideAddress === undefined) {
+            throw new Error("Property argument 'tunnel2VgwInsideAddress' is required, but was missing");
+        }
         this.tunnel2VgwInsideAddress = args.tunnel2VgwInsideAddress;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
         this.vgwTelemetry = args.vgwTelemetry;
+        if (args.vpnGatewayId === undefined) {
+            throw new Error("Property argument 'vpnGatewayId' is required, but was missing");
+        }
         this.vpnGatewayId = args.vpnGatewayId;
     }
 }

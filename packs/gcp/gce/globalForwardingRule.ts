@@ -7,7 +7,6 @@ export class GlobalForwardingRule extends lumi.NamedResource implements GlobalFo
     public readonly description?: string;
     public readonly ipAddress?: string;
     public readonly ipProtocol?: string;
-    public readonly _name: string;
     public readonly portRange?: string;
     public readonly project?: string;
     public readonly region?: string;
@@ -19,11 +18,16 @@ export class GlobalForwardingRule extends lumi.NamedResource implements GlobalFo
         this.description = args.description;
         this.ipAddress = args.ipAddress;
         this.ipProtocol = args.ipProtocol;
-        this._name = args._name;
         this.portRange = args.portRange;
         this.project = args.project;
         this.region = args.region;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
+        if (args.target === undefined) {
+            throw new Error("Property argument 'target' is required, but was missing");
+        }
         this.target = args.target;
     }
 }
@@ -32,7 +36,6 @@ export interface GlobalForwardingRuleArgs {
     readonly description?: string;
     readonly ipAddress?: string;
     readonly ipProtocol?: string;
-    readonly _name: string;
     readonly portRange?: string;
     readonly project?: string;
     readonly region?: string;

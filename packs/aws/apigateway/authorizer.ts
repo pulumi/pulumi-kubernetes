@@ -9,7 +9,6 @@ export class Authorizer extends lumi.NamedResource implements AuthorizerArgs {
     public readonly authorizerUri: string;
     public readonly identitySource?: string;
     public readonly identityValidationExpression?: string;
-    public readonly _name: string;
     public readonly restApiId: string;
     public readonly type?: string;
 
@@ -17,10 +16,15 @@ export class Authorizer extends lumi.NamedResource implements AuthorizerArgs {
         super(name);
         this.authorizerCredentials = args.authorizerCredentials;
         this.authorizerResultTtlInSeconds = args.authorizerResultTtlInSeconds;
+        if (args.authorizerUri === undefined) {
+            throw new Error("Property argument 'authorizerUri' is required, but was missing");
+        }
         this.authorizerUri = args.authorizerUri;
         this.identitySource = args.identitySource;
         this.identityValidationExpression = args.identityValidationExpression;
-        this._name = args._name;
+        if (args.restApiId === undefined) {
+            throw new Error("Property argument 'restApiId' is required, but was missing");
+        }
         this.restApiId = args.restApiId;
         this.type = args.type;
     }
@@ -32,7 +36,6 @@ export interface AuthorizerArgs {
     readonly authorizerUri: string;
     readonly identitySource?: string;
     readonly identityValidationExpression?: string;
-    readonly _name: string;
     readonly restApiId: string;
     readonly type?: string;
 }

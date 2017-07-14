@@ -7,15 +7,19 @@ export class SecurityGroup extends lumi.NamedResource implements SecurityGroupAr
     public readonly arn?: string;
     public readonly description?: string;
     public readonly ingress: { cidr?: string, securityGroupId?: string, securityGroupName?: string, securityGroupOwnerId?: string }[];
-    public readonly _name: string;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: SecurityGroupArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.description = args.description;
+        if (args.ingress === undefined) {
+            throw new Error("Property argument 'ingress' is required, but was missing");
+        }
         this.ingress = args.ingress;
-        this._name = args._name;
         this.tags = args.tags;
     }
 }
@@ -24,7 +28,6 @@ export interface SecurityGroupArgs {
     readonly arn?: string;
     readonly description?: string;
     readonly ingress: { cidr?: string, securityGroupId?: string, securityGroupName?: string, securityGroupOwnerId?: string }[];
-    readonly _name: string;
     readonly tags?: {[key: string]: any};
 }
 

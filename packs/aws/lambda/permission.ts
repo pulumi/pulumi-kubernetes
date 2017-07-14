@@ -3,9 +3,11 @@
 
 import * as lumi from "@lumi/lumi";
 
+import {Function} from "./function";
+
 export class Permission extends lumi.NamedResource implements PermissionArgs {
     public readonly action: string;
-    public readonly functionName: string;
+    public readonly function: Function;
     public readonly principal: string;
     public readonly qualifier?: string;
     public readonly sourceAccount?: string;
@@ -14,19 +16,31 @@ export class Permission extends lumi.NamedResource implements PermissionArgs {
 
     constructor(name: string, args: PermissionArgs) {
         super(name);
+        if (args.action === undefined) {
+            throw new Error("Property argument 'action' is required, but was missing");
+        }
         this.action = args.action;
-        this.functionName = args.functionName;
+        if (args.function === undefined) {
+            throw new Error("Property argument 'function' is required, but was missing");
+        }
+        this.function = args.function;
+        if (args.principal === undefined) {
+            throw new Error("Property argument 'principal' is required, but was missing");
+        }
         this.principal = args.principal;
         this.qualifier = args.qualifier;
         this.sourceAccount = args.sourceAccount;
         this.sourceArn = args.sourceArn;
+        if (args.statementId === undefined) {
+            throw new Error("Property argument 'statementId' is required, but was missing");
+        }
         this.statementId = args.statementId;
     }
 }
 
 export interface PermissionArgs {
     readonly action: string;
-    readonly functionName: string;
+    readonly function: Function;
     readonly principal: string;
     readonly qualifier?: string;
     readonly sourceAccount?: string;

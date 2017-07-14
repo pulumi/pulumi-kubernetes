@@ -9,7 +9,13 @@ export class AmiLaunchPermission extends lumi.NamedResource implements AmiLaunch
 
     constructor(name: string, args: AmiLaunchPermissionArgs) {
         super(name);
+        if (args.accountId === undefined) {
+            throw new Error("Property argument 'accountId' is required, but was missing");
+        }
         this.accountId = args.accountId;
+        if (args.imageId === undefined) {
+            throw new Error("Property argument 'imageId' is required, but was missing");
+        }
         this.imageId = args.imageId;
     }
 }

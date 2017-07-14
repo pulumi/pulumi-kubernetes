@@ -5,8 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class TargetHttpProxy extends lumi.NamedResource implements TargetHttpProxyArgs {
     public readonly description?: string;
-    public readonly _id?: string;
-    public readonly _name: string;
+    public readonly id?: string;
     public readonly project?: string;
     public readonly selfLink?: string;
     public readonly urlMap: string;
@@ -14,18 +13,25 @@ export class TargetHttpProxy extends lumi.NamedResource implements TargetHttpPro
     constructor(name: string, args: TargetHttpProxyArgs) {
         super(name);
         this.description = args.description;
-        this._id = args._id;
-        this._name = args._name;
+        if (args.id === undefined) {
+            throw new Error("Property argument 'id' is required, but was missing");
+        }
+        this.id = args.id;
         this.project = args.project;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
+        if (args.urlMap === undefined) {
+            throw new Error("Property argument 'urlMap' is required, but was missing");
+        }
         this.urlMap = args.urlMap;
     }
 }
 
 export interface TargetHttpProxyArgs {
     readonly description?: string;
-    readonly _id?: string;
-    readonly _name: string;
+    readonly id?: string;
     readonly project?: string;
     readonly selfLink?: string;
     readonly urlMap: string;

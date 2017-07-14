@@ -15,11 +15,17 @@ export class EventTarget extends lumi.NamedResource implements EventTargetArgs {
 
     constructor(name: string, args: EventTargetArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.ecsTarget = args.ecsTarget;
         this.input = args.input;
         this.inputPath = args.inputPath;
         this.roleArn = args.roleArn;
+        if (args.rule === undefined) {
+            throw new Error("Property argument 'rule' is required, but was missing");
+        }
         this.rule = args.rule;
         this.runCommandTargets = args.runCommandTargets;
         this.targetId = args.targetId;

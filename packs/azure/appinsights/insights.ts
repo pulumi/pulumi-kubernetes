@@ -8,17 +8,30 @@ export class Insights extends lumi.NamedResource implements InsightsArgs {
     public readonly applicationType: string;
     public readonly instrumentationKey?: string;
     public readonly location: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: InsightsArgs) {
         super(name);
+        if (args.appId === undefined) {
+            throw new Error("Property argument 'appId' is required, but was missing");
+        }
         this.appId = args.appId;
+        if (args.applicationType === undefined) {
+            throw new Error("Property argument 'applicationType' is required, but was missing");
+        }
         this.applicationType = args.applicationType;
+        if (args.instrumentationKey === undefined) {
+            throw new Error("Property argument 'instrumentationKey' is required, but was missing");
+        }
         this.instrumentationKey = args.instrumentationKey;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
     }
@@ -29,7 +42,6 @@ export interface InsightsArgs {
     readonly applicationType: string;
     readonly instrumentationKey?: string;
     readonly location: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};
 }

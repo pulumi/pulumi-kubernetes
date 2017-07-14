@@ -23,6 +23,9 @@ export class NetworkInterface extends lumi.NamedResource implements NetworkInter
         this.privateIpsCount = args.privateIpsCount;
         this.securityGroups = args.securityGroups;
         this.sourceDestCheck = args.sourceDestCheck;
+        if (args.subnetId === undefined) {
+            throw new Error("Property argument 'subnetId' is required, but was missing");
+        }
         this.subnetId = args.subnetId;
         this.tags = args.tags;
     }

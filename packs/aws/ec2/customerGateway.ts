@@ -11,9 +11,18 @@ export class CustomerGateway extends lumi.NamedResource implements CustomerGatew
 
     constructor(name: string, args: CustomerGatewayArgs) {
         super(name);
+        if (args.bgpAsn === undefined) {
+            throw new Error("Property argument 'bgpAsn' is required, but was missing");
+        }
         this.bgpAsn = args.bgpAsn;
+        if (args.ipAddress === undefined) {
+            throw new Error("Property argument 'ipAddress' is required, but was missing");
+        }
         this.ipAddress = args.ipAddress;
         this.tags = args.tags;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
     }
 }

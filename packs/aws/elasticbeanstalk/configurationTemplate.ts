@@ -7,16 +7,17 @@ export class ConfigurationTemplate extends lumi.NamedResource implements Configu
     public readonly application: string;
     public readonly description?: string;
     public readonly environmentId?: string;
-    public readonly _name: string;
-    public readonly setting?: { _name: string, namespace: string, resource?: string, value: string }[];
+    public readonly setting?: { namespace: string, resource?: string, value: string }[];
     public readonly solutionStackName?: string;
 
     constructor(name: string, args: ConfigurationTemplateArgs) {
         super(name);
+        if (args.application === undefined) {
+            throw new Error("Property argument 'application' is required, but was missing");
+        }
         this.application = args.application;
         this.description = args.description;
         this.environmentId = args.environmentId;
-        this._name = args._name;
         this.setting = args.setting;
         this.solutionStackName = args.solutionStackName;
     }
@@ -26,8 +27,7 @@ export interface ConfigurationTemplateArgs {
     readonly application: string;
     readonly description?: string;
     readonly environmentId?: string;
-    readonly _name: string;
-    readonly setting?: { _name: string, namespace: string, resource?: string, value: string }[];
+    readonly setting?: { namespace: string, resource?: string, value: string }[];
     readonly solutionStackName?: string;
 }
 

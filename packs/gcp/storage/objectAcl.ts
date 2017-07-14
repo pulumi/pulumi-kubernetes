@@ -11,7 +11,13 @@ export class ObjectAcl extends lumi.NamedResource implements ObjectAclArgs {
 
     constructor(name: string, args: ObjectAclArgs) {
         super(name);
+        if (args.bucket === undefined) {
+            throw new Error("Property argument 'bucket' is required, but was missing");
+        }
         this.bucket = args.bucket;
+        if (args.object === undefined) {
+            throw new Error("Property argument 'object' is required, but was missing");
+        }
         this.object = args.object;
         this.predefinedAcl = args.predefinedAcl;
         this.roleEntity = args.roleEntity;

@@ -14,10 +14,9 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
     public readonly loggingService?: string;
     public readonly masterAuth?: { clientCertificate?: string, clientKey?: string, clusterCaCertificate?: string, password: string, username: string }[];
     public readonly monitoringService?: string;
-    public readonly _name: string;
     public readonly network?: string;
     public readonly nodeConfig?: { diskSizeGb?: number, imageType?: string, labels?: {[key: string]: string}, localSsdCount?: number, machineType?: string, metadata?: {[key: string]: string}, oauthScopes?: string[], serviceAccount?: string, tags?: string[] }[];
-    public readonly nodePool?: { initialNodeCount: number, _name?: string, namePrefix?: string }[];
+    public readonly nodePool?: { initialNodeCount: number, namePrefix?: string }[];
     public readonly nodeVersion?: string;
     public readonly project?: string;
     public readonly subnetwork?: string;
@@ -29,19 +28,27 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.addonsConfig = args.addonsConfig;
         this.clusterIpv4Cidr = args.clusterIpv4Cidr;
         this.description = args.description;
+        if (args.endpoint === undefined) {
+            throw new Error("Property argument 'endpoint' is required, but was missing");
+        }
         this.endpoint = args.endpoint;
         this.initialNodeCount = args.initialNodeCount;
+        if (args.instanceGroupUrls === undefined) {
+            throw new Error("Property argument 'instanceGroupUrls' is required, but was missing");
+        }
         this.instanceGroupUrls = args.instanceGroupUrls;
         this.loggingService = args.loggingService;
         this.masterAuth = args.masterAuth;
         this.monitoringService = args.monitoringService;
-        this._name = args._name;
         this.network = args.network;
         this.nodeConfig = args.nodeConfig;
         this.nodePool = args.nodePool;
         this.nodeVersion = args.nodeVersion;
         this.project = args.project;
         this.subnetwork = args.subnetwork;
+        if (args.zone === undefined) {
+            throw new Error("Property argument 'zone' is required, but was missing");
+        }
         this.zone = args.zone;
     }
 }
@@ -57,10 +64,9 @@ export interface ClusterArgs {
     readonly loggingService?: string;
     readonly masterAuth?: { clientCertificate?: string, clientKey?: string, clusterCaCertificate?: string, password: string, username: string }[];
     readonly monitoringService?: string;
-    readonly _name: string;
     readonly network?: string;
     readonly nodeConfig?: { diskSizeGb?: number, imageType?: string, labels?: {[key: string]: string}, localSsdCount?: number, machineType?: string, metadata?: {[key: string]: string}, oauthScopes?: string[], serviceAccount?: string, tags?: string[] }[];
-    readonly nodePool?: { initialNodeCount: number, _name?: string, namePrefix?: string }[];
+    readonly nodePool?: { initialNodeCount: number, namePrefix?: string }[];
     readonly nodeVersion?: string;
     readonly project?: string;
     readonly subnetwork?: string;

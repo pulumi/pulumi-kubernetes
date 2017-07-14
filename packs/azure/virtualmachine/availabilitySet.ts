@@ -6,7 +6,6 @@ import * as lumi from "@lumi/lumi";
 export class AvailabilitySet extends lumi.NamedResource implements AvailabilitySetArgs {
     public readonly location: string;
     public readonly managed?: boolean;
-    public readonly _name: string;
     public readonly platformFaultDomainCount?: number;
     public readonly platformUpdateDomainCount?: number;
     public readonly resourceGroupName: string;
@@ -14,11 +13,16 @@ export class AvailabilitySet extends lumi.NamedResource implements AvailabilityS
 
     constructor(name: string, args: AvailabilitySetArgs) {
         super(name);
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
         this.managed = args.managed;
-        this._name = args._name;
         this.platformFaultDomainCount = args.platformFaultDomainCount;
         this.platformUpdateDomainCount = args.platformUpdateDomainCount;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
     }
@@ -27,7 +31,6 @@ export class AvailabilitySet extends lumi.NamedResource implements AvailabilityS
 export interface AvailabilitySetArgs {
     readonly location: string;
     readonly managed?: boolean;
-    readonly _name: string;
     readonly platformFaultDomainCount?: number;
     readonly platformUpdateDomainCount?: number;
     readonly resourceGroupName: string;

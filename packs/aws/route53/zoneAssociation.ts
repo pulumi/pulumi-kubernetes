@@ -10,8 +10,14 @@ export class ZoneAssociation extends lumi.NamedResource implements ZoneAssociati
 
     constructor(name: string, args: ZoneAssociationArgs) {
         super(name);
+        if (args.vpcId === undefined) {
+            throw new Error("Property argument 'vpcId' is required, but was missing");
+        }
         this.vpcId = args.vpcId;
         this.vpcRegion = args.vpcRegion;
+        if (args.zoneId === undefined) {
+            throw new Error("Property argument 'zoneId' is required, but was missing");
+        }
         this.zoneId = args.zoneId;
     }
 }

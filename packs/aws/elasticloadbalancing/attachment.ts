@@ -9,7 +9,13 @@ export class Attachment extends lumi.NamedResource implements AttachmentArgs {
 
     constructor(name: string, args: AttachmentArgs) {
         super(name);
+        if (args.elb === undefined) {
+            throw new Error("Property argument 'elb' is required, but was missing");
+        }
         this.elb = args.elb;
+        if (args.instance === undefined) {
+            throw new Error("Property argument 'instance' is required, but was missing");
+        }
         this.instance = args.instance;
     }
 }

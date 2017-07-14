@@ -9,7 +9,6 @@ export class TargetPool extends lumi.NamedResource implements TargetPoolArgs {
     public readonly failoverRatio?: number;
     public readonly healthChecks?: string[];
     public readonly instances?: string[];
-    public readonly _name: string;
     public readonly project?: string;
     public readonly region?: string;
     public readonly selfLink?: string;
@@ -22,9 +21,11 @@ export class TargetPool extends lumi.NamedResource implements TargetPoolArgs {
         this.failoverRatio = args.failoverRatio;
         this.healthChecks = args.healthChecks;
         this.instances = args.instances;
-        this._name = args._name;
         this.project = args.project;
         this.region = args.region;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
         this.sessionAffinity = args.sessionAffinity;
     }
@@ -36,7 +37,6 @@ export interface TargetPoolArgs {
     readonly failoverRatio?: number;
     readonly healthChecks?: string[];
     readonly instances?: string[];
-    readonly _name: string;
     readonly project?: string;
     readonly region?: string;
     readonly selfLink?: string;

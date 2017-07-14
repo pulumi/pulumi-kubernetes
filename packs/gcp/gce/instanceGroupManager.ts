@@ -9,8 +9,7 @@ export class InstanceGroupManager extends lumi.NamedResource implements Instance
     public readonly fingerprint?: string;
     public readonly instanceGroup?: string;
     public readonly instanceTemplate: string;
-    public readonly _name: string;
-    public readonly namedPort?: { _name: string, port: number }[];
+    public readonly namedPort?: { port: number }[];
     public readonly project?: string;
     public readonly selfLink?: string;
     public readonly targetPools?: string[];
@@ -20,18 +19,35 @@ export class InstanceGroupManager extends lumi.NamedResource implements Instance
 
     constructor(name: string, args: InstanceGroupManagerArgs) {
         super(name);
+        if (args.baseInstanceName === undefined) {
+            throw new Error("Property argument 'baseInstanceName' is required, but was missing");
+        }
         this.baseInstanceName = args.baseInstanceName;
         this.description = args.description;
+        if (args.fingerprint === undefined) {
+            throw new Error("Property argument 'fingerprint' is required, but was missing");
+        }
         this.fingerprint = args.fingerprint;
+        if (args.instanceGroup === undefined) {
+            throw new Error("Property argument 'instanceGroup' is required, but was missing");
+        }
         this.instanceGroup = args.instanceGroup;
+        if (args.instanceTemplate === undefined) {
+            throw new Error("Property argument 'instanceTemplate' is required, but was missing");
+        }
         this.instanceTemplate = args.instanceTemplate;
-        this._name = args._name;
         this.namedPort = args.namedPort;
         this.project = args.project;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
         this.targetPools = args.targetPools;
         this.targetSize = args.targetSize;
         this.updateStrategy = args.updateStrategy;
+        if (args.zone === undefined) {
+            throw new Error("Property argument 'zone' is required, but was missing");
+        }
         this.zone = args.zone;
     }
 }
@@ -42,8 +58,7 @@ export interface InstanceGroupManagerArgs {
     readonly fingerprint?: string;
     readonly instanceGroup?: string;
     readonly instanceTemplate: string;
-    readonly _name: string;
-    readonly namedPort?: { _name: string, port: number }[];
+    readonly namedPort?: { port: number }[];
     readonly project?: string;
     readonly selfLink?: string;
     readonly targetPools?: string[];

@@ -9,16 +9,23 @@ export class ApplicationVersion extends lumi.NamedResource implements Applicatio
     public readonly description?: string;
     public readonly forceDelete?: boolean;
     public readonly key: string;
-    public readonly _name: string;
 
     constructor(name: string, args: ApplicationVersionArgs) {
         super(name);
+        if (args.application === undefined) {
+            throw new Error("Property argument 'application' is required, but was missing");
+        }
         this.application = args.application;
+        if (args.bucket === undefined) {
+            throw new Error("Property argument 'bucket' is required, but was missing");
+        }
         this.bucket = args.bucket;
         this.description = args.description;
         this.forceDelete = args.forceDelete;
+        if (args.key === undefined) {
+            throw new Error("Property argument 'key' is required, but was missing");
+        }
         this.key = args.key;
-        this._name = args._name;
     }
 }
 
@@ -28,6 +35,5 @@ export interface ApplicationVersionArgs {
     readonly description?: string;
     readonly forceDelete?: boolean;
     readonly key: string;
-    readonly _name: string;
 }
 

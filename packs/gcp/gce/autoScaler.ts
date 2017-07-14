@@ -4,9 +4,8 @@
 import * as lumi from "@lumi/lumi";
 
 export class AutoScaler extends lumi.NamedResource implements AutoScalerArgs {
-    public readonly autoscalingPolicy?: { cooldownPeriod?: number, cpuUtilization?: { target: number }[], loadBalancingUtilization?: { target: number }[], maxReplicas: number, metric?: { _name: string, target: number, type: string }[], minReplicas: number }[];
+    public readonly autoscalingPolicy?: { cooldownPeriod?: number, cpuUtilization?: { target: number }[], loadBalancingUtilization?: { target: number }[], maxReplicas: number, metric?: { target: number, type: string }[], minReplicas: number }[];
     public readonly description?: string;
-    public readonly _name: string;
     public readonly project?: string;
     public readonly selfLink?: string;
     public readonly target: string;
@@ -16,18 +15,25 @@ export class AutoScaler extends lumi.NamedResource implements AutoScalerArgs {
         super(name);
         this.autoscalingPolicy = args.autoscalingPolicy;
         this.description = args.description;
-        this._name = args._name;
         this.project = args.project;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
+        if (args.target === undefined) {
+            throw new Error("Property argument 'target' is required, but was missing");
+        }
         this.target = args.target;
+        if (args.zone === undefined) {
+            throw new Error("Property argument 'zone' is required, but was missing");
+        }
         this.zone = args.zone;
     }
 }
 
 export interface AutoScalerArgs {
-    readonly autoscalingPolicy?: { cooldownPeriod?: number, cpuUtilization?: { target: number }[], loadBalancingUtilization?: { target: number }[], maxReplicas: number, metric?: { _name: string, target: number, type: string }[], minReplicas: number }[];
+    readonly autoscalingPolicy?: { cooldownPeriod?: number, cpuUtilization?: { target: number }[], loadBalancingUtilization?: { target: number }[], maxReplicas: number, metric?: { target: number, type: string }[], minReplicas: number }[];
     readonly description?: string;
-    readonly _name: string;
     readonly project?: string;
     readonly selfLink?: string;
     readonly target: string;

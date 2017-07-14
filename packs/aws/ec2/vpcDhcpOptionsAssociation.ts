@@ -9,7 +9,13 @@ export class VpcDhcpOptionsAssociation extends lumi.NamedResource implements Vpc
 
     constructor(name: string, args: VpcDhcpOptionsAssociationArgs) {
         super(name);
+        if (args.dhcpOptionsId === undefined) {
+            throw new Error("Property argument 'dhcpOptionsId' is required, but was missing");
+        }
         this.dhcpOptionsId = args.dhcpOptionsId;
+        if (args.vpcId === undefined) {
+            throw new Error("Property argument 'vpcId' is required, but was missing");
+        }
         this.vpcId = args.vpcId;
     }
 }

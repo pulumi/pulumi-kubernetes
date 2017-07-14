@@ -22,15 +22,30 @@ export class Route extends lumi.NamedResource implements RouteArgs {
         super(name);
         this.destinationCidrBlock = args.destinationCidrBlock;
         this.destinationIpv6CidrBlock = args.destinationIpv6CidrBlock;
+        if (args.destinationPrefixListId === undefined) {
+            throw new Error("Property argument 'destinationPrefixListId' is required, but was missing");
+        }
         this.destinationPrefixListId = args.destinationPrefixListId;
         this.egressOnlyGatewayId = args.egressOnlyGatewayId;
         this.gatewayId = args.gatewayId;
         this.instanceId = args.instanceId;
+        if (args.instanceOwnerId === undefined) {
+            throw new Error("Property argument 'instanceOwnerId' is required, but was missing");
+        }
         this.instanceOwnerId = args.instanceOwnerId;
         this.natGatewayId = args.natGatewayId;
         this.networkInterfaceId = args.networkInterfaceId;
+        if (args.origin === undefined) {
+            throw new Error("Property argument 'origin' is required, but was missing");
+        }
         this.origin = args.origin;
+        if (args.routeTableId === undefined) {
+            throw new Error("Property argument 'routeTableId' is required, but was missing");
+        }
         this.routeTableId = args.routeTableId;
+        if (args.state === undefined) {
+            throw new Error("Property argument 'state' is required, but was missing");
+        }
         this.state = args.state;
         this.vpcPeeringConnectionId = args.vpcPeeringConnectionId;
     }

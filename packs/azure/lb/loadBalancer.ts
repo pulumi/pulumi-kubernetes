@@ -4,9 +4,8 @@
 import * as lumi from "@lumi/lumi";
 
 export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs {
-    public readonly frontendIpConfiguration?: { inboundNatRules?: string[], loadBalancerRules?: string[], _name: string, privateIpAddress?: string, privateIpAddressAllocation?: string, publicIpAddressId?: string, subnetId?: string }[];
+    public readonly frontendIpConfiguration?: { inboundNatRules?: string[], loadBalancerRules?: string[], privateIpAddress?: string, privateIpAddressAllocation?: string, publicIpAddressId?: string, subnetId?: string }[];
     public readonly location: string;
-    public readonly _name: string;
     public readonly privateIpAddress?: string;
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -14,18 +13,25 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
     constructor(name: string, args: LoadBalancerArgs) {
         super(name);
         this.frontendIpConfiguration = args.frontendIpConfiguration;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.privateIpAddress === undefined) {
+            throw new Error("Property argument 'privateIpAddress' is required, but was missing");
+        }
         this.privateIpAddress = args.privateIpAddress;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
     }
 }
 
 export interface LoadBalancerArgs {
-    readonly frontendIpConfiguration?: { inboundNatRules?: string[], loadBalancerRules?: string[], _name: string, privateIpAddress?: string, privateIpAddressAllocation?: string, publicIpAddressId?: string, subnetId?: string }[];
+    readonly frontendIpConfiguration?: { inboundNatRules?: string[], loadBalancerRules?: string[], privateIpAddress?: string, privateIpAddressAllocation?: string, publicIpAddressId?: string, subnetId?: string }[];
     readonly location: string;
-    readonly _name: string;
     readonly privateIpAddress?: string;
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

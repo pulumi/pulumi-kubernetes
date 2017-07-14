@@ -3,6 +3,9 @@
 
 import * as lumi from "@lumi/lumi";
 
+import {Resource} from "./resource";
+import {RestApi} from "./restApi";
+
 export class Integration extends lumi.NamedResource implements IntegrationArgs {
     public readonly cacheKeyParameters?: string[];
     public readonly cacheNamespace?: string;
@@ -14,8 +17,8 @@ export class Integration extends lumi.NamedResource implements IntegrationArgs {
     public readonly requestParameters?: {[key: string]: string};
     public readonly requestParametersInJson?: string;
     public readonly requestTemplates?: {[key: string]: string};
-    public readonly resourceId: string;
-    public readonly restApiId: string;
+    public readonly resource: Resource;
+    public readonly restApi: RestApi;
     public readonly type: string;
     public readonly uri?: string;
 
@@ -25,14 +28,26 @@ export class Integration extends lumi.NamedResource implements IntegrationArgs {
         this.cacheNamespace = args.cacheNamespace;
         this.contentHandling = args.contentHandling;
         this.credentials = args.credentials;
+        if (args.httpMethod === undefined) {
+            throw new Error("Property argument 'httpMethod' is required, but was missing");
+        }
         this.httpMethod = args.httpMethod;
         this.integrationHttpMethod = args.integrationHttpMethod;
         this.passthroughBehavior = args.passthroughBehavior;
         this.requestParameters = args.requestParameters;
         this.requestParametersInJson = args.requestParametersInJson;
         this.requestTemplates = args.requestTemplates;
-        this.resourceId = args.resourceId;
-        this.restApiId = args.restApiId;
+        if (args.resource === undefined) {
+            throw new Error("Property argument 'resource' is required, but was missing");
+        }
+        this.resource = args.resource;
+        if (args.restApi === undefined) {
+            throw new Error("Property argument 'restApi' is required, but was missing");
+        }
+        this.restApi = args.restApi;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
         this.uri = args.uri;
     }
@@ -49,8 +64,8 @@ export interface IntegrationArgs {
     readonly requestParameters?: {[key: string]: string};
     readonly requestParametersInJson?: string;
     readonly requestTemplates?: {[key: string]: string};
-    readonly resourceId: string;
-    readonly restApiId: string;
+    readonly resource: Resource;
+    readonly restApi: RestApi;
     readonly type: string;
     readonly uri?: string;
 }

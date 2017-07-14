@@ -9,7 +9,13 @@ export class ProxyProtocolPolicy extends lumi.NamedResource implements ProxyProt
 
     constructor(name: string, args: ProxyProtocolPolicyArgs) {
         super(name);
+        if (args.instancePorts === undefined) {
+            throw new Error("Property argument 'instancePorts' is required, but was missing");
+        }
         this.instancePorts = args.instancePorts;
+        if (args.loadBalancer === undefined) {
+            throw new Error("Property argument 'loadBalancer' is required, but was missing");
+        }
         this.loadBalancer = args.loadBalancer;
     }
 }

@@ -21,9 +21,21 @@ export class DomainName extends lumi.NamedResource implements DomainNameArgs {
         this.certificateChain = args.certificateChain;
         this.certificateName = args.certificateName;
         this.certificatePrivateKey = args.certificatePrivateKey;
+        if (args.certificateUploadDate === undefined) {
+            throw new Error("Property argument 'certificateUploadDate' is required, but was missing");
+        }
         this.certificateUploadDate = args.certificateUploadDate;
+        if (args.cloudfrontDomainName === undefined) {
+            throw new Error("Property argument 'cloudfrontDomainName' is required, but was missing");
+        }
         this.cloudfrontDomainName = args.cloudfrontDomainName;
+        if (args.cloudfrontZoneId === undefined) {
+            throw new Error("Property argument 'cloudfrontZoneId' is required, but was missing");
+        }
         this.cloudfrontZoneId = args.cloudfrontZoneId;
+        if (args.domainName === undefined) {
+            throw new Error("Property argument 'domainName' is required, but was missing");
+        }
         this.domainName = args.domainName;
     }
 }

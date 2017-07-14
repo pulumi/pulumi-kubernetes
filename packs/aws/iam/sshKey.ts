@@ -13,11 +13,26 @@ export class SshKey extends lumi.NamedResource implements SshKeyArgs {
 
     constructor(name: string, args: SshKeyArgs) {
         super(name);
+        if (args.encoding === undefined) {
+            throw new Error("Property argument 'encoding' is required, but was missing");
+        }
         this.encoding = args.encoding;
+        if (args.fingerprint === undefined) {
+            throw new Error("Property argument 'fingerprint' is required, but was missing");
+        }
         this.fingerprint = args.fingerprint;
+        if (args.publicKey === undefined) {
+            throw new Error("Property argument 'publicKey' is required, but was missing");
+        }
         this.publicKey = args.publicKey;
+        if (args.sshPublicKeyId === undefined) {
+            throw new Error("Property argument 'sshPublicKeyId' is required, but was missing");
+        }
         this.sshPublicKeyId = args.sshPublicKeyId;
         this.status = args.status;
+        if (args.username === undefined) {
+            throw new Error("Property argument 'username' is required, but was missing");
+        }
         this.username = args.username;
     }
 }

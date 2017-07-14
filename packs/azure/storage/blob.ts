@@ -5,7 +5,6 @@ import * as lumi from "@lumi/lumi";
 
 export class Blob extends lumi.NamedResource implements BlobArgs {
     public readonly attempts?: number;
-    public readonly _name: string;
     public readonly parallelism?: number;
     public readonly resourceGroupName: string;
     public readonly size?: number;
@@ -19,22 +18,32 @@ export class Blob extends lumi.NamedResource implements BlobArgs {
     constructor(name: string, args: BlobArgs) {
         super(name);
         this.attempts = args.attempts;
-        this._name = args._name;
         this.parallelism = args.parallelism;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.size = args.size;
         this.source = args.source;
         this.sourceUri = args.sourceUri;
+        if (args.storageAccountName === undefined) {
+            throw new Error("Property argument 'storageAccountName' is required, but was missing");
+        }
         this.storageAccountName = args.storageAccountName;
+        if (args.storageContainerName === undefined) {
+            throw new Error("Property argument 'storageContainerName' is required, but was missing");
+        }
         this.storageContainerName = args.storageContainerName;
         this.type = args.type;
+        if (args.url === undefined) {
+            throw new Error("Property argument 'url' is required, but was missing");
+        }
         this.url = args.url;
     }
 }
 
 export interface BlobArgs {
     readonly attempts?: number;
-    readonly _name: string;
     readonly parallelism?: number;
     readonly resourceGroupName: string;
     readonly size?: number;

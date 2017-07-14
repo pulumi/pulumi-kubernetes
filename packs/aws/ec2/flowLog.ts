@@ -14,9 +14,18 @@ export class FlowLog extends lumi.NamedResource implements FlowLogArgs {
     constructor(name: string, args: FlowLogArgs) {
         super(name);
         this.eniId = args.eniId;
+        if (args.iamRoleArn === undefined) {
+            throw new Error("Property argument 'iamRoleArn' is required, but was missing");
+        }
         this.iamRoleArn = args.iamRoleArn;
+        if (args.logGroupName === undefined) {
+            throw new Error("Property argument 'logGroupName' is required, but was missing");
+        }
         this.logGroupName = args.logGroupName;
         this.subnetId = args.subnetId;
+        if (args.trafficType === undefined) {
+            throw new Error("Property argument 'trafficType' is required, but was missing");
+        }
         this.trafficType = args.trafficType;
         this.vpcId = args.vpcId;
     }

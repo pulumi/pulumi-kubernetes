@@ -9,7 +9,13 @@ export class LogDestinationPolicy extends lumi.NamedResource implements LogDesti
 
     constructor(name: string, args: LogDestinationPolicyArgs) {
         super(name);
+        if (args.accessPolicy === undefined) {
+            throw new Error("Property argument 'accessPolicy' is required, but was missing");
+        }
         this.accessPolicy = args.accessPolicy;
+        if (args.destinationName === undefined) {
+            throw new Error("Property argument 'destinationName' is required, but was missing");
+        }
         this.destinationName = args.destinationName;
     }
 }

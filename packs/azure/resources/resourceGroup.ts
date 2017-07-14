@@ -5,20 +5,20 @@ import * as lumi from "@lumi/lumi";
 
 export class ResourceGroup extends lumi.NamedResource implements ResourceGroupArgs {
     public readonly location: string;
-    public readonly _name: string;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: ResourceGroupArgs) {
         super(name);
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
         this.tags = args.tags;
     }
 }
 
 export interface ResourceGroupArgs {
     readonly location: string;
-    readonly _name: string;
     readonly tags?: {[key: string]: any};
 }
 

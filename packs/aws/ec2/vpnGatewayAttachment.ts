@@ -9,7 +9,13 @@ export class VpnGatewayAttachment extends lumi.NamedResource implements VpnGatew
 
     constructor(name: string, args: VpnGatewayAttachmentArgs) {
         super(name);
+        if (args.vpcId === undefined) {
+            throw new Error("Property argument 'vpcId' is required, but was missing");
+        }
         this.vpcId = args.vpcId;
+        if (args.vpnGatewayId === undefined) {
+            throw new Error("Property argument 'vpnGatewayId' is required, but was missing");
+        }
         this.vpnGatewayId = args.vpnGatewayId;
     }
 }

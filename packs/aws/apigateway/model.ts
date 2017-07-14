@@ -6,15 +6,19 @@ import * as lumi from "@lumi/lumi";
 export class Model extends lumi.NamedResource implements ModelArgs {
     public readonly contentType: string;
     public readonly description?: string;
-    public readonly _name: string;
     public readonly restApiId: string;
     public readonly schema?: string;
 
     constructor(name: string, args: ModelArgs) {
         super(name);
+        if (args.contentType === undefined) {
+            throw new Error("Property argument 'contentType' is required, but was missing");
+        }
         this.contentType = args.contentType;
         this.description = args.description;
-        this._name = args._name;
+        if (args.restApiId === undefined) {
+            throw new Error("Property argument 'restApiId' is required, but was missing");
+        }
         this.restApiId = args.restApiId;
         this.schema = args.schema;
     }
@@ -23,7 +27,6 @@ export class Model extends lumi.NamedResource implements ModelArgs {
 export interface ModelArgs {
     readonly contentType: string;
     readonly description?: string;
-    readonly _name: string;
     readonly restApiId: string;
     readonly schema?: string;
 }

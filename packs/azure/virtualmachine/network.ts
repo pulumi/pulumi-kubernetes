@@ -7,17 +7,24 @@ export class Network extends lumi.NamedResource implements NetworkArgs {
     public readonly addressSpace: string[];
     public readonly dnsServers?: string[];
     public readonly location: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
-    public readonly subnet?: { addressPrefix: string, _name: string, securityGroup?: string }[];
+    public readonly subnet?: { addressPrefix: string, securityGroup?: string }[];
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: NetworkArgs) {
         super(name);
+        if (args.addressSpace === undefined) {
+            throw new Error("Property argument 'addressSpace' is required, but was missing");
+        }
         this.addressSpace = args.addressSpace;
         this.dnsServers = args.dnsServers;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.subnet = args.subnet;
         this.tags = args.tags;
@@ -28,9 +35,8 @@ export interface NetworkArgs {
     readonly addressSpace: string[];
     readonly dnsServers?: string[];
     readonly location: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
-    readonly subnet?: { addressPrefix: string, _name: string, securityGroup?: string }[];
+    readonly subnet?: { addressPrefix: string, securityGroup?: string }[];
     readonly tags?: {[key: string]: any};
 }
 

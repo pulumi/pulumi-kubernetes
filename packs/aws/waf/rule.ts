@@ -5,20 +5,20 @@ import * as lumi from "@lumi/lumi";
 
 export class Rule extends lumi.NamedResource implements RuleArgs {
     public readonly metricName: string;
-    public readonly _name: string;
     public readonly predicates?: { dataId?: string, negated: boolean, type: string }[];
 
     constructor(name: string, args: RuleArgs) {
         super(name);
+        if (args.metricName === undefined) {
+            throw new Error("Property argument 'metricName' is required, but was missing");
+        }
         this.metricName = args.metricName;
-        this._name = args._name;
         this.predicates = args.predicates;
     }
 }
 
 export interface RuleArgs {
     readonly metricName: string;
-    readonly _name: string;
     readonly predicates?: { dataId?: string, negated: boolean, type: string }[];
 }
 

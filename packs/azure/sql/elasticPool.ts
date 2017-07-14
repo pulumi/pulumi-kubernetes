@@ -10,7 +10,6 @@ export class ElasticPool extends lumi.NamedResource implements ElasticPoolArgs {
     public readonly dtu: number;
     public readonly edition: string;
     public readonly location: string;
-    public readonly _name: string;
     public readonly poolSize?: number;
     public readonly resourceGroupName: string;
     public readonly serverName: string;
@@ -18,15 +17,32 @@ export class ElasticPool extends lumi.NamedResource implements ElasticPoolArgs {
 
     constructor(name: string, args: ElasticPoolArgs) {
         super(name);
+        if (args.creationDate === undefined) {
+            throw new Error("Property argument 'creationDate' is required, but was missing");
+        }
         this.creationDate = args.creationDate;
         this.dbDtuMax = args.dbDtuMax;
         this.dbDtuMin = args.dbDtuMin;
+        if (args.dtu === undefined) {
+            throw new Error("Property argument 'dtu' is required, but was missing");
+        }
         this.dtu = args.dtu;
+        if (args.edition === undefined) {
+            throw new Error("Property argument 'edition' is required, but was missing");
+        }
         this.edition = args.edition;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
         this.poolSize = args.poolSize;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.serverName === undefined) {
+            throw new Error("Property argument 'serverName' is required, but was missing");
+        }
         this.serverName = args.serverName;
         this.tags = args.tags;
     }
@@ -39,7 +55,6 @@ export interface ElasticPoolArgs {
     readonly dtu: number;
     readonly edition: string;
     readonly location: string;
-    readonly _name: string;
     readonly poolSize?: number;
     readonly resourceGroupName: string;
     readonly serverName: string;

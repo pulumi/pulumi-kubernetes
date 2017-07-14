@@ -18,6 +18,9 @@ export class AccountPasswordPolicy extends lumi.NamedResource implements Account
     constructor(name: string, args: AccountPasswordPolicyArgs) {
         super(name);
         this.allowUsersToChangePassword = args.allowUsersToChangePassword;
+        if (args.expirePasswords === undefined) {
+            throw new Error("Property argument 'expirePasswords' is required, but was missing");
+        }
         this.expirePasswords = args.expirePasswords;
         this.hardExpiry = args.hardExpiry;
         this.maxPasswordAge = args.maxPasswordAge;

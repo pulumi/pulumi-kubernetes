@@ -9,9 +9,8 @@ export class KeyVault extends lumi.NamedResource implements KeyVaultArgs {
     public readonly enabledForDiskEncryption?: boolean;
     public readonly enabledForTemplateDeployment?: boolean;
     public readonly location: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
-    public readonly sku: { _name: string }[];
+    public readonly sku: {  }[];
     public readonly tags?: {[key: string]: any};
     public readonly tenantId: string;
     public readonly vaultUri?: string;
@@ -22,12 +21,26 @@ export class KeyVault extends lumi.NamedResource implements KeyVaultArgs {
         this.enabledForDeployment = args.enabledForDeployment;
         this.enabledForDiskEncryption = args.enabledForDiskEncryption;
         this.enabledForTemplateDeployment = args.enabledForTemplateDeployment;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.sku === undefined) {
+            throw new Error("Property argument 'sku' is required, but was missing");
+        }
         this.sku = args.sku;
         this.tags = args.tags;
+        if (args.tenantId === undefined) {
+            throw new Error("Property argument 'tenantId' is required, but was missing");
+        }
         this.tenantId = args.tenantId;
+        if (args.vaultUri === undefined) {
+            throw new Error("Property argument 'vaultUri' is required, but was missing");
+        }
         this.vaultUri = args.vaultUri;
     }
 }
@@ -38,9 +51,8 @@ export interface KeyVaultArgs {
     readonly enabledForDiskEncryption?: boolean;
     readonly enabledForTemplateDeployment?: boolean;
     readonly location: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
-    readonly sku: { _name: string }[];
+    readonly sku: {  }[];
     readonly tags?: {[key: string]: any};
     readonly tenantId: string;
     readonly vaultUri?: string;

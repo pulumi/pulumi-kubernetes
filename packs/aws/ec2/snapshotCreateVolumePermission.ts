@@ -9,7 +9,13 @@ export class SnapshotCreateVolumePermission extends lumi.NamedResource implement
 
     constructor(name: string, args: SnapshotCreateVolumePermissionArgs) {
         super(name);
+        if (args.accountId === undefined) {
+            throw new Error("Property argument 'accountId' is required, but was missing");
+        }
         this.accountId = args.accountId;
+        if (args.snapshotId === undefined) {
+            throw new Error("Property argument 'snapshotId' is required, but was missing");
+        }
         this.snapshotId = args.snapshotId;
     }
 }

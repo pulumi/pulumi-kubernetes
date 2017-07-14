@@ -12,10 +12,19 @@ export class VolumeAttachment extends lumi.NamedResource implements VolumeAttach
 
     constructor(name: string, args: VolumeAttachmentArgs) {
         super(name);
+        if (args.deviceName === undefined) {
+            throw new Error("Property argument 'deviceName' is required, but was missing");
+        }
         this.deviceName = args.deviceName;
         this.forceDetach = args.forceDetach;
+        if (args.instanceId === undefined) {
+            throw new Error("Property argument 'instanceId' is required, but was missing");
+        }
         this.instanceId = args.instanceId;
         this.skipDestroy = args.skipDestroy;
+        if (args.volumeId === undefined) {
+            throw new Error("Property argument 'volumeId' is required, but was missing");
+        }
         this.volumeId = args.volumeId;
     }
 }

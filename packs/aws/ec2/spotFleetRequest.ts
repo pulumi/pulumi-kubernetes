@@ -20,13 +20,31 @@ export class SpotFleetRequest extends lumi.NamedResource implements SpotFleetReq
     constructor(name: string, args: SpotFleetRequestArgs) {
         super(name);
         this.allocationStrategy = args.allocationStrategy;
+        if (args.clientToken === undefined) {
+            throw new Error("Property argument 'clientToken' is required, but was missing");
+        }
         this.clientToken = args.clientToken;
         this.excessCapacityTerminationPolicy = args.excessCapacityTerminationPolicy;
+        if (args.iamFleetRole === undefined) {
+            throw new Error("Property argument 'iamFleetRole' is required, but was missing");
+        }
         this.iamFleetRole = args.iamFleetRole;
+        if (args.launchSpecification === undefined) {
+            throw new Error("Property argument 'launchSpecification' is required, but was missing");
+        }
         this.launchSpecification = args.launchSpecification;
         this.replaceUnhealthyInstances = args.replaceUnhealthyInstances;
+        if (args.spotPrice === undefined) {
+            throw new Error("Property argument 'spotPrice' is required, but was missing");
+        }
         this.spotPrice = args.spotPrice;
+        if (args.spotRequestState === undefined) {
+            throw new Error("Property argument 'spotRequestState' is required, but was missing");
+        }
         this.spotRequestState = args.spotRequestState;
+        if (args.targetCapacity === undefined) {
+            throw new Error("Property argument 'targetCapacity' is required, but was missing");
+        }
         this.targetCapacity = args.targetCapacity;
         this.terminateInstancesWithExpiration = args.terminateInstancesWithExpiration;
         this.validFrom = args.validFrom;

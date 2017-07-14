@@ -9,7 +9,13 @@ export class Services extends lumi.NamedResource implements ServicesArgs {
 
     constructor(name: string, args: ServicesArgs) {
         super(name);
+        if (args.project === undefined) {
+            throw new Error("Property argument 'project' is required, but was missing");
+        }
         this.project = args.project;
+        if (args.services === undefined) {
+            throw new Error("Property argument 'services' is required, but was missing");
+        }
         this.services = args.services;
     }
 }

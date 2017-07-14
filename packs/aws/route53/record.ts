@@ -4,13 +4,12 @@
 import * as lumi from "@lumi/lumi";
 
 export class Record extends lumi.NamedResource implements RecordArgs {
-    public readonly alias?: { evaluateTargetHealth: boolean, _name: string, zoneId: string }[];
+    public readonly alias?: { evaluateTargetHealth: boolean, zoneId: string }[];
     public readonly failoverRoutingPolicy?: { type: string }[];
     public readonly fqdn?: string;
     public readonly geolocationRoutingPolicy?: { continent?: string, country?: string, subdivision?: string }[];
     public readonly healthCheckId?: string;
     public readonly latencyRoutingPolicy?: { region: string }[];
-    public readonly _name: string;
     public readonly records?: string[];
     public readonly setIdentifier?: string;
     public readonly ttl?: number;
@@ -22,28 +21,35 @@ export class Record extends lumi.NamedResource implements RecordArgs {
         super(name);
         this.alias = args.alias;
         this.failoverRoutingPolicy = args.failoverRoutingPolicy;
+        if (args.fqdn === undefined) {
+            throw new Error("Property argument 'fqdn' is required, but was missing");
+        }
         this.fqdn = args.fqdn;
         this.geolocationRoutingPolicy = args.geolocationRoutingPolicy;
         this.healthCheckId = args.healthCheckId;
         this.latencyRoutingPolicy = args.latencyRoutingPolicy;
-        this._name = args._name;
         this.records = args.records;
         this.setIdentifier = args.setIdentifier;
         this.ttl = args.ttl;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
         this.weightedRoutingPolicy = args.weightedRoutingPolicy;
+        if (args.zoneId === undefined) {
+            throw new Error("Property argument 'zoneId' is required, but was missing");
+        }
         this.zoneId = args.zoneId;
     }
 }
 
 export interface RecordArgs {
-    readonly alias?: { evaluateTargetHealth: boolean, _name: string, zoneId: string }[];
+    readonly alias?: { evaluateTargetHealth: boolean, zoneId: string }[];
     readonly failoverRoutingPolicy?: { type: string }[];
     readonly fqdn?: string;
     readonly geolocationRoutingPolicy?: { continent?: string, country?: string, subdivision?: string }[];
     readonly healthCheckId?: string;
     readonly latencyRoutingPolicy?: { region: string }[];
-    readonly _name: string;
     readonly records?: string[];
     readonly setIdentifier?: string;
     readonly ttl?: number;

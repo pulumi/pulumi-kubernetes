@@ -11,9 +11,21 @@ export class MethodSettings extends lumi.NamedResource implements MethodSettings
 
     constructor(name: string, args: MethodSettingsArgs) {
         super(name);
+        if (args.methodPath === undefined) {
+            throw new Error("Property argument 'methodPath' is required, but was missing");
+        }
         this.methodPath = args.methodPath;
+        if (args.restApiId === undefined) {
+            throw new Error("Property argument 'restApiId' is required, but was missing");
+        }
         this.restApiId = args.restApiId;
+        if (args.settings === undefined) {
+            throw new Error("Property argument 'settings' is required, but was missing");
+        }
         this.settings = args.settings;
+        if (args.stageName === undefined) {
+            throw new Error("Property argument 'stageName' is required, but was missing");
+        }
         this.stageName = args.stageName;
     }
 }

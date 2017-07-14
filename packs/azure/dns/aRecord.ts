@@ -4,7 +4,6 @@
 import * as lumi from "@lumi/lumi";
 
 export class ARecord extends lumi.NamedResource implements ARecordArgs {
-    public readonly _name: string;
     public readonly records: string[];
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -13,17 +12,27 @@ export class ARecord extends lumi.NamedResource implements ARecordArgs {
 
     constructor(name: string, args: ARecordArgs) {
         super(name);
-        this._name = args._name;
+        if (args.records === undefined) {
+            throw new Error("Property argument 'records' is required, but was missing");
+        }
         this.records = args.records;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
+        if (args.ttl === undefined) {
+            throw new Error("Property argument 'ttl' is required, but was missing");
+        }
         this.ttl = args.ttl;
+        if (args.zoneName === undefined) {
+            throw new Error("Property argument 'zoneName' is required, but was missing");
+        }
         this.zoneName = args.zoneName;
     }
 }
 
 export interface ARecordArgs {
-    readonly _name: string;
     readonly records: string[];
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

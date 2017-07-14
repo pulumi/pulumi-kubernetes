@@ -11,21 +11,42 @@ export class MaintenanceWindowTask extends lumi.NamedResource implements Mainten
     public readonly serviceRoleArn: string;
     public readonly targets: { key: string, values: string[] }[];
     public readonly taskArn: string;
-    public readonly taskParameters?: { _name: string, values: string[] }[];
+    public readonly taskParameters?: { values: string[] }[];
     public readonly taskType: string;
     public readonly windowId: string;
 
     constructor(name: string, args: MaintenanceWindowTaskArgs) {
         super(name);
         this.loggingInfo = args.loggingInfo;
+        if (args.maxConcurrency === undefined) {
+            throw new Error("Property argument 'maxConcurrency' is required, but was missing");
+        }
         this.maxConcurrency = args.maxConcurrency;
+        if (args.maxErrors === undefined) {
+            throw new Error("Property argument 'maxErrors' is required, but was missing");
+        }
         this.maxErrors = args.maxErrors;
         this.priority = args.priority;
+        if (args.serviceRoleArn === undefined) {
+            throw new Error("Property argument 'serviceRoleArn' is required, but was missing");
+        }
         this.serviceRoleArn = args.serviceRoleArn;
+        if (args.targets === undefined) {
+            throw new Error("Property argument 'targets' is required, but was missing");
+        }
         this.targets = args.targets;
+        if (args.taskArn === undefined) {
+            throw new Error("Property argument 'taskArn' is required, but was missing");
+        }
         this.taskArn = args.taskArn;
         this.taskParameters = args.taskParameters;
+        if (args.taskType === undefined) {
+            throw new Error("Property argument 'taskType' is required, but was missing");
+        }
         this.taskType = args.taskType;
+        if (args.windowId === undefined) {
+            throw new Error("Property argument 'windowId' is required, but was missing");
+        }
         this.windowId = args.windowId;
     }
 }
@@ -38,7 +59,7 @@ export interface MaintenanceWindowTaskArgs {
     readonly serviceRoleArn: string;
     readonly targets: { key: string, values: string[] }[];
     readonly taskArn: string;
-    readonly taskParameters?: { _name: string, values: string[] }[];
+    readonly taskParameters?: { values: string[] }[];
     readonly taskType: string;
     readonly windowId: string;
 }

@@ -8,15 +8,22 @@ export class Alias extends lumi.NamedResource implements AliasArgs {
     public readonly description?: string;
     public readonly functionName: string;
     public readonly functionVersion: string;
-    public readonly _name: string;
 
     constructor(name: string, args: AliasArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.description = args.description;
+        if (args.functionName === undefined) {
+            throw new Error("Property argument 'functionName' is required, but was missing");
+        }
         this.functionName = args.functionName;
+        if (args.functionVersion === undefined) {
+            throw new Error("Property argument 'functionVersion' is required, but was missing");
+        }
         this.functionVersion = args.functionVersion;
-        this._name = args._name;
     }
 }
 
@@ -25,6 +32,5 @@ export interface AliasArgs {
     readonly description?: string;
     readonly functionName: string;
     readonly functionVersion: string;
-    readonly _name: string;
 }
 

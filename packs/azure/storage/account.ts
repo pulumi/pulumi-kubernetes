@@ -9,7 +9,6 @@ export class Account extends lumi.NamedResource implements AccountArgs {
     public readonly accountType: string;
     public readonly enableBlobEncryption?: boolean;
     public readonly location: string;
-    public readonly _name: string;
     public readonly primaryAccessKey?: string;
     public readonly primaryBlobConnectionString?: string;
     public readonly primaryBlobEndpoint?: string;
@@ -30,23 +29,70 @@ export class Account extends lumi.NamedResource implements AccountArgs {
         super(name);
         this.accessTier = args.accessTier;
         this.accountKind = args.accountKind;
+        if (args.accountType === undefined) {
+            throw new Error("Property argument 'accountType' is required, but was missing");
+        }
         this.accountType = args.accountType;
         this.enableBlobEncryption = args.enableBlobEncryption;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.primaryAccessKey === undefined) {
+            throw new Error("Property argument 'primaryAccessKey' is required, but was missing");
+        }
         this.primaryAccessKey = args.primaryAccessKey;
+        if (args.primaryBlobConnectionString === undefined) {
+            throw new Error("Property argument 'primaryBlobConnectionString' is required, but was missing");
+        }
         this.primaryBlobConnectionString = args.primaryBlobConnectionString;
+        if (args.primaryBlobEndpoint === undefined) {
+            throw new Error("Property argument 'primaryBlobEndpoint' is required, but was missing");
+        }
         this.primaryBlobEndpoint = args.primaryBlobEndpoint;
+        if (args.primaryFileEndpoint === undefined) {
+            throw new Error("Property argument 'primaryFileEndpoint' is required, but was missing");
+        }
         this.primaryFileEndpoint = args.primaryFileEndpoint;
+        if (args.primaryLocation === undefined) {
+            throw new Error("Property argument 'primaryLocation' is required, but was missing");
+        }
         this.primaryLocation = args.primaryLocation;
+        if (args.primaryQueueEndpoint === undefined) {
+            throw new Error("Property argument 'primaryQueueEndpoint' is required, but was missing");
+        }
         this.primaryQueueEndpoint = args.primaryQueueEndpoint;
+        if (args.primaryTableEndpoint === undefined) {
+            throw new Error("Property argument 'primaryTableEndpoint' is required, but was missing");
+        }
         this.primaryTableEndpoint = args.primaryTableEndpoint;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.secondaryAccessKey === undefined) {
+            throw new Error("Property argument 'secondaryAccessKey' is required, but was missing");
+        }
         this.secondaryAccessKey = args.secondaryAccessKey;
+        if (args.secondaryBlobConnectionString === undefined) {
+            throw new Error("Property argument 'secondaryBlobConnectionString' is required, but was missing");
+        }
         this.secondaryBlobConnectionString = args.secondaryBlobConnectionString;
+        if (args.secondaryBlobEndpoint === undefined) {
+            throw new Error("Property argument 'secondaryBlobEndpoint' is required, but was missing");
+        }
         this.secondaryBlobEndpoint = args.secondaryBlobEndpoint;
+        if (args.secondaryLocation === undefined) {
+            throw new Error("Property argument 'secondaryLocation' is required, but was missing");
+        }
         this.secondaryLocation = args.secondaryLocation;
+        if (args.secondaryQueueEndpoint === undefined) {
+            throw new Error("Property argument 'secondaryQueueEndpoint' is required, but was missing");
+        }
         this.secondaryQueueEndpoint = args.secondaryQueueEndpoint;
+        if (args.secondaryTableEndpoint === undefined) {
+            throw new Error("Property argument 'secondaryTableEndpoint' is required, but was missing");
+        }
         this.secondaryTableEndpoint = args.secondaryTableEndpoint;
         this.tags = args.tags;
     }
@@ -58,7 +104,6 @@ export interface AccountArgs {
     readonly accountType: string;
     readonly enableBlobEncryption?: boolean;
     readonly location: string;
-    readonly _name: string;
     readonly primaryAccessKey?: string;
     readonly primaryBlobConnectionString?: string;
     readonly primaryBlobEndpoint?: string;

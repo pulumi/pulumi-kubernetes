@@ -6,14 +6,18 @@ import * as lumi from "@lumi/lumi";
 export class SecurityConfiguration extends lumi.NamedResource implements SecurityConfigurationArgs {
     public readonly configuration: string;
     public readonly creationDate?: string;
-    public readonly _name?: string;
     public readonly namePrefix?: string;
 
     constructor(name: string, args: SecurityConfigurationArgs) {
         super(name);
+        if (args.configuration === undefined) {
+            throw new Error("Property argument 'configuration' is required, but was missing");
+        }
         this.configuration = args.configuration;
+        if (args.creationDate === undefined) {
+            throw new Error("Property argument 'creationDate' is required, but was missing");
+        }
         this.creationDate = args.creationDate;
-        this._name = args._name;
         this.namePrefix = args.namePrefix;
     }
 }
@@ -21,7 +25,6 @@ export class SecurityConfiguration extends lumi.NamedResource implements Securit
 export interface SecurityConfigurationArgs {
     readonly configuration: string;
     readonly creationDate?: string;
-    readonly _name?: string;
     readonly namePrefix?: string;
 }
 

@@ -3,19 +3,28 @@
 
 import * as lumi from "@lumi/lumi";
 
+import {ARN} from "../index";
+import {Group} from "./group";
+
 export class GroupPolicyAttachment extends lumi.NamedResource implements GroupPolicyAttachmentArgs {
-    public readonly group: string;
-    public readonly policyArn: string;
+    public readonly group: Group;
+    public readonly policyArn: ARN;
 
     constructor(name: string, args: GroupPolicyAttachmentArgs) {
         super(name);
+        if (args.group === undefined) {
+            throw new Error("Property argument 'group' is required, but was missing");
+        }
         this.group = args.group;
+        if (args.policyArn === undefined) {
+            throw new Error("Property argument 'policyArn' is required, but was missing");
+        }
         this.policyArn = args.policyArn;
     }
 }
 
 export interface GroupPolicyAttachmentArgs {
-    readonly group: string;
-    readonly policyArn: string;
+    readonly group: Group;
+    readonly policyArn: ARN;
 }
 

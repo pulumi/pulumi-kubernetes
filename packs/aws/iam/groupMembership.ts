@@ -5,20 +5,23 @@ import * as lumi from "@lumi/lumi";
 
 export class GroupMembership extends lumi.NamedResource implements GroupMembershipArgs {
     public readonly group: string;
-    public readonly _name: string;
     public readonly users: string[];
 
     constructor(name: string, args: GroupMembershipArgs) {
         super(name);
+        if (args.group === undefined) {
+            throw new Error("Property argument 'group' is required, but was missing");
+        }
         this.group = args.group;
-        this._name = args._name;
+        if (args.users === undefined) {
+            throw new Error("Property argument 'users' is required, but was missing");
+        }
         this.users = args.users;
     }
 }
 
 export interface GroupMembershipArgs {
     readonly group: string;
-    readonly _name: string;
     readonly users: string[];
 }
 

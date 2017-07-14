@@ -12,10 +12,25 @@ export class NetworkInterfaceAttachment extends lumi.NamedResource implements Ne
 
     constructor(name: string, args: NetworkInterfaceAttachmentArgs) {
         super(name);
+        if (args.attachmentId === undefined) {
+            throw new Error("Property argument 'attachmentId' is required, but was missing");
+        }
         this.attachmentId = args.attachmentId;
+        if (args.deviceIndex === undefined) {
+            throw new Error("Property argument 'deviceIndex' is required, but was missing");
+        }
         this.deviceIndex = args.deviceIndex;
+        if (args.instanceId === undefined) {
+            throw new Error("Property argument 'instanceId' is required, but was missing");
+        }
         this.instanceId = args.instanceId;
+        if (args.networkInterfaceId === undefined) {
+            throw new Error("Property argument 'networkInterfaceId' is required, but was missing");
+        }
         this.networkInterfaceId = args.networkInterfaceId;
+        if (args.status === undefined) {
+            throw new Error("Property argument 'status' is required, but was missing");
+        }
         this.status = args.status;
     }
 }

@@ -8,16 +8,26 @@ export class BackendAddressPool extends lumi.NamedResource implements BackendAdd
     public readonly loadBalancingRules?: string[];
     public readonly loadbalancerId: string;
     public readonly location?: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
 
     constructor(name: string, args: BackendAddressPoolArgs) {
         super(name);
+        if (args.backendIpConfigurations === undefined) {
+            throw new Error("Property argument 'backendIpConfigurations' is required, but was missing");
+        }
         this.backendIpConfigurations = args.backendIpConfigurations;
+        if (args.loadBalancingRules === undefined) {
+            throw new Error("Property argument 'loadBalancingRules' is required, but was missing");
+        }
         this.loadBalancingRules = args.loadBalancingRules;
+        if (args.loadbalancerId === undefined) {
+            throw new Error("Property argument 'loadbalancerId' is required, but was missing");
+        }
         this.loadbalancerId = args.loadbalancerId;
         this.location = args.location;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
     }
 }
@@ -27,7 +37,6 @@ export interface BackendAddressPoolArgs {
     readonly loadBalancingRules?: string[];
     readonly loadbalancerId: string;
     readonly location?: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
 }
 

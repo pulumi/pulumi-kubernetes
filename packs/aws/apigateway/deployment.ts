@@ -3,24 +3,41 @@
 
 import * as lumi from "@lumi/lumi";
 
+import {RestApi} from "./restApi";
+
 export class Deployment extends lumi.NamedResource implements DeploymentArgs {
     public readonly createdDate?: string;
     public readonly description?: string;
     public readonly executionArn?: string;
     public readonly invokeUrl?: string;
-    public readonly restApiId: string;
+    public readonly restApi: RestApi;
     public readonly stageDescription?: string;
     public readonly stageName: string;
     public readonly variables?: {[key: string]: string};
 
     constructor(name: string, args: DeploymentArgs) {
         super(name);
+        if (args.createdDate === undefined) {
+            throw new Error("Property argument 'createdDate' is required, but was missing");
+        }
         this.createdDate = args.createdDate;
         this.description = args.description;
+        if (args.executionArn === undefined) {
+            throw new Error("Property argument 'executionArn' is required, but was missing");
+        }
         this.executionArn = args.executionArn;
+        if (args.invokeUrl === undefined) {
+            throw new Error("Property argument 'invokeUrl' is required, but was missing");
+        }
         this.invokeUrl = args.invokeUrl;
-        this.restApiId = args.restApiId;
+        if (args.restApi === undefined) {
+            throw new Error("Property argument 'restApi' is required, but was missing");
+        }
+        this.restApi = args.restApi;
         this.stageDescription = args.stageDescription;
+        if (args.stageName === undefined) {
+            throw new Error("Property argument 'stageName' is required, but was missing");
+        }
         this.stageName = args.stageName;
         this.variables = args.variables;
     }
@@ -31,7 +48,7 @@ export interface DeploymentArgs {
     readonly description?: string;
     readonly executionArn?: string;
     readonly invokeUrl?: string;
-    readonly restApiId: string;
+    readonly restApi: RestApi;
     readonly stageDescription?: string;
     readonly stageName: string;
     readonly variables?: {[key: string]: string};

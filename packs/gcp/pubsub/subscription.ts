@@ -5,7 +5,6 @@ import * as lumi from "@lumi/lumi";
 
 export class Subscription extends lumi.NamedResource implements SubscriptionArgs {
     public readonly ackDeadlineSeconds?: number;
-    public readonly _name: string;
     public readonly path?: string;
     public readonly project?: string;
     public readonly pushConfig?: { attributes?: {[key: string]: string}, pushEndpoint?: string }[];
@@ -14,17 +13,21 @@ export class Subscription extends lumi.NamedResource implements SubscriptionArgs
     constructor(name: string, args: SubscriptionArgs) {
         super(name);
         this.ackDeadlineSeconds = args.ackDeadlineSeconds;
-        this._name = args._name;
+        if (args.path === undefined) {
+            throw new Error("Property argument 'path' is required, but was missing");
+        }
         this.path = args.path;
         this.project = args.project;
         this.pushConfig = args.pushConfig;
+        if (args.topic === undefined) {
+            throw new Error("Property argument 'topic' is required, but was missing");
+        }
         this.topic = args.topic;
     }
 }
 
 export interface SubscriptionArgs {
     readonly ackDeadlineSeconds?: number;
-    readonly _name: string;
     readonly path?: string;
     readonly project?: string;
     readonly pushConfig?: { attributes?: {[key: string]: string}, pushEndpoint?: string }[];

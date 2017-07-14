@@ -4,22 +4,25 @@
 import * as lumi from "@lumi/lumi";
 
 export class RolePolicy extends lumi.NamedResource implements RolePolicyArgs {
-    public readonly _name?: string;
     public readonly namePrefix?: string;
     public readonly policy: string;
     public readonly role: string;
 
     constructor(name: string, args: RolePolicyArgs) {
         super(name);
-        this._name = args._name;
         this.namePrefix = args.namePrefix;
+        if (args.policy === undefined) {
+            throw new Error("Property argument 'policy' is required, but was missing");
+        }
         this.policy = args.policy;
+        if (args.role === undefined) {
+            throw new Error("Property argument 'role' is required, but was missing");
+        }
         this.role = args.role;
     }
 }
 
 export interface RolePolicyArgs {
-    readonly _name?: string;
     readonly namePrefix?: string;
     readonly policy: string;
     readonly role: string;

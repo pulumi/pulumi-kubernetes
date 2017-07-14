@@ -16,14 +16,29 @@ export class VpcPeeringConnectionAccepter extends lumi.NamedResource implements 
 
     constructor(name: string, args: VpcPeeringConnectionAccepterArgs) {
         super(name);
+        if (args.acceptStatus === undefined) {
+            throw new Error("Property argument 'acceptStatus' is required, but was missing");
+        }
         this.acceptStatus = args.acceptStatus;
         this.accepter = args.accepter;
         this.autoAccept = args.autoAccept;
+        if (args.peerOwnerId === undefined) {
+            throw new Error("Property argument 'peerOwnerId' is required, but was missing");
+        }
         this.peerOwnerId = args.peerOwnerId;
+        if (args.peerVpcId === undefined) {
+            throw new Error("Property argument 'peerVpcId' is required, but was missing");
+        }
         this.peerVpcId = args.peerVpcId;
         this.requester = args.requester;
         this.tags = args.tags;
+        if (args.vpcId === undefined) {
+            throw new Error("Property argument 'vpcId' is required, but was missing");
+        }
         this.vpcId = args.vpcId;
+        if (args.vpcPeeringConnectionId === undefined) {
+            throw new Error("Property argument 'vpcPeeringConnectionId' is required, but was missing");
+        }
         this.vpcPeeringConnectionId = args.vpcPeeringConnectionId;
     }
 }

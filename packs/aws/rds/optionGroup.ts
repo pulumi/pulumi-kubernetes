@@ -7,18 +7,25 @@ export class OptionGroup extends lumi.NamedResource implements OptionGroupArgs {
     public readonly arn?: string;
     public readonly engineName: string;
     public readonly majorEngineVersion: string;
-    public readonly _name?: string;
     public readonly namePrefix?: string;
-    public readonly option?: { dbSecurityGroupMemberships?: string[], optionName: string, optionSettings?: { _name: string, value: string }[], port?: number, vpcSecurityGroupMemberships?: string[] }[];
+    public readonly option?: { dbSecurityGroupMemberships?: string[], optionName: string, optionSettings?: { value: string }[], port?: number, vpcSecurityGroupMemberships?: string[] }[];
     public readonly optionGroupDescription?: string;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: OptionGroupArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.engineName === undefined) {
+            throw new Error("Property argument 'engineName' is required, but was missing");
+        }
         this.engineName = args.engineName;
+        if (args.majorEngineVersion === undefined) {
+            throw new Error("Property argument 'majorEngineVersion' is required, but was missing");
+        }
         this.majorEngineVersion = args.majorEngineVersion;
-        this._name = args._name;
         this.namePrefix = args.namePrefix;
         this.option = args.option;
         this.optionGroupDescription = args.optionGroupDescription;
@@ -30,9 +37,8 @@ export interface OptionGroupArgs {
     readonly arn?: string;
     readonly engineName: string;
     readonly majorEngineVersion: string;
-    readonly _name?: string;
     readonly namePrefix?: string;
-    readonly option?: { dbSecurityGroupMemberships?: string[], optionName: string, optionSettings?: { _name: string, value: string }[], port?: number, vpcSecurityGroupMemberships?: string[] }[];
+    readonly option?: { dbSecurityGroupMemberships?: string[], optionName: string, optionSettings?: { value: string }[], port?: number, vpcSecurityGroupMemberships?: string[] }[];
     readonly optionGroupDescription?: string;
     readonly tags?: {[key: string]: any};
 }

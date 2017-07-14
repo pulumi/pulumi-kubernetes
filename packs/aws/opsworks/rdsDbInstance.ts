@@ -6,16 +6,31 @@ import * as lumi from "@lumi/lumi";
 export class RdsDbInstance extends lumi.NamedResource implements RdsDbInstanceArgs {
     public readonly dbPassword: string;
     public readonly dbUser: string;
-    public readonly _id?: string;
+    public readonly id?: string;
     public readonly rdsDbInstanceArn: string;
     public readonly stackId: string;
 
     constructor(name: string, args: RdsDbInstanceArgs) {
         super(name);
+        if (args.dbPassword === undefined) {
+            throw new Error("Property argument 'dbPassword' is required, but was missing");
+        }
         this.dbPassword = args.dbPassword;
+        if (args.dbUser === undefined) {
+            throw new Error("Property argument 'dbUser' is required, but was missing");
+        }
         this.dbUser = args.dbUser;
-        this._id = args._id;
+        if (args.id === undefined) {
+            throw new Error("Property argument 'id' is required, but was missing");
+        }
+        this.id = args.id;
+        if (args.rdsDbInstanceArn === undefined) {
+            throw new Error("Property argument 'rdsDbInstanceArn' is required, but was missing");
+        }
         this.rdsDbInstanceArn = args.rdsDbInstanceArn;
+        if (args.stackId === undefined) {
+            throw new Error("Property argument 'stackId' is required, but was missing");
+        }
         this.stackId = args.stackId;
     }
 }
@@ -23,7 +38,7 @@ export class RdsDbInstance extends lumi.NamedResource implements RdsDbInstanceAr
 export interface RdsDbInstanceArgs {
     readonly dbPassword: string;
     readonly dbUser: string;
-    readonly _id?: string;
+    readonly id?: string;
     readonly rdsDbInstanceArn: string;
     readonly stackId: string;
 }

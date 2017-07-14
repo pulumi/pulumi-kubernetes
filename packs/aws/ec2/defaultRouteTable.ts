@@ -12,10 +12,16 @@ export class DefaultRouteTable extends lumi.NamedResource implements DefaultRout
 
     constructor(name: string, args: DefaultRouteTableArgs) {
         super(name);
+        if (args.defaultRouteTableId === undefined) {
+            throw new Error("Property argument 'defaultRouteTableId' is required, but was missing");
+        }
         this.defaultRouteTableId = args.defaultRouteTableId;
         this.propagatingVgws = args.propagatingVgws;
         this.route = args.route;
         this.tags = args.tags;
+        if (args.vpcId === undefined) {
+            throw new Error("Property argument 'vpcId' is required, but was missing");
+        }
         this.vpcId = args.vpcId;
     }
 }

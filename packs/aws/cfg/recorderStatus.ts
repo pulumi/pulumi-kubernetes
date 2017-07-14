@@ -5,17 +5,17 @@ import * as lumi from "@lumi/lumi";
 
 export class RecorderStatus extends lumi.NamedResource implements RecorderStatusArgs {
     public readonly isEnabled: boolean;
-    public readonly _name: string;
 
     constructor(name: string, args: RecorderStatusArgs) {
         super(name);
+        if (args.isEnabled === undefined) {
+            throw new Error("Property argument 'isEnabled' is required, but was missing");
+        }
         this.isEnabled = args.isEnabled;
-        this._name = args._name;
     }
 }
 
 export interface RecorderStatusArgs {
     readonly isEnabled: boolean;
-    readonly _name: string;
 }
 

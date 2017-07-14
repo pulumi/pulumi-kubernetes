@@ -8,23 +8,33 @@ export class UrlMap extends lumi.NamedResource implements UrlMapArgs {
     public readonly description?: string;
     public readonly fingerprint?: string;
     public readonly hostRule?: { description?: string, hosts: string[], pathMatcher: string }[];
-    public readonly _id?: string;
-    public readonly _name: string;
-    public readonly pathMatcher?: { defaultService: string, description?: string, _name: string, pathRule?: { paths: string[], service: string }[] }[];
+    public readonly id?: string;
+    public readonly pathMatcher?: { defaultService: string, description?: string, pathRule?: { paths: string[], service: string }[] }[];
     public readonly project?: string;
     public readonly selfLink?: string;
     public readonly test?: { description?: string, host: string, path: string, service: string }[];
 
     constructor(name: string, args: UrlMapArgs) {
         super(name);
+        if (args.defaultService === undefined) {
+            throw new Error("Property argument 'defaultService' is required, but was missing");
+        }
         this.defaultService = args.defaultService;
         this.description = args.description;
+        if (args.fingerprint === undefined) {
+            throw new Error("Property argument 'fingerprint' is required, but was missing");
+        }
         this.fingerprint = args.fingerprint;
         this.hostRule = args.hostRule;
-        this._id = args._id;
-        this._name = args._name;
+        if (args.id === undefined) {
+            throw new Error("Property argument 'id' is required, but was missing");
+        }
+        this.id = args.id;
         this.pathMatcher = args.pathMatcher;
         this.project = args.project;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
         this.test = args.test;
     }
@@ -35,9 +45,8 @@ export interface UrlMapArgs {
     readonly description?: string;
     readonly fingerprint?: string;
     readonly hostRule?: { description?: string, hosts: string[], pathMatcher: string }[];
-    readonly _id?: string;
-    readonly _name: string;
-    readonly pathMatcher?: { defaultService: string, description?: string, _name: string, pathRule?: { paths: string[], service: string }[] }[];
+    readonly id?: string;
+    readonly pathMatcher?: { defaultService: string, description?: string, pathRule?: { paths: string[], service: string }[] }[];
     readonly project?: string;
     readonly selfLink?: string;
     readonly test?: { description?: string, host: string, path: string, service: string }[];

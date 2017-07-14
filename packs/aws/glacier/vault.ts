@@ -7,16 +7,20 @@ export class Vault extends lumi.NamedResource implements VaultArgs {
     public readonly accessPolicy?: string;
     public readonly arn?: string;
     public readonly location?: string;
-    public readonly _name: string;
     public readonly notification?: { events: string[], snsTopic: string }[];
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: VaultArgs) {
         super(name);
         this.accessPolicy = args.accessPolicy;
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
         this.notification = args.notification;
         this.tags = args.tags;
     }
@@ -26,7 +30,6 @@ export interface VaultArgs {
     readonly accessPolicy?: string;
     readonly arn?: string;
     readonly location?: string;
-    readonly _name: string;
     readonly notification?: { events: string[], snsTopic: string }[];
     readonly tags?: {[key: string]: any};
 }

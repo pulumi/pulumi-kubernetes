@@ -13,10 +13,19 @@ export class DefaultVpcDhcpOptions extends lumi.NamedResource implements Default
 
     constructor(name: string, args: DefaultVpcDhcpOptionsArgs) {
         super(name);
+        if (args.domainName === undefined) {
+            throw new Error("Property argument 'domainName' is required, but was missing");
+        }
         this.domainName = args.domainName;
+        if (args.domainNameServers === undefined) {
+            throw new Error("Property argument 'domainNameServers' is required, but was missing");
+        }
         this.domainNameServers = args.domainNameServers;
         this.netbiosNameServers = args.netbiosNameServers;
         this.netbiosNodeType = args.netbiosNodeType;
+        if (args.ntpServers === undefined) {
+            throw new Error("Property argument 'ntpServers' is required, but was missing");
+        }
         this.ntpServers = args.ntpServers;
         this.tags = args.tags;
     }

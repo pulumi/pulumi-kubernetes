@@ -5,15 +5,16 @@ import * as lumi from "@lumi/lumi";
 
 export class LogGroup extends lumi.NamedResource implements LogGroupArgs {
     public readonly arn?: string;
-    public readonly _name?: string;
     public readonly namePrefix?: string;
     public readonly retentionInDays?: number;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: LogGroupArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
-        this._name = args._name;
         this.namePrefix = args.namePrefix;
         this.retentionInDays = args.retentionInDays;
         this.tags = args.tags;
@@ -22,7 +23,6 @@ export class LogGroup extends lumi.NamedResource implements LogGroupArgs {
 
 export interface LogGroupArgs {
     readonly arn?: string;
-    readonly _name?: string;
     readonly namePrefix?: string;
     readonly retentionInDays?: number;
     readonly tags?: {[key: string]: any};

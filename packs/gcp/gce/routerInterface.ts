@@ -5,7 +5,6 @@ import * as lumi from "@lumi/lumi";
 
 export class RouterInterface extends lumi.NamedResource implements RouterInterfaceArgs {
     public readonly ipRange?: string;
-    public readonly _name: string;
     public readonly project?: string;
     public readonly region?: string;
     public readonly router: string;
@@ -14,17 +13,21 @@ export class RouterInterface extends lumi.NamedResource implements RouterInterfa
     constructor(name: string, args: RouterInterfaceArgs) {
         super(name);
         this.ipRange = args.ipRange;
-        this._name = args._name;
         this.project = args.project;
         this.region = args.region;
+        if (args.router === undefined) {
+            throw new Error("Property argument 'router' is required, but was missing");
+        }
         this.router = args.router;
+        if (args.vpnTunnel === undefined) {
+            throw new Error("Property argument 'vpnTunnel' is required, but was missing");
+        }
         this.vpnTunnel = args.vpnTunnel;
     }
 }
 
 export interface RouterInterfaceArgs {
     readonly ipRange?: string;
-    readonly _name: string;
     readonly project?: string;
     readonly region?: string;
     readonly router: string;

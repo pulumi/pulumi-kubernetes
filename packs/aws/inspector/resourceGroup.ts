@@ -9,7 +9,13 @@ export class ResourceGroup extends lumi.NamedResource implements ResourceGroupAr
 
     constructor(name: string, args: ResourceGroupArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.tags === undefined) {
+            throw new Error("Property argument 'tags' is required, but was missing");
+        }
         this.tags = args.tags;
     }
 }

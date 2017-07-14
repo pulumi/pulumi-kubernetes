@@ -5,7 +5,6 @@ import * as lumi from "@lumi/lumi";
 
 export class RecordSet extends lumi.NamedResource implements RecordSetArgs {
     public readonly managedZone: string;
-    public readonly _name: string;
     public readonly project?: string;
     public readonly rrdatas: string[];
     public readonly ttl: number;
@@ -13,18 +12,28 @@ export class RecordSet extends lumi.NamedResource implements RecordSetArgs {
 
     constructor(name: string, args: RecordSetArgs) {
         super(name);
+        if (args.managedZone === undefined) {
+            throw new Error("Property argument 'managedZone' is required, but was missing");
+        }
         this.managedZone = args.managedZone;
-        this._name = args._name;
         this.project = args.project;
+        if (args.rrdatas === undefined) {
+            throw new Error("Property argument 'rrdatas' is required, but was missing");
+        }
         this.rrdatas = args.rrdatas;
+        if (args.ttl === undefined) {
+            throw new Error("Property argument 'ttl' is required, but was missing");
+        }
         this.ttl = args.ttl;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
     }
 }
 
 export interface RecordSetArgs {
     readonly managedZone: string;
-    readonly _name: string;
     readonly project?: string;
     readonly rrdatas: string[];
     readonly ttl: number;

@@ -9,7 +9,13 @@ export class QueuePolicy extends lumi.NamedResource implements QueuePolicyArgs {
 
     constructor(name: string, args: QueuePolicyArgs) {
         super(name);
+        if (args.policy === undefined) {
+            throw new Error("Property argument 'policy' is required, but was missing");
+        }
         this.policy = args.policy;
+        if (args.queueUrl === undefined) {
+            throw new Error("Property argument 'queueUrl' is required, but was missing");
+        }
         this.queueUrl = args.queueUrl;
     }
 }

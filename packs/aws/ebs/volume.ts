@@ -15,6 +15,9 @@ export class Volume extends lumi.NamedResource implements VolumeArgs {
 
     constructor(name: string, args: VolumeArgs) {
         super(name);
+        if (args.availabilityZone === undefined) {
+            throw new Error("Property argument 'availabilityZone' is required, but was missing");
+        }
         this.availabilityZone = args.availabilityZone;
         this.encrypted = args.encrypted;
         this.iops = args.iops;

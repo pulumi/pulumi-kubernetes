@@ -10,8 +10,7 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
     public readonly isHttpAllowed?: boolean;
     public readonly isHttpsAllowed?: boolean;
     public readonly location: string;
-    public readonly _name: string;
-    public readonly origin: { hostName: string, httpPort?: number, httpsPort?: number, _name: string }[];
+    public readonly origin: { hostName: string, httpPort?: number, httpsPort?: number }[];
     public readonly originHostHeader?: string;
     public readonly originPath?: string;
     public readonly profileName: string;
@@ -22,17 +21,31 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
     constructor(name: string, args: EndpointArgs) {
         super(name);
         this.contentTypesToCompress = args.contentTypesToCompress;
+        if (args.hostName === undefined) {
+            throw new Error("Property argument 'hostName' is required, but was missing");
+        }
         this.hostName = args.hostName;
         this.isCompressionEnabled = args.isCompressionEnabled;
         this.isHttpAllowed = args.isHttpAllowed;
         this.isHttpsAllowed = args.isHttpsAllowed;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.origin === undefined) {
+            throw new Error("Property argument 'origin' is required, but was missing");
+        }
         this.origin = args.origin;
         this.originHostHeader = args.originHostHeader;
         this.originPath = args.originPath;
+        if (args.profileName === undefined) {
+            throw new Error("Property argument 'profileName' is required, but was missing");
+        }
         this.profileName = args.profileName;
         this.querystringCachingBehaviour = args.querystringCachingBehaviour;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
     }
@@ -45,8 +58,7 @@ export interface EndpointArgs {
     readonly isHttpAllowed?: boolean;
     readonly isHttpsAllowed?: boolean;
     readonly location: string;
-    readonly _name: string;
-    readonly origin: { hostName: string, httpPort?: number, httpsPort?: number, _name: string }[];
+    readonly origin: { hostName: string, httpPort?: number, httpsPort?: number }[];
     readonly originHostHeader?: string;
     readonly originPath?: string;
     readonly profileName: string;

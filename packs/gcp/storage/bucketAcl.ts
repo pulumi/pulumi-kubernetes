@@ -11,6 +11,9 @@ export class BucketAcl extends lumi.NamedResource implements BucketAclArgs {
 
     constructor(name: string, args: BucketAclArgs) {
         super(name);
+        if (args.bucket === undefined) {
+            throw new Error("Property argument 'bucket' is required, but was missing");
+        }
         this.bucket = args.bucket;
         this.defaultAcl = args.defaultAcl;
         this.predefinedAcl = args.predefinedAcl;

@@ -14,10 +14,22 @@ export class Listener extends lumi.NamedResource implements ListenerArgs {
 
     constructor(name: string, args: ListenerArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.certificateArn = args.certificateArn;
+        if (args.defaultAction === undefined) {
+            throw new Error("Property argument 'defaultAction' is required, but was missing");
+        }
         this.defaultAction = args.defaultAction;
+        if (args.loadBalancerArn === undefined) {
+            throw new Error("Property argument 'loadBalancerArn' is required, but was missing");
+        }
         this.loadBalancerArn = args.loadBalancerArn;
+        if (args.port === undefined) {
+            throw new Error("Property argument 'port' is required, but was missing");
+        }
         this.port = args.port;
         this.protocol = args.protocol;
         this.sslPolicy = args.sslPolicy;

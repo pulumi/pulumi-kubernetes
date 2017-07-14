@@ -665,6 +665,8 @@ func (g *generator) tfToJSFlags(sch *schema.Schema) string {
 func (g *generator) tfToJSType(sch *schema.Schema, custom tfbridge.SchemaInfo) string {
 	if custom.Type != "" {
 		return string(custom.Type.Name())
+	} else if custom.Asset != nil {
+		return "lumi.asset." + string(custom.Asset.Type().Name())
 	}
 	var elemcust tfbridge.SchemaInfo
 	if custom.Elem != nil {

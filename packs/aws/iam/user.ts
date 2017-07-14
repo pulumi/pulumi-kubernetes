@@ -6,16 +6,20 @@ import * as lumi from "@lumi/lumi";
 export class User extends lumi.NamedResource implements UserArgs {
     public readonly arn?: string;
     public readonly forceDestroy?: boolean;
-    public readonly _name: string;
     public readonly path?: string;
     public readonly uniqueId?: string;
 
     constructor(name: string, args: UserArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.forceDestroy = args.forceDestroy;
-        this._name = args._name;
         this.path = args.path;
+        if (args.uniqueId === undefined) {
+            throw new Error("Property argument 'uniqueId' is required, but was missing");
+        }
         this.uniqueId = args.uniqueId;
     }
 }
@@ -24,7 +28,6 @@ export interface UserArgs {
     readonly arn?: string;
     // Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices
     readonly forceDestroy?: boolean;
-    readonly _name: string;
     readonly path?: string;
     readonly uniqueId?: string;
 }

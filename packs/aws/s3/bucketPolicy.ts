@@ -9,7 +9,13 @@ export class BucketPolicy extends lumi.NamedResource implements BucketPolicyArgs
 
     constructor(name: string, args: BucketPolicyArgs) {
         super(name);
+        if (args.bucket === undefined) {
+            throw new Error("Property argument 'bucket' is required, but was missing");
+        }
         this.bucket = args.bucket;
+        if (args.policy === undefined) {
+            throw new Error("Property argument 'policy' is required, but was missing");
+        }
         this.policy = args.policy;
     }
 }

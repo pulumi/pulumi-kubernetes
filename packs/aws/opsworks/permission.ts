@@ -6,7 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class Permission extends lumi.NamedResource implements PermissionArgs {
     public readonly allowSsh?: boolean;
     public readonly allowSudo?: boolean;
-    public readonly _id?: string;
+    public readonly id?: string;
     public readonly level?: string;
     public readonly stackId?: string;
     public readonly userArn: string;
@@ -15,9 +15,15 @@ export class Permission extends lumi.NamedResource implements PermissionArgs {
         super(name);
         this.allowSsh = args.allowSsh;
         this.allowSudo = args.allowSudo;
-        this._id = args._id;
+        if (args.id === undefined) {
+            throw new Error("Property argument 'id' is required, but was missing");
+        }
+        this.id = args.id;
         this.level = args.level;
         this.stackId = args.stackId;
+        if (args.userArn === undefined) {
+            throw new Error("Property argument 'userArn' is required, but was missing");
+        }
         this.userArn = args.userArn;
     }
 }
@@ -25,7 +31,7 @@ export class Permission extends lumi.NamedResource implements PermissionArgs {
 export interface PermissionArgs {
     readonly allowSsh?: boolean;
     readonly allowSudo?: boolean;
-    readonly _id?: string;
+    readonly id?: string;
     readonly level?: string;
     readonly stackId?: string;
     readonly userArn: string;

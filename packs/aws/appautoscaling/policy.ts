@@ -10,7 +10,6 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
     public readonly cooldown: number;
     public readonly metricAggregationType: string;
     public readonly minAdjustmentMagnitude?: number;
-    public readonly _name: string;
     public readonly policyType?: string;
     public readonly resourceId: string;
     public readonly scalableDimension: string;
@@ -19,16 +18,36 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
 
     constructor(name: string, args: PolicyArgs) {
         super(name);
+        if (args.adjustmentType === undefined) {
+            throw new Error("Property argument 'adjustmentType' is required, but was missing");
+        }
         this.adjustmentType = args.adjustmentType;
         this.alarms = args.alarms;
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.cooldown === undefined) {
+            throw new Error("Property argument 'cooldown' is required, but was missing");
+        }
         this.cooldown = args.cooldown;
+        if (args.metricAggregationType === undefined) {
+            throw new Error("Property argument 'metricAggregationType' is required, but was missing");
+        }
         this.metricAggregationType = args.metricAggregationType;
         this.minAdjustmentMagnitude = args.minAdjustmentMagnitude;
-        this._name = args._name;
         this.policyType = args.policyType;
+        if (args.resourceId === undefined) {
+            throw new Error("Property argument 'resourceId' is required, but was missing");
+        }
         this.resourceId = args.resourceId;
+        if (args.scalableDimension === undefined) {
+            throw new Error("Property argument 'scalableDimension' is required, but was missing");
+        }
         this.scalableDimension = args.scalableDimension;
+        if (args.serviceNamespace === undefined) {
+            throw new Error("Property argument 'serviceNamespace' is required, but was missing");
+        }
         this.serviceNamespace = args.serviceNamespace;
         this.stepAdjustment = args.stepAdjustment;
     }
@@ -41,7 +60,6 @@ export interface PolicyArgs {
     readonly cooldown: number;
     readonly metricAggregationType: string;
     readonly minAdjustmentMagnitude?: number;
-    readonly _name: string;
     readonly policyType?: string;
     readonly resourceId: string;
     readonly scalableDimension: string;

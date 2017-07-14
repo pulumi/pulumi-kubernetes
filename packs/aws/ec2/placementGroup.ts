@@ -4,18 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class PlacementGroup extends lumi.NamedResource implements PlacementGroupArgs {
-    public readonly _name: string;
     public readonly strategy: string;
 
     constructor(name: string, args: PlacementGroupArgs) {
         super(name);
-        this._name = args._name;
+        if (args.strategy === undefined) {
+            throw new Error("Property argument 'strategy' is required, but was missing");
+        }
         this.strategy = args.strategy;
     }
 }
 
 export interface PlacementGroupArgs {
-    readonly _name: string;
     readonly strategy: string;
 }
 

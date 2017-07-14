@@ -8,11 +8,10 @@ export class Ami extends lumi.NamedResource implements AmiArgs {
     public readonly description?: string;
     public readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
     public readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
-    public readonly _id?: string;
+    public readonly id?: string;
     public readonly imageLocation?: string;
     public readonly kernelId?: string;
     public readonly manageEbsSnapshots?: boolean;
-    public readonly _name: string;
     public readonly ramdiskId?: string;
     public readonly rootDeviceName?: string;
     public readonly sriovNetSupport?: string;
@@ -25,11 +24,16 @@ export class Ami extends lumi.NamedResource implements AmiArgs {
         this.description = args.description;
         this.ebsBlockDevice = args.ebsBlockDevice;
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
-        this._id = args._id;
+        if (args.id === undefined) {
+            throw new Error("Property argument 'id' is required, but was missing");
+        }
+        this.id = args.id;
         this.imageLocation = args.imageLocation;
         this.kernelId = args.kernelId;
+        if (args.manageEbsSnapshots === undefined) {
+            throw new Error("Property argument 'manageEbsSnapshots' is required, but was missing");
+        }
         this.manageEbsSnapshots = args.manageEbsSnapshots;
-        this._name = args._name;
         this.ramdiskId = args.ramdiskId;
         this.rootDeviceName = args.rootDeviceName;
         this.sriovNetSupport = args.sriovNetSupport;
@@ -43,11 +47,10 @@ export interface AmiArgs {
     readonly description?: string;
     readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
     readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
-    readonly _id?: string;
+    readonly id?: string;
     readonly imageLocation?: string;
     readonly kernelId?: string;
     readonly manageEbsSnapshots?: boolean;
-    readonly _name: string;
     readonly ramdiskId?: string;
     readonly rootDeviceName?: string;
     readonly sriovNetSupport?: string;

@@ -7,7 +7,6 @@ export class Zone extends lumi.NamedResource implements ZoneArgs {
     public readonly comment?: string;
     public readonly delegationSetId?: string;
     public readonly forceDestroy?: boolean;
-    public readonly _name: string;
     public readonly nameServers?: string[];
     public readonly tags?: {[key: string]: any};
     public readonly vpcId?: string;
@@ -19,11 +18,16 @@ export class Zone extends lumi.NamedResource implements ZoneArgs {
         this.comment = args.comment;
         this.delegationSetId = args.delegationSetId;
         this.forceDestroy = args.forceDestroy;
-        this._name = args._name;
+        if (args.nameServers === undefined) {
+            throw new Error("Property argument 'nameServers' is required, but was missing");
+        }
         this.nameServers = args.nameServers;
         this.tags = args.tags;
         this.vpcId = args.vpcId;
         this.vpcRegion = args.vpcRegion;
+        if (args.zoneId === undefined) {
+            throw new Error("Property argument 'zoneId' is required, but was missing");
+        }
         this.zoneId = args.zoneId;
     }
 }
@@ -32,7 +36,6 @@ export interface ZoneArgs {
     readonly comment?: string;
     readonly delegationSetId?: string;
     readonly forceDestroy?: boolean;
-    readonly _name: string;
     readonly nameServers?: string[];
     readonly tags?: {[key: string]: any};
     readonly vpcId?: string;

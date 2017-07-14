@@ -5,16 +5,23 @@ import * as lumi from "@lumi/lumi";
 
 export class Profile extends lumi.NamedResource implements ProfileArgs {
     public readonly location: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
     public readonly sku: string;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: ProfileArgs) {
         super(name);
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.sku === undefined) {
+            throw new Error("Property argument 'sku' is required, but was missing");
+        }
         this.sku = args.sku;
         this.tags = args.tags;
     }
@@ -22,7 +29,6 @@ export class Profile extends lumi.NamedResource implements ProfileArgs {
 
 export interface ProfileArgs {
     readonly location: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
     readonly sku: string;
     readonly tags?: {[key: string]: any};

@@ -13,13 +13,15 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
     public readonly contentType?: string;
     public readonly crc32c?: string;
     public readonly md5hash?: string;
-    public readonly _name: string;
     public readonly predefinedAcl?: string;
     public readonly source?: string;
     public readonly storageClass?: string;
 
     constructor(name: string, args: ObjectArgs) {
         super(name);
+        if (args.bucket === undefined) {
+            throw new Error("Property argument 'bucket' is required, but was missing");
+        }
         this.bucket = args.bucket;
         this.cacheControl = args.cacheControl;
         this.content = args.content;
@@ -27,9 +29,14 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
         this.contentEncoding = args.contentEncoding;
         this.contentLanguage = args.contentLanguage;
         this.contentType = args.contentType;
+        if (args.crc32c === undefined) {
+            throw new Error("Property argument 'crc32c' is required, but was missing");
+        }
         this.crc32c = args.crc32c;
+        if (args.md5hash === undefined) {
+            throw new Error("Property argument 'md5hash' is required, but was missing");
+        }
         this.md5hash = args.md5hash;
-        this._name = args._name;
         this.predefinedAcl = args.predefinedAcl;
         this.source = args.source;
         this.storageClass = args.storageClass;
@@ -46,7 +53,6 @@ export interface ObjectArgs {
     readonly contentType?: string;
     readonly crc32c?: string;
     readonly md5hash?: string;
-    readonly _name: string;
     readonly predefinedAcl?: string;
     readonly source?: string;
     readonly storageClass?: string;

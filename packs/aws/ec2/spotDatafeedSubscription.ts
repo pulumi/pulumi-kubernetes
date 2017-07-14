@@ -9,6 +9,9 @@ export class SpotDatafeedSubscription extends lumi.NamedResource implements Spot
 
     constructor(name: string, args: SpotDatafeedSubscriptionArgs) {
         super(name);
+        if (args.bucket === undefined) {
+            throw new Error("Property argument 'bucket' is required, but was missing");
+        }
         this.bucket = args.bucket;
         this.prefix = args.prefix;
     }

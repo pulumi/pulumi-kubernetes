@@ -42,6 +42,9 @@ export class HealthCheck extends lumi.NamedResource implements HealthCheckArgs {
         this.resourcePath = args.resourcePath;
         this.searchString = args.searchString;
         this.tags = args.tags;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
     }
 }

@@ -18,13 +18,22 @@ export class DeploymentGroup extends lumi.NamedResource implements DeploymentGro
     constructor(name: string, args: DeploymentGroupArgs) {
         super(name);
         this.alarmConfiguration = args.alarmConfiguration;
+        if (args.appName === undefined) {
+            throw new Error("Property argument 'appName' is required, but was missing");
+        }
         this.appName = args.appName;
         this.autoRollbackConfiguration = args.autoRollbackConfiguration;
         this.autoscalingGroups = args.autoscalingGroups;
         this.deploymentConfigName = args.deploymentConfigName;
+        if (args.deploymentGroupName === undefined) {
+            throw new Error("Property argument 'deploymentGroupName' is required, but was missing");
+        }
         this.deploymentGroupName = args.deploymentGroupName;
         this.ec2TagFilter = args.ec2TagFilter;
         this.onPremisesInstanceTagFilter = args.onPremisesInstanceTagFilter;
+        if (args.serviceRoleArn === undefined) {
+            throw new Error("Property argument 'serviceRoleArn' is required, but was missing");
+        }
         this.serviceRoleArn = args.serviceRoleArn;
         this.triggerConfiguration = args.triggerConfiguration;
     }

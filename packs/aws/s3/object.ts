@@ -25,6 +25,9 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
     constructor(name: string, args: ObjectArgs) {
         super(name);
         this.acl = args.acl;
+        if (args.bucket === undefined) {
+            throw new Error("Property argument 'bucket' is required, but was missing");
+        }
         this.bucket = args.bucket;
         this.cacheControl = args.cacheControl;
         this.content = args.content;
@@ -33,12 +36,18 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
         this.contentLanguage = args.contentLanguage;
         this.contentType = args.contentType;
         this.etag = args.etag;
+        if (args.key === undefined) {
+            throw new Error("Property argument 'key' is required, but was missing");
+        }
         this.key = args.key;
         this.kmsKeyId = args.kmsKeyId;
         this.serverSideEncryption = args.serverSideEncryption;
         this.source = args.source;
         this.storageClass = args.storageClass;
         this.tags = args.tags;
+        if (args.versionId === undefined) {
+            throw new Error("Property argument 'versionId' is required, but was missing");
+        }
         this.versionId = args.versionId;
         this.websiteRedirect = args.websiteRedirect;
     }

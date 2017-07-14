@@ -4,14 +4,15 @@
 import * as lumi from "@lumi/lumi";
 
 export class RequestValidator extends lumi.NamedResource implements RequestValidatorArgs {
-    public readonly _name: string;
     public readonly restApiId: string;
     public readonly validateRequestBody?: boolean;
     public readonly validateRequestParameters?: boolean;
 
     constructor(name: string, args: RequestValidatorArgs) {
         super(name);
-        this._name = args._name;
+        if (args.restApiId === undefined) {
+            throw new Error("Property argument 'restApiId' is required, but was missing");
+        }
         this.restApiId = args.restApiId;
         this.validateRequestBody = args.validateRequestBody;
         this.validateRequestParameters = args.validateRequestParameters;
@@ -19,7 +20,6 @@ export class RequestValidator extends lumi.NamedResource implements RequestValid
 }
 
 export interface RequestValidatorArgs {
-    readonly _name: string;
     readonly restApiId: string;
     readonly validateRequestBody?: boolean;
     readonly validateRequestParameters?: boolean;

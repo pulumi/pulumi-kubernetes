@@ -7,15 +7,22 @@ export class LocalNetworkGateway extends lumi.NamedResource implements LocalNetw
     public readonly addressSpace: string[];
     public readonly gatewayAddress: string;
     public readonly location: string;
-    public readonly _name: string;
     public readonly resourceGroupName?: string;
 
     constructor(name: string, args: LocalNetworkGatewayArgs) {
         super(name);
+        if (args.addressSpace === undefined) {
+            throw new Error("Property argument 'addressSpace' is required, but was missing");
+        }
         this.addressSpace = args.addressSpace;
+        if (args.gatewayAddress === undefined) {
+            throw new Error("Property argument 'gatewayAddress' is required, but was missing");
+        }
         this.gatewayAddress = args.gatewayAddress;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
         this.resourceGroupName = args.resourceGroupName;
     }
 }
@@ -24,7 +31,6 @@ export interface LocalNetworkGatewayArgs {
     readonly addressSpace: string[];
     readonly gatewayAddress: string;
     readonly location: string;
-    readonly _name: string;
     readonly resourceGroupName?: string;
 }
 

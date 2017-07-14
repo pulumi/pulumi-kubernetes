@@ -8,20 +8,36 @@ export class SqlServer extends lumi.NamedResource implements SqlServerArgs {
     public readonly administratorLoginPassword: string;
     public readonly fullyQualifiedDomainName?: string;
     public readonly location: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
     public readonly version: string;
 
     constructor(name: string, args: SqlServerArgs) {
         super(name);
+        if (args.administratorLogin === undefined) {
+            throw new Error("Property argument 'administratorLogin' is required, but was missing");
+        }
         this.administratorLogin = args.administratorLogin;
+        if (args.administratorLoginPassword === undefined) {
+            throw new Error("Property argument 'administratorLoginPassword' is required, but was missing");
+        }
         this.administratorLoginPassword = args.administratorLoginPassword;
+        if (args.fullyQualifiedDomainName === undefined) {
+            throw new Error("Property argument 'fullyQualifiedDomainName' is required, but was missing");
+        }
         this.fullyQualifiedDomainName = args.fullyQualifiedDomainName;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
+        if (args.version === undefined) {
+            throw new Error("Property argument 'version' is required, but was missing");
+        }
         this.version = args.version;
     }
 }
@@ -31,7 +47,6 @@ export interface SqlServerArgs {
     readonly administratorLoginPassword: string;
     readonly fullyQualifiedDomainName?: string;
     readonly location: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};
     readonly version: string;

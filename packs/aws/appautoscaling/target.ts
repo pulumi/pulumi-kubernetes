@@ -13,11 +13,29 @@ export class Target extends lumi.NamedResource implements TargetArgs {
 
     constructor(name: string, args: TargetArgs) {
         super(name);
+        if (args.maxCapacity === undefined) {
+            throw new Error("Property argument 'maxCapacity' is required, but was missing");
+        }
         this.maxCapacity = args.maxCapacity;
+        if (args.minCapacity === undefined) {
+            throw new Error("Property argument 'minCapacity' is required, but was missing");
+        }
         this.minCapacity = args.minCapacity;
+        if (args.resourceId === undefined) {
+            throw new Error("Property argument 'resourceId' is required, but was missing");
+        }
         this.resourceId = args.resourceId;
+        if (args.roleArn === undefined) {
+            throw new Error("Property argument 'roleArn' is required, but was missing");
+        }
         this.roleArn = args.roleArn;
+        if (args.scalableDimension === undefined) {
+            throw new Error("Property argument 'scalableDimension' is required, but was missing");
+        }
         this.scalableDimension = args.scalableDimension;
+        if (args.serviceNamespace === undefined) {
+            throw new Error("Property argument 'serviceNamespace' is required, but was missing");
+        }
         this.serviceNamespace = args.serviceNamespace;
     }
 }

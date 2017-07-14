@@ -3,12 +3,14 @@
 
 import * as lumi from "@lumi/lumi";
 
+import {Role} from "../iam/role";
+
 export class Function extends lumi.NamedResource implements FunctionArgs {
     public readonly arn?: string;
     public readonly deadLetterConfig?: { targetArn: string }[];
     public readonly description?: string;
     public readonly environment?: { variables?: {[key: string]: string} }[];
-    public readonly filename?: string;
+    public readonly code?: lumi.asset.Archive;
     public readonly functionName: string;
     public readonly handler: string;
     public readonly invokeArn?: string;
@@ -17,7 +19,7 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
     public readonly memorySize?: number;
     public readonly publish?: boolean;
     public readonly qualifiedArn?: string;
-    public readonly role: string;
+    public readonly role: Role;
     public readonly runtime: string;
     public readonly s3Bucket?: string;
     public readonly s3Key?: string;
@@ -31,20 +33,44 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
 
     constructor(name: string, args: FunctionArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.deadLetterConfig = args.deadLetterConfig;
         this.description = args.description;
         this.environment = args.environment;
-        this.filename = args.filename;
+        this.code = args.code;
+        if (args.functionName === undefined) {
+            throw new Error("Property argument 'functionName' is required, but was missing");
+        }
         this.functionName = args.functionName;
+        if (args.handler === undefined) {
+            throw new Error("Property argument 'handler' is required, but was missing");
+        }
         this.handler = args.handler;
+        if (args.invokeArn === undefined) {
+            throw new Error("Property argument 'invokeArn' is required, but was missing");
+        }
         this.invokeArn = args.invokeArn;
         this.kmsKeyArn = args.kmsKeyArn;
+        if (args.lastModified === undefined) {
+            throw new Error("Property argument 'lastModified' is required, but was missing");
+        }
         this.lastModified = args.lastModified;
         this.memorySize = args.memorySize;
         this.publish = args.publish;
+        if (args.qualifiedArn === undefined) {
+            throw new Error("Property argument 'qualifiedArn' is required, but was missing");
+        }
         this.qualifiedArn = args.qualifiedArn;
+        if (args.role === undefined) {
+            throw new Error("Property argument 'role' is required, but was missing");
+        }
         this.role = args.role;
+        if (args.runtime === undefined) {
+            throw new Error("Property argument 'runtime' is required, but was missing");
+        }
         this.runtime = args.runtime;
         this.s3Bucket = args.s3Bucket;
         this.s3Key = args.s3Key;
@@ -53,6 +79,9 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
         this.tags = args.tags;
         this.timeout = args.timeout;
         this.tracingConfig = args.tracingConfig;
+        if (args.version === undefined) {
+            throw new Error("Property argument 'version' is required, but was missing");
+        }
         this.version = args.version;
         this.vpcConfig = args.vpcConfig;
     }
@@ -63,7 +92,7 @@ export interface FunctionArgs {
     readonly deadLetterConfig?: { targetArn: string }[];
     readonly description?: string;
     readonly environment?: { variables?: {[key: string]: string} }[];
-    readonly filename?: string;
+    readonly code?: lumi.asset.Archive;
     readonly functionName: string;
     readonly handler: string;
     readonly invokeArn?: string;
@@ -72,7 +101,7 @@ export interface FunctionArgs {
     readonly memorySize?: number;
     readonly publish?: boolean;
     readonly qualifiedArn?: string;
-    readonly role: string;
+    readonly role: Role;
     readonly runtime: string;
     readonly s3Bucket?: string;
     readonly s3Key?: string;

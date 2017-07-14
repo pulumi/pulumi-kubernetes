@@ -5,17 +5,17 @@ import * as lumi from "@lumi/lumi";
 
 export class Activity extends lumi.NamedResource implements ActivityArgs {
     public readonly creationDate?: string;
-    public readonly _name: string;
 
     constructor(name: string, args: ActivityArgs) {
         super(name);
+        if (args.creationDate === undefined) {
+            throw new Error("Property argument 'creationDate' is required, but was missing");
+        }
         this.creationDate = args.creationDate;
-        this._name = args._name;
     }
 }
 
 export interface ActivityArgs {
     readonly creationDate?: string;
-    readonly _name: string;
 }
 

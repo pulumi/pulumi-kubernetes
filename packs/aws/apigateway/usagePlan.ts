@@ -6,7 +6,6 @@ import * as lumi from "@lumi/lumi";
 export class UsagePlan extends lumi.NamedResource implements UsagePlanArgs {
     public readonly apiStages?: { apiId: string, stage: string }[];
     public readonly description?: string;
-    public readonly _name: string;
     public readonly productCode?: string;
     public readonly quotaSettings?: { limit: number, offset?: number, period: string }[];
     public readonly throttleSettings?: { burstLimit?: number, rateLimit?: number }[];
@@ -15,7 +14,6 @@ export class UsagePlan extends lumi.NamedResource implements UsagePlanArgs {
         super(name);
         this.apiStages = args.apiStages;
         this.description = args.description;
-        this._name = args._name;
         this.productCode = args.productCode;
         this.quotaSettings = args.quotaSettings;
         this.throttleSettings = args.throttleSettings;
@@ -25,7 +23,6 @@ export class UsagePlan extends lumi.NamedResource implements UsagePlanArgs {
 export interface UsagePlanArgs {
     readonly apiStages?: { apiId: string, stage: string }[];
     readonly description?: string;
-    readonly _name: string;
     readonly productCode?: string;
     readonly quotaSettings?: { limit: number, offset?: number, period: string }[];
     readonly throttleSettings?: { burstLimit?: number, rateLimit?: number }[];

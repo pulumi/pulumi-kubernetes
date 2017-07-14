@@ -9,7 +9,13 @@ export class TopicPolicy extends lumi.NamedResource implements TopicPolicyArgs {
 
     constructor(name: string, args: TopicPolicyArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.policy === undefined) {
+            throw new Error("Property argument 'policy' is required, but was missing");
+        }
         this.policy = args.policy;
     }
 }

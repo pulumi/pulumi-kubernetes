@@ -13,11 +13,17 @@ export class DefaultNetworkAcl extends lumi.NamedResource implements DefaultNetw
 
     constructor(name: string, args: DefaultNetworkAclArgs) {
         super(name);
+        if (args.defaultNetworkAclId === undefined) {
+            throw new Error("Property argument 'defaultNetworkAclId' is required, but was missing");
+        }
         this.defaultNetworkAclId = args.defaultNetworkAclId;
         this.egress = args.egress;
         this.ingress = args.ingress;
         this.subnetIds = args.subnetIds;
         this.tags = args.tags;
+        if (args.vpcId === undefined) {
+            throw new Error("Property argument 'vpcId' is required, but was missing");
+        }
         this.vpcId = args.vpcId;
     }
 }

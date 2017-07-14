@@ -8,7 +8,7 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
     public readonly availabilityZone?: string;
     public readonly availabilityZones?: string[];
     public readonly azMode?: string;
-    public readonly cacheNodes?: { address?: string, availabilityZone?: string, _id?: string, port?: number }[];
+    public readonly cacheNodes?: { address?: string, availabilityZone?: string, id?: string, port?: number }[];
     public readonly clusterAddress?: string;
     public readonly clusterId: string;
     public readonly configurationEndpoint?: string;
@@ -36,18 +36,45 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.availabilityZone = args.availabilityZone;
         this.availabilityZones = args.availabilityZones;
         this.azMode = args.azMode;
+        if (args.cacheNodes === undefined) {
+            throw new Error("Property argument 'cacheNodes' is required, but was missing");
+        }
         this.cacheNodes = args.cacheNodes;
+        if (args.clusterAddress === undefined) {
+            throw new Error("Property argument 'clusterAddress' is required, but was missing");
+        }
         this.clusterAddress = args.clusterAddress;
+        if (args.clusterId === undefined) {
+            throw new Error("Property argument 'clusterId' is required, but was missing");
+        }
         this.clusterId = args.clusterId;
+        if (args.configurationEndpoint === undefined) {
+            throw new Error("Property argument 'configurationEndpoint' is required, but was missing");
+        }
         this.configurationEndpoint = args.configurationEndpoint;
+        if (args.engine === undefined) {
+            throw new Error("Property argument 'engine' is required, but was missing");
+        }
         this.engine = args.engine;
         this.engineVersion = args.engineVersion;
         this.maintenanceWindow = args.maintenanceWindow;
+        if (args.nodeType === undefined) {
+            throw new Error("Property argument 'nodeType' is required, but was missing");
+        }
         this.nodeType = args.nodeType;
         this.notificationTopicArn = args.notificationTopicArn;
+        if (args.numCacheNodes === undefined) {
+            throw new Error("Property argument 'numCacheNodes' is required, but was missing");
+        }
         this.numCacheNodes = args.numCacheNodes;
         this.parameterGroupName = args.parameterGroupName;
+        if (args.port === undefined) {
+            throw new Error("Property argument 'port' is required, but was missing");
+        }
         this.port = args.port;
+        if (args.replicationGroupId === undefined) {
+            throw new Error("Property argument 'replicationGroupId' is required, but was missing");
+        }
         this.replicationGroupId = args.replicationGroupId;
         this.securityGroupIds = args.securityGroupIds;
         this.securityGroupNames = args.securityGroupNames;
@@ -65,7 +92,7 @@ export interface ClusterArgs {
     readonly availabilityZone?: string;
     readonly availabilityZones?: string[];
     readonly azMode?: string;
-    readonly cacheNodes?: { address?: string, availabilityZone?: string, _id?: string, port?: number }[];
+    readonly cacheNodes?: { address?: string, availabilityZone?: string, id?: string, port?: number }[];
     readonly clusterAddress?: string;
     readonly clusterId: string;
     readonly configurationEndpoint?: string;

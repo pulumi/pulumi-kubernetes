@@ -3,18 +3,32 @@
 
 import * as lumi from "@lumi/lumi";
 
+import {RestApi} from "./restApi";
+
 export class Resource extends lumi.NamedResource implements ResourceArgs {
     public readonly parentId: string;
     public readonly path?: string;
     public readonly pathPart: string;
-    public readonly restApiId: string;
+    public readonly restApi: RestApi;
 
     constructor(name: string, args: ResourceArgs) {
         super(name);
+        if (args.parentId === undefined) {
+            throw new Error("Property argument 'parentId' is required, but was missing");
+        }
         this.parentId = args.parentId;
+        if (args.path === undefined) {
+            throw new Error("Property argument 'path' is required, but was missing");
+        }
         this.path = args.path;
+        if (args.pathPart === undefined) {
+            throw new Error("Property argument 'pathPart' is required, but was missing");
+        }
         this.pathPart = args.pathPart;
-        this.restApiId = args.restApiId;
+        if (args.restApi === undefined) {
+            throw new Error("Property argument 'restApi' is required, but was missing");
+        }
+        this.restApi = args.restApi;
     }
 }
 
@@ -22,6 +36,6 @@ export interface ResourceArgs {
     readonly parentId: string;
     readonly path?: string;
     readonly pathPart: string;
-    readonly restApiId: string;
+    readonly restApi: RestApi;
 }
 

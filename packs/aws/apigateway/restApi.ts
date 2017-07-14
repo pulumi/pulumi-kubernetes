@@ -7,15 +7,19 @@ export class RestApi extends lumi.NamedResource implements RestApiArgs {
     public readonly binaryMediaTypes?: string[];
     public readonly createdDate?: string;
     public readonly description?: string;
-    public readonly _name: string;
     public readonly rootResourceId?: string;
 
     constructor(name: string, args: RestApiArgs) {
         super(name);
         this.binaryMediaTypes = args.binaryMediaTypes;
+        if (args.createdDate === undefined) {
+            throw new Error("Property argument 'createdDate' is required, but was missing");
+        }
         this.createdDate = args.createdDate;
         this.description = args.description;
-        this._name = args._name;
+        if (args.rootResourceId === undefined) {
+            throw new Error("Property argument 'rootResourceId' is required, but was missing");
+        }
         this.rootResourceId = args.rootResourceId;
     }
 }
@@ -24,7 +28,6 @@ export interface RestApiArgs {
     readonly binaryMediaTypes?: string[];
     readonly createdDate?: string;
     readonly description?: string;
-    readonly _name: string;
     readonly rootResourceId?: string;
 }
 

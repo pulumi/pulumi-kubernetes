@@ -13,7 +13,6 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly ipv6Address?: string;
     public readonly isStaticIp?: boolean;
     public readonly keyPairName?: string;
-    public readonly _name: string;
     public readonly privateIpAddress?: string;
     public readonly publicIpAddress?: string;
     public readonly ramSize?: number;
@@ -22,20 +21,55 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
 
     constructor(name: string, args: InstanceArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.availabilityZone === undefined) {
+            throw new Error("Property argument 'availabilityZone' is required, but was missing");
+        }
         this.availabilityZone = args.availabilityZone;
+        if (args.blueprintId === undefined) {
+            throw new Error("Property argument 'blueprintId' is required, but was missing");
+        }
         this.blueprintId = args.blueprintId;
+        if (args.bundleId === undefined) {
+            throw new Error("Property argument 'bundleId' is required, but was missing");
+        }
         this.bundleId = args.bundleId;
+        if (args.cpuCount === undefined) {
+            throw new Error("Property argument 'cpuCount' is required, but was missing");
+        }
         this.cpuCount = args.cpuCount;
+        if (args.createdAt === undefined) {
+            throw new Error("Property argument 'createdAt' is required, but was missing");
+        }
         this.createdAt = args.createdAt;
+        if (args.ipv6Address === undefined) {
+            throw new Error("Property argument 'ipv6Address' is required, but was missing");
+        }
         this.ipv6Address = args.ipv6Address;
+        if (args.isStaticIp === undefined) {
+            throw new Error("Property argument 'isStaticIp' is required, but was missing");
+        }
         this.isStaticIp = args.isStaticIp;
         this.keyPairName = args.keyPairName;
-        this._name = args._name;
+        if (args.privateIpAddress === undefined) {
+            throw new Error("Property argument 'privateIpAddress' is required, but was missing");
+        }
         this.privateIpAddress = args.privateIpAddress;
+        if (args.publicIpAddress === undefined) {
+            throw new Error("Property argument 'publicIpAddress' is required, but was missing");
+        }
         this.publicIpAddress = args.publicIpAddress;
+        if (args.ramSize === undefined) {
+            throw new Error("Property argument 'ramSize' is required, but was missing");
+        }
         this.ramSize = args.ramSize;
         this.userData = args.userData;
+        if (args.username === undefined) {
+            throw new Error("Property argument 'username' is required, but was missing");
+        }
         this.username = args.username;
     }
 }
@@ -50,7 +84,6 @@ export interface InstanceArgs {
     readonly ipv6Address?: string;
     readonly isStaticIp?: boolean;
     readonly keyPairName?: string;
-    readonly _name: string;
     readonly privateIpAddress?: string;
     readonly publicIpAddress?: string;
     readonly ramSize?: number;

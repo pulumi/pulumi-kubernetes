@@ -7,23 +7,33 @@ export class DatabaseInstance extends lumi.NamedResource implements DatabaseInst
     public readonly databaseVersion?: string;
     public readonly ipAddress?: { ipAddress?: string, timeToRetire?: string }[];
     public readonly masterInstanceName?: string;
-    public readonly _name?: string;
     public readonly project?: string;
     public readonly region: string;
     public readonly replicaConfiguration?: { caCertificate?: string, clientCertificate?: string, clientKey?: string, connectRetryInterval?: number, dumpFilePath?: string, failoverTarget?: boolean, masterHeartbeatPeriod?: number, password?: string, sslCipher?: string, username?: string, verifyServerCertificate?: boolean }[];
     public readonly selfLink?: string;
-    public readonly settings: { activationPolicy?: string, authorizedGaeApplications?: string[], backupConfiguration?: { binaryLogEnabled?: boolean, enabled?: boolean, startTime?: string }[], crashSafeReplication?: boolean, databaseFlags?: { _name?: string, value?: string }[], diskAutoresize?: boolean, diskSize?: number, diskType?: string, ipConfiguration?: { authorizedNetworks?: { expirationTime?: string, _name?: string, value?: string }[], ipv4Enabled?: boolean, requireSsl?: boolean }[], locationPreference?: { followGaeApplication?: string, zone?: string }[], maintenanceWindow?: { day?: number, hour?: number, updateTrack?: string }[], pricingPlan?: string, replicationType?: string, tier: string, version?: number }[];
+    public readonly settings: { activationPolicy?: string, authorizedGaeApplications?: string[], backupConfiguration?: { binaryLogEnabled?: boolean, enabled?: boolean, startTime?: string }[], crashSafeReplication?: boolean, databaseFlags?: { value?: string }[], diskAutoresize?: boolean, diskSize?: number, diskType?: string, ipConfiguration?: { authorizedNetworks?: { expirationTime?: string, value?: string }[], ipv4Enabled?: boolean, requireSsl?: boolean }[], locationPreference?: { followGaeApplication?: string, zone?: string }[], maintenanceWindow?: { day?: number, hour?: number, updateTrack?: string }[], pricingPlan?: string, replicationType?: string, tier: string, version?: number }[];
 
     constructor(name: string, args: DatabaseInstanceArgs) {
         super(name);
         this.databaseVersion = args.databaseVersion;
+        if (args.ipAddress === undefined) {
+            throw new Error("Property argument 'ipAddress' is required, but was missing");
+        }
         this.ipAddress = args.ipAddress;
         this.masterInstanceName = args.masterInstanceName;
-        this._name = args._name;
         this.project = args.project;
+        if (args.region === undefined) {
+            throw new Error("Property argument 'region' is required, but was missing");
+        }
         this.region = args.region;
         this.replicaConfiguration = args.replicaConfiguration;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
+        if (args.settings === undefined) {
+            throw new Error("Property argument 'settings' is required, but was missing");
+        }
         this.settings = args.settings;
     }
 }
@@ -32,11 +42,10 @@ export interface DatabaseInstanceArgs {
     readonly databaseVersion?: string;
     readonly ipAddress?: { ipAddress?: string, timeToRetire?: string }[];
     readonly masterInstanceName?: string;
-    readonly _name?: string;
     readonly project?: string;
     readonly region: string;
     readonly replicaConfiguration?: { caCertificate?: string, clientCertificate?: string, clientKey?: string, connectRetryInterval?: number, dumpFilePath?: string, failoverTarget?: boolean, masterHeartbeatPeriod?: number, password?: string, sslCipher?: string, username?: string, verifyServerCertificate?: boolean }[];
     readonly selfLink?: string;
-    readonly settings: { activationPolicy?: string, authorizedGaeApplications?: string[], backupConfiguration?: { binaryLogEnabled?: boolean, enabled?: boolean, startTime?: string }[], crashSafeReplication?: boolean, databaseFlags?: { _name?: string, value?: string }[], diskAutoresize?: boolean, diskSize?: number, diskType?: string, ipConfiguration?: { authorizedNetworks?: { expirationTime?: string, _name?: string, value?: string }[], ipv4Enabled?: boolean, requireSsl?: boolean }[], locationPreference?: { followGaeApplication?: string, zone?: string }[], maintenanceWindow?: { day?: number, hour?: number, updateTrack?: string }[], pricingPlan?: string, replicationType?: string, tier: string, version?: number }[];
+    readonly settings: { activationPolicy?: string, authorizedGaeApplications?: string[], backupConfiguration?: { binaryLogEnabled?: boolean, enabled?: boolean, startTime?: string }[], crashSafeReplication?: boolean, databaseFlags?: { value?: string }[], diskAutoresize?: boolean, diskSize?: number, diskType?: string, ipConfiguration?: { authorizedNetworks?: { expirationTime?: string, value?: string }[], ipv4Enabled?: boolean, requireSsl?: boolean }[], locationPreference?: { followGaeApplication?: string, zone?: string }[], maintenanceWindow?: { day?: number, hour?: number, updateTrack?: string }[], pricingPlan?: string, replicationType?: string, tier: string, version?: number }[];
 }
 

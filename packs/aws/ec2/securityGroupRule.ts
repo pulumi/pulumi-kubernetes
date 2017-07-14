@@ -18,14 +18,29 @@ export class SecurityGroupRule extends lumi.NamedResource implements SecurityGro
     constructor(name: string, args: SecurityGroupRuleArgs) {
         super(name);
         this.cidrBlocks = args.cidrBlocks;
+        if (args.fromPort === undefined) {
+            throw new Error("Property argument 'fromPort' is required, but was missing");
+        }
         this.fromPort = args.fromPort;
         this.ipv6CidrBlocks = args.ipv6CidrBlocks;
         this.prefixListIds = args.prefixListIds;
+        if (args.protocol === undefined) {
+            throw new Error("Property argument 'protocol' is required, but was missing");
+        }
         this.protocol = args.protocol;
+        if (args.securityGroupId === undefined) {
+            throw new Error("Property argument 'securityGroupId' is required, but was missing");
+        }
         this.securityGroupId = args.securityGroupId;
         this.self = args.self;
         this.sourceSecurityGroupId = args.sourceSecurityGroupId;
+        if (args.toPort === undefined) {
+            throw new Error("Property argument 'toPort' is required, but was missing");
+        }
         this.toPort = args.toPort;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
     }
 }

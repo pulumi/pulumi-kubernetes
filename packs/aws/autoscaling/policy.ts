@@ -12,22 +12,29 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
     public readonly metricAggregationType?: string;
     public readonly minAdjustmentMagnitude?: number;
     public readonly minAdjustmentStep?: number;
-    public readonly _name: string;
     public readonly policyType?: string;
     public readonly scalingAdjustment?: number;
     public readonly stepAdjustment?: { metricIntervalLowerBound?: string, metricIntervalUpperBound?: string, scalingAdjustment: number }[];
 
     constructor(name: string, args: PolicyArgs) {
         super(name);
+        if (args.adjustmentType === undefined) {
+            throw new Error("Property argument 'adjustmentType' is required, but was missing");
+        }
         this.adjustmentType = args.adjustmentType;
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.autoscalingGroupName === undefined) {
+            throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");
+        }
         this.autoscalingGroupName = args.autoscalingGroupName;
         this.cooldown = args.cooldown;
         this.estimatedInstanceWarmup = args.estimatedInstanceWarmup;
         this.metricAggregationType = args.metricAggregationType;
         this.minAdjustmentMagnitude = args.minAdjustmentMagnitude;
         this.minAdjustmentStep = args.minAdjustmentStep;
-        this._name = args._name;
         this.policyType = args.policyType;
         this.scalingAdjustment = args.scalingAdjustment;
         this.stepAdjustment = args.stepAdjustment;
@@ -43,7 +50,6 @@ export interface PolicyArgs {
     readonly metricAggregationType?: string;
     readonly minAdjustmentMagnitude?: number;
     readonly minAdjustmentStep?: number;
-    readonly _name: string;
     readonly policyType?: string;
     readonly scalingAdjustment?: number;
     readonly stepAdjustment?: { metricIntervalLowerBound?: string, metricIntervalUpperBound?: string, scalingAdjustment: number }[];

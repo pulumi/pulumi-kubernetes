@@ -6,14 +6,21 @@ import * as lumi from "@lumi/lumi";
 export class StaticIp extends lumi.NamedResource implements StaticIpArgs {
     public readonly arn?: string;
     public readonly ipAddress?: string;
-    public readonly _name: string;
     public readonly supportCode?: string;
 
     constructor(name: string, args: StaticIpArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.ipAddress === undefined) {
+            throw new Error("Property argument 'ipAddress' is required, but was missing");
+        }
         this.ipAddress = args.ipAddress;
-        this._name = args._name;
+        if (args.supportCode === undefined) {
+            throw new Error("Property argument 'supportCode' is required, but was missing");
+        }
         this.supportCode = args.supportCode;
     }
 }
@@ -21,7 +28,6 @@ export class StaticIp extends lumi.NamedResource implements StaticIpArgs {
 export interface StaticIpArgs {
     readonly arn?: string;
     readonly ipAddress?: string;
-    readonly _name: string;
     readonly supportCode?: string;
 }
 

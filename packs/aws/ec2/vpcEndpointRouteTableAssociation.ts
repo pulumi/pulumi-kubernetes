@@ -9,7 +9,13 @@ export class VpcEndpointRouteTableAssociation extends lumi.NamedResource impleme
 
     constructor(name: string, args: VpcEndpointRouteTableAssociationArgs) {
         super(name);
+        if (args.routeTableId === undefined) {
+            throw new Error("Property argument 'routeTableId' is required, but was missing");
+        }
         this.routeTableId = args.routeTableId;
+        if (args.vpcEndpointId === undefined) {
+            throw new Error("Property argument 'vpcEndpointId' is required, but was missing");
+        }
         this.vpcEndpointId = args.vpcEndpointId;
     }
 }

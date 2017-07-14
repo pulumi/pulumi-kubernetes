@@ -9,22 +9,38 @@ export class Registry extends lumi.NamedResource implements RegistryArgs {
     public readonly adminUsername?: string;
     public readonly location: string;
     public readonly loginServer?: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
     public readonly sku?: string;
-    public readonly storageAccount: { accessKey: string, _name: string }[];
+    public readonly storageAccount: { accessKey: string }[];
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: RegistryArgs) {
         super(name);
         this.adminEnabled = args.adminEnabled;
+        if (args.adminPassword === undefined) {
+            throw new Error("Property argument 'adminPassword' is required, but was missing");
+        }
         this.adminPassword = args.adminPassword;
+        if (args.adminUsername === undefined) {
+            throw new Error("Property argument 'adminUsername' is required, but was missing");
+        }
         this.adminUsername = args.adminUsername;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
+        if (args.loginServer === undefined) {
+            throw new Error("Property argument 'loginServer' is required, but was missing");
+        }
         this.loginServer = args.loginServer;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.sku = args.sku;
+        if (args.storageAccount === undefined) {
+            throw new Error("Property argument 'storageAccount' is required, but was missing");
+        }
         this.storageAccount = args.storageAccount;
         this.tags = args.tags;
     }
@@ -36,10 +52,9 @@ export interface RegistryArgs {
     readonly adminUsername?: string;
     readonly location: string;
     readonly loginServer?: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
     readonly sku?: string;
-    readonly storageAccount: { accessKey: string, _name: string }[];
+    readonly storageAccount: { accessKey: string }[];
     readonly tags?: {[key: string]: any};
 }
 

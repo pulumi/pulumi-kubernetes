@@ -9,7 +9,13 @@ export class VpnConnectionRoute extends lumi.NamedResource implements VpnConnect
 
     constructor(name: string, args: VpnConnectionRouteArgs) {
         super(name);
+        if (args.destinationCidrBlock === undefined) {
+            throw new Error("Property argument 'destinationCidrBlock' is required, but was missing");
+        }
         this.destinationCidrBlock = args.destinationCidrBlock;
+        if (args.vpnConnectionId === undefined) {
+            throw new Error("Property argument 'vpnConnectionId' is required, but was missing");
+        }
         this.vpnConnectionId = args.vpnConnectionId;
     }
 }

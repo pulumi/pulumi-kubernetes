@@ -8,7 +8,6 @@ export class Network extends lumi.NamedResource implements NetworkArgs {
     public readonly description?: string;
     public readonly gatewayIpv4?: string;
     public readonly ipv4Range?: string;
-    public readonly _name: string;
     public readonly project?: string;
     public readonly selfLink?: string;
 
@@ -16,10 +15,15 @@ export class Network extends lumi.NamedResource implements NetworkArgs {
         super(name);
         this.autoCreateSubnetworks = args.autoCreateSubnetworks;
         this.description = args.description;
+        if (args.gatewayIpv4 === undefined) {
+            throw new Error("Property argument 'gatewayIpv4' is required, but was missing");
+        }
         this.gatewayIpv4 = args.gatewayIpv4;
         this.ipv4Range = args.ipv4Range;
-        this._name = args._name;
         this.project = args.project;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
     }
 }
@@ -29,7 +33,6 @@ export interface NetworkArgs {
     readonly description?: string;
     readonly gatewayIpv4?: string;
     readonly ipv4Range?: string;
-    readonly _name: string;
     readonly project?: string;
     readonly selfLink?: string;
 }

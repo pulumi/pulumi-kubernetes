@@ -8,7 +8,6 @@ export class TargetGroup extends lumi.NamedResource implements TargetGroupArgs {
     public readonly arnSuffix?: string;
     public readonly deregistrationDelay?: number;
     public readonly healthCheck?: { healthyThreshold?: number, interval?: number, matcher?: string, path?: string, port?: string, protocol?: string, timeout?: number, unhealthyThreshold?: number }[];
-    public readonly _name?: string;
     public readonly namePrefix?: string;
     public readonly port: number;
     public readonly protocol: string;
@@ -18,16 +17,30 @@ export class TargetGroup extends lumi.NamedResource implements TargetGroupArgs {
 
     constructor(name: string, args: TargetGroupArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.arnSuffix === undefined) {
+            throw new Error("Property argument 'arnSuffix' is required, but was missing");
+        }
         this.arnSuffix = args.arnSuffix;
         this.deregistrationDelay = args.deregistrationDelay;
         this.healthCheck = args.healthCheck;
-        this._name = args._name;
         this.namePrefix = args.namePrefix;
+        if (args.port === undefined) {
+            throw new Error("Property argument 'port' is required, but was missing");
+        }
         this.port = args.port;
+        if (args.protocol === undefined) {
+            throw new Error("Property argument 'protocol' is required, but was missing");
+        }
         this.protocol = args.protocol;
         this.stickiness = args.stickiness;
         this.tags = args.tags;
+        if (args.vpcId === undefined) {
+            throw new Error("Property argument 'vpcId' is required, but was missing");
+        }
         this.vpcId = args.vpcId;
     }
 }
@@ -37,7 +50,6 @@ export interface TargetGroupArgs {
     readonly arnSuffix?: string;
     readonly deregistrationDelay?: number;
     readonly healthCheck?: { healthyThreshold?: number, interval?: number, matcher?: string, path?: string, port?: string, protocol?: string, timeout?: number, unhealthyThreshold?: number }[];
-    readonly _name?: string;
     readonly namePrefix?: string;
     readonly port: number;
     readonly protocol: string;

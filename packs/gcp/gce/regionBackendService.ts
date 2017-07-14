@@ -9,7 +9,6 @@ export class RegionBackendService extends lumi.NamedResource implements RegionBa
     public readonly description?: string;
     public readonly fingerprint?: string;
     public readonly healthChecks: string[];
-    public readonly _name: string;
     public readonly project?: string;
     public readonly protocol?: string;
     public readonly region?: string;
@@ -22,12 +21,20 @@ export class RegionBackendService extends lumi.NamedResource implements RegionBa
         this.backend = args.backend;
         this.connectionDrainingTimeoutSec = args.connectionDrainingTimeoutSec;
         this.description = args.description;
+        if (args.fingerprint === undefined) {
+            throw new Error("Property argument 'fingerprint' is required, but was missing");
+        }
         this.fingerprint = args.fingerprint;
+        if (args.healthChecks === undefined) {
+            throw new Error("Property argument 'healthChecks' is required, but was missing");
+        }
         this.healthChecks = args.healthChecks;
-        this._name = args._name;
         this.project = args.project;
         this.protocol = args.protocol;
         this.region = args.region;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
         this.sessionAffinity = args.sessionAffinity;
         this.timeoutSec = args.timeoutSec;
@@ -40,7 +47,6 @@ export interface RegionBackendServiceArgs {
     readonly description?: string;
     readonly fingerprint?: string;
     readonly healthChecks: string[];
-    readonly _name: string;
     readonly project?: string;
     readonly protocol?: string;
     readonly region?: string;

@@ -5,22 +5,25 @@ import * as lumi from "@lumi/lumi";
 
 export class GlobalAddress extends lumi.NamedResource implements GlobalAddressArgs {
     public readonly address?: string;
-    public readonly _name: string;
     public readonly project?: string;
     public readonly selfLink?: string;
 
     constructor(name: string, args: GlobalAddressArgs) {
         super(name);
+        if (args.address === undefined) {
+            throw new Error("Property argument 'address' is required, but was missing");
+        }
         this.address = args.address;
-        this._name = args._name;
         this.project = args.project;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
     }
 }
 
 export interface GlobalAddressArgs {
     readonly address?: string;
-    readonly _name: string;
     readonly project?: string;
     readonly selfLink?: string;
 }

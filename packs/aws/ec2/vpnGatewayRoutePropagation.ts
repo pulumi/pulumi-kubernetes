@@ -9,7 +9,13 @@ export class VpnGatewayRoutePropagation extends lumi.NamedResource implements Vp
 
     constructor(name: string, args: VpnGatewayRoutePropagationArgs) {
         super(name);
+        if (args.routeTableId === undefined) {
+            throw new Error("Property argument 'routeTableId' is required, but was missing");
+        }
         this.routeTableId = args.routeTableId;
+        if (args.vpnGatewayId === undefined) {
+            throw new Error("Property argument 'vpnGatewayId' is required, but was missing");
+        }
         this.vpnGatewayId = args.vpnGatewayId;
     }
 }

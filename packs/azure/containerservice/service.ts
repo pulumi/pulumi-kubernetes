@@ -4,12 +4,11 @@
 import * as lumi from "@lumi/lumi";
 
 export class Service extends lumi.NamedResource implements ServiceArgs {
-    public readonly agentPoolProfile: { count?: number, dnsPrefix: string, fqdn?: string, _name: string, vmSize: string }[];
+    public readonly agentPoolProfile: { count?: number, dnsPrefix: string, fqdn?: string, vmSize: string }[];
     public readonly diagnosticsProfile: { enabled: boolean, storageUri?: string }[];
     public readonly linuxProfile: { adminUsername: string, sshKey: { keyData: string }[] }[];
     public readonly location: string;
     public readonly masterProfile: { count?: number, dnsPrefix: string, fqdn?: string }[];
-    public readonly _name: string;
     public readonly orchestrationPlatform: string;
     public readonly resourceGroupName: string;
     public readonly servicePrincipal?: { clientId: string, clientSecret: string }[];
@@ -17,13 +16,33 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
 
     constructor(name: string, args: ServiceArgs) {
         super(name);
+        if (args.agentPoolProfile === undefined) {
+            throw new Error("Property argument 'agentPoolProfile' is required, but was missing");
+        }
         this.agentPoolProfile = args.agentPoolProfile;
+        if (args.diagnosticsProfile === undefined) {
+            throw new Error("Property argument 'diagnosticsProfile' is required, but was missing");
+        }
         this.diagnosticsProfile = args.diagnosticsProfile;
+        if (args.linuxProfile === undefined) {
+            throw new Error("Property argument 'linuxProfile' is required, but was missing");
+        }
         this.linuxProfile = args.linuxProfile;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
+        if (args.masterProfile === undefined) {
+            throw new Error("Property argument 'masterProfile' is required, but was missing");
+        }
         this.masterProfile = args.masterProfile;
-        this._name = args._name;
+        if (args.orchestrationPlatform === undefined) {
+            throw new Error("Property argument 'orchestrationPlatform' is required, but was missing");
+        }
         this.orchestrationPlatform = args.orchestrationPlatform;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.servicePrincipal = args.servicePrincipal;
         this.tags = args.tags;
@@ -31,12 +50,11 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
 }
 
 export interface ServiceArgs {
-    readonly agentPoolProfile: { count?: number, dnsPrefix: string, fqdn?: string, _name: string, vmSize: string }[];
+    readonly agentPoolProfile: { count?: number, dnsPrefix: string, fqdn?: string, vmSize: string }[];
     readonly diagnosticsProfile: { enabled: boolean, storageUri?: string }[];
     readonly linuxProfile: { adminUsername: string, sshKey: { keyData: string }[] }[];
     readonly location: string;
     readonly masterProfile: { count?: number, dnsPrefix: string, fqdn?: string }[];
-    readonly _name: string;
     readonly orchestrationPlatform: string;
     readonly resourceGroupName: string;
     readonly servicePrincipal?: { clientId: string, clientSecret: string }[];

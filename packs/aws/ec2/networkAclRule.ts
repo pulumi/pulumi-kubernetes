@@ -24,9 +24,21 @@ export class NetworkAclRule extends lumi.NamedResource implements NetworkAclRule
         this.icmpCode = args.icmpCode;
         this.icmpType = args.icmpType;
         this.ipv6CidrBlock = args.ipv6CidrBlock;
+        if (args.networkAclId === undefined) {
+            throw new Error("Property argument 'networkAclId' is required, but was missing");
+        }
         this.networkAclId = args.networkAclId;
+        if (args.protocol === undefined) {
+            throw new Error("Property argument 'protocol' is required, but was missing");
+        }
         this.protocol = args.protocol;
+        if (args.ruleAction === undefined) {
+            throw new Error("Property argument 'ruleAction' is required, but was missing");
+        }
         this.ruleAction = args.ruleAction;
+        if (args.ruleNumber === undefined) {
+            throw new Error("Property argument 'ruleNumber' is required, but was missing");
+        }
         this.ruleNumber = args.ruleNumber;
         this.toPort = args.toPort;
     }

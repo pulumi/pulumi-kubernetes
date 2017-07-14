@@ -12,7 +12,6 @@ export class Subscription extends lumi.NamedResource implements SubscriptionArgs
     public readonly location: string;
     public readonly lockDuration?: string;
     public readonly maxDeliveryCount: number;
-    public readonly _name: string;
     public readonly namespaceName: string;
     public readonly requiresSession?: boolean;
     public readonly resourceGroupName: string;
@@ -25,13 +24,27 @@ export class Subscription extends lumi.NamedResource implements SubscriptionArgs
         this.deadLetteringOnMessageExpiration = args.deadLetteringOnMessageExpiration;
         this.defaultMessageTtl = args.defaultMessageTtl;
         this.enableBatchedOperations = args.enableBatchedOperations;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
         this.lockDuration = args.lockDuration;
+        if (args.maxDeliveryCount === undefined) {
+            throw new Error("Property argument 'maxDeliveryCount' is required, but was missing");
+        }
         this.maxDeliveryCount = args.maxDeliveryCount;
-        this._name = args._name;
+        if (args.namespaceName === undefined) {
+            throw new Error("Property argument 'namespaceName' is required, but was missing");
+        }
         this.namespaceName = args.namespaceName;
         this.requiresSession = args.requiresSession;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.topicName === undefined) {
+            throw new Error("Property argument 'topicName' is required, but was missing");
+        }
         this.topicName = args.topicName;
     }
 }
@@ -45,7 +58,6 @@ export interface SubscriptionArgs {
     readonly location: string;
     readonly lockDuration?: string;
     readonly maxDeliveryCount: number;
-    readonly _name: string;
     readonly namespaceName: string;
     readonly requiresSession?: boolean;
     readonly resourceGroupName: string;

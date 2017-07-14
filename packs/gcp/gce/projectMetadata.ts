@@ -9,6 +9,9 @@ export class ProjectMetadata extends lumi.NamedResource implements ProjectMetada
 
     constructor(name: string, args: ProjectMetadataArgs) {
         super(name);
+        if (args.metadata === undefined) {
+            throw new Error("Property argument 'metadata' is required, but was missing");
+        }
         this.metadata = args.metadata;
         this.project = args.project;
     }

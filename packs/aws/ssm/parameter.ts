@@ -5,7 +5,6 @@ import * as lumi from "@lumi/lumi";
 
 export class Parameter extends lumi.NamedResource implements ParameterArgs {
     public readonly keyId?: string;
-    public readonly _name: string;
     public readonly overwrite?: boolean;
     public readonly type: string;
     public readonly value: string;
@@ -13,16 +12,20 @@ export class Parameter extends lumi.NamedResource implements ParameterArgs {
     constructor(name: string, args: ParameterArgs) {
         super(name);
         this.keyId = args.keyId;
-        this._name = args._name;
         this.overwrite = args.overwrite;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
+        if (args.value === undefined) {
+            throw new Error("Property argument 'value' is required, but was missing");
+        }
         this.value = args.value;
     }
 }
 
 export interface ParameterArgs {
     readonly keyId?: string;
-    readonly _name: string;
     readonly overwrite?: boolean;
     readonly type: string;
     readonly value: string;

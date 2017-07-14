@@ -14,12 +14,24 @@ export class MethodResponse extends lumi.NamedResource implements MethodResponse
 
     constructor(name: string, args: MethodResponseArgs) {
         super(name);
+        if (args.httpMethod === undefined) {
+            throw new Error("Property argument 'httpMethod' is required, but was missing");
+        }
         this.httpMethod = args.httpMethod;
+        if (args.resourceId === undefined) {
+            throw new Error("Property argument 'resourceId' is required, but was missing");
+        }
         this.resourceId = args.resourceId;
         this.responseModels = args.responseModels;
         this.responseParameters = args.responseParameters;
         this.responseParametersInJson = args.responseParametersInJson;
+        if (args.restApiId === undefined) {
+            throw new Error("Property argument 'restApiId' is required, but was missing");
+        }
         this.restApiId = args.restApiId;
+        if (args.statusCode === undefined) {
+            throw new Error("Property argument 'statusCode' is required, but was missing");
+        }
         this.statusCode = args.statusCode;
     }
 }

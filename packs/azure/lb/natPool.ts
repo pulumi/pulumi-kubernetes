@@ -11,21 +11,43 @@ export class NatPool extends lumi.NamedResource implements NatPoolArgs {
     public readonly frontendPortStart: number;
     public readonly loadbalancerId: string;
     public readonly location?: string;
-    public readonly _name: string;
     public readonly protocol: string;
     public readonly resourceGroupName: string;
 
     constructor(name: string, args: NatPoolArgs) {
         super(name);
+        if (args.backendPort === undefined) {
+            throw new Error("Property argument 'backendPort' is required, but was missing");
+        }
         this.backendPort = args.backendPort;
+        if (args.frontendIpConfigurationId === undefined) {
+            throw new Error("Property argument 'frontendIpConfigurationId' is required, but was missing");
+        }
         this.frontendIpConfigurationId = args.frontendIpConfigurationId;
+        if (args.frontendIpConfigurationName === undefined) {
+            throw new Error("Property argument 'frontendIpConfigurationName' is required, but was missing");
+        }
         this.frontendIpConfigurationName = args.frontendIpConfigurationName;
+        if (args.frontendPortEnd === undefined) {
+            throw new Error("Property argument 'frontendPortEnd' is required, but was missing");
+        }
         this.frontendPortEnd = args.frontendPortEnd;
+        if (args.frontendPortStart === undefined) {
+            throw new Error("Property argument 'frontendPortStart' is required, but was missing");
+        }
         this.frontendPortStart = args.frontendPortStart;
+        if (args.loadbalancerId === undefined) {
+            throw new Error("Property argument 'loadbalancerId' is required, but was missing");
+        }
         this.loadbalancerId = args.loadbalancerId;
         this.location = args.location;
-        this._name = args._name;
+        if (args.protocol === undefined) {
+            throw new Error("Property argument 'protocol' is required, but was missing");
+        }
         this.protocol = args.protocol;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
     }
 }
@@ -38,7 +60,6 @@ export interface NatPoolArgs {
     readonly frontendPortStart: number;
     readonly loadbalancerId: string;
     readonly location?: string;
-    readonly _name: string;
     readonly protocol: string;
     readonly resourceGroupName: string;
 }

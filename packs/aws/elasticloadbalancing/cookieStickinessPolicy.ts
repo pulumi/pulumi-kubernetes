@@ -7,14 +7,18 @@ export class CookieStickinessPolicy extends lumi.NamedResource implements Cookie
     public readonly cookieExpirationPeriod?: number;
     public readonly lbPort: number;
     public readonly loadBalancer: string;
-    public readonly _name: string;
 
     constructor(name: string, args: CookieStickinessPolicyArgs) {
         super(name);
         this.cookieExpirationPeriod = args.cookieExpirationPeriod;
+        if (args.lbPort === undefined) {
+            throw new Error("Property argument 'lbPort' is required, but was missing");
+        }
         this.lbPort = args.lbPort;
+        if (args.loadBalancer === undefined) {
+            throw new Error("Property argument 'loadBalancer' is required, but was missing");
+        }
         this.loadBalancer = args.loadBalancer;
-        this._name = args._name;
     }
 }
 
@@ -22,6 +26,5 @@ export interface CookieStickinessPolicyArgs {
     readonly cookieExpirationPeriod?: number;
     readonly lbPort: number;
     readonly loadBalancer: string;
-    readonly _name: string;
 }
 

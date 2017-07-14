@@ -5,7 +5,6 @@ import * as lumi from "@lumi/lumi";
 
 export class Service extends lumi.NamedResource implements ServiceArgs {
     public readonly location: string;
-    public readonly _name: string;
     public readonly partitionCount?: number;
     public readonly replicaCount?: number;
     public readonly resourceGroupName: string;
@@ -14,11 +13,19 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
 
     constructor(name: string, args: ServiceArgs) {
         super(name);
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
         this.partitionCount = args.partitionCount;
         this.replicaCount = args.replicaCount;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.sku === undefined) {
+            throw new Error("Property argument 'sku' is required, but was missing");
+        }
         this.sku = args.sku;
         this.tags = args.tags;
     }
@@ -26,7 +33,6 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
 
 export interface ServiceArgs {
     readonly location: string;
-    readonly _name: string;
     readonly partitionCount?: number;
     readonly replicaCount?: number;
     readonly resourceGroupName: string;

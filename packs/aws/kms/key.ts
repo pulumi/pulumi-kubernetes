@@ -16,11 +16,17 @@ export class Key extends lumi.NamedResource implements KeyArgs {
 
     constructor(name: string, args: KeyArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.deletionWindowInDays = args.deletionWindowInDays;
         this.description = args.description;
         this.enableKeyRotation = args.enableKeyRotation;
         this.isEnabled = args.isEnabled;
+        if (args.keyId === undefined) {
+            throw new Error("Property argument 'keyId' is required, but was missing");
+        }
         this.keyId = args.keyId;
         this.keyUsage = args.keyUsage;
         this.policy = args.policy;

@@ -12,7 +12,6 @@ export class Queue extends lumi.NamedResource implements QueueArgs {
     public readonly kmsMasterKeyId?: string;
     public readonly maxMessageSize?: number;
     public readonly messageRetentionSeconds?: number;
-    public readonly _name?: string;
     public readonly namePrefix?: string;
     public readonly policy?: string;
     public readonly receiveWaitTimeSeconds?: number;
@@ -21,6 +20,9 @@ export class Queue extends lumi.NamedResource implements QueueArgs {
 
     constructor(name: string, args: QueueArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.contentBasedDeduplication = args.contentBasedDeduplication;
         this.delaySeconds = args.delaySeconds;
@@ -29,7 +31,6 @@ export class Queue extends lumi.NamedResource implements QueueArgs {
         this.kmsMasterKeyId = args.kmsMasterKeyId;
         this.maxMessageSize = args.maxMessageSize;
         this.messageRetentionSeconds = args.messageRetentionSeconds;
-        this._name = args._name;
         this.namePrefix = args.namePrefix;
         this.policy = args.policy;
         this.receiveWaitTimeSeconds = args.receiveWaitTimeSeconds;
@@ -47,7 +48,6 @@ export interface QueueArgs {
     readonly kmsMasterKeyId?: string;
     readonly maxMessageSize?: number;
     readonly messageRetentionSeconds?: number;
-    readonly _name?: string;
     readonly namePrefix?: string;
     readonly policy?: string;
     readonly receiveWaitTimeSeconds?: number;

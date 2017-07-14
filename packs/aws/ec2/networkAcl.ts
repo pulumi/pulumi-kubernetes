@@ -18,6 +18,9 @@ export class NetworkAcl extends lumi.NamedResource implements NetworkAclArgs {
         this.subnetId = args.subnetId;
         this.subnetIds = args.subnetIds;
         this.tags = args.tags;
+        if (args.vpcId === undefined) {
+            throw new Error("Property argument 'vpcId' is required, but was missing");
+        }
         this.vpcId = args.vpcId;
     }
 }

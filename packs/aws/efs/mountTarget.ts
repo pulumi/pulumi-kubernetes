@@ -13,11 +13,23 @@ export class MountTarget extends lumi.NamedResource implements MountTargetArgs {
 
     constructor(name: string, args: MountTargetArgs) {
         super(name);
+        if (args.dnsName === undefined) {
+            throw new Error("Property argument 'dnsName' is required, but was missing");
+        }
         this.dnsName = args.dnsName;
+        if (args.fileSystemId === undefined) {
+            throw new Error("Property argument 'fileSystemId' is required, but was missing");
+        }
         this.fileSystemId = args.fileSystemId;
         this.ipAddress = args.ipAddress;
+        if (args.networkInterfaceId === undefined) {
+            throw new Error("Property argument 'networkInterfaceId' is required, but was missing");
+        }
         this.networkInterfaceId = args.networkInterfaceId;
         this.securityGroups = args.securityGroups;
+        if (args.subnetId === undefined) {
+            throw new Error("Property argument 'subnetId' is required, but was missing");
+        }
         this.subnetId = args.subnetId;
     }
 }

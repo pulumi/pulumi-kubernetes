@@ -5,20 +5,20 @@ import * as lumi from "@lumi/lumi";
 
 export class SubnetGroup extends lumi.NamedResource implements SubnetGroupArgs {
     public readonly description?: string;
-    public readonly _name: string;
     public readonly subnetIds: string[];
 
     constructor(name: string, args: SubnetGroupArgs) {
         super(name);
         this.description = args.description;
-        this._name = args._name;
+        if (args.subnetIds === undefined) {
+            throw new Error("Property argument 'subnetIds' is required, but was missing");
+        }
         this.subnetIds = args.subnetIds;
     }
 }
 
 export interface SubnetGroupArgs {
     readonly description?: string;
-    readonly _name: string;
     readonly subnetIds: string[];
 }
 

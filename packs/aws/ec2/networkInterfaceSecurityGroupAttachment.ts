@@ -9,7 +9,13 @@ export class NetworkInterfaceSecurityGroupAttachment extends lumi.NamedResource 
 
     constructor(name: string, args: NetworkInterfaceSecurityGroupAttachmentArgs) {
         super(name);
+        if (args.networkInterfaceId === undefined) {
+            throw new Error("Property argument 'networkInterfaceId' is required, but was missing");
+        }
         this.networkInterfaceId = args.networkInterfaceId;
+        if (args.securityGroupId === undefined) {
+            throw new Error("Property argument 'securityGroupId' is required, but was missing");
+        }
         this.securityGroupId = args.securityGroupId;
     }
 }

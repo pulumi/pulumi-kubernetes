@@ -5,17 +5,17 @@ import * as lumi from "@lumi/lumi";
 
 export class Project extends lumi.NamedResource implements ProjectArgs {
     public readonly arn?: string;
-    public readonly _name: string;
 
     constructor(name: string, args: ProjectArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
-        this._name = args._name;
     }
 }
 
 export interface ProjectArgs {
     readonly arn?: string;
-    readonly _name: string;
 }
 

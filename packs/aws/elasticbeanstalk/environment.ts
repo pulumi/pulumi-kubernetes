@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class Environment extends lumi.NamedResource implements EnvironmentArgs {
-    public readonly allSettings?: { _name: string, namespace: string, resource?: string, value: string }[];
+    public readonly allSettings?: { namespace: string, resource?: string, value: string }[];
     public readonly application: string;
     public readonly autoscalingGroups?: string[];
     public readonly cname?: string;
@@ -13,10 +13,9 @@ export class Environment extends lumi.NamedResource implements EnvironmentArgs {
     public readonly instances?: string[];
     public readonly launchConfigurations?: string[];
     public readonly loadBalancers?: string[];
-    public readonly _name: string;
     public readonly pollInterval?: string;
     public readonly queues?: string[];
-    public readonly setting?: { _name: string, namespace: string, resource?: string, value: string }[];
+    public readonly setting?: { namespace: string, resource?: string, value: string }[];
     public readonly solutionStackName?: string;
     public readonly tags?: {[key: string]: any};
     public readonly templateName?: string;
@@ -27,23 +26,49 @@ export class Environment extends lumi.NamedResource implements EnvironmentArgs {
 
     constructor(name: string, args: EnvironmentArgs) {
         super(name);
+        if (args.allSettings === undefined) {
+            throw new Error("Property argument 'allSettings' is required, but was missing");
+        }
         this.allSettings = args.allSettings;
+        if (args.application === undefined) {
+            throw new Error("Property argument 'application' is required, but was missing");
+        }
         this.application = args.application;
+        if (args.autoscalingGroups === undefined) {
+            throw new Error("Property argument 'autoscalingGroups' is required, but was missing");
+        }
         this.autoscalingGroups = args.autoscalingGroups;
+        if (args.cname === undefined) {
+            throw new Error("Property argument 'cname' is required, but was missing");
+        }
         this.cname = args.cname;
         this.cnamePrefix = args.cnamePrefix;
         this.description = args.description;
+        if (args.instances === undefined) {
+            throw new Error("Property argument 'instances' is required, but was missing");
+        }
         this.instances = args.instances;
+        if (args.launchConfigurations === undefined) {
+            throw new Error("Property argument 'launchConfigurations' is required, but was missing");
+        }
         this.launchConfigurations = args.launchConfigurations;
+        if (args.loadBalancers === undefined) {
+            throw new Error("Property argument 'loadBalancers' is required, but was missing");
+        }
         this.loadBalancers = args.loadBalancers;
-        this._name = args._name;
         this.pollInterval = args.pollInterval;
+        if (args.queues === undefined) {
+            throw new Error("Property argument 'queues' is required, but was missing");
+        }
         this.queues = args.queues;
         this.setting = args.setting;
         this.solutionStackName = args.solutionStackName;
         this.tags = args.tags;
         this.templateName = args.templateName;
         this.tier = args.tier;
+        if (args.triggers === undefined) {
+            throw new Error("Property argument 'triggers' is required, but was missing");
+        }
         this.triggers = args.triggers;
         this.versionLabel = args.versionLabel;
         this.waitForReadyTimeout = args.waitForReadyTimeout;
@@ -51,7 +76,7 @@ export class Environment extends lumi.NamedResource implements EnvironmentArgs {
 }
 
 export interface EnvironmentArgs {
-    readonly allSettings?: { _name: string, namespace: string, resource?: string, value: string }[];
+    readonly allSettings?: { namespace: string, resource?: string, value: string }[];
     readonly application: string;
     readonly autoscalingGroups?: string[];
     readonly cname?: string;
@@ -60,10 +85,9 @@ export interface EnvironmentArgs {
     readonly instances?: string[];
     readonly launchConfigurations?: string[];
     readonly loadBalancers?: string[];
-    readonly _name: string;
     readonly pollInterval?: string;
     readonly queues?: string[];
-    readonly setting?: { _name: string, namespace: string, resource?: string, value: string }[];
+    readonly setting?: { namespace: string, resource?: string, value: string }[];
     readonly solutionStackName?: string;
     readonly tags?: {[key: string]: any};
     readonly templateName?: string;

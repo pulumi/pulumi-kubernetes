@@ -6,19 +6,22 @@ import * as lumi from "@lumi/lumi";
 export class LogStream extends lumi.NamedResource implements LogStreamArgs {
     public readonly arn?: string;
     public readonly logGroupName: string;
-    public readonly _name: string;
 
     constructor(name: string, args: LogStreamArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.logGroupName === undefined) {
+            throw new Error("Property argument 'logGroupName' is required, but was missing");
+        }
         this.logGroupName = args.logGroupName;
-        this._name = args._name;
     }
 }
 
 export interface LogStreamArgs {
     readonly arn?: string;
     readonly logGroupName: string;
-    readonly _name: string;
 }
 

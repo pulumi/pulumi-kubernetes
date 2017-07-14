@@ -6,15 +6,22 @@ import * as lumi from "@lumi/lumi";
 export class User extends lumi.NamedResource implements UserArgs {
     public readonly host: string;
     public readonly instance: string;
-    public readonly _name: string;
     public readonly password: string;
     public readonly project?: string;
 
     constructor(name: string, args: UserArgs) {
         super(name);
+        if (args.host === undefined) {
+            throw new Error("Property argument 'host' is required, but was missing");
+        }
         this.host = args.host;
+        if (args.instance === undefined) {
+            throw new Error("Property argument 'instance' is required, but was missing");
+        }
         this.instance = args.instance;
-        this._name = args._name;
+        if (args.password === undefined) {
+            throw new Error("Property argument 'password' is required, but was missing");
+        }
         this.password = args.password;
         this.project = args.project;
     }
@@ -23,7 +30,6 @@ export class User extends lumi.NamedResource implements UserArgs {
 export interface UserArgs {
     readonly host: string;
     readonly instance: string;
-    readonly _name: string;
     readonly password: string;
     readonly project?: string;
 }

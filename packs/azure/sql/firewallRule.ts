@@ -5,24 +5,33 @@ import * as lumi from "@lumi/lumi";
 
 export class FirewallRule extends lumi.NamedResource implements FirewallRuleArgs {
     public readonly endIpAddress: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
     public readonly serverName: string;
     public readonly startIpAddress: string;
 
     constructor(name: string, args: FirewallRuleArgs) {
         super(name);
+        if (args.endIpAddress === undefined) {
+            throw new Error("Property argument 'endIpAddress' is required, but was missing");
+        }
         this.endIpAddress = args.endIpAddress;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.serverName === undefined) {
+            throw new Error("Property argument 'serverName' is required, but was missing");
+        }
         this.serverName = args.serverName;
+        if (args.startIpAddress === undefined) {
+            throw new Error("Property argument 'startIpAddress' is required, but was missing");
+        }
         this.startIpAddress = args.startIpAddress;
     }
 }
 
 export interface FirewallRuleArgs {
     readonly endIpAddress: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
     readonly serverName: string;
     readonly startIpAddress: string;

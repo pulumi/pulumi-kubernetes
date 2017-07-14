@@ -8,6 +8,9 @@ export class AccountAlias extends lumi.NamedResource implements AccountAliasArgs
 
     constructor(name: string, args: AccountAliasArgs) {
         super(name);
+        if (args.accountAlias === undefined) {
+            throw new Error("Property argument 'accountAlias' is required, but was missing");
+        }
         this.accountAlias = args.accountAlias;
     }
 }

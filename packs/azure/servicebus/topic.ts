@@ -13,7 +13,6 @@ export class Topic extends lumi.NamedResource implements TopicArgs {
     public readonly enablePartitioning?: boolean;
     public readonly location: string;
     public readonly maxSizeInMegabytes?: number;
-    public readonly _name: string;
     public readonly namespaceName: string;
     public readonly requiresDuplicateDetection?: boolean;
     public readonly resourceGroupName: string;
@@ -28,11 +27,19 @@ export class Topic extends lumi.NamedResource implements TopicArgs {
         this.enableExpress = args.enableExpress;
         this.enableFilteringMessagesBeforePublishing = args.enableFilteringMessagesBeforePublishing;
         this.enablePartitioning = args.enablePartitioning;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
         this.maxSizeInMegabytes = args.maxSizeInMegabytes;
-        this._name = args._name;
+        if (args.namespaceName === undefined) {
+            throw new Error("Property argument 'namespaceName' is required, but was missing");
+        }
         this.namespaceName = args.namespaceName;
         this.requiresDuplicateDetection = args.requiresDuplicateDetection;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.supportOrdering = args.supportOrdering;
     }
@@ -48,7 +55,6 @@ export interface TopicArgs {
     readonly enablePartitioning?: boolean;
     readonly location: string;
     readonly maxSizeInMegabytes?: number;
-    readonly _name: string;
     readonly namespaceName: string;
     readonly requiresDuplicateDetection?: boolean;
     readonly resourceGroupName: string;

@@ -13,7 +13,6 @@ export class Trail extends lumi.NamedResource implements TrailArgs {
     public readonly includeGlobalServiceEvents?: boolean;
     public readonly isMultiRegionTrail?: boolean;
     public readonly kmsKeyId?: string;
-    public readonly _name: string;
     public readonly s3BucketName: string;
     public readonly s3KeyPrefix?: string;
     public readonly snsTopicName?: string;
@@ -21,16 +20,24 @@ export class Trail extends lumi.NamedResource implements TrailArgs {
 
     constructor(name: string, args: TrailArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.cloudWatchLogsGroupArn = args.cloudWatchLogsGroupArn;
         this.cloudWatchLogsRoleArn = args.cloudWatchLogsRoleArn;
         this.enableLogFileValidation = args.enableLogFileValidation;
         this.enableLogging = args.enableLogging;
+        if (args.homeRegion === undefined) {
+            throw new Error("Property argument 'homeRegion' is required, but was missing");
+        }
         this.homeRegion = args.homeRegion;
         this.includeGlobalServiceEvents = args.includeGlobalServiceEvents;
         this.isMultiRegionTrail = args.isMultiRegionTrail;
         this.kmsKeyId = args.kmsKeyId;
-        this._name = args._name;
+        if (args.s3BucketName === undefined) {
+            throw new Error("Property argument 's3BucketName' is required, but was missing");
+        }
         this.s3BucketName = args.s3BucketName;
         this.s3KeyPrefix = args.s3KeyPrefix;
         this.snsTopicName = args.snsTopicName;
@@ -48,7 +55,6 @@ export interface TrailArgs {
     readonly includeGlobalServiceEvents?: boolean;
     readonly isMultiRegionTrail?: boolean;
     readonly kmsKeyId?: string;
-    readonly _name: string;
     readonly s3BucketName: string;
     readonly s3KeyPrefix?: string;
     readonly snsTopicName?: string;

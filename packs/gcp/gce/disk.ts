@@ -7,7 +7,6 @@ export class Disk extends lumi.NamedResource implements DiskArgs {
     public readonly diskEncryptionKeyRaw?: string;
     public readonly diskEncryptionKeySha256?: string;
     public readonly image?: string;
-    public readonly _name: string;
     public readonly project?: string;
     public readonly selfLink?: string;
     public readonly size?: number;
@@ -19,15 +18,26 @@ export class Disk extends lumi.NamedResource implements DiskArgs {
     constructor(name: string, args: DiskArgs) {
         super(name);
         this.diskEncryptionKeyRaw = args.diskEncryptionKeyRaw;
+        if (args.diskEncryptionKeySha256 === undefined) {
+            throw new Error("Property argument 'diskEncryptionKeySha256' is required, but was missing");
+        }
         this.diskEncryptionKeySha256 = args.diskEncryptionKeySha256;
         this.image = args.image;
-        this._name = args._name;
         this.project = args.project;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
         this.size = args.size;
         this.snapshot = args.snapshot;
         this.type = args.type;
+        if (args.users === undefined) {
+            throw new Error("Property argument 'users' is required, but was missing");
+        }
         this.users = args.users;
+        if (args.zone === undefined) {
+            throw new Error("Property argument 'zone' is required, but was missing");
+        }
         this.zone = args.zone;
     }
 }
@@ -36,7 +46,6 @@ export interface DiskArgs {
     readonly diskEncryptionKeyRaw?: string;
     readonly diskEncryptionKeySha256?: string;
     readonly image?: string;
-    readonly _name: string;
     readonly project?: string;
     readonly selfLink?: string;
     readonly size?: number;

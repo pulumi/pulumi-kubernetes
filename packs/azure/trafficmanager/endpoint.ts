@@ -7,7 +7,6 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
     public readonly endpointLocation?: string;
     public readonly endpointStatus?: string;
     public readonly minChildEndpoints?: number;
-    public readonly _name: string;
     public readonly priority?: number;
     public readonly profileName: string;
     public readonly resourceGroupName: string;
@@ -21,12 +20,20 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
         this.endpointLocation = args.endpointLocation;
         this.endpointStatus = args.endpointStatus;
         this.minChildEndpoints = args.minChildEndpoints;
-        this._name = args._name;
         this.priority = args.priority;
+        if (args.profileName === undefined) {
+            throw new Error("Property argument 'profileName' is required, but was missing");
+        }
         this.profileName = args.profileName;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.target = args.target;
         this.targetResourceId = args.targetResourceId;
+        if (args.type === undefined) {
+            throw new Error("Property argument 'type' is required, but was missing");
+        }
         this.type = args.type;
         this.weight = args.weight;
     }
@@ -36,7 +43,6 @@ export interface EndpointArgs {
     readonly endpointLocation?: string;
     readonly endpointStatus?: string;
     readonly minChildEndpoints?: number;
-    readonly _name: string;
     readonly priority?: number;
     readonly profileName: string;
     readonly resourceGroupName: string;

@@ -13,11 +13,11 @@ export class Bucket extends lumi.NamedResource implements BucketArgs {
     public readonly corsRule?: { allowedHeaders?: string[], allowedMethods: string[], allowedOrigins: string[], exposeHeaders?: string[], maxAgeSeconds?: number }[];
     public readonly forceDestroy?: boolean;
     public readonly hostedZoneId?: string;
-    public readonly lifecycleRule?: { abortIncompleteMultipartUploadDays?: number, enabled: boolean, expiration?: { date?: string, days?: number, expiredObjectDeleteMarker?: boolean }[], _id?: string, noncurrentVersionExpiration?: { days?: number }[], noncurrentVersionTransition?: { days?: number, storageClass: string }[], prefix?: string, tags?: {[key: string]: any}, transition?: { date?: string, days?: number, storageClass: string }[] }[];
+    public readonly lifecycleRule?: { abortIncompleteMultipartUploadDays?: number, enabled: boolean, expiration?: { date?: string, days?: number, expiredObjectDeleteMarker?: boolean }[], id?: string, noncurrentVersionExpiration?: { days?: number }[], noncurrentVersionTransition?: { days?: number, storageClass: string }[], prefix?: string, tags?: {[key: string]: any}, transition?: { date?: string, days?: number, storageClass: string }[] }[];
     public readonly logging?: { targetBucket: string, targetPrefix?: string }[];
     public readonly policy?: string;
     public readonly region?: string;
-    public readonly replicationConfiguration?: { role: string, rules: { destination: { bucket: string, storageClass?: string }[], _id?: string, prefix: string, status: string }[] }[];
+    public readonly replicationConfiguration?: { role: string, rules: { destination: { bucket: string, storageClass?: string }[], id?: string, prefix: string, status: string }[] }[];
     public readonly requestPayer?: string;
     public readonly tags?: {[key: string]: any};
     public readonly versioning?: { enabled?: boolean, mfaDelete?: boolean }[];
@@ -31,6 +31,9 @@ export class Bucket extends lumi.NamedResource implements BucketArgs {
         this.acl = args.acl;
         this.arn = args.arn;
         this.bucket = args.bucket;
+        if (args.bucketDomainName === undefined) {
+            throw new Error("Property argument 'bucketDomainName' is required, but was missing");
+        }
         this.bucketDomainName = args.bucketDomainName;
         this.bucketPrefix = args.bucketPrefix;
         this.corsRule = args.corsRule;
@@ -60,11 +63,11 @@ export interface BucketArgs {
     readonly corsRule?: { allowedHeaders?: string[], allowedMethods: string[], allowedOrigins: string[], exposeHeaders?: string[], maxAgeSeconds?: number }[];
     readonly forceDestroy?: boolean;
     readonly hostedZoneId?: string;
-    readonly lifecycleRule?: { abortIncompleteMultipartUploadDays?: number, enabled: boolean, expiration?: { date?: string, days?: number, expiredObjectDeleteMarker?: boolean }[], _id?: string, noncurrentVersionExpiration?: { days?: number }[], noncurrentVersionTransition?: { days?: number, storageClass: string }[], prefix?: string, tags?: {[key: string]: any}, transition?: { date?: string, days?: number, storageClass: string }[] }[];
+    readonly lifecycleRule?: { abortIncompleteMultipartUploadDays?: number, enabled: boolean, expiration?: { date?: string, days?: number, expiredObjectDeleteMarker?: boolean }[], id?: string, noncurrentVersionExpiration?: { days?: number }[], noncurrentVersionTransition?: { days?: number, storageClass: string }[], prefix?: string, tags?: {[key: string]: any}, transition?: { date?: string, days?: number, storageClass: string }[] }[];
     readonly logging?: { targetBucket: string, targetPrefix?: string }[];
     readonly policy?: string;
     readonly region?: string;
-    readonly replicationConfiguration?: { role: string, rules: { destination: { bucket: string, storageClass?: string }[], _id?: string, prefix: string, status: string }[] }[];
+    readonly replicationConfiguration?: { role: string, rules: { destination: { bucket: string, storageClass?: string }[], id?: string, prefix: string, status: string }[] }[];
     readonly requestPayer?: string;
     readonly tags?: {[key: string]: any};
     readonly versioning?: { enabled?: boolean, mfaDelete?: boolean }[];

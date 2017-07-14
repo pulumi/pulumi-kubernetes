@@ -12,8 +12,17 @@ export class MaintenanceWindowTarget extends lumi.NamedResource implements Maint
     constructor(name: string, args: MaintenanceWindowTargetArgs) {
         super(name);
         this.ownerInformation = args.ownerInformation;
+        if (args.resourceType === undefined) {
+            throw new Error("Property argument 'resourceType' is required, but was missing");
+        }
         this.resourceType = args.resourceType;
+        if (args.targets === undefined) {
+            throw new Error("Property argument 'targets' is required, but was missing");
+        }
         this.targets = args.targets;
+        if (args.windowId === undefined) {
+            throw new Error("Property argument 'windowId' is required, but was missing");
+        }
         this.windowId = args.windowId;
     }
 }

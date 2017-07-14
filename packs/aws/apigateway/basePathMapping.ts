@@ -11,8 +11,14 @@ export class BasePathMapping extends lumi.NamedResource implements BasePathMappi
 
     constructor(name: string, args: BasePathMappingArgs) {
         super(name);
+        if (args.apiId === undefined) {
+            throw new Error("Property argument 'apiId' is required, but was missing");
+        }
         this.apiId = args.apiId;
         this.basePath = args.basePath;
+        if (args.domainName === undefined) {
+            throw new Error("Property argument 'domainName' is required, but was missing");
+        }
         this.domainName = args.domainName;
         this.stageName = args.stageName;
     }

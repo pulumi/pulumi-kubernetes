@@ -15,9 +15,21 @@ export class IamPolicy extends lumi.NamedResource implements IamPolicyArgs {
         super(name);
         this.authoritative = args.authoritative;
         this.disableProject = args.disableProject;
+        if (args.etag === undefined) {
+            throw new Error("Property argument 'etag' is required, but was missing");
+        }
         this.etag = args.etag;
+        if (args.policyData === undefined) {
+            throw new Error("Property argument 'policyData' is required, but was missing");
+        }
         this.policyData = args.policyData;
+        if (args.project === undefined) {
+            throw new Error("Property argument 'project' is required, but was missing");
+        }
         this.project = args.project;
+        if (args.restorePolicy === undefined) {
+            throw new Error("Property argument 'restorePolicy' is required, but was missing");
+        }
         this.restorePolicy = args.restorePolicy;
     }
 }

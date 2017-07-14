@@ -5,7 +5,6 @@ import * as lumi from "@lumi/lumi";
 
 export class Route extends lumi.NamedResource implements RouteArgs {
     public readonly destRange: string;
-    public readonly _name: string;
     public readonly network: string;
     public readonly nextHopGateway?: string;
     public readonly nextHopInstance?: string;
@@ -20,17 +19,31 @@ export class Route extends lumi.NamedResource implements RouteArgs {
 
     constructor(name: string, args: RouteArgs) {
         super(name);
+        if (args.destRange === undefined) {
+            throw new Error("Property argument 'destRange' is required, but was missing");
+        }
         this.destRange = args.destRange;
-        this._name = args._name;
+        if (args.network === undefined) {
+            throw new Error("Property argument 'network' is required, but was missing");
+        }
         this.network = args.network;
         this.nextHopGateway = args.nextHopGateway;
         this.nextHopInstance = args.nextHopInstance;
         this.nextHopInstanceZone = args.nextHopInstanceZone;
         this.nextHopIp = args.nextHopIp;
+        if (args.nextHopNetwork === undefined) {
+            throw new Error("Property argument 'nextHopNetwork' is required, but was missing");
+        }
         this.nextHopNetwork = args.nextHopNetwork;
         this.nextHopVpnTunnel = args.nextHopVpnTunnel;
+        if (args.priority === undefined) {
+            throw new Error("Property argument 'priority' is required, but was missing");
+        }
         this.priority = args.priority;
         this.project = args.project;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
         this.tags = args.tags;
     }
@@ -38,7 +51,6 @@ export class Route extends lumi.NamedResource implements RouteArgs {
 
 export interface RouteArgs {
     readonly destRange: string;
-    readonly _name: string;
     readonly network: string;
     readonly nextHopGateway?: string;
     readonly nextHopInstance?: string;

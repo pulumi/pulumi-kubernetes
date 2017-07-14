@@ -7,15 +7,16 @@ export class Topic extends lumi.NamedResource implements TopicArgs {
     public readonly arn?: string;
     public readonly deliveryPolicy?: string;
     public readonly displayName?: string;
-    public readonly _name: string;
     public readonly policy?: string;
 
     constructor(name: string, args: TopicArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
         this.deliveryPolicy = args.deliveryPolicy;
         this.displayName = args.displayName;
-        this._name = args._name;
         this.policy = args.policy;
     }
 }
@@ -24,7 +25,6 @@ export interface TopicArgs {
     readonly arn?: string;
     readonly deliveryPolicy?: string;
     readonly displayName?: string;
-    readonly _name: string;
     readonly policy?: string;
 }
 

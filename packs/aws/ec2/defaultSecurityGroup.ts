@@ -6,7 +6,6 @@ import * as lumi from "@lumi/lumi";
 export class DefaultSecurityGroup extends lumi.NamedResource implements DefaultSecurityGroupArgs {
     public readonly egress?: { cidrBlocks?: string[], fromPort: number, ipv6CidrBlocks?: string[], prefixListIds?: string[], protocol: string, securityGroups?: string[], self?: boolean, toPort: number }[];
     public readonly ingress?: { cidrBlocks?: string[], fromPort: number, ipv6CidrBlocks?: string[], protocol: string, securityGroups?: string[], self?: boolean, toPort: number }[];
-    public readonly _name?: string;
     public readonly ownerId?: string;
     public readonly tags?: {[key: string]: any};
     public readonly vpcId?: string;
@@ -15,7 +14,9 @@ export class DefaultSecurityGroup extends lumi.NamedResource implements DefaultS
         super(name);
         this.egress = args.egress;
         this.ingress = args.ingress;
-        this._name = args._name;
+        if (args.ownerId === undefined) {
+            throw new Error("Property argument 'ownerId' is required, but was missing");
+        }
         this.ownerId = args.ownerId;
         this.tags = args.tags;
         this.vpcId = args.vpcId;
@@ -25,7 +26,6 @@ export class DefaultSecurityGroup extends lumi.NamedResource implements DefaultS
 export interface DefaultSecurityGroupArgs {
     readonly egress?: { cidrBlocks?: string[], fromPort: number, ipv6CidrBlocks?: string[], prefixListIds?: string[], protocol: string, securityGroups?: string[], self?: boolean, toPort: number }[];
     readonly ingress?: { cidrBlocks?: string[], fromPort: number, ipv6CidrBlocks?: string[], protocol: string, securityGroups?: string[], self?: boolean, toPort: number }[];
-    readonly _name?: string;
     readonly ownerId?: string;
     readonly tags?: {[key: string]: any};
     readonly vpcId?: string;

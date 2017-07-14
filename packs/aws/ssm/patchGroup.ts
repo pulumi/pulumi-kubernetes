@@ -9,7 +9,13 @@ export class PatchGroup extends lumi.NamedResource implements PatchGroupArgs {
 
     constructor(name: string, args: PatchGroupArgs) {
         super(name);
+        if (args.baselineId === undefined) {
+            throw new Error("Property argument 'baselineId' is required, but was missing");
+        }
         this.baselineId = args.baselineId;
+        if (args.patchGroup === undefined) {
+            throw new Error("Property argument 'patchGroup' is required, but was missing");
+        }
         this.patchGroup = args.patchGroup;
     }
 }

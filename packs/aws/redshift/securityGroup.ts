@@ -6,19 +6,19 @@ import * as lumi from "@lumi/lumi";
 export class SecurityGroup extends lumi.NamedResource implements SecurityGroupArgs {
     public readonly description?: string;
     public readonly ingress: { cidr?: string, securityGroupName?: string, securityGroupOwnerId?: string }[];
-    public readonly _name: string;
 
     constructor(name: string, args: SecurityGroupArgs) {
         super(name);
         this.description = args.description;
+        if (args.ingress === undefined) {
+            throw new Error("Property argument 'ingress' is required, but was missing");
+        }
         this.ingress = args.ingress;
-        this._name = args._name;
     }
 }
 
 export interface SecurityGroupArgs {
     readonly description?: string;
     readonly ingress: { cidr?: string, securityGroupName?: string, securityGroupOwnerId?: string }[];
-    readonly _name: string;
 }
 

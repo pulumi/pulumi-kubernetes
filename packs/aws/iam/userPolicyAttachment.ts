@@ -3,19 +3,28 @@
 
 import * as lumi from "@lumi/lumi";
 
+import {ARN} from "../index";
+import {User} from "./user";
+
 export class UserPolicyAttachment extends lumi.NamedResource implements UserPolicyAttachmentArgs {
-    public readonly policyArn: string;
-    public readonly user: string;
+    public readonly policyArn: ARN;
+    public readonly user: User;
 
     constructor(name: string, args: UserPolicyAttachmentArgs) {
         super(name);
+        if (args.policyArn === undefined) {
+            throw new Error("Property argument 'policyArn' is required, but was missing");
+        }
         this.policyArn = args.policyArn;
+        if (args.user === undefined) {
+            throw new Error("Property argument 'user' is required, but was missing");
+        }
         this.user = args.user;
     }
 }
 
 export interface UserPolicyAttachmentArgs {
-    readonly policyArn: string;
-    readonly user: string;
+    readonly policyArn: ARN;
+    readonly user: User;
 }
 

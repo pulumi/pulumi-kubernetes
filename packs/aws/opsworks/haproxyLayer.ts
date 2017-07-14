@@ -20,10 +20,9 @@ export class HaproxyLayer extends lumi.NamedResource implements HaproxyLayerArgs
     public readonly elasticLoadBalancer?: string;
     public readonly healthcheckMethod?: string;
     public readonly healthcheckUrl?: string;
-    public readonly _id?: string;
+    public readonly id?: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceShutdownTimeout?: number;
-    public readonly _name?: string;
     public readonly stackId: string;
     public readonly statsEnabled?: boolean;
     public readonly statsPassword: string;
@@ -50,12 +49,20 @@ export class HaproxyLayer extends lumi.NamedResource implements HaproxyLayerArgs
         this.elasticLoadBalancer = args.elasticLoadBalancer;
         this.healthcheckMethod = args.healthcheckMethod;
         this.healthcheckUrl = args.healthcheckUrl;
-        this._id = args._id;
+        if (args.id === undefined) {
+            throw new Error("Property argument 'id' is required, but was missing");
+        }
+        this.id = args.id;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
-        this._name = args._name;
+        if (args.stackId === undefined) {
+            throw new Error("Property argument 'stackId' is required, but was missing");
+        }
         this.stackId = args.stackId;
         this.statsEnabled = args.statsEnabled;
+        if (args.statsPassword === undefined) {
+            throw new Error("Property argument 'statsPassword' is required, but was missing");
+        }
         this.statsPassword = args.statsPassword;
         this.statsUrl = args.statsUrl;
         this.statsUser = args.statsUser;
@@ -81,10 +88,9 @@ export interface HaproxyLayerArgs {
     readonly elasticLoadBalancer?: string;
     readonly healthcheckMethod?: string;
     readonly healthcheckUrl?: string;
-    readonly _id?: string;
+    readonly id?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceShutdownTimeout?: number;
-    readonly _name?: string;
     readonly stackId: string;
     readonly statsEnabled?: boolean;
     readonly statsPassword: string;

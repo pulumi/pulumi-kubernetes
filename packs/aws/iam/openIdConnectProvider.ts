@@ -11,9 +11,21 @@ export class OpenIdConnectProvider extends lumi.NamedResource implements OpenIdC
 
     constructor(name: string, args: OpenIdConnectProviderArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.clientIdList === undefined) {
+            throw new Error("Property argument 'clientIdList' is required, but was missing");
+        }
         this.clientIdList = args.clientIdList;
+        if (args.thumbprintList === undefined) {
+            throw new Error("Property argument 'thumbprintList' is required, but was missing");
+        }
         this.thumbprintList = args.thumbprintList;
+        if (args.url === undefined) {
+            throw new Error("Property argument 'url' is required, but was missing");
+        }
         this.url = args.url;
     }
 }

@@ -8,7 +8,6 @@ export class KeyPair extends lumi.NamedResource implements KeyPairArgs {
     public readonly encryptedFingerprint?: string;
     public readonly encryptedPrivateKey?: string;
     public readonly fingerprint?: string;
-    public readonly _name?: string;
     public readonly namePrefix?: string;
     public readonly pgpKey?: string;
     public readonly privateKey?: string;
@@ -16,13 +15,27 @@ export class KeyPair extends lumi.NamedResource implements KeyPairArgs {
 
     constructor(name: string, args: KeyPairArgs) {
         super(name);
+        if (args.arn === undefined) {
+            throw new Error("Property argument 'arn' is required, but was missing");
+        }
         this.arn = args.arn;
+        if (args.encryptedFingerprint === undefined) {
+            throw new Error("Property argument 'encryptedFingerprint' is required, but was missing");
+        }
         this.encryptedFingerprint = args.encryptedFingerprint;
+        if (args.encryptedPrivateKey === undefined) {
+            throw new Error("Property argument 'encryptedPrivateKey' is required, but was missing");
+        }
         this.encryptedPrivateKey = args.encryptedPrivateKey;
+        if (args.fingerprint === undefined) {
+            throw new Error("Property argument 'fingerprint' is required, but was missing");
+        }
         this.fingerprint = args.fingerprint;
-        this._name = args._name;
         this.namePrefix = args.namePrefix;
         this.pgpKey = args.pgpKey;
+        if (args.privateKey === undefined) {
+            throw new Error("Property argument 'privateKey' is required, but was missing");
+        }
         this.privateKey = args.privateKey;
         this.publicKey = args.publicKey;
     }
@@ -33,7 +46,6 @@ export interface KeyPairArgs {
     readonly encryptedFingerprint?: string;
     readonly encryptedPrivateKey?: string;
     readonly fingerprint?: string;
-    readonly _name?: string;
     readonly namePrefix?: string;
     readonly pgpKey?: string;
     readonly privateKey?: string;

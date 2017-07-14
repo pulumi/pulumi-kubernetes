@@ -8,7 +8,6 @@ export class VpnTunnel extends lumi.NamedResource implements VpnTunnelArgs {
     public readonly detailedStatus?: string;
     public readonly ikeVersion?: number;
     public readonly localTrafficSelector?: string[];
-    public readonly _name: string;
     public readonly peerIp: string;
     public readonly project?: string;
     public readonly region?: string;
@@ -21,17 +20,31 @@ export class VpnTunnel extends lumi.NamedResource implements VpnTunnelArgs {
     constructor(name: string, args: VpnTunnelArgs) {
         super(name);
         this.description = args.description;
+        if (args.detailedStatus === undefined) {
+            throw new Error("Property argument 'detailedStatus' is required, but was missing");
+        }
         this.detailedStatus = args.detailedStatus;
         this.ikeVersion = args.ikeVersion;
         this.localTrafficSelector = args.localTrafficSelector;
-        this._name = args._name;
+        if (args.peerIp === undefined) {
+            throw new Error("Property argument 'peerIp' is required, but was missing");
+        }
         this.peerIp = args.peerIp;
         this.project = args.project;
         this.region = args.region;
         this.remoteTrafficSelector = args.remoteTrafficSelector;
         this.router = args.router;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
+        if (args.sharedSecret === undefined) {
+            throw new Error("Property argument 'sharedSecret' is required, but was missing");
+        }
         this.sharedSecret = args.sharedSecret;
+        if (args.targetVpnGateway === undefined) {
+            throw new Error("Property argument 'targetVpnGateway' is required, but was missing");
+        }
         this.targetVpnGateway = args.targetVpnGateway;
     }
 }
@@ -41,7 +54,6 @@ export interface VpnTunnelArgs {
     readonly detailedStatus?: string;
     readonly ikeVersion?: number;
     readonly localTrafficSelector?: string[];
-    readonly _name: string;
     readonly peerIp: string;
     readonly project?: string;
     readonly region?: string;

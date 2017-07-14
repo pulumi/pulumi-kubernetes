@@ -4,7 +4,6 @@
 import * as lumi from "@lumi/lumi";
 
 export class DeliveryChannel extends lumi.NamedResource implements DeliveryChannelArgs {
-    public readonly _name?: string;
     public readonly s3BucketName: string;
     public readonly s3KeyPrefix?: string;
     public readonly snapshotDeliveryProperties?: { deliveryFrequency?: string }[];
@@ -12,7 +11,9 @@ export class DeliveryChannel extends lumi.NamedResource implements DeliveryChann
 
     constructor(name: string, args: DeliveryChannelArgs) {
         super(name);
-        this._name = args._name;
+        if (args.s3BucketName === undefined) {
+            throw new Error("Property argument 's3BucketName' is required, but was missing");
+        }
         this.s3BucketName = args.s3BucketName;
         this.s3KeyPrefix = args.s3KeyPrefix;
         this.snapshotDeliveryProperties = args.snapshotDeliveryProperties;
@@ -21,7 +22,6 @@ export class DeliveryChannel extends lumi.NamedResource implements DeliveryChann
 }
 
 export interface DeliveryChannelArgs {
-    readonly _name?: string;
     readonly s3BucketName: string;
     readonly s3KeyPrefix?: string;
     readonly snapshotDeliveryProperties?: { deliveryFrequency?: string }[];

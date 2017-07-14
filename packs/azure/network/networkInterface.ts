@@ -9,10 +9,9 @@ export class NetworkInterface extends lumi.NamedResource implements NetworkInter
     public readonly enableIpForwarding?: boolean;
     public readonly internalDnsNameLabel?: string;
     public readonly internalFqdn?: string;
-    public readonly ipConfiguration: { loadBalancerBackendAddressPoolsIds?: string[], loadBalancerInboundNatRulesIds?: string[], _name: string, privateIpAddress?: string, privateIpAddressAllocation: string, publicIpAddressId?: string, subnetId: string }[];
+    public readonly ipConfiguration: { loadBalancerBackendAddressPoolsIds?: string[], loadBalancerInboundNatRulesIds?: string[], privateIpAddress?: string, privateIpAddressAllocation: string, publicIpAddressId?: string, subnetId: string }[];
     public readonly location: string;
     public readonly macAddress?: string;
-    public readonly _name: string;
     public readonly networkSecurityGroupId?: string;
     public readonly privateIpAddress?: string;
     public readonly resourceGroupName: string;
@@ -26,12 +25,23 @@ export class NetworkInterface extends lumi.NamedResource implements NetworkInter
         this.enableIpForwarding = args.enableIpForwarding;
         this.internalDnsNameLabel = args.internalDnsNameLabel;
         this.internalFqdn = args.internalFqdn;
+        if (args.ipConfiguration === undefined) {
+            throw new Error("Property argument 'ipConfiguration' is required, but was missing");
+        }
         this.ipConfiguration = args.ipConfiguration;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
         this.macAddress = args.macAddress;
-        this._name = args._name;
         this.networkSecurityGroupId = args.networkSecurityGroupId;
+        if (args.privateIpAddress === undefined) {
+            throw new Error("Property argument 'privateIpAddress' is required, but was missing");
+        }
         this.privateIpAddress = args.privateIpAddress;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
         this.virtualMachineId = args.virtualMachineId;
@@ -44,10 +54,9 @@ export interface NetworkInterfaceArgs {
     readonly enableIpForwarding?: boolean;
     readonly internalDnsNameLabel?: string;
     readonly internalFqdn?: string;
-    readonly ipConfiguration: { loadBalancerBackendAddressPoolsIds?: string[], loadBalancerInboundNatRulesIds?: string[], _name: string, privateIpAddress?: string, privateIpAddressAllocation: string, publicIpAddressId?: string, subnetId: string }[];
+    readonly ipConfiguration: { loadBalancerBackendAddressPoolsIds?: string[], loadBalancerInboundNatRulesIds?: string[], privateIpAddress?: string, privateIpAddressAllocation: string, publicIpAddressId?: string, subnetId: string }[];
     readonly location: string;
     readonly macAddress?: string;
-    readonly _name: string;
     readonly networkSecurityGroupId?: string;
     readonly privateIpAddress?: string;
     readonly resourceGroupName: string;

@@ -7,7 +7,6 @@ export class SubNetwork extends lumi.NamedResource implements SubNetworkArgs {
     public readonly description?: string;
     public readonly gatewayAddress?: string;
     public readonly ipCidrRange: string;
-    public readonly _name: string;
     public readonly network: string;
     public readonly privateIpGoogleAccess?: boolean;
     public readonly project?: string;
@@ -17,13 +16,24 @@ export class SubNetwork extends lumi.NamedResource implements SubNetworkArgs {
     constructor(name: string, args: SubNetworkArgs) {
         super(name);
         this.description = args.description;
+        if (args.gatewayAddress === undefined) {
+            throw new Error("Property argument 'gatewayAddress' is required, but was missing");
+        }
         this.gatewayAddress = args.gatewayAddress;
+        if (args.ipCidrRange === undefined) {
+            throw new Error("Property argument 'ipCidrRange' is required, but was missing");
+        }
         this.ipCidrRange = args.ipCidrRange;
-        this._name = args._name;
+        if (args.network === undefined) {
+            throw new Error("Property argument 'network' is required, but was missing");
+        }
         this.network = args.network;
         this.privateIpGoogleAccess = args.privateIpGoogleAccess;
         this.project = args.project;
         this.region = args.region;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
     }
 }
@@ -32,7 +42,6 @@ export interface SubNetworkArgs {
     readonly description?: string;
     readonly gatewayAddress?: string;
     readonly ipCidrRange: string;
-    readonly _name: string;
     readonly network: string;
     readonly privateIpGoogleAccess?: boolean;
     readonly project?: string;

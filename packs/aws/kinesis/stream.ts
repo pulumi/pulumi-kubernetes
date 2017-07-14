@@ -5,7 +5,6 @@ import * as lumi from "@lumi/lumi";
 
 export class Stream extends lumi.NamedResource implements StreamArgs {
     public readonly arn?: string;
-    public readonly _name: string;
     public readonly retentionPeriod?: number;
     public readonly shardCount: number;
     public readonly shardLevelMetrics?: string[];
@@ -14,8 +13,10 @@ export class Stream extends lumi.NamedResource implements StreamArgs {
     constructor(name: string, args: StreamArgs) {
         super(name);
         this.arn = args.arn;
-        this._name = args._name;
         this.retentionPeriod = args.retentionPeriod;
+        if (args.shardCount === undefined) {
+            throw new Error("Property argument 'shardCount' is required, but was missing");
+        }
         this.shardCount = args.shardCount;
         this.shardLevelMetrics = args.shardLevelMetrics;
         this.tags = args.tags;
@@ -24,7 +25,6 @@ export class Stream extends lumi.NamedResource implements StreamArgs {
 
 export interface StreamArgs {
     readonly arn?: string;
-    readonly _name: string;
     readonly retentionPeriod?: number;
     readonly shardCount: number;
     readonly shardLevelMetrics?: string[];

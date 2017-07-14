@@ -5,22 +5,31 @@ import * as lumi from "@lumi/lumi";
 
 export class LoadBalancerPolicy extends lumi.NamedResource implements LoadBalancerPolicyArgs {
     public readonly loadBalancerName: string;
-    public readonly policyAttribute?: { _name?: string, value?: string }[];
+    public readonly policyAttribute?: { value?: string }[];
     public readonly policyName: string;
     public readonly policyTypeName: string;
 
     constructor(name: string, args: LoadBalancerPolicyArgs) {
         super(name);
+        if (args.loadBalancerName === undefined) {
+            throw new Error("Property argument 'loadBalancerName' is required, but was missing");
+        }
         this.loadBalancerName = args.loadBalancerName;
         this.policyAttribute = args.policyAttribute;
+        if (args.policyName === undefined) {
+            throw new Error("Property argument 'policyName' is required, but was missing");
+        }
         this.policyName = args.policyName;
+        if (args.policyTypeName === undefined) {
+            throw new Error("Property argument 'policyTypeName' is required, but was missing");
+        }
         this.policyTypeName = args.policyTypeName;
     }
 }
 
 export interface LoadBalancerPolicyArgs {
     readonly loadBalancerName: string;
-    readonly policyAttribute?: { _name?: string, value?: string }[];
+    readonly policyAttribute?: { value?: string }[];
     readonly policyName: string;
     readonly policyTypeName: string;
 }

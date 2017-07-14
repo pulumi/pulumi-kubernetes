@@ -10,7 +10,6 @@ export class Namespace extends lumi.NamedResource implements NamespaceArgs {
     public readonly defaultSecondaryConnectionString?: string;
     public readonly defaultSecondaryKey?: string;
     public readonly location: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
     public readonly sku: string;
     public readonly tags?: {[key: string]: any};
@@ -18,13 +17,33 @@ export class Namespace extends lumi.NamedResource implements NamespaceArgs {
     constructor(name: string, args: NamespaceArgs) {
         super(name);
         this.capacity = args.capacity;
+        if (args.defaultPrimaryConnectionString === undefined) {
+            throw new Error("Property argument 'defaultPrimaryConnectionString' is required, but was missing");
+        }
         this.defaultPrimaryConnectionString = args.defaultPrimaryConnectionString;
+        if (args.defaultPrimaryKey === undefined) {
+            throw new Error("Property argument 'defaultPrimaryKey' is required, but was missing");
+        }
         this.defaultPrimaryKey = args.defaultPrimaryKey;
+        if (args.defaultSecondaryConnectionString === undefined) {
+            throw new Error("Property argument 'defaultSecondaryConnectionString' is required, but was missing");
+        }
         this.defaultSecondaryConnectionString = args.defaultSecondaryConnectionString;
+        if (args.defaultSecondaryKey === undefined) {
+            throw new Error("Property argument 'defaultSecondaryKey' is required, but was missing");
+        }
         this.defaultSecondaryKey = args.defaultSecondaryKey;
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.sku === undefined) {
+            throw new Error("Property argument 'sku' is required, but was missing");
+        }
         this.sku = args.sku;
         this.tags = args.tags;
     }
@@ -37,7 +56,6 @@ export interface NamespaceArgs {
     readonly defaultSecondaryConnectionString?: string;
     readonly defaultSecondaryKey?: string;
     readonly location: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
     readonly sku: string;
     readonly tags?: {[key: string]: any};

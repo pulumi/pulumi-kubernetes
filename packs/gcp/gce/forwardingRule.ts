@@ -9,7 +9,6 @@ export class ForwardingRule extends lumi.NamedResource implements ForwardingRule
     public readonly ipAddress?: string;
     public readonly ipProtocol?: string;
     public readonly loadBalancingScheme?: string;
-    public readonly _name: string;
     public readonly network?: string;
     public readonly portRange?: string;
     public readonly ports?: string[];
@@ -26,12 +25,14 @@ export class ForwardingRule extends lumi.NamedResource implements ForwardingRule
         this.ipAddress = args.ipAddress;
         this.ipProtocol = args.ipProtocol;
         this.loadBalancingScheme = args.loadBalancingScheme;
-        this._name = args._name;
         this.network = args.network;
         this.portRange = args.portRange;
         this.ports = args.ports;
         this.project = args.project;
         this.region = args.region;
+        if (args.selfLink === undefined) {
+            throw new Error("Property argument 'selfLink' is required, but was missing");
+        }
         this.selfLink = args.selfLink;
         this.subnetwork = args.subnetwork;
         this.target = args.target;
@@ -44,7 +45,6 @@ export interface ForwardingRuleArgs {
     readonly ipAddress?: string;
     readonly ipProtocol?: string;
     readonly loadBalancingScheme?: string;
-    readonly _name: string;
     readonly network?: string;
     readonly portRange?: string;
     readonly ports?: string[];

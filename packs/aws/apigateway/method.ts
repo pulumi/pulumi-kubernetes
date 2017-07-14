@@ -18,14 +18,26 @@ export class Method extends lumi.NamedResource implements MethodArgs {
     constructor(name: string, args: MethodArgs) {
         super(name);
         this.apiKeyRequired = args.apiKeyRequired;
+        if (args.authorization === undefined) {
+            throw new Error("Property argument 'authorization' is required, but was missing");
+        }
         this.authorization = args.authorization;
         this.authorizerId = args.authorizerId;
+        if (args.httpMethod === undefined) {
+            throw new Error("Property argument 'httpMethod' is required, but was missing");
+        }
         this.httpMethod = args.httpMethod;
         this.requestModels = args.requestModels;
         this.requestParameters = args.requestParameters;
         this.requestParametersInJson = args.requestParametersInJson;
         this.requestValidatorId = args.requestValidatorId;
+        if (args.resourceId === undefined) {
+            throw new Error("Property argument 'resourceId' is required, but was missing");
+        }
         this.resourceId = args.resourceId;
+        if (args.restApiId === undefined) {
+            throw new Error("Property argument 'restApiId' is required, but was missing");
+        }
         this.restApiId = args.restApiId;
     }
 }

@@ -4,20 +4,23 @@
 import * as lumi from "@lumi/lumi";
 
 export class Queue extends lumi.NamedResource implements QueueArgs {
-    public readonly _name: string;
     public readonly resourceGroupName: string;
     public readonly storageAccountName: string;
 
     constructor(name: string, args: QueueArgs) {
         super(name);
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
+        if (args.storageAccountName === undefined) {
+            throw new Error("Property argument 'storageAccountName' is required, but was missing");
+        }
         this.storageAccountName = args.storageAccountName;
     }
 }
 
 export interface QueueArgs {
-    readonly _name: string;
     readonly resourceGroupName: string;
     readonly storageAccountName: string;
 }

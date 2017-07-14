@@ -10,8 +10,17 @@ export class Notification extends lumi.NamedResource implements NotificationArgs
 
     constructor(name: string, args: NotificationArgs) {
         super(name);
+        if (args.groupNames === undefined) {
+            throw new Error("Property argument 'groupNames' is required, but was missing");
+        }
         this.groupNames = args.groupNames;
+        if (args.notifications === undefined) {
+            throw new Error("Property argument 'notifications' is required, but was missing");
+        }
         this.notifications = args.notifications;
+        if (args.topicArn === undefined) {
+            throw new Error("Property argument 'topicArn' is required, but was missing");
+        }
         this.topicArn = args.topicArn;
     }
 }

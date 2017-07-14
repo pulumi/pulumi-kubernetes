@@ -6,16 +6,26 @@ import * as lumi from "@lumi/lumi";
 export class StateMachine extends lumi.NamedResource implements StateMachineArgs {
     public readonly creationDate?: string;
     public readonly definition: string;
-    public readonly _name: string;
     public readonly roleArn: string;
     public readonly status?: string;
 
     constructor(name: string, args: StateMachineArgs) {
         super(name);
+        if (args.creationDate === undefined) {
+            throw new Error("Property argument 'creationDate' is required, but was missing");
+        }
         this.creationDate = args.creationDate;
+        if (args.definition === undefined) {
+            throw new Error("Property argument 'definition' is required, but was missing");
+        }
         this.definition = args.definition;
-        this._name = args._name;
+        if (args.roleArn === undefined) {
+            throw new Error("Property argument 'roleArn' is required, but was missing");
+        }
         this.roleArn = args.roleArn;
+        if (args.status === undefined) {
+            throw new Error("Property argument 'status' is required, but was missing");
+        }
         this.status = args.status;
     }
 }
@@ -23,7 +33,6 @@ export class StateMachine extends lumi.NamedResource implements StateMachineArgs
 export interface StateMachineArgs {
     readonly creationDate?: string;
     readonly definition: string;
-    readonly _name: string;
     readonly roleArn: string;
     readonly status?: string;
 }

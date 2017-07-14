@@ -46,6 +46,9 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.automatedSnapshotRetentionPeriod = args.automatedSnapshotRetentionPeriod;
         this.availabilityZone = args.availabilityZone;
         this.bucketName = args.bucketName;
+        if (args.clusterIdentifier === undefined) {
+            throw new Error("Property argument 'clusterIdentifier' is required, but was missing");
+        }
         this.clusterIdentifier = args.clusterIdentifier;
         this.clusterParameterGroupName = args.clusterParameterGroupName;
         this.clusterPublicKey = args.clusterPublicKey;
@@ -65,6 +68,9 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.kmsKeyId = args.kmsKeyId;
         this.masterPassword = args.masterPassword;
         this.masterUsername = args.masterUsername;
+        if (args.nodeType === undefined) {
+            throw new Error("Property argument 'nodeType' is required, but was missing");
+        }
         this.nodeType = args.nodeType;
         this.numberOfNodes = args.numberOfNodes;
         this.ownerAccount = args.ownerAccount;

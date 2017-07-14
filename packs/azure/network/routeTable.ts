@@ -5,18 +5,25 @@ import * as lumi from "@lumi/lumi";
 
 export class RouteTable extends lumi.NamedResource implements RouteTableArgs {
     public readonly location: string;
-    public readonly _name: string;
     public readonly resourceGroupName: string;
-    public readonly route?: { addressPrefix: string, _name: string, nextHopInIpAddress?: string, nextHopType: string }[];
+    public readonly route?: { addressPrefix: string, nextHopInIpAddress?: string, nextHopType: string }[];
     public readonly subnets?: string[];
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: RouteTableArgs) {
         super(name);
+        if (args.location === undefined) {
+            throw new Error("Property argument 'location' is required, but was missing");
+        }
         this.location = args.location;
-        this._name = args._name;
+        if (args.resourceGroupName === undefined) {
+            throw new Error("Property argument 'resourceGroupName' is required, but was missing");
+        }
         this.resourceGroupName = args.resourceGroupName;
         this.route = args.route;
+        if (args.subnets === undefined) {
+            throw new Error("Property argument 'subnets' is required, but was missing");
+        }
         this.subnets = args.subnets;
         this.tags = args.tags;
     }
@@ -24,9 +31,8 @@ export class RouteTable extends lumi.NamedResource implements RouteTableArgs {
 
 export interface RouteTableArgs {
     readonly location: string;
-    readonly _name: string;
     readonly resourceGroupName: string;
-    readonly route?: { addressPrefix: string, _name: string, nextHopInIpAddress?: string, nextHopType: string }[];
+    readonly route?: { addressPrefix: string, nextHopInIpAddress?: string, nextHopType: string }[];
     readonly subnets?: string[];
     readonly tags?: {[key: string]: any};
 }
