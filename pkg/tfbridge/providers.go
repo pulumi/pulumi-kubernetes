@@ -51,6 +51,7 @@ type SchemaInfo struct {
 	Type   tokens.Type           // a type to override the default; "" uses the default.
 	Elem   *SchemaInfo           // a schema override for elements for arrays, maps, and sets.
 	Fields map[string]SchemaInfo // a map of custom field names; if a type is missing, the default is used.
+	Asset  *AssetTranslation     // a map of asset translation information, if this is an asset.
 }
 
 // OverlayInfo contains optional overlay information.  Each info has a 1:1 correspondence with a module and permits
