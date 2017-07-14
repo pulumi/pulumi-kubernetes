@@ -334,10 +334,29 @@ func (g *generator) generateResource(pkg string, rawname string,
 	// TODO: figure out how to add get/query methods.
 
 	// Now create a constructor that chains supercalls and stores into properties.
-	w.Writefmtln("    constructor(name: string, args: %vArgs) {", resname)
+	var argsflags string
+	if len(props) == 0 {
+		// If the number of properties was zero, we make the args object optional.
+		argsflags = "?"
+	}
+	w.Writefmtln("    constructor(name: string, args%v: %vArgs) {", argsflags, resname)
 	w.Writefmtln("        super(name);")
-	for _, prop := range props {
-		w.Writefmtln("        this.%[1]v = args.%[1]v;", prop)
+	var propsindent string
+	if len(props) == 0 {
+		propsindent = "    "
+		w.Writefmtln("        if (args !== undefined) {")
+	}
+	for i, prop := range props {
+		if !schemas[i].Optional {
+			w.Writefmtln("%v        if (args.%v === undefined) {", propsindent, prop)
+			w.Writefmtln("%v            throw new Error(\"Property argument '%v' is required, "+
+				"but was missing\");", propsindent, prop)
+			w.Writefmtln("%v        }", propsindent)
+		}
+		w.Writefmtln("%v        this.%[2]v = args.%[2]v;", propsindent, prop)
+	}
+	if len(props) == 0 {
+		w.Writefmtln("        }")
 	}
 	w.Writefmtln("    }")
 	w.Writefmtln("}")
