@@ -38,9 +38,9 @@ func TestLogRedirector(t *testing.T) {
 	var infos []string
 	var warnings []string
 	var errors []string
-	var defaults []string
 
-	ld := &logRedirector{
+	ld := &LogRedirector{
+		enabled: true,
 		writers: map[string]func(string) error{
 			tfTracePrefix: func(msg string) error {
 				traces = append(traces, msg)
@@ -63,10 +63,6 @@ func TestLogRedirector(t *testing.T) {
 				return nil
 			},
 		},
-		defaultWriter: func(msg string) error {
-			defaults = append(defaults, msg)
-			return nil
-		},
 	}
 
 	// For each line, spit 16 byte increments into the redirector.
@@ -84,9 +80,8 @@ func TestLogRedirector(t *testing.T) {
 	}
 
 	assert.Equal(t, 3, len(traces))
-	assert.Equal(t, 3, len(debugs))
+	assert.Equal(t, 3+5, len(debugs)) // debugs get defaults
 	assert.Equal(t, 3, len(infos))
 	assert.Equal(t, 3, len(warnings))
 	assert.Equal(t, 3, len(errors))
-	assert.Equal(t, 5, len(defaults))
 }
