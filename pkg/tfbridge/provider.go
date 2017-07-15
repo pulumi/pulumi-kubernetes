@@ -130,32 +130,23 @@ func createTerraformInputs(m resource.PropertyMap, schema map[string]SchemaInfo)
 	result := make(map[string]interface{})
 	for key, value := range m {
 		// First translate the key.  To find it in the map, we must reverse lookup.  In the future we may want to
-		// make a lookaside map to avoid the worst-case O(N) traversal of this map.  To make this a little better, we
-		// first try a guess based on the standard name mangling scheme.
+		// make a lookaside map to avoid the worst-case O(N) traversal of this map.
 		var name string
 		var info SchemaInfo
-		std := LumiToTerraformName(string(key))
-		if schinfo, has := schema[std]; has {
-			// We found the info underneath the standard reverse name mapping.  Great!
-			name = std
-			info = schinfo
-		} else {
-			// We found no such thing.  Iterate the map and look for a match from the overrides.
-			for tfname, schinfo := range schema {
-				if schinfo.Name == string(key) {
-					name = tfname
-					info = schinfo
-					break
-				}
+		for tfname, schinfo := range schema {
+			if schinfo.Name == string(key) {
+				name = tfname
+				info = schinfo
+				break
 			}
 		}
 		if name == "" {
-			return nil,
-				errors.Errorf("Unable to reverse map Lumi property name %v to its Terraform equivalent", name)
+			name = LumiToTerraformName(string(key))
+			info = schema[name]
 		}
 
 		// And then translate the property value.
-		v, err := createTerraformInput(value, info)
+		v, err := createTerraformInput(name, value, info)
 		if err != nil {
 			return nil, err
 		}
@@ -167,7 +158,7 @@ func createTerraformInputs(m resource.PropertyMap, schema map[string]SchemaInfo)
 // createTerraformInput takes a single property plus custom schema info and does whatever is necessary to prepare it for
 // use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
-func createTerraformInput(v resource.PropertyValue, schema SchemaInfo) (interface{}, error) {
+func createTerraformInput(name string, v resource.PropertyValue, schema SchemaInfo) (interface{}, error) {
 	if v.IsNull() {
 		return nil, nil
 	} else if v.IsBool() {
@@ -179,12 +170,12 @@ func createTerraformInput(v resource.PropertyValue, schema SchemaInfo) (interfac
 	} else if v.IsArray() {
 		// FIXME: marshal/unmarshal sets properly.
 		var arr []interface{}
-		for _, elem := range v.ArrayValue() {
+		for i, elem := range v.ArrayValue() {
 			var eleminfo SchemaInfo
 			if schema.Elem != nil {
 				eleminfo = *schema.Elem
 			}
-			e, err := createTerraformInput(elem, eleminfo)
+			e, err := createTerraformInput(fmt.Sprintf("%v[%v]", name, i), elem, eleminfo)
 			if err != nil {
 				return nil, err
 			}
@@ -194,17 +185,21 @@ func createTerraformInput(v resource.PropertyValue, schema SchemaInfo) (interfac
 	} else if v.IsAsset() {
 		// We require that there be asset information, otherwise an error occurs.
 		if schema.Asset == nil {
-			return nil, errors.Errorf("Encountered an asset %v but asset translation instructions were missing", v)
+			return nil,
+				errors.Errorf("Encountered an asset %v but asset translation instructions were missing", name)
 		} else if !schema.Asset.IsAsset() {
-			return nil, errors.Errorf("Invalid asset translation instructions for %v; expected an asset", v)
+			return nil,
+				errors.Errorf("Invalid asset translation instructions for %v; expected an asset", name)
 		}
 		return schema.Asset.TranslateAsset(v.AssetValue())
 	} else if v.IsArchive() {
 		// We require that there be archive information, otherwise an error occurs.
 		if schema.Asset == nil {
-			return nil, errors.Errorf("Encountered an archive %v but asset translation instructions were missing", v)
+			return nil,
+				errors.Errorf("Encountered an archive %v but asset translation instructions were missing", name)
 		} else if !schema.Asset.IsArchive() {
-			return nil, errors.Errorf("Invalid asset translation instructions for %v; expected an archive", v)
+			return nil,
+				errors.Errorf("Invalid asset translation instructions for %v; expected an archive", name)
 		}
 		return schema.Asset.TranslateArchive(v.ArchiveValue())
 	}
@@ -300,13 +295,13 @@ func (p *Provider) Configure() error {
 	// Read all properties from the config module.
 	props, err := p.host.ReadLocations(tokens.Token(p.configMod()), true)
 	if err != nil {
-		return err
+		return errors.Errorf("Error reading config state: %v", err)
 	}
 
 	// Now make a map of each of the config token values.
 	config, err := makeTerraformConfig(props, p.info.Config)
 	if err != nil {
-		return err
+		return errors.Errorf("Error marshaling config state to Terraform: %v", err)
 	}
 
 	// Perform validation of the config state so we can offer nice errors.
@@ -331,7 +326,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 	// Manufacture a resource config to check, check it, and return any failures that result.
 	rescfg, err := makeTerraformConfigFromRPC(req.GetProperties(), res.Schema.Fields)
 	if err != nil {
-		return nil, err
+		return nil, errors.Errorf("Error preparing %v's property state: %v", t, err)
 	}
 	keys, errs := p.tf.ValidateResource(res.TF.Name, rescfg)
 	var failures []*lumirpc.CheckFailure
@@ -385,7 +380,7 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	_, diff, err := makeTerraformDiff(nil,
 		plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{SkipNulls: true}), res.Schema.Fields)
 	if err != nil {
-		return nil, err
+		return nil, errors.Errorf("Error preparing %v's property state: %v", t, err)
 	}
 	newstate, err := p.tf.Apply(info, nil, diff)
 	if err != nil {
@@ -407,7 +402,7 @@ func (p *Provider) Get(ctx context.Context, req *lumirpc.GetRequest) (*lumirpc.G
 	state := &terraform.InstanceState{ID: req.GetId()}
 	getstate, err := p.tf.Refresh(info, state)
 	if err != nil {
-		return nil, err
+		return nil, errors.Errorf("Error reading %v's state: %v", t, err)
 	}
 	props := terraformToLumiProps(getstate.Attributes)
 	return &lumirpc.GetResponse{
@@ -427,7 +422,7 @@ func (p *Provider) InspectChange(
 	// To figure out if we have a replacement, perform the diff and then look for RequiresNew flags.
 	inputs, err := makeTerraformPropertyMapFromRPC(req.GetOlds(), res.Schema.Fields)
 	if err != nil {
-		return nil, err
+		return nil, errors.Errorf("Error preparing %v old property state: %v", t, err)
 	}
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
 	state := &terraform.InstanceState{
@@ -436,11 +431,11 @@ func (p *Provider) InspectChange(
 	}
 	config, err := makeTerraformConfigFromRPC(req.GetNews(), res.Schema.Fields)
 	if err != nil {
-		return nil, err
+		return nil, errors.Errorf("Error preparing %v property state: %v", t, err)
 	}
 	diff, err := p.tf.Diff(info, state, config)
 	if err != nil {
-		return nil, err
+		return nil, errors.Errorf("Error diffing %v old and new state: %v", t, err)
 	}
 
 	// Each RequiresNew translates into a replacement.
@@ -467,14 +462,14 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*pbe
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
 	attrs, diff, err := makeTerraformDiffFromRPC(req.GetOlds(), req.GetNews(), res.Schema.Fields)
 	if err != nil {
-		return nil, err
+		return nil, errors.Errorf("Error preparing %v old and new state/diffs", t, err)
 	}
 	state := &terraform.InstanceState{
 		ID:         req.GetId(),
 		Attributes: attrs,
 	}
 	if _, err := p.tf.Apply(info, state, diff); err != nil {
-		return nil, err
+		return nil, errors.Errorf("Error applying %v update: %v", t, err)
 	}
 	return &pbempty.Empty{}, nil
 }
@@ -491,7 +486,7 @@ func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbe
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
 	state := &terraform.InstanceState{ID: req.GetId()}
 	if _, err := p.tf.Apply(info, state, &terraform.InstanceDiff{Destroy: true}); err != nil {
-		return nil, err
+		return nil, errors.Errorf("Error apply %v deletion: %v", t, err)
 	}
 	return &pbempty.Empty{}, nil
 }
