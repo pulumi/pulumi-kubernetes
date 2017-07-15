@@ -98,31 +98,6 @@ func (p *Provider) initResourceMap() {
 	}
 }
 
-// Some functions used below for name and value transformations.
-var (
-	// terraformKeyRepl swaps out Terraform names for Lumi names.
-	terraformKeyRepl = func(k string) (resource.PropertyKey, bool) {
-		// TODO: we need to respect the schema maps.
-		return resource.PropertyKey(TerraformToLumiName(k, false)), true
-	}
-	// terraformValueRepl does the reverse, and swaps out Terraform ints for Lumi float64s.
-	terraformValueRepl = func(v interface{}) (resource.PropertyValue, bool) {
-		if i, isint := v.(int); isint {
-			return resource.NewNumberProperty(float64(i)), true
-		}
-		return resource.PropertyValue{}, false
-	}
-)
-
-// terraformToLumiProps expands a Terraform-style flatmap into an expanded Lumi resource property map.
-func (p *Provider) terraformToLumiProps(props map[string]string) resource.PropertyMap {
-	res := make(map[string]interface{})
-	for _, key := range flatmap.Map(props).Keys() {
-		res[key] = flatmap.Expand(props, key)
-	}
-	return resource.NewPropertyMapFromMapRepl(res, terraformKeyRepl, terraformValueRepl)
-}
-
 // getInfoFromLumiName does a reverse map lookup to find the Terraform name and schema info for a Lumi name, if any.
 func (p *Provider) getInfoFromLumiName(key resource.PropertyKey, schema map[string]SchemaInfo) (string, SchemaInfo) {
 	// To do this, we will first look to see if there's a known custom schema that uses this name.  If yes, we
@@ -241,6 +216,68 @@ func (p *Provider) createTerraformInput(name string,
 	}
 	contract.Assert(v.IsObject())
 	return p.createTerraformInputs(v.ObjectValue(), schema.Fields)
+}
+
+// createTerraformResult expands a Terraform-style flatmap into an expanded Lumi resource property map.  This respects
+// the property maps so that results end up with their correct Lumi names when shipping back to the engine.
+func (p *Provider) createTerraformResult(props map[string]string,
+	schema map[string]SchemaInfo) resource.PropertyMap {
+	outs := make(map[string]interface{})
+	for _, key := range flatmap.Map(props).Keys() {
+		outs[key] = flatmap.Expand(props, key)
+	}
+	return p.createTerraformOutputs(outs, schema)
+}
+
+// createTerraformOutputs takes an expanded Terraform property map and returns a Lumi equivalent.  This respects
+// the property maps so that results end up with their correct Lumi names when shipping back to the engine.
+func (p *Provider) createTerraformOutputs(outs map[string]interface{},
+	schema map[string]SchemaInfo) resource.PropertyMap {
+	result := make(resource.PropertyMap)
+	for key, value := range outs {
+		// First do a lookup of the name.
+		info := schema[key]
+		name := info.Name
+		if name == "" {
+			name = key
+		}
+
+		// Next perform a translation of the value accordingly.
+		pk := resource.PropertyKey(name)
+		result[pk] = p.createTerraformOutput(value, info)
+	}
+	return result
+}
+
+// createTerraformOutput takes a single Terraform property and returns the Lumi equivalent.
+func (p *Provider) createTerraformOutput(v interface{}, schema SchemaInfo) resource.PropertyValue {
+	if v == nil {
+		return resource.NewNullProperty()
+	}
+	switch t := v.(type) {
+	case bool:
+		return resource.NewBoolProperty(t)
+	case int:
+		return resource.NewNumberProperty(float64(t))
+	case string:
+		return resource.NewStringProperty(t)
+	case []interface{}:
+		var arr []resource.PropertyValue
+		for _, elem := range t {
+			var eleminfo SchemaInfo
+			if schema.Elem != nil {
+				eleminfo = *schema.Elem
+			}
+			arr = append(arr, p.createTerraformOutput(elem, eleminfo))
+		}
+		return resource.NewArrayProperty(arr)
+	case map[string]interface{}:
+		obj := p.createTerraformOutputs(t, schema.Fields)
+		return resource.NewObjectProperty(obj)
+	default:
+		contract.Failf("Unexpected TF output property value: %v", v)
+		return resource.NewNullProperty()
+	}
 }
 
 // makeTerraformConfig creates a Terraform config map, used in state and diff calculations, from a Lumi property map.
@@ -451,7 +488,7 @@ func (p *Provider) Get(ctx context.Context, req *lumirpc.GetRequest) (*lumirpc.G
 	if err != nil {
 		return nil, errors.Errorf("Error reading %v's state: %v", t, err)
 	}
-	props := p.terraformToLumiProps(getstate.Attributes)
+	props := p.createTerraformResult(getstate.Attributes, res.Schema.Fields)
 	return &lumirpc.GetResponse{
 		Properties: plugin.MarshalProperties(props, plugin.MarshalOptions{}),
 	}, nil
