@@ -9,7 +9,9 @@ import (
 
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pkg/errors"
+	"github.com/pulumi/lumi/pkg/resource"
 	"github.com/pulumi/lumi/pkg/tokens"
+	"github.com/pulumi/lumi/pkg/util/contract"
 )
 
 // Providers returns a map of all known Terraform providers from which we will generate packages.  It would
@@ -47,11 +49,19 @@ type ResourceInfo struct {
 
 // SchemaInfo contains optional name transformations to apply.
 type SchemaInfo struct {
-	Name   string                // a name to override the default; "" uses the default.
-	Type   tokens.Type           // a type to override the default; "" uses the default.
-	Elem   *SchemaInfo           // a schema override for elements for arrays, maps, and sets.
-	Fields map[string]SchemaInfo // a map of custom field names; if a type is missing, the default is used.
-	Asset  *AssetTranslation     // a map of asset translation information, if this is an asset.
+	Name    string                // a name to override the default; "" uses the default.
+	Type    tokens.Type           // a type to override the default; "" uses the default.
+	Elem    *SchemaInfo           // a schema override for elements for arrays, maps, and sets.
+	Fields  map[string]SchemaInfo // a map of custom field names; if a type is missing, the default is used.
+	Asset   *AssetTranslation     // a map of asset translation information, if this is an asset.
+	Default DefaultInfo           // an optional default directive to be applied if a value is missing.
+}
+
+// DefaultInfo lets fields get default values at runtime, before they are even passed to Terraform.
+type DefaultInfo struct {
+	From          string                        // to take a default from another field.
+	FromTransform func(interface{}) interface{} // an optional transformation to apply to the from value.
+	Value         interface{}                   // a raw value to inject.
 }
 
 // OverlayInfo contains optional overlay information.  Each info has a 1:1 correspondence with a module and permits
@@ -92,4 +102,20 @@ func getGitInfo(prov string) (GitInfo, error) {
 		Taggish:   string(descOut),
 		Commitish: string(showRefOut),
 	}, nil
+}
+
+// autoName creates custom schema for a Terraform name property.  It uses the new name (which must not be "name"), and
+// figures out given the schema information how to populate the property.  maxlen specifies the maximum length.
+func autoName(new string, schema *schema.Schema, maxlen int) SchemaInfo {
+	contract.Assert(new != NameProperty)
+	info := SchemaInfo{Name: new}
+	if !schema.Optional {
+		info.Default = DefaultInfo{
+			From: NameProperty,
+			FromTransform: func(v interface{}) interface{} {
+				return resource.NewUniqueHex(v.(string)+"-", maxlen, -1)
+			},
+		}
+	}
+	return info
 }

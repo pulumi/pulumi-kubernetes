@@ -128,9 +128,13 @@ func terraformToLumiProps(props map[string]string) resource.PropertyMap {
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
 func createTerraformInputs(m resource.PropertyMap, schema map[string]SchemaInfo) (map[string]interface{}, error) {
 	result := make(map[string]interface{})
+
+	// Enumerate the inputs provided and add them to the map using their Terraform names.
 	for key, value := range m {
-		// First translate the key.  To find it in the map, we must reverse lookup.  In the future we may want to
-		// make a lookaside map to avoid the worst-case O(N) traversal of this map.
+		// First translate the Lumi property name to a Terraform name.  To do this, we will first look to see if
+		// there's a known custom schema that uses this name.  If yes, we prefer to use that.  To do this, we must
+		// use a reverse lookup.  (In the future we may want to make a lookaside map to avoid the worst-case O(N)
+		// traversal of this map.)  If that fails, we will simply use the standard name mangling scheme.
 		var name string
 		var info SchemaInfo
 		for tfname, schinfo := range schema {
@@ -152,6 +156,27 @@ func createTerraformInputs(m resource.PropertyMap, schema map[string]SchemaInfo)
 		}
 		result[name] = v
 	}
+
+	// Now enumerate and propagate defaults if the corresponding values are still missing.
+	for key, schema := range schema {
+		name := schema.Name
+		if name == "" {
+			name = key
+		}
+		if _, has := result[name]; !has {
+			if schema.Default.Value != nil {
+				result[name] = schema.Default.Value
+			} else if schema.Default.From != "" {
+				if from, hasfrom := result[schema.Default.From]; hasfrom {
+					if schema.Default.FromTransform != nil {
+						from = schema.Default.FromTransform(from)
+					}
+					result[name] = from
+				}
+			}
+		}
+	}
+
 	return result, nil
 }
 

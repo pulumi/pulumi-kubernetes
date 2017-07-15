@@ -10,9 +10,11 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pkg/errors"
 	"github.com/pulumi/lumi/pkg/diag"
+	"github.com/pulumi/lumi/pkg/resource"
 	"github.com/pulumi/lumi/pkg/tokens"
 	"github.com/pulumi/lumi/pkg/tools"
 	"github.com/pulumi/lumi/pkg/util/cmdutil"
@@ -91,6 +93,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	}
 
 	// For each resource, create its own dedicated type and module export.
+	var reserr error
 	resmap := prov.ResourcesMap
 	reshits := make(map[string]bool)
 	for _, r := range stableResources(prov.ResourcesMap) {
@@ -107,7 +110,8 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 		}
 		result, err := g.generateResource(pkg, r, resmap[r], resinfo, outDir, outDir)
 		if err != nil {
-			return err
+			// Keep track of the error, but keep going, so we can expose more at once.
+			reserr = multierror.Append(reserr, err)
 		}
 		if result.Submod == "" {
 			// if no sub-module, export flatly in our own index.
@@ -122,6 +126,9 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 			submod[result.Name] = result.File
 		}
 		files = append(files, result.File)
+	}
+	if reserr != nil {
+		return reserr
 	}
 
 	// Emit a warning if there is a map but some names didn't match.
@@ -239,7 +246,10 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	// Now just emit a simple export for each variable.
 	for _, key := range cfgkeys {
 		// Generate a name and type to use for this key.
-		if prop, typ := g.propTyp(key, cfg, custom); prop != "" {
+		prop, typ, err := g.propTyp("", key, cfg, custom)
+		if err != nil {
+			return "", err
+		} else if prop != "" {
 			g.generateComment(w, cfg[key].Description, "")
 			w.Writefmtln("export let %v: %v;", prop, typ)
 		}
@@ -310,6 +320,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.Writefmtln("export class %[1]v extends lumi.NamedResource implements %[1]vArgs {", resname)
 
 	// First, generate all instance properties.
+	var finalerr error
 	var props []string
 	var propflags []string
 	var proptypes []string
@@ -318,7 +329,11 @@ func (g *generator) generateResource(pkg string, rawname string,
 		if sch := res.Schema[s]; sch.Removed == "" {
 			// TODO: should we skip deprecated fields?
 			// TODO: figure out how to deal with sensitive fields.
-			if prop, flag, typ := g.propFlagTyp(s, res.Schema, custom); prop != "" {
+			prop, flag, typ, err := g.propFlagTyp(resname, s, res.Schema, custom)
+			if err != nil {
+				// Keep going so we can accumulate as many errors as possible.
+				finalerr = multierror.Append(finalerr, err)
+			} else if prop != "" {
 				w.Writefmtln("    public readonly %v%v: %v;", prop, flag, typ)
 				props = append(props, prop)
 				propflags = append(propflags, flag)
@@ -385,7 +400,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 		Name:   resname,
 		File:   file,
 		Submod: submod,
-	}, nil
+	}, finalerr
 }
 
 // generateSubmodules creates a set of index files, if necessary, for the given submodules.  It returns a map of
@@ -618,8 +633,8 @@ func (g *generator) generateComment(w *tools.GenWriter, comment string, prefix s
 }
 
 // propFlagTyp returns the property name, flag, and type to use for a given property/field/schema element.
-func (g *generator) propFlagTyp(key string, sch map[string]*schema.Schema,
-	custom map[string]tfbridge.SchemaInfo) (string, string, string) {
+func (g *generator) propFlagTyp(res string, key string, sch map[string]*schema.Schema,
+	custom map[string]tfbridge.SchemaInfo) (string, string, string, error) {
 	// Fetch the custom info if there is any, and use it to generate a name, flag, and type.
 	var info tfbridge.SchemaInfo
 	if custom != nil {
@@ -629,21 +644,19 @@ func (g *generator) propFlagTyp(key string, sch map[string]*schema.Schema,
 	// Use the name override, if one exists, or use the standard name mangling otherwise.
 	prop := info.Name
 	if prop == "" {
-		prop = propertyName(key)
+		var err error
+		prop, err = propertyName(res, key)
+		if err != nil {
+			return "", "", "", err
+		}
 	}
 
-	// If the property name is "name", use the Lumi name.  Return "" to instruct the caller to skip it, so that we
-	// don't emit a name that clashes with the underlying Lumi name used for URNs.
-	if prop == tfbridge.NameProperty {
-		prop = ""
-	}
-
-	return prop, g.tfToJSFlags(sch[key]), g.tfToJSType(sch[key], info)
+	return prop, g.tfToJSFlags(sch[key]), g.tfToJSType(sch[key], info), nil
 }
 
 // propTyp returns the property name and type, without flags, to use for a given property/field/schema element.
-func (g *generator) propTyp(key string, sch map[string]*schema.Schema,
-	custom map[string]tfbridge.SchemaInfo) (string, string) {
+func (g *generator) propTyp(res string, key string, sch map[string]*schema.Schema,
+	custom map[string]tfbridge.SchemaInfo) (string, string, error) {
 	// Fetch the custom info if there is any, and use it to generate a name and type.
 	var info tfbridge.SchemaInfo
 	if custom != nil {
@@ -653,16 +666,14 @@ func (g *generator) propTyp(key string, sch map[string]*schema.Schema,
 	// Use the name override, if one exists, or use the standard name mangling otherwise.
 	prop := info.Name
 	if prop == "" {
-		prop = propertyName(key)
+		var err error
+		prop, err = propertyName(res, key)
+		if err != nil {
+			return "", "", err
+		}
 	}
 
-	// If the property name is "name", use the Lumi name.  Return "" to instruct the caller to skip it, so that we
-	// don't emit a name that clashes with the underlying Lumi name used for URNs.
-	if prop == tfbridge.NameProperty {
-		prop = ""
-	}
-
-	return prop, g.tfToJSTypeFlags(sch[key], info)
+	return prop, g.tfToJSTypeFlags(sch[key], info), nil
 }
 
 // tsToJSFlags returns the JavaScript flags for a given schema property.
@@ -731,7 +742,9 @@ func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo)
 		t := "{ "
 		c := 0
 		for _, s := range stableSchemas(e.Schema) {
-			if prop, flag, typ := g.propFlagTyp(s, e.Schema, custom.Fields); prop != "" {
+			prop, flag, typ, err := g.propFlagTyp("", s, e.Schema, custom.Fields)
+			contract.Assertf(err == nil, "No errors expected for non-resource properties")
+			if prop != "" {
 				if c > 0 {
 					t += ", "
 				}
@@ -849,16 +862,20 @@ func resourceName(pkg string, rawname string, resinfo tfbridge.ResourceInfo) (st
 }
 
 // propertyName translates a Terraform underscore_cased_property_name into the JavaScript camelCasedPropertyName.
-func propertyName(s string) string {
-	contract.Assertf(s != "pid", "Unexpected collision with Lumi resource pid property")
-	contract.Assertf(s != "upn", "Unexpected collision with Lumi resource upn property")
+func propertyName(resname string, s string) (string, error) {
+	if resname != "" &&
+		(s == string(resource.IDProperty) || s == string(resource.URNProperty) || s == tfbridge.NameProperty) {
+		return "",
+			errors.Errorf("Property name '%v' on resource '%v' clashes with builtin name; "+
+				"please rename it with an override", s, resname)
+	}
 
 	// BUGBUG: work around issue in the Elastic Transcoder where a field has a trailing ":".
 	if strings.HasSuffix(s, ":") {
 		s = s[:len(s)-1]
 	}
 
-	return tfbridge.TerraformToLumiName(s, false /*no to PascalCase; we want camelCase*/)
+	return tfbridge.TerraformToLumiName(s, false /*no to PascalCase; we want camelCase*/), nil
 }
 
 func stableProviders(provs map[string]tfbridge.ProviderInfo) []string {
