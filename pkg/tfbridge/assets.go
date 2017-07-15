@@ -95,7 +95,7 @@ func (a *AssetTranslation) TranslateArchive(archive resource.Archive) (interface
 
 	// Produce either a temp file or an in-memory representation, as requested.
 	switch a.Kind {
-	case FileAsset:
+	case FileArchive:
 		f, err := ioutil.TempFile("", "lumi-archive-for-tf")
 		if err != nil {
 			return nil, err
@@ -105,7 +105,7 @@ func (a *AssetTranslation) TranslateArchive(archive resource.Archive) (interface
 			return nil, err
 		}
 		return filepath.Join(os.TempDir(), f.Name()), nil
-	case BytesAsset:
+	case BytesArchive:
 		return archive.Bytes(a.Format)
 	default:
 		contract.Failf("Unrecognized asset translation kind: %v", a.Kind)
