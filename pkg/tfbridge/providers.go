@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pkg/errors"
@@ -57,6 +58,11 @@ type SchemaInfo struct {
 	Default DefaultInfo           // an optional default directive to be applied if a value is missing.
 }
 
+// Optional returns true if the value for this entry isn't required.
+func (info SchemaInfo) Optional() bool {
+	return info.Default.From != "" || info.Default.Value != nil
+}
+
 // DefaultInfo lets fields get default values at runtime, before they are even passed to Terraform.
 type DefaultInfo struct {
 	From          string                        // to take a default from another field.
@@ -104,18 +110,38 @@ func getGitInfo(prov string) (GitInfo, error) {
 	}, nil
 }
 
-// autoName creates custom schema for a Terraform name property.  It uses the new name (which must not be "name"), and
-// figures out given the schema information how to populate the property.  maxlen specifies the maximum length.
-func autoName(new string, schema *schema.Schema, maxlen int) SchemaInfo {
+// autoName adds an auto-name property to the given resource's schema map, if the associated schema has one.
+func autoName(info ResourceInfo, maxlen int) ResourceInfo {
+	// Ensure to lazily initialize the fields.
+	if info.Fields == nil {
+		info.Fields = make(map[string]SchemaInfo)
+	}
+
+	// Ensure that there isn't already an entry for the name.
+	_, has := info.Fields[NameProperty]
+	contract.Assert(!has)
+
+	// Manufacture a name based on the token and then add the auto-name entry.  The name will simply be
+	// the resource name (from its token), camelCased rather than PascalCased, with "Name" appended.
+	contract.Assert(info.Tok != "")
+	new := string(info.Tok.Name())
+	new = strings.ToLower(string(new[0])) + new[1:] + "Name"
+	info.Fields[NameProperty] = autoNameInfo(new, -1)
+	return info
+}
+
+// autoNameInfo creates custom schema for a Terraform name property.  It uses the new name (which must not be "name"),
+// and figures out given the schema information how to populate the property.  maxlen specifies the maximum length.
+func autoNameInfo(new string, maxlen int) SchemaInfo {
 	contract.Assert(new != NameProperty)
-	info := SchemaInfo{Name: new}
-	if !schema.Optional {
-		info.Default = DefaultInfo{
+	info := SchemaInfo{
+		Name: new,
+		Default: DefaultInfo{
 			From: NameProperty,
 			FromTransform: func(v interface{}) interface{} {
 				return resource.NewUniqueHex(v.(string)+"-", maxlen, -1)
 			},
-		}
+		},
 	}
 	return info
 }

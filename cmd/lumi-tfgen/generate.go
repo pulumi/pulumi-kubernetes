@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pkg/errors"
 	"github.com/pulumi/lumi/pkg/diag"
-	"github.com/pulumi/lumi/pkg/resource"
 	"github.com/pulumi/lumi/pkg/tokens"
 	"github.com/pulumi/lumi/pkg/tools"
 	"github.com/pulumi/lumi/pkg/util/cmdutil"
@@ -246,7 +245,7 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	// Now just emit a simple export for each variable.
 	for _, key := range cfgkeys {
 		// Generate a name and type to use for this key.
-		prop, typ, err := g.propTyp("", key, cfg, custom)
+		prop, typ, err := g.propTyp("", key, cfg, custom[key])
 		if err != nil {
 			return "", err
 		} else if prop != "" {
@@ -325,13 +324,15 @@ func (g *generator) generateResource(pkg string, rawname string,
 	var propflags []string
 	var proptypes []string
 	var schemas []*schema.Schema
+	var customs []tfbridge.SchemaInfo
 	for _, s := range stableSchemas(res.Schema) {
 		if sch := res.Schema[s]; sch.Removed == "" {
 			// TODO: should we skip deprecated fields?
 			// TODO: figure out how to deal with sensitive fields.
-			prop, flag, typ, err := g.propFlagTyp(resname, s, res.Schema, custom)
+			prop, flag, typ, err := g.propFlagTyp(resname, s, res.Schema, custom[s])
 			if err != nil {
 				// Keep going so we can accumulate as many errors as possible.
+				err = errors.Errorf("%v:%v: %v", pkg, rawname, err)
 				finalerr = multierror.Append(finalerr, err)
 			} else if prop != "" {
 				w.Writefmtln("    public readonly %v%v: %v;", prop, flag, typ)
@@ -339,6 +340,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 				propflags = append(propflags, flag)
 				proptypes = append(proptypes, typ)
 				schemas = append(schemas, sch)
+				customs = append(customs, custom[s])
 			}
 		}
 	}
@@ -362,7 +364,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 		w.Writefmtln("        if (args !== undefined) {")
 	}
 	for i, prop := range props {
-		if !schemas[i].Optional {
+		if !optional(schemas[i], customs[i]) {
 			w.Writefmtln("%v        if (args.%v === undefined) {", propsindent, prop)
 			w.Writefmtln("%v            throw new Error(\"Property argument '%v' is required, "+
 				"but was missing\");", propsindent, prop)
@@ -632,17 +634,16 @@ func (g *generator) generateComment(w *tools.GenWriter, comment string, prefix s
 	}
 }
 
+// optional checks whether the given property is optional, either due to Terraform or an overlay.
+func optional(sch *schema.Schema, custom tfbridge.SchemaInfo) bool {
+	return sch.Optional || sch.Computed || custom.Optional()
+}
+
 // propFlagTyp returns the property name, flag, and type to use for a given property/field/schema element.
 func (g *generator) propFlagTyp(res string, key string, sch map[string]*schema.Schema,
-	custom map[string]tfbridge.SchemaInfo) (string, string, string, error) {
-	// Fetch the custom info if there is any, and use it to generate a name, flag, and type.
-	var info tfbridge.SchemaInfo
-	if custom != nil {
-		info = custom[key]
-	}
-
+	custom tfbridge.SchemaInfo) (string, string, string, error) {
 	// Use the name override, if one exists, or use the standard name mangling otherwise.
-	prop := info.Name
+	prop := custom.Name
 	if prop == "" {
 		var err error
 		prop, err = propertyName(res, key)
@@ -651,20 +652,14 @@ func (g *generator) propFlagTyp(res string, key string, sch map[string]*schema.S
 		}
 	}
 
-	return prop, g.tfToJSFlags(sch[key]), g.tfToJSType(sch[key], info), nil
+	return prop, g.tfToJSFlags(sch[key], custom), g.tfToJSType(sch[key], custom), nil
 }
 
 // propTyp returns the property name and type, without flags, to use for a given property/field/schema element.
 func (g *generator) propTyp(res string, key string, sch map[string]*schema.Schema,
-	custom map[string]tfbridge.SchemaInfo) (string, string, error) {
-	// Fetch the custom info if there is any, and use it to generate a name and type.
-	var info tfbridge.SchemaInfo
-	if custom != nil {
-		info = custom[key]
-	}
-
+	custom tfbridge.SchemaInfo) (string, string, error) {
 	// Use the name override, if one exists, or use the standard name mangling otherwise.
-	prop := info.Name
+	prop := custom.Name
 	if prop == "" {
 		var err error
 		prop, err = propertyName(res, key)
@@ -673,12 +668,12 @@ func (g *generator) propTyp(res string, key string, sch map[string]*schema.Schem
 		}
 	}
 
-	return prop, g.tfToJSTypeFlags(sch[key], info), nil
+	return prop, g.tfToJSTypeFlags(sch[key], custom), nil
 }
 
 // tsToJSFlags returns the JavaScript flags for a given schema property.
-func (g *generator) tfToJSFlags(sch *schema.Schema) string {
-	if sch.Optional || sch.Computed {
+func (g *generator) tfToJSFlags(sch *schema.Schema, custom tfbridge.SchemaInfo) string {
+	if optional(sch, custom) {
 		return "?"
 	}
 	return ""
@@ -742,7 +737,7 @@ func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo)
 		t := "{ "
 		c := 0
 		for _, s := range stableSchemas(e.Schema) {
-			prop, flag, typ, err := g.propFlagTyp("", s, e.Schema, custom.Fields)
+			prop, flag, typ, err := g.propFlagTyp("", s, e.Schema, custom.Fields[s])
 			contract.Assertf(err == nil, "No errors expected for non-resource properties")
 			if prop != "" {
 				if c > 0 {
@@ -763,7 +758,7 @@ func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo)
 // the schema is optional, we will emit an undefined union type (for non-field positions).
 func (g *generator) tfToJSTypeFlags(sch *schema.Schema, custom tfbridge.SchemaInfo) string {
 	ts := g.tfToJSType(sch, custom)
-	if sch.Optional {
+	if optional(sch, custom) {
 		ts += " | undefined"
 	}
 	return ts
@@ -863,8 +858,7 @@ func resourceName(pkg string, rawname string, resinfo tfbridge.ResourceInfo) (st
 
 // propertyName translates a Terraform underscore_cased_property_name into the JavaScript camelCasedPropertyName.
 func propertyName(resname string, s string) (string, error) {
-	if resname != "" &&
-		(s == string(resource.IDProperty) || s == string(resource.URNProperty) || s == tfbridge.NameProperty) {
+	if resname != "" && tfbridge.IsBuiltinLumiProperty(s) {
 		return "",
 			errors.Errorf("Property name '%v' on resource '%v' clashes with builtin name; "+
 				"please rename it with an override", s, resname)

@@ -5,6 +5,7 @@ package tfbridge
 import (
 	"unicode"
 
+	"github.com/pulumi/lumi/pkg/resource"
 	"github.com/pulumi/lumi/pkg/util/contract"
 )
 
@@ -54,4 +55,12 @@ func TerraformToLumiName(name string, upper bool) string {
 		result += "_"
 	}
 	return result
+}
+
+// NameProperty is the resource property used to assign names for URN assignment.
+const NameProperty = "name"
+
+// IsBuiltinLumiProperty returns true if the property name s is a special Lumi builtin property.
+func IsBuiltinLumiProperty(s string) bool {
+	return (s == string(resource.IDProperty) || s == string(resource.URNProperty) || s == NameProperty)
 }

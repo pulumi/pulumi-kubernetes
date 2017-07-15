@@ -50,8 +50,9 @@ func azureProvider() ProviderInfo {
 	if err != nil {
 		panic(err)
 	}
-	return ProviderInfo{
-		P:   azurerm.Provider().(*schema.Provider),
+	p := azurerm.Provider().(*schema.Provider)
+	prov := ProviderInfo{
+		P:   p,
 		Git: git,
 		Resources: map[string]ResourceInfo{
 			// AppInsights
@@ -137,4 +138,15 @@ func azureProvider() ProviderInfo {
 			"azurerm_virtual_network_peering":   {Tok: azuretok(azureVirtualMachine, "NetworkPeering")},
 		},
 	}
+
+	// For all resources with name properties, we will add an auto-name property.
+	for resname := range prov.Resources {
+		if schema := p.ResourcesMap[resname]; schema != nil {
+			if _, has := schema.Schema[NameProperty]; has {
+				prov.Resources[resname] = autoName(prov.Resources[resname], -1)
+			}
+		}
+	}
+
+	return prov
 }

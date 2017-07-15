@@ -39,8 +39,9 @@ func gcpProvider() ProviderInfo {
 	if err != nil {
 		panic(err)
 	}
-	return ProviderInfo{
-		P:   google.Provider().(*schema.Provider),
+	p := google.Provider().(*schema.Provider)
+	prov := ProviderInfo{
+		P:   p,
 		Git: git,
 		Resources: map[string]ResourceInfo{
 			// BigQuery
@@ -75,14 +76,34 @@ func gcpProvider() ProviderInfo {
 			"google_compute_router":                 {Tok: gcptok(gceMod, "Router")},
 			"google_compute_router_interface":       {Tok: gcptok(gceMod, "RouterInterface")},
 			"google_compute_router_peer":            {Tok: gcptok(gceMod, "RouterPeer")},
-			"google_compute_ssl_certificate":        {Tok: gcptok(gceMod, "SslCertificate")},
-			"google_compute_subnetwork":             {Tok: gcptok(gceMod, "SubNetwork")},
-			"google_compute_target_http_proxy":      {Tok: gcptok(gceMod, "TargetHttpProxy")},
-			"google_compute_target_https_proxy":     {Tok: gcptok(gceMod, "TargetHttpsProxy")},
-			"google_compute_target_pool":            {Tok: gcptok(gceMod, "TargetPool")},
-			"google_compute_url_map":                {Tok: gcptok(gceMod, "UrlMap")},
-			"google_compute_vpn_gateway":            {Tok: gcptok(gceMod, "VpnGateway")},
-			"google_compute_vpn_tunnel":             {Tok: gcptok(gceMod, "VpnTunnel")},
+			"google_compute_ssl_certificate": {
+				Tok: gcptok(gceMod, "SslCertificate"),
+				Fields: map[string]SchemaInfo{
+					"id": {Name: "certificateId"},
+				},
+			},
+			"google_compute_subnetwork": {Tok: gcptok(gceMod, "SubNetwork")},
+			"google_compute_target_http_proxy": {
+				Tok: gcptok(gceMod, "TargetHttpProxy"),
+				Fields: map[string]SchemaInfo{
+					"id": {Name: "proxyId"},
+				},
+			},
+			"google_compute_target_https_proxy": {
+				Tok: gcptok(gceMod, "TargetHttpsProxy"),
+				Fields: map[string]SchemaInfo{
+					"id": {Name: "proxyId"},
+				},
+			},
+			"google_compute_target_pool": {Tok: gcptok(gceMod, "TargetPool")},
+			"google_compute_url_map": {
+				Tok: gcptok(gceMod, "UrlMap"),
+				Fields: map[string]SchemaInfo{
+					"id": {Name: "mapId"},
+				},
+			},
+			"google_compute_vpn_gateway": {Tok: gcptok(gceMod, "VpnGateway")},
+			"google_compute_vpn_tunnel":  {Tok: gcptok(gceMod, "VpnTunnel")},
 			// GKE
 			"google_container_cluster":   {Tok: gcptok(gkeMod, "Cluster")},
 			"google_container_node_pool": {Tok: gcptok(gkeMod, "NodePool")},
@@ -108,4 +129,15 @@ func gcpProvider() ProviderInfo {
 			"google_storage_object_acl":    {Tok: gcptok(storageMod, "ObjectAcl")},
 		},
 	}
+
+	// For all resources with name properties, we will add an auto-name property.
+	for resname := range prov.Resources {
+		if schema := p.ResourcesMap[resname]; schema != nil {
+			if _, has := schema.Schema[NameProperty]; has {
+				prov.Resources[resname] = autoName(prov.Resources[resname], -1)
+			}
+		}
+	}
+
+	return prov
 }
