@@ -8,6 +8,7 @@ export class Account extends lumi.NamedResource implements AccountArgs {
     public readonly failoverPolicy: { id?: string, location: string, priority: number }[];
     public readonly ipRangeFilter?: string;
     public readonly location: string;
+    public readonly accountName?: string;
     public readonly offerType: string;
     public readonly primaryMasterKey?: string;
     public readonly primaryReadonlyMasterKey?: string;
@@ -31,29 +32,18 @@ export class Account extends lumi.NamedResource implements AccountArgs {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.accountName = args.accountName;
         if (args.offerType === undefined) {
             throw new Error("Property argument 'offerType' is required, but was missing");
         }
         this.offerType = args.offerType;
-        if (args.primaryMasterKey === undefined) {
-            throw new Error("Property argument 'primaryMasterKey' is required, but was missing");
-        }
         this.primaryMasterKey = args.primaryMasterKey;
-        if (args.primaryReadonlyMasterKey === undefined) {
-            throw new Error("Property argument 'primaryReadonlyMasterKey' is required, but was missing");
-        }
         this.primaryReadonlyMasterKey = args.primaryReadonlyMasterKey;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.secondaryMasterKey === undefined) {
-            throw new Error("Property argument 'secondaryMasterKey' is required, but was missing");
-        }
         this.secondaryMasterKey = args.secondaryMasterKey;
-        if (args.secondaryReadonlyMasterKey === undefined) {
-            throw new Error("Property argument 'secondaryReadonlyMasterKey' is required, but was missing");
-        }
         this.secondaryReadonlyMasterKey = args.secondaryReadonlyMasterKey;
         this.tags = args.tags;
     }
@@ -64,6 +54,7 @@ export interface AccountArgs {
     readonly failoverPolicy: { id?: string, location: string, priority: number }[];
     readonly ipRangeFilter?: string;
     readonly location: string;
+    readonly accountName?: string;
     readonly offerType: string;
     readonly primaryMasterKey?: string;
     readonly primaryReadonlyMasterKey?: string;

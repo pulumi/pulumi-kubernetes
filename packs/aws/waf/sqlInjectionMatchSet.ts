@@ -4,15 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class SqlInjectionMatchSet extends lumi.NamedResource implements SqlInjectionMatchSetArgs {
+    public readonly sqlInjectionMatchSetName?: string;
     public readonly sqlInjectionMatchTuples?: { fieldToMatch: { data?: string, type: string }[], textTransformation: string }[];
 
     constructor(name: string, args: SqlInjectionMatchSetArgs) {
         super(name);
+        this.sqlInjectionMatchSetName = args.sqlInjectionMatchSetName;
         this.sqlInjectionMatchTuples = args.sqlInjectionMatchTuples;
     }
 }
 
 export interface SqlInjectionMatchSetArgs {
+    readonly sqlInjectionMatchSetName?: string;
     readonly sqlInjectionMatchTuples?: { fieldToMatch: { data?: string, type: string }[], textTransformation: string }[];
 }
 

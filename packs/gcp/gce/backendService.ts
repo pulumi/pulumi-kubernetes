@@ -10,6 +10,7 @@ export class BackendService extends lumi.NamedResource implements BackendService
     public readonly enableCdn?: boolean;
     public readonly fingerprint?: string;
     public readonly healthChecks: string[];
+    public readonly backendServiceName?: string;
     public readonly portName?: string;
     public readonly project?: string;
     public readonly protocol?: string;
@@ -23,20 +24,15 @@ export class BackendService extends lumi.NamedResource implements BackendService
         this.connectionDrainingTimeoutSec = args.connectionDrainingTimeoutSec;
         this.description = args.description;
         this.enableCdn = args.enableCdn;
-        if (args.fingerprint === undefined) {
-            throw new Error("Property argument 'fingerprint' is required, but was missing");
-        }
         this.fingerprint = args.fingerprint;
         if (args.healthChecks === undefined) {
             throw new Error("Property argument 'healthChecks' is required, but was missing");
         }
         this.healthChecks = args.healthChecks;
+        this.backendServiceName = args.backendServiceName;
         this.portName = args.portName;
         this.project = args.project;
         this.protocol = args.protocol;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
         this.sessionAffinity = args.sessionAffinity;
         this.timeoutSec = args.timeoutSec;
@@ -50,6 +46,7 @@ export interface BackendServiceArgs {
     readonly enableCdn?: boolean;
     readonly fingerprint?: string;
     readonly healthChecks: string[];
+    readonly backendServiceName?: string;
     readonly portName?: string;
     readonly project?: string;
     readonly protocol?: string;

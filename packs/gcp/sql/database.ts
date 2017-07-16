@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class Database extends lumi.NamedResource implements DatabaseArgs {
     public readonly instance: string;
+    public readonly databaseName?: string;
     public readonly project?: string;
     public readonly selfLink?: string;
 
@@ -14,16 +15,15 @@ export class Database extends lumi.NamedResource implements DatabaseArgs {
             throw new Error("Property argument 'instance' is required, but was missing");
         }
         this.instance = args.instance;
+        this.databaseName = args.databaseName;
         this.project = args.project;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
     }
 }
 
 export interface DatabaseArgs {
     readonly instance: string;
+    readonly databaseName?: string;
     readonly project?: string;
     readonly selfLink?: string;
 }

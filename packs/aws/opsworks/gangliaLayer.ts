@@ -18,9 +18,10 @@ export class GangliaLayer extends lumi.NamedResource implements GangliaLayerArgs
     public readonly drainElbOnShutdown?: boolean;
     public readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     public readonly elasticLoadBalancer?: string;
-    public readonly id?: string;
+    public readonly layerId?: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceShutdownTimeout?: number;
+    public readonly gangliaLayerName?: string;
     public readonly password: string;
     public readonly stackId: string;
     public readonly systemPackages?: string[];
@@ -44,12 +45,10 @@ export class GangliaLayer extends lumi.NamedResource implements GangliaLayerArgs
         this.drainElbOnShutdown = args.drainElbOnShutdown;
         this.ebsVolume = args.ebsVolume;
         this.elasticLoadBalancer = args.elasticLoadBalancer;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.layerId = args.layerId;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
+        this.gangliaLayerName = args.gangliaLayerName;
         if (args.password === undefined) {
             throw new Error("Property argument 'password' is required, but was missing");
         }
@@ -80,9 +79,10 @@ export interface GangliaLayerArgs {
     readonly drainElbOnShutdown?: boolean;
     readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     readonly elasticLoadBalancer?: string;
-    readonly id?: string;
+    readonly layerId?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceShutdownTimeout?: number;
+    readonly gangliaLayerName?: string;
     readonly password: string;
     readonly stackId: string;
     readonly systemPackages?: string[];

@@ -8,6 +8,7 @@ export class LifecycleHook extends lumi.NamedResource implements LifecycleHookAr
     public readonly defaultResult?: string;
     public readonly heartbeatTimeout?: number;
     public readonly lifecycleTransition: string;
+    public readonly lifecycleHookName?: string;
     public readonly notificationMetadata?: string;
     public readonly notificationTargetArn?: string;
     public readonly roleArn?: string;
@@ -24,6 +25,7 @@ export class LifecycleHook extends lumi.NamedResource implements LifecycleHookAr
             throw new Error("Property argument 'lifecycleTransition' is required, but was missing");
         }
         this.lifecycleTransition = args.lifecycleTransition;
+        this.lifecycleHookName = args.lifecycleHookName;
         this.notificationMetadata = args.notificationMetadata;
         this.notificationTargetArn = args.notificationTargetArn;
         this.roleArn = args.roleArn;
@@ -35,6 +37,7 @@ export interface LifecycleHookArgs {
     readonly defaultResult?: string;
     readonly heartbeatTimeout?: number;
     readonly lifecycleTransition: string;
+    readonly lifecycleHookName?: string;
     readonly notificationMetadata?: string;
     readonly notificationTargetArn?: string;
     readonly roleArn?: string;

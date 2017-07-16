@@ -5,8 +5,9 @@ import * as lumi from "@lumi/lumi";
 
 export class NetworkSecurityGroup extends lumi.NamedResource implements NetworkSecurityGroupArgs {
     public readonly location: string;
+    public readonly networkSecurityGroupName?: string;
     public readonly resourceGroupName: string;
-    public readonly securityRule?: { access: string, description?: string, destinationAddressPrefix: string, destinationPortRange: string, direction: string, priority: number, protocol: string, sourceAddressPrefix: string, sourcePortRange: string }[];
+    public readonly securityRule?: { access: string, description?: string, destinationAddressPrefix: string, destinationPortRange: string, direction: string, name: string, priority: number, protocol: string, sourceAddressPrefix: string, sourcePortRange: string }[];
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: NetworkSecurityGroupArgs) {
@@ -15,6 +16,7 @@ export class NetworkSecurityGroup extends lumi.NamedResource implements NetworkS
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.networkSecurityGroupName = args.networkSecurityGroupName;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
@@ -26,8 +28,9 @@ export class NetworkSecurityGroup extends lumi.NamedResource implements NetworkS
 
 export interface NetworkSecurityGroupArgs {
     readonly location: string;
+    readonly networkSecurityGroupName?: string;
     readonly resourceGroupName: string;
-    readonly securityRule?: { access: string, description?: string, destinationAddressPrefix: string, destinationPortRange: string, direction: string, priority: number, protocol: string, sourceAddressPrefix: string, sourcePortRange: string }[];
+    readonly securityRule?: { access: string, description?: string, destinationAddressPrefix: string, destinationPortRange: string, direction: string, name: string, priority: number, protocol: string, sourceAddressPrefix: string, sourcePortRange: string }[];
     readonly tags?: {[key: string]: any};
 }
 

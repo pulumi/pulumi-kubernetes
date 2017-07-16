@@ -4,6 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class TxtRecord extends lumi.NamedResource implements TxtRecordArgs {
+    public readonly txtRecordName?: string;
     public readonly record: { value: string }[];
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -12,6 +13,7 @@ export class TxtRecord extends lumi.NamedResource implements TxtRecordArgs {
 
     constructor(name: string, args: TxtRecordArgs) {
         super(name);
+        this.txtRecordName = args.txtRecordName;
         if (args.record === undefined) {
             throw new Error("Property argument 'record' is required, but was missing");
         }
@@ -33,6 +35,7 @@ export class TxtRecord extends lumi.NamedResource implements TxtRecordArgs {
 }
 
 export interface TxtRecordArgs {
+    readonly txtRecordName?: string;
     readonly record: { value: string }[];
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

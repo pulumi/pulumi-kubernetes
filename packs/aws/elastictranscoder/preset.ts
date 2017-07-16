@@ -9,6 +9,7 @@ export class Preset extends lumi.NamedResource implements PresetArgs {
     public readonly audioCodecOptions?: { bitDepth?: string, bitOrder?: string, profile?: string, signed?: string }[];
     public readonly container: string;
     public readonly description?: string;
+    public readonly presetName?: string;
     public readonly thumbnails?: { aspectRatio?: string, format?: string, interval?: string, maxHeight?: string, maxWidth?: string, paddingPolicy?: string, resolution?: string, sizingPolicy?: string }[];
     public readonly type?: string;
     public readonly video?: { aspectRatio?: string, bitRate?: string, codec?: string, displayAspectRatio?: string, fixedGop?: string, frameRate?: string, keyframesMaxDist?: string, maxFrameRate?: string, maxHeight?: string, maxWidth?: string, paddingPolicy?: string, resolution?: string, sizingPolicy?: string }[];
@@ -17,9 +18,6 @@ export class Preset extends lumi.NamedResource implements PresetArgs {
 
     constructor(name: string, args: PresetArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.audio = args.audio;
         this.audioCodecOptions = args.audioCodecOptions;
@@ -28,6 +26,7 @@ export class Preset extends lumi.NamedResource implements PresetArgs {
         }
         this.container = args.container;
         this.description = args.description;
+        this.presetName = args.presetName;
         this.thumbnails = args.thumbnails;
         this.type = args.type;
         this.video = args.video;
@@ -42,6 +41,7 @@ export interface PresetArgs {
     readonly audioCodecOptions?: { bitDepth?: string, bitOrder?: string, profile?: string, signed?: string }[];
     readonly container: string;
     readonly description?: string;
+    readonly presetName?: string;
     readonly thumbnails?: { aspectRatio?: string, format?: string, interval?: string, maxHeight?: string, maxWidth?: string, paddingPolicy?: string, resolution?: string, sizingPolicy?: string }[];
     readonly type?: string;
     readonly video?: { aspectRatio?: string, bitRate?: string, codec?: string, displayAspectRatio?: string, fixedGop?: string, frameRate?: string, keyframesMaxDist?: string, maxFrameRate?: string, maxHeight?: string, maxWidth?: string, paddingPolicy?: string, resolution?: string, sizingPolicy?: string }[];

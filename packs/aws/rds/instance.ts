@@ -32,6 +32,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly monitoringInterval?: number;
     public readonly monitoringRoleArn?: string;
     public readonly multiAz?: boolean;
+    public readonly instanceName?: string;
     public readonly optionGroupName?: string;
     public readonly parameterGroupName?: string;
     public readonly password?: string;
@@ -53,16 +54,10 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
 
     constructor(name: string, args: InstanceArgs) {
         super(name);
-        if (args.address === undefined) {
-            throw new Error("Property argument 'address' is required, but was missing");
-        }
         this.address = args.address;
         this.allocatedStorage = args.allocatedStorage;
         this.allowMajorVersionUpgrade = args.allowMajorVersionUpgrade;
         this.applyImmediately = args.applyImmediately;
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.autoMinorVersionUpgrade = args.autoMinorVersionUpgrade;
         this.availabilityZone = args.availabilityZone;
@@ -71,16 +66,10 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.characterSetName = args.characterSetName;
         this.copyTagsToSnapshot = args.copyTagsToSnapshot;
         this.dbSubnetGroupName = args.dbSubnetGroupName;
-        if (args.endpoint === undefined) {
-            throw new Error("Property argument 'endpoint' is required, but was missing");
-        }
         this.endpoint = args.endpoint;
         this.engine = args.engine;
         this.engineVersion = args.engineVersion;
         this.finalSnapshotIdentifier = args.finalSnapshotIdentifier;
-        if (args.hostedZoneId === undefined) {
-            throw new Error("Property argument 'hostedZoneId' is required, but was missing");
-        }
         this.hostedZoneId = args.hostedZoneId;
         this.iamDatabaseAuthenticationEnabled = args.iamDatabaseAuthenticationEnabled;
         this.identifier = args.identifier;
@@ -96,26 +85,18 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.monitoringInterval = args.monitoringInterval;
         this.monitoringRoleArn = args.monitoringRoleArn;
         this.multiAz = args.multiAz;
+        this.instanceName = args.instanceName;
         this.optionGroupName = args.optionGroupName;
         this.parameterGroupName = args.parameterGroupName;
         this.password = args.password;
         this.port = args.port;
         this.publiclyAccessible = args.publiclyAccessible;
-        if (args.replicas === undefined) {
-            throw new Error("Property argument 'replicas' is required, but was missing");
-        }
         this.replicas = args.replicas;
         this.replicateSourceDb = args.replicateSourceDb;
-        if (args.resourceId === undefined) {
-            throw new Error("Property argument 'resourceId' is required, but was missing");
-        }
         this.resourceId = args.resourceId;
         this.securityGroupNames = args.securityGroupNames;
         this.skipFinalSnapshot = args.skipFinalSnapshot;
         this.snapshotIdentifier = args.snapshotIdentifier;
-        if (args.status === undefined) {
-            throw new Error("Property argument 'status' is required, but was missing");
-        }
         this.status = args.status;
         this.storageEncrypted = args.storageEncrypted;
         this.storageType = args.storageType;
@@ -155,6 +136,7 @@ export interface InstanceArgs {
     readonly monitoringInterval?: number;
     readonly monitoringRoleArn?: string;
     readonly multiAz?: boolean;
+    readonly instanceName?: string;
     readonly optionGroupName?: string;
     readonly parameterGroupName?: string;
     readonly password?: string;

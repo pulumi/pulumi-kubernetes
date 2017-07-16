@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class InstanceProfile extends lumi.NamedResource implements InstanceProfileArgs {
     public readonly arn?: string;
     public readonly createDate?: string;
+    public readonly instanceProfileName?: string;
     public readonly namePrefix?: string;
     public readonly path?: string;
     public readonly role?: string;
@@ -14,21 +15,13 @@ export class InstanceProfile extends lumi.NamedResource implements InstanceProfi
 
     constructor(name: string, args: InstanceProfileArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
-        if (args.createDate === undefined) {
-            throw new Error("Property argument 'createDate' is required, but was missing");
-        }
         this.createDate = args.createDate;
+        this.instanceProfileName = args.instanceProfileName;
         this.namePrefix = args.namePrefix;
         this.path = args.path;
         this.role = args.role;
         this.roles = args.roles;
-        if (args.uniqueId === undefined) {
-            throw new Error("Property argument 'uniqueId' is required, but was missing");
-        }
         this.uniqueId = args.uniqueId;
     }
 }
@@ -36,6 +29,7 @@ export class InstanceProfile extends lumi.NamedResource implements InstanceProfi
 export interface InstanceProfileArgs {
     readonly arn?: string;
     readonly createDate?: string;
+    readonly instanceProfileName?: string;
     readonly namePrefix?: string;
     readonly path?: string;
     readonly role?: string;

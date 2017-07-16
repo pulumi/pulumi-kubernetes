@@ -37,9 +37,6 @@ export class ReplicationGroup extends lumi.NamedResource implements ReplicationG
         this.automaticFailoverEnabled = args.automaticFailoverEnabled;
         this.availabilityZones = args.availabilityZones;
         this.clusterMode = args.clusterMode;
-        if (args.configurationEndpointAddress === undefined) {
-            throw new Error("Property argument 'configurationEndpointAddress' is required, but was missing");
-        }
         this.configurationEndpointAddress = args.configurationEndpointAddress;
         this.engine = args.engine;
         this.engineVersion = args.engineVersion;
@@ -55,9 +52,6 @@ export class ReplicationGroup extends lumi.NamedResource implements ReplicationG
             throw new Error("Property argument 'port' is required, but was missing");
         }
         this.port = args.port;
-        if (args.primaryEndpointAddress === undefined) {
-            throw new Error("Property argument 'primaryEndpointAddress' is required, but was missing");
-        }
         this.primaryEndpointAddress = args.primaryEndpointAddress;
         if (args.replicationGroupDescription === undefined) {
             throw new Error("Property argument 'replicationGroupDescription' is required, but was missing");

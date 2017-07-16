@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class NodePool extends lumi.NamedResource implements NodePoolArgs {
     public readonly cluster: string;
     public readonly initialNodeCount: number;
+    public readonly nodePoolName?: string;
     public readonly namePrefix?: string;
     public readonly project?: string;
     public readonly zone: string;
@@ -20,6 +21,7 @@ export class NodePool extends lumi.NamedResource implements NodePoolArgs {
             throw new Error("Property argument 'initialNodeCount' is required, but was missing");
         }
         this.initialNodeCount = args.initialNodeCount;
+        this.nodePoolName = args.nodePoolName;
         this.namePrefix = args.namePrefix;
         this.project = args.project;
         if (args.zone === undefined) {
@@ -32,6 +34,7 @@ export class NodePool extends lumi.NamedResource implements NodePoolArgs {
 export interface NodePoolArgs {
     readonly cluster: string;
     readonly initialNodeCount: number;
+    readonly nodePoolName?: string;
     readonly namePrefix?: string;
     readonly project?: string;
     readonly zone: string;

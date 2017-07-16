@@ -11,6 +11,7 @@ export class NatPool extends lumi.NamedResource implements NatPoolArgs {
     public readonly frontendPortStart: number;
     public readonly loadbalancerId: string;
     public readonly location?: string;
+    public readonly natPoolName?: string;
     public readonly protocol: string;
     public readonly resourceGroupName: string;
 
@@ -20,9 +21,6 @@ export class NatPool extends lumi.NamedResource implements NatPoolArgs {
             throw new Error("Property argument 'backendPort' is required, but was missing");
         }
         this.backendPort = args.backendPort;
-        if (args.frontendIpConfigurationId === undefined) {
-            throw new Error("Property argument 'frontendIpConfigurationId' is required, but was missing");
-        }
         this.frontendIpConfigurationId = args.frontendIpConfigurationId;
         if (args.frontendIpConfigurationName === undefined) {
             throw new Error("Property argument 'frontendIpConfigurationName' is required, but was missing");
@@ -41,6 +39,7 @@ export class NatPool extends lumi.NamedResource implements NatPoolArgs {
         }
         this.loadbalancerId = args.loadbalancerId;
         this.location = args.location;
+        this.natPoolName = args.natPoolName;
         if (args.protocol === undefined) {
             throw new Error("Property argument 'protocol' is required, but was missing");
         }
@@ -60,6 +59,7 @@ export interface NatPoolArgs {
     readonly frontendPortStart: number;
     readonly loadbalancerId: string;
     readonly location?: string;
+    readonly natPoolName?: string;
     readonly protocol: string;
     readonly resourceGroupName: string;
 }

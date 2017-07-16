@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class FirewallRule extends lumi.NamedResource implements FirewallRuleArgs {
     public readonly endIpAddress: string;
+    public readonly firewallRuleName?: string;
     public readonly resourceGroupName: string;
     public readonly serverName: string;
     public readonly startIpAddress: string;
@@ -15,6 +16,7 @@ export class FirewallRule extends lumi.NamedResource implements FirewallRuleArgs
             throw new Error("Property argument 'endIpAddress' is required, but was missing");
         }
         this.endIpAddress = args.endIpAddress;
+        this.firewallRuleName = args.firewallRuleName;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
@@ -32,6 +34,7 @@ export class FirewallRule extends lumi.NamedResource implements FirewallRuleArgs
 
 export interface FirewallRuleArgs {
     readonly endIpAddress: string;
+    readonly firewallRuleName?: string;
     readonly resourceGroupName: string;
     readonly serverName: string;
     readonly startIpAddress: string;

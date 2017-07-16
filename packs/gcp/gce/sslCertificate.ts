@@ -6,7 +6,8 @@ import * as lumi from "@lumi/lumi";
 export class SslCertificate extends lumi.NamedResource implements SslCertificateArgs {
     public readonly certificate: string;
     public readonly description?: string;
-    public readonly id?: string;
+    public readonly certificateId?: string;
+    public readonly sslCertificateName?: string;
     public readonly namePrefix?: string;
     public readonly privateKey: string;
     public readonly project?: string;
@@ -19,19 +20,14 @@ export class SslCertificate extends lumi.NamedResource implements SslCertificate
         }
         this.certificate = args.certificate;
         this.description = args.description;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.certificateId = args.certificateId;
+        this.sslCertificateName = args.sslCertificateName;
         this.namePrefix = args.namePrefix;
         if (args.privateKey === undefined) {
             throw new Error("Property argument 'privateKey' is required, but was missing");
         }
         this.privateKey = args.privateKey;
         this.project = args.project;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
     }
 }
@@ -39,7 +35,8 @@ export class SslCertificate extends lumi.NamedResource implements SslCertificate
 export interface SslCertificateArgs {
     readonly certificate: string;
     readonly description?: string;
-    readonly id?: string;
+    readonly certificateId?: string;
+    readonly sslCertificateName?: string;
     readonly namePrefix?: string;
     readonly privateKey: string;
     readonly project?: string;

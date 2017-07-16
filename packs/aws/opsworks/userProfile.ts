@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class UserProfile extends lumi.NamedResource implements UserProfileArgs {
     public readonly allowSelfManagement?: boolean;
-    public readonly id?: string;
+    public readonly profileId?: string;
     public readonly sshPublicKey?: string;
     public readonly sshUsername: string;
     public readonly userArn: string;
@@ -13,10 +13,7 @@ export class UserProfile extends lumi.NamedResource implements UserProfileArgs {
     constructor(name: string, args: UserProfileArgs) {
         super(name);
         this.allowSelfManagement = args.allowSelfManagement;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.profileId = args.profileId;
         this.sshPublicKey = args.sshPublicKey;
         if (args.sshUsername === undefined) {
             throw new Error("Property argument 'sshUsername' is required, but was missing");
@@ -31,7 +28,7 @@ export class UserProfile extends lumi.NamedResource implements UserProfileArgs {
 
 export interface UserProfileArgs {
     readonly allowSelfManagement?: boolean;
-    readonly id?: string;
+    readonly profileId?: string;
     readonly sshPublicKey?: string;
     readonly sshUsername: string;
     readonly userArn: string;

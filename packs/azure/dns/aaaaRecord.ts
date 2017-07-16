@@ -4,6 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class AaaaRecord extends lumi.NamedResource implements AaaaRecordArgs {
+    public readonly aaaaRecordName?: string;
     public readonly records: string[];
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -12,6 +13,7 @@ export class AaaaRecord extends lumi.NamedResource implements AaaaRecordArgs {
 
     constructor(name: string, args: AaaaRecordArgs) {
         super(name);
+        this.aaaaRecordName = args.aaaaRecordName;
         if (args.records === undefined) {
             throw new Error("Property argument 'records' is required, but was missing");
         }
@@ -33,6 +35,7 @@ export class AaaaRecord extends lumi.NamedResource implements AaaaRecordArgs {
 }
 
 export interface AaaaRecordArgs {
+    readonly aaaaRecordName?: string;
     readonly records: string[];
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

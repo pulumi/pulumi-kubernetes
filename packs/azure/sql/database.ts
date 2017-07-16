@@ -13,6 +13,7 @@ export class Database extends lumi.NamedResource implements DatabaseArgs {
     public readonly encryption?: string;
     public readonly location: string;
     public readonly maxSizeBytes?: string;
+    public readonly databaseName?: string;
     public readonly requestedServiceObjectiveId?: string;
     public readonly requestedServiceObjectiveName?: string;
     public readonly resourceGroupName: string;
@@ -26,25 +27,17 @@ export class Database extends lumi.NamedResource implements DatabaseArgs {
         super(name);
         this.collation = args.collation;
         this.createMode = args.createMode;
-        if (args.creationDate === undefined) {
-            throw new Error("Property argument 'creationDate' is required, but was missing");
-        }
         this.creationDate = args.creationDate;
-        if (args.defaultSecondaryLocation === undefined) {
-            throw new Error("Property argument 'defaultSecondaryLocation' is required, but was missing");
-        }
         this.defaultSecondaryLocation = args.defaultSecondaryLocation;
         this.edition = args.edition;
         this.elasticPoolName = args.elasticPoolName;
-        if (args.encryption === undefined) {
-            throw new Error("Property argument 'encryption' is required, but was missing");
-        }
         this.encryption = args.encryption;
         if (args.location === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.maxSizeBytes = args.maxSizeBytes;
+        this.databaseName = args.databaseName;
         this.requestedServiceObjectiveId = args.requestedServiceObjectiveId;
         this.requestedServiceObjectiveName = args.requestedServiceObjectiveName;
         if (args.resourceGroupName === undefined) {
@@ -72,6 +65,7 @@ export interface DatabaseArgs {
     readonly encryption?: string;
     readonly location: string;
     readonly maxSizeBytes?: string;
+    readonly databaseName?: string;
     readonly requestedServiceObjectiveId?: string;
     readonly requestedServiceObjectiveName?: string;
     readonly resourceGroupName: string;

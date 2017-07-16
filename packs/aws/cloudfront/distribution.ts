@@ -22,7 +22,7 @@ export class Distribution extends lumi.NamedResource implements DistributionArgs
     public readonly isIpv6Enabled?: boolean;
     public readonly lastModifiedTime?: string;
     public readonly loggingConfig?: { bucket: string, includeCookies?: boolean, prefix?: string }[];
-    public readonly origin: { customHeader?: { value: string }[], customOriginConfig?: { httpPort: number, httpsPort: number, originKeepaliveTimeout?: number, originProtocolPolicy: string, originReadTimeout?: number, originSslProtocols: string[] }[], domainName: string, originId: string, originPath?: string, s3OriginConfig?: { originAccessIdentity: string }[] }[];
+    public readonly origin: { customHeader?: { name: string, value: string }[], customOriginConfig?: { httpPort: number, httpsPort: number, originKeepaliveTimeout?: number, originProtocolPolicy: string, originReadTimeout?: number, originSslProtocols: string[] }[], domainName: string, originId: string, originPath?: string, s3OriginConfig?: { originAccessIdentity: string }[] }[];
     public readonly priceClass?: string;
     public readonly restrictions: { geoRestriction: { locations?: string[], restrictionType: string }[] }[];
     public readonly retainOnDelete?: boolean;
@@ -33,19 +33,10 @@ export class Distribution extends lumi.NamedResource implements DistributionArgs
 
     constructor(name: string, args: DistributionArgs) {
         super(name);
-        if (args.activeTrustedSigners === undefined) {
-            throw new Error("Property argument 'activeTrustedSigners' is required, but was missing");
-        }
         this.activeTrustedSigners = args.activeTrustedSigners;
         this.aliases = args.aliases;
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.cacheBehavior = args.cacheBehavior;
-        if (args.callerReference === undefined) {
-            throw new Error("Property argument 'callerReference' is required, but was missing");
-        }
         this.callerReference = args.callerReference;
         this.comment = args.comment;
         this.customErrorResponse = args.customErrorResponse;
@@ -54,31 +45,16 @@ export class Distribution extends lumi.NamedResource implements DistributionArgs
         }
         this.defaultCacheBehavior = args.defaultCacheBehavior;
         this.defaultRootObject = args.defaultRootObject;
-        if (args.domainName === undefined) {
-            throw new Error("Property argument 'domainName' is required, but was missing");
-        }
         this.domainName = args.domainName;
         if (args.enabled === undefined) {
             throw new Error("Property argument 'enabled' is required, but was missing");
         }
         this.enabled = args.enabled;
-        if (args.etag === undefined) {
-            throw new Error("Property argument 'etag' is required, but was missing");
-        }
         this.etag = args.etag;
-        if (args.hostedZoneId === undefined) {
-            throw new Error("Property argument 'hostedZoneId' is required, but was missing");
-        }
         this.hostedZoneId = args.hostedZoneId;
         this.httpVersion = args.httpVersion;
-        if (args.inProgressValidationBatches === undefined) {
-            throw new Error("Property argument 'inProgressValidationBatches' is required, but was missing");
-        }
         this.inProgressValidationBatches = args.inProgressValidationBatches;
         this.isIpv6Enabled = args.isIpv6Enabled;
-        if (args.lastModifiedTime === undefined) {
-            throw new Error("Property argument 'lastModifiedTime' is required, but was missing");
-        }
         this.lastModifiedTime = args.lastModifiedTime;
         this.loggingConfig = args.loggingConfig;
         if (args.origin === undefined) {
@@ -91,9 +67,6 @@ export class Distribution extends lumi.NamedResource implements DistributionArgs
         }
         this.restrictions = args.restrictions;
         this.retainOnDelete = args.retainOnDelete;
-        if (args.status === undefined) {
-            throw new Error("Property argument 'status' is required, but was missing");
-        }
         this.status = args.status;
         this.tags = args.tags;
         if (args.viewerCertificate === undefined) {
@@ -123,7 +96,7 @@ export interface DistributionArgs {
     readonly isIpv6Enabled?: boolean;
     readonly lastModifiedTime?: string;
     readonly loggingConfig?: { bucket: string, includeCookies?: boolean, prefix?: string }[];
-    readonly origin: { customHeader?: { value: string }[], customOriginConfig?: { httpPort: number, httpsPort: number, originKeepaliveTimeout?: number, originProtocolPolicy: string, originReadTimeout?: number, originSslProtocols: string[] }[], domainName: string, originId: string, originPath?: string, s3OriginConfig?: { originAccessIdentity: string }[] }[];
+    readonly origin: { customHeader?: { name: string, value: string }[], customOriginConfig?: { httpPort: number, httpsPort: number, originKeepaliveTimeout?: number, originProtocolPolicy: string, originReadTimeout?: number, originSslProtocols: string[] }[], domainName: string, originId: string, originPath?: string, s3OriginConfig?: { originAccessIdentity: string }[] }[];
     readonly priceClass?: string;
     readonly restrictions: { geoRestriction: { locations?: string[], restrictionType: string }[] }[];
     readonly retainOnDelete?: boolean;

@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class ReceiptFilter extends lumi.NamedResource implements ReceiptFilterArgs {
     public readonly cidr: string;
+    public readonly receiptFilterName?: string;
     public readonly policy: string;
 
     constructor(name: string, args: ReceiptFilterArgs) {
@@ -13,6 +14,7 @@ export class ReceiptFilter extends lumi.NamedResource implements ReceiptFilterAr
             throw new Error("Property argument 'cidr' is required, but was missing");
         }
         this.cidr = args.cidr;
+        this.receiptFilterName = args.receiptFilterName;
         if (args.policy === undefined) {
             throw new Error("Property argument 'policy' is required, but was missing");
         }
@@ -22,6 +24,7 @@ export class ReceiptFilter extends lumi.NamedResource implements ReceiptFilterAr
 
 export interface ReceiptFilterArgs {
     readonly cidr: string;
+    readonly receiptFilterName?: string;
     readonly policy: string;
 }
 

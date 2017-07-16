@@ -6,13 +6,10 @@ import * as lumi from "@lumi/lumi";
 export class Trigger extends lumi.NamedResource implements TriggerArgs {
     public readonly configurationId?: string;
     public readonly repositoryName: string;
-    public readonly trigger: { branches?: string[], customData?: string, destinationArn: string, events: string[] }[];
+    public readonly trigger: { branches?: string[], customData?: string, destinationArn: string, events: string[], name: string }[];
 
     constructor(name: string, args: TriggerArgs) {
         super(name);
-        if (args.configurationId === undefined) {
-            throw new Error("Property argument 'configurationId' is required, but was missing");
-        }
         this.configurationId = args.configurationId;
         if (args.repositoryName === undefined) {
             throw new Error("Property argument 'repositoryName' is required, but was missing");
@@ -28,6 +25,6 @@ export class Trigger extends lumi.NamedResource implements TriggerArgs {
 export interface TriggerArgs {
     readonly configurationId?: string;
     readonly repositoryName: string;
-    readonly trigger: { branches?: string[], customData?: string, destinationArn: string, events: string[] }[];
+    readonly trigger: { branches?: string[], customData?: string, destinationArn: string, events: string[], name: string }[];
 }
 

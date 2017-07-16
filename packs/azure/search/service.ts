@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class Service extends lumi.NamedResource implements ServiceArgs {
     public readonly location: string;
+    public readonly serviceName?: string;
     public readonly partitionCount?: number;
     public readonly replicaCount?: number;
     public readonly resourceGroupName: string;
@@ -17,6 +18,7 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.serviceName = args.serviceName;
         this.partitionCount = args.partitionCount;
         this.replicaCount = args.replicaCount;
         if (args.resourceGroupName === undefined) {
@@ -33,6 +35,7 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
 
 export interface ServiceArgs {
     readonly location: string;
+    readonly serviceName?: string;
     readonly partitionCount?: number;
     readonly replicaCount?: number;
     readonly resourceGroupName: string;

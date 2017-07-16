@@ -12,6 +12,7 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
     public readonly idleTimeout?: number;
     public readonly internal?: boolean;
     public readonly ipAddressType?: string;
+    public readonly loadBalancerName?: string;
     public readonly namePrefix?: string;
     public readonly securityGroups?: string[];
     public readonly subnets: string[];
@@ -22,22 +23,14 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
     constructor(name: string, args: LoadBalancerArgs) {
         super(name);
         this.accessLogs = args.accessLogs;
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
-        if (args.arnSuffix === undefined) {
-            throw new Error("Property argument 'arnSuffix' is required, but was missing");
-        }
         this.arnSuffix = args.arnSuffix;
-        if (args.dnsName === undefined) {
-            throw new Error("Property argument 'dnsName' is required, but was missing");
-        }
         this.dnsName = args.dnsName;
         this.enableDeletionProtection = args.enableDeletionProtection;
         this.idleTimeout = args.idleTimeout;
         this.internal = args.internal;
         this.ipAddressType = args.ipAddressType;
+        this.loadBalancerName = args.loadBalancerName;
         this.namePrefix = args.namePrefix;
         this.securityGroups = args.securityGroups;
         if (args.subnets === undefined) {
@@ -45,13 +38,7 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
         }
         this.subnets = args.subnets;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
-            throw new Error("Property argument 'vpcId' is required, but was missing");
-        }
         this.vpcId = args.vpcId;
-        if (args.zoneId === undefined) {
-            throw new Error("Property argument 'zoneId' is required, but was missing");
-        }
         this.zoneId = args.zoneId;
     }
 }
@@ -65,6 +52,7 @@ export interface LoadBalancerArgs {
     readonly idleTimeout?: number;
     readonly internal?: boolean;
     readonly ipAddressType?: string;
+    readonly loadBalancerName?: string;
     readonly namePrefix?: string;
     readonly securityGroups?: string[];
     readonly subnets: string[];

@@ -33,9 +33,6 @@ export class ReplicationInstance extends lumi.NamedResource implements Replicati
         this.multiAz = args.multiAz;
         this.preferredMaintenanceWindow = args.preferredMaintenanceWindow;
         this.publiclyAccessible = args.publiclyAccessible;
-        if (args.replicationInstanceArn === undefined) {
-            throw new Error("Property argument 'replicationInstanceArn' is required, but was missing");
-        }
         this.replicationInstanceArn = args.replicationInstanceArn;
         if (args.replicationInstanceClass === undefined) {
             throw new Error("Property argument 'replicationInstanceClass' is required, but was missing");
@@ -45,13 +42,7 @@ export class ReplicationInstance extends lumi.NamedResource implements Replicati
             throw new Error("Property argument 'replicationInstanceId' is required, but was missing");
         }
         this.replicationInstanceId = args.replicationInstanceId;
-        if (args.replicationInstancePrivateIps === undefined) {
-            throw new Error("Property argument 'replicationInstancePrivateIps' is required, but was missing");
-        }
         this.replicationInstancePrivateIps = args.replicationInstancePrivateIps;
-        if (args.replicationInstancePublicIps === undefined) {
-            throw new Error("Property argument 'replicationInstancePublicIps' is required, but was missing");
-        }
         this.replicationInstancePublicIps = args.replicationInstancePublicIps;
         this.replicationSubnetGroupId = args.replicationSubnetGroupId;
         this.tags = args.tags;

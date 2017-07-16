@@ -9,6 +9,7 @@ export class NetworkSecurityRule extends lumi.NamedResource implements NetworkSe
     public readonly destinationAddressPrefix: string;
     public readonly destinationPortRange: string;
     public readonly direction: string;
+    public readonly networkSecurityRuleName?: string;
     public readonly networkSecurityGroupName: string;
     public readonly priority: number;
     public readonly protocol: string;
@@ -35,6 +36,7 @@ export class NetworkSecurityRule extends lumi.NamedResource implements NetworkSe
             throw new Error("Property argument 'direction' is required, but was missing");
         }
         this.direction = args.direction;
+        this.networkSecurityRuleName = args.networkSecurityRuleName;
         if (args.networkSecurityGroupName === undefined) {
             throw new Error("Property argument 'networkSecurityGroupName' is required, but was missing");
         }
@@ -68,6 +70,7 @@ export interface NetworkSecurityRuleArgs {
     readonly destinationAddressPrefix: string;
     readonly destinationPortRange: string;
     readonly direction: string;
+    readonly networkSecurityRuleName?: string;
     readonly networkSecurityGroupName: string;
     readonly priority: number;
     readonly protocol: string;

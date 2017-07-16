@@ -9,6 +9,7 @@ export class Pipeline extends lumi.NamedResource implements PipelineArgs {
     public readonly contentConfig?: { bucket?: string, storageClass?: string }[];
     public readonly contentConfigPermissions?: { access?: string[], grantee?: string, granteeType?: string }[];
     public readonly inputBucket: string;
+    public readonly pipelineName?: string;
     public readonly notifications?: { completed?: string, error?: string, progressing?: string, warning?: string }[];
     public readonly outputBucket?: string;
     public readonly role: string;
@@ -17,9 +18,6 @@ export class Pipeline extends lumi.NamedResource implements PipelineArgs {
 
     constructor(name: string, args: PipelineArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.awsKmsKeyArn = args.awsKmsKeyArn;
         this.contentConfig = args.contentConfig;
@@ -28,6 +26,7 @@ export class Pipeline extends lumi.NamedResource implements PipelineArgs {
             throw new Error("Property argument 'inputBucket' is required, but was missing");
         }
         this.inputBucket = args.inputBucket;
+        this.pipelineName = args.pipelineName;
         this.notifications = args.notifications;
         this.outputBucket = args.outputBucket;
         if (args.role === undefined) {
@@ -45,6 +44,7 @@ export interface PipelineArgs {
     readonly contentConfig?: { bucket?: string, storageClass?: string }[];
     readonly contentConfigPermissions?: { access?: string[], grantee?: string, granteeType?: string }[];
     readonly inputBucket: string;
+    readonly pipelineName?: string;
     readonly notifications?: { completed?: string, error?: string, progressing?: string, warning?: string }[];
     readonly outputBucket?: string;
     readonly role: string;

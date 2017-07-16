@@ -13,6 +13,7 @@ export class Topic extends lumi.NamedResource implements TopicArgs {
     public readonly enablePartitioning?: boolean;
     public readonly location: string;
     public readonly maxSizeInMegabytes?: number;
+    public readonly topicName?: string;
     public readonly namespaceName: string;
     public readonly requiresDuplicateDetection?: boolean;
     public readonly resourceGroupName: string;
@@ -32,6 +33,7 @@ export class Topic extends lumi.NamedResource implements TopicArgs {
         }
         this.location = args.location;
         this.maxSizeInMegabytes = args.maxSizeInMegabytes;
+        this.topicName = args.topicName;
         if (args.namespaceName === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
@@ -55,6 +57,7 @@ export interface TopicArgs {
     readonly enablePartitioning?: boolean;
     readonly location: string;
     readonly maxSizeInMegabytes?: number;
+    readonly topicName?: string;
     readonly namespaceName: string;
     readonly requiresDuplicateDetection?: boolean;
     readonly resourceGroupName: string;

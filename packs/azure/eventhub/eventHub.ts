@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class EventHub extends lumi.NamedResource implements EventHubArgs {
     public readonly location: string;
     public readonly messageRetention: number;
+    public readonly eventHubName?: string;
     public readonly namespaceName: string;
     public readonly partitionCount: number;
     public readonly partitionIds?: string[];
@@ -21,6 +22,7 @@ export class EventHub extends lumi.NamedResource implements EventHubArgs {
             throw new Error("Property argument 'messageRetention' is required, but was missing");
         }
         this.messageRetention = args.messageRetention;
+        this.eventHubName = args.eventHubName;
         if (args.namespaceName === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
@@ -29,9 +31,6 @@ export class EventHub extends lumi.NamedResource implements EventHubArgs {
             throw new Error("Property argument 'partitionCount' is required, but was missing");
         }
         this.partitionCount = args.partitionCount;
-        if (args.partitionIds === undefined) {
-            throw new Error("Property argument 'partitionIds' is required, but was missing");
-        }
         this.partitionIds = args.partitionIds;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
@@ -43,6 +42,7 @@ export class EventHub extends lumi.NamedResource implements EventHubArgs {
 export interface EventHubArgs {
     readonly location: string;
     readonly messageRetention: number;
+    readonly eventHubName?: string;
     readonly namespaceName: string;
     readonly partitionCount: number;
     readonly partitionIds?: string[];

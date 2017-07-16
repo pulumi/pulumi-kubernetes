@@ -59,9 +59,6 @@ export class SpotInstanceRequest extends lumi.NamedResource implements SpotInsta
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
         this.iamInstanceProfile = args.iamInstanceProfile;
         this.instanceInitiatedShutdownBehavior = args.instanceInitiatedShutdownBehavior;
-        if (args.instanceState === undefined) {
-            throw new Error("Property argument 'instanceState' is required, but was missing");
-        }
         this.instanceState = args.instanceState;
         if (args.instanceType === undefined) {
             throw new Error("Property argument 'instanceType' is required, but was missing");
@@ -72,46 +69,22 @@ export class SpotInstanceRequest extends lumi.NamedResource implements SpotInsta
         this.keyName = args.keyName;
         this.monitoring = args.monitoring;
         this.networkInterface = args.networkInterface;
-        if (args.networkInterfaceId === undefined) {
-            throw new Error("Property argument 'networkInterfaceId' is required, but was missing");
-        }
         this.networkInterfaceId = args.networkInterfaceId;
         this.placementGroup = args.placementGroup;
-        if (args.primaryNetworkInterfaceId === undefined) {
-            throw new Error("Property argument 'primaryNetworkInterfaceId' is required, but was missing");
-        }
         this.primaryNetworkInterfaceId = args.primaryNetworkInterfaceId;
-        if (args.privateDns === undefined) {
-            throw new Error("Property argument 'privateDns' is required, but was missing");
-        }
         this.privateDns = args.privateDns;
         this.privateIp = args.privateIp;
-        if (args.publicDns === undefined) {
-            throw new Error("Property argument 'publicDns' is required, but was missing");
-        }
         this.publicDns = args.publicDns;
-        if (args.publicIp === undefined) {
-            throw new Error("Property argument 'publicIp' is required, but was missing");
-        }
         this.publicIp = args.publicIp;
         this.rootBlockDevice = args.rootBlockDevice;
         this.securityGroups = args.securityGroups;
         this.sourceDestCheck = args.sourceDestCheck;
-        if (args.spotBidStatus === undefined) {
-            throw new Error("Property argument 'spotBidStatus' is required, but was missing");
-        }
         this.spotBidStatus = args.spotBidStatus;
-        if (args.spotInstanceId === undefined) {
-            throw new Error("Property argument 'spotInstanceId' is required, but was missing");
-        }
         this.spotInstanceId = args.spotInstanceId;
         if (args.spotPrice === undefined) {
             throw new Error("Property argument 'spotPrice' is required, but was missing");
         }
         this.spotPrice = args.spotPrice;
-        if (args.spotRequestState === undefined) {
-            throw new Error("Property argument 'spotRequestState' is required, but was missing");
-        }
         this.spotRequestState = args.spotRequestState;
         this.spotType = args.spotType;
         this.subnetId = args.subnetId;

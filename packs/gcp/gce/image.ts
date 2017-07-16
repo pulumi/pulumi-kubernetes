@@ -7,6 +7,7 @@ export class Image extends lumi.NamedResource implements ImageArgs {
     public readonly createTimeout?: number;
     public readonly description?: string;
     public readonly family?: string;
+    public readonly imageName?: string;
     public readonly project?: string;
     public readonly rawDisk?: { containerType?: string, sha1?: string, source: string }[];
     public readonly selfLink?: string;
@@ -15,16 +16,11 @@ export class Image extends lumi.NamedResource implements ImageArgs {
     constructor(name: string, args: ImageArgs) {
         super(name);
         this.createTimeout = args.createTimeout;
-        if (args.description === undefined) {
-            throw new Error("Property argument 'description' is required, but was missing");
-        }
         this.description = args.description;
         this.family = args.family;
+        this.imageName = args.imageName;
         this.project = args.project;
         this.rawDisk = args.rawDisk;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
         this.sourceDisk = args.sourceDisk;
     }
@@ -34,6 +30,7 @@ export interface ImageArgs {
     readonly createTimeout?: number;
     readonly description?: string;
     readonly family?: string;
+    readonly imageName?: string;
     readonly project?: string;
     readonly rawDisk?: { containerType?: string, sha1?: string, source: string }[];
     readonly selfLink?: string;

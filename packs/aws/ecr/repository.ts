@@ -5,28 +5,22 @@ import * as lumi from "@lumi/lumi";
 
 export class Repository extends lumi.NamedResource implements RepositoryArgs {
     public readonly arn?: string;
+    public readonly repositoryName?: string;
     public readonly registryId?: string;
     public readonly repositoryUrl?: string;
 
     constructor(name: string, args: RepositoryArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
-        if (args.registryId === undefined) {
-            throw new Error("Property argument 'registryId' is required, but was missing");
-        }
+        this.repositoryName = args.repositoryName;
         this.registryId = args.registryId;
-        if (args.repositoryUrl === undefined) {
-            throw new Error("Property argument 'repositoryUrl' is required, but was missing");
-        }
         this.repositoryUrl = args.repositoryUrl;
     }
 }
 
 export interface RepositoryArgs {
     readonly arn?: string;
+    readonly repositoryName?: string;
     readonly registryId?: string;
     readonly repositoryUrl?: string;
 }

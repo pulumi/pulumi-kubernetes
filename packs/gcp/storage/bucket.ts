@@ -7,6 +7,7 @@ export class Bucket extends lumi.NamedResource implements BucketArgs {
     public readonly cors?: { maxAgeSeconds?: number, method?: string[], origin?: string[], responseHeader?: string[] }[];
     public readonly forceDestroy?: boolean;
     public readonly location?: string;
+    public readonly bucketName?: string;
     public readonly predefinedAcl?: string;
     public readonly project?: string;
     public readonly selfLink?: string;
@@ -19,16 +20,11 @@ export class Bucket extends lumi.NamedResource implements BucketArgs {
         this.cors = args.cors;
         this.forceDestroy = args.forceDestroy;
         this.location = args.location;
+        this.bucketName = args.bucketName;
         this.predefinedAcl = args.predefinedAcl;
         this.project = args.project;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
         this.storageClass = args.storageClass;
-        if (args.url === undefined) {
-            throw new Error("Property argument 'url' is required, but was missing");
-        }
         this.url = args.url;
         this.website = args.website;
     }
@@ -38,6 +34,7 @@ export interface BucketArgs {
     readonly cors?: { maxAgeSeconds?: number, method?: string[], origin?: string[], responseHeader?: string[] }[];
     readonly forceDestroy?: boolean;
     readonly location?: string;
+    readonly bucketName?: string;
     readonly predefinedAcl?: string;
     readonly project?: string;
     readonly selfLink?: string;

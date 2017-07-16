@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class ConsumerGroup extends lumi.NamedResource implements ConsumerGroupArgs {
     public readonly eventhubName: string;
     public readonly location: string;
+    public readonly consumerGroupName?: string;
     public readonly namespaceName: string;
     public readonly resourceGroupName: string;
     public readonly userMetadata?: string;
@@ -20,6 +21,7 @@ export class ConsumerGroup extends lumi.NamedResource implements ConsumerGroupAr
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.consumerGroupName = args.consumerGroupName;
         if (args.namespaceName === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
@@ -35,6 +37,7 @@ export class ConsumerGroup extends lumi.NamedResource implements ConsumerGroupAr
 export interface ConsumerGroupArgs {
     readonly eventhubName: string;
     readonly location: string;
+    readonly consumerGroupName?: string;
     readonly namespaceName: string;
     readonly resourceGroupName: string;
     readonly userMetadata?: string;

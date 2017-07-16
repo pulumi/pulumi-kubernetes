@@ -4,11 +4,13 @@
 import * as lumi from "@lumi/lumi";
 
 export class Table extends lumi.NamedResource implements TableArgs {
+    public readonly tableName?: string;
     public readonly resourceGroupName: string;
     public readonly storageAccountName: string;
 
     constructor(name: string, args: TableArgs) {
         super(name);
+        this.tableName = args.tableName;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
@@ -21,6 +23,7 @@ export class Table extends lumi.NamedResource implements TableArgs {
 }
 
 export interface TableArgs {
+    readonly tableName?: string;
     readonly resourceGroupName: string;
     readonly storageAccountName: string;
 }

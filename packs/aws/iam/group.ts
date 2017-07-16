@@ -5,25 +5,22 @@ import * as lumi from "@lumi/lumi";
 
 export class Group extends lumi.NamedResource implements GroupArgs {
     public readonly arn?: string;
+    public readonly groupName?: string;
     public readonly path?: string;
     public readonly uniqueId?: string;
 
     constructor(name: string, args: GroupArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
+        this.groupName = args.groupName;
         this.path = args.path;
-        if (args.uniqueId === undefined) {
-            throw new Error("Property argument 'uniqueId' is required, but was missing");
-        }
         this.uniqueId = args.uniqueId;
     }
 }
 
 export interface GroupArgs {
     readonly arn?: string;
+    readonly groupName?: string;
     readonly path?: string;
     readonly uniqueId?: string;
 }

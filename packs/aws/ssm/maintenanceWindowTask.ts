@@ -11,7 +11,7 @@ export class MaintenanceWindowTask extends lumi.NamedResource implements Mainten
     public readonly serviceRoleArn: string;
     public readonly targets: { key: string, values: string[] }[];
     public readonly taskArn: string;
-    public readonly taskParameters?: { values: string[] }[];
+    public readonly taskParameters?: { name: string, values: string[] }[];
     public readonly taskType: string;
     public readonly windowId: string;
 
@@ -59,7 +59,7 @@ export interface MaintenanceWindowTaskArgs {
     readonly serviceRoleArn: string;
     readonly targets: { key: string, values: string[] }[];
     readonly taskArn: string;
-    readonly taskParameters?: { values: string[] }[];
+    readonly taskParameters?: { name: string, values: string[] }[];
     readonly taskType: string;
     readonly windowId: string;
 }

@@ -12,13 +12,14 @@ export class Group extends lumi.NamedResource implements GroupArgs {
     public readonly forceDelete?: boolean;
     public readonly healthCheckGracePeriod?: number;
     public readonly healthCheckType?: string;
-    public readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
+    public readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, name: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
     public readonly launchConfiguration: string;
     public readonly loadBalancers?: string[];
     public readonly maxSize: number;
     public readonly metricsGranularity?: string;
     public readonly minElbCapacity?: number;
     public readonly minSize: number;
+    public readonly groupName?: string;
     public readonly namePrefix?: string;
     public readonly placementGroup?: string;
     public readonly protectFromScaleIn?: boolean;
@@ -33,9 +34,6 @@ export class Group extends lumi.NamedResource implements GroupArgs {
 
     constructor(name: string, args: GroupArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.availabilityZones = args.availabilityZones;
         this.defaultCooldown = args.defaultCooldown;
@@ -60,6 +58,7 @@ export class Group extends lumi.NamedResource implements GroupArgs {
             throw new Error("Property argument 'minSize' is required, but was missing");
         }
         this.minSize = args.minSize;
+        this.groupName = args.groupName;
         this.namePrefix = args.namePrefix;
         this.placementGroup = args.placementGroup;
         this.protectFromScaleIn = args.protectFromScaleIn;
@@ -83,13 +82,14 @@ export interface GroupArgs {
     readonly forceDelete?: boolean;
     readonly healthCheckGracePeriod?: number;
     readonly healthCheckType?: string;
-    readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
+    readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, name: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
     readonly launchConfiguration: string;
     readonly loadBalancers?: string[];
     readonly maxSize: number;
     readonly metricsGranularity?: string;
     readonly minElbCapacity?: number;
     readonly minSize: number;
+    readonly groupName?: string;
     readonly namePrefix?: string;
     readonly placementGroup?: string;
     readonly protectFromScaleIn?: boolean;

@@ -9,6 +9,7 @@ export class EventDestination extends lumi.NamedResource implements EventDestina
     public readonly enabled?: boolean;
     public readonly kinesisDestination?: { roleArn: string, streamArn: string }[];
     public readonly matchingTypes: string[];
+    public readonly eventDestinationName?: string;
 
     constructor(name: string, args: EventDestinationArgs) {
         super(name);
@@ -23,6 +24,7 @@ export class EventDestination extends lumi.NamedResource implements EventDestina
             throw new Error("Property argument 'matchingTypes' is required, but was missing");
         }
         this.matchingTypes = args.matchingTypes;
+        this.eventDestinationName = args.eventDestinationName;
     }
 }
 
@@ -32,5 +34,6 @@ export interface EventDestinationArgs {
     readonly enabled?: boolean;
     readonly kinesisDestination?: { roleArn: string, streamArn: string }[];
     readonly matchingTypes: string[];
+    readonly eventDestinationName?: string;
 }
 

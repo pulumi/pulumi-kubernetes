@@ -7,6 +7,7 @@ export class ManagedDisk extends lumi.NamedResource implements ManagedDiskArgs {
     public readonly createOption: string;
     public readonly diskSizeGb: number;
     public readonly location: string;
+    public readonly managedDiskName?: string;
     public readonly osType?: string;
     public readonly resourceGroupName: string;
     public readonly sourceResourceId?: string;
@@ -28,6 +29,7 @@ export class ManagedDisk extends lumi.NamedResource implements ManagedDiskArgs {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.managedDiskName = args.managedDiskName;
         this.osType = args.osType;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
@@ -47,6 +49,7 @@ export interface ManagedDiskArgs {
     readonly createOption: string;
     readonly diskSizeGb: number;
     readonly location: string;
+    readonly managedDiskName?: string;
     readonly osType?: string;
     readonly resourceGroupName: string;
     readonly sourceResourceId?: string;

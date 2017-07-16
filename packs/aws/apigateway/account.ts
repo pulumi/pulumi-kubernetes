@@ -10,9 +10,6 @@ export class Account extends lumi.NamedResource implements AccountArgs {
     constructor(name: string, args: AccountArgs) {
         super(name);
         this.cloudwatchRoleArn = args.cloudwatchRoleArn;
-        if (args.throttleSettings === undefined) {
-            throw new Error("Property argument 'throttleSettings' is required, but was missing");
-        }
         this.throttleSettings = args.throttleSettings;
     }
 }

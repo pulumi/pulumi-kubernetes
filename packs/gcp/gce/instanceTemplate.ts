@@ -13,6 +13,7 @@ export class InstanceTemplate extends lumi.NamedResource implements InstanceTemp
     public readonly metadata?: {[key: string]: any};
     public readonly metadataFingerprint?: string;
     public readonly metadataStartupScript?: string;
+    public readonly instanceTemplateName?: string;
     public readonly namePrefix?: string;
     public readonly networkInterface?: { accessConfig?: { natIp?: string }[], network?: string, networkIp?: string, subnetwork?: string, subnetworkProject?: string }[];
     public readonly onHostMaintenance?: string;
@@ -39,26 +40,18 @@ export class InstanceTemplate extends lumi.NamedResource implements InstanceTemp
         }
         this.machineType = args.machineType;
         this.metadata = args.metadata;
-        if (args.metadataFingerprint === undefined) {
-            throw new Error("Property argument 'metadataFingerprint' is required, but was missing");
-        }
         this.metadataFingerprint = args.metadataFingerprint;
         this.metadataStartupScript = args.metadataStartupScript;
+        this.instanceTemplateName = args.instanceTemplateName;
         this.namePrefix = args.namePrefix;
         this.networkInterface = args.networkInterface;
         this.onHostMaintenance = args.onHostMaintenance;
         this.project = args.project;
         this.region = args.region;
         this.scheduling = args.scheduling;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
         this.serviceAccount = args.serviceAccount;
         this.tags = args.tags;
-        if (args.tagsFingerprint === undefined) {
-            throw new Error("Property argument 'tagsFingerprint' is required, but was missing");
-        }
         this.tagsFingerprint = args.tagsFingerprint;
     }
 }
@@ -73,6 +66,7 @@ export interface InstanceTemplateArgs {
     readonly metadata?: {[key: string]: any};
     readonly metadataFingerprint?: string;
     readonly metadataStartupScript?: string;
+    readonly instanceTemplateName?: string;
     readonly namePrefix?: string;
     readonly networkInterface?: { accessConfig?: { natIp?: string }[], network?: string, networkIp?: string, subnetwork?: string, subnetworkProject?: string }[];
     readonly onHostMaintenance?: string;

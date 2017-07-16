@@ -4,15 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class XssMatchSet extends lumi.NamedResource implements XssMatchSetArgs {
+    public readonly xssMatchSetName?: string;
     public readonly xssMatchTuples?: { fieldToMatch: { data?: string, type: string }[], textTransformation: string }[];
 
     constructor(name: string, args: XssMatchSetArgs) {
         super(name);
+        this.xssMatchSetName = args.xssMatchSetName;
         this.xssMatchTuples = args.xssMatchTuples;
     }
 }
 
 export interface XssMatchSetArgs {
+    readonly xssMatchSetName?: string;
     readonly xssMatchTuples?: { fieldToMatch: { data?: string, type: string }[], textTransformation: string }[];
 }
 

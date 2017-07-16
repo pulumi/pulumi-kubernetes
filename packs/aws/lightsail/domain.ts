@@ -9,9 +9,6 @@ export class Domain extends lumi.NamedResource implements DomainArgs {
 
     constructor(name: string, args: DomainArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         if (args.domainName === undefined) {
             throw new Error("Property argument 'domainName' is required, but was missing");

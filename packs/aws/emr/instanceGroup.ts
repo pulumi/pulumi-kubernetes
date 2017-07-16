@@ -9,6 +9,7 @@ export class InstanceGroup extends lumi.NamedResource implements InstanceGroupAr
     public readonly ebsOptimized?: boolean;
     public readonly instanceCount?: number;
     public readonly instanceType: string;
+    public readonly instanceGroupName?: string;
     public readonly runningInstanceCount?: number;
     public readonly status?: string;
 
@@ -25,13 +26,8 @@ export class InstanceGroup extends lumi.NamedResource implements InstanceGroupAr
             throw new Error("Property argument 'instanceType' is required, but was missing");
         }
         this.instanceType = args.instanceType;
-        if (args.runningInstanceCount === undefined) {
-            throw new Error("Property argument 'runningInstanceCount' is required, but was missing");
-        }
+        this.instanceGroupName = args.instanceGroupName;
         this.runningInstanceCount = args.runningInstanceCount;
-        if (args.status === undefined) {
-            throw new Error("Property argument 'status' is required, but was missing");
-        }
         this.status = args.status;
     }
 }
@@ -42,6 +38,7 @@ export interface InstanceGroupArgs {
     readonly ebsOptimized?: boolean;
     readonly instanceCount?: number;
     readonly instanceType: string;
+    readonly instanceGroupName?: string;
     readonly runningInstanceCount?: number;
     readonly status?: string;
 }

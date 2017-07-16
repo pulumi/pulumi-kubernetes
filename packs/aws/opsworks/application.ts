@@ -15,7 +15,8 @@ export class Application extends lumi.NamedResource implements ApplicationArgs {
     public readonly domains?: string[];
     public readonly enableSsl?: boolean;
     public readonly environment?: { key: string, secure?: boolean, value: string }[];
-    public readonly id?: string;
+    public readonly applicationId?: string;
+    public readonly applicationName?: string;
     public readonly railsEnv?: string;
     public readonly shortName?: string;
     public readonly sslConfiguration?: { certificate: string, chain?: string, privateKey: string }[];
@@ -35,10 +36,8 @@ export class Application extends lumi.NamedResource implements ApplicationArgs {
         this.domains = args.domains;
         this.enableSsl = args.enableSsl;
         this.environment = args.environment;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.applicationId = args.applicationId;
+        this.applicationName = args.applicationName;
         this.railsEnv = args.railsEnv;
         this.shortName = args.shortName;
         this.sslConfiguration = args.sslConfiguration;
@@ -65,7 +64,8 @@ export interface ApplicationArgs {
     readonly domains?: string[];
     readonly enableSsl?: boolean;
     readonly environment?: { key: string, secure?: boolean, value: string }[];
-    readonly id?: string;
+    readonly applicationId?: string;
+    readonly applicationName?: string;
     readonly railsEnv?: string;
     readonly shortName?: string;
     readonly sslConfiguration?: { certificate: string, chain?: string, privateKey: string }[];

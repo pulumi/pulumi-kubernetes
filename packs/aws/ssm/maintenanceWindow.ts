@@ -8,6 +8,7 @@ export class MaintenanceWindow extends lumi.NamedResource implements Maintenance
     public readonly cutoff: number;
     public readonly duration: number;
     public readonly enabled?: boolean;
+    public readonly maintenanceWindowName?: string;
     public readonly schedule: string;
 
     constructor(name: string, args: MaintenanceWindowArgs) {
@@ -22,6 +23,7 @@ export class MaintenanceWindow extends lumi.NamedResource implements Maintenance
         }
         this.duration = args.duration;
         this.enabled = args.enabled;
+        this.maintenanceWindowName = args.maintenanceWindowName;
         if (args.schedule === undefined) {
             throw new Error("Property argument 'schedule' is required, but was missing");
         }
@@ -34,6 +36,7 @@ export interface MaintenanceWindowArgs {
     readonly cutoff: number;
     readonly duration: number;
     readonly enabled?: boolean;
+    readonly maintenanceWindowName?: string;
     readonly schedule: string;
 }
 

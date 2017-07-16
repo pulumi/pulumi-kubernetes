@@ -5,14 +5,17 @@ import * as lumi from "@lumi/lumi";
 
 export class ByteMatchSet extends lumi.NamedResource implements ByteMatchSetArgs {
     public readonly byteMatchTuple?: { fieldToMatch: { data?: string, type: string }[], positionalConstraint: string, targetString?: string, textTransformation: string }[];
+    public readonly byteMatchSetName?: string;
 
     constructor(name: string, args: ByteMatchSetArgs) {
         super(name);
         this.byteMatchTuple = args.byteMatchTuple;
+        this.byteMatchSetName = args.byteMatchSetName;
     }
 }
 
 export interface ByteMatchSetArgs {
     readonly byteMatchTuple?: { fieldToMatch: { data?: string, type: string }[], positionalConstraint: string, targetString?: string, textTransformation: string }[];
+    readonly byteMatchSetName?: string;
 }
 

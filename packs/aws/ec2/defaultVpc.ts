@@ -22,49 +22,19 @@ export class DefaultVpc extends lumi.NamedResource implements DefaultVpcArgs {
 
     constructor(name: string, args: DefaultVpcArgs) {
         super(name);
-        if (args.assignGeneratedIpv6CidrBlock === undefined) {
-            throw new Error("Property argument 'assignGeneratedIpv6CidrBlock' is required, but was missing");
-        }
         this.assignGeneratedIpv6CidrBlock = args.assignGeneratedIpv6CidrBlock;
-        if (args.cidrBlock === undefined) {
-            throw new Error("Property argument 'cidrBlock' is required, but was missing");
-        }
         this.cidrBlock = args.cidrBlock;
-        if (args.defaultNetworkAclId === undefined) {
-            throw new Error("Property argument 'defaultNetworkAclId' is required, but was missing");
-        }
         this.defaultNetworkAclId = args.defaultNetworkAclId;
-        if (args.defaultRouteTableId === undefined) {
-            throw new Error("Property argument 'defaultRouteTableId' is required, but was missing");
-        }
         this.defaultRouteTableId = args.defaultRouteTableId;
-        if (args.defaultSecurityGroupId === undefined) {
-            throw new Error("Property argument 'defaultSecurityGroupId' is required, but was missing");
-        }
         this.defaultSecurityGroupId = args.defaultSecurityGroupId;
-        if (args.dhcpOptionsId === undefined) {
-            throw new Error("Property argument 'dhcpOptionsId' is required, but was missing");
-        }
         this.dhcpOptionsId = args.dhcpOptionsId;
         this.enableClassiclink = args.enableClassiclink;
         this.enableClassiclinkDnsSupport = args.enableClassiclinkDnsSupport;
         this.enableDnsHostnames = args.enableDnsHostnames;
         this.enableDnsSupport = args.enableDnsSupport;
-        if (args.instanceTenancy === undefined) {
-            throw new Error("Property argument 'instanceTenancy' is required, but was missing");
-        }
         this.instanceTenancy = args.instanceTenancy;
-        if (args.ipv6AssociationId === undefined) {
-            throw new Error("Property argument 'ipv6AssociationId' is required, but was missing");
-        }
         this.ipv6AssociationId = args.ipv6AssociationId;
-        if (args.ipv6CidrBlock === undefined) {
-            throw new Error("Property argument 'ipv6CidrBlock' is required, but was missing");
-        }
         this.ipv6CidrBlock = args.ipv6CidrBlock;
-        if (args.mainRouteTableId === undefined) {
-            throw new Error("Property argument 'mainRouteTableId' is required, but was missing");
-        }
         this.mainRouteTableId = args.mainRouteTableId;
         this.tags = args.tags;
     }

@@ -10,7 +10,8 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
     public readonly isHttpAllowed?: boolean;
     public readonly isHttpsAllowed?: boolean;
     public readonly location: string;
-    public readonly origin: { hostName: string, httpPort?: number, httpsPort?: number }[];
+    public readonly endpointName?: string;
+    public readonly origin: { hostName: string, httpPort?: number, httpsPort?: number, name: string }[];
     public readonly originHostHeader?: string;
     public readonly originPath?: string;
     public readonly profileName: string;
@@ -21,9 +22,6 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
     constructor(name: string, args: EndpointArgs) {
         super(name);
         this.contentTypesToCompress = args.contentTypesToCompress;
-        if (args.hostName === undefined) {
-            throw new Error("Property argument 'hostName' is required, but was missing");
-        }
         this.hostName = args.hostName;
         this.isCompressionEnabled = args.isCompressionEnabled;
         this.isHttpAllowed = args.isHttpAllowed;
@@ -32,6 +30,7 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.endpointName = args.endpointName;
         if (args.origin === undefined) {
             throw new Error("Property argument 'origin' is required, but was missing");
         }
@@ -58,7 +57,8 @@ export interface EndpointArgs {
     readonly isHttpAllowed?: boolean;
     readonly isHttpsAllowed?: boolean;
     readonly location: string;
-    readonly origin: { hostName: string, httpPort?: number, httpsPort?: number }[];
+    readonly endpointName?: string;
+    readonly origin: { hostName: string, httpPort?: number, httpsPort?: number, name: string }[];
     readonly originHostHeader?: string;
     readonly originPath?: string;
     readonly profileName: string;

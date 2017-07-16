@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class Subnet extends lumi.NamedResource implements SubnetArgs {
     public readonly addressPrefix: string;
     public readonly ipConfigurations?: string[];
+    public readonly subnetName?: string;
     public readonly networkSecurityGroupId?: string;
     public readonly resourceGroupName: string;
     public readonly routeTableId?: string;
@@ -18,6 +19,7 @@ export class Subnet extends lumi.NamedResource implements SubnetArgs {
         }
         this.addressPrefix = args.addressPrefix;
         this.ipConfigurations = args.ipConfigurations;
+        this.subnetName = args.subnetName;
         this.networkSecurityGroupId = args.networkSecurityGroupId;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
@@ -34,6 +36,7 @@ export class Subnet extends lumi.NamedResource implements SubnetArgs {
 export interface SubnetArgs {
     readonly addressPrefix: string;
     readonly ipConfigurations?: string[];
+    readonly subnetName?: string;
     readonly networkSecurityGroupId?: string;
     readonly resourceGroupName: string;
     readonly routeTableId?: string;

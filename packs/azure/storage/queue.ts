@@ -4,11 +4,13 @@
 import * as lumi from "@lumi/lumi";
 
 export class Queue extends lumi.NamedResource implements QueueArgs {
+    public readonly queueName?: string;
     public readonly resourceGroupName: string;
     public readonly storageAccountName: string;
 
     constructor(name: string, args: QueueArgs) {
         super(name);
+        this.queueName = args.queueName;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
@@ -21,6 +23,7 @@ export class Queue extends lumi.NamedResource implements QueueArgs {
 }
 
 export interface QueueArgs {
+    readonly queueName?: string;
     readonly resourceGroupName: string;
     readonly storageAccountName: string;
 }

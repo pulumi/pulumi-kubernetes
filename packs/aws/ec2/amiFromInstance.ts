@@ -8,10 +8,11 @@ export class AmiFromInstance extends lumi.NamedResource implements AmiFromInstan
     public readonly description?: string;
     public readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName?: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
     public readonly ephemeralBlockDevice?: { deviceName?: string, virtualName?: string }[];
-    public readonly id?: string;
+    public readonly amiId?: string;
     public readonly imageLocation?: string;
     public readonly kernelId?: string;
     public readonly manageEbsSnapshots?: boolean;
+    public readonly amiFromInstanceName?: string;
     public readonly ramdiskId?: string;
     public readonly rootDeviceName?: string;
     public readonly snapshotWithoutReboot?: boolean;
@@ -22,50 +23,24 @@ export class AmiFromInstance extends lumi.NamedResource implements AmiFromInstan
 
     constructor(name: string, args: AmiFromInstanceArgs) {
         super(name);
-        if (args.architecture === undefined) {
-            throw new Error("Property argument 'architecture' is required, but was missing");
-        }
         this.architecture = args.architecture;
         this.description = args.description;
         this.ebsBlockDevice = args.ebsBlockDevice;
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
-        if (args.imageLocation === undefined) {
-            throw new Error("Property argument 'imageLocation' is required, but was missing");
-        }
+        this.amiId = args.amiId;
         this.imageLocation = args.imageLocation;
-        if (args.kernelId === undefined) {
-            throw new Error("Property argument 'kernelId' is required, but was missing");
-        }
         this.kernelId = args.kernelId;
-        if (args.manageEbsSnapshots === undefined) {
-            throw new Error("Property argument 'manageEbsSnapshots' is required, but was missing");
-        }
         this.manageEbsSnapshots = args.manageEbsSnapshots;
-        if (args.ramdiskId === undefined) {
-            throw new Error("Property argument 'ramdiskId' is required, but was missing");
-        }
+        this.amiFromInstanceName = args.amiFromInstanceName;
         this.ramdiskId = args.ramdiskId;
-        if (args.rootDeviceName === undefined) {
-            throw new Error("Property argument 'rootDeviceName' is required, but was missing");
-        }
         this.rootDeviceName = args.rootDeviceName;
         this.snapshotWithoutReboot = args.snapshotWithoutReboot;
         if (args.sourceInstanceId === undefined) {
             throw new Error("Property argument 'sourceInstanceId' is required, but was missing");
         }
         this.sourceInstanceId = args.sourceInstanceId;
-        if (args.sriovNetSupport === undefined) {
-            throw new Error("Property argument 'sriovNetSupport' is required, but was missing");
-        }
         this.sriovNetSupport = args.sriovNetSupport;
         this.tags = args.tags;
-        if (args.virtualizationType === undefined) {
-            throw new Error("Property argument 'virtualizationType' is required, but was missing");
-        }
         this.virtualizationType = args.virtualizationType;
     }
 }
@@ -75,10 +50,11 @@ export interface AmiFromInstanceArgs {
     readonly description?: string;
     readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName?: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
     readonly ephemeralBlockDevice?: { deviceName?: string, virtualName?: string }[];
-    readonly id?: string;
+    readonly amiId?: string;
     readonly imageLocation?: string;
     readonly kernelId?: string;
     readonly manageEbsSnapshots?: boolean;
+    readonly amiFromInstanceName?: string;
     readonly ramdiskId?: string;
     readonly rootDeviceName?: string;
     readonly snapshotWithoutReboot?: boolean;

@@ -9,8 +9,9 @@ export class KeyVault extends lumi.NamedResource implements KeyVaultArgs {
     public readonly enabledForDiskEncryption?: boolean;
     public readonly enabledForTemplateDeployment?: boolean;
     public readonly location: string;
+    public readonly keyVaultName?: string;
     public readonly resourceGroupName: string;
-    public readonly sku: {  }[];
+    public readonly sku: { name: string }[];
     public readonly tags?: {[key: string]: any};
     public readonly tenantId: string;
     public readonly vaultUri?: string;
@@ -25,6 +26,7 @@ export class KeyVault extends lumi.NamedResource implements KeyVaultArgs {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.keyVaultName = args.keyVaultName;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
@@ -38,9 +40,6 @@ export class KeyVault extends lumi.NamedResource implements KeyVaultArgs {
             throw new Error("Property argument 'tenantId' is required, but was missing");
         }
         this.tenantId = args.tenantId;
-        if (args.vaultUri === undefined) {
-            throw new Error("Property argument 'vaultUri' is required, but was missing");
-        }
         this.vaultUri = args.vaultUri;
     }
 }
@@ -51,8 +50,9 @@ export interface KeyVaultArgs {
     readonly enabledForDiskEncryption?: boolean;
     readonly enabledForTemplateDeployment?: boolean;
     readonly location: string;
+    readonly keyVaultName?: string;
     readonly resourceGroupName: string;
-    readonly sku: {  }[];
+    readonly sku: { name: string }[];
     readonly tags?: {[key: string]: any};
     readonly tenantId: string;
     readonly vaultUri?: string;

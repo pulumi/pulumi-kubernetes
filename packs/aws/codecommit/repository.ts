@@ -14,23 +14,11 @@ export class Repository extends lumi.NamedResource implements RepositoryArgs {
 
     constructor(name: string, args: RepositoryArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
-        if (args.cloneUrlHttp === undefined) {
-            throw new Error("Property argument 'cloneUrlHttp' is required, but was missing");
-        }
         this.cloneUrlHttp = args.cloneUrlHttp;
-        if (args.cloneUrlSsh === undefined) {
-            throw new Error("Property argument 'cloneUrlSsh' is required, but was missing");
-        }
         this.cloneUrlSsh = args.cloneUrlSsh;
         this.defaultBranch = args.defaultBranch;
         this.description = args.description;
-        if (args.repositoryId === undefined) {
-            throw new Error("Property argument 'repositoryId' is required, but was missing");
-        }
         this.repositoryId = args.repositoryId;
         if (args.repositoryName === undefined) {
             throw new Error("Property argument 'repositoryName' is required, but was missing");

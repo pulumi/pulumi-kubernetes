@@ -20,14 +20,8 @@ export class Domain extends lumi.NamedResource implements DomainArgs {
         super(name);
         this.accessPolicies = args.accessPolicies;
         this.advancedOptions = args.advancedOptions;
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.clusterConfig = args.clusterConfig;
-        if (args.domainId === undefined) {
-            throw new Error("Property argument 'domainId' is required, but was missing");
-        }
         this.domainId = args.domainId;
         if (args.domainName === undefined) {
             throw new Error("Property argument 'domainName' is required, but was missing");
@@ -35,9 +29,6 @@ export class Domain extends lumi.NamedResource implements DomainArgs {
         this.domainName = args.domainName;
         this.ebsOptions = args.ebsOptions;
         this.elasticsearchVersion = args.elasticsearchVersion;
-        if (args.endpoint === undefined) {
-            throw new Error("Property argument 'endpoint' is required, but was missing");
-        }
         this.endpoint = args.endpoint;
         this.snapshotOptions = args.snapshotOptions;
         this.tags = args.tags;

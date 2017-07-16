@@ -5,14 +5,17 @@ import * as lumi from "@lumi/lumi";
 
 export class Application extends lumi.NamedResource implements ApplicationArgs {
     public readonly description?: string;
+    public readonly applicationName?: string;
 
     constructor(name: string, args: ApplicationArgs) {
         super(name);
         this.description = args.description;
+        this.applicationName = args.applicationName;
     }
 }
 
 export interface ApplicationArgs {
     readonly description?: string;
+    readonly applicationName?: string;
 }
 

@@ -7,21 +7,20 @@ export class ParameterGroup extends lumi.NamedResource implements ParameterGroup
     public readonly arn?: string;
     public readonly description?: string;
     public readonly family: string;
+    public readonly parameterGroupName?: string;
     public readonly namePrefix?: string;
-    public readonly parameter?: { applyMethod?: string, value: string }[];
+    public readonly parameter?: { applyMethod?: string, name: string, value: string }[];
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: ParameterGroupArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.description = args.description;
         if (args.family === undefined) {
             throw new Error("Property argument 'family' is required, but was missing");
         }
         this.family = args.family;
+        this.parameterGroupName = args.parameterGroupName;
         this.namePrefix = args.namePrefix;
         this.parameter = args.parameter;
         this.tags = args.tags;
@@ -32,8 +31,9 @@ export interface ParameterGroupArgs {
     readonly arn?: string;
     readonly description?: string;
     readonly family: string;
+    readonly parameterGroupName?: string;
     readonly namePrefix?: string;
-    readonly parameter?: { applyMethod?: string, value: string }[];
+    readonly parameter?: { applyMethod?: string, name: string, value: string }[];
     readonly tags?: {[key: string]: any};
 }
 

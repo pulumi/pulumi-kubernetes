@@ -4,9 +4,10 @@
 import * as lumi from "@lumi/lumi";
 
 export class SslNegotiationPolicy extends lumi.NamedResource implements SslNegotiationPolicyArgs {
-    public readonly attribute?: { value: string }[];
+    public readonly attribute?: { name: string, value: string }[];
     public readonly lbPort: number;
     public readonly loadBalancer: string;
+    public readonly sslNegotiationPolicyName?: string;
 
     constructor(name: string, args: SslNegotiationPolicyArgs) {
         super(name);
@@ -19,12 +20,14 @@ export class SslNegotiationPolicy extends lumi.NamedResource implements SslNegot
             throw new Error("Property argument 'loadBalancer' is required, but was missing");
         }
         this.loadBalancer = args.loadBalancer;
+        this.sslNegotiationPolicyName = args.sslNegotiationPolicyName;
     }
 }
 
 export interface SslNegotiationPolicyArgs {
-    readonly attribute?: { value: string }[];
+    readonly attribute?: { name: string, value: string }[];
     readonly lbPort: number;
     readonly loadBalancer: string;
+    readonly sslNegotiationPolicyName?: string;
 }
 

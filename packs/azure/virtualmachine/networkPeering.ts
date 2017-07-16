@@ -7,6 +7,7 @@ export class NetworkPeering extends lumi.NamedResource implements NetworkPeering
     public readonly allowForwardedTraffic?: boolean;
     public readonly allowGatewayTransit?: boolean;
     public readonly allowVirtualNetworkAccess?: boolean;
+    public readonly networkPeeringName?: string;
     public readonly remoteVirtualNetworkId: string;
     public readonly resourceGroupName: string;
     public readonly useRemoteGateways?: boolean;
@@ -17,6 +18,7 @@ export class NetworkPeering extends lumi.NamedResource implements NetworkPeering
         this.allowForwardedTraffic = args.allowForwardedTraffic;
         this.allowGatewayTransit = args.allowGatewayTransit;
         this.allowVirtualNetworkAccess = args.allowVirtualNetworkAccess;
+        this.networkPeeringName = args.networkPeeringName;
         if (args.remoteVirtualNetworkId === undefined) {
             throw new Error("Property argument 'remoteVirtualNetworkId' is required, but was missing");
         }
@@ -37,6 +39,7 @@ export interface NetworkPeeringArgs {
     readonly allowForwardedTraffic?: boolean;
     readonly allowGatewayTransit?: boolean;
     readonly allowVirtualNetworkAccess?: boolean;
+    readonly networkPeeringName?: string;
     readonly remoteVirtualNetworkId: string;
     readonly resourceGroupName: string;
     readonly useRemoteGateways?: boolean;

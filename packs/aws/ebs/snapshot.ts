@@ -16,35 +16,17 @@ export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
 
     constructor(name: string, args: SnapshotArgs) {
         super(name);
-        if (args.dataEncryptionKeyId === undefined) {
-            throw new Error("Property argument 'dataEncryptionKeyId' is required, but was missing");
-        }
         this.dataEncryptionKeyId = args.dataEncryptionKeyId;
         this.description = args.description;
-        if (args.encrypted === undefined) {
-            throw new Error("Property argument 'encrypted' is required, but was missing");
-        }
         this.encrypted = args.encrypted;
-        if (args.kmsKeyId === undefined) {
-            throw new Error("Property argument 'kmsKeyId' is required, but was missing");
-        }
         this.kmsKeyId = args.kmsKeyId;
-        if (args.ownerAlias === undefined) {
-            throw new Error("Property argument 'ownerAlias' is required, but was missing");
-        }
         this.ownerAlias = args.ownerAlias;
-        if (args.ownerId === undefined) {
-            throw new Error("Property argument 'ownerId' is required, but was missing");
-        }
         this.ownerId = args.ownerId;
         this.tags = args.tags;
         if (args.volumeId === undefined) {
             throw new Error("Property argument 'volumeId' is required, but was missing");
         }
         this.volumeId = args.volumeId;
-        if (args.volumeSize === undefined) {
-            throw new Error("Property argument 'volumeSize' is required, but was missing");
-        }
         this.volumeSize = args.volumeSize;
     }
 }

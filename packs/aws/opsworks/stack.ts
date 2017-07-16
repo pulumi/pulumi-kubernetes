@@ -18,8 +18,9 @@ export class Stack extends lumi.NamedResource implements StackArgs {
     public readonly defaultSshKeyName?: string;
     public readonly defaultSubnetId?: string;
     public readonly hostnameTheme?: string;
-    public readonly id?: string;
+    public readonly stackId?: string;
     public readonly manageBerkshelf?: boolean;
+    public readonly stackName?: string;
     public readonly region: string;
     public readonly serviceRoleArn: string;
     public readonly stackEndpoint?: string;
@@ -46,11 +47,9 @@ export class Stack extends lumi.NamedResource implements StackArgs {
         this.defaultSshKeyName = args.defaultSshKeyName;
         this.defaultSubnetId = args.defaultSubnetId;
         this.hostnameTheme = args.hostnameTheme;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.stackId = args.stackId;
         this.manageBerkshelf = args.manageBerkshelf;
+        this.stackName = args.stackName;
         if (args.region === undefined) {
             throw new Error("Property argument 'region' is required, but was missing");
         }
@@ -59,9 +58,6 @@ export class Stack extends lumi.NamedResource implements StackArgs {
             throw new Error("Property argument 'serviceRoleArn' is required, but was missing");
         }
         this.serviceRoleArn = args.serviceRoleArn;
-        if (args.stackEndpoint === undefined) {
-            throw new Error("Property argument 'stackEndpoint' is required, but was missing");
-        }
         this.stackEndpoint = args.stackEndpoint;
         this.useCustomCookbooks = args.useCustomCookbooks;
         this.useOpsworksSecurityGroups = args.useOpsworksSecurityGroups;
@@ -84,8 +80,9 @@ export interface StackArgs {
     readonly defaultSshKeyName?: string;
     readonly defaultSubnetId?: string;
     readonly hostnameTheme?: string;
-    readonly id?: string;
+    readonly stackId?: string;
     readonly manageBerkshelf?: boolean;
+    readonly stackName?: string;
     readonly region: string;
     readonly serviceRoleArn: string;
     readonly stackEndpoint?: string;

@@ -26,9 +26,6 @@ export class ReplicationTask extends lumi.NamedResource implements ReplicationTa
             throw new Error("Property argument 'replicationInstanceArn' is required, but was missing");
         }
         this.replicationInstanceArn = args.replicationInstanceArn;
-        if (args.replicationTaskArn === undefined) {
-            throw new Error("Property argument 'replicationTaskArn' is required, but was missing");
-        }
         this.replicationTaskArn = args.replicationTaskArn;
         if (args.replicationTaskId === undefined) {
             throw new Error("Property argument 'replicationTaskId' is required, but was missing");

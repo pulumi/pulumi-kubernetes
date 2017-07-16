@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class Table extends lumi.NamedResource implements TableArgs {
     public readonly instanceName: string;
+    public readonly tableName?: string;
     public readonly project?: string;
     public readonly splitKeys?: string[];
 
@@ -14,6 +15,7 @@ export class Table extends lumi.NamedResource implements TableArgs {
             throw new Error("Property argument 'instanceName' is required, but was missing");
         }
         this.instanceName = args.instanceName;
+        this.tableName = args.tableName;
         this.project = args.project;
         this.splitKeys = args.splitKeys;
     }
@@ -21,6 +23,7 @@ export class Table extends lumi.NamedResource implements TableArgs {
 
 export interface TableArgs {
     readonly instanceName: string;
+    readonly tableName?: string;
     readonly project?: string;
     readonly splitKeys?: string[];
 }

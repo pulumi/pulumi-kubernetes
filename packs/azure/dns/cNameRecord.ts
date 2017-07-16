@@ -4,6 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class CNameRecord extends lumi.NamedResource implements CNameRecordArgs {
+    public readonly cNameRecordName?: string;
     public readonly record: string;
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -12,6 +13,7 @@ export class CNameRecord extends lumi.NamedResource implements CNameRecordArgs {
 
     constructor(name: string, args: CNameRecordArgs) {
         super(name);
+        this.cNameRecordName = args.cNameRecordName;
         if (args.record === undefined) {
             throw new Error("Property argument 'record' is required, but was missing");
         }
@@ -33,6 +35,7 @@ export class CNameRecord extends lumi.NamedResource implements CNameRecordArgs {
 }
 
 export interface CNameRecordArgs {
+    readonly cNameRecordName?: string;
     readonly record: string;
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

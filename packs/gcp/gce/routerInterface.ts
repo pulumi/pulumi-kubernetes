@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class RouterInterface extends lumi.NamedResource implements RouterInterfaceArgs {
     public readonly ipRange?: string;
+    public readonly routerInterfaceName?: string;
     public readonly project?: string;
     public readonly region?: string;
     public readonly router: string;
@@ -13,6 +14,7 @@ export class RouterInterface extends lumi.NamedResource implements RouterInterfa
     constructor(name: string, args: RouterInterfaceArgs) {
         super(name);
         this.ipRange = args.ipRange;
+        this.routerInterfaceName = args.routerInterfaceName;
         this.project = args.project;
         this.region = args.region;
         if (args.router === undefined) {
@@ -28,6 +30,7 @@ export class RouterInterface extends lumi.NamedResource implements RouterInterfa
 
 export interface RouterInterfaceArgs {
     readonly ipRange?: string;
+    readonly routerInterfaceName?: string;
     readonly project?: string;
     readonly region?: string;
     readonly router: string;

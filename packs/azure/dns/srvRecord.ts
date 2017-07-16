@@ -4,6 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class SrvRecord extends lumi.NamedResource implements SrvRecordArgs {
+    public readonly srvRecordName?: string;
     public readonly record: { port: number, priority: number, target: string, weight: number }[];
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -12,6 +13,7 @@ export class SrvRecord extends lumi.NamedResource implements SrvRecordArgs {
 
     constructor(name: string, args: SrvRecordArgs) {
         super(name);
+        this.srvRecordName = args.srvRecordName;
         if (args.record === undefined) {
             throw new Error("Property argument 'record' is required, but was missing");
         }
@@ -33,6 +35,7 @@ export class SrvRecord extends lumi.NamedResource implements SrvRecordArgs {
 }
 
 export interface SrvRecordArgs {
+    readonly srvRecordName?: string;
     readonly record: { port: number, priority: number, target: string, weight: number }[];
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

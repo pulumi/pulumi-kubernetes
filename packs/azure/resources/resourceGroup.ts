@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class ResourceGroup extends lumi.NamedResource implements ResourceGroupArgs {
     public readonly location: string;
+    public readonly resourceGroupName?: string;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: ResourceGroupArgs) {
@@ -13,12 +14,14 @@ export class ResourceGroup extends lumi.NamedResource implements ResourceGroupAr
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
     }
 }
 
 export interface ResourceGroupArgs {
     readonly location: string;
+    readonly resourceGroupName?: string;
     readonly tags?: {[key: string]: any};
 }
 

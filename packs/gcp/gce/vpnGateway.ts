@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class VpnGateway extends lumi.NamedResource implements VpnGatewayArgs {
     public readonly description?: string;
+    public readonly vpnGatewayName?: string;
     public readonly network: string;
     public readonly project?: string;
     public readonly region?: string;
@@ -13,21 +14,20 @@ export class VpnGateway extends lumi.NamedResource implements VpnGatewayArgs {
     constructor(name: string, args: VpnGatewayArgs) {
         super(name);
         this.description = args.description;
+        this.vpnGatewayName = args.vpnGatewayName;
         if (args.network === undefined) {
             throw new Error("Property argument 'network' is required, but was missing");
         }
         this.network = args.network;
         this.project = args.project;
         this.region = args.region;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
     }
 }
 
 export interface VpnGatewayArgs {
     readonly description?: string;
+    readonly vpnGatewayName?: string;
     readonly network: string;
     readonly project?: string;
     readonly region?: string;

@@ -14,6 +14,7 @@ export class Rule extends lumi.NamedResource implements RuleArgs {
     public readonly loadDistribution?: string;
     public readonly loadbalancerId: string;
     public readonly location?: string;
+    public readonly ruleName?: string;
     public readonly probeId?: string;
     public readonly protocol: string;
     public readonly resourceGroupName: string;
@@ -26,9 +27,6 @@ export class Rule extends lumi.NamedResource implements RuleArgs {
         }
         this.backendPort = args.backendPort;
         this.enableFloatingIp = args.enableFloatingIp;
-        if (args.frontendIpConfigurationId === undefined) {
-            throw new Error("Property argument 'frontendIpConfigurationId' is required, but was missing");
-        }
         this.frontendIpConfigurationId = args.frontendIpConfigurationId;
         if (args.frontendIpConfigurationName === undefined) {
             throw new Error("Property argument 'frontendIpConfigurationName' is required, but was missing");
@@ -45,6 +43,7 @@ export class Rule extends lumi.NamedResource implements RuleArgs {
         }
         this.loadbalancerId = args.loadbalancerId;
         this.location = args.location;
+        this.ruleName = args.ruleName;
         this.probeId = args.probeId;
         if (args.protocol === undefined) {
             throw new Error("Property argument 'protocol' is required, but was missing");
@@ -68,6 +67,7 @@ export interface RuleArgs {
     readonly loadDistribution?: string;
     readonly loadbalancerId: string;
     readonly location?: string;
+    readonly ruleName?: string;
     readonly probeId?: string;
     readonly protocol: string;
     readonly resourceGroupName: string;

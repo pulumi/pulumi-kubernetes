@@ -9,6 +9,7 @@ export class Cache extends lumi.NamedResource implements CacheArgs {
     public readonly family: string;
     public readonly hostname?: string;
     public readonly location: string;
+    public readonly cacheName?: string;
     public readonly port?: number;
     public readonly primaryAccessKey?: string;
     public readonly redisConfiguration: { maxclients?: number, maxmemoryDelta?: number, maxmemoryPolicy?: string, maxmemoryReserved?: number, rdbBackupEnabled?: boolean, rdbBackupFrequency?: number, rdbBackupMaxSnapshotCount?: number, rdbStorageConnectionString?: string }[];
@@ -30,21 +31,13 @@ export class Cache extends lumi.NamedResource implements CacheArgs {
             throw new Error("Property argument 'family' is required, but was missing");
         }
         this.family = args.family;
-        if (args.hostname === undefined) {
-            throw new Error("Property argument 'hostname' is required, but was missing");
-        }
         this.hostname = args.hostname;
         if (args.location === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
-        if (args.port === undefined) {
-            throw new Error("Property argument 'port' is required, but was missing");
-        }
+        this.cacheName = args.cacheName;
         this.port = args.port;
-        if (args.primaryAccessKey === undefined) {
-            throw new Error("Property argument 'primaryAccessKey' is required, but was missing");
-        }
         this.primaryAccessKey = args.primaryAccessKey;
         if (args.redisConfiguration === undefined) {
             throw new Error("Property argument 'redisConfiguration' is required, but was missing");
@@ -54,18 +47,12 @@ export class Cache extends lumi.NamedResource implements CacheArgs {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.secondaryAccessKey === undefined) {
-            throw new Error("Property argument 'secondaryAccessKey' is required, but was missing");
-        }
         this.secondaryAccessKey = args.secondaryAccessKey;
         this.shardCount = args.shardCount;
         if (args.skuName === undefined) {
             throw new Error("Property argument 'skuName' is required, but was missing");
         }
         this.skuName = args.skuName;
-        if (args.sslPort === undefined) {
-            throw new Error("Property argument 'sslPort' is required, but was missing");
-        }
         this.sslPort = args.sslPort;
         this.tags = args.tags;
     }
@@ -77,6 +64,7 @@ export interface CacheArgs {
     readonly family: string;
     readonly hostname?: string;
     readonly location: string;
+    readonly cacheName?: string;
     readonly port?: number;
     readonly primaryAccessKey?: string;
     readonly redisConfiguration: { maxclients?: number, maxmemoryDelta?: number, maxmemoryPolicy?: string, maxmemoryReserved?: number, rdbBackupEnabled?: boolean, rdbBackupFrequency?: number, rdbBackupMaxSnapshotCount?: number, rdbStorageConnectionString?: string }[];

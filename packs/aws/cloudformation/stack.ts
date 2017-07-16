@@ -7,6 +7,7 @@ export class Stack extends lumi.NamedResource implements StackArgs {
     public readonly capabilities?: string[];
     public readonly disableRollback?: boolean;
     public readonly iamRoleArn?: string;
+    public readonly stackName?: string;
     public readonly notificationArns?: string[];
     public readonly onFailure?: string;
     public readonly outputs?: {[key: string]: any};
@@ -23,11 +24,9 @@ export class Stack extends lumi.NamedResource implements StackArgs {
         this.capabilities = args.capabilities;
         this.disableRollback = args.disableRollback;
         this.iamRoleArn = args.iamRoleArn;
+        this.stackName = args.stackName;
         this.notificationArns = args.notificationArns;
         this.onFailure = args.onFailure;
-        if (args.outputs === undefined) {
-            throw new Error("Property argument 'outputs' is required, but was missing");
-        }
         this.outputs = args.outputs;
         this.parameters = args.parameters;
         this.policyBody = args.policyBody;
@@ -43,6 +42,7 @@ export interface StackArgs {
     readonly capabilities?: string[];
     readonly disableRollback?: boolean;
     readonly iamRoleArn?: string;
+    readonly stackName?: string;
     readonly notificationArns?: string[];
     readonly onFailure?: string;
     readonly outputs?: {[key: string]: any};

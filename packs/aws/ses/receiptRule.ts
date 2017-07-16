@@ -9,6 +9,7 @@ export class ReceiptRule extends lumi.NamedResource implements ReceiptRuleArgs {
     public readonly bounceAction?: { message: string, position: number, sender: string, smtpReplyCode: string, statusCode?: string, topicArn?: string }[];
     public readonly enabled?: boolean;
     public readonly lambdaAction?: { functionArn: string, invocationType?: string, position: number, topicArn?: string }[];
+    public readonly receiptRuleName?: string;
     public readonly recipients?: string[];
     public readonly ruleSetName: string;
     public readonly s3Action?: { bucketName: string, kmsKeyArn?: string, objectKeyPrefix?: string, position: number, topicArn?: string }[];
@@ -25,6 +26,7 @@ export class ReceiptRule extends lumi.NamedResource implements ReceiptRuleArgs {
         this.bounceAction = args.bounceAction;
         this.enabled = args.enabled;
         this.lambdaAction = args.lambdaAction;
+        this.receiptRuleName = args.receiptRuleName;
         this.recipients = args.recipients;
         if (args.ruleSetName === undefined) {
             throw new Error("Property argument 'ruleSetName' is required, but was missing");
@@ -45,6 +47,7 @@ export interface ReceiptRuleArgs {
     readonly bounceAction?: { message: string, position: number, sender: string, smtpReplyCode: string, statusCode?: string, topicArn?: string }[];
     readonly enabled?: boolean;
     readonly lambdaAction?: { functionArn: string, invocationType?: string, position: number, topicArn?: string }[];
+    readonly receiptRuleName?: string;
     readonly recipients?: string[];
     readonly ruleSetName: string;
     readonly s3Action?: { bucketName: string, kmsKeyArn?: string, objectKeyPrefix?: string, position: number, topicArn?: string }[];

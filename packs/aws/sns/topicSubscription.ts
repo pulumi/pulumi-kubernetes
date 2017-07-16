@@ -15,9 +15,6 @@ export class TopicSubscription extends lumi.NamedResource implements TopicSubscr
 
     constructor(name: string, args: TopicSubscriptionArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.confirmationTimeoutInMinutes = args.confirmationTimeoutInMinutes;
         this.deliveryPolicy = args.deliveryPolicy;

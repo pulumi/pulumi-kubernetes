@@ -4,13 +4,15 @@
 import * as lumi from "@lumi/lumi";
 
 export class Cluster extends lumi.NamedResource implements ClusterArgs {
-    constructor(name: string, args?: ClusterArgs) {
+    public readonly clusterName?: string;
+
+    constructor(name: string, args: ClusterArgs) {
         super(name);
-        if (args !== undefined) {
-        }
+        this.clusterName = args.clusterName;
     }
 }
 
 export interface ClusterArgs {
+    readonly clusterName?: string;
 }
 

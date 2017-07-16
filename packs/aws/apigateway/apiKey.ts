@@ -8,21 +8,17 @@ export class ApiKey extends lumi.NamedResource implements ApiKeyArgs {
     public readonly description?: string;
     public readonly enabled?: boolean;
     public readonly lastUpdatedDate?: string;
+    public readonly apiKeyName?: string;
     public readonly stageKey?: { restApiId: string, stageName: string }[];
     public readonly value?: string;
 
     constructor(name: string, args: ApiKeyArgs) {
         super(name);
-        if (args.createdDate === undefined) {
-            throw new Error("Property argument 'createdDate' is required, but was missing");
-        }
         this.createdDate = args.createdDate;
         this.description = args.description;
         this.enabled = args.enabled;
-        if (args.lastUpdatedDate === undefined) {
-            throw new Error("Property argument 'lastUpdatedDate' is required, but was missing");
-        }
         this.lastUpdatedDate = args.lastUpdatedDate;
+        this.apiKeyName = args.apiKeyName;
         this.stageKey = args.stageKey;
         this.value = args.value;
     }
@@ -33,6 +29,7 @@ export interface ApiKeyArgs {
     readonly description?: string;
     readonly enabled?: boolean;
     readonly lastUpdatedDate?: string;
+    readonly apiKeyName?: string;
     readonly stageKey?: { restApiId: string, stageName: string }[];
     readonly value?: string;
 }

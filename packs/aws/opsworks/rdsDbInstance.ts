@@ -6,7 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class RdsDbInstance extends lumi.NamedResource implements RdsDbInstanceArgs {
     public readonly dbPassword: string;
     public readonly dbUser: string;
-    public readonly id?: string;
+    public readonly instanceId?: string;
     public readonly rdsDbInstanceArn: string;
     public readonly stackId: string;
 
@@ -20,10 +20,7 @@ export class RdsDbInstance extends lumi.NamedResource implements RdsDbInstanceAr
             throw new Error("Property argument 'dbUser' is required, but was missing");
         }
         this.dbUser = args.dbUser;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.instanceId = args.instanceId;
         if (args.rdsDbInstanceArn === undefined) {
             throw new Error("Property argument 'rdsDbInstanceArn' is required, but was missing");
         }
@@ -38,7 +35,7 @@ export class RdsDbInstance extends lumi.NamedResource implements RdsDbInstanceAr
 export interface RdsDbInstanceArgs {
     readonly dbPassword: string;
     readonly dbUser: string;
-    readonly id?: string;
+    readonly instanceId?: string;
     readonly rdsDbInstanceArn: string;
     readonly stackId: string;
 }

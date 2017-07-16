@@ -11,6 +11,7 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
     public readonly description?: string;
     public readonly environment?: { variables?: {[key: string]: string} }[];
     public readonly code?: lumi.asset.Archive;
+    public readonly functionName?: string;
     public readonly handler: string;
     public readonly invokeArn?: string;
     public readonly kmsKeyArn?: string;
@@ -32,32 +33,21 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
 
     constructor(name: string, args: FunctionArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.deadLetterConfig = args.deadLetterConfig;
         this.description = args.description;
         this.environment = args.environment;
         this.code = args.code;
+        this.functionName = args.functionName;
         if (args.handler === undefined) {
             throw new Error("Property argument 'handler' is required, but was missing");
         }
         this.handler = args.handler;
-        if (args.invokeArn === undefined) {
-            throw new Error("Property argument 'invokeArn' is required, but was missing");
-        }
         this.invokeArn = args.invokeArn;
         this.kmsKeyArn = args.kmsKeyArn;
-        if (args.lastModified === undefined) {
-            throw new Error("Property argument 'lastModified' is required, but was missing");
-        }
         this.lastModified = args.lastModified;
         this.memorySize = args.memorySize;
         this.publish = args.publish;
-        if (args.qualifiedArn === undefined) {
-            throw new Error("Property argument 'qualifiedArn' is required, but was missing");
-        }
         this.qualifiedArn = args.qualifiedArn;
         if (args.role === undefined) {
             throw new Error("Property argument 'role' is required, but was missing");
@@ -74,9 +64,6 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
         this.tags = args.tags;
         this.timeout = args.timeout;
         this.tracingConfig = args.tracingConfig;
-        if (args.version === undefined) {
-            throw new Error("Property argument 'version' is required, but was missing");
-        }
         this.version = args.version;
         this.vpcConfig = args.vpcConfig;
     }
@@ -88,6 +75,7 @@ export interface FunctionArgs {
     readonly description?: string;
     readonly environment?: { variables?: {[key: string]: string} }[];
     readonly code?: lumi.asset.Archive;
+    readonly functionName?: string;
     readonly handler: string;
     readonly invokeArn?: string;
     readonly kmsKeyArn?: string;

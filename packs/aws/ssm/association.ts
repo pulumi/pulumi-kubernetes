@@ -6,16 +6,15 @@ import * as lumi from "@lumi/lumi";
 export class Association extends lumi.NamedResource implements AssociationArgs {
     public readonly associationId?: string;
     public readonly instanceId?: string;
+    public readonly associationName?: string;
     public readonly parameters?: {[key: string]: any};
     public readonly targets?: { key: string, values: string[] }[];
 
     constructor(name: string, args: AssociationArgs) {
         super(name);
-        if (args.associationId === undefined) {
-            throw new Error("Property argument 'associationId' is required, but was missing");
-        }
         this.associationId = args.associationId;
         this.instanceId = args.instanceId;
+        this.associationName = args.associationName;
         this.parameters = args.parameters;
         this.targets = args.targets;
     }
@@ -24,6 +23,7 @@ export class Association extends lumi.NamedResource implements AssociationArgs {
 export interface AssociationArgs {
     readonly associationId?: string;
     readonly instanceId?: string;
+    readonly associationName?: string;
     readonly parameters?: {[key: string]: any};
     readonly targets?: { key: string, values: string[] }[];
 }

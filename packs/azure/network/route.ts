@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class Route extends lumi.NamedResource implements RouteArgs {
     public readonly addressPrefix: string;
+    public readonly routeName?: string;
     public readonly nextHopInIpAddress?: string;
     public readonly nextHopType: string;
     public readonly resourceGroupName: string;
@@ -16,6 +17,7 @@ export class Route extends lumi.NamedResource implements RouteArgs {
             throw new Error("Property argument 'addressPrefix' is required, but was missing");
         }
         this.addressPrefix = args.addressPrefix;
+        this.routeName = args.routeName;
         this.nextHopInIpAddress = args.nextHopInIpAddress;
         if (args.nextHopType === undefined) {
             throw new Error("Property argument 'nextHopType' is required, but was missing");
@@ -34,6 +36,7 @@ export class Route extends lumi.NamedResource implements RouteArgs {
 
 export interface RouteArgs {
     readonly addressPrefix: string;
+    readonly routeName?: string;
     readonly nextHopInIpAddress?: string;
     readonly nextHopType: string;
     readonly resourceGroupName: string;

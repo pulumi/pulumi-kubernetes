@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class RecorderStatus extends lumi.NamedResource implements RecorderStatusArgs {
     public readonly isEnabled: boolean;
+    public readonly recorderStatusName?: string;
 
     constructor(name: string, args: RecorderStatusArgs) {
         super(name);
@@ -12,10 +13,12 @@ export class RecorderStatus extends lumi.NamedResource implements RecorderStatus
             throw new Error("Property argument 'isEnabled' is required, but was missing");
         }
         this.isEnabled = args.isEnabled;
+        this.recorderStatusName = args.recorderStatusName;
     }
 }
 
 export interface RecorderStatusArgs {
     readonly isEnabled: boolean;
+    readonly recorderStatusName?: string;
 }
 

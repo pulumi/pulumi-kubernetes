@@ -11,13 +11,10 @@ export class TaskDefinition extends lumi.NamedResource implements TaskDefinition
     public readonly placementConstraints?: { expression?: string, type: string }[];
     public readonly revision?: number;
     public readonly taskRoleArn?: string;
-    public readonly volume?: { hostPath?: string }[];
+    public readonly volume?: { hostPath?: string, name: string }[];
 
     constructor(name: string, args: TaskDefinitionArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         if (args.containerDefinitions === undefined) {
             throw new Error("Property argument 'containerDefinitions' is required, but was missing");
@@ -29,9 +26,6 @@ export class TaskDefinition extends lumi.NamedResource implements TaskDefinition
         this.family = args.family;
         this.networkMode = args.networkMode;
         this.placementConstraints = args.placementConstraints;
-        if (args.revision === undefined) {
-            throw new Error("Property argument 'revision' is required, but was missing");
-        }
         this.revision = args.revision;
         this.taskRoleArn = args.taskRoleArn;
         this.volume = args.volume;
@@ -46,6 +40,6 @@ export interface TaskDefinitionArgs {
     readonly placementConstraints?: { expression?: string, type: string }[];
     readonly revision?: number;
     readonly taskRoleArn?: string;
-    readonly volume?: { hostPath?: string }[];
+    readonly volume?: { hostPath?: string, name: string }[];
 }
 

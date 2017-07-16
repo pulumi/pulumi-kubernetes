@@ -15,34 +15,16 @@ export class DefaultSubnet extends lumi.NamedResource implements DefaultSubnetAr
 
     constructor(name: string, args: DefaultSubnetArgs) {
         super(name);
-        if (args.assignIpv6AddressOnCreation === undefined) {
-            throw new Error("Property argument 'assignIpv6AddressOnCreation' is required, but was missing");
-        }
         this.assignIpv6AddressOnCreation = args.assignIpv6AddressOnCreation;
         if (args.availabilityZone === undefined) {
             throw new Error("Property argument 'availabilityZone' is required, but was missing");
         }
         this.availabilityZone = args.availabilityZone;
-        if (args.cidrBlock === undefined) {
-            throw new Error("Property argument 'cidrBlock' is required, but was missing");
-        }
         this.cidrBlock = args.cidrBlock;
-        if (args.ipv6CidrBlock === undefined) {
-            throw new Error("Property argument 'ipv6CidrBlock' is required, but was missing");
-        }
         this.ipv6CidrBlock = args.ipv6CidrBlock;
-        if (args.ipv6CidrBlockAssociationId === undefined) {
-            throw new Error("Property argument 'ipv6CidrBlockAssociationId' is required, but was missing");
-        }
         this.ipv6CidrBlockAssociationId = args.ipv6CidrBlockAssociationId;
-        if (args.mapPublicIpOnLaunch === undefined) {
-            throw new Error("Property argument 'mapPublicIpOnLaunch' is required, but was missing");
-        }
         this.mapPublicIpOnLaunch = args.mapPublicIpOnLaunch;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
-            throw new Error("Property argument 'vpcId' is required, but was missing");
-        }
         this.vpcId = args.vpcId;
     }
 }

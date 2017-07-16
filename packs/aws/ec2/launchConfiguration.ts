@@ -13,6 +13,7 @@ export class LaunchConfiguration extends lumi.NamedResource implements LaunchCon
     public readonly imageId: string;
     public readonly instanceType: string;
     public readonly keyName?: string;
+    public readonly launchConfigurationName?: string;
     public readonly namePrefix?: string;
     public readonly placementTenancy?: string;
     public readonly rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];
@@ -39,6 +40,7 @@ export class LaunchConfiguration extends lumi.NamedResource implements LaunchCon
         }
         this.instanceType = args.instanceType;
         this.keyName = args.keyName;
+        this.launchConfigurationName = args.launchConfigurationName;
         this.namePrefix = args.namePrefix;
         this.placementTenancy = args.placementTenancy;
         this.rootBlockDevice = args.rootBlockDevice;
@@ -60,6 +62,7 @@ export interface LaunchConfigurationArgs {
     readonly imageId: string;
     readonly instanceType: string;
     readonly keyName?: string;
+    readonly launchConfigurationName?: string;
     readonly namePrefix?: string;
     readonly placementTenancy?: string;
     readonly rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];

@@ -24,9 +24,6 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
         super(name);
         this.certificateArn = args.certificateArn;
         this.databaseName = args.databaseName;
-        if (args.endpointArn === undefined) {
-            throw new Error("Property argument 'endpointArn' is required, but was missing");
-        }
         this.endpointArn = args.endpointArn;
         if (args.endpointId === undefined) {
             throw new Error("Property argument 'endpointId' is required, but was missing");

@@ -8,6 +8,7 @@ export class TargetGroup extends lumi.NamedResource implements TargetGroupArgs {
     public readonly arnSuffix?: string;
     public readonly deregistrationDelay?: number;
     public readonly healthCheck?: { healthyThreshold?: number, interval?: number, matcher?: string, path?: string, port?: string, protocol?: string, timeout?: number, unhealthyThreshold?: number }[];
+    public readonly targetGroupName?: string;
     public readonly namePrefix?: string;
     public readonly port: number;
     public readonly protocol: string;
@@ -17,16 +18,11 @@ export class TargetGroup extends lumi.NamedResource implements TargetGroupArgs {
 
     constructor(name: string, args: TargetGroupArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
-        if (args.arnSuffix === undefined) {
-            throw new Error("Property argument 'arnSuffix' is required, but was missing");
-        }
         this.arnSuffix = args.arnSuffix;
         this.deregistrationDelay = args.deregistrationDelay;
         this.healthCheck = args.healthCheck;
+        this.targetGroupName = args.targetGroupName;
         this.namePrefix = args.namePrefix;
         if (args.port === undefined) {
             throw new Error("Property argument 'port' is required, but was missing");
@@ -50,6 +46,7 @@ export interface TargetGroupArgs {
     readonly arnSuffix?: string;
     readonly deregistrationDelay?: number;
     readonly healthCheck?: { healthyThreshold?: number, interval?: number, matcher?: string, path?: string, port?: string, protocol?: string, timeout?: number, unhealthyThreshold?: number }[];
+    readonly targetGroupName?: string;
     readonly namePrefix?: string;
     readonly port: number;
     readonly protocol: string;

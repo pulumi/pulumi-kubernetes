@@ -18,9 +18,6 @@ export class DataSet extends lumi.NamedResource implements DataSetArgs {
 
     constructor(name: string, args: DataSetArgs) {
         super(name);
-        if (args.creationTime === undefined) {
-            throw new Error("Property argument 'creationTime' is required, but was missing");
-        }
         this.creationTime = args.creationTime;
         if (args.datasetId === undefined) {
             throw new Error("Property argument 'datasetId' is required, but was missing");
@@ -28,21 +25,12 @@ export class DataSet extends lumi.NamedResource implements DataSetArgs {
         this.datasetId = args.datasetId;
         this.defaultTableExpirationMs = args.defaultTableExpirationMs;
         this.description = args.description;
-        if (args.etag === undefined) {
-            throw new Error("Property argument 'etag' is required, but was missing");
-        }
         this.etag = args.etag;
         this.friendlyName = args.friendlyName;
         this.labels = args.labels;
-        if (args.lastModifiedTime === undefined) {
-            throw new Error("Property argument 'lastModifiedTime' is required, but was missing");
-        }
         this.lastModifiedTime = args.lastModifiedTime;
         this.location = args.location;
         this.project = args.project;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
     }
 }

@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class Rule extends lumi.NamedResource implements RuleArgs {
     public readonly metricName: string;
+    public readonly ruleName?: string;
     public readonly predicates?: { dataId?: string, negated: boolean, type: string }[];
 
     constructor(name: string, args: RuleArgs) {
@@ -13,12 +14,14 @@ export class Rule extends lumi.NamedResource implements RuleArgs {
             throw new Error("Property argument 'metricName' is required, but was missing");
         }
         this.metricName = args.metricName;
+        this.ruleName = args.ruleName;
         this.predicates = args.predicates;
     }
 }
 
 export interface RuleArgs {
     readonly metricName: string;
+    readonly ruleName?: string;
     readonly predicates?: { dataId?: string, negated: boolean, type: string }[];
 }
 

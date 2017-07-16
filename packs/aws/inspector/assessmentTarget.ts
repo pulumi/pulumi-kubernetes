@@ -5,14 +5,13 @@ import * as lumi from "@lumi/lumi";
 
 export class AssessmentTarget extends lumi.NamedResource implements AssessmentTargetArgs {
     public readonly arn?: string;
+    public readonly assessmentTargetName?: string;
     public readonly resourceGroupArn: string;
 
     constructor(name: string, args: AssessmentTargetArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
+        this.assessmentTargetName = args.assessmentTargetName;
         if (args.resourceGroupArn === undefined) {
             throw new Error("Property argument 'resourceGroupArn' is required, but was missing");
         }
@@ -22,6 +21,7 @@ export class AssessmentTarget extends lumi.NamedResource implements AssessmentTa
 
 export interface AssessmentTargetArgs {
     readonly arn?: string;
+    readonly assessmentTargetName?: string;
     readonly resourceGroupArn: string;
 }
 

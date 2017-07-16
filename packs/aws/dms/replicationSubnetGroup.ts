@@ -13,9 +13,6 @@ export class ReplicationSubnetGroup extends lumi.NamedResource implements Replic
 
     constructor(name: string, args: ReplicationSubnetGroupArgs) {
         super(name);
-        if (args.replicationSubnetGroupArn === undefined) {
-            throw new Error("Property argument 'replicationSubnetGroupArn' is required, but was missing");
-        }
         this.replicationSubnetGroupArn = args.replicationSubnetGroupArn;
         if (args.replicationSubnetGroupDescription === undefined) {
             throw new Error("Property argument 'replicationSubnetGroupDescription' is required, but was missing");
@@ -30,9 +27,6 @@ export class ReplicationSubnetGroup extends lumi.NamedResource implements Replic
         }
         this.subnetIds = args.subnetIds;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
-            throw new Error("Property argument 'vpcId' is required, but was missing");
-        }
         this.vpcId = args.vpcId;
     }
 }

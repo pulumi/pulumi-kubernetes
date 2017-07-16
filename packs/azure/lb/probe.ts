@@ -8,6 +8,7 @@ export class Probe extends lumi.NamedResource implements ProbeArgs {
     public readonly loadBalancerRules?: string[];
     public readonly loadbalancerId: string;
     public readonly location?: string;
+    public readonly probeName?: string;
     public readonly numberOfProbes?: number;
     public readonly port: number;
     public readonly protocol?: string;
@@ -17,15 +18,13 @@ export class Probe extends lumi.NamedResource implements ProbeArgs {
     constructor(name: string, args: ProbeArgs) {
         super(name);
         this.intervalInSeconds = args.intervalInSeconds;
-        if (args.loadBalancerRules === undefined) {
-            throw new Error("Property argument 'loadBalancerRules' is required, but was missing");
-        }
         this.loadBalancerRules = args.loadBalancerRules;
         if (args.loadbalancerId === undefined) {
             throw new Error("Property argument 'loadbalancerId' is required, but was missing");
         }
         this.loadbalancerId = args.loadbalancerId;
         this.location = args.location;
+        this.probeName = args.probeName;
         this.numberOfProbes = args.numberOfProbes;
         if (args.port === undefined) {
             throw new Error("Property argument 'port' is required, but was missing");
@@ -45,6 +44,7 @@ export interface ProbeArgs {
     readonly loadBalancerRules?: string[];
     readonly loadbalancerId: string;
     readonly location?: string;
+    readonly probeName?: string;
     readonly numberOfProbes?: number;
     readonly port: number;
     readonly protocol?: string;

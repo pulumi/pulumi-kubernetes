@@ -4,6 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class MxRecord extends lumi.NamedResource implements MxRecordArgs {
+    public readonly mxRecordName?: string;
     public readonly record: { exchange: string, preference: string }[];
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -12,6 +13,7 @@ export class MxRecord extends lumi.NamedResource implements MxRecordArgs {
 
     constructor(name: string, args: MxRecordArgs) {
         super(name);
+        this.mxRecordName = args.mxRecordName;
         if (args.record === undefined) {
             throw new Error("Property argument 'record' is required, but was missing");
         }
@@ -33,6 +35,7 @@ export class MxRecord extends lumi.NamedResource implements MxRecordArgs {
 }
 
 export interface MxRecordArgs {
+    readonly mxRecordName?: string;
     readonly record: { exchange: string, preference: string }[];
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

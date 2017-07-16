@@ -4,15 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class Application extends lumi.NamedResource implements ApplicationArgs {
+    public readonly applicationName?: string;
     public readonly uniqueId?: string;
 
     constructor(name: string, args: ApplicationArgs) {
         super(name);
+        this.applicationName = args.applicationName;
         this.uniqueId = args.uniqueId;
     }
 }
 
 export interface ApplicationArgs {
+    readonly applicationName?: string;
     readonly uniqueId?: string;
 }
 

@@ -6,7 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class Cluster extends lumi.NamedResource implements ClusterArgs {
     public readonly applications?: string[];
     public readonly autoscalingRole?: string;
-    public readonly bootstrapAction?: { args?: string[], path: string }[];
+    public readonly bootstrapAction?: { args?: string[], name: string, path: string }[];
     public readonly clusterState?: string;
     public readonly configurations?: string;
     public readonly coreInstanceCount?: number;
@@ -16,6 +16,7 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
     public readonly logUri?: string;
     public readonly masterInstanceType: string;
     public readonly masterPublicDns?: string;
+    public readonly clusterName?: string;
     public readonly releaseLabel: string;
     public readonly securityConfiguration?: string;
     public readonly serviceRole: string;
@@ -28,9 +29,6 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.applications = args.applications;
         this.autoscalingRole = args.autoscalingRole;
         this.bootstrapAction = args.bootstrapAction;
-        if (args.clusterState === undefined) {
-            throw new Error("Property argument 'clusterState' is required, but was missing");
-        }
         this.clusterState = args.clusterState;
         this.configurations = args.configurations;
         this.coreInstanceCount = args.coreInstanceCount;
@@ -42,10 +40,8 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
             throw new Error("Property argument 'masterInstanceType' is required, but was missing");
         }
         this.masterInstanceType = args.masterInstanceType;
-        if (args.masterPublicDns === undefined) {
-            throw new Error("Property argument 'masterPublicDns' is required, but was missing");
-        }
         this.masterPublicDns = args.masterPublicDns;
+        this.clusterName = args.clusterName;
         if (args.releaseLabel === undefined) {
             throw new Error("Property argument 'releaseLabel' is required, but was missing");
         }
@@ -64,7 +60,7 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
 export interface ClusterArgs {
     readonly applications?: string[];
     readonly autoscalingRole?: string;
-    readonly bootstrapAction?: { args?: string[], path: string }[];
+    readonly bootstrapAction?: { args?: string[], name: string, path: string }[];
     readonly clusterState?: string;
     readonly configurations?: string;
     readonly coreInstanceCount?: number;
@@ -74,6 +70,7 @@ export interface ClusterArgs {
     readonly logUri?: string;
     readonly masterInstanceType: string;
     readonly masterPublicDns?: string;
+    readonly clusterName?: string;
     readonly releaseLabel: string;
     readonly securityConfiguration?: string;
     readonly serviceRole: string;

@@ -6,7 +6,8 @@ import * as lumi from "@lumi/lumi";
 export class InstanceGroup extends lumi.NamedResource implements InstanceGroupArgs {
     public readonly description?: string;
     public readonly instances?: string[];
-    public readonly namedPort?: { port: number }[];
+    public readonly instanceGroupName?: string;
+    public readonly namedPort?: { name: string, port: number }[];
     public readonly network?: string;
     public readonly project?: string;
     public readonly selfLink?: string;
@@ -17,16 +18,11 @@ export class InstanceGroup extends lumi.NamedResource implements InstanceGroupAr
         super(name);
         this.description = args.description;
         this.instances = args.instances;
+        this.instanceGroupName = args.instanceGroupName;
         this.namedPort = args.namedPort;
         this.network = args.network;
         this.project = args.project;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
-        if (args.size === undefined) {
-            throw new Error("Property argument 'size' is required, but was missing");
-        }
         this.size = args.size;
         if (args.zone === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
@@ -38,7 +34,8 @@ export class InstanceGroup extends lumi.NamedResource implements InstanceGroupAr
 export interface InstanceGroupArgs {
     readonly description?: string;
     readonly instances?: string[];
-    readonly namedPort?: { port: number }[];
+    readonly instanceGroupName?: string;
+    readonly namedPort?: { name: string, port: number }[];
     readonly network?: string;
     readonly project?: string;
     readonly selfLink?: string;

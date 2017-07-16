@@ -16,8 +16,9 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly metadata?: {[key: string]: string};
     public readonly metadataFingerprint?: string;
     public readonly metadataStartupScript?: string;
-    public readonly network?: { address?: string, externalAddress?: string, internalAddress?: string, source: string }[];
-    public readonly networkInterface?: { accessConfig?: { assignedNatIp?: string, natIp?: string }[], address?: string, network?: string, subnetwork?: string, subnetworkProject?: string }[];
+    public readonly instanceName?: string;
+    public readonly network?: { address?: string, externalAddress?: string, internalAddress?: string, name?: string, source: string }[];
+    public readonly networkInterface?: { accessConfig?: { assignedNatIp?: string, natIp?: string }[], address?: string, name?: string, network?: string, subnetwork?: string, subnetworkProject?: string }[];
     public readonly project?: string;
     public readonly scheduling?: { automaticRestart?: boolean, onHostMaintenance?: string, preemptible?: boolean }[];
     public readonly scratchDisk?: { interface?: string }[];
@@ -35,9 +36,6 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.createTimeout = args.createTimeout;
         this.description = args.description;
         this.disk = args.disk;
-        if (args.labelFingerprint === undefined) {
-            throw new Error("Property argument 'labelFingerprint' is required, but was missing");
-        }
         this.labelFingerprint = args.labelFingerprint;
         this.labels = args.labels;
         if (args.machineType === undefined) {
@@ -45,25 +43,17 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         }
         this.machineType = args.machineType;
         this.metadata = args.metadata;
-        if (args.metadataFingerprint === undefined) {
-            throw new Error("Property argument 'metadataFingerprint' is required, but was missing");
-        }
         this.metadataFingerprint = args.metadataFingerprint;
         this.metadataStartupScript = args.metadataStartupScript;
+        this.instanceName = args.instanceName;
         this.network = args.network;
         this.networkInterface = args.networkInterface;
         this.project = args.project;
         this.scheduling = args.scheduling;
         this.scratchDisk = args.scratchDisk;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
         this.serviceAccount = args.serviceAccount;
         this.tags = args.tags;
-        if (args.tagsFingerprint === undefined) {
-            throw new Error("Property argument 'tagsFingerprint' is required, but was missing");
-        }
         this.tagsFingerprint = args.tagsFingerprint;
         if (args.zone === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
@@ -85,8 +75,9 @@ export interface InstanceArgs {
     readonly metadata?: {[key: string]: string};
     readonly metadataFingerprint?: string;
     readonly metadataStartupScript?: string;
-    readonly network?: { address?: string, externalAddress?: string, internalAddress?: string, source: string }[];
-    readonly networkInterface?: { accessConfig?: { assignedNatIp?: string, natIp?: string }[], address?: string, network?: string, subnetwork?: string, subnetworkProject?: string }[];
+    readonly instanceName?: string;
+    readonly network?: { address?: string, externalAddress?: string, internalAddress?: string, name?: string, source: string }[];
+    readonly networkInterface?: { accessConfig?: { assignedNatIp?: string, natIp?: string }[], address?: string, name?: string, network?: string, subnetwork?: string, subnetworkProject?: string }[];
     readonly project?: string;
     readonly scheduling?: { automaticRestart?: boolean, onHostMaintenance?: string, preemptible?: boolean }[];
     readonly scratchDisk?: { interface?: string }[];

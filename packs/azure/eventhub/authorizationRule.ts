@@ -8,6 +8,7 @@ export class AuthorizationRule extends lumi.NamedResource implements Authorizati
     public readonly listen?: boolean;
     public readonly location: string;
     public readonly manage?: boolean;
+    public readonly authorizationRuleName?: string;
     public readonly namespaceName: string;
     public readonly primaryConnectionString?: string;
     public readonly primaryKey?: string;
@@ -28,29 +29,18 @@ export class AuthorizationRule extends lumi.NamedResource implements Authorizati
         }
         this.location = args.location;
         this.manage = args.manage;
+        this.authorizationRuleName = args.authorizationRuleName;
         if (args.namespaceName === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
         this.namespaceName = args.namespaceName;
-        if (args.primaryConnectionString === undefined) {
-            throw new Error("Property argument 'primaryConnectionString' is required, but was missing");
-        }
         this.primaryConnectionString = args.primaryConnectionString;
-        if (args.primaryKey === undefined) {
-            throw new Error("Property argument 'primaryKey' is required, but was missing");
-        }
         this.primaryKey = args.primaryKey;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.secondaryConnectionString === undefined) {
-            throw new Error("Property argument 'secondaryConnectionString' is required, but was missing");
-        }
         this.secondaryConnectionString = args.secondaryConnectionString;
-        if (args.secondaryKey === undefined) {
-            throw new Error("Property argument 'secondaryKey' is required, but was missing");
-        }
         this.secondaryKey = args.secondaryKey;
         this.send = args.send;
     }
@@ -61,6 +51,7 @@ export interface AuthorizationRuleArgs {
     readonly listen?: boolean;
     readonly location: string;
     readonly manage?: boolean;
+    readonly authorizationRuleName?: string;
     readonly namespaceName: string;
     readonly primaryConnectionString?: string;
     readonly primaryKey?: string;

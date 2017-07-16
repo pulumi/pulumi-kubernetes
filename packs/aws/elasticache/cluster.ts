@@ -36,21 +36,12 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.availabilityZone = args.availabilityZone;
         this.availabilityZones = args.availabilityZones;
         this.azMode = args.azMode;
-        if (args.cacheNodes === undefined) {
-            throw new Error("Property argument 'cacheNodes' is required, but was missing");
-        }
         this.cacheNodes = args.cacheNodes;
-        if (args.clusterAddress === undefined) {
-            throw new Error("Property argument 'clusterAddress' is required, but was missing");
-        }
         this.clusterAddress = args.clusterAddress;
         if (args.clusterId === undefined) {
             throw new Error("Property argument 'clusterId' is required, but was missing");
         }
         this.clusterId = args.clusterId;
-        if (args.configurationEndpoint === undefined) {
-            throw new Error("Property argument 'configurationEndpoint' is required, but was missing");
-        }
         this.configurationEndpoint = args.configurationEndpoint;
         if (args.engine === undefined) {
             throw new Error("Property argument 'engine' is required, but was missing");
@@ -72,9 +63,6 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
             throw new Error("Property argument 'port' is required, but was missing");
         }
         this.port = args.port;
-        if (args.replicationGroupId === undefined) {
-            throw new Error("Property argument 'replicationGroupId' is required, but was missing");
-        }
         this.replicationGroupId = args.replicationGroupId;
         this.securityGroupIds = args.securityGroupIds;
         this.securityGroupNames = args.securityGroupNames;

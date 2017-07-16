@@ -12,6 +12,7 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
     public readonly metricAggregationType?: string;
     public readonly minAdjustmentMagnitude?: number;
     public readonly minAdjustmentStep?: number;
+    public readonly policyName?: string;
     public readonly policyType?: string;
     public readonly scalingAdjustment?: number;
     public readonly stepAdjustment?: { metricIntervalLowerBound?: string, metricIntervalUpperBound?: string, scalingAdjustment: number }[];
@@ -22,9 +23,6 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
             throw new Error("Property argument 'adjustmentType' is required, but was missing");
         }
         this.adjustmentType = args.adjustmentType;
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         if (args.autoscalingGroupName === undefined) {
             throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");
@@ -35,6 +33,7 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
         this.metricAggregationType = args.metricAggregationType;
         this.minAdjustmentMagnitude = args.minAdjustmentMagnitude;
         this.minAdjustmentStep = args.minAdjustmentStep;
+        this.policyName = args.policyName;
         this.policyType = args.policyType;
         this.scalingAdjustment = args.scalingAdjustment;
         this.stepAdjustment = args.stepAdjustment;
@@ -50,6 +49,7 @@ export interface PolicyArgs {
     readonly metricAggregationType?: string;
     readonly minAdjustmentMagnitude?: number;
     readonly minAdjustmentStep?: number;
+    readonly policyName?: string;
     readonly policyType?: string;
     readonly scalingAdjustment?: number;
     readonly stepAdjustment?: { metricIntervalLowerBound?: string, metricIntervalUpperBound?: string, scalingAdjustment: number }[];

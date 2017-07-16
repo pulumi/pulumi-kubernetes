@@ -5,15 +5,14 @@ import * as lumi from "@lumi/lumi";
 
 export class Alias extends lumi.NamedResource implements AliasArgs {
     public readonly arn?: string;
+    public readonly aliasName?: string;
     public readonly namePrefix?: string;
     public readonly targetKeyId: string;
 
     constructor(name: string, args: AliasArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
+        this.aliasName = args.aliasName;
         this.namePrefix = args.namePrefix;
         if (args.targetKeyId === undefined) {
             throw new Error("Property argument 'targetKeyId' is required, but was missing");
@@ -24,6 +23,7 @@ export class Alias extends lumi.NamedResource implements AliasArgs {
 
 export interface AliasArgs {
     readonly arn?: string;
+    readonly aliasName?: string;
     readonly namePrefix?: string;
     readonly targetKeyId: string;
 }

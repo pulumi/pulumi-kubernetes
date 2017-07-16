@@ -15,6 +15,7 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
     public readonly instances?: string[];
     public readonly internal?: boolean;
     public readonly listener: { instancePort: number, instanceProtocol: string, lbPort: number, lbProtocol: string, sslCertificateId?: string }[];
+    public readonly loadBalancerName?: string;
     public readonly namePrefix?: string;
     public readonly securityGroups?: string[];
     public readonly sourceSecurityGroup?: string;
@@ -30,9 +31,6 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
         this.connectionDraining = args.connectionDraining;
         this.connectionDrainingTimeout = args.connectionDrainingTimeout;
         this.crossZoneLoadBalancing = args.crossZoneLoadBalancing;
-        if (args.dnsName === undefined) {
-            throw new Error("Property argument 'dnsName' is required, but was missing");
-        }
         this.dnsName = args.dnsName;
         this.healthCheck = args.healthCheck;
         this.idleTimeout = args.idleTimeout;
@@ -42,18 +40,13 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
             throw new Error("Property argument 'listener' is required, but was missing");
         }
         this.listener = args.listener;
+        this.loadBalancerName = args.loadBalancerName;
         this.namePrefix = args.namePrefix;
         this.securityGroups = args.securityGroups;
         this.sourceSecurityGroup = args.sourceSecurityGroup;
-        if (args.sourceSecurityGroupId === undefined) {
-            throw new Error("Property argument 'sourceSecurityGroupId' is required, but was missing");
-        }
         this.sourceSecurityGroupId = args.sourceSecurityGroupId;
         this.subnets = args.subnets;
         this.tags = args.tags;
-        if (args.zoneId === undefined) {
-            throw new Error("Property argument 'zoneId' is required, but was missing");
-        }
         this.zoneId = args.zoneId;
     }
 }
@@ -70,6 +63,7 @@ export interface LoadBalancerArgs {
     readonly instances?: string[];
     readonly internal?: boolean;
     readonly listener: { instancePort: number, instanceProtocol: string, lbPort: number, lbProtocol: string, sslCertificateId?: string }[];
+    readonly loadBalancerName?: string;
     readonly namePrefix?: string;
     readonly securityGroups?: string[];
     readonly sourceSecurityGroup?: string;

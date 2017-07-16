@@ -11,18 +11,9 @@ export class ClientCertificate extends lumi.NamedResource implements ClientCerti
 
     constructor(name: string, args: ClientCertificateArgs) {
         super(name);
-        if (args.createdDate === undefined) {
-            throw new Error("Property argument 'createdDate' is required, but was missing");
-        }
         this.createdDate = args.createdDate;
         this.description = args.description;
-        if (args.expirationDate === undefined) {
-            throw new Error("Property argument 'expirationDate' is required, but was missing");
-        }
         this.expirationDate = args.expirationDate;
-        if (args.pemEncodedCertificate === undefined) {
-            throw new Error("Property argument 'pemEncodedCertificate' is required, but was missing");
-        }
         this.pemEncodedCertificate = args.pemEncodedCertificate;
     }
 }

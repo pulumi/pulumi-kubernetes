@@ -13,26 +13,11 @@ export class OriginAccessIdentity extends lumi.NamedResource implements OriginAc
 
     constructor(name: string, args: OriginAccessIdentityArgs) {
         super(name);
-        if (args.callerReference === undefined) {
-            throw new Error("Property argument 'callerReference' is required, but was missing");
-        }
         this.callerReference = args.callerReference;
-        if (args.cloudfrontAccessIdentityPath === undefined) {
-            throw new Error("Property argument 'cloudfrontAccessIdentityPath' is required, but was missing");
-        }
         this.cloudfrontAccessIdentityPath = args.cloudfrontAccessIdentityPath;
         this.comment = args.comment;
-        if (args.etag === undefined) {
-            throw new Error("Property argument 'etag' is required, but was missing");
-        }
         this.etag = args.etag;
-        if (args.iamArn === undefined) {
-            throw new Error("Property argument 'iamArn' is required, but was missing");
-        }
         this.iamArn = args.iamArn;
-        if (args.s3CanonicalUserId === undefined) {
-            throw new Error("Property argument 's3CanonicalUserId' is required, but was missing");
-        }
         this.s3CanonicalUserId = args.s3CanonicalUserId;
     }
 }

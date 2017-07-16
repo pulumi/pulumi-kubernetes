@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class LoadBalancerPolicy extends lumi.NamedResource implements LoadBalancerPolicyArgs {
     public readonly loadBalancerName: string;
-    public readonly policyAttribute?: { value?: string }[];
+    public readonly policyAttribute?: { name?: string, value?: string }[];
     public readonly policyName: string;
     public readonly policyTypeName: string;
 
@@ -29,7 +29,7 @@ export class LoadBalancerPolicy extends lumi.NamedResource implements LoadBalanc
 
 export interface LoadBalancerPolicyArgs {
     readonly loadBalancerName: string;
-    readonly policyAttribute?: { value?: string }[];
+    readonly policyAttribute?: { name?: string, value?: string }[];
     readonly policyName: string;
     readonly policyTypeName: string;
 }

@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class ManagedZone extends lumi.NamedResource implements ManagedZoneArgs {
     public readonly description?: string;
     public readonly dnsName: string;
+    public readonly managedZoneName?: string;
     public readonly nameServers?: string[];
     public readonly project?: string;
 
@@ -16,9 +17,7 @@ export class ManagedZone extends lumi.NamedResource implements ManagedZoneArgs {
             throw new Error("Property argument 'dnsName' is required, but was missing");
         }
         this.dnsName = args.dnsName;
-        if (args.nameServers === undefined) {
-            throw new Error("Property argument 'nameServers' is required, but was missing");
-        }
+        this.managedZoneName = args.managedZoneName;
         this.nameServers = args.nameServers;
         this.project = args.project;
     }
@@ -27,6 +26,7 @@ export class ManagedZone extends lumi.NamedResource implements ManagedZoneArgs {
 export interface ManagedZoneArgs {
     readonly description?: string;
     readonly dnsName: string;
+    readonly managedZoneName?: string;
     readonly nameServers?: string[];
     readonly project?: string;
 }

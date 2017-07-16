@@ -4,6 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class Share extends lumi.NamedResource implements ShareArgs {
+    public readonly shareName?: string;
     public readonly quota?: number;
     public readonly resourceGroupName: string;
     public readonly storageAccountName: string;
@@ -11,6 +12,7 @@ export class Share extends lumi.NamedResource implements ShareArgs {
 
     constructor(name: string, args: ShareArgs) {
         super(name);
+        this.shareName = args.shareName;
         this.quota = args.quota;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
@@ -20,14 +22,12 @@ export class Share extends lumi.NamedResource implements ShareArgs {
             throw new Error("Property argument 'storageAccountName' is required, but was missing");
         }
         this.storageAccountName = args.storageAccountName;
-        if (args.url === undefined) {
-            throw new Error("Property argument 'url' is required, but was missing");
-        }
         this.url = args.url;
     }
 }
 
 export interface ShareArgs {
+    readonly shareName?: string;
     readonly quota?: number;
     readonly resourceGroupName: string;
     readonly storageAccountName: string;

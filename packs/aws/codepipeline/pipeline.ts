@@ -5,8 +5,9 @@ import * as lumi from "@lumi/lumi";
 
 export class Pipeline extends lumi.NamedResource implements PipelineArgs {
     public readonly artifactStore: { encryptionKey?: { id: string, type: string }[], location: string, type: string }[];
+    public readonly pipelineName?: string;
     public readonly roleArn: string;
-    public readonly stage: { action: { category: string, configuration?: {[key: string]: any}, inputArtifacts?: string[], outputArtifacts?: string[], owner: string, provider: string, roleArn?: string, runOrder?: number, version: string }[] }[];
+    public readonly stage: { action: { category: string, configuration?: {[key: string]: any}, inputArtifacts?: string[], name: string, outputArtifacts?: string[], owner: string, provider: string, roleArn?: string, runOrder?: number, version: string }[], name: string }[];
 
     constructor(name: string, args: PipelineArgs) {
         super(name);
@@ -14,6 +15,7 @@ export class Pipeline extends lumi.NamedResource implements PipelineArgs {
             throw new Error("Property argument 'artifactStore' is required, but was missing");
         }
         this.artifactStore = args.artifactStore;
+        this.pipelineName = args.pipelineName;
         if (args.roleArn === undefined) {
             throw new Error("Property argument 'roleArn' is required, but was missing");
         }
@@ -27,7 +29,8 @@ export class Pipeline extends lumi.NamedResource implements PipelineArgs {
 
 export interface PipelineArgs {
     readonly artifactStore: { encryptionKey?: { id: string, type: string }[], location: string, type: string }[];
+    readonly pipelineName?: string;
     readonly roleArn: string;
-    readonly stage: { action: { category: string, configuration?: {[key: string]: any}, inputArtifacts?: string[], outputArtifacts?: string[], owner: string, provider: string, roleArn?: string, runOrder?: number, version: string }[] }[];
+    readonly stage: { action: { category: string, configuration?: {[key: string]: any}, inputArtifacts?: string[], name: string, outputArtifacts?: string[], owner: string, provider: string, roleArn?: string, runOrder?: number, version: string }[], name: string }[];
 }
 

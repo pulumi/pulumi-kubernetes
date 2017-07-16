@@ -12,6 +12,7 @@ export class Subscription extends lumi.NamedResource implements SubscriptionArgs
     public readonly location: string;
     public readonly lockDuration?: string;
     public readonly maxDeliveryCount: number;
+    public readonly subscriptionName?: string;
     public readonly namespaceName: string;
     public readonly requiresSession?: boolean;
     public readonly resourceGroupName: string;
@@ -33,6 +34,7 @@ export class Subscription extends lumi.NamedResource implements SubscriptionArgs
             throw new Error("Property argument 'maxDeliveryCount' is required, but was missing");
         }
         this.maxDeliveryCount = args.maxDeliveryCount;
+        this.subscriptionName = args.subscriptionName;
         if (args.namespaceName === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
@@ -58,6 +60,7 @@ export interface SubscriptionArgs {
     readonly location: string;
     readonly lockDuration?: string;
     readonly maxDeliveryCount: number;
+    readonly subscriptionName?: string;
     readonly namespaceName: string;
     readonly requiresSession?: boolean;
     readonly resourceGroupName: string;

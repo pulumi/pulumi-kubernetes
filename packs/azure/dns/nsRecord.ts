@@ -4,6 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class NsRecord extends lumi.NamedResource implements NsRecordArgs {
+    public readonly nsRecordName?: string;
     public readonly record: { nsdname: string }[];
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -12,6 +13,7 @@ export class NsRecord extends lumi.NamedResource implements NsRecordArgs {
 
     constructor(name: string, args: NsRecordArgs) {
         super(name);
+        this.nsRecordName = args.nsRecordName;
         if (args.record === undefined) {
             throw new Error("Property argument 'record' is required, but was missing");
         }
@@ -33,6 +35,7 @@ export class NsRecord extends lumi.NamedResource implements NsRecordArgs {
 }
 
 export interface NsRecordArgs {
+    readonly nsRecordName?: string;
     readonly record: { nsdname: string }[];
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

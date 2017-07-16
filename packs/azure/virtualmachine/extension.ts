@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class Extension extends lumi.NamedResource implements ExtensionArgs {
     public readonly autoUpgradeMinorVersion?: boolean;
     public readonly location: string;
+    public readonly extensionName?: string;
     public readonly protectedSettings?: string;
     public readonly publisher: string;
     public readonly resourceGroupName: string;
@@ -22,6 +23,7 @@ export class Extension extends lumi.NamedResource implements ExtensionArgs {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.extensionName = args.extensionName;
         this.protectedSettings = args.protectedSettings;
         if (args.publisher === undefined) {
             throw new Error("Property argument 'publisher' is required, but was missing");
@@ -51,6 +53,7 @@ export class Extension extends lumi.NamedResource implements ExtensionArgs {
 export interface ExtensionArgs {
     readonly autoUpgradeMinorVersion?: boolean;
     readonly location: string;
+    readonly extensionName?: string;
     readonly protectedSettings?: string;
     readonly publisher: string;
     readonly resourceGroupName: string;

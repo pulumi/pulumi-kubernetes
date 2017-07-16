@@ -35,9 +35,6 @@ export class ClusterInstance extends lumi.NamedResource implements ClusterInstan
         this.clusterIdentifier = args.clusterIdentifier;
         this.dbParameterGroupName = args.dbParameterGroupName;
         this.dbSubnetGroupName = args.dbSubnetGroupName;
-        if (args.endpoint === undefined) {
-            throw new Error("Property argument 'endpoint' is required, but was missing");
-        }
         this.endpoint = args.endpoint;
         this.identifier = args.identifier;
         this.identifierPrefix = args.identifierPrefix;
@@ -45,28 +42,16 @@ export class ClusterInstance extends lumi.NamedResource implements ClusterInstan
             throw new Error("Property argument 'instanceClass' is required, but was missing");
         }
         this.instanceClass = args.instanceClass;
-        if (args.kmsKeyId === undefined) {
-            throw new Error("Property argument 'kmsKeyId' is required, but was missing");
-        }
         this.kmsKeyId = args.kmsKeyId;
         this.monitoringInterval = args.monitoringInterval;
         this.monitoringRoleArn = args.monitoringRoleArn;
-        if (args.port === undefined) {
-            throw new Error("Property argument 'port' is required, but was missing");
-        }
         this.port = args.port;
         this.preferredBackupWindow = args.preferredBackupWindow;
         this.preferredMaintenanceWindow = args.preferredMaintenanceWindow;
         this.promotionTier = args.promotionTier;
         this.publiclyAccessible = args.publiclyAccessible;
-        if (args.storageEncrypted === undefined) {
-            throw new Error("Property argument 'storageEncrypted' is required, but was missing");
-        }
         this.storageEncrypted = args.storageEncrypted;
         this.tags = args.tags;
-        if (args.writer === undefined) {
-            throw new Error("Property argument 'writer' is required, but was missing");
-        }
         this.writer = args.writer;
     }
 }

@@ -19,7 +19,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly elasticIp?: string;
     public readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
     public readonly hostname?: string;
-    public readonly id?: string;
+    public readonly instanceId?: string;
     public readonly infrastructureClass?: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceProfileArn?: string;
@@ -68,10 +68,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.elasticIp = args.elasticIp;
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
         this.hostname = args.hostname;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.instanceId = args.instanceId;
         this.infrastructureClass = args.infrastructureClass;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceProfileArn = args.instanceProfileArn;
@@ -127,7 +124,7 @@ export interface InstanceArgs {
     readonly elasticIp?: string;
     readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
     readonly hostname?: string;
-    readonly id?: string;
+    readonly instanceId?: string;
     readonly infrastructureClass?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceProfileArn?: string;

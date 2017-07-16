@@ -7,6 +7,7 @@ export class ServerCertificate extends lumi.NamedResource implements ServerCerti
     public readonly arn?: string;
     public readonly certificateBody: string;
     public readonly certificateChain?: string;
+    public readonly serverCertificateName?: string;
     public readonly namePrefix?: string;
     public readonly path?: string;
     public readonly privateKey: string;
@@ -19,6 +20,7 @@ export class ServerCertificate extends lumi.NamedResource implements ServerCerti
         }
         this.certificateBody = args.certificateBody;
         this.certificateChain = args.certificateChain;
+        this.serverCertificateName = args.serverCertificateName;
         this.namePrefix = args.namePrefix;
         this.path = args.path;
         if (args.privateKey === undefined) {
@@ -32,6 +34,7 @@ export interface ServerCertificateArgs {
     readonly arn?: string;
     readonly certificateBody: string;
     readonly certificateChain?: string;
+    readonly serverCertificateName?: string;
     readonly namePrefix?: string;
     readonly path?: string;
     readonly privateKey: string;

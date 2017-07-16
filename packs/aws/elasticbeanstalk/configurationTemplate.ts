@@ -7,7 +7,8 @@ export class ConfigurationTemplate extends lumi.NamedResource implements Configu
     public readonly application: string;
     public readonly description?: string;
     public readonly environmentId?: string;
-    public readonly setting?: { namespace: string, resource?: string, value: string }[];
+    public readonly configurationTemplateName?: string;
+    public readonly setting?: { name: string, namespace: string, resource?: string, value: string }[];
     public readonly solutionStackName?: string;
 
     constructor(name: string, args: ConfigurationTemplateArgs) {
@@ -18,6 +19,7 @@ export class ConfigurationTemplate extends lumi.NamedResource implements Configu
         this.application = args.application;
         this.description = args.description;
         this.environmentId = args.environmentId;
+        this.configurationTemplateName = args.configurationTemplateName;
         this.setting = args.setting;
         this.solutionStackName = args.solutionStackName;
     }
@@ -27,7 +29,8 @@ export interface ConfigurationTemplateArgs {
     readonly application: string;
     readonly description?: string;
     readonly environmentId?: string;
-    readonly setting?: { namespace: string, resource?: string, value: string }[];
+    readonly configurationTemplateName?: string;
+    readonly setting?: { name: string, namespace: string, resource?: string, value: string }[];
     readonly solutionStackName?: string;
 }
 

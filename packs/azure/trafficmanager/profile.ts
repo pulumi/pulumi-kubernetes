@@ -7,6 +7,7 @@ export class Profile extends lumi.NamedResource implements ProfileArgs {
     public readonly dnsConfig: { relativeName: string, ttl: number }[];
     public readonly fqdn?: string;
     public readonly monitorConfig: { path: string, port: number, protocol: string }[];
+    public readonly profileName?: string;
     public readonly profileStatus?: string;
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -18,14 +19,12 @@ export class Profile extends lumi.NamedResource implements ProfileArgs {
             throw new Error("Property argument 'dnsConfig' is required, but was missing");
         }
         this.dnsConfig = args.dnsConfig;
-        if (args.fqdn === undefined) {
-            throw new Error("Property argument 'fqdn' is required, but was missing");
-        }
         this.fqdn = args.fqdn;
         if (args.monitorConfig === undefined) {
             throw new Error("Property argument 'monitorConfig' is required, but was missing");
         }
         this.monitorConfig = args.monitorConfig;
+        this.profileName = args.profileName;
         this.profileStatus = args.profileStatus;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
@@ -43,6 +42,7 @@ export interface ProfileArgs {
     readonly dnsConfig: { relativeName: string, ttl: number }[];
     readonly fqdn?: string;
     readonly monitorConfig: { path: string, port: number, protocol: string }[];
+    readonly profileName?: string;
     readonly profileStatus?: string;
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

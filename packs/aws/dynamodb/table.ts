@@ -5,10 +5,11 @@ import * as lumi from "@lumi/lumi";
 
 export class Table extends lumi.NamedResource implements TableArgs {
     public readonly arn?: string;
-    public readonly attribute: { type: string }[];
-    public readonly globalSecondaryIndex?: { hashKey: string, nonKeyAttributes?: string[], projectionType: string, rangeKey?: string, readCapacity: number, writeCapacity: number }[];
+    public readonly attribute: { name: string, type: string }[];
+    public readonly globalSecondaryIndex?: { hashKey: string, name: string, nonKeyAttributes?: string[], projectionType: string, rangeKey?: string, readCapacity: number, writeCapacity: number }[];
     public readonly hashKey: string;
-    public readonly localSecondaryIndex?: { nonKeyAttributes?: string[], projectionType: string, rangeKey: string }[];
+    public readonly localSecondaryIndex?: { name: string, nonKeyAttributes?: string[], projectionType: string, rangeKey: string }[];
+    public readonly tableName?: string;
     public readonly rangeKey?: string;
     public readonly readCapacity: number;
     public readonly streamArn?: string;
@@ -21,9 +22,6 @@ export class Table extends lumi.NamedResource implements TableArgs {
 
     constructor(name: string, args: TableArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         if (args.attribute === undefined) {
             throw new Error("Property argument 'attribute' is required, but was missing");
@@ -35,19 +33,14 @@ export class Table extends lumi.NamedResource implements TableArgs {
         }
         this.hashKey = args.hashKey;
         this.localSecondaryIndex = args.localSecondaryIndex;
+        this.tableName = args.tableName;
         this.rangeKey = args.rangeKey;
         if (args.readCapacity === undefined) {
             throw new Error("Property argument 'readCapacity' is required, but was missing");
         }
         this.readCapacity = args.readCapacity;
-        if (args.streamArn === undefined) {
-            throw new Error("Property argument 'streamArn' is required, but was missing");
-        }
         this.streamArn = args.streamArn;
         this.streamEnabled = args.streamEnabled;
-        if (args.streamLabel === undefined) {
-            throw new Error("Property argument 'streamLabel' is required, but was missing");
-        }
         this.streamLabel = args.streamLabel;
         this.streamViewType = args.streamViewType;
         this.tags = args.tags;
@@ -61,10 +54,11 @@ export class Table extends lumi.NamedResource implements TableArgs {
 
 export interface TableArgs {
     readonly arn?: string;
-    readonly attribute: { type: string }[];
-    readonly globalSecondaryIndex?: { hashKey: string, nonKeyAttributes?: string[], projectionType: string, rangeKey?: string, readCapacity: number, writeCapacity: number }[];
+    readonly attribute: { name: string, type: string }[];
+    readonly globalSecondaryIndex?: { hashKey: string, name: string, nonKeyAttributes?: string[], projectionType: string, rangeKey?: string, readCapacity: number, writeCapacity: number }[];
     readonly hashKey: string;
-    readonly localSecondaryIndex?: { nonKeyAttributes?: string[], projectionType: string, rangeKey: string }[];
+    readonly localSecondaryIndex?: { name: string, nonKeyAttributes?: string[], projectionType: string, rangeKey: string }[];
+    readonly tableName?: string;
     readonly rangeKey?: string;
     readonly readCapacity: number;
     readonly streamArn?: string;

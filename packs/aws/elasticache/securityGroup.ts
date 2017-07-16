@@ -5,11 +5,13 @@ import * as lumi from "@lumi/lumi";
 
 export class SecurityGroup extends lumi.NamedResource implements SecurityGroupArgs {
     public readonly description?: string;
+    public readonly securityGroupName?: string;
     public readonly securityGroupNames: string[];
 
     constructor(name: string, args: SecurityGroupArgs) {
         super(name);
         this.description = args.description;
+        this.securityGroupName = args.securityGroupName;
         if (args.securityGroupNames === undefined) {
             throw new Error("Property argument 'securityGroupNames' is required, but was missing");
         }
@@ -19,6 +21,7 @@ export class SecurityGroup extends lumi.NamedResource implements SecurityGroupAr
 
 export interface SecurityGroupArgs {
     readonly description?: string;
+    readonly securityGroupName?: string;
     readonly securityGroupNames: string[];
 }
 

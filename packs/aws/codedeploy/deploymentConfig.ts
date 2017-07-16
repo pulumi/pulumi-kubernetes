@@ -10,9 +10,6 @@ export class DeploymentConfig extends lumi.NamedResource implements DeploymentCo
 
     constructor(name: string, args: DeploymentConfigArgs) {
         super(name);
-        if (args.deploymentConfigId === undefined) {
-            throw new Error("Property argument 'deploymentConfigId' is required, but was missing");
-        }
         this.deploymentConfigId = args.deploymentConfigId;
         if (args.deploymentConfigName === undefined) {
             throw new Error("Property argument 'deploymentConfigName' is required, but was missing");

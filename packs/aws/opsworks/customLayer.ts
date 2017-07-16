@@ -18,9 +18,10 @@ export class CustomLayer extends lumi.NamedResource implements CustomLayerArgs {
     public readonly drainElbOnShutdown?: boolean;
     public readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     public readonly elasticLoadBalancer?: string;
-    public readonly id?: string;
+    public readonly layerId?: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceShutdownTimeout?: number;
+    public readonly customLayerName?: string;
     public readonly shortName: string;
     public readonly stackId: string;
     public readonly systemPackages?: string[];
@@ -42,12 +43,10 @@ export class CustomLayer extends lumi.NamedResource implements CustomLayerArgs {
         this.drainElbOnShutdown = args.drainElbOnShutdown;
         this.ebsVolume = args.ebsVolume;
         this.elasticLoadBalancer = args.elasticLoadBalancer;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.layerId = args.layerId;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
+        this.customLayerName = args.customLayerName;
         if (args.shortName === undefined) {
             throw new Error("Property argument 'shortName' is required, but was missing");
         }
@@ -76,9 +75,10 @@ export interface CustomLayerArgs {
     readonly drainElbOnShutdown?: boolean;
     readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     readonly elasticLoadBalancer?: string;
-    readonly id?: string;
+    readonly layerId?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceShutdownTimeout?: number;
+    readonly customLayerName?: string;
     readonly shortName: string;
     readonly stackId: string;
     readonly systemPackages?: string[];

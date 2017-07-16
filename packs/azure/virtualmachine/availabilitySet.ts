@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class AvailabilitySet extends lumi.NamedResource implements AvailabilitySetArgs {
     public readonly location: string;
     public readonly managed?: boolean;
+    public readonly availabilitySetName?: string;
     public readonly platformFaultDomainCount?: number;
     public readonly platformUpdateDomainCount?: number;
     public readonly resourceGroupName: string;
@@ -18,6 +19,7 @@ export class AvailabilitySet extends lumi.NamedResource implements AvailabilityS
         }
         this.location = args.location;
         this.managed = args.managed;
+        this.availabilitySetName = args.availabilitySetName;
         this.platformFaultDomainCount = args.platformFaultDomainCount;
         this.platformUpdateDomainCount = args.platformUpdateDomainCount;
         if (args.resourceGroupName === undefined) {
@@ -31,6 +33,7 @@ export class AvailabilitySet extends lumi.NamedResource implements AvailabilityS
 export interface AvailabilitySetArgs {
     readonly location: string;
     readonly managed?: boolean;
+    readonly availabilitySetName?: string;
     readonly platformFaultDomainCount?: number;
     readonly platformUpdateDomainCount?: number;
     readonly resourceGroupName: string;

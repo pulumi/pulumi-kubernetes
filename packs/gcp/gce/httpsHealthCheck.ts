@@ -8,6 +8,7 @@ export class HttpsHealthCheck extends lumi.NamedResource implements HttpsHealthC
     public readonly description?: string;
     public readonly healthyThreshold?: number;
     public readonly host?: string;
+    public readonly httpsHealthCheckName?: string;
     public readonly port?: number;
     public readonly project?: string;
     public readonly requestPath?: string;
@@ -21,12 +22,10 @@ export class HttpsHealthCheck extends lumi.NamedResource implements HttpsHealthC
         this.description = args.description;
         this.healthyThreshold = args.healthyThreshold;
         this.host = args.host;
+        this.httpsHealthCheckName = args.httpsHealthCheckName;
         this.port = args.port;
         this.project = args.project;
         this.requestPath = args.requestPath;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
         this.timeoutSec = args.timeoutSec;
         this.unhealthyThreshold = args.unhealthyThreshold;
@@ -38,6 +37,7 @@ export interface HttpsHealthCheckArgs {
     readonly description?: string;
     readonly healthyThreshold?: number;
     readonly host?: string;
+    readonly httpsHealthCheckName?: string;
     readonly port?: number;
     readonly project?: string;
     readonly requestPath?: string;

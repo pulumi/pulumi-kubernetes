@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly clusterId: string;
     public readonly displayName?: string;
+    public readonly instanceName?: string;
     public readonly numNodes?: number;
     public readonly project?: string;
     public readonly storageType?: string;
@@ -18,6 +19,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         }
         this.clusterId = args.clusterId;
         this.displayName = args.displayName;
+        this.instanceName = args.instanceName;
         this.numNodes = args.numNodes;
         this.project = args.project;
         this.storageType = args.storageType;
@@ -31,6 +33,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
 export interface InstanceArgs {
     readonly clusterId: string;
     readonly displayName?: string;
+    readonly instanceName?: string;
     readonly numNodes?: number;
     readonly project?: string;
     readonly storageType?: string;

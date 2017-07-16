@@ -9,31 +9,24 @@ export class Role extends lumi.NamedResource implements RoleArgs {
     public readonly createDate?: string;
     public readonly description?: string;
     public readonly forceDetachPolicies?: boolean;
+    public readonly roleName?: string;
     public readonly namePrefix?: string;
     public readonly path?: string;
     public readonly uniqueId?: string;
 
     constructor(name: string, args: RoleArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         if (args.assumeRolePolicy === undefined) {
             throw new Error("Property argument 'assumeRolePolicy' is required, but was missing");
         }
         this.assumeRolePolicy = args.assumeRolePolicy;
-        if (args.createDate === undefined) {
-            throw new Error("Property argument 'createDate' is required, but was missing");
-        }
         this.createDate = args.createDate;
         this.description = args.description;
         this.forceDetachPolicies = args.forceDetachPolicies;
+        this.roleName = args.roleName;
         this.namePrefix = args.namePrefix;
         this.path = args.path;
-        if (args.uniqueId === undefined) {
-            throw new Error("Property argument 'uniqueId' is required, but was missing");
-        }
         this.uniqueId = args.uniqueId;
     }
 }
@@ -44,6 +37,7 @@ export interface RoleArgs {
     readonly createDate?: string;
     readonly description?: string;
     readonly forceDetachPolicies?: boolean;
+    readonly roleName?: string;
     readonly namePrefix?: string;
     readonly path?: string;
     readonly uniqueId?: string;

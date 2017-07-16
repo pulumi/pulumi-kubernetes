@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class GroupPolicy extends lumi.NamedResource implements GroupPolicyArgs {
     public readonly group: string;
+    public readonly groupPolicyName?: string;
     public readonly namePrefix?: string;
     public readonly policy: string;
 
@@ -14,6 +15,7 @@ export class GroupPolicy extends lumi.NamedResource implements GroupPolicyArgs {
             throw new Error("Property argument 'group' is required, but was missing");
         }
         this.group = args.group;
+        this.groupPolicyName = args.groupPolicyName;
         this.namePrefix = args.namePrefix;
         if (args.policy === undefined) {
             throw new Error("Property argument 'policy' is required, but was missing");
@@ -24,6 +26,7 @@ export class GroupPolicy extends lumi.NamedResource implements GroupPolicyArgs {
 
 export interface GroupPolicyArgs {
     readonly group: string;
+    readonly groupPolicyName?: string;
     readonly namePrefix?: string;
     readonly policy: string;
 }

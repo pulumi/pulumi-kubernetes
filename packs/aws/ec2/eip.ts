@@ -16,28 +16,13 @@ export class Eip extends lumi.NamedResource implements EipArgs {
 
     constructor(name: string, args: EipArgs) {
         super(name);
-        if (args.allocationId === undefined) {
-            throw new Error("Property argument 'allocationId' is required, but was missing");
-        }
         this.allocationId = args.allocationId;
         this.associateWithPrivateIp = args.associateWithPrivateIp;
-        if (args.associationId === undefined) {
-            throw new Error("Property argument 'associationId' is required, but was missing");
-        }
         this.associationId = args.associationId;
-        if (args.domain === undefined) {
-            throw new Error("Property argument 'domain' is required, but was missing");
-        }
         this.domain = args.domain;
         this.instance = args.instance;
         this.networkInterface = args.networkInterface;
-        if (args.privateIp === undefined) {
-            throw new Error("Property argument 'privateIp' is required, but was missing");
-        }
         this.privateIp = args.privateIp;
-        if (args.publicIp === undefined) {
-            throw new Error("Property argument 'publicIp' is required, but was missing");
-        }
         this.publicIp = args.publicIp;
         this.vpc = args.vpc;
     }

@@ -17,18 +17,9 @@ export class Deployment extends lumi.NamedResource implements DeploymentArgs {
 
     constructor(name: string, args: DeploymentArgs) {
         super(name);
-        if (args.createdDate === undefined) {
-            throw new Error("Property argument 'createdDate' is required, but was missing");
-        }
         this.createdDate = args.createdDate;
         this.description = args.description;
-        if (args.executionArn === undefined) {
-            throw new Error("Property argument 'executionArn' is required, but was missing");
-        }
         this.executionArn = args.executionArn;
-        if (args.invokeUrl === undefined) {
-            throw new Error("Property argument 'invokeUrl' is required, but was missing");
-        }
         this.invokeUrl = args.invokeUrl;
         if (args.restApi === undefined) {
             throw new Error("Property argument 'restApi' is required, but was missing");

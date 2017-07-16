@@ -9,6 +9,7 @@ export class ApplicationVersion extends lumi.NamedResource implements Applicatio
     public readonly description?: string;
     public readonly forceDelete?: boolean;
     public readonly key: string;
+    public readonly applicationVersionName?: string;
 
     constructor(name: string, args: ApplicationVersionArgs) {
         super(name);
@@ -26,6 +27,7 @@ export class ApplicationVersion extends lumi.NamedResource implements Applicatio
             throw new Error("Property argument 'key' is required, but was missing");
         }
         this.key = args.key;
+        this.applicationVersionName = args.applicationVersionName;
     }
 }
 
@@ -35,5 +37,6 @@ export interface ApplicationVersionArgs {
     readonly description?: string;
     readonly forceDelete?: boolean;
     readonly key: string;
+    readonly applicationVersionName?: string;
 }
 

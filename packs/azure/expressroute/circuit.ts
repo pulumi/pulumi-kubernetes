@@ -7,6 +7,7 @@ export class Circuit extends lumi.NamedResource implements CircuitArgs {
     public readonly allowClassicOperations?: boolean;
     public readonly bandwidthInMbps: number;
     public readonly location: string;
+    public readonly circuitName?: string;
     public readonly peeringLocation: string;
     public readonly resourceGroupName: string;
     public readonly serviceKey?: string;
@@ -26,6 +27,7 @@ export class Circuit extends lumi.NamedResource implements CircuitArgs {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.circuitName = args.circuitName;
         if (args.peeringLocation === undefined) {
             throw new Error("Property argument 'peeringLocation' is required, but was missing");
         }
@@ -34,17 +36,11 @@ export class Circuit extends lumi.NamedResource implements CircuitArgs {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.serviceKey === undefined) {
-            throw new Error("Property argument 'serviceKey' is required, but was missing");
-        }
         this.serviceKey = args.serviceKey;
         if (args.serviceProviderName === undefined) {
             throw new Error("Property argument 'serviceProviderName' is required, but was missing");
         }
         this.serviceProviderName = args.serviceProviderName;
-        if (args.serviceProviderProvisioningState === undefined) {
-            throw new Error("Property argument 'serviceProviderProvisioningState' is required, but was missing");
-        }
         this.serviceProviderProvisioningState = args.serviceProviderProvisioningState;
         if (args.sku === undefined) {
             throw new Error("Property argument 'sku' is required, but was missing");
@@ -58,6 +54,7 @@ export interface CircuitArgs {
     readonly allowClassicOperations?: boolean;
     readonly bandwidthInMbps: number;
     readonly location: string;
+    readonly circuitName?: string;
     readonly peeringLocation: string;
     readonly resourceGroupName: string;
     readonly serviceKey?: string;

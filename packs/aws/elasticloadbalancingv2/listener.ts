@@ -14,9 +14,6 @@ export class Listener extends lumi.NamedResource implements ListenerArgs {
 
     constructor(name: string, args: ListenerArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         this.certificateArn = args.certificateArn;
         if (args.defaultAction === undefined) {

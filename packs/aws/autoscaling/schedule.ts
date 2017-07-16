@@ -16,9 +16,6 @@ export class Schedule extends lumi.NamedResource implements ScheduleArgs {
 
     constructor(name: string, args: ScheduleArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         if (args.autoscalingGroupName === undefined) {
             throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");

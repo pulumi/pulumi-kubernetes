@@ -10,6 +10,7 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
     public readonly desiredCount?: number;
     public readonly iamRole?: string;
     public readonly loadBalancer?: { containerName: string, containerPort: number, elbName?: string, targetGroupArn?: string }[];
+    public readonly serviceName?: string;
     public readonly placementConstraints?: { expression?: string, type: string }[];
     public readonly placementStrategy?: { field?: string, type: string }[];
     public readonly taskDefinition: string;
@@ -22,6 +23,7 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
         this.desiredCount = args.desiredCount;
         this.iamRole = args.iamRole;
         this.loadBalancer = args.loadBalancer;
+        this.serviceName = args.serviceName;
         this.placementConstraints = args.placementConstraints;
         this.placementStrategy = args.placementStrategy;
         if (args.taskDefinition === undefined) {
@@ -38,6 +40,7 @@ export interface ServiceArgs {
     readonly desiredCount?: number;
     readonly iamRole?: string;
     readonly loadBalancer?: { containerName: string, containerPort: number, elbName?: string, targetGroupArn?: string }[];
+    readonly serviceName?: string;
     readonly placementConstraints?: { expression?: string, type: string }[];
     readonly placementStrategy?: { field?: string, type: string }[];
     readonly taskDefinition: string;

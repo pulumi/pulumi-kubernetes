@@ -31,9 +31,6 @@ export class Bucket extends lumi.NamedResource implements BucketArgs {
         this.acl = args.acl;
         this.arn = args.arn;
         this.bucket = args.bucket;
-        if (args.bucketDomainName === undefined) {
-            throw new Error("Property argument 'bucketDomainName' is required, but was missing");
-        }
         this.bucketDomainName = args.bucketDomainName;
         this.bucketPrefix = args.bucketPrefix;
         this.corsRule = args.corsRule;

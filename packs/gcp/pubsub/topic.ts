@@ -4,15 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class Topic extends lumi.NamedResource implements TopicArgs {
+    public readonly topicName?: string;
     public readonly project?: string;
 
     constructor(name: string, args: TopicArgs) {
         super(name);
+        this.topicName = args.topicName;
         this.project = args.project;
     }
 }
 
 export interface TopicArgs {
+    readonly topicName?: string;
     readonly project?: string;
 }
 

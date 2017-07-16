@@ -20,10 +20,11 @@ export class RailsAppLayer extends lumi.NamedResource implements RailsAppLayerAr
     public readonly drainElbOnShutdown?: boolean;
     public readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     public readonly elasticLoadBalancer?: string;
-    public readonly id?: string;
+    public readonly layerId?: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceShutdownTimeout?: number;
     public readonly manageBundler?: boolean;
+    public readonly railsAppLayerName?: string;
     public readonly passengerVersion?: string;
     public readonly rubyVersion?: string;
     public readonly rubygemsVersion?: string;
@@ -49,13 +50,11 @@ export class RailsAppLayer extends lumi.NamedResource implements RailsAppLayerAr
         this.drainElbOnShutdown = args.drainElbOnShutdown;
         this.ebsVolume = args.ebsVolume;
         this.elasticLoadBalancer = args.elasticLoadBalancer;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.layerId = args.layerId;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
         this.manageBundler = args.manageBundler;
+        this.railsAppLayerName = args.railsAppLayerName;
         this.passengerVersion = args.passengerVersion;
         this.rubyVersion = args.rubyVersion;
         this.rubygemsVersion = args.rubygemsVersion;
@@ -85,10 +84,11 @@ export interface RailsAppLayerArgs {
     readonly drainElbOnShutdown?: boolean;
     readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     readonly elasticLoadBalancer?: string;
-    readonly id?: string;
+    readonly layerId?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceShutdownTimeout?: number;
     readonly manageBundler?: boolean;
+    readonly railsAppLayerName?: string;
     readonly passengerVersion?: string;
     readonly rubyVersion?: string;
     readonly rubygemsVersion?: string;

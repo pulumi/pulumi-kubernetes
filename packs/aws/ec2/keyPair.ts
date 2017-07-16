@@ -11,9 +11,6 @@ export class KeyPair extends lumi.NamedResource implements KeyPairArgs {
 
     constructor(name: string, args: KeyPairArgs) {
         super(name);
-        if (args.fingerprint === undefined) {
-            throw new Error("Property argument 'fingerprint' is required, but was missing");
-        }
         this.fingerprint = args.fingerprint;
         this.keyName = args.keyName;
         this.keyNamePrefix = args.keyNamePrefix;

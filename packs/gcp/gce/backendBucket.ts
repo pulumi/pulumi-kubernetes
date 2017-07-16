@@ -7,6 +7,7 @@ export class BackendBucket extends lumi.NamedResource implements BackendBucketAr
     public readonly bucketName: string;
     public readonly description?: string;
     public readonly enableCdn?: boolean;
+    public readonly backendBucketName?: string;
     public readonly project?: string;
     public readonly selfLink?: string;
 
@@ -18,10 +19,8 @@ export class BackendBucket extends lumi.NamedResource implements BackendBucketAr
         this.bucketName = args.bucketName;
         this.description = args.description;
         this.enableCdn = args.enableCdn;
+        this.backendBucketName = args.backendBucketName;
         this.project = args.project;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
     }
 }
@@ -30,6 +29,7 @@ export interface BackendBucketArgs {
     readonly bucketName: string;
     readonly description?: string;
     readonly enableCdn?: boolean;
+    readonly backendBucketName?: string;
     readonly project?: string;
     readonly selfLink?: string;
 }

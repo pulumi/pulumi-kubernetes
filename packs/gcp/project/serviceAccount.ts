@@ -7,6 +7,7 @@ export class ServiceAccount extends lumi.NamedResource implements ServiceAccount
     public readonly accountId: string;
     public readonly displayName?: string;
     public readonly email?: string;
+    public readonly serviceAccountName?: string;
     public readonly policyData?: string;
     public readonly project?: string;
     public readonly uniqueId?: string;
@@ -18,15 +19,10 @@ export class ServiceAccount extends lumi.NamedResource implements ServiceAccount
         }
         this.accountId = args.accountId;
         this.displayName = args.displayName;
-        if (args.email === undefined) {
-            throw new Error("Property argument 'email' is required, but was missing");
-        }
         this.email = args.email;
+        this.serviceAccountName = args.serviceAccountName;
         this.policyData = args.policyData;
         this.project = args.project;
-        if (args.uniqueId === undefined) {
-            throw new Error("Property argument 'uniqueId' is required, but was missing");
-        }
         this.uniqueId = args.uniqueId;
     }
 }
@@ -35,6 +31,7 @@ export interface ServiceAccountArgs {
     readonly accountId: string;
     readonly displayName?: string;
     readonly email?: string;
+    readonly serviceAccountName?: string;
     readonly policyData?: string;
     readonly project?: string;
     readonly uniqueId?: string;

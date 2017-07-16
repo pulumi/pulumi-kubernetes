@@ -6,19 +6,18 @@ import * as lumi from "@lumi/lumi";
 export class AssessmentTemplate extends lumi.NamedResource implements AssessmentTemplateArgs {
     public readonly arn?: string;
     public readonly duration: number;
+    public readonly assessmentTemplateName?: string;
     public readonly rulesPackageArns: string[];
     public readonly targetArn: string;
 
     constructor(name: string, args: AssessmentTemplateArgs) {
         super(name);
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         if (args.duration === undefined) {
             throw new Error("Property argument 'duration' is required, but was missing");
         }
         this.duration = args.duration;
+        this.assessmentTemplateName = args.assessmentTemplateName;
         if (args.rulesPackageArns === undefined) {
             throw new Error("Property argument 'rulesPackageArns' is required, but was missing");
         }
@@ -33,6 +32,7 @@ export class AssessmentTemplate extends lumi.NamedResource implements Assessment
 export interface AssessmentTemplateArgs {
     readonly arn?: string;
     readonly duration: number;
+    readonly assessmentTemplateName?: string;
     readonly rulesPackageArns: string[];
     readonly targetArn: string;
 }

@@ -4,8 +4,9 @@
 import * as lumi from "@lumi/lumi";
 
 export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs {
-    public readonly frontendIpConfiguration?: { inboundNatRules?: string[], loadBalancerRules?: string[], privateIpAddress?: string, privateIpAddressAllocation?: string, publicIpAddressId?: string, subnetId?: string }[];
+    public readonly frontendIpConfiguration?: { inboundNatRules?: string[], loadBalancerRules?: string[], name: string, privateIpAddress?: string, privateIpAddressAllocation?: string, publicIpAddressId?: string, subnetId?: string }[];
     public readonly location: string;
+    public readonly loadBalancerName?: string;
     public readonly privateIpAddress?: string;
     public readonly resourceGroupName: string;
     public readonly tags?: {[key: string]: any};
@@ -17,9 +18,7 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
-        if (args.privateIpAddress === undefined) {
-            throw new Error("Property argument 'privateIpAddress' is required, but was missing");
-        }
+        this.loadBalancerName = args.loadBalancerName;
         this.privateIpAddress = args.privateIpAddress;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
@@ -30,8 +29,9 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
 }
 
 export interface LoadBalancerArgs {
-    readonly frontendIpConfiguration?: { inboundNatRules?: string[], loadBalancerRules?: string[], privateIpAddress?: string, privateIpAddressAllocation?: string, publicIpAddressId?: string, subnetId?: string }[];
+    readonly frontendIpConfiguration?: { inboundNatRules?: string[], loadBalancerRules?: string[], name: string, privateIpAddress?: string, privateIpAddressAllocation?: string, publicIpAddressId?: string, subnetId?: string }[];
     readonly location: string;
+    readonly loadBalancerName?: string;
     readonly privateIpAddress?: string;
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};

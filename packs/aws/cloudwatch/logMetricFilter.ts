@@ -5,7 +5,8 @@ import * as lumi from "@lumi/lumi";
 
 export class LogMetricFilter extends lumi.NamedResource implements LogMetricFilterArgs {
     public readonly logGroupName: string;
-    public readonly metricTransformation: { namespace: string, value: string }[];
+    public readonly metricTransformation: { name: string, namespace: string, value: string }[];
+    public readonly logMetricFilterName?: string;
     public readonly pattern: string;
 
     constructor(name: string, args: LogMetricFilterArgs) {
@@ -18,6 +19,7 @@ export class LogMetricFilter extends lumi.NamedResource implements LogMetricFilt
             throw new Error("Property argument 'metricTransformation' is required, but was missing");
         }
         this.metricTransformation = args.metricTransformation;
+        this.logMetricFilterName = args.logMetricFilterName;
         if (args.pattern === undefined) {
             throw new Error("Property argument 'pattern' is required, but was missing");
         }
@@ -27,7 +29,8 @@ export class LogMetricFilter extends lumi.NamedResource implements LogMetricFilt
 
 export interface LogMetricFilterArgs {
     readonly logGroupName: string;
-    readonly metricTransformation: { namespace: string, value: string }[];
+    readonly metricTransformation: { name: string, namespace: string, value: string }[];
+    readonly logMetricFilterName?: string;
     readonly pattern: string;
 }
 

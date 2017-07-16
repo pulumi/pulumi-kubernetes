@@ -5,14 +5,17 @@ import * as lumi from "@lumi/lumi";
 
 export class IpSet extends lumi.NamedResource implements IpSetArgs {
     public readonly ipSetDescriptors?: { type: string, value: string }[];
+    public readonly ipSetName?: string;
 
     constructor(name: string, args: IpSetArgs) {
         super(name);
         this.ipSetDescriptors = args.ipSetDescriptors;
+        this.ipSetName = args.ipSetName;
     }
 }
 
 export interface IpSetArgs {
     readonly ipSetDescriptors?: { type: string, value: string }[];
+    readonly ipSetName?: string;
 }
 

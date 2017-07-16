@@ -10,9 +10,6 @@ export class MainRouteTableAssociation extends lumi.NamedResource implements Mai
 
     constructor(name: string, args: MainRouteTableAssociationArgs) {
         super(name);
-        if (args.originalRouteTableId === undefined) {
-            throw new Error("Property argument 'originalRouteTableId' is required, but was missing");
-        }
         this.originalRouteTableId = args.originalRouteTableId;
         if (args.routeTableId === undefined) {
             throw new Error("Property argument 'routeTableId' is required, but was missing");

@@ -21,9 +21,6 @@ export class DefaultNetworkAcl extends lumi.NamedResource implements DefaultNetw
         this.ingress = args.ingress;
         this.subnetIds = args.subnetIds;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
-            throw new Error("Property argument 'vpcId' is required, but was missing");
-        }
         this.vpcId = args.vpcId;
     }
 }

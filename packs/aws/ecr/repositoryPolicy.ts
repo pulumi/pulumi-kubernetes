@@ -14,9 +14,6 @@ export class RepositoryPolicy extends lumi.NamedResource implements RepositoryPo
             throw new Error("Property argument 'policy' is required, but was missing");
         }
         this.policy = args.policy;
-        if (args.registryId === undefined) {
-            throw new Error("Property argument 'registryId' is required, but was missing");
-        }
         this.registryId = args.registryId;
         if (args.repository === undefined) {
             throw new Error("Property argument 'repository' is required, but was missing");

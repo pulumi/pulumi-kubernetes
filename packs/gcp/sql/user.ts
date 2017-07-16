@@ -6,6 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class User extends lumi.NamedResource implements UserArgs {
     public readonly host: string;
     public readonly instance: string;
+    public readonly userName?: string;
     public readonly password: string;
     public readonly project?: string;
 
@@ -19,6 +20,7 @@ export class User extends lumi.NamedResource implements UserArgs {
             throw new Error("Property argument 'instance' is required, but was missing");
         }
         this.instance = args.instance;
+        this.userName = args.userName;
         if (args.password === undefined) {
             throw new Error("Property argument 'password' is required, but was missing");
         }
@@ -30,6 +32,7 @@ export class User extends lumi.NamedResource implements UserArgs {
 export interface UserArgs {
     readonly host: string;
     readonly instance: string;
+    readonly userName?: string;
     readonly password: string;
     readonly project?: string;
 }

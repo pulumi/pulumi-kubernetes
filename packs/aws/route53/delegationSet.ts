@@ -9,9 +9,6 @@ export class DelegationSet extends lumi.NamedResource implements DelegationSetAr
 
     constructor(name: string, args: DelegationSetArgs) {
         super(name);
-        if (args.nameServers === undefined) {
-            throw new Error("Property argument 'nameServers' is required, but was missing");
-        }
         this.nameServers = args.nameServers;
         this.referenceName = args.referenceName;
     }

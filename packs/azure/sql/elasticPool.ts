@@ -10,6 +10,7 @@ export class ElasticPool extends lumi.NamedResource implements ElasticPoolArgs {
     public readonly dtu: number;
     public readonly edition: string;
     public readonly location: string;
+    public readonly elasticPoolName?: string;
     public readonly poolSize?: number;
     public readonly resourceGroupName: string;
     public readonly serverName: string;
@@ -17,9 +18,6 @@ export class ElasticPool extends lumi.NamedResource implements ElasticPoolArgs {
 
     constructor(name: string, args: ElasticPoolArgs) {
         super(name);
-        if (args.creationDate === undefined) {
-            throw new Error("Property argument 'creationDate' is required, but was missing");
-        }
         this.creationDate = args.creationDate;
         this.dbDtuMax = args.dbDtuMax;
         this.dbDtuMin = args.dbDtuMin;
@@ -35,6 +33,7 @@ export class ElasticPool extends lumi.NamedResource implements ElasticPoolArgs {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.elasticPoolName = args.elasticPoolName;
         this.poolSize = args.poolSize;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
@@ -55,6 +54,7 @@ export interface ElasticPoolArgs {
     readonly dtu: number;
     readonly edition: string;
     readonly location: string;
+    readonly elasticPoolName?: string;
     readonly poolSize?: number;
     readonly resourceGroupName: string;
     readonly serverName: string;

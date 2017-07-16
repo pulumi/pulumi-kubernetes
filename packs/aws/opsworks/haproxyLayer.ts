@@ -20,9 +20,10 @@ export class HaproxyLayer extends lumi.NamedResource implements HaproxyLayerArgs
     public readonly elasticLoadBalancer?: string;
     public readonly healthcheckMethod?: string;
     public readonly healthcheckUrl?: string;
-    public readonly id?: string;
+    public readonly layerId?: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceShutdownTimeout?: number;
+    public readonly haproxyLayerName?: string;
     public readonly stackId: string;
     public readonly statsEnabled?: boolean;
     public readonly statsPassword: string;
@@ -49,12 +50,10 @@ export class HaproxyLayer extends lumi.NamedResource implements HaproxyLayerArgs
         this.elasticLoadBalancer = args.elasticLoadBalancer;
         this.healthcheckMethod = args.healthcheckMethod;
         this.healthcheckUrl = args.healthcheckUrl;
-        if (args.id === undefined) {
-            throw new Error("Property argument 'id' is required, but was missing");
-        }
-        this.id = args.id;
+        this.layerId = args.layerId;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
+        this.haproxyLayerName = args.haproxyLayerName;
         if (args.stackId === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
@@ -88,9 +87,10 @@ export interface HaproxyLayerArgs {
     readonly elasticLoadBalancer?: string;
     readonly healthcheckMethod?: string;
     readonly healthcheckUrl?: string;
-    readonly id?: string;
+    readonly layerId?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceShutdownTimeout?: number;
+    readonly haproxyLayerName?: string;
     readonly stackId: string;
     readonly statsEnabled?: boolean;
     readonly statsPassword: string;

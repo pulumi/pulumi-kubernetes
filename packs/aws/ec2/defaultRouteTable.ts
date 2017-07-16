@@ -19,9 +19,6 @@ export class DefaultRouteTable extends lumi.NamedResource implements DefaultRout
         this.propagatingVgws = args.propagatingVgws;
         this.route = args.route;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
-            throw new Error("Property argument 'vpcId' is required, but was missing");
-        }
         this.vpcId = args.vpcId;
     }
 }

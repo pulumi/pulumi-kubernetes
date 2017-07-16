@@ -40,20 +40,11 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.clusterIdentifier = args.clusterIdentifier;
         this.clusterIdentifierPrefix = args.clusterIdentifierPrefix;
         this.clusterMembers = args.clusterMembers;
-        if (args.clusterResourceId === undefined) {
-            throw new Error("Property argument 'clusterResourceId' is required, but was missing");
-        }
         this.clusterResourceId = args.clusterResourceId;
         this.databaseName = args.databaseName;
         this.dbClusterParameterGroupName = args.dbClusterParameterGroupName;
         this.dbSubnetGroupName = args.dbSubnetGroupName;
-        if (args.endpoint === undefined) {
-            throw new Error("Property argument 'endpoint' is required, but was missing");
-        }
         this.endpoint = args.endpoint;
-        if (args.engine === undefined) {
-            throw new Error("Property argument 'engine' is required, but was missing");
-        }
         this.engine = args.engine;
         this.finalSnapshotIdentifier = args.finalSnapshotIdentifier;
         this.iamDatabaseAuthenticationEnabled = args.iamDatabaseAuthenticationEnabled;
@@ -63,9 +54,6 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.port = args.port;
         this.preferredBackupWindow = args.preferredBackupWindow;
         this.preferredMaintenanceWindow = args.preferredMaintenanceWindow;
-        if (args.readerEndpoint === undefined) {
-            throw new Error("Property argument 'readerEndpoint' is required, but was missing");
-        }
         this.readerEndpoint = args.readerEndpoint;
         this.replicationSourceIdentifier = args.replicationSourceIdentifier;
         this.skipFinalSnapshot = args.skipFinalSnapshot;

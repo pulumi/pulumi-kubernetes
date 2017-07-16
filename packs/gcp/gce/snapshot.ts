@@ -4,6 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
+    public readonly snapshotName?: string;
     public readonly project?: string;
     public readonly selfLink?: string;
     public readonly snapshotEncryptionKeyRaw?: string;
@@ -16,28 +17,17 @@ export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
 
     constructor(name: string, args: SnapshotArgs) {
         super(name);
+        this.snapshotName = args.snapshotName;
         this.project = args.project;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
         this.snapshotEncryptionKeyRaw = args.snapshotEncryptionKeyRaw;
-        if (args.snapshotEncryptionKeySha256 === undefined) {
-            throw new Error("Property argument 'snapshotEncryptionKeySha256' is required, but was missing");
-        }
         this.snapshotEncryptionKeySha256 = args.snapshotEncryptionKeySha256;
         if (args.sourceDisk === undefined) {
             throw new Error("Property argument 'sourceDisk' is required, but was missing");
         }
         this.sourceDisk = args.sourceDisk;
         this.sourceDiskEncryptionKeyRaw = args.sourceDiskEncryptionKeyRaw;
-        if (args.sourceDiskEncryptionKeySha256 === undefined) {
-            throw new Error("Property argument 'sourceDiskEncryptionKeySha256' is required, but was missing");
-        }
         this.sourceDiskEncryptionKeySha256 = args.sourceDiskEncryptionKeySha256;
-        if (args.sourceDiskLink === undefined) {
-            throw new Error("Property argument 'sourceDiskLink' is required, but was missing");
-        }
         this.sourceDiskLink = args.sourceDiskLink;
         if (args.zone === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
@@ -47,6 +37,7 @@ export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
 }
 
 export interface SnapshotArgs {
+    readonly snapshotName?: string;
     readonly project?: string;
     readonly selfLink?: string;
     readonly snapshotEncryptionKeyRaw?: string;

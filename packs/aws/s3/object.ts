@@ -45,9 +45,6 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
         this.source = args.source;
         this.storageClass = args.storageClass;
         this.tags = args.tags;
-        if (args.versionId === undefined) {
-            throw new Error("Property argument 'versionId' is required, but was missing");
-        }
         this.versionId = args.versionId;
         this.websiteRedirect = args.websiteRedirect;
     }

@@ -16,9 +16,6 @@ export class ListenerRule extends lumi.NamedResource implements ListenerRuleArgs
             throw new Error("Property argument 'action' is required, but was missing");
         }
         this.action = args.action;
-        if (args.arn === undefined) {
-            throw new Error("Property argument 'arn' is required, but was missing");
-        }
         this.arn = args.arn;
         if (args.condition === undefined) {
             throw new Error("Property argument 'condition' is required, but was missing");

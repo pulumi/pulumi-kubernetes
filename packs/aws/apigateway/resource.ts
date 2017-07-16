@@ -17,9 +17,6 @@ export class Resource extends lumi.NamedResource implements ResourceArgs {
             throw new Error("Property argument 'parentId' is required, but was missing");
         }
         this.parentId = args.parentId;
-        if (args.path === undefined) {
-            throw new Error("Property argument 'path' is required, but was missing");
-        }
         this.path = args.path;
         if (args.pathPart === undefined) {
             throw new Error("Property argument 'pathPart' is required, but was missing");

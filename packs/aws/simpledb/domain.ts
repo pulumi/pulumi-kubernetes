@@ -4,13 +4,15 @@
 import * as lumi from "@lumi/lumi";
 
 export class Domain extends lumi.NamedResource implements DomainArgs {
-    constructor(name: string, args?: DomainArgs) {
+    public readonly domainName?: string;
+
+    constructor(name: string, args: DomainArgs) {
         super(name);
-        if (args !== undefined) {
-        }
+        this.domainName = args.domainName;
     }
 }
 
 export interface DomainArgs {
+    readonly domainName?: string;
 }
 

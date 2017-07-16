@@ -9,6 +9,7 @@ export class PublicIp extends lumi.NamedResource implements PublicIpArgs {
     public readonly idleTimeoutInMinutes?: number;
     public readonly ipAddress?: string;
     public readonly location: string;
+    public readonly publicIpName?: string;
     public readonly publicIpAddressAllocation: string;
     public readonly resourceGroupName: string;
     public readonly reverseFqdn?: string;
@@ -17,19 +18,14 @@ export class PublicIp extends lumi.NamedResource implements PublicIpArgs {
     constructor(name: string, args: PublicIpArgs) {
         super(name);
         this.domainNameLabel = args.domainNameLabel;
-        if (args.fqdn === undefined) {
-            throw new Error("Property argument 'fqdn' is required, but was missing");
-        }
         this.fqdn = args.fqdn;
         this.idleTimeoutInMinutes = args.idleTimeoutInMinutes;
-        if (args.ipAddress === undefined) {
-            throw new Error("Property argument 'ipAddress' is required, but was missing");
-        }
         this.ipAddress = args.ipAddress;
         if (args.location === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
+        this.publicIpName = args.publicIpName;
         if (args.publicIpAddressAllocation === undefined) {
             throw new Error("Property argument 'publicIpAddressAllocation' is required, but was missing");
         }
@@ -49,6 +45,7 @@ export interface PublicIpArgs {
     readonly idleTimeoutInMinutes?: number;
     readonly ipAddress?: string;
     readonly location: string;
+    readonly publicIpName?: string;
     readonly publicIpAddressAllocation: string;
     readonly resourceGroupName: string;
     readonly reverseFqdn?: string;

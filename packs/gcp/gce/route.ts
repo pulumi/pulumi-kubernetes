@@ -5,6 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class Route extends lumi.NamedResource implements RouteArgs {
     public readonly destRange: string;
+    public readonly routeName?: string;
     public readonly network: string;
     public readonly nextHopGateway?: string;
     public readonly nextHopInstance?: string;
@@ -23,6 +24,7 @@ export class Route extends lumi.NamedResource implements RouteArgs {
             throw new Error("Property argument 'destRange' is required, but was missing");
         }
         this.destRange = args.destRange;
+        this.routeName = args.routeName;
         if (args.network === undefined) {
             throw new Error("Property argument 'network' is required, but was missing");
         }
@@ -31,9 +33,6 @@ export class Route extends lumi.NamedResource implements RouteArgs {
         this.nextHopInstance = args.nextHopInstance;
         this.nextHopInstanceZone = args.nextHopInstanceZone;
         this.nextHopIp = args.nextHopIp;
-        if (args.nextHopNetwork === undefined) {
-            throw new Error("Property argument 'nextHopNetwork' is required, but was missing");
-        }
         this.nextHopNetwork = args.nextHopNetwork;
         this.nextHopVpnTunnel = args.nextHopVpnTunnel;
         if (args.priority === undefined) {
@@ -41,9 +40,6 @@ export class Route extends lumi.NamedResource implements RouteArgs {
         }
         this.priority = args.priority;
         this.project = args.project;
-        if (args.selfLink === undefined) {
-            throw new Error("Property argument 'selfLink' is required, but was missing");
-        }
         this.selfLink = args.selfLink;
         this.tags = args.tags;
     }
@@ -51,6 +47,7 @@ export class Route extends lumi.NamedResource implements RouteArgs {
 
 export interface RouteArgs {
     readonly destRange: string;
+    readonly routeName?: string;
     readonly network: string;
     readonly nextHopGateway?: string;
     readonly nextHopInstance?: string;
