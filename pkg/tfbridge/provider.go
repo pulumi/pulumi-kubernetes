@@ -152,15 +152,18 @@ func (p *Provider) createTerraformInputs(m resource.PropertyMap,
 
 	// Now enumerate and propagate defaults if the corresponding values are still missing.
 	for key, info := range schema {
-		if _, has := result[key]; !has {
+		if v, has := result[key]; has {
+			glog.V(9).Infof("Created Terraform input: %v = %v", key, v)
+		} else {
 			if info.Default.Value != nil {
 				result[key] = info.Default.Value
+				glog.V(9).Infof("Created Terraform input: %v = %v (default)", key, result[key])
 			} else if from := info.Default.From; from != "" {
 				fk := resource.PropertyKey(from)
 				if fromv, hasfrom := m[fk]; hasfrom {
 					// Create a Terraform name so we can recover the transformed value and use it.
-					tfname, info := getInfoFromLumiName(fk, schema)
-					v, err := p.createTerraformInput(tfname, fromv, info)
+					tfname, tfinfo := getInfoFromLumiName(fk, schema)
+					v, err := p.createTerraformInput(tfname, fromv, tfinfo)
 					if err != nil {
 						return nil, err
 					}
@@ -168,6 +171,7 @@ func (p *Provider) createTerraformInputs(m resource.PropertyMap,
 						v = info.Default.FromTransform(v)
 					}
 					result[key] = v
+					glog.V(9).Infof("Created Terraform input: %v = %v (default from %v)", key, result[key], fk)
 				}
 			}
 		}
