@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {LogGroup} from "./logGroup";
 
@@ -14,15 +15,15 @@ export class LogSubscriptionFilter extends lumi.NamedResource implements LogSubs
 
     constructor(name: string, args: LogSubscriptionFilterArgs) {
         super(name);
-        if (args.destinationArn === undefined) {
+        if (lumirt.defaultIfComputed(args.destinationArn, "") === undefined) {
             throw new Error("Property argument 'destinationArn' is required, but was missing");
         }
         this.destinationArn = args.destinationArn;
-        if (args.filterPattern === undefined) {
+        if (lumirt.defaultIfComputed(args.filterPattern, "") === undefined) {
             throw new Error("Property argument 'filterPattern' is required, but was missing");
         }
         this.filterPattern = args.filterPattern;
-        if (args.logGroup === undefined) {
+        if (lumirt.defaultIfComputed(args.logGroup, "") === undefined) {
             throw new Error("Property argument 'logGroup' is required, but was missing");
         }
         this.logGroup = args.logGroup;

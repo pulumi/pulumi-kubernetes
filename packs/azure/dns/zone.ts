@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Zone extends lumi.NamedResource implements ZoneArgs {
     public readonly maxNumberOfRecordSets: string;
@@ -16,7 +17,7 @@ export class Zone extends lumi.NamedResource implements ZoneArgs {
         this.maxNumberOfRecordSets = args.maxNumberOfRecordSets;
         this.zoneName = args.zoneName;
         this.numberOfRecordSets = args.numberOfRecordSets;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

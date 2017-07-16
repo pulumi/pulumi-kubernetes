@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Policy extends lumi.NamedResource implements PolicyArgs {
     public readonly adjustmentType: string;
@@ -19,31 +20,31 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
 
     constructor(name: string, args: PolicyArgs) {
         super(name);
-        if (args.adjustmentType === undefined) {
+        if (lumirt.defaultIfComputed(args.adjustmentType, "") === undefined) {
             throw new Error("Property argument 'adjustmentType' is required, but was missing");
         }
         this.adjustmentType = args.adjustmentType;
         this.alarms = args.alarms;
-        if (args.cooldown === undefined) {
+        if (lumirt.defaultIfComputed(args.cooldown, "") === undefined) {
             throw new Error("Property argument 'cooldown' is required, but was missing");
         }
         this.cooldown = args.cooldown;
-        if (args.metricAggregationType === undefined) {
+        if (lumirt.defaultIfComputed(args.metricAggregationType, "") === undefined) {
             throw new Error("Property argument 'metricAggregationType' is required, but was missing");
         }
         this.metricAggregationType = args.metricAggregationType;
         this.minAdjustmentMagnitude = args.minAdjustmentMagnitude;
         this.policyName = args.policyName;
         this.policyType = args.policyType;
-        if (args.resourceId === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceId, "") === undefined) {
             throw new Error("Property argument 'resourceId' is required, but was missing");
         }
         this.resourceId = args.resourceId;
-        if (args.scalableDimension === undefined) {
+        if (lumirt.defaultIfComputed(args.scalableDimension, "") === undefined) {
             throw new Error("Property argument 'scalableDimension' is required, but was missing");
         }
         this.scalableDimension = args.scalableDimension;
-        if (args.serviceNamespace === undefined) {
+        if (lumirt.defaultIfComputed(args.serviceNamespace, "") === undefined) {
             throw new Error("Property argument 'serviceNamespace' is required, but was missing");
         }
         this.serviceNamespace = args.serviceNamespace;

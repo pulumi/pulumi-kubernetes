@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class AccessKey extends lumi.NamedResource implements AccessKeyArgs {
     public /*out*/ readonly encryptedSecret: string;
@@ -15,7 +16,7 @@ export class AccessKey extends lumi.NamedResource implements AccessKeyArgs {
     constructor(name: string, args: AccessKeyArgs) {
         super(name);
         this.pgpKey = args.pgpKey;
-        if (args.user === undefined) {
+        if (lumirt.defaultIfComputed(args.user, "") === undefined) {
             throw new Error("Property argument 'user' is required, but was missing");
         }
         this.user = args.user;

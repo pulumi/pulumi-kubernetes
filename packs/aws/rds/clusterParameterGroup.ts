@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ClusterParameterGroup extends lumi.NamedResource implements ClusterParameterGroupArgs {
     public /*out*/ readonly arn: string;
@@ -15,7 +16,7 @@ export class ClusterParameterGroup extends lumi.NamedResource implements Cluster
     constructor(name: string, args: ClusterParameterGroupArgs) {
         super(name);
         this.description = args.description;
-        if (args.family === undefined) {
+        if (lumirt.defaultIfComputed(args.family, "") === undefined) {
             throw new Error("Property argument 'family' is required, but was missing");
         }
         this.family = args.family;

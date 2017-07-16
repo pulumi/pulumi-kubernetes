@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ClusterInstance extends lumi.NamedResource implements ClusterInstanceArgs {
     public readonly applyImmediately: boolean;
@@ -29,7 +30,7 @@ export class ClusterInstance extends lumi.NamedResource implements ClusterInstan
         super(name);
         this.applyImmediately = args.applyImmediately;
         this.autoMinorVersionUpgrade = args.autoMinorVersionUpgrade;
-        if (args.clusterIdentifier === undefined) {
+        if (lumirt.defaultIfComputed(args.clusterIdentifier, "") === undefined) {
             throw new Error("Property argument 'clusterIdentifier' is required, but was missing");
         }
         this.clusterIdentifier = args.clusterIdentifier;
@@ -37,7 +38,7 @@ export class ClusterInstance extends lumi.NamedResource implements ClusterInstan
         this.dbSubnetGroupName = args.dbSubnetGroupName;
         this.identifier = args.identifier;
         this.identifierPrefix = args.identifierPrefix;
-        if (args.instanceClass === undefined) {
+        if (lumirt.defaultIfComputed(args.instanceClass, "") === undefined) {
             throw new Error("Property argument 'instanceClass' is required, but was missing");
         }
         this.instanceClass = args.instanceClass;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Model extends lumi.NamedResource implements ModelArgs {
     public readonly contentType: string;
@@ -12,13 +13,13 @@ export class Model extends lumi.NamedResource implements ModelArgs {
 
     constructor(name: string, args: ModelArgs) {
         super(name);
-        if (args.contentType === undefined) {
+        if (lumirt.defaultIfComputed(args.contentType, "") === undefined) {
             throw new Error("Property argument 'contentType' is required, but was missing");
         }
         this.contentType = args.contentType;
         this.description = args.description;
         this.modelName = args.modelName;
-        if (args.restApiId === undefined) {
+        if (lumirt.defaultIfComputed(args.restApiId, "") === undefined) {
             throw new Error("Property argument 'restApiId' is required, but was missing");
         }
         this.restApiId = args.restApiId;

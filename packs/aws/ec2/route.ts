@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Route extends lumi.NamedResource implements RouteArgs {
     public readonly destinationCidrBlock?: string;
@@ -27,7 +28,7 @@ export class Route extends lumi.NamedResource implements RouteArgs {
         this.instanceId = args.instanceId;
         this.natGatewayId = args.natGatewayId;
         this.networkInterfaceId = args.networkInterfaceId;
-        if (args.routeTableId === undefined) {
+        if (lumirt.defaultIfComputed(args.routeTableId, "") === undefined) {
             throw new Error("Property argument 'routeTableId' is required, but was missing");
         }
         this.routeTableId = args.routeTableId;

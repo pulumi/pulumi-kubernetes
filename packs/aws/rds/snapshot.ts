@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
     public /*out*/ readonly allocatedStorage: number;
@@ -26,11 +27,11 @@ export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
 
     constructor(name: string, args: SnapshotArgs) {
         super(name);
-        if (args.dbInstanceIdentifier === undefined) {
+        if (lumirt.defaultIfComputed(args.dbInstanceIdentifier, "") === undefined) {
             throw new Error("Property argument 'dbInstanceIdentifier' is required, but was missing");
         }
         this.dbInstanceIdentifier = args.dbInstanceIdentifier;
-        if (args.dbSnapshotIdentifier === undefined) {
+        if (lumirt.defaultIfComputed(args.dbSnapshotIdentifier, "") === undefined) {
             throw new Error("Property argument 'dbSnapshotIdentifier' is required, but was missing");
         }
         this.dbSnapshotIdentifier = args.dbSnapshotIdentifier;

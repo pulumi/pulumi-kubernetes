@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Cache extends lumi.NamedResource implements CacheArgs {
     public readonly capacity: number;
@@ -22,30 +23,30 @@ export class Cache extends lumi.NamedResource implements CacheArgs {
 
     constructor(name: string, args: CacheArgs) {
         super(name);
-        if (args.capacity === undefined) {
+        if (lumirt.defaultIfComputed(args.capacity, "") === undefined) {
             throw new Error("Property argument 'capacity' is required, but was missing");
         }
         this.capacity = args.capacity;
         this.enableNonSslPort = args.enableNonSslPort;
-        if (args.family === undefined) {
+        if (lumirt.defaultIfComputed(args.family, "") === undefined) {
             throw new Error("Property argument 'family' is required, but was missing");
         }
         this.family = args.family;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.cacheName = args.cacheName;
-        if (args.redisConfiguration === undefined) {
+        if (lumirt.defaultIfComputed(args.redisConfiguration, "") === undefined) {
             throw new Error("Property argument 'redisConfiguration' is required, but was missing");
         }
         this.redisConfiguration = args.redisConfiguration;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.shardCount = args.shardCount;
-        if (args.skuName === undefined) {
+        if (lumirt.defaultIfComputed(args.skuName, "") === undefined) {
             throw new Error("Property argument 'skuName' is required, but was missing");
         }
         this.skuName = args.skuName;

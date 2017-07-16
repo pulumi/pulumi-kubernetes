@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Cluster extends lumi.NamedResource implements ClusterArgs {
     public readonly applications?: string[];
@@ -35,17 +36,17 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.ec2Attributes = args.ec2Attributes;
         this.keepJobFlowAliveWhenNoSteps = args.keepJobFlowAliveWhenNoSteps;
         this.logUri = args.logUri;
-        if (args.masterInstanceType === undefined) {
+        if (lumirt.defaultIfComputed(args.masterInstanceType, "") === undefined) {
             throw new Error("Property argument 'masterInstanceType' is required, but was missing");
         }
         this.masterInstanceType = args.masterInstanceType;
         this.clusterName = args.clusterName;
-        if (args.releaseLabel === undefined) {
+        if (lumirt.defaultIfComputed(args.releaseLabel, "") === undefined) {
             throw new Error("Property argument 'releaseLabel' is required, but was missing");
         }
         this.releaseLabel = args.releaseLabel;
         this.securityConfiguration = args.securityConfiguration;
-        if (args.serviceRole === undefined) {
+        if (lumirt.defaultIfComputed(args.serviceRole, "") === undefined) {
             throw new Error("Property argument 'serviceRole' is required, but was missing");
         }
         this.serviceRole = args.serviceRole;

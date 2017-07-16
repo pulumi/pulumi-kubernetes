@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Firewall extends lumi.NamedResource implements FirewallArgs {
     public readonly allow: { ports?: string[], protocol: string }[];
@@ -16,13 +17,13 @@ export class Firewall extends lumi.NamedResource implements FirewallArgs {
 
     constructor(name: string, args: FirewallArgs) {
         super(name);
-        if (args.allow === undefined) {
+        if (lumirt.defaultIfComputed(args.allow, "") === undefined) {
             throw new Error("Property argument 'allow' is required, but was missing");
         }
         this.allow = args.allow;
         this.description = args.description;
         this.firewallName = args.firewallName;
-        if (args.network === undefined) {
+        if (lumirt.defaultIfComputed(args.network, "") === undefined) {
             throw new Error("Property argument 'network' is required, but was missing");
         }
         this.network = args.network;

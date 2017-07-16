@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Share extends lumi.NamedResource implements ShareArgs {
     public readonly shareName?: string;
@@ -14,11 +15,11 @@ export class Share extends lumi.NamedResource implements ShareArgs {
         super(name);
         this.shareName = args.shareName;
         this.quota = args.quota;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.storageAccountName === undefined) {
+        if (lumirt.defaultIfComputed(args.storageAccountName, "") === undefined) {
             throw new Error("Property argument 'storageAccountName' is required, but was missing");
         }
         this.storageAccountName = args.storageAccountName;

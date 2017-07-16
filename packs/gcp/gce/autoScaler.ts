@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class AutoScaler extends lumi.NamedResource implements AutoScalerArgs {
     public readonly autoscalingPolicy?: { cooldownPeriod?: number, cpuUtilization?: { target: number }[], loadBalancingUtilization?: { target: number }[], maxReplicas: number, metric?: { name: string, target: number, type: string }[], minReplicas: number }[];
@@ -18,11 +19,11 @@ export class AutoScaler extends lumi.NamedResource implements AutoScalerArgs {
         this.description = args.description;
         this.autoScalerName = args.autoScalerName;
         this.project = args.project;
-        if (args.target === undefined) {
+        if (lumirt.defaultIfComputed(args.target, "") === undefined) {
             throw new Error("Property argument 'target' is required, but was missing");
         }
         this.target = args.target;
-        if (args.zone === undefined) {
+        if (lumirt.defaultIfComputed(args.zone, "") === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
         this.zone = args.zone;

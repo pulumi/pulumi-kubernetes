@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DomainIdentity extends lumi.NamedResource implements DomainIdentityArgs {
     public /*out*/ readonly arn: string;
@@ -10,7 +11,7 @@ export class DomainIdentity extends lumi.NamedResource implements DomainIdentity
 
     constructor(name: string, args: DomainIdentityArgs) {
         super(name);
-        if (args.domain === undefined) {
+        if (lumirt.defaultIfComputed(args.domain, "") === undefined) {
             throw new Error("Property argument 'domain' is required, but was missing");
         }
         this.domain = args.domain;

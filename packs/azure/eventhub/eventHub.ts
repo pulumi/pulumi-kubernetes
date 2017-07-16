@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class EventHub extends lumi.NamedResource implements EventHubArgs {
     public readonly location: string;
@@ -14,24 +15,24 @@ export class EventHub extends lumi.NamedResource implements EventHubArgs {
 
     constructor(name: string, args: EventHubArgs) {
         super(name);
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
-        if (args.messageRetention === undefined) {
+        if (lumirt.defaultIfComputed(args.messageRetention, "") === undefined) {
             throw new Error("Property argument 'messageRetention' is required, but was missing");
         }
         this.messageRetention = args.messageRetention;
         this.eventHubName = args.eventHubName;
-        if (args.namespaceName === undefined) {
+        if (lumirt.defaultIfComputed(args.namespaceName, "") === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
         this.namespaceName = args.namespaceName;
-        if (args.partitionCount === undefined) {
+        if (lumirt.defaultIfComputed(args.partitionCount, "") === undefined) {
             throw new Error("Property argument 'partitionCount' is required, but was missing");
         }
         this.partitionCount = args.partitionCount;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

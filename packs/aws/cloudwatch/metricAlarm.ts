@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class MetricAlarm extends lumi.NamedResource implements MetricAlarmArgs {
     public readonly actionsEnabled?: boolean;
@@ -28,37 +29,37 @@ export class MetricAlarm extends lumi.NamedResource implements MetricAlarmArgs {
         this.actionsEnabled = args.actionsEnabled;
         this.alarmActions = args.alarmActions;
         this.alarmDescription = args.alarmDescription;
-        if (args.alarmName === undefined) {
+        if (lumirt.defaultIfComputed(args.alarmName, "") === undefined) {
             throw new Error("Property argument 'alarmName' is required, but was missing");
         }
         this.alarmName = args.alarmName;
-        if (args.comparisonOperator === undefined) {
+        if (lumirt.defaultIfComputed(args.comparisonOperator, "") === undefined) {
             throw new Error("Property argument 'comparisonOperator' is required, but was missing");
         }
         this.comparisonOperator = args.comparisonOperator;
         this.dimensions = args.dimensions;
         this.evaluateLowSampleCountPercentiles = args.evaluateLowSampleCountPercentiles;
-        if (args.evaluationPeriods === undefined) {
+        if (lumirt.defaultIfComputed(args.evaluationPeriods, "") === undefined) {
             throw new Error("Property argument 'evaluationPeriods' is required, but was missing");
         }
         this.evaluationPeriods = args.evaluationPeriods;
         this.extendedStatistic = args.extendedStatistic;
         this.insufficientDataActions = args.insufficientDataActions;
-        if (args.metricName === undefined) {
+        if (lumirt.defaultIfComputed(args.metricName, "") === undefined) {
             throw new Error("Property argument 'metricName' is required, but was missing");
         }
         this.metricName = args.metricName;
-        if (args.namespace === undefined) {
+        if (lumirt.defaultIfComputed(args.namespace, "") === undefined) {
             throw new Error("Property argument 'namespace' is required, but was missing");
         }
         this.namespace = args.namespace;
         this.okActions = args.okActions;
-        if (args.period === undefined) {
+        if (lumirt.defaultIfComputed(args.period, "") === undefined) {
             throw new Error("Property argument 'period' is required, but was missing");
         }
         this.period = args.period;
         this.statistic = args.statistic;
-        if (args.threshold === undefined) {
+        if (lumirt.defaultIfComputed(args.threshold, "") === undefined) {
             throw new Error("Property argument 'threshold' is required, but was missing");
         }
         this.threshold = args.threshold;

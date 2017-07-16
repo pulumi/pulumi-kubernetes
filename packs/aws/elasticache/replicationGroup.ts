@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ReplicationGroup extends lumi.NamedResource implements ReplicationGroupArgs {
     public readonly applyImmediately: boolean;
@@ -40,22 +41,22 @@ export class ReplicationGroup extends lumi.NamedResource implements ReplicationG
         this.engine = args.engine;
         this.engineVersion = args.engineVersion;
         this.maintenanceWindow = args.maintenanceWindow;
-        if (args.nodeType === undefined) {
+        if (lumirt.defaultIfComputed(args.nodeType, "") === undefined) {
             throw new Error("Property argument 'nodeType' is required, but was missing");
         }
         this.nodeType = args.nodeType;
         this.notificationTopicArn = args.notificationTopicArn;
         this.numberCacheClusters = args.numberCacheClusters;
         this.parameterGroupName = args.parameterGroupName;
-        if (args.port === undefined) {
+        if (lumirt.defaultIfComputed(args.port, "") === undefined) {
             throw new Error("Property argument 'port' is required, but was missing");
         }
         this.port = args.port;
-        if (args.replicationGroupDescription === undefined) {
+        if (lumirt.defaultIfComputed(args.replicationGroupDescription, "") === undefined) {
             throw new Error("Property argument 'replicationGroupDescription' is required, but was missing");
         }
         this.replicationGroupDescription = args.replicationGroupDescription;
-        if (args.replicationGroupId === undefined) {
+        if (lumirt.defaultIfComputed(args.replicationGroupId, "") === undefined) {
             throw new Error("Property argument 'replicationGroupId' is required, but was missing");
         }
         this.replicationGroupId = args.replicationGroupId;

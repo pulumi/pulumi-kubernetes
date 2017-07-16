@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RouteTable extends lumi.NamedResource implements RouteTableArgs {
     public readonly propagatingVgws: string[];
@@ -14,7 +15,7 @@ export class RouteTable extends lumi.NamedResource implements RouteTableArgs {
         this.propagatingVgws = args.propagatingVgws;
         this.route = args.route;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;

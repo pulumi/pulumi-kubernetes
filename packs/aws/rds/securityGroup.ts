@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SecurityGroup extends lumi.NamedResource implements SecurityGroupArgs {
     public /*out*/ readonly arn: string;
@@ -13,7 +14,7 @@ export class SecurityGroup extends lumi.NamedResource implements SecurityGroupAr
     constructor(name: string, args: SecurityGroupArgs) {
         super(name);
         this.description = args.description;
-        if (args.ingress === undefined) {
+        if (lumirt.defaultIfComputed(args.ingress, "") === undefined) {
             throw new Error("Property argument 'ingress' is required, but was missing");
         }
         this.ingress = args.ingress;

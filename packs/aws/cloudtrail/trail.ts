@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Trail extends lumi.NamedResource implements TrailArgs {
     public /*out*/ readonly arn: string;
@@ -29,7 +30,7 @@ export class Trail extends lumi.NamedResource implements TrailArgs {
         this.isMultiRegionTrail = args.isMultiRegionTrail;
         this.kmsKeyId = args.kmsKeyId;
         this.trailName = args.trailName;
-        if (args.s3BucketName === undefined) {
+        if (lumirt.defaultIfComputed(args.s3BucketName, "") === undefined) {
             throw new Error("Property argument 's3BucketName' is required, but was missing");
         }
         this.s3BucketName = args.s3BucketName;

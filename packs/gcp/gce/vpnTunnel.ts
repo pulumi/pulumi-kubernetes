@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpnTunnel extends lumi.NamedResource implements VpnTunnelArgs {
     public readonly description?: string;
@@ -24,7 +25,7 @@ export class VpnTunnel extends lumi.NamedResource implements VpnTunnelArgs {
         this.ikeVersion = args.ikeVersion;
         this.localTrafficSelector = args.localTrafficSelector;
         this.vpnTunnelName = args.vpnTunnelName;
-        if (args.peerIp === undefined) {
+        if (lumirt.defaultIfComputed(args.peerIp, "") === undefined) {
             throw new Error("Property argument 'peerIp' is required, but was missing");
         }
         this.peerIp = args.peerIp;
@@ -32,11 +33,11 @@ export class VpnTunnel extends lumi.NamedResource implements VpnTunnelArgs {
         this.region = args.region;
         this.remoteTrafficSelector = args.remoteTrafficSelector;
         this.router = args.router;
-        if (args.sharedSecret === undefined) {
+        if (lumirt.defaultIfComputed(args.sharedSecret, "") === undefined) {
             throw new Error("Property argument 'sharedSecret' is required, but was missing");
         }
         this.sharedSecret = args.sharedSecret;
-        if (args.targetVpnGateway === undefined) {
+        if (lumirt.defaultIfComputed(args.targetVpnGateway, "") === undefined) {
             throw new Error("Property argument 'targetVpnGateway' is required, but was missing");
         }
         this.targetVpnGateway = args.targetVpnGateway;

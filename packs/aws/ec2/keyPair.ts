@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class KeyPair extends lumi.NamedResource implements KeyPairArgs {
     public /*out*/ readonly fingerprint: string;
@@ -13,7 +14,7 @@ export class KeyPair extends lumi.NamedResource implements KeyPairArgs {
         super(name);
         this.keyName = args.keyName;
         this.keyNamePrefix = args.keyNamePrefix;
-        if (args.publicKey === undefined) {
+        if (lumirt.defaultIfComputed(args.publicKey, "") === undefined) {
             throw new Error("Property argument 'publicKey' is required, but was missing");
         }
         this.publicKey = args.publicKey;

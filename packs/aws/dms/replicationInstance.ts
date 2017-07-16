@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ReplicationInstance extends lumi.NamedResource implements ReplicationInstanceArgs {
     public readonly allocatedStorage: number;
@@ -33,11 +34,11 @@ export class ReplicationInstance extends lumi.NamedResource implements Replicati
         this.multiAz = args.multiAz;
         this.preferredMaintenanceWindow = args.preferredMaintenanceWindow;
         this.publiclyAccessible = args.publiclyAccessible;
-        if (args.replicationInstanceClass === undefined) {
+        if (lumirt.defaultIfComputed(args.replicationInstanceClass, "") === undefined) {
             throw new Error("Property argument 'replicationInstanceClass' is required, but was missing");
         }
         this.replicationInstanceClass = args.replicationInstanceClass;
-        if (args.replicationInstanceId === undefined) {
+        if (lumirt.defaultIfComputed(args.replicationInstanceId, "") === undefined) {
             throw new Error("Property argument 'replicationInstanceId' is required, but was missing");
         }
         this.replicationInstanceId = args.replicationInstanceId;

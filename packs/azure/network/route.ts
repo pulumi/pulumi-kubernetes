@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Route extends lumi.NamedResource implements RouteArgs {
     public readonly addressPrefix: string;
@@ -13,21 +14,21 @@ export class Route extends lumi.NamedResource implements RouteArgs {
 
     constructor(name: string, args: RouteArgs) {
         super(name);
-        if (args.addressPrefix === undefined) {
+        if (lumirt.defaultIfComputed(args.addressPrefix, "") === undefined) {
             throw new Error("Property argument 'addressPrefix' is required, but was missing");
         }
         this.addressPrefix = args.addressPrefix;
         this.routeName = args.routeName;
         this.nextHopInIpAddress = args.nextHopInIpAddress;
-        if (args.nextHopType === undefined) {
+        if (lumirt.defaultIfComputed(args.nextHopType, "") === undefined) {
             throw new Error("Property argument 'nextHopType' is required, but was missing");
         }
         this.nextHopType = args.nextHopType;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.routeTableName === undefined) {
+        if (lumirt.defaultIfComputed(args.routeTableName, "") === undefined) {
             throw new Error("Property argument 'routeTableName' is required, but was missing");
         }
         this.routeTableName = args.routeTableName;

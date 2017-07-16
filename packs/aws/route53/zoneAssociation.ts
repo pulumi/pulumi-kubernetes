@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ZoneAssociation extends lumi.NamedResource implements ZoneAssociationArgs {
     public readonly vpcId: string;
@@ -10,12 +11,12 @@ export class ZoneAssociation extends lumi.NamedResource implements ZoneAssociati
 
     constructor(name: string, args: ZoneAssociationArgs) {
         super(name);
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;
         this.vpcRegion = args.vpcRegion;
-        if (args.zoneId === undefined) {
+        if (lumirt.defaultIfComputed(args.zoneId, "") === undefined) {
             throw new Error("Property argument 'zoneId' is required, but was missing");
         }
         this.zoneId = args.zoneId;

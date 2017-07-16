@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class UsagePlan extends lumi.NamedResource implements UsagePlanArgs {
     public readonly apiStages?: { apiId: string, stage: string }[];

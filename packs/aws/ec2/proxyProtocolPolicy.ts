@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ProxyProtocolPolicy extends lumi.NamedResource implements ProxyProtocolPolicyArgs {
     public readonly instancePorts: string[];
@@ -9,11 +10,11 @@ export class ProxyProtocolPolicy extends lumi.NamedResource implements ProxyProt
 
     constructor(name: string, args: ProxyProtocolPolicyArgs) {
         super(name);
-        if (args.instancePorts === undefined) {
+        if (lumirt.defaultIfComputed(args.instancePorts, "") === undefined) {
             throw new Error("Property argument 'instancePorts' is required, but was missing");
         }
         this.instancePorts = args.instancePorts;
-        if (args.loadBalancer === undefined) {
+        if (lumirt.defaultIfComputed(args.loadBalancer, "") === undefined) {
             throw new Error("Property argument 'loadBalancer' is required, but was missing");
         }
         this.loadBalancer = args.loadBalancer;

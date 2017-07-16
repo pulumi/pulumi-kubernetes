@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class TopicPolicy extends lumi.NamedResource implements TopicPolicyArgs {
     public readonly arn: string;
@@ -9,11 +10,11 @@ export class TopicPolicy extends lumi.NamedResource implements TopicPolicyArgs {
 
     constructor(name: string, args: TopicPolicyArgs) {
         super(name);
-        if (args.arn === undefined) {
+        if (lumirt.defaultIfComputed(args.arn, "") === undefined) {
             throw new Error("Property argument 'arn' is required, but was missing");
         }
         this.arn = args.arn;
-        if (args.policy === undefined) {
+        if (lumirt.defaultIfComputed(args.policy, "") === undefined) {
             throw new Error("Property argument 'policy' is required, but was missing");
         }
         this.policy = args.policy;

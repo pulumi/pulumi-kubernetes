@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NodejsAppLayer extends lumi.NamedResource implements NodejsAppLayerArgs {
     public readonly autoAssignElasticIps?: boolean;
@@ -47,7 +48,7 @@ export class NodejsAppLayer extends lumi.NamedResource implements NodejsAppLayer
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
         this.nodejsAppLayerName = args.nodejsAppLayerName;
         this.nodejsVersion = args.nodejsVersion;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;

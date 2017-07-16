@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RequestValidator extends lumi.NamedResource implements RequestValidatorArgs {
     public readonly requestValidatorName?: string;
@@ -12,7 +13,7 @@ export class RequestValidator extends lumi.NamedResource implements RequestValid
     constructor(name: string, args: RequestValidatorArgs) {
         super(name);
         this.requestValidatorName = args.requestValidatorName;
-        if (args.restApiId === undefined) {
+        if (lumirt.defaultIfComputed(args.restApiId, "") === undefined) {
             throw new Error("Property argument 'restApiId' is required, but was missing");
         }
         this.restApiId = args.restApiId;

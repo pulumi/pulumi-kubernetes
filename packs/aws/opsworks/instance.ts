@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly agentVersion?: string;
@@ -73,7 +74,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.instanceProfileArn = args.instanceProfileArn;
         this.instanceType = args.instanceType;
         this.lastServiceErrorId = args.lastServiceErrorId;
-        if (args.layerIds === undefined) {
+        if (lumirt.defaultIfComputed(args.layerIds, "") === undefined) {
             throw new Error("Property argument 'layerIds' is required, but was missing");
         }
         this.layerIds = args.layerIds;
@@ -95,7 +96,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.sshHostDsaKeyFingerprint = args.sshHostDsaKeyFingerprint;
         this.sshHostRsaKeyFingerprint = args.sshHostRsaKeyFingerprint;
         this.sshKeyName = args.sshKeyName;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NetworkInterfaceSecurityGroupAttachment extends lumi.NamedResource implements NetworkInterfaceSecurityGroupAttachmentArgs {
     public readonly networkInterfaceId: string;
@@ -9,11 +10,11 @@ export class NetworkInterfaceSecurityGroupAttachment extends lumi.NamedResource 
 
     constructor(name: string, args: NetworkInterfaceSecurityGroupAttachmentArgs) {
         super(name);
-        if (args.networkInterfaceId === undefined) {
+        if (lumirt.defaultIfComputed(args.networkInterfaceId, "") === undefined) {
             throw new Error("Property argument 'networkInterfaceId' is required, but was missing");
         }
         this.networkInterfaceId = args.networkInterfaceId;
-        if (args.securityGroupId === undefined) {
+        if (lumirt.defaultIfComputed(args.securityGroupId, "") === undefined) {
             throw new Error("Property argument 'securityGroupId' is required, but was missing");
         }
         this.securityGroupId = args.securityGroupId;

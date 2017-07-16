@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Table extends lumi.NamedResource implements TableArgs {
     public /*out*/ readonly creationTime: number;
@@ -25,7 +26,7 @@ export class Table extends lumi.NamedResource implements TableArgs {
 
     constructor(name: string, args: TableArgs) {
         super(name);
-        if (args.datasetId === undefined) {
+        if (lumirt.defaultIfComputed(args.datasetId, "") === undefined) {
             throw new Error("Property argument 'datasetId' is required, but was missing");
         }
         this.datasetId = args.datasetId;
@@ -35,7 +36,7 @@ export class Table extends lumi.NamedResource implements TableArgs {
         this.labels = args.labels;
         this.project = args.project;
         this.schema = args.schema;
-        if (args.tableId === undefined) {
+        if (lumirt.defaultIfComputed(args.tableId, "") === undefined) {
             throw new Error("Property argument 'tableId' is required, but was missing");
         }
         this.tableId = args.tableId;

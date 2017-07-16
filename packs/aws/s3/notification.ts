@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Notification extends lumi.NamedResource implements NotificationArgs {
     public readonly bucket: string;
@@ -11,7 +12,7 @@ export class Notification extends lumi.NamedResource implements NotificationArgs
 
     constructor(name: string, args: NotificationArgs) {
         super(name);
-        if (args.bucket === undefined) {
+        if (lumirt.defaultIfComputed(args.bucket, "") === undefined) {
             throw new Error("Property argument 'bucket' is required, but was missing");
         }
         this.bucket = args.bucket;

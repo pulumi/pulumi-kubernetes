@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpcPeeringConnection extends lumi.NamedResource implements VpcPeeringConnectionArgs {
     public /*out*/ readonly acceptStatus: string;
@@ -18,13 +19,13 @@ export class VpcPeeringConnection extends lumi.NamedResource implements VpcPeeri
         this.accepter = args.accepter;
         this.autoAccept = args.autoAccept;
         this.peerOwnerId = args.peerOwnerId;
-        if (args.peerVpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.peerVpcId, "") === undefined) {
             throw new Error("Property argument 'peerVpcId' is required, but was missing");
         }
         this.peerVpcId = args.peerVpcId;
         this.requester = args.requester;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;

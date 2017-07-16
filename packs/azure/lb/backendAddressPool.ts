@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class BackendAddressPool extends lumi.NamedResource implements BackendAddressPoolArgs {
     public /*out*/ readonly backendIpConfigurations: string[];
@@ -13,13 +14,13 @@ export class BackendAddressPool extends lumi.NamedResource implements BackendAdd
 
     constructor(name: string, args: BackendAddressPoolArgs) {
         super(name);
-        if (args.loadbalancerId === undefined) {
+        if (lumirt.defaultIfComputed(args.loadbalancerId, "") === undefined) {
             throw new Error("Property argument 'loadbalancerId' is required, but was missing");
         }
         this.loadbalancerId = args.loadbalancerId;
         this.location = args.location;
         this.backendAddressPoolName = args.backendAddressPoolName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

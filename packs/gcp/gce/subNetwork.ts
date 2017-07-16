@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SubNetwork extends lumi.NamedResource implements SubNetworkArgs {
     public readonly description?: string;
@@ -17,12 +18,12 @@ export class SubNetwork extends lumi.NamedResource implements SubNetworkArgs {
     constructor(name: string, args: SubNetworkArgs) {
         super(name);
         this.description = args.description;
-        if (args.ipCidrRange === undefined) {
+        if (lumirt.defaultIfComputed(args.ipCidrRange, "") === undefined) {
             throw new Error("Property argument 'ipCidrRange' is required, but was missing");
         }
         this.ipCidrRange = args.ipCidrRange;
         this.subNetworkName = args.subNetworkName;
-        if (args.network === undefined) {
+        if (lumirt.defaultIfComputed(args.network, "") === undefined) {
             throw new Error("Property argument 'network' is required, but was missing");
         }
         this.network = args.network;

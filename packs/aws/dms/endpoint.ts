@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Endpoint extends lumi.NamedResource implements EndpointArgs {
     public readonly certificateArn: string;
@@ -24,15 +25,15 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
         super(name);
         this.certificateArn = args.certificateArn;
         this.databaseName = args.databaseName;
-        if (args.endpointId === undefined) {
+        if (lumirt.defaultIfComputed(args.endpointId, "") === undefined) {
             throw new Error("Property argument 'endpointId' is required, but was missing");
         }
         this.endpointId = args.endpointId;
-        if (args.endpointType === undefined) {
+        if (lumirt.defaultIfComputed(args.endpointType, "") === undefined) {
             throw new Error("Property argument 'endpointType' is required, but was missing");
         }
         this.endpointType = args.endpointType;
-        if (args.engineName === undefined) {
+        if (lumirt.defaultIfComputed(args.engineName, "") === undefined) {
             throw new Error("Property argument 'engineName' is required, but was missing");
         }
         this.engineName = args.engineName;

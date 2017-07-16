@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly attachedDisk?: { deviceName: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256: string, source: string }[];
@@ -37,7 +38,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.description = args.description;
         this.disk = args.disk;
         this.labels = args.labels;
-        if (args.machineType === undefined) {
+        if (lumirt.defaultIfComputed(args.machineType, "") === undefined) {
             throw new Error("Property argument 'machineType' is required, but was missing");
         }
         this.machineType = args.machineType;
@@ -51,7 +52,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.scratchDisk = args.scratchDisk;
         this.serviceAccount = args.serviceAccount;
         this.tags = args.tags;
-        if (args.zone === undefined) {
+        if (lumirt.defaultIfComputed(args.zone, "") === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
         this.zone = args.zone;

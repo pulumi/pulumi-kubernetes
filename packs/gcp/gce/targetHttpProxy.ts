@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class TargetHttpProxy extends lumi.NamedResource implements TargetHttpProxyArgs {
     public readonly description?: string;
@@ -16,7 +17,7 @@ export class TargetHttpProxy extends lumi.NamedResource implements TargetHttpPro
         this.description = args.description;
         this.targetHttpProxyName = args.targetHttpProxyName;
         this.project = args.project;
-        if (args.urlMap === undefined) {
+        if (lumirt.defaultIfComputed(args.urlMap, "") === undefined) {
             throw new Error("Property argument 'urlMap' is required, but was missing");
         }
         this.urlMap = args.urlMap;

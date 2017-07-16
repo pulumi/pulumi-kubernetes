@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Queue extends lumi.NamedResource implements QueueArgs {
     public readonly queueName?: string;
@@ -11,11 +12,11 @@ export class Queue extends lumi.NamedResource implements QueueArgs {
     constructor(name: string, args: QueueArgs) {
         super(name);
         this.queueName = args.queueName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.storageAccountName === undefined) {
+        if (lumirt.defaultIfComputed(args.storageAccountName, "") === undefined) {
             throw new Error("Property argument 'storageAccountName' is required, but was missing");
         }
         this.storageAccountName = args.storageAccountName;

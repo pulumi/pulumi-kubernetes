@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DeploymentGroup extends lumi.NamedResource implements DeploymentGroupArgs {
     public readonly alarmConfiguration?: { alarms?: string[], enabled?: boolean, ignorePollAlarmFailure?: boolean }[];
@@ -18,20 +19,20 @@ export class DeploymentGroup extends lumi.NamedResource implements DeploymentGro
     constructor(name: string, args: DeploymentGroupArgs) {
         super(name);
         this.alarmConfiguration = args.alarmConfiguration;
-        if (args.appName === undefined) {
+        if (lumirt.defaultIfComputed(args.appName, "") === undefined) {
             throw new Error("Property argument 'appName' is required, but was missing");
         }
         this.appName = args.appName;
         this.autoRollbackConfiguration = args.autoRollbackConfiguration;
         this.autoscalingGroups = args.autoscalingGroups;
         this.deploymentConfigName = args.deploymentConfigName;
-        if (args.deploymentGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.deploymentGroupName, "") === undefined) {
             throw new Error("Property argument 'deploymentGroupName' is required, but was missing");
         }
         this.deploymentGroupName = args.deploymentGroupName;
         this.ec2TagFilter = args.ec2TagFilter;
         this.onPremisesInstanceTagFilter = args.onPremisesInstanceTagFilter;
-        if (args.serviceRoleArn === undefined) {
+        if (lumirt.defaultIfComputed(args.serviceRoleArn, "") === undefined) {
             throw new Error("Property argument 'serviceRoleArn' is required, but was missing");
         }
         this.serviceRoleArn = args.serviceRoleArn;

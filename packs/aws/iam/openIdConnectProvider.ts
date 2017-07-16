@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class OpenIdConnectProvider extends lumi.NamedResource implements OpenIdConnectProviderArgs {
     public /*out*/ readonly arn: string;
@@ -11,15 +12,15 @@ export class OpenIdConnectProvider extends lumi.NamedResource implements OpenIdC
 
     constructor(name: string, args: OpenIdConnectProviderArgs) {
         super(name);
-        if (args.clientIdList === undefined) {
+        if (lumirt.defaultIfComputed(args.clientIdList, "") === undefined) {
             throw new Error("Property argument 'clientIdList' is required, but was missing");
         }
         this.clientIdList = args.clientIdList;
-        if (args.thumbprintList === undefined) {
+        if (lumirt.defaultIfComputed(args.thumbprintList, "") === undefined) {
             throw new Error("Property argument 'thumbprintList' is required, but was missing");
         }
         this.thumbprintList = args.thumbprintList;
-        if (args.url === undefined) {
+        if (lumirt.defaultIfComputed(args.url, "") === undefined) {
             throw new Error("Property argument 'url' is required, but was missing");
         }
         this.url = args.url;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ListenerPolicy extends lumi.NamedResource implements ListenerPolicyArgs {
     public readonly loadBalancerName: string;
@@ -10,11 +11,11 @@ export class ListenerPolicy extends lumi.NamedResource implements ListenerPolicy
 
     constructor(name: string, args: ListenerPolicyArgs) {
         super(name);
-        if (args.loadBalancerName === undefined) {
+        if (lumirt.defaultIfComputed(args.loadBalancerName, "") === undefined) {
             throw new Error("Property argument 'loadBalancerName' is required, but was missing");
         }
         this.loadBalancerName = args.loadBalancerName;
-        if (args.loadBalancerPort === undefined) {
+        if (lumirt.defaultIfComputed(args.loadBalancerPort, "") === undefined) {
             throw new Error("Property argument 'loadBalancerPort' is required, but was missing");
         }
         this.loadBalancerPort = args.loadBalancerPort;

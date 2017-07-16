@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {ARN} from "../index";
 import {Group} from "./group";
@@ -19,7 +20,7 @@ export class PolicyAttachment extends lumi.NamedResource implements PolicyAttach
         super(name);
         this.groups = args.groups;
         this.policyAttachmentName = args.policyAttachmentName;
-        if (args.policyArn === undefined) {
+        if (lumirt.defaultIfComputed(args.policyArn, "") === undefined) {
             throw new Error("Property argument 'policyArn' is required, but was missing");
         }
         this.policyArn = args.policyArn;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class StaticWebLayer extends lumi.NamedResource implements StaticWebLayerArgs {
     public readonly autoAssignElasticIps?: boolean;
@@ -45,7 +46,7 @@ export class StaticWebLayer extends lumi.NamedResource implements StaticWebLayer
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
         this.staticWebLayerName = args.staticWebLayerName;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;

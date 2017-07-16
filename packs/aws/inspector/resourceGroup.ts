@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ResourceGroup extends lumi.NamedResource implements ResourceGroupArgs {
     public /*out*/ readonly arn: string;
@@ -9,7 +10,7 @@ export class ResourceGroup extends lumi.NamedResource implements ResourceGroupAr
 
     constructor(name: string, args: ResourceGroupArgs) {
         super(name);
-        if (args.tags === undefined) {
+        if (lumirt.defaultIfComputed(args.tags, "") === undefined) {
             throw new Error("Property argument 'tags' is required, but was missing");
         }
         this.tags = args.tags;

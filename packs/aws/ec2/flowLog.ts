@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class FlowLog extends lumi.NamedResource implements FlowLogArgs {
     public readonly eniId?: string;
@@ -14,16 +15,16 @@ export class FlowLog extends lumi.NamedResource implements FlowLogArgs {
     constructor(name: string, args: FlowLogArgs) {
         super(name);
         this.eniId = args.eniId;
-        if (args.iamRoleArn === undefined) {
+        if (lumirt.defaultIfComputed(args.iamRoleArn, "") === undefined) {
             throw new Error("Property argument 'iamRoleArn' is required, but was missing");
         }
         this.iamRoleArn = args.iamRoleArn;
-        if (args.logGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.logGroupName, "") === undefined) {
             throw new Error("Property argument 'logGroupName' is required, but was missing");
         }
         this.logGroupName = args.logGroupName;
         this.subnetId = args.subnetId;
-        if (args.trafficType === undefined) {
+        if (lumirt.defaultIfComputed(args.trafficType, "") === undefined) {
             throw new Error("Property argument 'trafficType' is required, but was missing");
         }
         this.trafficType = args.trafficType;

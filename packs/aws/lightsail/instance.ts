@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Instance extends lumi.NamedResource implements InstanceArgs {
     public /*out*/ readonly arn: string;
@@ -22,15 +23,15 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
 
     constructor(name: string, args: InstanceArgs) {
         super(name);
-        if (args.availabilityZone === undefined) {
+        if (lumirt.defaultIfComputed(args.availabilityZone, "") === undefined) {
             throw new Error("Property argument 'availabilityZone' is required, but was missing");
         }
         this.availabilityZone = args.availabilityZone;
-        if (args.blueprintId === undefined) {
+        if (lumirt.defaultIfComputed(args.blueprintId, "") === undefined) {
             throw new Error("Property argument 'blueprintId' is required, but was missing");
         }
         this.blueprintId = args.blueprintId;
-        if (args.bundleId === undefined) {
+        if (lumirt.defaultIfComputed(args.bundleId, "") === undefined) {
             throw new Error("Property argument 'bundleId' is required, but was missing");
         }
         this.bundleId = args.bundleId;

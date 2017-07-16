@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DomainPolicy extends lumi.NamedResource implements DomainPolicyArgs {
     public readonly accessPolicies: string;
@@ -9,11 +10,11 @@ export class DomainPolicy extends lumi.NamedResource implements DomainPolicyArgs
 
     constructor(name: string, args: DomainPolicyArgs) {
         super(name);
-        if (args.accessPolicies === undefined) {
+        if (lumirt.defaultIfComputed(args.accessPolicies, "") === undefined) {
             throw new Error("Property argument 'accessPolicies' is required, but was missing");
         }
         this.accessPolicies = args.accessPolicies;
-        if (args.domainName === undefined) {
+        if (lumirt.defaultIfComputed(args.domainName, "") === undefined) {
             throw new Error("Property argument 'domainName' is required, but was missing");
         }
         this.domainName = args.domainName;

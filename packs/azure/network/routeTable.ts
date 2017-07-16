@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RouteTable extends lumi.NamedResource implements RouteTableArgs {
     public readonly location: string;
@@ -13,12 +14,12 @@ export class RouteTable extends lumi.NamedResource implements RouteTableArgs {
 
     constructor(name: string, args: RouteTableArgs) {
         super(name);
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.routeTableName = args.routeTableName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

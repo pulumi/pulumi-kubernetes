@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Attachment extends lumi.NamedResource implements AttachmentArgs {
     public readonly elb: string;
@@ -9,11 +10,11 @@ export class Attachment extends lumi.NamedResource implements AttachmentArgs {
 
     constructor(name: string, args: AttachmentArgs) {
         super(name);
-        if (args.elb === undefined) {
+        if (lumirt.defaultIfComputed(args.elb, "") === undefined) {
             throw new Error("Property argument 'elb' is required, but was missing");
         }
         this.elb = args.elb;
-        if (args.instance === undefined) {
+        if (lumirt.defaultIfComputed(args.instance, "") === undefined) {
             throw new Error("Property argument 'instance' is required, but was missing");
         }
         this.instance = args.instance;

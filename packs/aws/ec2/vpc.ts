@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Vpc extends lumi.NamedResource implements VpcArgs {
     public readonly assignGeneratedIpv6CidrBlock?: boolean;
@@ -23,7 +24,7 @@ export class Vpc extends lumi.NamedResource implements VpcArgs {
     constructor(name: string, args: VpcArgs) {
         super(name);
         this.assignGeneratedIpv6CidrBlock = args.assignGeneratedIpv6CidrBlock;
-        if (args.cidrBlock === undefined) {
+        if (lumirt.defaultIfComputed(args.cidrBlock, "") === undefined) {
             throw new Error("Property argument 'cidrBlock' is required, but was missing");
         }
         this.cidrBlock = args.cidrBlock;

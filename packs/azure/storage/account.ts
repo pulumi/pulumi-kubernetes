@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Account extends lumi.NamedResource implements AccountArgs {
     public readonly accessTier: string;
@@ -30,17 +31,17 @@ export class Account extends lumi.NamedResource implements AccountArgs {
         super(name);
         this.accessTier = args.accessTier;
         this.accountKind = args.accountKind;
-        if (args.accountType === undefined) {
+        if (lumirt.defaultIfComputed(args.accountType, "") === undefined) {
             throw new Error("Property argument 'accountType' is required, but was missing");
         }
         this.accountType = args.accountType;
         this.enableBlobEncryption = args.enableBlobEncryption;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.accountName = args.accountName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

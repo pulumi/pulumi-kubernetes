@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Repository extends lumi.NamedResource implements RepositoryArgs {
     public /*out*/ readonly arn: string;
@@ -16,7 +17,7 @@ export class Repository extends lumi.NamedResource implements RepositoryArgs {
         super(name);
         this.defaultBranch = args.defaultBranch;
         this.description = args.description;
-        if (args.repositoryName === undefined) {
+        if (lumirt.defaultIfComputed(args.repositoryName, "") === undefined) {
             throw new Error("Property argument 'repositoryName' is required, but was missing");
         }
         this.repositoryName = args.repositoryName;

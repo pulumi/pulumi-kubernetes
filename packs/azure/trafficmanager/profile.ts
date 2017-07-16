@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Profile extends lumi.NamedResource implements ProfileArgs {
     public readonly dnsConfig: { relativeName: string, ttl: number }[];
@@ -15,22 +16,22 @@ export class Profile extends lumi.NamedResource implements ProfileArgs {
 
     constructor(name: string, args: ProfileArgs) {
         super(name);
-        if (args.dnsConfig === undefined) {
+        if (lumirt.defaultIfComputed(args.dnsConfig, "") === undefined) {
             throw new Error("Property argument 'dnsConfig' is required, but was missing");
         }
         this.dnsConfig = args.dnsConfig;
-        if (args.monitorConfig === undefined) {
+        if (lumirt.defaultIfComputed(args.monitorConfig, "") === undefined) {
             throw new Error("Property argument 'monitorConfig' is required, but was missing");
         }
         this.monitorConfig = args.monitorConfig;
         this.profileName = args.profileName;
         this.profileStatus = args.profileStatus;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
-        if (args.trafficRoutingMethod === undefined) {
+        if (lumirt.defaultIfComputed(args.trafficRoutingMethod, "") === undefined) {
             throw new Error("Property argument 'trafficRoutingMethod' is required, but was missing");
         }
         this.trafficRoutingMethod = args.trafficRoutingMethod;

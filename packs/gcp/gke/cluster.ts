@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Cluster extends lumi.NamedResource implements ClusterArgs {
     public readonly additionalZones: string[];
@@ -40,7 +41,7 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.nodeVersion = args.nodeVersion;
         this.project = args.project;
         this.subnetwork = args.subnetwork;
-        if (args.zone === undefined) {
+        if (lumirt.defaultIfComputed(args.zone, "") === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
         this.zone = args.zone;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DefaultSubnet extends lumi.NamedResource implements DefaultSubnetArgs {
     public /*out*/ readonly assignIpv6AddressOnCreation: boolean;
@@ -15,7 +16,7 @@ export class DefaultSubnet extends lumi.NamedResource implements DefaultSubnetAr
 
     constructor(name: string, args: DefaultSubnetArgs) {
         super(name);
-        if (args.availabilityZone === undefined) {
+        if (lumirt.defaultIfComputed(args.availabilityZone, "") === undefined) {
             throw new Error("Property argument 'availabilityZone' is required, but was missing");
         }
         this.availabilityZone = args.availabilityZone;

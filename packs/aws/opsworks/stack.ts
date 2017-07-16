@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Stack extends lumi.NamedResource implements StackArgs {
     public readonly agentVersion: string;
@@ -38,7 +39,7 @@ export class Stack extends lumi.NamedResource implements StackArgs {
         this.customCookbooksSource = args.customCookbooksSource;
         this.customJson = args.customJson;
         this.defaultAvailabilityZone = args.defaultAvailabilityZone;
-        if (args.defaultInstanceProfileArn === undefined) {
+        if (lumirt.defaultIfComputed(args.defaultInstanceProfileArn, "") === undefined) {
             throw new Error("Property argument 'defaultInstanceProfileArn' is required, but was missing");
         }
         this.defaultInstanceProfileArn = args.defaultInstanceProfileArn;
@@ -49,11 +50,11 @@ export class Stack extends lumi.NamedResource implements StackArgs {
         this.hostnameTheme = args.hostnameTheme;
         this.manageBerkshelf = args.manageBerkshelf;
         this.stackName = args.stackName;
-        if (args.region === undefined) {
+        if (lumirt.defaultIfComputed(args.region, "") === undefined) {
             throw new Error("Property argument 'region' is required, but was missing");
         }
         this.region = args.region;
-        if (args.serviceRoleArn === undefined) {
+        if (lumirt.defaultIfComputed(args.serviceRoleArn, "") === undefined) {
             throw new Error("Property argument 'serviceRoleArn' is required, but was missing");
         }
         this.serviceRoleArn = args.serviceRoleArn;

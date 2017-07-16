@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class BackendService extends lumi.NamedResource implements BackendServiceArgs {
     public readonly backend?: { balancingMode?: string, capacityScaler?: number, description?: string, group?: string, maxRate?: number, maxRatePerInstance?: number, maxUtilization?: number }[];
@@ -24,7 +25,7 @@ export class BackendService extends lumi.NamedResource implements BackendService
         this.connectionDrainingTimeoutSec = args.connectionDrainingTimeoutSec;
         this.description = args.description;
         this.enableCdn = args.enableCdn;
-        if (args.healthChecks === undefined) {
+        if (lumirt.defaultIfComputed(args.healthChecks, "") === undefined) {
             throw new Error("Property argument 'healthChecks' is required, but was missing");
         }
         this.healthChecks = args.healthChecks;

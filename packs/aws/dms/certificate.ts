@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Certificate extends lumi.NamedResource implements CertificateArgs {
     public /*out*/ readonly certificateArn: string;
@@ -11,7 +12,7 @@ export class Certificate extends lumi.NamedResource implements CertificateArgs {
 
     constructor(name: string, args: CertificateArgs) {
         super(name);
-        if (args.certificateId === undefined) {
+        if (lumirt.defaultIfComputed(args.certificateId, "") === undefined) {
             throw new Error("Property argument 'certificateId' is required, but was missing");
         }
         this.certificateId = args.certificateId;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class IntegrationResponse extends lumi.NamedResource implements IntegrationResponseArgs {
     public readonly contentHandling?: string;
@@ -17,23 +18,23 @@ export class IntegrationResponse extends lumi.NamedResource implements Integrati
     constructor(name: string, args: IntegrationResponseArgs) {
         super(name);
         this.contentHandling = args.contentHandling;
-        if (args.httpMethod === undefined) {
+        if (lumirt.defaultIfComputed(args.httpMethod, "") === undefined) {
             throw new Error("Property argument 'httpMethod' is required, but was missing");
         }
         this.httpMethod = args.httpMethod;
-        if (args.resourceId === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceId, "") === undefined) {
             throw new Error("Property argument 'resourceId' is required, but was missing");
         }
         this.resourceId = args.resourceId;
         this.responseParameters = args.responseParameters;
         this.responseParametersInJson = args.responseParametersInJson;
         this.responseTemplates = args.responseTemplates;
-        if (args.restApiId === undefined) {
+        if (lumirt.defaultIfComputed(args.restApiId, "") === undefined) {
             throw new Error("Property argument 'restApiId' is required, but was missing");
         }
         this.restApiId = args.restApiId;
         this.selectionPattern = args.selectionPattern;
-        if (args.statusCode === undefined) {
+        if (lumirt.defaultIfComputed(args.statusCode, "") === undefined) {
             throw new Error("Property argument 'statusCode' is required, but was missing");
         }
         this.statusCode = args.statusCode;

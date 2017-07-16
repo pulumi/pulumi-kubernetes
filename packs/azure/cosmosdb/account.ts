@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Account extends lumi.NamedResource implements AccountArgs {
     public readonly consistencyPolicy: { consistencyLevel: string, maxIntervalInSeconds?: number, maxStalenessPrefix?: number }[];
@@ -19,25 +20,25 @@ export class Account extends lumi.NamedResource implements AccountArgs {
 
     constructor(name: string, args: AccountArgs) {
         super(name);
-        if (args.consistencyPolicy === undefined) {
+        if (lumirt.defaultIfComputed(args.consistencyPolicy, "") === undefined) {
             throw new Error("Property argument 'consistencyPolicy' is required, but was missing");
         }
         this.consistencyPolicy = args.consistencyPolicy;
-        if (args.failoverPolicy === undefined) {
+        if (lumirt.defaultIfComputed(args.failoverPolicy, "") === undefined) {
             throw new Error("Property argument 'failoverPolicy' is required, but was missing");
         }
         this.failoverPolicy = args.failoverPolicy;
         this.ipRangeFilter = args.ipRangeFilter;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.accountName = args.accountName;
-        if (args.offerType === undefined) {
+        if (lumirt.defaultIfComputed(args.offerType, "") === undefined) {
             throw new Error("Property argument 'offerType' is required, but was missing");
         }
         this.offerType = args.offerType;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

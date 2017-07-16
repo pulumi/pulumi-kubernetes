@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Pipeline extends lumi.NamedResource implements PipelineArgs {
     public readonly artifactStore: { encryptionKey?: { id: string, type: string }[], location: string, type: string }[];
@@ -11,16 +12,16 @@ export class Pipeline extends lumi.NamedResource implements PipelineArgs {
 
     constructor(name: string, args: PipelineArgs) {
         super(name);
-        if (args.artifactStore === undefined) {
+        if (lumirt.defaultIfComputed(args.artifactStore, "") === undefined) {
             throw new Error("Property argument 'artifactStore' is required, but was missing");
         }
         this.artifactStore = args.artifactStore;
         this.pipelineName = args.pipelineName;
-        if (args.roleArn === undefined) {
+        if (lumirt.defaultIfComputed(args.roleArn, "") === undefined) {
             throw new Error("Property argument 'roleArn' is required, but was missing");
         }
         this.roleArn = args.roleArn;
-        if (args.stage === undefined) {
+        if (lumirt.defaultIfComputed(args.stage, "") === undefined) {
             throw new Error("Property argument 'stage' is required, but was missing");
         }
         this.stage = args.stage;

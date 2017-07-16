@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {ARN} from "../index";
 import {User} from "./user";
@@ -12,11 +13,11 @@ export class UserPolicyAttachment extends lumi.NamedResource implements UserPoli
 
     constructor(name: string, args: UserPolicyAttachmentArgs) {
         super(name);
-        if (args.policyArn === undefined) {
+        if (lumirt.defaultIfComputed(args.policyArn, "") === undefined) {
             throw new Error("Property argument 'policyArn' is required, but was missing");
         }
         this.policyArn = args.policyArn;
-        if (args.user === undefined) {
+        if (lumirt.defaultIfComputed(args.user, "") === undefined) {
             throw new Error("Property argument 'user' is required, but was missing");
         }
         this.user = args.user;

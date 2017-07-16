@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class BucketAcl extends lumi.NamedResource implements BucketAclArgs {
     public readonly bucket: string;
@@ -11,7 +12,7 @@ export class BucketAcl extends lumi.NamedResource implements BucketAclArgs {
 
     constructor(name: string, args: BucketAclArgs) {
         super(name);
-        if (args.bucket === undefined) {
+        if (lumirt.defaultIfComputed(args.bucket, "") === undefined) {
             throw new Error("Property argument 'bucket' is required, but was missing");
         }
         this.bucket = args.bucket;

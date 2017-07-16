@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class LaunchConfiguration extends lumi.NamedResource implements LaunchConfigurationArgs {
     public readonly associatePublicIpAddress?: boolean;
@@ -31,11 +32,11 @@ export class LaunchConfiguration extends lumi.NamedResource implements LaunchCon
         this.enableMonitoring = args.enableMonitoring;
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
         this.iamInstanceProfile = args.iamInstanceProfile;
-        if (args.imageId === undefined) {
+        if (lumirt.defaultIfComputed(args.imageId, "") === undefined) {
             throw new Error("Property argument 'imageId' is required, but was missing");
         }
         this.imageId = args.imageId;
-        if (args.instanceType === undefined) {
+        if (lumirt.defaultIfComputed(args.instanceType, "") === undefined) {
             throw new Error("Property argument 'instanceType' is required, but was missing");
         }
         this.instanceType = args.instanceType;

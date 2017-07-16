@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Domain extends lumi.NamedResource implements DomainArgs {
     public readonly accessPolicies: string;
@@ -21,7 +22,7 @@ export class Domain extends lumi.NamedResource implements DomainArgs {
         this.accessPolicies = args.accessPolicies;
         this.advancedOptions = args.advancedOptions;
         this.clusterConfig = args.clusterConfig;
-        if (args.domainName === undefined) {
+        if (lumirt.defaultIfComputed(args.domainName, "") === undefined) {
             throw new Error("Property argument 'domainName' is required, but was missing");
         }
         this.domainName = args.domainName;

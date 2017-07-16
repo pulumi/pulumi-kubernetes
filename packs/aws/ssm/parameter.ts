@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Parameter extends lumi.NamedResource implements ParameterArgs {
     public readonly keyId?: string;
@@ -15,11 +16,11 @@ export class Parameter extends lumi.NamedResource implements ParameterArgs {
         this.keyId = args.keyId;
         this.parameterName = args.parameterName;
         this.overwrite = args.overwrite;
-        if (args.type === undefined) {
+        if (lumirt.defaultIfComputed(args.type, "") === undefined) {
             throw new Error("Property argument 'type' is required, but was missing");
         }
         this.type = args.type;
-        if (args.value === undefined) {
+        if (lumirt.defaultIfComputed(args.value, "") === undefined) {
             throw new Error("Property argument 'value' is required, but was missing");
         }
         this.value = args.value;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class IamPolicy extends lumi.NamedResource implements IamPolicyArgs {
     public readonly authoritative?: boolean;
@@ -15,11 +16,11 @@ export class IamPolicy extends lumi.NamedResource implements IamPolicyArgs {
         super(name);
         this.authoritative = args.authoritative;
         this.disableProject = args.disableProject;
-        if (args.policyData === undefined) {
+        if (lumirt.defaultIfComputed(args.policyData, "") === undefined) {
             throw new Error("Property argument 'policyData' is required, but was missing");
         }
         this.policyData = args.policyData;
-        if (args.project === undefined) {
+        if (lumirt.defaultIfComputed(args.project, "") === undefined) {
             throw new Error("Property argument 'project' is required, but was missing");
         }
         this.project = args.project;

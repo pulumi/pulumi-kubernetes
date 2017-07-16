@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SslNegotiationPolicy extends lumi.NamedResource implements SslNegotiationPolicyArgs {
     public readonly attribute?: { name: string, value: string }[];
@@ -12,11 +13,11 @@ export class SslNegotiationPolicy extends lumi.NamedResource implements SslNegot
     constructor(name: string, args: SslNegotiationPolicyArgs) {
         super(name);
         this.attribute = args.attribute;
-        if (args.lbPort === undefined) {
+        if (lumirt.defaultIfComputed(args.lbPort, "") === undefined) {
             throw new Error("Property argument 'lbPort' is required, but was missing");
         }
         this.lbPort = args.lbPort;
-        if (args.loadBalancer === undefined) {
+        if (lumirt.defaultIfComputed(args.loadBalancer, "") === undefined) {
             throw new Error("Property argument 'loadBalancer' is required, but was missing");
         }
         this.loadBalancer = args.loadBalancer;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class MysqlLayer extends lumi.NamedResource implements MysqlLayerArgs {
     public readonly autoAssignElasticIps?: boolean;
@@ -49,7 +50,7 @@ export class MysqlLayer extends lumi.NamedResource implements MysqlLayerArgs {
         this.mysqlLayerName = args.mysqlLayerName;
         this.rootPassword = args.rootPassword;
         this.rootPasswordOnAllInstances = args.rootPasswordOnAllInstances;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;

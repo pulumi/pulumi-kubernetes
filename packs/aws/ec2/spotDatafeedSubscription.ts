@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SpotDatafeedSubscription extends lumi.NamedResource implements SpotDatafeedSubscriptionArgs {
     public readonly bucket: string;
@@ -9,7 +10,7 @@ export class SpotDatafeedSubscription extends lumi.NamedResource implements Spot
 
     constructor(name: string, args: SpotDatafeedSubscriptionArgs) {
         super(name);
-        if (args.bucket === undefined) {
+        if (lumirt.defaultIfComputed(args.bucket, "") === undefined) {
             throw new Error("Property argument 'bucket' is required, but was missing");
         }
         this.bucket = args.bucket;

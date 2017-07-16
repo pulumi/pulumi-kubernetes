@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class AmiLaunchPermission extends lumi.NamedResource implements AmiLaunchPermissionArgs {
     public readonly accountId: string;
@@ -9,11 +10,11 @@ export class AmiLaunchPermission extends lumi.NamedResource implements AmiLaunch
 
     constructor(name: string, args: AmiLaunchPermissionArgs) {
         super(name);
-        if (args.accountId === undefined) {
+        if (lumirt.defaultIfComputed(args.accountId, "") === undefined) {
             throw new Error("Property argument 'accountId' is required, but was missing");
         }
         this.accountId = args.accountId;
-        if (args.imageId === undefined) {
+        if (lumirt.defaultIfComputed(args.imageId, "") === undefined) {
             throw new Error("Property argument 'imageId' is required, but was missing");
         }
         this.imageId = args.imageId;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NatGateway extends lumi.NamedResource implements NatGatewayArgs {
     public readonly allocationId: string;
@@ -12,14 +13,14 @@ export class NatGateway extends lumi.NamedResource implements NatGatewayArgs {
 
     constructor(name: string, args: NatGatewayArgs) {
         super(name);
-        if (args.allocationId === undefined) {
+        if (lumirt.defaultIfComputed(args.allocationId, "") === undefined) {
             throw new Error("Property argument 'allocationId' is required, but was missing");
         }
         this.allocationId = args.allocationId;
         this.networkInterfaceId = args.networkInterfaceId;
         this.privateIp = args.privateIp;
         this.publicIp = args.publicIp;
-        if (args.subnetId === undefined) {
+        if (lumirt.defaultIfComputed(args.subnetId, "") === undefined) {
             throw new Error("Property argument 'subnetId' is required, but was missing");
         }
         this.subnetId = args.subnetId;

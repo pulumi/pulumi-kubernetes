@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Service extends lumi.NamedResource implements ServiceArgs {
     public readonly location: string;
@@ -14,18 +15,18 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
 
     constructor(name: string, args: ServiceArgs) {
         super(name);
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.serviceName = args.serviceName;
         this.partitionCount = args.partitionCount;
         this.replicaCount = args.replicaCount;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.sku === undefined) {
+        if (lumirt.defaultIfComputed(args.sku, "") === undefined) {
             throw new Error("Property argument 'sku' is required, but was missing");
         }
         this.sku = args.sku;

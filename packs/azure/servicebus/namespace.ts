@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Namespace extends lumi.NamedResource implements NamespaceArgs {
     public readonly capacity?: number;
@@ -18,16 +19,16 @@ export class Namespace extends lumi.NamedResource implements NamespaceArgs {
     constructor(name: string, args: NamespaceArgs) {
         super(name);
         this.capacity = args.capacity;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.namespaceName = args.namespaceName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.sku === undefined) {
+        if (lumirt.defaultIfComputed(args.sku, "") === undefined) {
             throw new Error("Property argument 'sku' is required, but was missing");
         }
         this.sku = args.sku;

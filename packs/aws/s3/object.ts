@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Object extends lumi.NamedResource implements ObjectArgs {
     public readonly acl?: string;
@@ -25,7 +26,7 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
     constructor(name: string, args: ObjectArgs) {
         super(name);
         this.acl = args.acl;
-        if (args.bucket === undefined) {
+        if (lumirt.defaultIfComputed(args.bucket, "") === undefined) {
             throw new Error("Property argument 'bucket' is required, but was missing");
         }
         this.bucket = args.bucket;
@@ -36,7 +37,7 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
         this.contentLanguage = args.contentLanguage;
         this.contentType = args.contentType;
         this.etag = args.etag;
-        if (args.key === undefined) {
+        if (lumirt.defaultIfComputed(args.key, "") === undefined) {
             throw new Error("Property argument 'key' is required, but was missing");
         }
         this.key = args.key;

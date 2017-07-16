@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {Deployment} from "./deployment";
 import {RestApi} from "./restApi";
@@ -22,17 +23,17 @@ export class Stage extends lumi.NamedResource implements StageArgs {
         this.cacheClusterEnabled = args.cacheClusterEnabled;
         this.cacheClusterSize = args.cacheClusterSize;
         this.clientCertificateId = args.clientCertificateId;
-        if (args.deployment === undefined) {
+        if (lumirt.defaultIfComputed(args.deployment, "") === undefined) {
             throw new Error("Property argument 'deployment' is required, but was missing");
         }
         this.deployment = args.deployment;
         this.description = args.description;
         this.documentationVersion = args.documentationVersion;
-        if (args.restApi === undefined) {
+        if (lumirt.defaultIfComputed(args.restApi, "") === undefined) {
             throw new Error("Property argument 'restApi' is required, but was missing");
         }
         this.restApi = args.restApi;
-        if (args.stageName === undefined) {
+        if (lumirt.defaultIfComputed(args.stageName, "") === undefined) {
             throw new Error("Property argument 'stageName' is required, but was missing");
         }
         this.stageName = args.stageName;

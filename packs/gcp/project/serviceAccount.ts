@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ServiceAccount extends lumi.NamedResource implements ServiceAccountArgs {
     public readonly accountId: string;
@@ -14,7 +15,7 @@ export class ServiceAccount extends lumi.NamedResource implements ServiceAccount
 
     constructor(name: string, args: ServiceAccountArgs) {
         super(name);
-        if (args.accountId === undefined) {
+        if (lumirt.defaultIfComputed(args.accountId, "") === undefined) {
             throw new Error("Property argument 'accountId' is required, but was missing");
         }
         this.accountId = args.accountId;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class AmiFromInstance extends lumi.NamedResource implements AmiFromInstanceArgs {
     public /*out*/ readonly architecture: string;
@@ -28,7 +29,7 @@ export class AmiFromInstance extends lumi.NamedResource implements AmiFromInstan
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
         this.amiFromInstanceName = args.amiFromInstanceName;
         this.snapshotWithoutReboot = args.snapshotWithoutReboot;
-        if (args.sourceInstanceId === undefined) {
+        if (lumirt.defaultIfComputed(args.sourceInstanceId, "") === undefined) {
             throw new Error("Property argument 'sourceInstanceId' is required, but was missing");
         }
         this.sourceInstanceId = args.sourceInstanceId;

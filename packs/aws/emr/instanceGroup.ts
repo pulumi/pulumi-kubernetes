@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class InstanceGroup extends lumi.NamedResource implements InstanceGroupArgs {
     public readonly clusterId: string;
@@ -15,14 +16,14 @@ export class InstanceGroup extends lumi.NamedResource implements InstanceGroupAr
 
     constructor(name: string, args: InstanceGroupArgs) {
         super(name);
-        if (args.clusterId === undefined) {
+        if (lumirt.defaultIfComputed(args.clusterId, "") === undefined) {
             throw new Error("Property argument 'clusterId' is required, but was missing");
         }
         this.clusterId = args.clusterId;
         this.ebsConfig = args.ebsConfig;
         this.ebsOptimized = args.ebsOptimized;
         this.instanceCount = args.instanceCount;
-        if (args.instanceType === undefined) {
+        if (lumirt.defaultIfComputed(args.instanceType, "") === undefined) {
             throw new Error("Property argument 'instanceType' is required, but was missing");
         }
         this.instanceType = args.instanceType;

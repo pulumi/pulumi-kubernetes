@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Group extends lumi.NamedResource implements GroupArgs {
     public /*out*/ readonly arn: string;
@@ -42,18 +43,18 @@ export class Group extends lumi.NamedResource implements GroupArgs {
         this.healthCheckGracePeriod = args.healthCheckGracePeriod;
         this.healthCheckType = args.healthCheckType;
         this.initialLifecycleHook = args.initialLifecycleHook;
-        if (args.launchConfiguration === undefined) {
+        if (lumirt.defaultIfComputed(args.launchConfiguration, "") === undefined) {
             throw new Error("Property argument 'launchConfiguration' is required, but was missing");
         }
         this.launchConfiguration = args.launchConfiguration;
         this.loadBalancers = args.loadBalancers;
-        if (args.maxSize === undefined) {
+        if (lumirt.defaultIfComputed(args.maxSize, "") === undefined) {
             throw new Error("Property argument 'maxSize' is required, but was missing");
         }
         this.maxSize = args.maxSize;
         this.metricsGranularity = args.metricsGranularity;
         this.minElbCapacity = args.minElbCapacity;
-        if (args.minSize === undefined) {
+        if (lumirt.defaultIfComputed(args.minSize, "") === undefined) {
             throw new Error("Property argument 'minSize' is required, but was missing");
         }
         this.minSize = args.minSize;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NatPool extends lumi.NamedResource implements NatPoolArgs {
     public readonly backendPort: number;
@@ -17,33 +18,33 @@ export class NatPool extends lumi.NamedResource implements NatPoolArgs {
 
     constructor(name: string, args: NatPoolArgs) {
         super(name);
-        if (args.backendPort === undefined) {
+        if (lumirt.defaultIfComputed(args.backendPort, "") === undefined) {
             throw new Error("Property argument 'backendPort' is required, but was missing");
         }
         this.backendPort = args.backendPort;
-        if (args.frontendIpConfigurationName === undefined) {
+        if (lumirt.defaultIfComputed(args.frontendIpConfigurationName, "") === undefined) {
             throw new Error("Property argument 'frontendIpConfigurationName' is required, but was missing");
         }
         this.frontendIpConfigurationName = args.frontendIpConfigurationName;
-        if (args.frontendPortEnd === undefined) {
+        if (lumirt.defaultIfComputed(args.frontendPortEnd, "") === undefined) {
             throw new Error("Property argument 'frontendPortEnd' is required, but was missing");
         }
         this.frontendPortEnd = args.frontendPortEnd;
-        if (args.frontendPortStart === undefined) {
+        if (lumirt.defaultIfComputed(args.frontendPortStart, "") === undefined) {
             throw new Error("Property argument 'frontendPortStart' is required, but was missing");
         }
         this.frontendPortStart = args.frontendPortStart;
-        if (args.loadbalancerId === undefined) {
+        if (lumirt.defaultIfComputed(args.loadbalancerId, "") === undefined) {
             throw new Error("Property argument 'loadbalancerId' is required, but was missing");
         }
         this.loadbalancerId = args.loadbalancerId;
         this.location = args.location;
         this.natPoolName = args.natPoolName;
-        if (args.protocol === undefined) {
+        if (lumirt.defaultIfComputed(args.protocol, "") === undefined) {
             throw new Error("Property argument 'protocol' is required, but was missing");
         }
         this.protocol = args.protocol;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs {
     public readonly accessLogs?: { bucket: string, bucketPrefix?: string, enabled?: boolean, interval?: number }[];
@@ -35,7 +36,7 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
         this.idleTimeout = args.idleTimeout;
         this.instances = args.instances;
         this.internal = args.internal;
-        if (args.listener === undefined) {
+        if (lumirt.defaultIfComputed(args.listener, "") === undefined) {
             throw new Error("Property argument 'listener' is required, but was missing");
         }
         this.listener = args.listener;

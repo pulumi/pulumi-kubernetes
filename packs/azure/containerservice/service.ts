@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Service extends lumi.NamedResource implements ServiceArgs {
     public readonly agentPoolProfile: { count?: number, dnsPrefix: string, fqdn: string, name: string, vmSize: string }[];
@@ -17,32 +18,32 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
 
     constructor(name: string, args: ServiceArgs) {
         super(name);
-        if (args.agentPoolProfile === undefined) {
+        if (lumirt.defaultIfComputed(args.agentPoolProfile, "") === undefined) {
             throw new Error("Property argument 'agentPoolProfile' is required, but was missing");
         }
         this.agentPoolProfile = args.agentPoolProfile;
-        if (args.diagnosticsProfile === undefined) {
+        if (lumirt.defaultIfComputed(args.diagnosticsProfile, "") === undefined) {
             throw new Error("Property argument 'diagnosticsProfile' is required, but was missing");
         }
         this.diagnosticsProfile = args.diagnosticsProfile;
-        if (args.linuxProfile === undefined) {
+        if (lumirt.defaultIfComputed(args.linuxProfile, "") === undefined) {
             throw new Error("Property argument 'linuxProfile' is required, but was missing");
         }
         this.linuxProfile = args.linuxProfile;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
-        if (args.masterProfile === undefined) {
+        if (lumirt.defaultIfComputed(args.masterProfile, "") === undefined) {
             throw new Error("Property argument 'masterProfile' is required, but was missing");
         }
         this.masterProfile = args.masterProfile;
         this.serviceName = args.serviceName;
-        if (args.orchestrationPlatform === undefined) {
+        if (lumirt.defaultIfComputed(args.orchestrationPlatform, "") === undefined) {
             throw new Error("Property argument 'orchestrationPlatform' is required, but was missing");
         }
         this.orchestrationPlatform = args.orchestrationPlatform;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

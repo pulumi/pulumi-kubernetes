@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SpotInstanceRequest extends lumi.NamedResource implements SpotInstanceRequestArgs {
     public readonly ami: string;
@@ -46,7 +47,7 @@ export class SpotInstanceRequest extends lumi.NamedResource implements SpotInsta
 
     constructor(name: string, args: SpotInstanceRequestArgs) {
         super(name);
-        if (args.ami === undefined) {
+        if (lumirt.defaultIfComputed(args.ami, "") === undefined) {
             throw new Error("Property argument 'ami' is required, but was missing");
         }
         this.ami = args.ami;
@@ -59,7 +60,7 @@ export class SpotInstanceRequest extends lumi.NamedResource implements SpotInsta
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
         this.iamInstanceProfile = args.iamInstanceProfile;
         this.instanceInitiatedShutdownBehavior = args.instanceInitiatedShutdownBehavior;
-        if (args.instanceType === undefined) {
+        if (lumirt.defaultIfComputed(args.instanceType, "") === undefined) {
             throw new Error("Property argument 'instanceType' is required, but was missing");
         }
         this.instanceType = args.instanceType;
@@ -73,7 +74,7 @@ export class SpotInstanceRequest extends lumi.NamedResource implements SpotInsta
         this.rootBlockDevice = args.rootBlockDevice;
         this.securityGroups = args.securityGroups;
         this.sourceDestCheck = args.sourceDestCheck;
-        if (args.spotPrice === undefined) {
+        if (lumirt.defaultIfComputed(args.spotPrice, "") === undefined) {
             throw new Error("Property argument 'spotPrice' is required, but was missing");
         }
         this.spotPrice = args.spotPrice;

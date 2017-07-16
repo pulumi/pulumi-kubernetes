@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SamlProvider extends lumi.NamedResource implements SamlProviderArgs {
     public /*out*/ readonly arn: string;
@@ -12,7 +13,7 @@ export class SamlProvider extends lumi.NamedResource implements SamlProviderArgs
     constructor(name: string, args: SamlProviderArgs) {
         super(name);
         this.samlProviderName = args.samlProviderName;
-        if (args.samlMetadataDocument === undefined) {
+        if (lumirt.defaultIfComputed(args.samlMetadataDocument, "") === undefined) {
             throw new Error("Property argument 'samlMetadataDocument' is required, but was missing");
         }
         this.samlMetadataDocument = args.samlMetadataDocument;

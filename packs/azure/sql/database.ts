@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Database extends lumi.NamedResource implements DatabaseArgs {
     public readonly collation: string;
@@ -29,7 +30,7 @@ export class Database extends lumi.NamedResource implements DatabaseArgs {
         this.createMode = args.createMode;
         this.edition = args.edition;
         this.elasticPoolName = args.elasticPoolName;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
@@ -37,12 +38,12 @@ export class Database extends lumi.NamedResource implements DatabaseArgs {
         this.databaseName = args.databaseName;
         this.requestedServiceObjectiveId = args.requestedServiceObjectiveId;
         this.requestedServiceObjectiveName = args.requestedServiceObjectiveName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.restorePointInTime = args.restorePointInTime;
-        if (args.serverName === undefined) {
+        if (lumirt.defaultIfComputed(args.serverName, "") === undefined) {
             throw new Error("Property argument 'serverName' is required, but was missing");
         }
         this.serverName = args.serverName;

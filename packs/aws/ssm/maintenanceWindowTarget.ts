@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class MaintenanceWindowTarget extends lumi.NamedResource implements MaintenanceWindowTargetArgs {
     public readonly ownerInformation?: string;
@@ -12,15 +13,15 @@ export class MaintenanceWindowTarget extends lumi.NamedResource implements Maint
     constructor(name: string, args: MaintenanceWindowTargetArgs) {
         super(name);
         this.ownerInformation = args.ownerInformation;
-        if (args.resourceType === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceType, "") === undefined) {
             throw new Error("Property argument 'resourceType' is required, but was missing");
         }
         this.resourceType = args.resourceType;
-        if (args.targets === undefined) {
+        if (lumirt.defaultIfComputed(args.targets, "") === undefined) {
             throw new Error("Property argument 'targets' is required, but was missing");
         }
         this.targets = args.targets;
-        if (args.windowId === undefined) {
+        if (lumirt.defaultIfComputed(args.windowId, "") === undefined) {
             throw new Error("Property argument 'windowId' is required, but was missing");
         }
         this.windowId = args.windowId;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class MemcachedLayer extends lumi.NamedResource implements MemcachedLayerArgs {
     public readonly allocatedMemory?: number;
@@ -47,7 +48,7 @@ export class MemcachedLayer extends lumi.NamedResource implements MemcachedLayer
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
         this.memcachedLayerName = args.memcachedLayerName;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;

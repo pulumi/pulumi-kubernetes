@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RouterPeer extends lumi.NamedResource implements RouterPeerArgs {
     public readonly advertisedRoutePriority?: number;
@@ -17,19 +18,19 @@ export class RouterPeer extends lumi.NamedResource implements RouterPeerArgs {
     constructor(name: string, args: RouterPeerArgs) {
         super(name);
         this.advertisedRoutePriority = args.advertisedRoutePriority;
-        if (args.interface === undefined) {
+        if (lumirt.defaultIfComputed(args.interface, "") === undefined) {
             throw new Error("Property argument 'interface' is required, but was missing");
         }
         this.interface = args.interface;
         this.routerPeerName = args.routerPeerName;
-        if (args.peerAsn === undefined) {
+        if (lumirt.defaultIfComputed(args.peerAsn, "") === undefined) {
             throw new Error("Property argument 'peerAsn' is required, but was missing");
         }
         this.peerAsn = args.peerAsn;
         this.peerIpAddress = args.peerIpAddress;
         this.project = args.project;
         this.region = args.region;
-        if (args.router === undefined) {
+        if (lumirt.defaultIfComputed(args.router, "") === undefined) {
             throw new Error("Property argument 'router' is required, but was missing");
         }
         this.router = args.router;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class PatchBaseline extends lumi.NamedResource implements PatchBaselineArgs {
     public readonly approvalRule?: { approveAfterDays: number, patchFilter: { key: string, values: string[] }[] }[];

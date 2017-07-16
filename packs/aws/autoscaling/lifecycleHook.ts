@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class LifecycleHook extends lumi.NamedResource implements LifecycleHookArgs {
     public readonly autoscalingGroupName: string;
@@ -15,13 +16,13 @@ export class LifecycleHook extends lumi.NamedResource implements LifecycleHookAr
 
     constructor(name: string, args: LifecycleHookArgs) {
         super(name);
-        if (args.autoscalingGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.autoscalingGroupName, "") === undefined) {
             throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");
         }
         this.autoscalingGroupName = args.autoscalingGroupName;
         this.defaultResult = args.defaultResult;
         this.heartbeatTimeout = args.heartbeatTimeout;
-        if (args.lifecycleTransition === undefined) {
+        if (lumirt.defaultIfComputed(args.lifecycleTransition, "") === undefined) {
             throw new Error("Property argument 'lifecycleTransition' is required, but was missing");
         }
         this.lifecycleTransition = args.lifecycleTransition;

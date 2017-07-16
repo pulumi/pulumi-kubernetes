@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ManagedZone extends lumi.NamedResource implements ManagedZoneArgs {
     public readonly description?: string;
@@ -13,7 +14,7 @@ export class ManagedZone extends lumi.NamedResource implements ManagedZoneArgs {
     constructor(name: string, args: ManagedZoneArgs) {
         super(name);
         this.description = args.description;
-        if (args.dnsName === undefined) {
+        if (lumirt.defaultIfComputed(args.dnsName, "") === undefined) {
             throw new Error("Property argument 'dnsName' is required, but was missing");
         }
         this.dnsName = args.dnsName;

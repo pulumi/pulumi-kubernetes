@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Policy extends lumi.NamedResource implements PolicyArgs {
     public /*out*/ readonly arn: string;
@@ -17,7 +18,7 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
         this.policyName = args.policyName;
         this.namePrefix = args.namePrefix;
         this.path = args.path;
-        if (args.policy === undefined) {
+        if (lumirt.defaultIfComputed(args.policy, "") === undefined) {
             throw new Error("Property argument 'policy' is required, but was missing");
         }
         this.policy = args.policy;

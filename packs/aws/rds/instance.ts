@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Instance extends lumi.NamedResource implements InstanceArgs {
     public /*out*/ readonly address: string;
@@ -70,7 +71,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.iamDatabaseAuthenticationEnabled = args.iamDatabaseAuthenticationEnabled;
         this.identifier = args.identifier;
         this.identifierPrefix = args.identifierPrefix;
-        if (args.instanceClass === undefined) {
+        if (lumirt.defaultIfComputed(args.instanceClass, "") === undefined) {
             throw new Error("Property argument 'instanceClass' is required, but was missing");
         }
         this.instanceClass = args.instanceClass;

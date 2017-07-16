@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Project extends lumi.NamedResource implements ProjectArgs {
     public readonly artifacts: { location?: string, name?: string, namespaceType?: string, packaging?: string, path?: string, type: string }[];
@@ -16,20 +17,20 @@ export class Project extends lumi.NamedResource implements ProjectArgs {
 
     constructor(name: string, args: ProjectArgs) {
         super(name);
-        if (args.artifacts === undefined) {
+        if (lumirt.defaultIfComputed(args.artifacts, "") === undefined) {
             throw new Error("Property argument 'artifacts' is required, but was missing");
         }
         this.artifacts = args.artifacts;
         this.buildTimeout = args.buildTimeout;
         this.description = args.description;
         this.encryptionKey = args.encryptionKey;
-        if (args.environment === undefined) {
+        if (lumirt.defaultIfComputed(args.environment, "") === undefined) {
             throw new Error("Property argument 'environment' is required, but was missing");
         }
         this.environment = args.environment;
         this.projectName = args.projectName;
         this.serviceRole = args.serviceRole;
-        if (args.source === undefined) {
+        if (lumirt.defaultIfComputed(args.source, "") === undefined) {
             throw new Error("Property argument 'source' is required, but was missing");
         }
         this.source = args.source;

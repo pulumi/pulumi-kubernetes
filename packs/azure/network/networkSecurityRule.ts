@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NetworkSecurityRule extends lumi.NamedResource implements NetworkSecurityRuleArgs {
     public readonly access: string;
@@ -19,45 +20,45 @@ export class NetworkSecurityRule extends lumi.NamedResource implements NetworkSe
 
     constructor(name: string, args: NetworkSecurityRuleArgs) {
         super(name);
-        if (args.access === undefined) {
+        if (lumirt.defaultIfComputed(args.access, "") === undefined) {
             throw new Error("Property argument 'access' is required, but was missing");
         }
         this.access = args.access;
         this.description = args.description;
-        if (args.destinationAddressPrefix === undefined) {
+        if (lumirt.defaultIfComputed(args.destinationAddressPrefix, "") === undefined) {
             throw new Error("Property argument 'destinationAddressPrefix' is required, but was missing");
         }
         this.destinationAddressPrefix = args.destinationAddressPrefix;
-        if (args.destinationPortRange === undefined) {
+        if (lumirt.defaultIfComputed(args.destinationPortRange, "") === undefined) {
             throw new Error("Property argument 'destinationPortRange' is required, but was missing");
         }
         this.destinationPortRange = args.destinationPortRange;
-        if (args.direction === undefined) {
+        if (lumirt.defaultIfComputed(args.direction, "") === undefined) {
             throw new Error("Property argument 'direction' is required, but was missing");
         }
         this.direction = args.direction;
         this.networkSecurityRuleName = args.networkSecurityRuleName;
-        if (args.networkSecurityGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.networkSecurityGroupName, "") === undefined) {
             throw new Error("Property argument 'networkSecurityGroupName' is required, but was missing");
         }
         this.networkSecurityGroupName = args.networkSecurityGroupName;
-        if (args.priority === undefined) {
+        if (lumirt.defaultIfComputed(args.priority, "") === undefined) {
             throw new Error("Property argument 'priority' is required, but was missing");
         }
         this.priority = args.priority;
-        if (args.protocol === undefined) {
+        if (lumirt.defaultIfComputed(args.protocol, "") === undefined) {
             throw new Error("Property argument 'protocol' is required, but was missing");
         }
         this.protocol = args.protocol;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.sourceAddressPrefix === undefined) {
+        if (lumirt.defaultIfComputed(args.sourceAddressPrefix, "") === undefined) {
             throw new Error("Property argument 'sourceAddressPrefix' is required, but was missing");
         }
         this.sourceAddressPrefix = args.sourceAddressPrefix;
-        if (args.sourcePortRange === undefined) {
+        if (lumirt.defaultIfComputed(args.sourcePortRange, "") === undefined) {
             throw new Error("Property argument 'sourcePortRange' is required, but was missing");
         }
         this.sourcePortRange = args.sourcePortRange;

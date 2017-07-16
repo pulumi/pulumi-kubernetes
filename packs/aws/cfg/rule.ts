@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Rule extends lumi.NamedResource implements RuleArgs {
     public /*out*/ readonly arn: string;
@@ -20,7 +21,7 @@ export class Rule extends lumi.NamedResource implements RuleArgs {
         this.maximumExecutionFrequency = args.maximumExecutionFrequency;
         this.ruleName = args.ruleName;
         this.scope = args.scope;
-        if (args.source === undefined) {
+        if (lumirt.defaultIfComputed(args.source, "") === undefined) {
             throw new Error("Property argument 'source' is required, but was missing");
         }
         this.source = args.source;

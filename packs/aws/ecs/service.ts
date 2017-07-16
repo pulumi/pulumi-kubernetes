@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Service extends lumi.NamedResource implements ServiceArgs {
     public readonly cluster: string;
@@ -26,7 +27,7 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
         this.serviceName = args.serviceName;
         this.placementConstraints = args.placementConstraints;
         this.placementStrategy = args.placementStrategy;
-        if (args.taskDefinition === undefined) {
+        if (lumirt.defaultIfComputed(args.taskDefinition, "") === undefined) {
             throw new Error("Property argument 'taskDefinition' is required, but was missing");
         }
         this.taskDefinition = args.taskDefinition;

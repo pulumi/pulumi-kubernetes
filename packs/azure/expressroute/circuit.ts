@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Circuit extends lumi.NamedResource implements CircuitArgs {
     public readonly allowClassicOperations?: boolean;
@@ -19,28 +20,28 @@ export class Circuit extends lumi.NamedResource implements CircuitArgs {
     constructor(name: string, args: CircuitArgs) {
         super(name);
         this.allowClassicOperations = args.allowClassicOperations;
-        if (args.bandwidthInMbps === undefined) {
+        if (lumirt.defaultIfComputed(args.bandwidthInMbps, "") === undefined) {
             throw new Error("Property argument 'bandwidthInMbps' is required, but was missing");
         }
         this.bandwidthInMbps = args.bandwidthInMbps;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.circuitName = args.circuitName;
-        if (args.peeringLocation === undefined) {
+        if (lumirt.defaultIfComputed(args.peeringLocation, "") === undefined) {
             throw new Error("Property argument 'peeringLocation' is required, but was missing");
         }
         this.peeringLocation = args.peeringLocation;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.serviceProviderName === undefined) {
+        if (lumirt.defaultIfComputed(args.serviceProviderName, "") === undefined) {
             throw new Error("Property argument 'serviceProviderName' is required, but was missing");
         }
         this.serviceProviderName = args.serviceProviderName;
-        if (args.sku === undefined) {
+        if (lumirt.defaultIfComputed(args.sku, "") === undefined) {
             throw new Error("Property argument 'sku' is required, but was missing");
         }
         this.sku = args.sku;

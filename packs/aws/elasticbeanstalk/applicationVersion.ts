@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ApplicationVersion extends lumi.NamedResource implements ApplicationVersionArgs {
     public readonly application: string;
@@ -13,17 +14,17 @@ export class ApplicationVersion extends lumi.NamedResource implements Applicatio
 
     constructor(name: string, args: ApplicationVersionArgs) {
         super(name);
-        if (args.application === undefined) {
+        if (lumirt.defaultIfComputed(args.application, "") === undefined) {
             throw new Error("Property argument 'application' is required, but was missing");
         }
         this.application = args.application;
-        if (args.bucket === undefined) {
+        if (lumirt.defaultIfComputed(args.bucket, "") === undefined) {
             throw new Error("Property argument 'bucket' is required, but was missing");
         }
         this.bucket = args.bucket;
         this.description = args.description;
         this.forceDelete = args.forceDelete;
-        if (args.key === undefined) {
+        if (lumirt.defaultIfComputed(args.key, "") === undefined) {
             throw new Error("Property argument 'key' is required, but was missing");
         }
         this.key = args.key;

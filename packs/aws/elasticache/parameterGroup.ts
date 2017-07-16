@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ParameterGroup extends lumi.NamedResource implements ParameterGroupArgs {
     public readonly description?: string;
@@ -12,7 +13,7 @@ export class ParameterGroup extends lumi.NamedResource implements ParameterGroup
     constructor(name: string, args: ParameterGroupArgs) {
         super(name);
         this.description = args.description;
-        if (args.family === undefined) {
+        if (lumirt.defaultIfComputed(args.family, "") === undefined) {
             throw new Error("Property argument 'family' is required, but was missing");
         }
         this.family = args.family;

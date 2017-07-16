@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {RestApi} from "./restApi";
 
@@ -13,15 +14,15 @@ export class Resource extends lumi.NamedResource implements ResourceArgs {
 
     constructor(name: string, args: ResourceArgs) {
         super(name);
-        if (args.parentId === undefined) {
+        if (lumirt.defaultIfComputed(args.parentId, "") === undefined) {
             throw new Error("Property argument 'parentId' is required, but was missing");
         }
         this.parentId = args.parentId;
-        if (args.pathPart === undefined) {
+        if (lumirt.defaultIfComputed(args.pathPart, "") === undefined) {
             throw new Error("Property argument 'pathPart' is required, but was missing");
         }
         this.pathPart = args.pathPart;
-        if (args.restApi === undefined) {
+        if (lumirt.defaultIfComputed(args.restApi, "") === undefined) {
             throw new Error("Property argument 'restApi' is required, but was missing");
         }
         this.restApi = args.restApi;

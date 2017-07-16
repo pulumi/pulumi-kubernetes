@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Record extends lumi.NamedResource implements RecordArgs {
     public readonly alias?: { evaluateTargetHealth: boolean, name: string, zoneId: string }[];
@@ -29,12 +30,12 @@ export class Record extends lumi.NamedResource implements RecordArgs {
         this.records = args.records;
         this.setIdentifier = args.setIdentifier;
         this.ttl = args.ttl;
-        if (args.type === undefined) {
+        if (lumirt.defaultIfComputed(args.type, "") === undefined) {
             throw new Error("Property argument 'type' is required, but was missing");
         }
         this.type = args.type;
         this.weightedRoutingPolicy = args.weightedRoutingPolicy;
-        if (args.zoneId === undefined) {
+        if (lumirt.defaultIfComputed(args.zoneId, "") === undefined) {
             throw new Error("Property argument 'zoneId' is required, but was missing");
         }
         this.zoneId = args.zoneId;

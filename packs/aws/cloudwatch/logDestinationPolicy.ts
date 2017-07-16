@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class LogDestinationPolicy extends lumi.NamedResource implements LogDestinationPolicyArgs {
     public readonly accessPolicy: string;
@@ -9,11 +10,11 @@ export class LogDestinationPolicy extends lumi.NamedResource implements LogDesti
 
     constructor(name: string, args: LogDestinationPolicyArgs) {
         super(name);
-        if (args.accessPolicy === undefined) {
+        if (lumirt.defaultIfComputed(args.accessPolicy, "") === undefined) {
             throw new Error("Property argument 'accessPolicy' is required, but was missing");
         }
         this.accessPolicy = args.accessPolicy;
-        if (args.destinationName === undefined) {
+        if (lumirt.defaultIfComputed(args.destinationName, "") === undefined) {
             throw new Error("Property argument 'destinationName' is required, but was missing");
         }
         this.destinationName = args.destinationName;

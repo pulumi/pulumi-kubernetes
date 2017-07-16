@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Directory extends lumi.NamedResource implements DirectoryArgs {
     public /*out*/ readonly accessUrl: string;
@@ -24,7 +25,7 @@ export class Directory extends lumi.NamedResource implements DirectoryArgs {
         this.description = args.description;
         this.enableSso = args.enableSso;
         this.directoryName = args.directoryName;
-        if (args.password === undefined) {
+        if (lumirt.defaultIfComputed(args.password, "") === undefined) {
             throw new Error("Property argument 'password' is required, but was missing");
         }
         this.password = args.password;

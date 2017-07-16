@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Document extends lumi.NamedResource implements DocumentArgs {
     public /*out*/ readonly arn: string;
@@ -23,11 +24,11 @@ export class Document extends lumi.NamedResource implements DocumentArgs {
 
     constructor(name: string, args: DocumentArgs) {
         super(name);
-        if (args.content === undefined) {
+        if (lumirt.defaultIfComputed(args.content, "") === undefined) {
             throw new Error("Property argument 'content' is required, but was missing");
         }
         this.content = args.content;
-        if (args.documentType === undefined) {
+        if (lumirt.defaultIfComputed(args.documentType, "") === undefined) {
             throw new Error("Property argument 'documentType' is required, but was missing");
         }
         this.documentType = args.documentType;

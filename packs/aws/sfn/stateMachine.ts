@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class StateMachine extends lumi.NamedResource implements StateMachineArgs {
     public /*out*/ readonly creationDate: string;
@@ -12,12 +13,12 @@ export class StateMachine extends lumi.NamedResource implements StateMachineArgs
 
     constructor(name: string, args: StateMachineArgs) {
         super(name);
-        if (args.definition === undefined) {
+        if (lumirt.defaultIfComputed(args.definition, "") === undefined) {
             throw new Error("Property argument 'definition' is required, but was missing");
         }
         this.definition = args.definition;
         this.stateMachineName = args.stateMachineName;
-        if (args.roleArn === undefined) {
+        if (lumirt.defaultIfComputed(args.roleArn, "") === undefined) {
             throw new Error("Property argument 'roleArn' is required, but was missing");
         }
         this.roleArn = args.roleArn;

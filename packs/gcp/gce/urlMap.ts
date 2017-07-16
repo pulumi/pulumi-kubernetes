@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class UrlMap extends lumi.NamedResource implements UrlMapArgs {
     public readonly defaultService: string;
@@ -17,7 +18,7 @@ export class UrlMap extends lumi.NamedResource implements UrlMapArgs {
 
     constructor(name: string, args: UrlMapArgs) {
         super(name);
-        if (args.defaultService === undefined) {
+        if (lumirt.defaultIfComputed(args.defaultService, "") === undefined) {
             throw new Error("Property argument 'defaultService' is required, but was missing");
         }
         this.defaultService = args.defaultService;

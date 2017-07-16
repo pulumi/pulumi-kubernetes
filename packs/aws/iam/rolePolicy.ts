@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RolePolicy extends lumi.NamedResource implements RolePolicyArgs {
     public readonly rolePolicyName: string;
@@ -13,11 +14,11 @@ export class RolePolicy extends lumi.NamedResource implements RolePolicyArgs {
         super(name);
         this.rolePolicyName = args.rolePolicyName;
         this.namePrefix = args.namePrefix;
-        if (args.policy === undefined) {
+        if (lumirt.defaultIfComputed(args.policy, "") === undefined) {
             throw new Error("Property argument 'policy' is required, but was missing");
         }
         this.policy = args.policy;
-        if (args.role === undefined) {
+        if (lumirt.defaultIfComputed(args.role, "") === undefined) {
             throw new Error("Property argument 'role' is required, but was missing");
         }
         this.role = args.role;

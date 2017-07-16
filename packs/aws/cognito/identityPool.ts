@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class IdentityPool extends lumi.NamedResource implements IdentityPoolArgs {
     public readonly allowUnauthenticatedIdentities?: boolean;
@@ -17,7 +18,7 @@ export class IdentityPool extends lumi.NamedResource implements IdentityPoolArgs
         this.allowUnauthenticatedIdentities = args.allowUnauthenticatedIdentities;
         this.cognitoIdentityProviders = args.cognitoIdentityProviders;
         this.developerProviderName = args.developerProviderName;
-        if (args.identityPoolName === undefined) {
+        if (lumirt.defaultIfComputed(args.identityPoolName, "") === undefined) {
             throw new Error("Property argument 'identityPoolName' is required, but was missing");
         }
         this.identityPoolName = args.identityPoolName;

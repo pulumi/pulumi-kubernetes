@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpnGateway extends lumi.NamedResource implements VpnGatewayArgs {
     public readonly description?: string;
@@ -15,7 +16,7 @@ export class VpnGateway extends lumi.NamedResource implements VpnGatewayArgs {
         super(name);
         this.description = args.description;
         this.vpnGatewayName = args.vpnGatewayName;
-        if (args.network === undefined) {
+        if (lumirt.defaultIfComputed(args.network, "") === undefined) {
             throw new Error("Property argument 'network' is required, but was missing");
         }
         this.network = args.network;

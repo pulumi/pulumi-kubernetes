@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {InstanceType} from "./instanceType";
 
@@ -41,7 +42,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
 
     constructor(name: string, args: InstanceArgs) {
         super(name);
-        if (args.ami === undefined) {
+        if (lumirt.defaultIfComputed(args.ami, "") === undefined) {
             throw new Error("Property argument 'ami' is required, but was missing");
         }
         this.ami = args.ami;
@@ -53,7 +54,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
         this.iamInstanceProfile = args.iamInstanceProfile;
         this.instanceInitiatedShutdownBehavior = args.instanceInitiatedShutdownBehavior;
-        if (args.instanceType === undefined) {
+        if (lumirt.defaultIfComputed(args.instanceType, "") === undefined) {
             throw new Error("Property argument 'instanceType' is required, but was missing");
         }
         this.instanceType = args.instanceType;

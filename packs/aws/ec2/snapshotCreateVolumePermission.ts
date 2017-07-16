@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SnapshotCreateVolumePermission extends lumi.NamedResource implements SnapshotCreateVolumePermissionArgs {
     public readonly accountId: string;
@@ -9,11 +10,11 @@ export class SnapshotCreateVolumePermission extends lumi.NamedResource implement
 
     constructor(name: string, args: SnapshotCreateVolumePermissionArgs) {
         super(name);
-        if (args.accountId === undefined) {
+        if (lumirt.defaultIfComputed(args.accountId, "") === undefined) {
             throw new Error("Property argument 'accountId' is required, but was missing");
         }
         this.accountId = args.accountId;
-        if (args.snapshotId === undefined) {
+        if (lumirt.defaultIfComputed(args.snapshotId, "") === undefined) {
             throw new Error("Property argument 'snapshotId' is required, but was missing");
         }
         this.snapshotId = args.snapshotId;

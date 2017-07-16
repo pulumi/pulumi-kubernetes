@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class PhpAppLayer extends lumi.NamedResource implements PhpAppLayerArgs {
     public readonly autoAssignElasticIps?: boolean;
@@ -45,7 +46,7 @@ export class PhpAppLayer extends lumi.NamedResource implements PhpAppLayerArgs {
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
         this.phpAppLayerName = args.phpAppLayerName;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;

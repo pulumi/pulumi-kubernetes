@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class GroupPolicy extends lumi.NamedResource implements GroupPolicyArgs {
     public readonly group: string;
@@ -11,13 +12,13 @@ export class GroupPolicy extends lumi.NamedResource implements GroupPolicyArgs {
 
     constructor(name: string, args: GroupPolicyArgs) {
         super(name);
-        if (args.group === undefined) {
+        if (lumirt.defaultIfComputed(args.group, "") === undefined) {
             throw new Error("Property argument 'group' is required, but was missing");
         }
         this.group = args.group;
         this.groupPolicyName = args.groupPolicyName;
         this.namePrefix = args.namePrefix;
-        if (args.policy === undefined) {
+        if (lumirt.defaultIfComputed(args.policy, "") === undefined) {
             throw new Error("Property argument 'policy' is required, but was missing");
         }
         this.policy = args.policy;

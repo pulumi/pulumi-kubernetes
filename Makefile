@@ -58,7 +58,7 @@ PACKS=$(wildcard packs/${ONLYPACK})
 $(PACKS):
 	$(eval PACK=$(notdir $@))
 	@$(ECHO) "[Building ${PACK} package:]"
-	cd packs/${PACK} && yarn link @lumi/lumi                   # ensure we resolve to Lumi's stdlib.
+	cd packs/${PACK} && yarn link @lumi/lumi @lumi/lumirt      # ensure we resolve to Lumi's stdlibs.
 	cd packs/${PACK} && lumijs                                 # compile the LumiPack.
 	cd packs/${PACK} && lumi pack verify                       # ensure the pack verifies.
 	$(eval INSTALLDIR := ${LUMILIB}/${PACK})

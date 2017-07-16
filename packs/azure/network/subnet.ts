@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Subnet extends lumi.NamedResource implements SubnetArgs {
     public readonly addressPrefix: string;
@@ -14,19 +15,19 @@ export class Subnet extends lumi.NamedResource implements SubnetArgs {
 
     constructor(name: string, args: SubnetArgs) {
         super(name);
-        if (args.addressPrefix === undefined) {
+        if (lumirt.defaultIfComputed(args.addressPrefix, "") === undefined) {
             throw new Error("Property argument 'addressPrefix' is required, but was missing");
         }
         this.addressPrefix = args.addressPrefix;
         this.ipConfigurations = args.ipConfigurations;
         this.subnetName = args.subnetName;
         this.networkSecurityGroupId = args.networkSecurityGroupId;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.routeTableId = args.routeTableId;
-        if (args.virtualNetworkName === undefined) {
+        if (lumirt.defaultIfComputed(args.virtualNetworkName, "") === undefined) {
             throw new Error("Property argument 'virtualNetworkName' is required, but was missing");
         }
         this.virtualNetworkName = args.virtualNetworkName;

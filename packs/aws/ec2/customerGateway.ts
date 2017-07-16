@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class CustomerGateway extends lumi.NamedResource implements CustomerGatewayArgs {
     public readonly bgpAsn: number;
@@ -11,16 +12,16 @@ export class CustomerGateway extends lumi.NamedResource implements CustomerGatew
 
     constructor(name: string, args: CustomerGatewayArgs) {
         super(name);
-        if (args.bgpAsn === undefined) {
+        if (lumirt.defaultIfComputed(args.bgpAsn, "") === undefined) {
             throw new Error("Property argument 'bgpAsn' is required, but was missing");
         }
         this.bgpAsn = args.bgpAsn;
-        if (args.ipAddress === undefined) {
+        if (lumirt.defaultIfComputed(args.ipAddress, "") === undefined) {
             throw new Error("Property argument 'ipAddress' is required, but was missing");
         }
         this.ipAddress = args.ipAddress;
         this.tags = args.tags;
-        if (args.type === undefined) {
+        if (lumirt.defaultIfComputed(args.type, "") === undefined) {
             throw new Error("Property argument 'type' is required, but was missing");
         }
         this.type = args.type;

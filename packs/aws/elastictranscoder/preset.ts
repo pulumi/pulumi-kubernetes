@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Preset extends lumi.NamedResource implements PresetArgs {
     public /*out*/ readonly arn: string;
@@ -20,7 +21,7 @@ export class Preset extends lumi.NamedResource implements PresetArgs {
         super(name);
         this.audio = args.audio;
         this.audioCodecOptions = args.audioCodecOptions;
-        if (args.container === undefined) {
+        if (lumirt.defaultIfComputed(args.container, "") === undefined) {
             throw new Error("Property argument 'container' is required, but was missing");
         }
         this.container = args.container;

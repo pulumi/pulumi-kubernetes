@@ -2,4 +2,5 @@ name: gcp
 description: A Lumi resource provider for gcp.
 dependencies:
     lumi: "*"
+    lumirt: "*"
 

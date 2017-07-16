@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class EventSourceMapping extends lumi.NamedResource implements EventSourceMappingArgs {
     public readonly batchSize?: number;
@@ -20,15 +21,15 @@ export class EventSourceMapping extends lumi.NamedResource implements EventSourc
         super(name);
         this.batchSize = args.batchSize;
         this.enabled = args.enabled;
-        if (args.eventSourceArn === undefined) {
+        if (lumirt.defaultIfComputed(args.eventSourceArn, "") === undefined) {
             throw new Error("Property argument 'eventSourceArn' is required, but was missing");
         }
         this.eventSourceArn = args.eventSourceArn;
-        if (args.functionName === undefined) {
+        if (lumirt.defaultIfComputed(args.functionName, "") === undefined) {
             throw new Error("Property argument 'functionName' is required, but was missing");
         }
         this.functionName = args.functionName;
-        if (args.startingPosition === undefined) {
+        if (lumirt.defaultIfComputed(args.startingPosition, "") === undefined) {
             throw new Error("Property argument 'startingPosition' is required, but was missing");
         }
         this.startingPosition = args.startingPosition;

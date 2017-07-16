@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Permission extends lumi.NamedResource implements PermissionArgs {
     public readonly allowSsh: boolean;
@@ -17,7 +18,7 @@ export class Permission extends lumi.NamedResource implements PermissionArgs {
         this.allowSudo = args.allowSudo;
         this.level = args.level;
         this.stackId = args.stackId;
-        if (args.userArn === undefined) {
+        if (lumirt.defaultIfComputed(args.userArn, "") === undefined) {
             throw new Error("Property argument 'userArn' is required, but was missing");
         }
         this.userArn = args.userArn;

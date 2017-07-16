@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Subnet extends lumi.NamedResource implements SubnetArgs {
     public readonly assignIpv6AddressOnCreation?: boolean;
@@ -17,14 +18,14 @@ export class Subnet extends lumi.NamedResource implements SubnetArgs {
         super(name);
         this.assignIpv6AddressOnCreation = args.assignIpv6AddressOnCreation;
         this.availabilityZone = args.availabilityZone;
-        if (args.cidrBlock === undefined) {
+        if (lumirt.defaultIfComputed(args.cidrBlock, "") === undefined) {
             throw new Error("Property argument 'cidrBlock' is required, but was missing");
         }
         this.cidrBlock = args.cidrBlock;
         this.ipv6CidrBlock = args.ipv6CidrBlock;
         this.mapPublicIpOnLaunch = args.mapPublicIpOnLaunch;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;

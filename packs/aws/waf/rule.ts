@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Rule extends lumi.NamedResource implements RuleArgs {
     public readonly metricName: string;
@@ -10,7 +11,7 @@ export class Rule extends lumi.NamedResource implements RuleArgs {
 
     constructor(name: string, args: RuleArgs) {
         super(name);
-        if (args.metricName === undefined) {
+        if (lumirt.defaultIfComputed(args.metricName, "") === undefined) {
             throw new Error("Property argument 'metricName' is required, but was missing");
         }
         this.metricName = args.metricName;

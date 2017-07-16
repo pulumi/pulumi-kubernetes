@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NetworkInterface extends lumi.NamedResource implements NetworkInterfaceArgs {
     public readonly attachment: { attachmentId: string, deviceIndex: number, instance: string }[];
@@ -23,7 +24,7 @@ export class NetworkInterface extends lumi.NamedResource implements NetworkInter
         this.privateIpsCount = args.privateIpsCount;
         this.securityGroups = args.securityGroups;
         this.sourceDestCheck = args.sourceDestCheck;
-        if (args.subnetId === undefined) {
+        if (lumirt.defaultIfComputed(args.subnetId, "") === undefined) {
             throw new Error("Property argument 'subnetId' is required, but was missing");
         }
         this.subnetId = args.subnetId;

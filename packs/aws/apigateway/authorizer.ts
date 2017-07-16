@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Authorizer extends lumi.NamedResource implements AuthorizerArgs {
     public readonly authorizerCredentials?: string;
@@ -17,14 +18,14 @@ export class Authorizer extends lumi.NamedResource implements AuthorizerArgs {
         super(name);
         this.authorizerCredentials = args.authorizerCredentials;
         this.authorizerResultTtlInSeconds = args.authorizerResultTtlInSeconds;
-        if (args.authorizerUri === undefined) {
+        if (lumirt.defaultIfComputed(args.authorizerUri, "") === undefined) {
             throw new Error("Property argument 'authorizerUri' is required, but was missing");
         }
         this.authorizerUri = args.authorizerUri;
         this.identitySource = args.identitySource;
         this.identityValidationExpression = args.identityValidationExpression;
         this.authorizerName = args.authorizerName;
-        if (args.restApiId === undefined) {
+        if (lumirt.defaultIfComputed(args.restApiId, "") === undefined) {
             throw new Error("Property argument 'restApiId' is required, but was missing");
         }
         this.restApiId = args.restApiId;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Schedule extends lumi.NamedResource implements ScheduleArgs {
     public /*out*/ readonly arn: string;
@@ -16,7 +17,7 @@ export class Schedule extends lumi.NamedResource implements ScheduleArgs {
 
     constructor(name: string, args: ScheduleArgs) {
         super(name);
-        if (args.autoscalingGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.autoscalingGroupName, "") === undefined) {
             throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");
         }
         this.autoscalingGroupName = args.autoscalingGroupName;
@@ -25,7 +26,7 @@ export class Schedule extends lumi.NamedResource implements ScheduleArgs {
         this.maxSize = args.maxSize;
         this.minSize = args.minSize;
         this.recurrence = args.recurrence;
-        if (args.scheduledActionName === undefined) {
+        if (lumirt.defaultIfComputed(args.scheduledActionName, "") === undefined) {
             throw new Error("Property argument 'scheduledActionName' is required, but was missing");
         }
         this.scheduledActionName = args.scheduledActionName;

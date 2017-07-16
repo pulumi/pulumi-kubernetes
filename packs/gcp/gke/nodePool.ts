@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NodePool extends lumi.NamedResource implements NodePoolArgs {
     public readonly cluster: string;
@@ -13,18 +14,18 @@ export class NodePool extends lumi.NamedResource implements NodePoolArgs {
 
     constructor(name: string, args: NodePoolArgs) {
         super(name);
-        if (args.cluster === undefined) {
+        if (lumirt.defaultIfComputed(args.cluster, "") === undefined) {
             throw new Error("Property argument 'cluster' is required, but was missing");
         }
         this.cluster = args.cluster;
-        if (args.initialNodeCount === undefined) {
+        if (lumirt.defaultIfComputed(args.initialNodeCount, "") === undefined) {
             throw new Error("Property argument 'initialNodeCount' is required, but was missing");
         }
         this.initialNodeCount = args.initialNodeCount;
         this.nodePoolName = args.nodePoolName;
         this.namePrefix = args.namePrefix;
         this.project = args.project;
-        if (args.zone === undefined) {
+        if (lumirt.defaultIfComputed(args.zone, "") === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
         this.zone = args.zone;

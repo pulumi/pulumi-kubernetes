@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {ARN} from "../index";
 import {Group} from "./group";
@@ -12,11 +13,11 @@ export class GroupPolicyAttachment extends lumi.NamedResource implements GroupPo
 
     constructor(name: string, args: GroupPolicyAttachmentArgs) {
         super(name);
-        if (args.group === undefined) {
+        if (lumirt.defaultIfComputed(args.group, "") === undefined) {
             throw new Error("Property argument 'group' is required, but was missing");
         }
         this.group = args.group;
-        if (args.policyArn === undefined) {
+        if (lumirt.defaultIfComputed(args.policyArn, "") === undefined) {
             throw new Error("Property argument 'policyArn' is required, but was missing");
         }
         this.policyArn = args.policyArn;

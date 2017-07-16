@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Blob extends lumi.NamedResource implements BlobArgs {
     public readonly attempts?: number;
@@ -21,18 +22,18 @@ export class Blob extends lumi.NamedResource implements BlobArgs {
         this.attempts = args.attempts;
         this.blobName = args.blobName;
         this.parallelism = args.parallelism;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.size = args.size;
         this.source = args.source;
         this.sourceUri = args.sourceUri;
-        if (args.storageAccountName === undefined) {
+        if (lumirt.defaultIfComputed(args.storageAccountName, "") === undefined) {
             throw new Error("Property argument 'storageAccountName' is required, but was missing");
         }
         this.storageAccountName = args.storageAccountName;
-        if (args.storageContainerName === undefined) {
+        if (lumirt.defaultIfComputed(args.storageContainerName, "") === undefined) {
             throw new Error("Property argument 'storageContainerName' is required, but was missing");
         }
         this.storageContainerName = args.storageContainerName;

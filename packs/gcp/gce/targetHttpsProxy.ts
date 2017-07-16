@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class TargetHttpsProxy extends lumi.NamedResource implements TargetHttpsProxyArgs {
     public readonly description?: string;
@@ -17,11 +18,11 @@ export class TargetHttpsProxy extends lumi.NamedResource implements TargetHttpsP
         this.description = args.description;
         this.targetHttpsProxyName = args.targetHttpsProxyName;
         this.project = args.project;
-        if (args.sslCertificates === undefined) {
+        if (lumirt.defaultIfComputed(args.sslCertificates, "") === undefined) {
             throw new Error("Property argument 'sslCertificates' is required, but was missing");
         }
         this.sslCertificates = args.sslCertificates;
-        if (args.urlMap === undefined) {
+        if (lumirt.defaultIfComputed(args.urlMap, "") === undefined) {
             throw new Error("Property argument 'urlMap' is required, but was missing");
         }
         this.urlMap = args.urlMap;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RecorderStatus extends lumi.NamedResource implements RecorderStatusArgs {
     public readonly isEnabled: boolean;
@@ -9,7 +10,7 @@ export class RecorderStatus extends lumi.NamedResource implements RecorderStatus
 
     constructor(name: string, args: RecorderStatusArgs) {
         super(name);
-        if (args.isEnabled === undefined) {
+        if (lumirt.defaultIfComputed(args.isEnabled, "") === undefined) {
             throw new Error("Property argument 'isEnabled' is required, but was missing");
         }
         this.isEnabled = args.isEnabled;

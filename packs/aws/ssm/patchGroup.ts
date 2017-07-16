@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class PatchGroup extends lumi.NamedResource implements PatchGroupArgs {
     public readonly baselineId: string;
@@ -9,11 +10,11 @@ export class PatchGroup extends lumi.NamedResource implements PatchGroupArgs {
 
     constructor(name: string, args: PatchGroupArgs) {
         super(name);
-        if (args.baselineId === undefined) {
+        if (lumirt.defaultIfComputed(args.baselineId, "") === undefined) {
             throw new Error("Property argument 'baselineId' is required, but was missing");
         }
         this.baselineId = args.baselineId;
-        if (args.patchGroup === undefined) {
+        if (lumirt.defaultIfComputed(args.patchGroup, "") === undefined) {
             throw new Error("Property argument 'patchGroup' is required, but was missing");
         }
         this.patchGroup = args.patchGroup;

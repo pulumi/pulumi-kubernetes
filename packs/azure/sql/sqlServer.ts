@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SqlServer extends lumi.NamedResource implements SqlServerArgs {
     public readonly administratorLogin: string;
@@ -15,25 +16,25 @@ export class SqlServer extends lumi.NamedResource implements SqlServerArgs {
 
     constructor(name: string, args: SqlServerArgs) {
         super(name);
-        if (args.administratorLogin === undefined) {
+        if (lumirt.defaultIfComputed(args.administratorLogin, "") === undefined) {
             throw new Error("Property argument 'administratorLogin' is required, but was missing");
         }
         this.administratorLogin = args.administratorLogin;
-        if (args.administratorLoginPassword === undefined) {
+        if (lumirt.defaultIfComputed(args.administratorLoginPassword, "") === undefined) {
             throw new Error("Property argument 'administratorLoginPassword' is required, but was missing");
         }
         this.administratorLoginPassword = args.administratorLoginPassword;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.sqlServerName = args.sqlServerName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
-        if (args.version === undefined) {
+        if (lumirt.defaultIfComputed(args.version, "") === undefined) {
             throw new Error("Property argument 'version' is required, but was missing");
         }
         this.version = args.version;

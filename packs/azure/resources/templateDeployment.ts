@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class TemplateDeployment extends lumi.NamedResource implements TemplateDeploymentArgs {
     public readonly deploymentMode: string;
@@ -13,13 +14,13 @@ export class TemplateDeployment extends lumi.NamedResource implements TemplateDe
 
     constructor(name: string, args: TemplateDeploymentArgs) {
         super(name);
-        if (args.deploymentMode === undefined) {
+        if (lumirt.defaultIfComputed(args.deploymentMode, "") === undefined) {
             throw new Error("Property argument 'deploymentMode' is required, but was missing");
         }
         this.deploymentMode = args.deploymentMode;
         this.templateDeploymentName = args.templateDeploymentName;
         this.parameters = args.parameters;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

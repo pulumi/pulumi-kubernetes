@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class BackendBucket extends lumi.NamedResource implements BackendBucketArgs {
     public readonly bucketName: string;
@@ -13,7 +14,7 @@ export class BackendBucket extends lumi.NamedResource implements BackendBucketAr
 
     constructor(name: string, args: BackendBucketArgs) {
         super(name);
-        if (args.bucketName === undefined) {
+        if (lumirt.defaultIfComputed(args.bucketName, "") === undefined) {
             throw new Error("Property argument 'bucketName' is required, but was missing");
         }
         this.bucketName = args.bucketName;

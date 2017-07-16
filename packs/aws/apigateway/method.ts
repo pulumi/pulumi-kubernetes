@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Method extends lumi.NamedResource implements MethodArgs {
     public readonly apiKeyRequired?: boolean;
@@ -18,12 +19,12 @@ export class Method extends lumi.NamedResource implements MethodArgs {
     constructor(name: string, args: MethodArgs) {
         super(name);
         this.apiKeyRequired = args.apiKeyRequired;
-        if (args.authorization === undefined) {
+        if (lumirt.defaultIfComputed(args.authorization, "") === undefined) {
             throw new Error("Property argument 'authorization' is required, but was missing");
         }
         this.authorization = args.authorization;
         this.authorizerId = args.authorizerId;
-        if (args.httpMethod === undefined) {
+        if (lumirt.defaultIfComputed(args.httpMethod, "") === undefined) {
             throw new Error("Property argument 'httpMethod' is required, but was missing");
         }
         this.httpMethod = args.httpMethod;
@@ -31,11 +32,11 @@ export class Method extends lumi.NamedResource implements MethodArgs {
         this.requestParameters = args.requestParameters;
         this.requestParametersInJson = args.requestParametersInJson;
         this.requestValidatorId = args.requestValidatorId;
-        if (args.resourceId === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceId, "") === undefined) {
             throw new Error("Property argument 'resourceId' is required, but was missing");
         }
         this.resourceId = args.resourceId;
-        if (args.restApiId === undefined) {
+        if (lumirt.defaultIfComputed(args.restApiId, "") === undefined) {
             throw new Error("Property argument 'restApiId' is required, but was missing");
         }
         this.restApiId = args.restApiId;

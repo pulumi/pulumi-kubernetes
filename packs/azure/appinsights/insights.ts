@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Insights extends lumi.NamedResource implements InsightsArgs {
     public /*out*/ readonly appId: string;
@@ -14,16 +15,16 @@ export class Insights extends lumi.NamedResource implements InsightsArgs {
 
     constructor(name: string, args: InsightsArgs) {
         super(name);
-        if (args.applicationType === undefined) {
+        if (lumirt.defaultIfComputed(args.applicationType, "") === undefined) {
             throw new Error("Property argument 'applicationType' is required, but was missing");
         }
         this.applicationType = args.applicationType;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.insightsName = args.insightsName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

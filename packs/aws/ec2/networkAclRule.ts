@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NetworkAclRule extends lumi.NamedResource implements NetworkAclRuleArgs {
     public readonly cidrBlock?: string;
@@ -24,19 +25,19 @@ export class NetworkAclRule extends lumi.NamedResource implements NetworkAclRule
         this.icmpCode = args.icmpCode;
         this.icmpType = args.icmpType;
         this.ipv6CidrBlock = args.ipv6CidrBlock;
-        if (args.networkAclId === undefined) {
+        if (lumirt.defaultIfComputed(args.networkAclId, "") === undefined) {
             throw new Error("Property argument 'networkAclId' is required, but was missing");
         }
         this.networkAclId = args.networkAclId;
-        if (args.protocol === undefined) {
+        if (lumirt.defaultIfComputed(args.protocol, "") === undefined) {
             throw new Error("Property argument 'protocol' is required, but was missing");
         }
         this.protocol = args.protocol;
-        if (args.ruleAction === undefined) {
+        if (lumirt.defaultIfComputed(args.ruleAction, "") === undefined) {
             throw new Error("Property argument 'ruleAction' is required, but was missing");
         }
         this.ruleAction = args.ruleAction;
-        if (args.ruleNumber === undefined) {
+        if (lumirt.defaultIfComputed(args.ruleNumber, "") === undefined) {
             throw new Error("Property argument 'ruleNumber' is required, but was missing");
         }
         this.ruleNumber = args.ruleNumber;

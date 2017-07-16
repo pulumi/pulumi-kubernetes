@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class HealthCheck extends lumi.NamedResource implements HealthCheckArgs {
     public readonly childHealthThreshold?: number;
@@ -42,7 +43,7 @@ export class HealthCheck extends lumi.NamedResource implements HealthCheckArgs {
         this.resourcePath = args.resourcePath;
         this.searchString = args.searchString;
         this.tags = args.tags;
-        if (args.type === undefined) {
+        if (lumirt.defaultIfComputed(args.type, "") === undefined) {
             throw new Error("Property argument 'type' is required, but was missing");
         }
         this.type = args.type;

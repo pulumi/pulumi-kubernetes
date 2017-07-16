@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SshKey extends lumi.NamedResource implements SshKeyArgs {
     public readonly encoding: string;
@@ -13,16 +14,16 @@ export class SshKey extends lumi.NamedResource implements SshKeyArgs {
 
     constructor(name: string, args: SshKeyArgs) {
         super(name);
-        if (args.encoding === undefined) {
+        if (lumirt.defaultIfComputed(args.encoding, "") === undefined) {
             throw new Error("Property argument 'encoding' is required, but was missing");
         }
         this.encoding = args.encoding;
-        if (args.publicKey === undefined) {
+        if (lumirt.defaultIfComputed(args.publicKey, "") === undefined) {
             throw new Error("Property argument 'publicKey' is required, but was missing");
         }
         this.publicKey = args.publicKey;
         this.status = args.status;
-        if (args.username === undefined) {
+        if (lumirt.defaultIfComputed(args.username, "") === undefined) {
             throw new Error("Property argument 'username' is required, but was missing");
         }
         this.username = args.username;

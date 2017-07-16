@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class StaticIpAttachment extends lumi.NamedResource implements StaticIpAttachmentArgs {
     public readonly instanceName: string;
@@ -9,11 +10,11 @@ export class StaticIpAttachment extends lumi.NamedResource implements StaticIpAt
 
     constructor(name: string, args: StaticIpAttachmentArgs) {
         super(name);
-        if (args.instanceName === undefined) {
+        if (lumirt.defaultIfComputed(args.instanceName, "") === undefined) {
             throw new Error("Property argument 'instanceName' is required, but was missing");
         }
         this.instanceName = args.instanceName;
-        if (args.staticIpName === undefined) {
+        if (lumirt.defaultIfComputed(args.staticIpName, "") === undefined) {
             throw new Error("Property argument 'staticIpName' is required, but was missing");
         }
         this.staticIpName = args.staticIpName;

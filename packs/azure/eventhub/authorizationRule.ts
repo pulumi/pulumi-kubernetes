@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class AuthorizationRule extends lumi.NamedResource implements AuthorizationRuleArgs {
     public readonly eventhubName: string;
@@ -19,22 +20,22 @@ export class AuthorizationRule extends lumi.NamedResource implements Authorizati
 
     constructor(name: string, args: AuthorizationRuleArgs) {
         super(name);
-        if (args.eventhubName === undefined) {
+        if (lumirt.defaultIfComputed(args.eventhubName, "") === undefined) {
             throw new Error("Property argument 'eventhubName' is required, but was missing");
         }
         this.eventhubName = args.eventhubName;
         this.listen = args.listen;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.manage = args.manage;
         this.authorizationRuleName = args.authorizationRuleName;
-        if (args.namespaceName === undefined) {
+        if (lumirt.defaultIfComputed(args.namespaceName, "") === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
         this.namespaceName = args.namespaceName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

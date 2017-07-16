@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Topic extends lumi.NamedResource implements TopicArgs {
     public readonly autoDeleteOnIdle: string;
@@ -28,18 +29,18 @@ export class Topic extends lumi.NamedResource implements TopicArgs {
         this.enableExpress = args.enableExpress;
         this.enableFilteringMessagesBeforePublishing = args.enableFilteringMessagesBeforePublishing;
         this.enablePartitioning = args.enablePartitioning;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.maxSizeInMegabytes = args.maxSizeInMegabytes;
         this.topicName = args.topicName;
-        if (args.namespaceName === undefined) {
+        if (lumirt.defaultIfComputed(args.namespaceName, "") === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
         this.namespaceName = args.namespaceName;
         this.requiresDuplicateDetection = args.requiresDuplicateDetection;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

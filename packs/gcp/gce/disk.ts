@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Disk extends lumi.NamedResource implements DiskArgs {
     public readonly diskEncryptionKeyRaw?: string;
@@ -25,7 +26,7 @@ export class Disk extends lumi.NamedResource implements DiskArgs {
         this.size = args.size;
         this.snapshot = args.snapshot;
         this.type = args.type;
-        if (args.zone === undefined) {
+        if (lumirt.defaultIfComputed(args.zone, "") === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
         this.zone = args.zone;

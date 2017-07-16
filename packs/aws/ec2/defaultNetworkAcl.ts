@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DefaultNetworkAcl extends lumi.NamedResource implements DefaultNetworkAclArgs {
     public readonly defaultNetworkAclId: string;
@@ -13,7 +14,7 @@ export class DefaultNetworkAcl extends lumi.NamedResource implements DefaultNetw
 
     constructor(name: string, args: DefaultNetworkAclArgs) {
         super(name);
-        if (args.defaultNetworkAclId === undefined) {
+        if (lumirt.defaultIfComputed(args.defaultNetworkAclId, "") === undefined) {
             throw new Error("Property argument 'defaultNetworkAclId' is required, but was missing");
         }
         this.defaultNetworkAclId = args.defaultNetworkAclId;

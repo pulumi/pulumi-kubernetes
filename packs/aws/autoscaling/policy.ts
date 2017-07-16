@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Policy extends lumi.NamedResource implements PolicyArgs {
     public readonly adjustmentType: string;
@@ -19,11 +20,11 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
 
     constructor(name: string, args: PolicyArgs) {
         super(name);
-        if (args.adjustmentType === undefined) {
+        if (lumirt.defaultIfComputed(args.adjustmentType, "") === undefined) {
             throw new Error("Property argument 'adjustmentType' is required, but was missing");
         }
         this.adjustmentType = args.adjustmentType;
-        if (args.autoscalingGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.autoscalingGroupName, "") === undefined) {
             throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");
         }
         this.autoscalingGroupName = args.autoscalingGroupName;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class TaskDefinition extends lumi.NamedResource implements TaskDefinitionArgs {
     public /*out*/ readonly arn: string;
@@ -15,11 +16,11 @@ export class TaskDefinition extends lumi.NamedResource implements TaskDefinition
 
     constructor(name: string, args: TaskDefinitionArgs) {
         super(name);
-        if (args.containerDefinitions === undefined) {
+        if (lumirt.defaultIfComputed(args.containerDefinitions, "") === undefined) {
             throw new Error("Property argument 'containerDefinitions' is required, but was missing");
         }
         this.containerDefinitions = args.containerDefinitions;
-        if (args.family === undefined) {
+        if (lumirt.defaultIfComputed(args.family, "") === undefined) {
             throw new Error("Property argument 'family' is required, but was missing");
         }
         this.family = args.family;

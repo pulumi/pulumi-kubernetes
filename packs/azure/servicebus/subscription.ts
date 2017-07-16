@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Subscription extends lumi.NamedResource implements SubscriptionArgs {
     public readonly autoDeleteOnIdle: string;
@@ -25,26 +26,26 @@ export class Subscription extends lumi.NamedResource implements SubscriptionArgs
         this.deadLetteringOnMessageExpiration = args.deadLetteringOnMessageExpiration;
         this.defaultMessageTtl = args.defaultMessageTtl;
         this.enableBatchedOperations = args.enableBatchedOperations;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.lockDuration = args.lockDuration;
-        if (args.maxDeliveryCount === undefined) {
+        if (lumirt.defaultIfComputed(args.maxDeliveryCount, "") === undefined) {
             throw new Error("Property argument 'maxDeliveryCount' is required, but was missing");
         }
         this.maxDeliveryCount = args.maxDeliveryCount;
         this.subscriptionName = args.subscriptionName;
-        if (args.namespaceName === undefined) {
+        if (lumirt.defaultIfComputed(args.namespaceName, "") === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
         this.namespaceName = args.namespaceName;
         this.requiresSession = args.requiresSession;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.topicName === undefined) {
+        if (lumirt.defaultIfComputed(args.topicName, "") === undefined) {
             throw new Error("Property argument 'topicName' is required, but was missing");
         }
         this.topicName = args.topicName;

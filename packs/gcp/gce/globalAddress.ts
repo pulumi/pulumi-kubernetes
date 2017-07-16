@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class GlobalAddress extends lumi.NamedResource implements GlobalAddressArgs {
     public /*out*/ readonly address: string;

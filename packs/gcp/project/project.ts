@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Project extends lumi.NamedResource implements ProjectArgs {
     public readonly billingAccount?: string;
@@ -15,11 +16,11 @@ export class Project extends lumi.NamedResource implements ProjectArgs {
         super(name);
         this.billingAccount = args.billingAccount;
         this.projectName = args.projectName;
-        if (args.orgId === undefined) {
+        if (lumirt.defaultIfComputed(args.orgId, "") === undefined) {
             throw new Error("Property argument 'orgId' is required, but was missing");
         }
         this.orgId = args.orgId;
-        if (args.projectId === undefined) {
+        if (lumirt.defaultIfComputed(args.projectId, "") === undefined) {
             throw new Error("Property argument 'projectId' is required, but was missing");
         }
         this.projectId = args.projectId;

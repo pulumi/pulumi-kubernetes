@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Database extends lumi.NamedResource implements DatabaseArgs {
     public readonly instance: string;
@@ -11,7 +12,7 @@ export class Database extends lumi.NamedResource implements DatabaseArgs {
 
     constructor(name: string, args: DatabaseArgs) {
         super(name);
-        if (args.instance === undefined) {
+        if (lumirt.defaultIfComputed(args.instance, "") === undefined) {
             throw new Error("Property argument 'instance' is required, but was missing");
         }
         this.instance = args.instance;

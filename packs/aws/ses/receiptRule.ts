@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ReceiptRule extends lumi.NamedResource implements ReceiptRuleArgs {
     public readonly addHeaderAction?: { headerName: string, headerValue: string, position: number }[];
@@ -28,7 +29,7 @@ export class ReceiptRule extends lumi.NamedResource implements ReceiptRuleArgs {
         this.lambdaAction = args.lambdaAction;
         this.receiptRuleName = args.receiptRuleName;
         this.recipients = args.recipients;
-        if (args.ruleSetName === undefined) {
+        if (lumirt.defaultIfComputed(args.ruleSetName, "") === undefined) {
             throw new Error("Property argument 'ruleSetName' is required, but was missing");
         }
         this.ruleSetName = args.ruleSetName;

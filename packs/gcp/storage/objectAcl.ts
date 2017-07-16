@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ObjectAcl extends lumi.NamedResource implements ObjectAclArgs {
     public readonly bucket: string;
@@ -11,11 +12,11 @@ export class ObjectAcl extends lumi.NamedResource implements ObjectAclArgs {
 
     constructor(name: string, args: ObjectAclArgs) {
         super(name);
-        if (args.bucket === undefined) {
+        if (lumirt.defaultIfComputed(args.bucket, "") === undefined) {
             throw new Error("Property argument 'bucket' is required, but was missing");
         }
         this.bucket = args.bucket;
-        if (args.object === undefined) {
+        if (lumirt.defaultIfComputed(args.object, "") === undefined) {
             throw new Error("Property argument 'object' is required, but was missing");
         }
         this.object = args.object;

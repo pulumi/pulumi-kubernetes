@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Role extends lumi.NamedResource implements RoleArgs {
     public /*out*/ readonly arn: string;
@@ -16,7 +17,7 @@ export class Role extends lumi.NamedResource implements RoleArgs {
 
     constructor(name: string, args: RoleArgs) {
         super(name);
-        if (args.assumeRolePolicy === undefined) {
+        if (lumirt.defaultIfComputed(args.assumeRolePolicy, "") === undefined) {
             throw new Error("Property argument 'assumeRolePolicy' is required, but was missing");
         }
         this.assumeRolePolicy = args.assumeRolePolicy;

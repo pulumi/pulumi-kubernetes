@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class EventSubscription extends lumi.NamedResource implements EventSubscriptionArgs {
     public /*out*/ readonly customerAwsId: string;
@@ -18,7 +19,7 @@ export class EventSubscription extends lumi.NamedResource implements EventSubscr
         this.enabled = args.enabled;
         this.eventCategories = args.eventCategories;
         this.eventSubscriptionName = args.eventSubscriptionName;
-        if (args.snsTopic === undefined) {
+        if (lumirt.defaultIfComputed(args.snsTopic, "") === undefined) {
             throw new Error("Property argument 'snsTopic' is required, but was missing");
         }
         this.snsTopic = args.snsTopic;

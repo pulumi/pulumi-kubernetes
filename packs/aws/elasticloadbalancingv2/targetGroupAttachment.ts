@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class TargetGroupAttachment extends lumi.NamedResource implements TargetGroupAttachmentArgs {
     public readonly port?: number;
@@ -11,11 +12,11 @@ export class TargetGroupAttachment extends lumi.NamedResource implements TargetG
     constructor(name: string, args: TargetGroupAttachmentArgs) {
         super(name);
         this.port = args.port;
-        if (args.targetGroupArn === undefined) {
+        if (lumirt.defaultIfComputed(args.targetGroupArn, "") === undefined) {
             throw new Error("Property argument 'targetGroupArn' is required, but was missing");
         }
         this.targetGroupArn = args.targetGroupArn;
-        if (args.targetId === undefined) {
+        if (lumirt.defaultIfComputed(args.targetId, "") === undefined) {
             throw new Error("Property argument 'targetId' is required, but was missing");
         }
         this.targetId = args.targetId;

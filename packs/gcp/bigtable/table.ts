@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Table extends lumi.NamedResource implements TableArgs {
     public readonly instanceName: string;
@@ -11,7 +12,7 @@ export class Table extends lumi.NamedResource implements TableArgs {
 
     constructor(name: string, args: TableArgs) {
         super(name);
-        if (args.instanceName === undefined) {
+        if (lumirt.defaultIfComputed(args.instanceName, "") === undefined) {
             throw new Error("Property argument 'instanceName' is required, but was missing");
         }
         this.instanceName = args.instanceName;

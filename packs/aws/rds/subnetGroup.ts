@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SubnetGroup extends lumi.NamedResource implements SubnetGroupArgs {
     public /*out*/ readonly arn: string;
@@ -16,7 +17,7 @@ export class SubnetGroup extends lumi.NamedResource implements SubnetGroupArgs {
         this.description = args.description;
         this.subnetGroupName = args.subnetGroupName;
         this.namePrefix = args.namePrefix;
-        if (args.subnetIds === undefined) {
+        if (lumirt.defaultIfComputed(args.subnetIds, "") === undefined) {
             throw new Error("Property argument 'subnetIds' is required, but was missing");
         }
         this.subnetIds = args.subnetIds;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Bucket extends lumi.NamedResource implements BucketArgs {
     public readonly cors?: { maxAgeSeconds?: number, method?: string[], origin?: string[], responseHeader?: string[] }[];

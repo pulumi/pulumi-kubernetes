@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {ARN} from "../index";
 
@@ -38,18 +39,18 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
         this.environment = args.environment;
         this.code = args.code;
         this.functionName = args.functionName;
-        if (args.handler === undefined) {
+        if (lumirt.defaultIfComputed(args.handler, "") === undefined) {
             throw new Error("Property argument 'handler' is required, but was missing");
         }
         this.handler = args.handler;
         this.kmsKeyArn = args.kmsKeyArn;
         this.memorySize = args.memorySize;
         this.publish = args.publish;
-        if (args.role === undefined) {
+        if (lumirt.defaultIfComputed(args.role, "") === undefined) {
             throw new Error("Property argument 'role' is required, but was missing");
         }
         this.role = args.role;
-        if (args.runtime === undefined) {
+        if (lumirt.defaultIfComputed(args.runtime, "") === undefined) {
             throw new Error("Property argument 'runtime' is required, but was missing");
         }
         this.runtime = args.runtime;

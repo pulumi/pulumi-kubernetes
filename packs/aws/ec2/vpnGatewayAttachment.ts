@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpnGatewayAttachment extends lumi.NamedResource implements VpnGatewayAttachmentArgs {
     public readonly vpcId: string;
@@ -9,11 +10,11 @@ export class VpnGatewayAttachment extends lumi.NamedResource implements VpnGatew
 
     constructor(name: string, args: VpnGatewayAttachmentArgs) {
         super(name);
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;
-        if (args.vpnGatewayId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpnGatewayId, "") === undefined) {
             throw new Error("Property argument 'vpnGatewayId' is required, but was missing");
         }
         this.vpnGatewayId = args.vpnGatewayId;

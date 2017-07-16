@@ -2,13 +2,14 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ReceiptRuleSet extends lumi.NamedResource implements ReceiptRuleSetArgs {
     public readonly ruleSetName: string;
 
     constructor(name: string, args: ReceiptRuleSetArgs) {
         super(name);
-        if (args.ruleSetName === undefined) {
+        if (lumirt.defaultIfComputed(args.ruleSetName, "") === undefined) {
             throw new Error("Property argument 'ruleSetName' is required, but was missing");
         }
         this.ruleSetName = args.ruleSetName;

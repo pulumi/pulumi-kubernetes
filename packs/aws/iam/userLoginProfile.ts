@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class UserLoginProfile extends lumi.NamedResource implements UserLoginProfileArgs {
     public /*out*/ readonly encryptedPassword: string;
@@ -15,11 +16,11 @@ export class UserLoginProfile extends lumi.NamedResource implements UserLoginPro
         super(name);
         this.passwordLength = args.passwordLength;
         this.passwordResetRequired = args.passwordResetRequired;
-        if (args.pgpKey === undefined) {
+        if (lumirt.defaultIfComputed(args.pgpKey, "") === undefined) {
             throw new Error("Property argument 'pgpKey' is required, but was missing");
         }
         this.pgpKey = args.pgpKey;
-        if (args.user === undefined) {
+        if (lumirt.defaultIfComputed(args.user, "") === undefined) {
             throw new Error("Property argument 'user' is required, but was missing");
         }
         this.user = args.user;

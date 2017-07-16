@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class HaproxyLayer extends lumi.NamedResource implements HaproxyLayerArgs {
     public readonly autoAssignElasticIps?: boolean;
@@ -53,12 +54,12 @@ export class HaproxyLayer extends lumi.NamedResource implements HaproxyLayerArgs
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
         this.haproxyLayerName = args.haproxyLayerName;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;
         this.statsEnabled = args.statsEnabled;
-        if (args.statsPassword === undefined) {
+        if (lumirt.defaultIfComputed(args.statsPassword, "") === undefined) {
             throw new Error("Property argument 'statsPassword' is required, but was missing");
         }
         this.statsPassword = args.statsPassword;

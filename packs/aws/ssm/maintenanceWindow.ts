@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class MaintenanceWindow extends lumi.NamedResource implements MaintenanceWindowArgs {
     public readonly allowUnassociatedTargets?: boolean;
@@ -14,17 +15,17 @@ export class MaintenanceWindow extends lumi.NamedResource implements Maintenance
     constructor(name: string, args: MaintenanceWindowArgs) {
         super(name);
         this.allowUnassociatedTargets = args.allowUnassociatedTargets;
-        if (args.cutoff === undefined) {
+        if (lumirt.defaultIfComputed(args.cutoff, "") === undefined) {
             throw new Error("Property argument 'cutoff' is required, but was missing");
         }
         this.cutoff = args.cutoff;
-        if (args.duration === undefined) {
+        if (lumirt.defaultIfComputed(args.duration, "") === undefined) {
             throw new Error("Property argument 'duration' is required, but was missing");
         }
         this.duration = args.duration;
         this.enabled = args.enabled;
         this.maintenanceWindowName = args.maintenanceWindowName;
-        if (args.schedule === undefined) {
+        if (lumirt.defaultIfComputed(args.schedule, "") === undefined) {
             throw new Error("Property argument 'schedule' is required, but was missing");
         }
         this.schedule = args.schedule;

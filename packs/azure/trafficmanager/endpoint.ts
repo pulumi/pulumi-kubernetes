@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Endpoint extends lumi.NamedResource implements EndpointArgs {
     public readonly endpointLocation: string;
@@ -23,17 +24,17 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
         this.minChildEndpoints = args.minChildEndpoints;
         this.endpointName = args.endpointName;
         this.priority = args.priority;
-        if (args.profileName === undefined) {
+        if (lumirt.defaultIfComputed(args.profileName, "") === undefined) {
             throw new Error("Property argument 'profileName' is required, but was missing");
         }
         this.profileName = args.profileName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.target = args.target;
         this.targetResourceId = args.targetResourceId;
-        if (args.type === undefined) {
+        if (lumirt.defaultIfComputed(args.type, "") === undefined) {
             throw new Error("Property argument 'type' is required, but was missing");
         }
         this.type = args.type;

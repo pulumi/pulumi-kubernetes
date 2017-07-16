@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NetworkPeering extends lumi.NamedResource implements NetworkPeeringArgs {
     public readonly allowForwardedTraffic: boolean;
@@ -19,16 +20,16 @@ export class NetworkPeering extends lumi.NamedResource implements NetworkPeering
         this.allowGatewayTransit = args.allowGatewayTransit;
         this.allowVirtualNetworkAccess = args.allowVirtualNetworkAccess;
         this.networkPeeringName = args.networkPeeringName;
-        if (args.remoteVirtualNetworkId === undefined) {
+        if (lumirt.defaultIfComputed(args.remoteVirtualNetworkId, "") === undefined) {
             throw new Error("Property argument 'remoteVirtualNetworkId' is required, but was missing");
         }
         this.remoteVirtualNetworkId = args.remoteVirtualNetworkId;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.useRemoteGateways = args.useRemoteGateways;
-        if (args.virtualNetworkName === undefined) {
+        if (lumirt.defaultIfComputed(args.virtualNetworkName, "") === undefined) {
             throw new Error("Property argument 'virtualNetworkName' is required, but was missing");
         }
         this.virtualNetworkName = args.virtualNetworkName;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Stream extends lumi.NamedResource implements StreamArgs {
     public readonly arn: string;
@@ -16,7 +17,7 @@ export class Stream extends lumi.NamedResource implements StreamArgs {
         this.arn = args.arn;
         this.streamName = args.streamName;
         this.retentionPeriod = args.retentionPeriod;
-        if (args.shardCount === undefined) {
+        if (lumirt.defaultIfComputed(args.shardCount, "") === undefined) {
             throw new Error("Property argument 'shardCount' is required, but was missing");
         }
         this.shardCount = args.shardCount;

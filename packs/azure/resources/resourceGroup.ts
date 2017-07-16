@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ResourceGroup extends lumi.NamedResource implements ResourceGroupArgs {
     public readonly location: string;
@@ -10,7 +11,7 @@ export class ResourceGroup extends lumi.NamedResource implements ResourceGroupAr
 
     constructor(name: string, args: ResourceGroupArgs) {
         super(name);
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;

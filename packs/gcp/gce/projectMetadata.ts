@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ProjectMetadata extends lumi.NamedResource implements ProjectMetadataArgs {
     public readonly metadata: {[key: string]: string};
@@ -9,7 +10,7 @@ export class ProjectMetadata extends lumi.NamedResource implements ProjectMetada
 
     constructor(name: string, args: ProjectMetadataArgs) {
         super(name);
-        if (args.metadata === undefined) {
+        if (lumirt.defaultIfComputed(args.metadata, "") === undefined) {
             throw new Error("Property argument 'metadata' is required, but was missing");
         }
         this.metadata = args.metadata;

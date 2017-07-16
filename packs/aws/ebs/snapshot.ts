@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
     public /*out*/ readonly dataEncryptionKeyId: string;
@@ -18,7 +19,7 @@ export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
         super(name);
         this.description = args.description;
         this.tags = args.tags;
-        if (args.volumeId === undefined) {
+        if (lumirt.defaultIfComputed(args.volumeId, "") === undefined) {
             throw new Error("Property argument 'volumeId' is required, but was missing");
         }
         this.volumeId = args.volumeId;

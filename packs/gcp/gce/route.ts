@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Route extends lumi.NamedResource implements RouteArgs {
     public readonly destRange: string;
@@ -20,12 +21,12 @@ export class Route extends lumi.NamedResource implements RouteArgs {
 
     constructor(name: string, args: RouteArgs) {
         super(name);
-        if (args.destRange === undefined) {
+        if (lumirt.defaultIfComputed(args.destRange, "") === undefined) {
             throw new Error("Property argument 'destRange' is required, but was missing");
         }
         this.destRange = args.destRange;
         this.routeName = args.routeName;
-        if (args.network === undefined) {
+        if (lumirt.defaultIfComputed(args.network, "") === undefined) {
             throw new Error("Property argument 'network' is required, but was missing");
         }
         this.network = args.network;
@@ -34,7 +35,7 @@ export class Route extends lumi.NamedResource implements RouteArgs {
         this.nextHopInstanceZone = args.nextHopInstanceZone;
         this.nextHopIp = args.nextHopIp;
         this.nextHopVpnTunnel = args.nextHopVpnTunnel;
-        if (args.priority === undefined) {
+        if (lumirt.defaultIfComputed(args.priority, "") === undefined) {
             throw new Error("Property argument 'priority' is required, but was missing");
         }
         this.priority = args.priority;

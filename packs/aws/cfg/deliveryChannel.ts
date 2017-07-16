@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DeliveryChannel extends lumi.NamedResource implements DeliveryChannelArgs {
     public readonly deliveryChannelName?: string;
@@ -13,7 +14,7 @@ export class DeliveryChannel extends lumi.NamedResource implements DeliveryChann
     constructor(name: string, args: DeliveryChannelArgs) {
         super(name);
         this.deliveryChannelName = args.deliveryChannelName;
-        if (args.s3BucketName === undefined) {
+        if (lumirt.defaultIfComputed(args.s3BucketName, "") === undefined) {
             throw new Error("Property argument 's3BucketName' is required, but was missing");
         }
         this.s3BucketName = args.s3BucketName;

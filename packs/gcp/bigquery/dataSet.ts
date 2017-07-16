@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DataSet extends lumi.NamedResource implements DataSetArgs {
     public /*out*/ readonly creationTime: number;
@@ -18,7 +19,7 @@ export class DataSet extends lumi.NamedResource implements DataSetArgs {
 
     constructor(name: string, args: DataSetArgs) {
         super(name);
-        if (args.datasetId === undefined) {
+        if (lumirt.defaultIfComputed(args.datasetId, "") === undefined) {
             throw new Error("Property argument 'datasetId' is required, but was missing");
         }
         this.datasetId = args.datasetId;

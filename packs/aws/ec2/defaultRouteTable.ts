@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DefaultRouteTable extends lumi.NamedResource implements DefaultRouteTableArgs {
     public readonly defaultRouteTableId: string;
@@ -12,7 +13,7 @@ export class DefaultRouteTable extends lumi.NamedResource implements DefaultRout
 
     constructor(name: string, args: DefaultRouteTableArgs) {
         super(name);
-        if (args.defaultRouteTableId === undefined) {
+        if (lumirt.defaultIfComputed(args.defaultRouteTableId, "") === undefined) {
             throw new Error("Property argument 'defaultRouteTableId' is required, but was missing");
         }
         this.defaultRouteTableId = args.defaultRouteTableId;

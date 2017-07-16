@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class TargetGroup extends lumi.NamedResource implements TargetGroupArgs {
     public /*out*/ readonly arn: string;
@@ -22,17 +23,17 @@ export class TargetGroup extends lumi.NamedResource implements TargetGroupArgs {
         this.healthCheck = args.healthCheck;
         this.targetGroupName = args.targetGroupName;
         this.namePrefix = args.namePrefix;
-        if (args.port === undefined) {
+        if (lumirt.defaultIfComputed(args.port, "") === undefined) {
             throw new Error("Property argument 'port' is required, but was missing");
         }
         this.port = args.port;
-        if (args.protocol === undefined) {
+        if (lumirt.defaultIfComputed(args.protocol, "") === undefined) {
             throw new Error("Property argument 'protocol' is required, but was missing");
         }
         this.protocol = args.protocol;
         this.stickiness = args.stickiness;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;

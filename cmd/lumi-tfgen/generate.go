@@ -307,6 +307,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 
 	// Now import the modules we need.
 	w.Writefmtln("import * as lumi from \"@lumi/lumi\";")
+	w.Writefmtln("import * as lumirt from \"@lumi/lumirt\";")
 	w.Writefmtln("")
 
 	// If there are imports required due to the custom schema info, emit them now.
@@ -374,7 +375,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 	for i, prop := range inprops {
 		if !optionalProperty(schemas[i], customs[i], false) {
-			w.Writefmtln("%v        if (args.%v === undefined) {", propsindent, prop)
+			w.Writefmtln("%v        if (lumirt.defaultIfComputed(args.%v, \"\") === undefined) {", propsindent, prop)
 			w.Writefmtln("%v            throw new Error(\"Property argument '%v' is required, "+
 				"but was missing\");", propsindent, prop)
 			w.Writefmtln("%v        }", propsindent)
@@ -573,6 +574,7 @@ func (g *generator) generateLumiPackageMetadata(pkg string, outDir string) error
 	w.Writefmtln("description: A Lumi resource provider for %v.", pkg)
 	w.Writefmtln("dependencies:")
 	w.Writefmtln("    lumi: \"*\"")
+	w.Writefmtln("    lumirt: \"*\"")
 	w.Writefmtln("")
 	return nil
 }

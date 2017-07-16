@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Application extends lumi.NamedResource implements ApplicationArgs {
     public readonly appSource: { password?: string, revision?: string, sshKey?: string, type: string, url?: string, username?: string }[];
@@ -40,11 +41,11 @@ export class Application extends lumi.NamedResource implements ApplicationArgs {
         this.railsEnv = args.railsEnv;
         this.shortName = args.shortName;
         this.sslConfiguration = args.sslConfiguration;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;
-        if (args.type === undefined) {
+        if (lumirt.defaultIfComputed(args.type, "") === undefined) {
             throw new Error("Property argument 'type' is required, but was missing");
         }
         this.type = args.type;

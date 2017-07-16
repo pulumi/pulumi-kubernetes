@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {Function} from "./function";
 
@@ -16,15 +17,15 @@ export class Permission extends lumi.NamedResource implements PermissionArgs {
 
     constructor(name: string, args: PermissionArgs) {
         super(name);
-        if (args.action === undefined) {
+        if (lumirt.defaultIfComputed(args.action, "") === undefined) {
             throw new Error("Property argument 'action' is required, but was missing");
         }
         this.action = args.action;
-        if (args.function === undefined) {
+        if (lumirt.defaultIfComputed(args.function, "") === undefined) {
             throw new Error("Property argument 'function' is required, but was missing");
         }
         this.function = args.function;
-        if (args.principal === undefined) {
+        if (lumirt.defaultIfComputed(args.principal, "") === undefined) {
             throw new Error("Property argument 'principal' is required, but was missing");
         }
         this.principal = args.principal;

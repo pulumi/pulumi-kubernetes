@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class GangliaLayer extends lumi.NamedResource implements GangliaLayerArgs {
     public readonly autoAssignElasticIps?: boolean;
@@ -48,11 +49,11 @@ export class GangliaLayer extends lumi.NamedResource implements GangliaLayerArgs
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
         this.gangliaLayerName = args.gangliaLayerName;
-        if (args.password === undefined) {
+        if (lumirt.defaultIfComputed(args.password, "") === undefined) {
             throw new Error("Property argument 'password' is required, but was missing");
         }
         this.password = args.password;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;

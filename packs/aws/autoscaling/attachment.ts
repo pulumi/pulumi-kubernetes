@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Attachment extends lumi.NamedResource implements AttachmentArgs {
     public readonly albTargetGroupArn?: string;
@@ -11,7 +12,7 @@ export class Attachment extends lumi.NamedResource implements AttachmentArgs {
     constructor(name: string, args: AttachmentArgs) {
         super(name);
         this.albTargetGroupArn = args.albTargetGroupArn;
-        if (args.autoscalingGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.autoscalingGroupName, "") === undefined) {
             throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");
         }
         this.autoscalingGroupName = args.autoscalingGroupName;

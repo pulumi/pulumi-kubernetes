@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SslCertificate extends lumi.NamedResource implements SslCertificateArgs {
     public readonly certificate: string;
@@ -15,14 +16,14 @@ export class SslCertificate extends lumi.NamedResource implements SslCertificate
 
     constructor(name: string, args: SslCertificateArgs) {
         super(name);
-        if (args.certificate === undefined) {
+        if (lumirt.defaultIfComputed(args.certificate, "") === undefined) {
             throw new Error("Property argument 'certificate' is required, but was missing");
         }
         this.certificate = args.certificate;
         this.description = args.description;
         this.sslCertificateName = args.sslCertificateName;
         this.namePrefix = args.namePrefix;
-        if (args.privateKey === undefined) {
+        if (lumirt.defaultIfComputed(args.privateKey, "") === undefined) {
             throw new Error("Property argument 'privateKey' is required, but was missing");
         }
         this.privateKey = args.privateKey;

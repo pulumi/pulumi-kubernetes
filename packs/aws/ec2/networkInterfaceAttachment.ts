@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NetworkInterfaceAttachment extends lumi.NamedResource implements NetworkInterfaceAttachmentArgs {
     public /*out*/ readonly attachmentId: string;
@@ -12,15 +13,15 @@ export class NetworkInterfaceAttachment extends lumi.NamedResource implements Ne
 
     constructor(name: string, args: NetworkInterfaceAttachmentArgs) {
         super(name);
-        if (args.deviceIndex === undefined) {
+        if (lumirt.defaultIfComputed(args.deviceIndex, "") === undefined) {
             throw new Error("Property argument 'deviceIndex' is required, but was missing");
         }
         this.deviceIndex = args.deviceIndex;
-        if (args.instanceId === undefined) {
+        if (lumirt.defaultIfComputed(args.instanceId, "") === undefined) {
             throw new Error("Property argument 'instanceId' is required, but was missing");
         }
         this.instanceId = args.instanceId;
-        if (args.networkInterfaceId === undefined) {
+        if (lumirt.defaultIfComputed(args.networkInterfaceId, "") === undefined) {
             throw new Error("Property argument 'networkInterfaceId' is required, but was missing");
         }
         this.networkInterfaceId = args.networkInterfaceId;

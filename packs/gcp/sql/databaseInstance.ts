@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DatabaseInstance extends lumi.NamedResource implements DatabaseInstanceArgs {
     public readonly databaseVersion?: string;
@@ -20,12 +21,12 @@ export class DatabaseInstance extends lumi.NamedResource implements DatabaseInst
         this.masterInstanceName = args.masterInstanceName;
         this.databaseInstanceName = args.databaseInstanceName;
         this.project = args.project;
-        if (args.region === undefined) {
+        if (lumirt.defaultIfComputed(args.region, "") === undefined) {
             throw new Error("Property argument 'region' is required, but was missing");
         }
         this.region = args.region;
         this.replicaConfiguration = args.replicaConfiguration;
-        if (args.settings === undefined) {
+        if (lumirt.defaultIfComputed(args.settings, "") === undefined) {
             throw new Error("Property argument 'settings' is required, but was missing");
         }
         this.settings = args.settings;

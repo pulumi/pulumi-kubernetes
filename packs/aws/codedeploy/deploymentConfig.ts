@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class DeploymentConfig extends lumi.NamedResource implements DeploymentConfigArgs {
     public /*out*/ readonly deploymentConfigId: string;
@@ -10,11 +11,11 @@ export class DeploymentConfig extends lumi.NamedResource implements DeploymentCo
 
     constructor(name: string, args: DeploymentConfigArgs) {
         super(name);
-        if (args.deploymentConfigName === undefined) {
+        if (lumirt.defaultIfComputed(args.deploymentConfigName, "") === undefined) {
             throw new Error("Property argument 'deploymentConfigName' is required, but was missing");
         }
         this.deploymentConfigName = args.deploymentConfigName;
-        if (args.minimumHealthyHosts === undefined) {
+        if (lumirt.defaultIfComputed(args.minimumHealthyHosts, "") === undefined) {
             throw new Error("Property argument 'minimumHealthyHosts' is required, but was missing");
         }
         this.minimumHealthyHosts = args.minimumHealthyHosts;

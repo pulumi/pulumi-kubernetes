@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Cluster extends lumi.NamedResource implements ClusterArgs {
     public readonly applyImmediately: boolean;
@@ -36,27 +37,27 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.availabilityZone = args.availabilityZone;
         this.availabilityZones = args.availabilityZones;
         this.azMode = args.azMode;
-        if (args.clusterId === undefined) {
+        if (lumirt.defaultIfComputed(args.clusterId, "") === undefined) {
             throw new Error("Property argument 'clusterId' is required, but was missing");
         }
         this.clusterId = args.clusterId;
-        if (args.engine === undefined) {
+        if (lumirt.defaultIfComputed(args.engine, "") === undefined) {
             throw new Error("Property argument 'engine' is required, but was missing");
         }
         this.engine = args.engine;
         this.engineVersion = args.engineVersion;
         this.maintenanceWindow = args.maintenanceWindow;
-        if (args.nodeType === undefined) {
+        if (lumirt.defaultIfComputed(args.nodeType, "") === undefined) {
             throw new Error("Property argument 'nodeType' is required, but was missing");
         }
         this.nodeType = args.nodeType;
         this.notificationTopicArn = args.notificationTopicArn;
-        if (args.numCacheNodes === undefined) {
+        if (lumirt.defaultIfComputed(args.numCacheNodes, "") === undefined) {
             throw new Error("Property argument 'numCacheNodes' is required, but was missing");
         }
         this.numCacheNodes = args.numCacheNodes;
         this.parameterGroupName = args.parameterGroupName;
-        if (args.port === undefined) {
+        if (lumirt.defaultIfComputed(args.port, "") === undefined) {
             throw new Error("Property argument 'port' is required, but was missing");
         }
         this.port = args.port;

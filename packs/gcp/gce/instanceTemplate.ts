@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class InstanceTemplate extends lumi.NamedResource implements InstanceTemplateArgs {
     public readonly automaticRestart?: boolean;
@@ -30,12 +31,12 @@ export class InstanceTemplate extends lumi.NamedResource implements InstanceTemp
         this.automaticRestart = args.automaticRestart;
         this.canIpForward = args.canIpForward;
         this.description = args.description;
-        if (args.disk === undefined) {
+        if (lumirt.defaultIfComputed(args.disk, "") === undefined) {
             throw new Error("Property argument 'disk' is required, but was missing");
         }
         this.disk = args.disk;
         this.instanceDescription = args.instanceDescription;
-        if (args.machineType === undefined) {
+        if (lumirt.defaultIfComputed(args.machineType, "") === undefined) {
             throw new Error("Property argument 'machineType' is required, but was missing");
         }
         this.machineType = args.machineType;

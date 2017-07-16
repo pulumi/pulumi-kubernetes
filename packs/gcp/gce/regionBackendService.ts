@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RegionBackendService extends lumi.NamedResource implements RegionBackendServiceArgs {
     public readonly backend?: { description?: string, group?: string }[];
@@ -22,7 +23,7 @@ export class RegionBackendService extends lumi.NamedResource implements RegionBa
         this.backend = args.backend;
         this.connectionDrainingTimeoutSec = args.connectionDrainingTimeoutSec;
         this.description = args.description;
-        if (args.healthChecks === undefined) {
+        if (lumirt.defaultIfComputed(args.healthChecks, "") === undefined) {
             throw new Error("Property argument 'healthChecks' is required, but was missing");
         }
         this.healthChecks = args.healthChecks;

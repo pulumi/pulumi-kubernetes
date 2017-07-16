@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class KeyVault extends lumi.NamedResource implements KeyVaultArgs {
     public readonly accessPolicy?: { keyPermissions: string[], objectId: string, secretPermissions: string[], tenantId: string }[];
@@ -22,21 +23,21 @@ export class KeyVault extends lumi.NamedResource implements KeyVaultArgs {
         this.enabledForDeployment = args.enabledForDeployment;
         this.enabledForDiskEncryption = args.enabledForDiskEncryption;
         this.enabledForTemplateDeployment = args.enabledForTemplateDeployment;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.keyVaultName = args.keyVaultName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.sku === undefined) {
+        if (lumirt.defaultIfComputed(args.sku, "") === undefined) {
             throw new Error("Property argument 'sku' is required, but was missing");
         }
         this.sku = args.sku;
         this.tags = args.tags;
-        if (args.tenantId === undefined) {
+        if (lumirt.defaultIfComputed(args.tenantId, "") === undefined) {
             throw new Error("Property argument 'tenantId' is required, but was missing");
         }
         this.tenantId = args.tenantId;

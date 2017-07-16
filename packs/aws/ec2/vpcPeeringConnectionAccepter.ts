@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpcPeeringConnectionAccepter extends lumi.NamedResource implements VpcPeeringConnectionAccepterArgs {
     public /*out*/ readonly acceptStatus: string;
@@ -20,7 +21,7 @@ export class VpcPeeringConnectionAccepter extends lumi.NamedResource implements 
         this.autoAccept = args.autoAccept;
         this.requester = args.requester;
         this.tags = args.tags;
-        if (args.vpcPeeringConnectionId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcPeeringConnectionId, "") === undefined) {
             throw new Error("Property argument 'vpcPeeringConnectionId' is required, but was missing");
         }
         this.vpcPeeringConnectionId = args.vpcPeeringConnectionId;

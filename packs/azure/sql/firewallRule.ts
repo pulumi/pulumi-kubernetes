@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class FirewallRule extends lumi.NamedResource implements FirewallRuleArgs {
     public readonly endIpAddress: string;
@@ -12,20 +13,20 @@ export class FirewallRule extends lumi.NamedResource implements FirewallRuleArgs
 
     constructor(name: string, args: FirewallRuleArgs) {
         super(name);
-        if (args.endIpAddress === undefined) {
+        if (lumirt.defaultIfComputed(args.endIpAddress, "") === undefined) {
             throw new Error("Property argument 'endIpAddress' is required, but was missing");
         }
         this.endIpAddress = args.endIpAddress;
         this.firewallRuleName = args.firewallRuleName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.serverName === undefined) {
+        if (lumirt.defaultIfComputed(args.serverName, "") === undefined) {
             throw new Error("Property argument 'serverName' is required, but was missing");
         }
         this.serverName = args.serverName;
-        if (args.startIpAddress === undefined) {
+        if (lumirt.defaultIfComputed(args.startIpAddress, "") === undefined) {
             throw new Error("Property argument 'startIpAddress' is required, but was missing");
         }
         this.startIpAddress = args.startIpAddress;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class InstanceGroup extends lumi.NamedResource implements InstanceGroupArgs {
     public readonly description?: string;
@@ -22,7 +23,7 @@ export class InstanceGroup extends lumi.NamedResource implements InstanceGroupAr
         this.namedPort = args.namedPort;
         this.network = args.network;
         this.project = args.project;
-        if (args.zone === undefined) {
+        if (lumirt.defaultIfComputed(args.zone, "") === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
         this.zone = args.zone;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ManagedDisk extends lumi.NamedResource implements ManagedDiskArgs {
     public readonly createOption: string;
@@ -17,27 +18,27 @@ export class ManagedDisk extends lumi.NamedResource implements ManagedDiskArgs {
 
     constructor(name: string, args: ManagedDiskArgs) {
         super(name);
-        if (args.createOption === undefined) {
+        if (lumirt.defaultIfComputed(args.createOption, "") === undefined) {
             throw new Error("Property argument 'createOption' is required, but was missing");
         }
         this.createOption = args.createOption;
-        if (args.diskSizeGb === undefined) {
+        if (lumirt.defaultIfComputed(args.diskSizeGb, "") === undefined) {
             throw new Error("Property argument 'diskSizeGb' is required, but was missing");
         }
         this.diskSizeGb = args.diskSizeGb;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.managedDiskName = args.managedDiskName;
         this.osType = args.osType;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.sourceResourceId = args.sourceResourceId;
         this.sourceUri = args.sourceUri;
-        if (args.storageAccountType === undefined) {
+        if (lumirt.defaultIfComputed(args.storageAccountType, "") === undefined) {
             throw new Error("Property argument 'storageAccountType' is required, but was missing");
         }
         this.storageAccountType = args.storageAccountType;

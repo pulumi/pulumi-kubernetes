@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class MainRouteTableAssociation extends lumi.NamedResource implements MainRouteTableAssociationArgs {
     public /*out*/ readonly originalRouteTableId: string;
@@ -10,11 +11,11 @@ export class MainRouteTableAssociation extends lumi.NamedResource implements Mai
 
     constructor(name: string, args: MainRouteTableAssociationArgs) {
         super(name);
-        if (args.routeTableId === undefined) {
+        if (lumirt.defaultIfComputed(args.routeTableId, "") === undefined) {
             throw new Error("Property argument 'routeTableId' is required, but was missing");
         }
         this.routeTableId = args.routeTableId;
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;

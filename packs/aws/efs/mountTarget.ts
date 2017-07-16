@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class MountTarget extends lumi.NamedResource implements MountTargetArgs {
     public /*out*/ readonly dnsName: string;
@@ -13,13 +14,13 @@ export class MountTarget extends lumi.NamedResource implements MountTargetArgs {
 
     constructor(name: string, args: MountTargetArgs) {
         super(name);
-        if (args.fileSystemId === undefined) {
+        if (lumirt.defaultIfComputed(args.fileSystemId, "") === undefined) {
             throw new Error("Property argument 'fileSystemId' is required, but was missing");
         }
         this.fileSystemId = args.fileSystemId;
         this.ipAddress = args.ipAddress;
         this.securityGroups = args.securityGroups;
-        if (args.subnetId === undefined) {
+        if (lumirt.defaultIfComputed(args.subnetId, "") === undefined) {
             throw new Error("Property argument 'subnetId' is required, but was missing");
         }
         this.subnetId = args.subnetId;

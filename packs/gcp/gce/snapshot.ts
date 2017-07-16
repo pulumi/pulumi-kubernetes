@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
     public readonly snapshotName?: string;
@@ -20,12 +21,12 @@ export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
         this.snapshotName = args.snapshotName;
         this.project = args.project;
         this.snapshotEncryptionKeyRaw = args.snapshotEncryptionKeyRaw;
-        if (args.sourceDisk === undefined) {
+        if (lumirt.defaultIfComputed(args.sourceDisk, "") === undefined) {
             throw new Error("Property argument 'sourceDisk' is required, but was missing");
         }
         this.sourceDisk = args.sourceDisk;
         this.sourceDiskEncryptionKeyRaw = args.sourceDiskEncryptionKeyRaw;
-        if (args.zone === undefined) {
+        if (lumirt.defaultIfComputed(args.zone, "") === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
         this.zone = args.zone;

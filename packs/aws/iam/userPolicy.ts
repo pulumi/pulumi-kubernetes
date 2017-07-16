@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class UserPolicy extends lumi.NamedResource implements UserPolicyArgs {
     public readonly userPolicyName: string;
@@ -13,11 +14,11 @@ export class UserPolicy extends lumi.NamedResource implements UserPolicyArgs {
         super(name);
         this.userPolicyName = args.userPolicyName;
         this.namePrefix = args.namePrefix;
-        if (args.policy === undefined) {
+        if (lumirt.defaultIfComputed(args.policy, "") === undefined) {
             throw new Error("Property argument 'policy' is required, but was missing");
         }
         this.policy = args.policy;
-        if (args.user === undefined) {
+        if (lumirt.defaultIfComputed(args.user, "") === undefined) {
             throw new Error("Property argument 'user' is required, but was missing");
         }
         this.user = args.user;

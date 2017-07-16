@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class AvailabilitySet extends lumi.NamedResource implements AvailabilitySetArgs {
     public readonly location: string;
@@ -14,7 +15,7 @@ export class AvailabilitySet extends lumi.NamedResource implements AvailabilityS
 
     constructor(name: string, args: AvailabilitySetArgs) {
         super(name);
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
@@ -22,7 +23,7 @@ export class AvailabilitySet extends lumi.NamedResource implements AvailabilityS
         this.availabilitySetName = args.availabilitySetName;
         this.platformFaultDomainCount = args.platformFaultDomainCount;
         this.platformUpdateDomainCount = args.platformUpdateDomainCount;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

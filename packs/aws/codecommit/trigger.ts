@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Trigger extends lumi.NamedResource implements TriggerArgs {
     public /*out*/ readonly configurationId: string;
@@ -10,11 +11,11 @@ export class Trigger extends lumi.NamedResource implements TriggerArgs {
 
     constructor(name: string, args: TriggerArgs) {
         super(name);
-        if (args.repositoryName === undefined) {
+        if (lumirt.defaultIfComputed(args.repositoryName, "") === undefined) {
             throw new Error("Property argument 'repositoryName' is required, but was missing");
         }
         this.repositoryName = args.repositoryName;
-        if (args.trigger === undefined) {
+        if (lumirt.defaultIfComputed(args.trigger, "") === undefined) {
             throw new Error("Property argument 'trigger' is required, but was missing");
         }
         this.trigger = args.trigger;

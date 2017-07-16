@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RailsAppLayer extends lumi.NamedResource implements RailsAppLayerArgs {
     public readonly appServer?: string;
@@ -57,7 +58,7 @@ export class RailsAppLayer extends lumi.NamedResource implements RailsAppLayerAr
         this.passengerVersion = args.passengerVersion;
         this.rubyVersion = args.rubyVersion;
         this.rubygemsVersion = args.rubygemsVersion;
-        if (args.stackId === undefined) {
+        if (lumirt.defaultIfComputed(args.stackId, "") === undefined) {
             throw new Error("Property argument 'stackId' is required, but was missing");
         }
         this.stackId = args.stackId;

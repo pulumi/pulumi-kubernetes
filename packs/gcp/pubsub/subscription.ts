@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Subscription extends lumi.NamedResource implements SubscriptionArgs {
     public readonly ackDeadlineSeconds?: number;
@@ -17,7 +18,7 @@ export class Subscription extends lumi.NamedResource implements SubscriptionArgs
         this.subscriptionName = args.subscriptionName;
         this.project = args.project;
         this.pushConfig = args.pushConfig;
-        if (args.topic === undefined) {
+        if (lumirt.defaultIfComputed(args.topic, "") === undefined) {
             throw new Error("Property argument 'topic' is required, but was missing");
         }
         this.topic = args.topic;

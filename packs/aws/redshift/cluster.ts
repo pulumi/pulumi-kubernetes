@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Cluster extends lumi.NamedResource implements ClusterArgs {
     public readonly allowVersionUpgrade?: boolean;
@@ -46,7 +47,7 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.automatedSnapshotRetentionPeriod = args.automatedSnapshotRetentionPeriod;
         this.availabilityZone = args.availabilityZone;
         this.bucketName = args.bucketName;
-        if (args.clusterIdentifier === undefined) {
+        if (lumirt.defaultIfComputed(args.clusterIdentifier, "") === undefined) {
             throw new Error("Property argument 'clusterIdentifier' is required, but was missing");
         }
         this.clusterIdentifier = args.clusterIdentifier;
@@ -68,7 +69,7 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.kmsKeyId = args.kmsKeyId;
         this.masterPassword = args.masterPassword;
         this.masterUsername = args.masterUsername;
-        if (args.nodeType === undefined) {
+        if (lumirt.defaultIfComputed(args.nodeType, "") === undefined) {
             throw new Error("Property argument 'nodeType' is required, but was missing");
         }
         this.nodeType = args.nodeType;

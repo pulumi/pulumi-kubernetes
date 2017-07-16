@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Target extends lumi.NamedResource implements TargetArgs {
     public readonly maxCapacity: number;
@@ -13,27 +14,27 @@ export class Target extends lumi.NamedResource implements TargetArgs {
 
     constructor(name: string, args: TargetArgs) {
         super(name);
-        if (args.maxCapacity === undefined) {
+        if (lumirt.defaultIfComputed(args.maxCapacity, "") === undefined) {
             throw new Error("Property argument 'maxCapacity' is required, but was missing");
         }
         this.maxCapacity = args.maxCapacity;
-        if (args.minCapacity === undefined) {
+        if (lumirt.defaultIfComputed(args.minCapacity, "") === undefined) {
             throw new Error("Property argument 'minCapacity' is required, but was missing");
         }
         this.minCapacity = args.minCapacity;
-        if (args.resourceId === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceId, "") === undefined) {
             throw new Error("Property argument 'resourceId' is required, but was missing");
         }
         this.resourceId = args.resourceId;
-        if (args.roleArn === undefined) {
+        if (lumirt.defaultIfComputed(args.roleArn, "") === undefined) {
             throw new Error("Property argument 'roleArn' is required, but was missing");
         }
         this.roleArn = args.roleArn;
-        if (args.scalableDimension === undefined) {
+        if (lumirt.defaultIfComputed(args.scalableDimension, "") === undefined) {
             throw new Error("Property argument 'scalableDimension' is required, but was missing");
         }
         this.scalableDimension = args.scalableDimension;
-        if (args.serviceNamespace === undefined) {
+        if (lumirt.defaultIfComputed(args.serviceNamespace, "") === undefined) {
             throw new Error("Property argument 'serviceNamespace' is required, but was missing");
         }
         this.serviceNamespace = args.serviceNamespace;

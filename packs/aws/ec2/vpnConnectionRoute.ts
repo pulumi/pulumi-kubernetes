@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpnConnectionRoute extends lumi.NamedResource implements VpnConnectionRouteArgs {
     public readonly destinationCidrBlock: string;
@@ -9,11 +10,11 @@ export class VpnConnectionRoute extends lumi.NamedResource implements VpnConnect
 
     constructor(name: string, args: VpnConnectionRouteArgs) {
         super(name);
-        if (args.destinationCidrBlock === undefined) {
+        if (lumirt.defaultIfComputed(args.destinationCidrBlock, "") === undefined) {
             throw new Error("Property argument 'destinationCidrBlock' is required, but was missing");
         }
         this.destinationCidrBlock = args.destinationCidrBlock;
-        if (args.vpnConnectionId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpnConnectionId, "") === undefined) {
             throw new Error("Property argument 'vpnConnectionId' is required, but was missing");
         }
         this.vpnConnectionId = args.vpnConnectionId;

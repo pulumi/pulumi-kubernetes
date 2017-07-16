@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ConsumerGroup extends lumi.NamedResource implements ConsumerGroupArgs {
     public readonly eventhubName: string;
@@ -13,20 +14,20 @@ export class ConsumerGroup extends lumi.NamedResource implements ConsumerGroupAr
 
     constructor(name: string, args: ConsumerGroupArgs) {
         super(name);
-        if (args.eventhubName === undefined) {
+        if (lumirt.defaultIfComputed(args.eventhubName, "") === undefined) {
             throw new Error("Property argument 'eventhubName' is required, but was missing");
         }
         this.eventhubName = args.eventhubName;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.consumerGroupName = args.consumerGroupName;
-        if (args.namespaceName === undefined) {
+        if (lumirt.defaultIfComputed(args.namespaceName, "") === undefined) {
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
         this.namespaceName = args.namespaceName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

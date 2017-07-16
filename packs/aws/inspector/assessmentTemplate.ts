@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class AssessmentTemplate extends lumi.NamedResource implements AssessmentTemplateArgs {
     public /*out*/ readonly arn: string;
@@ -12,16 +13,16 @@ export class AssessmentTemplate extends lumi.NamedResource implements Assessment
 
     constructor(name: string, args: AssessmentTemplateArgs) {
         super(name);
-        if (args.duration === undefined) {
+        if (lumirt.defaultIfComputed(args.duration, "") === undefined) {
             throw new Error("Property argument 'duration' is required, but was missing");
         }
         this.duration = args.duration;
         this.assessmentTemplateName = args.assessmentTemplateName;
-        if (args.rulesPackageArns === undefined) {
+        if (lumirt.defaultIfComputed(args.rulesPackageArns, "") === undefined) {
             throw new Error("Property argument 'rulesPackageArns' is required, but was missing");
         }
         this.rulesPackageArns = args.rulesPackageArns;
-        if (args.targetArn === undefined) {
+        if (lumirt.defaultIfComputed(args.targetArn, "") === undefined) {
             throw new Error("Property argument 'targetArn' is required, but was missing");
         }
         this.targetArn = args.targetArn;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ServerCertificate extends lumi.NamedResource implements ServerCertificateArgs {
     public readonly arn: string;
@@ -15,7 +16,7 @@ export class ServerCertificate extends lumi.NamedResource implements ServerCerti
     constructor(name: string, args: ServerCertificateArgs) {
         super(name);
         this.arn = args.arn;
-        if (args.certificateBody === undefined) {
+        if (lumirt.defaultIfComputed(args.certificateBody, "") === undefined) {
             throw new Error("Property argument 'certificateBody' is required, but was missing");
         }
         this.certificateBody = args.certificateBody;
@@ -23,7 +24,7 @@ export class ServerCertificate extends lumi.NamedResource implements ServerCerti
         this.serverCertificateName = args.serverCertificateName;
         this.namePrefix = args.namePrefix;
         this.path = args.path;
-        if (args.privateKey === undefined) {
+        if (lumirt.defaultIfComputed(args.privateKey, "") === undefined) {
             throw new Error("Property argument 'privateKey' is required, but was missing");
         }
         this.privateKey = args.privateKey;

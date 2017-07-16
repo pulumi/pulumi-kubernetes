@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs {
     public readonly accessLogs?: { bucket: string, enabled?: boolean, prefix?: string }[];
@@ -30,7 +31,7 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
         this.loadBalancerName = args.loadBalancerName;
         this.namePrefix = args.namePrefix;
         this.securityGroups = args.securityGroups;
-        if (args.subnets === undefined) {
+        if (lumirt.defaultIfComputed(args.subnets, "") === undefined) {
             throw new Error("Property argument 'subnets' is required, but was missing");
         }
         this.subnets = args.subnets;

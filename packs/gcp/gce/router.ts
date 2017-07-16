@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Router extends lumi.NamedResource implements RouterArgs {
     public readonly bgp: { asn: number }[];
@@ -14,13 +15,13 @@ export class Router extends lumi.NamedResource implements RouterArgs {
 
     constructor(name: string, args: RouterArgs) {
         super(name);
-        if (args.bgp === undefined) {
+        if (lumirt.defaultIfComputed(args.bgp, "") === undefined) {
             throw new Error("Property argument 'bgp' is required, but was missing");
         }
         this.bgp = args.bgp;
         this.description = args.description;
         this.routerName = args.routerName;
-        if (args.network === undefined) {
+        if (lumirt.defaultIfComputed(args.network, "") === undefined) {
             throw new Error("Property argument 'network' is required, but was missing");
         }
         this.network = args.network;

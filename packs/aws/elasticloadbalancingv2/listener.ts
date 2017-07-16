@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Listener extends lumi.NamedResource implements ListenerArgs {
     public /*out*/ readonly arn: string;
@@ -15,15 +16,15 @@ export class Listener extends lumi.NamedResource implements ListenerArgs {
     constructor(name: string, args: ListenerArgs) {
         super(name);
         this.certificateArn = args.certificateArn;
-        if (args.defaultAction === undefined) {
+        if (lumirt.defaultIfComputed(args.defaultAction, "") === undefined) {
             throw new Error("Property argument 'defaultAction' is required, but was missing");
         }
         this.defaultAction = args.defaultAction;
-        if (args.loadBalancerArn === undefined) {
+        if (lumirt.defaultIfComputed(args.loadBalancerArn, "") === undefined) {
             throw new Error("Property argument 'loadBalancerArn' is required, but was missing");
         }
         this.loadBalancerArn = args.loadBalancerArn;
-        if (args.port === undefined) {
+        if (lumirt.defaultIfComputed(args.port, "") === undefined) {
             throw new Error("Property argument 'port' is required, but was missing");
         }
         this.port = args.port;

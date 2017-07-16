@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Volume extends lumi.NamedResource implements VolumeArgs {
     public readonly availabilityZone: string;
@@ -15,7 +16,7 @@ export class Volume extends lumi.NamedResource implements VolumeArgs {
 
     constructor(name: string, args: VolumeArgs) {
         super(name);
-        if (args.availabilityZone === undefined) {
+        if (lumirt.defaultIfComputed(args.availabilityZone, "") === undefined) {
             throw new Error("Property argument 'availabilityZone' is required, but was missing");
         }
         this.availabilityZone = args.availabilityZone;

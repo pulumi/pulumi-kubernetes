@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NatRule extends lumi.NamedResource implements NatRuleArgs {
     public /*out*/ readonly backendIpConfigurationId: string;
@@ -17,29 +18,29 @@ export class NatRule extends lumi.NamedResource implements NatRuleArgs {
 
     constructor(name: string, args: NatRuleArgs) {
         super(name);
-        if (args.backendPort === undefined) {
+        if (lumirt.defaultIfComputed(args.backendPort, "") === undefined) {
             throw new Error("Property argument 'backendPort' is required, but was missing");
         }
         this.backendPort = args.backendPort;
-        if (args.frontendIpConfigurationName === undefined) {
+        if (lumirt.defaultIfComputed(args.frontendIpConfigurationName, "") === undefined) {
             throw new Error("Property argument 'frontendIpConfigurationName' is required, but was missing");
         }
         this.frontendIpConfigurationName = args.frontendIpConfigurationName;
-        if (args.frontendPort === undefined) {
+        if (lumirt.defaultIfComputed(args.frontendPort, "") === undefined) {
             throw new Error("Property argument 'frontendPort' is required, but was missing");
         }
         this.frontendPort = args.frontendPort;
-        if (args.loadbalancerId === undefined) {
+        if (lumirt.defaultIfComputed(args.loadbalancerId, "") === undefined) {
             throw new Error("Property argument 'loadbalancerId' is required, but was missing");
         }
         this.loadbalancerId = args.loadbalancerId;
         this.location = args.location;
         this.natRuleName = args.natRuleName;
-        if (args.protocol === undefined) {
+        if (lumirt.defaultIfComputed(args.protocol, "") === undefined) {
             throw new Error("Property argument 'protocol' is required, but was missing");
         }
         this.protocol = args.protocol;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly clusterId: string;
@@ -14,7 +15,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
 
     constructor(name: string, args: InstanceArgs) {
         super(name);
-        if (args.clusterId === undefined) {
+        if (lumirt.defaultIfComputed(args.clusterId, "") === undefined) {
             throw new Error("Property argument 'clusterId' is required, but was missing");
         }
         this.clusterId = args.clusterId;
@@ -23,7 +24,7 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.numNodes = args.numNodes;
         this.project = args.project;
         this.storageType = args.storageType;
-        if (args.zone === undefined) {
+        if (lumirt.defaultIfComputed(args.zone, "") === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
         this.zone = args.zone;

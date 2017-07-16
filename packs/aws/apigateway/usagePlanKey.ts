@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class UsagePlanKey extends lumi.NamedResource implements UsagePlanKeyArgs {
     public readonly keyId: string;
@@ -12,15 +13,15 @@ export class UsagePlanKey extends lumi.NamedResource implements UsagePlanKeyArgs
 
     constructor(name: string, args: UsagePlanKeyArgs) {
         super(name);
-        if (args.keyId === undefined) {
+        if (lumirt.defaultIfComputed(args.keyId, "") === undefined) {
             throw new Error("Property argument 'keyId' is required, but was missing");
         }
         this.keyId = args.keyId;
-        if (args.keyType === undefined) {
+        if (lumirt.defaultIfComputed(args.keyType, "") === undefined) {
             throw new Error("Property argument 'keyType' is required, but was missing");
         }
         this.keyType = args.keyType;
-        if (args.usagePlanId === undefined) {
+        if (lumirt.defaultIfComputed(args.usagePlanId, "") === undefined) {
             throw new Error("Property argument 'usagePlanId' is required, but was missing");
         }
         this.usagePlanId = args.usagePlanId;

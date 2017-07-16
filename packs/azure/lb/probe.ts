@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Probe extends lumi.NamedResource implements ProbeArgs {
     public readonly intervalInSeconds?: number;
@@ -18,20 +19,20 @@ export class Probe extends lumi.NamedResource implements ProbeArgs {
     constructor(name: string, args: ProbeArgs) {
         super(name);
         this.intervalInSeconds = args.intervalInSeconds;
-        if (args.loadbalancerId === undefined) {
+        if (lumirt.defaultIfComputed(args.loadbalancerId, "") === undefined) {
             throw new Error("Property argument 'loadbalancerId' is required, but was missing");
         }
         this.loadbalancerId = args.loadbalancerId;
         this.location = args.location;
         this.probeName = args.probeName;
         this.numberOfProbes = args.numberOfProbes;
-        if (args.port === undefined) {
+        if (lumirt.defaultIfComputed(args.port, "") === undefined) {
             throw new Error("Property argument 'port' is required, but was missing");
         }
         this.port = args.port;
         this.protocol = args.protocol;
         this.requestPath = args.requestPath;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

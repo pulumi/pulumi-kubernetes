@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class FirehoseDeliveryStream extends lumi.NamedResource implements FirehoseDeliveryStreamArgs {
     public readonly arn: string;
@@ -16,7 +17,7 @@ export class FirehoseDeliveryStream extends lumi.NamedResource implements Fireho
     constructor(name: string, args: FirehoseDeliveryStreamArgs) {
         super(name);
         this.arn = args.arn;
-        if (args.destination === undefined) {
+        if (lumirt.defaultIfComputed(args.destination, "") === undefined) {
             throw new Error("Property argument 'destination' is required, but was missing");
         }
         this.destination = args.destination;
@@ -24,7 +25,7 @@ export class FirehoseDeliveryStream extends lumi.NamedResource implements Fireho
         this.elasticsearchConfiguration = args.elasticsearchConfiguration;
         this.firehoseDeliveryStreamName = args.firehoseDeliveryStreamName;
         this.redshiftConfiguration = args.redshiftConfiguration;
-        if (args.s3Configuration === undefined) {
+        if (lumirt.defaultIfComputed(args.s3Configuration, "") === undefined) {
             throw new Error("Property argument 's3Configuration' is required, but was missing");
         }
         this.s3Configuration = args.s3Configuration;

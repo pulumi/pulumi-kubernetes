@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class User extends lumi.NamedResource implements UserArgs {
     public readonly host: string;
@@ -12,16 +13,16 @@ export class User extends lumi.NamedResource implements UserArgs {
 
     constructor(name: string, args: UserArgs) {
         super(name);
-        if (args.host === undefined) {
+        if (lumirt.defaultIfComputed(args.host, "") === undefined) {
             throw new Error("Property argument 'host' is required, but was missing");
         }
         this.host = args.host;
-        if (args.instance === undefined) {
+        if (lumirt.defaultIfComputed(args.instance, "") === undefined) {
             throw new Error("Property argument 'instance' is required, but was missing");
         }
         this.instance = args.instance;
         this.userName = args.userName;
-        if (args.password === undefined) {
+        if (lumirt.defaultIfComputed(args.password, "") === undefined) {
             throw new Error("Property argument 'password' is required, but was missing");
         }
         this.password = args.password;

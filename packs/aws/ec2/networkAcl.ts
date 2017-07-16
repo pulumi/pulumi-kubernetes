@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NetworkAcl extends lumi.NamedResource implements NetworkAclArgs {
     public readonly egress: { action: string, cidrBlock?: string, fromPort: number, icmpCode?: number, icmpType?: number, ipv6CidrBlock?: string, protocol: string, ruleNo: number, toPort: number }[];
@@ -18,7 +19,7 @@ export class NetworkAcl extends lumi.NamedResource implements NetworkAclArgs {
         this.subnetId = args.subnetId;
         this.subnetIds = args.subnetIds;
         this.tags = args.tags;
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;

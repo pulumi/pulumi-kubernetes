@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpcDhcpOptionsAssociation extends lumi.NamedResource implements VpcDhcpOptionsAssociationArgs {
     public readonly dhcpOptionsId: string;
@@ -9,11 +10,11 @@ export class VpcDhcpOptionsAssociation extends lumi.NamedResource implements Vpc
 
     constructor(name: string, args: VpcDhcpOptionsAssociationArgs) {
         super(name);
-        if (args.dhcpOptionsId === undefined) {
+        if (lumirt.defaultIfComputed(args.dhcpOptionsId, "") === undefined) {
             throw new Error("Property argument 'dhcpOptionsId' is required, but was missing");
         }
         this.dhcpOptionsId = args.dhcpOptionsId;
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;

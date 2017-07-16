@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Recorder extends lumi.NamedResource implements RecorderArgs {
     public readonly recorderName?: string;
@@ -12,7 +13,7 @@ export class Recorder extends lumi.NamedResource implements RecorderArgs {
         super(name);
         this.recorderName = args.recorderName;
         this.recordingGroup = args.recordingGroup;
-        if (args.roleArn === undefined) {
+        if (lumirt.defaultIfComputed(args.roleArn, "") === undefined) {
             throw new Error("Property argument 'roleArn' is required, but was missing");
         }
         this.roleArn = args.roleArn;

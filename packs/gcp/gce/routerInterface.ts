@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RouterInterface extends lumi.NamedResource implements RouterInterfaceArgs {
     public readonly ipRange?: string;
@@ -17,11 +18,11 @@ export class RouterInterface extends lumi.NamedResource implements RouterInterfa
         this.routerInterfaceName = args.routerInterfaceName;
         this.project = args.project;
         this.region = args.region;
-        if (args.router === undefined) {
+        if (lumirt.defaultIfComputed(args.router, "") === undefined) {
             throw new Error("Property argument 'router' is required, but was missing");
         }
         this.router = args.router;
-        if (args.vpnTunnel === undefined) {
+        if (lumirt.defaultIfComputed(args.vpnTunnel, "") === undefined) {
             throw new Error("Property argument 'vpnTunnel' is required, but was missing");
         }
         this.vpnTunnel = args.vpnTunnel;

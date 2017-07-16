@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class UserProfile extends lumi.NamedResource implements UserProfileArgs {
     public readonly allowSelfManagement?: boolean;
@@ -14,11 +15,11 @@ export class UserProfile extends lumi.NamedResource implements UserProfileArgs {
         super(name);
         this.allowSelfManagement = args.allowSelfManagement;
         this.sshPublicKey = args.sshPublicKey;
-        if (args.sshUsername === undefined) {
+        if (lumirt.defaultIfComputed(args.sshUsername, "") === undefined) {
             throw new Error("Property argument 'sshUsername' is required, but was missing");
         }
         this.sshUsername = args.sshUsername;
-        if (args.userArn === undefined) {
+        if (lumirt.defaultIfComputed(args.userArn, "") === undefined) {
             throw new Error("Property argument 'userArn' is required, but was missing");
         }
         this.userArn = args.userArn;

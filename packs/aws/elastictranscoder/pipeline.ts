@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Pipeline extends lumi.NamedResource implements PipelineArgs {
     public /*out*/ readonly arn: string;
@@ -21,14 +22,14 @@ export class Pipeline extends lumi.NamedResource implements PipelineArgs {
         this.awsKmsKeyArn = args.awsKmsKeyArn;
         this.contentConfig = args.contentConfig;
         this.contentConfigPermissions = args.contentConfigPermissions;
-        if (args.inputBucket === undefined) {
+        if (lumirt.defaultIfComputed(args.inputBucket, "") === undefined) {
             throw new Error("Property argument 'inputBucket' is required, but was missing");
         }
         this.inputBucket = args.inputBucket;
         this.pipelineName = args.pipelineName;
         this.notifications = args.notifications;
         this.outputBucket = args.outputBucket;
-        if (args.role === undefined) {
+        if (lumirt.defaultIfComputed(args.role, "") === undefined) {
             throw new Error("Property argument 'role' is required, but was missing");
         }
         this.role = args.role;

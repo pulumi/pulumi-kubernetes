@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class AaaaRecord extends lumi.NamedResource implements AaaaRecordArgs {
     public readonly aaaaRecordName?: string;
@@ -14,20 +15,20 @@ export class AaaaRecord extends lumi.NamedResource implements AaaaRecordArgs {
     constructor(name: string, args: AaaaRecordArgs) {
         super(name);
         this.aaaaRecordName = args.aaaaRecordName;
-        if (args.records === undefined) {
+        if (lumirt.defaultIfComputed(args.records, "") === undefined) {
             throw new Error("Property argument 'records' is required, but was missing");
         }
         this.records = args.records;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.tags = args.tags;
-        if (args.ttl === undefined) {
+        if (lumirt.defaultIfComputed(args.ttl, "") === undefined) {
             throw new Error("Property argument 'ttl' is required, but was missing");
         }
         this.ttl = args.ttl;
-        if (args.zoneName === undefined) {
+        if (lumirt.defaultIfComputed(args.zoneName, "") === undefined) {
             throw new Error("Property argument 'zoneName' is required, but was missing");
         }
         this.zoneName = args.zoneName;

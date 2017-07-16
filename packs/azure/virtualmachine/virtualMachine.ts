@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VirtualMachine extends lumi.NamedResource implements VirtualMachineArgs {
     public readonly availabilitySetId: string;
@@ -34,12 +35,12 @@ export class VirtualMachine extends lumi.NamedResource implements VirtualMachine
         this.deleteOsDiskOnTermination = args.deleteOsDiskOnTermination;
         this.diagnosticsProfile = args.diagnosticsProfile;
         this.licenseType = args.licenseType;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.virtualMachineName = args.virtualMachineName;
-        if (args.networkInterfaceIds === undefined) {
+        if (lumirt.defaultIfComputed(args.networkInterfaceIds, "") === undefined) {
             throw new Error("Property argument 'networkInterfaceIds' is required, but was missing");
         }
         this.networkInterfaceIds = args.networkInterfaceIds;
@@ -49,18 +50,18 @@ export class VirtualMachine extends lumi.NamedResource implements VirtualMachine
         this.osProfileWindowsConfig = args.osProfileWindowsConfig;
         this.plan = args.plan;
         this.primaryNetworkInterfaceId = args.primaryNetworkInterfaceId;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.storageDataDisk = args.storageDataDisk;
         this.storageImageReference = args.storageImageReference;
-        if (args.storageOsDisk === undefined) {
+        if (lumirt.defaultIfComputed(args.storageOsDisk, "") === undefined) {
             throw new Error("Property argument 'storageOsDisk' is required, but was missing");
         }
         this.storageOsDisk = args.storageOsDisk;
         this.tags = args.tags;
-        if (args.vmSize === undefined) {
+        if (lumirt.defaultIfComputed(args.vmSize, "") === undefined) {
             throw new Error("Property argument 'vmSize' is required, but was missing");
         }
         this.vmSize = args.vmSize;

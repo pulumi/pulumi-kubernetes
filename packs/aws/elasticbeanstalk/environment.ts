@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Environment extends lumi.NamedResource implements EnvironmentArgs {
     public /*out*/ readonly allSettings: { name: string, namespace: string, resource?: string, value: string }[];
@@ -27,7 +28,7 @@ export class Environment extends lumi.NamedResource implements EnvironmentArgs {
 
     constructor(name: string, args: EnvironmentArgs) {
         super(name);
-        if (args.application === undefined) {
+        if (lumirt.defaultIfComputed(args.application, "") === undefined) {
             throw new Error("Property argument 'application' is required, but was missing");
         }
         this.application = args.application;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpcEndpointRouteTableAssociation extends lumi.NamedResource implements VpcEndpointRouteTableAssociationArgs {
     public readonly routeTableId: string;
@@ -9,11 +10,11 @@ export class VpcEndpointRouteTableAssociation extends lumi.NamedResource impleme
 
     constructor(name: string, args: VpcEndpointRouteTableAssociationArgs) {
         super(name);
-        if (args.routeTableId === undefined) {
+        if (lumirt.defaultIfComputed(args.routeTableId, "") === undefined) {
             throw new Error("Property argument 'routeTableId' is required, but was missing");
         }
         this.routeTableId = args.routeTableId;
-        if (args.vpcEndpointId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcEndpointId, "") === undefined) {
             throw new Error("Property argument 'vpcEndpointId' is required, but was missing");
         }
         this.vpcEndpointId = args.vpcEndpointId;

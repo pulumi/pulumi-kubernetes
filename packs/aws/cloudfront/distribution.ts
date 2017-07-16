@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Distribution extends lumi.NamedResource implements DistributionArgs {
     public /*out*/ readonly activeTrustedSigners: {[key: string]: any};
@@ -37,30 +38,30 @@ export class Distribution extends lumi.NamedResource implements DistributionArgs
         this.cacheBehavior = args.cacheBehavior;
         this.comment = args.comment;
         this.customErrorResponse = args.customErrorResponse;
-        if (args.defaultCacheBehavior === undefined) {
+        if (lumirt.defaultIfComputed(args.defaultCacheBehavior, "") === undefined) {
             throw new Error("Property argument 'defaultCacheBehavior' is required, but was missing");
         }
         this.defaultCacheBehavior = args.defaultCacheBehavior;
         this.defaultRootObject = args.defaultRootObject;
-        if (args.enabled === undefined) {
+        if (lumirt.defaultIfComputed(args.enabled, "") === undefined) {
             throw new Error("Property argument 'enabled' is required, but was missing");
         }
         this.enabled = args.enabled;
         this.httpVersion = args.httpVersion;
         this.isIpv6Enabled = args.isIpv6Enabled;
         this.loggingConfig = args.loggingConfig;
-        if (args.origin === undefined) {
+        if (lumirt.defaultIfComputed(args.origin, "") === undefined) {
             throw new Error("Property argument 'origin' is required, but was missing");
         }
         this.origin = args.origin;
         this.priceClass = args.priceClass;
-        if (args.restrictions === undefined) {
+        if (lumirt.defaultIfComputed(args.restrictions, "") === undefined) {
             throw new Error("Property argument 'restrictions' is required, but was missing");
         }
         this.restrictions = args.restrictions;
         this.retainOnDelete = args.retainOnDelete;
         this.tags = args.tags;
-        if (args.viewerCertificate === undefined) {
+        if (lumirt.defaultIfComputed(args.viewerCertificate, "") === undefined) {
             throw new Error("Property argument 'viewerCertificate' is required, but was missing");
         }
         this.viewerCertificate = args.viewerCertificate;

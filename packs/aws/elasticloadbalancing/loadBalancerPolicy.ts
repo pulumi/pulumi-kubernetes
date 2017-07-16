@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class LoadBalancerPolicy extends lumi.NamedResource implements LoadBalancerPolicyArgs {
     public readonly loadBalancerName: string;
@@ -11,16 +12,16 @@ export class LoadBalancerPolicy extends lumi.NamedResource implements LoadBalanc
 
     constructor(name: string, args: LoadBalancerPolicyArgs) {
         super(name);
-        if (args.loadBalancerName === undefined) {
+        if (lumirt.defaultIfComputed(args.loadBalancerName, "") === undefined) {
             throw new Error("Property argument 'loadBalancerName' is required, but was missing");
         }
         this.loadBalancerName = args.loadBalancerName;
         this.policyAttribute = args.policyAttribute;
-        if (args.policyName === undefined) {
+        if (lumirt.defaultIfComputed(args.policyName, "") === undefined) {
             throw new Error("Property argument 'policyName' is required, but was missing");
         }
         this.policyName = args.policyName;
-        if (args.policyTypeName === undefined) {
+        if (lumirt.defaultIfComputed(args.policyTypeName, "") === undefined) {
             throw new Error("Property argument 'policyTypeName' is required, but was missing");
         }
         this.policyTypeName = args.policyTypeName;

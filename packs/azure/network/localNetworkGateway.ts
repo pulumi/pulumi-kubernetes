@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class LocalNetworkGateway extends lumi.NamedResource implements LocalNetworkGatewayArgs {
     public readonly addressSpace: string[];
@@ -12,15 +13,15 @@ export class LocalNetworkGateway extends lumi.NamedResource implements LocalNetw
 
     constructor(name: string, args: LocalNetworkGatewayArgs) {
         super(name);
-        if (args.addressSpace === undefined) {
+        if (lumirt.defaultIfComputed(args.addressSpace, "") === undefined) {
             throw new Error("Property argument 'addressSpace' is required, but was missing");
         }
         this.addressSpace = args.addressSpace;
-        if (args.gatewayAddress === undefined) {
+        if (lumirt.defaultIfComputed(args.gatewayAddress, "") === undefined) {
             throw new Error("Property argument 'gatewayAddress' is required, but was missing");
         }
         this.gatewayAddress = args.gatewayAddress;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;

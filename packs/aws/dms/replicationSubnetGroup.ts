@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ReplicationSubnetGroup extends lumi.NamedResource implements ReplicationSubnetGroupArgs {
     public /*out*/ readonly replicationSubnetGroupArn: string;
@@ -13,15 +14,15 @@ export class ReplicationSubnetGroup extends lumi.NamedResource implements Replic
 
     constructor(name: string, args: ReplicationSubnetGroupArgs) {
         super(name);
-        if (args.replicationSubnetGroupDescription === undefined) {
+        if (lumirt.defaultIfComputed(args.replicationSubnetGroupDescription, "") === undefined) {
             throw new Error("Property argument 'replicationSubnetGroupDescription' is required, but was missing");
         }
         this.replicationSubnetGroupDescription = args.replicationSubnetGroupDescription;
-        if (args.replicationSubnetGroupId === undefined) {
+        if (lumirt.defaultIfComputed(args.replicationSubnetGroupId, "") === undefined) {
             throw new Error("Property argument 'replicationSubnetGroupId' is required, but was missing");
         }
         this.replicationSubnetGroupId = args.replicationSubnetGroupId;
-        if (args.subnetIds === undefined) {
+        if (lumirt.defaultIfComputed(args.subnetIds, "") === undefined) {
             throw new Error("Property argument 'subnetIds' is required, but was missing");
         }
         this.subnetIds = args.subnetIds;

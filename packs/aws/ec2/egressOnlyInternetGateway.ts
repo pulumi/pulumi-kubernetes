@@ -2,13 +2,14 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class EgressOnlyInternetGateway extends lumi.NamedResource implements EgressOnlyInternetGatewayArgs {
     public readonly vpcId: string;
 
     constructor(name: string, args: EgressOnlyInternetGatewayArgs) {
         super(name);
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;

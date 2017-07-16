@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ElasticPool extends lumi.NamedResource implements ElasticPoolArgs {
     public /*out*/ readonly creationDate: string;
@@ -20,25 +21,25 @@ export class ElasticPool extends lumi.NamedResource implements ElasticPoolArgs {
         super(name);
         this.dbDtuMax = args.dbDtuMax;
         this.dbDtuMin = args.dbDtuMin;
-        if (args.dtu === undefined) {
+        if (lumirt.defaultIfComputed(args.dtu, "") === undefined) {
             throw new Error("Property argument 'dtu' is required, but was missing");
         }
         this.dtu = args.dtu;
-        if (args.edition === undefined) {
+        if (lumirt.defaultIfComputed(args.edition, "") === undefined) {
             throw new Error("Property argument 'edition' is required, but was missing");
         }
         this.edition = args.edition;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.elasticPoolName = args.elasticPoolName;
         this.poolSize = args.poolSize;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        if (args.serverName === undefined) {
+        if (lumirt.defaultIfComputed(args.serverName, "") === undefined) {
             throw new Error("Property argument 'serverName' is required, but was missing");
         }
         this.serverName = args.serverName;

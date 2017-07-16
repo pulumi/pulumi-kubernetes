@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ConfigurationTemplate extends lumi.NamedResource implements ConfigurationTemplateArgs {
     public readonly application: string;
@@ -13,7 +14,7 @@ export class ConfigurationTemplate extends lumi.NamedResource implements Configu
 
     constructor(name: string, args: ConfigurationTemplateArgs) {
         super(name);
-        if (args.application === undefined) {
+        if (lumirt.defaultIfComputed(args.application, "") === undefined) {
             throw new Error("Property argument 'application' is required, but was missing");
         }
         this.application = args.application;

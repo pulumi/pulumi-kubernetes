@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Activation extends lumi.NamedResource implements ActivationArgs {
     public readonly description?: string;
@@ -16,7 +17,7 @@ export class Activation extends lumi.NamedResource implements ActivationArgs {
         super(name);
         this.description = args.description;
         this.expirationDate = args.expirationDate;
-        if (args.iamRole === undefined) {
+        if (lumirt.defaultIfComputed(args.iamRole, "") === undefined) {
             throw new Error("Property argument 'iamRole' is required, but was missing");
         }
         this.iamRole = args.iamRole;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class MethodSettings extends lumi.NamedResource implements MethodSettingsArgs {
     public readonly methodPath: string;
@@ -11,19 +12,19 @@ export class MethodSettings extends lumi.NamedResource implements MethodSettings
 
     constructor(name: string, args: MethodSettingsArgs) {
         super(name);
-        if (args.methodPath === undefined) {
+        if (lumirt.defaultIfComputed(args.methodPath, "") === undefined) {
             throw new Error("Property argument 'methodPath' is required, but was missing");
         }
         this.methodPath = args.methodPath;
-        if (args.restApiId === undefined) {
+        if (lumirt.defaultIfComputed(args.restApiId, "") === undefined) {
             throw new Error("Property argument 'restApiId' is required, but was missing");
         }
         this.restApiId = args.restApiId;
-        if (args.settings === undefined) {
+        if (lumirt.defaultIfComputed(args.settings, "") === undefined) {
             throw new Error("Property argument 'settings' is required, but was missing");
         }
         this.settings = args.settings;
-        if (args.stageName === undefined) {
+        if (lumirt.defaultIfComputed(args.stageName, "") === undefined) {
             throw new Error("Property argument 'stageName' is required, but was missing");
         }
         this.stageName = args.stageName;

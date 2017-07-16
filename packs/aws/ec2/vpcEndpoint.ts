@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpcEndpoint extends lumi.NamedResource implements VpcEndpointArgs {
     public /*out*/ readonly cidrBlocks: string[];
@@ -15,11 +16,11 @@ export class VpcEndpoint extends lumi.NamedResource implements VpcEndpointArgs {
         super(name);
         this.policy = args.policy;
         this.routeTableIds = args.routeTableIds;
-        if (args.serviceName === undefined) {
+        if (lumirt.defaultIfComputed(args.serviceName, "") === undefined) {
             throw new Error("Property argument 'serviceName' is required, but was missing");
         }
         this.serviceName = args.serviceName;
-        if (args.vpcId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpcId, "") === undefined) {
             throw new Error("Property argument 'vpcId' is required, but was missing");
         }
         this.vpcId = args.vpcId;

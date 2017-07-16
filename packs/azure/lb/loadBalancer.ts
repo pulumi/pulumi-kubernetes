@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs {
     public readonly frontendIpConfiguration?: { inboundNatRules: string[], loadBalancerRules: string[], name: string, privateIpAddress: string, privateIpAddressAllocation: string, publicIpAddressId: string, subnetId: string }[];
@@ -14,12 +15,12 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
     constructor(name: string, args: LoadBalancerArgs) {
         super(name);
         this.frontendIpConfiguration = args.frontendIpConfiguration;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.loadBalancerName = args.loadBalancerName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

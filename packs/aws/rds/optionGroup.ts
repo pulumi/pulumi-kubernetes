@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class OptionGroup extends lumi.NamedResource implements OptionGroupArgs {
     public /*out*/ readonly arn: string;
@@ -15,11 +16,11 @@ export class OptionGroup extends lumi.NamedResource implements OptionGroupArgs {
 
     constructor(name: string, args: OptionGroupArgs) {
         super(name);
-        if (args.engineName === undefined) {
+        if (lumirt.defaultIfComputed(args.engineName, "") === undefined) {
             throw new Error("Property argument 'engineName' is required, but was missing");
         }
         this.engineName = args.engineName;
-        if (args.majorEngineVersion === undefined) {
+        if (lumirt.defaultIfComputed(args.majorEngineVersion, "") === undefined) {
             throw new Error("Property argument 'majorEngineVersion' is required, but was missing");
         }
         this.majorEngineVersion = args.majorEngineVersion;

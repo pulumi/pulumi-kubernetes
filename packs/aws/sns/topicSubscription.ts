@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class TopicSubscription extends lumi.NamedResource implements TopicSubscriptionArgs {
     public /*out*/ readonly arn: string;
@@ -17,17 +18,17 @@ export class TopicSubscription extends lumi.NamedResource implements TopicSubscr
         super(name);
         this.confirmationTimeoutInMinutes = args.confirmationTimeoutInMinutes;
         this.deliveryPolicy = args.deliveryPolicy;
-        if (args.endpoint === undefined) {
+        if (lumirt.defaultIfComputed(args.endpoint, "") === undefined) {
             throw new Error("Property argument 'endpoint' is required, but was missing");
         }
         this.endpoint = args.endpoint;
         this.endpointAutoConfirms = args.endpointAutoConfirms;
-        if (args.protocol === undefined) {
+        if (lumirt.defaultIfComputed(args.protocol, "") === undefined) {
             throw new Error("Property argument 'protocol' is required, but was missing");
         }
         this.protocol = args.protocol;
         this.rawMessageDelivery = args.rawMessageDelivery;
-        if (args.topicArn === undefined) {
+        if (lumirt.defaultIfComputed(args.topicArn, "") === undefined) {
             throw new Error("Property argument 'topicArn' is required, but was missing");
         }
         this.topicArn = args.topicArn;

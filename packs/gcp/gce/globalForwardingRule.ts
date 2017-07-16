@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class GlobalForwardingRule extends lumi.NamedResource implements GlobalForwardingRuleArgs {
     public readonly description?: string;
@@ -23,7 +24,7 @@ export class GlobalForwardingRule extends lumi.NamedResource implements GlobalFo
         this.portRange = args.portRange;
         this.project = args.project;
         this.region = args.region;
-        if (args.target === undefined) {
+        if (lumirt.defaultIfComputed(args.target, "") === undefined) {
             throw new Error("Property argument 'target' is required, but was missing");
         }
         this.target = args.target;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NetworkInterface extends lumi.NamedResource implements NetworkInterfaceArgs {
     public readonly appliedDnsServers: string[];
@@ -26,18 +27,18 @@ export class NetworkInterface extends lumi.NamedResource implements NetworkInter
         this.enableIpForwarding = args.enableIpForwarding;
         this.internalDnsNameLabel = args.internalDnsNameLabel;
         this.internalFqdn = args.internalFqdn;
-        if (args.ipConfiguration === undefined) {
+        if (lumirt.defaultIfComputed(args.ipConfiguration, "") === undefined) {
             throw new Error("Property argument 'ipConfiguration' is required, but was missing");
         }
         this.ipConfiguration = args.ipConfiguration;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.macAddress = args.macAddress;
         this.networkInterfaceName = args.networkInterfaceName;
         this.networkSecurityGroupId = args.networkSecurityGroupId;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class NetworkSecurityGroup extends lumi.NamedResource implements NetworkSecurityGroupArgs {
     public readonly location: string;
@@ -12,12 +13,12 @@ export class NetworkSecurityGroup extends lumi.NamedResource implements NetworkS
 
     constructor(name: string, args: NetworkSecurityGroupArgs) {
         super(name);
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.networkSecurityGroupName = args.networkSecurityGroupName;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

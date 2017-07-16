@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class VpnConnection extends lumi.NamedResource implements VpnConnectionArgs {
     public readonly customerGatewayConfiguration: string;
@@ -28,19 +29,19 @@ export class VpnConnection extends lumi.NamedResource implements VpnConnectionAr
     constructor(name: string, args: VpnConnectionArgs) {
         super(name);
         this.customerGatewayConfiguration = args.customerGatewayConfiguration;
-        if (args.customerGatewayId === undefined) {
+        if (lumirt.defaultIfComputed(args.customerGatewayId, "") === undefined) {
             throw new Error("Property argument 'customerGatewayId' is required, but was missing");
         }
         this.customerGatewayId = args.customerGatewayId;
         this.routes = args.routes;
         this.staticRoutesOnly = args.staticRoutesOnly;
         this.tags = args.tags;
-        if (args.type === undefined) {
+        if (lumirt.defaultIfComputed(args.type, "") === undefined) {
             throw new Error("Property argument 'type' is required, but was missing");
         }
         this.type = args.type;
         this.vgwTelemetry = args.vgwTelemetry;
-        if (args.vpnGatewayId === undefined) {
+        if (lumirt.defaultIfComputed(args.vpnGatewayId, "") === undefined) {
             throw new Error("Property argument 'vpnGatewayId' is required, but was missing");
         }
         this.vpnGatewayId = args.vpnGatewayId;

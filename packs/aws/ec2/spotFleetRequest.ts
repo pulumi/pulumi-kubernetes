@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class SpotFleetRequest extends lumi.NamedResource implements SpotFleetRequestArgs {
     public readonly allocationStrategy?: string;
@@ -21,20 +22,20 @@ export class SpotFleetRequest extends lumi.NamedResource implements SpotFleetReq
         super(name);
         this.allocationStrategy = args.allocationStrategy;
         this.excessCapacityTerminationPolicy = args.excessCapacityTerminationPolicy;
-        if (args.iamFleetRole === undefined) {
+        if (lumirt.defaultIfComputed(args.iamFleetRole, "") === undefined) {
             throw new Error("Property argument 'iamFleetRole' is required, but was missing");
         }
         this.iamFleetRole = args.iamFleetRole;
-        if (args.launchSpecification === undefined) {
+        if (lumirt.defaultIfComputed(args.launchSpecification, "") === undefined) {
             throw new Error("Property argument 'launchSpecification' is required, but was missing");
         }
         this.launchSpecification = args.launchSpecification;
         this.replaceUnhealthyInstances = args.replaceUnhealthyInstances;
-        if (args.spotPrice === undefined) {
+        if (lumirt.defaultIfComputed(args.spotPrice, "") === undefined) {
             throw new Error("Property argument 'spotPrice' is required, but was missing");
         }
         this.spotPrice = args.spotPrice;
-        if (args.targetCapacity === undefined) {
+        if (lumirt.defaultIfComputed(args.targetCapacity, "") === undefined) {
             throw new Error("Property argument 'targetCapacity' is required, but was missing");
         }
         this.targetCapacity = args.targetCapacity;

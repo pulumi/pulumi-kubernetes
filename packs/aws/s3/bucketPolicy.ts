@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class BucketPolicy extends lumi.NamedResource implements BucketPolicyArgs {
     public readonly bucket: string;
@@ -9,11 +10,11 @@ export class BucketPolicy extends lumi.NamedResource implements BucketPolicyArgs
 
     constructor(name: string, args: BucketPolicyArgs) {
         super(name);
-        if (args.bucket === undefined) {
+        if (lumirt.defaultIfComputed(args.bucket, "") === undefined) {
             throw new Error("Property argument 'bucket' is required, but was missing");
         }
         this.bucket = args.bucket;
-        if (args.policy === undefined) {
+        if (lumirt.defaultIfComputed(args.policy, "") === undefined) {
             throw new Error("Property argument 'policy' is required, but was missing");
         }
         this.policy = args.policy;

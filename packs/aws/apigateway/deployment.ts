@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 import {RestApi} from "./restApi";
 
@@ -18,12 +19,12 @@ export class Deployment extends lumi.NamedResource implements DeploymentArgs {
     constructor(name: string, args: DeploymentArgs) {
         super(name);
         this.description = args.description;
-        if (args.restApi === undefined) {
+        if (lumirt.defaultIfComputed(args.restApi, "") === undefined) {
             throw new Error("Property argument 'restApi' is required, but was missing");
         }
         this.restApi = args.restApi;
         this.stageDescription = args.stageDescription;
-        if (args.stageName === undefined) {
+        if (lumirt.defaultIfComputed(args.stageName, "") === undefined) {
             throw new Error("Property argument 'stageName' is required, but was missing");
         }
         this.stageName = args.stageName;

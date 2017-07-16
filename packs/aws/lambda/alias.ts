@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Alias extends lumi.NamedResource implements AliasArgs {
     public /*out*/ readonly arn: string;
@@ -13,11 +14,11 @@ export class Alias extends lumi.NamedResource implements AliasArgs {
     constructor(name: string, args: AliasArgs) {
         super(name);
         this.description = args.description;
-        if (args.functionName === undefined) {
+        if (lumirt.defaultIfComputed(args.functionName, "") === undefined) {
             throw new Error("Property argument 'functionName' is required, but was missing");
         }
         this.functionName = args.functionName;
-        if (args.functionVersion === undefined) {
+        if (lumirt.defaultIfComputed(args.functionVersion, "") === undefined) {
             throw new Error("Property argument 'functionVersion' is required, but was missing");
         }
         this.functionVersion = args.functionVersion;

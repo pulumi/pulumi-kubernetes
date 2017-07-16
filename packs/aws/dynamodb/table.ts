@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class Table extends lumi.NamedResource implements TableArgs {
     public /*out*/ readonly arn: string;
@@ -22,19 +23,19 @@ export class Table extends lumi.NamedResource implements TableArgs {
 
     constructor(name: string, args: TableArgs) {
         super(name);
-        if (args.attribute === undefined) {
+        if (lumirt.defaultIfComputed(args.attribute, "") === undefined) {
             throw new Error("Property argument 'attribute' is required, but was missing");
         }
         this.attribute = args.attribute;
         this.globalSecondaryIndex = args.globalSecondaryIndex;
-        if (args.hashKey === undefined) {
+        if (lumirt.defaultIfComputed(args.hashKey, "") === undefined) {
             throw new Error("Property argument 'hashKey' is required, but was missing");
         }
         this.hashKey = args.hashKey;
         this.localSecondaryIndex = args.localSecondaryIndex;
         this.tableName = args.tableName;
         this.rangeKey = args.rangeKey;
-        if (args.readCapacity === undefined) {
+        if (lumirt.defaultIfComputed(args.readCapacity, "") === undefined) {
             throw new Error("Property argument 'readCapacity' is required, but was missing");
         }
         this.readCapacity = args.readCapacity;
@@ -42,7 +43,7 @@ export class Table extends lumi.NamedResource implements TableArgs {
         this.streamViewType = args.streamViewType;
         this.tags = args.tags;
         this.ttl = args.ttl;
-        if (args.writeCapacity === undefined) {
+        if (lumirt.defaultIfComputed(args.writeCapacity, "") === undefined) {
             throw new Error("Property argument 'writeCapacity' is required, but was missing");
         }
         this.writeCapacity = args.writeCapacity;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RepositoryPolicy extends lumi.NamedResource implements RepositoryPolicyArgs {
     public readonly policy: string;
@@ -10,11 +11,11 @@ export class RepositoryPolicy extends lumi.NamedResource implements RepositoryPo
 
     constructor(name: string, args: RepositoryPolicyArgs) {
         super(name);
-        if (args.policy === undefined) {
+        if (lumirt.defaultIfComputed(args.policy, "") === undefined) {
             throw new Error("Property argument 'policy' is required, but was missing");
         }
         this.policy = args.policy;
-        if (args.repository === undefined) {
+        if (lumirt.defaultIfComputed(args.repository, "") === undefined) {
             throw new Error("Property argument 'repository' is required, but was missing");
         }
         this.repository = args.repository;

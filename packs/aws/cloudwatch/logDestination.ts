@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class LogDestination extends lumi.NamedResource implements LogDestinationArgs {
     public /*out*/ readonly arn: string;
@@ -12,11 +13,11 @@ export class LogDestination extends lumi.NamedResource implements LogDestination
     constructor(name: string, args: LogDestinationArgs) {
         super(name);
         this.logDestinationName = args.logDestinationName;
-        if (args.roleArn === undefined) {
+        if (lumirt.defaultIfComputed(args.roleArn, "") === undefined) {
             throw new Error("Property argument 'roleArn' is required, but was missing");
         }
         this.roleArn = args.roleArn;
-        if (args.targetArn === undefined) {
+        if (lumirt.defaultIfComputed(args.targetArn, "") === undefined) {
             throw new Error("Property argument 'targetArn' is required, but was missing");
         }
         this.targetArn = args.targetArn;

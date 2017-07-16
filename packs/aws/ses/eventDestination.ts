@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class EventDestination extends lumi.NamedResource implements EventDestinationArgs {
     public readonly cloudwatchDestination?: { defaultValue: string, dimensionName: string, valueSource: string }[];
@@ -14,13 +15,13 @@ export class EventDestination extends lumi.NamedResource implements EventDestina
     constructor(name: string, args: EventDestinationArgs) {
         super(name);
         this.cloudwatchDestination = args.cloudwatchDestination;
-        if (args.configurationSetName === undefined) {
+        if (lumirt.defaultIfComputed(args.configurationSetName, "") === undefined) {
             throw new Error("Property argument 'configurationSetName' is required, but was missing");
         }
         this.configurationSetName = args.configurationSetName;
         this.enabled = args.enabled;
         this.kinesisDestination = args.kinesisDestination;
-        if (args.matchingTypes === undefined) {
+        if (lumirt.defaultIfComputed(args.matchingTypes, "") === undefined) {
             throw new Error("Property argument 'matchingTypes' is required, but was missing");
         }
         this.matchingTypes = args.matchingTypes;

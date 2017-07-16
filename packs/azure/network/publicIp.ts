@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class PublicIp extends lumi.NamedResource implements PublicIpArgs {
     public readonly domainNameLabel?: string;
@@ -19,16 +20,16 @@ export class PublicIp extends lumi.NamedResource implements PublicIpArgs {
         super(name);
         this.domainNameLabel = args.domainNameLabel;
         this.idleTimeoutInMinutes = args.idleTimeoutInMinutes;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.publicIpName = args.publicIpName;
-        if (args.publicIpAddressAllocation === undefined) {
+        if (lumirt.defaultIfComputed(args.publicIpAddressAllocation, "") === undefined) {
             throw new Error("Property argument 'publicIpAddressAllocation' is required, but was missing");
         }
         this.publicIpAddressAllocation = args.publicIpAddressAllocation;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;

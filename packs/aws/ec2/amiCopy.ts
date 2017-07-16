@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class AmiCopy extends lumi.NamedResource implements AmiCopyArgs {
     public /*out*/ readonly architecture: string;
@@ -31,11 +32,11 @@ export class AmiCopy extends lumi.NamedResource implements AmiCopyArgs {
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
         this.kmsKeyId = args.kmsKeyId;
         this.amiCopyName = args.amiCopyName;
-        if (args.sourceAmiId === undefined) {
+        if (lumirt.defaultIfComputed(args.sourceAmiId, "") === undefined) {
             throw new Error("Property argument 'sourceAmiId' is required, but was missing");
         }
         this.sourceAmiId = args.sourceAmiId;
-        if (args.sourceAmiRegion === undefined) {
+        if (lumirt.defaultIfComputed(args.sourceAmiRegion, "") === undefined) {
             throw new Error("Property argument 'sourceAmiRegion' is required, but was missing");
         }
         this.sourceAmiRegion = args.sourceAmiRegion;

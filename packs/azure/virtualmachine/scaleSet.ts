@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class ScaleSet extends lumi.NamedResource implements ScaleSetArgs {
     public readonly extension?: { autoUpgradeMinorVersion?: boolean, name: string, protectedSettings?: string, publisher: string, settings?: string, type: string, typeHandlerVersion: string }[];
@@ -25,16 +26,16 @@ export class ScaleSet extends lumi.NamedResource implements ScaleSetArgs {
     constructor(name: string, args: ScaleSetArgs) {
         super(name);
         this.extension = args.extension;
-        if (args.location === undefined) {
+        if (lumirt.defaultIfComputed(args.location, "") === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
         this.scaleSetName = args.scaleSetName;
-        if (args.networkProfile === undefined) {
+        if (lumirt.defaultIfComputed(args.networkProfile, "") === undefined) {
             throw new Error("Property argument 'networkProfile' is required, but was missing");
         }
         this.networkProfile = args.networkProfile;
-        if (args.osProfile === undefined) {
+        if (lumirt.defaultIfComputed(args.osProfile, "") === undefined) {
             throw new Error("Property argument 'osProfile' is required, but was missing");
         }
         this.osProfile = args.osProfile;
@@ -42,23 +43,23 @@ export class ScaleSet extends lumi.NamedResource implements ScaleSetArgs {
         this.osProfileSecrets = args.osProfileSecrets;
         this.osProfileWindowsConfig = args.osProfileWindowsConfig;
         this.overprovision = args.overprovision;
-        if (args.resourceGroupName === undefined) {
+        if (lumirt.defaultIfComputed(args.resourceGroupName, "") === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
         this.singlePlacementGroup = args.singlePlacementGroup;
-        if (args.sku === undefined) {
+        if (lumirt.defaultIfComputed(args.sku, "") === undefined) {
             throw new Error("Property argument 'sku' is required, but was missing");
         }
         this.sku = args.sku;
         this.storageProfileDataDisk = args.storageProfileDataDisk;
         this.storageProfileImageReference = args.storageProfileImageReference;
-        if (args.storageProfileOsDisk === undefined) {
+        if (lumirt.defaultIfComputed(args.storageProfileOsDisk, "") === undefined) {
             throw new Error("Property argument 'storageProfileOsDisk' is required, but was missing");
         }
         this.storageProfileOsDisk = args.storageProfileOsDisk;
         this.tags = args.tags;
-        if (args.upgradePolicyMode === undefined) {
+        if (lumirt.defaultIfComputed(args.upgradePolicyMode, "") === undefined) {
             throw new Error("Property argument 'upgradePolicyMode' is required, but was missing");
         }
         this.upgradePolicyMode = args.upgradePolicyMode;

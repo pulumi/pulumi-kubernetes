@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class RecordSet extends lumi.NamedResource implements RecordSetArgs {
     public readonly managedZone: string;
@@ -13,21 +14,21 @@ export class RecordSet extends lumi.NamedResource implements RecordSetArgs {
 
     constructor(name: string, args: RecordSetArgs) {
         super(name);
-        if (args.managedZone === undefined) {
+        if (lumirt.defaultIfComputed(args.managedZone, "") === undefined) {
             throw new Error("Property argument 'managedZone' is required, but was missing");
         }
         this.managedZone = args.managedZone;
         this.recordSetName = args.recordSetName;
         this.project = args.project;
-        if (args.rrdatas === undefined) {
+        if (lumirt.defaultIfComputed(args.rrdatas, "") === undefined) {
             throw new Error("Property argument 'rrdatas' is required, but was missing");
         }
         this.rrdatas = args.rrdatas;
-        if (args.ttl === undefined) {
+        if (lumirt.defaultIfComputed(args.ttl, "") === undefined) {
             throw new Error("Property argument 'ttl' is required, but was missing");
         }
         this.ttl = args.ttl;
-        if (args.type === undefined) {
+        if (lumirt.defaultIfComputed(args.type, "") === undefined) {
             throw new Error("Property argument 'type' is required, but was missing");
         }
         this.type = args.type;

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as lumi from "@lumi/lumi";
+import * as lumirt from "@lumi/lumirt";
 
 export class EventTarget extends lumi.NamedResource implements EventTargetArgs {
     public readonly arn: string;
@@ -15,7 +16,7 @@ export class EventTarget extends lumi.NamedResource implements EventTargetArgs {
 
     constructor(name: string, args: EventTargetArgs) {
         super(name);
-        if (args.arn === undefined) {
+        if (lumirt.defaultIfComputed(args.arn, "") === undefined) {
             throw new Error("Property argument 'arn' is required, but was missing");
         }
         this.arn = args.arn;
@@ -23,7 +24,7 @@ export class EventTarget extends lumi.NamedResource implements EventTargetArgs {
         this.input = args.input;
         this.inputPath = args.inputPath;
         this.roleArn = args.roleArn;
-        if (args.rule === undefined) {
+        if (lumirt.defaultIfComputed(args.rule, "") === undefined) {
             throw new Error("Property argument 'rule' is required, but was missing");
         }
         this.rule = args.rule;
