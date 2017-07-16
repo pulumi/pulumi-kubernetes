@@ -5,11 +5,11 @@ import * as lumi from "@lumi/lumi";
 
 export class Subnet extends lumi.NamedResource implements SubnetArgs {
     public readonly addressPrefix: string;
-    public readonly ipConfigurations?: string[];
+    public readonly ipConfigurations: string[];
     public readonly subnetName?: string;
-    public readonly networkSecurityGroupId?: string;
+    public readonly networkSecurityGroupId: string;
     public readonly resourceGroupName: string;
-    public readonly routeTableId?: string;
+    public readonly routeTableId: string;
     public readonly virtualNetworkName: string;
 
     constructor(name: string, args: SubnetArgs) {

@@ -4,28 +4,28 @@
 import * as lumi from "@lumi/lumi";
 
 export class Instance extends lumi.NamedResource implements InstanceArgs {
-    public readonly attachedDisk?: { deviceName?: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256?: string, source: string }[];
-    public readonly bootDisk?: { autoDelete?: boolean, deviceName?: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256?: string, initializeParams?: { image?: string, size?: number, type?: string }[], source?: string }[];
+    public readonly attachedDisk?: { deviceName: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256: string, source: string }[];
+    public readonly bootDisk?: { autoDelete?: boolean, deviceName: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256: string, initializeParams?: { image?: string, size?: number, type?: string }[], source: string }[];
     public readonly canIpForward?: boolean;
     public readonly createTimeout?: number;
     public readonly description?: string;
-    public readonly disk?: { autoDelete?: boolean, deviceName?: string, disk?: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256?: string, image?: string, scratch?: boolean, size?: number, type?: string }[];
-    public readonly labelFingerprint?: string;
+    public readonly disk?: { autoDelete?: boolean, deviceName?: string, disk?: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256: string, image?: string, scratch?: boolean, size?: number, type?: string }[];
+    public /*out*/ readonly labelFingerprint: string;
     public readonly labels?: {[key: string]: string};
     public readonly machineType: string;
     public readonly metadata?: {[key: string]: string};
-    public readonly metadataFingerprint?: string;
+    public /*out*/ readonly metadataFingerprint: string;
     public readonly metadataStartupScript?: string;
     public readonly instanceName?: string;
-    public readonly network?: { address?: string, externalAddress?: string, internalAddress?: string, name?: string, source: string }[];
-    public readonly networkInterface?: { accessConfig?: { assignedNatIp?: string, natIp?: string }[], address?: string, name?: string, network?: string, subnetwork?: string, subnetworkProject?: string }[];
+    public readonly network?: { address?: string, externalAddress: string, internalAddress: string, name: string, source: string }[];
+    public readonly networkInterface?: { accessConfig?: { assignedNatIp: string, natIp?: string }[], address: string, name: string, network?: string, subnetwork?: string, subnetworkProject?: string }[];
     public readonly project?: string;
     public readonly scheduling?: { automaticRestart?: boolean, onHostMaintenance?: string, preemptible?: boolean }[];
     public readonly scratchDisk?: { interface?: string }[];
-    public readonly selfLink?: string;
-    public readonly serviceAccount?: { email?: string, scopes: string[] }[];
+    public /*out*/ readonly selfLink: string;
+    public readonly serviceAccount?: { email: string, scopes: string[] }[];
     public readonly tags?: string[];
-    public readonly tagsFingerprint?: string;
+    public /*out*/ readonly tagsFingerprint: string;
     public readonly zone: string;
 
     constructor(name: string, args: InstanceArgs) {
@@ -36,14 +36,12 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.createTimeout = args.createTimeout;
         this.description = args.description;
         this.disk = args.disk;
-        this.labelFingerprint = args.labelFingerprint;
         this.labels = args.labels;
         if (args.machineType === undefined) {
             throw new Error("Property argument 'machineType' is required, but was missing");
         }
         this.machineType = args.machineType;
         this.metadata = args.metadata;
-        this.metadataFingerprint = args.metadataFingerprint;
         this.metadataStartupScript = args.metadataStartupScript;
         this.instanceName = args.instanceName;
         this.network = args.network;
@@ -51,10 +49,8 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
         this.project = args.project;
         this.scheduling = args.scheduling;
         this.scratchDisk = args.scratchDisk;
-        this.selfLink = args.selfLink;
         this.serviceAccount = args.serviceAccount;
         this.tags = args.tags;
-        this.tagsFingerprint = args.tagsFingerprint;
         if (args.zone === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
@@ -63,28 +59,24 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
 }
 
 export interface InstanceArgs {
-    readonly attachedDisk?: { deviceName?: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256?: string, source: string }[];
-    readonly bootDisk?: { autoDelete?: boolean, deviceName?: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256?: string, initializeParams?: { image?: string, size?: number, type?: string }[], source?: string }[];
+    readonly attachedDisk?: { deviceName: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256: string, source: string }[];
+    readonly bootDisk?: { autoDelete?: boolean, deviceName: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256: string, initializeParams?: { image?: string, size?: number, type?: string }[], source: string }[];
     readonly canIpForward?: boolean;
     readonly createTimeout?: number;
     readonly description?: string;
-    readonly disk?: { autoDelete?: boolean, deviceName?: string, disk?: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256?: string, image?: string, scratch?: boolean, size?: number, type?: string }[];
-    readonly labelFingerprint?: string;
+    readonly disk?: { autoDelete?: boolean, deviceName?: string, disk?: string, diskEncryptionKeyRaw?: string, diskEncryptionKeySha256: string, image?: string, scratch?: boolean, size?: number, type?: string }[];
     readonly labels?: {[key: string]: string};
     readonly machineType: string;
     readonly metadata?: {[key: string]: string};
-    readonly metadataFingerprint?: string;
     readonly metadataStartupScript?: string;
     readonly instanceName?: string;
-    readonly network?: { address?: string, externalAddress?: string, internalAddress?: string, name?: string, source: string }[];
-    readonly networkInterface?: { accessConfig?: { assignedNatIp?: string, natIp?: string }[], address?: string, name?: string, network?: string, subnetwork?: string, subnetworkProject?: string }[];
+    readonly network?: { address?: string, externalAddress: string, internalAddress: string, name: string, source: string }[];
+    readonly networkInterface?: { accessConfig?: { assignedNatIp: string, natIp?: string }[], address: string, name: string, network?: string, subnetwork?: string, subnetworkProject?: string }[];
     readonly project?: string;
     readonly scheduling?: { automaticRestart?: boolean, onHostMaintenance?: string, preemptible?: boolean }[];
     readonly scratchDisk?: { interface?: string }[];
-    readonly selfLink?: string;
-    readonly serviceAccount?: { email?: string, scopes: string[] }[];
+    readonly serviceAccount?: { email: string, scopes: string[] }[];
     readonly tags?: string[];
-    readonly tagsFingerprint?: string;
     readonly zone: string;
 }
 

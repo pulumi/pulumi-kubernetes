@@ -4,26 +4,26 @@
 import * as lumi from "@lumi/lumi";
 
 export class ClusterInstance extends lumi.NamedResource implements ClusterInstanceArgs {
-    public readonly applyImmediately?: boolean;
+    public readonly applyImmediately: boolean;
     public readonly autoMinorVersionUpgrade?: boolean;
     public readonly clusterIdentifier: string;
-    public readonly dbParameterGroupName?: string;
-    public readonly dbSubnetGroupName?: string;
-    public readonly endpoint?: string;
-    public readonly identifier?: string;
-    public readonly identifierPrefix?: string;
+    public readonly dbParameterGroupName: string;
+    public readonly dbSubnetGroupName: string;
+    public /*out*/ readonly endpoint: string;
+    public readonly identifier: string;
+    public readonly identifierPrefix: string;
     public readonly instanceClass: string;
-    public readonly kmsKeyId?: string;
+    public /*out*/ readonly kmsKeyId: string;
     public readonly monitoringInterval?: number;
-    public readonly monitoringRoleArn?: string;
-    public readonly port?: number;
-    public readonly preferredBackupWindow?: string;
-    public readonly preferredMaintenanceWindow?: string;
+    public readonly monitoringRoleArn: string;
+    public /*out*/ readonly port: number;
+    public readonly preferredBackupWindow: string;
+    public readonly preferredMaintenanceWindow: string;
     public readonly promotionTier?: number;
     public readonly publiclyAccessible?: boolean;
-    public readonly storageEncrypted?: boolean;
+    public /*out*/ readonly storageEncrypted: boolean;
     public readonly tags?: {[key: string]: any};
-    public readonly writer?: boolean;
+    public /*out*/ readonly writer: boolean;
 
     constructor(name: string, args: ClusterInstanceArgs) {
         super(name);
@@ -35,24 +35,19 @@ export class ClusterInstance extends lumi.NamedResource implements ClusterInstan
         this.clusterIdentifier = args.clusterIdentifier;
         this.dbParameterGroupName = args.dbParameterGroupName;
         this.dbSubnetGroupName = args.dbSubnetGroupName;
-        this.endpoint = args.endpoint;
         this.identifier = args.identifier;
         this.identifierPrefix = args.identifierPrefix;
         if (args.instanceClass === undefined) {
             throw new Error("Property argument 'instanceClass' is required, but was missing");
         }
         this.instanceClass = args.instanceClass;
-        this.kmsKeyId = args.kmsKeyId;
         this.monitoringInterval = args.monitoringInterval;
         this.monitoringRoleArn = args.monitoringRoleArn;
-        this.port = args.port;
         this.preferredBackupWindow = args.preferredBackupWindow;
         this.preferredMaintenanceWindow = args.preferredMaintenanceWindow;
         this.promotionTier = args.promotionTier;
         this.publiclyAccessible = args.publiclyAccessible;
-        this.storageEncrypted = args.storageEncrypted;
         this.tags = args.tags;
-        this.writer = args.writer;
     }
 }
 
@@ -62,20 +57,15 @@ export interface ClusterInstanceArgs {
     readonly clusterIdentifier: string;
     readonly dbParameterGroupName?: string;
     readonly dbSubnetGroupName?: string;
-    readonly endpoint?: string;
     readonly identifier?: string;
     readonly identifierPrefix?: string;
     readonly instanceClass: string;
-    readonly kmsKeyId?: string;
     readonly monitoringInterval?: number;
     readonly monitoringRoleArn?: string;
-    readonly port?: number;
     readonly preferredBackupWindow?: string;
     readonly preferredMaintenanceWindow?: string;
     readonly promotionTier?: number;
     readonly publiclyAccessible?: boolean;
-    readonly storageEncrypted?: boolean;
     readonly tags?: {[key: string]: any};
-    readonly writer?: boolean;
 }
 

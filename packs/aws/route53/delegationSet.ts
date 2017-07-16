@@ -4,18 +4,16 @@
 import * as lumi from "@lumi/lumi";
 
 export class DelegationSet extends lumi.NamedResource implements DelegationSetArgs {
-    public readonly nameServers?: string[];
+    public /*out*/ readonly nameServers: string[];
     public readonly referenceName?: string;
 
     constructor(name: string, args: DelegationSetArgs) {
         super(name);
-        this.nameServers = args.nameServers;
         this.referenceName = args.referenceName;
     }
 }
 
 export interface DelegationSetArgs {
-    readonly nameServers?: string[];
     readonly referenceName?: string;
 }
 

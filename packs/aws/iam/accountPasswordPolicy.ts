@@ -5,20 +5,19 @@ import * as lumi from "@lumi/lumi";
 
 export class AccountPasswordPolicy extends lumi.NamedResource implements AccountPasswordPolicyArgs {
     public readonly allowUsersToChangePassword?: boolean;
-    public readonly expirePasswords?: boolean;
-    public readonly hardExpiry?: boolean;
-    public readonly maxPasswordAge?: number;
+    public /*out*/ readonly expirePasswords: boolean;
+    public readonly hardExpiry: boolean;
+    public readonly maxPasswordAge: number;
     public readonly minimumPasswordLength?: number;
-    public readonly passwordReusePrevention?: number;
-    public readonly requireLowercaseCharacters?: boolean;
-    public readonly requireNumbers?: boolean;
-    public readonly requireSymbols?: boolean;
-    public readonly requireUppercaseCharacters?: boolean;
+    public readonly passwordReusePrevention: number;
+    public readonly requireLowercaseCharacters: boolean;
+    public readonly requireNumbers: boolean;
+    public readonly requireSymbols: boolean;
+    public readonly requireUppercaseCharacters: boolean;
 
     constructor(name: string, args: AccountPasswordPolicyArgs) {
         super(name);
         this.allowUsersToChangePassword = args.allowUsersToChangePassword;
-        this.expirePasswords = args.expirePasswords;
         this.hardExpiry = args.hardExpiry;
         this.maxPasswordAge = args.maxPasswordAge;
         this.minimumPasswordLength = args.minimumPasswordLength;
@@ -32,7 +31,6 @@ export class AccountPasswordPolicy extends lumi.NamedResource implements Account
 
 export interface AccountPasswordPolicyArgs {
     readonly allowUsersToChangePassword?: boolean;
-    readonly expirePasswords?: boolean;
     readonly hardExpiry?: boolean;
     readonly maxPasswordAge?: number;
     readonly minimumPasswordLength?: number;

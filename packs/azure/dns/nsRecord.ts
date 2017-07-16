@@ -7,7 +7,7 @@ export class NsRecord extends lumi.NamedResource implements NsRecordArgs {
     public readonly nsRecordName?: string;
     public readonly record: { nsdname: string }[];
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly ttl: number;
     public readonly zoneName: string;
 

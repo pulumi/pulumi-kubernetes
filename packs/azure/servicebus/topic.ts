@@ -4,15 +4,15 @@
 import * as lumi from "@lumi/lumi";
 
 export class Topic extends lumi.NamedResource implements TopicArgs {
-    public readonly autoDeleteOnIdle?: string;
-    public readonly defaultMessageTtl?: string;
-    public readonly duplicateDetectionHistoryTimeWindow?: string;
+    public readonly autoDeleteOnIdle: string;
+    public readonly defaultMessageTtl: string;
+    public readonly duplicateDetectionHistoryTimeWindow: string;
     public readonly enableBatchedOperations?: boolean;
     public readonly enableExpress?: boolean;
     public readonly enableFilteringMessagesBeforePublishing?: boolean;
     public readonly enablePartitioning?: boolean;
     public readonly location: string;
-    public readonly maxSizeInMegabytes?: number;
+    public readonly maxSizeInMegabytes: number;
     public readonly topicName?: string;
     public readonly namespaceName: string;
     public readonly requiresDuplicateDetection?: boolean;

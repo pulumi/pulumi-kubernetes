@@ -4,8 +4,8 @@
 import * as lumi from "@lumi/lumi";
 
 export class BackendAddressPool extends lumi.NamedResource implements BackendAddressPoolArgs {
-    public readonly backendIpConfigurations?: string[];
-    public readonly loadBalancingRules?: string[];
+    public /*out*/ readonly backendIpConfigurations: string[];
+    public /*out*/ readonly loadBalancingRules: string[];
     public readonly loadbalancerId: string;
     public readonly location?: string;
     public readonly backendAddressPoolName?: string;
@@ -13,8 +13,6 @@ export class BackendAddressPool extends lumi.NamedResource implements BackendAdd
 
     constructor(name: string, args: BackendAddressPoolArgs) {
         super(name);
-        this.backendIpConfigurations = args.backendIpConfigurations;
-        this.loadBalancingRules = args.loadBalancingRules;
         if (args.loadbalancerId === undefined) {
             throw new Error("Property argument 'loadbalancerId' is required, but was missing");
         }
@@ -29,8 +27,6 @@ export class BackendAddressPool extends lumi.NamedResource implements BackendAdd
 }
 
 export interface BackendAddressPoolArgs {
-    readonly backendIpConfigurations?: string[];
-    readonly loadBalancingRules?: string[];
     readonly loadbalancerId: string;
     readonly location?: string;
     readonly backendAddressPoolName?: string;

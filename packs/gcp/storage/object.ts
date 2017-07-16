@@ -10,13 +10,13 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
     public readonly contentDisposition?: string;
     public readonly contentEncoding?: string;
     public readonly contentLanguage?: string;
-    public readonly contentType?: string;
-    public readonly crc32c?: string;
-    public readonly md5hash?: string;
+    public readonly contentType: string;
+    public /*out*/ readonly crc32c: string;
+    public /*out*/ readonly md5hash: string;
     public readonly objectName?: string;
     public readonly predefinedAcl?: string;
     public readonly source?: string;
-    public readonly storageClass?: string;
+    public readonly storageClass: string;
 
     constructor(name: string, args: ObjectArgs) {
         super(name);
@@ -30,8 +30,6 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
         this.contentEncoding = args.contentEncoding;
         this.contentLanguage = args.contentLanguage;
         this.contentType = args.contentType;
-        this.crc32c = args.crc32c;
-        this.md5hash = args.md5hash;
         this.objectName = args.objectName;
         this.predefinedAcl = args.predefinedAcl;
         this.source = args.source;
@@ -47,8 +45,6 @@ export interface ObjectArgs {
     readonly contentEncoding?: string;
     readonly contentLanguage?: string;
     readonly contentType?: string;
-    readonly crc32c?: string;
-    readonly md5hash?: string;
     readonly objectName?: string;
     readonly predefinedAcl?: string;
     readonly source?: string;

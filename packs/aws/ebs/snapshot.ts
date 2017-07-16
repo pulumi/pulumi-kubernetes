@@ -4,42 +4,30 @@
 import * as lumi from "@lumi/lumi";
 
 export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
-    public readonly dataEncryptionKeyId?: string;
+    public /*out*/ readonly dataEncryptionKeyId: string;
     public readonly description?: string;
-    public readonly encrypted?: boolean;
-    public readonly kmsKeyId?: string;
-    public readonly ownerAlias?: string;
-    public readonly ownerId?: string;
+    public /*out*/ readonly encrypted: boolean;
+    public /*out*/ readonly kmsKeyId: string;
+    public /*out*/ readonly ownerAlias: string;
+    public /*out*/ readonly ownerId: string;
     public readonly tags?: {[key: string]: any};
     public readonly volumeId: string;
-    public readonly volumeSize?: number;
+    public /*out*/ readonly volumeSize: number;
 
     constructor(name: string, args: SnapshotArgs) {
         super(name);
-        this.dataEncryptionKeyId = args.dataEncryptionKeyId;
         this.description = args.description;
-        this.encrypted = args.encrypted;
-        this.kmsKeyId = args.kmsKeyId;
-        this.ownerAlias = args.ownerAlias;
-        this.ownerId = args.ownerId;
         this.tags = args.tags;
         if (args.volumeId === undefined) {
             throw new Error("Property argument 'volumeId' is required, but was missing");
         }
         this.volumeId = args.volumeId;
-        this.volumeSize = args.volumeSize;
     }
 }
 
 export interface SnapshotArgs {
-    readonly dataEncryptionKeyId?: string;
     readonly description?: string;
-    readonly encrypted?: boolean;
-    readonly kmsKeyId?: string;
-    readonly ownerAlias?: string;
-    readonly ownerId?: string;
     readonly tags?: {[key: string]: any};
     readonly volumeId: string;
-    readonly volumeSize?: number;
 }
 

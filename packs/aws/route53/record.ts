@@ -6,7 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class Record extends lumi.NamedResource implements RecordArgs {
     public readonly alias?: { evaluateTargetHealth: boolean, name: string, zoneId: string }[];
     public readonly failoverRoutingPolicy?: { type: string }[];
-    public readonly fqdn?: string;
+    public /*out*/ readonly fqdn: string;
     public readonly geolocationRoutingPolicy?: { continent?: string, country?: string, subdivision?: string }[];
     public readonly healthCheckId?: string;
     public readonly latencyRoutingPolicy?: { region: string }[];
@@ -22,7 +22,6 @@ export class Record extends lumi.NamedResource implements RecordArgs {
         super(name);
         this.alias = args.alias;
         this.failoverRoutingPolicy = args.failoverRoutingPolicy;
-        this.fqdn = args.fqdn;
         this.geolocationRoutingPolicy = args.geolocationRoutingPolicy;
         this.healthCheckId = args.healthCheckId;
         this.latencyRoutingPolicy = args.latencyRoutingPolicy;
@@ -45,7 +44,6 @@ export class Record extends lumi.NamedResource implements RecordArgs {
 export interface RecordArgs {
     readonly alias?: { evaluateTargetHealth: boolean, name: string, zoneId: string }[];
     readonly failoverRoutingPolicy?: { type: string }[];
-    readonly fqdn?: string;
     readonly geolocationRoutingPolicy?: { continent?: string, country?: string, subdivision?: string }[];
     readonly healthCheckId?: string;
     readonly latencyRoutingPolicy?: { region: string }[];

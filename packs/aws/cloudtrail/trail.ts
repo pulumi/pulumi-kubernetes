@@ -4,12 +4,12 @@
 import * as lumi from "@lumi/lumi";
 
 export class Trail extends lumi.NamedResource implements TrailArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly cloudWatchLogsGroupArn?: string;
     public readonly cloudWatchLogsRoleArn?: string;
     public readonly enableLogFileValidation?: boolean;
     public readonly enableLogging?: boolean;
-    public readonly homeRegion?: string;
+    public /*out*/ readonly homeRegion: string;
     public readonly includeGlobalServiceEvents?: boolean;
     public readonly isMultiRegionTrail?: boolean;
     public readonly kmsKeyId?: string;
@@ -21,12 +21,10 @@ export class Trail extends lumi.NamedResource implements TrailArgs {
 
     constructor(name: string, args: TrailArgs) {
         super(name);
-        this.arn = args.arn;
         this.cloudWatchLogsGroupArn = args.cloudWatchLogsGroupArn;
         this.cloudWatchLogsRoleArn = args.cloudWatchLogsRoleArn;
         this.enableLogFileValidation = args.enableLogFileValidation;
         this.enableLogging = args.enableLogging;
-        this.homeRegion = args.homeRegion;
         this.includeGlobalServiceEvents = args.includeGlobalServiceEvents;
         this.isMultiRegionTrail = args.isMultiRegionTrail;
         this.kmsKeyId = args.kmsKeyId;
@@ -42,12 +40,10 @@ export class Trail extends lumi.NamedResource implements TrailArgs {
 }
 
 export interface TrailArgs {
-    readonly arn?: string;
     readonly cloudWatchLogsGroupArn?: string;
     readonly cloudWatchLogsRoleArn?: string;
     readonly enableLogFileValidation?: boolean;
     readonly enableLogging?: boolean;
-    readonly homeRegion?: string;
     readonly includeGlobalServiceEvents?: boolean;
     readonly isMultiRegionTrail?: boolean;
     readonly kmsKeyId?: string;

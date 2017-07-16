@@ -6,23 +6,21 @@ import * as lumi from "@lumi/lumi";
 export class Activation extends lumi.NamedResource implements ActivationArgs {
     public readonly description?: string;
     public readonly expirationDate?: string;
-    public readonly expired?: string;
+    public /*out*/ readonly expired: string;
     public readonly iamRole: string;
     public readonly activationName?: string;
-    public readonly registrationCount?: number;
+    public /*out*/ readonly registrationCount: number;
     public readonly registrationLimit?: number;
 
     constructor(name: string, args: ActivationArgs) {
         super(name);
         this.description = args.description;
         this.expirationDate = args.expirationDate;
-        this.expired = args.expired;
         if (args.iamRole === undefined) {
             throw new Error("Property argument 'iamRole' is required, but was missing");
         }
         this.iamRole = args.iamRole;
         this.activationName = args.activationName;
-        this.registrationCount = args.registrationCount;
         this.registrationLimit = args.registrationLimit;
     }
 }
@@ -30,10 +28,8 @@ export class Activation extends lumi.NamedResource implements ActivationArgs {
 export interface ActivationArgs {
     readonly description?: string;
     readonly expirationDate?: string;
-    readonly expired?: string;
     readonly iamRole: string;
     readonly activationName?: string;
-    readonly registrationCount?: number;
     readonly registrationLimit?: number;
 }
 

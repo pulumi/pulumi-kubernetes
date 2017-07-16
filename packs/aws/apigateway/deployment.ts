@@ -6,10 +6,10 @@ import * as lumi from "@lumi/lumi";
 import {RestApi} from "./restApi";
 
 export class Deployment extends lumi.NamedResource implements DeploymentArgs {
-    public readonly createdDate?: string;
+    public /*out*/ readonly createdDate: string;
     public readonly description?: string;
-    public readonly executionArn?: string;
-    public readonly invokeUrl?: string;
+    public /*out*/ readonly executionArn: string;
+    public /*out*/ readonly invokeUrl: string;
     public readonly restApi: RestApi;
     public readonly stageDescription?: string;
     public readonly stageName: string;
@@ -17,10 +17,7 @@ export class Deployment extends lumi.NamedResource implements DeploymentArgs {
 
     constructor(name: string, args: DeploymentArgs) {
         super(name);
-        this.createdDate = args.createdDate;
         this.description = args.description;
-        this.executionArn = args.executionArn;
-        this.invokeUrl = args.invokeUrl;
         if (args.restApi === undefined) {
             throw new Error("Property argument 'restApi' is required, but was missing");
         }
@@ -35,10 +32,7 @@ export class Deployment extends lumi.NamedResource implements DeploymentArgs {
 }
 
 export interface DeploymentArgs {
-    readonly createdDate?: string;
     readonly description?: string;
-    readonly executionArn?: string;
-    readonly invokeUrl?: string;
     readonly restApi: RestApi;
     readonly stageDescription?: string;
     readonly stageName: string;

@@ -4,9 +4,9 @@
 import * as lumi from "@lumi/lumi";
 
 export class FileSystem extends lumi.NamedResource implements FileSystemArgs {
-    public readonly creationToken?: string;
-    public readonly performanceMode?: string;
-    public readonly referenceName?: string;
+    public readonly creationToken: string;
+    public readonly performanceMode: string;
+    public readonly referenceName: string;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: FileSystemArgs) {

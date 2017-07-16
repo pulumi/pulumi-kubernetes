@@ -5,13 +5,13 @@ import * as lumi from "@lumi/lumi";
 
 export class InstanceGroup extends lumi.NamedResource implements InstanceGroupArgs {
     public readonly description?: string;
-    public readonly instances?: string[];
+    public readonly instances: string[];
     public readonly instanceGroupName?: string;
     public readonly namedPort?: { name: string, port: number }[];
-    public readonly network?: string;
+    public readonly network: string;
     public readonly project?: string;
-    public readonly selfLink?: string;
-    public readonly size?: number;
+    public /*out*/ readonly selfLink: string;
+    public /*out*/ readonly size: number;
     public readonly zone: string;
 
     constructor(name: string, args: InstanceGroupArgs) {
@@ -22,8 +22,6 @@ export class InstanceGroup extends lumi.NamedResource implements InstanceGroupAr
         this.namedPort = args.namedPort;
         this.network = args.network;
         this.project = args.project;
-        this.selfLink = args.selfLink;
-        this.size = args.size;
         if (args.zone === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
@@ -38,8 +36,6 @@ export interface InstanceGroupArgs {
     readonly namedPort?: { name: string, port: number }[];
     readonly network?: string;
     readonly project?: string;
-    readonly selfLink?: string;
-    readonly size?: number;
     readonly zone: string;
 }
 

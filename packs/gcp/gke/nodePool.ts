@@ -6,7 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class NodePool extends lumi.NamedResource implements NodePoolArgs {
     public readonly cluster: string;
     public readonly initialNodeCount: number;
-    public readonly nodePoolName?: string;
+    public readonly nodePoolName: string;
     public readonly namePrefix?: string;
     public readonly project?: string;
     public readonly zone: string;

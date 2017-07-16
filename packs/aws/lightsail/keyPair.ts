@@ -4,39 +4,29 @@
 import * as lumi from "@lumi/lumi";
 
 export class KeyPair extends lumi.NamedResource implements KeyPairArgs {
-    public readonly arn?: string;
-    public readonly encryptedFingerprint?: string;
-    public readonly encryptedPrivateKey?: string;
-    public readonly fingerprint?: string;
-    public readonly keyPairName?: string;
+    public /*out*/ readonly arn: string;
+    public /*out*/ readonly encryptedFingerprint: string;
+    public /*out*/ readonly encryptedPrivateKey: string;
+    public /*out*/ readonly fingerprint: string;
+    public readonly keyPairName: string;
     public readonly namePrefix?: string;
     public readonly pgpKey?: string;
-    public readonly privateKey?: string;
-    public readonly publicKey?: string;
+    public /*out*/ readonly privateKey: string;
+    public readonly publicKey: string;
 
     constructor(name: string, args: KeyPairArgs) {
         super(name);
-        this.arn = args.arn;
-        this.encryptedFingerprint = args.encryptedFingerprint;
-        this.encryptedPrivateKey = args.encryptedPrivateKey;
-        this.fingerprint = args.fingerprint;
         this.keyPairName = args.keyPairName;
         this.namePrefix = args.namePrefix;
         this.pgpKey = args.pgpKey;
-        this.privateKey = args.privateKey;
         this.publicKey = args.publicKey;
     }
 }
 
 export interface KeyPairArgs {
-    readonly arn?: string;
-    readonly encryptedFingerprint?: string;
-    readonly encryptedPrivateKey?: string;
-    readonly fingerprint?: string;
     readonly keyPairName?: string;
     readonly namePrefix?: string;
     readonly pgpKey?: string;
-    readonly privateKey?: string;
     readonly publicKey?: string;
 }
 

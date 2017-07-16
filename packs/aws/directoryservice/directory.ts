@@ -4,26 +4,24 @@
 import * as lumi from "@lumi/lumi";
 
 export class Directory extends lumi.NamedResource implements DirectoryArgs {
-    public readonly accessUrl?: string;
-    public readonly alias?: string;
+    public /*out*/ readonly accessUrl: string;
+    public readonly alias: string;
     public readonly connectSettings?: { customerDnsIps: string[], customerUsername: string, subnetIds: string[], vpcId: string }[];
     public readonly description?: string;
-    public readonly dnsIpAddresses?: string[];
+    public /*out*/ readonly dnsIpAddresses: string[];
     public readonly enableSso?: boolean;
     public readonly directoryName?: string;
     public readonly password: string;
-    public readonly shortName?: string;
+    public readonly shortName: string;
     public readonly size?: string;
     public readonly type?: string;
     public readonly vpcSettings?: { subnetIds: string[], vpcId: string }[];
 
     constructor(name: string, args: DirectoryArgs) {
         super(name);
-        this.accessUrl = args.accessUrl;
         this.alias = args.alias;
         this.connectSettings = args.connectSettings;
         this.description = args.description;
-        this.dnsIpAddresses = args.dnsIpAddresses;
         this.enableSso = args.enableSso;
         this.directoryName = args.directoryName;
         if (args.password === undefined) {
@@ -38,11 +36,9 @@ export class Directory extends lumi.NamedResource implements DirectoryArgs {
 }
 
 export interface DirectoryArgs {
-    readonly accessUrl?: string;
     readonly alias?: string;
     readonly connectSettings?: { customerDnsIps: string[], customerUsername: string, subnetIds: string[], vpcId: string }[];
     readonly description?: string;
-    readonly dnsIpAddresses?: string[];
     readonly enableSso?: boolean;
     readonly directoryName?: string;
     readonly password: string;

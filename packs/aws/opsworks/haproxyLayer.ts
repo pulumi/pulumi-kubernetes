@@ -20,7 +20,7 @@ export class HaproxyLayer extends lumi.NamedResource implements HaproxyLayerArgs
     public readonly elasticLoadBalancer?: string;
     public readonly healthcheckMethod?: string;
     public readonly healthcheckUrl?: string;
-    public readonly layerId?: string;
+    public /*out*/ readonly layerId: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceShutdownTimeout?: number;
     public readonly haproxyLayerName?: string;
@@ -50,7 +50,6 @@ export class HaproxyLayer extends lumi.NamedResource implements HaproxyLayerArgs
         this.elasticLoadBalancer = args.elasticLoadBalancer;
         this.healthcheckMethod = args.healthcheckMethod;
         this.healthcheckUrl = args.healthcheckUrl;
-        this.layerId = args.layerId;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
         this.haproxyLayerName = args.haproxyLayerName;
@@ -87,7 +86,6 @@ export interface HaproxyLayerArgs {
     readonly elasticLoadBalancer?: string;
     readonly healthcheckMethod?: string;
     readonly healthcheckUrl?: string;
-    readonly layerId?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceShutdownTimeout?: number;
     readonly haproxyLayerName?: string;

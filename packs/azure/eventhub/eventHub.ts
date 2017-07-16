@@ -9,7 +9,7 @@ export class EventHub extends lumi.NamedResource implements EventHubArgs {
     public readonly eventHubName?: string;
     public readonly namespaceName: string;
     public readonly partitionCount: number;
-    public readonly partitionIds?: string[];
+    public /*out*/ readonly partitionIds: string[];
     public readonly resourceGroupName: string;
 
     constructor(name: string, args: EventHubArgs) {
@@ -31,7 +31,6 @@ export class EventHub extends lumi.NamedResource implements EventHubArgs {
             throw new Error("Property argument 'partitionCount' is required, but was missing");
         }
         this.partitionCount = args.partitionCount;
-        this.partitionIds = args.partitionIds;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
@@ -45,7 +44,6 @@ export interface EventHubArgs {
     readonly eventHubName?: string;
     readonly namespaceName: string;
     readonly partitionCount: number;
-    readonly partitionIds?: string[];
     readonly resourceGroupName: string;
 }
 

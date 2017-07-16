@@ -5,12 +5,12 @@ import * as lumi from "@lumi/lumi";
 
 export class Profile extends lumi.NamedResource implements ProfileArgs {
     public readonly dnsConfig: { relativeName: string, ttl: number }[];
-    public readonly fqdn?: string;
+    public /*out*/ readonly fqdn: string;
     public readonly monitorConfig: { path: string, port: number, protocol: string }[];
     public readonly profileName?: string;
-    public readonly profileStatus?: string;
+    public readonly profileStatus: string;
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly trafficRoutingMethod: string;
 
     constructor(name: string, args: ProfileArgs) {
@@ -19,7 +19,6 @@ export class Profile extends lumi.NamedResource implements ProfileArgs {
             throw new Error("Property argument 'dnsConfig' is required, but was missing");
         }
         this.dnsConfig = args.dnsConfig;
-        this.fqdn = args.fqdn;
         if (args.monitorConfig === undefined) {
             throw new Error("Property argument 'monitorConfig' is required, but was missing");
         }
@@ -40,7 +39,6 @@ export class Profile extends lumi.NamedResource implements ProfileArgs {
 
 export interface ProfileArgs {
     readonly dnsConfig: { relativeName: string, ttl: number }[];
-    readonly fqdn?: string;
     readonly monitorConfig: { path: string, port: number, protocol: string }[];
     readonly profileName?: string;
     readonly profileStatus?: string;

@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class EventSubscription extends lumi.NamedResource implements EventSubscriptionArgs {
-    public readonly customerAwsId?: string;
+    public /*out*/ readonly customerAwsId: string;
     public readonly enabled?: boolean;
     public readonly eventCategories?: string[];
     public readonly eventSubscriptionName?: string;
@@ -15,7 +15,6 @@ export class EventSubscription extends lumi.NamedResource implements EventSubscr
 
     constructor(name: string, args: EventSubscriptionArgs) {
         super(name);
-        this.customerAwsId = args.customerAwsId;
         this.enabled = args.enabled;
         this.eventCategories = args.eventCategories;
         this.eventSubscriptionName = args.eventSubscriptionName;
@@ -30,7 +29,6 @@ export class EventSubscription extends lumi.NamedResource implements EventSubscr
 }
 
 export interface EventSubscriptionArgs {
-    readonly customerAwsId?: string;
     readonly enabled?: boolean;
     readonly eventCategories?: string[];
     readonly eventSubscriptionName?: string;

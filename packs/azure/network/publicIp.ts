@@ -5,22 +5,20 @@ import * as lumi from "@lumi/lumi";
 
 export class PublicIp extends lumi.NamedResource implements PublicIpArgs {
     public readonly domainNameLabel?: string;
-    public readonly fqdn?: string;
+    public /*out*/ readonly fqdn: string;
     public readonly idleTimeoutInMinutes?: number;
-    public readonly ipAddress?: string;
+    public /*out*/ readonly ipAddress: string;
     public readonly location: string;
     public readonly publicIpName?: string;
     public readonly publicIpAddressAllocation: string;
     public readonly resourceGroupName: string;
     public readonly reverseFqdn?: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: PublicIpArgs) {
         super(name);
         this.domainNameLabel = args.domainNameLabel;
-        this.fqdn = args.fqdn;
         this.idleTimeoutInMinutes = args.idleTimeoutInMinutes;
-        this.ipAddress = args.ipAddress;
         if (args.location === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
@@ -41,9 +39,7 @@ export class PublicIp extends lumi.NamedResource implements PublicIpArgs {
 
 export interface PublicIpArgs {
     readonly domainNameLabel?: string;
-    readonly fqdn?: string;
     readonly idleTimeoutInMinutes?: number;
-    readonly ipAddress?: string;
     readonly location: string;
     readonly publicIpName?: string;
     readonly publicIpAddressAllocation: string;

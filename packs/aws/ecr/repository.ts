@@ -4,24 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class Repository extends lumi.NamedResource implements RepositoryArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly repositoryName?: string;
-    public readonly registryId?: string;
-    public readonly repositoryUrl?: string;
+    public /*out*/ readonly registryId: string;
+    public /*out*/ readonly repositoryUrl: string;
 
     constructor(name: string, args: RepositoryArgs) {
         super(name);
-        this.arn = args.arn;
         this.repositoryName = args.repositoryName;
-        this.registryId = args.registryId;
-        this.repositoryUrl = args.repositoryUrl;
     }
 }
 
 export interface RepositoryArgs {
-    readonly arn?: string;
     readonly repositoryName?: string;
-    readonly registryId?: string;
-    readonly repositoryUrl?: string;
 }
 

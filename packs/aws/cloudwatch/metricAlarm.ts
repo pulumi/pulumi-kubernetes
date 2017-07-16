@@ -10,7 +10,7 @@ export class MetricAlarm extends lumi.NamedResource implements MetricAlarmArgs {
     public readonly alarmName: string;
     public readonly comparisonOperator: string;
     public readonly dimensions?: {[key: string]: any};
-    public readonly evaluateLowSampleCountPercentiles?: string;
+    public readonly evaluateLowSampleCountPercentiles: string;
     public readonly evaluationPeriods: number;
     public readonly extendedStatistic?: string;
     public readonly insufficientDataActions?: string[];

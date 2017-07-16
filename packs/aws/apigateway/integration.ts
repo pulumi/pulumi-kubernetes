@@ -8,12 +8,12 @@ import {RestApi} from "./restApi";
 
 export class Integration extends lumi.NamedResource implements IntegrationArgs {
     public readonly cacheKeyParameters?: string[];
-    public readonly cacheNamespace?: string;
+    public readonly cacheNamespace: string;
     public readonly contentHandling?: string;
     public readonly credentials?: string;
     public readonly httpMethod: string;
     public readonly integrationHttpMethod?: string;
-    public readonly passthroughBehavior?: string;
+    public readonly passthroughBehavior: string;
     public readonly requestParameters?: {[key: string]: string};
     public readonly requestParametersInJson?: string;
     public readonly requestTemplates?: {[key: string]: string};

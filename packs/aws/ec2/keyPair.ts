@@ -4,14 +4,13 @@
 import * as lumi from "@lumi/lumi";
 
 export class KeyPair extends lumi.NamedResource implements KeyPairArgs {
-    public readonly fingerprint?: string;
-    public readonly keyName?: string;
+    public /*out*/ readonly fingerprint: string;
+    public readonly keyName: string;
     public readonly keyNamePrefix?: string;
     public readonly publicKey: string;
 
     constructor(name: string, args: KeyPairArgs) {
         super(name);
-        this.fingerprint = args.fingerprint;
         this.keyName = args.keyName;
         this.keyNamePrefix = args.keyNamePrefix;
         if (args.publicKey === undefined) {
@@ -22,7 +21,6 @@ export class KeyPair extends lumi.NamedResource implements KeyPairArgs {
 }
 
 export interface KeyPairArgs {
-    readonly fingerprint?: string;
     readonly keyName?: string;
     readonly keyNamePrefix?: string;
     readonly publicKey: string;

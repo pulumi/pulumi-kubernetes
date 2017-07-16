@@ -7,7 +7,7 @@ export class SrvRecord extends lumi.NamedResource implements SrvRecordArgs {
     public readonly srvRecordName?: string;
     public readonly record: { port: number, priority: number, target: string, weight: number }[];
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly ttl: number;
     public readonly zoneName: string;
 

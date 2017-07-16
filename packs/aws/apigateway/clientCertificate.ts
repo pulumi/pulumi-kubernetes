@@ -4,24 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class ClientCertificate extends lumi.NamedResource implements ClientCertificateArgs {
-    public readonly createdDate?: string;
+    public /*out*/ readonly createdDate: string;
     public readonly description?: string;
-    public readonly expirationDate?: string;
-    public readonly pemEncodedCertificate?: string;
+    public /*out*/ readonly expirationDate: string;
+    public /*out*/ readonly pemEncodedCertificate: string;
 
     constructor(name: string, args: ClientCertificateArgs) {
         super(name);
-        this.createdDate = args.createdDate;
         this.description = args.description;
-        this.expirationDate = args.expirationDate;
-        this.pemEncodedCertificate = args.pemEncodedCertificate;
     }
 }
 
 export interface ClientCertificateArgs {
-    readonly createdDate?: string;
     readonly description?: string;
-    readonly expirationDate?: string;
-    readonly pemEncodedCertificate?: string;
 }
 

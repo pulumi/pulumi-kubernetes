@@ -4,22 +4,17 @@
 import * as lumi from "@lumi/lumi";
 
 export class AccessKey extends lumi.NamedResource implements AccessKeyArgs {
-    public readonly encryptedSecret?: string;
-    public readonly keyFingerprint?: string;
+    public /*out*/ readonly encryptedSecret: string;
+    public /*out*/ readonly keyFingerprint: string;
     public readonly pgpKey?: string;
-    public readonly secret?: string;
-    public readonly sesSmtpPassword?: string;
-    public readonly status?: string;
+    public /*out*/ readonly secret: string;
+    public /*out*/ readonly sesSmtpPassword: string;
+    public /*out*/ readonly status: string;
     public readonly user: string;
 
     constructor(name: string, args: AccessKeyArgs) {
         super(name);
-        this.encryptedSecret = args.encryptedSecret;
-        this.keyFingerprint = args.keyFingerprint;
         this.pgpKey = args.pgpKey;
-        this.secret = args.secret;
-        this.sesSmtpPassword = args.sesSmtpPassword;
-        this.status = args.status;
         if (args.user === undefined) {
             throw new Error("Property argument 'user' is required, but was missing");
         }
@@ -28,12 +23,7 @@ export class AccessKey extends lumi.NamedResource implements AccessKeyArgs {
 }
 
 export interface AccessKeyArgs {
-    readonly encryptedSecret?: string;
-    readonly keyFingerprint?: string;
     readonly pgpKey?: string;
-    readonly secret?: string;
-    readonly sesSmtpPassword?: string;
-    readonly status?: string;
     readonly user: string;
 }
 

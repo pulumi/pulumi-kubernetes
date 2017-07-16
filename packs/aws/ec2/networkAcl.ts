@@ -4,10 +4,10 @@
 import * as lumi from "@lumi/lumi";
 
 export class NetworkAcl extends lumi.NamedResource implements NetworkAclArgs {
-    public readonly egress?: { action: string, cidrBlock?: string, fromPort: number, icmpCode?: number, icmpType?: number, ipv6CidrBlock?: string, protocol: string, ruleNo: number, toPort: number }[];
-    public readonly ingress?: { action: string, cidrBlock?: string, fromPort: number, icmpCode?: number, icmpType?: number, ipv6CidrBlock?: string, protocol: string, ruleNo: number, toPort: number }[];
+    public readonly egress: { action: string, cidrBlock?: string, fromPort: number, icmpCode?: number, icmpType?: number, ipv6CidrBlock?: string, protocol: string, ruleNo: number, toPort: number }[];
+    public readonly ingress: { action: string, cidrBlock?: string, fromPort: number, icmpCode?: number, icmpType?: number, ipv6CidrBlock?: string, protocol: string, ruleNo: number, toPort: number }[];
     public readonly subnetId?: string;
-    public readonly subnetIds?: string[];
+    public readonly subnetIds: string[];
     public readonly tags?: {[key: string]: any};
     public readonly vpcId: string;
 

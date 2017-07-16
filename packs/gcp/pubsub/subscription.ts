@@ -6,7 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class Subscription extends lumi.NamedResource implements SubscriptionArgs {
     public readonly ackDeadlineSeconds?: number;
     public readonly subscriptionName?: string;
-    public readonly path?: string;
+    public /*out*/ readonly path: string;
     public readonly project?: string;
     public readonly pushConfig?: { attributes?: {[key: string]: string}, pushEndpoint?: string }[];
     public readonly topic: string;
@@ -15,7 +15,6 @@ export class Subscription extends lumi.NamedResource implements SubscriptionArgs
         super(name);
         this.ackDeadlineSeconds = args.ackDeadlineSeconds;
         this.subscriptionName = args.subscriptionName;
-        this.path = args.path;
         this.project = args.project;
         this.pushConfig = args.pushConfig;
         if (args.topic === undefined) {
@@ -28,7 +27,6 @@ export class Subscription extends lumi.NamedResource implements SubscriptionArgs
 export interface SubscriptionArgs {
     readonly ackDeadlineSeconds?: number;
     readonly subscriptionName?: string;
-    readonly path?: string;
     readonly project?: string;
     readonly pushConfig?: { attributes?: {[key: string]: string}, pushEndpoint?: string }[];
     readonly topic: string;

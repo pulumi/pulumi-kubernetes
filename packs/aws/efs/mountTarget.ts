@@ -4,22 +4,20 @@
 import * as lumi from "@lumi/lumi";
 
 export class MountTarget extends lumi.NamedResource implements MountTargetArgs {
-    public readonly dnsName?: string;
+    public /*out*/ readonly dnsName: string;
     public readonly fileSystemId: string;
-    public readonly ipAddress?: string;
-    public readonly networkInterfaceId?: string;
-    public readonly securityGroups?: string[];
+    public readonly ipAddress: string;
+    public /*out*/ readonly networkInterfaceId: string;
+    public readonly securityGroups: string[];
     public readonly subnetId: string;
 
     constructor(name: string, args: MountTargetArgs) {
         super(name);
-        this.dnsName = args.dnsName;
         if (args.fileSystemId === undefined) {
             throw new Error("Property argument 'fileSystemId' is required, but was missing");
         }
         this.fileSystemId = args.fileSystemId;
         this.ipAddress = args.ipAddress;
-        this.networkInterfaceId = args.networkInterfaceId;
         this.securityGroups = args.securityGroups;
         if (args.subnetId === undefined) {
             throw new Error("Property argument 'subnetId' is required, but was missing");
@@ -29,10 +27,8 @@ export class MountTarget extends lumi.NamedResource implements MountTargetArgs {
 }
 
 export interface MountTargetArgs {
-    readonly dnsName?: string;
     readonly fileSystemId: string;
     readonly ipAddress?: string;
-    readonly networkInterfaceId?: string;
     readonly securityGroups?: string[];
     readonly subnetId: string;
 }

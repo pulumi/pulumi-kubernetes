@@ -6,12 +6,12 @@ import * as lumi from "@lumi/lumi";
 export class SslCertificate extends lumi.NamedResource implements SslCertificateArgs {
     public readonly certificate: string;
     public readonly description?: string;
-    public readonly certificateId?: string;
-    public readonly sslCertificateName?: string;
+    public /*out*/ readonly certificateId: string;
+    public readonly sslCertificateName: string;
     public readonly namePrefix?: string;
     public readonly privateKey: string;
     public readonly project?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
 
     constructor(name: string, args: SslCertificateArgs) {
         super(name);
@@ -20,7 +20,6 @@ export class SslCertificate extends lumi.NamedResource implements SslCertificate
         }
         this.certificate = args.certificate;
         this.description = args.description;
-        this.certificateId = args.certificateId;
         this.sslCertificateName = args.sslCertificateName;
         this.namePrefix = args.namePrefix;
         if (args.privateKey === undefined) {
@@ -28,18 +27,15 @@ export class SslCertificate extends lumi.NamedResource implements SslCertificate
         }
         this.privateKey = args.privateKey;
         this.project = args.project;
-        this.selfLink = args.selfLink;
     }
 }
 
 export interface SslCertificateArgs {
     readonly certificate: string;
     readonly description?: string;
-    readonly certificateId?: string;
     readonly sslCertificateName?: string;
     readonly namePrefix?: string;
     readonly privateKey: string;
     readonly project?: string;
-    readonly selfLink?: string;
 }
 

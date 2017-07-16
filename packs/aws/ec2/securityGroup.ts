@@ -5,13 +5,13 @@ import * as lumi from "@lumi/lumi";
 
 export class SecurityGroup extends lumi.NamedResource implements SecurityGroupArgs {
     public readonly description?: string;
-    public readonly egress?: { cidrBlocks?: string[], fromPort: number, ipv6CidrBlocks?: string[], prefixListIds?: string[], protocol: string, securityGroups?: string[], self?: boolean, toPort: number }[];
-    public readonly ingress?: { cidrBlocks?: string[], fromPort: number, ipv6CidrBlocks?: string[], protocol: string, securityGroups?: string[], self?: boolean, toPort: number }[];
-    public readonly securityGroupName?: string;
+    public readonly egress: { cidrBlocks?: string[], fromPort: number, ipv6CidrBlocks?: string[], prefixListIds?: string[], protocol: string, securityGroups?: string[], self?: boolean, toPort: number }[];
+    public readonly ingress: { cidrBlocks?: string[], fromPort: number, ipv6CidrBlocks?: string[], protocol: string, securityGroups?: string[], self?: boolean, toPort: number }[];
+    public readonly securityGroupName: string;
     public readonly namePrefix?: string;
-    public readonly ownerId?: string;
+    public /*out*/ readonly ownerId: string;
     public readonly tags?: {[key: string]: any};
-    public readonly vpcId?: string;
+    public readonly vpcId: string;
 
     constructor(name: string, args: SecurityGroupArgs) {
         super(name);
@@ -20,7 +20,6 @@ export class SecurityGroup extends lumi.NamedResource implements SecurityGroupAr
         this.ingress = args.ingress;
         this.securityGroupName = args.securityGroupName;
         this.namePrefix = args.namePrefix;
-        this.ownerId = args.ownerId;
         this.tags = args.tags;
         this.vpcId = args.vpcId;
     }
@@ -32,7 +31,6 @@ export interface SecurityGroupArgs {
     readonly ingress?: { cidrBlocks?: string[], fromPort: number, ipv6CidrBlocks?: string[], protocol: string, securityGroups?: string[], self?: boolean, toPort: number }[];
     readonly securityGroupName?: string;
     readonly namePrefix?: string;
-    readonly ownerId?: string;
     readonly tags?: {[key: string]: any};
     readonly vpcId?: string;
 }

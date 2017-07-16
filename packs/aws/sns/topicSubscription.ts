@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class TopicSubscription extends lumi.NamedResource implements TopicSubscriptionArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly confirmationTimeoutInMinutes?: number;
     public readonly deliveryPolicy?: string;
     public readonly endpoint: string;
@@ -15,7 +15,6 @@ export class TopicSubscription extends lumi.NamedResource implements TopicSubscr
 
     constructor(name: string, args: TopicSubscriptionArgs) {
         super(name);
-        this.arn = args.arn;
         this.confirmationTimeoutInMinutes = args.confirmationTimeoutInMinutes;
         this.deliveryPolicy = args.deliveryPolicy;
         if (args.endpoint === undefined) {
@@ -36,7 +35,6 @@ export class TopicSubscription extends lumi.NamedResource implements TopicSubscr
 }
 
 export interface TopicSubscriptionArgs {
-    readonly arn?: string;
     readonly confirmationTimeoutInMinutes?: number;
     readonly deliveryPolicy?: string;
     readonly endpoint: string;

@@ -6,7 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class VpnGateway extends lumi.NamedResource implements VpnGatewayArgs {
     public readonly availabilityZone?: string;
     public readonly tags?: {[key: string]: any};
-    public readonly vpcId?: string;
+    public readonly vpcId: string;
 
     constructor(name: string, args: VpnGatewayArgs) {
         super(name);

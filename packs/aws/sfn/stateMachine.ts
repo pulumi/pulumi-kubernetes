@@ -4,15 +4,14 @@
 import * as lumi from "@lumi/lumi";
 
 export class StateMachine extends lumi.NamedResource implements StateMachineArgs {
-    public readonly creationDate?: string;
+    public /*out*/ readonly creationDate: string;
     public readonly definition: string;
     public readonly stateMachineName?: string;
     public readonly roleArn: string;
-    public readonly status?: string;
+    public /*out*/ readonly status: string;
 
     constructor(name: string, args: StateMachineArgs) {
         super(name);
-        this.creationDate = args.creationDate;
         if (args.definition === undefined) {
             throw new Error("Property argument 'definition' is required, but was missing");
         }
@@ -22,15 +21,12 @@ export class StateMachine extends lumi.NamedResource implements StateMachineArgs
             throw new Error("Property argument 'roleArn' is required, but was missing");
         }
         this.roleArn = args.roleArn;
-        this.status = args.status;
     }
 }
 
 export interface StateMachineArgs {
-    readonly creationDate?: string;
     readonly definition: string;
     readonly stateMachineName?: string;
     readonly roleArn: string;
-    readonly status?: string;
 }
 

@@ -6,11 +6,11 @@ import * as lumi from "@lumi/lumi";
 export class SqlServer extends lumi.NamedResource implements SqlServerArgs {
     public readonly administratorLogin: string;
     public readonly administratorLoginPassword: string;
-    public readonly fullyQualifiedDomainName?: string;
+    public /*out*/ readonly fullyQualifiedDomainName: string;
     public readonly location: string;
     public readonly sqlServerName?: string;
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly version: string;
 
     constructor(name: string, args: SqlServerArgs) {
@@ -23,7 +23,6 @@ export class SqlServer extends lumi.NamedResource implements SqlServerArgs {
             throw new Error("Property argument 'administratorLoginPassword' is required, but was missing");
         }
         this.administratorLoginPassword = args.administratorLoginPassword;
-        this.fullyQualifiedDomainName = args.fullyQualifiedDomainName;
         if (args.location === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
@@ -44,7 +43,6 @@ export class SqlServer extends lumi.NamedResource implements SqlServerArgs {
 export interface SqlServerArgs {
     readonly administratorLogin: string;
     readonly administratorLoginPassword: string;
-    readonly fullyQualifiedDomainName?: string;
     readonly location: string;
     readonly sqlServerName?: string;
     readonly resourceGroupName: string;

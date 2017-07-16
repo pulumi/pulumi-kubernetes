@@ -7,7 +7,7 @@ export class Database extends lumi.NamedResource implements DatabaseArgs {
     public readonly instance: string;
     public readonly databaseName?: string;
     public readonly project?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
 
     constructor(name: string, args: DatabaseArgs) {
         super(name);
@@ -17,7 +17,6 @@ export class Database extends lumi.NamedResource implements DatabaseArgs {
         this.instance = args.instance;
         this.databaseName = args.databaseName;
         this.project = args.project;
-        this.selfLink = args.selfLink;
     }
 }
 
@@ -25,6 +24,5 @@ export interface DatabaseArgs {
     readonly instance: string;
     readonly databaseName?: string;
     readonly project?: string;
-    readonly selfLink?: string;
 }
 

@@ -4,17 +4,16 @@
 import * as lumi from "@lumi/lumi";
 
 export class ParameterGroup extends lumi.NamedResource implements ParameterGroupArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly description?: string;
     public readonly family: string;
-    public readonly parameterGroupName?: string;
-    public readonly namePrefix?: string;
+    public readonly parameterGroupName: string;
+    public readonly namePrefix: string;
     public readonly parameter?: { applyMethod?: string, name: string, value: string }[];
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: ParameterGroupArgs) {
         super(name);
-        this.arn = args.arn;
         this.description = args.description;
         if (args.family === undefined) {
             throw new Error("Property argument 'family' is required, but was missing");
@@ -28,7 +27,6 @@ export class ParameterGroup extends lumi.NamedResource implements ParameterGroup
 }
 
 export interface ParameterGroupArgs {
-    readonly arn?: string;
     readonly description?: string;
     readonly family: string;
     readonly parameterGroupName?: string;

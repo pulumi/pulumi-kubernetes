@@ -7,21 +7,21 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
     public readonly applications?: string[];
     public readonly autoscalingRole?: string;
     public readonly bootstrapAction?: { args?: string[], name: string, path: string }[];
-    public readonly clusterState?: string;
+    public /*out*/ readonly clusterState: string;
     public readonly configurations?: string;
     public readonly coreInstanceCount?: number;
-    public readonly coreInstanceType?: string;
+    public readonly coreInstanceType: string;
     public readonly ec2Attributes?: { additionalMasterSecurityGroups?: string, additionalSlaveSecurityGroups?: string, emrManagedMasterSecurityGroup?: string, emrManagedSlaveSecurityGroup?: string, instanceProfile: string, keyName?: string, serviceAccessSecurityGroup?: string, subnetId?: string }[];
-    public readonly keepJobFlowAliveWhenNoSteps?: boolean;
+    public readonly keepJobFlowAliveWhenNoSteps: boolean;
     public readonly logUri?: string;
     public readonly masterInstanceType: string;
-    public readonly masterPublicDns?: string;
+    public /*out*/ readonly masterPublicDns: string;
     public readonly clusterName?: string;
     public readonly releaseLabel: string;
     public readonly securityConfiguration?: string;
     public readonly serviceRole: string;
     public readonly tags?: {[key: string]: any};
-    public readonly terminationProtection?: boolean;
+    public readonly terminationProtection: boolean;
     public readonly visibleToAllUsers?: boolean;
 
     constructor(name: string, args: ClusterArgs) {
@@ -29,7 +29,6 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.applications = args.applications;
         this.autoscalingRole = args.autoscalingRole;
         this.bootstrapAction = args.bootstrapAction;
-        this.clusterState = args.clusterState;
         this.configurations = args.configurations;
         this.coreInstanceCount = args.coreInstanceCount;
         this.coreInstanceType = args.coreInstanceType;
@@ -40,7 +39,6 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
             throw new Error("Property argument 'masterInstanceType' is required, but was missing");
         }
         this.masterInstanceType = args.masterInstanceType;
-        this.masterPublicDns = args.masterPublicDns;
         this.clusterName = args.clusterName;
         if (args.releaseLabel === undefined) {
             throw new Error("Property argument 'releaseLabel' is required, but was missing");
@@ -61,7 +59,6 @@ export interface ClusterArgs {
     readonly applications?: string[];
     readonly autoscalingRole?: string;
     readonly bootstrapAction?: { args?: string[], name: string, path: string }[];
-    readonly clusterState?: string;
     readonly configurations?: string;
     readonly coreInstanceCount?: number;
     readonly coreInstanceType?: string;
@@ -69,7 +66,6 @@ export interface ClusterArgs {
     readonly keepJobFlowAliveWhenNoSteps?: boolean;
     readonly logUri?: string;
     readonly masterInstanceType: string;
-    readonly masterPublicDns?: string;
     readonly clusterName?: string;
     readonly releaseLabel: string;
     readonly securityConfiguration?: string;

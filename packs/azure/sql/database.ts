@@ -4,34 +4,31 @@
 import * as lumi from "@lumi/lumi";
 
 export class Database extends lumi.NamedResource implements DatabaseArgs {
-    public readonly collation?: string;
+    public readonly collation: string;
     public readonly createMode?: string;
-    public readonly creationDate?: string;
-    public readonly defaultSecondaryLocation?: string;
-    public readonly edition?: string;
-    public readonly elasticPoolName?: string;
-    public readonly encryption?: string;
+    public /*out*/ readonly creationDate: string;
+    public /*out*/ readonly defaultSecondaryLocation: string;
+    public readonly edition: string;
+    public readonly elasticPoolName: string;
+    public /*out*/ readonly encryption: string;
     public readonly location: string;
-    public readonly maxSizeBytes?: string;
+    public readonly maxSizeBytes: string;
     public readonly databaseName?: string;
-    public readonly requestedServiceObjectiveId?: string;
-    public readonly requestedServiceObjectiveName?: string;
+    public readonly requestedServiceObjectiveId: string;
+    public readonly requestedServiceObjectiveName: string;
     public readonly resourceGroupName: string;
-    public readonly restorePointInTime?: string;
+    public readonly restorePointInTime: string;
     public readonly serverName: string;
-    public readonly sourceDatabaseDeletionDate?: string;
-    public readonly sourceDatabaseId?: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly sourceDatabaseDeletionDate: string;
+    public readonly sourceDatabaseId: string;
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: DatabaseArgs) {
         super(name);
         this.collation = args.collation;
         this.createMode = args.createMode;
-        this.creationDate = args.creationDate;
-        this.defaultSecondaryLocation = args.defaultSecondaryLocation;
         this.edition = args.edition;
         this.elasticPoolName = args.elasticPoolName;
-        this.encryption = args.encryption;
         if (args.location === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
@@ -58,11 +55,8 @@ export class Database extends lumi.NamedResource implements DatabaseArgs {
 export interface DatabaseArgs {
     readonly collation?: string;
     readonly createMode?: string;
-    readonly creationDate?: string;
-    readonly defaultSecondaryLocation?: string;
     readonly edition?: string;
     readonly elasticPoolName?: string;
-    readonly encryption?: string;
     readonly location: string;
     readonly maxSizeBytes?: string;
     readonly databaseName?: string;

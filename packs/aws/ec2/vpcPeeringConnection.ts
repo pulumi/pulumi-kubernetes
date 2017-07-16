@@ -4,18 +4,17 @@
 import * as lumi from "@lumi/lumi";
 
 export class VpcPeeringConnection extends lumi.NamedResource implements VpcPeeringConnectionArgs {
-    public readonly acceptStatus?: string;
-    public readonly accepter?: { allowClassicLinkToRemoteVpc?: boolean, allowRemoteVpcDnsResolution?: boolean, allowVpcToRemoteClassicLink?: boolean }[];
+    public /*out*/ readonly acceptStatus: string;
+    public readonly accepter: { allowClassicLinkToRemoteVpc?: boolean, allowRemoteVpcDnsResolution?: boolean, allowVpcToRemoteClassicLink?: boolean }[];
     public readonly autoAccept?: boolean;
-    public readonly peerOwnerId?: string;
+    public readonly peerOwnerId: string;
     public readonly peerVpcId: string;
-    public readonly requester?: { allowClassicLinkToRemoteVpc?: boolean, allowRemoteVpcDnsResolution?: boolean, allowVpcToRemoteClassicLink?: boolean }[];
+    public readonly requester: { allowClassicLinkToRemoteVpc?: boolean, allowRemoteVpcDnsResolution?: boolean, allowVpcToRemoteClassicLink?: boolean }[];
     public readonly tags?: {[key: string]: any};
     public readonly vpcId: string;
 
     constructor(name: string, args: VpcPeeringConnectionArgs) {
         super(name);
-        this.acceptStatus = args.acceptStatus;
         this.accepter = args.accepter;
         this.autoAccept = args.autoAccept;
         this.peerOwnerId = args.peerOwnerId;
@@ -33,7 +32,6 @@ export class VpcPeeringConnection extends lumi.NamedResource implements VpcPeeri
 }
 
 export interface VpcPeeringConnectionArgs {
-    readonly acceptStatus?: string;
     readonly accepter?: { allowClassicLinkToRemoteVpc?: boolean, allowRemoteVpcDnsResolution?: boolean, allowVpcToRemoteClassicLink?: boolean }[];
     readonly autoAccept?: boolean;
     readonly peerOwnerId?: string;

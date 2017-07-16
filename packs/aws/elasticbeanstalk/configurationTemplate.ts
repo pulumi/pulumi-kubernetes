@@ -8,7 +8,7 @@ export class ConfigurationTemplate extends lumi.NamedResource implements Configu
     public readonly description?: string;
     public readonly environmentId?: string;
     public readonly configurationTemplateName?: string;
-    public readonly setting?: { name: string, namespace: string, resource?: string, value: string }[];
+    public readonly setting: { name: string, namespace: string, resource?: string, value: string }[];
     public readonly solutionStackName?: string;
 
     constructor(name: string, args: ConfigurationTemplateArgs) {

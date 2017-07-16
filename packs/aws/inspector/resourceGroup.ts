@@ -4,12 +4,11 @@
 import * as lumi from "@lumi/lumi";
 
 export class ResourceGroup extends lumi.NamedResource implements ResourceGroupArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: ResourceGroupArgs) {
         super(name);
-        this.arn = args.arn;
         if (args.tags === undefined) {
             throw new Error("Property argument 'tags' is required, but was missing");
         }
@@ -18,7 +17,6 @@ export class ResourceGroup extends lumi.NamedResource implements ResourceGroupAr
 }
 
 export interface ResourceGroupArgs {
-    readonly arn?: string;
     readonly tags: {[key: string]: any};
 }
 

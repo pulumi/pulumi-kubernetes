@@ -4,17 +4,17 @@
 import * as lumi from "@lumi/lumi";
 
 export class Endpoint extends lumi.NamedResource implements EndpointArgs {
-    public readonly endpointLocation?: string;
-    public readonly endpointStatus?: string;
+    public readonly endpointLocation: string;
+    public readonly endpointStatus: string;
     public readonly minChildEndpoints?: number;
     public readonly endpointName?: string;
-    public readonly priority?: number;
+    public readonly priority: number;
     public readonly profileName: string;
     public readonly resourceGroupName: string;
-    public readonly target?: string;
+    public readonly target: string;
     public readonly targetResourceId?: string;
     public readonly type: string;
-    public readonly weight?: number;
+    public readonly weight: number;
 
     constructor(name: string, args: EndpointArgs) {
         super(name);

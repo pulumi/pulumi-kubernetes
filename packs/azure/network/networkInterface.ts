@@ -4,20 +4,20 @@
 import * as lumi from "@lumi/lumi";
 
 export class NetworkInterface extends lumi.NamedResource implements NetworkInterfaceArgs {
-    public readonly appliedDnsServers?: string[];
-    public readonly dnsServers?: string[];
+    public readonly appliedDnsServers: string[];
+    public readonly dnsServers: string[];
     public readonly enableIpForwarding?: boolean;
-    public readonly internalDnsNameLabel?: string;
-    public readonly internalFqdn?: string;
-    public readonly ipConfiguration: { loadBalancerBackendAddressPoolsIds?: string[], loadBalancerInboundNatRulesIds?: string[], name: string, privateIpAddress?: string, privateIpAddressAllocation: string, publicIpAddressId?: string, subnetId: string }[];
+    public readonly internalDnsNameLabel: string;
+    public readonly internalFqdn: string;
+    public readonly ipConfiguration: { loadBalancerBackendAddressPoolsIds: string[], loadBalancerInboundNatRulesIds: string[], name: string, privateIpAddress: string, privateIpAddressAllocation: string, publicIpAddressId: string, subnetId: string }[];
     public readonly location: string;
-    public readonly macAddress?: string;
+    public readonly macAddress: string;
     public readonly networkInterfaceName?: string;
-    public readonly networkSecurityGroupId?: string;
-    public readonly privateIpAddress?: string;
+    public readonly networkSecurityGroupId: string;
+    public /*out*/ readonly privateIpAddress: string;
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
-    public readonly virtualMachineId?: string;
+    public readonly tags: {[key: string]: any};
+    public readonly virtualMachineId: string;
 
     constructor(name: string, args: NetworkInterfaceArgs) {
         super(name);
@@ -37,7 +37,6 @@ export class NetworkInterface extends lumi.NamedResource implements NetworkInter
         this.macAddress = args.macAddress;
         this.networkInterfaceName = args.networkInterfaceName;
         this.networkSecurityGroupId = args.networkSecurityGroupId;
-        this.privateIpAddress = args.privateIpAddress;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
@@ -53,12 +52,11 @@ export interface NetworkInterfaceArgs {
     readonly enableIpForwarding?: boolean;
     readonly internalDnsNameLabel?: string;
     readonly internalFqdn?: string;
-    readonly ipConfiguration: { loadBalancerBackendAddressPoolsIds?: string[], loadBalancerInboundNatRulesIds?: string[], name: string, privateIpAddress?: string, privateIpAddressAllocation: string, publicIpAddressId?: string, subnetId: string }[];
+    readonly ipConfiguration: { loadBalancerBackendAddressPoolsIds: string[], loadBalancerInboundNatRulesIds: string[], name: string, privateIpAddress: string, privateIpAddressAllocation: string, publicIpAddressId: string, subnetId: string }[];
     readonly location: string;
     readonly macAddress?: string;
     readonly networkInterfaceName?: string;
     readonly networkSecurityGroupId?: string;
-    readonly privateIpAddress?: string;
     readonly resourceGroupName: string;
     readonly tags?: {[key: string]: any};
     readonly virtualMachineId?: string;

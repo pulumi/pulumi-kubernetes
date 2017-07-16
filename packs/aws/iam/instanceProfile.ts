@@ -4,36 +4,30 @@
 import * as lumi from "@lumi/lumi";
 
 export class InstanceProfile extends lumi.NamedResource implements InstanceProfileArgs {
-    public readonly arn?: string;
-    public readonly createDate?: string;
-    public readonly instanceProfileName?: string;
+    public /*out*/ readonly arn: string;
+    public /*out*/ readonly createDate: string;
+    public readonly instanceProfileName: string;
     public readonly namePrefix?: string;
     public readonly path?: string;
-    public readonly role?: string;
-    public readonly roles?: string[];
-    public readonly uniqueId?: string;
+    public readonly role: string;
+    public readonly roles: string[];
+    public /*out*/ readonly uniqueId: string;
 
     constructor(name: string, args: InstanceProfileArgs) {
         super(name);
-        this.arn = args.arn;
-        this.createDate = args.createDate;
         this.instanceProfileName = args.instanceProfileName;
         this.namePrefix = args.namePrefix;
         this.path = args.path;
         this.role = args.role;
         this.roles = args.roles;
-        this.uniqueId = args.uniqueId;
     }
 }
 
 export interface InstanceProfileArgs {
-    readonly arn?: string;
-    readonly createDate?: string;
     readonly instanceProfileName?: string;
     readonly namePrefix?: string;
     readonly path?: string;
     readonly role?: string;
     readonly roles?: string[];
-    readonly uniqueId?: string;
 }
 

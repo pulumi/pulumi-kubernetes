@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class Stream extends lumi.NamedResource implements StreamArgs {
-    public readonly arn?: string;
+    public readonly arn: string;
     public readonly streamName?: string;
     public readonly retentionPeriod?: number;
     public readonly shardCount: number;

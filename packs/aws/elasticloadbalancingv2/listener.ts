@@ -4,17 +4,16 @@
 import * as lumi from "@lumi/lumi";
 
 export class Listener extends lumi.NamedResource implements ListenerArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly certificateArn?: string;
     public readonly defaultAction: { targetGroupArn: string, type: string }[];
     public readonly loadBalancerArn: string;
     public readonly port: number;
     public readonly protocol?: string;
-    public readonly sslPolicy?: string;
+    public readonly sslPolicy: string;
 
     constructor(name: string, args: ListenerArgs) {
         super(name);
-        this.arn = args.arn;
         this.certificateArn = args.certificateArn;
         if (args.defaultAction === undefined) {
             throw new Error("Property argument 'defaultAction' is required, but was missing");
@@ -34,7 +33,6 @@ export class Listener extends lumi.NamedResource implements ListenerArgs {
 }
 
 export interface ListenerArgs {
-    readonly arn?: string;
     readonly certificateArn?: string;
     readonly defaultAction: { targetGroupArn: string, type: string }[];
     readonly loadBalancerArn: string;

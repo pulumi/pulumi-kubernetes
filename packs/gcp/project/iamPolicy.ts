@@ -6,16 +6,15 @@ import * as lumi from "@lumi/lumi";
 export class IamPolicy extends lumi.NamedResource implements IamPolicyArgs {
     public readonly authoritative?: boolean;
     public readonly disableProject?: boolean;
-    public readonly etag?: string;
+    public /*out*/ readonly etag: string;
     public readonly policyData: string;
     public readonly project: string;
-    public readonly restorePolicy?: string;
+    public /*out*/ readonly restorePolicy: string;
 
     constructor(name: string, args: IamPolicyArgs) {
         super(name);
         this.authoritative = args.authoritative;
         this.disableProject = args.disableProject;
-        this.etag = args.etag;
         if (args.policyData === undefined) {
             throw new Error("Property argument 'policyData' is required, but was missing");
         }
@@ -24,16 +23,13 @@ export class IamPolicy extends lumi.NamedResource implements IamPolicyArgs {
             throw new Error("Property argument 'project' is required, but was missing");
         }
         this.project = args.project;
-        this.restorePolicy = args.restorePolicy;
     }
 }
 
 export interface IamPolicyArgs {
     readonly authoritative?: boolean;
     readonly disableProject?: boolean;
-    readonly etag?: string;
     readonly policyData: string;
     readonly project: string;
-    readonly restorePolicy?: string;
 }
 

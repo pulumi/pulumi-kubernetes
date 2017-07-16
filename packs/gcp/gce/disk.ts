@@ -5,29 +5,26 @@ import * as lumi from "@lumi/lumi";
 
 export class Disk extends lumi.NamedResource implements DiskArgs {
     public readonly diskEncryptionKeyRaw?: string;
-    public readonly diskEncryptionKeySha256?: string;
+    public /*out*/ readonly diskEncryptionKeySha256: string;
     public readonly image?: string;
     public readonly diskName?: string;
     public readonly project?: string;
-    public readonly selfLink?: string;
-    public readonly size?: number;
+    public /*out*/ readonly selfLink: string;
+    public readonly size: number;
     public readonly snapshot?: string;
     public readonly type?: string;
-    public readonly users?: string[];
+    public /*out*/ readonly users: string[];
     public readonly zone: string;
 
     constructor(name: string, args: DiskArgs) {
         super(name);
         this.diskEncryptionKeyRaw = args.diskEncryptionKeyRaw;
-        this.diskEncryptionKeySha256 = args.diskEncryptionKeySha256;
         this.image = args.image;
         this.diskName = args.diskName;
         this.project = args.project;
-        this.selfLink = args.selfLink;
         this.size = args.size;
         this.snapshot = args.snapshot;
         this.type = args.type;
-        this.users = args.users;
         if (args.zone === undefined) {
             throw new Error("Property argument 'zone' is required, but was missing");
         }
@@ -37,15 +34,12 @@ export class Disk extends lumi.NamedResource implements DiskArgs {
 
 export interface DiskArgs {
     readonly diskEncryptionKeyRaw?: string;
-    readonly diskEncryptionKeySha256?: string;
     readonly image?: string;
     readonly diskName?: string;
     readonly project?: string;
-    readonly selfLink?: string;
     readonly size?: number;
     readonly snapshot?: string;
     readonly type?: string;
-    readonly users?: string[];
     readonly zone: string;
 }
 

@@ -7,14 +7,14 @@ export class EventSourceMapping extends lumi.NamedResource implements EventSourc
     public readonly batchSize?: number;
     public readonly enabled?: boolean;
     public readonly eventSourceArn: string;
-    public readonly functionArn?: string;
+    public /*out*/ readonly functionArn: string;
     public readonly functionName: string;
-    public readonly lastModified?: string;
-    public readonly lastProcessingResult?: string;
+    public /*out*/ readonly lastModified: string;
+    public /*out*/ readonly lastProcessingResult: string;
     public readonly startingPosition: string;
-    public readonly state?: string;
-    public readonly stateTransitionReason?: string;
-    public readonly uuid?: string;
+    public /*out*/ readonly state: string;
+    public /*out*/ readonly stateTransitionReason: string;
+    public /*out*/ readonly uuid: string;
 
     constructor(name: string, args: EventSourceMappingArgs) {
         super(name);
@@ -24,20 +24,14 @@ export class EventSourceMapping extends lumi.NamedResource implements EventSourc
             throw new Error("Property argument 'eventSourceArn' is required, but was missing");
         }
         this.eventSourceArn = args.eventSourceArn;
-        this.functionArn = args.functionArn;
         if (args.functionName === undefined) {
             throw new Error("Property argument 'functionName' is required, but was missing");
         }
         this.functionName = args.functionName;
-        this.lastModified = args.lastModified;
-        this.lastProcessingResult = args.lastProcessingResult;
         if (args.startingPosition === undefined) {
             throw new Error("Property argument 'startingPosition' is required, but was missing");
         }
         this.startingPosition = args.startingPosition;
-        this.state = args.state;
-        this.stateTransitionReason = args.stateTransitionReason;
-        this.uuid = args.uuid;
     }
 }
 
@@ -45,13 +39,7 @@ export interface EventSourceMappingArgs {
     readonly batchSize?: number;
     readonly enabled?: boolean;
     readonly eventSourceArn: string;
-    readonly functionArn?: string;
     readonly functionName: string;
-    readonly lastModified?: string;
-    readonly lastProcessingResult?: string;
     readonly startingPosition: string;
-    readonly state?: string;
-    readonly stateTransitionReason?: string;
-    readonly uuid?: string;
 }
 

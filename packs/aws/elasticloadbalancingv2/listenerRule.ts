@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class ListenerRule extends lumi.NamedResource implements ListenerRuleArgs {
     public readonly action: { targetGroupArn: string, type: string }[];
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly condition: { field?: string, values?: string[] }[];
     public readonly listenerArn: string;
     public readonly priority: number;
@@ -16,7 +16,6 @@ export class ListenerRule extends lumi.NamedResource implements ListenerRuleArgs
             throw new Error("Property argument 'action' is required, but was missing");
         }
         this.action = args.action;
-        this.arn = args.arn;
         if (args.condition === undefined) {
             throw new Error("Property argument 'condition' is required, but was missing");
         }
@@ -34,7 +33,6 @@ export class ListenerRule extends lumi.NamedResource implements ListenerRuleArgs
 
 export interface ListenerRuleArgs {
     readonly action: { targetGroupArn: string, type: string }[];
-    readonly arn?: string;
     readonly condition: { field?: string, values?: string[] }[];
     readonly listenerArn: string;
     readonly priority: number;

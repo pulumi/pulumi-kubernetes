@@ -4,14 +4,13 @@
 import * as lumi from "@lumi/lumi";
 
 export class Alias extends lumi.NamedResource implements AliasArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly aliasName?: string;
     public readonly namePrefix?: string;
     public readonly targetKeyId: string;
 
     constructor(name: string, args: AliasArgs) {
         super(name);
-        this.arn = args.arn;
         this.aliasName = args.aliasName;
         this.namePrefix = args.namePrefix;
         if (args.targetKeyId === undefined) {
@@ -22,7 +21,6 @@ export class Alias extends lumi.NamedResource implements AliasArgs {
 }
 
 export interface AliasArgs {
-    readonly arn?: string;
     readonly aliasName?: string;
     readonly namePrefix?: string;
     readonly targetKeyId: string;

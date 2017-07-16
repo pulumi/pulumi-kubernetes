@@ -14,7 +14,7 @@ export class Blob extends lumi.NamedResource implements BlobArgs {
     public readonly storageAccountName: string;
     public readonly storageContainerName: string;
     public readonly type?: string;
-    public readonly url?: string;
+    public /*out*/ readonly url: string;
 
     constructor(name: string, args: BlobArgs) {
         super(name);
@@ -37,7 +37,6 @@ export class Blob extends lumi.NamedResource implements BlobArgs {
         }
         this.storageContainerName = args.storageContainerName;
         this.type = args.type;
-        this.url = args.url;
     }
 }
 
@@ -52,6 +51,5 @@ export interface BlobArgs {
     readonly storageAccountName: string;
     readonly storageContainerName: string;
     readonly type?: string;
-    readonly url?: string;
 }
 

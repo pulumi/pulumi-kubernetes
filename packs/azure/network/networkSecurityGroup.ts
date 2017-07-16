@@ -7,8 +7,8 @@ export class NetworkSecurityGroup extends lumi.NamedResource implements NetworkS
     public readonly location: string;
     public readonly networkSecurityGroupName?: string;
     public readonly resourceGroupName: string;
-    public readonly securityRule?: { access: string, description?: string, destinationAddressPrefix: string, destinationPortRange: string, direction: string, name: string, priority: number, protocol: string, sourceAddressPrefix: string, sourcePortRange: string }[];
-    public readonly tags?: {[key: string]: any};
+    public readonly securityRule: { access: string, description?: string, destinationAddressPrefix: string, destinationPortRange: string, direction: string, name: string, priority: number, protocol: string, sourceAddressPrefix: string, sourcePortRange: string }[];
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: NetworkSecurityGroupArgs) {
         super(name);

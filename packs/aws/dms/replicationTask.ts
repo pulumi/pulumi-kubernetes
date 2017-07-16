@@ -7,7 +7,7 @@ export class ReplicationTask extends lumi.NamedResource implements ReplicationTa
     public readonly cdcStartTime?: string;
     public readonly migrationType: string;
     public readonly replicationInstanceArn: string;
-    public readonly replicationTaskArn?: string;
+    public /*out*/ readonly replicationTaskArn: string;
     public readonly replicationTaskId: string;
     public readonly replicationTaskSettings?: string;
     public readonly sourceEndpointArn: string;
@@ -26,7 +26,6 @@ export class ReplicationTask extends lumi.NamedResource implements ReplicationTa
             throw new Error("Property argument 'replicationInstanceArn' is required, but was missing");
         }
         this.replicationInstanceArn = args.replicationInstanceArn;
-        this.replicationTaskArn = args.replicationTaskArn;
         if (args.replicationTaskId === undefined) {
             throw new Error("Property argument 'replicationTaskId' is required, but was missing");
         }
@@ -52,7 +51,6 @@ export interface ReplicationTaskArgs {
     readonly cdcStartTime?: string;
     readonly migrationType: string;
     readonly replicationInstanceArn: string;
-    readonly replicationTaskArn?: string;
     readonly replicationTaskId: string;
     readonly replicationTaskSettings?: string;
     readonly sourceEndpointArn: string;

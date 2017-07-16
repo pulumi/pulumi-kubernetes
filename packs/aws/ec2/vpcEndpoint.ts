@@ -4,18 +4,16 @@
 import * as lumi from "@lumi/lumi";
 
 export class VpcEndpoint extends lumi.NamedResource implements VpcEndpointArgs {
-    public readonly cidrBlocks?: string[];
-    public readonly policy?: string;
-    public readonly prefixListId?: string;
-    public readonly routeTableIds?: string[];
+    public /*out*/ readonly cidrBlocks: string[];
+    public readonly policy: string;
+    public /*out*/ readonly prefixListId: string;
+    public readonly routeTableIds: string[];
     public readonly serviceName: string;
     public readonly vpcId: string;
 
     constructor(name: string, args: VpcEndpointArgs) {
         super(name);
-        this.cidrBlocks = args.cidrBlocks;
         this.policy = args.policy;
-        this.prefixListId = args.prefixListId;
         this.routeTableIds = args.routeTableIds;
         if (args.serviceName === undefined) {
             throw new Error("Property argument 'serviceName' is required, but was missing");
@@ -29,9 +27,7 @@ export class VpcEndpoint extends lumi.NamedResource implements VpcEndpointArgs {
 }
 
 export interface VpcEndpointArgs {
-    readonly cidrBlocks?: string[];
     readonly policy?: string;
-    readonly prefixListId?: string;
     readonly routeTableIds?: string[];
     readonly serviceName: string;
     readonly vpcId: string;

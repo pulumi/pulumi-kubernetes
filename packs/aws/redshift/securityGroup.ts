@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class SecurityGroup extends lumi.NamedResource implements SecurityGroupArgs {
     public readonly description?: string;
-    public readonly ingress: { cidr?: string, securityGroupName?: string, securityGroupOwnerId?: string }[];
+    public readonly ingress: { cidr?: string, securityGroupName: string, securityGroupOwnerId: string }[];
     public readonly securityGroupName?: string;
 
     constructor(name: string, args: SecurityGroupArgs) {
@@ -21,7 +21,7 @@ export class SecurityGroup extends lumi.NamedResource implements SecurityGroupAr
 
 export interface SecurityGroupArgs {
     readonly description?: string;
-    readonly ingress: { cidr?: string, securityGroupName?: string, securityGroupOwnerId?: string }[];
+    readonly ingress: { cidr?: string, securityGroupName: string, securityGroupOwnerId: string }[];
     readonly securityGroupName?: string;
 }
 

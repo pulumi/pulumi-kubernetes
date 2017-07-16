@@ -10,8 +10,8 @@ export class InstanceGroup extends lumi.NamedResource implements InstanceGroupAr
     public readonly instanceCount?: number;
     public readonly instanceType: string;
     public readonly instanceGroupName?: string;
-    public readonly runningInstanceCount?: number;
-    public readonly status?: string;
+    public /*out*/ readonly runningInstanceCount: number;
+    public /*out*/ readonly status: string;
 
     constructor(name: string, args: InstanceGroupArgs) {
         super(name);
@@ -27,8 +27,6 @@ export class InstanceGroup extends lumi.NamedResource implements InstanceGroupAr
         }
         this.instanceType = args.instanceType;
         this.instanceGroupName = args.instanceGroupName;
-        this.runningInstanceCount = args.runningInstanceCount;
-        this.status = args.status;
     }
 }
 
@@ -39,7 +37,5 @@ export interface InstanceGroupArgs {
     readonly instanceCount?: number;
     readonly instanceType: string;
     readonly instanceGroupName?: string;
-    readonly runningInstanceCount?: number;
-    readonly status?: string;
 }
 

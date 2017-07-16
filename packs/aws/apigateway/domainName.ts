@@ -9,9 +9,9 @@ export class DomainName extends lumi.NamedResource implements DomainNameArgs {
     public readonly certificateChain?: string;
     public readonly certificateName?: string;
     public readonly certificatePrivateKey?: string;
-    public readonly certificateUploadDate?: string;
-    public readonly cloudfrontDomainName?: string;
-    public readonly cloudfrontZoneId?: string;
+    public /*out*/ readonly certificateUploadDate: string;
+    public /*out*/ readonly cloudfrontDomainName: string;
+    public /*out*/ readonly cloudfrontZoneId: string;
     public readonly domainName: string;
 
     constructor(name: string, args: DomainNameArgs) {
@@ -21,9 +21,6 @@ export class DomainName extends lumi.NamedResource implements DomainNameArgs {
         this.certificateChain = args.certificateChain;
         this.certificateName = args.certificateName;
         this.certificatePrivateKey = args.certificatePrivateKey;
-        this.certificateUploadDate = args.certificateUploadDate;
-        this.cloudfrontDomainName = args.cloudfrontDomainName;
-        this.cloudfrontZoneId = args.cloudfrontZoneId;
         if (args.domainName === undefined) {
             throw new Error("Property argument 'domainName' is required, but was missing");
         }
@@ -37,9 +34,6 @@ export interface DomainNameArgs {
     readonly certificateChain?: string;
     readonly certificateName?: string;
     readonly certificatePrivateKey?: string;
-    readonly certificateUploadDate?: string;
-    readonly cloudfrontDomainName?: string;
-    readonly cloudfrontZoneId?: string;
     readonly domainName: string;
 }
 

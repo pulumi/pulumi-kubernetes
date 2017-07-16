@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class RolePolicy extends lumi.NamedResource implements RolePolicyArgs {
-    public readonly rolePolicyName?: string;
+    public readonly rolePolicyName: string;
     public readonly namePrefix?: string;
     public readonly policy: string;
     public readonly role: string;

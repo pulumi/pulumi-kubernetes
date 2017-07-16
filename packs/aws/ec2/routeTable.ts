@@ -4,8 +4,8 @@
 import * as lumi from "@lumi/lumi";
 
 export class RouteTable extends lumi.NamedResource implements RouteTableArgs {
-    public readonly propagatingVgws?: string[];
-    public readonly route?: { cidrBlock?: string, egressOnlyGatewayId?: string, gatewayId?: string, instanceId?: string, ipv6CidrBlock?: string, natGatewayId?: string, networkInterfaceId?: string, vpcPeeringConnectionId?: string }[];
+    public readonly propagatingVgws: string[];
+    public readonly route: { cidrBlock?: string, egressOnlyGatewayId?: string, gatewayId?: string, instanceId?: string, ipv6CidrBlock?: string, natGatewayId?: string, networkInterfaceId?: string, vpcPeeringConnectionId?: string }[];
     public readonly tags?: {[key: string]: any};
     public readonly vpcId: string;
 

@@ -6,16 +6,15 @@ import * as lumi from "@lumi/lumi";
 export class Project extends lumi.NamedResource implements ProjectArgs {
     public readonly billingAccount?: string;
     public readonly projectName?: string;
-    public readonly number?: string;
+    public /*out*/ readonly number: string;
     public readonly orgId: string;
     public readonly projectId: string;
-    public readonly skipDelete?: boolean;
+    public readonly skipDelete: boolean;
 
     constructor(name: string, args: ProjectArgs) {
         super(name);
         this.billingAccount = args.billingAccount;
         this.projectName = args.projectName;
-        this.number = args.number;
         if (args.orgId === undefined) {
             throw new Error("Property argument 'orgId' is required, but was missing");
         }
@@ -31,7 +30,6 @@ export class Project extends lumi.NamedResource implements ProjectArgs {
 export interface ProjectArgs {
     readonly billingAccount?: string;
     readonly projectName?: string;
-    readonly number?: string;
     readonly orgId: string;
     readonly projectId: string;
     readonly skipDelete?: boolean;

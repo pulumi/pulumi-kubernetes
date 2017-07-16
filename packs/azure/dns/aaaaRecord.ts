@@ -7,7 +7,7 @@ export class AaaaRecord extends lumi.NamedResource implements AaaaRecordArgs {
     public readonly aaaaRecordName?: string;
     public readonly records: string[];
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly ttl: number;
     public readonly zoneName: string;
 

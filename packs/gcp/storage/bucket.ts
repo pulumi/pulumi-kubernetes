@@ -10,9 +10,9 @@ export class Bucket extends lumi.NamedResource implements BucketArgs {
     public readonly bucketName?: string;
     public readonly predefinedAcl?: string;
     public readonly project?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
     public readonly storageClass?: string;
-    public readonly url?: string;
+    public /*out*/ readonly url: string;
     public readonly website?: { mainPageSuffix?: string, notFoundPage?: string }[];
 
     constructor(name: string, args: BucketArgs) {
@@ -23,9 +23,7 @@ export class Bucket extends lumi.NamedResource implements BucketArgs {
         this.bucketName = args.bucketName;
         this.predefinedAcl = args.predefinedAcl;
         this.project = args.project;
-        this.selfLink = args.selfLink;
         this.storageClass = args.storageClass;
-        this.url = args.url;
         this.website = args.website;
     }
 }
@@ -37,9 +35,7 @@ export interface BucketArgs {
     readonly bucketName?: string;
     readonly predefinedAcl?: string;
     readonly project?: string;
-    readonly selfLink?: string;
     readonly storageClass?: string;
-    readonly url?: string;
     readonly website?: { mainPageSuffix?: string, notFoundPage?: string }[];
 }
 

@@ -11,7 +11,7 @@ export class EventTarget extends lumi.NamedResource implements EventTargetArgs {
     public readonly roleArn?: string;
     public readonly rule: string;
     public readonly runCommandTargets?: { key: string, values: string[] }[];
-    public readonly targetId?: string;
+    public readonly targetId: string;
 
     constructor(name: string, args: EventTargetArgs) {
         super(name);

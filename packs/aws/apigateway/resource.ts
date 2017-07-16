@@ -7,7 +7,7 @@ import {RestApi} from "./restApi";
 
 export class Resource extends lumi.NamedResource implements ResourceArgs {
     public readonly parentId: string;
-    public readonly path?: string;
+    public /*out*/ readonly path: string;
     public readonly pathPart: string;
     public readonly restApi: RestApi;
 
@@ -17,7 +17,6 @@ export class Resource extends lumi.NamedResource implements ResourceArgs {
             throw new Error("Property argument 'parentId' is required, but was missing");
         }
         this.parentId = args.parentId;
-        this.path = args.path;
         if (args.pathPart === undefined) {
             throw new Error("Property argument 'pathPart' is required, but was missing");
         }
@@ -31,7 +30,6 @@ export class Resource extends lumi.NamedResource implements ResourceArgs {
 
 export interface ResourceArgs {
     readonly parentId: string;
-    readonly path?: string;
     readonly pathPart: string;
     readonly restApi: RestApi;
 }

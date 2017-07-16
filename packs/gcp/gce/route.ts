@@ -11,11 +11,11 @@ export class Route extends lumi.NamedResource implements RouteArgs {
     public readonly nextHopInstance?: string;
     public readonly nextHopInstanceZone?: string;
     public readonly nextHopIp?: string;
-    public readonly nextHopNetwork?: string;
+    public /*out*/ readonly nextHopNetwork: string;
     public readonly nextHopVpnTunnel?: string;
     public readonly priority: number;
     public readonly project?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
     public readonly tags?: string[];
 
     constructor(name: string, args: RouteArgs) {
@@ -33,14 +33,12 @@ export class Route extends lumi.NamedResource implements RouteArgs {
         this.nextHopInstance = args.nextHopInstance;
         this.nextHopInstanceZone = args.nextHopInstanceZone;
         this.nextHopIp = args.nextHopIp;
-        this.nextHopNetwork = args.nextHopNetwork;
         this.nextHopVpnTunnel = args.nextHopVpnTunnel;
         if (args.priority === undefined) {
             throw new Error("Property argument 'priority' is required, but was missing");
         }
         this.priority = args.priority;
         this.project = args.project;
-        this.selfLink = args.selfLink;
         this.tags = args.tags;
     }
 }
@@ -53,11 +51,9 @@ export interface RouteArgs {
     readonly nextHopInstance?: string;
     readonly nextHopInstanceZone?: string;
     readonly nextHopIp?: string;
-    readonly nextHopNetwork?: string;
     readonly nextHopVpnTunnel?: string;
     readonly priority: number;
     readonly project?: string;
-    readonly selfLink?: string;
     readonly tags?: string[];
 }
 

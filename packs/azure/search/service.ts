@@ -6,11 +6,11 @@ import * as lumi from "@lumi/lumi";
 export class Service extends lumi.NamedResource implements ServiceArgs {
     public readonly location: string;
     public readonly serviceName?: string;
-    public readonly partitionCount?: number;
-    public readonly replicaCount?: number;
+    public readonly partitionCount: number;
+    public readonly replicaCount: number;
     public readonly resourceGroupName: string;
     public readonly sku: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: ServiceArgs) {
         super(name);

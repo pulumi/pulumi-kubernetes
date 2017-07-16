@@ -12,7 +12,7 @@ export class Permission extends lumi.NamedResource implements PermissionArgs {
     public readonly qualifier?: string;
     public readonly sourceAccount?: string;
     public readonly sourceArn?: string;
-    public readonly statementId: string;
+    public readonly statementId?: string;
 
     constructor(name: string, args: PermissionArgs) {
         super(name);
@@ -31,9 +31,6 @@ export class Permission extends lumi.NamedResource implements PermissionArgs {
         this.qualifier = args.qualifier;
         this.sourceAccount = args.sourceAccount;
         this.sourceArn = args.sourceArn;
-        if (args.statementId === undefined) {
-            throw new Error("Property argument 'statementId' is required, but was missing");
-        }
         this.statementId = args.statementId;
     }
 }
@@ -45,6 +42,6 @@ export interface PermissionArgs {
     readonly qualifier?: string;
     readonly sourceAccount?: string;
     readonly sourceArn?: string;
-    readonly statementId: string;
+    readonly statementId?: string;
 }
 

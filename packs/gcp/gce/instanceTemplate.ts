@@ -7,23 +7,23 @@ export class InstanceTemplate extends lumi.NamedResource implements InstanceTemp
     public readonly automaticRestart?: boolean;
     public readonly canIpForward?: boolean;
     public readonly description?: string;
-    public readonly disk: { autoDelete?: boolean, boot?: boolean, deviceName?: string, diskName?: string, diskSizeGb?: number, diskType?: string, interface?: string, mode?: string, source?: string, sourceImage?: string, type?: string }[];
+    public readonly disk: { autoDelete?: boolean, boot: boolean, deviceName?: string, diskName?: string, diskSizeGb?: number, diskType: string, interface: string, mode: string, source?: string, sourceImage?: string, type: string }[];
     public readonly instanceDescription?: string;
     public readonly machineType: string;
     public readonly metadata?: {[key: string]: any};
-    public readonly metadataFingerprint?: string;
+    public /*out*/ readonly metadataFingerprint: string;
     public readonly metadataStartupScript?: string;
-    public readonly instanceTemplateName?: string;
+    public readonly instanceTemplateName: string;
     public readonly namePrefix?: string;
-    public readonly networkInterface?: { accessConfig?: { natIp?: string }[], network?: string, networkIp?: string, subnetwork?: string, subnetworkProject?: string }[];
+    public readonly networkInterface?: { accessConfig?: { natIp: string }[], network: string, networkIp?: string, subnetwork?: string, subnetworkProject: string }[];
     public readonly onHostMaintenance?: string;
-    public readonly project?: string;
+    public readonly project: string;
     public readonly region?: string;
-    public readonly scheduling?: { automaticRestart?: boolean, onHostMaintenance?: string, preemptible?: boolean }[];
-    public readonly selfLink?: string;
-    public readonly serviceAccount?: { email?: string, scopes: string[] }[];
+    public readonly scheduling: { automaticRestart?: boolean, onHostMaintenance: string, preemptible?: boolean }[];
+    public /*out*/ readonly selfLink: string;
+    public readonly serviceAccount?: { email: string, scopes: string[] }[];
     public readonly tags?: string[];
-    public readonly tagsFingerprint?: string;
+    public /*out*/ readonly tagsFingerprint: string;
 
     constructor(name: string, args: InstanceTemplateArgs) {
         super(name);
@@ -40,7 +40,6 @@ export class InstanceTemplate extends lumi.NamedResource implements InstanceTemp
         }
         this.machineType = args.machineType;
         this.metadata = args.metadata;
-        this.metadataFingerprint = args.metadataFingerprint;
         this.metadataStartupScript = args.metadataStartupScript;
         this.instanceTemplateName = args.instanceTemplateName;
         this.namePrefix = args.namePrefix;
@@ -49,10 +48,8 @@ export class InstanceTemplate extends lumi.NamedResource implements InstanceTemp
         this.project = args.project;
         this.region = args.region;
         this.scheduling = args.scheduling;
-        this.selfLink = args.selfLink;
         this.serviceAccount = args.serviceAccount;
         this.tags = args.tags;
-        this.tagsFingerprint = args.tagsFingerprint;
     }
 }
 
@@ -60,22 +57,19 @@ export interface InstanceTemplateArgs {
     readonly automaticRestart?: boolean;
     readonly canIpForward?: boolean;
     readonly description?: string;
-    readonly disk: { autoDelete?: boolean, boot?: boolean, deviceName?: string, diskName?: string, diskSizeGb?: number, diskType?: string, interface?: string, mode?: string, source?: string, sourceImage?: string, type?: string }[];
+    readonly disk: { autoDelete?: boolean, boot: boolean, deviceName?: string, diskName?: string, diskSizeGb?: number, diskType: string, interface: string, mode: string, source?: string, sourceImage?: string, type: string }[];
     readonly instanceDescription?: string;
     readonly machineType: string;
     readonly metadata?: {[key: string]: any};
-    readonly metadataFingerprint?: string;
     readonly metadataStartupScript?: string;
     readonly instanceTemplateName?: string;
     readonly namePrefix?: string;
-    readonly networkInterface?: { accessConfig?: { natIp?: string }[], network?: string, networkIp?: string, subnetwork?: string, subnetworkProject?: string }[];
+    readonly networkInterface?: { accessConfig?: { natIp: string }[], network: string, networkIp?: string, subnetwork?: string, subnetworkProject: string }[];
     readonly onHostMaintenance?: string;
     readonly project?: string;
     readonly region?: string;
-    readonly scheduling?: { automaticRestart?: boolean, onHostMaintenance?: string, preemptible?: boolean }[];
-    readonly selfLink?: string;
-    readonly serviceAccount?: { email?: string, scopes: string[] }[];
+    readonly scheduling?: { automaticRestart?: boolean, onHostMaintenance: string, preemptible?: boolean }[];
+    readonly serviceAccount?: { email: string, scopes: string[] }[];
     readonly tags?: string[];
-    readonly tagsFingerprint?: string;
 }
 

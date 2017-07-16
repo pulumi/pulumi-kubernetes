@@ -4,10 +4,10 @@
 import * as lumi from "@lumi/lumi";
 
 export class ServerCertificate extends lumi.NamedResource implements ServerCertificateArgs {
-    public readonly arn?: string;
+    public readonly arn: string;
     public readonly certificateBody: string;
     public readonly certificateChain?: string;
-    public readonly serverCertificateName?: string;
+    public readonly serverCertificateName: string;
     public readonly namePrefix?: string;
     public readonly path?: string;
     public readonly privateKey: string;

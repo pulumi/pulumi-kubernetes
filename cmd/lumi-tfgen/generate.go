@@ -245,7 +245,7 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	// Now just emit a simple export for each variable.
 	for _, key := range cfgkeys {
 		// Generate a name and type to use for this key.
-		prop, typ, err := g.propTyp("", key, cfg, custom[key])
+		prop, typ, err := g.propTyp("", key, cfg, custom[key], false)
 		if err != nil {
 			return "", err
 		} else if prop != "" {
@@ -320,31 +320,40 @@ func (g *generator) generateResource(pkg string, rawname string,
 
 	// First, generate all instance properties.
 	var finalerr error
-	var props []string
-	var propflags []string
+	var inprops []string
 	var proptypes []string
 	var schemas []*schema.Schema
 	var customs []tfbridge.SchemaInfo
-	for _, s := range stableSchemas(res.Schema) {
-		if sch := res.Schema[s]; sch.Removed == "" {
-			// TODO: should we skip deprecated fields?
-			// TODO: figure out how to deal with sensitive fields.
-			prop, flag, typ, err := g.propFlagTyp(resname, s, res.Schema, custom[s])
-			if err != nil {
-				// Keep going so we can accumulate as many errors as possible.
-				err = errors.Errorf("%v:%v: %v", pkg, rawname, err)
-				finalerr = multierror.Append(finalerr, err)
-			} else if prop != "" {
-				w.Writefmtln("    public readonly %v%v: %v;", prop, flag, typ)
-				props = append(props, prop)
-				propflags = append(propflags, flag)
-				proptypes = append(proptypes, typ)
-				schemas = append(schemas, sch)
-				customs = append(customs, custom[s])
+	if len(res.Schema) > 0 {
+		for _, s := range stableSchemas(res.Schema) {
+			if sch := res.Schema[s]; sch.Removed == "" {
+				// Generate the property name, type, and flags; note that this is in the output position, hence the true.
+				// TODO: figure out how to deal with sensitive fields.
+				prop, outflags, typ, err := g.propFlagTyp(resname, s, res.Schema, custom[s], true /*out*/)
+				if err != nil {
+					// Keep going so we can accumulate as many errors as possible.
+					err = errors.Errorf("%v:%v: %v", pkg, rawname, err)
+					finalerr = multierror.Append(finalerr, err)
+				} else if prop != "" {
+					// Make a little comment in the code so it's easy to pick out output properties.
+					inprop := inProperty(sch)
+					var outcomment string
+					if !inprop {
+						outcomment = "/*out*/ "
+					}
+
+					w.Writefmtln("    public %vreadonly %v%v: %v;", outcomment, prop, outflags, typ)
+
+					// Only keep track of input properties for purposes of initialization data structures.
+					if inprop {
+						inprops = append(inprops, prop)
+						proptypes = append(proptypes, typ)
+						schemas = append(schemas, sch)
+						customs = append(customs, custom[s])
+					}
+				}
 			}
 		}
-	}
-	if len(props) > 0 {
 		w.Writefmtln("")
 	}
 
@@ -352,19 +361,19 @@ func (g *generator) generateResource(pkg string, rawname string,
 
 	// Now create a constructor that chains supercalls and stores into properties.
 	var argsflags string
-	if len(props) == 0 {
-		// If the number of properties was zero, we make the args object optional.
+	if len(inprops) == 0 {
+		// If the number of input properties was zero, we make the args object optional.
 		argsflags = "?"
 	}
 	w.Writefmtln("    constructor(name: string, args%v: %vArgs) {", argsflags, resname)
 	w.Writefmtln("        super(name);")
 	var propsindent string
-	if len(props) == 0 {
+	if len(inprops) == 0 {
 		propsindent = "    "
 		w.Writefmtln("        if (args !== undefined) {")
 	}
-	for i, prop := range props {
-		if !optional(schemas[i], customs[i]) {
+	for i, prop := range inprops {
+		if !optionalProperty(schemas[i], customs[i], false) {
 			w.Writefmtln("%v        if (args.%v === undefined) {", propsindent, prop)
 			w.Writefmtln("%v            throw new Error(\"Property argument '%v' is required, "+
 				"but was missing\");", propsindent, prop)
@@ -372,7 +381,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 		}
 		w.Writefmtln("%v        this.%[2]v = args.%[2]v;", propsindent, prop)
 	}
-	if len(props) == 0 {
+	if len(inprops) == 0 {
 		w.Writefmtln("        }")
 	}
 	w.Writefmtln("    }")
@@ -382,9 +391,11 @@ func (g *generator) generateResource(pkg string, rawname string,
 
 	// Next, generate the args interface for this class.
 	w.Writefmtln("export interface %vArgs {", resname)
-	for i, prop := range props {
-		g.generateComment(w, schemas[i].Description, "    ")
-		w.Writefmtln("    readonly %v%v: %v;", prop, propflags[i], proptypes[i])
+	for i, prop := range inprops {
+		sch := schemas[i]
+		inflags := g.tfToJSFlags(sch, customs[i], false /*out*/)
+		g.generateComment(w, sch.Description, "    ")
+		w.Writefmtln("    readonly %v%v: %v;", prop, inflags, proptypes[i])
 	}
 	w.Writefmtln("}")
 	w.Writefmtln("")
@@ -634,14 +645,24 @@ func (g *generator) generateComment(w *tools.GenWriter, comment string, prefix s
 	}
 }
 
-// optional checks whether the given property is optional, either due to Terraform or an overlay.
-func optional(sch *schema.Schema, custom tfbridge.SchemaInfo) bool {
+// inProperty checks whether the given property is supplied by the user (versus being always computed).
+func inProperty(sch *schema.Schema) bool {
+	return sch.Optional || sch.Required
+}
+
+// optionalProperty checks whether the given property is optional, either due to Terraform or an overlay.
+func optionalProperty(sch *schema.Schema, custom tfbridge.SchemaInfo, out bool) bool {
+	// If we're checking a property used in an output position, it isn't optional if it's computed.
+	if out {
+		return !sch.Computed && (sch.Optional || custom.Optional())
+	}
 	return sch.Optional || sch.Computed || custom.Optional()
 }
 
-// propFlagTyp returns the property name, flag, and type to use for a given property/field/schema element.
+// propFlagTyp returns the property name, flag, and type to use for a given property/field/schema element.  The out
+// bit determines whether a property suitable for outputs is provided (e.g., it assumes compputeds have occurred).
 func (g *generator) propFlagTyp(res string, key string, sch map[string]*schema.Schema,
-	custom tfbridge.SchemaInfo) (string, string, string, error) {
+	custom tfbridge.SchemaInfo, out bool) (string, string, string, error) {
 	// Use the name override, if one exists, or use the standard name mangling otherwise.
 	prop := custom.Name
 	if prop == "" {
@@ -652,12 +673,13 @@ func (g *generator) propFlagTyp(res string, key string, sch map[string]*schema.S
 		}
 	}
 
-	return prop, g.tfToJSFlags(sch[key], custom), g.tfToJSType(sch[key], custom), nil
+	return prop, g.tfToJSFlags(sch[key], custom, out), g.tfToJSType(sch[key], custom, out), nil
 }
 
-// propTyp returns the property name and type, without flags, to use for a given property/field/schema element.
+// propTyp returns the property name and type, without flags, to use for a given property/field/schema element.  The
+// out bit determines whether a property suitable for outputs is provided (e.g., it assumes compputeds have occurred).
 func (g *generator) propTyp(res string, key string, sch map[string]*schema.Schema,
-	custom tfbridge.SchemaInfo) (string, string, error) {
+	custom tfbridge.SchemaInfo, out bool) (string, string, error) {
 	// Use the name override, if one exists, or use the standard name mangling otherwise.
 	prop := custom.Name
 	if prop == "" {
@@ -668,19 +690,19 @@ func (g *generator) propTyp(res string, key string, sch map[string]*schema.Schem
 		}
 	}
 
-	return prop, g.tfToJSTypeFlags(sch[key], custom), nil
+	return prop, g.tfToJSTypeFlags(sch[key], custom, out), nil
 }
 
 // tsToJSFlags returns the JavaScript flags for a given schema property.
-func (g *generator) tfToJSFlags(sch *schema.Schema, custom tfbridge.SchemaInfo) string {
-	if optional(sch, custom) {
+func (g *generator) tfToJSFlags(sch *schema.Schema, custom tfbridge.SchemaInfo, out bool) string {
+	if optionalProperty(sch, custom, out) {
 		return "?"
 	}
 	return ""
 }
 
 // tfToJSType returns the JavaScript type name for a given schema property.
-func (g *generator) tfToJSType(sch *schema.Schema, custom tfbridge.SchemaInfo) string {
+func (g *generator) tfToJSType(sch *schema.Schema, custom tfbridge.SchemaInfo, out bool) string {
 	if custom.Type != "" {
 		return string(custom.Type.Name())
 	} else if custom.Asset != nil {
@@ -690,11 +712,12 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom tfbridge.SchemaInfo) s
 	if custom.Elem != nil {
 		elemcust = *custom.Elem
 	}
-	return g.tfToJSValueType(sch.Type, sch.Elem, elemcust)
+	return g.tfToJSValueType(sch.Type, sch.Elem, elemcust, out)
 }
 
 // tfToJSValueType returns the JavaScript type name for a given schema value type and element kind.
-func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{}, custom tfbridge.SchemaInfo) string {
+func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{},
+	custom tfbridge.SchemaInfo, out bool) string {
 	switch vt {
 	case schema.TypeBool:
 		return "boolean"
@@ -703,14 +726,14 @@ func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{}, custo
 	case schema.TypeString:
 		return "string"
 	case schema.TypeList:
-		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom))
+		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom, out))
 	case schema.TypeMap:
-		return fmt.Sprintf("{[key: string]: %v}", g.tfElemToJSType(elem, custom))
+		return fmt.Sprintf("{[key: string]: %v}", g.tfElemToJSType(elem, custom, out))
 	case schema.TypeSet:
 		// IDEA: we can't use ES6 sets here, because we're using values and not objects.  It would be possible to come
 		//     up with a ValueSet of some sorts, but that depends on things like shallowEquals which is known to be
 		//     brittle and implementation dependent.  For now, we will stick to arrays, and validate on the backend.
-		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom))
+		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom, out))
 	default:
 		contract.Failf("Unrecognized schema type: %v", vt)
 		return ""
@@ -719,7 +742,7 @@ func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{}, custo
 
 // tfElemToJSType returns the JavaScript type for a given schema element.  This element may be either a simple schema
 // property or a complex structure.  In the case of a complex structure, this will expand to its nominal type.
-func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo) string {
+func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo, out bool) string {
 	// If there is no element type specified, we will accept anything.
 	if elem == nil {
 		return "any"
@@ -727,17 +750,17 @@ func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo)
 
 	switch e := elem.(type) {
 	case schema.ValueType:
-		return g.tfToJSValueType(e, nil, custom)
+		return g.tfToJSValueType(e, nil, custom, out)
 	case *schema.Schema:
 		// A simple type, just return its type name.
-		return g.tfToJSType(e, custom)
+		return g.tfToJSType(e, custom, out)
 	case *schema.Resource:
 		// A complex type, just expand to its nominal type name.
 		// TODO: spill all complex structures in advance so that we don't have insane inline expansions.
 		t := "{ "
 		c := 0
 		for _, s := range stableSchemas(e.Schema) {
-			prop, flag, typ, err := g.propFlagTyp("", s, e.Schema, custom.Fields[s])
+			prop, flag, typ, err := g.propFlagTyp("", s, e.Schema, custom.Fields[s], out)
 			contract.Assertf(err == nil, "No errors expected for non-resource properties")
 			if prop != "" {
 				if c > 0 {
@@ -756,9 +779,9 @@ func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo)
 
 // tfToJSTypeFlags returns the JavaScript type name for a given schema property, just like tfToJSType, except that if
 // the schema is optional, we will emit an undefined union type (for non-field positions).
-func (g *generator) tfToJSTypeFlags(sch *schema.Schema, custom tfbridge.SchemaInfo) string {
-	ts := g.tfToJSType(sch, custom)
-	if optional(sch, custom) {
+func (g *generator) tfToJSTypeFlags(sch *schema.Schema, custom tfbridge.SchemaInfo, out bool) string {
+	ts := g.tfToJSType(sch, custom, out)
+	if optionalProperty(sch, custom, out) {
 		ts += " | undefined"
 	}
 	return ts

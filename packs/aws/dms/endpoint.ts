@@ -4,19 +4,19 @@
 import * as lumi from "@lumi/lumi";
 
 export class Endpoint extends lumi.NamedResource implements EndpointArgs {
-    public readonly certificateArn?: string;
+    public readonly certificateArn: string;
     public readonly databaseName?: string;
-    public readonly endpointArn?: string;
+    public /*out*/ readonly endpointArn: string;
     public readonly endpointId: string;
     public readonly endpointType: string;
     public readonly engineName: string;
-    public readonly extraConnectionAttributes?: string;
-    public readonly kmsKeyArn?: string;
+    public readonly extraConnectionAttributes: string;
+    public readonly kmsKeyArn: string;
     public readonly password?: string;
     public readonly port?: number;
     public readonly serverName?: string;
     public readonly serviceAccessRole?: string;
-    public readonly sslMode?: string;
+    public readonly sslMode: string;
     public readonly tags?: {[key: string]: any};
     public readonly username?: string;
 
@@ -24,7 +24,6 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
         super(name);
         this.certificateArn = args.certificateArn;
         this.databaseName = args.databaseName;
-        this.endpointArn = args.endpointArn;
         if (args.endpointId === undefined) {
             throw new Error("Property argument 'endpointId' is required, but was missing");
         }
@@ -52,7 +51,6 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
 export interface EndpointArgs {
     readonly certificateArn?: string;
     readonly databaseName?: string;
-    readonly endpointArn?: string;
     readonly endpointId: string;
     readonly endpointType: string;
     readonly engineName: string;

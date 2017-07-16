@@ -4,15 +4,14 @@
 import * as lumi from "@lumi/lumi";
 
 export class NetworkInterfaceAttachment extends lumi.NamedResource implements NetworkInterfaceAttachmentArgs {
-    public readonly attachmentId?: string;
+    public /*out*/ readonly attachmentId: string;
     public readonly deviceIndex: number;
     public readonly instanceId: string;
     public readonly networkInterfaceId: string;
-    public readonly status?: string;
+    public /*out*/ readonly status: string;
 
     constructor(name: string, args: NetworkInterfaceAttachmentArgs) {
         super(name);
-        this.attachmentId = args.attachmentId;
         if (args.deviceIndex === undefined) {
             throw new Error("Property argument 'deviceIndex' is required, but was missing");
         }
@@ -25,15 +24,12 @@ export class NetworkInterfaceAttachment extends lumi.NamedResource implements Ne
             throw new Error("Property argument 'networkInterfaceId' is required, but was missing");
         }
         this.networkInterfaceId = args.networkInterfaceId;
-        this.status = args.status;
     }
 }
 
 export interface NetworkInterfaceAttachmentArgs {
-    readonly attachmentId?: string;
     readonly deviceIndex: number;
     readonly instanceId: string;
     readonly networkInterfaceId: string;
-    readonly status?: string;
 }
 

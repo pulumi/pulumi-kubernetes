@@ -4,12 +4,12 @@
 import * as lumi from "@lumi/lumi";
 
 export class EipAssociation extends lumi.NamedResource implements EipAssociationArgs {
-    public readonly allocationId?: string;
+    public readonly allocationId: string;
     public readonly allowReassociation?: boolean;
-    public readonly instanceId?: string;
-    public readonly networkInterfaceId?: string;
-    public readonly privateIpAddress?: string;
-    public readonly publicIp?: string;
+    public readonly instanceId: string;
+    public readonly networkInterfaceId: string;
+    public readonly privateIpAddress: string;
+    public readonly publicIp: string;
 
     constructor(name: string, args: EipAssociationArgs) {
         super(name);

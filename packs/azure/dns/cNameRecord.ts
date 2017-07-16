@@ -7,7 +7,7 @@ export class CNameRecord extends lumi.NamedResource implements CNameRecordArgs {
     public readonly cNameRecordName?: string;
     public readonly record: string;
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly ttl: number;
     public readonly zoneName: string;
 

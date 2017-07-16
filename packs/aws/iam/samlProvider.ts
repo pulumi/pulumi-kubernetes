@@ -4,27 +4,23 @@
 import * as lumi from "@lumi/lumi";
 
 export class SamlProvider extends lumi.NamedResource implements SamlProviderArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly samlProviderName?: string;
     public readonly samlMetadataDocument: string;
-    public readonly validUntil?: string;
+    public /*out*/ readonly validUntil: string;
 
     constructor(name: string, args: SamlProviderArgs) {
         super(name);
-        this.arn = args.arn;
         this.samlProviderName = args.samlProviderName;
         if (args.samlMetadataDocument === undefined) {
             throw new Error("Property argument 'samlMetadataDocument' is required, but was missing");
         }
         this.samlMetadataDocument = args.samlMetadataDocument;
-        this.validUntil = args.validUntil;
     }
 }
 
 export interface SamlProviderArgs {
-    readonly arn?: string;
     readonly samlProviderName?: string;
     readonly samlMetadataDocument: string;
-    readonly validUntil?: string;
 }
 

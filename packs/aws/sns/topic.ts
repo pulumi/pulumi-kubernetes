@@ -4,15 +4,14 @@
 import * as lumi from "@lumi/lumi";
 
 export class Topic extends lumi.NamedResource implements TopicArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly deliveryPolicy?: string;
     public readonly displayName?: string;
     public readonly topicName?: string;
-    public readonly policy?: string;
+    public readonly policy: string;
 
     constructor(name: string, args: TopicArgs) {
         super(name);
-        this.arn = args.arn;
         this.deliveryPolicy = args.deliveryPolicy;
         this.displayName = args.displayName;
         this.topicName = args.topicName;
@@ -21,7 +20,6 @@ export class Topic extends lumi.NamedResource implements TopicArgs {
 }
 
 export interface TopicArgs {
-    readonly arn?: string;
     readonly deliveryPolicy?: string;
     readonly displayName?: string;
     readonly topicName?: string;

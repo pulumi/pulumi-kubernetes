@@ -7,7 +7,7 @@ export class TxtRecord extends lumi.NamedResource implements TxtRecordArgs {
     public readonly txtRecordName?: string;
     public readonly record: { value: string }[];
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly ttl: number;
     public readonly zoneName: string;
 

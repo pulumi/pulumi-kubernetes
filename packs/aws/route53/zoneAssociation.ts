@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class ZoneAssociation extends lumi.NamedResource implements ZoneAssociationArgs {
     public readonly vpcId: string;
-    public readonly vpcRegion?: string;
+    public readonly vpcRegion: string;
     public readonly zoneId: string;
 
     constructor(name: string, args: ZoneAssociationArgs) {

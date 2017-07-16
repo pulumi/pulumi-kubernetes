@@ -3,37 +3,36 @@
 
 import * as lumi from "@lumi/lumi";
 
-import {Role} from "../iam/role";
+import {ARN} from "../index";
 
 export class Function extends lumi.NamedResource implements FunctionArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly deadLetterConfig?: { targetArn: string }[];
     public readonly description?: string;
     public readonly environment?: { variables?: {[key: string]: string} }[];
     public readonly code?: lumi.asset.Archive;
     public readonly functionName?: string;
     public readonly handler: string;
-    public readonly invokeArn?: string;
+    public /*out*/ readonly invokeArn: string;
     public readonly kmsKeyArn?: string;
-    public readonly lastModified?: string;
+    public /*out*/ readonly lastModified: string;
     public readonly memorySize?: number;
     public readonly publish?: boolean;
-    public readonly qualifiedArn?: string;
-    public readonly role: Role;
+    public /*out*/ readonly qualifiedArn: string;
+    public readonly role: ARN;
     public readonly runtime: string;
     public readonly s3Bucket?: string;
     public readonly s3Key?: string;
     public readonly s3ObjectVersion?: string;
-    public readonly sourceCodeHash?: string;
+    public readonly sourceCodeHash: string;
     public readonly tags?: {[key: string]: any};
     public readonly timeout?: number;
-    public readonly tracingConfig?: { mode: string }[];
-    public readonly version?: string;
-    public readonly vpcConfig?: { securityGroupIds: string[], subnetIds: string[], vpcId?: string }[];
+    public readonly tracingConfig: { mode: string }[];
+    public /*out*/ readonly version: string;
+    public readonly vpcConfig?: { securityGroupIds: string[], subnetIds: string[], vpcId: string }[];
 
     constructor(name: string, args: FunctionArgs) {
         super(name);
-        this.arn = args.arn;
         this.deadLetterConfig = args.deadLetterConfig;
         this.description = args.description;
         this.environment = args.environment;
@@ -43,12 +42,9 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
             throw new Error("Property argument 'handler' is required, but was missing");
         }
         this.handler = args.handler;
-        this.invokeArn = args.invokeArn;
         this.kmsKeyArn = args.kmsKeyArn;
-        this.lastModified = args.lastModified;
         this.memorySize = args.memorySize;
         this.publish = args.publish;
-        this.qualifiedArn = args.qualifiedArn;
         if (args.role === undefined) {
             throw new Error("Property argument 'role' is required, but was missing");
         }
@@ -64,26 +60,21 @@ export class Function extends lumi.NamedResource implements FunctionArgs {
         this.tags = args.tags;
         this.timeout = args.timeout;
         this.tracingConfig = args.tracingConfig;
-        this.version = args.version;
         this.vpcConfig = args.vpcConfig;
     }
 }
 
 export interface FunctionArgs {
-    readonly arn?: string;
     readonly deadLetterConfig?: { targetArn: string }[];
     readonly description?: string;
     readonly environment?: { variables?: {[key: string]: string} }[];
     readonly code?: lumi.asset.Archive;
     readonly functionName?: string;
     readonly handler: string;
-    readonly invokeArn?: string;
     readonly kmsKeyArn?: string;
-    readonly lastModified?: string;
     readonly memorySize?: number;
     readonly publish?: boolean;
-    readonly qualifiedArn?: string;
-    readonly role: Role;
+    readonly role: ARN;
     readonly runtime: string;
     readonly s3Bucket?: string;
     readonly s3Key?: string;
@@ -92,7 +83,6 @@ export interface FunctionArgs {
     readonly tags?: {[key: string]: any};
     readonly timeout?: number;
     readonly tracingConfig?: { mode: string }[];
-    readonly version?: string;
-    readonly vpcConfig?: { securityGroupIds: string[], subnetIds: string[], vpcId?: string }[];
+    readonly vpcConfig?: { securityGroupIds: string[], subnetIds: string[], vpcId: string }[];
 }
 

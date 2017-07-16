@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class UserPolicy extends lumi.NamedResource implements UserPolicyArgs {
-    public readonly userPolicyName?: string;
+    public readonly userPolicyName: string;
     public readonly namePrefix?: string;
     public readonly policy: string;
     public readonly user: string;

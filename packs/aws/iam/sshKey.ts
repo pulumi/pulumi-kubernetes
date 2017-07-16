@@ -5,10 +5,10 @@ import * as lumi from "@lumi/lumi";
 
 export class SshKey extends lumi.NamedResource implements SshKeyArgs {
     public readonly encoding: string;
-    public readonly fingerprint?: string;
+    public /*out*/ readonly fingerprint: string;
     public readonly publicKey: string;
-    public readonly sshPublicKeyId?: string;
-    public readonly status?: string;
+    public /*out*/ readonly sshPublicKeyId: string;
+    public readonly status: string;
     public readonly username: string;
 
     constructor(name: string, args: SshKeyArgs) {
@@ -17,12 +17,10 @@ export class SshKey extends lumi.NamedResource implements SshKeyArgs {
             throw new Error("Property argument 'encoding' is required, but was missing");
         }
         this.encoding = args.encoding;
-        this.fingerprint = args.fingerprint;
         if (args.publicKey === undefined) {
             throw new Error("Property argument 'publicKey' is required, but was missing");
         }
         this.publicKey = args.publicKey;
-        this.sshPublicKeyId = args.sshPublicKeyId;
         this.status = args.status;
         if (args.username === undefined) {
             throw new Error("Property argument 'username' is required, but was missing");
@@ -33,9 +31,7 @@ export class SshKey extends lumi.NamedResource implements SshKeyArgs {
 
 export interface SshKeyArgs {
     readonly encoding: string;
-    readonly fingerprint?: string;
     readonly publicKey: string;
-    readonly sshPublicKeyId?: string;
     readonly status?: string;
     readonly username: string;
 }

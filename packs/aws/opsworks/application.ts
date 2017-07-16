@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class Application extends lumi.NamedResource implements ApplicationArgs {
-    public readonly appSource?: { password?: string, revision?: string, sshKey?: string, type: string, url?: string, username?: string }[];
+    public readonly appSource: { password?: string, revision?: string, sshKey?: string, type: string, url?: string, username?: string }[];
     public readonly autoBundleOnDeploy?: string;
     public readonly awsFlowRubySettings?: string;
     public readonly dataSourceArn?: string;
@@ -15,10 +15,10 @@ export class Application extends lumi.NamedResource implements ApplicationArgs {
     public readonly domains?: string[];
     public readonly enableSsl?: boolean;
     public readonly environment?: { key: string, secure?: boolean, value: string }[];
-    public readonly applicationId?: string;
+    public /*out*/ readonly applicationId: string;
     public readonly applicationName?: string;
     public readonly railsEnv?: string;
-    public readonly shortName?: string;
+    public readonly shortName: string;
     public readonly sslConfiguration?: { certificate: string, chain?: string, privateKey: string }[];
     public readonly stackId: string;
     public readonly type: string;
@@ -36,7 +36,6 @@ export class Application extends lumi.NamedResource implements ApplicationArgs {
         this.domains = args.domains;
         this.enableSsl = args.enableSsl;
         this.environment = args.environment;
-        this.applicationId = args.applicationId;
         this.applicationName = args.applicationName;
         this.railsEnv = args.railsEnv;
         this.shortName = args.shortName;
@@ -64,7 +63,6 @@ export interface ApplicationArgs {
     readonly domains?: string[];
     readonly enableSsl?: boolean;
     readonly environment?: { key: string, secure?: boolean, value: string }[];
-    readonly applicationId?: string;
     readonly applicationName?: string;
     readonly railsEnv?: string;
     readonly shortName?: string;

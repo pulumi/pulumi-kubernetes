@@ -7,7 +7,7 @@ export class Pipeline extends lumi.NamedResource implements PipelineArgs {
     public readonly artifactStore: { encryptionKey?: { id: string, type: string }[], location: string, type: string }[];
     public readonly pipelineName?: string;
     public readonly roleArn: string;
-    public readonly stage: { action: { category: string, configuration?: {[key: string]: any}, inputArtifacts?: string[], name: string, outputArtifacts?: string[], owner: string, provider: string, roleArn?: string, runOrder?: number, version: string }[], name: string }[];
+    public readonly stage: { action: { category: string, configuration?: {[key: string]: any}, inputArtifacts?: string[], name: string, outputArtifacts?: string[], owner: string, provider: string, roleArn?: string, runOrder: number, version: string }[], name: string }[];
 
     constructor(name: string, args: PipelineArgs) {
         super(name);
@@ -31,6 +31,6 @@ export interface PipelineArgs {
     readonly artifactStore: { encryptionKey?: { id: string, type: string }[], location: string, type: string }[];
     readonly pipelineName?: string;
     readonly roleArn: string;
-    readonly stage: { action: { category: string, configuration?: {[key: string]: any}, inputArtifacts?: string[], name: string, outputArtifacts?: string[], owner: string, provider: string, roleArn?: string, runOrder?: number, version: string }[], name: string }[];
+    readonly stage: { action: { category: string, configuration?: {[key: string]: any}, inputArtifacts?: string[], name: string, outputArtifacts?: string[], owner: string, provider: string, roleArn?: string, runOrder: number, version: string }[], name: string }[];
 }
 

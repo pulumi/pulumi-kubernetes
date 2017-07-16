@@ -5,18 +5,18 @@ import * as lumi from "@lumi/lumi";
 
 export class LaunchConfiguration extends lumi.NamedResource implements LaunchConfigurationArgs {
     public readonly associatePublicIpAddress?: boolean;
-    public readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
-    public readonly ebsOptimized?: boolean;
+    public readonly ebsBlockDevice: { deleteOnTermination?: boolean, deviceName: string, encrypted: boolean, iops: number, snapshotId: string, volumeSize: number, volumeType: string }[];
+    public readonly ebsOptimized: boolean;
     public readonly enableMonitoring?: boolean;
     public readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
     public readonly iamInstanceProfile?: string;
     public readonly imageId: string;
     public readonly instanceType: string;
-    public readonly keyName?: string;
-    public readonly launchConfigurationName?: string;
+    public readonly keyName: string;
+    public readonly launchConfigurationName: string;
     public readonly namePrefix?: string;
     public readonly placementTenancy?: string;
-    public readonly rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];
+    public readonly rootBlockDevice: { deleteOnTermination?: boolean, iops: number, volumeSize: number, volumeType: string }[];
     public readonly securityGroups?: string[];
     public readonly spotPrice?: string;
     public readonly userData?: string;
@@ -54,7 +54,7 @@ export class LaunchConfiguration extends lumi.NamedResource implements LaunchCon
 
 export interface LaunchConfigurationArgs {
     readonly associatePublicIpAddress?: boolean;
-    readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
+    readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted: boolean, iops: number, snapshotId: string, volumeSize: number, volumeType: string }[];
     readonly ebsOptimized?: boolean;
     readonly enableMonitoring?: boolean;
     readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
@@ -65,7 +65,7 @@ export interface LaunchConfigurationArgs {
     readonly launchConfigurationName?: string;
     readonly namePrefix?: string;
     readonly placementTenancy?: string;
-    readonly rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];
+    readonly rootBlockDevice?: { deleteOnTermination?: boolean, iops: number, volumeSize: number, volumeType: string }[];
     readonly securityGroups?: string[];
     readonly spotPrice?: string;
     readonly userData?: string;

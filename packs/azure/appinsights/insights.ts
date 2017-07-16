@@ -4,22 +4,20 @@
 import * as lumi from "@lumi/lumi";
 
 export class Insights extends lumi.NamedResource implements InsightsArgs {
-    public readonly appId?: string;
+    public /*out*/ readonly appId: string;
     public readonly applicationType: string;
-    public readonly instrumentationKey?: string;
+    public /*out*/ readonly instrumentationKey: string;
     public readonly location: string;
     public readonly insightsName?: string;
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: InsightsArgs) {
         super(name);
-        this.appId = args.appId;
         if (args.applicationType === undefined) {
             throw new Error("Property argument 'applicationType' is required, but was missing");
         }
         this.applicationType = args.applicationType;
-        this.instrumentationKey = args.instrumentationKey;
         if (args.location === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
@@ -34,9 +32,7 @@ export class Insights extends lumi.NamedResource implements InsightsArgs {
 }
 
 export interface InsightsArgs {
-    readonly appId?: string;
     readonly applicationType: string;
-    readonly instrumentationKey?: string;
     readonly location: string;
     readonly insightsName?: string;
     readonly resourceGroupName: string;

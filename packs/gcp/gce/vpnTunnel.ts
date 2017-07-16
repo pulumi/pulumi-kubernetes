@@ -5,23 +5,22 @@ import * as lumi from "@lumi/lumi";
 
 export class VpnTunnel extends lumi.NamedResource implements VpnTunnelArgs {
     public readonly description?: string;
-    public readonly detailedStatus?: string;
+    public /*out*/ readonly detailedStatus: string;
     public readonly ikeVersion?: number;
-    public readonly localTrafficSelector?: string[];
+    public readonly localTrafficSelector: string[];
     public readonly vpnTunnelName?: string;
     public readonly peerIp: string;
     public readonly project?: string;
     public readonly region?: string;
-    public readonly remoteTrafficSelector?: string[];
+    public readonly remoteTrafficSelector: string[];
     public readonly router?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
     public readonly sharedSecret: string;
     public readonly targetVpnGateway: string;
 
     constructor(name: string, args: VpnTunnelArgs) {
         super(name);
         this.description = args.description;
-        this.detailedStatus = args.detailedStatus;
         this.ikeVersion = args.ikeVersion;
         this.localTrafficSelector = args.localTrafficSelector;
         this.vpnTunnelName = args.vpnTunnelName;
@@ -33,7 +32,6 @@ export class VpnTunnel extends lumi.NamedResource implements VpnTunnelArgs {
         this.region = args.region;
         this.remoteTrafficSelector = args.remoteTrafficSelector;
         this.router = args.router;
-        this.selfLink = args.selfLink;
         if (args.sharedSecret === undefined) {
             throw new Error("Property argument 'sharedSecret' is required, but was missing");
         }
@@ -47,7 +45,6 @@ export class VpnTunnel extends lumi.NamedResource implements VpnTunnelArgs {
 
 export interface VpnTunnelArgs {
     readonly description?: string;
-    readonly detailedStatus?: string;
     readonly ikeVersion?: number;
     readonly localTrafficSelector?: string[];
     readonly vpnTunnelName?: string;
@@ -56,7 +53,6 @@ export interface VpnTunnelArgs {
     readonly region?: string;
     readonly remoteTrafficSelector?: string[];
     readonly router?: string;
-    readonly selfLink?: string;
     readonly sharedSecret: string;
     readonly targetVpnGateway: string;
 }

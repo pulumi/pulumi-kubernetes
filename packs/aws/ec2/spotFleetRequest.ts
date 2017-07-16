@@ -5,13 +5,13 @@ import * as lumi from "@lumi/lumi";
 
 export class SpotFleetRequest extends lumi.NamedResource implements SpotFleetRequestArgs {
     public readonly allocationStrategy?: string;
-    public readonly clientToken?: string;
+    public /*out*/ readonly clientToken: string;
     public readonly excessCapacityTerminationPolicy?: string;
     public readonly iamFleetRole: string;
-    public readonly launchSpecification: { ami: string, associatePublicIpAddress?: boolean, availabilityZone?: string, ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[], ebsOptimized?: boolean, ephemeralBlockDevice?: { deviceName: string, virtualName: string }[], iamInstanceProfile?: string, instanceType: string, keyName?: string, monitoring?: boolean, placementGroup?: string, placementTenancy?: string, rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[], spotPrice?: string, subnetId?: string, userData?: string, vpcSecurityGroupIds?: string[], weightedCapacity?: string }[];
+    public readonly launchSpecification: { ami: string, associatePublicIpAddress?: boolean, availabilityZone: string, ebsBlockDevice: { deleteOnTermination?: boolean, deviceName: string, encrypted: boolean, iops: number, snapshotId: string, volumeSize: number, volumeType: string }[], ebsOptimized?: boolean, ephemeralBlockDevice: { deviceName: string, virtualName: string }[], iamInstanceProfile?: string, instanceType: string, keyName: string, monitoring?: boolean, placementGroup: string, placementTenancy?: string, rootBlockDevice: { deleteOnTermination?: boolean, iops: number, volumeSize: number, volumeType: string }[], spotPrice?: string, subnetId: string, userData?: string, vpcSecurityGroupIds: string[], weightedCapacity?: string }[];
     public readonly replaceUnhealthyInstances?: boolean;
     public readonly spotPrice: string;
-    public readonly spotRequestState?: string;
+    public /*out*/ readonly spotRequestState: string;
     public readonly targetCapacity: number;
     public readonly terminateInstancesWithExpiration?: boolean;
     public readonly validFrom?: string;
@@ -20,7 +20,6 @@ export class SpotFleetRequest extends lumi.NamedResource implements SpotFleetReq
     constructor(name: string, args: SpotFleetRequestArgs) {
         super(name);
         this.allocationStrategy = args.allocationStrategy;
-        this.clientToken = args.clientToken;
         this.excessCapacityTerminationPolicy = args.excessCapacityTerminationPolicy;
         if (args.iamFleetRole === undefined) {
             throw new Error("Property argument 'iamFleetRole' is required, but was missing");
@@ -35,7 +34,6 @@ export class SpotFleetRequest extends lumi.NamedResource implements SpotFleetReq
             throw new Error("Property argument 'spotPrice' is required, but was missing");
         }
         this.spotPrice = args.spotPrice;
-        this.spotRequestState = args.spotRequestState;
         if (args.targetCapacity === undefined) {
             throw new Error("Property argument 'targetCapacity' is required, but was missing");
         }
@@ -48,13 +46,11 @@ export class SpotFleetRequest extends lumi.NamedResource implements SpotFleetReq
 
 export interface SpotFleetRequestArgs {
     readonly allocationStrategy?: string;
-    readonly clientToken?: string;
     readonly excessCapacityTerminationPolicy?: string;
     readonly iamFleetRole: string;
-    readonly launchSpecification: { ami: string, associatePublicIpAddress?: boolean, availabilityZone?: string, ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[], ebsOptimized?: boolean, ephemeralBlockDevice?: { deviceName: string, virtualName: string }[], iamInstanceProfile?: string, instanceType: string, keyName?: string, monitoring?: boolean, placementGroup?: string, placementTenancy?: string, rootBlockDevice?: { deleteOnTermination?: boolean, iops?: number, volumeSize?: number, volumeType?: string }[], spotPrice?: string, subnetId?: string, userData?: string, vpcSecurityGroupIds?: string[], weightedCapacity?: string }[];
+    readonly launchSpecification: { ami: string, associatePublicIpAddress?: boolean, availabilityZone: string, ebsBlockDevice: { deleteOnTermination?: boolean, deviceName: string, encrypted: boolean, iops: number, snapshotId: string, volumeSize: number, volumeType: string }[], ebsOptimized?: boolean, ephemeralBlockDevice: { deviceName: string, virtualName: string }[], iamInstanceProfile?: string, instanceType: string, keyName: string, monitoring?: boolean, placementGroup: string, placementTenancy?: string, rootBlockDevice: { deleteOnTermination?: boolean, iops: number, volumeSize: number, volumeType: string }[], spotPrice?: string, subnetId: string, userData?: string, vpcSecurityGroupIds: string[], weightedCapacity?: string }[];
     readonly replaceUnhealthyInstances?: boolean;
     readonly spotPrice: string;
-    readonly spotRequestState?: string;
     readonly targetCapacity: number;
     readonly terminateInstancesWithExpiration?: boolean;
     readonly validFrom?: string;

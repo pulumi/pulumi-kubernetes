@@ -6,17 +6,17 @@ import * as lumi from "@lumi/lumi";
 export class ForwardingRule extends lumi.NamedResource implements ForwardingRuleArgs {
     public readonly backendService?: string;
     public readonly description?: string;
-    public readonly ipAddress?: string;
-    public readonly ipProtocol?: string;
+    public readonly ipAddress: string;
+    public readonly ipProtocol: string;
     public readonly loadBalancingScheme?: string;
     public readonly forwardingRuleName?: string;
-    public readonly network?: string;
+    public readonly network: string;
     public readonly portRange?: string;
     public readonly ports?: string[];
-    public readonly project?: string;
-    public readonly region?: string;
-    public readonly selfLink?: string;
-    public readonly subnetwork?: string;
+    public readonly project: string;
+    public readonly region: string;
+    public /*out*/ readonly selfLink: string;
+    public readonly subnetwork: string;
     public readonly target?: string;
 
     constructor(name: string, args: ForwardingRuleArgs) {
@@ -32,7 +32,6 @@ export class ForwardingRule extends lumi.NamedResource implements ForwardingRule
         this.ports = args.ports;
         this.project = args.project;
         this.region = args.region;
-        this.selfLink = args.selfLink;
         this.subnetwork = args.subnetwork;
         this.target = args.target;
     }
@@ -50,7 +49,6 @@ export interface ForwardingRuleArgs {
     readonly ports?: string[];
     readonly project?: string;
     readonly region?: string;
-    readonly selfLink?: string;
     readonly subnetwork?: string;
     readonly target?: string;
 }

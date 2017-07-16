@@ -6,31 +6,27 @@ import * as lumi from "@lumi/lumi";
 export class Network extends lumi.NamedResource implements NetworkArgs {
     public readonly autoCreateSubnetworks?: boolean;
     public readonly description?: string;
-    public readonly gatewayIpv4?: string;
+    public /*out*/ readonly gatewayIpv4: string;
     public readonly ipv4Range?: string;
     public readonly networkName?: string;
     public readonly project?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
 
     constructor(name: string, args: NetworkArgs) {
         super(name);
         this.autoCreateSubnetworks = args.autoCreateSubnetworks;
         this.description = args.description;
-        this.gatewayIpv4 = args.gatewayIpv4;
         this.ipv4Range = args.ipv4Range;
         this.networkName = args.networkName;
         this.project = args.project;
-        this.selfLink = args.selfLink;
     }
 }
 
 export interface NetworkArgs {
     readonly autoCreateSubnetworks?: boolean;
     readonly description?: string;
-    readonly gatewayIpv4?: string;
     readonly ipv4Range?: string;
     readonly networkName?: string;
     readonly project?: string;
-    readonly selfLink?: string;
 }
 

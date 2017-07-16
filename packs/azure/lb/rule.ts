@@ -4,18 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class Rule extends lumi.NamedResource implements RuleArgs {
-    public readonly backendAddressPoolId?: string;
+    public readonly backendAddressPoolId: string;
     public readonly backendPort: number;
     public readonly enableFloatingIp?: boolean;
-    public readonly frontendIpConfigurationId?: string;
+    public /*out*/ readonly frontendIpConfigurationId: string;
     public readonly frontendIpConfigurationName: string;
     public readonly frontendPort: number;
-    public readonly idleTimeoutInMinutes?: number;
-    public readonly loadDistribution?: string;
+    public readonly idleTimeoutInMinutes: number;
+    public readonly loadDistribution: string;
     public readonly loadbalancerId: string;
     public readonly location?: string;
     public readonly ruleName?: string;
-    public readonly probeId?: string;
+    public readonly probeId: string;
     public readonly protocol: string;
     public readonly resourceGroupName: string;
 
@@ -27,7 +27,6 @@ export class Rule extends lumi.NamedResource implements RuleArgs {
         }
         this.backendPort = args.backendPort;
         this.enableFloatingIp = args.enableFloatingIp;
-        this.frontendIpConfigurationId = args.frontendIpConfigurationId;
         if (args.frontendIpConfigurationName === undefined) {
             throw new Error("Property argument 'frontendIpConfigurationName' is required, but was missing");
         }
@@ -60,7 +59,6 @@ export interface RuleArgs {
     readonly backendAddressPoolId?: string;
     readonly backendPort: number;
     readonly enableFloatingIp?: boolean;
-    readonly frontendIpConfigurationId?: string;
     readonly frontendIpConfigurationName: string;
     readonly frontendPort: number;
     readonly idleTimeoutInMinutes?: number;

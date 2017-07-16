@@ -4,17 +4,16 @@
 import * as lumi from "@lumi/lumi";
 
 export class ClusterParameterGroup extends lumi.NamedResource implements ClusterParameterGroupArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly description?: string;
     public readonly family: string;
-    public readonly clusterParameterGroupName?: string;
-    public readonly namePrefix?: string;
+    public readonly clusterParameterGroupName: string;
+    public readonly namePrefix: string;
     public readonly parameter?: { applyMethod?: string, name: string, value: string }[];
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: ClusterParameterGroupArgs) {
         super(name);
-        this.arn = args.arn;
         this.description = args.description;
         if (args.family === undefined) {
             throw new Error("Property argument 'family' is required, but was missing");
@@ -28,7 +27,6 @@ export class ClusterParameterGroup extends lumi.NamedResource implements Cluster
 }
 
 export interface ClusterParameterGroupArgs {
-    readonly arn?: string;
     readonly description?: string;
     readonly family: string;
     readonly clusterParameterGroupName?: string;

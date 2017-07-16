@@ -6,7 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class Route extends lumi.NamedResource implements RouteArgs {
     public readonly addressPrefix: string;
     public readonly routeName?: string;
-    public readonly nextHopInIpAddress?: string;
+    public readonly nextHopInIpAddress: string;
     public readonly nextHopType: string;
     public readonly resourceGroupName: string;
     public readonly routeTableName: string;

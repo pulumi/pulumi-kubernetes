@@ -20,7 +20,7 @@ export class RailsAppLayer extends lumi.NamedResource implements RailsAppLayerAr
     public readonly drainElbOnShutdown?: boolean;
     public readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     public readonly elasticLoadBalancer?: string;
-    public readonly layerId?: string;
+    public /*out*/ readonly layerId: string;
     public readonly installUpdatesOnBoot?: boolean;
     public readonly instanceShutdownTimeout?: number;
     public readonly manageBundler?: boolean;
@@ -50,7 +50,6 @@ export class RailsAppLayer extends lumi.NamedResource implements RailsAppLayerAr
         this.drainElbOnShutdown = args.drainElbOnShutdown;
         this.ebsVolume = args.ebsVolume;
         this.elasticLoadBalancer = args.elasticLoadBalancer;
-        this.layerId = args.layerId;
         this.installUpdatesOnBoot = args.installUpdatesOnBoot;
         this.instanceShutdownTimeout = args.instanceShutdownTimeout;
         this.manageBundler = args.manageBundler;
@@ -84,7 +83,6 @@ export interface RailsAppLayerArgs {
     readonly drainElbOnShutdown?: boolean;
     readonly ebsVolume?: { iops?: number, mountPoint: string, numberOfDisks: number, raidLevel?: string, size: number, type?: string }[];
     readonly elasticLoadBalancer?: string;
-    readonly layerId?: string;
     readonly installUpdatesOnBoot?: boolean;
     readonly instanceShutdownTimeout?: number;
     readonly manageBundler?: boolean;

@@ -6,9 +6,9 @@ import * as lumi from "@lumi/lumi";
 export class UsagePlanKey extends lumi.NamedResource implements UsagePlanKeyArgs {
     public readonly keyId: string;
     public readonly keyType: string;
-    public readonly usagePlanKeyName?: string;
+    public /*out*/ readonly usagePlanKeyName: string;
     public readonly usagePlanId: string;
-    public readonly value?: string;
+    public /*out*/ readonly value: string;
 
     constructor(name: string, args: UsagePlanKeyArgs) {
         super(name);
@@ -20,20 +20,16 @@ export class UsagePlanKey extends lumi.NamedResource implements UsagePlanKeyArgs
             throw new Error("Property argument 'keyType' is required, but was missing");
         }
         this.keyType = args.keyType;
-        this.usagePlanKeyName = args.usagePlanKeyName;
         if (args.usagePlanId === undefined) {
             throw new Error("Property argument 'usagePlanId' is required, but was missing");
         }
         this.usagePlanId = args.usagePlanId;
-        this.value = args.value;
     }
 }
 
 export interface UsagePlanKeyArgs {
     readonly keyId: string;
     readonly keyType: string;
-    readonly usagePlanKeyName?: string;
     readonly usagePlanId: string;
-    readonly value?: string;
 }
 

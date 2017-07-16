@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class Alias extends lumi.NamedResource implements AliasArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly description?: string;
     public readonly functionName: string;
     public readonly functionVersion: string;
@@ -12,7 +12,6 @@ export class Alias extends lumi.NamedResource implements AliasArgs {
 
     constructor(name: string, args: AliasArgs) {
         super(name);
-        this.arn = args.arn;
         this.description = args.description;
         if (args.functionName === undefined) {
             throw new Error("Property argument 'functionName' is required, but was missing");
@@ -27,7 +26,6 @@ export class Alias extends lumi.NamedResource implements AliasArgs {
 }
 
 export interface AliasArgs {
-    readonly arn?: string;
     readonly description?: string;
     readonly functionName: string;
     readonly functionVersion: string;

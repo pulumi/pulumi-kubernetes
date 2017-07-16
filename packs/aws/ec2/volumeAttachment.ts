@@ -5,9 +5,9 @@ import * as lumi from "@lumi/lumi";
 
 export class VolumeAttachment extends lumi.NamedResource implements VolumeAttachmentArgs {
     public readonly deviceName: string;
-    public readonly forceDetach?: boolean;
+    public readonly forceDetach: boolean;
     public readonly instanceId: string;
-    public readonly skipDestroy?: boolean;
+    public readonly skipDestroy: boolean;
     public readonly volumeId: string;
 
     constructor(name: string, args: VolumeAttachmentArgs) {

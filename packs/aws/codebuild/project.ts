@@ -6,11 +6,11 @@ import * as lumi from "@lumi/lumi";
 export class Project extends lumi.NamedResource implements ProjectArgs {
     public readonly artifacts: { location?: string, name?: string, namespaceType?: string, packaging?: string, path?: string, type: string }[];
     public readonly buildTimeout?: number;
-    public readonly description?: string;
-    public readonly encryptionKey?: string;
-    public readonly environment: { computeType: string, environmentVariable?: { name: string, value: string }[], image: string, privilegedMode?: boolean, type: string }[];
+    public readonly description: string;
+    public readonly encryptionKey: string;
+    public readonly environment: { computeType: string, environmentVariable: { name: string, value: string }[], image: string, privilegedMode?: boolean, type: string }[];
     public readonly projectName?: string;
-    public readonly serviceRole?: string;
+    public readonly serviceRole: string;
     public readonly source: { auth?: { resource?: string, type: string }[], buildspec?: string, location?: string, type: string }[];
     public readonly tags?: {[key: string]: any};
 
@@ -42,7 +42,7 @@ export interface ProjectArgs {
     readonly buildTimeout?: number;
     readonly description?: string;
     readonly encryptionKey?: string;
-    readonly environment: { computeType: string, environmentVariable?: { name: string, value: string }[], image: string, privilegedMode?: boolean, type: string }[];
+    readonly environment: { computeType: string, environmentVariable: { name: string, value: string }[], image: string, privilegedMode?: boolean, type: string }[];
     readonly projectName?: string;
     readonly serviceRole?: string;
     readonly source: { auth?: { resource?: string, type: string }[], buildspec?: string, location?: string, type: string }[];

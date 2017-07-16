@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class GroupPolicy extends lumi.NamedResource implements GroupPolicyArgs {
     public readonly group: string;
-    public readonly groupPolicyName?: string;
+    public readonly groupPolicyName: string;
     public readonly namePrefix?: string;
     public readonly policy: string;
 

@@ -5,13 +5,13 @@ import * as lumi from "@lumi/lumi";
 
 export class Volume extends lumi.NamedResource implements VolumeArgs {
     public readonly availabilityZone: string;
-    public readonly encrypted?: boolean;
-    public readonly iops?: number;
-    public readonly kmsKeyId?: string;
-    public readonly size?: number;
-    public readonly snapshotId?: string;
+    public readonly encrypted: boolean;
+    public readonly iops: number;
+    public readonly kmsKeyId: string;
+    public readonly size: number;
+    public readonly snapshotId: string;
     public readonly tags?: {[key: string]: any};
-    public readonly type?: string;
+    public readonly type: string;
 
     constructor(name: string, args: VolumeArgs) {
         super(name);

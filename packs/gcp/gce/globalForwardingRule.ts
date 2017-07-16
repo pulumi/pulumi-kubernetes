@@ -5,13 +5,13 @@ import * as lumi from "@lumi/lumi";
 
 export class GlobalForwardingRule extends lumi.NamedResource implements GlobalForwardingRuleArgs {
     public readonly description?: string;
-    public readonly ipAddress?: string;
-    public readonly ipProtocol?: string;
+    public readonly ipAddress: string;
+    public readonly ipProtocol: string;
     public readonly globalForwardingRuleName?: string;
     public readonly portRange?: string;
     public readonly project?: string;
     public readonly region?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
     public readonly target: string;
 
     constructor(name: string, args: GlobalForwardingRuleArgs) {
@@ -23,7 +23,6 @@ export class GlobalForwardingRule extends lumi.NamedResource implements GlobalFo
         this.portRange = args.portRange;
         this.project = args.project;
         this.region = args.region;
-        this.selfLink = args.selfLink;
         if (args.target === undefined) {
             throw new Error("Property argument 'target' is required, but was missing");
         }
@@ -39,7 +38,6 @@ export interface GlobalForwardingRuleArgs {
     readonly portRange?: string;
     readonly project?: string;
     readonly region?: string;
-    readonly selfLink?: string;
     readonly target: string;
 }
 

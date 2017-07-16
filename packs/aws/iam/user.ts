@@ -4,28 +4,24 @@
 import * as lumi from "@lumi/lumi";
 
 export class User extends lumi.NamedResource implements UserArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly forceDestroy?: boolean;
     public readonly userName?: string;
     public readonly path?: string;
-    public readonly uniqueId?: string;
+    public /*out*/ readonly uniqueId: string;
 
     constructor(name: string, args: UserArgs) {
         super(name);
-        this.arn = args.arn;
         this.forceDestroy = args.forceDestroy;
         this.userName = args.userName;
         this.path = args.path;
-        this.uniqueId = args.uniqueId;
     }
 }
 
 export interface UserArgs {
-    readonly arn?: string;
     // Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices
     readonly forceDestroy?: boolean;
     readonly userName?: string;
     readonly path?: string;
-    readonly uniqueId?: string;
 }
 

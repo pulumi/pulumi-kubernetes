@@ -4,24 +4,22 @@
 import * as lumi from "@lumi/lumi";
 
 export class Key extends lumi.NamedResource implements KeyArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly deletionWindowInDays?: number;
-    public readonly description?: string;
+    public readonly description: string;
     public readonly enableKeyRotation?: boolean;
     public readonly isEnabled?: boolean;
-    public readonly keyId?: string;
-    public readonly keyUsage?: string;
-    public readonly policy?: string;
+    public /*out*/ readonly keyId: string;
+    public readonly keyUsage: string;
+    public readonly policy: string;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: KeyArgs) {
         super(name);
-        this.arn = args.arn;
         this.deletionWindowInDays = args.deletionWindowInDays;
         this.description = args.description;
         this.enableKeyRotation = args.enableKeyRotation;
         this.isEnabled = args.isEnabled;
-        this.keyId = args.keyId;
         this.keyUsage = args.keyUsage;
         this.policy = args.policy;
         this.tags = args.tags;
@@ -29,12 +27,10 @@ export class Key extends lumi.NamedResource implements KeyArgs {
 }
 
 export interface KeyArgs {
-    readonly arn?: string;
     readonly deletionWindowInDays?: number;
     readonly description?: string;
     readonly enableKeyRotation?: boolean;
     readonly isEnabled?: boolean;
-    readonly keyId?: string;
     readonly keyUsage?: string;
     readonly policy?: string;
     readonly tags?: {[key: string]: any};

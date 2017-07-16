@@ -5,23 +5,19 @@ import * as lumi from "@lumi/lumi";
 
 export class Namespace extends lumi.NamedResource implements NamespaceArgs {
     public readonly capacity?: number;
-    public readonly defaultPrimaryConnectionString?: string;
-    public readonly defaultPrimaryKey?: string;
-    public readonly defaultSecondaryConnectionString?: string;
-    public readonly defaultSecondaryKey?: string;
+    public /*out*/ readonly defaultPrimaryConnectionString: string;
+    public /*out*/ readonly defaultPrimaryKey: string;
+    public /*out*/ readonly defaultSecondaryConnectionString: string;
+    public /*out*/ readonly defaultSecondaryKey: string;
     public readonly location: string;
     public readonly namespaceName?: string;
     public readonly resourceGroupName: string;
     public readonly sku: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: NamespaceArgs) {
         super(name);
         this.capacity = args.capacity;
-        this.defaultPrimaryConnectionString = args.defaultPrimaryConnectionString;
-        this.defaultPrimaryKey = args.defaultPrimaryKey;
-        this.defaultSecondaryConnectionString = args.defaultSecondaryConnectionString;
-        this.defaultSecondaryKey = args.defaultSecondaryKey;
         if (args.location === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
@@ -41,10 +37,6 @@ export class Namespace extends lumi.NamedResource implements NamespaceArgs {
 
 export interface NamespaceArgs {
     readonly capacity?: number;
-    readonly defaultPrimaryConnectionString?: string;
-    readonly defaultPrimaryKey?: string;
-    readonly defaultSecondaryConnectionString?: string;
-    readonly defaultSecondaryKey?: string;
     readonly location: string;
     readonly namespaceName?: string;
     readonly resourceGroupName: string;

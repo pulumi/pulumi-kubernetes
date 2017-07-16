@@ -6,15 +6,15 @@ import * as lumi from "@lumi/lumi";
 export class InstanceGroupManager extends lumi.NamedResource implements InstanceGroupManagerArgs {
     public readonly baseInstanceName: string;
     public readonly description?: string;
-    public readonly fingerprint?: string;
-    public readonly instanceGroup?: string;
+    public /*out*/ readonly fingerprint: string;
+    public /*out*/ readonly instanceGroup: string;
     public readonly instanceTemplate: string;
     public readonly instanceGroupManagerName?: string;
     public readonly namedPort?: { name: string, port: number }[];
-    public readonly project?: string;
-    public readonly selfLink?: string;
+    public readonly project: string;
+    public /*out*/ readonly selfLink: string;
     public readonly targetPools?: string[];
-    public readonly targetSize?: number;
+    public readonly targetSize: number;
     public readonly updateStrategy?: string;
     public readonly zone: string;
 
@@ -25,8 +25,6 @@ export class InstanceGroupManager extends lumi.NamedResource implements Instance
         }
         this.baseInstanceName = args.baseInstanceName;
         this.description = args.description;
-        this.fingerprint = args.fingerprint;
-        this.instanceGroup = args.instanceGroup;
         if (args.instanceTemplate === undefined) {
             throw new Error("Property argument 'instanceTemplate' is required, but was missing");
         }
@@ -34,7 +32,6 @@ export class InstanceGroupManager extends lumi.NamedResource implements Instance
         this.instanceGroupManagerName = args.instanceGroupManagerName;
         this.namedPort = args.namedPort;
         this.project = args.project;
-        this.selfLink = args.selfLink;
         this.targetPools = args.targetPools;
         this.targetSize = args.targetSize;
         this.updateStrategy = args.updateStrategy;
@@ -48,13 +45,10 @@ export class InstanceGroupManager extends lumi.NamedResource implements Instance
 export interface InstanceGroupManagerArgs {
     readonly baseInstanceName: string;
     readonly description?: string;
-    readonly fingerprint?: string;
-    readonly instanceGroup?: string;
     readonly instanceTemplate: string;
     readonly instanceGroupManagerName?: string;
     readonly namedPort?: { name: string, port: number }[];
     readonly project?: string;
-    readonly selfLink?: string;
     readonly targetPools?: string[];
     readonly targetSize?: number;
     readonly updateStrategy?: string;

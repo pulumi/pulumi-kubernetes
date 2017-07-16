@@ -4,29 +4,29 @@
 import * as lumi from "@lumi/lumi";
 
 export class Stack extends lumi.NamedResource implements StackArgs {
-    public readonly agentVersion?: string;
+    public readonly agentVersion: string;
     public readonly berkshelfVersion?: string;
     public readonly color?: string;
     public readonly configurationManagerName?: string;
     public readonly configurationManagerVersion?: string;
-    public readonly customCookbooksSource?: { password?: string, revision?: string, sshKey?: string, type: string, url: string, username?: string }[];
+    public readonly customCookbooksSource: { password?: string, revision?: string, sshKey?: string, type: string, url: string, username?: string }[];
     public readonly customJson?: string;
-    public readonly defaultAvailabilityZone?: string;
+    public readonly defaultAvailabilityZone: string;
     public readonly defaultInstanceProfileArn: string;
     public readonly defaultOs?: string;
     public readonly defaultRootDeviceType?: string;
     public readonly defaultSshKeyName?: string;
-    public readonly defaultSubnetId?: string;
+    public readonly defaultSubnetId: string;
     public readonly hostnameTheme?: string;
-    public readonly stackId?: string;
+    public /*out*/ readonly stackId: string;
     public readonly manageBerkshelf?: boolean;
     public readonly stackName?: string;
     public readonly region: string;
     public readonly serviceRoleArn: string;
-    public readonly stackEndpoint?: string;
+    public /*out*/ readonly stackEndpoint: string;
     public readonly useCustomCookbooks?: boolean;
     public readonly useOpsworksSecurityGroups?: boolean;
-    public readonly vpcId?: string;
+    public readonly vpcId: string;
 
     constructor(name: string, args: StackArgs) {
         super(name);
@@ -47,7 +47,6 @@ export class Stack extends lumi.NamedResource implements StackArgs {
         this.defaultSshKeyName = args.defaultSshKeyName;
         this.defaultSubnetId = args.defaultSubnetId;
         this.hostnameTheme = args.hostnameTheme;
-        this.stackId = args.stackId;
         this.manageBerkshelf = args.manageBerkshelf;
         this.stackName = args.stackName;
         if (args.region === undefined) {
@@ -58,7 +57,6 @@ export class Stack extends lumi.NamedResource implements StackArgs {
             throw new Error("Property argument 'serviceRoleArn' is required, but was missing");
         }
         this.serviceRoleArn = args.serviceRoleArn;
-        this.stackEndpoint = args.stackEndpoint;
         this.useCustomCookbooks = args.useCustomCookbooks;
         this.useOpsworksSecurityGroups = args.useOpsworksSecurityGroups;
         this.vpcId = args.vpcId;
@@ -80,12 +78,10 @@ export interface StackArgs {
     readonly defaultSshKeyName?: string;
     readonly defaultSubnetId?: string;
     readonly hostnameTheme?: string;
-    readonly stackId?: string;
     readonly manageBerkshelf?: boolean;
     readonly stackName?: string;
     readonly region: string;
     readonly serviceRoleArn: string;
-    readonly stackEndpoint?: string;
     readonly useCustomCookbooks?: boolean;
     readonly useOpsworksSecurityGroups?: boolean;
     readonly vpcId?: string;

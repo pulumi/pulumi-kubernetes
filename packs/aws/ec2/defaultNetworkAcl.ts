@@ -9,7 +9,7 @@ export class DefaultNetworkAcl extends lumi.NamedResource implements DefaultNetw
     public readonly ingress?: { action: string, cidrBlock?: string, fromPort: number, icmpCode?: number, icmpType?: number, protocol: string, ruleNo: number, toPort: number }[];
     public readonly subnetIds?: string[];
     public readonly tags?: {[key: string]: any};
-    public readonly vpcId?: string;
+    public /*out*/ readonly vpcId: string;
 
     constructor(name: string, args: DefaultNetworkAclArgs) {
         super(name);
@@ -21,7 +21,6 @@ export class DefaultNetworkAcl extends lumi.NamedResource implements DefaultNetw
         this.ingress = args.ingress;
         this.subnetIds = args.subnetIds;
         this.tags = args.tags;
-        this.vpcId = args.vpcId;
     }
 }
 
@@ -31,6 +30,5 @@ export interface DefaultNetworkAclArgs {
     readonly ingress?: { action: string, cidrBlock?: string, fromPort: number, icmpCode?: number, icmpType?: number, protocol: string, ruleNo: number, toPort: number }[];
     readonly subnetIds?: string[];
     readonly tags?: {[key: string]: any};
-    readonly vpcId?: string;
 }
 

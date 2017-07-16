@@ -10,8 +10,8 @@ export class HealthCheck extends lumi.NamedResource implements HealthCheckArgs {
     public readonly httpHealthCheck?: { host?: string, port?: number, proxyHeader?: string, requestPath?: string }[];
     public readonly httpsHealthCheck?: { host?: string, port?: number, proxyHeader?: string, requestPath?: string }[];
     public readonly healthCheckName?: string;
-    public readonly project?: string;
-    public readonly selfLink?: string;
+    public readonly project: string;
+    public /*out*/ readonly selfLink: string;
     public readonly sslHealthCheck?: { port?: number, proxyHeader?: string, request?: string, response?: string }[];
     public readonly tcpHealthCheck?: { port?: number, proxyHeader?: string, request?: string, response?: string }[];
     public readonly timeoutSec?: number;
@@ -26,7 +26,6 @@ export class HealthCheck extends lumi.NamedResource implements HealthCheckArgs {
         this.httpsHealthCheck = args.httpsHealthCheck;
         this.healthCheckName = args.healthCheckName;
         this.project = args.project;
-        this.selfLink = args.selfLink;
         this.sslHealthCheck = args.sslHealthCheck;
         this.tcpHealthCheck = args.tcpHealthCheck;
         this.timeoutSec = args.timeoutSec;
@@ -42,7 +41,6 @@ export interface HealthCheckArgs {
     readonly httpsHealthCheck?: { host?: string, port?: number, proxyHeader?: string, requestPath?: string }[];
     readonly healthCheckName?: string;
     readonly project?: string;
-    readonly selfLink?: string;
     readonly sslHealthCheck?: { port?: number, proxyHeader?: string, request?: string, response?: string }[];
     readonly tcpHealthCheck?: { port?: number, proxyHeader?: string, request?: string, response?: string }[];
     readonly timeoutSec?: number;

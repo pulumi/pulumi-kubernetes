@@ -4,20 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class ApiKey extends lumi.NamedResource implements ApiKeyArgs {
-    public readonly createdDate?: string;
+    public /*out*/ readonly createdDate: string;
     public readonly description?: string;
     public readonly enabled?: boolean;
-    public readonly lastUpdatedDate?: string;
+    public /*out*/ readonly lastUpdatedDate: string;
     public readonly apiKeyName?: string;
     public readonly stageKey?: { restApiId: string, stageName: string }[];
-    public readonly value?: string;
+    public readonly value: string;
 
     constructor(name: string, args: ApiKeyArgs) {
         super(name);
-        this.createdDate = args.createdDate;
         this.description = args.description;
         this.enabled = args.enabled;
-        this.lastUpdatedDate = args.lastUpdatedDate;
         this.apiKeyName = args.apiKeyName;
         this.stageKey = args.stageKey;
         this.value = args.value;
@@ -25,10 +23,8 @@ export class ApiKey extends lumi.NamedResource implements ApiKeyArgs {
 }
 
 export interface ApiKeyArgs {
-    readonly createdDate?: string;
     readonly description?: string;
     readonly enabled?: boolean;
-    readonly lastUpdatedDate?: string;
     readonly apiKeyName?: string;
     readonly stageKey?: { restApiId: string, stageName: string }[];
     readonly value?: string;

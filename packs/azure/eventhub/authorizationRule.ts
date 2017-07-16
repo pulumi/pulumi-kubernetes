@@ -10,11 +10,11 @@ export class AuthorizationRule extends lumi.NamedResource implements Authorizati
     public readonly manage?: boolean;
     public readonly authorizationRuleName?: string;
     public readonly namespaceName: string;
-    public readonly primaryConnectionString?: string;
-    public readonly primaryKey?: string;
+    public /*out*/ readonly primaryConnectionString: string;
+    public /*out*/ readonly primaryKey: string;
     public readonly resourceGroupName: string;
-    public readonly secondaryConnectionString?: string;
-    public readonly secondaryKey?: string;
+    public /*out*/ readonly secondaryConnectionString: string;
+    public /*out*/ readonly secondaryKey: string;
     public readonly send?: boolean;
 
     constructor(name: string, args: AuthorizationRuleArgs) {
@@ -34,14 +34,10 @@ export class AuthorizationRule extends lumi.NamedResource implements Authorizati
             throw new Error("Property argument 'namespaceName' is required, but was missing");
         }
         this.namespaceName = args.namespaceName;
-        this.primaryConnectionString = args.primaryConnectionString;
-        this.primaryKey = args.primaryKey;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        this.secondaryConnectionString = args.secondaryConnectionString;
-        this.secondaryKey = args.secondaryKey;
         this.send = args.send;
     }
 }
@@ -53,11 +49,7 @@ export interface AuthorizationRuleArgs {
     readonly manage?: boolean;
     readonly authorizationRuleName?: string;
     readonly namespaceName: string;
-    readonly primaryConnectionString?: string;
-    readonly primaryKey?: string;
     readonly resourceGroupName: string;
-    readonly secondaryConnectionString?: string;
-    readonly secondaryKey?: string;
     readonly send?: boolean;
 }
 

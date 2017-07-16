@@ -5,19 +5,18 @@ import * as lumi from "@lumi/lumi";
 
 export class DatabaseInstance extends lumi.NamedResource implements DatabaseInstanceArgs {
     public readonly databaseVersion?: string;
-    public readonly ipAddress?: { ipAddress?: string, timeToRetire?: string }[];
-    public readonly masterInstanceName?: string;
-    public readonly databaseInstanceName?: string;
+    public /*out*/ readonly ipAddress: { ipAddress: string, timeToRetire: string }[];
+    public readonly masterInstanceName: string;
+    public readonly databaseInstanceName: string;
     public readonly project?: string;
     public readonly region: string;
     public readonly replicaConfiguration?: { caCertificate?: string, clientCertificate?: string, clientKey?: string, connectRetryInterval?: number, dumpFilePath?: string, failoverTarget?: boolean, masterHeartbeatPeriod?: number, password?: string, sslCipher?: string, username?: string, verifyServerCertificate?: boolean }[];
-    public readonly selfLink?: string;
-    public readonly settings: { activationPolicy?: string, authorizedGaeApplications?: string[], backupConfiguration?: { binaryLogEnabled?: boolean, enabled?: boolean, startTime?: string }[], crashSafeReplication?: boolean, databaseFlags?: { name?: string, value?: string }[], diskAutoresize?: boolean, diskSize?: number, diskType?: string, ipConfiguration?: { authorizedNetworks?: { expirationTime?: string, name?: string, value?: string }[], ipv4Enabled?: boolean, requireSsl?: boolean }[], locationPreference?: { followGaeApplication?: string, zone?: string }[], maintenanceWindow?: { day?: number, hour?: number, updateTrack?: string }[], pricingPlan?: string, replicationType?: string, tier: string, version?: number }[];
+    public /*out*/ readonly selfLink: string;
+    public readonly settings: { activationPolicy?: string, authorizedGaeApplications?: string[], backupConfiguration?: { binaryLogEnabled?: boolean, enabled?: boolean, startTime?: string }[], crashSafeReplication: boolean, databaseFlags?: { name?: string, value?: string }[], diskAutoresize?: boolean, diskSize?: number, diskType?: string, ipConfiguration?: { authorizedNetworks?: { expirationTime?: string, name?: string, value?: string }[], ipv4Enabled?: boolean, requireSsl?: boolean }[], locationPreference?: { followGaeApplication?: string, zone?: string }[], maintenanceWindow?: { day?: number, hour?: number, updateTrack?: string }[], pricingPlan?: string, replicationType?: string, tier: string, version: number }[];
 
     constructor(name: string, args: DatabaseInstanceArgs) {
         super(name);
         this.databaseVersion = args.databaseVersion;
-        this.ipAddress = args.ipAddress;
         this.masterInstanceName = args.masterInstanceName;
         this.databaseInstanceName = args.databaseInstanceName;
         this.project = args.project;
@@ -26,7 +25,6 @@ export class DatabaseInstance extends lumi.NamedResource implements DatabaseInst
         }
         this.region = args.region;
         this.replicaConfiguration = args.replicaConfiguration;
-        this.selfLink = args.selfLink;
         if (args.settings === undefined) {
             throw new Error("Property argument 'settings' is required, but was missing");
         }
@@ -36,13 +34,11 @@ export class DatabaseInstance extends lumi.NamedResource implements DatabaseInst
 
 export interface DatabaseInstanceArgs {
     readonly databaseVersion?: string;
-    readonly ipAddress?: { ipAddress?: string, timeToRetire?: string }[];
     readonly masterInstanceName?: string;
     readonly databaseInstanceName?: string;
     readonly project?: string;
     readonly region: string;
     readonly replicaConfiguration?: { caCertificate?: string, clientCertificate?: string, clientKey?: string, connectRetryInterval?: number, dumpFilePath?: string, failoverTarget?: boolean, masterHeartbeatPeriod?: number, password?: string, sslCipher?: string, username?: string, verifyServerCertificate?: boolean }[];
-    readonly selfLink?: string;
-    readonly settings: { activationPolicy?: string, authorizedGaeApplications?: string[], backupConfiguration?: { binaryLogEnabled?: boolean, enabled?: boolean, startTime?: string }[], crashSafeReplication?: boolean, databaseFlags?: { name?: string, value?: string }[], diskAutoresize?: boolean, diskSize?: number, diskType?: string, ipConfiguration?: { authorizedNetworks?: { expirationTime?: string, name?: string, value?: string }[], ipv4Enabled?: boolean, requireSsl?: boolean }[], locationPreference?: { followGaeApplication?: string, zone?: string }[], maintenanceWindow?: { day?: number, hour?: number, updateTrack?: string }[], pricingPlan?: string, replicationType?: string, tier: string, version?: number }[];
+    readonly settings: { activationPolicy?: string, authorizedGaeApplications?: string[], backupConfiguration?: { binaryLogEnabled?: boolean, enabled?: boolean, startTime?: string }[], crashSafeReplication: boolean, databaseFlags?: { name?: string, value?: string }[], diskAutoresize?: boolean, diskSize?: number, diskType?: string, ipConfiguration?: { authorizedNetworks?: { expirationTime?: string, name?: string, value?: string }[], ipv4Enabled?: boolean, requireSsl?: boolean }[], locationPreference?: { followGaeApplication?: string, zone?: string }[], maintenanceWindow?: { day?: number, hour?: number, updateTrack?: string }[], pricingPlan?: string, replicationType?: string, tier: string, version: number }[];
 }
 

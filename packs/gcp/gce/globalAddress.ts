@@ -4,24 +4,20 @@
 import * as lumi from "@lumi/lumi";
 
 export class GlobalAddress extends lumi.NamedResource implements GlobalAddressArgs {
-    public readonly address?: string;
+    public /*out*/ readonly address: string;
     public readonly globalAddressName?: string;
     public readonly project?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
 
     constructor(name: string, args: GlobalAddressArgs) {
         super(name);
-        this.address = args.address;
         this.globalAddressName = args.globalAddressName;
         this.project = args.project;
-        this.selfLink = args.selfLink;
     }
 }
 
 export interface GlobalAddressArgs {
-    readonly address?: string;
     readonly globalAddressName?: string;
     readonly project?: string;
-    readonly selfLink?: string;
 }
 

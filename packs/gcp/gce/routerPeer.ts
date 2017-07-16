@@ -6,12 +6,12 @@ import * as lumi from "@lumi/lumi";
 export class RouterPeer extends lumi.NamedResource implements RouterPeerArgs {
     public readonly advertisedRoutePriority?: number;
     public readonly interface: string;
-    public readonly ipAddress?: string;
+    public /*out*/ readonly ipAddress: string;
     public readonly routerPeerName?: string;
     public readonly peerAsn: number;
     public readonly peerIpAddress?: string;
-    public readonly project?: string;
-    public readonly region?: string;
+    public readonly project: string;
+    public readonly region: string;
     public readonly router: string;
 
     constructor(name: string, args: RouterPeerArgs) {
@@ -21,7 +21,6 @@ export class RouterPeer extends lumi.NamedResource implements RouterPeerArgs {
             throw new Error("Property argument 'interface' is required, but was missing");
         }
         this.interface = args.interface;
-        this.ipAddress = args.ipAddress;
         this.routerPeerName = args.routerPeerName;
         if (args.peerAsn === undefined) {
             throw new Error("Property argument 'peerAsn' is required, but was missing");
@@ -40,7 +39,6 @@ export class RouterPeer extends lumi.NamedResource implements RouterPeerArgs {
 export interface RouterPeerArgs {
     readonly advertisedRoutePriority?: number;
     readonly interface: string;
-    readonly ipAddress?: string;
     readonly routerPeerName?: string;
     readonly peerAsn: number;
     readonly peerIpAddress?: string;

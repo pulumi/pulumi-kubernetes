@@ -5,24 +5,24 @@ import * as lumi from "@lumi/lumi";
 
 export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs {
     public readonly accessLogs?: { bucket: string, bucketPrefix?: string, enabled?: boolean, interval?: number }[];
-    public readonly availabilityZones?: string[];
+    public readonly availabilityZones: string[];
     public readonly connectionDraining?: boolean;
     public readonly connectionDrainingTimeout?: number;
     public readonly crossZoneLoadBalancing?: boolean;
-    public readonly dnsName?: string;
-    public readonly healthCheck?: { healthyThreshold: number, interval: number, target: string, timeout: number, unhealthyThreshold: number }[];
+    public /*out*/ readonly dnsName: string;
+    public readonly healthCheck: { healthyThreshold: number, interval: number, target: string, timeout: number, unhealthyThreshold: number }[];
     public readonly idleTimeout?: number;
-    public readonly instances?: string[];
-    public readonly internal?: boolean;
+    public readonly instances: string[];
+    public readonly internal: boolean;
     public readonly listener: { instancePort: number, instanceProtocol: string, lbPort: number, lbProtocol: string, sslCertificateId?: string }[];
-    public readonly loadBalancerName?: string;
+    public readonly loadBalancerName: string;
     public readonly namePrefix?: string;
-    public readonly securityGroups?: string[];
-    public readonly sourceSecurityGroup?: string;
-    public readonly sourceSecurityGroupId?: string;
-    public readonly subnets?: string[];
+    public readonly securityGroups: string[];
+    public readonly sourceSecurityGroup: string;
+    public /*out*/ readonly sourceSecurityGroupId: string;
+    public readonly subnets: string[];
     public readonly tags?: {[key: string]: any};
-    public readonly zoneId?: string;
+    public /*out*/ readonly zoneId: string;
 
     constructor(name: string, args: LoadBalancerArgs) {
         super(name);
@@ -31,7 +31,6 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
         this.connectionDraining = args.connectionDraining;
         this.connectionDrainingTimeout = args.connectionDrainingTimeout;
         this.crossZoneLoadBalancing = args.crossZoneLoadBalancing;
-        this.dnsName = args.dnsName;
         this.healthCheck = args.healthCheck;
         this.idleTimeout = args.idleTimeout;
         this.instances = args.instances;
@@ -44,10 +43,8 @@ export class LoadBalancer extends lumi.NamedResource implements LoadBalancerArgs
         this.namePrefix = args.namePrefix;
         this.securityGroups = args.securityGroups;
         this.sourceSecurityGroup = args.sourceSecurityGroup;
-        this.sourceSecurityGroupId = args.sourceSecurityGroupId;
         this.subnets = args.subnets;
         this.tags = args.tags;
-        this.zoneId = args.zoneId;
     }
 }
 
@@ -57,7 +54,6 @@ export interface LoadBalancerArgs {
     readonly connectionDraining?: boolean;
     readonly connectionDrainingTimeout?: number;
     readonly crossZoneLoadBalancing?: boolean;
-    readonly dnsName?: string;
     readonly healthCheck?: { healthyThreshold: number, interval: number, target: string, timeout: number, unhealthyThreshold: number }[];
     readonly idleTimeout?: number;
     readonly instances?: string[];
@@ -67,9 +63,7 @@ export interface LoadBalancerArgs {
     readonly namePrefix?: string;
     readonly securityGroups?: string[];
     readonly sourceSecurityGroup?: string;
-    readonly sourceSecurityGroupId?: string;
     readonly subnets?: string[];
     readonly tags?: {[key: string]: any};
-    readonly zoneId?: string;
 }
 

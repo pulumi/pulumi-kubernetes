@@ -4,75 +4,41 @@
 import * as lumi from "@lumi/lumi";
 
 export class Snapshot extends lumi.NamedResource implements SnapshotArgs {
-    public readonly allocatedStorage?: number;
-    public readonly availabilityZone?: string;
+    public /*out*/ readonly allocatedStorage: number;
+    public /*out*/ readonly availabilityZone: string;
     public readonly dbInstanceIdentifier: string;
-    public readonly dbSnapshotArn?: string;
+    public /*out*/ readonly dbSnapshotArn: string;
     public readonly dbSnapshotIdentifier: string;
-    public readonly encrypted?: boolean;
-    public readonly engine?: string;
-    public readonly engineVersion?: string;
-    public readonly iops?: number;
-    public readonly kmsKeyId?: string;
-    public readonly licenseModel?: string;
-    public readonly optionGroupName?: string;
-    public readonly port?: number;
-    public readonly snapshotType?: string;
-    public readonly sourceDbSnapshotIdentifier?: string;
-    public readonly sourceRegion?: string;
-    public readonly status?: string;
-    public readonly storageType?: string;
-    public readonly vpcId?: string;
+    public /*out*/ readonly encrypted: boolean;
+    public /*out*/ readonly engine: string;
+    public /*out*/ readonly engineVersion: string;
+    public /*out*/ readonly iops: number;
+    public /*out*/ readonly kmsKeyId: string;
+    public /*out*/ readonly licenseModel: string;
+    public /*out*/ readonly optionGroupName: string;
+    public /*out*/ readonly port: number;
+    public /*out*/ readonly snapshotType: string;
+    public /*out*/ readonly sourceDbSnapshotIdentifier: string;
+    public /*out*/ readonly sourceRegion: string;
+    public /*out*/ readonly status: string;
+    public /*out*/ readonly storageType: string;
+    public /*out*/ readonly vpcId: string;
 
     constructor(name: string, args: SnapshotArgs) {
         super(name);
-        this.allocatedStorage = args.allocatedStorage;
-        this.availabilityZone = args.availabilityZone;
         if (args.dbInstanceIdentifier === undefined) {
             throw new Error("Property argument 'dbInstanceIdentifier' is required, but was missing");
         }
         this.dbInstanceIdentifier = args.dbInstanceIdentifier;
-        this.dbSnapshotArn = args.dbSnapshotArn;
         if (args.dbSnapshotIdentifier === undefined) {
             throw new Error("Property argument 'dbSnapshotIdentifier' is required, but was missing");
         }
         this.dbSnapshotIdentifier = args.dbSnapshotIdentifier;
-        this.encrypted = args.encrypted;
-        this.engine = args.engine;
-        this.engineVersion = args.engineVersion;
-        this.iops = args.iops;
-        this.kmsKeyId = args.kmsKeyId;
-        this.licenseModel = args.licenseModel;
-        this.optionGroupName = args.optionGroupName;
-        this.port = args.port;
-        this.snapshotType = args.snapshotType;
-        this.sourceDbSnapshotIdentifier = args.sourceDbSnapshotIdentifier;
-        this.sourceRegion = args.sourceRegion;
-        this.status = args.status;
-        this.storageType = args.storageType;
-        this.vpcId = args.vpcId;
     }
 }
 
 export interface SnapshotArgs {
-    readonly allocatedStorage?: number;
-    readonly availabilityZone?: string;
     readonly dbInstanceIdentifier: string;
-    readonly dbSnapshotArn?: string;
     readonly dbSnapshotIdentifier: string;
-    readonly encrypted?: boolean;
-    readonly engine?: string;
-    readonly engineVersion?: string;
-    readonly iops?: number;
-    readonly kmsKeyId?: string;
-    readonly licenseModel?: string;
-    readonly optionGroupName?: string;
-    readonly port?: number;
-    readonly snapshotType?: string;
-    readonly sourceDbSnapshotIdentifier?: string;
-    readonly sourceRegion?: string;
-    readonly status?: string;
-    readonly storageType?: string;
-    readonly vpcId?: string;
 }
 

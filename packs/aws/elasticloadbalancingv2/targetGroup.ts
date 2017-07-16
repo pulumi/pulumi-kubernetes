@@ -4,22 +4,20 @@
 import * as lumi from "@lumi/lumi";
 
 export class TargetGroup extends lumi.NamedResource implements TargetGroupArgs {
-    public readonly arn?: string;
-    public readonly arnSuffix?: string;
+    public /*out*/ readonly arn: string;
+    public /*out*/ readonly arnSuffix: string;
     public readonly deregistrationDelay?: number;
-    public readonly healthCheck?: { healthyThreshold?: number, interval?: number, matcher?: string, path?: string, port?: string, protocol?: string, timeout?: number, unhealthyThreshold?: number }[];
-    public readonly targetGroupName?: string;
+    public readonly healthCheck: { healthyThreshold?: number, interval?: number, matcher?: string, path?: string, port?: string, protocol?: string, timeout?: number, unhealthyThreshold?: number }[];
+    public readonly targetGroupName: string;
     public readonly namePrefix?: string;
     public readonly port: number;
     public readonly protocol: string;
-    public readonly stickiness?: { cookieDuration?: number, enabled?: boolean, type: string }[];
+    public readonly stickiness: { cookieDuration?: number, enabled?: boolean, type: string }[];
     public readonly tags?: {[key: string]: any};
     public readonly vpcId: string;
 
     constructor(name: string, args: TargetGroupArgs) {
         super(name);
-        this.arn = args.arn;
-        this.arnSuffix = args.arnSuffix;
         this.deregistrationDelay = args.deregistrationDelay;
         this.healthCheck = args.healthCheck;
         this.targetGroupName = args.targetGroupName;
@@ -42,8 +40,6 @@ export class TargetGroup extends lumi.NamedResource implements TargetGroupArgs {
 }
 
 export interface TargetGroupArgs {
-    readonly arn?: string;
-    readonly arnSuffix?: string;
     readonly deregistrationDelay?: number;
     readonly healthCheck?: { healthyThreshold?: number, interval?: number, matcher?: string, path?: string, port?: string, protocol?: string, timeout?: number, unhealthyThreshold?: number }[];
     readonly targetGroupName?: string;

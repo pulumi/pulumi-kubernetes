@@ -8,7 +8,7 @@ export class AutoScaler extends lumi.NamedResource implements AutoScalerArgs {
     public readonly description?: string;
     public readonly autoScalerName?: string;
     public readonly project?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
     public readonly target: string;
     public readonly zone: string;
 
@@ -18,7 +18,6 @@ export class AutoScaler extends lumi.NamedResource implements AutoScalerArgs {
         this.description = args.description;
         this.autoScalerName = args.autoScalerName;
         this.project = args.project;
-        this.selfLink = args.selfLink;
         if (args.target === undefined) {
             throw new Error("Property argument 'target' is required, but was missing");
         }
@@ -35,7 +34,6 @@ export interface AutoScalerArgs {
     readonly description?: string;
     readonly autoScalerName?: string;
     readonly project?: string;
-    readonly selfLink?: string;
     readonly target: string;
     readonly zone: string;
 }

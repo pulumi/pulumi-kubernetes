@@ -4,15 +4,14 @@
 import * as lumi from "@lumi/lumi";
 
 export class Association extends lumi.NamedResource implements AssociationArgs {
-    public readonly associationId?: string;
+    public /*out*/ readonly associationId: string;
     public readonly instanceId?: string;
     public readonly associationName?: string;
-    public readonly parameters?: {[key: string]: any};
-    public readonly targets?: { key: string, values: string[] }[];
+    public readonly parameters: {[key: string]: any};
+    public readonly targets: { key: string, values: string[] }[];
 
     constructor(name: string, args: AssociationArgs) {
         super(name);
-        this.associationId = args.associationId;
         this.instanceId = args.instanceId;
         this.associationName = args.associationName;
         this.parameters = args.parameters;
@@ -21,7 +20,6 @@ export class Association extends lumi.NamedResource implements AssociationArgs {
 }
 
 export interface AssociationArgs {
-    readonly associationId?: string;
     readonly instanceId?: string;
     readonly associationName?: string;
     readonly parameters?: {[key: string]: any};

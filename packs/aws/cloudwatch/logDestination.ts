@@ -4,14 +4,13 @@
 import * as lumi from "@lumi/lumi";
 
 export class LogDestination extends lumi.NamedResource implements LogDestinationArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly logDestinationName?: string;
     public readonly roleArn: string;
     public readonly targetArn: string;
 
     constructor(name: string, args: LogDestinationArgs) {
         super(name);
-        this.arn = args.arn;
         this.logDestinationName = args.logDestinationName;
         if (args.roleArn === undefined) {
             throw new Error("Property argument 'roleArn' is required, but was missing");
@@ -25,7 +24,6 @@ export class LogDestination extends lumi.NamedResource implements LogDestination
 }
 
 export interface LogDestinationArgs {
-    readonly arn?: string;
     readonly logDestinationName?: string;
     readonly roleArn: string;
     readonly targetArn: string;

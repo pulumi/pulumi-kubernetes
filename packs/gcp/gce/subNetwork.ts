@@ -5,19 +5,18 @@ import * as lumi from "@lumi/lumi";
 
 export class SubNetwork extends lumi.NamedResource implements SubNetworkArgs {
     public readonly description?: string;
-    public readonly gatewayAddress?: string;
+    public /*out*/ readonly gatewayAddress: string;
     public readonly ipCidrRange: string;
     public readonly subNetworkName?: string;
     public readonly network: string;
     public readonly privateIpGoogleAccess?: boolean;
     public readonly project?: string;
     public readonly region?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
 
     constructor(name: string, args: SubNetworkArgs) {
         super(name);
         this.description = args.description;
-        this.gatewayAddress = args.gatewayAddress;
         if (args.ipCidrRange === undefined) {
             throw new Error("Property argument 'ipCidrRange' is required, but was missing");
         }
@@ -30,19 +29,16 @@ export class SubNetwork extends lumi.NamedResource implements SubNetworkArgs {
         this.privateIpGoogleAccess = args.privateIpGoogleAccess;
         this.project = args.project;
         this.region = args.region;
-        this.selfLink = args.selfLink;
     }
 }
 
 export interface SubNetworkArgs {
     readonly description?: string;
-    readonly gatewayAddress?: string;
     readonly ipCidrRange: string;
     readonly subNetworkName?: string;
     readonly network: string;
     readonly privateIpGoogleAccess?: boolean;
     readonly project?: string;
     readonly region?: string;
-    readonly selfLink?: string;
 }
 

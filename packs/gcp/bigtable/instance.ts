@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class Instance extends lumi.NamedResource implements InstanceArgs {
     public readonly clusterId: string;
-    public readonly displayName?: string;
+    public readonly displayName: string;
     public readonly instanceName?: string;
     public readonly numNodes?: number;
     public readonly project?: string;

@@ -7,7 +7,7 @@ export class MxRecord extends lumi.NamedResource implements MxRecordArgs {
     public readonly mxRecordName?: string;
     public readonly record: { exchange: string, preference: string }[];
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly ttl: number;
     public readonly zoneName: string;
 

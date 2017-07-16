@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class LifecycleHook extends lumi.NamedResource implements LifecycleHookArgs {
     public readonly autoscalingGroupName: string;
-    public readonly defaultResult?: string;
+    public readonly defaultResult: string;
     public readonly heartbeatTimeout?: number;
     public readonly lifecycleTransition: string;
     public readonly lifecycleHookName?: string;

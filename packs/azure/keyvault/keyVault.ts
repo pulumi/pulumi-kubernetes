@@ -12,9 +12,9 @@ export class KeyVault extends lumi.NamedResource implements KeyVaultArgs {
     public readonly keyVaultName?: string;
     public readonly resourceGroupName: string;
     public readonly sku: { name: string }[];
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly tenantId: string;
-    public readonly vaultUri?: string;
+    public /*out*/ readonly vaultUri: string;
 
     constructor(name: string, args: KeyVaultArgs) {
         super(name);
@@ -40,7 +40,6 @@ export class KeyVault extends lumi.NamedResource implements KeyVaultArgs {
             throw new Error("Property argument 'tenantId' is required, but was missing");
         }
         this.tenantId = args.tenantId;
-        this.vaultUri = args.vaultUri;
     }
 }
 
@@ -55,6 +54,5 @@ export interface KeyVaultArgs {
     readonly sku: { name: string }[];
     readonly tags?: {[key: string]: any};
     readonly tenantId: string;
-    readonly vaultUri?: string;
 }
 

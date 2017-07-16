@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class EventRule extends lumi.NamedResource implements EventRuleArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly description?: string;
     public readonly eventPattern?: string;
     public readonly isEnabled?: boolean;
@@ -14,7 +14,6 @@ export class EventRule extends lumi.NamedResource implements EventRuleArgs {
 
     constructor(name: string, args: EventRuleArgs) {
         super(name);
-        this.arn = args.arn;
         this.description = args.description;
         this.eventPattern = args.eventPattern;
         this.isEnabled = args.isEnabled;
@@ -25,7 +24,6 @@ export class EventRule extends lumi.NamedResource implements EventRuleArgs {
 }
 
 export interface EventRuleArgs {
-    readonly arn?: string;
     readonly description?: string;
     readonly eventPattern?: string;
     readonly isEnabled?: boolean;

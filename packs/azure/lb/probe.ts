@@ -5,20 +5,19 @@ import * as lumi from "@lumi/lumi";
 
 export class Probe extends lumi.NamedResource implements ProbeArgs {
     public readonly intervalInSeconds?: number;
-    public readonly loadBalancerRules?: string[];
+    public /*out*/ readonly loadBalancerRules: string[];
     public readonly loadbalancerId: string;
     public readonly location?: string;
     public readonly probeName?: string;
     public readonly numberOfProbes?: number;
     public readonly port: number;
-    public readonly protocol?: string;
+    public readonly protocol: string;
     public readonly requestPath?: string;
     public readonly resourceGroupName: string;
 
     constructor(name: string, args: ProbeArgs) {
         super(name);
         this.intervalInSeconds = args.intervalInSeconds;
-        this.loadBalancerRules = args.loadBalancerRules;
         if (args.loadbalancerId === undefined) {
             throw new Error("Property argument 'loadbalancerId' is required, but was missing");
         }
@@ -41,7 +40,6 @@ export class Probe extends lumi.NamedResource implements ProbeArgs {
 
 export interface ProbeArgs {
     readonly intervalInSeconds?: number;
-    readonly loadBalancerRules?: string[];
     readonly loadbalancerId: string;
     readonly location?: string;
     readonly probeName?: string;

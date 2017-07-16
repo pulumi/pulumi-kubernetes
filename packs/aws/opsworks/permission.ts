@@ -4,18 +4,17 @@
 import * as lumi from "@lumi/lumi";
 
 export class Permission extends lumi.NamedResource implements PermissionArgs {
-    public readonly allowSsh?: boolean;
-    public readonly allowSudo?: boolean;
-    public readonly permissionId?: string;
-    public readonly level?: string;
-    public readonly stackId?: string;
+    public readonly allowSsh: boolean;
+    public readonly allowSudo: boolean;
+    public /*out*/ readonly permissionId: string;
+    public readonly level: string;
+    public readonly stackId: string;
     public readonly userArn: string;
 
     constructor(name: string, args: PermissionArgs) {
         super(name);
         this.allowSsh = args.allowSsh;
         this.allowSudo = args.allowSudo;
-        this.permissionId = args.permissionId;
         this.level = args.level;
         this.stackId = args.stackId;
         if (args.userArn === undefined) {
@@ -28,7 +27,6 @@ export class Permission extends lumi.NamedResource implements PermissionArgs {
 export interface PermissionArgs {
     readonly allowSsh?: boolean;
     readonly allowSudo?: boolean;
-    readonly permissionId?: string;
     readonly level?: string;
     readonly stackId?: string;
     readonly userArn: string;

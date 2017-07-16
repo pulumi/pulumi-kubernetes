@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class Recorder extends lumi.NamedResource implements RecorderArgs {
     public readonly recorderName?: string;
-    public readonly recordingGroup?: { allSupported?: boolean, includeGlobalResourceTypes?: boolean, resourceTypes?: string[] }[];
+    public readonly recordingGroup: { allSupported?: boolean, includeGlobalResourceTypes?: boolean, resourceTypes?: string[] }[];
     public readonly roleArn: string;
 
     constructor(name: string, args: RecorderArgs) {

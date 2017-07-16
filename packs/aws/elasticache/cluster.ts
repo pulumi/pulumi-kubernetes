@@ -4,30 +4,30 @@
 import * as lumi from "@lumi/lumi";
 
 export class Cluster extends lumi.NamedResource implements ClusterArgs {
-    public readonly applyImmediately?: boolean;
-    public readonly availabilityZone?: string;
+    public readonly applyImmediately: boolean;
+    public readonly availabilityZone: string;
     public readonly availabilityZones?: string[];
-    public readonly azMode?: string;
-    public readonly cacheNodes?: { address?: string, availabilityZone?: string, id?: string, port?: number }[];
-    public readonly clusterAddress?: string;
+    public readonly azMode: string;
+    public /*out*/ readonly cacheNodes: { address: string, availabilityZone: string, id: string, port: number }[];
+    public /*out*/ readonly clusterAddress: string;
     public readonly clusterId: string;
-    public readonly configurationEndpoint?: string;
+    public /*out*/ readonly configurationEndpoint: string;
     public readonly engine: string;
-    public readonly engineVersion?: string;
-    public readonly maintenanceWindow?: string;
+    public readonly engineVersion: string;
+    public readonly maintenanceWindow: string;
     public readonly nodeType: string;
     public readonly notificationTopicArn?: string;
     public readonly numCacheNodes: number;
-    public readonly parameterGroupName?: string;
+    public readonly parameterGroupName: string;
     public readonly port: number;
-    public readonly replicationGroupId?: string;
-    public readonly securityGroupIds?: string[];
-    public readonly securityGroupNames?: string[];
+    public /*out*/ readonly replicationGroupId: string;
+    public readonly securityGroupIds: string[];
+    public readonly securityGroupNames: string[];
     public readonly snapshotArns?: string[];
     public readonly snapshotName?: string;
     public readonly snapshotRetentionLimit?: number;
-    public readonly snapshotWindow?: string;
-    public readonly subnetGroupName?: string;
+    public readonly snapshotWindow: string;
+    public readonly subnetGroupName: string;
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: ClusterArgs) {
@@ -36,13 +36,10 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.availabilityZone = args.availabilityZone;
         this.availabilityZones = args.availabilityZones;
         this.azMode = args.azMode;
-        this.cacheNodes = args.cacheNodes;
-        this.clusterAddress = args.clusterAddress;
         if (args.clusterId === undefined) {
             throw new Error("Property argument 'clusterId' is required, but was missing");
         }
         this.clusterId = args.clusterId;
-        this.configurationEndpoint = args.configurationEndpoint;
         if (args.engine === undefined) {
             throw new Error("Property argument 'engine' is required, but was missing");
         }
@@ -63,7 +60,6 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
             throw new Error("Property argument 'port' is required, but was missing");
         }
         this.port = args.port;
-        this.replicationGroupId = args.replicationGroupId;
         this.securityGroupIds = args.securityGroupIds;
         this.securityGroupNames = args.securityGroupNames;
         this.snapshotArns = args.snapshotArns;
@@ -80,10 +76,7 @@ export interface ClusterArgs {
     readonly availabilityZone?: string;
     readonly availabilityZones?: string[];
     readonly azMode?: string;
-    readonly cacheNodes?: { address?: string, availabilityZone?: string, id?: string, port?: number }[];
-    readonly clusterAddress?: string;
     readonly clusterId: string;
-    readonly configurationEndpoint?: string;
     readonly engine: string;
     readonly engineVersion?: string;
     readonly maintenanceWindow?: string;
@@ -92,7 +85,6 @@ export interface ClusterArgs {
     readonly numCacheNodes: number;
     readonly parameterGroupName?: string;
     readonly port: number;
-    readonly replicationGroupId?: string;
     readonly securityGroupIds?: string[];
     readonly securityGroupNames?: string[];
     readonly snapshotArns?: string[];

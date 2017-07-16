@@ -5,9 +5,9 @@ import * as lumi from "@lumi/lumi";
 
 export class NatGateway extends lumi.NamedResource implements NatGatewayArgs {
     public readonly allocationId: string;
-    public readonly networkInterfaceId?: string;
-    public readonly privateIp?: string;
-    public readonly publicIp?: string;
+    public readonly networkInterfaceId: string;
+    public readonly privateIp: string;
+    public readonly publicIp: string;
     public readonly subnetId: string;
 
     constructor(name: string, args: NatGatewayArgs) {

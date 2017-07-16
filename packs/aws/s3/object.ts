@@ -11,15 +11,15 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
     public readonly contentDisposition?: string;
     public readonly contentEncoding?: string;
     public readonly contentLanguage?: string;
-    public readonly contentType?: string;
-    public readonly etag?: string;
+    public readonly contentType: string;
+    public readonly etag: string;
     public readonly key: string;
     public readonly kmsKeyId?: string;
-    public readonly serverSideEncryption?: string;
+    public readonly serverSideEncryption: string;
     public readonly source?: string;
-    public readonly storageClass?: string;
+    public readonly storageClass: string;
     public readonly tags?: {[key: string]: any};
-    public readonly versionId?: string;
+    public /*out*/ readonly versionId: string;
     public readonly websiteRedirect?: string;
 
     constructor(name: string, args: ObjectArgs) {
@@ -45,7 +45,6 @@ export class Object extends lumi.NamedResource implements ObjectArgs {
         this.source = args.source;
         this.storageClass = args.storageClass;
         this.tags = args.tags;
-        this.versionId = args.versionId;
         this.websiteRedirect = args.websiteRedirect;
     }
 }
@@ -66,7 +65,6 @@ export interface ObjectArgs {
     readonly source?: string;
     readonly storageClass?: string;
     readonly tags?: {[key: string]: any};
-    readonly versionId?: string;
     readonly websiteRedirect?: string;
 }
 

@@ -4,25 +4,24 @@
 import * as lumi from "@lumi/lumi";
 
 export class Endpoint extends lumi.NamedResource implements EndpointArgs {
-    public readonly contentTypesToCompress?: string[];
-    public readonly hostName?: string;
+    public readonly contentTypesToCompress: string[];
+    public /*out*/ readonly hostName: string;
     public readonly isCompressionEnabled?: boolean;
     public readonly isHttpAllowed?: boolean;
     public readonly isHttpsAllowed?: boolean;
     public readonly location: string;
     public readonly endpointName?: string;
-    public readonly origin: { hostName: string, httpPort?: number, httpsPort?: number, name: string }[];
-    public readonly originHostHeader?: string;
-    public readonly originPath?: string;
+    public readonly origin: { hostName: string, httpPort: number, httpsPort: number, name: string }[];
+    public readonly originHostHeader: string;
+    public readonly originPath: string;
     public readonly profileName: string;
     public readonly querystringCachingBehaviour?: string;
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: EndpointArgs) {
         super(name);
         this.contentTypesToCompress = args.contentTypesToCompress;
-        this.hostName = args.hostName;
         this.isCompressionEnabled = args.isCompressionEnabled;
         this.isHttpAllowed = args.isHttpAllowed;
         this.isHttpsAllowed = args.isHttpsAllowed;
@@ -52,13 +51,12 @@ export class Endpoint extends lumi.NamedResource implements EndpointArgs {
 
 export interface EndpointArgs {
     readonly contentTypesToCompress?: string[];
-    readonly hostName?: string;
     readonly isCompressionEnabled?: boolean;
     readonly isHttpAllowed?: boolean;
     readonly isHttpsAllowed?: boolean;
     readonly location: string;
     readonly endpointName?: string;
-    readonly origin: { hostName: string, httpPort?: number, httpsPort?: number, name: string }[];
+    readonly origin: { hostName: string, httpPort: number, httpsPort: number, name: string }[];
     readonly originHostHeader?: string;
     readonly originPath?: string;
     readonly profileName: string;

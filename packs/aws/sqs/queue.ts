@@ -4,24 +4,23 @@
 import * as lumi from "@lumi/lumi";
 
 export class Queue extends lumi.NamedResource implements QueueArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly contentBasedDeduplication?: boolean;
     public readonly delaySeconds?: number;
     public readonly fifoQueue?: boolean;
-    public readonly kmsDataKeyReusePeriodSeconds?: number;
+    public readonly kmsDataKeyReusePeriodSeconds: number;
     public readonly kmsMasterKeyId?: string;
     public readonly maxMessageSize?: number;
     public readonly messageRetentionSeconds?: number;
-    public readonly queueName?: string;
+    public readonly queueName: string;
     public readonly namePrefix?: string;
-    public readonly policy?: string;
+    public readonly policy: string;
     public readonly receiveWaitTimeSeconds?: number;
     public readonly redrivePolicy?: string;
     public readonly visibilityTimeoutSeconds?: number;
 
     constructor(name: string, args: QueueArgs) {
         super(name);
-        this.arn = args.arn;
         this.contentBasedDeduplication = args.contentBasedDeduplication;
         this.delaySeconds = args.delaySeconds;
         this.fifoQueue = args.fifoQueue;
@@ -39,7 +38,6 @@ export class Queue extends lumi.NamedResource implements QueueArgs {
 }
 
 export interface QueueArgs {
-    readonly arn?: string;
     readonly contentBasedDeduplication?: boolean;
     readonly delaySeconds?: number;
     readonly fifoQueue?: boolean;

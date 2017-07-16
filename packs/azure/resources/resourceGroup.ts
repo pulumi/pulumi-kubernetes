@@ -6,7 +6,7 @@ import * as lumi from "@lumi/lumi";
 export class ResourceGroup extends lumi.NamedResource implements ResourceGroupArgs {
     public readonly location: string;
     public readonly resourceGroupName?: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: ResourceGroupArgs) {
         super(name);

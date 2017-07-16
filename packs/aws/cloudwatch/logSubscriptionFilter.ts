@@ -3,12 +3,14 @@
 
 import * as lumi from "@lumi/lumi";
 
+import {LogGroup} from "./logGroup";
+
 export class LogSubscriptionFilter extends lumi.NamedResource implements LogSubscriptionFilterArgs {
     public readonly destinationArn: string;
     public readonly filterPattern: string;
-    public readonly logGroupName: string;
+    public readonly logGroup: LogGroup;
     public readonly logSubscriptionFilterName?: string;
-    public readonly roleArn?: string;
+    public readonly roleArn: string;
 
     constructor(name: string, args: LogSubscriptionFilterArgs) {
         super(name);
@@ -20,10 +22,10 @@ export class LogSubscriptionFilter extends lumi.NamedResource implements LogSubs
             throw new Error("Property argument 'filterPattern' is required, but was missing");
         }
         this.filterPattern = args.filterPattern;
-        if (args.logGroupName === undefined) {
-            throw new Error("Property argument 'logGroupName' is required, but was missing");
+        if (args.logGroup === undefined) {
+            throw new Error("Property argument 'logGroup' is required, but was missing");
         }
-        this.logGroupName = args.logGroupName;
+        this.logGroup = args.logGroup;
         this.logSubscriptionFilterName = args.logSubscriptionFilterName;
         this.roleArn = args.roleArn;
     }
@@ -32,7 +34,7 @@ export class LogSubscriptionFilter extends lumi.NamedResource implements LogSubs
 export interface LogSubscriptionFilterArgs {
     readonly destinationArn: string;
     readonly filterPattern: string;
-    readonly logGroupName: string;
+    readonly logGroup: LogGroup;
     readonly logSubscriptionFilterName?: string;
     readonly roleArn?: string;
 }

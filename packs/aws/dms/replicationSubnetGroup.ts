@@ -4,16 +4,15 @@
 import * as lumi from "@lumi/lumi";
 
 export class ReplicationSubnetGroup extends lumi.NamedResource implements ReplicationSubnetGroupArgs {
-    public readonly replicationSubnetGroupArn?: string;
+    public /*out*/ readonly replicationSubnetGroupArn: string;
     public readonly replicationSubnetGroupDescription: string;
     public readonly replicationSubnetGroupId: string;
     public readonly subnetIds: string[];
     public readonly tags?: {[key: string]: any};
-    public readonly vpcId?: string;
+    public /*out*/ readonly vpcId: string;
 
     constructor(name: string, args: ReplicationSubnetGroupArgs) {
         super(name);
-        this.replicationSubnetGroupArn = args.replicationSubnetGroupArn;
         if (args.replicationSubnetGroupDescription === undefined) {
             throw new Error("Property argument 'replicationSubnetGroupDescription' is required, but was missing");
         }
@@ -27,16 +26,13 @@ export class ReplicationSubnetGroup extends lumi.NamedResource implements Replic
         }
         this.subnetIds = args.subnetIds;
         this.tags = args.tags;
-        this.vpcId = args.vpcId;
     }
 }
 
 export interface ReplicationSubnetGroupArgs {
-    readonly replicationSubnetGroupArn?: string;
     readonly replicationSubnetGroupDescription: string;
     readonly replicationSubnetGroupId: string;
     readonly subnetIds: string[];
     readonly tags?: {[key: string]: any};
-    readonly vpcId?: string;
 }
 

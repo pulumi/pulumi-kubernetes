@@ -4,37 +4,36 @@
 import * as lumi from "@lumi/lumi";
 
 export class Group extends lumi.NamedResource implements GroupArgs {
-    public readonly arn?: string;
-    public readonly availabilityZones?: string[];
-    public readonly defaultCooldown?: number;
-    public readonly desiredCapacity?: number;
+    public /*out*/ readonly arn: string;
+    public readonly availabilityZones: string[];
+    public readonly defaultCooldown: number;
+    public readonly desiredCapacity: number;
     public readonly enabledMetrics?: string[];
     public readonly forceDelete?: boolean;
     public readonly healthCheckGracePeriod?: number;
-    public readonly healthCheckType?: string;
-    public readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, name: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
+    public readonly healthCheckType: string;
+    public readonly initialLifecycleHook?: { defaultResult: string, heartbeatTimeout?: number, lifecycleTransition: string, name: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
     public readonly launchConfiguration: string;
-    public readonly loadBalancers?: string[];
+    public readonly loadBalancers: string[];
     public readonly maxSize: number;
     public readonly metricsGranularity?: string;
     public readonly minElbCapacity?: number;
     public readonly minSize: number;
-    public readonly groupName?: string;
+    public readonly groupName: string;
     public readonly namePrefix?: string;
     public readonly placementGroup?: string;
     public readonly protectFromScaleIn?: boolean;
     public readonly suspendedProcesses?: string[];
     public readonly tag?: { key: string, propagateAtLaunch: boolean, value: string }[];
     public readonly tags?: {[key: string]: any}[];
-    public readonly targetGroupArns?: string[];
+    public readonly targetGroupArns: string[];
     public readonly terminationPolicies?: string[];
-    public readonly vpcZoneIdentifier?: string[];
+    public readonly vpcZoneIdentifier: string[];
     public readonly waitForCapacityTimeout?: string;
     public readonly waitForElbCapacity?: number;
 
     constructor(name: string, args: GroupArgs) {
         super(name);
-        this.arn = args.arn;
         this.availabilityZones = args.availabilityZones;
         this.defaultCooldown = args.defaultCooldown;
         this.desiredCapacity = args.desiredCapacity;
@@ -74,7 +73,6 @@ export class Group extends lumi.NamedResource implements GroupArgs {
 }
 
 export interface GroupArgs {
-    readonly arn?: string;
     readonly availabilityZones?: string[];
     readonly defaultCooldown?: number;
     readonly desiredCapacity?: number;
@@ -82,7 +80,7 @@ export interface GroupArgs {
     readonly forceDelete?: boolean;
     readonly healthCheckGracePeriod?: number;
     readonly healthCheckType?: string;
-    readonly initialLifecycleHook?: { defaultResult?: string, heartbeatTimeout?: number, lifecycleTransition: string, name: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
+    readonly initialLifecycleHook?: { defaultResult: string, heartbeatTimeout?: number, lifecycleTransition: string, name: string, notificationMetadata?: string, notificationTargetArn?: string, roleArn?: string }[];
     readonly launchConfiguration: string;
     readonly loadBalancers?: string[];
     readonly maxSize: number;

@@ -5,8 +5,8 @@ import * as lumi from "@lumi/lumi";
 
 export class Vault extends lumi.NamedResource implements VaultArgs {
     public readonly accessPolicy?: string;
-    public readonly arn?: string;
-    public readonly location?: string;
+    public /*out*/ readonly arn: string;
+    public /*out*/ readonly location: string;
     public readonly vaultName?: string;
     public readonly notification?: { events: string[], snsTopic: string }[];
     public readonly tags?: {[key: string]: any};
@@ -14,8 +14,6 @@ export class Vault extends lumi.NamedResource implements VaultArgs {
     constructor(name: string, args: VaultArgs) {
         super(name);
         this.accessPolicy = args.accessPolicy;
-        this.arn = args.arn;
-        this.location = args.location;
         this.vaultName = args.vaultName;
         this.notification = args.notification;
         this.tags = args.tags;
@@ -24,8 +22,6 @@ export class Vault extends lumi.NamedResource implements VaultArgs {
 
 export interface VaultArgs {
     readonly accessPolicy?: string;
-    readonly arn?: string;
-    readonly location?: string;
     readonly vaultName?: string;
     readonly notification?: { events: string[], snsTopic: string }[];
     readonly tags?: {[key: string]: any};

@@ -5,26 +5,23 @@ import * as lumi from "@lumi/lumi";
 
 export class Registry extends lumi.NamedResource implements RegistryArgs {
     public readonly adminEnabled?: boolean;
-    public readonly adminPassword?: string;
-    public readonly adminUsername?: string;
+    public /*out*/ readonly adminPassword: string;
+    public /*out*/ readonly adminUsername: string;
     public readonly location: string;
-    public readonly loginServer?: string;
+    public /*out*/ readonly loginServer: string;
     public readonly registryName?: string;
     public readonly resourceGroupName: string;
     public readonly sku?: string;
     public readonly storageAccount: { accessKey: string, name: string }[];
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: RegistryArgs) {
         super(name);
         this.adminEnabled = args.adminEnabled;
-        this.adminPassword = args.adminPassword;
-        this.adminUsername = args.adminUsername;
         if (args.location === undefined) {
             throw new Error("Property argument 'location' is required, but was missing");
         }
         this.location = args.location;
-        this.loginServer = args.loginServer;
         this.registryName = args.registryName;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
@@ -41,10 +38,7 @@ export class Registry extends lumi.NamedResource implements RegistryArgs {
 
 export interface RegistryArgs {
     readonly adminEnabled?: boolean;
-    readonly adminPassword?: string;
-    readonly adminUsername?: string;
     readonly location: string;
-    readonly loginServer?: string;
     readonly registryName?: string;
     readonly resourceGroupName: string;
     readonly sku?: string;

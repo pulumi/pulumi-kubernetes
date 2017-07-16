@@ -10,9 +10,9 @@ export class HttpHealthCheck extends lumi.NamedResource implements HttpHealthChe
     public readonly host?: string;
     public readonly httpHealthCheckName?: string;
     public readonly port?: number;
-    public readonly project?: string;
+    public readonly project: string;
     public readonly requestPath?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
     public readonly timeoutSec?: number;
     public readonly unhealthyThreshold?: number;
 
@@ -26,7 +26,6 @@ export class HttpHealthCheck extends lumi.NamedResource implements HttpHealthChe
         this.port = args.port;
         this.project = args.project;
         this.requestPath = args.requestPath;
-        this.selfLink = args.selfLink;
         this.timeoutSec = args.timeoutSec;
         this.unhealthyThreshold = args.unhealthyThreshold;
     }
@@ -41,7 +40,6 @@ export interface HttpHealthCheckArgs {
     readonly port?: number;
     readonly project?: string;
     readonly requestPath?: string;
-    readonly selfLink?: string;
     readonly timeoutSec?: number;
     readonly unhealthyThreshold?: number;
 }

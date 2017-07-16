@@ -4,8 +4,8 @@
 import * as lumi from "@lumi/lumi";
 
 export class UserLoginProfile extends lumi.NamedResource implements UserLoginProfileArgs {
-    public readonly encryptedPassword?: string;
-    public readonly keyFingerprint?: string;
+    public /*out*/ readonly encryptedPassword: string;
+    public /*out*/ readonly keyFingerprint: string;
     public readonly passwordLength?: number;
     public readonly passwordResetRequired?: boolean;
     public readonly pgpKey: string;
@@ -13,8 +13,6 @@ export class UserLoginProfile extends lumi.NamedResource implements UserLoginPro
 
     constructor(name: string, args: UserLoginProfileArgs) {
         super(name);
-        this.encryptedPassword = args.encryptedPassword;
-        this.keyFingerprint = args.keyFingerprint;
         this.passwordLength = args.passwordLength;
         this.passwordResetRequired = args.passwordResetRequired;
         if (args.pgpKey === undefined) {
@@ -29,8 +27,6 @@ export class UserLoginProfile extends lumi.NamedResource implements UserLoginPro
 }
 
 export interface UserLoginProfileArgs {
-    readonly encryptedPassword?: string;
-    readonly keyFingerprint?: string;
     readonly passwordLength?: number;
     readonly passwordResetRequired?: boolean;
     readonly pgpKey: string;

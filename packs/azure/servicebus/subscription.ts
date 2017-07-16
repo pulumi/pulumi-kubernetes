@@ -4,13 +4,13 @@
 import * as lumi from "@lumi/lumi";
 
 export class Subscription extends lumi.NamedResource implements SubscriptionArgs {
-    public readonly autoDeleteOnIdle?: string;
+    public readonly autoDeleteOnIdle: string;
     public readonly deadLetteringOnFilterEvaluationExceptions?: boolean;
     public readonly deadLetteringOnMessageExpiration?: boolean;
-    public readonly defaultMessageTtl?: string;
+    public readonly defaultMessageTtl: string;
     public readonly enableBatchedOperations?: boolean;
     public readonly location: string;
-    public readonly lockDuration?: string;
+    public readonly lockDuration: string;
     public readonly maxDeliveryCount: number;
     public readonly subscriptionName?: string;
     public readonly namespaceName: string;

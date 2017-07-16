@@ -4,13 +4,12 @@
 import * as lumi from "@lumi/lumi";
 
 export class DeploymentConfig extends lumi.NamedResource implements DeploymentConfigArgs {
-    public readonly deploymentConfigId?: string;
+    public /*out*/ readonly deploymentConfigId: string;
     public readonly deploymentConfigName: string;
     public readonly minimumHealthyHosts: { type: string, value?: number }[];
 
     constructor(name: string, args: DeploymentConfigArgs) {
         super(name);
-        this.deploymentConfigId = args.deploymentConfigId;
         if (args.deploymentConfigName === undefined) {
             throw new Error("Property argument 'deploymentConfigName' is required, but was missing");
         }
@@ -23,7 +22,6 @@ export class DeploymentConfig extends lumi.NamedResource implements DeploymentCo
 }
 
 export interface DeploymentConfigArgs {
-    readonly deploymentConfigId?: string;
     readonly deploymentConfigName: string;
     readonly minimumHealthyHosts: { type: string, value?: number }[];
 }

@@ -4,24 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class StaticIp extends lumi.NamedResource implements StaticIpArgs {
-    public readonly arn?: string;
-    public readonly ipAddress?: string;
+    public /*out*/ readonly arn: string;
+    public /*out*/ readonly ipAddress: string;
     public readonly staticIpName?: string;
-    public readonly supportCode?: string;
+    public /*out*/ readonly supportCode: string;
 
     constructor(name: string, args: StaticIpArgs) {
         super(name);
-        this.arn = args.arn;
-        this.ipAddress = args.ipAddress;
         this.staticIpName = args.staticIpName;
-        this.supportCode = args.supportCode;
     }
 }
 
 export interface StaticIpArgs {
-    readonly arn?: string;
-    readonly ipAddress?: string;
     readonly staticIpName?: string;
-    readonly supportCode?: string;
 }
 

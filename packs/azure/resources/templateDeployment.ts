@@ -6,10 +6,10 @@ import * as lumi from "@lumi/lumi";
 export class TemplateDeployment extends lumi.NamedResource implements TemplateDeploymentArgs {
     public readonly deploymentMode: string;
     public readonly templateDeploymentName?: string;
-    public readonly outputs?: {[key: string]: any};
+    public /*out*/ readonly outputs: {[key: string]: any};
     public readonly parameters?: {[key: string]: any};
     public readonly resourceGroupName: string;
-    public readonly templateBody?: string;
+    public readonly templateBody: string;
 
     constructor(name: string, args: TemplateDeploymentArgs) {
         super(name);
@@ -18,7 +18,6 @@ export class TemplateDeployment extends lumi.NamedResource implements TemplateDe
         }
         this.deploymentMode = args.deploymentMode;
         this.templateDeploymentName = args.templateDeploymentName;
-        this.outputs = args.outputs;
         this.parameters = args.parameters;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
@@ -31,7 +30,6 @@ export class TemplateDeployment extends lumi.NamedResource implements TemplateDe
 export interface TemplateDeploymentArgs {
     readonly deploymentMode: string;
     readonly templateDeploymentName?: string;
-    readonly outputs?: {[key: string]: any};
     readonly parameters?: {[key: string]: any};
     readonly resourceGroupName: string;
     readonly templateBody?: string;

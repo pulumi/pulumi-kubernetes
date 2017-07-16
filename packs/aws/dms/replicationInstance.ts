@@ -4,23 +4,23 @@
 import * as lumi from "@lumi/lumi";
 
 export class ReplicationInstance extends lumi.NamedResource implements ReplicationInstanceArgs {
-    public readonly allocatedStorage?: number;
+    public readonly allocatedStorage: number;
     public readonly applyImmediately?: boolean;
-    public readonly autoMinorVersionUpgrade?: boolean;
-    public readonly availabilityZone?: string;
-    public readonly engineVersion?: string;
-    public readonly kmsKeyArn?: string;
-    public readonly multiAz?: boolean;
-    public readonly preferredMaintenanceWindow?: string;
-    public readonly publiclyAccessible?: boolean;
-    public readonly replicationInstanceArn?: string;
+    public readonly autoMinorVersionUpgrade: boolean;
+    public readonly availabilityZone: string;
+    public readonly engineVersion: string;
+    public readonly kmsKeyArn: string;
+    public readonly multiAz: boolean;
+    public readonly preferredMaintenanceWindow: string;
+    public readonly publiclyAccessible: boolean;
+    public /*out*/ readonly replicationInstanceArn: string;
     public readonly replicationInstanceClass: string;
     public readonly replicationInstanceId: string;
-    public readonly replicationInstancePrivateIps?: string[];
-    public readonly replicationInstancePublicIps?: string[];
-    public readonly replicationSubnetGroupId?: string;
+    public /*out*/ readonly replicationInstancePrivateIps: string[];
+    public /*out*/ readonly replicationInstancePublicIps: string[];
+    public readonly replicationSubnetGroupId: string;
     public readonly tags?: {[key: string]: any};
-    public readonly vpcSecurityGroupIds?: string[];
+    public readonly vpcSecurityGroupIds: string[];
 
     constructor(name: string, args: ReplicationInstanceArgs) {
         super(name);
@@ -33,7 +33,6 @@ export class ReplicationInstance extends lumi.NamedResource implements Replicati
         this.multiAz = args.multiAz;
         this.preferredMaintenanceWindow = args.preferredMaintenanceWindow;
         this.publiclyAccessible = args.publiclyAccessible;
-        this.replicationInstanceArn = args.replicationInstanceArn;
         if (args.replicationInstanceClass === undefined) {
             throw new Error("Property argument 'replicationInstanceClass' is required, but was missing");
         }
@@ -42,8 +41,6 @@ export class ReplicationInstance extends lumi.NamedResource implements Replicati
             throw new Error("Property argument 'replicationInstanceId' is required, but was missing");
         }
         this.replicationInstanceId = args.replicationInstanceId;
-        this.replicationInstancePrivateIps = args.replicationInstancePrivateIps;
-        this.replicationInstancePublicIps = args.replicationInstancePublicIps;
         this.replicationSubnetGroupId = args.replicationSubnetGroupId;
         this.tags = args.tags;
         this.vpcSecurityGroupIds = args.vpcSecurityGroupIds;
@@ -60,11 +57,8 @@ export interface ReplicationInstanceArgs {
     readonly multiAz?: boolean;
     readonly preferredMaintenanceWindow?: string;
     readonly publiclyAccessible?: boolean;
-    readonly replicationInstanceArn?: string;
     readonly replicationInstanceClass: string;
     readonly replicationInstanceId: string;
-    readonly replicationInstancePrivateIps?: string[];
-    readonly replicationInstancePublicIps?: string[];
     readonly replicationSubnetGroupId?: string;
     readonly tags?: {[key: string]: any};
     readonly vpcSecurityGroupIds?: string[];

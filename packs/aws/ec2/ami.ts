@@ -6,12 +6,12 @@ import * as lumi from "@lumi/lumi";
 export class Ami extends lumi.NamedResource implements AmiArgs {
     public readonly architecture?: string;
     public readonly description?: string;
-    public readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
-    public readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
-    public readonly amiId?: string;
-    public readonly imageLocation?: string;
+    public readonly ebsBlockDevice: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize: number, volumeType?: string }[];
+    public readonly ephemeralBlockDevice: { deviceName: string, virtualName: string }[];
+    public /*out*/ readonly amiId: string;
+    public readonly imageLocation: string;
     public readonly kernelId?: string;
-    public readonly manageEbsSnapshots?: boolean;
+    public /*out*/ readonly manageEbsSnapshots: boolean;
     public readonly amiName?: string;
     public readonly ramdiskId?: string;
     public readonly rootDeviceName?: string;
@@ -25,10 +25,8 @@ export class Ami extends lumi.NamedResource implements AmiArgs {
         this.description = args.description;
         this.ebsBlockDevice = args.ebsBlockDevice;
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
-        this.amiId = args.amiId;
         this.imageLocation = args.imageLocation;
         this.kernelId = args.kernelId;
-        this.manageEbsSnapshots = args.manageEbsSnapshots;
         this.amiName = args.amiName;
         this.ramdiskId = args.ramdiskId;
         this.rootDeviceName = args.rootDeviceName;
@@ -41,12 +39,10 @@ export class Ami extends lumi.NamedResource implements AmiArgs {
 export interface AmiArgs {
     readonly architecture?: string;
     readonly description?: string;
-    readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
+    readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize: number, volumeType?: string }[];
     readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
-    readonly amiId?: string;
     readonly imageLocation?: string;
     readonly kernelId?: string;
-    readonly manageEbsSnapshots?: boolean;
     readonly amiName?: string;
     readonly ramdiskId?: string;
     readonly rootDeviceName?: string;

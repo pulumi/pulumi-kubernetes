@@ -10,7 +10,7 @@ export class AvailabilitySet extends lumi.NamedResource implements AvailabilityS
     public readonly platformFaultDomainCount?: number;
     public readonly platformUpdateDomainCount?: number;
     public readonly resourceGroupName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: AvailabilitySetArgs) {
         super(name);

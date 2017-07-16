@@ -4,12 +4,11 @@
 import * as lumi from "@lumi/lumi";
 
 export class Domain extends lumi.NamedResource implements DomainArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly domainName: string;
 
     constructor(name: string, args: DomainArgs) {
         super(name);
-        this.arn = args.arn;
         if (args.domainName === undefined) {
             throw new Error("Property argument 'domainName' is required, but was missing");
         }
@@ -18,7 +17,6 @@ export class Domain extends lumi.NamedResource implements DomainArgs {
 }
 
 export interface DomainArgs {
-    readonly arn?: string;
     readonly domainName: string;
 }
 

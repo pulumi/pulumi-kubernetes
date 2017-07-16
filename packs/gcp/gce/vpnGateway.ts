@@ -9,7 +9,7 @@ export class VpnGateway extends lumi.NamedResource implements VpnGatewayArgs {
     public readonly network: string;
     public readonly project?: string;
     public readonly region?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
 
     constructor(name: string, args: VpnGatewayArgs) {
         super(name);
@@ -21,7 +21,6 @@ export class VpnGateway extends lumi.NamedResource implements VpnGatewayArgs {
         this.network = args.network;
         this.project = args.project;
         this.region = args.region;
-        this.selfLink = args.selfLink;
     }
 }
 
@@ -31,6 +30,5 @@ export interface VpnGatewayArgs {
     readonly network: string;
     readonly project?: string;
     readonly region?: string;
-    readonly selfLink?: string;
 }
 

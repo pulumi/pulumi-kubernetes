@@ -5,10 +5,10 @@ import * as lumi from "@lumi/lumi";
 
 export class Subnet extends lumi.NamedResource implements SubnetArgs {
     public readonly assignIpv6AddressOnCreation?: boolean;
-    public readonly availabilityZone?: string;
+    public readonly availabilityZone: string;
     public readonly cidrBlock: string;
-    public readonly ipv6CidrBlock?: string;
-    public readonly ipv6CidrBlockAssociationId?: string;
+    public readonly ipv6CidrBlock: string;
+    public /*out*/ readonly ipv6CidrBlockAssociationId: string;
     public readonly mapPublicIpOnLaunch?: boolean;
     public readonly tags?: {[key: string]: any};
     public readonly vpcId: string;
@@ -22,7 +22,6 @@ export class Subnet extends lumi.NamedResource implements SubnetArgs {
         }
         this.cidrBlock = args.cidrBlock;
         this.ipv6CidrBlock = args.ipv6CidrBlock;
-        this.ipv6CidrBlockAssociationId = args.ipv6CidrBlockAssociationId;
         this.mapPublicIpOnLaunch = args.mapPublicIpOnLaunch;
         this.tags = args.tags;
         if (args.vpcId === undefined) {
@@ -37,7 +36,6 @@ export interface SubnetArgs {
     readonly availabilityZone?: string;
     readonly cidrBlock: string;
     readonly ipv6CidrBlock?: string;
-    readonly ipv6CidrBlockAssociationId?: string;
     readonly mapPublicIpOnLaunch?: boolean;
     readonly tags?: {[key: string]: any};
     readonly vpcId: string;

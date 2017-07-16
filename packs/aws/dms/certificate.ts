@@ -4,14 +4,13 @@
 import * as lumi from "@lumi/lumi";
 
 export class Certificate extends lumi.NamedResource implements CertificateArgs {
-    public readonly certificateArn?: string;
+    public /*out*/ readonly certificateArn: string;
     public readonly certificateId: string;
     public readonly certificatePem?: string;
     public readonly certificateWallet?: string;
 
     constructor(name: string, args: CertificateArgs) {
         super(name);
-        this.certificateArn = args.certificateArn;
         if (args.certificateId === undefined) {
             throw new Error("Property argument 'certificateId' is required, but was missing");
         }
@@ -22,7 +21,6 @@ export class Certificate extends lumi.NamedResource implements CertificateArgs {
 }
 
 export interface CertificateArgs {
-    readonly certificateArn?: string;
     readonly certificateId: string;
     readonly certificatePem?: string;
     readonly certificateWallet?: string;

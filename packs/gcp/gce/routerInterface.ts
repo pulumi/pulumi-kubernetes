@@ -6,8 +6,8 @@ import * as lumi from "@lumi/lumi";
 export class RouterInterface extends lumi.NamedResource implements RouterInterfaceArgs {
     public readonly ipRange?: string;
     public readonly routerInterfaceName?: string;
-    public readonly project?: string;
-    public readonly region?: string;
+    public readonly project: string;
+    public readonly region: string;
     public readonly router: string;
     public readonly vpnTunnel: string;
 

@@ -4,14 +4,14 @@
 import * as lumi from "@lumi/lumi";
 
 export class FirehoseDeliveryStream extends lumi.NamedResource implements FirehoseDeliveryStreamArgs {
-    public readonly arn?: string;
+    public readonly arn: string;
     public readonly destination: string;
-    public readonly destinationId?: string;
-    public readonly elasticsearchConfiguration?: { bufferingInterval?: number, bufferingSize?: number, cloudwatchLoggingOptions?: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], domainArn: string, indexName: string, indexRotationPeriod?: string, retryDuration?: number, roleArn: string, s3BackupMode?: string, typeName?: string }[];
+    public readonly destinationId: string;
+    public readonly elasticsearchConfiguration?: { bufferingInterval?: number, bufferingSize?: number, cloudwatchLoggingOptions: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], domainArn: string, indexName: string, indexRotationPeriod?: string, retryDuration?: number, roleArn: string, s3BackupMode?: string, typeName?: string }[];
     public readonly firehoseDeliveryStreamName?: string;
-    public readonly redshiftConfiguration?: { cloudwatchLoggingOptions?: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], clusterJdbcurl: string, copyOptions?: string, dataTableColumns?: string, dataTableName: string, password: string, retryDuration?: number, roleArn: string, username: string }[];
-    public readonly s3Configuration: { bucketArn: string, bufferInterval?: number, bufferSize?: number, cloudwatchLoggingOptions?: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], compressionFormat?: string, kmsKeyArn?: string, prefix?: string, roleArn: string }[];
-    public readonly versionId?: string;
+    public readonly redshiftConfiguration?: { cloudwatchLoggingOptions: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], clusterJdbcurl: string, copyOptions?: string, dataTableColumns?: string, dataTableName: string, password: string, retryDuration?: number, roleArn: string, username: string }[];
+    public readonly s3Configuration: { bucketArn: string, bufferInterval?: number, bufferSize?: number, cloudwatchLoggingOptions: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], compressionFormat?: string, kmsKeyArn?: string, prefix?: string, roleArn: string }[];
+    public readonly versionId: string;
 
     constructor(name: string, args: FirehoseDeliveryStreamArgs) {
         super(name);
@@ -36,10 +36,10 @@ export interface FirehoseDeliveryStreamArgs {
     readonly arn?: string;
     readonly destination: string;
     readonly destinationId?: string;
-    readonly elasticsearchConfiguration?: { bufferingInterval?: number, bufferingSize?: number, cloudwatchLoggingOptions?: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], domainArn: string, indexName: string, indexRotationPeriod?: string, retryDuration?: number, roleArn: string, s3BackupMode?: string, typeName?: string }[];
+    readonly elasticsearchConfiguration?: { bufferingInterval?: number, bufferingSize?: number, cloudwatchLoggingOptions: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], domainArn: string, indexName: string, indexRotationPeriod?: string, retryDuration?: number, roleArn: string, s3BackupMode?: string, typeName?: string }[];
     readonly firehoseDeliveryStreamName?: string;
-    readonly redshiftConfiguration?: { cloudwatchLoggingOptions?: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], clusterJdbcurl: string, copyOptions?: string, dataTableColumns?: string, dataTableName: string, password: string, retryDuration?: number, roleArn: string, username: string }[];
-    readonly s3Configuration: { bucketArn: string, bufferInterval?: number, bufferSize?: number, cloudwatchLoggingOptions?: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], compressionFormat?: string, kmsKeyArn?: string, prefix?: string, roleArn: string }[];
+    readonly redshiftConfiguration?: { cloudwatchLoggingOptions: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], clusterJdbcurl: string, copyOptions?: string, dataTableColumns?: string, dataTableName: string, password: string, retryDuration?: number, roleArn: string, username: string }[];
+    readonly s3Configuration: { bucketArn: string, bufferInterval?: number, bufferSize?: number, cloudwatchLoggingOptions: { enabled?: boolean, logGroupName?: string, logStreamName?: string }[], compressionFormat?: string, kmsKeyArn?: string, prefix?: string, roleArn: string }[];
     readonly versionId?: string;
 }
 

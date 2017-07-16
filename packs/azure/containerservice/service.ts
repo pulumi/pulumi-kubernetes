@@ -4,16 +4,16 @@
 import * as lumi from "@lumi/lumi";
 
 export class Service extends lumi.NamedResource implements ServiceArgs {
-    public readonly agentPoolProfile: { count?: number, dnsPrefix: string, fqdn?: string, name: string, vmSize: string }[];
-    public readonly diagnosticsProfile: { enabled: boolean, storageUri?: string }[];
+    public readonly agentPoolProfile: { count?: number, dnsPrefix: string, fqdn: string, name: string, vmSize: string }[];
+    public readonly diagnosticsProfile: { enabled: boolean, storageUri: string }[];
     public readonly linuxProfile: { adminUsername: string, sshKey: { keyData: string }[] }[];
     public readonly location: string;
-    public readonly masterProfile: { count?: number, dnsPrefix: string, fqdn?: string }[];
+    public readonly masterProfile: { count?: number, dnsPrefix: string, fqdn: string }[];
     public readonly serviceName?: string;
     public readonly orchestrationPlatform: string;
     public readonly resourceGroupName: string;
     public readonly servicePrincipal?: { clientId: string, clientSecret: string }[];
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: ServiceArgs) {
         super(name);
@@ -52,11 +52,11 @@ export class Service extends lumi.NamedResource implements ServiceArgs {
 }
 
 export interface ServiceArgs {
-    readonly agentPoolProfile: { count?: number, dnsPrefix: string, fqdn?: string, name: string, vmSize: string }[];
-    readonly diagnosticsProfile: { enabled: boolean, storageUri?: string }[];
+    readonly agentPoolProfile: { count?: number, dnsPrefix: string, fqdn: string, name: string, vmSize: string }[];
+    readonly diagnosticsProfile: { enabled: boolean, storageUri: string }[];
     readonly linuxProfile: { adminUsername: string, sshKey: { keyData: string }[] }[];
     readonly location: string;
-    readonly masterProfile: { count?: number, dnsPrefix: string, fqdn?: string }[];
+    readonly masterProfile: { count?: number, dnsPrefix: string, fqdn: string }[];
     readonly serviceName?: string;
     readonly orchestrationPlatform: string;
     readonly resourceGroupName: string;

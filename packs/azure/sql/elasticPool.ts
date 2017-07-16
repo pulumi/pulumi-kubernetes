@@ -4,21 +4,20 @@
 import * as lumi from "@lumi/lumi";
 
 export class ElasticPool extends lumi.NamedResource implements ElasticPoolArgs {
-    public readonly creationDate?: string;
-    public readonly dbDtuMax?: number;
-    public readonly dbDtuMin?: number;
+    public /*out*/ readonly creationDate: string;
+    public readonly dbDtuMax: number;
+    public readonly dbDtuMin: number;
     public readonly dtu: number;
     public readonly edition: string;
     public readonly location: string;
     public readonly elasticPoolName?: string;
-    public readonly poolSize?: number;
+    public readonly poolSize: number;
     public readonly resourceGroupName: string;
     public readonly serverName: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: ElasticPoolArgs) {
         super(name);
-        this.creationDate = args.creationDate;
         this.dbDtuMax = args.dbDtuMax;
         this.dbDtuMin = args.dbDtuMin;
         if (args.dtu === undefined) {
@@ -48,7 +47,6 @@ export class ElasticPool extends lumi.NamedResource implements ElasticPoolArgs {
 }
 
 export interface ElasticPoolArgs {
-    readonly creationDate?: string;
     readonly dbDtuMax?: number;
     readonly dbDtuMin?: number;
     readonly dtu: number;

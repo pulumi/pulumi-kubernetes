@@ -11,7 +11,7 @@ export class SecurityGroupRule extends lumi.NamedResource implements SecurityGro
     public readonly protocol: string;
     public readonly securityGroupId: string;
     public readonly self?: boolean;
-    public readonly sourceSecurityGroupId?: string;
+    public readonly sourceSecurityGroupId: string;
     public readonly toPort: number;
     public readonly type: string;
 

@@ -11,9 +11,9 @@ export class ManagedDisk extends lumi.NamedResource implements ManagedDiskArgs {
     public readonly osType?: string;
     public readonly resourceGroupName: string;
     public readonly sourceResourceId?: string;
-    public readonly sourceUri?: string;
+    public readonly sourceUri: string;
     public readonly storageAccountType: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: ManagedDiskArgs) {
         super(name);

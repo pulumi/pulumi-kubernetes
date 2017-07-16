@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class RepositoryPolicy extends lumi.NamedResource implements RepositoryPolicyArgs {
     public readonly policy: string;
-    public readonly registryId?: string;
+    public /*out*/ readonly registryId: string;
     public readonly repository: string;
 
     constructor(name: string, args: RepositoryPolicyArgs) {
@@ -14,7 +14,6 @@ export class RepositoryPolicy extends lumi.NamedResource implements RepositoryPo
             throw new Error("Property argument 'policy' is required, but was missing");
         }
         this.policy = args.policy;
-        this.registryId = args.registryId;
         if (args.repository === undefined) {
             throw new Error("Property argument 'repository' is required, but was missing");
         }
@@ -24,7 +23,6 @@ export class RepositoryPolicy extends lumi.NamedResource implements RepositoryPo
 
 export interface RepositoryPolicyArgs {
     readonly policy: string;
-    readonly registryId?: string;
     readonly repository: string;
 }
 

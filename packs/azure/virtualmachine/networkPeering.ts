@@ -4,13 +4,13 @@
 import * as lumi from "@lumi/lumi";
 
 export class NetworkPeering extends lumi.NamedResource implements NetworkPeeringArgs {
-    public readonly allowForwardedTraffic?: boolean;
-    public readonly allowGatewayTransit?: boolean;
-    public readonly allowVirtualNetworkAccess?: boolean;
+    public readonly allowForwardedTraffic: boolean;
+    public readonly allowGatewayTransit: boolean;
+    public readonly allowVirtualNetworkAccess: boolean;
     public readonly networkPeeringName?: string;
     public readonly remoteVirtualNetworkId: string;
     public readonly resourceGroupName: string;
-    public readonly useRemoteGateways?: boolean;
+    public readonly useRemoteGateways: boolean;
     public readonly virtualNetworkName: string;
 
     constructor(name: string, args: NetworkPeeringArgs) {

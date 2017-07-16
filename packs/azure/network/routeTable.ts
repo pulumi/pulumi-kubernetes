@@ -7,9 +7,9 @@ export class RouteTable extends lumi.NamedResource implements RouteTableArgs {
     public readonly location: string;
     public readonly routeTableName?: string;
     public readonly resourceGroupName: string;
-    public readonly route?: { addressPrefix: string, name: string, nextHopInIpAddress?: string, nextHopType: string }[];
-    public readonly subnets?: string[];
-    public readonly tags?: {[key: string]: any};
+    public readonly route: { addressPrefix: string, name: string, nextHopInIpAddress: string, nextHopType: string }[];
+    public /*out*/ readonly subnets: string[];
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: RouteTableArgs) {
         super(name);
@@ -23,7 +23,6 @@ export class RouteTable extends lumi.NamedResource implements RouteTableArgs {
         }
         this.resourceGroupName = args.resourceGroupName;
         this.route = args.route;
-        this.subnets = args.subnets;
         this.tags = args.tags;
     }
 }
@@ -32,8 +31,7 @@ export interface RouteTableArgs {
     readonly location: string;
     readonly routeTableName?: string;
     readonly resourceGroupName: string;
-    readonly route?: { addressPrefix: string, name: string, nextHopInIpAddress?: string, nextHopType: string }[];
-    readonly subnets?: string[];
+    readonly route?: { addressPrefix: string, name: string, nextHopInIpAddress: string, nextHopType: string }[];
     readonly tags?: {[key: string]: any};
 }
 

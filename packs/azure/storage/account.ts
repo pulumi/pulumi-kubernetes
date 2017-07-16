@@ -4,27 +4,27 @@
 import * as lumi from "@lumi/lumi";
 
 export class Account extends lumi.NamedResource implements AccountArgs {
-    public readonly accessTier?: string;
+    public readonly accessTier: string;
     public readonly accountKind?: string;
     public readonly accountType: string;
     public readonly enableBlobEncryption?: boolean;
     public readonly location: string;
     public readonly accountName?: string;
-    public readonly primaryAccessKey?: string;
-    public readonly primaryBlobConnectionString?: string;
-    public readonly primaryBlobEndpoint?: string;
-    public readonly primaryFileEndpoint?: string;
-    public readonly primaryLocation?: string;
-    public readonly primaryQueueEndpoint?: string;
-    public readonly primaryTableEndpoint?: string;
+    public /*out*/ readonly primaryAccessKey: string;
+    public /*out*/ readonly primaryBlobConnectionString: string;
+    public /*out*/ readonly primaryBlobEndpoint: string;
+    public /*out*/ readonly primaryFileEndpoint: string;
+    public /*out*/ readonly primaryLocation: string;
+    public /*out*/ readonly primaryQueueEndpoint: string;
+    public /*out*/ readonly primaryTableEndpoint: string;
     public readonly resourceGroupName: string;
-    public readonly secondaryAccessKey?: string;
-    public readonly secondaryBlobConnectionString?: string;
-    public readonly secondaryBlobEndpoint?: string;
-    public readonly secondaryLocation?: string;
-    public readonly secondaryQueueEndpoint?: string;
-    public readonly secondaryTableEndpoint?: string;
-    public readonly tags?: {[key: string]: any};
+    public /*out*/ readonly secondaryAccessKey: string;
+    public /*out*/ readonly secondaryBlobConnectionString: string;
+    public /*out*/ readonly secondaryBlobEndpoint: string;
+    public /*out*/ readonly secondaryLocation: string;
+    public /*out*/ readonly secondaryQueueEndpoint: string;
+    public /*out*/ readonly secondaryTableEndpoint: string;
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: AccountArgs) {
         super(name);
@@ -40,23 +40,10 @@ export class Account extends lumi.NamedResource implements AccountArgs {
         }
         this.location = args.location;
         this.accountName = args.accountName;
-        this.primaryAccessKey = args.primaryAccessKey;
-        this.primaryBlobConnectionString = args.primaryBlobConnectionString;
-        this.primaryBlobEndpoint = args.primaryBlobEndpoint;
-        this.primaryFileEndpoint = args.primaryFileEndpoint;
-        this.primaryLocation = args.primaryLocation;
-        this.primaryQueueEndpoint = args.primaryQueueEndpoint;
-        this.primaryTableEndpoint = args.primaryTableEndpoint;
         if (args.resourceGroupName === undefined) {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        this.secondaryAccessKey = args.secondaryAccessKey;
-        this.secondaryBlobConnectionString = args.secondaryBlobConnectionString;
-        this.secondaryBlobEndpoint = args.secondaryBlobEndpoint;
-        this.secondaryLocation = args.secondaryLocation;
-        this.secondaryQueueEndpoint = args.secondaryQueueEndpoint;
-        this.secondaryTableEndpoint = args.secondaryTableEndpoint;
         this.tags = args.tags;
     }
 }
@@ -68,20 +55,7 @@ export interface AccountArgs {
     readonly enableBlobEncryption?: boolean;
     readonly location: string;
     readonly accountName?: string;
-    readonly primaryAccessKey?: string;
-    readonly primaryBlobConnectionString?: string;
-    readonly primaryBlobEndpoint?: string;
-    readonly primaryFileEndpoint?: string;
-    readonly primaryLocation?: string;
-    readonly primaryQueueEndpoint?: string;
-    readonly primaryTableEndpoint?: string;
     readonly resourceGroupName: string;
-    readonly secondaryAccessKey?: string;
-    readonly secondaryBlobConnectionString?: string;
-    readonly secondaryBlobEndpoint?: string;
-    readonly secondaryLocation?: string;
-    readonly secondaryQueueEndpoint?: string;
-    readonly secondaryTableEndpoint?: string;
     readonly tags?: {[key: string]: any};
 }
 

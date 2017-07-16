@@ -7,22 +7,21 @@ export class RegionBackendService extends lumi.NamedResource implements RegionBa
     public readonly backend?: { description?: string, group?: string }[];
     public readonly connectionDrainingTimeoutSec?: number;
     public readonly description?: string;
-    public readonly fingerprint?: string;
+    public /*out*/ readonly fingerprint: string;
     public readonly healthChecks: string[];
     public readonly regionBackendServiceName?: string;
     public readonly project?: string;
-    public readonly protocol?: string;
+    public readonly protocol: string;
     public readonly region?: string;
-    public readonly selfLink?: string;
-    public readonly sessionAffinity?: string;
-    public readonly timeoutSec?: number;
+    public /*out*/ readonly selfLink: string;
+    public readonly sessionAffinity: string;
+    public readonly timeoutSec: number;
 
     constructor(name: string, args: RegionBackendServiceArgs) {
         super(name);
         this.backend = args.backend;
         this.connectionDrainingTimeoutSec = args.connectionDrainingTimeoutSec;
         this.description = args.description;
-        this.fingerprint = args.fingerprint;
         if (args.healthChecks === undefined) {
             throw new Error("Property argument 'healthChecks' is required, but was missing");
         }
@@ -31,7 +30,6 @@ export class RegionBackendService extends lumi.NamedResource implements RegionBa
         this.project = args.project;
         this.protocol = args.protocol;
         this.region = args.region;
-        this.selfLink = args.selfLink;
         this.sessionAffinity = args.sessionAffinity;
         this.timeoutSec = args.timeoutSec;
     }
@@ -41,13 +39,11 @@ export interface RegionBackendServiceArgs {
     readonly backend?: { description?: string, group?: string }[];
     readonly connectionDrainingTimeoutSec?: number;
     readonly description?: string;
-    readonly fingerprint?: string;
     readonly healthChecks: string[];
     readonly regionBackendServiceName?: string;
     readonly project?: string;
     readonly protocol?: string;
     readonly region?: string;
-    readonly selfLink?: string;
     readonly sessionAffinity?: string;
     readonly timeoutSec?: number;
 }

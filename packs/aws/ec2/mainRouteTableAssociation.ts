@@ -4,13 +4,12 @@
 import * as lumi from "@lumi/lumi";
 
 export class MainRouteTableAssociation extends lumi.NamedResource implements MainRouteTableAssociationArgs {
-    public readonly originalRouteTableId?: string;
+    public /*out*/ readonly originalRouteTableId: string;
     public readonly routeTableId: string;
     public readonly vpcId: string;
 
     constructor(name: string, args: MainRouteTableAssociationArgs) {
         super(name);
-        this.originalRouteTableId = args.originalRouteTableId;
         if (args.routeTableId === undefined) {
             throw new Error("Property argument 'routeTableId' is required, but was missing");
         }
@@ -23,7 +22,6 @@ export class MainRouteTableAssociation extends lumi.NamedResource implements Mai
 }
 
 export interface MainRouteTableAssociationArgs {
-    readonly originalRouteTableId?: string;
     readonly routeTableId: string;
     readonly vpcId: string;
 }

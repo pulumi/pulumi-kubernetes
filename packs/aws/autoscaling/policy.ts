@@ -5,11 +5,11 @@ import * as lumi from "@lumi/lumi";
 
 export class Policy extends lumi.NamedResource implements PolicyArgs {
     public readonly adjustmentType: string;
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly autoscalingGroupName: string;
     public readonly cooldown?: number;
     public readonly estimatedInstanceWarmup?: number;
-    public readonly metricAggregationType?: string;
+    public readonly metricAggregationType: string;
     public readonly minAdjustmentMagnitude?: number;
     public readonly minAdjustmentStep?: number;
     public readonly policyName?: string;
@@ -23,7 +23,6 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
             throw new Error("Property argument 'adjustmentType' is required, but was missing");
         }
         this.adjustmentType = args.adjustmentType;
-        this.arn = args.arn;
         if (args.autoscalingGroupName === undefined) {
             throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");
         }
@@ -42,7 +41,6 @@ export class Policy extends lumi.NamedResource implements PolicyArgs {
 
 export interface PolicyArgs {
     readonly adjustmentType: string;
-    readonly arn?: string;
     readonly autoscalingGroupName: string;
     readonly cooldown?: number;
     readonly estimatedInstanceWarmup?: number;

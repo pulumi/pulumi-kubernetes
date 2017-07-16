@@ -5,7 +5,7 @@ import * as lumi from "@lumi/lumi";
 
 export class NatPool extends lumi.NamedResource implements NatPoolArgs {
     public readonly backendPort: number;
-    public readonly frontendIpConfigurationId?: string;
+    public /*out*/ readonly frontendIpConfigurationId: string;
     public readonly frontendIpConfigurationName: string;
     public readonly frontendPortEnd: number;
     public readonly frontendPortStart: number;
@@ -21,7 +21,6 @@ export class NatPool extends lumi.NamedResource implements NatPoolArgs {
             throw new Error("Property argument 'backendPort' is required, but was missing");
         }
         this.backendPort = args.backendPort;
-        this.frontendIpConfigurationId = args.frontendIpConfigurationId;
         if (args.frontendIpConfigurationName === undefined) {
             throw new Error("Property argument 'frontendIpConfigurationName' is required, but was missing");
         }
@@ -53,7 +52,6 @@ export class NatPool extends lumi.NamedResource implements NatPoolArgs {
 
 export interface NatPoolArgs {
     readonly backendPort: number;
-    readonly frontendIpConfigurationId?: string;
     readonly frontendIpConfigurationName: string;
     readonly frontendPortEnd: number;
     readonly frontendPortStart: number;

@@ -4,63 +4,45 @@
 import * as lumi from "@lumi/lumi";
 
 export class AmiFromInstance extends lumi.NamedResource implements AmiFromInstanceArgs {
-    public readonly architecture?: string;
+    public /*out*/ readonly architecture: string;
     public readonly description?: string;
-    public readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName?: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
-    public readonly ephemeralBlockDevice?: { deviceName?: string, virtualName?: string }[];
-    public readonly amiId?: string;
-    public readonly imageLocation?: string;
-    public readonly kernelId?: string;
-    public readonly manageEbsSnapshots?: boolean;
+    public readonly ebsBlockDevice: { deleteOnTermination: boolean, deviceName: string, encrypted: boolean, iops: number, snapshotId: string, volumeSize: number, volumeType: string }[];
+    public readonly ephemeralBlockDevice: { deviceName: string, virtualName: string }[];
+    public /*out*/ readonly amiId: string;
+    public /*out*/ readonly imageLocation: string;
+    public /*out*/ readonly kernelId: string;
+    public /*out*/ readonly manageEbsSnapshots: boolean;
     public readonly amiFromInstanceName?: string;
-    public readonly ramdiskId?: string;
-    public readonly rootDeviceName?: string;
+    public /*out*/ readonly ramdiskId: string;
+    public /*out*/ readonly rootDeviceName: string;
     public readonly snapshotWithoutReboot?: boolean;
     public readonly sourceInstanceId: string;
-    public readonly sriovNetSupport?: string;
+    public /*out*/ readonly sriovNetSupport: string;
     public readonly tags?: {[key: string]: any};
-    public readonly virtualizationType?: string;
+    public /*out*/ readonly virtualizationType: string;
 
     constructor(name: string, args: AmiFromInstanceArgs) {
         super(name);
-        this.architecture = args.architecture;
         this.description = args.description;
         this.ebsBlockDevice = args.ebsBlockDevice;
         this.ephemeralBlockDevice = args.ephemeralBlockDevice;
-        this.amiId = args.amiId;
-        this.imageLocation = args.imageLocation;
-        this.kernelId = args.kernelId;
-        this.manageEbsSnapshots = args.manageEbsSnapshots;
         this.amiFromInstanceName = args.amiFromInstanceName;
-        this.ramdiskId = args.ramdiskId;
-        this.rootDeviceName = args.rootDeviceName;
         this.snapshotWithoutReboot = args.snapshotWithoutReboot;
         if (args.sourceInstanceId === undefined) {
             throw new Error("Property argument 'sourceInstanceId' is required, but was missing");
         }
         this.sourceInstanceId = args.sourceInstanceId;
-        this.sriovNetSupport = args.sriovNetSupport;
         this.tags = args.tags;
-        this.virtualizationType = args.virtualizationType;
     }
 }
 
 export interface AmiFromInstanceArgs {
-    readonly architecture?: string;
     readonly description?: string;
-    readonly ebsBlockDevice?: { deleteOnTermination?: boolean, deviceName?: string, encrypted?: boolean, iops?: number, snapshotId?: string, volumeSize?: number, volumeType?: string }[];
-    readonly ephemeralBlockDevice?: { deviceName?: string, virtualName?: string }[];
-    readonly amiId?: string;
-    readonly imageLocation?: string;
-    readonly kernelId?: string;
-    readonly manageEbsSnapshots?: boolean;
+    readonly ebsBlockDevice?: { deleteOnTermination: boolean, deviceName: string, encrypted: boolean, iops: number, snapshotId: string, volumeSize: number, volumeType: string }[];
+    readonly ephemeralBlockDevice?: { deviceName: string, virtualName: string }[];
     readonly amiFromInstanceName?: string;
-    readonly ramdiskId?: string;
-    readonly rootDeviceName?: string;
     readonly snapshotWithoutReboot?: boolean;
     readonly sourceInstanceId: string;
-    readonly sriovNetSupport?: string;
     readonly tags?: {[key: string]: any};
-    readonly virtualizationType?: string;
 }
 

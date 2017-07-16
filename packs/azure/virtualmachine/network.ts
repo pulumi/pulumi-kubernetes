@@ -9,8 +9,8 @@ export class Network extends lumi.NamedResource implements NetworkArgs {
     public readonly location: string;
     public readonly networkName?: string;
     public readonly resourceGroupName: string;
-    public readonly subnet?: { addressPrefix: string, name: string, securityGroup?: string }[];
-    public readonly tags?: {[key: string]: any};
+    public readonly subnet: { addressPrefix: string, name: string, securityGroup?: string }[];
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: NetworkArgs) {
         super(name);

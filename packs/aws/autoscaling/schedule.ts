@@ -4,19 +4,18 @@
 import * as lumi from "@lumi/lumi";
 
 export class Schedule extends lumi.NamedResource implements ScheduleArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly autoscalingGroupName: string;
-    public readonly desiredCapacity?: number;
-    public readonly endTime?: string;
-    public readonly maxSize?: number;
-    public readonly minSize?: number;
-    public readonly recurrence?: string;
+    public readonly desiredCapacity: number;
+    public readonly endTime: string;
+    public readonly maxSize: number;
+    public readonly minSize: number;
+    public readonly recurrence: string;
     public readonly scheduledActionName: string;
-    public readonly startTime?: string;
+    public readonly startTime: string;
 
     constructor(name: string, args: ScheduleArgs) {
         super(name);
-        this.arn = args.arn;
         if (args.autoscalingGroupName === undefined) {
             throw new Error("Property argument 'autoscalingGroupName' is required, but was missing");
         }
@@ -35,7 +34,6 @@ export class Schedule extends lumi.NamedResource implements ScheduleArgs {
 }
 
 export interface ScheduleArgs {
-    readonly arn?: string;
     readonly autoscalingGroupName: string;
     readonly desiredCapacity?: number;
     readonly endTime?: string;

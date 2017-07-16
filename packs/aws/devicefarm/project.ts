@@ -4,18 +4,16 @@
 import * as lumi from "@lumi/lumi";
 
 export class Project extends lumi.NamedResource implements ProjectArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly projectName?: string;
 
     constructor(name: string, args: ProjectArgs) {
         super(name);
-        this.arn = args.arn;
         this.projectName = args.projectName;
     }
 }
 
 export interface ProjectArgs {
-    readonly arn?: string;
     readonly projectName?: string;
 }
 

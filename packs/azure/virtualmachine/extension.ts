@@ -11,7 +11,7 @@ export class Extension extends lumi.NamedResource implements ExtensionArgs {
     public readonly publisher: string;
     public readonly resourceGroupName: string;
     public readonly settings?: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
     public readonly type: string;
     public readonly typeHandlerVersion: string;
     public readonly virtualMachineName: string;

@@ -4,16 +4,15 @@
 import * as lumi from "@lumi/lumi";
 
 export class SubnetGroup extends lumi.NamedResource implements SubnetGroupArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly description?: string;
-    public readonly subnetGroupName?: string;
-    public readonly namePrefix?: string;
+    public readonly subnetGroupName: string;
+    public readonly namePrefix: string;
     public readonly subnetIds: string[];
     public readonly tags?: {[key: string]: any};
 
     constructor(name: string, args: SubnetGroupArgs) {
         super(name);
-        this.arn = args.arn;
         this.description = args.description;
         this.subnetGroupName = args.subnetGroupName;
         this.namePrefix = args.namePrefix;
@@ -26,7 +25,6 @@ export class SubnetGroup extends lumi.NamedResource implements SubnetGroupArgs {
 }
 
 export interface SubnetGroupArgs {
-    readonly arn?: string;
     readonly description?: string;
     readonly subnetGroupName?: string;
     readonly namePrefix?: string;

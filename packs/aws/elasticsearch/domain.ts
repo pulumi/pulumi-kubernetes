@@ -4,15 +4,15 @@
 import * as lumi from "@lumi/lumi";
 
 export class Domain extends lumi.NamedResource implements DomainArgs {
-    public readonly accessPolicies?: string;
-    public readonly advancedOptions?: {[key: string]: any};
-    public readonly arn?: string;
-    public readonly clusterConfig?: { dedicatedMasterCount?: number, dedicatedMasterEnabled?: boolean, dedicatedMasterType?: string, instanceCount?: number, instanceType?: string, zoneAwarenessEnabled?: boolean }[];
-    public readonly domainId?: string;
+    public readonly accessPolicies: string;
+    public readonly advancedOptions: {[key: string]: any};
+    public /*out*/ readonly arn: string;
+    public readonly clusterConfig: { dedicatedMasterCount?: number, dedicatedMasterEnabled?: boolean, dedicatedMasterType?: string, instanceCount?: number, instanceType?: string, zoneAwarenessEnabled?: boolean }[];
+    public /*out*/ readonly domainId: string;
     public readonly domainName: string;
-    public readonly ebsOptions?: { ebsEnabled: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];
+    public readonly ebsOptions: { ebsEnabled: boolean, iops?: number, volumeSize?: number, volumeType: string }[];
     public readonly elasticsearchVersion?: string;
-    public readonly endpoint?: string;
+    public /*out*/ readonly endpoint: string;
     public readonly snapshotOptions?: { automatedSnapshotStartHour: number }[];
     public readonly tags?: {[key: string]: any};
 
@@ -20,16 +20,13 @@ export class Domain extends lumi.NamedResource implements DomainArgs {
         super(name);
         this.accessPolicies = args.accessPolicies;
         this.advancedOptions = args.advancedOptions;
-        this.arn = args.arn;
         this.clusterConfig = args.clusterConfig;
-        this.domainId = args.domainId;
         if (args.domainName === undefined) {
             throw new Error("Property argument 'domainName' is required, but was missing");
         }
         this.domainName = args.domainName;
         this.ebsOptions = args.ebsOptions;
         this.elasticsearchVersion = args.elasticsearchVersion;
-        this.endpoint = args.endpoint;
         this.snapshotOptions = args.snapshotOptions;
         this.tags = args.tags;
     }
@@ -38,13 +35,10 @@ export class Domain extends lumi.NamedResource implements DomainArgs {
 export interface DomainArgs {
     readonly accessPolicies?: string;
     readonly advancedOptions?: {[key: string]: any};
-    readonly arn?: string;
     readonly clusterConfig?: { dedicatedMasterCount?: number, dedicatedMasterEnabled?: boolean, dedicatedMasterType?: string, instanceCount?: number, instanceType?: string, zoneAwarenessEnabled?: boolean }[];
-    readonly domainId?: string;
     readonly domainName: string;
-    readonly ebsOptions?: { ebsEnabled: boolean, iops?: number, volumeSize?: number, volumeType?: string }[];
+    readonly ebsOptions?: { ebsEnabled: boolean, iops?: number, volumeSize?: number, volumeType: string }[];
     readonly elasticsearchVersion?: string;
-    readonly endpoint?: string;
     readonly snapshotOptions?: { automatedSnapshotStartHour: number }[];
     readonly tags?: {[key: string]: any};
 }

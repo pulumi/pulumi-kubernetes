@@ -6,35 +6,31 @@ import * as lumi from "@lumi/lumi";
 export class Route extends lumi.NamedResource implements RouteArgs {
     public readonly destinationCidrBlock?: string;
     public readonly destinationIpv6CidrBlock?: string;
-    public readonly destinationPrefixListId?: string;
-    public readonly egressOnlyGatewayId?: string;
-    public readonly gatewayId?: string;
-    public readonly instanceId?: string;
-    public readonly instanceOwnerId?: string;
-    public readonly natGatewayId?: string;
-    public readonly networkInterfaceId?: string;
-    public readonly origin?: string;
+    public /*out*/ readonly destinationPrefixListId: string;
+    public readonly egressOnlyGatewayId: string;
+    public readonly gatewayId: string;
+    public readonly instanceId: string;
+    public /*out*/ readonly instanceOwnerId: string;
+    public readonly natGatewayId: string;
+    public readonly networkInterfaceId: string;
+    public /*out*/ readonly origin: string;
     public readonly routeTableId: string;
-    public readonly state?: string;
+    public /*out*/ readonly state: string;
     public readonly vpcPeeringConnectionId?: string;
 
     constructor(name: string, args: RouteArgs) {
         super(name);
         this.destinationCidrBlock = args.destinationCidrBlock;
         this.destinationIpv6CidrBlock = args.destinationIpv6CidrBlock;
-        this.destinationPrefixListId = args.destinationPrefixListId;
         this.egressOnlyGatewayId = args.egressOnlyGatewayId;
         this.gatewayId = args.gatewayId;
         this.instanceId = args.instanceId;
-        this.instanceOwnerId = args.instanceOwnerId;
         this.natGatewayId = args.natGatewayId;
         this.networkInterfaceId = args.networkInterfaceId;
-        this.origin = args.origin;
         if (args.routeTableId === undefined) {
             throw new Error("Property argument 'routeTableId' is required, but was missing");
         }
         this.routeTableId = args.routeTableId;
-        this.state = args.state;
         this.vpcPeeringConnectionId = args.vpcPeeringConnectionId;
     }
 }
@@ -42,16 +38,12 @@ export class Route extends lumi.NamedResource implements RouteArgs {
 export interface RouteArgs {
     readonly destinationCidrBlock?: string;
     readonly destinationIpv6CidrBlock?: string;
-    readonly destinationPrefixListId?: string;
     readonly egressOnlyGatewayId?: string;
     readonly gatewayId?: string;
     readonly instanceId?: string;
-    readonly instanceOwnerId?: string;
     readonly natGatewayId?: string;
     readonly networkInterfaceId?: string;
-    readonly origin?: string;
     readonly routeTableId: string;
-    readonly state?: string;
     readonly vpcPeeringConnectionId?: string;
 }
 

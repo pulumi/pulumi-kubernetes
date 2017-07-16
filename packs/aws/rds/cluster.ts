@@ -4,33 +4,33 @@
 import * as lumi from "@lumi/lumi";
 
 export class Cluster extends lumi.NamedResource implements ClusterArgs {
-    public readonly applyImmediately?: boolean;
-    public readonly availabilityZones?: string[];
+    public readonly applyImmediately: boolean;
+    public readonly availabilityZones: string[];
     public readonly backupRetentionPeriod?: number;
-    public readonly clusterIdentifier?: string;
-    public readonly clusterIdentifierPrefix?: string;
-    public readonly clusterMembers?: string[];
-    public readonly clusterResourceId?: string;
-    public readonly databaseName?: string;
-    public readonly dbClusterParameterGroupName?: string;
-    public readonly dbSubnetGroupName?: string;
-    public readonly endpoint?: string;
-    public readonly engine?: string;
+    public readonly clusterIdentifier: string;
+    public readonly clusterIdentifierPrefix: string;
+    public readonly clusterMembers: string[];
+    public /*out*/ readonly clusterResourceId: string;
+    public readonly databaseName: string;
+    public readonly dbClusterParameterGroupName: string;
+    public readonly dbSubnetGroupName: string;
+    public /*out*/ readonly endpoint: string;
+    public /*out*/ readonly engine: string;
     public readonly finalSnapshotIdentifier?: string;
     public readonly iamDatabaseAuthenticationEnabled?: boolean;
-    public readonly kmsKeyId?: string;
+    public readonly kmsKeyId: string;
     public readonly masterPassword?: string;
-    public readonly masterUsername?: string;
-    public readonly port?: number;
-    public readonly preferredBackupWindow?: string;
-    public readonly preferredMaintenanceWindow?: string;
-    public readonly readerEndpoint?: string;
+    public readonly masterUsername: string;
+    public readonly port: number;
+    public readonly preferredBackupWindow: string;
+    public readonly preferredMaintenanceWindow: string;
+    public /*out*/ readonly readerEndpoint: string;
     public readonly replicationSourceIdentifier?: string;
     public readonly skipFinalSnapshot?: boolean;
     public readonly snapshotIdentifier?: string;
     public readonly storageEncrypted?: boolean;
     public readonly tags?: {[key: string]: any};
-    public readonly vpcSecurityGroupIds?: string[];
+    public readonly vpcSecurityGroupIds: string[];
 
     constructor(name: string, args: ClusterArgs) {
         super(name);
@@ -40,12 +40,9 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.clusterIdentifier = args.clusterIdentifier;
         this.clusterIdentifierPrefix = args.clusterIdentifierPrefix;
         this.clusterMembers = args.clusterMembers;
-        this.clusterResourceId = args.clusterResourceId;
         this.databaseName = args.databaseName;
         this.dbClusterParameterGroupName = args.dbClusterParameterGroupName;
         this.dbSubnetGroupName = args.dbSubnetGroupName;
-        this.endpoint = args.endpoint;
-        this.engine = args.engine;
         this.finalSnapshotIdentifier = args.finalSnapshotIdentifier;
         this.iamDatabaseAuthenticationEnabled = args.iamDatabaseAuthenticationEnabled;
         this.kmsKeyId = args.kmsKeyId;
@@ -54,7 +51,6 @@ export class Cluster extends lumi.NamedResource implements ClusterArgs {
         this.port = args.port;
         this.preferredBackupWindow = args.preferredBackupWindow;
         this.preferredMaintenanceWindow = args.preferredMaintenanceWindow;
-        this.readerEndpoint = args.readerEndpoint;
         this.replicationSourceIdentifier = args.replicationSourceIdentifier;
         this.skipFinalSnapshot = args.skipFinalSnapshot;
         this.snapshotIdentifier = args.snapshotIdentifier;
@@ -71,12 +67,9 @@ export interface ClusterArgs {
     readonly clusterIdentifier?: string;
     readonly clusterIdentifierPrefix?: string;
     readonly clusterMembers?: string[];
-    readonly clusterResourceId?: string;
     readonly databaseName?: string;
     readonly dbClusterParameterGroupName?: string;
     readonly dbSubnetGroupName?: string;
-    readonly endpoint?: string;
-    readonly engine?: string;
     readonly finalSnapshotIdentifier?: string;
     readonly iamDatabaseAuthenticationEnabled?: boolean;
     readonly kmsKeyId?: string;
@@ -85,7 +78,6 @@ export interface ClusterArgs {
     readonly port?: number;
     readonly preferredBackupWindow?: string;
     readonly preferredMaintenanceWindow?: string;
-    readonly readerEndpoint?: string;
     readonly replicationSourceIdentifier?: string;
     readonly skipFinalSnapshot?: boolean;
     readonly snapshotIdentifier?: string;

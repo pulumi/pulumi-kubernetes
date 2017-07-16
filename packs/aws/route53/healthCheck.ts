@@ -8,7 +8,7 @@ export class HealthCheck extends lumi.NamedResource implements HealthCheckArgs {
     public readonly childHealthchecks?: string[];
     public readonly cloudwatchAlarmName?: string;
     public readonly cloudwatchAlarmRegion?: string;
-    public readonly enableSni?: boolean;
+    public readonly enableSni: boolean;
     public readonly failureThreshold?: number;
     public readonly fqdn?: string;
     public readonly insufficientDataHealthStatus?: string;

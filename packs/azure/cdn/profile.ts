@@ -8,7 +8,7 @@ export class Profile extends lumi.NamedResource implements ProfileArgs {
     public readonly profileName?: string;
     public readonly resourceGroupName: string;
     public readonly sku: string;
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: ProfileArgs) {
         super(name);

@@ -5,20 +5,18 @@ import * as lumi from "@lumi/lumi";
 
 export class TargetHttpsProxy extends lumi.NamedResource implements TargetHttpsProxyArgs {
     public readonly description?: string;
-    public readonly proxyId?: string;
+    public /*out*/ readonly proxyId: string;
     public readonly targetHttpsProxyName?: string;
     public readonly project?: string;
-    public readonly selfLink?: string;
+    public /*out*/ readonly selfLink: string;
     public readonly sslCertificates: string[];
     public readonly urlMap: string;
 
     constructor(name: string, args: TargetHttpsProxyArgs) {
         super(name);
         this.description = args.description;
-        this.proxyId = args.proxyId;
         this.targetHttpsProxyName = args.targetHttpsProxyName;
         this.project = args.project;
-        this.selfLink = args.selfLink;
         if (args.sslCertificates === undefined) {
             throw new Error("Property argument 'sslCertificates' is required, but was missing");
         }
@@ -32,10 +30,8 @@ export class TargetHttpsProxy extends lumi.NamedResource implements TargetHttpsP
 
 export interface TargetHttpsProxyArgs {
     readonly description?: string;
-    readonly proxyId?: string;
     readonly targetHttpsProxyName?: string;
     readonly project?: string;
-    readonly selfLink?: string;
     readonly sslCertificates: string[];
     readonly urlMap: string;
 }

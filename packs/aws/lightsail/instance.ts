@@ -4,25 +4,24 @@
 import * as lumi from "@lumi/lumi";
 
 export class Instance extends lumi.NamedResource implements InstanceArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly availabilityZone: string;
     public readonly blueprintId: string;
     public readonly bundleId: string;
-    public readonly cpuCount?: number;
-    public readonly createdAt?: string;
-    public readonly ipv6Address?: string;
-    public readonly isStaticIp?: boolean;
+    public /*out*/ readonly cpuCount: number;
+    public /*out*/ readonly createdAt: string;
+    public /*out*/ readonly ipv6Address: string;
+    public /*out*/ readonly isStaticIp: boolean;
     public readonly keyPairName?: string;
     public readonly instanceName?: string;
-    public readonly privateIpAddress?: string;
-    public readonly publicIpAddress?: string;
-    public readonly ramSize?: number;
+    public /*out*/ readonly privateIpAddress: string;
+    public /*out*/ readonly publicIpAddress: string;
+    public /*out*/ readonly ramSize: number;
     public readonly userData?: string;
-    public readonly username?: string;
+    public /*out*/ readonly username: string;
 
     constructor(name: string, args: InstanceArgs) {
         super(name);
-        this.arn = args.arn;
         if (args.availabilityZone === undefined) {
             throw new Error("Property argument 'availabilityZone' is required, but was missing");
         }
@@ -35,35 +34,18 @@ export class Instance extends lumi.NamedResource implements InstanceArgs {
             throw new Error("Property argument 'bundleId' is required, but was missing");
         }
         this.bundleId = args.bundleId;
-        this.cpuCount = args.cpuCount;
-        this.createdAt = args.createdAt;
-        this.ipv6Address = args.ipv6Address;
-        this.isStaticIp = args.isStaticIp;
         this.keyPairName = args.keyPairName;
         this.instanceName = args.instanceName;
-        this.privateIpAddress = args.privateIpAddress;
-        this.publicIpAddress = args.publicIpAddress;
-        this.ramSize = args.ramSize;
         this.userData = args.userData;
-        this.username = args.username;
     }
 }
 
 export interface InstanceArgs {
-    readonly arn?: string;
     readonly availabilityZone: string;
     readonly blueprintId: string;
     readonly bundleId: string;
-    readonly cpuCount?: number;
-    readonly createdAt?: string;
-    readonly ipv6Address?: string;
-    readonly isStaticIp?: boolean;
     readonly keyPairName?: string;
     readonly instanceName?: string;
-    readonly privateIpAddress?: string;
-    readonly publicIpAddress?: string;
-    readonly ramSize?: number;
     readonly userData?: string;
-    readonly username?: string;
 }
 

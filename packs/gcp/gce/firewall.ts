@@ -8,9 +8,9 @@ export class Firewall extends lumi.NamedResource implements FirewallArgs {
     public readonly description?: string;
     public readonly firewallName?: string;
     public readonly network: string;
-    public readonly project?: string;
-    public readonly selfLink?: string;
-    public readonly sourceRanges?: string[];
+    public readonly project: string;
+    public /*out*/ readonly selfLink: string;
+    public readonly sourceRanges: string[];
     public readonly sourceTags?: string[];
     public readonly targetTags?: string[];
 
@@ -27,7 +27,6 @@ export class Firewall extends lumi.NamedResource implements FirewallArgs {
         }
         this.network = args.network;
         this.project = args.project;
-        this.selfLink = args.selfLink;
         this.sourceRanges = args.sourceRanges;
         this.sourceTags = args.sourceTags;
         this.targetTags = args.targetTags;
@@ -40,7 +39,6 @@ export interface FirewallArgs {
     readonly firewallName?: string;
     readonly network: string;
     readonly project?: string;
-    readonly selfLink?: string;
     readonly sourceRanges?: string[];
     readonly sourceTags?: string[];
     readonly targetTags?: string[];

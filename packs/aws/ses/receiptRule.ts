@@ -7,16 +7,16 @@ export class ReceiptRule extends lumi.NamedResource implements ReceiptRuleArgs {
     public readonly addHeaderAction?: { headerName: string, headerValue: string, position: number }[];
     public readonly after?: string;
     public readonly bounceAction?: { message: string, position: number, sender: string, smtpReplyCode: string, statusCode?: string, topicArn?: string }[];
-    public readonly enabled?: boolean;
-    public readonly lambdaAction?: { functionArn: string, invocationType?: string, position: number, topicArn?: string }[];
+    public readonly enabled: boolean;
+    public readonly lambdaAction?: { functionArn: string, invocationType: string, position: number, topicArn?: string }[];
     public readonly receiptRuleName?: string;
     public readonly recipients?: string[];
     public readonly ruleSetName: string;
     public readonly s3Action?: { bucketName: string, kmsKeyArn?: string, objectKeyPrefix?: string, position: number, topicArn?: string }[];
-    public readonly scanEnabled?: boolean;
+    public readonly scanEnabled: boolean;
     public readonly snsAction?: { position: number, topicArn: string }[];
     public readonly stopAction?: { position: number, scope: string, topicArn?: string }[];
-    public readonly tlsPolicy?: string;
+    public readonly tlsPolicy: string;
     public readonly workmailAction?: { organizationArn: string, position: number, topicArn?: string }[];
 
     constructor(name: string, args: ReceiptRuleArgs) {
@@ -46,7 +46,7 @@ export interface ReceiptRuleArgs {
     readonly after?: string;
     readonly bounceAction?: { message: string, position: number, sender: string, smtpReplyCode: string, statusCode?: string, topicArn?: string }[];
     readonly enabled?: boolean;
-    readonly lambdaAction?: { functionArn: string, invocationType?: string, position: number, topicArn?: string }[];
+    readonly lambdaAction?: { functionArn: string, invocationType: string, position: number, topicArn?: string }[];
     readonly receiptRuleName?: string;
     readonly recipients?: string[];
     readonly ruleSetName: string;

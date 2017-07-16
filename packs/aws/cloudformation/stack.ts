@@ -10,12 +10,12 @@ export class Stack extends lumi.NamedResource implements StackArgs {
     public readonly stackName?: string;
     public readonly notificationArns?: string[];
     public readonly onFailure?: string;
-    public readonly outputs?: {[key: string]: any};
-    public readonly parameters?: {[key: string]: any};
-    public readonly policyBody?: string;
+    public /*out*/ readonly outputs: {[key: string]: any};
+    public readonly parameters: {[key: string]: any};
+    public readonly policyBody: string;
     public readonly policyUrl?: string;
     public readonly tags?: {[key: string]: any};
-    public readonly templateBody?: string;
+    public readonly templateBody: string;
     public readonly templateUrl?: string;
     public readonly timeoutInMinutes?: number;
 
@@ -27,7 +27,6 @@ export class Stack extends lumi.NamedResource implements StackArgs {
         this.stackName = args.stackName;
         this.notificationArns = args.notificationArns;
         this.onFailure = args.onFailure;
-        this.outputs = args.outputs;
         this.parameters = args.parameters;
         this.policyBody = args.policyBody;
         this.policyUrl = args.policyUrl;
@@ -45,7 +44,6 @@ export interface StackArgs {
     readonly stackName?: string;
     readonly notificationArns?: string[];
     readonly onFailure?: string;
-    readonly outputs?: {[key: string]: any};
     readonly parameters?: {[key: string]: any};
     readonly policyBody?: string;
     readonly policyUrl?: string;

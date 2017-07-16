@@ -8,11 +8,11 @@ export class TargetPool extends lumi.NamedResource implements TargetPoolArgs {
     public readonly description?: string;
     public readonly failoverRatio?: number;
     public readonly healthChecks?: string[];
-    public readonly instances?: string[];
+    public readonly instances: string[];
     public readonly targetPoolName?: string;
-    public readonly project?: string;
-    public readonly region?: string;
-    public readonly selfLink?: string;
+    public readonly project: string;
+    public readonly region: string;
+    public /*out*/ readonly selfLink: string;
     public readonly sessionAffinity?: string;
 
     constructor(name: string, args: TargetPoolArgs) {
@@ -25,7 +25,6 @@ export class TargetPool extends lumi.NamedResource implements TargetPoolArgs {
         this.targetPoolName = args.targetPoolName;
         this.project = args.project;
         this.region = args.region;
-        this.selfLink = args.selfLink;
         this.sessionAffinity = args.sessionAffinity;
     }
 }
@@ -39,7 +38,6 @@ export interface TargetPoolArgs {
     readonly targetPoolName?: string;
     readonly project?: string;
     readonly region?: string;
-    readonly selfLink?: string;
     readonly sessionAffinity?: string;
 }
 

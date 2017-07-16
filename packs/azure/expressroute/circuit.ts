@@ -10,11 +10,11 @@ export class Circuit extends lumi.NamedResource implements CircuitArgs {
     public readonly circuitName?: string;
     public readonly peeringLocation: string;
     public readonly resourceGroupName: string;
-    public readonly serviceKey?: string;
+    public /*out*/ readonly serviceKey: string;
     public readonly serviceProviderName: string;
-    public readonly serviceProviderProvisioningState?: string;
+    public /*out*/ readonly serviceProviderProvisioningState: string;
     public readonly sku: { family: string, tier: string }[];
-    public readonly tags?: {[key: string]: any};
+    public readonly tags: {[key: string]: any};
 
     constructor(name: string, args: CircuitArgs) {
         super(name);
@@ -36,12 +36,10 @@ export class Circuit extends lumi.NamedResource implements CircuitArgs {
             throw new Error("Property argument 'resourceGroupName' is required, but was missing");
         }
         this.resourceGroupName = args.resourceGroupName;
-        this.serviceKey = args.serviceKey;
         if (args.serviceProviderName === undefined) {
             throw new Error("Property argument 'serviceProviderName' is required, but was missing");
         }
         this.serviceProviderName = args.serviceProviderName;
-        this.serviceProviderProvisioningState = args.serviceProviderProvisioningState;
         if (args.sku === undefined) {
             throw new Error("Property argument 'sku' is required, but was missing");
         }
@@ -57,9 +55,7 @@ export interface CircuitArgs {
     readonly circuitName?: string;
     readonly peeringLocation: string;
     readonly resourceGroupName: string;
-    readonly serviceKey?: string;
     readonly serviceProviderName: string;
-    readonly serviceProviderProvisioningState?: string;
     readonly sku: { family: string, tier: string }[];
     readonly tags?: {[key: string]: any};
 }

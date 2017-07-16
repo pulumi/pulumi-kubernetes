@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class AssessmentTemplate extends lumi.NamedResource implements AssessmentTemplateArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly duration: number;
     public readonly assessmentTemplateName?: string;
     public readonly rulesPackageArns: string[];
@@ -12,7 +12,6 @@ export class AssessmentTemplate extends lumi.NamedResource implements Assessment
 
     constructor(name: string, args: AssessmentTemplateArgs) {
         super(name);
-        this.arn = args.arn;
         if (args.duration === undefined) {
             throw new Error("Property argument 'duration' is required, but was missing");
         }
@@ -30,7 +29,6 @@ export class AssessmentTemplate extends lumi.NamedResource implements Assessment
 }
 
 export interface AssessmentTemplateArgs {
-    readonly arn?: string;
     readonly duration: number;
     readonly assessmentTemplateName?: string;
     readonly rulesPackageArns: string[];

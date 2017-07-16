@@ -4,7 +4,7 @@
 import * as lumi from "@lumi/lumi";
 
 export class Service extends lumi.NamedResource implements ServiceArgs {
-    public readonly cluster?: string;
+    public readonly cluster: string;
     public readonly deploymentMaximumPercent?: number;
     public readonly deploymentMinimumHealthyPercent?: number;
     public readonly desiredCount?: number;

@@ -4,24 +4,20 @@
 import * as lumi from "@lumi/lumi";
 
 export class DomainIdentity extends lumi.NamedResource implements DomainIdentityArgs {
-    public readonly arn?: string;
+    public /*out*/ readonly arn: string;
     public readonly domain: string;
-    public readonly verificationToken?: string;
+    public /*out*/ readonly verificationToken: string;
 
     constructor(name: string, args: DomainIdentityArgs) {
         super(name);
-        this.arn = args.arn;
         if (args.domain === undefined) {
             throw new Error("Property argument 'domain' is required, but was missing");
         }
         this.domain = args.domain;
-        this.verificationToken = args.verificationToken;
     }
 }
 
 export interface DomainIdentityArgs {
-    readonly arn?: string;
     readonly domain: string;
-    readonly verificationToken?: string;
 }
 

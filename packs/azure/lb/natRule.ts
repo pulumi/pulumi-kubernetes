@@ -4,9 +4,9 @@
 import * as lumi from "@lumi/lumi";
 
 export class NatRule extends lumi.NamedResource implements NatRuleArgs {
-    public readonly backendIpConfigurationId?: string;
+    public /*out*/ readonly backendIpConfigurationId: string;
     public readonly backendPort: number;
-    public readonly frontendIpConfigurationId?: string;
+    public /*out*/ readonly frontendIpConfigurationId: string;
     public readonly frontendIpConfigurationName: string;
     public readonly frontendPort: number;
     public readonly loadbalancerId: string;
@@ -17,12 +17,10 @@ export class NatRule extends lumi.NamedResource implements NatRuleArgs {
 
     constructor(name: string, args: NatRuleArgs) {
         super(name);
-        this.backendIpConfigurationId = args.backendIpConfigurationId;
         if (args.backendPort === undefined) {
             throw new Error("Property argument 'backendPort' is required, but was missing");
         }
         this.backendPort = args.backendPort;
-        this.frontendIpConfigurationId = args.frontendIpConfigurationId;
         if (args.frontendIpConfigurationName === undefined) {
             throw new Error("Property argument 'frontendIpConfigurationName' is required, but was missing");
         }
@@ -49,9 +47,7 @@ export class NatRule extends lumi.NamedResource implements NatRuleArgs {
 }
 
 export interface NatRuleArgs {
-    readonly backendIpConfigurationId?: string;
     readonly backendPort: number;
-    readonly frontendIpConfigurationId?: string;
     readonly frontendIpConfigurationName: string;
     readonly frontendPort: number;
     readonly loadbalancerId: string;

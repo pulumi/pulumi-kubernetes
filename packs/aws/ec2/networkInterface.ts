@@ -4,12 +4,12 @@
 import * as lumi from "@lumi/lumi";
 
 export class NetworkInterface extends lumi.NamedResource implements NetworkInterfaceArgs {
-    public readonly attachment?: { attachmentId?: string, deviceIndex: number, instance: string }[];
+    public readonly attachment: { attachmentId: string, deviceIndex: number, instance: string }[];
     public readonly description?: string;
-    public readonly privateIp?: string;
-    public readonly privateIps?: string[];
-    public readonly privateIpsCount?: number;
-    public readonly securityGroups?: string[];
+    public readonly privateIp: string;
+    public readonly privateIps: string[];
+    public readonly privateIpsCount: number;
+    public readonly securityGroups: string[];
     public readonly sourceDestCheck?: boolean;
     public readonly subnetId: string;
     public readonly tags?: {[key: string]: any};
@@ -32,7 +32,7 @@ export class NetworkInterface extends lumi.NamedResource implements NetworkInter
 }
 
 export interface NetworkInterfaceArgs {
-    readonly attachment?: { attachmentId?: string, deviceIndex: number, instance: string }[];
+    readonly attachment?: { attachmentId: string, deviceIndex: number, instance: string }[];
     readonly description?: string;
     readonly privateIp?: string;
     readonly privateIps?: string[];
