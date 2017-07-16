@@ -48,6 +48,7 @@ type GitInfo struct {
 type ResourceInfo struct {
 	Tok       tokens.Type           // a type token to override the default; "" uses the default.
 	Fields    map[string]SchemaInfo // a map of custom field names; if a type is missing, the default is used.
+	IDFields  []string              // an optional list of ID alias fields.
 	KeyFields []string              // an optional list of composite key fields.
 }
 

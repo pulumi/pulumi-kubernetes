@@ -612,7 +612,9 @@ func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbe
 // getKeyInfo fetches key information for a resource res given its ID id, and validates it.
 func (p *Provider) getKeyInfo(res Resource, id string) (string, map[string]string, error) {
 	var getID string
-	var getAttrs map[string]string
+	getAttrs := make(map[string]string)
+
+	// First expand out the key fields for composite keys.
 	if len(res.Schema.KeyFields) > 0 {
 		var err error
 		getID, getAttrs, err = parseCompositeKey(resource.ID(id), res.Schema.Fields)
@@ -640,5 +642,11 @@ func (p *Provider) getKeyInfo(res Resource, id string) (string, map[string]strin
 	} else {
 		getID = id
 	}
+
+	// If there are any ID aliases, propagate the ID into the attributes.
+	for _, alias := range res.Schema.IDFields {
+		getAttrs[alias] = getID
+	}
+
 	return getID, getAttrs, nil
 }
