@@ -239,7 +239,8 @@ func (p *Provider) createTerraformOutputs(outs map[string]interface{},
 		info := schema[key]
 		name := info.Name
 		if name == "" {
-			name = key
+			// If no name override exists, use the default name mangling scheme.
+			name = TerraformToLumiName(key, false)
 		}
 
 		// Next perform a translation of the value accordingly.
