@@ -427,6 +427,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 			Reason:   errs[i].Error(),
 		})
 	}
+
 	return &lumirpc.CheckResponse{Failures: failures}, nil
 }
 
@@ -469,14 +470,32 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	}
 	glog.V(9).Infof("tfbridge/Provider.Create: lumi='%v', tf=%v", t, res.TF.Name)
 
-	// Create a new state, with no diff, that is missing an ID.  Terraform will interpret this as a create operation.
+	// Create a new state with no ID.  Terraform will interpret this as a create operation.
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
 	inputs, err := p.makeTerraformPropertyMapFromRPC(req.GetProperties(), res.Schema.Fields)
 	if err != nil {
 		return nil, errors.Errorf("Error preparing %v's property state: %v", t, err)
 	}
 	state := &terraform.InstanceState{Attributes: inputs}
-	newstate, err := p.tf.Apply(info, state, &terraform.InstanceDiff{})
+
+	// Create a diff so that defaults are populated.  This may seem supremely bizarre, however, if you carefully
+	// inspect how Terraform's pkg/helper/schema/ field readers work, default values are only injected for the
+	// config variety.  The config variety is not chained in the multi-field reader structure during ordinary CRUD
+	// operations, however; instead, it is chained only during ResourceConfig-related ones.  Diff is one such
+	// operation that chains config in, which gives us back a Diff that is perfectly populated with the defaults.
+	rescfg, err := p.makeTerraformConfigFromRPC(req.GetProperties(), res.Schema.Fields)
+	if err != nil {
+		return nil, errors.Errorf("Error preparing %v's resource config state: %v", t, err)
+	}
+	diff, err := p.tf.Diff(info, state, rescfg)
+	if err != nil {
+		return nil, errors.Errorf("Error preparing %v's resource diff (for defaults): %v", t, err)
+	} else if diff == nil {
+		diff = &terraform.InstanceDiff{}
+	}
+
+	// Now perform the actual operation.
+	newstate, err := p.tf.Apply(info, state, diff)
 	if err != nil {
 		return nil, err
 	}
