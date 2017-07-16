@@ -5,8 +5,6 @@ package tfbridge
 import (
 	"io"
 	"io/ioutil"
-	"os"
-	"path/filepath"
 
 	"github.com/pulumi/lumi/pkg/compiler/types/predef"
 	"github.com/pulumi/lumi/pkg/resource"
@@ -78,7 +76,7 @@ func (a *AssetTranslation) TranslateAsset(asset resource.Asset) (interface{}, er
 		if _, err := io.Copy(f, blob); err != nil {
 			return nil, err
 		}
-		return filepath.Join(os.TempDir(), f.Name()), nil
+		return f.Name(), nil
 	case BytesAsset:
 		return ioutil.ReadAll(blob)
 	default:
@@ -104,7 +102,7 @@ func (a *AssetTranslation) TranslateArchive(archive resource.Archive) (interface
 		if err := archive.Archive(a.Format, f); err != nil {
 			return nil, err
 		}
-		return filepath.Join(os.TempDir(), f.Name()), nil
+		return f.Name(), nil
 	case BytesArchive:
 		return archive.Bytes(a.Format)
 	default:
