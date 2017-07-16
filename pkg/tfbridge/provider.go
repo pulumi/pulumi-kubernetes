@@ -98,8 +98,19 @@ func (p *Provider) initResourceMap() {
 	}
 }
 
+// getInfoFromTerraformName does a map lookup to find the Lumi name and schema info, if any.
+func getInfoFromTerraformName(key string, schema map[string]SchemaInfo) (resource.PropertyKey, SchemaInfo) {
+	info := schema[key]
+	name := info.Name
+	if name == "" {
+		// If no name override exists, use the default name mangling scheme.
+		name = TerraformToLumiName(key, false)
+	}
+	return resource.PropertyKey(name), info
+}
+
 // getInfoFromLumiName does a reverse map lookup to find the Terraform name and schema info for a Lumi name, if any.
-func (p *Provider) getInfoFromLumiName(key resource.PropertyKey, schema map[string]SchemaInfo) (string, SchemaInfo) {
+func getInfoFromLumiName(key resource.PropertyKey, schema map[string]SchemaInfo) (string, SchemaInfo) {
 	// To do this, we will first look to see if there's a known custom schema that uses this name.  If yes, we
 	// prefer to use that.  To do this, we must use a reverse lookup.  (In the future we may want to make a
 	// lookaside map to avoid the traversal of this map.)  Otherwise, use the standard name mangling scheme.
@@ -128,7 +139,7 @@ func (p *Provider) createTerraformInputs(m resource.PropertyMap,
 		}
 
 		// First translate the Lumi property name to a Terraform name.
-		name, info := p.getInfoFromLumiName(key, schema)
+		name, info := getInfoFromLumiName(key, schema)
 		contract.Assert(name != "")
 
 		// And then translate the property value.
@@ -148,7 +159,7 @@ func (p *Provider) createTerraformInputs(m resource.PropertyMap,
 				fk := resource.PropertyKey(from)
 				if fromv, hasfrom := m[fk]; hasfrom {
 					// Create a Terraform name so we can recover the transformed value and use it.
-					tfname, info := p.getInfoFromLumiName(fk, schema)
+					tfname, info := getInfoFromLumiName(fk, schema)
 					v, err := p.createTerraformInput(tfname, fromv, info)
 					if err != nil {
 						return nil, err
@@ -235,17 +246,12 @@ func (p *Provider) createTerraformOutputs(outs map[string]interface{},
 	schema map[string]SchemaInfo) resource.PropertyMap {
 	result := make(resource.PropertyMap)
 	for key, value := range outs {
-		// First do a lookup of the name.
-		info := schema[key]
-		name := info.Name
-		if name == "" {
-			// If no name override exists, use the default name mangling scheme.
-			name = TerraformToLumiName(key, false)
-		}
+		// First do a lookup of the name/info.
+		name, info := getInfoFromTerraformName(key, schema)
+		contract.Assert(name != "")
 
 		// Next perform a translation of the value accordingly.
-		pk := resource.PropertyKey(name)
-		result[pk] = p.createTerraformOutput(value, info)
+		result[name] = p.createTerraformOutput(value, info)
 	}
 	return result
 }
@@ -401,7 +407,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 	t := tokens.Type(req.GetType())
 	res, has := p.resource(t)
 	if !has {
-		return nil, fmt.Errorf("Unrecognized resource type (Check): %v", t)
+		return nil, errors.Errorf("Unrecognized resource type (Check): %v", t)
 	}
 
 	// Manufacture a resource config to check, check it, and return any failures that result.
@@ -427,7 +433,7 @@ func (p *Provider) Name(ctx context.Context, req *lumirpc.NameRequest) (*lumirpc
 	t := tokens.Type(req.GetType())
 	res, has := p.resource(t)
 	if !has {
-		return nil, fmt.Errorf("Unrecognized resource type (Name): %v", t)
+		return nil, errors.Errorf("Unrecognized resource type (Name): %v", t)
 	}
 	glog.V(9).Infof("tfbridge/Provider.Name: lumi='%v', tf=%v", t, res.TF.Name)
 
@@ -455,7 +461,7 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	t := tokens.Type(req.GetType())
 	res, has := p.resource(t)
 	if !has {
-		return nil, fmt.Errorf("Unrecognized resource type (Create): %v", t)
+		return nil, errors.Errorf("Unrecognized resource type (Create): %v", t)
 	}
 	glog.V(9).Infof("tfbridge/Provider.Create: lumi='%v', tf=%v", t, res.TF.Name)
 
@@ -470,7 +476,19 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	if err != nil {
 		return nil, err
 	}
-	return &lumirpc.CreateResponse{Id: newstate.ID}, nil
+
+	// Before returning the ID, we need to see if it has composite keys; if so, add them to the ID.
+	var newID resource.ID
+	if len(res.Schema.KeyFields) == 0 {
+		newID = resource.ID(newstate.ID)
+	} else {
+		newID, err = createCompositeKey(res.Schema.KeyFields, newstate, res.Schema.Fields)
+		if err != nil {
+			return nil, errors.Errorf("Error creating composite key %v: %v", newstate.ID, err)
+		}
+	}
+
+	return &lumirpc.CreateResponse{Id: string(newID)}, nil
 }
 
 // Get reads the instance state identified by ID, returning a populated resource object, or an error if not found.
@@ -478,13 +496,19 @@ func (p *Provider) Get(ctx context.Context, req *lumirpc.GetRequest) (*lumirpc.G
 	t := tokens.Type(req.GetType())
 	res, has := p.resource(t)
 	if !has {
-		return nil, fmt.Errorf("Unrecognized resource type (Get): %v", t)
+		return nil, errors.Errorf("Unrecognized resource type (Get): %v", t)
 	}
 	glog.V(9).Infof("tfbridge/Provider.Get: lumi='%v', tf=%v", t, res.TF.Name)
 
-	// To read the instance state, create a blank bit of data and ask the resource provider to recompute it.
+	// If there are composite keys, we need to make sure to populate those, so the query doesn't fail.
+	id, attrs, err := p.getKeyInfo(res, req.GetId())
+	if err != nil {
+		return nil, err
+	}
+
+	// To read the instance state, create the bag of state and ask the resource provider to recompute it.
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
-	state := &terraform.InstanceState{ID: req.GetId()}
+	state := &terraform.InstanceState{ID: id, Attributes: attrs}
 	getstate, err := p.tf.Refresh(info, state)
 	if err != nil {
 		return nil, errors.Errorf("Error reading %v's state: %v", t, err)
@@ -501,7 +525,7 @@ func (p *Provider) InspectChange(
 	t := tokens.Type(req.GetType())
 	res, has := p.resource(t)
 	if !has {
-		return nil, fmt.Errorf("Unrecognized resource type (InspectChange): %v", t)
+		return nil, errors.Errorf("Unrecognized resource type (InspectChange): %v", t)
 	}
 	glog.V(9).Infof("tfbridge/Provider.InspectChange: lumi='%v', tf=%v", t, res.TF.Name)
 
@@ -541,7 +565,7 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*pbe
 	t := tokens.Type(req.GetType())
 	res, has := p.resource(t)
 	if !has {
-		return nil, fmt.Errorf("Unrecognized resource type (Delete): %v", t)
+		return nil, errors.Errorf("Unrecognized resource type (Delete): %v", t)
 	}
 	glog.V(9).Infof("tfbridge/Provider.Update: lumi='%v', tf=%v", t, res.TF.Name)
 
@@ -566,15 +590,55 @@ func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbe
 	t := tokens.Type(req.GetType())
 	res, has := p.resource(t)
 	if !has {
-		return nil, fmt.Errorf("Unrecognized resource type (Delete): %v", t)
+		return nil, errors.Errorf("Unrecognized resource type (Delete): %v", t)
 	}
 	glog.V(9).Infof("tfbridge/Provider.Delete: lumi='%v', tf=%v", t, res.TF.Name)
 
+	// If there are composite keys, we need to make sure to populate those, so the deletion can use them.
+	id, attrs, err := p.getKeyInfo(res, req.GetId())
+	if err != nil {
+		return nil, err
+	}
+
 	// Create a new state, with no diff, that is missing an ID.  Terraform will interpret this as a create operation.
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
-	state := &terraform.InstanceState{ID: req.GetId()}
+	state := &terraform.InstanceState{ID: id, Attributes: attrs}
 	if _, err := p.tf.Apply(info, state, &terraform.InstanceDiff{Destroy: true}); err != nil {
 		return nil, errors.Errorf("Error apply %v deletion: %v", t, err)
 	}
 	return &pbempty.Empty{}, nil
+}
+
+// getKeyInfo fetches key information for a resource res given its ID id, and validates it.
+func (p *Provider) getKeyInfo(res Resource, id string) (string, map[string]string, error) {
+	var getID string
+	var getAttrs map[string]string
+	if len(res.Schema.KeyFields) > 0 {
+		var err error
+		getID, getAttrs, err = parseCompositeKey(resource.ID(id), res.Schema.Fields)
+		if err != nil {
+			return "", nil, errors.Errorf("Error parsing %v composite key %v: %v", res.TF.Name, id, err)
+		}
+		// Ensure that no key fields were missing.
+		fields := make(map[string]bool)
+		for _, key := range res.Schema.KeyFields {
+			if _, has := getAttrs[key]; !has {
+				return "", nil,
+					errors.Errorf("Missing %v composite key field %v in ID %v", res.TF.Name, key, id)
+			}
+			fields[key] = true
+		}
+		// Ensure only known keys fields are present.
+		for key := range getAttrs {
+			if _, has := fields[key]; !has {
+				return "", nil,
+					errors.Errorf("Unrecognized %v composite key field %v in ID %v", res.TF.Name, key, id)
+			}
+		}
+	} else if isCompositeKey(resource.ID(id)) {
+		return "", nil, errors.Errorf("Unexpected %v composite key: %v", res.TF.Name, id)
+	} else {
+		getID = id
+	}
+	return getID, getAttrs, nil
 }

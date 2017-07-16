@@ -42,10 +42,13 @@ type GitInfo struct {
 	Commitish string // the Git commit info for this provider.
 }
 
-// ResourceInfo is a top-level type exported by a provider.
+// ResourceInfo is a top-level type exported by a provider.  This structure can override the type to generate.  It can
+// also give custom metadata for fields, using the SchemaInfo structure below.  Finally, a set of composite keys can be
+// given; this is used when Terraform needs more than just the ID to uniquely identify and query for a resource.
 type ResourceInfo struct {
-	Tok    tokens.Type           // a type token to override the default; "" uses the default.
-	Fields map[string]SchemaInfo // a map of custom field names; if a type is missing, the default is used.
+	Tok       tokens.Type           // a type token to override the default; "" uses the default.
+	Fields    map[string]SchemaInfo // a map of custom field names; if a type is missing, the default is used.
+	KeyFields []string              // an optional list of composite key fields.
 }
 
 // SchemaInfo contains optional name transformations to apply.
