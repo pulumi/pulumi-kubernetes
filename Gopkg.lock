@@ -251,7 +251,7 @@
   branch = "master"
   name = "github.com/pulumi/lumi"
   packages = ["pkg/compiler/ast","pkg/compiler/binder","pkg/compiler/core","pkg/compiler/errors","pkg/compiler/metadata","pkg/compiler/symbols","pkg/compiler/types","pkg/compiler/types/predef","pkg/diag","pkg/diag/colors","pkg/encoding","pkg/eval","pkg/eval/rt","pkg/pack","pkg/resource","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/mapper","pkg/util/rpcutil","pkg/workspace","sdk/go/pkg/lumirpc"]
-  revision = "a70790b81a4c1d0e0088db6da8136b09fe942b29"
+  revision = "0f18bb40b26dcaf2563bea8fd52a774e44db7d1d"
 
 [[projects]]
   branch = "master"
@@ -368,6 +368,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f6c5825016be2f346c4822ea2b0c6a2875148525caded1a2f6307906116301f6"
+  inputs-digest = "abb4eb058f3e0691bac227b6885af6fc01591979aa0d3b77b04b21afa7b3793e"
   solver-name = "gps-cdcl"
   solver-version = 1
