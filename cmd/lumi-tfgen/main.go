@@ -11,7 +11,7 @@ import (
 	"github.com/pulumi/lumi/pkg/util/cmdutil"
 	"github.com/spf13/cobra"
 
-	"github.com/pulumi/terraform-bridge/pkg/tfbridge"
+	"github.com/pulumi/terraform-bridge/pkg/tfbridge/providers"
 )
 
 func main() {
@@ -43,20 +43,11 @@ func newTFGenCmd() *cobra.Command {
 		Run: cmdutil.RunFunc(func(cmd *cobra.Command, args []string) error {
 			// Let's generate some code!
 			g := newGenerator()
-			provs := tfbridge.Providers
-			if len(args) > 0 {
-				// If there are args, filter to just the providers specified.
-				filtered := make(map[string]tfbridge.ProviderInfo)
-				for _, arg := range args {
-					if provinfo, has := provs[arg]; has {
-						filtered[arg] = provinfo
-					} else {
-						return errors.Errorf("Provider '%v' not recognized", arg)
-					}
-				}
-				provs = filtered
+			if len(args) == 0 {
+				return errors.Errorf("Missing required 'tf-provider' argument (the module whose package to generate)")
 			}
-			if err := g.Generate(provs, outDir, overlaysDir); err != nil {
+			pkg := args[0]
+			if err := g.Generate(pkg, providers.Providers[pkg], outDir, overlaysDir); err != nil {
 				return err
 			}
 			// If we succeeded at generate, but there were errors, exit unsuccessfully.

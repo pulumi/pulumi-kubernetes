@@ -1,0 +1,9 @@
+[submodule "packs/aws"]
+	path = packs/aws
+	url = git@github.com:pulumi/aws
+[submodule "packs/gcp"]
+	path = packs/gcp
+	url = git@github.com:pulumi/gcp
+[submodule "packs/azure"]
+	path = packs/azure
+	url = git@github.com:pulumi/azure

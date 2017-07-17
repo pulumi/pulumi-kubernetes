@@ -10,7 +10,7 @@ import (
 
 // Serve dynamically loads a Terraform plugin, fires up a Lumi resource provider listening to inbound gRPC traffic,
 // and actively bridges between the two, translating calls on one side into calls on the other.
-func Serve(module string) error {
+func Serve(module string, info ProviderInfo) error {
 	var plug *goplugin.Client
 	defer (func() {
 		// If the plugin was initialized, we want to kill it when the program exits.
@@ -36,7 +36,7 @@ func Serve(module string) error {
 		defer plug.Logger.Enable()
 
 		// Create a new bridge provider.
-		bridge := NewProvider(host, plug.Provider, module)
+		bridge := NewProvider(host, module, plug.Provider, info)
 
 		// Configure the provider with all of the state on the Lumi side.
 		// TODO: the semantics of this aren't quite what we want.  We already have some oddness around configuration

@@ -13,6 +13,7 @@ import (
 	"github.com/pulumi/lumi/pkg/util/cmdutil"
 
 	"github.com/pulumi/terraform-bridge/pkg/tfbridge"
+	"github.com/pulumi/terraform-bridge/pkg/tfbridge/providers"
 )
 
 func main() {
@@ -38,7 +39,7 @@ func main() {
 	log.SetOutput(ioutil.Discard)
 
 	// Now serve it up!
-	if err := tfbridge.Serve(module); err != nil {
+	if err := tfbridge.Serve(module, providers.Providers[module]); err != nil {
 		cmdutil.ExitError(err.Error())
 	}
 }

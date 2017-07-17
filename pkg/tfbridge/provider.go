@@ -26,9 +26,9 @@ import (
 // Provider implements the Lumi resource provider operations for any Terraform plugin.
 type Provider struct {
 	host      *provider.HostClient       // the RPC link back to the Lumi engine.
-	info      ProviderInfo               // overlaid info about this provider.
-	tf        terraform.ResourceProvider // the Terraform resource provider to use.
 	module    string                     // the Terraform module name.
+	tf        terraform.ResourceProvider // the Terraform resource provider to use.
+	info      ProviderInfo               // overlaid info about this provider.
 	resources map[tokens.Type]Resource   // a map of Lumi type tokens to resource info.
 }
 
@@ -39,13 +39,14 @@ type Resource struct {
 }
 
 // NewProvider creates a new Lumi RPC server wired up to the given host and wrapping the given Terraform provider.
-func NewProvider(host *provider.HostClient, tf terraform.ResourceProvider, module string) *Provider {
+func NewProvider(host *provider.HostClient, module string,
+	tf terraform.ResourceProvider, info ProviderInfo) *Provider {
 	// TODO: audit computed logic to ensure we flow from Lumi's notion of unknowns to TF computeds properly.
 	p := &Provider{
 		host:   host,
-		info:   Providers[module],
-		tf:     tf,
 		module: module,
+		tf:     tf,
+		info:   info,
 	}
 	p.initResourceMap()
 	return p

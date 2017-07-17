@@ -31,7 +31,7 @@ func newGenerator() *generator {
 
 const (
 	tfgen              = "the Lumi Terraform Bridge (TFGEN) Tool"
-	defaultOutDir      = "packs/"
+	defaultOutDir      = "pack/"
 	defaultOverlaysDir = "overlays/"
 	maxWidth           = 120 // the ideal maximum width of the generated file.
 )
@@ -39,8 +39,8 @@ const (
 // Generate creates Lumi packages out of one or more Terraform plugins.  It accepts a list of all of the input Terraform
 // providers, already bound statically to the code (since we cannot obtain schema information dynamically), walks them
 // and generates the Lumi code, and spews that code into the output directory.
-func (g *generator) Generate(provs map[string]tfbridge.ProviderInfo, outDir, overlaysDir string) error {
-	// If outDir or overlaysDir are empty, default to packs/ in the pwd.
+func (g *generator) Generate(pkg string, provinfo tfbridge.ProviderInfo, outDir, overlaysDir string) error {
+	// If outDir or overlaysDir are empty, default to pack/ in the pwd.
 	if outDir == "" || overlaysDir == "" {
 		p, err := os.Getwd()
 		if err != nil {
@@ -54,15 +54,8 @@ func (g *generator) Generate(provs map[string]tfbridge.ProviderInfo, outDir, ove
 		}
 	}
 
-	// Enumerate each provider and generate its code into a distinct directory.
-	for _, p := range stableProviders(provs) {
-		out := filepath.Join(outDir, p)
-		overlays := filepath.Join(overlaysDir, p)
-		if err := g.generateProvider(p, provs[p], out, overlays); err != nil {
-			return err
-		}
-	}
-	return nil
+	// Now generate the provider code.
+	return g.generateProvider(pkg, provinfo, outDir, overlaysDir)
 }
 
 // generateProvider creates a single standalone Lumi package for the given provider.
