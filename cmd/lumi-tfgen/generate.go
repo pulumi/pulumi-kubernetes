@@ -328,7 +328,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 					// Keep going so we can accumulate as many errors as possible.
 					err = errors.Errorf("%v:%v: %v", pkg, rawname, err)
 					finalerr = multierror.Append(finalerr, err)
-				} else if prop != "" {
+				} else if prop != "" && prop != tfbridge.NameProperty {
 					// Make a little comment in the code so it's easy to pick out output properties.
 					inprop := inProperty(sch)
 					var outcomment string
