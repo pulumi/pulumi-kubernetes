@@ -456,22 +456,38 @@ func (p *Provider) Name(ctx context.Context, req *lumirpc.NameRequest) (*lumirpc
 	}
 	glog.V(9).Infof("tfbridge/Provider.Name: lumi='%v', tf=%v", t, res.TF.Name)
 
-	// All Terraform bridge providers will have a name property that we use for URN naming purposes.
+	// All Terraform bridge providers have names that we use for URN naming purposes.  A resource can optionally
+	// override the name, or we can just use the default "name" property that we auto-generated for them.
 	props := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{SkipNulls: true})
-	name, has := props[NameProperty]
-	if !has {
-		return nil, errors.Errorf("Missing a '%v' property", NameProperty)
-	} else if !name.IsString() {
-		return nil, errors.Errorf("Expected a string '%v' property; got %v", NameProperty, name)
+	var name string
+	nameProperties := res.Schema.NameFields
+	if len(nameProperties) == 0 {
+		nameProperties = []string{NameProperty}
 	}
-	namestr := name.StringValue()
-	if namestr == "" {
-		if req.GetUnknowns()[NameProperty] {
-			return nil, errors.Errorf("The '%v' property cannot be a computed expression", NameProperty)
+	for i, nameProperty := range nameProperties {
+		n, has := props[resource.PropertyKey(nameProperty)]
+		if !has {
+			return nil, errors.Errorf("Missing a '%v' property", nameProperty)
+		} else if !n.IsString() {
+			return nil, errors.Errorf("Expected a string '%v' property; got %v", nameProperty, n)
 		}
-		return nil, errors.Errorf("The '%v' property cannot be the empty string", NameProperty)
+		ns := n.StringValue()
+		if ns == "" {
+			if req.GetUnknowns()[NameProperty] {
+				return nil, errors.Errorf("The '%v' property cannot be a computed expression", nameProperty)
+			}
+			return nil, errors.Errorf("The '%v' property cannot be the empty string", nameProperty)
+		}
+		if i > 0 {
+			if res.Schema.NameFieldsDelimiter == "" {
+				name += compSep
+			} else {
+				name += res.Schema.NameFieldsDelimiter
+			}
+		}
+		name += ns
 	}
-	return &lumirpc.NameResponse{Name: namestr}, nil
+	return &lumirpc.NameResponse{Name: name}, nil
 }
 
 // Create allocates a new instance of the provided resource and returns its unique ID afterwards.  (The input ID

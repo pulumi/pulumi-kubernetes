@@ -310,7 +310,14 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 
 	// Generate the resource class.
-	w.Writefmtln("export class %[1]v extends lumi.NamedResource implements %[1]vArgs {", resname)
+	var base string
+	customNamed := len(resinfo.NameFields) > 0
+	if customNamed {
+		base = "lumi.Resource"
+	} else {
+		base = "lumi.NamedResource"
+	}
+	w.Writefmtln("export class %[1]v extends %v implements %[1]vArgs {", resname, base)
 
 	// First, generate all instance properties.
 	var finalerr error
@@ -328,7 +335,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 					// Keep going so we can accumulate as many errors as possible.
 					err = errors.Errorf("%v:%v: %v", pkg, rawname, err)
 					finalerr = multierror.Append(finalerr, err)
-				} else if prop != "" && prop != tfbridge.NameProperty {
+				} else if prop != "" && (customNamed || prop != tfbridge.NameProperty) {
 					// Make a little comment in the code so it's easy to pick out output properties.
 					inprop := inProperty(sch)
 					var outcomment string
@@ -359,8 +366,13 @@ func (g *generator) generateResource(pkg string, rawname string,
 		// If the number of input properties was zero, we make the args object optional.
 		argsflags = "?"
 	}
-	w.Writefmtln("    constructor(name: string, args%v: %vArgs) {", argsflags, resname)
-	w.Writefmtln("        super(name);")
+	if customNamed {
+		w.Writefmtln("    constructor(args%v: %vArgs) {", argsflags, resname)
+		w.Writefmtln("        super();")
+	} else {
+		w.Writefmtln("    constructor(name: string, args%v: %vArgs) {", argsflags, resname)
+		w.Writefmtln("        super(name);")
+	}
 	var propsindent string
 	if len(inprops) == 0 {
 		propsindent = "    "
