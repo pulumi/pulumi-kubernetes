@@ -84,10 +84,12 @@ const (
 	tfErrorPrefix = "[ERROR]"
 )
 
+// Enable turns on full featured logging.  This is the default.
 func (lr *LogRedirector) Enable() {
 	lr.enabled = true
 }
 
+// Disable disables most of the specific logging levels, but it retains debug logging.
 func (lr *LogRedirector) Disable() {
 	lr.enabled = false
 }

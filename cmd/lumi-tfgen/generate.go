@@ -902,15 +902,6 @@ func propertyName(resname string, s string) (string, error) {
 	return tfbridge.TerraformToLumiName(s, false /*no to PascalCase; we want camelCase*/), nil
 }
 
-func stableProviders(provs map[string]tfbridge.ProviderInfo) []string {
-	var ps []string
-	for p := range provs {
-		ps = append(ps, p)
-	}
-	sort.Strings(ps)
-	return ps
-}
-
 func stableResources(resources map[string]*schema.Resource) []string {
 	var rs []string
 	for r := range resources {

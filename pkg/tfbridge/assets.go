@@ -14,7 +14,7 @@ import (
 
 // AssetTranslation instructs the bridge how to translate assets into something Terraform can use.
 type AssetTranslation struct {
-	Kind      AssetTranslationKind   // the kind of tranlsation to perform.
+	Kind      AssetTranslationKind   // the kind of translation to perform.
 	Format    resource.ArchiveFormat // an archive format, required if this is an archive.
 	HashField string                 // a field to store the hash into, if any.
 }
@@ -23,10 +23,14 @@ type AssetTranslation struct {
 type AssetTranslationKind int
 
 const (
-	FileAsset    AssetTranslationKind = iota // turn the asset into a file on disk and pass the filename.
-	BytesAsset                               // turn the asset into a []byte and pass that directly.
-	FileArchive                              // turn the archive into a file on disk and pass the filename.
-	BytesArchive                             // turn the asset into a []byte and pass that directly.
+	// FileAsset turns the asset into a file on disk and passes the filename in its place.
+	FileAsset AssetTranslationKind = iota
+	// BytesAsset turns the asset into a []byte and passes it directly in-memory.
+	BytesAsset
+	// FileArchive turns the archive into a file on disk and passes the filename in its place.
+	FileArchive
+	// BytesArchive turns the asset into a []byte and passes that directly in-memory.
+	BytesArchive
 )
 
 // Type fetches the Lumi runtime type corresponding to values of this asset kind.
@@ -72,7 +76,7 @@ func (a *AssetTranslation) TranslateAsset(asset resource.Asset) (interface{}, er
 		if err != nil {
 			return nil, err
 		}
-		defer f.Close()
+		defer contract.IgnoreClose(f)
 		if _, err := io.Copy(f, blob); err != nil {
 			return nil, err
 		}
@@ -98,7 +102,7 @@ func (a *AssetTranslation) TranslateArchive(archive resource.Archive) (interface
 		if err != nil {
 			return nil, err
 		}
-		defer f.Close()
+		defer contract.IgnoreClose(f)
 		if err := archive.Archive(a.Format, f); err != nil {
 			return nil, err
 		}
