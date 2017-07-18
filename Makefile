@@ -22,9 +22,9 @@ all: banner tools packs
 .PHONY: all
 
 banner:
-	@$(ECHO) "\033[1;37m=====================\033[0m"
+	@$(ECHO) "\033[1;37m=============================\033[0m"
 	@$(ECHO) "\033[1;37mLumi Terraform Bridge\033[0m"
-	@$(ECHO) "\033[1;37m=====================\033[0m"
+	@$(ECHO) "\033[1;37m=============================\033[0m"
 	@go version
 .PHONY: banner
 
@@ -48,9 +48,9 @@ test:
 .PHONY: test
 
 packs:
-	$(MAKE) packs/aws
-	$(MAKE) packs/azure
-	$(MAKE) packs/gcp
+	cd ./packs/aws; $(MAKE)
+	cd ./packs/azure; $(MAKE)
+	cd ./packs/gcp; $(MAKE)
 .PHONY: packs
 
 clean:
