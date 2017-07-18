@@ -128,14 +128,14 @@ func getInfoFromLumiName(key resource.PropertyKey, schema map[string]SchemaInfo)
 // use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
 func (p *Provider) createTerraformInputs(m resource.PropertyMap,
-	schema map[string]SchemaInfo) (map[string]interface{}, error) {
+	schema map[string]SchemaInfo, res bool) (map[string]interface{}, error) {
 	result := make(map[string]interface{})
 
 	// Enumerate the inputs provided and add them to the map using their Terraform names.
 	for key, value := range m {
-		// Skip any special properties.
+		// Skip any special properties (only for resources: not nested non-resource structures).
 		k := string(key)
-		if IsBuiltinLumiProperty(k) {
+		if res && IsBuiltinLumiProperty(k) {
 			continue
 		}
 
@@ -175,6 +175,12 @@ func (p *Provider) createTerraformInputs(m resource.PropertyMap,
 					glog.V(9).Infof("Created Terraform input: %v = %v (default from %v)", key, result[key], fk)
 				}
 			}
+		}
+	}
+
+	if glog.V(5) {
+		for k, v := range result {
+			glog.V(5).Infof("Terraform input %v = %v", k, v)
 		}
 	}
 
@@ -231,7 +237,7 @@ func (p *Provider) createTerraformInput(name string,
 		return schema.Asset.TranslateArchive(v.ArchiveValue())
 	}
 	contract.Assert(v.IsObject())
-	return p.createTerraformInputs(v.ObjectValue(), schema.Fields)
+	return p.createTerraformInputs(v.ObjectValue(), schema.Fields, false)
 }
 
 // createTerraformResult expands a Terraform-style flatmap into an expanded Lumi resource property map.  This respects
@@ -258,6 +264,13 @@ func (p *Provider) createTerraformOutputs(outs map[string]interface{},
 		// Next perform a translation of the value accordingly.
 		result[name] = p.createTerraformOutput(value, info)
 	}
+
+	if glog.V(5) {
+		for k, v := range result {
+			glog.V(5).Infof("Terraform output %v = %v", k, v)
+		}
+	}
+
 	return result
 }
 
@@ -296,7 +309,7 @@ func (p *Provider) createTerraformOutput(v interface{}, schema SchemaInfo) resou
 func (p *Provider) makeTerraformConfig(m resource.PropertyMap,
 	schema map[string]SchemaInfo) (*terraform.ResourceConfig, error) {
 	// Convert the resource bag into an untyped map, and then create the resource config object.
-	inputs, err := p.createTerraformInputs(m, schema)
+	inputs, err := p.createTerraformInputs(m, schema, true)
 	if err != nil {
 		return nil, err
 	}
@@ -321,7 +334,7 @@ func (p *Provider) makeTerraformPropertyMap(m resource.PropertyMap,
 	schema map[string]SchemaInfo) (map[string]string, error) {
 	// Turn the resource properties into a map.  For the most part, this is a straight Mappable, but we use MapReplace
 	// because we use float64s and Terraform uses ints, to represent numbers.
-	inputs, err := p.createTerraformInputs(m, schema)
+	inputs, err := p.createTerraformInputs(m, schema, true)
 	if err != nil {
 		return nil, err
 	}
@@ -500,6 +513,7 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	if err != nil {
 		return nil, err
 	}
+	props := p.createTerraformResult(newstate.Attributes, res.Schema.Fields)
 
 	// Before returning the ID, we need to see if it has composite keys; if so, add them to the ID.
 	var newID resource.ID
@@ -512,7 +526,10 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 		}
 	}
 
-	return &lumirpc.CreateResponse{Id: string(newID)}, nil
+	return &lumirpc.CreateResponse{
+		Id:         string(newID),
+		Properties: plugin.MarshalProperties(props, plugin.MarshalOptions{}),
+	}, nil
 }
 
 // Get reads the instance state identified by ID, returning a populated resource object, or an error if not found.
@@ -585,7 +602,7 @@ func (p *Provider) InspectChange(
 
 // Update updates an existing resource with new values.  Only those values in the provided property bag are updated
 // to new values.  The resource ID is returned and may be different if the resource had to be recreated.
-func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*pbempty.Empty, error) {
+func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lumirpc.UpdateResponse, error) {
 	t := tokens.Type(req.GetType())
 	res, has := p.resource(t)
 	if !has {
@@ -603,10 +620,14 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*pbe
 		ID:         req.GetId(),
 		Attributes: attrs,
 	}
-	if _, err := p.tf.Apply(info, state, diff); err != nil {
+	newstate, err := p.tf.Apply(info, state, diff)
+	if err != nil {
 		return nil, errors.Errorf("Error applying %v update: %v", t, err)
 	}
-	return &pbempty.Empty{}, nil
+	props := p.createTerraformResult(newstate.Attributes, res.Schema.Fields)
+	return &lumirpc.UpdateResponse{
+		Properties: plugin.MarshalProperties(props, plugin.MarshalOptions{}),
+	}, nil
 }
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed to still exist.
