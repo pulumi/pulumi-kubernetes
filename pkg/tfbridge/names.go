@@ -89,13 +89,24 @@ func AutoName(info ResourceInfo, maxlen int) ResourceInfo {
 // AutoNameInfo creates custom schema for a Terraform name property.  It uses the new name (which must not be "name"),
 // and figures out given the schema information how to populate the property.  maxlen specifies the maximum length.
 func AutoNameInfo(new string, maxlen int) SchemaInfo {
+	return AutoNameInfoRename(new, maxlen, nil)
+}
+
+// AutoNameInfoRename creates custom schema for a Terraform name property.  It uses the new name (which must not be
+// "name"), and figures out given the schema information how to populate the property.  maxlen specifies the maximum
+// length, and rename allows the name to be rewritten as needed before appending the random suffix.
+func AutoNameInfoRename(new string, maxlen int, rename func(string) string) SchemaInfo {
 	contract.Assert(new != NameProperty)
 	info := SchemaInfo{
 		Name: new,
 		Default: DefaultInfo{
 			From: NameProperty,
 			FromTransform: func(v interface{}) interface{} {
-				return resource.NewUniqueHex(v.(string)+"-", maxlen, -1)
+				vs := v.(string)
+				if rename != nil {
+					vs = rename(vs)
+				}
+				return resource.NewUniqueHex(vs+"-", maxlen, -1)
 			},
 		},
 	}
