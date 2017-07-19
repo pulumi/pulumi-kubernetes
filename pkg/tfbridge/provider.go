@@ -614,7 +614,7 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lum
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
 	attrs, diff, err := p.makeTerraformDiffFromRPC(req.GetOlds(), req.GetNews(), res.Schema.Fields)
 	if err != nil {
-		return nil, errors.Errorf("Error preparing %v old and new state/diffs", t, err)
+		return nil, errors.Errorf("Error preparing %v old and new state/diffs: %v", t, err)
 	}
 	state := &terraform.InstanceState{
 		ID:         req.GetId(),

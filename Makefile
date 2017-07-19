@@ -2,23 +2,14 @@ SHELL=/bin/bash
 .SHELLFLAGS=-e
 
 PROJECT         = github.com/pulumi/terraform-bridge
-TFGEN           = lumi-tfgen
-TFGEN_BIN       = ${GOPATH}/bin/${TFGEN}
-TFGEN_PKG       = ${PROJECT}/cmd/${TFGEN}
-TFBRIDGE        = lumi-tfbridge
-TFBRIDGE_BIN    = ${GOPATH}/bin/${TFBRIDGE}
-TFBRIDGE_PKG    = ${PROJECT}/cmd/${TFBRIDGE}
-GOPKGS          = $(shell go list ./cmd/... ./pkg/... | grep -v /vendor/)
-LUMIROOT       ?= /usr/local/lumi
-LUMILIB         = ${LUMIROOT}/packs
-LUMIPLUG        = lumi-resource
+GOPKGS          = $(shell go list ./pkg/... | grep -v /vendor/)
 TESTPARALLELISM = 10
 
 ECHO=echo -e
 GOMETALINTERBIN=gometalinter
 GOMETALINTER=${GOMETALINTERBIN} --config=Gometalinter.json
 
-all: banner tools packs
+all: banner build test packs
 .PHONY: all
 
 banner:
@@ -28,23 +19,16 @@ banner:
 	@go version
 .PHONY: banner
 
-$(TFGEN_BIN) tfgen:
-	go install ${PROJECT}/cmd/lumi-tfgen
-$(TFBRIDGE_BIN) tfbridge:
-	go install ${PROJECT}/cmd/lumi-tfbridge
-.PHONY: $(TFGEN_BIN) tfgen $(TFBRIDGE_BIN) tfbridge
-
-build: $(TFGEN_BIN) $(TFBRIDGE_BIN)
+build:
+	go build ${PROJECT}/pkg/tfgen
+	go build ${PROJECT}/pkg/tfbridge
 .PHONY: build
-
-tools: build test
-.PHONY: tools
 
 test:
 	go test -cover -parallel ${TESTPARALLELISM} ${GOPKGS}
 	which ${GOMETALINTERBIN} >/dev/null
-	$(GOMETALINTER) ./cmd/... ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
-	go tool vet -printf=false cmd/ pkg/
+	$(GOMETALINTER) ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
+	go tool vet -printf=false pkg/
 .PHONY: test
 
 packs:
@@ -52,9 +36,4 @@ packs:
 	cd ./packs/azure; $(MAKE)
 	cd ./packs/gcp; $(MAKE)
 .PHONY: packs
-
-clean:
-	rm -rf ${GOPATH}/bin/${TFGEN}
-	rm -rf ${GOPATH}/bin/${TFBRIDGE}
-.PHONY: clean
 
