@@ -480,7 +480,7 @@ func (p *Provider) Name(ctx context.Context, req *lumirpc.NameRequest) (*lumirpc
 		}
 		if i > 0 {
 			if res.Schema.NameFieldsDelimiter == "" {
-				name += compSep
+				name += ":"
 			} else {
 				name += res.Schema.NameFieldsDelimiter
 			}
@@ -529,21 +529,11 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	if err != nil {
 		return nil, err
 	}
+
+	// Create the ID and property maps and return them.
 	props := p.createTerraformResult(newstate.Attributes, res.Schema.Fields)
-
-	// Before returning the ID, we need to see if it has composite keys; if so, add them to the ID.
-	var newID resource.ID
-	if len(res.Schema.KeyFields) == 0 {
-		newID = resource.ID(newstate.ID)
-	} else {
-		newID, err = createCompositeKey(res.Schema.KeyFields, newstate, res.Schema.Fields)
-		if err != nil {
-			return nil, errors.Errorf("Error creating composite key %v: %v", newstate.ID, err)
-		}
-	}
-
 	return &lumirpc.CreateResponse{
-		Id:         string(newID),
+		Id:         newstate.ID,
 		Properties: plugin.MarshalProperties(props, plugin.MarshalOptions{}),
 	}, nil
 }
@@ -557,15 +547,9 @@ func (p *Provider) Get(ctx context.Context, req *lumirpc.GetRequest) (*lumirpc.G
 	}
 	glog.V(9).Infof("tfbridge/Provider.Get: lumi='%v', tf=%v", t, res.TF.Name)
 
-	// If there are composite keys, we need to make sure to populate those, so the query doesn't fail.
-	id, attrs, err := p.getKeyInfo(res, req.GetId())
-	if err != nil {
-		return nil, err
-	}
-
 	// To read the instance state, create the bag of state and ask the resource provider to recompute it.
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
-	state := &terraform.InstanceState{ID: id, Attributes: attrs}
+	state := &terraform.InstanceState{ID: req.GetId()}
 	getstate, err := p.tf.Refresh(info, state)
 	if err != nil {
 		return nil, errors.Errorf("Error reading %v's state: %v", t, err)
@@ -622,7 +606,7 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lum
 	t := tokens.Type(req.GetType())
 	res, has := p.resource(t)
 	if !has {
-		return nil, errors.Errorf("Unrecognized resource type (Delete): %v", t)
+		return nil, errors.Errorf("Unrecognized resource type (Update): %v", t)
 	}
 	glog.V(9).Infof("tfbridge/Provider.Update: lumi='%v', tf=%v", t, res.TF.Name)
 
@@ -655,59 +639,17 @@ func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbe
 	}
 	glog.V(9).Infof("tfbridge/Provider.Delete: lumi='%v', tf=%v", t, res.TF.Name)
 
-	// If there are composite keys, we need to make sure to populate those, so the deletion can use them.
-	id, attrs, err := p.getKeyInfo(res, req.GetId())
+	// Fetch the resource attributes since many providers need more than just the ID to perform the delete.
+	attrs, err := p.makeTerraformPropertyMapFromRPC(req.GetProperties(), res.Schema.Fields)
 	if err != nil {
 		return nil, err
 	}
 
 	// Create a new state, with no diff, that is missing an ID.  Terraform will interpret this as a create operation.
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
-	state := &terraform.InstanceState{ID: id, Attributes: attrs}
+	state := &terraform.InstanceState{ID: req.GetId(), Attributes: attrs}
 	if _, err := p.tf.Apply(info, state, &terraform.InstanceDiff{Destroy: true}); err != nil {
 		return nil, errors.Errorf("Error apply %v deletion: %v", t, err)
 	}
 	return &pbempty.Empty{}, nil
-}
-
-// getKeyInfo fetches key information for a resource res given its ID id, and validates it.
-func (p *Provider) getKeyInfo(res Resource, id string) (string, map[string]string, error) {
-	var getID string
-	getAttrs := make(map[string]string)
-
-	// First expand out the key fields for composite keys.
-	if len(res.Schema.KeyFields) > 0 {
-		var err error
-		getID, getAttrs, err = parseCompositeKey(resource.ID(id), res.Schema.Fields)
-		if err != nil {
-			return "", nil, errors.Errorf("Error parsing %v composite key %v: %v", res.TF.Name, id, err)
-		}
-		// Ensure that no key fields were missing.
-		fields := make(map[string]bool)
-		for _, key := range res.Schema.KeyFields {
-			if _, has := getAttrs[key]; !has {
-				return "", nil,
-					errors.Errorf("Missing %v composite key field %v in ID %v", res.TF.Name, key, id)
-			}
-			fields[key] = true
-		}
-		// Ensure only known keys fields are present.
-		for key := range getAttrs {
-			if _, has := fields[key]; !has {
-				return "", nil,
-					errors.Errorf("Unrecognized %v composite key field %v in ID %v", res.TF.Name, key, id)
-			}
-		}
-	} else if isCompositeKey(resource.ID(id)) {
-		return "", nil, errors.Errorf("Unexpected %v composite key: %v", res.TF.Name, id)
-	} else {
-		getID = id
-	}
-
-	// If there are any ID aliases, propagate the ID into the attributes.
-	for _, alias := range res.Schema.IDFields {
-		getAttrs[alias] = getID
-	}
-
-	return getID, getAttrs, nil
 }

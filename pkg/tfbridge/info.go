@@ -38,7 +38,6 @@ type ResourceInfo struct {
 	NameFields          []string              // an optional list of fields to use as name (if not the default).
 	NameFieldsDelimiter string                // an optional delimiter for name fields (if multiple).
 	IDFields            []string              // an optional list of ID alias fields.
-	KeyFields           []string              // an optional list of composite key fields.
 }
 
 // SchemaInfo contains optional name transformations to apply.
