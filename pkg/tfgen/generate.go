@@ -358,7 +358,15 @@ func (g *generator) generateResource(pkg string, rawname string,
 		w.Writefmtln("")
 	}
 
-	// TODO: figure out how to add get/query methods.
+	// Add the standard "factory" functions: get and query.  These are static and so must go before the constructor.
+	w.Writefmtln("    public static get(id: lumi.ID): %v {", resname)
+	w.Writefmtln("        return <any>undefined; // functionality provided by the runtime")
+	w.Writefmtln("    }")
+	w.Writefmtln("")
+	w.Writefmtln("    public static query(q: any): %v[] {", resname)
+	w.Writefmtln("        return <any>undefined; // functionality provided by the runtime")
+	w.Writefmtln("    }")
+	w.Writefmtln("")
 
 	// Now create a constructor that chains supercalls and stores into properties.
 	var argsflags string
