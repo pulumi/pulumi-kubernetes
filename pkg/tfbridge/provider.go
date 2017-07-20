@@ -41,7 +41,6 @@ type Resource struct {
 // NewProvider creates a new Lumi RPC server wired up to the given host and wrapping the given Terraform provider.
 func NewProvider(host *provider.HostClient, module string,
 	tf terraform.ResourceProvider, info ProviderInfo) *Provider {
-	// TODO: audit computed logic to ensure we flow from Lumi's notion of unknowns to TF computeds properly.
 	p := &Provider{
 		host:   host,
 		module: module,
@@ -235,9 +234,17 @@ func (p *Provider) createTerraformInput(name string,
 				errors.Errorf("Invalid asset translation instructions for %v; expected an archive", name)
 		}
 		return schema.Asset.TranslateArchive(v.ArchiveValue())
+	} else if v.IsObject() {
+		return p.createTerraformInputs(v.ObjectValue(), schema.Fields, false)
+	} else if v.IsComputed() || v.IsOutput() {
+		// If any variables are unknown, we need to mark them in the inputs so the config map treats it right.  This
+		// requires the use of the special UnknownVariableValue sentinel in Terraform, which is how it internally stores
+		// interpolated variables whose inputs are currently unknown.
+		return config.UnknownVariableValue, nil
 	}
-	contract.Assert(v.IsObject())
-	return p.createTerraformInputs(v.ObjectValue(), schema.Fields, false)
+
+	contract.Failf("Unexpected value marshaled: %v", v)
+	return nil, nil
 }
 
 // createTerraformResult expands a Terraform-style flatmap into an expanded Lumi resource property map.  This respects
@@ -285,6 +292,13 @@ func (p *Provider) createTerraformOutput(v interface{}, schema SchemaInfo) resou
 	case int:
 		return resource.NewNumberProperty(float64(t))
 	case string:
+		// If the string is the special unknown property sentinel, reflect back an unknown computed property.  Note that
+		// Terraform doesn't carry the types along with it, so the best we can do is give back a computed string.
+		if t == config.UnknownVariableValue {
+			elem := resource.Computed{Element: resource.NewStringProperty("")}
+			return resource.NewComputedProperty(elem)
+		}
+		// Else it's just a string.
 		return resource.NewStringProperty(t)
 	case []interface{}:
 		var arr []resource.PropertyValue
@@ -313,6 +327,7 @@ func (p *Provider) makeTerraformConfig(m resource.PropertyMap,
 	if err != nil {
 		return nil, err
 	}
+
 	cfg, err := config.NewRawConfig(inputs)
 	if err != nil {
 		return nil, err
@@ -469,13 +484,13 @@ func (p *Provider) Name(ctx context.Context, req *lumirpc.NameRequest) (*lumirpc
 		if !has {
 			return nil, errors.Errorf("Missing a '%v' property", nameProperty)
 		} else if !n.IsString() {
+			if n.IsComputed() {
+				return nil, errors.Errorf("The '%v' property cannot be a computed expression", nameProperty)
+			}
 			return nil, errors.Errorf("Expected a string '%v' property; got %v", nameProperty, n)
 		}
 		ns := n.StringValue()
 		if ns == "" {
-			if req.GetUnknowns()[NameProperty] {
-				return nil, errors.Errorf("The '%v' property cannot be a computed expression", nameProperty)
-			}
 			return nil, errors.Errorf("The '%v' property cannot be the empty string", nameProperty)
 		}
 		if i > 0 {
