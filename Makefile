@@ -9,7 +9,7 @@ ECHO=echo -e
 GOMETALINTERBIN=gometalinter
 GOMETALINTER=${GOMETALINTERBIN} --config=Gometalinter.json
 
-all: banner build test packs
+all: banner build test
 .PHONY: all
 
 banner:
@@ -30,10 +30,4 @@ test:
 	$(GOMETALINTER) ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
 	go tool vet -printf=false pkg/
 .PHONY: test
-
-packs:
-	cd ./packs/aws; $(MAKE)
-	cd ./packs/azure; $(MAKE)
-	cd ./packs/gcp; $(MAKE)
-.PHONY: packs
 
