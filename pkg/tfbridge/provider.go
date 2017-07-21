@@ -453,7 +453,9 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 
 	// For each warning, emit a warning on the Lumi side.
 	for _, warn := range warns {
-		p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", t, warn))
+		if err := p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", t, warn)); err != nil {
+			return nil, err
+		}
 	}
 
 	// Now produce a return value of any properties that failed verification.
