@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/pulumi/lumi.svg?token=cTUUEgrxaTEGyecqJpDn&branch=master)](https://travis-ci.com/pulumi/terraform-bridge)
+
 # Lumi Terraform Bridge
 
 This bridge lets Lumi leverage [Terraform](https://terraform.io)'s extensive community of resource providers for
