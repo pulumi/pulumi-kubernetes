@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform/flatmap"
 	"github.com/hashicorp/terraform/terraform"
 	"github.com/pkg/errors"
+	"github.com/pulumi/lumi/pkg/diag"
 	"github.com/pulumi/lumi/pkg/resource"
 	"github.com/pulumi/lumi/pkg/resource/plugin"
 	"github.com/pulumi/lumi/pkg/resource/provider"
@@ -448,12 +449,18 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 	if err != nil {
 		return nil, errors.Errorf("Error preparing %v's property state: %v", t, err)
 	}
-	keys, errs := p.tf.ValidateResource(res.TF.Name, rescfg)
+	warns, errs := p.tf.ValidateResource(res.TF.Name, rescfg)
+
+	// For each warning, emit a warning on the Lumi side.
+	for _, warn := range warns {
+		p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", t, warn))
+	}
+
+	// Now produce a return value of any properties that failed verification.
 	var failures []*lumirpc.CheckFailure
-	for i, key := range keys {
+	for _, err := range errs {
 		failures = append(failures, &lumirpc.CheckFailure{
-			Property: key,
-			Reason:   errs[i].Error(),
+			Reason: err.Error(),
 		})
 	}
 
