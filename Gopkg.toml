@@ -21,21 +21,6 @@
 #  version = "2.4.0"
 
 [[override]]
-  branch = "tfbridge"
+  branch = "master"
   name = "github.com/pulumi/lumi"
 
-[[constraint]]
-  branch = "master"
-  name = "github.com/golang/glog"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/hashicorp/go-plugin"
-
-[[constraint]]
-  name = "github.com/pkg/errors"
-  version = "0.8.0"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/spf13/cobra"

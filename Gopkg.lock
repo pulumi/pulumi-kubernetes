@@ -75,6 +75,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/hashicorp/go-hclog"
+  packages = ["."]
+  revision = "b4e5765d1e5f00a0550911084f45f8214b5b83b9"
+
+[[projects]]
+  branch = "master"
   name = "github.com/hashicorp/go-multierror"
   packages = ["."]
   revision = "83588e72410abfbe4df460eeb6f30841ae47d4c4"
@@ -83,7 +89,7 @@
   branch = "master"
   name = "github.com/hashicorp/go-plugin"
   packages = ["."]
-  revision = "5ee1a665d1862b865bd2203cdce4f08e39841815"
+  revision = "03136dc196bf3ce9ac05bb584e56d61ffeb2f1a7"
 
 [[projects]]
   branch = "master"
@@ -182,10 +188,10 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "tfbridge"
+  branch = "master"
   name = "github.com/pulumi/lumi"
   packages = ["pkg/compiler/ast","pkg/compiler/binder","pkg/compiler/core","pkg/compiler/errors","pkg/compiler/metadata","pkg/compiler/symbols","pkg/compiler/types","pkg/compiler/types/predef","pkg/diag","pkg/diag/colors","pkg/encoding","pkg/eval","pkg/eval/rt","pkg/pack","pkg/resource","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/mapper","pkg/util/rpcutil","pkg/workspace","sdk/go/pkg/lumirpc"]
-  revision = "8a3a7a1a52f6938553291887aeffa9b01891d0c8"
+  revision = "7adf3ef0f415b59ca3a9c239654b5abaec082f19"
 
 [[projects]]
   branch = "master"
@@ -268,6 +274,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "63e53354ade1fa7608ee2218b900735612e30b4ea47508b6416eb808efdfc9d4"
+  inputs-digest = "2f498cba4b82bde132e17758792716cefcbd7f2c4373c8779ac43a78b58fb992"
   solver-name = "gps-cdcl"
   solver-version = 1
