@@ -176,6 +176,18 @@
   revision = "8d802ff4ae93611b807597f639c19f76074df5c6"
 
 [[projects]]
+  name = "github.com/pelletier/go-buffruneio"
+  packages = ["."]
+  revision = "c37440a7cf42ac63b919c752ca73a85067e05992"
+  version = "v0.2.0"
+
+[[projects]]
+  name = "github.com/pelletier/go-toml"
+  packages = ["."]
+  revision = "5ccdfb18c776b740aecaf085c4d9a2779199c279"
+  version = "v1.0.0"
+
+[[projects]]
   name = "github.com/pkg/errors"
   packages = ["."]
   revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
@@ -274,6 +286,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2f498cba4b82bde132e17758792716cefcbd7f2c4373c8779ac43a78b58fb992"
+  inputs-digest = "022837284b42ccc7da9aca44a3f4afef3332088ab5249aaa71490dcd3d2a5501"
   solver-name = "gps-cdcl"
   solver-version = 1
