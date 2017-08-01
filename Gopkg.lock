@@ -203,7 +203,7 @@
   branch = "master"
   name = "github.com/pulumi/lumi"
   packages = ["pkg/compiler/ast","pkg/compiler/binder","pkg/compiler/core","pkg/compiler/errors","pkg/compiler/metadata","pkg/compiler/symbols","pkg/compiler/types","pkg/compiler/types/predef","pkg/diag","pkg/diag/colors","pkg/encoding","pkg/eval","pkg/eval/rt","pkg/pack","pkg/resource","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/mapper","pkg/util/rpcutil","pkg/workspace","sdk/go/pkg/lumirpc"]
-  revision = "6016146750853a40605c7d9e8a818888330562ca"
+  revision = "5fb014e53c9bc1084042b673edc6fcfd8af766b2"
 
 [[projects]]
   branch = "master"
@@ -269,7 +269,7 @@
   branch = "master"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
-  revision = "b0a3dcfcd1a9bd48e63634bd8802960804cf8315"
+  revision = "09f6ed296fc66555a25fe4ce95173148778dfa85"
 
 [[projects]]
   name = "google.golang.org/grpc"
