@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/pulumi/lumi.svg?token=cTUUEgrxaTEGyecqJpDn&branch=master)](https://travis-ci.com/pulumi/terraform-bridge)
+[![Build Status](https://travis-ci.com/pulumi/pulumi-terraform.svg?token=cTUUEgrxaTEGyecqJpDn&branch=master)](https://travis-ci.com/pulumi/pulumi-terraform)
 
 # Lumi Terraform Bridge
 
@@ -28,10 +28,10 @@ interface so that we don't need to get our hands dirty with various internal and
 Before doing any development, there are a few prerequisites to install:
 
 * Go: https://golang.org/dl
-* [Dep](https://github.com/golang/dep): $ go get -u github.com/golang/dep
+* [Dep](https://github.com/golang/dep): `$ go get -u github.com/golang/dep/cmd/dep`
 * [GoMetaLinter](https://github.com/alecthomas/gometalinter):
-    - $ go get -u github.com/alecthomas/gometalinter
-    - $ gometalinter --install
+    - `$ go get -u github.com/alecthomas/gometalinter`
+    - `$ gometalinter --install`
 
 ### Building and Testing
 
@@ -39,8 +39,8 @@ There is a `Makefile` in the root that builds and tests everything.
 
 To build, ensure `$GOPATH` is set, and clone into a standard Go workspace:
 
-    $ git clone git@github.com:pulumi/terraform-bridge $GOPATH/src/github.com/pulumi/terraform-bridge
-    $ cd $GOPATH/src/github.com/pulumi/terraform-bridge
+    $ git clone git@github.com:pulumi/pulumi-terraform $GOPATH/src/github.com/pulumi/pulumi-terraform
+    $ cd $GOPATH/src/github.com/pulumi/pulumi-terraform
 
 Before building, you will need to ensure dependencies have been restored to your enlistment:
 
@@ -65,9 +65,9 @@ It is relatively easy to add a new Terraform provider:
 * Add a dependency on the Terraform provider:
     - `$ dep ensure github.com/terraform-providers/terraform-provider-X`
 * Add a new entry to the `Providers` map in [`pkg/tfbridge/providers.go`](
-  https://github.com/pulumi/terraform-bridge/blob/master/pkg/tfbridge/providers.go).
+  https://github.com/pulumi/pulumi-terraform/blob/master/pkg/tfbridge/providers.go).
 * Add a new provider file, similar to [`pkg/tfbridge/providers_aws.go`](
-  https://github.com/pulumi/terraform-bridge/blob/master/pkg/tfbridge/providers_aws.go):
+  https://github.com/pulumi/pulumi-terraform/blob/master/pkg/tfbridge/providers_aws.go):
     - It statically links with the provider `github.com/terraform-providers/terraform-provider-X`;
     - There is the opportunity for optional gradual modularity, renaming, and typing, through the various maps.
 * Generate the `packs/` metadata using `lumi-tfbridge`.

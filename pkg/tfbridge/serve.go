@@ -4,8 +4,8 @@ package tfbridge
 
 import (
 	goplugin "github.com/hashicorp/go-plugin"
-	"github.com/pulumi/lumi/pkg/resource/provider"
-	"github.com/pulumi/lumi/sdk/go/pkg/lumirpc"
+	"github.com/pulumi/pulumi-fabric/pkg/resource/provider"
+	"github.com/pulumi/pulumi-fabric/sdk/go/pkg/lumirpc"
 )
 
 // Serve dynamically loads a Terraform plugin, fires up a Lumi resource provider listening to inbound gRPC traffic,

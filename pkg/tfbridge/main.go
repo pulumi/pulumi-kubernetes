@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/pulumi/lumi/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi-fabric/pkg/util/cmdutil"
 )
 
 // Main launches the tfbridge plugin for a given package pkg and provider prov.

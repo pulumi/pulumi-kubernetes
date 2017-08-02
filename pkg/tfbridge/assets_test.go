@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pulumi/lumi/pkg/resource"
+	"github.com/pulumi/pulumi-fabric/pkg/resource"
 	"github.com/stretchr/testify/assert"
 )
 

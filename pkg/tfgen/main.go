@@ -7,10 +7,10 @@ import (
 	"os"
 
 	"github.com/golang/glog"
-	"github.com/pulumi/lumi/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi-fabric/pkg/util/cmdutil"
 	"github.com/spf13/cobra"
 
-	"github.com/pulumi/terraform-bridge/pkg/tfbridge"
+	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
 )
 
 // Main executes the TFGen process for the given package pkg and provider prov.

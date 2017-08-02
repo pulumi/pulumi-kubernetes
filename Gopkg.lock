@@ -10,8 +10,8 @@
 [[projects]]
   name = "github.com/aws/aws-sdk-go"
   packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/shareddefaults","private/protocol","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/restxml","private/protocol/xml/xmlutil","service/s3","service/sts"]
-  revision = "5e436e55ac5eddc739f26a2a209b3f4248ee8e0e"
-  version = "v1.10.18"
+  revision = "b33b08175d12b795daa7726c5577b39d06a2551c"
+  version = "v1.10.20"
 
 [[projects]]
   branch = "master"
@@ -201,9 +201,9 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/pulumi/lumi"
+  name = "github.com/pulumi/pulumi-fabric"
   packages = ["pkg/compiler/ast","pkg/compiler/binder","pkg/compiler/core","pkg/compiler/errors","pkg/compiler/metadata","pkg/compiler/symbols","pkg/compiler/types","pkg/compiler/types/predef","pkg/diag","pkg/diag/colors","pkg/encoding","pkg/eval","pkg/eval/rt","pkg/pack","pkg/resource","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/mapper","pkg/util/rpcutil","pkg/workspace","sdk/go/pkg/lumirpc"]
-  revision = "5fb014e53c9bc1084042b673edc6fcfd8af766b2"
+  revision = "35aa6b755999f963922e7acf99fb3b1de6a1d419"
 
 [[projects]]
   branch = "master"
@@ -245,7 +245,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["bcrypt","blowfish","cast5","openpgp","openpgp/armor","openpgp/elgamal","openpgp/errors","openpgp/packet","openpgp/s2k","ssh/terminal"]
-  revision = "558b6879de74bc843225cde5686419267ff707ca"
+  revision = "358f15eacb587b056fc93273b930314a5cda12fe"
 
 [[projects]]
   branch = "master"
@@ -257,7 +257,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "0f826bdd13b500be0f1d4004938ad978fcc6031e"
+  revision = "e312636bdaa2fac4f0acde9d17ab9fbad2b4ad10"
 
 [[projects]]
   branch = "master"
@@ -286,6 +286,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "aa87fd467c3c6c3079dfaedef410e22ea9060962b15f50d9797663d6197088e7"
+  inputs-digest = "d4f2411a552686fc7f425da6d78a108a0330edcbb30c9c35a44f26bbf1e08c63"
   solver-name = "gps-cdcl"
   solver-version = 1

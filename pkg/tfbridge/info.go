@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pelletier/go-toml"
 	"github.com/pkg/errors"
-	"github.com/pulumi/lumi/pkg/tokens"
+	"github.com/pulumi/pulumi-fabric/pkg/tokens"
 )
 
 // ProviderInfo contains information about a Terraform provider plugin that we will use to generate the Lumi

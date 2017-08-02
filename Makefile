@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 .SHELLFLAGS=-e
 
-PROJECT         = github.com/pulumi/terraform-bridge
+PROJECT         = github.com/pulumi/pulumi-terraform
 GOPKGS          = $(shell go list ./pkg/... | grep -v /vendor/)
 TESTPARALLELISM = 10
 

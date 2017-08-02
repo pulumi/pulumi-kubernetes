@@ -6,10 +6,10 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/pulumi/lumi/pkg/compiler/types/predef"
-	"github.com/pulumi/lumi/pkg/resource"
-	"github.com/pulumi/lumi/pkg/tokens"
-	"github.com/pulumi/lumi/pkg/util/contract"
+	"github.com/pulumi/pulumi-fabric/pkg/compiler/types/predef"
+	"github.com/pulumi/pulumi-fabric/pkg/resource"
+	"github.com/pulumi/pulumi-fabric/pkg/tokens"
+	"github.com/pulumi/pulumi-fabric/pkg/util/contract"
 )
 
 // AssetTranslation instructs the bridge how to translate assets into something Terraform can use.
@@ -60,7 +60,7 @@ func (a *AssetTranslation) IsArchive() bool {
 func (a *AssetTranslation) TranslateAsset(asset resource.Asset) (interface{}, error) {
 	contract.Assert(a.IsAsset())
 
-	// TODO[pulumi/lumi#153]: support HashField.
+	// TODO[pulumi/pulumi-fabric#153]: support HashField.
 
 	// Begin reading the blob.
 	blob, err := asset.Read()
@@ -93,7 +93,7 @@ func (a *AssetTranslation) TranslateAsset(asset resource.Asset) (interface{}, er
 func (a *AssetTranslation) TranslateArchive(archive resource.Archive) (interface{}, error) {
 	contract.Assert(a.IsArchive())
 
-	// TODO[pulumi/lumi#153]: support HashField.
+	// TODO[pulumi/pulumi-fabric#153]: support HashField.
 
 	// Produce either a temp file or an in-memory representation, as requested.
 	switch a.Kind {

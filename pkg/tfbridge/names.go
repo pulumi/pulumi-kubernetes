@@ -6,8 +6,8 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/pulumi/lumi/pkg/resource"
-	"github.com/pulumi/lumi/pkg/util/contract"
+	"github.com/pulumi/pulumi-fabric/pkg/resource"
+	"github.com/pulumi/pulumi-fabric/pkg/util/contract"
 )
 
 // LumiToTerraformName performs a standard transformation on the given name string, from Lumi's PascalCasing or
