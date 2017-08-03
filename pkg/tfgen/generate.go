@@ -329,7 +329,8 @@ func (g *generator) generateResource(pkg string, rawname string,
 	// First, generate all instance properties.
 	var finalerr error
 	var inprops []string
-	var proptypes []string
+	var inflags []string
+	var intypes []string
 	var schemas []*schema.Schema
 	var customs []tfbridge.SchemaInfo
 	if len(res.Schema) > 0 {
@@ -354,10 +355,15 @@ func (g *generator) generateResource(pkg string, rawname string,
 
 					// Only keep track of input properties for purposes of initialization data structures.
 					if inprop {
+						// Regenerate the type and flags since optionals may be different in input positions.
+						incust := custom[s]
+						inflag := g.tfToJSFlags(sch, incust, false /*out*/)
+						intype := g.tfToJSType(sch, incust, false /*out*/)
 						inprops = append(inprops, prop)
-						proptypes = append(proptypes, typ)
+						inflags = append(inflags, inflag)
+						intypes = append(intypes, intype)
 						schemas = append(schemas, sch)
-						customs = append(customs, custom[s])
+						customs = append(customs, incust)
 					}
 				}
 			}
@@ -400,7 +406,9 @@ func (g *generator) generateResource(pkg string, rawname string,
 				"but was missing\");", propsindent, prop)
 			w.Writefmtln("%v        }", propsindent)
 		}
-		w.Writefmtln("%v        this.%[2]v = args.%[2]v;", propsindent, prop)
+		// Note that we must perform an <any> assignment because the types may not match perfectly.  Input arguments
+		// may be missing certain optional computed properties that will be assigned by the provider upon cretion.
+		w.Writefmtln("%v        this.%[2]v = <any>args.%[2]v;", propsindent, prop)
 	}
 	if len(inprops) == 0 {
 		w.Writefmtln("        }")
@@ -413,10 +421,8 @@ func (g *generator) generateResource(pkg string, rawname string,
 	// Next, generate the args interface for this class.
 	w.Writefmtln("export interface %vArgs {", resname)
 	for i, prop := range inprops {
-		sch := schemas[i]
-		inflags := g.tfToJSFlags(sch, customs[i], false /*out*/)
-		g.generateComment(w, sch.Description, "    ")
-		w.Writefmtln("    readonly %v%v: %v;", prop, inflags, proptypes[i])
+		g.generateComment(w, schemas[i].Description, "    ")
+		w.Writefmtln("    readonly %v%v: %v;", prop, inflags[i], intypes[i])
 	}
 	w.Writefmtln("}")
 	w.Writefmtln("")
@@ -676,9 +682,9 @@ func inProperty(sch *schema.Schema) bool {
 func optionalProperty(sch *schema.Schema, custom tfbridge.SchemaInfo, out bool) bool {
 	// If we're checking a property used in an output position, it isn't optional if it's computed.
 	if out {
-		return !sch.Computed && (sch.Optional || custom.Optional())
+		return !sch.Computed && !custom.HasDefault() && sch.Optional
 	}
-	return sch.Optional || sch.Computed || custom.Optional()
+	return sch.Optional || sch.Computed || custom.HasDefault()
 }
 
 // propFlagTyp returns the property name, flag, and type to use for a given property/field/schema element.  The out

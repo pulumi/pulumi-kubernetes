@@ -52,8 +52,8 @@ type SchemaInfo struct {
 	Default DefaultInfo           // an optional default directive to be applied if a value is missing.
 }
 
-// Optional returns true if the value for this entry isn't required.
-func (info SchemaInfo) Optional() bool {
+// HasDefault returns true if there is a default value for this property.
+func (info SchemaInfo) HasDefault() bool {
 	return info.Default.From != "" || info.Default.Value != nil
 }
 
@@ -119,7 +119,7 @@ func GetGitInfo(prov string) (GitInfo, error) {
 	repodir := filepath.Join(gopath, "src", tfGitHub, tfProvidersOrg, tfProviderPrefix+"-"+prov)
 
 	// Make sure the target is actually a Git repository so we can fail with a pretty error if not.
-	if _, err := os.Stat(filepath.Join(repodir, ".git")); err != nil {
+	if _, staterr := os.Stat(filepath.Join(repodir, ".git")); staterr != nil {
 		return GitInfo{}, errors.Errorf("%v is not a Git repo, and no vendored copy was found", repodir)
 	}
 
