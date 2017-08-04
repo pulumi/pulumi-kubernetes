@@ -4,6 +4,7 @@ package tfbridge
 
 import (
 	"fmt"
+	"reflect"
 	"strings"
 
 	"github.com/golang/glog"
@@ -518,14 +519,26 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 		}
 	}
 	if diff != nil {
-		// Smash the flatmap and then read back any things that have changed.
+		// Expand the flatmap, so all arrays and sets are in their normal form, and then record any changes.
+		flatolds := make(flatmap.Map)
+		flatnews := make(flatmap.Map)
 		for k, attr := range diff.Attributes {
-			attrs[k] = attr.New
-		}
-		for k, attr := range diff.Attributes {
+			if attr.Old != "" {
+				flatolds[k] = attr.Old
+			}
 			if attr.New != "" {
+				flatnews[k] = attr.New
+			}
+		}
+		for _, k := range flatnews.Keys() {
+			var oldv interface{}
+			if flatolds.Contains(k) {
+				oldv = flatmap.Expand(flatolds, k)
+			}
+			newv := flatmap.Expand(flatnews, k)
+			if !reflect.DeepEqual(oldv, newv) {
 				name, info := getInfoFromTerraformName(k, res.Schema.Fields)
-				defaults[name] = p.makeTerraformResultValue(attrs, k, info)
+				defaults[name] = p.makeTerraformOutput(newv, info)
 			}
 		}
 	}
