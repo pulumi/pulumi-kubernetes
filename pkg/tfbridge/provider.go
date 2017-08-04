@@ -391,11 +391,11 @@ func (p *Provider) makeTerraformAttributesFromInputs(inputs map[string]interface
 	return flatmap.Flatten(inputs)
 }
 
-// makeTerraformDiff takes a bag of old and new properties, and returns two things: the attribute state to use for the
-// current resource alongside a Terraform diff for the old and new.  If there was no old state, the first return is nil.
+// makeTerraformDiff takes a bag of old and new properties, and returns two things: the existing resource's state as
+// an attribute map, alongside a Terraform diff for the old versus new state.  If there was no existing state, the
+// returned attributes will be empty (because the resource doesn't yet exist).
 func (p *Provider) makeTerraformDiff(old resource.PropertyMap, new resource.PropertyMap,
-	schema map[string]SchemaInfo) (map[string]string, *terraform.InstanceDiff, error) {
-	attrs := make(map[string]string)
+	schema map[string]SchemaInfo) (*terraform.InstanceState, *terraform.InstanceDiff, error) {
 	diff := make(map[string]*terraform.ResourceAttrDiff)
 	// Add all new property values.
 	if new != nil {
@@ -408,11 +408,11 @@ func (p *Provider) makeTerraformDiff(old resource.PropertyMap, new resource.Prop
 			if diff[p] == nil {
 				diff[p] = &terraform.ResourceAttrDiff{}
 			}
-			attrs[p] = v
 			diff[p].New = v
 		}
 	}
 	// Now add all old property values, provided they exist in new.
+	existing := make(map[string]string)
 	if old != nil {
 		// FIXME: avoid spilling except for during creation.  I think maybe we just skip olds or when new==old?
 		inputs, err := p.makeTerraformAttributes(old, schema, false)
@@ -420,19 +420,28 @@ func (p *Provider) makeTerraformDiff(old resource.PropertyMap, new resource.Prop
 			return nil, nil, err
 		}
 		for p, v := range inputs {
-			if diff[p] != nil {
-				diff[p].Old = v
+			if diff[p] == nil {
+				diff[p] = &terraform.ResourceAttrDiff{}
 			}
+			diff[p].Old = v
+			existing[p] = v
 		}
 	}
-	return attrs, &terraform.InstanceDiff{Attributes: diff}, nil
+	return &terraform.InstanceState{Attributes: existing},
+		&terraform.InstanceDiff{Attributes: diff}, nil
 }
 
 // makeTerraformDiffFromRPC takes RPC maps of old and new properties, unmarshals them, and calls into makeTerraformDiff.
 func (p *Provider) makeTerraformDiffFromRPC(old *pbstruct.Struct, new *pbstruct.Struct,
-	schema map[string]SchemaInfo) (map[string]string, *terraform.InstanceDiff, error) {
-	oldprops := plugin.UnmarshalProperties(old, plugin.MarshalOptions{SkipNulls: true})
-	newprops := plugin.UnmarshalProperties(new, plugin.MarshalOptions{SkipNulls: true})
+	schema map[string]SchemaInfo) (*terraform.InstanceState, *terraform.InstanceDiff, error) {
+	var oldprops resource.PropertyMap
+	if old != nil {
+		oldprops = plugin.UnmarshalProperties(old, plugin.MarshalOptions{SkipNulls: true})
+	}
+	var newprops resource.PropertyMap
+	if new != nil {
+		newprops = plugin.UnmarshalProperties(new, plugin.MarshalOptions{SkipNulls: true})
+	}
 	return p.makeTerraformDiff(oldprops, newprops, schema)
 }
 
@@ -636,14 +645,13 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	}
 	glog.V(9).Infof("tfbridge/Provider.Create: lumi='%v', tf=%v", t, res.TF.Name)
 
-	// Create a new state with no ID.  Terraform will interpret this as a create operation.
-	inputs, err := p.makeTerraformAttributesFromRPC(req.GetProperties(), res.Schema.Fields, false)
+	// To get Terraform to create a new resource, the ID msut be blank and existing state must be empty (since the
+	// resource does not exist yet), and the diff object should have no old state and all of the new state.
+	info := &terraform.InstanceInfo{Type: res.TF.Name}
+	state, diff, err := p.makeTerraformDiffFromRPC(nil, req.GetProperties(), res.Schema.Fields)
 	if err != nil {
 		return nil, errors.Errorf("Error preparing %v's property state: %v", t, err)
 	}
-	info := &terraform.InstanceInfo{Type: res.TF.Name}
-	state := &terraform.InstanceState{Attributes: inputs}
-	diff := &terraform.InstanceDiff{}
 	newstate, err := p.tf.Apply(info, state, diff)
 	if err != nil {
 		return nil, err
@@ -690,19 +698,18 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lum
 	glog.V(9).Infof("tfbridge/Provider.Update: lumi='%v', tf=%v", t, res.TF.Name)
 
 	// Create a state state with the ID to update, a diff with old and new states, and perform the apply.
-	info := &terraform.InstanceInfo{Type: res.TF.Name}
-	attrs, diff, err := p.makeTerraformDiffFromRPC(req.GetOlds(), req.GetNews(), res.Schema.Fields)
+	state, diff, err := p.makeTerraformDiffFromRPC(req.GetOlds(), req.GetNews(), res.Schema.Fields)
 	if err != nil {
 		return nil, errors.Errorf("Error preparing %v old and new state/diffs: %v", t, err)
 	}
-	state := &terraform.InstanceState{
-		ID:         req.GetId(),
-		Attributes: attrs,
-	}
+	state.ID = req.GetId()
+
+	info := &terraform.InstanceInfo{Type: res.TF.Name}
 	newstate, err := p.tf.Apply(info, state, diff)
 	if err != nil {
 		return nil, errors.Errorf("Error applying %v update: %v", t, err)
 	}
+
 	props := p.makeTerraformResult(newstate.Attributes, res.Schema.Fields)
 	return &lumirpc.UpdateResponse{
 		Properties: plugin.MarshalProperties(props, plugin.MarshalOptions{}),
