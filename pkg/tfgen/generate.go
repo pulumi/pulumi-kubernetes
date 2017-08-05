@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -204,6 +205,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 
 // copyFile is a stupid file copy routine.  It reads the file into memory to avoid messy OS-specific oddities.
 func copyFile(from, to string) error {
+	err := os.MkdirAll(path.Dir(to), 0755)
 	body, err := ioutil.ReadFile(from)
 	if err != nil {
 		return err
@@ -453,15 +455,14 @@ func (g *generator) generateSubmodules(submodules map[string]map[string]string,
 	var extrafs []string               // the resulting "extra" files to include, if any.
 
 	// Sort the submodules by name so that we emit in a deterministic order.
-	var subs []string
-	for submod := range submodules {
-		subs = append(subs, submod)
-	}
-	sort.Strings(subs)
+	subnames := stableSubmodules(submodules, overlays)
 
 	// Now for each module, generate the requisite index.
-	for _, sub := range subs {
-		exports := submodules[sub]
+	for _, sub := range subnames {
+		exports, ok := submodules[sub]
+		if !ok {
+			exports = map[string]string{}
+		}
 
 		// If there are any overlays for this sub-module, copy them and add them.
 		if overlays != nil {
@@ -953,4 +954,20 @@ func stableSchemas(schemas map[string]*schema.Schema) []string {
 	}
 	sort.Strings(ss)
 	return ss
+}
+
+func stableSubmodules(submodules map[string]map[string]string, overlays map[string]*tfbridge.OverlayInfo) []string {
+	subMap := map[string]bool{}
+	for submod := range submodules {
+		subMap[submod] = true
+	}
+	for submod := range overlays {
+		subMap[submod] = true
+	}
+	var subs []string
+	for submod := range subMap {
+		subs = append(subs, submod)
+	}
+	sort.Strings(subs)
+	return subs
 }
