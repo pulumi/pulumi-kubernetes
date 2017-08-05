@@ -3,7 +3,6 @@
 package tfbridge
 
 import (
-	"strings"
 	"unicode"
 
 	"github.com/pulumi/pulumi-fabric/pkg/resource"
@@ -58,57 +57,37 @@ func TerraformToLumiName(name string, upper bool) string {
 	return result
 }
 
-// NameProperty is the resource property used to assign names for URN assignment.
-const NameProperty = "name"
-
 // IsBuiltinLumiProperty returns true if the property name s is a special Lumi builtin property.
 func IsBuiltinLumiProperty(s string) bool {
-	return (s == string(resource.IDProperty) || s == string(resource.URNProperty) || s == NameProperty)
+	return s == string(resource.IDProperty) ||
+		s == string(resource.URNProperty) ||
+		s == string(resource.URNNameProperty)
 }
 
-// AutoName adds an auto-name property to the given resource's schema map, if the associated schema has one.
-func AutoName(info ResourceInfo, maxlen int) ResourceInfo {
-	// Ensure to lazily initialize the fields.
-	if info.Fields == nil {
-		info.Fields = make(map[string]SchemaInfo)
-	}
-
-	// Ensure that there isn't already an entry for the name.
-	_, has := info.Fields[NameProperty]
-	contract.Assert(!has)
-
-	// Manufacture a name based on the token and then add the auto-name entry.  The name will simply be
-	// the resource name (from its token), camelCased rather than PascalCased, with "Name" appended.
-	contract.Assert(info.Tok != "")
-	new := string(info.Tok.Name())
-	new = strings.ToLower(string(new[0])) + new[1:] + "Name"
-	info.Fields[NameProperty] = AutoNameInfo(new, -1)
-	return info
+// AutoName creates custom schema for a Terraform name property which is automatically populated from the
+// resource's URN name, with a random suffix and maximum length of maxlen.  This makes it easy to propagate the Lumi
+// resource's URN name part as the Terraform name as a convenient default, while still permitting it to be overridden.
+func AutoName(name string, maxlen int) *SchemaInfo {
+	return AutoNameTransform(name, maxlen, nil)
 }
 
-// AutoNameInfo creates custom schema for a Terraform name property.  It uses the new name (which must not be "name"),
-// and figures out given the schema information how to populate the property.  maxlen specifies the maximum length.
-func AutoNameInfo(new string, maxlen int) SchemaInfo {
-	return AutoNameInfoRename(new, maxlen, nil)
-}
-
-// AutoNameInfoRename creates custom schema for a Terraform name property.  It uses the new name (which must not be
-// "name"), and figures out given the schema information how to populate the property.  maxlen specifies the maximum
-// length, and rename allows the name to be rewritten as needed before appending the random suffix.
-func AutoNameInfoRename(new string, maxlen int, rename func(string) string) SchemaInfo {
-	contract.Assert(new != NameProperty)
-	info := SchemaInfo{
-		Name: new,
-		Default: DefaultInfo{
-			From: NameProperty,
+// AutoNameTransform creates custom schema for a Terraform name property which is automatically populated from the
+// resource's URN name, with a random suffix, maximum length maxlen, and optional transformation function. This makes it
+// easy to propagate the Lumi resource's URN name part as the Terraform name as a convenient default, while still
+// permitting it to be overridden.
+func AutoNameTransform(name string, maxlen int, transform func(string) string) *SchemaInfo {
+	contract.Assert(name != string(resource.URNNamePropertyKey))
+	return &SchemaInfo{
+		Name: name,
+		Default: &DefaultInfo{
+			From: string(resource.URNNamePropertyKey),
 			FromTransform: func(v interface{}) interface{} {
 				vs := v.(string)
-				if rename != nil {
-					vs = rename(vs)
+				if transform != nil {
+					vs = transform(vs)
 				}
 				return resource.NewUniqueHex(vs+"-", maxlen, -1)
 			},
 		},
 	}
-	return info
 }

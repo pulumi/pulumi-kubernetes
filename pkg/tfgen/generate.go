@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-fabric/pkg/diag"
+	"github.com/pulumi/pulumi-fabric/pkg/resource"
 	"github.com/pulumi/pulumi-fabric/pkg/tokens"
 	"github.com/pulumi/pulumi-fabric/pkg/tools"
 	"github.com/pulumi/pulumi-fabric/pkg/util/cmdutil"
@@ -89,7 +90,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	resmap := prov.ResourcesMap
 	reshits := make(map[string]bool)
 	for _, r := range stableResources(prov.ResourcesMap) {
-		var resinfo tfbridge.ResourceInfo
+		var resinfo *tfbridge.ResourceInfo
 		if provinfo.Resources != nil {
 			if ri, has := provinfo.Resources[r]; has {
 				resinfo = ri
@@ -212,7 +213,7 @@ func copyFile(from, to string) error {
 
 // generateConfig takes a map of config variables and emits a config submodule to the given file.
 func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
-	custom map[string]tfbridge.SchemaInfo, outDir string) (string, error) {
+	custom map[string]*tfbridge.SchemaInfo, outDir string) (string, error) {
 	// Sort the config variables to ensure they are emitted in a deterministic order.
 	var cfgkeys []string
 	for key := range cfg {
@@ -274,7 +275,7 @@ type resourceResult struct {
 
 // generateResource generates a single module for the given resource.
 func (g *generator) generateResource(pkg string, rawname string,
-	res *schema.Resource, resinfo tfbridge.ResourceInfo, root, outDir string) (resourceResult, error) {
+	res *schema.Resource, resinfo *tfbridge.ResourceInfo, root, outDir string) (resourceResult, error) {
 	// Transform the name as necessary.
 	resname, filename := resourceName(pkg, rawname, resinfo)
 
@@ -332,7 +333,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	var inflags []string
 	var intypes []string
 	var schemas []*schema.Schema
-	var customs []tfbridge.SchemaInfo
+	var customs []*tfbridge.SchemaInfo
 	if len(res.Schema) > 0 {
 		for _, s := range stableSchemas(res.Schema) {
 			if sch := res.Schema[s]; sch.Removed == "" {
@@ -343,7 +344,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 					// Keep going so we can accumulate as many errors as possible.
 					err = errors.Errorf("%v:%v: %v", pkg, rawname, err)
 					finalerr = multierror.Append(finalerr, err)
-				} else if prop != "" && (customNamed || prop != tfbridge.NameProperty) {
+				} else if prop != "" && (customNamed || prop != string(resource.URNNamePropertyKey)) {
 					// Make a little comment in the code so it's easy to pick out output properties.
 					inprop := inProperty(sch)
 					var outcomment string
@@ -391,8 +392,8 @@ func (g *generator) generateResource(pkg string, rawname string,
 		w.Writefmtln("    constructor(args%v: %vArgs) {", argsflags, resname)
 		w.Writefmtln("        super();")
 	} else {
-		w.Writefmtln("    constructor(name: string, args%v: %vArgs) {", argsflags, resname)
-		w.Writefmtln("        super(name);")
+		w.Writefmtln("    constructor(%v: string, args%v: %vArgs) {", resource.URNNamePropertyKey, argsflags, resname)
+		w.Writefmtln("        super(%v);", resource.URNNamePropertyKey)
 	}
 	var propsindent string
 	if len(inprops) == 0 {
@@ -446,7 +447,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 // generateSubmodules creates a set of index files, if necessary, for the given submodules.  It returns a map of
 // submodule name to the generated index file, so that a caller can be sure to re-export it as necessary.
 func (g *generator) generateSubmodules(submodules map[string]map[string]string,
-	overlays map[string]tfbridge.OverlayInfo,
+	overlays map[string]*tfbridge.OverlayInfo,
 	outDir string, overlaysDir string) (map[string]string, []string, error) {
 	results := make(map[string]string) // the resulting module map.
 	var extrafs []string               // the resulting "extra" files to include, if any.
@@ -679,20 +680,24 @@ func inProperty(sch *schema.Schema) bool {
 }
 
 // optionalProperty checks whether the given property is optional, either due to Terraform or an overlay.
-func optionalProperty(sch *schema.Schema, custom tfbridge.SchemaInfo, out bool) bool {
+func optionalProperty(sch *schema.Schema, custom *tfbridge.SchemaInfo, out bool) bool {
 	// If we're checking a property used in an output position, it isn't optional if it's computed.
+	customDefault := custom != nil && custom.HasDefault()
 	if out {
-		return !sch.Computed && !custom.HasDefault() && sch.Optional
+		return sch.Optional && !sch.Computed && !customDefault
 	}
-	return sch.Optional || sch.Computed || custom.HasDefault()
+	return sch.Optional || sch.Computed || customDefault
 }
 
 // propFlagTyp returns the property name, flag, and type to use for a given property/field/schema element.  The out
 // bit determines whether a property suitable for outputs is provided (e.g., it assumes compputeds have occurred).
 func (g *generator) propFlagTyp(res string, key string, sch map[string]*schema.Schema,
-	custom tfbridge.SchemaInfo, out bool) (string, string, string, error) {
+	custom *tfbridge.SchemaInfo, out bool) (string, string, string, error) {
 	// Use the name override, if one exists, or use the standard name mangling otherwise.
-	prop := custom.Name
+	var prop string
+	if custom != nil {
+		prop = custom.Name
+	}
 	if prop == "" {
 		var err error
 		prop, err = propertyName(res, key)
@@ -707,9 +712,12 @@ func (g *generator) propFlagTyp(res string, key string, sch map[string]*schema.S
 // propTyp returns the property name and type, without flags, to use for a given property/field/schema element.  The
 // out bit determines whether a property suitable for outputs is provided (e.g., it assumes compputeds have occurred).
 func (g *generator) propTyp(res string, key string, sch map[string]*schema.Schema,
-	custom tfbridge.SchemaInfo, out bool) (string, string, error) {
+	custom *tfbridge.SchemaInfo, out bool) (string, string, error) {
 	// Use the name override, if one exists, or use the standard name mangling otherwise.
-	prop := custom.Name
+	var prop string
+	if custom != nil {
+		prop = custom.Name
+	}
 	if prop == "" {
 		var err error
 		prop, err = propertyName(res, key)
@@ -722,7 +730,7 @@ func (g *generator) propTyp(res string, key string, sch map[string]*schema.Schem
 }
 
 // tsToJSFlags returns the JavaScript flags for a given schema property.
-func (g *generator) tfToJSFlags(sch *schema.Schema, custom tfbridge.SchemaInfo, out bool) string {
+func (g *generator) tfToJSFlags(sch *schema.Schema, custom *tfbridge.SchemaInfo, out bool) string {
 	if optionalProperty(sch, custom, out) {
 		return "?"
 	}
@@ -730,22 +738,22 @@ func (g *generator) tfToJSFlags(sch *schema.Schema, custom tfbridge.SchemaInfo, 
 }
 
 // tfToJSType returns the JavaScript type name for a given schema property.
-func (g *generator) tfToJSType(sch *schema.Schema, custom tfbridge.SchemaInfo, out bool) string {
-	if custom.Type != "" {
-		return string(custom.Type.Name())
-	} else if custom.Asset != nil {
-		return "lumi.asset." + string(custom.Asset.Type().Name())
+func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, out bool) string {
+	var elem *tfbridge.SchemaInfo
+	if custom != nil {
+		if custom.Type != "" {
+			return string(custom.Type.Name())
+		} else if custom.Asset != nil {
+			return "lumi.asset." + string(custom.Asset.Type().Name())
+		}
+		elem = custom.Elem
 	}
-	var elemcust tfbridge.SchemaInfo
-	if custom.Elem != nil {
-		elemcust = *custom.Elem
-	}
-	return g.tfToJSValueType(sch.Type, sch.Elem, elemcust, out)
+	return g.tfToJSValueType(sch.Type, sch.Elem, elem, out)
 }
 
 // tfToJSValueType returns the JavaScript type name for a given schema value type and element kind.
 func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{},
-	custom tfbridge.SchemaInfo, out bool) string {
+	custom *tfbridge.SchemaInfo, out bool) string {
 	switch vt {
 	case schema.TypeBool:
 		return "boolean"
@@ -770,7 +778,7 @@ func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{},
 
 // tfElemToJSType returns the JavaScript type for a given schema element.  This element may be either a simple schema
 // property or a complex structure.  In the case of a complex structure, this will expand to its nominal type.
-func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo, out bool) string {
+func (g *generator) tfElemToJSType(elem interface{}, custom *tfbridge.SchemaInfo, out bool) string {
 	// If there is no element type specified, we will accept anything.
 	if elem == nil {
 		return "any"
@@ -788,7 +796,11 @@ func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo,
 		t := "{ "
 		c := 0
 		for _, s := range stableSchemas(e.Schema) {
-			prop, flag, typ, err := g.propFlagTyp("", s, e.Schema, custom.Fields[s], out)
+			var fldinfo *tfbridge.SchemaInfo
+			if custom != nil {
+				fldinfo = custom.Fields[s]
+			}
+			prop, flag, typ, err := g.propFlagTyp("", s, e.Schema, fldinfo, out)
 			contract.Assertf(err == nil, "No errors expected for non-resource properties")
 			if prop != "" {
 				if c > 0 {
@@ -807,7 +819,7 @@ func (g *generator) tfElemToJSType(elem interface{}, custom tfbridge.SchemaInfo,
 
 // tfToJSTypeFlags returns the JavaScript type name for a given schema property, just like tfToJSType, except that if
 // the schema is optional, we will emit an undefined union type (for non-field positions).
-func (g *generator) tfToJSTypeFlags(sch *schema.Schema, custom tfbridge.SchemaInfo, out bool) string {
+func (g *generator) tfToJSTypeFlags(sch *schema.Schema, custom *tfbridge.SchemaInfo, out bool) string {
 	ts := g.tfToJSType(sch, custom, out)
 	if optionalProperty(sch, custom, out) {
 		ts += " | undefined"
@@ -818,7 +830,7 @@ func (g *generator) tfToJSTypeFlags(sch *schema.Schema, custom tfbridge.SchemaIn
 // generateCustomImports traverses a custom schema map, deeply, to figure out the set of imported names and files that
 // will be required to access those names.  WARNING: this routine doesn't (yet) attempt to eliminate naming collisions.
 func generateCustomImports(w *tools.GenWriter,
-	infos map[string]tfbridge.SchemaInfo, pkg string, root string, curr string) error {
+	infos map[string]*tfbridge.SchemaInfo, pkg string, root string, curr string) error {
 	imports := make(map[string][]string)
 	if err := gatherCustomImports(infos, imports, pkg, root, curr); err != nil {
 		return err
@@ -845,7 +857,7 @@ func generateCustomImports(w *tools.GenWriter,
 }
 
 // gatherCustomImports gathers imports from an entire map of schema info.
-func gatherCustomImports(infos map[string]tfbridge.SchemaInfo, imports map[string][]string,
+func gatherCustomImports(infos map[string]*tfbridge.SchemaInfo, imports map[string][]string,
 	pkg string, root string, curr string) error {
 	if infos != nil {
 		for _, info := range infos {
@@ -858,36 +870,38 @@ func gatherCustomImports(infos map[string]tfbridge.SchemaInfo, imports map[strin
 }
 
 // gatherCustomImportsFrom gathers imports from a single schema info structure.
-func gatherCustomImportsFrom(info tfbridge.SchemaInfo, imports map[string][]string,
+func gatherCustomImportsFrom(info *tfbridge.SchemaInfo, imports map[string][]string,
 	pkg string, root string, curr string) error {
-	// If this property has a custom schema type, and it isn't "simple" (e.g., string, etc), then we need to
-	// create a relative module import.  Note that we assume this is local to the current package!
-	if info.Type != "" && !tokens.Token(info.Type).Simple() {
-		haspkg := string(info.Type.Module().Package().Name())
-		if haspkg != pkg {
-			return errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, pkg)
+	if info != nil {
+		// If this property has a custom schema type, and it isn't "simple" (e.g., string, etc), then we need to
+		// create a relative module import.  Note that we assume this is local to the current package!
+		if info.Type != "" && !tokens.Token(info.Type).Simple() {
+			haspkg := string(info.Type.Module().Package().Name())
+			if haspkg != pkg {
+				return errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, pkg)
+			}
+			mod := info.Type.Module().Name()
+			modfile := filepath.Join(root,
+				strings.Replace(string(mod), tokens.TokenDelimiter, string(filepath.Separator), -1))
+			relmod, err := relModule(curr, modfile)
+			if err != nil {
+				return err
+			}
+			imports[relmod] = append(imports[modfile], string(info.Type.Name()))
 		}
-		mod := info.Type.Module().Name()
-		modfile := filepath.Join(root,
-			strings.Replace(string(mod), tokens.TokenDelimiter, string(filepath.Separator), -1))
-		relmod, err := relModule(curr, modfile)
-		if err != nil {
-			return err
-		}
-		imports[relmod] = append(imports[modfile], string(info.Type.Name()))
-	}
 
-	// If the property has an element type, recurse and propagate any results.
-	if info.Elem != nil {
-		if err := gatherCustomImportsFrom(*info.Elem, imports, pkg, root, curr); err != nil {
-			return err
+		// If the property has an element type, recurse and propagate any results.
+		if info.Elem != nil {
+			if err := gatherCustomImportsFrom(info.Elem, imports, pkg, root, curr); err != nil {
+				return err
+			}
 		}
-	}
 
-	// If the property has fields, then simply recurse and propagate any results, if any, to our map.
-	if info.Fields != nil {
-		if err := gatherCustomImports(info.Fields, imports, pkg, root, curr); err != nil {
-			return err
+		// If the property has fields, then simply recurse and propagate any results, if any, to our map.
+		if info.Fields != nil {
+			if err := gatherCustomImports(info.Fields, imports, pkg, root, curr); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -895,8 +909,8 @@ func gatherCustomImportsFrom(info tfbridge.SchemaInfo, imports map[string][]stri
 }
 
 // resourceName translates a Terraform name into its Lumi name equivalent, plus a suggested filename.
-func resourceName(pkg string, rawname string, resinfo tfbridge.ResourceInfo) (string, string) {
-	if resinfo.Tok == "" {
+func resourceName(pkg string, rawname string, resinfo *tfbridge.ResourceInfo) (string, string) {
+	if resinfo == nil || resinfo.Tok == "" {
 		// default transformations.
 		contract.Assert(strings.HasPrefix(rawname, pkg+"_"))
 		name := rawname[len(pkg)+1:]                     // strip off the pkg prefix.

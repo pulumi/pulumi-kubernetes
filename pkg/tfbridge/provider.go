@@ -37,7 +37,7 @@ type Provider struct {
 // Resource wraps both the Terraform resource type info plus the overlay resource info.
 type Resource struct {
 	TF     terraform.ResourceType // Terraform resource info.
-	Schema ResourceInfo           // optional provider overrides.
+	Schema *ResourceInfo          // optional provider overrides.
 }
 
 // NewProvider creates a new Lumi RPC server wired up to the given host and wrapping the given Terraform provider.
@@ -75,10 +75,12 @@ func (p *Provider) initResourceMap() {
 		var tok tokens.Type
 
 		// See if there is override information for this resource.  If yes, use that to decode the token.
-		var schema ResourceInfo
+		var schema *ResourceInfo
 		if p.info.Resources != nil {
 			schema = p.info.Resources[res.Name]
-			tok = schema.Tok
+			if schema != nil {
+				tok = schema.Tok
+			}
 		}
 
 		// Otherwise, we default to the standard naming scheme.
@@ -101,9 +103,12 @@ func (p *Provider) initResourceMap() {
 }
 
 // getInfoFromTerraformName does a map lookup to find the Lumi name and schema info, if any.
-func getInfoFromTerraformName(key string, schema map[string]SchemaInfo) (resource.PropertyKey, SchemaInfo) {
+func getInfoFromTerraformName(key string, schema map[string]*SchemaInfo) (resource.PropertyKey, *SchemaInfo) {
 	info := schema[key]
-	name := info.Name
+	var name string
+	if info != nil {
+		name = info.Name
+	}
 	if name == "" {
 		// If no name override exists, use the default name mangling scheme.
 		name = TerraformToLumiName(key, false)
@@ -112,13 +117,13 @@ func getInfoFromTerraformName(key string, schema map[string]SchemaInfo) (resourc
 }
 
 // getInfoFromLumiName does a reverse map lookup to find the Terraform name and schema info for a Lumi name, if any.
-func getInfoFromLumiName(key resource.PropertyKey, schema map[string]SchemaInfo) (string, SchemaInfo) {
+func getInfoFromLumiName(key resource.PropertyKey, schema map[string]*SchemaInfo) (string, *SchemaInfo) {
 	// To do this, we will first look to see if there's a known custom schema that uses this name.  If yes, we
 	// prefer to use that.  To do this, we must use a reverse lookup.  (In the future we may want to make a
 	// lookaside map to avoid the traversal of this map.)  Otherwise, use the standard name mangling scheme.
 	ks := string(key)
 	for tfname, schinfo := range schema {
-		if schinfo.Name == ks {
+		if schinfo != nil && schinfo.Name == ks {
 			return tfname, schinfo
 		}
 	}
@@ -129,7 +134,7 @@ func getInfoFromLumiName(key resource.PropertyKey, schema map[string]SchemaInfo)
 // use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
 func (p *Provider) makeTerraformInputs(m resource.PropertyMap,
-	schema map[string]SchemaInfo, defaults bool, res bool) (map[string]interface{}, error) {
+	schema map[string]*SchemaInfo, defaults bool, res bool) (map[string]interface{}, error) {
 	result := make(map[string]interface{})
 
 	// Enumerate the inputs provided and add them to the map using their Terraform names.
@@ -156,7 +161,7 @@ func (p *Provider) makeTerraformInputs(m resource.PropertyMap,
 	for key, info := range schema {
 		if v, has := result[key]; has {
 			glog.V(9).Infof("Created Terraform input: %v = %v", key, v)
-		} else if defaults {
+		} else if defaults && info.HasDefault() {
 			if info.Default.Value != nil {
 				result[key] = info.Default.Value
 				glog.V(9).Infof("Created Terraform input: %v = %v (default)", key, result[key])
@@ -176,10 +181,10 @@ func (p *Provider) makeTerraformInputs(m resource.PropertyMap,
 					glog.V(9).Infof("Created Terraform input: %v = %v (default from %v)", key, result[key], fk)
 				}
 			} else {
-				glog.V(9).Infof("Skipped Terraform input: %v (no default)", key)
+				contract.Failf("Default missing Value or From")
 			}
 		} else {
-			glog.V(9).Infof("Skipped Terraform input: %v (skipped defaults)", key)
+			glog.V(9).Infof("Skipped Terraform input: %v (skipped or no defaults)", key)
 		}
 	}
 
@@ -196,7 +201,7 @@ func (p *Provider) makeTerraformInputs(m resource.PropertyMap,
 // use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
 func (p *Provider) makeTerraformInput(name string,
-	v resource.PropertyValue, schema SchemaInfo, defaults bool) (interface{}, error) {
+	v resource.PropertyValue, schema *SchemaInfo, defaults bool) (interface{}, error) {
 	if v.IsNull() {
 		return nil, nil
 	} else if v.IsBool() {
@@ -209,11 +214,11 @@ func (p *Provider) makeTerraformInput(name string,
 		// FIXME: marshal/unmarshal sets properly.
 		var arr []interface{}
 		for i, elem := range v.ArrayValue() {
-			var eleminfo SchemaInfo
-			if schema.Elem != nil {
-				eleminfo = *schema.Elem
+			var elemschema *SchemaInfo
+			if schema != nil {
+				elemschema = schema.Elem
 			}
-			e, err := p.makeTerraformInput(fmt.Sprintf("%v[%v]", name, i), elem, eleminfo, defaults)
+			e, err := p.makeTerraformInput(fmt.Sprintf("%v[%v]", name, i), elem, elemschema, defaults)
 			if err != nil {
 				return nil, err
 			}
@@ -222,7 +227,7 @@ func (p *Provider) makeTerraformInput(name string,
 		return arr, nil
 	} else if v.IsAsset() {
 		// We require that there be asset information, otherwise an error occurs.
-		if schema.Asset == nil {
+		if schema == nil || schema.Asset == nil {
 			return nil,
 				errors.Errorf("Encountered an asset %v but asset translation instructions were missing", name)
 		} else if !schema.Asset.IsAsset() {
@@ -232,7 +237,7 @@ func (p *Provider) makeTerraformInput(name string,
 		return schema.Asset.TranslateAsset(v.AssetValue())
 	} else if v.IsArchive() {
 		// We require that there be archive information, otherwise an error occurs.
-		if schema.Asset == nil {
+		if schema == nil || schema.Asset == nil {
 			return nil,
 				errors.Errorf("Encountered an archive %v but asset translation instructions were missing", name)
 		} else if !schema.Asset.IsArchive() {
@@ -241,7 +246,11 @@ func (p *Provider) makeTerraformInput(name string,
 		}
 		return schema.Asset.TranslateArchive(v.ArchiveValue())
 	} else if v.IsObject() {
-		return p.makeTerraformInputs(v.ObjectValue(), schema.Fields, defaults, false)
+		var fldschemas map[string]*SchemaInfo
+		if schema != nil {
+			fldschemas = schema.Fields
+		}
+		return p.makeTerraformInputs(v.ObjectValue(), fldschemas, defaults, false)
 	} else if v.IsComputed() || v.IsOutput() {
 		// If any variables are unknown, we need to mark them in the inputs so the config map treats it right.  This
 		// requires the use of the special UnknownVariableValue sentinel in Terraform, which is how it internally stores
@@ -255,7 +264,7 @@ func (p *Provider) makeTerraformInput(name string,
 
 // makeTerraformInputsFromRPC unmarshals an RPC payload of properties and turns the results into Terraform inputs.
 func (p *Provider) makeTerraformInputsFromRPC(m *pbstruct.Struct,
-	schema map[string]SchemaInfo, defaults bool, res bool) (map[string]interface{}, error) {
+	schema map[string]*SchemaInfo, defaults bool, res bool) (map[string]interface{}, error) {
 	return p.makeTerraformInputs(
 		plugin.UnmarshalProperties(m, plugin.MarshalOptions{SkipNulls: true}), schema, defaults, res)
 }
@@ -263,7 +272,7 @@ func (p *Provider) makeTerraformInputsFromRPC(m *pbstruct.Struct,
 // makeTerraformResult expands a Terraform-style flatmap into an expanded Lumi resource property map.  This respects
 // the property maps so that results end up with their correct Lumi names when shipping back to the engine.
 func (p *Provider) makeTerraformResult(props map[string]string,
-	schema map[string]SchemaInfo) resource.PropertyMap {
+	schema map[string]*SchemaInfo) resource.PropertyMap {
 	outs := make(map[string]interface{})
 	for _, key := range flatmap.Map(props).Keys() {
 		outs[key] = flatmap.Expand(props, key)
@@ -273,7 +282,7 @@ func (p *Provider) makeTerraformResult(props map[string]string,
 
 // makeTerraformResultValue expands a single Terraform-style flatmap entry into a resource property value.
 func (p *Provider) makeTerraformResultValue(props map[string]string,
-	key string, schema SchemaInfo) resource.PropertyValue {
+	key string, schema *SchemaInfo) resource.PropertyValue {
 	v := flatmap.Expand(props, key)
 	return p.makeTerraformOutput(v, schema)
 }
@@ -281,7 +290,7 @@ func (p *Provider) makeTerraformResultValue(props map[string]string,
 // makeTerraformOutputs takes an expanded Terraform property map and returns a Lumi equivalent.  This respects
 // the property maps so that results end up with their correct Lumi names when shipping back to the engine.
 func (p *Provider) makeTerraformOutputs(outs map[string]interface{},
-	schema map[string]SchemaInfo) resource.PropertyMap {
+	schema map[string]*SchemaInfo) resource.PropertyMap {
 	result := make(resource.PropertyMap)
 	for key, value := range outs {
 		// First do a lookup of the name/info.
@@ -302,7 +311,7 @@ func (p *Provider) makeTerraformOutputs(outs map[string]interface{},
 }
 
 // makeTerraformOutput takes a single Terraform property and returns the Lumi equivalent.
-func (p *Provider) makeTerraformOutput(v interface{}, schema SchemaInfo) resource.PropertyValue {
+func (p *Provider) makeTerraformOutput(v interface{}, schema *SchemaInfo) resource.PropertyValue {
 	if v == nil {
 		return resource.NewNullProperty()
 	}
@@ -321,17 +330,21 @@ func (p *Provider) makeTerraformOutput(v interface{}, schema SchemaInfo) resourc
 		// Else it's just a string.
 		return resource.NewStringProperty(t)
 	case []interface{}:
+		var elemschema *SchemaInfo
+		if schema != nil {
+			elemschema = schema.Elem
+		}
 		var arr []resource.PropertyValue
 		for _, elem := range t {
-			var eleminfo SchemaInfo
-			if schema.Elem != nil {
-				eleminfo = *schema.Elem
-			}
-			arr = append(arr, p.makeTerraformOutput(elem, eleminfo))
+			arr = append(arr, p.makeTerraformOutput(elem, elemschema))
 		}
 		return resource.NewArrayProperty(arr)
 	case map[string]interface{}:
-		obj := p.makeTerraformOutputs(t, schema.Fields)
+		var fldschemas map[string]*SchemaInfo
+		if schema != nil {
+			fldschemas = schema.Fields
+		}
+		obj := p.makeTerraformOutputs(t, fldschemas)
 		return resource.NewObjectProperty(obj)
 	default:
 		contract.Failf("Unexpected TF output property value: %v", v)
@@ -341,7 +354,7 @@ func (p *Provider) makeTerraformOutput(v interface{}, schema SchemaInfo) resourc
 
 // makeTerraformConfig creates a Terraform config map, used in state and diff calculations, from a Lumi property map.
 func (p *Provider) makeTerraformConfig(m resource.PropertyMap,
-	schema map[string]SchemaInfo, defaults bool) (*terraform.ResourceConfig, error) {
+	schema map[string]*SchemaInfo, defaults bool) (*terraform.ResourceConfig, error) {
 	// Convert the resource bag into an untyped map, and then create the resource config object.
 	inputs, err := p.makeTerraformInputs(m, schema, defaults, true)
 	if err != nil {
@@ -352,7 +365,7 @@ func (p *Provider) makeTerraformConfig(m resource.PropertyMap,
 
 // makeTerraformConfigFromRPC creates a Terraform config map from a Lumi RPC property map.
 func (p *Provider) makeTerraformConfigFromRPC(m *pbstruct.Struct,
-	schema map[string]SchemaInfo, defaults bool) (*terraform.ResourceConfig, error) {
+	schema map[string]*SchemaInfo, defaults bool) (*terraform.ResourceConfig, error) {
 	return p.makeTerraformConfig(
 		plugin.UnmarshalProperties(m, plugin.MarshalOptions{SkipNulls: true}), schema, defaults)
 }
@@ -370,7 +383,7 @@ func (p *Provider) makeTerraformConfigFromInputs(inputs map[string]interface{}) 
 // flattening everything and serializing individual properties as strings.  This is a little awkward, but it's how
 // Terraform represents resource properties (schemas are simply sugar on top).
 func (p *Provider) makeTerraformAttributes(m resource.PropertyMap,
-	schema map[string]SchemaInfo, defaults bool) (map[string]string, error) {
+	schema map[string]*SchemaInfo, defaults bool) (map[string]string, error) {
 	// Turn the resource properties into a map.  For the most part, this is a straight Mappable, but we use MapReplace
 	// because we use float64s and Terraform uses ints, to represent numbers.
 	inputs, err := p.makeTerraformInputs(m, schema, defaults, true)
@@ -382,7 +395,7 @@ func (p *Provider) makeTerraformAttributes(m resource.PropertyMap,
 
 // makeTerraformAttributesFromRPC unmarshals an RPC property map and calls through to makeTerraformAttributes.
 func (p *Provider) makeTerraformAttributesFromRPC(m *pbstruct.Struct,
-	schema map[string]SchemaInfo, defaults bool) (map[string]string, error) {
+	schema map[string]*SchemaInfo, defaults bool) (map[string]string, error) {
 	return p.makeTerraformAttributes(
 		plugin.UnmarshalProperties(m, plugin.MarshalOptions{SkipNulls: true}), schema, defaults)
 }
@@ -396,7 +409,7 @@ func (p *Provider) makeTerraformAttributesFromInputs(inputs map[string]interface
 // an attribute map, alongside a Terraform diff for the old versus new state.  If there was no existing state, the
 // returned attributes will be empty (because the resource doesn't yet exist).
 func (p *Provider) makeTerraformDiff(old resource.PropertyMap, new resource.PropertyMap,
-	schema map[string]SchemaInfo) (*terraform.InstanceState, *terraform.InstanceDiff, error) {
+	schema map[string]*SchemaInfo) (*terraform.InstanceState, *terraform.InstanceDiff, error) {
 	diff := make(map[string]*terraform.ResourceAttrDiff)
 	// Add all new property values.
 	if new != nil {
@@ -434,7 +447,7 @@ func (p *Provider) makeTerraformDiff(old resource.PropertyMap, new resource.Prop
 
 // makeTerraformDiffFromRPC takes RPC maps of old and new properties, unmarshals them, and calls into makeTerraformDiff.
 func (p *Provider) makeTerraformDiffFromRPC(old *pbstruct.Struct, new *pbstruct.Struct,
-	schema map[string]SchemaInfo) (*terraform.InstanceState, *terraform.InstanceDiff, error) {
+	schema map[string]*SchemaInfo) (*terraform.InstanceState, *terraform.InstanceDiff, error) {
 	var oldprops resource.PropertyMap
 	if old != nil {
 		oldprops = plugin.UnmarshalProperties(old, plugin.MarshalOptions{SkipNulls: true})
@@ -615,12 +628,12 @@ func (p *Provider) Name(ctx context.Context, req *lumirpc.NameRequest) (*lumirpc
 	glog.V(9).Infof("tfbridge/Provider.Name: lumi='%v', tf=%v", t, res.TF.Name)
 
 	// All Terraform bridge providers have names that we use for URN naming purposes.  A resource can optionally
-	// override the name, or we can just use the default "name" property that we auto-generated for them.
+	// override the name, or we can just use the default "urnName" property that we auto-generated for them.
 	props := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{SkipNulls: true})
 	var name string
 	nameProperties := res.Schema.NameFields
 	if len(nameProperties) == 0 {
-		nameProperties = []string{NameProperty}
+		nameProperties = []string{string(resource.URNNamePropertyKey)}
 	}
 	for i, nameProperty := range nameProperties {
 		n, has := props[resource.PropertyKey(nameProperty)]
