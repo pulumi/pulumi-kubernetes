@@ -410,10 +410,10 @@ func (p *Provider) makeTerraformAttributesFromInputs(inputs map[string]interface
 // returned attributes will be empty (because the resource doesn't yet exist).
 func (p *Provider) makeTerraformDiff(old resource.PropertyMap, new resource.PropertyMap,
 	schema map[string]*SchemaInfo) (*terraform.InstanceState, *terraform.InstanceDiff, error) {
+	// BUGBUG[pulumi/pulumi-terraform#22]: avoid spilling except for during creation.
 	diff := make(map[string]*terraform.ResourceAttrDiff)
 	// Add all new property values.
 	if new != nil {
-		// FIXME: avoid spilling except for during creation.
 		inputs, err := p.makeTerraformAttributes(new, schema, false)
 		if err != nil {
 			return nil, nil, err
@@ -428,16 +428,14 @@ func (p *Provider) makeTerraformDiff(old resource.PropertyMap, new resource.Prop
 	// Now add all old property values, provided they exist in new.
 	existing := make(map[string]string)
 	if old != nil {
-		// FIXME: avoid spilling except for during creation.  I think maybe we just skip olds or when new==old?
 		inputs, err := p.makeTerraformAttributes(old, schema, false)
 		if err != nil {
 			return nil, nil, err
 		}
 		for p, v := range inputs {
-			if diff[p] == nil {
-				diff[p] = &terraform.ResourceAttrDiff{}
+			if d, has := diff[p]; has {
+				d.Old = v
 			}
-			diff[p].Old = v
 			existing[p] = v
 		}
 	}
