@@ -9,6 +9,9 @@ import (
 	"github.com/pulumi/pulumi-fabric/pkg/util/contract"
 )
 
+// RandomHexSuffixLength is the length of the suffix added AutoName properties by default.
+const RandomHexSuffixLength = 8
+
 // LumiToTerraformName performs a standard transformation on the given name string, from Lumi's PascalCasing or
 // camelCasing, to Terraform's underscore_casing.
 func LumiToTerraformName(name string) string {
@@ -86,7 +89,7 @@ func AutoNameTransform(name string, maxlen int, transform func(string) string) *
 				if transform != nil {
 					vs = transform(vs)
 				}
-				return resource.NewUniqueHex(vs+"-", maxlen, -1)
+				return resource.NewUniqueHex(vs+"-", maxlen, RandomHexSuffixLength)
 			},
 		},
 	}
