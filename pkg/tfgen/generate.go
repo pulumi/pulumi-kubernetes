@@ -186,7 +186,8 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	files = append(files, ixfile)
 
 	// Generate all of the package metadata: Lumi.yaml, package.json, and tsconfig.json.
-	if err := g.generatePackageMetadata(pkg, files, outDir); err != nil {
+	err = g.generatePackageMetadata(pkg, files, outDir)
+	if err != nil {
 		return err
 	}
 
