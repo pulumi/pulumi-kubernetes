@@ -4,6 +4,7 @@ package tfbridge
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/pulumi/pulumi-fabric/pkg/resource"
 	"github.com/pulumi/pulumi-fabric/pkg/tokens"
 )
 
@@ -21,11 +22,9 @@ type ProviderInfo struct {
 // also give custom metadata for fields, using the SchemaInfo structure below.  Finally, a set of composite keys can be
 // given; this is used when Terraform needs more than just the ID to uniquely identify and query for a resource.
 type ResourceInfo struct {
-	Tok                 tokens.Type            // a type token to override the default; "" uses the default.
-	Fields              map[string]*SchemaInfo // a map of custom field names; if a type is missing, the default is used.
-	NameFields          []string               // an optional list of fields to use as name (if not the default).
-	NameFieldsDelimiter string                 // an optional delimiter for name fields (if multiple).
-	IDFields            []string               // an optional list of ID alias fields.
+	Tok      tokens.Type            // a type token to override the default; "" uses the default.
+	Fields   map[string]*SchemaInfo // a map of custom field names; if a type is missing, the default is used.
+	IDFields []string               // an optional list of ID alias fields.
 }
 
 // SchemaInfo contains optional name transformations to apply.
@@ -45,9 +44,14 @@ func (info SchemaInfo) HasDefault() bool {
 
 // DefaultInfo lets fields get default values at runtime, before they are even passed to Terraform.
 type DefaultInfo struct {
-	From          string                        // to take a default from another field.
-	FromTransform func(interface{}) interface{} // an optional transformation to apply to the from value.
-	Value         interface{}                   // a raw value to inject.
+	From  func(res *LumiResource) interface{} // a transformation from other resource properties.
+	Value interface{}                         // a raw value to inject.
+}
+
+// LumiResource is just a little bundle that carries URN and properties around.
+type LumiResource struct {
+	URN        resource.URN
+	Properties resource.PropertyMap
 }
 
 // OverlayInfo contains optional overlay information.  Each info has a 1:1 correspondence with a module and permits

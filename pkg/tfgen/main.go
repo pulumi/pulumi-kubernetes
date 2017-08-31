@@ -29,14 +29,14 @@ func newTFGenCmd(pkg string, prov tfbridge.ProviderInfo) *cobra.Command {
 	var verbose int
 	cmd := &cobra.Command{
 		Use:   "lumi-tfgen-" + pkg,
-		Short: "The Lumi TFGen compiler generates Lumi metadata from a Terraform provider",
-		Long: "The Lumi TFGen compiler generates Lumi metadata from a Terraform provider.\n" +
+		Short: "The Pulumi TFGen compiler generates Pulumi Fabric metadata from a Terraform provider",
+		Long: "The Pulumi TFGen compiler generates Pulumi Fabric metadata from a Terraform provider.\n" +
 			"\n" +
 			"\n" +
 			"The tool will load the provider from your $PATH, inspect its contents dynamically,\n" +
 			"and generate all of the Lumi metadata necessary to consume the resources.\n" +
 			"\n" +
-			"Note that there is no custom Lumi provider code required, because the standard\n" +
+			"Note that there is no custom Pulumi Fabric provider code required, because the standard\n" +
 			"lumi-tfbridge-provider plugin works against all Terraform provider plugins.\n",
 		Run: cmdutil.RunFunc(func(cmd *cobra.Command, args []string) error {
 			// Let's generate some code!

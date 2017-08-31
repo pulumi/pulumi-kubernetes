@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-fabric/pkg/diag"
-	"github.com/pulumi/pulumi-fabric/pkg/resource"
 	"github.com/pulumi/pulumi-fabric/pkg/tokens"
 	"github.com/pulumi/pulumi-fabric/pkg/tools"
 	"github.com/pulumi/pulumi-fabric/pkg/util/cmdutil"
@@ -32,7 +31,7 @@ func newGenerator() *generator {
 }
 
 const (
-	tfgen              = "the Lumi Terraform Bridge (TFGEN) Tool"
+	tfgen              = "the Pulumi Terraform Bridge (TFGEN) Tool"
 	defaultOutDir      = "pack/"
 	defaultOverlaysDir = "overlays/"
 	maxWidth           = 120 // the ideal maximum width of the generated file.
@@ -317,8 +316,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.EmitHeaderWarning()
 
 	// Now import the modules we need.
-	w.Writefmtln("import * as lumi from \"@lumi/lumi\";")
-	w.Writefmtln("import * as lumirt from \"@lumi/lumirt\";")
+	w.Writefmtln("import * as pulumifabric from \"@pulumi/pulumi-fabric\";")
 	w.Writefmtln("")
 
 	// If there are imports required due to the custom schema info, emit them now.
@@ -328,14 +326,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 
 	// Generate the resource class.
-	var base string
-	customNamed := len(resinfo.NameFields) > 0
-	if customNamed {
-		base = "lumi.Resource"
-	} else {
-		base = "lumi.NamedResource"
-	}
-	w.Writefmtln("export class %[1]v extends %v implements %[1]vArgs {", resname, base)
+	w.Writefmtln("export class %[1]v extends pulumifabric.Resource implements %[1]vArgs {", resname)
 
 	// First, generate all instance properties.
 	var finalerr error
@@ -354,7 +345,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 					// Keep going so we can accumulate as many errors as possible.
 					err = errors.Errorf("%v:%v: %v", pkg, rawname, err)
 					finalerr = multierror.Append(finalerr, err)
-				} else if prop != "" && (customNamed || prop != string(resource.URNNamePropertyKey)) {
+				} else if prop != "" {
 					// Make a little comment in the code so it's easy to pick out output properties.
 					inprop := inProperty(sch)
 					var outcomment string
@@ -382,29 +373,14 @@ func (g *generator) generateResource(pkg string, rawname string,
 		w.Writefmtln("")
 	}
 
-	// Add the standard "factory" functions: get and query.  These are static and so must go before the constructor.
-	w.Writefmtln("    public static get(id: lumi.ID): %v {", resname)
-	w.Writefmtln("        return <any>undefined; // functionality provided by the runtime")
-	w.Writefmtln("    }")
-	w.Writefmtln("")
-	w.Writefmtln("    public static query(q: any): %v[] {", resname)
-	w.Writefmtln("        return <any>undefined; // functionality provided by the runtime")
-	w.Writefmtln("    }")
-	w.Writefmtln("")
-
 	// Now create a constructor that chains supercalls and stores into properties.
 	var argsflags string
 	if len(inprops) == 0 {
 		// If the number of input properties was zero, we make the args object optional.
 		argsflags = "?"
 	}
-	if customNamed {
-		w.Writefmtln("    constructor(args%v: %vArgs) {", argsflags, resname)
-		w.Writefmtln("        super();")
-	} else {
-		w.Writefmtln("    constructor(%v: string, args%v: %vArgs) {", resource.URNNamePropertyKey, argsflags, resname)
-		w.Writefmtln("        super(%v);", resource.URNNamePropertyKey)
-	}
+	w.Writefmtln("    constructor(urnName: string, args%v: %vArgs) {", argsflags, resname)
+	w.Writefmtln("        super(\"%v\", urnName);", resinfo.Tok)
 	var propsindent string
 	if len(inprops) == 0 {
 		propsindent = "    "
@@ -601,16 +577,14 @@ func (g *generator) generatePackageMetadata(pkg string, files []string, outDir s
 }
 
 func (g *generator) generateLumiPackageMetadata(pkg string, outDir string) error {
-	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "Lumi.yaml"))
+	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "Pulumi.yaml"))
 	if err != nil {
 		return err
 	}
 	defer contract.IgnoreClose(w)
 	w.Writefmtln("name: %v", pkg)
-	w.Writefmtln("description: A Lumi resource provider for %v.", pkg)
-	w.Writefmtln("dependencies:")
-	w.Writefmtln("    lumi: \"*\"")
-	w.Writefmtln("    lumirt: \"*\"")
+	w.Writefmtln("description: A Pulumi Fabric resource provider for %v.", pkg)
+	w.Writefmtln("language: nodejs")
 	w.Writefmtln("")
 	return nil
 }
@@ -622,7 +596,7 @@ func (g *generator) generateNPMPackageMetadata(pkg string, outDir string) error 
 	}
 	defer contract.IgnoreClose(w)
 	w.Writefmtln("{")
-	w.Writefmtln("    \"name\": \"@lumi/%v\"", pkg)
+	w.Writefmtln("    \"name\": \"@pulumi/%v\"", pkg)
 	w.Writefmtln("}")
 	w.Writefmtln("")
 	return nil
@@ -636,7 +610,7 @@ func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, ou
 	defer contract.IgnoreClose(w)
 	w.Writefmtln(`{
     "compilerOptions": {
-        "outDir": ".lumi/bin",
+        "outDir": "bin",
         "target": "es6",
         "module": "commonjs",
         "moduleResolution": "node",
@@ -753,7 +727,7 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 		if custom.Type != "" {
 			return string(custom.Type.Name())
 		} else if custom.Asset != nil {
-			return "lumi.asset." + string(custom.Asset.Type().Name())
+			return "pulumifabric.asset." + custom.Asset.Type()
 		}
 		elem = custom.Elem
 	}
@@ -932,12 +906,6 @@ func resourceName(pkg string, rawname string, resinfo *tfbridge.ResourceInfo) (s
 
 // propertyName translates a Terraform underscore_cased_property_name into the JavaScript camelCasedPropertyName.
 func propertyName(resname string, s string) (string, error) {
-	if resname != "" && tfbridge.IsBuiltinLumiProperty(s) {
-		return "",
-			errors.Errorf("Property name '%v' on resource '%v' clashes with builtin name; "+
-				"please rename it with an override", s, resname)
-	}
-
 	// BUGBUG: work around issue in the Elastic Transcoder where a field has a trailing ":".
 	if strings.HasSuffix(s, ":") {
 		s = s[:len(s)-1]
