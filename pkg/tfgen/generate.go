@@ -274,7 +274,7 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 				getfunc = fmt.Sprintf("requireObject<%v>", typ)
 			}
 			g.generateComment(w, cfg[key].Description, "")
-			w.Writefmtln("export let %[1]v: %[2]v = _config.%[3]v(\"%[1]\");", prop, typ, getfunc)
+			w.Writefmtln("export let %[1]v: %[2]v = _config.%[3]v(\"%[1]v\");", prop, typ, getfunc)
 		}
 	}
 	w.Writefmtln("")
