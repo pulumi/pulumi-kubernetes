@@ -396,7 +396,8 @@ func (g *generator) generateResource(pkg string, rawname string,
 		argsflags = "?"
 	}
 	w.Writefmtln("    constructor(urnName: string, args%v: %vArgs) {", argsflags, resname)
-	w.Writefmtln("        super(\"%v\", urnName);", resinfo.Tok)
+
+	// First, validate all required arguments.
 	var propsindent string
 	if len(inprops) == 0 {
 		propsindent = "    "
@@ -405,20 +406,23 @@ func (g *generator) generateResource(pkg string, rawname string,
 	for i, prop := range inprops {
 		if !optionalProperty(schemas[i], customs[i], false) {
 			w.Writefmtln("%v        if (args.%v === undefined) {", propsindent, prop)
-			w.Writefmtln("%v            throw new Error(\"Property argument '%v' is required, "+
-				"but was missing\");", propsindent, prop)
+			w.Writefmtln("%v            throw new Error(\"Missing required property '%v'\");", propsindent, prop)
 			w.Writefmtln("%v        }", propsindent)
 		}
-		// Note that we must perform an <any> assignment because the types may not match perfectly.  Input arguments
-		// may be missing certain optional computed properties that will be assigned by the provider upon cretion.
-		w.Writefmtln("%v        this.%[2]v = <any>args.%[2]v;", propsindent, prop)
 	}
 	if len(inprops) == 0 {
 		w.Writefmtln("        }")
 	}
+
+	// Now invoke the super constructor with the type, name, and a property map.
+	w.Writefmtln("        super(\"%v\", urnName, {", resinfo.Tok)
+	for _, prop := range inprops {
+		w.Writefmtln("            \"%[1]v\": args.%[1]v,", prop)
+	}
+	w.Writefmtln("        });")
+
 	w.Writefmtln("    }")
 	w.Writefmtln("}")
-
 	w.Writefmtln("")
 
 	// Next, generate the args interface for this class.
