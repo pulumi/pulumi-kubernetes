@@ -75,14 +75,22 @@ func AutoNameTransform(name string, maxlen int, transform func(string) string) *
 	return &SchemaInfo{
 		Name: name,
 		Default: &DefaultInfo{
-			From: func(res *LumiResource) interface{} {
-				// Take the URN name part, transform it if required, and then append some unique characters.
-				vs := string(res.URN.Name())
-				if transform != nil {
-					vs = transform(vs)
-				}
-				return resource.NewUniqueHex(vs+"-", maxlen, RandomHexSuffixLength)
-			},
+			From: FromName(true, maxlen, transform),
 		},
+	}
+}
+
+// FromName automatically propagates a resource's URN onto the resulting default info.
+func FromName(rand bool, randmaxlen int, transform func(string) string) func(res *LumiResource) interface{} {
+	return func(res *LumiResource) interface{} {
+		// Take the URN name part, transform it if required, and then append some unique characters.
+		vs := string(res.URN.Name())
+		if transform != nil {
+			vs = transform(vs)
+		}
+		if rand {
+			return resource.NewUniqueHex(vs+"-", randmaxlen, RandomHexSuffixLength)
+		}
+		return vs
 	}
 }

@@ -247,10 +247,18 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	defer contract.IgnoreClose(w)
 	w.EmitHeaderWarning()
 
+	// We'll need the fabric.
+	w.Writefmtln("import * as fabric from \"@pulumi/pulumi-fabric\";")
+	w.Writefmtln("")
+
 	// First look for any custom types that will require any imports.
 	if err := generateCustomImports(w, custom, pkg, outDir, confDir); err != nil {
 		return "", err
 	}
+
+	// Create a config bag for this package.
+	w.Writefmtln("let _config = new fabric.Config(\"%v:config\");", pkg)
+	w.Writefmtln("")
 
 	// Now just emit a simple export for each variable.
 	for _, key := range cfgkeys {
@@ -259,8 +267,14 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 		if err != nil {
 			return "", err
 		} else if prop != "" {
+			var getfunc string
+			if optionalProperty(cfg[key], custom[key], false) {
+				getfunc = fmt.Sprintf("getObject<%v>", typ)
+			} else {
+				getfunc = fmt.Sprintf("requireObject<%v>", typ)
+			}
 			g.generateComment(w, cfg[key].Description, "")
-			w.Writefmtln("export let %v: %v;", prop, typ)
+			w.Writefmtln("export let %[1]v: %[2]v = _config.%[3]v(\"%[1]\");", prop, typ, getfunc)
 		}
 	}
 	w.Writefmtln("")
@@ -316,7 +330,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.EmitHeaderWarning()
 
 	// Now import the modules we need.
-	w.Writefmtln("import * as pulumifabric from \"@pulumi/pulumi-fabric\";")
+	w.Writefmtln("import * as fabric from \"@pulumi/pulumi-fabric\";")
 	w.Writefmtln("")
 
 	// If there are imports required due to the custom schema info, emit them now.
@@ -326,7 +340,8 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 
 	// Generate the resource class.
-	w.Writefmtln("export class %[1]v extends pulumifabric.Resource implements %[1]vArgs {", resname)
+	w.Writefmtln("export class %s", resname)
+	w.Writefmtln("        extends fabric.Resource implements %sArgs {", resname)
 
 	// First, generate all instance properties.
 	var finalerr error
@@ -353,7 +368,8 @@ func (g *generator) generateResource(pkg string, rawname string,
 						outcomment = "/*out*/ "
 					}
 
-					w.Writefmtln("    public %vreadonly %v%v: %v;", outcomment, prop, outflags, typ)
+					w.Writefmtln("    public %vreadonly %v%v: fabric.Property<%v>;",
+						outcomment, prop, outflags, typ)
 
 					// Only keep track of input properties for purposes of initialization data structures.
 					if inprop {
@@ -388,7 +404,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 	for i, prop := range inprops {
 		if !optionalProperty(schemas[i], customs[i], false) {
-			w.Writefmtln("%v        if (lumirt.defaultIfComputed(args.%v, \"\") === undefined) {", propsindent, prop)
+			w.Writefmtln("%v        if (args.%v === undefined) {", propsindent, prop)
 			w.Writefmtln("%v            throw new Error(\"Property argument '%v' is required, "+
 				"but was missing\");", propsindent, prop)
 			w.Writefmtln("%v        }", propsindent)
@@ -409,7 +425,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.Writefmtln("export interface %vArgs {", resname)
 	for i, prop := range inprops {
 		g.generateComment(w, schemas[i].Description, "    ")
-		w.Writefmtln("    readonly %v%v: %v;", prop, inflags[i], intypes[i])
+		w.Writefmtln("    readonly %v%v: fabric.PropertyValue<%v>;", prop, inflags[i], intypes[i])
 	}
 	w.Writefmtln("}")
 	w.Writefmtln("")
@@ -595,10 +611,18 @@ func (g *generator) generateNPMPackageMetadata(pkg string, outDir string) error 
 		return err
 	}
 	defer contract.IgnoreClose(w)
-	w.Writefmtln("{")
-	w.Writefmtln("    \"name\": \"@pulumi/%v\"", pkg)
-	w.Writefmtln("}")
-	w.Writefmtln("")
+	w.Writefmtln(`{
+	"name": "@pulumi/%v",
+	"scripts": {
+		"build": "tsc"
+	},
+	"devDependencies": {
+		"typescript": "^2.5.0"
+	},
+	"peerDependencies": {
+		"@pulumi/pulumi-fabric": "*"
+	}
+}`, pkg)
 	return nil
 }
 
@@ -727,7 +751,7 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 		if custom.Type != "" {
 			return string(custom.Type.Name())
 		} else if custom.Asset != nil {
-			return "pulumifabric.asset." + custom.Asset.Type()
+			return "fabric.asset." + custom.Asset.Type()
 		}
 		elem = custom.Elem
 	}
