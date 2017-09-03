@@ -617,6 +617,8 @@ func (g *generator) generateNPMPackageMetadata(pkg string, outDir string, overla
 	defer contract.IgnoreClose(w)
 	w.Writefmtln(`{`)
 	w.Writefmtln(`    "name": "@pulumi/%v",`, pkg)
+	w.Writefmtln(`    "main": "bin/index.js",`)
+	w.Writefmtln(`    "typings": "bin/index.d.ts",`)
 	w.Writefmtln(`    "scripts": {`)
 	w.Writefmtln(`        "build": "tsc"`)
 	w.Writefmtln(`    },`)
