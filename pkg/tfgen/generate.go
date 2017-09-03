@@ -269,12 +269,21 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 		} else if prop != "" {
 			var getfunc string
 			if optionalProperty(cfg[key], custom[key], false) {
-				getfunc = fmt.Sprintf("getObject<%v>", typ)
+				getfunc = "get"
 			} else {
-				getfunc = fmt.Sprintf("requireObject<%v>", typ)
+				getfunc = "require"
+			}
+			if cfg[key].Type != schema.TypeString {
+				// Only try to parse a JSON object if the config isn't a straight string.
+				getfunc = fmt.Sprintf("%sObject<%s>", getfunc, typ)
+			}
+			var anycast string
+			if custom[key] != nil && custom[key].Type != "" {
+				// If there's a custom type, we need to inject a cast to silence the compiler.
+				anycast = "<any>"
 			}
 			g.generateComment(w, cfg[key].Description, "")
-			w.Writefmtln("export let %[1]v: %[2]v = _config.%[3]v(\"%[1]v\");", prop, typ, getfunc)
+			w.Writefmtln("export let %[1]v: %[2]v = %[3]s_config.%[4]v(\"%[1]v\");", prop, typ, anycast, getfunc)
 		}
 	}
 	w.Writefmtln("")
