@@ -185,7 +185,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	files = append(files, ixfile)
 
 	// Generate all of the package metadata: Lumi.yaml, package.json, and tsconfig.json.
-	err = g.generatePackageMetadata(pkg, files, outDir)
+	err = g.generatePackageMetadata(pkg, files, outDir, provinfo.Overlay)
 	if err != nil {
 		return err
 	}
@@ -582,7 +582,8 @@ func removeExtension(file, ext string) string {
 }
 
 // generatePackageMetadata generates all the non-code metadata required by a Lumi package.
-func (g *generator) generatePackageMetadata(pkg string, files []string, outDir string) error {
+func (g *generator) generatePackageMetadata(pkg string, files []string, outDir string,
+	overlay *tfbridge.OverlayInfo) error {
 	// There are three files to write out:
 	//     1) Lumi.yaml: Lumi package information
 	//     2) package.json: minimal NPM package metadata
@@ -590,7 +591,7 @@ func (g *generator) generatePackageMetadata(pkg string, files []string, outDir s
 	if err := g.generateLumiPackageMetadata(pkg, outDir); err != nil {
 		return err
 	}
-	if err := g.generateNPMPackageMetadata(pkg, outDir); err != nil {
+	if err := g.generateNPMPackageMetadata(pkg, outDir, overlay); err != nil {
 		return err
 	}
 	return g.generateTypeScriptProjectFile(pkg, files, outDir)
@@ -609,24 +610,50 @@ func (g *generator) generateLumiPackageMetadata(pkg string, outDir string) error
 	return nil
 }
 
-func (g *generator) generateNPMPackageMetadata(pkg string, outDir string) error {
+func (g *generator) generateNPMPackageMetadata(pkg string, outDir string, overlay *tfbridge.OverlayInfo) error {
 	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "package.json"))
 	if err != nil {
 		return err
 	}
 	defer contract.IgnoreClose(w)
-	w.Writefmtln(`{
-	"name": "@pulumi/%v",
-	"scripts": {
-		"build": "tsc"
-	},
-	"devDependencies": {
-		"typescript": "^2.5.0"
-	},
-	"peerDependencies": {
-		"@pulumi/pulumi-fabric": "*"
+	w.Writefmtln(`{`)
+	w.Writefmtln(`    "name": "@pulumi/%v",`, pkg)
+	w.Writefmtln(`    "scripts": {`)
+	w.Writefmtln(`        "build": "tsc"`)
+	w.Writefmtln(`    },`)
+	if len(overlay.Dependencies) > 0 {
+		w.Writefmtln(`    "dependencies": {`)
+		var deps []string
+		for dep := range overlay.Dependencies {
+			deps = append(deps, dep)
+		}
+		sort.Strings(deps)
+		for i, dep := range deps {
+			var comma string
+			if i != len(deps)-1 {
+				comma = ","
+			}
+			w.Writefmtln(`         "%s": "%s"%s`, dep, overlay.Dependencies[dep], comma)
+		}
+		w.Writefmtln(`    },`)
 	}
-}`, pkg)
+	w.Writefmtln(`    "devDependencies": {`)
+	if len(overlay.DevDependencies) > 0 {
+		var deps []string
+		for dep := range overlay.Dependencies {
+			deps = append(deps, dep)
+		}
+		sort.Strings(deps)
+		for _, dep := range deps {
+			w.Writefmtln(`        "%s": "%s",`, dep, overlay.DevDependencies[dep])
+		}
+	}
+	w.Writefmtln(`        "typescript": "^2.5.0"`)
+	w.Writefmtln(`    },`)
+	w.Writefmtln(`    "peerDependencies": {`)
+	w.Writefmtln(`        "@pulumi/pulumi-fabric": "*"`)
+	w.Writefmtln(`    }`)
+	w.Writefmtln(`}`)
 	return nil
 }
 

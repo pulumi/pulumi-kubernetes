@@ -58,6 +58,8 @@ type LumiResource struct {
 // extra files to be included from the overlays/ directory when building up packs/.  This allows augmented
 // code-generation for convenient things like helper functions, modules, and gradual typing.
 type OverlayInfo struct {
-	Files   []string
-	Modules map[string]*OverlayInfo
+	Files           []string                // additional files to include in the index file.
+	Modules         map[string]*OverlayInfo // extra modules to inject into the structure.
+	Dependencies    map[string]string       // NPM dependencies to add to package.json.
+	DevDependencies map[string]string       // NPM dev-dependencies to add to package.json.
 }
