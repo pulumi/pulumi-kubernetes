@@ -263,7 +263,7 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	// Now just emit a simple export for each variable.
 	for _, key := range cfgkeys {
 		// Generate a name and type to use for this key.
-		prop, typ, err := g.propTyp("", key, cfg, custom[key], false)
+		prop, typ, err := g.propTyp("", key, cfg, custom[key], true /*out*/)
 		if err != nil {
 			return "", err
 		} else if prop != "" {
@@ -340,8 +340,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 
 	// Generate the resource class.
-	w.Writefmtln("export class %s", resname)
-	w.Writefmtln("        extends fabric.Resource implements %sArgs {", resname)
+	w.Writefmtln("export class %s extends fabric.Resource {", resname)
 
 	// First, generate all instance properties.
 	var finalerr error
@@ -429,7 +428,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.Writefmtln("export interface %vArgs {", resname)
 	for i, prop := range inprops {
 		g.generateComment(w, schemas[i].Description, "    ")
-		w.Writefmtln("    readonly %v%v: fabric.PropertyValue<%v>;", prop, inflags[i], intypes[i])
+		w.Writefmtln("    readonly %v%v: %v;", prop, inflags[i], intypes[i])
 	}
 	w.Writefmtln("}")
 	w.Writefmtln("")
@@ -780,7 +779,11 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 	var elem *tfbridge.SchemaInfo
 	if custom != nil {
 		if custom.Type != "" {
-			return string(custom.Type.Name())
+			t := string(custom.Type.Name())
+			if !out {
+				t = fmt.Sprintf("fabric.PropertyValue<%s>", t)
+			}
+			return t
 		} else if custom.Asset != nil {
 			return "fabric.asset." + custom.Asset.Type()
 		}
@@ -792,26 +795,43 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 // tfToJSValueType returns the JavaScript type name for a given schema value type and element kind.
 func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{},
 	custom *tfbridge.SchemaInfo, out bool) string {
+	// First figure out the raw type.
+	var t string
+	var array bool
 	switch vt {
 	case schema.TypeBool:
-		return "boolean"
+		t = "boolean"
 	case schema.TypeInt, schema.TypeFloat:
-		return "number"
+		t = "number"
 	case schema.TypeString:
-		return "string"
+		t = "string"
 	case schema.TypeList:
-		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom, out))
+		t = g.tfElemToJSType(elem, custom, out)
+		array = true
 	case schema.TypeMap:
-		return fmt.Sprintf("{[key: string]: %v}", g.tfElemToJSType(elem, custom, out))
+		t = fmt.Sprintf("{[key: string]: %v}", g.tfElemToJSType(elem, custom, out))
 	case schema.TypeSet:
 		// IDEA: we can't use ES6 sets here, because we're using values and not objects.  It would be possible to come
 		//     up with a ValueSet of some sorts, but that depends on things like shallowEquals which is known to be
 		//     brittle and implementation dependent.  For now, we will stick to arrays, and validate on the backend.
-		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom, out))
+		t = g.tfElemToJSType(elem, custom, out)
+		array = true
 	default:
 		contract.Failf("Unrecognized schema type: %v", vt)
-		return ""
 	}
+
+	// Now, if it is an input property value, it must be wrapped in a PropertyValue<T>.
+	if !out {
+		t = fmt.Sprintf("fabric.PropertyValue<%s>", t)
+	}
+
+	// Finally make sure arrays are arrays; this must be done after the above, so we get a PropertyValue<T>[],
+	// and not a PropertyValue<T[]>, which would constrain the ability to flexibly construct them.
+	if array {
+		t = fmt.Sprintf("%s[]", t)
+	}
+
+	return t
 }
 
 // tfElemToJSType returns the JavaScript type for a given schema element.  This element may be either a simple schema
