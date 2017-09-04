@@ -27,6 +27,6 @@ func Serve(module string, info ProviderInfo) error {
 		})
 
 		// Create a new bridge provider.
-		return NewProvider(host, module, plug.Provider, info), nil
+		return NewProvider(host, module, info.P, info), nil
 	})
 }
