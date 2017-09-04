@@ -354,6 +354,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	// First, generate all instance properties.
 	var finalerr error
 	var inprops []string
+	var outprops []string
 	var inflags []string
 	var intypes []string
 	var schemas []*schema.Schema
@@ -390,6 +391,9 @@ func (g *generator) generateResource(pkg string, rawname string,
 						intypes = append(intypes, intype)
 						schemas = append(schemas, sch)
 						customs = append(customs, incust)
+					} else {
+						// Remember output properties because we still want to "zero-initialize" them as properties.
+						outprops = append(outprops, prop)
 					}
 				}
 			}
@@ -423,9 +427,12 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 
 	// Now invoke the super constructor with the type, name, and a property map.
-	w.Writefmtln("        super(\"%v\", urnName, {", resinfo.Tok)
+	w.Writefmtln("        super(\"%s\", urnName, {", resinfo.Tok)
 	for _, prop := range inprops {
-		w.Writefmtln("            \"%[1]v\": args.%[1]v,", prop)
+		w.Writefmtln("            \"%[1]s\": args.%[1]s,", prop)
+	}
+	for _, prop := range outprops {
+		w.Writefmtln("            \"%s\": undefined,", prop)
 	}
 	w.Writefmtln("        });")
 
