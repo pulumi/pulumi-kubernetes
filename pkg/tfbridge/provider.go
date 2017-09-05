@@ -58,7 +58,7 @@ var _ lumirpc.ResourceProviderServer = (*Provider)(nil)
 func (p *Provider) pkg() tokens.Package          { return tokens.Package(p.module) }
 func (p *Provider) indexMod() tokens.Module      { return tokens.Module(p.pkg() + ":index") }
 func (p *Provider) baseConfigMod() tokens.Module { return tokens.Module(p.pkg() + ":config") }
-func (p *Provider) configMod() tokens.Module     { return tokens.Module(p.baseConfigMod() + "/vars") }
+func (p *Provider) configMod() tokens.Module     { return p.baseConfigMod() + "/vars" }
 
 // resource looks up the Terraform resource provider from its Lumi type token.
 func (p *Provider) resource(t tokens.Type) (Resource, bool) {

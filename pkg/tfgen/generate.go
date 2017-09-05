@@ -377,7 +377,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 						outcomment = "/*out*/ "
 					}
 
-					w.Writefmtln("    public %vreadonly %v%v: fabric.Property<%v>;",
+					w.Writefmtln("    public %vreadonly %v%v: fabric.Computed<%v>;",
 						outcomment, prop, outflags, typ)
 
 					// Only keep track of input properties for purposes of initialization data structures.
@@ -799,7 +799,7 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 		if custom.Type != "" {
 			t := string(custom.Type.Name())
 			if !out {
-				t = fmt.Sprintf("fabric.PropertyValue<%s>", t)
+				t = fmt.Sprintf("fabric.MaybeComputed<%s>", t)
 			}
 			return t
 		} else if custom.Asset != nil {
@@ -838,13 +838,13 @@ func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{},
 		contract.Failf("Unrecognized schema type: %v", vt)
 	}
 
-	// Now, if it is an input property value, it must be wrapped in a PropertyValue<T>.
+	// Now, if it is an input property value, it must be wrapped in a MaybeComputed<T>.
 	if !out {
-		t = fmt.Sprintf("fabric.PropertyValue<%s>", t)
+		t = fmt.Sprintf("fabric.MaybeComputed<%s>", t)
 	}
 
-	// Finally make sure arrays are arrays; this must be done after the above, so we get a PropertyValue<T>[],
-	// and not a PropertyValue<T[]>, which would constrain the ability to flexibly construct them.
+	// Finally make sure arrays are arrays; this must be done after the above, so we get a MaybeComputed<T>[],
+	// and not a MaybeComputed<T[]>, which would constrain the ability to flexibly construct them.
 	if array {
 		t = fmt.Sprintf("%s[]", t)
 	}
