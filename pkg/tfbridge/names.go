@@ -60,13 +60,6 @@ func TerraformToLumiName(name string, upper bool) string {
 	return result
 }
 
-// IsBuiltinLumiProperty returns true if the property name s is a special Lumi builtin property.
-func IsBuiltinLumiProperty(s string) bool {
-	return s == string(resource.IDProperty) ||
-		s == string(resource.URNProperty) ||
-		s == string(resource.URNNameProperty)
-}
-
 // AutoName creates custom schema for a Terraform name property which is automatically populated from the
 // resource's URN name, with a random suffix and maximum length of maxlen.  This makes it easy to propagate the Lumi
 // resource's URN name part as the Terraform name as a convenient default, while still permitting it to be overridden.
@@ -79,18 +72,25 @@ func AutoName(name string, maxlen int) *SchemaInfo {
 // easy to propagate the Lumi resource's URN name part as the Terraform name as a convenient default, while still
 // permitting it to be overridden.
 func AutoNameTransform(name string, maxlen int, transform func(string) string) *SchemaInfo {
-	contract.Assert(name != string(resource.URNNamePropertyKey))
 	return &SchemaInfo{
 		Name: name,
 		Default: &DefaultInfo{
-			From: string(resource.URNNamePropertyKey),
-			FromTransform: func(v interface{}) interface{} {
-				vs := v.(string)
-				if transform != nil {
-					vs = transform(vs)
-				}
-				return resource.NewUniqueHex(vs+"-", maxlen, RandomHexSuffixLength)
-			},
+			From: FromName(true, maxlen, transform),
 		},
+	}
+}
+
+// FromName automatically propagates a resource's URN onto the resulting default info.
+func FromName(rand bool, randmaxlen int, transform func(string) string) func(res *LumiResource) interface{} {
+	return func(res *LumiResource) interface{} {
+		// Take the URN name part, transform it if required, and then append some unique characters.
+		vs := string(res.URN.Name())
+		if transform != nil {
+			vs = transform(vs)
+		}
+		if rand {
+			return resource.NewUniqueHex(vs+"-", randmaxlen, RandomHexSuffixLength)
+		}
+		return vs
 	}
 }

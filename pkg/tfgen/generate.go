@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-fabric/pkg/diag"
-	"github.com/pulumi/pulumi-fabric/pkg/resource"
 	"github.com/pulumi/pulumi-fabric/pkg/tokens"
 	"github.com/pulumi/pulumi-fabric/pkg/tools"
 	"github.com/pulumi/pulumi-fabric/pkg/util/cmdutil"
@@ -32,7 +31,7 @@ func newGenerator() *generator {
 }
 
 const (
-	tfgen              = "the Lumi Terraform Bridge (TFGEN) Tool"
+	tfgen              = "the Pulumi Terraform Bridge (TFGEN) Tool"
 	defaultOutDir      = "pack/"
 	defaultOverlaysDir = "overlays/"
 	maxWidth           = 120 // the ideal maximum width of the generated file.
@@ -186,7 +185,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	files = append(files, ixfile)
 
 	// Generate all of the package metadata: Lumi.yaml, package.json, and tsconfig.json.
-	err = g.generatePackageMetadata(pkg, files, outDir)
+	err = g.generatePackageMetadata(pkg, files, outDir, provinfo.Overlay)
 	if err != nil {
 		return err
 	}
@@ -248,20 +247,43 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	defer contract.IgnoreClose(w)
 	w.EmitHeaderWarning()
 
+	// We'll need the fabric.
+	w.Writefmtln("import * as fabric from \"@pulumi/pulumi-fabric\";")
+	w.Writefmtln("")
+
 	// First look for any custom types that will require any imports.
 	if err := generateCustomImports(w, custom, pkg, outDir, confDir); err != nil {
 		return "", err
 	}
 
+	// Create a config bag for this package.
+	w.Writefmtln("let _config = new fabric.Config(\"%v:config\");", pkg)
+	w.Writefmtln("")
+
 	// Now just emit a simple export for each variable.
 	for _, key := range cfgkeys {
 		// Generate a name and type to use for this key.
-		prop, typ, err := g.propTyp("", key, cfg, custom[key], false)
+		prop, typ, err := g.propTyp("", key, cfg, custom[key], true /*out*/)
 		if err != nil {
 			return "", err
 		} else if prop != "" {
+			var getfunc string
+			if optionalProperty(cfg[key], custom[key], false) {
+				getfunc = "get"
+			} else {
+				getfunc = "require"
+			}
+			if cfg[key].Type != schema.TypeString {
+				// Only try to parse a JSON object if the config isn't a straight string.
+				getfunc = fmt.Sprintf("%sObject<%s>", getfunc, typ)
+			}
+			var anycast string
+			if custom[key] != nil && custom[key].Type != "" {
+				// If there's a custom type, we need to inject a cast to silence the compiler.
+				anycast = "<any>"
+			}
 			g.generateComment(w, cfg[key].Description, "")
-			w.Writefmtln("export let %v: %v;", prop, typ)
+			w.Writefmtln("export let %[1]v: %[2]v = %[3]s_config.%[4]v(\"%[1]v\");", prop, typ, anycast, getfunc)
 		}
 	}
 	w.Writefmtln("")
@@ -317,8 +339,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.EmitHeaderWarning()
 
 	// Now import the modules we need.
-	w.Writefmtln("import * as lumi from \"@lumi/lumi\";")
-	w.Writefmtln("import * as lumirt from \"@lumi/lumirt\";")
+	w.Writefmtln("import * as fabric from \"@pulumi/pulumi-fabric\";")
 	w.Writefmtln("")
 
 	// If there are imports required due to the custom schema info, emit them now.
@@ -328,18 +349,12 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 
 	// Generate the resource class.
-	var base string
-	customNamed := len(resinfo.NameFields) > 0
-	if customNamed {
-		base = "lumi.Resource"
-	} else {
-		base = "lumi.NamedResource"
-	}
-	w.Writefmtln("export class %[1]v extends %v implements %[1]vArgs {", resname, base)
+	w.Writefmtln("export class %s extends fabric.Resource {", resname)
 
 	// First, generate all instance properties.
 	var finalerr error
 	var inprops []string
+	var outprops []string
 	var inflags []string
 	var intypes []string
 	var schemas []*schema.Schema
@@ -354,7 +369,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 					// Keep going so we can accumulate as many errors as possible.
 					err = errors.Errorf("%v:%v: %v", pkg, rawname, err)
 					finalerr = multierror.Append(finalerr, err)
-				} else if prop != "" && (customNamed || prop != string(resource.URNNamePropertyKey)) {
+				} else if prop != "" {
 					// Make a little comment in the code so it's easy to pick out output properties.
 					inprop := inProperty(sch)
 					var outcomment string
@@ -362,7 +377,8 @@ func (g *generator) generateResource(pkg string, rawname string,
 						outcomment = "/*out*/ "
 					}
 
-					w.Writefmtln("    public %vreadonly %v%v: %v;", outcomment, prop, outflags, typ)
+					w.Writefmtln("    public %vreadonly %v%v: fabric.Computed<%v>;",
+						outcomment, prop, outflags, typ)
 
 					// Only keep track of input properties for purposes of initialization data structures.
 					if inprop {
@@ -375,6 +391,9 @@ func (g *generator) generateResource(pkg string, rawname string,
 						intypes = append(intypes, intype)
 						schemas = append(schemas, sch)
 						customs = append(customs, incust)
+					} else {
+						// Remember output properties because we still want to "zero-initialize" them as properties.
+						outprops = append(outprops, prop)
 					}
 				}
 			}
@@ -382,29 +401,15 @@ func (g *generator) generateResource(pkg string, rawname string,
 		w.Writefmtln("")
 	}
 
-	// Add the standard "factory" functions: get and query.  These are static and so must go before the constructor.
-	w.Writefmtln("    public static get(id: lumi.ID): %v {", resname)
-	w.Writefmtln("        return <any>undefined; // functionality provided by the runtime")
-	w.Writefmtln("    }")
-	w.Writefmtln("")
-	w.Writefmtln("    public static query(q: any): %v[] {", resname)
-	w.Writefmtln("        return <any>undefined; // functionality provided by the runtime")
-	w.Writefmtln("    }")
-	w.Writefmtln("")
-
 	// Now create a constructor that chains supercalls and stores into properties.
 	var argsflags string
 	if len(inprops) == 0 {
 		// If the number of input properties was zero, we make the args object optional.
 		argsflags = "?"
 	}
-	if customNamed {
-		w.Writefmtln("    constructor(args%v: %vArgs) {", argsflags, resname)
-		w.Writefmtln("        super();")
-	} else {
-		w.Writefmtln("    constructor(%v: string, args%v: %vArgs) {", resource.URNNamePropertyKey, argsflags, resname)
-		w.Writefmtln("        super(%v);", resource.URNNamePropertyKey)
-	}
+	w.Writefmtln("    constructor(urnName: string, args%v: %vArgs) {", argsflags, resname)
+
+	// First, validate all required arguments.
 	var propsindent string
 	if len(inprops) == 0 {
 		propsindent = "    "
@@ -412,21 +417,27 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 	for i, prop := range inprops {
 		if !optionalProperty(schemas[i], customs[i], false) {
-			w.Writefmtln("%v        if (lumirt.defaultIfComputed(args.%v, \"\") === undefined) {", propsindent, prop)
-			w.Writefmtln("%v            throw new Error(\"Property argument '%v' is required, "+
-				"but was missing\");", propsindent, prop)
+			w.Writefmtln("%v        if (args.%v === undefined) {", propsindent, prop)
+			w.Writefmtln("%v            throw new Error(\"Missing required property '%v'\");", propsindent, prop)
 			w.Writefmtln("%v        }", propsindent)
 		}
-		// Note that we must perform an <any> assignment because the types may not match perfectly.  Input arguments
-		// may be missing certain optional computed properties that will be assigned by the provider upon cretion.
-		w.Writefmtln("%v        this.%[2]v = <any>args.%[2]v;", propsindent, prop)
 	}
 	if len(inprops) == 0 {
 		w.Writefmtln("        }")
 	}
+
+	// Now invoke the super constructor with the type, name, and a property map.
+	w.Writefmtln("        super(\"%s\", urnName, {", resinfo.Tok)
+	for _, prop := range inprops {
+		w.Writefmtln("            \"%[1]s\": args.%[1]s,", prop)
+	}
+	for _, prop := range outprops {
+		w.Writefmtln("            \"%s\": undefined,", prop)
+	}
+	w.Writefmtln("        });")
+
 	w.Writefmtln("    }")
 	w.Writefmtln("}")
-
 	w.Writefmtln("")
 
 	// Next, generate the args interface for this class.
@@ -586,7 +597,8 @@ func removeExtension(file, ext string) string {
 }
 
 // generatePackageMetadata generates all the non-code metadata required by a Lumi package.
-func (g *generator) generatePackageMetadata(pkg string, files []string, outDir string) error {
+func (g *generator) generatePackageMetadata(pkg string, files []string, outDir string,
+	overlay *tfbridge.OverlayInfo) error {
 	// There are three files to write out:
 	//     1) Lumi.yaml: Lumi package information
 	//     2) package.json: minimal NPM package metadata
@@ -594,37 +606,71 @@ func (g *generator) generatePackageMetadata(pkg string, files []string, outDir s
 	if err := g.generateLumiPackageMetadata(pkg, outDir); err != nil {
 		return err
 	}
-	if err := g.generateNPMPackageMetadata(pkg, outDir); err != nil {
+	if err := g.generateNPMPackageMetadata(pkg, outDir, overlay); err != nil {
 		return err
 	}
 	return g.generateTypeScriptProjectFile(pkg, files, outDir)
 }
 
 func (g *generator) generateLumiPackageMetadata(pkg string, outDir string) error {
-	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "Lumi.yaml"))
+	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "Pulumi.yaml"))
 	if err != nil {
 		return err
 	}
 	defer contract.IgnoreClose(w)
 	w.Writefmtln("name: %v", pkg)
-	w.Writefmtln("description: A Lumi resource provider for %v.", pkg)
-	w.Writefmtln("dependencies:")
-	w.Writefmtln("    lumi: \"*\"")
-	w.Writefmtln("    lumirt: \"*\"")
+	w.Writefmtln("description: A Pulumi Fabric resource provider for %v.", pkg)
+	w.Writefmtln("language: nodejs")
 	w.Writefmtln("")
 	return nil
 }
 
-func (g *generator) generateNPMPackageMetadata(pkg string, outDir string) error {
+func (g *generator) generateNPMPackageMetadata(pkg string, outDir string, overlay *tfbridge.OverlayInfo) error {
 	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "package.json"))
 	if err != nil {
 		return err
 	}
 	defer contract.IgnoreClose(w)
-	w.Writefmtln("{")
-	w.Writefmtln("    \"name\": \"@lumi/%v\"", pkg)
-	w.Writefmtln("}")
-	w.Writefmtln("")
+	w.Writefmtln(`{`)
+	w.Writefmtln(`    "name": "@pulumi/%v",`, pkg)
+	w.Writefmtln(`    "main": "bin/index.js",`)
+	w.Writefmtln(`    "typings": "bin/index.d.ts",`)
+	w.Writefmtln(`    "scripts": {`)
+	w.Writefmtln(`        "build": "tsc"`)
+	w.Writefmtln(`    },`)
+	if len(overlay.Dependencies) > 0 {
+		w.Writefmtln(`    "dependencies": {`)
+		var deps []string
+		for dep := range overlay.Dependencies {
+			deps = append(deps, dep)
+		}
+		sort.Strings(deps)
+		for i, dep := range deps {
+			var comma string
+			if i != len(deps)-1 {
+				comma = ","
+			}
+			w.Writefmtln(`         "%s": "%s"%s`, dep, overlay.Dependencies[dep], comma)
+		}
+		w.Writefmtln(`    },`)
+	}
+	w.Writefmtln(`    "devDependencies": {`)
+	if len(overlay.DevDependencies) > 0 {
+		var deps []string
+		for dep := range overlay.Dependencies {
+			deps = append(deps, dep)
+		}
+		sort.Strings(deps)
+		for _, dep := range deps {
+			w.Writefmtln(`        "%s": "%s",`, dep, overlay.DevDependencies[dep])
+		}
+	}
+	w.Writefmtln(`        "typescript": "^2.5.0"`)
+	w.Writefmtln(`    },`)
+	w.Writefmtln(`    "peerDependencies": {`)
+	w.Writefmtln(`        "@pulumi/pulumi-fabric": "*"`)
+	w.Writefmtln(`    }`)
+	w.Writefmtln(`}`)
 	return nil
 }
 
@@ -636,7 +682,7 @@ func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, ou
 	defer contract.IgnoreClose(w)
 	w.Writefmtln(`{
     "compilerOptions": {
-        "outDir": ".lumi/bin",
+        "outDir": "bin",
         "target": "es6",
         "module": "commonjs",
         "moduleResolution": "node",
@@ -751,9 +797,13 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 	var elem *tfbridge.SchemaInfo
 	if custom != nil {
 		if custom.Type != "" {
-			return string(custom.Type.Name())
+			t := string(custom.Type.Name())
+			if !out {
+				t = fmt.Sprintf("fabric.MaybeComputed<%s>", t)
+			}
+			return t
 		} else if custom.Asset != nil {
-			return "lumi.asset." + string(custom.Asset.Type().Name())
+			return "fabric.asset." + custom.Asset.Type()
 		}
 		elem = custom.Elem
 	}
@@ -763,26 +813,43 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 // tfToJSValueType returns the JavaScript type name for a given schema value type and element kind.
 func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{},
 	custom *tfbridge.SchemaInfo, out bool) string {
+	// First figure out the raw type.
+	var t string
+	var array bool
 	switch vt {
 	case schema.TypeBool:
-		return "boolean"
+		t = "boolean"
 	case schema.TypeInt, schema.TypeFloat:
-		return "number"
+		t = "number"
 	case schema.TypeString:
-		return "string"
+		t = "string"
 	case schema.TypeList:
-		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom, out))
+		t = g.tfElemToJSType(elem, custom, out)
+		array = true
 	case schema.TypeMap:
-		return fmt.Sprintf("{[key: string]: %v}", g.tfElemToJSType(elem, custom, out))
+		t = fmt.Sprintf("{[key: string]: %v}", g.tfElemToJSType(elem, custom, out))
 	case schema.TypeSet:
 		// IDEA: we can't use ES6 sets here, because we're using values and not objects.  It would be possible to come
 		//     up with a ValueSet of some sorts, but that depends on things like shallowEquals which is known to be
 		//     brittle and implementation dependent.  For now, we will stick to arrays, and validate on the backend.
-		return fmt.Sprintf("%v[]", g.tfElemToJSType(elem, custom, out))
+		t = g.tfElemToJSType(elem, custom, out)
+		array = true
 	default:
 		contract.Failf("Unrecognized schema type: %v", vt)
-		return ""
 	}
+
+	// Now, if it is an input property value, it must be wrapped in a MaybeComputed<T>.
+	if !out {
+		t = fmt.Sprintf("fabric.MaybeComputed<%s>", t)
+	}
+
+	// Finally make sure arrays are arrays; this must be done after the above, so we get a MaybeComputed<T>[],
+	// and not a MaybeComputed<T[]>, which would constrain the ability to flexibly construct them.
+	if array {
+		t = fmt.Sprintf("%s[]", t)
+	}
+
+	return t
 }
 
 // tfElemToJSType returns the JavaScript type for a given schema element.  This element may be either a simple schema
@@ -932,12 +999,6 @@ func resourceName(pkg string, rawname string, resinfo *tfbridge.ResourceInfo) (s
 
 // propertyName translates a Terraform underscore_cased_property_name into the JavaScript camelCasedPropertyName.
 func propertyName(resname string, s string) (string, error) {
-	if resname != "" && tfbridge.IsBuiltinLumiProperty(s) {
-		return "",
-			errors.Errorf("Property name '%v' on resource '%v' clashes with builtin name; "+
-				"please rename it with an override", s, resname)
-	}
-
 	// BUGBUG: work around issue in the Elastic Transcoder where a field has a trailing ":".
 	if strings.HasSuffix(s, ":") {
 		s = s[:len(s)-1]

@@ -7,7 +7,7 @@ import (
 
 	"github.com/pulumi/pulumi-fabric/pkg/diag"
 	"github.com/pulumi/pulumi-fabric/pkg/resource/provider"
-	"github.com/pulumi/pulumi-fabric/sdk/go/pkg/lumirpc"
+	lumirpc "github.com/pulumi/pulumi-fabric/sdk/proto/go"
 )
 
 // Serve fires up a Lumi resource provider listening to inbound gRPC traffic,
@@ -27,17 +27,6 @@ func Serve(module string, info ProviderInfo) error {
 		})
 
 		// Create a new bridge provider.
-		bridge := NewProvider(host, module, info.P, info)
-
-		// Configure the provider with all of the state on the Lumi side.
-		// TODO: the semantics of this aren't quite what we want.  We already have some oddness around configuration
-		//     initialization due to module initialization order.  But it's even weirder now because when we
-		//     take this snapshot from the heap is semi-arbitrary.  We need to revist configuration state lifetime.
-		if err := bridge.Configure(); err != nil {
-			// TODO: errors need to come back in a friendlier way.  Perhaps Configure belongs on the RPC interface.
-			return nil, err
-		}
-
-		return bridge, nil
+		return NewProvider(host, module, info.P, info), nil
 	})
 }

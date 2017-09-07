@@ -6,9 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/pulumi/pulumi-fabric/pkg/compiler/types/predef"
 	"github.com/pulumi/pulumi-fabric/pkg/resource"
-	"github.com/pulumi/pulumi-fabric/pkg/tokens"
 	"github.com/pulumi/pulumi-fabric/pkg/util/contract"
 )
 
@@ -34,12 +32,12 @@ const (
 )
 
 // Type fetches the Lumi runtime type corresponding to values of this asset kind.
-func (a *AssetTranslation) Type() tokens.Type {
+func (a *AssetTranslation) Type() string {
 	switch a.Kind {
 	case FileAsset, BytesAsset:
-		return predef.LumiStdlibAssetClass
+		return "Asset"
 	case FileArchive, BytesArchive:
-		return predef.LumiStdlibArchiveClass
+		return "Archive"
 	default:
 		contract.Failf("Unrecognized asset translation kind: %v", a.Kind)
 		return ""
