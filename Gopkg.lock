@@ -16,8 +16,8 @@
 [[projects]]
   name = "github.com/aws/aws-sdk-go"
   packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/shareddefaults","private/protocol","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/restxml","private/protocol/xml/xmlutil","service/s3","service/sts"]
-  revision = "452caf156d7a643d59e81af90f09a2f9814f2833"
-  version = "v1.10.39"
+  revision = "fa78289ae88a6b6a59e326885edc00612ed265f3"
+  version = "v1.10.40"
 
 [[projects]]
   branch = "master"
@@ -209,7 +209,7 @@
   branch = "master"
   name = "github.com/pulumi/pulumi-fabric"
   packages = ["pkg/diag","pkg/diag/colors","pkg/resource","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/mapper","pkg/util/rpcutil","sdk/proto/go"]
-  revision = "0e3a01c68406a508e7797fdd8a1372f91e80b751"
+  revision = "8180914f83920079c280100fad6a6494d179d3de"
 
 [[projects]]
   branch = "master"
@@ -263,7 +263,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix","windows"]
-  revision = "9aade4d3a3b7e6d876cd3823ad20ec45fc035402"
+  revision = "a45f55524b7ec57890cfa6c6bc06b47f877be0d1"
 
 [[projects]]
   branch = "master"
