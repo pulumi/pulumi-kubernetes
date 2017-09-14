@@ -663,7 +663,7 @@ func (g *generator) generateNPMPackageMetadata(pkg string, outDir string, overla
 			w.Writefmtln(`        "%s": "%s",`, dep, overlay.DevDependencies[dep])
 		}
 	}
-	w.Writefmtln(`        "typescript": "^2.5.0"`)
+	w.Writefmtln(`        "typescript": "^2.5.2"`)
 	w.Writefmtln(`    },`)
 	w.Writefmtln(`    "peerDependencies": {`)
 	w.Writefmtln(`        "@pulumi/pulumi-fabric": "*"`)
