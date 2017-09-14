@@ -576,7 +576,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 
 	// For each warning, emit a warning, but don't fail the check.
 	for _, warn := range warns {
-		if err := p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", urn, warn)); err != nil {
+		if err = p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", urn, warn)); err != nil {
 			return nil, err
 		}
 	}
