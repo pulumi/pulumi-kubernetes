@@ -248,8 +248,12 @@ func (p *Provider) makeTerraformInput(res *LumiResource, name string,
 // makeTerraformInputsFromRPC unmarshals an RPC payload of properties and turns the results into Terraform inputs.
 func (p *Provider) makeTerraformInputsFromRPC(res *LumiResource, m *pbstruct.Struct,
 	schema map[string]*SchemaInfo, defaults bool) (map[string]interface{}, error) {
-	return p.makeTerraformInputs(res,
-		plugin.UnmarshalProperties(m, plugin.MarshalOptions{SkipNulls: true}), schema, defaults)
+	props, err := plugin.UnmarshalProperties(m,
+		plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
+	if err != nil {
+		return nil, err
+	}
+	return p.makeTerraformInputs(res, props, schema, defaults)
 }
 
 // makeTerraformResult expands a Terraform-style flatmap into an expanded Lumi resource property map.  This respects
@@ -348,9 +352,13 @@ func (p *Provider) makeTerraformConfig(res *LumiResource, m resource.PropertyMap
 
 // makeTerraformConfigFromRPC creates a Terraform config map from a Lumi RPC property map.
 func (p *Provider) makeTerraformConfigFromRPC(res *LumiResource, m *pbstruct.Struct,
-	schema map[string]*SchemaInfo, defaults bool) (*terraform.ResourceConfig, error) {
-	return p.makeTerraformConfig(res,
-		plugin.UnmarshalProperties(m, plugin.MarshalOptions{SkipNulls: true}), schema, defaults)
+	schema map[string]*SchemaInfo, allowUnknowns, defaults bool) (*terraform.ResourceConfig, error) {
+	props, err := plugin.UnmarshalProperties(m,
+		plugin.MarshalOptions{SkipNulls: true, AllowUnknowns: allowUnknowns})
+	if err != nil {
+		return nil, err
+	}
+	return p.makeTerraformConfig(res, props, schema, defaults)
 }
 
 // makeTerraformConfigFromInputs creates a new Terraform configuration object from a set of Terraform inputs.
@@ -378,9 +386,13 @@ func (p *Provider) makeTerraformAttributes(res *LumiResource, m resource.Propert
 
 // makeTerraformAttributesFromRPC unmarshals an RPC property map and calls through to makeTerraformAttributes.
 func (p *Provider) makeTerraformAttributesFromRPC(res *LumiResource, m *pbstruct.Struct,
-	schema map[string]*SchemaInfo, defaults bool) (map[string]string, error) {
-	return p.makeTerraformAttributes(res,
-		plugin.UnmarshalProperties(m, plugin.MarshalOptions{SkipNulls: true}), schema, defaults)
+	schema map[string]*SchemaInfo, allowUnknowns, defaults bool) (map[string]string, error) {
+	props, err := plugin.UnmarshalProperties(m,
+		plugin.MarshalOptions{SkipNulls: true, AllowUnknowns: allowUnknowns})
+	if err != nil {
+		return nil, err
+	}
+	return p.makeTerraformAttributes(res, props, schema, defaults)
 }
 
 // makeTerraformAttributesFromInputs creates a flat Terraform map from a structured set of Terraform inputs.
@@ -429,13 +441,22 @@ func (p *Provider) makeTerraformDiff(old resource.PropertyMap, new resource.Prop
 // makeTerraformDiffFromRPC takes RPC maps of old and new properties, unmarshals them, and calls into makeTerraformDiff.
 func (p *Provider) makeTerraformDiffFromRPC(old *pbstruct.Struct, new *pbstruct.Struct,
 	schema map[string]*SchemaInfo) (*terraform.InstanceState, *terraform.InstanceDiff, error) {
+	var err error
 	var oldprops resource.PropertyMap
 	if old != nil {
-		oldprops = plugin.UnmarshalProperties(old, plugin.MarshalOptions{SkipNulls: true})
+		oldprops, err = plugin.UnmarshalProperties(old,
+			plugin.MarshalOptions{SkipNulls: true})
+		if err != nil {
+			return nil, nil, err
+		}
 	}
 	var newprops resource.PropertyMap
 	if new != nil {
-		newprops = plugin.UnmarshalProperties(new, plugin.MarshalOptions{SkipNulls: true})
+		newprops, err = plugin.UnmarshalProperties(new,
+			plugin.MarshalOptions{SkipNulls: true, AllowUnknowns: true})
+		if err != nil {
+			return nil, nil, err
+		}
 	}
 	return p.makeTerraformDiff(oldprops, newprops, schema)
 }
@@ -482,7 +503,11 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 	if !has {
 		return nil, errors.Errorf("Unrecognized resource type (Check): %v", t)
 	}
-	props := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{SkipNulls: true})
+	props, err := plugin.UnmarshalProperties(req.GetProperties(),
+		plugin.MarshalOptions{SkipNulls: true, AllowUnknowns: true})
+	if err != nil {
+		return nil, err
+	}
 	lumires := &LumiResource{URN: urn, Properties: props}
 
 	// Step one is to populate any default values.  This is a two-stage process.  First we must create the
@@ -564,10 +589,11 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 		})
 	}
 
-	return &lumirpc.CheckResponse{
-		Defaults: plugin.MarshalProperties(defaults, plugin.MarshalOptions{}),
-		Failures: failures,
-	}, nil
+	defprops, err := plugin.MarshalProperties(defaults, plugin.MarshalOptions{})
+	if err != nil {
+		return nil, err
+	}
+	return &lumirpc.CheckResponse{Defaults: defprops, Failures: failures}, nil
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
@@ -581,13 +607,15 @@ func (p *Provider) Diff(ctx context.Context, req *lumirpc.DiffRequest) (*lumirpc
 	glog.V(9).Infof("tfbridge/Provider.Diff: lumi='%v', tf=%v", urn, res.TF.Name)
 
 	// To figure out if we have a replacement, perform the diff and then look for RequiresNew flags.
-	inputs, err := p.makeTerraformAttributesFromRPC(nil, req.GetOlds(), res.Schema.Fields, false)
+	inputs, err := p.makeTerraformAttributesFromRPC(
+		nil, req.GetOlds(), res.Schema.Fields, false, false)
 	if err != nil {
 		return nil, errors.Errorf("Error preparing %v old property state: %v", urn, err)
 	}
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
 	state := &terraform.InstanceState{ID: req.GetId(), Attributes: inputs}
-	config, err := p.makeTerraformConfigFromRPC(nil, req.GetNews(), res.Schema.Fields, false)
+	config, err := p.makeTerraformConfigFromRPC(
+		nil, req.GetNews(), res.Schema.Fields, true, false)
 	if err != nil {
 		return nil, errors.Errorf("Error preparing %v property state: %v", urn, err)
 	}
@@ -632,10 +660,11 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 
 	// Create the ID and property maps and return them.
 	props := p.makeTerraformResult(newstate.Attributes, res.Schema.Fields)
-	return &lumirpc.CreateResponse{
-		Id:         newstate.ID,
-		Properties: plugin.MarshalProperties(props, plugin.MarshalOptions{}),
-	}, nil
+	mprops, err := plugin.MarshalProperties(props, plugin.MarshalOptions{})
+	if err != nil {
+		return nil, err
+	}
+	return &lumirpc.CreateResponse{Id: newstate.ID, Properties: mprops}, nil
 }
 
 // Update updates an existing resource with new values.  Only those values in the provided property bag are updated
@@ -663,9 +692,11 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lum
 	}
 
 	props := p.makeTerraformResult(newstate.Attributes, res.Schema.Fields)
-	return &lumirpc.UpdateResponse{
-		Properties: plugin.MarshalProperties(props, plugin.MarshalOptions{}),
-	}, nil
+	mprops, err := plugin.MarshalProperties(props, plugin.MarshalOptions{})
+	if err != nil {
+		return nil, err
+	}
+	return &lumirpc.UpdateResponse{Properties: mprops}, nil
 }
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed to still exist.
@@ -679,7 +710,8 @@ func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbe
 	glog.V(9).Infof("tfbridge/Provider.Delete: lumi='%v', tf=%v", urn, res.TF.Name)
 
 	// Fetch the resource attributes since many providers need more than just the ID to perform the delete.
-	attrs, err := p.makeTerraformAttributesFromRPC(nil, req.GetProperties(), res.Schema.Fields, false)
+	attrs, err := p.makeTerraformAttributesFromRPC(
+		nil, req.GetProperties(), res.Schema.Fields, false, false)
 	if err != nil {
 		return nil, err
 	}
