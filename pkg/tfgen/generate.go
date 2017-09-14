@@ -933,11 +933,9 @@ func generateCustomImports(w *tools.GenWriter,
 // gatherCustomImports gathers imports from an entire map of schema info.
 func gatherCustomImports(infos map[string]*tfbridge.SchemaInfo, imports map[string][]string,
 	pkg string, root string, curr string) error {
-	if infos != nil {
-		for _, info := range infos {
-			if err := gatherCustomImportsFrom(info, imports, pkg, root, curr); err != nil {
-				return err
-			}
+	for _, info := range infos {
+		if err := gatherCustomImportsFrom(info, imports, pkg, root, curr); err != nil {
+			return err
 		}
 	}
 	return nil
