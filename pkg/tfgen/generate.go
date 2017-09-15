@@ -407,7 +407,8 @@ func (g *generator) generateResource(pkg string, rawname string,
 		// If the number of input properties was zero, we make the args object optional.
 		argsflags = "?"
 	}
-	w.Writefmtln("    constructor(urnName: string, args%v: %vArgs) {", argsflags, resname)
+	w.Writefmtln("    constructor(urnName: string, args%v: %vArgs, dependsOn?: fabric.Resource[]) {",
+		argsflags, resname)
 
 	// First, validate all required arguments.
 	var propsindent string
@@ -434,7 +435,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	for _, prop := range outprops {
 		w.Writefmtln("            \"%s\": undefined,", prop)
 	}
-	w.Writefmtln("        });")
+	w.Writefmtln("        }, dependsOn);")
 
 	w.Writefmtln("    }")
 	w.Writefmtln("}")
