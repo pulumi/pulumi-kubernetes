@@ -247,9 +247,9 @@ func (p *Provider) makeTerraformInput(res *LumiResource, name string,
 
 // makeTerraformInputsFromRPC unmarshals an RPC payload of properties and turns the results into Terraform inputs.
 func (p *Provider) makeTerraformInputsFromRPC(res *LumiResource, m *pbstruct.Struct,
-	schema map[string]*SchemaInfo, defaults bool) (map[string]interface{}, error) {
+	schema map[string]*SchemaInfo, allowUnknowns bool, defaults bool) (map[string]interface{}, error) {
 	props, err := plugin.UnmarshalProperties(m,
-		plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
+		plugin.MarshalOptions{AllowUnknowns: allowUnknowns, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -354,7 +354,7 @@ func (p *Provider) makeTerraformConfig(res *LumiResource, m resource.PropertyMap
 func (p *Provider) makeTerraformConfigFromRPC(res *LumiResource, m *pbstruct.Struct,
 	schema map[string]*SchemaInfo, allowUnknowns, defaults bool) (*terraform.ResourceConfig, error) {
 	props, err := plugin.UnmarshalProperties(m,
-		plugin.MarshalOptions{SkipNulls: true, AllowUnknowns: allowUnknowns})
+		plugin.MarshalOptions{AllowUnknowns: allowUnknowns, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -388,7 +388,7 @@ func (p *Provider) makeTerraformAttributes(res *LumiResource, m resource.Propert
 func (p *Provider) makeTerraformAttributesFromRPC(res *LumiResource, m *pbstruct.Struct,
 	schema map[string]*SchemaInfo, allowUnknowns, defaults bool) (map[string]string, error) {
 	props, err := plugin.UnmarshalProperties(m,
-		plugin.MarshalOptions{SkipNulls: true, AllowUnknowns: allowUnknowns})
+		plugin.MarshalOptions{AllowUnknowns: allowUnknowns, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -453,7 +453,7 @@ func (p *Provider) makeTerraformDiffFromRPC(old *pbstruct.Struct, new *pbstruct.
 	var newprops resource.PropertyMap
 	if new != nil {
 		newprops, err = plugin.UnmarshalProperties(new,
-			plugin.MarshalOptions{SkipNulls: true, AllowUnknowns: true})
+			plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
 		if err != nil {
 			return nil, nil, err
 		}
@@ -504,7 +504,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 		return nil, errors.Errorf("Unrecognized resource type (Check): %v", t)
 	}
 	props, err := plugin.UnmarshalProperties(req.GetProperties(),
-		plugin.MarshalOptions{SkipNulls: true, AllowUnknowns: true})
+		plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -589,7 +589,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 		})
 	}
 
-	defprops, err := plugin.MarshalProperties(defaults, plugin.MarshalOptions{})
+	defprops, err := plugin.MarshalProperties(defaults, plugin.MarshalOptions{AllowUnknowns: true})
 	if err != nil {
 		return nil, err
 	}
