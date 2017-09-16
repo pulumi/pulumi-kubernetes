@@ -354,6 +354,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	// First, generate all instance properties.
 	var finalerr error
 	var inprops []string
+	var reqprops int
 	var outprops []string
 	var inflags []string
 	var intypes []string
@@ -391,6 +392,9 @@ func (g *generator) generateResource(pkg string, rawname string,
 						intypes = append(intypes, intype)
 						schemas = append(schemas, sch)
 						customs = append(customs, incust)
+						if !optionalProperty(sch, incust, false) {
+							reqprops++
+						}
 					} else {
 						// Remember output properties because we still want to "zero-initialize" them as properties.
 						outprops = append(outprops, prop)
@@ -403,7 +407,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 
 	// Now create a constructor that chains supercalls and stores into properties.
 	var argsflags string
-	if len(inprops) == 0 {
+	if reqprops == 0 {
 		// If the number of input properties was zero, we make the args object optional.
 		argsflags = "?"
 	}
