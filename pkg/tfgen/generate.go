@@ -283,7 +283,7 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 				// If there's a custom type, we need to inject a cast to silence the compiler.
 				anycast = "<any>"
 			}
-			g.generateComment(w, cfg[key].Description, "")
+			g.generateCommentAdjustLines(w, cfg[key].Description, "")
 			w.Writefmtln("export let %[1]v: %[2]v = %[3]s_config.%[4]v(\"%[1]v\");", prop, typ, anycast, getfunc)
 		}
 	}
@@ -350,14 +350,14 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 
 	// Collect documentation information
-	parsedDocs, err := getDocs(pkg, rawname, resinfo, outDir)
+	parsedDocs, err := getDocsForPackage(pkg, rawname, resinfo)
 	if err != nil {
 		return resourceResult{}, err
 	}
 
 	// Write the TypeDoc/JSDoc for the resource class
-	if parsedDocs.Description != nil {
-		g.generateClassDocumentation(w, parsedDocs.Description)
+	if parsedDocs.Description != "" {
+		g.generateComment(w, parsedDocs.Description, "")
 	}
 
 	// Generate the resource class.
@@ -390,10 +390,10 @@ func (g *generator) generateResource(pkg string, rawname string,
 					if !inprop {
 						outcomment = "/*out*/ "
 					}
-					if argDoc, ok := parsedDocs.ArgumentsReference[s]; ok {
-						g.generatePropertyDocumentation(w, argDoc)
-					} else if attrDoc, ok := parsedDocs.AttributesReference[s]; ok {
-						g.generatePropertyDocumentation(w, attrDoc)
+					if argDoc, ok := parsedDocs.Arguments[s]; ok {
+						g.generateComment(w, argDoc, "    ")
+					} else if attrDoc, ok := parsedDocs.Attributes[s]; ok {
+						g.generateComment(w, attrDoc, "    ")
 					} else {
 						fmt.Printf("No docs found for property %s on resource %s\n", s, rawname)
 					}
@@ -479,10 +479,10 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.Writefmtln(" */")
 	w.Writefmtln("export interface %vArgs {", resname)
 	for i, prop := range inprops {
-		if argDoc, ok := parsedDocs.ArgumentsReference[inrawnames[i]]; ok {
-			g.generatePropertyDocumentation(w, argDoc)
+		if argDoc, ok := parsedDocs.Arguments[inrawnames[i]]; ok {
+			g.generateComment(w, argDoc, "    ")
 		} else {
-			g.generateComment(w, schemas[i].Description, "    ")
+			g.generateCommentAdjustLines(w, schemas[i].Description, "    ")
 		}
 		w.Writefmtln("    readonly %v%v: %v;", prop, inflags[i], intypes[i])
 	}
@@ -751,7 +751,7 @@ func sanitizeForDocComment(str string) string {
 	return strings.Replace(str, "*/", "*&#47;", -1)
 }
 
-func (g *generator) generateComment(w *tools.GenWriter, comment string, prefix string) {
+func (g *generator) generateCommentAdjustLines(w *tools.GenWriter, comment string, prefix string) {
 	if comment != "" {
 		curr := 0
 		w.Writefmtln("%v/**", prefix)
@@ -775,28 +775,21 @@ func (g *generator) generateComment(w *tools.GenWriter, comment string, prefix s
 	}
 }
 
-func (g *generator) generateClassDocumentation(w *tools.GenWriter, description []string) {
-	w.Writefmtln("/**")
-	for i, descriptionLine := range description {
-		descriptionLine = sanitizeForDocComment(descriptionLine)
-		// Break if we get to the last line and it's empty
-		if i == len(description)-1 && strings.TrimSpace(descriptionLine) == "" {
-			break
+func (g *generator) generateComment(w *tools.GenWriter, doc string, prefix string) {
+	if doc != "" {
+		lines := strings.Split(doc, "\n")
+		w.Writefmtln("%v/**", prefix)
+		for i, docLine := range lines {
+			docLine = sanitizeForDocComment(docLine)
+			// Break if we get to the last line and it's empty
+			if i == len(lines)-1 && strings.TrimSpace(docLine) == "" {
+				break
+			}
+			// Print the line of documentation
+			w.Writefmtln("%v * %s", prefix, docLine)
 		}
-		// Print the line of documentation
-		w.Writefmtln(" * %s", descriptionLine)
+		w.Writefmtln("%v */", prefix)
 	}
-	w.Writefmtln(" */")
-}
-
-func (g *generator) generatePropertyDocumentation(w *tools.GenWriter, doc string) {
-	lines := strings.Split(doc, "\n")
-	w.Writefmtln("    /**")
-	for _, docLine := range lines {
-		docLine = sanitizeForDocComment(docLine)
-		w.Writefmtln("     * %s", docLine)
-	}
-	w.Writefmtln("     */")
 }
 
 // inProperty checks whether the given property is supplied by the user (versus being always computed).
@@ -1052,14 +1045,14 @@ func gatherCustomImportsFrom(info *tfbridge.SchemaInfo, imports map[string][]str
 	return nil
 }
 
-// generateDocs generates module-level documentation comments from the TF website documentation content
-func getDocs(pkg string, rawname string, resinfo *tfbridge.ResourceInfo, root string) (parsedDoc, error) {
+// getDocsForPackage extracts documentation details for the given package from TF website documentation markdown content
+func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInfo) (parsedDoc, error) {
 	repo, err := getRepoDir(pkg)
 	if err != nil {
 		return parsedDoc{}, err
 	}
 	markdownName := withoutPackageName(pkg, rawname) + ".html.markdown"
-	if resinfo.Docs != nil && resinfo.Docs.Source != "" {
+	if resinfo != nil && resinfo.Docs != nil && resinfo.Docs.Source != "" {
 		markdownName = resinfo.Docs.Source
 	}
 	moduleDocs := path.Join(repo, "website", "docs", "r", markdownName)
@@ -1069,23 +1062,57 @@ func getDocs(pkg string, rawname string, resinfo *tfbridge.ResourceInfo, root st
 			diag.Message("Could not find docs for resource %v; consider overriding doc source location"), rawname)
 		return parsedDoc{}, nil
 	}
-	parsedDoc := parseTFMarkdown(string(markdownByts), rawname)
-	return parsedDoc, nil
+	doc := parseTFMarkdown(string(markdownByts), rawname)
+	if resinfo != nil && resinfo.Docs != nil {
+		// Merge Attributes from source into target
+		mergeDocs(pkg, doc.Attributes, resinfo.Docs.IncludeAttributesFrom,
+			func(s parsedDoc) map[string]string {
+				return s.Attributes
+			},
+		)
+		// Merge Arguments from source into Attributes of target
+		mergeDocs(pkg, doc.Attributes, resinfo.Docs.IncludeAttributesFromArguments,
+			func(s parsedDoc) map[string]string {
+				return s.Arguments
+			},
+		)
+		// Merge Arguments from source into target
+		mergeDocs(pkg, doc.Arguments, resinfo.Docs.IncludeAttributesFrom,
+			func(s parsedDoc) map[string]string {
+				return s.Arguments
+			},
+		)
+	}
+	return doc, nil
+}
+
+// mergeDocs
+func mergeDocs(pkg string, targetDocs map[string]string, sourceFrom string, extractDocs func(d parsedDoc) map[string]string) error {
+	if sourceFrom != "" {
+		sourceDocs, err := getDocsForPackage(pkg, sourceFrom, nil)
+		if err != nil {
+			return err
+		}
+		for k, v := range extractDocs(sourceDocs) {
+			targetDocs[k] = v
+		}
+	}
+	return nil
 }
 
 type parsedDoc struct {
-	Description         []string
-	ArgumentsReference  map[string]string
-	AttributesReference map[string]string
+	Description string
+	Arguments   map[string]string
+	Attributes  map[string]string
 }
 
-var argumentBulletRegexp = regexp.MustCompile("\\* `([a-zA-z0-9_]*)` - (\\(.*\\) )?(.*)")
-var attributeBulletRegexp = regexp.MustCompile("\\* `([a-zA-z0-9_]*)` - (.*)")
+var argumentBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+(\\([a-zA-Z]*\\)\\s*)?-\\s+(\\([^\\)]*\\)\\s*)?(.*)")
+var attributeBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+-\\s+(.*)")
 
 func parseTFMarkdown(markdown string, rawname string) parsedDoc {
 	var ret parsedDoc
-	ret.ArgumentsReference = map[string]string{}
-	ret.AttributesReference = map[string]string{}
+	ret.Arguments = map[string]string{}
+	ret.Attributes = map[string]string{}
 	sections := strings.Split(markdown, "\n## ")
 	for _, section := range sections {
 		lines := strings.Split(section, "\n")
@@ -1098,15 +1125,15 @@ func parseTFMarkdown(markdown string, rawname string) parsedDoc {
 			lastMatch := ""
 			for _, line := range lines {
 				matches := argumentBulletRegexp.FindStringSubmatch(line)
-				if len(matches) >= 3 {
+				if len(matches) >= 4 {
 					// found a property bullet, extract the name and description
-					ret.ArgumentsReference[matches[1]] = matches[3]
+					ret.Arguments[matches[1]] = matches[4]
 					lastMatch = matches[1]
 				} else if len(matches) > 0 {
 					fmt.Printf("What happened?")
 				} else if strings.TrimSpace(line) != "" && lastMatch != "" {
 					// this is a continuation of the previous bullet
-					ret.ArgumentsReference[lastMatch] += "\n" + strings.TrimSpace(line)
+					ret.Arguments[lastMatch] += "\n" + strings.TrimSpace(line)
 				} else {
 					// This is an empty line or there were no bullets yet - clear the lastMatch
 					lastMatch = ""
@@ -1118,13 +1145,13 @@ func parseTFMarkdown(markdown string, rawname string) parsedDoc {
 				matches := attributeBulletRegexp.FindStringSubmatch(line)
 				if len(matches) >= 2 {
 					// found a property bullet, extract the name and description
-					ret.AttributesReference[matches[1]] = matches[2]
+					ret.Attributes[matches[1]] = matches[2]
 					lastMatch = matches[1]
 				} else if len(matches) > 0 {
 					fmt.Printf("What happened?")
 				} else if strings.TrimSpace(line) != "" && lastMatch != "" {
 					// this is a continuation of the previous bullet
-					ret.AttributesReference[lastMatch] += "\n" + strings.TrimSpace(line)
+					ret.Attributes[lastMatch] += "\n" + strings.TrimSpace(line)
 				} else {
 					// This is an empty line or there were no bullets yet - clear the lastMatch
 					lastMatch = ""
@@ -1138,10 +1165,10 @@ func parseTFMarkdown(markdown string, rawname string) parsedDoc {
 					diag.Message("Expected only a single H1 in markdown for resource %v"), rawname)
 			}
 			sublines := strings.Split(subparts[1], "\n")
-			ret.Description = append(ret.Description, sublines[2:]...)
+			ret.Description += strings.Join(sublines[2:], "\n")
 		case "Remarks":
 			// Append the remarks to the description section
-			ret.Description = append(ret.Description, lines[2:]...)
+			ret.Description += strings.Join(lines[2:], "\n")
 		default:
 			// Ignore everything else - most commonly examples and imports with unpredictable section headers.
 		}

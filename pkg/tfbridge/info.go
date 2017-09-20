@@ -40,8 +40,10 @@ type SchemaInfo struct {
 
 // DocInfo contains optional overrids for finding and mapping TD docs.
 type DocInfo struct {
-	Source                string // an optional override to locate TF docs; "" uses the default.
-	IncludeAttributesFrom string // optionally include attributes from another raw resource for docs.
+	Source                         string // an optional override to locate TF docs; "" uses the default.
+	IncludeAttributesFrom          string // optionally include attributes from another raw resource for docs.
+	IncludeArgumentsFrom           string // optionally include arguments from another raw resource for docs.
+	IncludeAttributesFromArguments string // optionally include attributes from another raw resource's arguments.
 }
 
 // HasDefault returns true if there is a default value for this property.
