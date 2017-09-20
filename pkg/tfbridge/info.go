@@ -25,6 +25,7 @@ type ResourceInfo struct {
 	Tok      tokens.Type            // a type token to override the default; "" uses the default.
 	Fields   map[string]*SchemaInfo // a map of custom field names; if a type is missing, the default is used.
 	IDFields []string               // an optional list of ID alias fields.
+	Docs     *DocInfo               // overrides for finding and mapping TF docs.
 }
 
 // SchemaInfo contains optional name transformations to apply.
@@ -35,6 +36,12 @@ type SchemaInfo struct {
 	Fields  map[string]*SchemaInfo // a map of custom field names; if a type is missing, the default is used.
 	Asset   *AssetTranslation      // a map of asset translation information, if this is an asset.
 	Default *DefaultInfo           // an optional default directive to be applied if a value is missing.
+}
+
+// DocInfo contains optional overrids for finding and mapping TD docs.
+type DocInfo struct {
+	Source                string // an optional override to locate TF docs; "" uses the default.
+	IncludeAttributesFrom string // optionally include attributes from another raw resource for docs.
 }
 
 // HasDefault returns true if there is a default value for this property.

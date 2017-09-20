@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 
@@ -348,6 +349,17 @@ func (g *generator) generateResource(pkg string, rawname string,
 		return resourceResult{}, err
 	}
 
+	// Collect documentation information
+	parsedDocs, err := getDocs(pkg, rawname, resinfo, outDir)
+	if err != nil {
+		return resourceResult{}, err
+	}
+
+	// Write the TypeDoc/JSDoc for the resource class
+	if parsedDocs.Description != nil {
+		g.generateClassDocumentation(w, parsedDocs.Description)
+	}
+
 	// Generate the resource class.
 	w.Writefmtln("export class %s extends fabric.Resource {", resname)
 
@@ -358,6 +370,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 	var outprops []string
 	var inflags []string
 	var intypes []string
+	var inrawnames []string
 	var schemas []*schema.Schema
 	var customs []*tfbridge.SchemaInfo
 	if len(res.Schema) > 0 {
@@ -377,7 +390,13 @@ func (g *generator) generateResource(pkg string, rawname string,
 					if !inprop {
 						outcomment = "/*out*/ "
 					}
-
+					if argDoc, ok := parsedDocs.ArgumentsReference[s]; ok {
+						g.generatePropertyDocumentation(w, argDoc)
+					} else if attrDoc, ok := parsedDocs.AttributesReference[s]; ok {
+						g.generatePropertyDocumentation(w, attrDoc)
+					} else {
+						fmt.Printf("No docs found for property %s on resource %s\n", s, rawname)
+					}
 					w.Writefmtln("    public %vreadonly %v%v: fabric.Computed<%v>;",
 						outcomment, prop, outflags, typ)
 
@@ -390,6 +409,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 						inprops = append(inprops, prop)
 						inflags = append(inflags, inflag)
 						intypes = append(intypes, intype)
+						inrawnames = append(inrawnames, s)
 						schemas = append(schemas, sch)
 						customs = append(customs, incust)
 						if !optionalProperty(sch, incust, false) {
@@ -406,6 +426,14 @@ func (g *generator) generateResource(pkg string, rawname string,
 	}
 
 	// Now create a constructor that chains supercalls and stores into properties.
+	w.Writefmtln("    /**")
+	w.Writefmtln("     * Create a %s resource with the given unique name, arguments and optional additional", resname)
+	w.Writefmtln("     * resource dependencies.")
+	w.Writefmtln("     *")
+	w.Writefmtln("     * @param urnName A _unique_ name for this %s instance", resname)
+	w.Writefmtln("     * @param args A collection of arguments for creating this %s intance", resname)
+	w.Writefmtln("     * @param dependsOn A optional array of additional resources this intance depends on")
+	w.Writefmtln("     */")
 	var argsflags string
 	if reqprops == 0 {
 		// If the number of input properties was zero, we make the args object optional.
@@ -446,9 +474,16 @@ func (g *generator) generateResource(pkg string, rawname string,
 	w.Writefmtln("")
 
 	// Next, generate the args interface for this class.
+	w.Writefmtln("/**")
+	w.Writefmtln(" * The set of arguments for constructing a %s resource.", resname)
+	w.Writefmtln(" */")
 	w.Writefmtln("export interface %vArgs {", resname)
 	for i, prop := range inprops {
-		g.generateComment(w, schemas[i].Description, "    ")
+		if argDoc, ok := parsedDocs.ArgumentsReference[inrawnames[i]]; ok {
+			g.generatePropertyDocumentation(w, argDoc)
+		} else {
+			g.generateComment(w, schemas[i].Description, "    ")
+		}
 		w.Writefmtln("    readonly %v%v: %v;", prop, inflags[i], intypes[i])
 	}
 	w.Writefmtln("}")
@@ -710,16 +745,23 @@ func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, ou
 	return nil
 }
 
+// sanitizeForDocComment ensures that no `*/` sequence appears in the string, to avoid
+// accidentally closing the comment block.
+func sanitizeForDocComment(str string) string {
+	return strings.Replace(str, "*/", "*&#47;", -1)
+}
+
 func (g *generator) generateComment(w *tools.GenWriter, comment string, prefix string) {
-	prefix += "// "
 	if comment != "" {
 		curr := 0
-		w.Writefmt(prefix)
+		w.Writefmtln("%v/**", prefix)
+		w.Writefmt("%v * ", prefix)
 		for _, word := range strings.Fields(comment) {
+			word = sanitizeForDocComment(word)
 			if curr > 0 {
 				if curr+len(word)+1 > (maxWidth - len(prefix)) {
 					curr = 0
-					w.Writefmt("\n%v", prefix)
+					w.Writefmt("\n%v * ", prefix)
 				} else {
 					w.Writefmt(" ")
 					curr++
@@ -729,7 +771,32 @@ func (g *generator) generateComment(w *tools.GenWriter, comment string, prefix s
 			curr += len(word)
 		}
 		w.Writefmtln("")
+		w.Writefmtln("%v */", prefix)
 	}
+}
+
+func (g *generator) generateClassDocumentation(w *tools.GenWriter, description []string) {
+	w.Writefmtln("/**")
+	for i, descriptionLine := range description {
+		descriptionLine = sanitizeForDocComment(descriptionLine)
+		// Break if we get to the last line and it's empty
+		if i == len(description)-1 && strings.TrimSpace(descriptionLine) == "" {
+			break
+		}
+		// Print the line of documentation
+		w.Writefmtln(" * %s", descriptionLine)
+	}
+	w.Writefmtln(" */")
+}
+
+func (g *generator) generatePropertyDocumentation(w *tools.GenWriter, doc string) {
+	lines := strings.Split(doc, "\n")
+	w.Writefmtln("    /**")
+	for _, docLine := range lines {
+		docLine = sanitizeForDocComment(docLine)
+		w.Writefmtln("     * %s", docLine)
+	}
+	w.Writefmtln("     */")
 }
 
 // inProperty checks whether the given property is supplied by the user (versus being always computed).
@@ -985,17 +1052,120 @@ func gatherCustomImportsFrom(info *tfbridge.SchemaInfo, imports map[string][]str
 	return nil
 }
 
+// generateDocs generates module-level documentation comments from the TF website documentation content
+func getDocs(pkg string, rawname string, resinfo *tfbridge.ResourceInfo, root string) (parsedDoc, error) {
+	repo, err := getRepoDir(pkg)
+	if err != nil {
+		return parsedDoc{}, err
+	}
+	markdownName := withoutPackageName(pkg, rawname) + ".html.markdown"
+	if resinfo.Docs != nil && resinfo.Docs.Source != "" {
+		markdownName = resinfo.Docs.Source
+	}
+	moduleDocs := path.Join(repo, "website", "docs", "r", markdownName)
+	markdownByts, err := ioutil.ReadFile(moduleDocs)
+	if err != nil {
+		cmdutil.Diag().Warningf(
+			diag.Message("Could not find docs for resource %v; consider overriding doc source location"), rawname)
+		return parsedDoc{}, nil
+	}
+	parsedDoc := parseTFMarkdown(string(markdownByts), rawname)
+	return parsedDoc, nil
+}
+
+type parsedDoc struct {
+	Description         []string
+	ArgumentsReference  map[string]string
+	AttributesReference map[string]string
+}
+
+var argumentBulletRegexp = regexp.MustCompile("\\* `([a-zA-z0-9_]*)` - (\\(.*\\) )?(.*)")
+var attributeBulletRegexp = regexp.MustCompile("\\* `([a-zA-z0-9_]*)` - (.*)")
+
+func parseTFMarkdown(markdown string, rawname string) parsedDoc {
+	var ret parsedDoc
+	ret.ArgumentsReference = map[string]string{}
+	ret.AttributesReference = map[string]string{}
+	sections := strings.Split(markdown, "\n## ")
+	for _, section := range sections {
+		lines := strings.Split(section, "\n")
+		if len(lines) == 0 {
+			cmdutil.Diag().Warningf(
+				diag.Message("Unparseable doc section for  %v; consider overriding doc source location"), rawname)
+		}
+		switch lines[0] {
+		case "Arguments Reference", "Argument Reference", "Nested Blocks", "Nested blocks":
+			lastMatch := ""
+			for _, line := range lines {
+				matches := argumentBulletRegexp.FindStringSubmatch(line)
+				if len(matches) >= 3 {
+					// found a property bullet, extract the name and description
+					ret.ArgumentsReference[matches[1]] = matches[3]
+					lastMatch = matches[1]
+				} else if len(matches) > 0 {
+					fmt.Printf("What happened?")
+				} else if strings.TrimSpace(line) != "" && lastMatch != "" {
+					// this is a continuation of the previous bullet
+					ret.ArgumentsReference[lastMatch] += "\n" + strings.TrimSpace(line)
+				} else {
+					// This is an empty line or there were no bullets yet - clear the lastMatch
+					lastMatch = ""
+				}
+			}
+		case "Attributes Reference", "Attribute Reference":
+			lastMatch := ""
+			for _, line := range lines {
+				matches := attributeBulletRegexp.FindStringSubmatch(line)
+				if len(matches) >= 2 {
+					// found a property bullet, extract the name and description
+					ret.AttributesReference[matches[1]] = matches[2]
+					lastMatch = matches[1]
+				} else if len(matches) > 0 {
+					fmt.Printf("What happened?")
+				} else if strings.TrimSpace(line) != "" && lastMatch != "" {
+					// this is a continuation of the previous bullet
+					ret.AttributesReference[lastMatch] += "\n" + strings.TrimSpace(line)
+				} else {
+					// This is an empty line or there were no bullets yet - clear the lastMatch
+					lastMatch = ""
+				}
+			}
+		case "---":
+			// Extract the description section
+			subparts := strings.Split(section, "\n# ")
+			if len(subparts) != 2 {
+				cmdutil.Diag().Warningf(
+					diag.Message("Expected only a single H1 in markdown for resource %v"), rawname)
+			}
+			sublines := strings.Split(subparts[1], "\n")
+			ret.Description = append(ret.Description, sublines[2:]...)
+		case "Remarks":
+			// Append the remarks to the description section
+			ret.Description = append(ret.Description, lines[2:]...)
+		default:
+			// Ignore everything else - most commonly examples and imports with unpredictable section headers.
+		}
+	}
+	return ret
+}
+
 // resourceName translates a Terraform name into its Lumi name equivalent, plus a suggested filename.
 func resourceName(pkg string, rawname string, resinfo *tfbridge.ResourceInfo) (string, string) {
 	if resinfo == nil || resinfo.Tok == "" {
 		// default transformations.
-		contract.Assert(strings.HasPrefix(rawname, pkg+"_"))
-		name := rawname[len(pkg)+1:]                     // strip off the pkg prefix.
+		name := withoutPackageName(pkg, rawname)         // strip off the pkg prefix.
 		return tfbridge.TerraformToLumiName(name, true), // PascalCase the resource name.
 			tfbridge.TerraformToLumiName(name, false) // camelCase the filename.
 	}
 	// otherwise, a custom transformation exists; use it.
 	return string(resinfo.Tok.Name()), string(resinfo.Tok.Module().Name())
+}
+
+// withoutPackageName strips off the package prefix from a raw name.
+func withoutPackageName(pkg string, rawname string) string {
+	contract.Assert(strings.HasPrefix(rawname, pkg+"_"))
+	name := rawname[len(pkg)+1:] // strip off the pkg prefix.
+	return name
 }
 
 // propertyName translates a Terraform underscore_cased_property_name into the JavaScript camelCasedPropertyName.

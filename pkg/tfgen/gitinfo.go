@@ -59,11 +59,10 @@ func getGitInfo(prov string) (*GitInfo, error) {
 	}
 
 	// If that didn't work, try the GOPATH for a Git repo.
-	gopath := os.Getenv("GOPATH")
-	if gopath == "" {
-		return nil, errors.New("GOPATH is not set; canot read provider's Git info")
+	repodir, err := getRepoDir(prov)
+	if err != nil {
+		return nil, err
 	}
-	repodir := filepath.Join(gopath, "src", tfGitHub, tfProvidersOrg, tfProviderPrefix+"-"+prov)
 
 	// Make sure the target is actually a Git repository so we can fail with a pretty error if not.
 	if _, staterr := os.Stat(filepath.Join(repodir, ".git")); staterr != nil {
@@ -92,4 +91,15 @@ func getGitInfo(prov string) (*GitInfo, error) {
 		Tag:    string(descOut),
 		Commit: string(showRefOut),
 	}, nil
+}
+
+// getRepoDir gets the source repository for a given provider
+func getRepoDir(prov string) (string, error) {
+	// If that didn't work, try the GOPATH for a Git repo.
+	gopath := os.Getenv("GOPATH")
+	if gopath == "" {
+		return "", errors.New("GOPATH is not set; canot read provider's Git info")
+	}
+	repodir := filepath.Join(gopath, "src", tfGitHub, tfProvidersOrg, tfProviderPrefix+"-"+prov)
+	return repodir, nil
 }
