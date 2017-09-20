@@ -31,7 +31,7 @@ const (
 	BytesArchive
 )
 
-// Type fetches the Lumi runtime type corresponding to values of this asset kind.
+// Type fetches the Pulumi runtime type corresponding to values of this asset kind.
 func (a *AssetTranslation) Type() string {
 	switch a.Kind {
 	case FileAsset, BytesAsset:

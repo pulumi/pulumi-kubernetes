@@ -12,9 +12,9 @@ import (
 // RandomHexSuffixLength is the length of the suffix added AutoName properties by default.
 const RandomHexSuffixLength = 8
 
-// LumiToTerraformName performs a standard transformation on the given name string, from Lumi's PascalCasing or
+// PulumiToTerraformName performs a standard transformation on the given name string, from Pulumi's PascalCasing or
 // camelCasing, to Terraform's underscore_casing.
-func LumiToTerraformName(name string) string {
+func PulumiToTerraformName(name string) string {
 	var result string
 	for i, c := range name {
 		if c >= 'A' && c <= 'Z' {
@@ -30,19 +30,22 @@ func LumiToTerraformName(name string) string {
 	return result
 }
 
-// TerraformToLumiName performs a standard transformation on the given name string, from Terraform's underscore_casing
-// to Lumi's PascalCasing (if upper is true) or camelCasing (if upper is false).
-func TerraformToLumiName(name string, upper bool) string {
+// TerraformToPulumiName performs a standard transformation on the given name string, from Terraform's underscore_casing
+// to Pulumi's PascalCasing (if upper is true) or camelCasing (if upper is false).
+func TerraformToPulumiName(name string, upper bool) string {
 	var result string
 	var nextCap bool
 	var prev rune
+	casingActivated := false // tolerate leading underscores
 	for i, c := range name {
-		if c == '_' {
+		if c == '_' && casingActivated {
 			// skip underscores and make sure the next one is capitalized.
 			contract.Assertf(!nextCap, "Unexpected duplicate underscore: %v", name)
-			contract.Assertf(i != 0, "Unexpected underscore as 1st character: %v", name)
 			nextCap = true
 		} else {
+			if c != '_' && !casingActivated {
+				casingActivated = true // note that we've seen non-underscores, so we treat the right correctly.
+			}
 			if ((i == 0 && upper) || nextCap) && (c >= 'a' && c <= 'z') {
 				// if we're at the start and upper was requested, or the next is meant to be a cap, capitalize it.
 				result += string(unicode.ToUpper(c))
@@ -61,7 +64,7 @@ func TerraformToLumiName(name string, upper bool) string {
 }
 
 // AutoName creates custom schema for a Terraform name property which is automatically populated from the
-// resource's URN name, with a random suffix and maximum length of maxlen.  This makes it easy to propagate the Lumi
+// resource's URN name, with a random suffix and maximum length of maxlen.  This makes it easy to propagate the Pulumi
 // resource's URN name part as the Terraform name as a convenient default, while still permitting it to be overridden.
 func AutoName(name string, maxlen int) *SchemaInfo {
 	return AutoNameTransform(name, maxlen, nil)
@@ -69,7 +72,7 @@ func AutoName(name string, maxlen int) *SchemaInfo {
 
 // AutoNameTransform creates custom schema for a Terraform name property which is automatically populated from the
 // resource's URN name, with a random suffix, maximum length maxlen, and optional transformation function. This makes it
-// easy to propagate the Lumi resource's URN name part as the Terraform name as a convenient default, while still
+// easy to propagate the Pulumi resource's URN name part as the Terraform name as a convenient default, while still
 // permitting it to be overridden.
 func AutoNameTransform(name string, maxlen int, transform func(string) string) *SchemaInfo {
 	return &SchemaInfo{
@@ -81,8 +84,8 @@ func AutoNameTransform(name string, maxlen int, transform func(string) string) *
 }
 
 // FromName automatically propagates a resource's URN onto the resulting default info.
-func FromName(rand bool, randmaxlen int, transform func(string) string) func(res *LumiResource) interface{} {
-	return func(res *LumiResource) interface{} {
+func FromName(rand bool, randmaxlen int, transform func(string) string) func(res *PulumiResource) interface{} {
+	return func(res *PulumiResource) interface{} {
 		// Take the URN name part, transform it if required, and then append some unique characters.
 		vs := string(res.URN.Name())
 		if transform != nil {

@@ -25,13 +25,14 @@ import (
 	"golang.org/x/net/context"
 )
 
-// Provider implements the Lumi resource provider operations for any Terraform plugin.
+// Provider implements the Pulumi resource provider operations for any Terraform plugin.
 type Provider struct {
-	host      *provider.HostClient       // the RPC link back to the Lumi engine.
-	module    string                     // the Terraform module name.
-	tf        terraform.ResourceProvider // the Terraform resource provider to use.
-	info      ProviderInfo               // overlaid info about this provider.
-	resources map[tokens.Type]Resource   // a map of Lumi type tokens to resource info.
+	host        *provider.HostClient               // the RPC link back to the Pulumi engine.
+	module      string                             // the Terraform module name.
+	tf          terraform.ResourceProvider         // the Terraform resource provider to use.
+	info        ProviderInfo                       // overlaid info about this provider.
+	resources   map[tokens.Type]Resource           // a map of Pulumi type tokens to resource info.
+	dataSources map[tokens.ModuleMember]DataSource // a map of Pulumi module tokens to data sources.
 }
 
 // Resource wraps both the Terraform resource type info plus the overlay resource info.
@@ -40,7 +41,13 @@ type Resource struct {
 	Schema *ResourceInfo          // optional provider overrides.
 }
 
-// NewProvider creates a new Lumi RPC server wired up to the given host and wrapping the given Terraform provider.
+// DataSource wraps both the Terraform data source (resource) type info plus the overlay resource info.
+type DataSource struct {
+	TF     terraform.DataSource // Terraform resource info.
+	Schema *DataSourceInfo      // optional provider overrides.
+}
+
+// NewProvider creates a new Pulumi RPC server wired up to the given host and wrapping the given Terraform provider.
 func NewProvider(host *provider.HostClient, module string,
 	tf terraform.ResourceProvider, info ProviderInfo) *Provider {
 	p := &Provider{
@@ -49,7 +56,7 @@ func NewProvider(host *provider.HostClient, module string,
 		tf:     tf,
 		info:   info,
 	}
-	p.initResourceMap()
+	p.initResourceMaps()
 	return p
 }
 
@@ -58,18 +65,11 @@ var _ lumirpc.ResourceProviderServer = (*Provider)(nil)
 func (p *Provider) pkg() tokens.Package          { return tokens.Package(p.module) }
 func (p *Provider) indexMod() tokens.Module      { return tokens.Module(p.pkg() + ":index") }
 func (p *Provider) baseConfigMod() tokens.Module { return tokens.Module(p.pkg() + ":config") }
+func (p *Provider) baseDataMod() tokens.Module   { return tokens.Module(p.pkg() + ":data") }
 func (p *Provider) configMod() tokens.Module     { return p.baseConfigMod() + "/vars" }
 
-// resource looks up the Terraform resource provider from its Lumi type token.
-func (p *Provider) resource(t tokens.Type) (Resource, bool) {
-	res, has := p.resources[t]
-	return res, has
-}
-
-// initResourceMap creates a simple map from Lumi to Terraform resource type.
-func (p *Provider) initResourceMap() {
-	prefix := p.module + "_" // all resources will have this prefix.
-
+// initResourceMaps creates maps from Pulumi types and tokens to Terraform resource type.
+func (p *Provider) initResourceMaps() {
 	// Fetch a list of all resource types handled by this provider and make a map.
 	p.resources = make(map[tokens.Type]Resource)
 	for _, res := range p.tf.Resources() {
@@ -86,24 +86,50 @@ func (p *Provider) initResourceMap() {
 
 		// Otherwise, we default to the standard naming scheme.
 		if tok == "" {
-			// Strip off the module prefix (e.g., "aws_").
-			contract.Assertf(strings.HasPrefix(res.Name, prefix),
-				"Expected all Terraform resources in this module to have a '%v' prefix", prefix)
-			name := res.Name[len(prefix):]
-
-			// Create a camel name for the module and pascal for the resource type.
-			camelName := TerraformToLumiName(name, false)
-			pascalName := TerraformToLumiName(name, true)
-
-			// Now just manufacture a token with the package, module, and resource type name.
+			// Manufacture a token with the package, module, and resource type name.
+			camelName, pascalName := p.camelPascalPulumiName(res.Name)
 			tok = tokens.Type(string(p.pkg()) + ":" + camelName + ":" + pascalName)
 		}
 
 		p.resources[tok] = Resource{TF: res, Schema: schema}
 	}
+
+	// Fetch a list of all data source types handled by this provider and make a similar map.
+	p.dataSources = make(map[tokens.ModuleMember]DataSource)
+	for _, ds := range p.tf.DataSources() {
+		var tok tokens.ModuleMember
+
+		// See if there is override information for this resource.  If yes, use that to decode the token.
+		var schema *DataSourceInfo
+		if p.info.DataSources != nil {
+			schema = p.info.DataSources[ds.Name]
+			if schema != nil {
+				tok = schema.Tok
+			}
+		}
+
+		// Otherwise, we default to the standard naming scheme.
+		if tok == "" {
+			// Manufacture a token with the data module and camel-cased name.
+			camelName, _ := p.camelPascalPulumiName(ds.Name)
+			tok = tokens.ModuleMember(string(p.baseDataMod()) + ":" + camelName)
+		}
+
+		p.dataSources[tok] = DataSource{TF: ds, Schema: schema}
+	}
 }
 
-// getInfoFromTerraformName does a map lookup to find the Lumi name and schema info, if any.
+// camelPascalPulumiName returns the camel and pascal cased name for a given terraform name.
+func (p *Provider) camelPascalPulumiName(name string) (string, string) {
+	// Strip off the module prefix (e.g., "aws_") and then return the camel- and Pascal-cased names.
+	prefix := p.module + "_" // all resources will have this prefix.
+	contract.Assertf(strings.HasPrefix(name, prefix),
+		"Expected all Terraform resources in this module to have a '%v' prefix", prefix)
+	name = name[len(prefix):]
+	return TerraformToPulumiName(name, false), TerraformToPulumiName(name, true)
+}
+
+// getInfoFromTerraformName does a map lookup to find the Pulumi name and schema info, if any.
 func getInfoFromTerraformName(key string, schema map[string]*SchemaInfo) (resource.PropertyKey, *SchemaInfo) {
 	info := schema[key]
 	var name string
@@ -112,13 +138,13 @@ func getInfoFromTerraformName(key string, schema map[string]*SchemaInfo) (resour
 	}
 	if name == "" {
 		// If no name override exists, use the default name mangling scheme.
-		name = TerraformToLumiName(key, false)
+		name = TerraformToPulumiName(key, false)
 	}
 	return resource.PropertyKey(name), info
 }
 
-// getInfoFromLumiName does a reverse map lookup to find the Terraform name and schema info for a Lumi name, if any.
-func getInfoFromLumiName(key resource.PropertyKey, schema map[string]*SchemaInfo) (string, *SchemaInfo) {
+// getInfoFromPulumiName does a reverse map lookup to find the Terraform name and schema info for a Pulumi name, if any.
+func getInfoFromPulumiName(key resource.PropertyKey, schema map[string]*SchemaInfo) (string, *SchemaInfo) {
 	// To do this, we will first look to see if there's a known custom schema that uses this name.  If yes, we
 	// prefer to use that.  To do this, we must use a reverse lookup.  (In the future we may want to make a
 	// lookaside map to avoid the traversal of this map.)  Otherwise, use the standard name mangling scheme.
@@ -128,20 +154,20 @@ func getInfoFromLumiName(key resource.PropertyKey, schema map[string]*SchemaInfo
 			return tfname, schinfo
 		}
 	}
-	return LumiToTerraformName(ks), schema[ks]
+	return PulumiToTerraformName(ks), schema[ks]
 }
 
 // makeTerraformInputs takes a property map plus custom schema info and does whatever is necessary to prepare it for
 // use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
-func (p *Provider) makeTerraformInputs(res *LumiResource, m resource.PropertyMap,
+func (p *Provider) makeTerraformInputs(res *PulumiResource, m resource.PropertyMap,
 	schema map[string]*SchemaInfo, defaults bool) (map[string]interface{}, error) {
 	result := make(map[string]interface{})
 
 	// Enumerate the inputs provided and add them to the map using their Terraform names.
 	for key, value := range m {
-		// First translate the Lumi property name to a Terraform name.
-		name, info := getInfoFromLumiName(key, schema)
+		// First translate the Pulumi property name to a Terraform name.
+		name, info := getInfoFromPulumiName(key, schema)
 		contract.Assert(name != "")
 
 		// And then translate the property value.
@@ -183,7 +209,7 @@ func (p *Provider) makeTerraformInputs(res *LumiResource, m resource.PropertyMap
 // makeTerraformInput takes a single property plus custom schema info and does whatever is necessary to prepare it for
 // use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
-func (p *Provider) makeTerraformInput(res *LumiResource, name string,
+func (p *Provider) makeTerraformInput(res *PulumiResource, name string,
 	v resource.PropertyValue, schema *SchemaInfo, defaults bool) (interface{}, error) {
 	if v.IsNull() {
 		return nil, nil
@@ -246,7 +272,7 @@ func (p *Provider) makeTerraformInput(res *LumiResource, name string,
 }
 
 // makeTerraformInputsFromRPC unmarshals an RPC payload of properties and turns the results into Terraform inputs.
-func (p *Provider) makeTerraformInputsFromRPC(res *LumiResource, m *pbstruct.Struct,
+func (p *Provider) makeTerraformInputsFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	schema map[string]*SchemaInfo, allowUnknowns bool, defaults bool) (map[string]interface{}, error) {
 	props, err := plugin.UnmarshalProperties(m,
 		plugin.MarshalOptions{AllowUnknowns: allowUnknowns, SkipNulls: true})
@@ -256,8 +282,8 @@ func (p *Provider) makeTerraformInputsFromRPC(res *LumiResource, m *pbstruct.Str
 	return p.makeTerraformInputs(res, props, schema, defaults)
 }
 
-// makeTerraformResult expands a Terraform-style flatmap into an expanded Lumi resource property map.  This respects
-// the property maps so that results end up with their correct Lumi names when shipping back to the engine.
+// makeTerraformResult expands a Terraform-style flatmap into an expanded Pulumi resource property map.  This respects
+// the property maps so that results end up with their correct Pulumi names when shipping back to the engine.
 func (p *Provider) makeTerraformResult(props map[string]string,
 	schema map[string]*SchemaInfo) resource.PropertyMap {
 	outs := make(map[string]interface{})
@@ -274,8 +300,8 @@ func (p *Provider) makeTerraformResultValue(props map[string]string,
 	return p.makeTerraformOutput(v, schema)
 }
 
-// makeTerraformOutputs takes an expanded Terraform property map and returns a Lumi equivalent.  This respects
-// the property maps so that results end up with their correct Lumi names when shipping back to the engine.
+// makeTerraformOutputs takes an expanded Terraform property map and returns a Pulumi equivalent.  This respects
+// the property maps so that results end up with their correct Pulumi names when shipping back to the engine.
 func (p *Provider) makeTerraformOutputs(outs map[string]interface{},
 	schema map[string]*SchemaInfo) resource.PropertyMap {
 	result := make(resource.PropertyMap)
@@ -297,7 +323,7 @@ func (p *Provider) makeTerraformOutputs(outs map[string]interface{},
 	return result
 }
 
-// makeTerraformOutput takes a single Terraform property and returns the Lumi equivalent.
+// makeTerraformOutput takes a single Terraform property and returns the Pulumi equivalent.
 func (p *Provider) makeTerraformOutput(v interface{}, schema *SchemaInfo) resource.PropertyValue {
 	if v == nil {
 		return resource.NewNullProperty()
@@ -339,8 +365,8 @@ func (p *Provider) makeTerraformOutput(v interface{}, schema *SchemaInfo) resour
 	}
 }
 
-// makeTerraformConfig creates a Terraform config map, used in state and diff calculations, from a Lumi property map.
-func (p *Provider) makeTerraformConfig(res *LumiResource, m resource.PropertyMap,
+// makeTerraformConfig creates a Terraform config map, used in state and diff calculations, from a Pulumi property map.
+func (p *Provider) makeTerraformConfig(res *PulumiResource, m resource.PropertyMap,
 	schema map[string]*SchemaInfo, defaults bool) (*terraform.ResourceConfig, error) {
 	// Convert the resource bag into an untyped map, and then create the resource config object.
 	inputs, err := p.makeTerraformInputs(res, m, schema, defaults)
@@ -350,8 +376,8 @@ func (p *Provider) makeTerraformConfig(res *LumiResource, m resource.PropertyMap
 	return p.makeTerraformConfigFromInputs(inputs)
 }
 
-// makeTerraformConfigFromRPC creates a Terraform config map from a Lumi RPC property map.
-func (p *Provider) makeTerraformConfigFromRPC(res *LumiResource, m *pbstruct.Struct,
+// makeTerraformConfigFromRPC creates a Terraform config map from a Pulumi RPC property map.
+func (p *Provider) makeTerraformConfigFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	schema map[string]*SchemaInfo, allowUnknowns, defaults bool) (*terraform.ResourceConfig, error) {
 	props, err := plugin.UnmarshalProperties(m,
 		plugin.MarshalOptions{AllowUnknowns: allowUnknowns, SkipNulls: true})
@@ -370,10 +396,10 @@ func (p *Provider) makeTerraformConfigFromInputs(inputs map[string]interface{}) 
 	return terraform.NewResourceConfig(cfg), nil
 }
 
-// makeTerraformAttributes converts a Lumi property bag into its Terraform equivalent.  This requires
+// makeTerraformAttributes converts a Pulumi property bag into its Terraform equivalent.  This requires
 // flattening everything and serializing individual properties as strings.  This is a little awkward, but it's how
 // Terraform represents resource properties (schemas are simply sugar on top).
-func (p *Provider) makeTerraformAttributes(res *LumiResource, m resource.PropertyMap,
+func (p *Provider) makeTerraformAttributes(res *PulumiResource, m resource.PropertyMap,
 	schema map[string]*SchemaInfo, defaults bool) (map[string]string, error) {
 	// Turn the resource properties into a map.  For the most part, this is a straight Mappable, but we use MapReplace
 	// because we use float64s and Terraform uses ints, to represent numbers.
@@ -385,7 +411,7 @@ func (p *Provider) makeTerraformAttributes(res *LumiResource, m resource.Propert
 }
 
 // makeTerraformAttributesFromRPC unmarshals an RPC property map and calls through to makeTerraformAttributes.
-func (p *Provider) makeTerraformAttributesFromRPC(res *LumiResource, m *pbstruct.Struct,
+func (p *Provider) makeTerraformAttributesFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	schema map[string]*SchemaInfo, allowUnknowns, defaults bool) (map[string]string, error) {
 	props, err := plugin.UnmarshalProperties(m,
 		plugin.MarshalOptions{AllowUnknowns: allowUnknowns, SkipNulls: true})
@@ -461,7 +487,7 @@ func (p *Provider) makeTerraformDiffFromRPC(old *pbstruct.Struct, new *pbstruct.
 	return p.makeTerraformDiff(oldprops, newprops, schema)
 }
 
-// Configure configures the underlying Terraform provider with the live Lumi variable state.
+// Configure configures the underlying Terraform provider with the live Pulumi variable state.
 func (p *Provider) Configure(ctx context.Context, req *lumirpc.ConfigureRequest) (*pbempty.Empty, error) {
 	// Fetch the map of tokens to values.  It will be in the form of fully qualified tokens, so
 	// we will need to translate into simply the configuration variable names.
@@ -495,26 +521,16 @@ func (p *Provider) Configure(ctx context.Context, req *lumirpc.ConfigureRequest)
 	return &pbempty.Empty{}, nil
 }
 
-// Check validates that the given property bag is valid for a resource of the given type.
-func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumirpc.CheckResponse, error) {
-	urn := resource.URN(req.GetUrn())
-	t := urn.Type()
-	res, has := p.resource(t)
-	if !has {
-		return nil, errors.Errorf("Unrecognized resource type (Check): %v", t)
-	}
-	props, err := plugin.UnmarshalProperties(req.GetProperties(),
-		plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
-	if err != nil {
-		return nil, err
-	}
-	lumires := &LumiResource{URN: urn, Properties: props}
-
+// prepareInputDefaults takes an input "resource" with state, does everything necessary to round-trip with the
+// Terraform provider and populate the default variables, and returns the resulting config and state.
+func (p *Provider) prepareInputsDefaults(tfname string,
+	lumires *PulumiResource, schema map[string]*SchemaInfo) (*terraform.InstanceInfo, *terraform.InstanceState,
+	*terraform.InstanceDiff, *terraform.ResourceConfig, error) {
 	// Step one is to populate any default values.  This is a two-stage process.  First we must create the
 	// bridge-specific diffs, in cases where the overlays inject their own default values.
-	inputs, err := p.makeTerraformInputs(lumires, props, res.Schema.Fields, true)
+	inputs, err := p.makeTerraformInputs(lumires, lumires.Properties, schema, true)
 	if err != nil {
-		return nil, errors.Errorf("Error preparing %v property state: %v", urn, err)
+		return nil, nil, nil, nil, errors.Wrapf(err, "couldn't prepare resource %v input state", tfname)
 	}
 
 	// Next, we let Terraform inject its own defaults, by way of Diff.  This may seem supremely bizarre, however, if
@@ -522,21 +538,65 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 	// for the config variety.  The config variety is not chained in the multi-field reader structure during ordinary
 	// CRUD operations, however; instead, it is chained only during ResourceConfig-related ones.  Diff is one such
 	// operation that chains config in, which gives us back a Diff that is perfectly populated with the defaults.
-	info := &terraform.InstanceInfo{Type: res.TF.Name}
+	info := &terraform.InstanceInfo{Type: tfname}
 	attrs := p.makeTerraformAttributesFromInputs(inputs)
 	state := &terraform.InstanceState{Attributes: attrs}
 	rescfg, err := p.makeTerraformConfigFromInputs(inputs)
 	if err != nil {
-		return nil, errors.Errorf("Error preparing %v's resource config state: %v", urn, err)
+		return nil, nil, nil, nil, errors.Wrapf(err, "couldn't prepare resource %v config state", tfname)
 	}
 	diff, err := p.tf.Diff(info, state, rescfg)
 	if err != nil {
-		return nil, errors.Errorf("Error preparing %v's resource diff (for defaults): %v", urn, err)
+		return nil, nil, nil, nil, errors.Wrapf(err, "couldn't prepare resource %v diff (for defaults)", tfname)
+	}
+
+	return info, state, diff, rescfg, nil
+}
+
+// Check validates that the given property bag is valid for a resource of the given type.
+func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumirpc.CheckResponse, error) {
+	urn := resource.URN(req.GetUrn())
+	t := urn.Type()
+	res, has := p.resources[t]
+	if !has {
+		return nil, errors.Errorf("Unrecognized resource type (Check): %v", t)
+	}
+
+	// Unmarshal the properties.
+	props, err := plugin.UnmarshalProperties(req.GetProperties(),
+		plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
+	if err != nil {
+		return nil, err
+	}
+
+	// Now fetch the default values so that (a) we can return them to the caller and (b) so that validation
+	// includes the default values.  Otherwise, the provider wouldn't be presented with its own defaults.
+	tfname := res.TF.Name
+	_, state, diff, rescfg, err := p.prepareInputsDefaults(
+		tfname, &PulumiResource{URN: urn, Properties: props}, res.Schema.Fields)
+	if err != nil {
+		return nil, err
+	}
+
+	// Now check with the resource provider to see if the values pass muster.
+	warns, errs := p.tf.ValidateResource(tfname, rescfg)
+	for _, warn := range warns {
+		if err = p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", urn, warn)); err != nil {
+			return nil, err
+		}
+	}
+
+	// Now produce a return value of any properties that failed verification.
+	var failures []*lumirpc.CheckFailure
+	for _, err := range errs {
+		failures = append(failures, &lumirpc.CheckFailure{
+			Reason: err.Error(),
+		})
 	}
 
 	// After all is said and done, we need to go back and return only what got populated as a diff from the origin.
 	defaults := make(resource.PropertyMap)
-	outputs := p.makeTerraformResult(attrs, res.Schema.Fields)
+	outputs := p.makeTerraformResult(state.Attributes, res.Schema.Fields)
 	if outdiff := props.Diff(outputs); outdiff != nil {
 		// Just recognized adds/changes, since these are defaults.
 		for k := range outdiff.Adds {
@@ -570,29 +630,11 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 			}
 		}
 	}
-
-	// Now check with the resource provider to see if the values pass muster.
-	warns, errs := p.tf.ValidateResource(res.TF.Name, rescfg)
-
-	// For each warning, emit a warning, but don't fail the check.
-	for _, warn := range warns {
-		if err = p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", urn, warn)); err != nil {
-			return nil, err
-		}
-	}
-
-	// Now produce a return value of any properties that failed verification.
-	var failures []*lumirpc.CheckFailure
-	for _, err := range errs {
-		failures = append(failures, &lumirpc.CheckFailure{
-			Reason: err.Error(),
-		})
-	}
-
 	defprops, err := plugin.MarshalProperties(defaults, plugin.MarshalOptions{AllowUnknowns: true})
 	if err != nil {
 		return nil, err
 	}
+
 	return &lumirpc.CheckResponse{Defaults: defprops, Failures: failures}, nil
 }
 
@@ -600,7 +642,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 func (p *Provider) Diff(ctx context.Context, req *lumirpc.DiffRequest) (*lumirpc.DiffResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
-	res, has := p.resource(t)
+	res, has := p.resources[t]
 	if !has {
 		return nil, errors.Errorf("Unrecognized resource type (Diff): %v", urn)
 	}
@@ -640,7 +682,7 @@ func (p *Provider) Diff(ctx context.Context, req *lumirpc.DiffRequest) (*lumirpc
 func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lumirpc.CreateResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
-	res, has := p.resource(t)
+	res, has := p.resources[t]
 	if !has {
 		return nil, errors.Errorf("Unrecognized resource type (Create): %v", t)
 	}
@@ -672,7 +714,7 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lumirpc.UpdateResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
-	res, has := p.resource(t)
+	res, has := p.resources[t]
 	if !has {
 		return nil, errors.Errorf("Unrecognized resource type (Update): %v", t)
 	}
@@ -703,7 +745,7 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lum
 func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
-	res, has := p.resource(t)
+	res, has := p.resources[t]
 	if !has {
 		return nil, errors.Errorf("Unrecognized resource type (Delete): %v", t)
 	}
@@ -720,7 +762,71 @@ func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbe
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
 	state := &terraform.InstanceState{ID: req.GetId(), Attributes: attrs}
 	if _, err := p.tf.Apply(info, state, &terraform.InstanceDiff{Destroy: true}); err != nil {
-		return nil, errors.Errorf("Error apply %v deletion: %v", urn, err)
+		return nil, errors.Errorf("Error applying %v deletion: %v", urn, err)
 	}
 	return &pbempty.Empty{}, nil
+}
+
+// Invoke dynamically executes a built-in function in the provider.
+func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lumirpc.InvokeResponse, error) {
+	tok := tokens.ModuleMember(req.GetTok())
+	ds, has := p.dataSources[tok]
+	if !has {
+		return nil, errors.Errorf("Unrecognized data function (Invoke): %v", tok)
+	}
+	glog.V(9).Infof("tfbridge/Provider.Invoke: tok=%v", tok)
+
+	// Unmarshal the arguments.
+	args, err := plugin.UnmarshalProperties(req.GetArgs(),
+		plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
+	if err != nil {
+		return nil, err
+	}
+
+	// Now fetch the default values so that (a) we can return them to the caller and (b) so that validation
+	// includes the default values.  Otherwise, the provider wouldn't be presented with its own defaults.
+	tfname := ds.TF.Name
+	info, state, _, rescfg, err := p.prepareInputsDefaults(
+		tfname, &PulumiResource{Properties: args}, ds.Schema.Fields)
+	if err != nil {
+		return nil, err
+	}
+
+	// Now check with the data source provider to see if the values pass muster.
+	warns, errs := p.tf.ValidateDataSource(tfname, rescfg)
+	for _, warn := range warns {
+		if err = p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", tok, warn)); err != nil {
+			return nil, err
+		}
+	}
+
+	// Now produce a return value of any properties that failed verification.
+	var failures []*lumirpc.CheckFailure
+	for _, err := range errs {
+		failures = append(failures, &lumirpc.CheckFailure{
+			Reason: err.Error(),
+		})
+	}
+
+	// If there are no failures in verification, go ahead and perform the invocation.
+	var ret *pbstruct.Struct
+	if len(failures) == 0 {
+
+		// FIXME: we need to use the post-defaulted state.
+
+		invoke, err := p.tf.Refresh(info, state)
+		if err != nil {
+			return nil, errors.Wrapf(err, "error invoking %v", tok)
+		}
+		ret, err = plugin.MarshalProperties(
+			p.makeTerraformResult(invoke.Attributes, ds.Schema.Fields), plugin.MarshalOptions{})
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return &lumirpc.InvokeResponse{
+		Return:   ret,
+		Failures: failures,
+	}, nil
 }

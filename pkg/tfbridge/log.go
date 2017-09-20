@@ -10,7 +10,7 @@ import (
 )
 
 // LogRedirector creates a new redirection writer that takes as input plugin stderr output, and routes it to the
-// correct Lumi stream based on the standard Terraform logging output prefixes.
+// correct Pulumi stream based on the standard Terraform logging output prefixes.
 type LogRedirector struct {
 	enabled bool                          // true if standard logging is on; false for debug-only.
 	writers map[string]func(string) error // the writers for certain labels.

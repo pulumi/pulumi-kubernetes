@@ -10,8 +10,8 @@ import (
 	lumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 )
 
-// Serve fires up a Lumi resource provider listening to inbound gRPC traffic,
-// and translates calls from Lumi into actions against the provided Terraform Provider.
+// Serve fires up a Pulumi resource provider listening to inbound gRPC traffic,
+// and translates calls from Pulumi into actions against the provided Terraform Provider.
 func Serve(module string, info ProviderInfo) error {
 	// Create a new resource provider server and listen for and serve incoming connections.
 	return provider.Main(func(host *provider.HostClient) (lumirpc.ResourceProviderServer, error) {

@@ -8,25 +8,25 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestLumiToTerraformName(t *testing.T) {
-	assert.Equal(t, "", LumiToTerraformName(""))
-	assert.Equal(t, "test", LumiToTerraformName("test"))
-	assert.Equal(t, "test_name", LumiToTerraformName("testName"))
-	assert.Equal(t, "test_name_pascal", LumiToTerraformName("TestNamePascal"))
-	assert.Equal(t, "test_name", LumiToTerraformName("test_name"))
-	assert.Equal(t, "test_name_", LumiToTerraformName("testName_"))
-	assert.Equal(t, "t_e_s_t_n_a_m_e", LumiToTerraformName("TESTNAME"))
+func TestPulumiToTerraformName(t *testing.T) {
+	assert.Equal(t, "", PulumiToTerraformName(""))
+	assert.Equal(t, "test", PulumiToTerraformName("test"))
+	assert.Equal(t, "test_name", PulumiToTerraformName("testName"))
+	assert.Equal(t, "test_name_pascal", PulumiToTerraformName("TestNamePascal"))
+	assert.Equal(t, "test_name", PulumiToTerraformName("test_name"))
+	assert.Equal(t, "test_name_", PulumiToTerraformName("testName_"))
+	assert.Equal(t, "t_e_s_t_n_a_m_e", PulumiToTerraformName("TESTNAME"))
 }
 
-func TestTerraformToLumiName(t *testing.T) {
-	assert.Equal(t, "", TerraformToLumiName("", false))
-	assert.Equal(t, "test", TerraformToLumiName("test", false))
-	assert.Equal(t, "testName", TerraformToLumiName("test_name", false))
-	assert.Equal(t, "testName_", TerraformToLumiName("testName_", false))
-	assert.Equal(t, "tESTNAME", TerraformToLumiName("t_e_s_t_n_a_m_e", false))
-	assert.Equal(t, "", TerraformToLumiName("", true))
-	assert.Equal(t, "Test", TerraformToLumiName("test", true))
-	assert.Equal(t, "TestName", TerraformToLumiName("test_name", true))
-	assert.Equal(t, "TestName_", TerraformToLumiName("testName_", true))
-	assert.Equal(t, "TESTNAME", TerraformToLumiName("t_e_s_t_n_a_m_e", true))
+func TestTerraformToPulumiName(t *testing.T) {
+	assert.Equal(t, "", TerraformToPulumiName("", false))
+	assert.Equal(t, "test", TerraformToPulumiName("test", false))
+	assert.Equal(t, "testName", TerraformToPulumiName("test_name", false))
+	assert.Equal(t, "testName_", TerraformToPulumiName("testName_", false))
+	assert.Equal(t, "tESTNAME", TerraformToPulumiName("t_e_s_t_n_a_m_e", false))
+	assert.Equal(t, "", TerraformToPulumiName("", true))
+	assert.Equal(t, "Test", TerraformToPulumiName("test", true))
+	assert.Equal(t, "TestName", TerraformToPulumiName("test_name", true))
+	assert.Equal(t, "TestName_", TerraformToPulumiName("testName_", true))
+	assert.Equal(t, "TESTNAME", TerraformToPulumiName("t_e_s_t_n_a_m_e", true))
 }
