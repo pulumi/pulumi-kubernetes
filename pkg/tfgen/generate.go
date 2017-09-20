@@ -378,6 +378,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 						outcomment = "/*out*/ "
 					}
 
+					// Emit the property as a property; it has to carry undefined because of planning.
 					w.Writefmtln("    public %vreadonly %v%v: fabric.Computed<%v>;",
 						outcomment, prop, outflags, typ)
 
@@ -802,7 +803,7 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 		if custom.Type != "" {
 			t := string(custom.Type.Name())
 			if !out {
-				t = fmt.Sprintf("fabric.MaybeComputed<%s>", t)
+				t = fmt.Sprintf("fabric.ComputedValue<%s>", t)
 			}
 			return t
 		} else if custom.Asset != nil {
@@ -841,13 +842,13 @@ func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{},
 		contract.Failf("Unrecognized schema type: %v", vt)
 	}
 
-	// Now, if it is an input property value, it must be wrapped in a MaybeComputed<T>.
+	// Now, if it is an input property value, it must be wrapped in a ComputedValue<T>.
 	if !out {
-		t = fmt.Sprintf("fabric.MaybeComputed<%s>", t)
+		t = fmt.Sprintf("fabric.ComputedValue<%s>", t)
 	}
 
-	// Finally make sure arrays are arrays; this must be done after the above, so we get a MaybeComputed<T>[],
-	// and not a MaybeComputed<T[]>, which would constrain the ability to flexibly construct them.
+	// Finally make sure arrays are arrays; this must be done after the above, so we get a ComputedValue<T>[],
+	// and not a ComputedValue<T[]>, which would constrain the ability to flexibly construct them.
 	if array {
 		t = fmt.Sprintf("%s[]", t)
 	}
