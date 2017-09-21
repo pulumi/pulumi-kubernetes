@@ -40,8 +40,8 @@ func newTFGenCmd(pkg string, prov tfbridge.ProviderInfo) *cobra.Command {
 			"lumi-tfbridge-provider plugin works against all Terraform provider plugins.\n",
 		Run: cmdutil.RunFunc(func(cmd *cobra.Command, args []string) error {
 			// Let's generate some code!
-			g := newGenerator()
-			if err := g.Generate(pkg, prov, outDir, overlaysDir); err != nil {
+			g := newGenerator(pkg, prov)
+			if err := g.Generate(outDir, overlaysDir); err != nil {
 				return err
 			}
 			// If we succeeded at generate, but there were errors, exit unsuccessfully.

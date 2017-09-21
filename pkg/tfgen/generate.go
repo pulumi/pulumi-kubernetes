@@ -24,10 +24,15 @@ import (
 )
 
 type generator struct {
+	pkg      string                // the TF package name (e.g. `aws`)
+	provinfo tfbridge.ProviderInfo // the provider info for customizing code generation
 }
 
-func newGenerator() *generator {
-	return &generator{}
+func newGenerator(pkg string, provinfo tfbridge.ProviderInfo) *generator {
+	return &generator{
+		pkg:      pkg,
+		provinfo: provinfo,
+	}
 }
 
 const (
@@ -40,7 +45,7 @@ const (
 // Generate creates Lumi packages out of one or more Terraform plugins.  It accepts a list of all of the input Terraform
 // providers, already bound statically to the code (since we cannot obtain schema information dynamically), walks them
 // and generates the Lumi code, and spews that code into the output directory.
-func (g *generator) Generate(pkg string, provinfo tfbridge.ProviderInfo, outDir, overlaysDir string) error {
+func (g *generator) Generate(outDir, overlaysDir string) error {
 	// If outDir or overlaysDir are empty, default to pack/ in the pwd.
 	if outDir == "" || overlaysDir == "" {
 		p, err := os.Getwd()
@@ -56,11 +61,11 @@ func (g *generator) Generate(pkg string, provinfo tfbridge.ProviderInfo, outDir,
 	}
 
 	// Now generate the provider code.
-	return g.generateProvider(pkg, provinfo, outDir, overlaysDir)
+	return g.generateProvider(g.provinfo, outDir, overlaysDir)
 }
 
 // generateProvider creates a single standalone Lumi package for the given provider.
-func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo, outDir, overlaysDir string) error {
+func (g *generator) generateProvider(provinfo tfbridge.ProviderInfo, outDir, overlaysDir string) error {
 	var files []string
 	exports := make(map[string]string)               // a list of top-level exports.
 	modules := make(map[string]string)               // a list of modules to export individually.
@@ -74,7 +79,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	// Place all configuration variables into a single config module.
 	prov := provinfo.P
 	if len(prov.Schema) > 0 {
-		cfgfile, err := g.generateConfig(pkg, prov.Schema, provinfo.Config, outDir)
+		cfgfile, err := g.generateConfig(prov.Schema, provinfo.Config, outDir)
 		if err != nil {
 			return err
 		}
@@ -101,7 +106,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 					diag.Message("Resource %v not found in provider map; using default naming"), r)
 			}
 		}
-		result, err := g.generateResource(pkg, r, resmap[r], resinfo, outDir, outDir)
+		result, err := g.generateResource(r, resmap[r], resinfo, outDir, outDir)
 		if err != nil {
 			// Keep track of the error, but keep going, so we can expose more at once.
 			reserr = multierror.Append(reserr, err)
@@ -185,7 +190,7 @@ func (g *generator) generateProvider(pkg string, provinfo tfbridge.ProviderInfo,
 	files = append(files, ixfile)
 
 	// Generate all of the package metadata: Lumi.yaml, package.json, and tsconfig.json.
-	err = g.generatePackageMetadata(pkg, files, outDir, provinfo.Overlay)
+	err = g.generatePackageMetadata(files, outDir, provinfo.Overlay)
 	if err != nil {
 		return err
 	}
@@ -221,7 +226,7 @@ func copyFile(from, to string) error {
 }
 
 // generateConfig takes a map of config variables and emits a config submodule to the given file.
-func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
+func (g *generator) generateConfig(cfg map[string]*schema.Schema,
 	custom map[string]*tfbridge.SchemaInfo, outDir string) (string, error) {
 	// Sort the config variables to ensure they are emitted in a deterministic order.
 	var cfgkeys []string
@@ -252,12 +257,12 @@ func (g *generator) generateConfig(pkg string, cfg map[string]*schema.Schema,
 	w.Writefmtln("")
 
 	// First look for any custom types that will require any imports.
-	if err := generateCustomImports(w, custom, pkg, outDir, confDir); err != nil {
+	if err := generateCustomImports(w, custom, g.pkg, outDir, confDir); err != nil {
 		return "", err
 	}
 
 	// Create a config bag for this package.
-	w.Writefmtln("let _config = new fabric.Config(\"%v:config\");", pkg)
+	w.Writefmtln("let _config = new fabric.Config(\"%v:config\");", g.pkg)
 	w.Writefmtln("")
 
 	// Now just emit a simple export for each variable.
@@ -306,10 +311,10 @@ type resourceResult struct {
 }
 
 // generateResource generates a single module for the given resource.
-func (g *generator) generateResource(pkg string, rawname string,
+func (g *generator) generateResource(rawname string,
 	res *schema.Resource, resinfo *tfbridge.ResourceInfo, root, outDir string) (resourceResult, error) {
 	// Transform the name as necessary.
-	resname, filename := resourceName(pkg, rawname, resinfo)
+	resname, filename := resourceName(g.pkg, rawname, resinfo)
 
 	// Make a fully qualified file path that we will write to.
 	file := filepath.Join(outDir, filename+".ts")
@@ -344,12 +349,12 @@ func (g *generator) generateResource(pkg string, rawname string,
 
 	// If there are imports required due to the custom schema info, emit them now.
 	custom := resinfo.Fields
-	if err := generateCustomImports(w, custom, pkg, outDir, filepath.Dir(file)); err != nil {
+	if err := generateCustomImports(w, custom, g.pkg, outDir, filepath.Dir(file)); err != nil {
 		return resourceResult{}, err
 	}
 
 	// Collect documentation information
-	parsedDocs, err := getDocsForPackage(pkg, rawname, resinfo)
+	parsedDocs, err := getDocsForPackage(g.pkg, rawname, resinfo)
 	if err != nil {
 		return resourceResult{}, err
 	}
@@ -380,7 +385,7 @@ func (g *generator) generateResource(pkg string, rawname string,
 				prop, outflags, typ, err := g.propFlagTyp(resname, s, res.Schema, custom[s], true /*out*/)
 				if err != nil {
 					// Keep going so we can accumulate as many errors as possible.
-					err = errors.Errorf("%v:%v: %v", pkg, rawname, err)
+					err = errors.Errorf("%v:%v: %v", g.pkg, rawname, err)
 					finalerr = multierror.Append(finalerr, err)
 				} else if prop != "" {
 					// Make a little comment in the code so it's easy to pick out output properties.
@@ -636,42 +641,42 @@ func removeExtension(file, ext string) string {
 }
 
 // generatePackageMetadata generates all the non-code metadata required by a Lumi package.
-func (g *generator) generatePackageMetadata(pkg string, files []string, outDir string,
+func (g *generator) generatePackageMetadata(files []string, outDir string,
 	overlay *tfbridge.OverlayInfo) error {
 	// There are three files to write out:
 	//     1) Lumi.yaml: Lumi package information
 	//     2) package.json: minimal NPM package metadata
 	//     3) tsconfig.json: instructions for TypeScript compilation
-	if err := g.generateLumiPackageMetadata(pkg, outDir); err != nil {
+	if err := g.generateLumiPackageMetadata(outDir); err != nil {
 		return err
 	}
-	if err := g.generateNPMPackageMetadata(pkg, outDir, overlay); err != nil {
+	if err := g.generateNPMPackageMetadata(outDir, overlay); err != nil {
 		return err
 	}
-	return g.generateTypeScriptProjectFile(pkg, files, outDir)
+	return g.generateTypeScriptProjectFile(files, outDir)
 }
 
-func (g *generator) generateLumiPackageMetadata(pkg string, outDir string) error {
+func (g *generator) generateLumiPackageMetadata(outDir string) error {
 	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "Pulumi.yaml"))
 	if err != nil {
 		return err
 	}
 	defer contract.IgnoreClose(w)
-	w.Writefmtln("name: %v", pkg)
-	w.Writefmtln("description: A Pulumi Fabric resource provider for %v.", pkg)
+	w.Writefmtln("name: %v", g.pkg)
+	w.Writefmtln("description: A Pulumi Fabric resource provider for %v.", g.pkg)
 	w.Writefmtln("language: nodejs")
 	w.Writefmtln("")
 	return nil
 }
 
-func (g *generator) generateNPMPackageMetadata(pkg string, outDir string, overlay *tfbridge.OverlayInfo) error {
+func (g *generator) generateNPMPackageMetadata(outDir string, overlay *tfbridge.OverlayInfo) error {
 	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "package.json"))
 	if err != nil {
 		return err
 	}
 	defer contract.IgnoreClose(w)
 	w.Writefmtln(`{`)
-	w.Writefmtln(`    "name": "@pulumi/%v",`, pkg)
+	w.Writefmtln(`    "name": "@pulumi/%v",`, g.pkg)
 	w.Writefmtln(`    "scripts": {`)
 	w.Writefmtln(`        "build": "tsc"`)
 	w.Writefmtln(`    },`)
@@ -711,7 +716,7 @@ func (g *generator) generateNPMPackageMetadata(pkg string, outDir string, overla
 	return nil
 }
 
-func (g *generator) generateTypeScriptProjectFile(pkg string, files []string, outDir string) error {
+func (g *generator) generateTypeScriptProjectFile(files []string, outDir string) error {
 	w, err := tools.NewGenWriter(tfgen, filepath.Join(outDir, "tsconfig.json"))
 	if err != nil {
 		return err
