@@ -47,23 +47,29 @@ func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInf
 	doc := parseTFMarkdown(string(markdownByts), rawname)
 	if resinfo != nil && resinfo.Docs != nil {
 		// Merge Attributes from source into target
-		mergeDocs(pkg, doc.Attributes, resinfo.Docs.IncludeAttributesFrom,
+		if err := mergeDocs(pkg, doc.Attributes, resinfo.Docs.IncludeAttributesFrom,
 			func(s parsedDoc) map[string]string {
 				return s.Attributes
 			},
-		)
+		); err != nil {
+			return doc, err
+		}
 		// Merge Arguments from source into Attributes of target
-		mergeDocs(pkg, doc.Attributes, resinfo.Docs.IncludeAttributesFromArguments,
+		if err := mergeDocs(pkg, doc.Attributes, resinfo.Docs.IncludeAttributesFromArguments,
 			func(s parsedDoc) map[string]string {
 				return s.Arguments
 			},
-		)
+		); err != nil {
+			return doc, err
+		}
 		// Merge Arguments from source into target
-		mergeDocs(pkg, doc.Arguments, resinfo.Docs.IncludeArgumentsFrom,
+		if err := mergeDocs(pkg, doc.Arguments, resinfo.Docs.IncludeArgumentsFrom,
 			func(s parsedDoc) map[string]string {
 				return s.Arguments
 			},
-		)
+		); err != nil {
+			return doc, err
+		}
 	}
 	return doc, nil
 }
@@ -83,7 +89,9 @@ func readMarkdown(repo string, possibleLocations []string) ([]byte, error) {
 }
 
 // mergeDocs adds the docs specified by extractDoc from sourceFrom into the targetDocs
-func mergeDocs(pkg string, targetDocs map[string]string, sourceFrom string, extractDocs func(d parsedDoc) map[string]string) error {
+func mergeDocs(pkg string, targetDocs map[string]string, sourceFrom string,
+	extractDocs func(d parsedDoc) map[string]string) error {
+
 	if sourceFrom != "" {
 		sourceDocs, err := getDocsForPackage(pkg, sourceFrom, nil)
 		if err != nil {
@@ -96,10 +104,14 @@ func mergeDocs(pkg string, targetDocs map[string]string, sourceFrom string, extr
 	return nil
 }
 
-var argumentBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+(\\([a-zA-Z]*\\)\\s*)?[–-]?\\s+(\\([^\\)]*\\)\\s*)?(.*)")
-var attributeBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+[–-]?\\s+(.*)")
+var argumentBulletRegexp = regexp.MustCompile(
+	"\\*\\s+`([a-zA-z0-9_]*)`\\s+(\\([a-zA-Z]*\\)\\s*)?[–-]?\\s+(\\([^\\)]*\\)\\s*)?(.*)",
+)
+var attributeBulletRegexp = regexp.MustCompile(
+	"\\*\\s+`([a-zA-z0-9_]*)`\\s+[–-]?\\s+(.*)",
+)
 
-// parseTFMarkdown takes a TF website markdown doc and extracts a structured represenation for use in
+// parseTFMarkdown takes a TF website markdown doc and extracts a structured representation for use in
 // generating doc comments
 func parseTFMarkdown(markdown string, rawname string) parsedDoc {
 	var ret parsedDoc

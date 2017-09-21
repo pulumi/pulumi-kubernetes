@@ -349,7 +349,7 @@ func (g *generator) generateResource(rawname string,
 
 	// If there are imports required due to the custom schema info, emit them now.
 	custom := resinfo.Fields
-	if err := generateCustomImports(w, custom, g.pkg, outDir, filepath.Dir(file)); err != nil {
+	if err = generateCustomImports(w, custom, g.pkg, outDir, filepath.Dir(file)); err != nil {
 		return resourceResult{}, err
 	}
 
