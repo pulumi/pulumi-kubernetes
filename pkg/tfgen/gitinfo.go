@@ -3,8 +3,10 @@
 package tfgen
 
 import (
+	"go/build"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -95,11 +97,14 @@ func getGitInfo(prov string) (*GitInfo, error) {
 
 // getRepoDir gets the source repository for a given provider
 func getRepoDir(prov string) (string, error) {
-	// If that didn't work, try the GOPATH for a Git repo.
-	gopath := os.Getenv("GOPATH")
-	if gopath == "" {
-		return "", errors.New("GOPATH is not set; canot read provider's Git info")
+	wd, err := os.Getwd()
+	if err != nil {
+		return "", err
 	}
-	repodir := filepath.Join(gopath, "src", tfGitHub, tfProvidersOrg, tfProviderPrefix+"-"+prov)
-	return repodir, nil
+	repo := path.Join(tfGitHub, tfProvidersOrg, tfProviderPrefix+"-"+prov)
+	pkg, err := build.Import(repo, wd, build.FindOnly)
+	if err != nil {
+		return "", err
+	}
+	return pkg.Dir, nil
 }
