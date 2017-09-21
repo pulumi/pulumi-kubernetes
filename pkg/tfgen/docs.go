@@ -121,8 +121,6 @@ func parseTFMarkdown(markdown string, rawname string) parsedDoc {
 					// found a property bullet, extract the name and description
 					ret.Arguments[matches[1]] = matches[4]
 					lastMatch = matches[1]
-				} else if len(matches) > 0 {
-					fmt.Printf("What happened?")
 				} else if strings.TrimSpace(line) != "" && lastMatch != "" {
 					// this is a continuation of the previous bullet
 					ret.Arguments[lastMatch] += "\n" + strings.TrimSpace(line)
@@ -139,8 +137,6 @@ func parseTFMarkdown(markdown string, rawname string) parsedDoc {
 					// found a property bullet, extract the name and description
 					ret.Attributes[matches[1]] = matches[2]
 					lastMatch = matches[1]
-				} else if len(matches) > 0 {
-					fmt.Printf("What happened?")
 				} else if strings.TrimSpace(line) != "" && lastMatch != "" {
 					// this is a continuation of the previous bullet
 					ret.Attributes[lastMatch] += "\n" + strings.TrimSpace(line)

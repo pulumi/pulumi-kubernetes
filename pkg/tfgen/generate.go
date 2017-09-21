@@ -398,8 +398,6 @@ func (g *generator) generateResource(rawname string,
 						g.generateComment(w, argDoc, "    ")
 					} else if attrDoc, ok := parsedDocs.Attributes[s]; ok {
 						g.generateComment(w, attrDoc, "    ")
-					} else {
-						fmt.Printf("No docs found for property %s on resource %s\n", s, rawname)
 					}
 					w.Writefmtln("    public %vreadonly %v%v: fabric.Computed<%v>;",
 						outcomment, prop, outflags, typ)
