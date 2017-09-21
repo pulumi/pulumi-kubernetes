@@ -96,7 +96,7 @@ func mergeDocs(pkg string, targetDocs map[string]string, sourceFrom string, extr
 	return nil
 }
 
-var argumentBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+(\\([a-zA-Z]*\\)\\s*)?-\\s+(\\([^\\)]*\\)\\s*)?(.*)")
+var argumentBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+(\\([a-zA-Z]*\\)\\s*)?-?\\s+(\\([^\\)]*\\)\\s*)?(.*)")
 var attributeBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+-\\s+(.*)")
 
 // parseTFMarkdown takes a TF website markdown doc and extracts a structured represenation for use in
