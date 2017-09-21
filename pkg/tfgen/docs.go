@@ -30,12 +30,15 @@ func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInf
 	if err != nil {
 		return parsedDoc{}, err
 	}
-	markdownName := withoutPackageName(pkg, rawname) + ".html.markdown"
-	if resinfo != nil && resinfo.Docs != nil && resinfo.Docs.Source != "" {
-		markdownName = resinfo.Docs.Source
+	possibleMarkdownNames := []string{
+		withoutPackageName(pkg, rawname) + ".html.markdown",
+		withoutPackageName(pkg, rawname) + ".markdown",
+		withoutPackageName(pkg, rawname) + ".html.md",
 	}
-	moduleDocs := path.Join(repo, "website", "docs", "r", markdownName)
-	markdownByts, err := ioutil.ReadFile(moduleDocs)
+	if resinfo != nil && resinfo.Docs != nil && resinfo.Docs.Source != "" {
+		possibleMarkdownNames = append(possibleMarkdownNames, resinfo.Docs.Source)
+	}
+	markdownByts, err := readMarkdown(repo, possibleMarkdownNames)
 	if err != nil {
 		cmdutil.Diag().Warningf(
 			diag.Message("Could not find docs for resource %v; consider overriding doc source location"), rawname)
@@ -65,7 +68,21 @@ func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInf
 	return doc, nil
 }
 
-// mergeDocs
+// readMarkdown searches all possible locations for the markdown content
+func readMarkdown(repo string, possibleLocations []string) ([]byte, error) {
+	var markdownBytes []byte
+	var err error
+	for _, name := range possibleLocations {
+		location := path.Join(repo, "website", "docs", "r", name)
+		markdownBytes, err = ioutil.ReadFile(location)
+		if err == nil {
+			return markdownBytes, nil
+		}
+	}
+	return nil, fmt.Errorf("Could not find markdown in any of: %v", possibleLocations)
+}
+
+// mergeDocs adds the docs specified by extractDoc from sourceFrom into the targetDocs
 func mergeDocs(pkg string, targetDocs map[string]string, sourceFrom string, extractDocs func(d parsedDoc) map[string]string) error {
 	if sourceFrom != "" {
 		sourceDocs, err := getDocsForPackage(pkg, sourceFrom, nil)
@@ -82,6 +99,8 @@ func mergeDocs(pkg string, targetDocs map[string]string, sourceFrom string, extr
 var argumentBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+(\\([a-zA-Z]*\\)\\s*)?-\\s+(\\([^\\)]*\\)\\s*)?(.*)")
 var attributeBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+-\\s+(.*)")
 
+// parseTFMarkdown takes a TF website markdown doc and extracts a structured represenation for use in
+// generating doc comments
 func parseTFMarkdown(markdown string, rawname string) parsedDoc {
 	var ret parsedDoc
 	ret.Arguments = map[string]string{}
