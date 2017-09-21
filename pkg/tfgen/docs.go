@@ -59,7 +59,7 @@ func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInf
 			},
 		)
 		// Merge Arguments from source into target
-		mergeDocs(pkg, doc.Arguments, resinfo.Docs.IncludeAttributesFrom,
+		mergeDocs(pkg, doc.Arguments, resinfo.Docs.IncludeArgumentsFrom,
 			func(s parsedDoc) map[string]string {
 				return s.Arguments
 			},
@@ -96,8 +96,8 @@ func mergeDocs(pkg string, targetDocs map[string]string, sourceFrom string, extr
 	return nil
 }
 
-var argumentBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+(\\([a-zA-Z]*\\)\\s*)?-?\\s+(\\([^\\)]*\\)\\s*)?(.*)")
-var attributeBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+-\\s+(.*)")
+var argumentBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+(\\([a-zA-Z]*\\)\\s*)?[–-]?\\s+(\\([^\\)]*\\)\\s*)?(.*)")
+var attributeBulletRegexp = regexp.MustCompile("\\*\\s+`([a-zA-z0-9_]*)`\\s+[–-]?\\s+(.*)")
 
 // parseTFMarkdown takes a TF website markdown doc and extracts a structured represenation for use in
 // generating doc comments
