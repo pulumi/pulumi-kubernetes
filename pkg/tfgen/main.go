@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/golang/glog"
-	"github.com/pulumi/pulumi-fabric/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 	"github.com/spf13/cobra"
 
 	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"

@@ -14,11 +14,11 @@ import (
 	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-fabric/pkg/diag"
-	"github.com/pulumi/pulumi-fabric/pkg/tokens"
-	"github.com/pulumi/pulumi-fabric/pkg/tools"
-	"github.com/pulumi/pulumi-fabric/pkg/util/cmdutil"
-	"github.com/pulumi/pulumi-fabric/pkg/util/contract"
+	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/pkg/tokens"
+	"github.com/pulumi/pulumi/pkg/tools"
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/pkg/util/contract"
 
 	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
 )
@@ -252,8 +252,8 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema,
 	defer contract.IgnoreClose(w)
 	w.EmitHeaderWarning()
 
-	// We'll need the fabric.
-	w.Writefmtln("import * as fabric from \"@pulumi/pulumi-fabric\";")
+	// We'll need the Pulumi SDK.
+	w.Writefmtln("import * as pulumi from \"pulumi\";")
 	w.Writefmtln("")
 
 	// First look for any custom types that will require any imports.
@@ -262,7 +262,7 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema,
 	}
 
 	// Create a config bag for this package.
-	w.Writefmtln("let _config = new fabric.Config(\"%v:config\");", g.pkg)
+	w.Writefmtln("let _config = new pulumi.Config(\"%v:config\");", g.pkg)
 	w.Writefmtln("")
 
 	// Now just emit a simple export for each variable.
@@ -344,7 +344,7 @@ func (g *generator) generateResource(rawname string,
 	w.EmitHeaderWarning()
 
 	// Now import the modules we need.
-	w.Writefmtln("import * as fabric from \"@pulumi/pulumi-fabric\";")
+	w.Writefmtln("import * as pulumi from \"pulumi\";")
 	w.Writefmtln("")
 
 	// If there are imports required due to the custom schema info, emit them now.
@@ -365,7 +365,7 @@ func (g *generator) generateResource(rawname string,
 	}
 
 	// Generate the resource class.
-	w.Writefmtln("export class %s extends fabric.Resource {", resname)
+	w.Writefmtln("export class %s extends pulumi.Resource {", resname)
 
 	// First, generate all instance properties.
 	var finalerr error
@@ -401,7 +401,7 @@ func (g *generator) generateResource(rawname string,
 						g.generateComment(w, attrDoc, "    ")
 					}
 					// Emit the property as a property; it has to carry undefined because of planning.
-					w.Writefmtln("    public %vreadonly %v%v: fabric.Computed<%v>;",
+					w.Writefmtln("    public %vreadonly %v%v: pulumi.Computed<%v>;",
 						outcomment, prop, outflags, typ)
 
 					// Only keep track of input properties for purposes of initialization data structures.
@@ -443,7 +443,7 @@ func (g *generator) generateResource(rawname string,
 		// If the number of input properties was zero, we make the args object optional.
 		argsflags = "?"
 	}
-	w.Writefmtln("    constructor(urnName: string, args%v: %vArgs, dependsOn?: fabric.Resource[]) {",
+	w.Writefmtln("    constructor(urnName: string, args%v: %vArgs, dependsOn?: pulumi.Resource[]) {",
 		argsflags, resname)
 
 	// First, validate all required arguments.
@@ -710,7 +710,7 @@ func (g *generator) generateNPMPackageMetadata(outDir string, overlay *tfbridge.
 	w.Writefmtln(`        "typescript": "^2.5.2"`)
 	w.Writefmtln(`    },`)
 	w.Writefmtln(`    "peerDependencies": {`)
-	w.Writefmtln(`        "@pulumi/pulumi-fabric": "*"`)
+	w.Writefmtln(`        "pulumi": "*"`)
 	w.Writefmtln(`    }`)
 	w.Writefmtln(`}`)
 	return nil
@@ -866,11 +866,11 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 		if custom.Type != "" {
 			t := string(custom.Type.Name())
 			if !out {
-				t = fmt.Sprintf("fabric.ComputedValue<%s>", t)
+				t = fmt.Sprintf("pulumi.ComputedValue<%s>", t)
 			}
 			return t
 		} else if custom.Asset != nil {
-			return "fabric.asset." + custom.Asset.Type()
+			return "pulumi.asset." + custom.Asset.Type()
 		}
 		elem = custom.Elem
 	}
@@ -907,7 +907,7 @@ func (g *generator) tfToJSValueType(vt schema.ValueType, elem interface{},
 
 	// Now, if it is an input property value, it must be wrapped in a ComputedValue<T>.
 	if !out {
-		t = fmt.Sprintf("fabric.ComputedValue<%s>", t)
+		t = fmt.Sprintf("pulumi.ComputedValue<%s>", t)
 	}
 
 	// Finally make sure arrays are arrays; this must be done after the above, so we get a ComputedValue<T>[],

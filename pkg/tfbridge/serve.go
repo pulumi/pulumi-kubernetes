@@ -5,9 +5,9 @@ package tfbridge
 import (
 	"log"
 
-	"github.com/pulumi/pulumi-fabric/pkg/diag"
-	"github.com/pulumi/pulumi-fabric/pkg/resource/provider"
-	lumirpc "github.com/pulumi/pulumi-fabric/sdk/proto/go"
+	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/pkg/resource/provider"
+	lumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 )
 
 // Serve fires up a Lumi resource provider listening to inbound gRPC traffic,

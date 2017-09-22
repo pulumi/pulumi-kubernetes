@@ -4,8 +4,8 @@ package tfbridge
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/pulumi/pulumi-fabric/pkg/resource"
-	"github.com/pulumi/pulumi-fabric/pkg/tokens"
+	"github.com/pulumi/pulumi/pkg/resource"
+	"github.com/pulumi/pulumi/pkg/tokens"
 )
 
 // ProviderInfo contains information about a Terraform provider plugin that we will use to generate the Lumi

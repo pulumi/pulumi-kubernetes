@@ -16,8 +16,8 @@
 [[projects]]
   name = "github.com/aws/aws-sdk-go"
   packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/shareddefaults","private/protocol","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/restxml","private/protocol/xml/xmlutil","service/s3","service/sts"]
-  revision = "d76e48be81c125ffb3d030020b66d64731d2b9d0"
-  version = "v1.10.48"
+  revision = "5615d2ed566a09d326f681c789310a2e5ba5de5d"
+  version = "v1.10.50"
 
 [[projects]]
   branch = "master"
@@ -59,7 +59,7 @@
   branch = "master"
   name = "github.com/golang/protobuf"
   packages = ["proto","protoc-gen-go/descriptor","ptypes","ptypes/any","ptypes/duration","ptypes/empty","ptypes/struct","ptypes/timestamp"]
-  revision = "ae59567b9aab61b50b2590679a62c3c044030b61"
+  revision = "130e6b02ab059e7b717a096f397c5b60111cae74"
 
 [[projects]]
   branch = "master"
@@ -207,9 +207,15 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/pulumi/pulumi-fabric"
+  name = "github.com/pulumi/pulumi"
   packages = ["pkg/diag","pkg/diag/colors","pkg/resource","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/mapper","pkg/util/rpcutil","sdk/proto/go"]
-  revision = "1c2c972d370cfe55e63e75ef2c3181559d25fdb3"
+  revision = "f6e694c72b1b23296659988ad3399632b90959fe"
+
+[[projects]]
+  name = "github.com/pulumi/pulumi-fabric"
+  packages = ["pkg/diag","pkg/diag/colors","pkg/util/cmdutil","pkg/util/contract"]
+  revision = "4b9d933415dd6356052a73e6e7d368fb2a907773"
+  version = "v0.6"
 
 [[projects]]
   branch = "master"
@@ -257,13 +263,13 @@
   branch = "master"
   name = "golang.org/x/net"
   packages = ["context","html","html/atom","http2","http2/hpack","idna","internal/timeseries","lex/httplex","trace"]
-  revision = "8351a756f30f1297fe94bbf4b767ec589c6ea6d0"
+  revision = "0744d001aa8470aaa53df28d32e5ceeb8af9bd70"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix","windows"]
-  revision = "b6e1ae21643682ce023deb8d152024597b0e9bb4"
+  revision = "2320a9c15898af1b1b24f99700d5c1e957f9d8cf"
 
 [[projects]]
   branch = "master"
@@ -286,6 +292,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7650b18b875297bdd991ace3e94a845900c8af8d406d01eb2d82fe744b27f234"
+  inputs-digest = "0fb088e17519cbc970821305870b3c3e9337f5d436dd9f6198b84e77df4f2c1f"
   solver-name = "gps-cdcl"
   solver-version = 1

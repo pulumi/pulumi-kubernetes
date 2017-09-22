@@ -22,5 +22,5 @@
 
 [[override]]
   branch = "master"
-  name = "github.com/pulumi/pulumi-fabric"
+  name = "github.com/pulumi/pulumi"
 

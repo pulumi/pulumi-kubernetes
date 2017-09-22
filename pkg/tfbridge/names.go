@@ -5,8 +5,8 @@ package tfbridge
 import (
 	"unicode"
 
-	"github.com/pulumi/pulumi-fabric/pkg/resource"
-	"github.com/pulumi/pulumi-fabric/pkg/util/contract"
+	"github.com/pulumi/pulumi/pkg/resource"
+	"github.com/pulumi/pulumi/pkg/util/contract"
 )
 
 // RandomHexSuffixLength is the length of the suffix added AutoName properties by default.

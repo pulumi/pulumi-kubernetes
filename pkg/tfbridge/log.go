@@ -6,7 +6,7 @@ import (
 	"bufio"
 	"strings"
 
-	"github.com/pulumi/pulumi-fabric/pkg/util/contract"
+	"github.com/pulumi/pulumi/pkg/util/contract"
 )
 
 // LogRedirector creates a new redirection writer that takes as input plugin stderr output, and routes it to the

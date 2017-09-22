@@ -3,7 +3,7 @@
 package tfbridge
 
 import (
-	"github.com/pulumi/pulumi-fabric/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 )
 
 // Main launches the tfbridge plugin for a given package pkg and provider prov.
