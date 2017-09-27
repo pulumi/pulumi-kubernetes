@@ -92,73 +92,24 @@ func (g *generator) generateProvider(provinfo tfbridge.ProviderInfo, outDir, ove
 		files = append(files, cfgfile)
 	}
 
-	// Place all data sources into a single data module.
-	datamap := prov.DataSourcesMap
-	if len(prov.DataSourcesMap) > 0 {
-		datafile, err := g.generateDataSources(datamap, provinfo.DataSources, outDir)
+	var pendingExports []genResult
+
+	// Generate all resources.
+	if len(prov.ResourcesMap) > 0 {
+		resources, err := g.generateResources(prov.ResourcesMap, provinfo.Resources, outDir)
 		if err != nil {
 			return err
 		}
-		// ensure we export the data submoduel and add its file to the project.
-		submodules["data"] = map[string]string{
-			"sources": datafile,
-		}
-		files = append(files, datafile)
+		pendingExports = append(pendingExports, resources...)
 	}
 
-	// For each resource, create its own dedicated type and module export.
-	var reserr error
-	resmap := prov.ResourcesMap
-	reshits := make(map[string]bool)
-	for _, r := range stableResources(prov.ResourcesMap) {
-		var resinfo *tfbridge.ResourceInfo
-		if provinfo.Resources != nil {
-			resinfo = provinfo.Resources[r]
-		}
-		if resinfo == nil {
-			// if this resource was missing, issue a warning and skip it.
-			cmdutil.Diag().Warningf(
-				diag.Message("Resource %v not found in provider map; skipping"), r)
-			continue
-		}
-		reshits[r] = true
-		result, err := g.generateResource(r, resmap[r], resinfo, outDir, outDir)
+	// Place all data sources into a single data module.
+	if len(prov.DataSourcesMap) > 0 {
+		dataSources, err := g.generateDataSources(prov.DataSourcesMap, provinfo.DataSources, outDir)
 		if err != nil {
-			// Keep track of the error, but keep going, so we can expose more at once.
-			reserr = multierror.Append(reserr, err)
+			return err
 		}
-		if result.Submod == "" {
-			// if no sub-module, export flatly in our own index.
-			exports[result.Name] = result.File
-		} else {
-			// otherwise, make sure to track this in the submodule so we can create and export it correctly.
-			submod := submodules[result.Submod]
-			if submod == nil {
-				submod = make(map[string]string)
-				submodules[result.Submod] = submod
-			}
-			submod[result.Name] = result.File
-		}
-		files = append(files, result.File)
-	}
-	if reserr != nil {
-		return reserr
-	}
-
-	// Emit a warning if there is a map but some names didn't match.
-	if provinfo.Resources != nil {
-		var resnames []string
-		for resname := range provinfo.Resources {
-			resnames = append(resnames, resname)
-		}
-		sort.Strings(resnames)
-		for _, resname := range resnames {
-			if !reshits[resname] {
-				cmdutil.Diag().Warningf(
-					diag.Message("Resource %v (%v) wasn't found in the Terraform module; possible name mismatch?"),
-					resname, provinfo.Resources[resname].Tok)
-			}
-		}
+		pendingExports = append(pendingExports, dataSources...)
 	}
 
 	// Now go ahead and merge in any overlays into the modules if there are any.
@@ -175,6 +126,23 @@ func (g *generator) generateProvider(provinfo tfbridge.ProviderInfo, outDir, ove
 		}
 		exports[overname] = to
 		files = append(files, to)
+	}
+
+	// Make sure all exports are added to the proper lists.
+	for _, export := range pendingExports {
+		if export.Submod == "" {
+			// if no sub-module, export flatly in our own index.
+			exports[export.Name] = export.File
+		} else {
+			// otherwise, make sure to track this in the submodule so we can create and export it correctly.
+			submod := submodules[export.Submod]
+			if submod == nil {
+				submod = make(map[string]string)
+				submodules[export.Submod] = submod
+			}
+			submod[export.Name] = export.File
+		}
+		files = append(files, export.File)
 	}
 
 	// Generate any submodules and add them to the export list.
@@ -320,176 +288,62 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema,
 	return file, nil
 }
 
-func (g *generator) generateDataSources(sources map[string]*schema.Resource,
-	custom map[string]*tfbridge.DataSourceInfo, outDir string) (string, error) {
-	// Place a funcs.ts file underneath the data/ submodule directory.
-	dataDir := filepath.Join(outDir, "data")
-	if err := tools.EnsureDir(dataDir); err != nil {
-		return "", err
-	}
-
-	// Open up the file and spew a standard "code-generated" warning header.
-	file := filepath.Join(dataDir, "sources.ts")
-	w, err := tools.NewGenWriter(tfgen, file)
-	if err != nil {
-		return "", err
-	}
-	defer contract.IgnoreClose(w)
-	w.EmitHeaderWarning()
-
-	// We'll need the Pulumi SDK.
-	w.Writefmtln("import * as pulumi from \"pulumi\";")
-	w.Writefmtln("")
-
-	// Sort and enumerate all variables in a deterministic order.
-	var srckeys []string
-	for key := range sources {
-		srckeys = append(srckeys, key)
-	}
-	sort.Strings(srckeys)
-	dshits := make(map[string]bool)
-	for _, key := range srckeys {
-		var dsinfo *tfbridge.DataSourceInfo
-		if custom != nil {
-			dsinfo = custom[key]
+func (g *generator) generateResources(resmap map[string]*schema.Resource,
+	custom map[string]*tfbridge.ResourceInfo, outDir string) ([]genResult, error) {
+	// For each resource, create its own dedicated type and module export.
+	var results []genResult
+	var reserr error
+	reshits := make(map[string]bool)
+	for _, r := range stableResources(resmap) {
+		var resinfo *tfbridge.ResourceInfo
+		if resmap != nil {
+			resinfo = custom[r]
 		}
-		if dsinfo == nil {
-			// This data source has no schema info; skip it, but issue a warning.
+		if resinfo == nil {
+			// if this resource was missing, issue a warning and skip it.
 			cmdutil.Diag().Warningf(
-				diag.Message("Data source %v not found in provider's DataSources map; skipping"), key)
+				diag.Message("Resource %v not found in provider map; skipping"), r)
 			continue
 		}
-		dshits[key] = true
-
-		// Collect documentation information for this data source.
-		parsedDocs, err := getDocsForPackage(g.pkg, DataSourceDocs, key, dsinfo.Docs)
+		reshits[r] = true
+		result, err := g.generateResource(r, resmap[r], resinfo, outDir, outDir)
 		if err != nil {
-			return "", err
+			// Keep track of the error, but keep going, so we can expose more at once.
+			reserr = multierror.Append(reserr, err)
+		} else {
+			results = append(results, result)
 		}
-
-		// Write the TypeDoc/JSDoc for the data source function.
-		if parsedDocs.Description != "" {
-			g.generateComment(w, parsedDocs.Description, "")
-		}
-
-		// Sort the args and return properties so we are ready to go.
-		args := sources[key].Schema
-		argscust := custom[key]
-		var argkeys []string
-		for arg := range args {
-			argkeys = append(argkeys, arg)
-		}
-
-		// See if arguments for this function are optional.
-		argc := 0
-		optflag := "?"
-		for _, arg := range argkeys {
-			if inProperty(args[arg]) {
-				argc++
-				if !optionalProperty(args[arg], argscust.Fields[arg], false) {
-					optflag = ""
-				}
-			}
-		}
-
-		// Now, emit the function signature.
-		dsname := dataSourceName(g.pkg, key, dsinfo)
-		firstch, firstsz := utf8.DecodeRuneInString(dsname)
-		dstype := string(unicode.ToUpper(firstch)) + dsname[firstsz:]
-		var argsig string
-		if argc > 0 {
-			argsig = fmt.Sprintf("args%v: %vArgs", optflag, dstype)
-		}
-		w.Writefmtln("export function %v(%v): Promise<%vResult> {", dsname, argsig, dstype)
-		w.Writefmtln("    return pulumi.runtime.invoke(\"%s\", {", dsinfo.Tok)
-		for _, arg := range argkeys {
-			if inProperty(args[arg]) {
-				name, err := g.propName(arg, argscust.Fields[arg])
-				if err != nil {
-					return "", err
-				}
-				w.Writefmtln("        \"%[1]s\": args.%[1]s,", name)
-			}
-		}
-		w.Writefmtln("    });")
-		w.Writefmtln("}")
-		w.Writefmtln("")
-
-		// Emit the arguments interface (used as input).
-		if argc > 0 {
-			w.Writefmtln("/**")
-			w.Writefmtln(" * A collection of arguments for invoking %s.", dsname)
-			w.Writefmtln(" */")
-			w.Writefmtln("export interface %vArgs {", dstype)
-			for _, arg := range argkeys {
-				// Only emit input properties in the arguments data structure.
-				if inProperty(args[arg]) {
-					// Emit documentation for the property if available
-					if argDoc, ok := parsedDocs.Arguments[arg]; ok {
-						g.generateComment(w, argDoc, "    ")
-					}
-					prop, flags, typ, err := g.propFlagTyp(arg, args[arg], argscust.Fields[arg], false /*out*/)
-					if err != nil {
-						return "", err
-					}
-					w.Writefmtln("    %v%v: %v;", prop, flags, typ)
-				}
-			}
-			w.Writefmtln("}")
-			w.Writefmtln("")
-		}
-
-		// Emit the result interface (used for return values).
-		w.Writefmtln("/**")
-		w.Writefmtln(" * A collection of values returned by %s.", dsname)
-		w.Writefmtln(" */")
-		w.Writefmtln("export interface %vResult {", dstype)
-		for _, arg := range argkeys {
-			// Only emit computed properties in the resulting return data structure.
-			if args[arg].Computed {
-				// Emit documentation for the property if available
-				if attrDoc, ok := parsedDocs.Attributes[arg]; ok {
-					g.generateComment(w, attrDoc, "    ")
-				}
-				prop, flags, typ, err := g.propFlagTyp(arg, args[arg], argscust.Fields[arg], true /*out*/)
-				if err != nil {
-					return "", err
-				}
-				w.Writefmtln("    %v%v: %v;", prop, flags, typ)
-			}
-		}
-		w.Writefmtln("}")
-		w.Writefmtln("")
+	}
+	if reserr != nil {
+		return nil, reserr
 	}
 
 	// Emit a warning if there is a map but some names didn't match.
-	if custom != nil {
-		var dsnames []string
-		for dsname := range custom {
-			dsnames = append(dsnames, dsname)
-		}
-		sort.Strings(dsnames)
-		for _, dsname := range dsnames {
-			if !dshits[dsname] {
-				cmdutil.Diag().Warningf(
-					diag.Message("Data source %v (%v) wasn't found in the Terraform module; possible name mismatch?"),
-					dsname, custom[dsname].Tok)
-			}
+	var resnames []string
+	for resname := range custom {
+		resnames = append(resnames, resname)
+	}
+	sort.Strings(resnames)
+	for _, resname := range resnames {
+		if !reshits[resname] {
+			cmdutil.Diag().Warningf(
+				diag.Message("Resource %v (%v) wasn't found in the Terraform module; possible name mismatch?"),
+				resname, custom[resname].Tok)
 		}
 	}
 
-	return file, nil
+	return results, nil
 }
 
-type resourceResult struct {
-	Name   string // the resource name.
-	File   string // the resource filename.
+type genResult struct {
+	Name   string // the export's name.
+	File   string // the export's filename.
 	Submod string // the submodule name, if any.
 }
 
 // generateResource generates a single module for the given resource.
 func (g *generator) generateResource(rawname string,
-	res *schema.Resource, resinfo *tfbridge.ResourceInfo, root, outDir string) (resourceResult, error) {
+	res *schema.Resource, resinfo *tfbridge.ResourceInfo, root, outDir string) (genResult, error) {
 	// Transform the name as necessary.
 	resname, filename := resourceName(g.pkg, rawname, resinfo)
 
@@ -502,20 +356,20 @@ func (g *generator) generateResource(rawname string,
 		// Extract the module and file parts.
 		submod = filename[:slix]
 		if strings.Contains(filename[slix+1:], "/") {
-			return resourceResult{},
+			return genResult{},
 				errors.Errorf("Modules nested more than one level deep not currently supported")
 		}
 
 		// Ensure the submodule directory exists.
 		if err := tools.EnsureFileDir(file); err != nil {
-			return resourceResult{}, err
+			return genResult{}, err
 		}
 	}
 
 	// Open up the file and spew a standard "code-generated" warning header.
 	w, err := tools.NewGenWriter(tfgen, file)
 	if err != nil {
-		return resourceResult{}, err
+		return genResult{}, err
 	}
 	defer contract.IgnoreClose(w)
 	w.EmitHeaderWarning()
@@ -527,13 +381,13 @@ func (g *generator) generateResource(rawname string,
 	// If there are imports required due to the custom schema info, emit them now.
 	custom := resinfo.Fields
 	if err = generateCustomImports(w, custom, g.pkg, outDir, filepath.Dir(file)); err != nil {
-		return resourceResult{}, err
+		return genResult{}, err
 	}
 
 	// Collect documentation information
 	parsedDocs, err := getDocsForPackage(g.pkg, ResourceDocs, rawname, resinfo.Docs)
 	if err != nil {
-		return resourceResult{}, err
+		return genResult{}, err
 	}
 
 	// Write the TypeDoc/JSDoc for the resource class
@@ -675,11 +529,207 @@ func (g *generator) generateResource(rawname string,
 		}
 	}
 
-	return resourceResult{
+	return genResult{
 		Name:   resname,
 		File:   file,
 		Submod: submod,
 	}, finalerr
+}
+
+func (g *generator) generateDataSources(sources map[string]*schema.Resource,
+	custom map[string]*tfbridge.DataSourceInfo, outDir string) ([]genResult, error) {
+	// Sort and enumerate all variables in a deterministic order.
+	var srckeys []string
+	for key := range sources {
+		srckeys = append(srckeys, key)
+	}
+	sort.Strings(srckeys)
+
+	// For each data source, create its own dedicated function and module export.
+	var results []genResult
+	var dserr error
+	dshits := make(map[string]bool)
+	for _, ds := range srckeys {
+		var dsinfo *tfbridge.DataSourceInfo
+		if sources != nil {
+			dsinfo = custom[ds]
+		}
+		if dsinfo == nil {
+			// if this data source was missing, issue a warning and skip it.
+			cmdutil.Diag().Warningf(
+				diag.Message("Data source %v not found in provider map; skipping"), ds)
+			continue
+		}
+		dshits[ds] = true
+		result, err := g.generateDataSource(ds, sources[ds], dsinfo, outDir, outDir)
+		if err != nil {
+			// Keep track of the error, but keep going, so we can expose more at once.
+			dserr = multierror.Append(dserr, err)
+		} else {
+			results = append(results, result)
+		}
+	}
+	if dserr != nil {
+		return nil, dserr
+	}
+
+	// Emit a warning if there is a map but some names didn't match.
+	var dsnames []string
+	for dsname := range sources {
+		dsnames = append(dsnames, dsname)
+	}
+	sort.Strings(dsnames)
+	for _, dsname := range dsnames {
+		if !dshits[dsname] {
+			cmdutil.Diag().Warningf(
+				diag.Message("Data source %v (%v) wasn't found in the Terraform module; possible name mismatch?"),
+				dsname, custom[dsname].Tok)
+		}
+	}
+
+	return results, nil
+}
+
+// generateDataSource generates a single module for the given data source function.
+func (g *generator) generateDataSource(rawname string,
+	ds *schema.Resource, dsinfo *tfbridge.DataSourceInfo, root, outDir string) (genResult, error) {
+	// Transform the name as necessary.
+	dsname, filename := dataSourceName(g.pkg, rawname, dsinfo)
+
+	// Make a fully qualified file path that we will write to.
+	file := filepath.Join(outDir, filename+".ts")
+
+	// If the filename contains slashes, it is a sub-module, and we must ensure it exists.
+	var submod string
+	if slix := strings.Index(filename, "/"); slix != -1 {
+		// Extract the module and file parts.
+		submod = filename[:slix]
+		if strings.Contains(filename[slix+1:], "/") {
+			return genResult{},
+				errors.Errorf("Modules nested more than one level deep not currently supported")
+		}
+
+		// Ensure the submodule directory exists.
+		if err := tools.EnsureFileDir(file); err != nil {
+			return genResult{}, err
+		}
+	}
+
+	// Open up the file and spew a standard "code-generated" warning header.
+	w, err := tools.NewGenWriter(tfgen, file)
+	if err != nil {
+		return genResult{}, err
+	}
+	defer contract.IgnoreClose(w)
+	w.EmitHeaderWarning()
+
+	// We'll need the Pulumi SDK.
+	w.Writefmtln("import * as pulumi from \"pulumi\";")
+	w.Writefmtln("")
+
+	// Collect documentation information for this data source.
+	parsedDocs, err := getDocsForPackage(g.pkg, DataSourceDocs, rawname, dsinfo.Docs)
+	if err != nil {
+		return genResult{}, err
+	}
+
+	// Write the TypeDoc/JSDoc for the data source function.
+	if parsedDocs.Description != "" {
+		g.generateComment(w, parsedDocs.Description, "")
+	}
+
+	// Sort the args and return properties so we are ready to go.
+	args := ds.Schema
+	var argkeys []string
+	for arg := range args {
+		argkeys = append(argkeys, arg)
+	}
+
+	// See if arguments for this function are optional.
+	argc := 0
+	optflag := "?"
+	for _, arg := range argkeys {
+		if inProperty(args[arg]) {
+			argc++
+			if !optionalProperty(args[arg], dsinfo.Fields[arg], false) {
+				optflag = ""
+			}
+		}
+	}
+
+	// Now, emit the function signature.
+	firstch, firstsz := utf8.DecodeRuneInString(dsname)
+	dstype := string(unicode.ToUpper(firstch)) + dsname[firstsz:]
+	var argsig string
+	if argc > 0 {
+		argsig = fmt.Sprintf("args%v: %vArgs", optflag, dstype)
+	}
+	w.Writefmtln("export function %v(%v): Promise<%vResult> {", dsname, argsig, dstype)
+	w.Writefmtln("    return pulumi.runtime.invoke(\"%s\", {", dsinfo.Tok)
+	for _, arg := range argkeys {
+		if inProperty(args[arg]) {
+			name, err := g.propName(arg, dsinfo.Fields[arg])
+			if err != nil {
+				return genResult{}, err
+			}
+			w.Writefmtln("        \"%[1]s\": args.%[1]s,", name)
+		}
+	}
+	w.Writefmtln("    });")
+	w.Writefmtln("}")
+	w.Writefmtln("")
+
+	// Emit the arguments interface (used as input).
+	if argc > 0 {
+		w.Writefmtln("/**")
+		w.Writefmtln(" * A collection of arguments for invoking %s.", dsname)
+		w.Writefmtln(" */")
+		w.Writefmtln("export interface %vArgs {", dstype)
+		for _, arg := range argkeys {
+			// Only emit input properties in the arguments data structure.
+			if inProperty(args[arg]) {
+				// Emit documentation for the property if available
+				if argDoc, ok := parsedDocs.Arguments[arg]; ok {
+					g.generateComment(w, argDoc, "    ")
+				}
+				prop, flags, typ, err := g.propFlagTyp(arg, args[arg], dsinfo.Fields[arg], false /*out*/)
+				if err != nil {
+					return genResult{}, err
+				}
+				w.Writefmtln("    %v%v: %v;", prop, flags, typ)
+			}
+		}
+		w.Writefmtln("}")
+		w.Writefmtln("")
+	}
+
+	// Emit the result interface (used for return values).
+	w.Writefmtln("/**")
+	w.Writefmtln(" * A collection of values returned by %s.", dsname)
+	w.Writefmtln(" */")
+	w.Writefmtln("export interface %vResult {", dstype)
+	for _, arg := range argkeys {
+		// Only emit computed properties in the resulting return data structure.
+		if args[arg].Computed {
+			// Emit documentation for the property if available
+			if attrDoc, ok := parsedDocs.Attributes[arg]; ok {
+				g.generateComment(w, attrDoc, "    ")
+			}
+			prop, flags, typ, err := g.propFlagTyp(arg, args[arg], dsinfo.Fields[arg], true /*out*/)
+			if err != nil {
+				return genResult{}, err
+			}
+			w.Writefmtln("    %v%v: %v;", prop, flags, typ)
+		}
+	}
+	w.Writefmtln("}")
+	w.Writefmtln("")
+
+	return genResult{
+		Name:   dsname,
+		File:   file,
+		Submod: submod,
+	}, nil
 }
 
 // generateSubmodules creates a set of index files, if necessary, for the given submodules.  It returns a map of
@@ -1224,14 +1274,15 @@ func gatherCustomImportsFrom(info *tfbridge.SchemaInfo, imports map[string][]str
 }
 
 // dataSourceName translates a Terraform name into its Pulumi name equivalent.
-func dataSourceName(pkg string, rawname string, dsinfo *tfbridge.DataSourceInfo) string {
+func dataSourceName(pkg string, rawname string, dsinfo *tfbridge.DataSourceInfo) (string, string) {
 	if dsinfo == nil || dsinfo.Tok == "" {
 		// default transformations.
-		name := withoutPackageName(pkg, rawname)          // strip off the pkg prefix.
-		return tfbridge.TerraformToPulumiName(name, true) // PascalCase the data source name.
+		name := withoutPackageName(pkg, rawname)            // strip off the pkg prefix.
+		return tfbridge.TerraformToPulumiName(name, false), // camelCase the data source name.
+			tfbridge.TerraformToPulumiName(name, false) // camelCase the filename.
 	}
 	// otherwise, a custom transformation exists; use it.
-	return string(dsinfo.Tok.Name())
+	return string(dsinfo.Tok.Name()), string(dsinfo.Tok.Module().Name())
 }
 
 // resourceName translates a Terraform name into its Pulumi name equivalent, plus a suggested filename.
