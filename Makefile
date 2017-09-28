@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-.SHELLFLAGS=-e
+.SHELLFLAGS=-ec
 
 PROJECT         = github.com/pulumi/pulumi-terraform
 GOPKGS          = $(shell go list ./pkg/... | grep -v /vendor/)
@@ -31,3 +31,15 @@ test:
 	go tool vet -printf=false pkg/
 .PHONY: test
 
+# The travis_* targets are entrypoints for CI.
+.PHONY: travis_cron
+travis_cron: all
+
+.PHONY: travis_push
+travis_push: all
+
+.PHONY: travis_pull_request
+travis_pull_request: all
+
+.PHONY: travis_api
+travis_api: all
