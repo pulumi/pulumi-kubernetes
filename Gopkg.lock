@@ -16,8 +16,8 @@
 [[projects]]
   name = "github.com/aws/aws-sdk-go"
   packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/shareddefaults","private/protocol","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/restxml","private/protocol/xml/xmlutil","service/s3","service/sts"]
-  revision = "5615d2ed566a09d326f681c789310a2e5ba5de5d"
-  version = "v1.10.50"
+  revision = "c652f9369083515c3ddf1fbaf6df68da2c101545"
+  version = "v1.12.1"
 
 [[projects]]
   branch = "master"
@@ -77,7 +77,7 @@
   branch = "master"
   name = "github.com/hashicorp/go-getter"
   packages = [".","helper/url"]
-  revision = "56c651a79a6eec93e6ef074fe9e57fefb26b8b85"
+  revision = "a686900cb3753aa644dc4812be91ceaf9fdd3b98"
 
 [[projects]]
   branch = "master"
@@ -124,14 +124,13 @@
 [[projects]]
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
-  revision = "3433f3ea46d9f8019119e7dd41274e112a2359a9"
-  version = "0.2.2"
+  revision = "0b12d6b5"
 
 [[projects]]
   name = "github.com/mattn/go-isatty"
   packages = ["."]
-  revision = "fc9e8d8ef48496124e79ae0df75490096eccf6fe"
-  version = "v0.0.2"
+  revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
+  version = "v0.0.3"
 
 [[projects]]
   branch = "master"
@@ -209,13 +208,7 @@
   branch = "master"
   name = "github.com/pulumi/pulumi"
   packages = ["pkg/diag","pkg/diag/colors","pkg/resource","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/mapper","pkg/util/rpcutil","sdk/proto/go"]
-  revision = "f6e694c72b1b23296659988ad3399632b90959fe"
-
-[[projects]]
-  name = "github.com/pulumi/pulumi-fabric"
-  packages = ["pkg/diag","pkg/diag/colors","pkg/util/cmdutil","pkg/util/contract"]
-  revision = "4b9d933415dd6356052a73e6e7d368fb2a907773"
-  version = "v0.6"
+  revision = "dcd8d2a64350bdf685ea17fca07eaf08c926ca32"
 
 [[projects]]
   branch = "master"
@@ -257,19 +250,19 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["bcrypt","blowfish","cast5","openpgp","openpgp/armor","openpgp/elgamal","openpgp/errors","openpgp/packet","openpgp/s2k","ssh/terminal"]
-  revision = "7d9177d70076375b9a59c8fde23d52d9c4a7ecd5"
+  revision = "76eec36fa14229c4b25bb894c2d0e591527af429"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/net"
   packages = ["context","html","html/atom","http2","http2/hpack","idna","internal/timeseries","lex/httplex","trace"]
-  revision = "0744d001aa8470aaa53df28d32e5ceeb8af9bd70"
+  revision = "0a9397675ba34b2845f758fe3cd68828369c6517"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix","windows"]
-  revision = "2320a9c15898af1b1b24f99700d5c1e957f9d8cf"
+  revision = "314a259e304ff91bd6985da2a7149bbf91237993"
 
 [[projects]]
   branch = "master"
@@ -292,6 +285,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "0fb088e17519cbc970821305870b3c3e9337f5d436dd9f6198b84e77df4f2c1f"
+  inputs-digest = "c2ff9e220041283809e1fd3b962fddb60e62d3105372c2784cf39b1964038c8c"
   solver-name = "gps-cdcl"
   solver-version = 1

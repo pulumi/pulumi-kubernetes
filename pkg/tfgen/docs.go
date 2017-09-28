@@ -9,8 +9,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/pulumi/pulumi-fabric/pkg/diag"
-	"github.com/pulumi/pulumi-fabric/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+
 	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
 )
 
