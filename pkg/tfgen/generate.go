@@ -130,7 +130,7 @@ func (g *generator) generateProvider(provinfo tfbridge.ProviderInfo, outDir, ove
 
 	// Make sure all exports are added to the proper lists.
 	for _, export := range pendingExports {
-		if export.Submod == "" {
+		if export.Submod == "" || export.Submod == "index" {
 			// if no sub-module, export flatly in our own index.
 			exports[export.Name] = export.File
 		} else {
@@ -647,11 +647,13 @@ func (g *generator) generateDataSource(rawname string,
 
 	// See if arguments for this function are optional.
 	argc := 0
+	reqc := 0
 	optflag := "?"
 	for _, arg := range argkeys {
 		if inProperty(args[arg]) {
 			argc++
 			if !optionalProperty(args[arg], dsinfo.Fields[arg], false) {
+				reqc++
 				optflag = ""
 			}
 		}
@@ -665,6 +667,9 @@ func (g *generator) generateDataSource(rawname string,
 		argsig = fmt.Sprintf("args%v: %vArgs", optflag, dstype)
 	}
 	w.Writefmtln("export function %v(%v): Promise<%vResult> {", dsname, argsig, dstype)
+	if argc > 0 && reqc == 0 {
+		w.Writefmtln("    args = args || {};")
+	}
 	w.Writefmtln("    return pulumi.runtime.invoke(\"%s\", {", dsinfo.Tok)
 	for _, arg := range argkeys {
 		if inProperty(args[arg]) {
