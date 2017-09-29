@@ -644,6 +644,7 @@ func (g *generator) generateDataSource(rawname string,
 	for arg := range args {
 		argkeys = append(argkeys, arg)
 	}
+	sort.Strings(argkeys)
 
 	// See if arguments for this function are optional.
 	argc := 0
