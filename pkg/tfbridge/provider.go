@@ -783,16 +783,17 @@ func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lum
 		return nil, err
 	}
 
-	// Now fetch the default values so that (a) we can return them to the caller and (b) so that validation
-	// includes the default values.  Otherwise, the provider wouldn't be presented with its own defaults.
+	// First, create the inputs.
 	tfname := ds.TF.Name
-	info, state, _, rescfg, err := p.prepareInputsDefaults(
-		tfname, &PulumiResource{Properties: args}, ds.Schema.Fields)
+	lumires := &PulumiResource{Properties: args}
+	inputs, err := p.makeTerraformInputs(lumires, lumires.Properties, ds.Schema.Fields, true)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrapf(err, "couldn't prepare resource %v input state", tfname)
 	}
 
-	// Now check with the data source provider to see if the values pass muster.
+	// Next, ensure the inputs are valid before actually performing the invoaction.
+	info := &terraform.InstanceInfo{Type: tfname}
+	rescfg, err := p.makeTerraformConfigFromInputs(inputs)
 	warns, errs := p.tf.ValidateDataSource(tfname, rescfg)
 	for _, warn := range warns {
 		if err = p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", tok, warn)); err != nil {
@@ -811,10 +812,12 @@ func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lum
 	// If there are no failures in verification, go ahead and perform the invocation.
 	var ret *pbstruct.Struct
 	if len(failures) == 0 {
+		diff, err := p.tf.ReadDataDiff(info, rescfg)
+		if err != nil {
+			return nil, errors.Wrapf(err, "error reading data source '%v' diff", tok)
+		}
 
-		// FIXME: we need to use the post-defaulted state.
-
-		invoke, err := p.tf.Refresh(info, state)
+		invoke, err := p.tf.ReadDataApply(info, diff)
 		if err != nil {
 			return nil, errors.Wrapf(err, "error invoking %v", tok)
 		}
