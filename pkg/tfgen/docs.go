@@ -24,10 +24,13 @@ type parsedDoc struct {
 	Attributes map[string]string
 }
 
+// DocKind indicates what kind of entity's documentation is being requested.
 type DocKind string
 
 const (
-	ResourceDocs   DocKind = "r"
+	// ResourceDocs indicates documentation pertaining to resource entities.
+	ResourceDocs DocKind = "r"
+	// DataSourceDocs indicates documentation pertaining to data source entities.
 	DataSourceDocs DocKind = "d"
 )
 

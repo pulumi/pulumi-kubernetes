@@ -785,8 +785,7 @@ func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lum
 
 	// First, create the inputs.
 	tfname := ds.TF.Name
-	lumires := &PulumiResource{Properties: args}
-	inputs, err := p.makeTerraformInputs(lumires, lumires.Properties, ds.Schema.Fields, true)
+	inputs, err := p.makeTerraformInputs(&PulumiResource{Properties: args}, args, ds.Schema.Fields, true)
 	if err != nil {
 		return nil, errors.Wrapf(err, "couldn't prepare resource %v input state", tfname)
 	}
@@ -794,6 +793,9 @@ func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lum
 	// Next, ensure the inputs are valid before actually performing the invoaction.
 	info := &terraform.InstanceInfo{Type: tfname}
 	rescfg, err := p.makeTerraformConfigFromInputs(inputs)
+	if err != nil {
+		return nil, errors.Wrapf(err, "couldn't make config for %v validation", tfname)
+	}
 	warns, errs := p.tf.ValidateDataSource(tfname, rescfg)
 	for _, warn := range warns {
 		if err = p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", tok, warn)); err != nil {
