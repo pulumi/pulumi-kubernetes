@@ -34,7 +34,7 @@ func newTFGenCmd(pkg string, prov tfbridge.ProviderInfo) *cobra.Command {
 			"\n" +
 			"\n" +
 			"The tool will load the provider from your $PATH, inspect its contents dynamically,\n" +
-			"and generate all of the Lumi metadata necessary to consume the resources.\n" +
+			"and generate all of the Pulumi metadata necessary to consume the resources.\n" +
 			"\n" +
 			"Note that there is no custom Pulumi Fabric provider code required, because the standard\n" +
 			"lumi-tfbridge-provider plugin works against all Terraform provider plugins.\n",

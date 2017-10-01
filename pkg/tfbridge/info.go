@@ -8,14 +8,15 @@ import (
 	"github.com/pulumi/pulumi/pkg/tokens"
 )
 
-// ProviderInfo contains information about a Terraform provider plugin that we will use to generate the Lumi
+// ProviderInfo contains information about a Terraform provider plugin that we will use to generate the Pulumi
 // metadata.  It primarily contains a pointer to the Terraform schema, but can also contain specific name translations.
 type ProviderInfo struct {
-	P         *schema.Provider         // the TF provider/schema.
-	Name      string                   // the TF provider name (e.g. terraform-provider-XXXX).
-	Config    map[string]*SchemaInfo   // a map of TF name to config schema overrides.
-	Resources map[string]*ResourceInfo // a map of TF name to Lumi name; if a type is missing, standard mangling occurs.
-	Overlay   *OverlayInfo             // optional overlay information for augmented code-generation.
+	P           *schema.Provider           // the TF provider/schema.
+	Name        string                     // the TF provider name (e.g. terraform-provider-XXXX).
+	Config      map[string]*SchemaInfo     // a map of TF name to config schema overrides.
+	Resources   map[string]*ResourceInfo   // a map of TF name to Pulumi name; standard mangling occurs if no entry.
+	DataSources map[string]*DataSourceInfo // a map of TF name to Pulumi resource info.
+	Overlay     *OverlayInfo               // optional overlay information for augmented code-generation.
 }
 
 // ResourceInfo is a top-level type exported by a provider.  This structure can override the type to generate.  It can
@@ -26,6 +27,13 @@ type ResourceInfo struct {
 	Fields   map[string]*SchemaInfo // a map of custom field names; if a type is missing, the default is used.
 	IDFields []string               // an optional list of ID alias fields.
 	Docs     *DocInfo               // overrides for finding and mapping TF docs.
+}
+
+// DataSourceInfo can be used to override a data source's standard name mangling and argument/return information.
+type DataSourceInfo struct {
+	Tok    tokens.ModuleMember
+	Fields map[string]*SchemaInfo
+	Docs   *DocInfo // overrides for finding and mapping TF docs.
 }
 
 // SchemaInfo contains optional name transformations to apply.
@@ -53,12 +61,12 @@ func (info SchemaInfo) HasDefault() bool {
 
 // DefaultInfo lets fields get default values at runtime, before they are even passed to Terraform.
 type DefaultInfo struct {
-	From  func(res *LumiResource) interface{} // a transformation from other resource properties.
-	Value interface{}                         // a raw value to inject.
+	From  func(res *PulumiResource) interface{} // a transformation from other resource properties.
+	Value interface{}                           // a raw value to inject.
 }
 
-// LumiResource is just a little bundle that carries URN and properties around.
-type LumiResource struct {
+// PulumiResource is just a little bundle that carries URN and properties around.
+type PulumiResource struct {
 	URN        resource.URN
 	Properties resource.PropertyMap
 }

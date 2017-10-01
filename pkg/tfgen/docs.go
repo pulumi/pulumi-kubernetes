@@ -9,10 +9,9 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/util/cmdutil"
-
-	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
 )
 
 // parsedDoc represents the data parsed from TF markdown documentation
@@ -25,8 +24,18 @@ type parsedDoc struct {
 	Attributes map[string]string
 }
 
+// DocKind indicates what kind of entity's documentation is being requested.
+type DocKind string
+
+const (
+	// ResourceDocs indicates documentation pertaining to resource entities.
+	ResourceDocs DocKind = "r"
+	// DataSourceDocs indicates documentation pertaining to data source entities.
+	DataSourceDocs DocKind = "d"
+)
+
 // getDocsForPackage extracts documentation details for the given package from TF website documentation markdown content
-func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInfo) (parsedDoc, error) {
+func getDocsForPackage(pkg string, kind DocKind, rawname string, docinfo *tfbridge.DocInfo) (parsedDoc, error) {
 	repo, err := getRepoDir(pkg)
 	if err != nil {
 		return parsedDoc{}, err
@@ -36,19 +45,19 @@ func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInf
 		withoutPackageName(pkg, rawname) + ".markdown",
 		withoutPackageName(pkg, rawname) + ".html.md",
 	}
-	if resinfo != nil && resinfo.Docs != nil && resinfo.Docs.Source != "" {
-		possibleMarkdownNames = append(possibleMarkdownNames, resinfo.Docs.Source)
+	if docinfo != nil && docinfo.Source != "" {
+		possibleMarkdownNames = append(possibleMarkdownNames, docinfo.Source)
 	}
-	markdownByts, err := readMarkdown(repo, possibleMarkdownNames)
+	markdownByts, err := readMarkdown(repo, kind, possibleMarkdownNames)
 	if err != nil {
 		cmdutil.Diag().Warningf(
 			diag.Message("Could not find docs for resource %v; consider overriding doc source location"), rawname)
 		return parsedDoc{}, nil
 	}
 	doc := parseTFMarkdown(string(markdownByts), rawname)
-	if resinfo != nil && resinfo.Docs != nil {
+	if docinfo != nil {
 		// Merge Attributes from source into target
-		if err := mergeDocs(pkg, doc.Attributes, resinfo.Docs.IncludeAttributesFrom,
+		if err := mergeDocs(pkg, kind, doc.Attributes, docinfo.IncludeAttributesFrom,
 			func(s parsedDoc) map[string]string {
 				return s.Attributes
 			},
@@ -56,7 +65,7 @@ func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInf
 			return doc, err
 		}
 		// Merge Arguments from source into Attributes of target
-		if err := mergeDocs(pkg, doc.Attributes, resinfo.Docs.IncludeAttributesFromArguments,
+		if err := mergeDocs(pkg, kind, doc.Attributes, docinfo.IncludeAttributesFromArguments,
 			func(s parsedDoc) map[string]string {
 				return s.Arguments
 			},
@@ -64,7 +73,7 @@ func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInf
 			return doc, err
 		}
 		// Merge Arguments from source into target
-		if err := mergeDocs(pkg, doc.Arguments, resinfo.Docs.IncludeArgumentsFrom,
+		if err := mergeDocs(pkg, kind, doc.Arguments, docinfo.IncludeArgumentsFrom,
 			func(s parsedDoc) map[string]string {
 				return s.Arguments
 			},
@@ -76,11 +85,11 @@ func getDocsForPackage(pkg string, rawname string, resinfo *tfbridge.ResourceInf
 }
 
 // readMarkdown searches all possible locations for the markdown content
-func readMarkdown(repo string, possibleLocations []string) ([]byte, error) {
+func readMarkdown(repo string, kind DocKind, possibleLocations []string) ([]byte, error) {
 	var markdownBytes []byte
 	var err error
 	for _, name := range possibleLocations {
-		location := path.Join(repo, "website", "docs", "r", name)
+		location := path.Join(repo, "website", "docs", string(kind), name)
 		markdownBytes, err = ioutil.ReadFile(location)
 		if err == nil {
 			return markdownBytes, nil
@@ -90,11 +99,11 @@ func readMarkdown(repo string, possibleLocations []string) ([]byte, error) {
 }
 
 // mergeDocs adds the docs specified by extractDoc from sourceFrom into the targetDocs
-func mergeDocs(pkg string, targetDocs map[string]string, sourceFrom string,
+func mergeDocs(pkg string, kind DocKind, targetDocs map[string]string, sourceFrom string,
 	extractDocs func(d parsedDoc) map[string]string) error {
 
 	if sourceFrom != "" {
-		sourceDocs, err := getDocsForPackage(pkg, sourceFrom, nil)
+		sourceDocs, err := getDocsForPackage(pkg, kind, sourceFrom, nil)
 		if err != nil {
 			return err
 		}
