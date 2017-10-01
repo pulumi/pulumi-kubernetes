@@ -575,7 +575,7 @@ func (g *generator) generateDataSources(sources map[string]*schema.Resource,
 
 	// Emit a warning if there is a map but some names didn't match.
 	var dsnames []string
-	for dsname := range sources {
+	for dsname := range custom {
 		dsnames = append(dsnames, dsname)
 	}
 	sort.Strings(dsnames)
