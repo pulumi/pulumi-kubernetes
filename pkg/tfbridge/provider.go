@@ -320,13 +320,30 @@ func (p *Provider) Diff(ctx context.Context, req *lumirpc.DiffRequest) (*lumirpc
 
 	// Each RequiresNew translates into a replacement.
 	var replaces []string
+	replaced := make(map[resource.PropertyKey]bool)
 	for k, attr := range diff.Attributes {
 		if attr.RequiresNew {
-			replaces = append(replaces, k)
+			name, _, _ := getInfoFromTerraformName(k, res.TFSchema, res.Schema.Fields, false)
+			replaces = append(replaces, string(name))
+			replaced[name] = true
 		}
 	}
 
-	return &lumirpc.DiffResponse{Replaces: replaces}, nil
+	// For all properties that are ForceNew, but didn't change, assume they are stable.  Also recognize
+	// overlays that have requested that we treat specific properties as stable.
+	var stables []string
+	for k, sch := range res.TFSchema {
+		name, _, cust := getInfoFromTerraformName(k, res.TFSchema, res.Schema.Fields, false)
+		if !replaced[name] &&
+			(sch.ForceNew || (cust != nil && cust.Stable != nil && *cust.Stable)) {
+			stables = append(stables, string(name))
+		}
+	}
+
+	return &lumirpc.DiffResponse{
+		Replaces: replaces,
+		Stables:  stables,
+	}, nil
 }
 
 // Create allocates a new instance of the provided resource and returns its unique ID afterwards.  (The input ID

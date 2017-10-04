@@ -44,6 +44,7 @@ type SchemaInfo struct {
 	Fields  map[string]*SchemaInfo // a map of custom field names; if a type is missing, the default is used.
 	Asset   *AssetTranslation      // a map of asset translation information, if this is an asset.
 	Default *DefaultInfo           // an optional default directive to be applied if a value is missing.
+	Stable  *bool                  // to override whether a property is stable or not.
 }
 
 // DocInfo contains optional overrids for finding and mapping TD docs.
