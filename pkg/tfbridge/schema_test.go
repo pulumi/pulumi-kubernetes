@@ -31,10 +31,27 @@ func TestTerraformInputs(t *testing.T) {
 					"nestedPropertyA": true,
 				},
 			},
+			"nestedResources": []map[string]interface{}{{
+				"configuration": map[string]interface{}{
+					"configurationValue": true,
+				},
+			}},
 		}),
 		map[string]*schema.Schema{
 			// Type mapPropertyValue as a map so that keys aren't mangled in the usual way.
 			"map_property_value": {Type: schema.TypeMap},
+			"nested_resources": {
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				// Embed a `*schema.Resource` to validate that type directed
+				// walk of the schema successfully walks inside Resources as well
+				// as Schemas.
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"configuration": {Type: schema.TypeMap},
+					},
+				},
+			},
 		},
 		map[string]*SchemaInfo{
 			// Reverse map string_property_value to the stringo property.
@@ -63,6 +80,13 @@ func TestTerraformInputs(t *testing.T) {
 				"nestedPropertyA": true,
 			},
 		},
+		"nested_resources": []interface{}{
+			map[string]interface{}{
+				"configuration": map[string]interface{}{
+					"configurationValue": true,
+				},
+			},
+		},
 	}, result)
 }
 
@@ -86,10 +110,29 @@ func TestTerraformOutputs(t *testing.T) {
 					"nestedPropertyA": true,
 				},
 			},
+			"nested_resources": []interface{}{
+				map[string]interface{}{
+					"configuration": map[string]interface{}{
+						"configurationValue": true,
+					},
+				},
+			},
 		},
 		map[string]*schema.Schema{
 			// Type mapPropertyValue as a map so that keys aren't mangled in the usual way.
 			"map_property_value": {Type: schema.TypeMap},
+			"nested_resources": {
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				// Embed a `*schema.Resource` to validate that type directed
+				// walk of the schema successfully walks inside Resources as well
+				// as Schemas.
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"configuration": {Type: schema.TypeMap},
+					},
+				},
+			},
 		},
 		map[string]*SchemaInfo{
 			// Reverse map string_property_value to the stringo property.
@@ -116,5 +159,10 @@ func TestTerraformOutputs(t *testing.T) {
 				"nestedPropertyA": true,
 			},
 		},
+		"nestedResources": []map[string]interface{}{{
+			"configuration": map[string]interface{}{
+				"configurationValue": true,
+			},
+		}},
 	}), result)
 }
