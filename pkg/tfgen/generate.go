@@ -396,7 +396,7 @@ func (g *generator) generateResource(rawname string,
 	}
 
 	// Generate the resource class.
-	w.Writefmtln("export class %s extends pulumi.Resource {", resname)
+	w.Writefmtln("export class %s extends pulumi.CustomResource {", resname)
 
 	// First, generate all instance properties.
 	var finalerr error
