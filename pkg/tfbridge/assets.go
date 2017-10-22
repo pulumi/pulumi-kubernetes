@@ -55,7 +55,7 @@ func (a *AssetTranslation) IsArchive() bool {
 }
 
 // TranslateAsset translates the given asset using the directives provided by the translation info.
-func (a *AssetTranslation) TranslateAsset(asset resource.Asset) (interface{}, error) {
+func (a *AssetTranslation) TranslateAsset(asset *resource.Asset) (interface{}, error) {
 	contract.Assert(a.IsAsset())
 
 	// TODO[pulumi/pulumi#153]: support HashField.
@@ -70,7 +70,7 @@ func (a *AssetTranslation) TranslateAsset(asset resource.Asset) (interface{}, er
 	// Now produce either a temp file or a binary blob, as requested.
 	switch a.Kind {
 	case FileAsset:
-		f, err := ioutil.TempFile("", "lumi-asset-for-tf")
+		f, err := ioutil.TempFile("", "pulumi-asset")
 		if err != nil {
 			return nil, err
 		}
@@ -88,7 +88,7 @@ func (a *AssetTranslation) TranslateAsset(asset resource.Asset) (interface{}, er
 }
 
 // TranslateArchive translates the given archive using the directives provided by the translation info.
-func (a *AssetTranslation) TranslateArchive(archive resource.Archive) (interface{}, error) {
+func (a *AssetTranslation) TranslateArchive(archive *resource.Archive) (interface{}, error) {
 	contract.Assert(a.IsArchive())
 
 	// TODO[pulumi/pulumi#153]: support HashField.
@@ -96,7 +96,7 @@ func (a *AssetTranslation) TranslateArchive(archive resource.Archive) (interface
 	// Produce either a temp file or an in-memory representation, as requested.
 	switch a.Kind {
 	case FileArchive:
-		f, err := ioutil.TempFile("", "lumi-archive-for-tf")
+		f, err := ioutil.TempFile("", "pulumi-archive")
 		if err != nil {
 			return nil, err
 		}

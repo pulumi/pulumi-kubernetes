@@ -28,7 +28,8 @@ func TestBasic(t *testing.T) {
 
 func TestFileAssets(t *testing.T) {
 	text := "this is a test asset"
-	asset := resource.NewTextAsset(text)
+	asset, err := resource.NewTextAsset(text)
+	assert.Nil(t, err)
 
 	// First, transform the asset into a file.
 	t1 := &AssetTranslation{Kind: FileAsset}
