@@ -216,7 +216,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 
 	// Unmarshal the properties.
 	props, err := plugin.UnmarshalProperties(req.GetProperties(),
-		plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
+		plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -282,7 +282,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 			}
 		}
 	}
-	defprops, err := plugin.MarshalProperties(defaults, plugin.MarshalOptions{AllowUnknowns: true})
+	defprops, err := plugin.MarshalProperties(defaults, plugin.MarshalOptions{KeepUnknowns: true})
 	if err != nil {
 		return nil, err
 	}
@@ -448,7 +448,7 @@ func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lum
 
 	// Unmarshal the arguments.
 	args, err := plugin.UnmarshalProperties(req.GetArgs(),
-		plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
+		plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}

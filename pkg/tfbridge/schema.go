@@ -154,7 +154,7 @@ func MakeTerraformInputsFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo,
 	allowUnknowns bool, defaults bool) (map[string]interface{}, error) {
 	props, err := plugin.UnmarshalProperties(m,
-		plugin.MarshalOptions{AllowUnknowns: allowUnknowns, SkipNulls: true})
+		plugin.MarshalOptions{KeepUnknowns: allowUnknowns, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +270,7 @@ func MakeTerraformConfigFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo,
 	allowUnknowns, defaults bool) (*terraform.ResourceConfig, error) {
 	props, err := plugin.UnmarshalProperties(m,
-		plugin.MarshalOptions{AllowUnknowns: allowUnknowns, SkipNulls: true})
+		plugin.MarshalOptions{KeepUnknowns: allowUnknowns, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -305,7 +305,7 @@ func MakeTerraformAttributesFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo,
 	allowUnknowns, defaults bool) (map[string]string, error) {
 	props, err := plugin.UnmarshalProperties(m,
-		plugin.MarshalOptions{AllowUnknowns: allowUnknowns, SkipNulls: true})
+		plugin.MarshalOptions{KeepUnknowns: allowUnknowns, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -372,7 +372,7 @@ func MakeTerraformDiffFromRPC(old *pbstruct.Struct, new *pbstruct.Struct,
 	var newprops resource.PropertyMap
 	if new != nil {
 		newprops, err = plugin.UnmarshalProperties(new,
-			plugin.MarshalOptions{AllowUnknowns: true, SkipNulls: true})
+			plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
 		if err != nil {
 			return nil, nil, err
 		}
