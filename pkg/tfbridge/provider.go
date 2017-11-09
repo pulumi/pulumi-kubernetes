@@ -4,6 +4,7 @@ package tfbridge
 
 import (
 	"fmt"
+	"log"
 	"reflect"
 	"strings"
 
@@ -69,6 +70,18 @@ func (p *Provider) indexMod() tokens.Module      { return tokens.Module(p.pkg() 
 func (p *Provider) baseConfigMod() tokens.Module { return tokens.Module(p.pkg() + ":config") }
 func (p *Provider) baseDataMod() tokens.Module   { return tokens.Module(p.pkg() + ":data") }
 func (p *Provider) configMod() tokens.Module     { return p.baseConfigMod() + "/vars" }
+
+func (p *Provider) setLoggingContext(ctx context.Context) {
+	log.SetOutput(&LogRedirector{
+		writers: map[string]func(string) error{
+			tfTracePrefix: func(msg string) error { return p.host.Log(ctx, diag.Debug, msg) },
+			tfDebugPrefix: func(msg string) error { return p.host.Log(ctx, diag.Debug, msg) },
+			tfInfoPrefix:  func(msg string) error { return p.host.Log(ctx, diag.Info, msg) },
+			tfWarnPrefix:  func(msg string) error { return p.host.Log(ctx, diag.Warning, msg) },
+			tfErrorPrefix: func(msg string) error { return p.host.Log(ctx, diag.Error, msg) },
+		},
+	})
+}
 
 // initResourceMaps creates maps from Pulumi types and tokens to Terraform resource type.
 func (p *Provider) initResourceMaps() {
@@ -141,6 +154,7 @@ func (p *Provider) camelPascalPulumiName(name string) (string, string) {
 
 // Configure configures the underlying Terraform provider with the live Pulumi variable state.
 func (p *Provider) Configure(ctx context.Context, req *lumirpc.ConfigureRequest) (*pbempty.Empty, error) {
+	p.setLoggingContext(ctx)
 	// Fetch the map of tokens to values.  It will be in the form of fully qualified tokens, so
 	// we will need to translate into simply the configuration variable names.
 	vars := make(resource.PropertyMap)
@@ -207,6 +221,7 @@ func (p *Provider) prepareInputsDefaults(tfname string, lumires *PulumiResource,
 
 // Check validates that the given property bag is valid for a resource of the given type.
 func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumirpc.CheckResponse, error) {
+	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
 	res, has := p.resources[t]
@@ -233,7 +248,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 	// Now check with the resource provider to see if the values pass muster.
 	warns, errs := p.tf.ValidateResource(tfname, rescfg)
 	for _, warn := range warns {
-		if err = p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", urn, warn)); err != nil {
+		if err = p.host.Log(ctx, diag.Warning, fmt.Sprintf("%v verification warning: %v", urn, warn)); err != nil {
 			return nil, err
 		}
 	}
@@ -292,6 +307,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
 func (p *Provider) Diff(ctx context.Context, req *lumirpc.DiffRequest) (*lumirpc.DiffResponse, error) {
+	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
 	res, has := p.resources[t]
@@ -349,6 +365,7 @@ func (p *Provider) Diff(ctx context.Context, req *lumirpc.DiffRequest) (*lumirpc
 // Create allocates a new instance of the provided resource and returns its unique ID afterwards.  (The input ID
 // must be blank.)  If this call fails, the resource must not have been created (i.e., it is "transacational").
 func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lumirpc.CreateResponse, error) {
+	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
 	res, has := p.resources[t]
@@ -381,6 +398,7 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 // Update updates an existing resource with new values.  Only those values in the provided property bag are updated
 // to new values.  The resource ID is returned and may be different if the resource had to be recreated.
 func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lumirpc.UpdateResponse, error) {
+	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
 	res, has := p.resources[t]
@@ -413,6 +431,7 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lum
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed to still exist.
 func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbempty.Empty, error) {
+	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
 	res, has := p.resources[t]
@@ -439,6 +458,7 @@ func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbe
 
 // Invoke dynamically executes a built-in function in the provider.
 func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lumirpc.InvokeResponse, error) {
+	p.setLoggingContext(ctx)
 	tok := tokens.ModuleMember(req.GetTok())
 	ds, has := p.dataSources[tok]
 	if !has {
@@ -469,7 +489,7 @@ func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lum
 	}
 	warns, errs := p.tf.ValidateDataSource(tfname, rescfg)
 	for _, warn := range warns {
-		if err = p.host.Log(diag.Warning, fmt.Sprintf("%v verification warning: %v", tok, warn)); err != nil {
+		if err = p.host.Log(ctx, diag.Warning, fmt.Sprintf("%v verification warning: %v", tok, warn)); err != nil {
 			return nil, err
 		}
 	}
