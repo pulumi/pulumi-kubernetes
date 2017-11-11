@@ -5,6 +5,8 @@ package tfbridge
 import (
 	"io"
 	"io/ioutil"
+	"os"
+	"path/filepath"
 
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/util/contract"
@@ -44,6 +46,61 @@ func (a *AssetTranslation) Type() string {
 	}
 }
 
+// writeToTempFile creates a temporary file and passes it to the provided function, which will fill in the file's
+// contents. Upon success, this function returns the path of the temporary file and a nil error.
+func writeToTempFile(writeFunc func(w io.Writer) error) (string, error) {
+	f, err := ioutil.TempFile("", "pulumi-temp-asset")
+	if err != nil {
+		return "", err
+	}
+	defer contract.IgnoreClose(f)
+
+	if err := writeFunc(f); err != nil {
+		return "", err
+	}
+
+	return f.Name(), nil
+}
+
+// translateToFile translates an asset or archive to a filename. If possible, it attempts to reuse previously spilled
+// assets/archives with the same identity.
+func translateToFile(hash string, hasContents bool, writeFunc func(w io.Writer) error) (string, error) {
+	// If possible, we want to produce a predictable filename in order to avoid spurious diffs and spilling the same
+	// asset multiple times.
+	memoPath := ""
+	if hash != "" {
+		memoPath = filepath.Join(os.TempDir(), "pulumi-asset-"+hash)
+	}
+
+	// If we have no contents, just return the file path. Note that this may be the empty string if we were also
+	// missing a hash.
+	if !hasContents {
+		return memoPath, nil
+	}
+
+	// If we have no translation path, just write the asset to a temporary file and return.
+	if memoPath == "" {
+		return writeToTempFile(writeFunc)
+	}
+
+	// If the translation file already exists, assume it has the appropriate contents and return the file path.
+	info, err := os.Stat(memoPath)
+	if err == nil && info.Mode().IsRegular() {
+		return memoPath, nil
+	}
+
+	// Otherwise, write the asset to a temporary file, then attempt to move the temp file to the expected path.
+	// If the move fails, we'll use the temp file name.
+	tempName, err := writeToTempFile(writeFunc)
+	if err != nil {
+		return "", err
+	}
+	if err := os.Rename(tempName, memoPath); err != nil && !os.IsExist(err) {
+		return tempName, nil
+	}
+	return memoPath, nil
+}
+
 // IsAsset returns true if the translation deals with an asset (rather than archive).
 func (a *AssetTranslation) IsAsset() bool {
 	return a.Kind == FileAsset || a.Kind == BytesAsset
@@ -60,27 +117,25 @@ func (a *AssetTranslation) TranslateAsset(asset *resource.Asset) (interface{}, e
 
 	// TODO[pulumi/pulumi#153]: support HashField.
 
-	// Begin reading the blob.
-	blob, err := asset.Read()
-	if err != nil {
-		return nil, err
-	}
-	defer contract.IgnoreClose(blob)
-
 	// Now produce either a temp file or a binary blob, as requested.
 	switch a.Kind {
 	case FileAsset:
-		f, err := ioutil.TempFile("", "pulumi-asset")
-		if err != nil {
-			return nil, err
-		}
-		defer contract.IgnoreClose(f)
-		if _, err := io.Copy(f, blob); err != nil {
-			return nil, err
-		}
-		return f.Name(), nil
+		path, err := translateToFile(asset.Hash, asset.HasContents(), func(w io.Writer) error {
+			blob, err := asset.Read()
+			if err != nil {
+				return err
+			}
+			defer contract.IgnoreClose(blob)
+
+			_, err = io.Copy(w, blob)
+			return err
+		})
+		return path, err
 	case BytesAsset:
-		return ioutil.ReadAll(blob)
+		if !asset.HasContents() {
+			return []byte{}, nil
+		}
+		return asset.Bytes()
 	default:
 		contract.Failf("Unrecognized asset translation kind: %v", a.Kind)
 		return nil, nil
@@ -96,16 +151,14 @@ func (a *AssetTranslation) TranslateArchive(archive *resource.Archive) (interfac
 	// Produce either a temp file or an in-memory representation, as requested.
 	switch a.Kind {
 	case FileArchive:
-		f, err := ioutil.TempFile("", "pulumi-archive")
-		if err != nil {
-			return nil, err
-		}
-		defer contract.IgnoreClose(f)
-		if err := archive.Archive(a.Format, f); err != nil {
-			return nil, err
-		}
-		return f.Name(), nil
+		path, err := translateToFile(archive.Hash, archive.HasContents(), func(w io.Writer) error {
+			return archive.Archive(a.Format, w)
+		})
+		return path, err
 	case BytesArchive:
+		if !archive.HasContents() {
+			return []byte{}, nil
+		}
 		return archive.Bytes(a.Format)
 	default:
 		contract.Failf("Unrecognized asset translation kind: %v", a.Kind)

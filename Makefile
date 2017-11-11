@@ -31,6 +31,10 @@ test:
 	go tool vet -printf=false pkg/
 .PHONY: test
 
+.PHONY: format
+format:
+	find . -iname "*.go" -not -path "./vendor/*" | xargs gofmt -s -w
+
 # The travis_* targets are entrypoints for CI.
 .PHONY: travis_cron
 travis_cron: all
