@@ -2,13 +2,14 @@ language: go
 go: 1.9
 sudo: true # give us 7.5GB and >2 bursted cores.
 before_install:
+    - export PULUMI_ROOT=/opt/pulumi
     # Dep for Go dependency management.
     - go get -v github.com/golang/dep/cmd/dep
     # Gometalinter for good Go linting/hygiene.
     - go get -v github.com/alecthomas/gometalinter
     - gometalinter --install
 install:
-    - dep ensure -v
+    - make ensure
 script:
     - make travis_${TRAVIS_EVENT_TYPE}
 notifications:
