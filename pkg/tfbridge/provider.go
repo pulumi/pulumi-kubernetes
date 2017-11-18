@@ -5,14 +5,12 @@ package tfbridge
 import (
 	"fmt"
 	"log"
-	"reflect"
 	"strings"
 
 	"github.com/golang/glog"
 
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	pbstruct "github.com/golang/protobuf/ptypes/struct"
-	"github.com/hashicorp/terraform/flatmap"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
 	"github.com/pkg/errors"
@@ -187,38 +185,6 @@ func (p *Provider) Configure(ctx context.Context, req *lumirpc.ConfigureRequest)
 	return &pbempty.Empty{}, nil
 }
 
-// prepareInputDefaults takes an input "resource" with state, does everything necessary to round-trip with the
-// Terraform provider and populate the default variables, and returns the resulting config and state.
-func (p *Provider) prepareInputsDefaults(tfname string, lumires *PulumiResource,
-	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo) (*terraform.InstanceInfo, *terraform.InstanceState,
-	*terraform.InstanceDiff, *terraform.ResourceConfig, error) {
-	// Step one is to populate any default values.  This is a two-stage process.  First we must create the
-	// bridge-specific diffs, in cases where the overlays inject their own default values.
-	inputs, err := MakeTerraformInputs(lumires, lumires.Properties, tfs, ps, true, false)
-	if err != nil {
-		return nil, nil, nil, nil, errors.Wrapf(err, "couldn't prepare resource %v input state", tfname)
-	}
-
-	// Next, we let Terraform inject its own defaults, by way of Diff.  This may seem supremely bizarre, however, if
-	// you carefully inspect how Terraform's pkg/helper/schema/ field readers work, default values are only injected
-	// for the config variety.  The config variety is not chained in the multi-field reader structure during ordinary
-	// CRUD operations, however; instead, it is chained only during ResourceConfig-related ones.  Diff is one such
-	// operation that chains config in, which gives us back a Diff that is perfectly populated with the defaults.
-	info := &terraform.InstanceInfo{Type: tfname}
-	attrs := MakeTerraformAttributesFromInputs(inputs)
-	state := &terraform.InstanceState{Attributes: attrs}
-	rescfg, err := MakeTerraformConfigFromInputs(inputs)
-	if err != nil {
-		return nil, nil, nil, nil, errors.Wrapf(err, "couldn't prepare resource %v config state", tfname)
-	}
-	diff, err := p.tf.Diff(info, state, rescfg)
-	if err != nil {
-		return nil, nil, nil, nil, errors.Wrapf(err, "couldn't prepare resource %v diff (for defaults)", tfname)
-	}
-
-	return info, state, diff, rescfg, nil
-}
-
 // Check validates that the given property bag is valid for a resource of the given type.
 func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumirpc.CheckResponse, error) {
 	p.setLoggingContext(ctx)
@@ -239,13 +205,17 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 	// Now fetch the default values so that (a) we can return them to the caller and (b) so that validation
 	// includes the default values.  Otherwise, the provider wouldn't be presented with its own defaults.
 	tfname := res.TF.Name
-	_, state, diff, rescfg, err := p.prepareInputsDefaults(
-		tfname, &PulumiResource{URN: urn, Properties: props}, res.TFSchema, res.Schema.Fields)
+	inputs, err := MakeTerraformInputs(
+		&PulumiResource{URN: urn, Properties: props}, props, res.TFSchema, res.Schema.Fields, true, false)
 	if err != nil {
 		return nil, err
 	}
 
 	// Now check with the resource provider to see if the values pass muster.
+	rescfg, err := MakeTerraformConfigFromInputs(inputs)
+	if err != nil {
+		return nil, err
+	}
 	warns, errs := p.tf.ValidateResource(tfname, rescfg)
 	for _, warn := range warns {
 		if err = p.host.Log(ctx, diag.Warning, fmt.Sprintf("%v verification warning: %v", urn, warn)); err != nil {
@@ -263,7 +233,7 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 
 	// After all is said and done, we need to go back and return only what got populated as a diff from the origin.
 	defaults := make(resource.PropertyMap)
-	outputs := MakeTerraformResult(state.Attributes, res.TFSchema, res.Schema.Fields)
+	outputs := MakeTerraformOutputs(inputs, res.TFSchema, res.Schema.Fields, false)
 	if outdiff := props.Diff(outputs); outdiff != nil {
 		// Just recognized adds/changes, since these are defaults.
 		for k := range outdiff.Adds {
@@ -271,30 +241,6 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 		}
 		for k := range outdiff.Updates {
 			defaults[k] = outputs[k]
-		}
-	}
-	if diff != nil {
-		// Expand the flatmap, so all arrays and sets are in their normal form, and then record any changes.
-		flatolds := make(flatmap.Map)
-		flatnews := make(flatmap.Map)
-		for k, attr := range diff.Attributes {
-			if attr.Old != "" {
-				flatolds[k] = attr.Old
-			}
-			if attr.New != "" {
-				flatnews[k] = attr.New
-			}
-		}
-		for _, k := range flatnews.Keys() {
-			var oldv interface{}
-			if flatolds.Contains(k) {
-				oldv = flatmap.Expand(flatolds, k)
-			}
-			newv := flatmap.Expand(flatnews, k)
-			if !reflect.DeepEqual(oldv, newv) {
-				name, tfi, psi := getInfoFromTerraformName(k, res.TFSchema, res.Schema.Fields, false)
-				defaults[name] = MakeTerraformOutput(newv, tfi, psi, false)
-			}
 		}
 	}
 	defprops, err := plugin.MarshalProperties(defaults, plugin.MarshalOptions{KeepUnknowns: true})

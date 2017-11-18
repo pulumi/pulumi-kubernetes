@@ -38,24 +38,35 @@ func MakeTerraformInputs(res *PulumiResource, m resource.PropertyMap,
 			return nil, err
 		}
 		result[name] = v
+		glog.V(9).Infof("Created Terraform input: %v = %v", name, v)
 	}
 
 	// Now enumerate and propagate defaults if the corresponding values are still missing.
-	for key, info := range ps {
-		if v, has := result[key]; has {
-			glog.V(9).Infof("Created Terraform input: %v = %v", key, v)
-		} else if defaults && info.HasDefault() {
-			if info.Default.Value != nil {
-				result[key] = info.Default.Value
-				glog.V(9).Infof("Created Terraform input: %v = %v (default)", key, result[key])
-			} else if from := info.Default.From; from != nil {
-				result[key] = from(res)
-				glog.V(9).Infof("Created Terraform input: %v = %v (default from fnc)", key, result[key])
-			} else {
-				contract.Failf("Default missing Value or From")
+	if defaults {
+		// First, attempt to use the overlays.
+		for key, info := range ps {
+			if _, has := result[key]; !has && info.HasDefault() {
+				if info.Default.Value != nil {
+					result[key] = info.Default.Value
+					glog.V(9).Infof("Created Terraform input: %v = %v (default)", key, result[key])
+				} else if from := info.Default.From; from != nil {
+					result[key] = from(res)
+					glog.V(9).Infof("Created Terraform input: %v = %v (default from fnc)", key, result[key])
+				}
 			}
-		} else {
-			glog.V(9).Infof("Skipped Terraform input: %v (skipped or no defaults)", key)
+		}
+
+		// Next, populate defaults from the Terraform schema.
+		for key, sch := range tfs {
+			if _, has := result[key]; !has {
+				dv, err := sch.DefaultValue()
+				if err != nil {
+					return nil, err
+				} else if dv != nil {
+					result[key] = dv
+					glog.V(9).Infof("Created Terraform input: %v = %v (default from TF)", key, result[key])
+				}
+			}
 		}
 	}
 
@@ -82,7 +93,6 @@ func MakeTerraformInput(res *PulumiResource, name string,
 	} else if v.IsString() {
 		return v.StringValue(), nil
 	} else if v.IsArray() {
-		// FIXME: marshal/unmarshal sets properly.
 		var arr []interface{}
 		for i, elem := range v.ArrayValue() {
 			var etfs *schema.Schema
