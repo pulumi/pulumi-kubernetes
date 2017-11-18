@@ -166,3 +166,59 @@ func TestTerraformOutputs(t *testing.T) {
 		}},
 	}), result)
 }
+
+func TestDefaults(t *testing.T) {
+	// Produce maps with the following properties, and then validate them:
+	//     - aaa string; no defaults, no inputs => empty
+	//     - bbb string; no defaults, input "BBB" => "BBB"
+	//     - ccc string; TF default "CCC", no inputs => "CCC"
+	//     - cc2 string; TF default "CC2" (func), no inputs => "CC2"
+	//     - ddd string; TF default "TFD", input "DDD" => "DDD"
+	//     - dd2 string; TF default "TD2" (func), input "DDD" => "DDD"
+	//     - eee string; PS default "EEE", no inputs => "EEE"
+	//     - ee2 string; PS default "EE2" (func), no inputs => "EE2"
+	//     - fff string; PS default "PSF", input "FFF" => "FFF"
+	//     - ff2 string; PS default "PF2", input "FFF" => "FFF"
+	//     - ggg string; TF default "TFG", PS default "PSG", no inputs => "PSG" (PS wins)
+	//     - hhh string; TF default "TFH", PS default "PSH", input "HHH" => "HHH"
+	tfs := map[string]*schema.Schema{
+		"ccc": {Type: schema.TypeString, Default: "CCC"},
+		"cc2": {Type: schema.TypeString, DefaultFunc: func() (interface{}, error) { return "CC2", nil }},
+		"ddd": {Type: schema.TypeString, Default: "TFD"},
+		"dd2": {Type: schema.TypeString, DefaultFunc: func() (interface{}, error) { return "TD2", nil }},
+		"ggg": {Type: schema.TypeString, Default: "TFG"},
+		"hhh": {Type: schema.TypeString, Default: "TFH"},
+	}
+	ps := map[string]*SchemaInfo{
+		"eee": {Default: &DefaultInfo{Value: "EEE"}},
+		"ee2": {Default: &DefaultInfo{From: func(res *PulumiResource) interface{} { return "EE2" }}},
+		"fff": {Default: &DefaultInfo{Value: "PSF"}},
+		"ff2": {Default: &DefaultInfo{From: func(res *PulumiResource) interface{} { return "PF2" }}},
+		"ggg": {Default: &DefaultInfo{Value: "PSG"}},
+		"hhh": {Default: &DefaultInfo{Value: "PSH"}},
+	}
+	props := resource.PropertyMap{
+		"bbb": resource.NewStringProperty("BBB"),
+		"ddd": resource.NewStringProperty("DDD"),
+		"dd2": resource.NewStringProperty("DDD"),
+		"fff": resource.NewStringProperty("FFF"),
+		"ff2": resource.NewStringProperty("FFF"),
+		"hhh": resource.NewStringProperty("HHH"),
+	}
+	inputs, err := MakeTerraformInputs(nil, props, tfs, ps, true, false)
+	assert.NoError(t, err)
+	outputs := MakeTerraformOutputs(inputs, tfs, ps, false)
+	assert.Equal(t, resource.NewPropertyMapFromMap(map[string]interface{}{
+		"bbb": "BBB",
+		"ccc": "CCC",
+		"cc2": "CC2",
+		"ddd": "DDD",
+		"dd2": "DDD",
+		"eee": "EEE",
+		"ee2": "EE2",
+		"fff": "FFF",
+		"ff2": "FFF",
+		"ggg": "PSG",
+		"hhh": "HHH",
+	}), outputs)
+}
