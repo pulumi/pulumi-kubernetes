@@ -171,13 +171,17 @@ func MakeTerraformInputsFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	return MakeTerraformInputs(res, props, tfs, ps, defaults, false)
 }
 
-// MakeTerraformResult expands a Terraform-style flatmap into an expanded Pulumi resource property map.  This respects
+// MakeTerraformResult expands a Terraform state into an expanded Pulumi resource property map.  This respects
 // the property maps so that results end up with their correct Pulumi names when shipping back to the engine.
-func MakeTerraformResult(props map[string]string,
+func MakeTerraformResult(state *terraform.InstanceState,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo) resource.PropertyMap {
-	outs := make(map[string]interface{})
-	for _, key := range flatmap.Map(props).Keys() {
-		outs[key] = flatmap.Expand(props, key)
+	var outs map[string]interface{}
+	if state != nil {
+		outs = make(map[string]interface{})
+		attrs := state.Attributes
+		for _, key := range flatmap.Map(attrs).Keys() {
+			outs[key] = flatmap.Expand(attrs, key)
+		}
 	}
 	return MakeTerraformOutputs(outs, tfs, ps, false)
 }

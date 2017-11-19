@@ -333,7 +333,7 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	}
 
 	// Create the ID and property maps and return them.
-	props := MakeTerraformResult(newstate.Attributes, res.TFSchema, res.Schema.Fields)
+	props := MakeTerraformResult(newstate, res.TFSchema, res.Schema.Fields)
 	mprops, err := plugin.MarshalProperties(props, plugin.MarshalOptions{})
 	if err != nil {
 		return nil, err
@@ -367,7 +367,7 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lum
 		return nil, errors.Errorf("Error applying %v update: %v", urn, err)
 	}
 
-	props := MakeTerraformResult(newstate.Attributes, res.TFSchema, res.Schema.Fields)
+	props := MakeTerraformResult(newstate, res.TFSchema, res.Schema.Fields)
 	mprops, err := plugin.MarshalProperties(props, plugin.MarshalOptions{})
 	if err != nil {
 		return nil, err
@@ -461,7 +461,7 @@ func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lum
 			return nil, errors.Wrapf(err, "error invoking %v", tok)
 		}
 		ret, err = plugin.MarshalProperties(
-			MakeTerraformResult(invoke.Attributes, ds.TFSchema, ds.Schema.Fields),
+			MakeTerraformResult(invoke, ds.TFSchema, ds.Schema.Fields),
 			plugin.MarshalOptions{})
 		if err != nil {
 			return nil, err
