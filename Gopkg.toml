@@ -24,3 +24,7 @@
   branch = "master"
   name = "github.com/pulumi/pulumi"
 
+[[constraint]]
+  name = "github.com/hashicorp/terraform"
+  version = "0.10.8"
+

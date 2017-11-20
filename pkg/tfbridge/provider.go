@@ -331,6 +331,7 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	if err != nil {
 		return nil, err
 	}
+	contract.Assertf(newstate != nil, "expected non-nil TF state during Create; required to obtain ID")
 
 	// Create the ID and property maps and return them.
 	props := MakeTerraformResult(newstate, res.TFSchema, res.Schema.Fields)
