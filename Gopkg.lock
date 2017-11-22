@@ -146,10 +146,11 @@
   revision = "fa9f258a92500514cc8e9c67020487709df92432"
 
 [[projects]]
+  branch = "pulumi-master"
   name = "github.com/hashicorp/terraform"
-  packages = ["config","config/configschema","config/hcl2shim","config/module","dag","flatmap","helper/hashcode","helper/hilmapstructure","helper/schema","moduledeps","plugin/discovery","terraform","tfdiags","version"]
-  revision = "e0fd3ddd704b230897723a7ca251f36b71c2b67a"
-  version = "v0.10.8"
+  packages = ["config","config/configschema","config/hcl2shim","config/module","dag","flatmap","helper/hashcode","helper/hilmapstructure","helper/schema","moduledeps","plugin/discovery","registry/regsrc","registry/response","svchost","svchost/auth","svchost/disco","terraform","tfdiags","version"]
+  revision = "c5332fb0f381369f2ff5fccc9b4fcb267917273e"
+  source = "github.com/pulumi/terraform"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
@@ -357,6 +358,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "6bec218dd0a18f608856ec7a9fd5db22f91596bdef388f3eba65ee08cad0bc6a"
+  inputs-digest = "209c6abd892287e78e6751c8e3ef698fcd0bedd9460601143588dbe89fbc4600"
   solver-name = "gps-cdcl"
   solver-version = 1
