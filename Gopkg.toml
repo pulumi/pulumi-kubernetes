@@ -26,4 +26,6 @@
 
 [[override]]
   name = "github.com/hashicorp/terraform"
-  version = "0.10.8"
+  source = "github.com/pulumi/terraform"
+  branch = "pulumi-master"
+
