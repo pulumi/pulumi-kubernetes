@@ -3,11 +3,16 @@
 package tfbridge
 
 import (
+	"github.com/hashicorp/terraform/helper/logging"
+
 	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 )
 
 // Main launches the tfbridge plugin for a given package pkg and provider prov.
 func Main(pkg string, prov ProviderInfo) {
+	// Initialize Terraform logging.
+	logging.SetOutput()
+
 	if err := Serve(pkg, prov); err != nil {
 		cmdutil.ExitError(err.Error())
 	}
