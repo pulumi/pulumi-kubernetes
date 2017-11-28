@@ -1,31 +1,42 @@
+[[constraint]]
+  branch = "master"
+  name = "github.com/golang/glog"
 
-# Gopkg.toml example
-#
-# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
-# for detailed Gopkg.toml documentation.
-#
-# required = ["github.com/user/thing/cmd/thing"]
-# ignored = ["github.com/user/project/pkgX", "bitbucket.org/user/project/pkgA/pkgY"]
-#
-# [[constraint]]
-#   name = "github.com/user/project"
-#   version = "1.0.0"
-#
-# [[constraint]]
-#   name = "github.com/user/project2"
-#   branch = "dev"
-#   source = "github.com/myfork/project2"
-#
-# [[override]]
-#  name = "github.com/x/y"
-#  version = "2.4.0"
+[[constraint]]
+  branch = "master"
+  name = "github.com/golang/protobuf"
 
+[[constraint]]
+  name = "github.com/hashicorp/go-multierror"
+  revision = "d30f09973e19c1dfcd120b2d9c4f168e68d6b5d5"
+
+[[constraint]]
+  name = "github.com/pelletier/go-toml"
+  version = "1.0.1"
+
+[[constraint]]
+  name = "github.com/pkg/errors"
+  version = "0.8.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/spf13/cobra"
+
+[[constraint]]
+  name = "github.com/stretchr/testify"
+  version = "1.1.4"
+
+[[constraint]]
+  name = "golang.org/x/net"
+  revision = "a04bdaca5b32abe1c069418fb7088ae607de5bd0"
+
+# Always use the latest Pulumi from master.
 [[override]]
   branch = "master"
   name = "github.com/pulumi/pulumi"
 
+# Redirect all Terraform references to our fork.
 [[override]]
   name = "github.com/hashicorp/terraform"
   source = "github.com/pulumi/terraform"
   branch = "pulumi-master"
-
