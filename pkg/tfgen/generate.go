@@ -198,7 +198,7 @@ func (g *generator) generateProvider(provinfo tfbridge.ProviderInfo, outDir, ove
 
 // copyFile is a stupid file copy routine.  It reads the file into memory to avoid messy OS-specific oddities.
 func copyFile(from, to string) error {
-	err := os.MkdirAll(path.Dir(to), 0755)
+	err := os.MkdirAll(path.Dir(to), 0700)
 	if err != nil {
 		return err
 	}

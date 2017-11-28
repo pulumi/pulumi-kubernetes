@@ -8,6 +8,7 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+	"github.com/pulumi/pulumi/pkg/util/contract"
 	"github.com/spf13/cobra"
 
 	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
@@ -16,7 +17,8 @@ import (
 // Main executes the TFGen process for the given package pkg and provider prov.
 func Main(pkg string, prov tfbridge.ProviderInfo) {
 	if err := newTFGenCmd(pkg, prov).Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "An error occurred: %v\n", err)
+		_, fmterr := fmt.Fprintf(os.Stderr, "An error occurred: %v\n", err)
+		contract.IgnoreError(fmterr)
 		os.Exit(-1)
 	}
 }

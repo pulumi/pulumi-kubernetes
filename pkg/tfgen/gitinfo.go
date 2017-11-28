@@ -72,6 +72,7 @@ func getGitInfo(prov string) (*GitInfo, error) {
 	}
 
 	// Now launch the Git commands.
+	// nolint: gas, intentionally run `git` from the `$PATH`.
 	descCmd := exec.Command("git", "describe", "--all", "--long")
 	descCmd.Dir = repodir
 	descOut, err := descCmd.Output()
@@ -80,6 +81,7 @@ func getGitInfo(prov string) (*GitInfo, error) {
 	} else if strings.HasSuffix(string(descOut), "\n") {
 		descOut = descOut[:len(descOut)-1]
 	}
+	// nolint: gas, intentionally run `git` from the `$PATH`.
 	showRefCmd := exec.Command("git", "show-ref", "HEAD")
 	showRefCmd.Dir = repodir
 	showRefOut, err := showRefCmd.Output()
