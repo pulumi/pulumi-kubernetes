@@ -467,6 +467,7 @@ func (g *generator) generateResource(rawname string,
 	w.Writefmtln("     *")
 	w.Writefmtln("     * @param urnName A _unique_ name for this %s instance", resname)
 	w.Writefmtln("     * @param args A collection of arguments for creating this %s instance", resname)
+	w.Writefmtln("     * @param parent An optional parent resource to which this resource belongs")
 	w.Writefmtln("     * @param dependsOn A optional array of additional resources this instance depends on")
 	w.Writefmtln("     */")
 	var argsflags string
@@ -474,7 +475,8 @@ func (g *generator) generateResource(rawname string,
 		// If the number of input properties was zero, we make the args object optional.
 		argsflags = "?"
 	}
-	w.Writefmtln("    constructor(urnName: string, args%v: %vArgs, dependsOn?: pulumi.Resource[]) {",
+	w.Writefmtln("    constructor("+
+		"urnName: string, args%v: %vArgs, parent?: pulumi.Resource, dependsOn?: pulumi.Resource[]) {",
 		argsflags, resname)
 	if reqprops == 0 {
 		// If the property arg isn't required, zero-init it if it wasn't actually passed in.
@@ -498,7 +500,7 @@ func (g *generator) generateResource(rawname string,
 	for _, prop := range outprops {
 		w.Writefmtln("            \"%s\": undefined,", prop)
 	}
-	w.Writefmtln("        }, dependsOn);")
+	w.Writefmtln("        }, parent, dependsOn);")
 
 	w.Writefmtln("    }")
 	w.Writefmtln("}")

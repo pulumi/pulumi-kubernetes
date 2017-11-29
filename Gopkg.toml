@@ -32,8 +32,8 @@
 
 # Always use the latest Pulumi from master.
 [[override]]
-  branch = "master"
   name = "github.com/pulumi/pulumi"
+  branch = "master"
 
 # Redirect all Terraform references to our fork.
 [[override]]
