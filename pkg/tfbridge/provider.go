@@ -20,7 +20,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"github.com/pulumi/pulumi/pkg/tokens"
 	"github.com/pulumi/pulumi/pkg/util/contract"
-	lumirpc "github.com/pulumi/pulumi/sdk/proto/go"
+	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 	"golang.org/x/net/context"
 )
 
@@ -28,6 +28,7 @@ import (
 type Provider struct {
 	host        *provider.HostClient               // the RPC link back to the Pulumi engine.
 	module      string                             // the Terraform module name.
+	version     string                             // the plugin version number.
 	tf          *schema.Provider                   // the Terraform resource provider to use.
 	info        ProviderInfo                       // overlaid info about this provider.
 	resources   map[tokens.Type]Resource           // a map of Pulumi type tokens to resource info.
@@ -49,19 +50,20 @@ type DataSource struct {
 }
 
 // NewProvider creates a new Pulumi RPC server wired up to the given host and wrapping the given Terraform provider.
-func NewProvider(host *provider.HostClient, module string,
+func NewProvider(host *provider.HostClient, module string, version string,
 	tf *schema.Provider, info ProviderInfo) *Provider {
 	p := &Provider{
-		host:   host,
-		module: module,
-		tf:     tf,
-		info:   info,
+		host:    host,
+		module:  module,
+		version: version,
+		tf:      tf,
+		info:    info,
 	}
 	p.initResourceMaps()
 	return p
 }
 
-var _ lumirpc.ResourceProviderServer = (*Provider)(nil)
+var _ pulumirpc.ResourceProviderServer = (*Provider)(nil)
 
 func (p *Provider) pkg() tokens.Package          { return tokens.Package(p.module) }
 func (p *Provider) indexMod() tokens.Module      { return tokens.Module(p.pkg() + ":index") }
@@ -151,7 +153,7 @@ func (p *Provider) camelPascalPulumiName(name string) (string, string) {
 }
 
 // Configure configures the underlying Terraform provider with the live Pulumi variable state.
-func (p *Provider) Configure(ctx context.Context, req *lumirpc.ConfigureRequest) (*pbempty.Empty, error) {
+func (p *Provider) Configure(ctx context.Context, req *pulumirpc.ConfigureRequest) (*pbempty.Empty, error) {
 	p.setLoggingContext(ctx)
 	// Fetch the map of tokens to values.  It will be in the form of fully qualified tokens, so
 	// we will need to translate into simply the configuration variable names.
@@ -186,7 +188,7 @@ func (p *Provider) Configure(ctx context.Context, req *lumirpc.ConfigureRequest)
 }
 
 // Check validates that the given property bag is valid for a resource of the given type.
-func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumirpc.CheckResponse, error) {
+func (p *Provider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
@@ -224,9 +226,9 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 	}
 
 	// Now produce a return value of any properties that failed verification.
-	var failures []*lumirpc.CheckFailure
+	var failures []*pulumirpc.CheckFailure
 	for _, err := range errs {
-		failures = append(failures, &lumirpc.CheckFailure{
+		failures = append(failures, &pulumirpc.CheckFailure{
 			Reason: err.Error(),
 		})
 	}
@@ -248,11 +250,11 @@ func (p *Provider) Check(ctx context.Context, req *lumirpc.CheckRequest) (*lumir
 		return nil, err
 	}
 
-	return &lumirpc.CheckResponse{Defaults: defprops, Failures: failures}, nil
+	return &pulumirpc.CheckResponse{Defaults: defprops, Failures: failures}, nil
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
-func (p *Provider) Diff(ctx context.Context, req *lumirpc.DiffRequest) (*lumirpc.DiffResponse, error) {
+func (p *Provider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
@@ -302,7 +304,7 @@ func (p *Provider) Diff(ctx context.Context, req *lumirpc.DiffRequest) (*lumirpc
 		}
 	}
 
-	return &lumirpc.DiffResponse{
+	return &pulumirpc.DiffResponse{
 		Replaces: replaces,
 		Stables:  stables,
 	}, nil
@@ -310,7 +312,7 @@ func (p *Provider) Diff(ctx context.Context, req *lumirpc.DiffRequest) (*lumirpc
 
 // Create allocates a new instance of the provided resource and returns its unique ID afterwards.  (The input ID
 // must be blank.)  If this call fails, the resource must not have been created (i.e., it is "transacational").
-func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lumirpc.CreateResponse, error) {
+func (p *Provider) Create(ctx context.Context, req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error) {
 	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
@@ -339,12 +341,12 @@ func (p *Provider) Create(ctx context.Context, req *lumirpc.CreateRequest) (*lum
 	if err != nil {
 		return nil, err
 	}
-	return &lumirpc.CreateResponse{Id: newstate.ID, Properties: mprops}, nil
+	return &pulumirpc.CreateResponse{Id: newstate.ID, Properties: mprops}, nil
 }
 
 // Update updates an existing resource with new values.  Only those values in the provided property bag are updated
 // to new values.  The resource ID is returned and may be different if the resource had to be recreated.
-func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lumirpc.UpdateResponse, error) {
+func (p *Provider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
 	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
@@ -373,11 +375,11 @@ func (p *Provider) Update(ctx context.Context, req *lumirpc.UpdateRequest) (*lum
 	if err != nil {
 		return nil, err
 	}
-	return &lumirpc.UpdateResponse{Properties: mprops}, nil
+	return &pulumirpc.UpdateResponse{Properties: mprops}, nil
 }
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed to still exist.
-func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbempty.Empty, error) {
+func (p *Provider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	p.setLoggingContext(ctx)
 	urn := resource.URN(req.GetUrn())
 	t := urn.Type()
@@ -404,7 +406,7 @@ func (p *Provider) Delete(ctx context.Context, req *lumirpc.DeleteRequest) (*pbe
 }
 
 // Invoke dynamically executes a built-in function in the provider.
-func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lumirpc.InvokeResponse, error) {
+func (p *Provider) Invoke(ctx context.Context, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
 	p.setLoggingContext(ctx)
 	tok := tokens.ModuleMember(req.GetTok())
 	ds, has := p.dataSources[tok]
@@ -442,9 +444,9 @@ func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lum
 	}
 
 	// Now produce a return value of any properties that failed verification.
-	var failures []*lumirpc.CheckFailure
+	var failures []*pulumirpc.CheckFailure
 	for _, err := range errs {
-		failures = append(failures, &lumirpc.CheckFailure{
+		failures = append(failures, &pulumirpc.CheckFailure{
 			Reason: err.Error(),
 		})
 	}
@@ -469,8 +471,15 @@ func (p *Provider) Invoke(ctx context.Context, req *lumirpc.InvokeRequest) (*lum
 		}
 	}
 
-	return &lumirpc.InvokeResponse{
+	return &pulumirpc.InvokeResponse{
 		Return:   ret,
 		Failures: failures,
+	}, nil
+}
+
+// GetPluginInfo implements an RPC call that returns the version of this plugin.
+func (p *Provider) GetPluginInfo(ctx context.Context, req *pbempty.Empty) (*pulumirpc.PluginInfo, error) {
+	return &pulumirpc.PluginInfo{
+		Version: p.version,
 	}, nil
 }

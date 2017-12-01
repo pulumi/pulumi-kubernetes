@@ -27,12 +27,14 @@ import (
 
 type generator struct {
 	pkg      string                // the TF package name (e.g. `aws`)
+	version  string                // the package version.
 	provinfo tfbridge.ProviderInfo // the provider info for customizing code generation
 }
 
-func newGenerator(pkg string, provinfo tfbridge.ProviderInfo) *generator {
+func newGenerator(pkg string, version string, provinfo tfbridge.ProviderInfo) *generator {
 	return &generator{
 		pkg:      pkg,
+		version:  version,
 		provinfo: provinfo,
 	}
 }
@@ -908,6 +910,7 @@ func (g *generator) generateNPMPackageMetadata(outDir string, overlay *tfbridge.
 	defer contract.IgnoreClose(w)
 	w.Writefmtln(`{`)
 	w.Writefmtln(`    "name": "@pulumi/%v",`, g.pkg)
+	w.Writefmtln(`    "version": "%s",`, g.version)
 	w.Writefmtln(`    "scripts": {`)
 	w.Writefmtln(`        "build": "tsc"`)
 	w.Writefmtln(`    },`)

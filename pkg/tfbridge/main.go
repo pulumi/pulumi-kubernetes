@@ -9,11 +9,11 @@ import (
 )
 
 // Main launches the tfbridge plugin for a given package pkg and provider prov.
-func Main(pkg string, prov ProviderInfo) {
+func Main(pkg string, version string, prov ProviderInfo) {
 	// Initialize Terraform logging.
 	logging.SetOutput()
 
-	if err := Serve(pkg, prov); err != nil {
+	if err := Serve(pkg, version, prov); err != nil {
 		cmdutil.ExitError(err.Error())
 	}
 }

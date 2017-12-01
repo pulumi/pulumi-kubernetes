@@ -15,15 +15,15 @@ import (
 )
 
 // Main executes the TFGen process for the given package pkg and provider prov.
-func Main(pkg string, prov tfbridge.ProviderInfo) {
-	if err := newTFGenCmd(pkg, prov).Execute(); err != nil {
+func Main(pkg string, version string, prov tfbridge.ProviderInfo) {
+	if err := newTFGenCmd(pkg, version, prov).Execute(); err != nil {
 		_, fmterr := fmt.Fprintf(os.Stderr, "An error occurred: %v\n", err)
 		contract.IgnoreError(fmterr)
 		os.Exit(-1)
 	}
 }
 
-func newTFGenCmd(pkg string, prov tfbridge.ProviderInfo) *cobra.Command {
+func newTFGenCmd(pkg string, version string, prov tfbridge.ProviderInfo) *cobra.Command {
 	var logToStderr bool
 	var outDir string
 	var overlaysDir string
@@ -42,7 +42,7 @@ func newTFGenCmd(pkg string, prov tfbridge.ProviderInfo) *cobra.Command {
 			"lumi-tfbridge-provider plugin works against all Terraform provider plugins.\n",
 		Run: cmdutil.RunFunc(func(cmd *cobra.Command, args []string) error {
 			// Let's generate some code!
-			g := newGenerator(pkg, prov)
+			g := newGenerator(pkg, version, prov)
 			if err := g.Generate(outDir, overlaysDir); err != nil {
 				return err
 			}

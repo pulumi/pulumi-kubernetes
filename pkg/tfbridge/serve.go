@@ -13,7 +13,7 @@ import (
 
 // Serve fires up a Pulumi resource provider listening to inbound gRPC traffic,
 // and translates calls from Pulumi into actions against the provided Terraform Provider.
-func Serve(module string, info ProviderInfo) error {
+func Serve(module string, version string, info ProviderInfo) error {
 	// Create a new resource provider server and listen for and serve incoming connections.
 	return provider.Main(module, func(host *provider.HostClient) (lumirpc.ResourceProviderServer, error) {
 		// Set up a log redirector to capture Terraform provider logging and only pass through those that we need.
@@ -28,6 +28,6 @@ func Serve(module string, info ProviderInfo) error {
 		})
 
 		// Create a new bridge provider.
-		return NewProvider(host, module, info.P, info), nil
+		return NewProvider(host, module, version, info.P, info), nil
 	})
 }
