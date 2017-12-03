@@ -14,6 +14,7 @@ import (
 func TestTerraformInputs(t *testing.T) {
 	result, err := MakeTerraformInputs(
 		nil, /*res*/
+		nil, /*olds*/
 		resource.NewPropertyMapFromMap(map[string]interface{}{
 			"nilPropertyValue":    nil,
 			"boolPropertyValue":   false,
@@ -181,6 +182,8 @@ func TestDefaults(t *testing.T) {
 	//     - ff2 string; PS default "PF2", input "FFF" => "FFF"
 	//     - ggg string; TF default "TFG", PS default "PSG", no inputs => "PSG" (PS wins)
 	//     - hhh string; TF default "TFH", PS default "PSH", input "HHH" => "HHH"
+	//     - iii string; old default "OLI", TF default "TFI", PS default "PSI", no input => "OLD"
+	//     - jjj string: old input "OLJ", no defaults, no input => no merged input
 	tfs := map[string]*schema.Schema{
 		"ccc": {Type: schema.TypeString, Default: "CCC"},
 		"cc2": {Type: schema.TypeString, DefaultFunc: func() (interface{}, error) { return "CC2", nil }},
@@ -188,6 +191,7 @@ func TestDefaults(t *testing.T) {
 		"dd2": {Type: schema.TypeString, DefaultFunc: func() (interface{}, error) { return "TD2", nil }},
 		"ggg": {Type: schema.TypeString, Default: "TFG"},
 		"hhh": {Type: schema.TypeString, Default: "TFH"},
+		"iii": {Type: schema.TypeString, Default: "TFI"},
 	}
 	ps := map[string]*SchemaInfo{
 		"eee": {Default: &DefaultInfo{Value: "EEE"}},
@@ -196,6 +200,11 @@ func TestDefaults(t *testing.T) {
 		"ff2": {Default: &DefaultInfo{From: func(res *PulumiResource) interface{} { return "PF2" }}},
 		"ggg": {Default: &DefaultInfo{Value: "PSG"}},
 		"hhh": {Default: &DefaultInfo{Value: "PSH"}},
+		"iii": {Default: &DefaultInfo{Value: "PSI"}},
+	}
+	olds := resource.PropertyMap{
+		"iii": resource.NewStringProperty("OLI"),
+		"jjj": resource.NewStringProperty("OLJ"),
 	}
 	props := resource.PropertyMap{
 		"bbb": resource.NewStringProperty("BBB"),
@@ -205,7 +214,7 @@ func TestDefaults(t *testing.T) {
 		"ff2": resource.NewStringProperty("FFF"),
 		"hhh": resource.NewStringProperty("HHH"),
 	}
-	inputs, err := MakeTerraformInputs(nil, props, tfs, ps, true, false)
+	inputs, err := MakeTerraformInputs(nil, olds, props, tfs, ps, true, false)
 	assert.NoError(t, err)
 	outputs := MakeTerraformOutputs(inputs, tfs, ps, false)
 	assert.Equal(t, resource.NewPropertyMapFromMap(map[string]interface{}{
@@ -220,5 +229,6 @@ func TestDefaults(t *testing.T) {
 		"ff2": "FFF",
 		"ggg": "PSG",
 		"hhh": "HHH",
+		"iii": "OLI",
 	}), outputs)
 }

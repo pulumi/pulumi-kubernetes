@@ -197,9 +197,18 @@ func (p *Provider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pul
 		return nil, errors.Errorf("Unrecognized resource type (Check): %v", t)
 	}
 
-	// Unmarshal the properties.
-	props, err := plugin.UnmarshalProperties(req.GetProperties(),
-		plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
+	// Unmarshal the old and new properties.
+	var olds resource.PropertyMap
+	var err error
+	if req.GetOlds() != nil {
+		olds, err = plugin.UnmarshalProperties(req.GetOlds(),
+			plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +217,7 @@ func (p *Provider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pul
 	// includes the default values.  Otherwise, the provider wouldn't be presented with its own defaults.
 	tfname := res.TF.Name
 	inputs, err := MakeTerraformInputs(
-		&PulumiResource{URN: urn, Properties: props}, props, res.TFSchema, res.Schema.Fields, true, false)
+		&PulumiResource{URN: urn, Properties: news}, olds, news, res.TFSchema, res.Schema.Fields, true, false)
 	if err != nil {
 		return nil, err
 	}
@@ -234,23 +243,13 @@ func (p *Provider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pul
 	}
 
 	// After all is said and done, we need to go back and return only what got populated as a diff from the origin.
-	defaults := make(resource.PropertyMap)
-	outputs := MakeTerraformOutputs(inputs, res.TFSchema, res.Schema.Fields, false)
-	if outdiff := props.Diff(outputs); outdiff != nil {
-		// Just recognized adds/changes, since these are defaults.
-		for k := range outdiff.Adds {
-			defaults[k] = outputs[k]
-		}
-		for k := range outdiff.Updates {
-			defaults[k] = outputs[k]
-		}
-	}
-	defprops, err := plugin.MarshalProperties(defaults, plugin.MarshalOptions{KeepUnknowns: true})
+	pinputs := MakeTerraformOutputs(inputs, res.TFSchema, res.Schema.Fields, false)
+	minputs, err := plugin.MarshalProperties(pinputs, plugin.MarshalOptions{KeepUnknowns: true})
 	if err != nil {
 		return nil, err
 	}
 
-	return &pulumirpc.CheckResponse{Defaults: defprops, Failures: failures}, nil
+	return &pulumirpc.CheckResponse{Inputs: minputs, Failures: failures}, nil
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
@@ -425,7 +424,7 @@ func (p *Provider) Invoke(ctx context.Context, req *pulumirpc.InvokeRequest) (*p
 	// First, create the inputs.
 	tfname := ds.TF.Name
 	inputs, err := MakeTerraformInputs(
-		&PulumiResource{Properties: args}, args, ds.TFSchema, ds.Schema.Fields, true, false)
+		&PulumiResource{Properties: args}, nil, args, ds.TFSchema, ds.Schema.Fields, true, false)
 	if err != nil {
 		return nil, errors.Wrapf(err, "couldn't prepare resource %v input state", tfname)
 	}
