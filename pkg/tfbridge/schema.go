@@ -21,19 +21,24 @@ import (
 // MakeTerraformInputs takes a property map plus custom schema info and does whatever is necessary to prepare it for
 // use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
-func MakeTerraformInputs(res *PulumiResource, m resource.PropertyMap,
+func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo,
 	defaults, useRawNames bool) (map[string]interface{}, error) {
 	result := make(map[string]interface{})
 
 	// Enumerate the inputs provided and add them to the map using their Terraform names.
-	for key, value := range m {
+	for key, value := range news {
 		// First translate the Pulumi property name to a Terraform name.
 		name, tfi, psi := getInfoFromPulumiName(key, tfs, ps, useRawNames)
 		contract.Assert(name != "")
 
+		var old resource.PropertyValue
+		if defaults && olds != nil {
+			old, _ = olds[key]
+		}
+
 		// And then translate the property value.
-		v, err := MakeTerraformInput(res, name, value, tfi, psi, defaults, useRawNames)
+		v, err := MakeTerraformInput(res, name, old, value, tfi, psi, defaults, useRawNames)
 		if err != nil {
 			return nil, err
 		}
@@ -46,7 +51,16 @@ func MakeTerraformInputs(res *PulumiResource, m resource.PropertyMap,
 		// First, attempt to use the overlays.
 		for key, info := range ps {
 			if _, has := result[key]; !has && info.HasDefault() {
-				if info.Default.Value != nil {
+				// If we already have a default value from a previous version of this resource, use that instead.
+				if old, hasold := olds[resource.PropertyKey(key)]; hasold {
+					_, tfi, psi := getInfoFromTerraformName(key, tfs, ps, useRawNames)
+					v, err := MakeTerraformInput(res, key, resource.PropertyValue{}, old, tfi, psi, false, useRawNames)
+					if err != nil {
+						return nil, err
+					}
+					result[key] = v
+					glog.V(9).Infof("Create Terraform input: %v = %v (old default)", key, old)
+				} else if info.Default.Value != nil {
 					result[key] = info.Default.Value
 					glog.V(9).Infof("Created Terraform input: %v = %v (default)", key, result[key])
 				} else if from := info.Default.From; from != nil {
@@ -59,12 +73,23 @@ func MakeTerraformInputs(res *PulumiResource, m resource.PropertyMap,
 		// Next, populate defaults from the Terraform schema.
 		for key, sch := range tfs {
 			if _, has := result[key]; !has {
-				dv, err := sch.DefaultValue()
-				if err != nil {
-					return nil, err
-				} else if dv != nil {
-					result[key] = dv
-					glog.V(9).Infof("Created Terraform input: %v = %v (default from TF)", key, result[key])
+				// If we already have a default value from a previous version of this resource, use that instead.
+				if old, hasold := olds[resource.PropertyKey(key)]; hasold {
+					_, tfi, psi := getInfoFromTerraformName(key, tfs, ps, useRawNames)
+					v, err := MakeTerraformInput(res, key, resource.PropertyValue{}, old, tfi, psi, false, useRawNames)
+					if err != nil {
+						return nil, err
+					}
+					result[key] = v
+					glog.V(9).Infof("Create Terraform input: %v = %v (old default)", key, old)
+				} else {
+					dv, err := sch.DefaultValue()
+					if err != nil {
+						return nil, err
+					} else if dv != nil {
+						result[key] = dv
+						glog.V(9).Infof("Created Terraform input: %v = %v (default from TF)", key, result[key])
+					}
 				}
 			}
 		}
@@ -83,7 +108,7 @@ func MakeTerraformInputs(res *PulumiResource, m resource.PropertyMap,
 // use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
 func MakeTerraformInput(res *PulumiResource, name string,
-	v resource.PropertyValue, tfs *schema.Schema, ps *SchemaInfo, defaults, rawNames bool) (interface{}, error) {
+	old, v resource.PropertyValue, tfs *schema.Schema, ps *SchemaInfo, defaults, rawNames bool) (interface{}, error) {
 	if v.IsNull() {
 		return nil, nil
 	} else if v.IsBool() {
@@ -93,6 +118,11 @@ func MakeTerraformInput(res *PulumiResource, name string,
 	} else if v.IsString() {
 		return v.StringValue(), nil
 	} else if v.IsArray() {
+		var oldArr []resource.PropertyValue
+		if old.IsArray() {
+			oldArr = old.ArrayValue()
+		}
+
 		var arr []interface{}
 		for i, elem := range v.ArrayValue() {
 			var etfs *schema.Schema
@@ -109,7 +139,11 @@ func MakeTerraformInput(res *PulumiResource, name string,
 			if ps != nil {
 				eps = ps.Elem
 			}
-			e, err := MakeTerraformInput(res, fmt.Sprintf("%v[%v]", name, i), elem, etfs, eps, defaults, rawNames)
+			var oldElem resource.PropertyValue
+			if i < len(oldArr) {
+				oldElem = oldArr[i]
+			}
+			e, err := MakeTerraformInput(res, fmt.Sprintf("%v[%v]", name, i), oldElem, elem, etfs, eps, defaults, rawNames)
 			if err != nil {
 				return nil, err
 			}
@@ -147,7 +181,12 @@ func MakeTerraformInput(res *PulumiResource, name string,
 		if ps != nil {
 			psflds = ps.Fields
 		}
-		return MakeTerraformInputs(res, v.ObjectValue(), tfflds, psflds, defaults, rawNames || useRawNames(tfs))
+		var oldObject resource.PropertyMap
+		if old.IsObject() {
+			oldObject = old.ObjectValue()
+		}
+		return MakeTerraformInputs(res, oldObject, v.ObjectValue(),
+			tfflds, psflds, defaults, rawNames || useRawNames(tfs))
 	} else if v.IsComputed() || v.IsOutput() {
 		// If any variables are unknown, we need to mark them in the inputs so the config map treats it right.  This
 		// requires the use of the special UnknownVariableValue sentinel in Terraform, which is how it internally stores
@@ -157,18 +196,6 @@ func MakeTerraformInput(res *PulumiResource, name string,
 
 	contract.Failf("Unexpected value marshaled: %v", v)
 	return nil, nil
-}
-
-// MakeTerraformInputsFromRPC unmarshals an RPC payload of properties and turns the results into Terraform inputs.
-func MakeTerraformInputsFromRPC(res *PulumiResource, m *pbstruct.Struct,
-	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo,
-	allowUnknowns bool, defaults bool) (map[string]interface{}, error) {
-	props, err := plugin.UnmarshalProperties(m,
-		plugin.MarshalOptions{KeepUnknowns: allowUnknowns, SkipNulls: true})
-	if err != nil {
-		return nil, err
-	}
-	return MakeTerraformInputs(res, props, tfs, ps, defaults, false)
 }
 
 // MakeTerraformResult expands a Terraform state into an expanded Pulumi resource property map.  This respects
@@ -272,7 +299,7 @@ func MakeTerraformOutput(v interface{},
 func MakeTerraformConfig(res *PulumiResource, m resource.PropertyMap,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo, defaults bool) (*terraform.ResourceConfig, error) {
 	// Convert the resource bag into an untyped map, and then create the resource config object.
-	inputs, err := MakeTerraformInputs(res, m, tfs, ps, defaults, false)
+	inputs, err := MakeTerraformInputs(res, nil, m, tfs, ps, defaults, false)
 	if err != nil {
 		return nil, err
 	}
@@ -307,7 +334,7 @@ func MakeTerraformAttributes(res *PulumiResource, m resource.PropertyMap,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo, defaults bool) (map[string]string, error) {
 	// Turn the resource properties into a map.  For the most part, this is a straight Mappable, but we use MapReplace
 	// because we use float64s and Terraform uses ints, to represent numbers.
-	inputs, err := MakeTerraformInputs(res, m, tfs, ps, defaults, false)
+	inputs, err := MakeTerraformInputs(res, nil, m, tfs, ps, defaults, false)
 	if err != nil {
 		return nil, err
 	}
