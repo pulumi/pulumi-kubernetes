@@ -18,9 +18,10 @@ import (
 	"github.com/pulumi/pulumi/pkg/util/contract"
 )
 
-// MakeTerraformInputs takes a property map plus custom schema info and does whatever is necessary to prepare it for
-// use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
-// to disk in order to create a name out of it.  Please take care not to call it superfluously!
+// MakeTerraformInputs takes a property map plus custom schema info and does whatever is necessary
+// to prepare it for use by Terraform.  Note that this function may have side effects, for instance
+// if it is necessary to spill an asset to disk in order to create a name out of it.  Please take
+// care not to call it superfluously!
 func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo,
 	defaults, useRawNames bool) (map[string]interface{}, error) {
@@ -64,7 +65,12 @@ func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 					result[name] = info.Default.Value
 					glog.V(9).Infof("Created Terraform input: %v = %v (default)", name, result[name])
 				} else if from := info.Default.From; from != nil {
-					result[name] = from(res)
+					v, err := from(res)
+					if err != nil {
+						return nil, err
+					}
+
+					result[name] = v
 					glog.V(9).Infof("Created Terraform input: %v = %v (default from fnc)", name, result[name])
 				}
 			}

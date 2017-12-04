@@ -200,9 +200,9 @@ func TestDefaults(t *testing.T) {
 	}
 	ps := map[string]*SchemaInfo{
 		"eee": {Default: &DefaultInfo{Value: "EEE"}},
-		"ee2": {Default: &DefaultInfo{From: func(res *PulumiResource) interface{} { return "EE2" }}},
+		"ee2": {Default: &DefaultInfo{From: func(res *PulumiResource) (interface{}, error) { return "EE2", nil }}},
 		"fff": {Default: &DefaultInfo{Value: "PSF"}},
-		"ff2": {Default: &DefaultInfo{From: func(res *PulumiResource) interface{} { return "PF2" }}},
+		"ff2": {Default: &DefaultInfo{From: func(res *PulumiResource) (interface{}, error) { return "PF2", nil }}},
 		"ggg": {Default: &DefaultInfo{Value: "PSG"}},
 		"hhh": {Default: &DefaultInfo{Value: "PSH"}},
 		"iii": {Default: &DefaultInfo{Value: "PSI"}},
