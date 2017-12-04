@@ -73,7 +73,15 @@ func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 		// Next, populate defaults from the Terraform schema.
 		for name, sch := range tfs {
 			if _, has := result[name]; !has {
-				// If we already have a default value from a previous version of this resource, use that instead.
+				// Check for a default value from Terraform. If there is not default from terraform, skip this name.
+				dv, err := sch.DefaultValue()
+				if err != nil {
+					return nil, err
+				} else if dv == nil {
+					continue
+				}
+
+				// Next, if we already have a default value from a previous version of this resource, use that instead.
 				key, tfi, psi := getInfoFromTerraformName(name, tfs, ps, useRawNames)
 				if old, hasold := olds[key]; hasold {
 					v, err := MakeTerraformInput(res, name, resource.PropertyValue{}, old, tfi, psi, false, useRawNames)
@@ -83,13 +91,8 @@ func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 					result[name] = v
 					glog.V(9).Infof("Create Terraform input: %v = %v (old default)", name, old)
 				} else {
-					dv, err := sch.DefaultValue()
-					if err != nil {
-						return nil, err
-					} else if dv != nil {
-						result[name] = dv
-						glog.V(9).Infof("Created Terraform input: %v = %v (default from TF)", name, result[name])
-					}
+					result[name] = dv
+					glog.V(9).Infof("Created Terraform input: %v = %v (default from TF)", name, result[name])
 				}
 			}
 		}
