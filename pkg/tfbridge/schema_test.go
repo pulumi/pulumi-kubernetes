@@ -184,6 +184,8 @@ func TestDefaults(t *testing.T) {
 	//     - hhh string; TF default "TFH", PS default "PSH", input "HHH" => "HHH"
 	//     - iii string; old default "OLI", TF default "TFI", PS default "PSI", no input => "OLD"
 	//     - jjj string: old input "OLJ", no defaults, no input => no merged input
+	//     - lll: old default "OLL", TF default "TFL", no input => "OLL"
+	//     - mmm: old default "OLM", PS default "PSM", no input => "OLM"
 	tfs := map[string]*schema.Schema{
 		"ccc": {Type: schema.TypeString, Default: "CCC"},
 		"cc2": {Type: schema.TypeString, DefaultFunc: func() (interface{}, error) { return "CC2", nil }},
@@ -192,6 +194,9 @@ func TestDefaults(t *testing.T) {
 		"ggg": {Type: schema.TypeString, Default: "TFG"},
 		"hhh": {Type: schema.TypeString, Default: "TFH"},
 		"iii": {Type: schema.TypeString, Default: "TFI"},
+		"jjj": {Type: schema.TypeString},
+		"lll": {Type: schema.TypeString, Default: "TFL"},
+		"mmm": {Type: schema.TypeString},
 	}
 	ps := map[string]*SchemaInfo{
 		"eee": {Default: &DefaultInfo{Value: "EEE"}},
@@ -201,10 +206,13 @@ func TestDefaults(t *testing.T) {
 		"ggg": {Default: &DefaultInfo{Value: "PSG"}},
 		"hhh": {Default: &DefaultInfo{Value: "PSH"}},
 		"iii": {Default: &DefaultInfo{Value: "PSI"}},
+		"mmm": {Default: &DefaultInfo{Value: " PSM"}},
 	}
 	olds := resource.PropertyMap{
 		"iii": resource.NewStringProperty("OLI"),
 		"jjj": resource.NewStringProperty("OLJ"),
+		"lll": resource.NewStringProperty("OLL"),
+		"mmm": resource.NewStringProperty("OLM"),
 	}
 	props := resource.PropertyMap{
 		"bbb": resource.NewStringProperty("BBB"),
@@ -230,5 +238,7 @@ func TestDefaults(t *testing.T) {
 		"ggg": "PSG",
 		"hhh": "HHH",
 		"iii": "OLI",
+		"lll": "OLL",
+		"mmm": "OLM",
 	}), outputs)
 }
