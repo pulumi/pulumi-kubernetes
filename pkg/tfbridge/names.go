@@ -81,7 +81,7 @@ func AutoNameTransform(name string, maxlen int, transform func(string) string) *
 }
 
 // FromName automatically propagates a resource's URN onto the resulting default info.
-func FromName(rand bool, randmaxlen int, transform func(string) string) func(res *PulumiResource) (interface{}, error) {
+func FromName(rand bool, maxlen int, transform func(string) string) func(res *PulumiResource) (interface{}, error) {
 	return func(res *PulumiResource) (interface{}, error) {
 		// Take the URN name part, transform it if required, and then append some unique characters.
 		vs := string(res.URN.Name())
@@ -89,7 +89,7 @@ func FromName(rand bool, randmaxlen int, transform func(string) string) func(res
 			vs = transform(vs)
 		}
 		if rand {
-			return resource.NewUniqueHex(vs+"-", randmaxlen)
+			return resource.NewUniqueHex(vs, maxlen)
 		}
 		return vs, nil
 	}
