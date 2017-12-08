@@ -216,8 +216,9 @@ func (p *Provider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pul
 	// Now fetch the default values so that (a) we can return them to the caller and (b) so that validation
 	// includes the default values.  Otherwise, the provider wouldn't be presented with its own defaults.
 	tfname := res.TF.Name
+	assets := make(AssetTable)
 	inputs, err := MakeTerraformInputs(
-		&PulumiResource{URN: urn, Properties: news}, olds, news, res.TFSchema, res.Schema.Fields, true, false)
+		&PulumiResource{URN: urn, Properties: news}, olds, news, res.TFSchema, res.Schema.Fields, assets, true, false)
 	if err != nil {
 		return nil, err
 	}
@@ -243,7 +244,7 @@ func (p *Provider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pul
 	}
 
 	// After all is said and done, we need to go back and return only what got populated as a diff from the origin.
-	pinputs := MakeTerraformOutputs(inputs, res.TFSchema, res.Schema.Fields, false)
+	pinputs := MakeTerraformOutputs(inputs, res.TFSchema, res.Schema.Fields, assets, false)
 	minputs, err := plugin.MarshalProperties(pinputs, plugin.MarshalOptions{KeepUnknowns: true})
 	if err != nil {
 		return nil, err
@@ -424,7 +425,7 @@ func (p *Provider) Invoke(ctx context.Context, req *pulumirpc.InvokeRequest) (*p
 	// First, create the inputs.
 	tfname := ds.TF.Name
 	inputs, err := MakeTerraformInputs(
-		&PulumiResource{Properties: args}, nil, args, ds.TFSchema, ds.Schema.Fields, true, false)
+		&PulumiResource{Properties: args}, nil, args, ds.TFSchema, ds.Schema.Fields, nil, true, false)
 	if err != nil {
 		return nil, errors.Wrapf(err, "couldn't prepare resource %v input state", tfname)
 	}

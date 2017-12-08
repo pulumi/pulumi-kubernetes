@@ -60,6 +60,7 @@ func TestTerraformInputs(t *testing.T) {
 				Name: "stringo",
 			},
 		},
+		nil,   /* assets */
 		false, /*defaults*/
 		false, /*useRawNames*/
 	)
@@ -141,6 +142,7 @@ func TestTerraformOutputs(t *testing.T) {
 				Name: "stringo",
 			},
 		},
+		nil,   /* assets */
 		false, /*useRawNames*/
 	)
 	assert.Equal(t, resource.NewPropertyMapFromMap(map[string]interface{}{
@@ -186,6 +188,9 @@ func TestDefaults(t *testing.T) {
 	//     - jjj string: old input "OLJ", no defaults, no input => no merged input
 	//     - lll: old default "OLL", TF default "TFL", no input => "OLL"
 	//     - mmm: old default "OLM", PS default "PSM", no input => "OLM"
+	asset, err := resource.NewTextAsset("hello")
+	assert.Nil(t, err)
+	assets := make(AssetTable)
 	tfs := map[string]*schema.Schema{
 		"ccc": {Type: schema.TypeString, Default: "CCC"},
 		"cc2": {Type: schema.TypeString, DefaultFunc: func() (interface{}, error) { return "CC2", nil }},
@@ -197,6 +202,7 @@ func TestDefaults(t *testing.T) {
 		"jjj": {Type: schema.TypeString},
 		"lll": {Type: schema.TypeString, Default: "TFL"},
 		"mmm": {Type: schema.TypeString},
+		"zzz": {Type: schema.TypeString},
 	}
 	ps := map[string]*SchemaInfo{
 		"eee": {Default: &DefaultInfo{Value: "EEE"}},
@@ -206,7 +212,8 @@ func TestDefaults(t *testing.T) {
 		"ggg": {Default: &DefaultInfo{Value: "PSG"}},
 		"hhh": {Default: &DefaultInfo{Value: "PSH"}},
 		"iii": {Default: &DefaultInfo{Value: "PSI"}},
-		"mmm": {Default: &DefaultInfo{Value: " PSM"}},
+		"mmm": {Default: &DefaultInfo{Value: "PSM"}},
+		"zzz": {Asset: &AssetTranslation{Kind: FileAsset}},
 	}
 	olds := resource.PropertyMap{
 		"iii": resource.NewStringProperty("OLI"),
@@ -221,10 +228,11 @@ func TestDefaults(t *testing.T) {
 		"fff": resource.NewStringProperty("FFF"),
 		"ff2": resource.NewStringProperty("FFF"),
 		"hhh": resource.NewStringProperty("HHH"),
+		"zzz": resource.NewAssetProperty(asset),
 	}
-	inputs, err := MakeTerraformInputs(nil, olds, props, tfs, ps, true, false)
+	inputs, err := MakeTerraformInputs(nil, olds, props, tfs, ps, assets, true, false)
 	assert.NoError(t, err)
-	outputs := MakeTerraformOutputs(inputs, tfs, ps, false)
+	outputs := MakeTerraformOutputs(inputs, tfs, ps, assets, false)
 	assert.Equal(t, resource.NewPropertyMapFromMap(map[string]interface{}{
 		"bbb": "BBB",
 		"ccc": "CCC",
@@ -240,5 +248,6 @@ func TestDefaults(t *testing.T) {
 		"iii": "OLI",
 		"lll": "OLL",
 		"mmm": "OLM",
+		"zzz": asset,
 	}), outputs)
 }

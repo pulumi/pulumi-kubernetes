@@ -18,13 +18,18 @@ import (
 	"github.com/pulumi/pulumi/pkg/util/contract"
 )
 
+// AssetTable is used to record which properties in a call to MakeTerraformInputs were assets so that they can be
+// marshaled back to assets by MakeTerraformOutputs.
+type AssetTable map[*SchemaInfo]resource.PropertyValue
+
 // MakeTerraformInputs takes a property map plus custom schema info and does whatever is necessary
 // to prepare it for use by Terraform.  Note that this function may have side effects, for instance
 // if it is necessary to spill an asset to disk in order to create a name out of it.  Please take
 // care not to call it superfluously!
 func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
-	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo,
+	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo, assets AssetTable,
 	defaults, useRawNames bool) (map[string]interface{}, error) {
+
 	result := make(map[string]interface{})
 
 	// Enumerate the inputs provided and add them to the map using their Terraform names.
@@ -39,7 +44,7 @@ func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 		}
 
 		// And then translate the property value.
-		v, err := MakeTerraformInput(res, name, old, value, tfi, psi, defaults, useRawNames)
+		v, err := MakeTerraformInput(res, name, old, value, tfi, psi, assets, defaults, useRawNames)
 		if err != nil {
 			return nil, err
 		}
@@ -55,7 +60,8 @@ func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 				// If we already have a default value from a previous version of this resource, use that instead.
 				key, tfi, psi := getInfoFromTerraformName(name, tfs, ps, useRawNames)
 				if old, hasold := olds[key]; hasold {
-					v, err := MakeTerraformInput(res, name, resource.PropertyValue{}, old, tfi, psi, false, useRawNames)
+					v, err := MakeTerraformInput(res, name, resource.PropertyValue{}, old, tfi, psi, assets,
+						false, useRawNames)
 					if err != nil {
 						return nil, err
 					}
@@ -90,7 +96,8 @@ func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 				// Next, if we already have a default value from a previous version of this resource, use that instead.
 				key, tfi, psi := getInfoFromTerraformName(name, tfs, ps, useRawNames)
 				if old, hasold := olds[key]; hasold {
-					v, err := MakeTerraformInput(res, name, resource.PropertyValue{}, old, tfi, psi, false, useRawNames)
+					v, err := MakeTerraformInput(res, name, resource.PropertyValue{}, old, tfi, psi, assets,
+						false, useRawNames)
 					if err != nil {
 						return nil, err
 					}
@@ -117,16 +124,19 @@ func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 // use by Terraform.  Note that this function may have side effects, for instance if it is necessary to spill an asset
 // to disk in order to create a name out of it.  Please take care not to call it superfluously!
 func MakeTerraformInput(res *PulumiResource, name string,
-	old, v resource.PropertyValue, tfs *schema.Schema, ps *SchemaInfo, defaults, rawNames bool) (interface{}, error) {
-	if v.IsNull() {
+	old, v resource.PropertyValue, tfs *schema.Schema, ps *SchemaInfo, assets AssetTable,
+	defaults, rawNames bool) (interface{}, error) {
+
+	switch {
+	case v.IsNull():
 		return nil, nil
-	} else if v.IsBool() {
+	case v.IsBool():
 		return v.BoolValue(), nil
-	} else if v.IsNumber() {
+	case v.IsNumber():
 		return int(v.NumberValue()), nil // convert floats to ints.
-	} else if v.IsString() {
+	case v.IsString():
 		return v.StringValue(), nil
-	} else if v.IsArray() {
+	case v.IsArray():
 		var oldArr []resource.PropertyValue
 		if old.IsArray() {
 			oldArr = old.ArrayValue()
@@ -152,14 +162,15 @@ func MakeTerraformInput(res *PulumiResource, name string,
 			if i < len(oldArr) {
 				oldElem = oldArr[i]
 			}
-			e, err := MakeTerraformInput(res, fmt.Sprintf("%v[%v]", name, i), oldElem, elem, etfs, eps, defaults, rawNames)
+			elemName := fmt.Sprintf("%v[%v]", name, i)
+			e, err := MakeTerraformInput(res, elemName, oldElem, elem, etfs, eps, assets, defaults, rawNames)
 			if err != nil {
 				return nil, err
 			}
 			arr = append(arr, e)
 		}
 		return arr, nil
-	} else if v.IsAsset() {
+	case v.IsAsset():
 		// We require that there be asset information, otherwise an error occurs.
 		if ps == nil || ps.Asset == nil {
 			return nil,
@@ -168,8 +179,13 @@ func MakeTerraformInput(res *PulumiResource, name string,
 			return nil,
 				errors.Errorf("Invalid asset translation instructions for %v; expected an asset", name)
 		}
+		if assets != nil {
+			_, has := assets[ps]
+			contract.Assertf(!has, "duplicate schema info for asset")
+			assets[ps] = v
+		}
 		return ps.Asset.TranslateAsset(v.AssetValue())
-	} else if v.IsArchive() {
+	case v.IsArchive():
 		// We require that there be archive information, otherwise an error occurs.
 		if ps == nil || ps.Asset == nil {
 			return nil,
@@ -178,8 +194,13 @@ func MakeTerraformInput(res *PulumiResource, name string,
 			return nil,
 				errors.Errorf("Invalid asset translation instructions for %v; expected an archive", name)
 		}
+		if assets != nil {
+			_, has := assets[ps]
+			contract.Assertf(!has, "duplicate schema info for asset")
+			assets[ps] = v
+		}
 		return ps.Asset.TranslateArchive(v.ArchiveValue())
-	} else if v.IsObject() {
+	case v.IsObject():
 		var tfflds map[string]*schema.Schema
 		if tfs != nil {
 			if res, isres := tfs.Elem.(*schema.Resource); isres {
@@ -195,16 +216,16 @@ func MakeTerraformInput(res *PulumiResource, name string,
 			oldObject = old.ObjectValue()
 		}
 		return MakeTerraformInputs(res, oldObject, v.ObjectValue(),
-			tfflds, psflds, defaults, rawNames || useRawNames(tfs))
-	} else if v.IsComputed() || v.IsOutput() {
+			tfflds, psflds, assets, defaults, rawNames || useRawNames(tfs))
+	case v.IsComputed() || v.IsOutput():
 		// If any variables are unknown, we need to mark them in the inputs so the config map treats it right.  This
 		// requires the use of the special UnknownVariableValue sentinel in Terraform, which is how it internally stores
 		// interpolated variables whose inputs are currently unknown.
 		return config.UnknownVariableValue, nil
+	default:
+		contract.Failf("Unexpected value marshaled: %v", v)
+		return nil, nil
 	}
-
-	contract.Failf("Unexpected value marshaled: %v", v)
-	return nil, nil
 }
 
 // MakeTerraformResult expands a Terraform state into an expanded Pulumi resource property map.  This respects
@@ -219,13 +240,13 @@ func MakeTerraformResult(state *terraform.InstanceState,
 			outs[key] = flatmap.Expand(attrs, key)
 		}
 	}
-	return MakeTerraformOutputs(outs, tfs, ps, false)
+	return MakeTerraformOutputs(outs, tfs, ps, nil, false)
 }
 
 // MakeTerraformOutputs takes an expanded Terraform property map and returns a Pulumi equivalent.  This respects
 // the property maps so that results end up with their correct Pulumi names when shipping back to the engine.
 func MakeTerraformOutputs(outs map[string]interface{},
-	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo, rawNames bool) resource.PropertyMap {
+	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo, assets AssetTable, rawNames bool) resource.PropertyMap {
 	result := make(resource.PropertyMap)
 	for key, value := range outs {
 		// First do a lookup of the name/info.
@@ -233,7 +254,7 @@ func MakeTerraformOutputs(outs map[string]interface{},
 		contract.Assert(name != "")
 
 		// Next perform a translation of the value accordingly.
-		result[name] = MakeTerraformOutput(value, tfi, psi, rawNames)
+		result[name] = MakeTerraformOutput(value, tfi, psi, assets, rawNames)
 	}
 
 	if glog.V(5) {
@@ -247,7 +268,14 @@ func MakeTerraformOutputs(outs map[string]interface{},
 
 // MakeTerraformOutput takes a single Terraform property and returns the Pulumi equivalent.
 func MakeTerraformOutput(v interface{},
-	tfs *schema.Schema, ps *SchemaInfo, rawNames bool) resource.PropertyValue {
+	tfs *schema.Schema, ps *SchemaInfo, assets AssetTable, rawNames bool) resource.PropertyValue {
+	if assets != nil && ps != nil && ps.Asset != nil {
+		asset, has := assets[ps]
+		contract.Assertf(has, "expected asset value for Pulumi schema info")
+		contract.Assert(asset.IsAsset() || asset.IsArchive())
+		return asset
+	}
+
 	if v == nil {
 		return resource.NewNullProperty()
 	}
@@ -282,7 +310,7 @@ func MakeTerraformOutput(v interface{},
 		}
 		var arr []resource.PropertyValue
 		for _, elem := range t {
-			arr = append(arr, MakeTerraformOutput(elem, tfes, pes, rawNames))
+			arr = append(arr, MakeTerraformOutput(elem, tfes, pes, assets, rawNames))
 		}
 		return resource.NewArrayProperty(arr)
 	case map[string]interface{}:
@@ -296,7 +324,7 @@ func MakeTerraformOutput(v interface{},
 		if ps != nil {
 			psflds = ps.Fields
 		}
-		obj := MakeTerraformOutputs(t, tfflds, psflds, rawNames || useRawNames(tfs))
+		obj := MakeTerraformOutputs(t, tfflds, psflds, assets, rawNames || useRawNames(tfs))
 		return resource.NewObjectProperty(obj)
 	default:
 		contract.Failf("Unexpected TF output property value: %v", v)
@@ -308,7 +336,7 @@ func MakeTerraformOutput(v interface{},
 func MakeTerraformConfig(res *PulumiResource, m resource.PropertyMap,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo, defaults bool) (*terraform.ResourceConfig, error) {
 	// Convert the resource bag into an untyped map, and then create the resource config object.
-	inputs, err := MakeTerraformInputs(res, nil, m, tfs, ps, defaults, false)
+	inputs, err := MakeTerraformInputs(res, nil, m, tfs, ps, nil, defaults, false)
 	if err != nil {
 		return nil, err
 	}
@@ -343,7 +371,7 @@ func MakeTerraformAttributes(res *PulumiResource, m resource.PropertyMap,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo, defaults bool) (map[string]string, error) {
 	// Turn the resource properties into a map.  For the most part, this is a straight Mappable, but we use MapReplace
 	// because we use float64s and Terraform uses ints, to represent numbers.
-	inputs, err := MakeTerraformInputs(res, nil, m, tfs, ps, defaults, false)
+	inputs, err := MakeTerraformInputs(res, nil, m, tfs, ps, nil, defaults, false)
 	if err != nil {
 		return nil, err
 	}
