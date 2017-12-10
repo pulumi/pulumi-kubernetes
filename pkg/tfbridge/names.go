@@ -61,16 +61,17 @@ func TerraformToPulumiName(name string, upper bool) string {
 }
 
 // AutoName creates custom schema for a Terraform name property which is automatically populated from the
-// resource's URN name, with a random suffix and maximum length of maxlen.  This makes it easy to propagate the Pulumi
-// resource's URN name part as the Terraform name as a convenient default, while still permitting it to be overridden.
+// resource's URN name, with an 8 character random suffix ("-"+7 random chars), and maximum length of maxlen.  This
+// makes it easy to propagate the Pulumi resource's URN name part as the Terraform name as a convenient default, while
+// still permitting it to be overridden.
 func AutoName(name string, maxlen int) *SchemaInfo {
 	return AutoNameTransform(name, maxlen, nil)
 }
 
 // AutoNameTransform creates custom schema for a Terraform name property which is automatically populated from the
-// resource's URN name, with a random suffix, maximum length maxlen, and optional transformation function. This makes it
-// easy to propagate the Pulumi resource's URN name part as the Terraform name as a convenient default, while still
-// permitting it to be overridden.
+// resource's URN name, with an 8 character random suffix ("-"+7 random chars), maximum length maxlen, and optional
+// transformation function. This makes it easy to propagate the Pulumi resource's URN name part as the Terraform name
+// as a convenient default, while still permitting it to be overridden.
 func AutoNameTransform(name string, maxlen int, transform func(string) string) *SchemaInfo {
 	return &SchemaInfo{
 		Name: name,
@@ -89,7 +90,7 @@ func FromName(rand bool, maxlen int, transform func(string) string) func(res *Pu
 			vs = transform(vs)
 		}
 		if rand {
-			return resource.NewUniqueHex(vs, maxlen)
+			return resource.NewUniqueHex(vs+"-", 7, maxlen)
 		}
 		return vs, nil
 	}
