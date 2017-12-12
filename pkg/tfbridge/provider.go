@@ -285,11 +285,13 @@ func (p *Provider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulum
 	// Each RequiresNew translates into a replacement.
 	var replaces []string
 	replaced := make(map[resource.PropertyKey]bool)
-	for k, attr := range diff.Attributes {
-		if attr.RequiresNew {
-			name, _, _ := getInfoFromTerraformName(k, res.TFSchema, res.Schema.Fields, false)
-			replaces = append(replaces, string(name))
-			replaced[name] = true
+	if diff != nil {
+		for k, attr := range diff.Attributes {
+			if attr.RequiresNew {
+				name, _, _ := getInfoFromTerraformName(k, res.TFSchema, res.Schema.Fields, false)
+				replaces = append(replaces, string(name))
+				replaced[name] = true
+			}
 		}
 	}
 
