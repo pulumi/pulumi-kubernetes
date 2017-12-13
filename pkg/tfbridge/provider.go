@@ -307,8 +307,9 @@ func (p *Provider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulum
 	}
 
 	return &pulumirpc.DiffResponse{
-		Replaces: replaces,
-		Stables:  stables,
+		Replaces:            replaces,
+		Stables:             stables,
+		DeleteBeforeReplace: len(replaces) > 0 && res.Schema.DeleteBeforeReplace,
 	}, nil
 }
 
