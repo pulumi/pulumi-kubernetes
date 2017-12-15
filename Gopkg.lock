@@ -243,10 +243,10 @@
   version = "v1.1"
 
 [[projects]]
-  branch = "master"
   name = "github.com/pulumi/pulumi"
   packages = ["pkg/diag","pkg/diag/colors","pkg/encoding","pkg/pack","pkg/resource","pkg/resource/config","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/fsutil","pkg/util/mapper","pkg/util/rpcutil","pkg/workspace","sdk/proto/go"]
-  revision = "92ea5b5bdd28a8cc2d5065c81ea369d77ab81b4f"
+  revision = "2d8bdfe01210806577f7f812658e78190768f3ad"
+  version = "v0.9.4"
 
 [[projects]]
   branch = "master"

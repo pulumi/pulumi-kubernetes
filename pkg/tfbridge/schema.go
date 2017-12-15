@@ -173,11 +173,9 @@ func MakeTerraformInput(res *PulumiResource, name string,
 	case v.IsAsset():
 		// We require that there be asset information, otherwise an error occurs.
 		if ps == nil || ps.Asset == nil {
-			return nil,
-				errors.Errorf("Encountered an asset %v but asset translation instructions were missing", name)
+			return nil, errors.Errorf("unexpected asset %s", name)
 		} else if !ps.Asset.IsAsset() {
-			return nil,
-				errors.Errorf("Invalid asset translation instructions for %v; expected an asset", name)
+			return nil, errors.Errorf("expected an asset, but %s is not an asset", name)
 		}
 		if assets != nil {
 			_, has := assets[ps]
@@ -188,11 +186,9 @@ func MakeTerraformInput(res *PulumiResource, name string,
 	case v.IsArchive():
 		// We require that there be archive information, otherwise an error occurs.
 		if ps == nil || ps.Asset == nil {
-			return nil,
-				errors.Errorf("Encountered an archive %v but asset translation instructions were missing", name)
+			return nil, errors.Errorf("unexpected archive %s", name)
 		} else if !ps.Asset.IsArchive() {
-			return nil,
-				errors.Errorf("Invalid asset translation instructions for %v; expected an archive", name)
+			return nil, errors.Errorf("expected an archive, but %s is not an archive", name)
 		}
 		if assets != nil {
 			_, has := assets[ps]
@@ -346,9 +342,9 @@ func MakeTerraformConfig(res *PulumiResource, m resource.PropertyMap,
 // MakeTerraformConfigFromRPC creates a Terraform config map from a Pulumi RPC property map.
 func MakeTerraformConfigFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo,
-	allowUnknowns, defaults bool) (*terraform.ResourceConfig, error) {
+	allowUnknowns, defaults bool, label string) (*terraform.ResourceConfig, error) {
 	props, err := plugin.UnmarshalProperties(m,
-		plugin.MarshalOptions{KeepUnknowns: allowUnknowns, SkipNulls: true})
+		plugin.MarshalOptions{Label: label, KeepUnknowns: allowUnknowns, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
@@ -381,9 +377,9 @@ func MakeTerraformAttributes(res *PulumiResource, m resource.PropertyMap,
 // MakeTerraformAttributesFromRPC unmarshals an RPC property map and calls through to MakeTerraformAttributes.
 func MakeTerraformAttributesFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	tfs map[string]*schema.Schema, ps map[string]*SchemaInfo,
-	allowUnknowns, defaults bool) (map[string]string, error) {
+	allowUnknowns, defaults bool, label string) (map[string]string, error) {
 	props, err := plugin.UnmarshalProperties(m,
-		plugin.MarshalOptions{KeepUnknowns: allowUnknowns, SkipNulls: true})
+		plugin.MarshalOptions{Label: label, KeepUnknowns: allowUnknowns, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
