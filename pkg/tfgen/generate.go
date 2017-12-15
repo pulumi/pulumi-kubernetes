@@ -1100,6 +1100,11 @@ func (g *generator) tfToJSType(sch *schema.Schema, custom *tfbridge.SchemaInfo, 
 	if custom != nil {
 		if custom.Type != "" {
 			t := string(custom.Type.Name())
+			if len(custom.AltTypes) > 0 {
+				for _, at := range custom.AltTypes {
+					t = fmt.Sprintf("%s | %s", t, at.Name())
+				}
+			}
 			if !out {
 				t = fmt.Sprintf("pulumi.ComputedValue<%s>", t)
 			}
@@ -1249,21 +1254,28 @@ func gatherCustomImports(infos map[string]*tfbridge.SchemaInfo, imports map[stri
 func gatherCustomImportsFrom(info *tfbridge.SchemaInfo, imports map[string][]string,
 	pkg string, root string, curr string) error {
 	if info != nil {
-		// If this property has a custom schema type, and it isn't "simple" (e.g., string, etc), then we need to
+		// If this property has custom schema types that aren't "simple" (e.g., string, etc), then we need to
 		// create a relative module import.  Note that we assume this is local to the current package!
-		if info.Type != "" && !tokens.Token(info.Type).Simple() {
-			haspkg := string(info.Type.Module().Package().Name())
-			if haspkg != pkg {
-				return errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, pkg)
+		var custty []tokens.Type
+		if info.Type != "" {
+			custty = append(custty, info.Type)
+			custty = append(custty, info.AltTypes...)
+		}
+		for _, ct := range custty {
+			if !tokens.Token(ct).Simple() {
+				haspkg := string(ct.Module().Package().Name())
+				if haspkg != pkg {
+					return errors.Errorf("Custom schema type %v was not in the current package %v", haspkg, pkg)
+				}
+				mod := ct.Module().Name()
+				modfile := filepath.Join(root,
+					strings.Replace(string(mod), tokens.TokenDelimiter, string(filepath.Separator), -1))
+				relmod, err := relModule(curr, modfile)
+				if err != nil {
+					return err
+				}
+				imports[relmod] = append(imports[modfile], string(ct.Name()))
 			}
-			mod := info.Type.Module().Name()
-			modfile := filepath.Join(root,
-				strings.Replace(string(mod), tokens.TokenDelimiter, string(filepath.Separator), -1))
-			relmod, err := relModule(curr, modfile)
-			if err != nil {
-				return err
-			}
-			imports[relmod] = append(imports[modfile], string(info.Type.Name()))
 		}
 
 		// If the property has an element type, recurse and propagate any results.

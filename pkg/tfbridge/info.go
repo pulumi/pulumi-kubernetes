@@ -39,13 +39,14 @@ type DataSourceInfo struct {
 
 // SchemaInfo contains optional name transformations to apply.
 type SchemaInfo struct {
-	Name    string                 // a name to override the default; "" uses the default.
-	Type    tokens.Type            // a type to override the default; "" uses the default.
-	Elem    *SchemaInfo            // a schema override for elements for arrays, maps, and sets.
-	Fields  map[string]*SchemaInfo // a map of custom field names; if a type is missing, the default is used.
-	Asset   *AssetTranslation      // a map of asset translation information, if this is an asset.
-	Default *DefaultInfo           // an optional default directive to be applied if a value is missing.
-	Stable  *bool                  // to override whether a property is stable or not.
+	Name     string                 // a name to override the default; "" uses the default.
+	Type     tokens.Type            // a type to override the default; "" uses the default.
+	AltTypes []tokens.Type          // alternative types that can be used instead of the override.
+	Elem     *SchemaInfo            // a schema override for elements for arrays, maps, and sets.
+	Fields   map[string]*SchemaInfo // a map of custom field names; if a type is missing, the default is used.
+	Asset    *AssetTranslation      // a map of asset translation information, if this is an asset.
+	Default  *DefaultInfo           // an optional default directive to be applied if a value is missing.
+	Stable   *bool                  // to override whether a property is stable or not.
 }
 
 // DocInfo contains optional overrids for finding and mapping TD docs.
