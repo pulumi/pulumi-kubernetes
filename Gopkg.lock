@@ -245,7 +245,7 @@
 [[projects]]
   name = "github.com/pulumi/pulumi"
   packages = ["pkg/diag","pkg/diag/colors","pkg/encoding","pkg/pack","pkg/resource","pkg/resource/config","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/fsutil","pkg/util/mapper","pkg/util/rpcutil","pkg/workspace","sdk/proto/go"]
-  revision = "2d8bdfe01210806577f7f812658e78190768f3ad"
+  revision = "67d3e0ef64f8f1ee16ae79862e17e80c718ece8a"
   version = "v0.9.4"
 
 [[projects]]
