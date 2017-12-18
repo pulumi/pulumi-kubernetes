@@ -30,10 +30,9 @@
   name = "golang.org/x/net"
   revision = "a04bdaca5b32abe1c069418fb7088ae607de5bd0"
 
-# Always use the latest Pulumi from master.
 [[override]]
   name = "github.com/pulumi/pulumi"
-  branch = "master"
+  version = "0.9.5"
 
 # Redirect all Terraform references to our fork.
 [[override]]
