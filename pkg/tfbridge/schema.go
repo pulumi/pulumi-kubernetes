@@ -133,6 +133,9 @@ func MakeTerraformInput(res *PulumiResource, name string,
 	case v.IsBool():
 		return v.BoolValue(), nil
 	case v.IsNumber():
+		if tfs != nil && tfs.Type == schema.TypeFloat {
+			return v.NumberValue(), nil
+		}
 		return int(v.NumberValue()), nil // convert floats to ints.
 	case v.IsString():
 		return v.StringValue(), nil
@@ -280,6 +283,8 @@ func MakeTerraformOutput(v interface{},
 		return resource.NewBoolProperty(t)
 	case int:
 		return resource.NewNumberProperty(float64(t))
+	case float64:
+		return resource.NewNumberProperty(t)
 	case string:
 		// If the string is the special unknown property sentinel, reflect back an unknown computed property.  Note that
 		// Terraform doesn't carry the types along with it, so the best we can do is give back a computed string.

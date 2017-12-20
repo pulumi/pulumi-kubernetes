@@ -19,6 +19,7 @@ func TestTerraformInputs(t *testing.T) {
 			"nilPropertyValue":    nil,
 			"boolPropertyValue":   false,
 			"numberPropertyValue": 42,
+			"floatPropertyValue":  99.6767932,
 			"stringo":             "ognirts",
 			"arrayPropertyValue":  []interface{}{"an array"},
 			"objectPropertyValue": map[string]interface{}{
@@ -40,7 +41,8 @@ func TestTerraformInputs(t *testing.T) {
 		}),
 		map[string]*schema.Schema{
 			// Type mapPropertyValue as a map so that keys aren't mangled in the usual way.
-			"map_property_value": {Type: schema.TypeMap},
+			"float_property_value": {Type: schema.TypeFloat},
+			"map_property_value":   {Type: schema.TypeMap},
 			"nested_resources": {
 				Type:     schema.TypeList,
 				MaxItems: 1,
@@ -69,6 +71,7 @@ func TestTerraformInputs(t *testing.T) {
 		"nil_property_value":    nil,
 		"bool_property_value":   false,
 		"number_property_value": 42,
+		"float_property_value":  99.6767932,
 		"string_property_value": "ognirts",
 		"array_property_value":  []interface{}{"an array"},
 		"object_property_value": map[string]interface{}{
@@ -99,6 +102,7 @@ func TestTerraformOutputs(t *testing.T) {
 			"nil_property_value":    nil,
 			"bool_property_value":   false,
 			"number_property_value": 42,
+			"float_property_value":  99.6767932,
 			"string_property_value": "ognirts",
 			"array_property_value":  []interface{}{"an array"},
 			"object_property_value": map[string]interface{}{
@@ -122,7 +126,8 @@ func TestTerraformOutputs(t *testing.T) {
 		},
 		map[string]*schema.Schema{
 			// Type mapPropertyValue as a map so that keys aren't mangled in the usual way.
-			"map_property_value": {Type: schema.TypeMap},
+			"float_property_value": {Type: schema.TypeFloat},
+			"map_property_value":   {Type: schema.TypeMap},
 			"nested_resources": {
 				Type:     schema.TypeList,
 				MaxItems: 1,
@@ -149,6 +154,7 @@ func TestTerraformOutputs(t *testing.T) {
 		"nilPropertyValue":    nil,
 		"boolPropertyValue":   false,
 		"numberPropertyValue": 42,
+		"floatPropertyValue":  99.6767932,
 		"stringo":             "ognirts",
 		"arrayPropertyValue":  []interface{}{"an array"},
 		"objectPropertyValue": map[string]interface{}{
