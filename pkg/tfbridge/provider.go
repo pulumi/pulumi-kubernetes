@@ -380,15 +380,24 @@ func (p *Provider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*p
 	label := fmt.Sprintf("%s.Update(%s/%s)", p.label(), urn, res.TF.Name)
 	glog.V(9).Infof("%s executing", label)
 
-	// Create a state state with the ID to update, a diff with old and new states, and perform the apply.
-	state, diff, err := MakeTerraformDiffFromRPC(
-		req.GetOlds(), req.GetNews(), res.TFSchema, res.Schema.Fields)
+	// In order to perform the update, we first need to calculate the Terraform view of the diff.
+	inputs, err := MakeTerraformAttributesFromRPC(
+		nil, req.GetOlds(), res.TFSchema, res.Schema.Fields, false, false, fmt.Sprintf("%s.olds", label))
 	if err != nil {
-		return nil, errors.Wrapf(err, "preparing %s's old and new state/diffs", urn)
+		return nil, errors.Wrapf(err, "preparing %s's old property state", urn)
 	}
-	state.ID = req.GetId()
-
 	info := &terraform.InstanceInfo{Type: res.TF.Name}
+	state := &terraform.InstanceState{ID: req.GetId(), Attributes: inputs}
+	config, err := MakeTerraformConfigFromRPC(
+		nil, req.GetNews(), res.TFSchema, res.Schema.Fields, true, false, fmt.Sprintf("%s.news", label))
+	if err != nil {
+		return nil, errors.Wrapf(err, "preparing %s's new property state", urn)
+	}
+	diff, err := p.tf.Diff(info, state, config)
+	if err != nil {
+		return nil, errors.Wrapf(err, "diffing %s", urn)
+	}
+
 	newstate, err := p.tf.Apply(info, state, diff)
 	if err != nil {
 		return nil, errors.Wrapf(err, "updating %s", urn)
