@@ -32,7 +32,7 @@
 
 [[constraint]]
   name = "github.com/pulumi/pulumi"
-  version = "~0.9.6"
+  version = "=0.9.8"
 
 # Redirect all Terraform references to our fork.
 [[override]]
