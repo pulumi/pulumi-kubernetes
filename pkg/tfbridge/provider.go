@@ -397,6 +397,13 @@ func (p *Provider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*p
 	if err != nil {
 		return nil, errors.Wrapf(err, "diffing %s", urn)
 	}
+	if diff == nil {
+		// It is very possible for us to get here with a nil diff: custom diffing behavior, etc. can cause
+		// textual/structural changes not to be semantic changes. A better solution would be to change the result of
+		// Diff to indicate no change, but that is a slightly riskier change that we'd rather not take at the current
+		// moment.
+		return &pulumirpc.UpdateResponse{Properties: req.GetOlds()}, nil
+	}
 
 	newstate, err := p.tf.Apply(info, state, diff)
 	if err != nil {
