@@ -32,7 +32,33 @@
 
 [[projects]]
   name = "github.com/aws/aws-sdk-go"
-  packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/shareddefaults","private/protocol","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/restxml","private/protocol/xml/xmlutil","service/s3","service/sts"]
+  packages = [
+    "aws",
+    "aws/awserr",
+    "aws/awsutil",
+    "aws/client",
+    "aws/client/metadata",
+    "aws/corehandlers",
+    "aws/credentials",
+    "aws/credentials/ec2rolecreds",
+    "aws/credentials/endpointcreds",
+    "aws/credentials/stscreds",
+    "aws/defaults",
+    "aws/ec2metadata",
+    "aws/endpoints",
+    "aws/request",
+    "aws/session",
+    "aws/signer/v4",
+    "internal/shareddefaults",
+    "private/protocol",
+    "private/protocol/query",
+    "private/protocol/query/queryutil",
+    "private/protocol/rest",
+    "private/protocol/restxml",
+    "private/protocol/xml/xmlutil",
+    "service/s3",
+    "service/sts"
+  ]
   revision = "107df09c5f137b9dfe53b7a4c25dd4d79f81390f"
   version = "v1.12.40"
 
@@ -80,7 +106,16 @@
 [[projects]]
   branch = "master"
   name = "github.com/golang/protobuf"
-  packages = ["proto","protoc-gen-go/descriptor","ptypes","ptypes/any","ptypes/duration","ptypes/empty","ptypes/struct","ptypes/timestamp"]
+  packages = [
+    "proto",
+    "protoc-gen-go/descriptor",
+    "ptypes",
+    "ptypes/any",
+    "ptypes/duration",
+    "ptypes/empty",
+    "ptypes/struct",
+    "ptypes/timestamp"
+  ]
   revision = "1e59b77b52bf8e4b449a57e6f79f21226d571845"
 
 [[projects]]
@@ -102,7 +137,10 @@
 [[projects]]
   branch = "master"
   name = "github.com/hashicorp/go-getter"
-  packages = [".","helper/url"]
+  packages = [
+    ".",
+    "helper/url"
+  ]
   revision = "994f50a6f071b07cfbea9eca9618c9674091ca51"
 
 [[projects]]
@@ -122,17 +160,39 @@
 
 [[projects]]
   name = "github.com/hashicorp/hcl"
-  packages = [".","hcl/ast","hcl/parser","hcl/scanner","hcl/strconv","hcl/token","json/parser","json/scanner","json/token"]
+  packages = [
+    ".",
+    "hcl/ast",
+    "hcl/parser",
+    "hcl/scanner",
+    "hcl/strconv",
+    "hcl/token",
+    "json/parser",
+    "json/scanner",
+    "json/token"
+  ]
   revision = "a4b07c25de5ff55ad3b8936cea69a79a3d95a855"
 
 [[projects]]
   name = "github.com/hashicorp/hcl2"
-  packages = ["gohcl","hcl","hcl/hclsyntax","hcl/json","hcldec","hclparse"]
+  packages = [
+    "gohcl",
+    "hcl",
+    "hcl/hclsyntax",
+    "hcl/json",
+    "hcldec",
+    "hclparse"
+  ]
   revision = "44bad6dbf5490f5da17ec991e664df3d017b706f"
 
 [[projects]]
   name = "github.com/hashicorp/hil"
-  packages = [".","ast","parser","scanner"]
+  packages = [
+    ".",
+    "ast",
+    "parser",
+    "scanner"
+  ]
   revision = "fa9f258a92500514cc8e9c67020487709df92432"
 
 [[projects]]
@@ -143,7 +203,28 @@
 [[projects]]
   branch = "pulumi-master"
   name = "github.com/hashicorp/terraform"
-  packages = ["config","config/configschema","config/hcl2shim","config/module","dag","flatmap","helper/hashcode","helper/hilmapstructure","helper/logging","helper/schema","moduledeps","plugin/discovery","registry/regsrc","registry/response","svchost","svchost/auth","svchost/disco","terraform","tfdiags","version"]
+  packages = [
+    "config",
+    "config/configschema",
+    "config/hcl2shim",
+    "config/module",
+    "dag",
+    "flatmap",
+    "helper/hashcode",
+    "helper/hilmapstructure",
+    "helper/logging",
+    "helper/schema",
+    "moduledeps",
+    "plugin/discovery",
+    "registry/regsrc",
+    "registry/response",
+    "svchost",
+    "svchost/auth",
+    "svchost/disco",
+    "terraform",
+    "tfdiags",
+    "version"
+  ]
   revision = "aad0b3801b6e590b41305b6ab938669e834e5ca7"
   source = "github.com/pulumi/terraform"
 
@@ -214,7 +295,11 @@
 
 [[projects]]
   name = "github.com/opentracing/opentracing-go"
-  packages = [".","ext","log"]
+  packages = [
+    ".",
+    "ext",
+    "log"
+  ]
   revision = "1949ddbfd147afd4d964a9f00b24eb291e0e7c38"
   version = "v1.0.2"
 
@@ -238,14 +323,37 @@
 
 [[projects]]
   name = "github.com/posener/complete"
-  packages = [".","cmd","cmd/install","match"]
+  packages = [
+    ".",
+    "cmd",
+    "cmd/install",
+    "match"
+  ]
   revision = "dc2bc5a81accba8782bebea28628224643a8286a"
   version = "v1.1"
 
 [[projects]]
   name = "github.com/pulumi/pulumi"
-  packages = ["pkg/diag","pkg/diag/colors","pkg/encoding","pkg/pack","pkg/resource","pkg/resource/config","pkg/resource/plugin","pkg/resource/provider","pkg/tokens","pkg/tools","pkg/util/cmdutil","pkg/util/contract","pkg/util/fsutil","pkg/util/mapper","pkg/util/rpcutil","pkg/workspace","sdk/proto/go"]
-  revision = "d6c798ee52d894653323cacd1922179dfc741a51"
+  packages = [
+    "pkg/diag",
+    "pkg/diag/colors",
+    "pkg/encoding",
+    "pkg/pack",
+    "pkg/resource",
+    "pkg/resource/config",
+    "pkg/resource/plugin",
+    "pkg/resource/provider",
+    "pkg/tokens",
+    "pkg/tools",
+    "pkg/util/cmdutil",
+    "pkg/util/contract",
+    "pkg/util/fsutil",
+    "pkg/util/mapper",
+    "pkg/util/rpcutil",
+    "pkg/workspace",
+    "sdk/proto/go"
+  ]
+  revision = "e50af35d8d80896ae10ac957230504e32bc03ad4"
   version = "v0.9.10"
 
 [[projects]]
@@ -279,7 +387,18 @@
 
 [[projects]]
   name = "github.com/uber/jaeger-client-go"
-  packages = [".","internal/baggage","internal/spanlog","log","thrift-gen/agent","thrift-gen/jaeger","thrift-gen/sampling","thrift-gen/zipkincore","transport/zipkin","utils"]
+  packages = [
+    ".",
+    "internal/baggage",
+    "internal/spanlog",
+    "log",
+    "thrift-gen/agent",
+    "thrift-gen/jaeger",
+    "thrift-gen/sampling",
+    "thrift-gen/zipkincore",
+    "transport/zipkin",
+    "utils"
+  ]
   revision = "ff3efa227b65e419701a4f48985379ca106a89e7"
   version = "v2.11.0"
 
@@ -291,35 +410,88 @@
 
 [[projects]]
   name = "github.com/ulikunitz/xz"
-  packages = [".","internal/hash","internal/xlog","lzma"]
+  packages = [
+    ".",
+    "internal/hash",
+    "internal/xlog",
+    "lzma"
+  ]
   revision = "0c6b41e72360850ca4f98dc341fd999726ea007f"
   version = "v0.5.4"
 
 [[projects]]
   name = "github.com/zclconf/go-cty"
-  packages = ["cty","cty/convert","cty/function","cty/function/stdlib","cty/gocty","cty/json","cty/set"]
+  packages = [
+    "cty",
+    "cty/convert",
+    "cty/function",
+    "cty/function/stdlib",
+    "cty/gocty",
+    "cty/json",
+    "cty/set"
+  ]
   revision = "8bf222d6d03b7b336d013978f3acbfd877da428f"
 
 [[projects]]
   name = "golang.org/x/crypto"
-  packages = ["bcrypt","blowfish","cast5","openpgp","openpgp/armor","openpgp/elgamal","openpgp/errors","openpgp/packet","openpgp/s2k","pbkdf2","ssh/terminal"]
+  packages = [
+    "bcrypt",
+    "blowfish",
+    "cast5",
+    "openpgp",
+    "openpgp/armor",
+    "openpgp/elgamal",
+    "openpgp/errors",
+    "openpgp/packet",
+    "openpgp/s2k",
+    "pbkdf2",
+    "ssh/terminal"
+  ]
   revision = "eb71ad9bd329b5ac0fd0148dd99bd62e8be8e035"
 
 [[projects]]
   name = "golang.org/x/net"
-  packages = ["context","html","html/atom","http2","http2/hpack","idna","internal/timeseries","lex/httplex","trace"]
+  packages = [
+    "context",
+    "html",
+    "html/atom",
+    "http2",
+    "http2/hpack",
+    "idna",
+    "internal/timeseries",
+    "lex/httplex",
+    "trace"
+  ]
   revision = "a04bdaca5b32abe1c069418fb7088ae607de5bd0"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
-  packages = ["unix","windows"]
+  packages = [
+    "unix",
+    "windows"
+  ]
   revision = "8b4580aae2a0dd0c231a45d3ccb8434ff533b840"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/text"
-  packages = ["collate","collate/build","internal/colltab","internal/gen","internal/tag","internal/triegen","internal/ucd","language","secure/bidirule","transform","unicode/bidi","unicode/cldr","unicode/norm","unicode/rangetable"]
+  packages = [
+    "collate",
+    "collate/build",
+    "internal/colltab",
+    "internal/gen",
+    "internal/tag",
+    "internal/triegen",
+    "internal/ucd",
+    "language",
+    "secure/bidirule",
+    "transform",
+    "unicode/bidi",
+    "unicode/cldr",
+    "unicode/norm",
+    "unicode/rangetable"
+  ]
   revision = "57961680700a5336d15015c8c50686ca5ba362a4"
 
 [[projects]]
@@ -330,7 +502,27 @@
 
 [[projects]]
   name = "google.golang.org/grpc"
-  packages = [".","balancer","codes","connectivity","credentials","grpclb/grpc_lb_v1/messages","grpclog","internal","keepalive","metadata","naming","peer","reflection","reflection/grpc_reflection_v1alpha","resolver","stats","status","tap","transport"]
+  packages = [
+    ".",
+    "balancer",
+    "codes",
+    "connectivity",
+    "credentials",
+    "grpclb/grpc_lb_v1/messages",
+    "grpclog",
+    "internal",
+    "keepalive",
+    "metadata",
+    "naming",
+    "peer",
+    "reflection",
+    "reflection/grpc_reflection_v1alpha",
+    "resolver",
+    "stats",
+    "status",
+    "tap",
+    "transport"
+  ]
   revision = "5ffe3083946d5603a0578721101dc8165b1d5b5f"
   version = "v1.7.2"
 
