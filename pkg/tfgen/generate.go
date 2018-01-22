@@ -43,6 +43,7 @@ const (
 	tfgen              = "the Pulumi Terraform Bridge (TFGEN) Tool"
 	defaultOutDir      = "pack/"
 	defaultOverlaysDir = "overlays/"
+	commentChars       = "//"
 	maxWidth           = 120 // the ideal maximum width of the generated file.
 )
 
@@ -236,7 +237,7 @@ func (g *generator) generateConfig(cfg map[string]*schema.Schema,
 		return "", err
 	}
 	defer contract.IgnoreClose(w)
-	w.EmitHeaderWarning()
+	w.EmitHeaderWarning(commentChars)
 
 	// We'll need the Pulumi SDK.
 	w.Writefmtln("import * as pulumi from \"pulumi\";")
@@ -374,7 +375,7 @@ func (g *generator) generateResource(rawname string,
 		return genResult{}, err
 	}
 	defer contract.IgnoreClose(w)
-	w.EmitHeaderWarning()
+	w.EmitHeaderWarning(commentChars)
 
 	// Now import the modules we need.
 	w.Writefmtln("import * as pulumi from \"pulumi\";")
@@ -624,7 +625,7 @@ func (g *generator) generateDataSource(rawname string,
 		return genResult{}, err
 	}
 	defer contract.IgnoreClose(w)
-	w.EmitHeaderWarning()
+	w.EmitHeaderWarning(commentChars)
 
 	// We'll need the Pulumi SDK.
 	w.Writefmtln("import * as pulumi from \"pulumi\";")
@@ -802,7 +803,7 @@ func (g *generator) generateIndex(exports, modules map[string]string, outDir str
 		return "", err
 	}
 	defer contract.IgnoreClose(w)
-	w.EmitHeaderWarning()
+	w.EmitHeaderWarning(commentChars)
 
 	// Import anything we will export as a sub-module, and then re-export it.
 	if len(modules) > 0 {
