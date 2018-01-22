@@ -932,7 +932,7 @@ func (g *generator) generateNPMPackageMetadata(outDir string, overlay *tfbridge.
 	w.Writefmtln(`    "devDependencies": {`)
 	if len(overlay.DevDependencies) > 0 {
 		var deps []string
-		for dep := range overlay.Dependencies {
+		for dep := range overlay.DevDependencies {
 			deps = append(deps, dep)
 		}
 		sort.Strings(deps)
@@ -943,6 +943,16 @@ func (g *generator) generateNPMPackageMetadata(outDir string, overlay *tfbridge.
 	w.Writefmtln(`        "typescript": "^2.5.2"`)
 	w.Writefmtln(`    },`)
 	w.Writefmtln(`    "peerDependencies": {`)
+	if len(overlay.PeerDependencies) > 0 {
+		var deps []string
+		for dep := range overlay.PeerDependencies {
+			deps = append(deps, dep)
+		}
+		sort.Strings(deps)
+		for _, dep := range deps {
+			w.Writefmtln(`        "%s": "%s",`, dep, overlay.PeerDependencies[dep])
+		}
+	}
 	w.Writefmtln(`        "pulumi": "*"`)
 	w.Writefmtln(`    }`)
 	w.Writefmtln(`}`)
