@@ -4,6 +4,7 @@ package tfbridge
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/golang/glog"
 
@@ -376,7 +377,7 @@ func MakeTerraformAttributes(res *PulumiResource, m resource.PropertyMap,
 	if err != nil {
 		return nil, err
 	}
-	return MakeTerraformAttributesFromInputs(inputs), nil
+	return MakeTerraformAttributesFromInputs(inputs, tfs)
 }
 
 // MakeTerraformAttributesFromRPC unmarshals an RPC property map and calls through to MakeTerraformAttributes.
@@ -391,9 +392,99 @@ func MakeTerraformAttributesFromRPC(res *PulumiResource, m *pbstruct.Struct,
 	return MakeTerraformAttributes(res, props, tfs, ps, defaults)
 }
 
+// flattenValue takes a single value and recursively flattens its properties into the given string -> string map under
+// the provided prefix. It expects that the value has been "schema-fied" by being read out of a schema.FieldReader (in
+// particular, all sets *must* be represented as schema.Set values). The flattened value may then be used as the value
+// of a terraform.InstanceState.Attributes field.
+//
+// Note that this duplicates much of the logic in TF's schema.MapFieldWriter. Ideally, we would just use that type,
+// but there are various API/implementation challenges that preclude that option. The most worrying (and potentially
+// fragile) piece of duplication is the code that calculates a set member's hash code; see the code under
+// `case *schema.Set`.
+func flattenValue(result map[string]string, prefix string, value interface{}) {
+	if value == nil {
+		return
+	}
+
+	switch t := value.(type) {
+	case bool:
+		if t {
+			result[prefix] = "true"
+		} else {
+			result[prefix] = "false"
+		}
+	case int:
+		result[prefix] = strconv.FormatInt(int64(t), 10)
+	case float64:
+		result[prefix] = strconv.FormatFloat(t, 'G', -1, 64)
+	case string:
+		result[prefix] = t
+	case []interface{}:
+		// Flatten each element.
+		for i, elem := range t {
+			flattenValue(result, prefix+"."+strconv.FormatInt(int64(i), 10), elem)
+		}
+
+		// Set the count.
+		result[prefix+".#"] = strconv.FormatInt(int64(len(t)), 10)
+	case *schema.Set:
+		// Flatten each element.
+		setList := t.List()
+		for _, elem := range setList {
+			// Note that the logic below is duplicated from `scheme.Set.hash`. If that logic ever changes, this will
+			// need to change in kind.
+			code := t.F(elem)
+			if code < 0 {
+				code = -code
+			}
+
+			flattenValue(result, prefix+"."+strconv.Itoa(code), elem)
+		}
+
+		// Set the count.
+		result[prefix+".#"] = strconv.FormatInt(int64(len(setList)), 10)
+	case map[string]interface{}:
+		for k, v := range t {
+			flattenValue(result, prefix+"."+k, v)
+		}
+
+		// Set the count.
+		result[prefix+".%"] = strconv.Itoa(len(t))
+	default:
+		contract.Failf("Unexpected TF input value: %v", t)
+	}
+}
+
 // MakeTerraformAttributesFromInputs creates a flat Terraform map from a structured set of Terraform inputs.
-func MakeTerraformAttributesFromInputs(inputs map[string]interface{}) map[string]string {
-	return flatmap.Flatten(inputs)
+func MakeTerraformAttributesFromInputs(inputs map[string]interface{},
+	tfs map[string]*schema.Schema) (map[string]string, error) {
+
+	// In order to flatten the TF inputs into a TF attribute map, we must first schema-ify them by reading them out of
+	// a FieldReader. The most straightforward way to do this is to turn the inputs into a TF config.Config value and
+	// use the same to create a schema.ConfigFieldReader.
+	cfg, err := MakeTerraformConfigFromInputs(inputs)
+	if err != nil {
+		return nil, err
+	}
+
+	// Read each top-level value out of the config we created above using a ConfigFieldReader and recursively flatten
+	// them into their TF attribute form. The result is our set of TF attributes.
+	result := make(map[string]string)
+	reader := &schema.ConfigFieldReader{Config: cfg, Schema: tfs}
+	for k, v := range inputs {
+		// Elide nil values.
+		if v == nil {
+			continue
+		}
+
+		f, err := reader.ReadField([]string{k})
+		if err != nil {
+			return nil, errors.Wrapf(err, "could not read field %v", k)
+		}
+
+		flattenValue(result, k, f.Value)
+	}
+	return result, nil
 }
 
 // MakeTerraformDiff takes a bag of old and new properties, and returns two things: the existing resource's state as
