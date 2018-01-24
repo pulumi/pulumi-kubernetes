@@ -5,7 +5,7 @@ package main
 import (
 	kubernetes "github.com/pulumi/pulumi-kubernetes"
 	"github.com/pulumi/pulumi-kubernetes/pkg/version"
-	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
+	"github.com/pulumi/pulumi-terraform/pkg/tfgen"
 )
 
 func main() {

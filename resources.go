@@ -64,8 +64,8 @@ func Provider() tfbridge.ProviderInfo {
 			"kubernetes_storage_class":  {Tok: kubernetesResource(kubernetesCore, "StorageClass")},
 			},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			"kubernetes_service":           {Tok: kubernetesDataSource(kubernetesDataSource, "getService")},
-			"kubernetes_storage_class":                   {Tok: kubernetesDataSource(kubernetesDataSource, "getStorageClass")},
+			"kubernetes_service":           {Tok: kubernetesDataSource(kubernetesCore, "getService")},
+			"kubernetes_storage_class":                   {Tok: kubernetesDataSource(kubernetesCore, "getStorageClass")},
 			},
 		Overlay: &tfbridge.OverlayInfo{
 			Files:        []string{},
