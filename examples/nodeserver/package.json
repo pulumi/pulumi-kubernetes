@@ -1,0 +1,22 @@
+{
+  "name": "nodeserver",
+  "version": "0.1",
+  "main": "bin/index.js",
+  "typings": "bin/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^9.3.0",
+    "typescript": "^2.5.3"
+  },
+  "peerDependencies": {
+    "@pulumi/kubernetes": "*",
+    "pulumi": "*"
+  },
+  "dependencies": {
+    "@types/node": "^9.3.0",
+    "require": "^2.4.20"
+  },
+  "license": "MIT"
+}

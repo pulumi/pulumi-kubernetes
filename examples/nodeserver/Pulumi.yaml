@@ -1,0 +1,3 @@
+name: webserver
+runtime: nodejs
+description: Basic example of an Kubernetes web server accessible over HTTP.
