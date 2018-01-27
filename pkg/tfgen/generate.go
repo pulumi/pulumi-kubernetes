@@ -51,11 +51,6 @@ var allLanguages = []language{nodeJS}
 
 // langGenerator is the interfact for language-specific logic and formatting.
 type langGenerator interface {
-	// schemaType returns a property's type in the native language's type system (or "" if untyped).
-	schemaType(sch *schema.Schema, info *tfbridge.SchemaInfo, opt bool, out bool) string
-	// schemaFlags returns flags appropriate for this property's type (or "" if none).
-	schemaFlags(sch *schema.Schema, info *tfbridge.SchemaInfo, opt bool, out bool) string
-
 	// emitPackage emits an entire package pack into the configured output directory with the configured settings.
 	emitPackage(pack *pkg) error
 }
@@ -190,9 +185,7 @@ type moduleMember interface {
 // variable is a schematized variable, property, argument, or return type.
 type variable struct {
 	name   string
-	typ    string
-	flags  string
-	opt    bool
+	out    bool
 	doc    string
 	rawdoc string
 	schema *schema.Schema
@@ -201,6 +194,22 @@ type variable struct {
 
 func (v *variable) Name() string { return v.name }
 func (v *variable) Doc() string  { return v.doc }
+
+// optional checks whether the given property is optional, either due to Terraform or an overlay.
+func (v *variable) optional() bool {
+	return optionalComplex(v.schema, v.info, v.out)
+}
+
+// optionalComplex takes the constituent parts of a variable, rather than a variable itself, and returns whether it is
+// optional based on the Terraform or custom overlay properties.
+func optionalComplex(sch *schema.Schema, info *tfbridge.SchemaInfo, out bool) bool {
+	// If we're checking a property used in an output position, it isn't optional if it's computed.
+	customDefault := info != nil && info.HasDefault()
+	if out {
+		return sch.Optional && !sch.Computed && !customDefault
+	}
+	return sch.Optional || sch.Computed || customDefault
+}
 
 // resourceType is a generated resource type that represents a Pulumi CustomResource definition.
 type resourceType struct {
@@ -392,16 +401,8 @@ func (g *generator) gatherConfig() *module {
 	for _, key := range cfgkeys {
 		// Generate a name and type to use for this key.
 		sch := cfg[key]
-		cust := custom[key]
-		if name, typ := g.propertyType(key, sch, cust, true /*out*/); name != "" {
-			config.addMember(&variable{
-				name:   name,
-				typ:    typ,
-				opt:    optional(sch, cust, false /*out*/),
-				rawdoc: sch.Description,
-				schema: sch,
-				info:   cust,
-			})
+		if prop := propertyVariable(key, sch, custom[key], "", sch.Description, true /*out*/); prop != nil {
+			config.addMember(prop)
 		}
 	}
 
@@ -495,16 +496,16 @@ func (g *generator) gatherResource(rawname string,
 
 			// If an input, generate the input property metadata.
 			propinfo := info.Fields[key]
-			if outprop := g.propertyVariable(key, propschema, propinfo, doc, rawdoc, true /*out*/); outprop != nil {
+			if outprop := propertyVariable(key, propschema, propinfo, doc, rawdoc, true /*out*/); outprop != nil {
 				res.outprops = append(res.outprops, outprop)
 			}
 
 			// For all properties, generate the output property metadata.  Note that this may differ slightly
 			// from the input in that the types may differ.
 			if input(propschema) {
-				if inprop := g.propertyVariable(key, propschema, propinfo, doc, rawdoc, false /*out*/); inprop != nil {
+				if inprop := propertyVariable(key, propschema, propinfo, doc, rawdoc, false /*out*/); inprop != nil {
 					res.inprops = append(res.inprops, inprop)
-					if !inprop.opt {
+					if !inprop.optional() {
 						res.reqprops[name] = true
 					}
 				}
@@ -627,9 +628,9 @@ func (g *generator) gatherDataSource(rawname string,
 
 		// Remember detailed information for every input arg (we will use it below).
 		if input(args[arg]) {
-			argvar := g.propertyVariable(arg, sch, cust, parsedDocs.Arguments[arg], "", false /*out*/)
+			argvar := propertyVariable(arg, sch, cust, parsedDocs.Arguments[arg], "", false /*out*/)
 			fun.args = append(fun.args, argvar)
-			if !argvar.opt {
+			if !argvar.optional() {
 				fun.reqargs[argvar.name] = true
 			}
 		}
@@ -638,7 +639,7 @@ func (g *generator) gatherDataSource(rawname string,
 		if args[arg].Computed {
 			// Emit documentation for the property if available
 			fun.rets = append(fun.rets,
-				g.propertyVariable(arg, sch, cust, parsedDocs.Attributes[arg], "", true /*out*/))
+				propertyVariable(arg, sch, cust, parsedDocs.Attributes[arg], "", true /*out*/))
 		}
 	}
 
@@ -735,16 +736,6 @@ func input(sch *schema.Schema) bool {
 	return sch.Optional || sch.Required
 }
 
-// optional checks whether the given property is optional, either due to Terraform or an overlay.
-func optional(sch *schema.Schema, custom *tfbridge.SchemaInfo, out bool) bool {
-	// If we're checking a property used in an output position, it isn't optional if it's computed.
-	customDefault := custom != nil && custom.HasDefault()
-	if out {
-		return sch.Optional && !sch.Computed && !customDefault
-	}
-	return sch.Optional || sch.Computed || customDefault
-}
-
 // propertyName translates a Terraform underscore_cased_property_name into a JavaScript camelCasedPropertyName.
 // IDEA: ideally specific languages could override this, to ensure "idiomatic naming", however then the bridge
 //     would need to understand how to unmarshal names in a language-idiomatic way (and specifically reverse the
@@ -765,35 +756,13 @@ func propertyName(key string, custom *tfbridge.SchemaInfo) string {
 	return tfbridge.TerraformToPulumiName(key, false /*no to PascalCase; we want camelCase*/)
 }
 
-// propertyType returns the property name and type, without flags, to use for a given property/field/schema element.
-// out determines whether a property suitable for outputs is provided (e.g., it assumes compputeds have occurred).
-func (g *generator) propertyType(name string, sch *schema.Schema,
-	custom *tfbridge.SchemaInfo, out bool) (string, string) {
-	prop := propertyName(name, custom)
-	opt := optional(sch, custom, out)
-	typ := g.lg.schemaType(sch, custom, opt, out)
-	return prop, typ
-}
-
-// propertyTypeAndFlags returns the property name, flag, and type to use for a given property/field/schema element.
-// out determines whether a property suitable for outputs is provided (e.g., it assumes compputeds have occurred).
-func (g *generator) propertyTypeAndFlags(name string, sch *schema.Schema,
-	custom *tfbridge.SchemaInfo, out bool) (string, string, string) {
-	prop := propertyName(name, custom)
-	opt := optional(sch, custom, out)
-	typ := g.lg.schemaType(sch, custom, opt, out)
-	flags := g.lg.schemaFlags(sch, custom, opt, out)
-	return prop, typ, flags
-}
-
-func (g *generator) propertyVariable(key string, schema *schema.Schema, info *tfbridge.SchemaInfo,
+// propertyVariable creates a new property, with the Pulumi name, out of the given components.
+func propertyVariable(key string, schema *schema.Schema, info *tfbridge.SchemaInfo,
 	doc string, rawdoc string, out bool) *variable {
-	if name, typ, flags := g.propertyTypeAndFlags(key, schema, info, out); name != "" {
+	if name := propertyName(key, info); name != "" {
 		return &variable{
 			name:   name,
-			typ:    typ,
-			flags:  flags,
-			opt:    optional(schema, info, out),
+			out:    out,
 			doc:    doc,
 			rawdoc: rawdoc,
 			schema: schema,

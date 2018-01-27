@@ -284,14 +284,14 @@ func (g *nodeJSGenerator) emitConfigVariables(mod *module) (string, error) {
 
 func (g *nodeJSGenerator) emitConfigVariable(w *tools.GenWriter, v *variable) {
 	var getfunc string
-	if v.opt {
+	if v.optional() {
 		getfunc = "get"
 	} else {
 		getfunc = "require"
 	}
 	if v.schema.Type != schema.TypeString {
 		// Only try to parse a JSON object if the config isn't a straight string.
-		getfunc = fmt.Sprintf("%sObject<%s>", getfunc, v.typ)
+		getfunc = fmt.Sprintf("%sObject<%s>", getfunc, tsType(v, false /*noflags*/))
 	}
 	var anycast string
 	if v.info != nil && v.info.Type != "" {
@@ -303,7 +303,8 @@ func (g *nodeJSGenerator) emitConfigVariable(w *tools.GenWriter, v *variable) {
 	} else if v.rawdoc != "" {
 		g.emitRawDocComment(w, v.rawdoc, "")
 	}
-	w.Writefmtln("export let %[1]v: %[2]v = %[3]s__config.%[4]v(\"%[1]v\");", v.name, v.typ, anycast, getfunc)
+	w.Writefmtln("export let %[1]s: %[2]s = %[3]s__config.%[4]s(\"%[1]s\");",
+		v.name, tsType(v, true /*noflags*/), anycast, getfunc)
 }
 
 // sanitizeForDocComment ensures that no `*/` sequence appears in the string, to avoid
@@ -364,7 +365,7 @@ func (g *nodeJSGenerator) emitPlainOldType(w *tools.GenWriter, pot *plainOldType
 		} else if prop.rawdoc != "" {
 			g.emitRawDocComment(w, prop.rawdoc, "    ")
 		}
-		w.Writefmtln("    readonly %s%s: %s;", prop.name, prop.flags, prop.typ)
+		w.Writefmtln("    readonly %s%s: %s;", prop.name, tsFlags(prop), tsType(prop, false))
 	}
 	w.Writefmtln("}")
 }
@@ -414,8 +415,8 @@ func (g *nodeJSGenerator) emitResourceType(mod *module, res *resourceType) (stri
 		}
 
 		// Emit the property as a computed value; it has to carry undefined because of planning.
-		w.Writefmtln("    public %vreadonly %v%v: pulumi.Computed<%v>;",
-			outcomment, prop.name, prop.flags, prop.typ)
+		w.Writefmtln("    public %sreadonly %s%s: pulumi.Computed<%s>;",
+			outcomment, prop.name, tsFlags(prop), tsType(prop, false))
 	}
 	w.Writefmtln("")
 
@@ -449,7 +450,7 @@ func (g *nodeJSGenerator) emitResourceType(mod *module, res *resourceType) (stri
 
 	// First, validate all required arguments.
 	for _, prop := range res.inprops {
-		if !optional(prop.schema, prop.info, false) {
+		if !prop.optional() {
 			w.Writefmtln("        if (args.%s === undefined) {", prop.name)
 			w.Writefmtln("            throw new Error(\"Missing required property '%s'\");", prop.name)
 			w.Writefmtln("        }")
@@ -665,136 +666,6 @@ func (g *nodeJSGenerator) emitTypeScriptProjectFile(pack *pkg, files []string) e
 	return nil
 }
 
-// schemaFlags returns the JavaScript flags for a given schema property.
-func (g *nodeJSGenerator) schemaFlags(sch *schema.Schema, custom *tfbridge.SchemaInfo, opt bool, out bool) string {
-	if opt {
-		return "?"
-	}
-	return ""
-}
-
-// schemaType returns the JavaScript type name for a given schema property.
-func (g *nodeJSGenerator) schemaType(sch *schema.Schema, custom *tfbridge.SchemaInfo, opt bool, out bool) string {
-	// First, see if there is a custom override.  If yes, use it directly.
-	var t string
-	var elem *tfbridge.SchemaInfo
-	if custom != nil {
-		if custom.Type != "" {
-			t = string(custom.Type.Name())
-			if len(custom.AltTypes) > 0 {
-				for _, at := range custom.AltTypes {
-					t = fmt.Sprintf("%s | %s", t, at.Name())
-				}
-			}
-			if !out {
-				t = fmt.Sprintf("pulumi.ComputedValue<%s>", t)
-			}
-		} else if custom.Asset != nil {
-			t = "pulumi.asset." + custom.Asset.Type()
-		}
-
-		elem = custom.Elem
-	}
-
-	// If nothing was found, generate the primitive type name for this.
-	if t == "" {
-		t = g.schemaPrimitive(sch.Type, sch.Elem, elem, out)
-	}
-
-	// If optional, use TypeScript union types to permit undefined in the set of values.
-	if opt {
-		t += " | undefined"
-	}
-
-	return t
-}
-
-// schemaPrimitive returns the JavaScript type name for a given schema value type and element kind.
-func (g *nodeJSGenerator) schemaPrimitive(vt schema.ValueType, elem interface{},
-	custom *tfbridge.SchemaInfo, out bool) string {
-	// First figure out the raw type.
-	var t string
-	var array bool
-	switch vt {
-	case schema.TypeBool:
-		t = "boolean"
-	case schema.TypeInt, schema.TypeFloat:
-		t = "number"
-	case schema.TypeString:
-		t = "string"
-	case schema.TypeList:
-		t = g.schemaElemType(elem, custom, out)
-		array = true
-	case schema.TypeMap:
-		t = fmt.Sprintf("{[key: string]: %v}", g.schemaElemType(elem, custom, out))
-	case schema.TypeSet:
-		// IDEA: we can't use ES6 sets here, because we're using values and not objects.  It would be possible to come
-		//     up with a ValueSet of some sorts, but that depends on things like shallowEquals which is known to be
-		//     brittle and implementation dependent.  For now, we will stick to arrays, and validate on the backend.
-		t = g.schemaElemType(elem, custom, out)
-		array = true
-	default:
-		contract.Failf("Unrecognized schema type: %v", vt)
-	}
-
-	// Now, if it is an input property value, it must be wrapped in a ComputedValue<T>.
-	if !out {
-		t = fmt.Sprintf("pulumi.ComputedValue<%s>", t)
-	}
-
-	// Finally make sure arrays are arrays; this must be done after the above, so we get a ComputedValue<T>[],
-	// and not a ComputedValue<T[]>, which would constrain the ability to flexibly construct them.
-	if array {
-		t = fmt.Sprintf("%s[]", t)
-	}
-
-	return t
-}
-
-// schemaElemType returns the JavaScript type for a given schema element.  This element may be either a simple schema
-// property or a complex structure.  In the case of a complex structure, this will expand to its nominal type.
-func (g *nodeJSGenerator) schemaElemType(elem interface{}, custom *tfbridge.SchemaInfo, out bool) string {
-	// If there is no element type specified, we will accept anything.
-	if elem == nil {
-		return "any"
-	}
-
-	switch e := elem.(type) {
-	case schema.ValueType:
-		return g.schemaPrimitive(e, nil, custom, out)
-	case *schema.Schema:
-		// A simple type, just return its type name.
-		return g.schemaType(e, custom, false, out)
-	case *schema.Resource:
-		// A complex type, just expand to its nominal type name.
-		// TODO: spill all complex structures in advance so that we don't have insane inline expansions.
-		t := "{ "
-		c := 0
-		for _, s := range stableSchemas(e.Schema) {
-			var fldinfo *tfbridge.SchemaInfo
-			if custom != nil {
-				fldinfo = custom.Fields[s]
-			}
-			sch := e.Schema[s]
-			prop := propertyName(s, fldinfo)
-			opt := optional(sch, fldinfo, out)
-			typ := g.schemaType(sch, fldinfo, opt, out)
-			flag := g.schemaFlags(sch, fldinfo, opt, out)
-			if prop != "" {
-				if c > 0 {
-					t += ", "
-				}
-				t += fmt.Sprintf("%s%s: %s", prop, flag, typ)
-				c++
-			}
-		}
-		return t + " }"
-	default:
-		contract.Failf("Unrecognized schema element type: %v", e)
-		return ""
-	}
-}
-
 // relModule removes the path suffix from a module and makes it relative to the root path.
 func (g *nodeJSGenerator) relModule(mod *module, path string) (string, error) {
 	// Return the path as a relative path to the root, so that imports are relative.
@@ -907,4 +778,146 @@ func (g *nodeJSGenerator) gatherCustomImports(mod *module, info *tfbridge.Schema
 	}
 
 	return nil
+}
+
+// tsFlags returns the TypeScript flags for a given variable.
+func tsFlags(v *variable) string {
+	return tsFlagsComplex(v.schema, v.info, v.out)
+}
+
+// tsFlagsComplex is just like tsFlags, except that it permits recursing into component pieces individually.
+func tsFlagsComplex(sch *schema.Schema, info *tfbridge.SchemaInfo, out bool) string {
+	if optionalComplex(sch, info, out) {
+		return "?"
+	}
+	return ""
+}
+
+// tsType returns the TypeScript type name for a given schema property.  noflags may be passed as true to create a
+// type that represents the optional nature of a variable, even when flags will not be present; this is often needed
+// when turning the type into a generic type argument, for example, since there will be no opportunity for "?" there.
+func tsType(v *variable, noflags bool) string {
+	return tsTypeComplex(v.schema, v.info, noflags, v.out)
+}
+
+// tsTypeComplex is just like tsType, but permits recursing using component pieces rather than a true variable.
+func tsTypeComplex(sch *schema.Schema, info *tfbridge.SchemaInfo, noflags, out bool) string {
+	// First, see if there is a custom override.  If yes, use it directly.
+	var t string
+	var elem *tfbridge.SchemaInfo
+	if info != nil {
+		if info.Type != "" {
+			t = string(info.Type.Name())
+			if len(info.AltTypes) > 0 {
+				for _, at := range info.AltTypes {
+					t = fmt.Sprintf("%s | %s", t, at.Name())
+				}
+			}
+			if !out {
+				t = fmt.Sprintf("pulumi.ComputedValue<%s>", t)
+			}
+		} else if info.Asset != nil {
+			t = "pulumi.asset." + info.Asset.Type()
+		}
+
+		elem = info.Elem
+	}
+
+	// If nothing was found, generate the primitive type name for this.
+	if t == "" {
+		t = tsPrimitive(sch.Type, sch.Elem, elem, out)
+	}
+
+	// If we aren't using optional flags, we need to use TypeScript union types to permit undefined values.
+	if noflags {
+		if opt := optionalComplex(sch, info, out); opt {
+			t += " | undefined"
+		}
+	}
+
+	return t
+}
+
+// tsPrimitive returns the TypeScript type name for a given schema value type and element kind.
+func tsPrimitive(vt schema.ValueType, elem interface{}, eleminfo *tfbridge.SchemaInfo, out bool) string {
+	// First figure out the raw type.
+	var t string
+	var array bool
+	switch vt {
+	case schema.TypeBool:
+		t = "boolean"
+	case schema.TypeInt, schema.TypeFloat:
+		t = "number"
+	case schema.TypeString:
+		t = "string"
+	case schema.TypeList:
+		t = tsElemType(elem, eleminfo, out)
+		array = true
+	case schema.TypeMap:
+		t = fmt.Sprintf("{[key: string]: %v}", tsElemType(elem, eleminfo, out))
+	case schema.TypeSet:
+		// IDEA: we can't use ES6 sets here, because we're using values and not objects.  It would be possible to come
+		//     up with a ValueSet of some sorts, but that depends on things like shallowEquals which is known to be
+		//     brittle and implementation dependent.  For now, we will stick to arrays, and validate on the backend.
+		t = tsElemType(elem, eleminfo, out)
+		array = true
+	default:
+		contract.Failf("Unrecognized schema type: %v", vt)
+	}
+
+	// Now, if it is an input property value, it must be wrapped in a ComputedValue<T>.
+	if !out {
+		t = fmt.Sprintf("pulumi.ComputedValue<%s>", t)
+	}
+
+	// Finally make sure arrays are arrays; this must be done after the above, so we get a ComputedValue<T>[],
+	// and not a ComputedValue<T[]>, which would constrain the ability to flexibly construct them.
+	// BUGBUG[pulumi/pulumi-terraform#47]: this code needs to be removed -- it's just wrong.
+	if array {
+		t = fmt.Sprintf("%s[]", t)
+	}
+
+	return t
+}
+
+// tsElemType returns the TypeScript type for a given schema element.  This element may be either a simple schema
+// property or a complex structure.  In the case of a complex structure, this will expand to its nominal type.
+func tsElemType(elem interface{}, info *tfbridge.SchemaInfo, out bool) string {
+	// If there is no element type specified, we will accept anything.
+	if elem == nil {
+		return "any"
+	}
+
+	switch e := elem.(type) {
+	case schema.ValueType:
+		return tsPrimitive(e, nil, info, out)
+	case *schema.Schema:
+		// A simple type, just return its type name.
+		return tsTypeComplex(e, info, true /*noflags*/, out)
+	case *schema.Resource:
+		// A complex type, just expand to its nominal type name.
+		// TODO: spill all complex structures in advance so that we don't have insane inline expansions.
+		t := "{ "
+		c := 0
+		for _, s := range stableSchemas(e.Schema) {
+			var fldinfo *tfbridge.SchemaInfo
+			if info != nil {
+				fldinfo = info.Fields[s]
+			}
+			sch := e.Schema[s]
+			if name := propertyName(s, fldinfo); name != "" {
+				if c > 0 {
+					t += ", "
+				}
+				flg := tsFlagsComplex(sch, fldinfo, out)
+				typ := tsTypeComplex(sch, fldinfo, false /*noflags*/, out)
+				t += fmt.Sprintf("%s%s: %s", name, flg, typ)
+				c++
+			}
+		}
+		return t + " }"
+	default:
+		contract.Failf("Unrecognized schema element type: %v", e)
+		return ""
+	}
 }
