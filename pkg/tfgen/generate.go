@@ -119,6 +119,16 @@ func (m moduleMap) values() []*module {
 }
 
 func (m moduleMap) ensureModule(name string) *module {
+	// TODO[pulumi/pulumi-terraform#107]: for now, while we migrate to the new structure, just ignore sub-modules.
+	//     After we are sure our customers have upgraded to the new bits, we can remove this logic.  In fact, in the
+	//     end we may actually want to support this structure, but probably in a different way, and not right now.
+	sepix := strings.IndexRune(name, filepath.Separator)
+	if sepix != -1 {
+		name = name[:sepix] // temporarily whack everything after the /.
+	}
+	if name == "index" {
+		name = "" // temporarily change index to "".
+	}
 	if _, ok := m[name]; !ok {
 		m[name] = newModule(name)
 	}
