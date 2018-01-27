@@ -30,26 +30,37 @@ func newTFGenCmd(pkg string, version string, prov tfbridge.ProviderInfo) *cobra.
 	var quiet bool
 	var verbose int
 	cmd := &cobra.Command{
-		Use:   "lumi-tfgen-" + pkg,
-		Short: "The Pulumi TFGen compiler generates Pulumi Fabric metadata from a Terraform provider",
-		Long: "The Pulumi TFGen compiler generates Pulumi Fabric metadata from a Terraform provider.\n" +
-			"\n" +
+		Use:   os.Args[0] + " <LANGUAGE>",
+		Args:  cmdutil.SpecificArgs([]string{"language"}),
+		Short: "The Pulumi TFGen compiler generates Pulumi package metadata from a Terraform provider",
+		Long: "The Pulumi TFGen compiler generates Pulumi package metadata from a Terraform provider.\n" +
 			"\n" +
 			"The tool will load the provider from your $PATH, inspect its contents dynamically,\n" +
 			"and generate all of the Pulumi metadata necessary to consume the resources.\n" +
 			"\n" +
-			"Note that there is no custom Pulumi Fabric provider code required, because the standard\n" +
-			"lumi-tfbridge-provider plugin works against all Terraform provider plugins.\n",
+			"<LANGUAGE> indicates which language/runtime to target; the current supported set of\n" +
+			"languages is " + fmt.Sprintf("%v", allLanguages) + ".\n" +
+			"\n" +
+			"Note that there is no custom Pulumi provider code required, because the generated\n" +
+			"provider plugin is metadata-driven and thus works against all Terraform providers.\n",
 		Run: cmdutil.RunFunc(func(cmd *cobra.Command, args []string) error {
-			// Let's generate some code!
-			g := newGenerator(pkg, version, prov)
-			if err := g.Generate(outDir, overlaysDir); err != nil {
+			// Create a generator with the specified settings.
+			g, err := newGenerator(pkg, version, language(args[0]), prov, overlaysDir, outDir)
+			if err != nil {
 				return err
 			}
+
+			// Let's generate some code!
+			err = g.Generate()
+			if err != nil {
+				return err
+			}
+
 			// If we succeeded at generate, but there were errors, exit unsuccessfully.
 			if !cmdutil.Diag().Success() {
 				os.Exit(-2)
 			}
+
 			return nil
 		}),
 		PersistentPostRun: func(cmd *cobra.Command, args []string) {
