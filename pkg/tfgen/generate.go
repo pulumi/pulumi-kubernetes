@@ -628,7 +628,7 @@ func (g *generator) gatherDataSource(rawname string,
 		if args[arg].Computed {
 			// Emit documentation for the property if available
 			fun.rets = append(fun.rets,
-				g.propertyVariable(arg, sch, cust, parsedDocs.Arguments[arg], "", true /*out*/))
+				g.propertyVariable(arg, sch, cust, parsedDocs.Attributes[arg], "", true /*out*/))
 		}
 	}
 
