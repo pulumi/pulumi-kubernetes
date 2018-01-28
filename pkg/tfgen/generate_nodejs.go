@@ -3,6 +3,7 @@
 package tfgen
 
 import (
+	"encoding/json"
 	"fmt"
 	"path/filepath"
 	"reflect"
@@ -572,6 +573,20 @@ func (g *nodeJSGenerator) emitPackageMetadata(pack *pkg, files []string) error {
 	return g.emitTypeScriptProjectFile(pack, files)
 }
 
+type npmPackage struct {
+	Name             string            `json:"name"`
+	Version          string            `json:"version"`
+	Description      string            `json:"description,omitempty"`
+	Keywords         []string          `json:"keywords,omitempty"`
+	Homepage         string            `json:"homepage,omitempty"`
+	Repository       string            `json:"repository,omitempty"`
+	License          string            `json:"license,omitempty"`
+	Scripts          map[string]string `json:"scripts,omitempty"`
+	Dependencies     map[string]string `json:"dependencies,omitempty"`
+	DevDependencies  map[string]string `json:"devDependencies,omitempty"`
+	PeerDependencies map[string]string `json:"peerDependencies,omitempty"`
+}
+
 func (g *nodeJSGenerator) emitNPMPackageMetadata(pack *pkg) error {
 	w, err := tools.NewGenWriter(tfgen, filepath.Join(g.outDir, "package.json"))
 	if err != nil {
@@ -579,57 +594,45 @@ func (g *nodeJSGenerator) emitNPMPackageMetadata(pack *pkg) error {
 	}
 	defer contract.IgnoreClose(w)
 
-	w.Writefmtln(`{`)
-	w.Writefmtln(`    "name": "@pulumi/%v",`, pack.name)
-	w.Writefmtln(`    "version": "%s",`, pack.version)
-	w.Writefmtln(`    "scripts": {`)
-	w.Writefmtln(`        "build": "tsc"`)
-	w.Writefmtln(`    },`)
+	// Create info that will get serialized into an NPM package.json.
+	npminfo := npmPackage{
+		Name:        pack.name,
+		Version:     pack.version,
+		Description: g.info.Description,
+		Keywords:    g.info.Keywords,
+		Homepage:    g.info.Homepage,
+		Repository:  g.info.Repository,
+		License:     g.info.License,
+		Scripts: map[string]string{
+			"build": "tsc",
+		},
+		DevDependencies: map[string]string{
+			"typescript": "^2.6.2",
+		},
+		PeerDependencies: map[string]string{
+			"pulumi": "*",
+		},
+	}
 
-	overlay := g.info.Overlay
-	if len(overlay.Dependencies) > 0 {
-		w.Writefmtln(`    "dependencies": {`)
-		var deps []string
-		for dep := range overlay.Dependencies {
-			deps = append(deps, dep)
+	// Copy the overlay dependencies, if any.
+	if overlay := g.info.Overlay; overlay != nil {
+		for depk, depv := range overlay.Dependencies {
+			npminfo.Dependencies[depk] = depv
 		}
-		sort.Strings(deps)
-		for i, dep := range deps {
-			var comma string
-			if i != len(deps)-1 {
-				comma = ","
-			}
-			w.Writefmtln(`         "%s": "%s"%s`, dep, overlay.Dependencies[dep], comma)
+		for depk, depv := range overlay.DevDependencies {
+			npminfo.DevDependencies[depk] = depv
 		}
-		w.Writefmtln(`    },`)
-	}
-	w.Writefmtln(`    "devDependencies": {`)
-	if len(overlay.DevDependencies) > 0 {
-		var deps []string
-		for dep := range overlay.DevDependencies {
-			deps = append(deps, dep)
-		}
-		sort.Strings(deps)
-		for _, dep := range deps {
-			w.Writefmtln(`        "%s": "%s",`, dep, overlay.DevDependencies[dep])
+		for depk, depv := range overlay.PeerDependencies {
+			npminfo.PeerDependencies[depk] = depv
 		}
 	}
-	w.Writefmtln(`        "typescript": "^2.5.2"`)
-	w.Writefmtln(`    },`)
-	w.Writefmtln(`    "peerDependencies": {`)
-	if len(overlay.PeerDependencies) > 0 {
-		var deps []string
-		for dep := range overlay.PeerDependencies {
-			deps = append(deps, dep)
-		}
-		sort.Strings(deps)
-		for _, dep := range deps {
-			w.Writefmtln(`        "%s": "%s",`, dep, overlay.PeerDependencies[dep])
-		}
+
+	// Now write out the serialized form.
+	npmjson, err := json.MarshalIndent(npminfo, "", "    ")
+	if err != nil {
+		return err
 	}
-	w.Writefmtln(`        "pulumi": "*"`)
-	w.Writefmtln(`    }`)
-	w.Writefmtln(`}`)
+	w.Writefmtln(string(npmjson))
 	return nil
 }
 
