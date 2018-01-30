@@ -17,24 +17,17 @@ before_install:
     - export PATH=$HOME/.yarn/bin:$PATH
     # Install the AWS CLI so that we can publish the resulting release (if applicable) at the end.
     - pip install --upgrade --user awscli
-    # Install Homebrew
-    - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    # Install docker-machine-driver-xhyve
-    - brew install docker-machine-driver-xhyve
-    - chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-    - chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
     # Install Kubectl
-    - brew install kubectl
-    #install minikube
-    - brew cask install minikube
-    - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.24.1/minikube-darwin-amd64 && chmod +x minikube && mv minikube /usr/local/bin/
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
     - chmod +x ./kubectl
     - mv ./kubectl /usr/local/bin/kubectl
+    # Install Minikube
+    - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.25.0/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
     # Configure minikube to use docker daemon
     - eval $(minikube docker-env)
     
     # Start minikube cluster with Docker
-    - minikube start --vm-driver=xhyve
+    - minikube start
 install:
     # Clone the Pulumi repo and use install-locked.sh to install Pulumi components based on our Gopkg.lock.
     - git clone git@github.com:pulumi/home ${GOPATH}/src/github.com/pulumi/home
