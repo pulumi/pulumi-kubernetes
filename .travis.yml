@@ -1,6 +1,17 @@
 language: go
 go: 1.9
 sudo: true # give us 7.5GB and >2 bursted cores.
+env:
+    - CHANGE_MINIKUBE_NONE_USER=true
+before_script:
+    - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl && \
+    chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+    - curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
+    chmod +x minikube && sudo mv minikube /usr/local/bin/
+    - sudo minikube start --vm-driver=none --kubernetes-version=v1.7.0
+    - minikube update-context
+    - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; \
+    until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
 before_install:
     - export PULUMI_ROOT=/opt/pulumi
     # Travis only fetches 50 commits by default, and we want them all so we can do git describe --tags
@@ -17,24 +28,6 @@ before_install:
     - export PATH=$HOME/.yarn/bin:$PATH
     # Install the AWS CLI so that we can publish the resulting release (if applicable) at the end.
     - pip install --upgrade --user awscli
-    # Install Kubectl
-    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-    - chmod +x ./kubectl
-    - sudo mv ./kubectl /usr/local/bin
-    # Install Minikube
-    - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.25.0/minikube-linux-amd64 && chmod +x minikube 
-    - sudo mv ./minikube /usr/local/bin/
-    - sudo apt-add-repository "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib"
-    - wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-    - sudo apt-get update
-    - sudo apt-get install virtualbox-5.0 dkms 
-    # Configure minikube to use docker daemon
-    # - eval $(minikube docker-env)
-    # - sudo curl -L https://github.com/zchee/docker-machine-driver-xhyve/releases/download/v0.3.1/docker-machine-driver-xhyve -o /usr/local/bin/docker-machine-driver-xhyve
-    # - sudo chown root:wheel /usr/local/bin/docker-machine-driver-xhyve
-    # - sudo chmod u+s /usr/local/bin/docker-machine-driver-xhyve
-    # Start minikube cluster with Docker
-    - minikube start
 install:
     # Clone the Pulumi repo and use install-locked.sh to install Pulumi components based on our Gopkg.lock.
     - git clone git@github.com:pulumi/home ${GOPATH}/src/github.com/pulumi/home
