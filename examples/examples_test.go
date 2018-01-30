@@ -6,9 +6,7 @@ import (
 	"os"
 	"path"
 	"testing"
-
 	"github.com/stretchr/testify/assert"
-
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 )
 
@@ -22,7 +20,7 @@ func TestExamples(t *testing.T) {
 	// base options shared amongst all tests.
 	base := integration.ProgramTestOptions{
 		Config: map[string]string{
-			"kubernetes:config:currentcontext": kubectx,
+			"kubernetes:config:current-context": kubectx,
 		},
 		Dependencies: []string{
 			"pulumi",
