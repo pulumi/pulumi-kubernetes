@@ -15,7 +15,7 @@ import (
 const (
 	// packages:
 	kubernetesPkg 			= "kubernetes"
-	kubernetesCore          = "core"             //Resources
+	kubernetesCore          = ""             //Resources
 )
 
 // kubernetesMember manufactures a type token for the Kubernetes package and the given module and type.

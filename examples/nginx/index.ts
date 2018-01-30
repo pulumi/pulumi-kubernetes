@@ -1,21 +1,17 @@
 import * as kubernetes from "@pulumi/kubernetes";
 
-var fs = require("fs");
+kubernetes.config.host = process.env.host;
 
-kubernetes.config.clientCertificate = fs.readFileSync("./kube/cert.pem");
-kubernetes.config.clientKey = fs.readFileSync("./kube/key.pem");
-kubernetes.config.host = process.env.host;// "https://192.168.99.100:8443"
-kubernetes.config.clusterCaCertificate = fs.readFileSync("./kube/ca.pem");
-
-let mypodmetadata = {
-        name: "nginx",
-        labels: {
-                app: "nginx"
-        },
-};
-
-let nginxcontainer = new kubernetes.core.Pod("nginx", {
-        metadata: [mypodmetadata],
+// Create an nginx pod
+let nginxcontainer = new kubernetes.Pod("nginx", {
+        metadata: [
+                {
+                        name: "nginx",
+                        labels: {
+                                app: "nginx"
+                        }
+                }
+        ],
         spec: [{
                 container: [{
                         image: "nginx:1.7.9",
@@ -27,12 +23,11 @@ let nginxcontainer = new kubernetes.core.Pod("nginx", {
         }]
 });
 
-let myvolumemetadata = {
-        name: "nginxvolume"
-};
-
-let nginxvolume = new kubernetes.core.PersistentVolume("redis", {
-        metadata: [myvolumemetadata],
+// Create an nginxvolume
+let nginxvolume = new kubernetes.PersistentVolume("redis", {
+        metadata: [{
+                name: "nginxvolume"
+        }],
         spec: [{
                 capacity: {
                         storage: "10Gi"
@@ -46,12 +41,11 @@ let nginxvolume = new kubernetes.core.PersistentVolume("redis", {
         }]
 });
 
-let redispodmetadata = {
-        name: "redis"
-};
-
-let redispod = new kubernetes.core.Pod("redis", {
-        metadata: [redispodmetadata],
+// create a redis pod
+let redispod = new kubernetes.Pod("redis", {
+        metadata: [{
+                name: "redis"
+        }],
         spec: [{
                 container: [{
                         name: "redis",

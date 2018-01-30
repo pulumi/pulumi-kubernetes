@@ -14,9 +14,5 @@
     "@pulumi/kubernetes": "*",
     "pulumi": "*"
   },
-  "dependencies": {
-    "@types/node": "^9.3.0",
-    "require": "^2.4.20"
-  },
   "license": "MIT"
 }
