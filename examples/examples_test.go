@@ -13,19 +13,16 @@ import (
 )
 
 func TestExamples(t *testing.T) {
-	environ := os.Getenv("ARM_ENVIRONMENT")
-	if environ == "" {
-		t.Skipf("Skipping test due to missing ARM_ENVIRONMENT variable")
-	}
-	cwd, err := os.Getwd()
-	if !assert.NoError(t, err, "expected a valid working directory: %v", err) {
-		return
-	}
 
+	kubectx := os.Getenv("KUBERNETES_CONTEXT")
+
+	if kubectx == "" {
+		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
+	}
 	// base options shared amongst all tests.
 	base := integration.ProgramTestOptions{
 		Config: map[string]string{
-			"kubernetes:config:environment": environ,
+			"kubernetes:config:currentcontext": kubectx,
 		},
 		Dependencies: []string{
 			"pulumi",
@@ -38,7 +35,7 @@ func TestExamples(t *testing.T) {
 	}
 	if !testing.Short() {
 		examples = append(examples, []integration.ProgramTestOptions{
-			base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "webserver")}),
+			base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "nginx")}),
 		}...)
 	}
 
