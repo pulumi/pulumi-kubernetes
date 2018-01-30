@@ -26,9 +26,11 @@ before_install:
     - sudo mv ./minikube /usr/local/bin/
     # Configure minikube to use docker daemon
     # - eval $(minikube docker-env)
-    
+    - sudo curl -L https://github.com/zchee/docker-machine-driver-xhyve/releases/download/v0.3.1/docker-machine-driver-xhyve -o /usr/local/bin/docker-machine-driver-xhyve
+    - sudo chown root:wheel /usr/local/bin/docker-machine-driver-xhyve
+    - sudo chmod u+s /usr/local/bin/docker-machine-driver-xhyve
     # Start minikube cluster with Docker
-    - minikube start
+    - minikube start --vm-driver=xhyve
 install:
     # Clone the Pulumi repo and use install-locked.sh to install Pulumi components based on our Gopkg.lock.
     - git clone git@github.com:pulumi/home ${GOPATH}/src/github.com/pulumi/home
