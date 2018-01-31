@@ -17,6 +17,12 @@ func TestExamples(t *testing.T) {
 	if kubectx == "" {
 		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
 	}
+
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err, "expected a valid working directory: %v", err) {
+		return
+	}
+
 	// base options shared amongst all tests.
 	base := integration.ProgramTestOptions{
 		Config: map[string]string{
@@ -40,7 +46,7 @@ func TestExamples(t *testing.T) {
 	for _, ex := range examples {
 		example := ex
 		t.Run(example.Dir, func(t *testing.T) {
-			integration.ProgramTest(t, example)
+			integration.ProgramTest(t, &example)
 		})
 	}
 }
