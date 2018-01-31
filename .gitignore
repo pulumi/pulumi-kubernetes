@@ -1,0 +1,5 @@
+/pack/
+/vendor/
+/bin/
+/node_modules/
+.pulumi

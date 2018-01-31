@@ -1,4 +1,4 @@
-# azure
+# Kubernetes
 
-Pulumi Kubernetes resource package.
+Kubernetes resource package.
 

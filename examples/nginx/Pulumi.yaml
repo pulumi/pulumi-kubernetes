@@ -1,0 +1,6 @@
+name        : webserver
+runtime     : nodejs
+description : Basic example of an Kubernetes sample based on  the \
+              https://kubernetes.io/docs/user-guide/walkthrough/
+config:
+  kubernetes:config:current-context : minikube
