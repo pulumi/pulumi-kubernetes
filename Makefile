@@ -22,7 +22,7 @@ build::
 	cd pack/ && yarn install
 	cd ${PACKDIR} && yarn link pulumi # ensure we resolve to Pulumi's stdlibs.
 	cd ${PACKDIR} && yarn run tsc
-	cp README.md LICENSE ${PACKDIR}/package.json ${PACKDIR}/yarn.lock ${PACKBIN}/
+	cp README.md LICENSE ${PACKDIR}/package.json ${PACKDIR}/yarn.lock ${PACKDIR}/bin/
 
 lint::
 	$(GOMETALINTER) ./cmd/... resources.go | sort ; exit "$${PIPESTATUS[0]}"
@@ -49,7 +49,6 @@ publish:
 # The travis_* targets are entrypoints for CI.
 .PHONY: travis_cron travis_push travis_pull_request travis_api
 travis_cron: all
-travis_push: all publish
+travis_push: only_build publish only_test
 travis_pull_request: all
 travis_api: all
-
