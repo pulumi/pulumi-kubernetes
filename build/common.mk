@@ -1,4 +1,4 @@
-# Copyright 2016-2017, Pulumi Corporation.  All rights reserved.
+# Copyright 2016-2018, Pulumi Corporation.  All rights reserved.
 
 # common.mk provides most of the scalfholding for our build system. It
 # provides default targets for each project we want to build.
@@ -12,13 +12,13 @@
 #           go code, this usually means running go install (which
 #           would place them in `GOBIN`, but not `PULUMI_ROOT`
 #
-#  - lint: runs relevent linters for the project
-#
 #  - install: copies the bits we plan to ship into a layout in
 #             `PULUMI_ROOT` that looks like what a customer would get
 #             when they download and install Pulumi. For JavaScript
 #             projects, installing also runs yarn link to register
 #             this package, so that other projects can depend on it.
+#
+#  - lint: runs relevent linters for the project
 #
 #  - test_fast: runs the fast tests for a project. These are often
 #               go unit tests or javascript unit tests, they should
@@ -101,9 +101,14 @@ PULUMI_NODE_MODULES := $(PULUMI_ROOT)/node_modules
 
 .PHONY: default all ensure build lint install test_fast test_all core
 
+# ensure that `default` is the target that is run when no arguments are passed to make
+default::
+
 # If there are sub projects, our default, all, and ensure targets will
 # recurse into them.
 ifneq ($(SUB_PROJECTS),)
+only_build:: $(SUB_PROJECTS:%=%_only_build)
+only_test:: $(SUB_PROJECTS:%=%_only_test)
 default:: $(SUB_PROJECTS:%=%_default)
 all:: $(SUB_PROJECTS:%=%_all)
 ensure:: $(SUB_PROJECTS:%=%_ensure)
@@ -156,9 +161,10 @@ install::
 	mkdir -p "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	cp -r bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	cp package.json "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
+	cp yarn.lock "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)/node_modules"
 	cd "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" && \
-	yarn install --production && \
+	yarn install --offline --production && \
 	(yarn unlink > /dev/null 2>&1 || true) && \
 	yarn link
 endif
