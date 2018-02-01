@@ -1,4 +1,0 @@
-# Kubernetes
-
-Kubernetes resource package.
-
