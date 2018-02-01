@@ -9,4 +9,3 @@ if [ ! -f $PUBLISH ]; then
 fi
 
 ${INSTALL} pulumi-kubernetes $1 $2
-
