@@ -179,14 +179,15 @@ func (p *Provider) Configure(ctx context.Context, req *pulumirpc.ConfigureReques
 	}
 
 	// Perform validation of the config state so we can offer nice errors.
-	keys, errs := p.tf.Validate(config)
-	if len(keys) > 0 {
-		var result error
-		for i, key := range keys {
-			result = multierror.Append(result,
-				errors.Wrapf(errs[i], "could not configure key %s", key))
+	warns, errs := p.tf.Validate(config)
+	for _, warn := range warns {
+		if err = p.host.Log(ctx, diag.Warning, fmt.Sprintf("provider config warning: %v", warn)); err != nil {
+			return nil, err
 		}
-		return nil, result
+	}
+
+	if len(errs) > 0 {
+		return nil, errors.Wrap(multierror.Append(nil, errs...), "could not validate provider configuration")
 	}
 
 	// Now actually attempt to do the configuring and return its resulting error (if any).
