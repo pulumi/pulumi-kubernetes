@@ -86,6 +86,11 @@ func MakeTerraformInputs(res *PulumiResource, olds, news resource.PropertyMap,
 		// Next, populate defaults from the Terraform schema.
 		for name, sch := range tfs {
 			if _, has := result[name]; !has {
+				if sch.Removed != "" {
+					// Don't populate defaults for removed fields.
+					continue
+				}
+
 				// Check for a default value from Terraform. If there is not default from terraform, skip this name.
 				dv, err := sch.DefaultValue()
 				if err != nil {
