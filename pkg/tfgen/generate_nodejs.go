@@ -415,8 +415,7 @@ func (g *nodeJSGenerator) emitResourceType(mod *module, res *resourceType) (stri
 			outcomment = "/*out*/ "
 		}
 
-		// Emit the property as a computed value; it has to carry undefined because of planning.
-		w.Writefmtln("    public %sreadonly %s: pulumi.Computed<%s>;",
+		w.Writefmtln("    public %sreadonly %s: pulumi.Output<%s>;",
 			outcomment, prop.name, tsType(prop, true))
 	}
 	w.Writefmtln("")
@@ -817,7 +816,7 @@ func tsTypeComplex(sch *schema.Schema, info *tfbridge.SchemaInfo, noflags, out b
 				}
 			}
 			if !out {
-				t = fmt.Sprintf("pulumi.ComputedValue<%s>", t)
+				t = fmt.Sprintf("pulumi.Input<%s>", t)
 			}
 		} else if info.Asset != nil {
 			t = "pulumi.asset." + info.Asset.Type()
@@ -866,7 +865,7 @@ func tsPrimitive(vt schema.ValueType, elem interface{}, eleminfo *tfbridge.Schem
 		return t
 	}
 
-	return fmt.Sprintf("pulumi.ComputedValue<%s>", t)
+	return fmt.Sprintf("pulumi.Input<%s>", t)
 }
 
 // tsElemType returns the TypeScript type for a given schema element.  This element may be either a simple schema
