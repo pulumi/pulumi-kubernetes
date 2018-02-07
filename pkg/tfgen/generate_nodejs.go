@@ -584,6 +584,11 @@ type npmPackage struct {
 	Dependencies     map[string]string `json:"dependencies,omitempty"`
 	DevDependencies  map[string]string `json:"devDependencies,omitempty"`
 	PeerDependencies map[string]string `json:"peerDependencies,omitempty"`
+	Pulumi           npmPulumiManifest `json:"pulumi,omitempty"`
+}
+
+type npmPulumiManifest struct {
+	Resource bool `json:"resource,omitempty"`
 }
 
 func (g *nodeJSGenerator) emitNPMPackageMetadata(pack *pkg) error {
@@ -610,6 +615,9 @@ func (g *nodeJSGenerator) emitNPMPackageMetadata(pack *pkg) error {
 		},
 		PeerDependencies: map[string]string{
 			"pulumi": "*",
+		},
+		Pulumi: npmPulumiManifest{
+			Resource: true,
 		},
 	}
 
