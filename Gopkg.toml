@@ -32,7 +32,7 @@
 
 [[constraint]]
   name = "github.com/pulumi/pulumi"
-  revision = "1dbe4b7dfd59a8e045bf07b423aa73d2f457c3ca"
+  revision = "71beb2a51f976a82344b8c08a999369f7a5c1fef"
 
 # Redirect all Terraform references to our fork.
 [[override]]
