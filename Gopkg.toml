@@ -27,11 +27,11 @@
 
 [[constraint]]
   name = "github.com/pulumi/pulumi"
-  version = "0.9.10"
+  version = "0.10.0-rc1"
 
 [[constraint]]
   name = "github.com/pulumi/pulumi-terraform"
-  version = "0.9.10"
+  version = "0.10.0-rc1"
 
 [[constraint]]
   name = "github.com/terraform-providers/terraform-provider-kubernetes"
