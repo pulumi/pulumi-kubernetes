@@ -27,11 +27,11 @@
 
 [[constraint]]
   name = "github.com/pulumi/pulumi"
-  version = "0.9.10"
+  version = "0.10.0-rc1"
 
 [[constraint]]
   name = "github.com/pulumi/pulumi-terraform"
-  version = "0.9.10"
+  version = "0.10.0-rc1"
 
 [[constraint]]
   name = "github.com/terraform-providers/terraform-provider-kubernetes"
@@ -40,15 +40,15 @@
 [[constraint]]
   name = "github.com/ghodss/yaml"
   version = "1.0.0"
- 
+
 [[override]]
   name = "k8s.io/client-go"
   revision = "d92e8497f71b7b4e0494e5bd204b48d34bd6f254"
-  
+
 [[override]]
   revision = "1fd2e63a9a370677308a42f24fd40c86438afddf"
   name = "k8s.io/apimachinery"
-  
+
 [[override]]
   name = "github.com/ugorji/go"
   revision = "8c0409fcbb70099c748d71f714529204975f6c3f"

@@ -18,7 +18,7 @@ TESTPARALLELISM := 10
 build::
 	go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${TFGEN}
 	go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${PROVIDER}
-	$(TFGEN) --out pack/
+	$(TFGEN) nodejs --out pack/
 	cd pack/ && yarn install
 	cd ${PACKDIR} && yarn link pulumi # ensure we resolve to Pulumi's stdlibs.
 	cd ${PACKDIR} && yarn run tsc
