@@ -74,7 +74,7 @@ func (g *nodeJSGenerator) openWriter(mod *module, name string, needsSDK bool) (*
 }
 
 func (g *nodeJSGenerator) emitSDKImport(w *tools.GenWriter) {
-	w.Writefmtln("import * as pulumi from \"pulumi\";")
+	w.Writefmtln("import * as pulumi from \"@pulumi/pulumi\";")
 	w.Writefmtln("")
 }
 
@@ -614,7 +614,7 @@ func (g *nodeJSGenerator) emitNPMPackageMetadata(pack *pkg) error {
 			"typescript": "^2.6.2",
 		},
 		PeerDependencies: map[string]string{
-			"pulumi": "*",
+			"@pulumi/pulumi": "latest",
 		},
 		Pulumi: npmPulumiManifest{
 			Resource: true,
