@@ -41,6 +41,7 @@ func TestExamples(t *testing.T) {
 	if !testing.Short() {
 		examples = append(examples, []integration.ProgramTestOptions{
 			base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "nginx")}),
+			base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "guestbook")}),
 		}...)
 	}
 
