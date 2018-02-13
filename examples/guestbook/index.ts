@@ -106,7 +106,7 @@ let frontendService = new kubernetes.Service("frontend", {
         labels: [frontendLabels],
     }],
     spec: [{
-        type: "LoadBalancer",
+        type: "NodePort",
         port: [{ port: 80 }],
         selector: [frontendLabels],
     }],
