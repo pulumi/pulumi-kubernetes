@@ -1,6 +1,6 @@
-import * as kubernetes from "@pulumi/kubernetes";
+// Copyright 2016-2018, Pulumi Corporation.  All rights reserved.
 
-kubernetes.config.host = process.env.host;
+import * as kubernetes from "@pulumi/kubernetes";
 
 // Create an nginx pod
 let nginxcontainer = new kubernetes.Pod("nginx", {

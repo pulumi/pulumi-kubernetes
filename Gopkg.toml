@@ -35,7 +35,8 @@
 
 [[constraint]]
   name = "github.com/terraform-providers/terraform-provider-kubernetes"
-  version = "1.0.1"
+  source = "github.com/sl1pm4t/terraform-provider-kubernetes"
+  branch = "custom"
 
 [[constraint]]
   name = "github.com/ghodss/yaml"
