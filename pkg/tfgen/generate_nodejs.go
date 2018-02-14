@@ -74,7 +74,7 @@ func (g *nodeJSGenerator) openWriter(mod *module, name string, needsSDK bool) (*
 }
 
 func (g *nodeJSGenerator) emitSDKImport(w *tools.GenWriter) {
-	w.Writefmtln("import * as pulumi from \"pulumi\";")
+	w.Writefmtln("import * as pulumi from \"@pulumi/pulumi\";")
 	w.Writefmtln("")
 }
 
@@ -613,9 +613,6 @@ func (g *nodeJSGenerator) emitNPMPackageMetadata(pack *pkg) error {
 		DevDependencies: map[string]string{
 			"typescript": "^2.6.2",
 		},
-		PeerDependencies: map[string]string{
-			"pulumi": "*",
-		},
 		Pulumi: npmPulumiManifest{
 			Resource: true,
 		},
@@ -624,14 +621,34 @@ func (g *nodeJSGenerator) emitNPMPackageMetadata(pack *pkg) error {
 	// Copy the overlay dependencies, if any.
 	if overlay := g.info.Overlay; overlay != nil {
 		for depk, depv := range overlay.Dependencies {
+			if npminfo.Dependencies == nil {
+				npminfo.Dependencies = make(map[string]string)
+			}
 			npminfo.Dependencies[depk] = depv
 		}
 		for depk, depv := range overlay.DevDependencies {
+			if npminfo.DevDependencies == nil {
+				npminfo.DevDependencies = make(map[string]string)
+			}
 			npminfo.DevDependencies[depk] = depv
 		}
 		for depk, depv := range overlay.PeerDependencies {
+			if npminfo.PeerDependencies == nil {
+				npminfo.PeerDependencies = make(map[string]string)
+			}
 			npminfo.PeerDependencies[depk] = depv
 		}
+	}
+
+	// If there is no @pulumi/pulumi, add "latest" as a peer dependency (for npm linking style usage).
+	sdkPack := "@pulumi/pulumi"
+	if npminfo.Dependencies[sdkPack] == "" &&
+		npminfo.DevDependencies[sdkPack] == "" &&
+		npminfo.PeerDependencies[sdkPack] == "" {
+		if npminfo.PeerDependencies == nil {
+			npminfo.PeerDependencies = make(map[string]string)
+		}
+		npminfo.PeerDependencies["@pulumi/pulumi"] = "latest"
 	}
 
 	// Now write out the serialized form.
