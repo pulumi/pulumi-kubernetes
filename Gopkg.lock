@@ -589,11 +589,11 @@
   version = "v1.2.0"
 
 [[projects]]
-  branch = "custom"
+  branch = "pulumi-master"
   name = "github.com/terraform-providers/terraform-provider-kubernetes"
   packages = ["kubernetes"]
-  revision = "fb35558935acdf2ae39ea7fe9e1604ae61b48a45"
-  source = "github.com/sl1pm4t/terraform-provider-kubernetes"
+  revision = "0cc198319a63e0f3558a55867a5822c55859a98a"
+  source = "github.com/pulumi/terraform-provider-kubernetes"
 
 [[projects]]
   name = "github.com/uber/jaeger-client-go"
@@ -935,6 +935,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "4190a4a9dba7d2497ba1c3ae49d99665656c8f0c44cffc65f04820288a633600"
+  inputs-digest = "9a2b3b3417c53f1987dadf5e5d9c7edf6354350bf10239b34be4bb50a26f0285"
   solver-name = "gps-cdcl"
   solver-version = 1

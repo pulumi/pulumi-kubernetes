@@ -23,7 +23,6 @@ let redisMasterDeployment = new kubernetes.Deployment("redis-master", {
     spec: [{
         selector: [redisMasterLabels],
         replicas: 1,
-        strategy: [],
         template: [{
             metadata: [{
                 labels: [redisMasterLabels],
@@ -66,7 +65,6 @@ let redisSlaveDeployment = new kubernetes.Deployment("redis-slave", {
     spec: [{
         selector: [redisSlaveLabels],
         replicas: 1,
-        strategy: [],
         template: [{
             metadata: [{
                 labels: [redisSlaveLabels],
@@ -87,7 +85,7 @@ let redisSlaveDeployment = new kubernetes.Deployment("redis-slave", {
                         // If your cluster config does not include a dns service, then to instead access an environment
                         // variable to find the master service's host, comment out the 'value: dns' line above, and
                         // uncomment the line below: 
-                        // value: env
+                        // value: "env"
                     }],
                     port: [{
                         containerPort: 6379,
@@ -106,7 +104,9 @@ let frontendService = new kubernetes.Service("frontend", {
         labels: [frontendLabels],
     }],
     spec: [{
-        type: "NodePort",
+        // If your cluster supports it, uncomment the following to automatically create
+        // an external load-balanced IP for the frontend service.
+        // type: LoadBalancer
         port: [{ port: 80 }],
         selector: [frontendLabels],
     }],
@@ -118,7 +118,6 @@ let frontendDeployment = new kubernetes.Deployment("frontend", {
     spec: [{
         selector: [frontendLabels],
         replicas: 3,
-        strategy: [],
         template: [{
             metadata: [{
                 labels: [frontendLabels],
@@ -139,7 +138,7 @@ let frontendDeployment = new kubernetes.Deployment("frontend", {
                         // If your cluster config does not include a dns service, then to instead access an environment
                         // variable to find the master service's host, comment out the 'value: dns' line above, and
                         // uncomment the line below: 
-                        // value: env
+                        // value: "env"
                     }],
                     port: [{
                         containerPort: 80,
@@ -149,5 +148,3 @@ let frontendDeployment = new kubernetes.Deployment("frontend", {
         }],
     }],
 });
-
-export let frontendPort: pulumi.Output<number> = frontendService.spec.apply(spec => spec[0].port![0].nodePort);
