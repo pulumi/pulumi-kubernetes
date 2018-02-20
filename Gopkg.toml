@@ -35,7 +35,8 @@
 
 [[constraint]]
   name = "github.com/terraform-providers/terraform-provider-kubernetes"
-  version = "1.0.1"
+  source = "github.com/pulumi/terraform-provider-kubernetes"
+  branch = "pulumi-master"
 
 [[constraint]]
   name = "github.com/ghodss/yaml"
