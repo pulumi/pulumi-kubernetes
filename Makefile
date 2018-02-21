@@ -19,8 +19,7 @@ build::
 	go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${TFGEN}
 	go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${PROVIDER}
 	$(TFGEN) nodejs --out pack/
-	cd pack/ && yarn install
-	cd ${PACKDIR} && yarn link pulumi # ensure we resolve to Pulumi's stdlibs.
+	cd ${PACKDIR} && yarn install
 	cd ${PACKDIR} && yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/package.json ${PACKDIR}/yarn.lock ${PACKDIR}/bin/
 

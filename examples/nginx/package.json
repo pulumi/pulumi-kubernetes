@@ -6,13 +6,15 @@
   "scripts": {
     "build": "tsc"
   },
+  "dependencies": {
+      "@pulumi/pulumi": "^0.11.0-dev-23-g444ebdd1"
+  },
   "devDependencies": {
     "@types/node": "^9.3.0",
     "typescript": "^2.5.3"
   },
   "peerDependencies": {
-    "@pulumi/kubernetes": "*",
-    "pulumi": "*"
+    "@pulumi/kubernetes": "latest"
   },
   "license": "MIT"
 }

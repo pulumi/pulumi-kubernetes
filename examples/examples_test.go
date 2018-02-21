@@ -30,7 +30,6 @@ func TestExamples(t *testing.T) {
 			"kubernetes:config:configContext": kubectx,
 		},
 		Dependencies: []string{
-			"pulumi",
 			"@pulumi/kubernetes",
 		},
 	}
