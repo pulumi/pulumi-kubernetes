@@ -7,7 +7,7 @@ PROJECT          := github.com/pulumi/pulumi-kubernetes
 NODE_MODULE_NAME := @pulumi/kubernetes
 
 TFGEN           := pulumi-tfgen-${PACK}
-PROVIDER        := pulumi-provider-${PACK}
+PROVIDER        := pulumi-resource-${PACK}
 VERSION         := $(shell git describe --tags --dirty 2>/dev/null)
 
 GOMETALINTERBIN=gometalinter
@@ -20,7 +20,7 @@ build::
 	go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${PROVIDER}
 	$(TFGEN) nodejs --out pack/
 	cd pack/ && yarn install
-	cd ${PACKDIR} && yarn link pulumi # ensure we resolve to Pulumi's stdlibs.
+	cd ${PACKDIR} && yarn link @pulumi/pulumi # ensure we resolve to Pulumi's stdlibs.
 	cd ${PACKDIR} && yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/package.json ${PACKDIR}/yarn.lock ${PACKDIR}/bin/
 
