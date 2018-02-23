@@ -76,6 +76,9 @@ func Provider() tfbridge.ProviderInfo {
 			Files:        []string{},
 			Modules:      map[string]*tfbridge.OverlayInfo{},
 			Dependencies: map[string]string{},
+			PeerDependencies: map[string]string{
+				"@pulumi/pulumi": "^0.11.0-dev-65-g7aedf80f",
+			},
 		},
 	}
 

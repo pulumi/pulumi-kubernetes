@@ -1,47 +1,20 @@
-
-# Gopkg.toml example
-#
-# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
-# for detailed Gopkg.toml documentation.
-#
-# required = ["github.com/user/thing/cmd/thing"]
-# ignored = ["github.com/user/project/pkgX", "bitbucket.org/user/project/pkgA/pkgY"]
-#
-# [[constraint]]
-#   name = "github.com/user/project"
-#   version = "1.0.0"
-#
-# [[constraint]]
-#   name = "github.com/user/project2"
-#   branch = "dev"
-#   source = "github.com/myfork/project2"
-#
-# [[override]]
-#  name = "github.com/x/y"
-#  version = "2.4.0"
-
-
 [[constraint]]
   name = "github.com/hashicorp/terraform"
   version = "0.11.2"
 
-[[constraint]]
+[[override]]
   name = "github.com/pulumi/pulumi"
-  version = "0.10.0-rc1"
+  revision = "7aedf80fa2ea10ada802cfb77acb42b148e7429b"
 
-[[constraint]]
+[[override]]
   name = "github.com/pulumi/pulumi-terraform"
-  version = "0.10.0-rc1"
+  revision = "e86618687f5e295deee4756ac32dac7431bf7257"
 
 [[constraint]]
   name = "github.com/terraform-providers/terraform-provider-kubernetes"
   source = "github.com/pulumi/terraform-provider-kubernetes"
   branch = "pulumi-master"
 
-[[constraint]]
-  name = "github.com/ghodss/yaml"
-  version = "1.0.0"
- 
 [[override]]
   name = "k8s.io/client-go"
   revision = "d92e8497f71b7b4e0494e5bd204b48d34bd6f254"
