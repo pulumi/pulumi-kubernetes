@@ -37,7 +37,7 @@ copy_package() {
 }
 
 # Build binaries
-run_go_build "${ROOT}/cmd/pulumi-provider-kubernetes"
+run_go_build "${ROOT}/cmd/pulumi-resource-kubernetes"
 
 # Copy Packages
 copy_package "${ROOT}/pack/bin/." "@pulumi/kubernetes"
