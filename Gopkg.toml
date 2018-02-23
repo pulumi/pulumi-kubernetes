@@ -8,7 +8,7 @@
 
 [[override]]
   name = "github.com/pulumi/pulumi-terraform"
-  revision = "e86618687f5e295deee4756ac32dac7431bf7257"
+  revision = "b1672250664d402e48a1a0592d6256b4d8cf414b"
 
 [[constraint]]
   name = "github.com/terraform-providers/terraform-provider-kubernetes"

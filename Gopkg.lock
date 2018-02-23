@@ -165,6 +165,12 @@
   version = "1.0.1"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/gedex/inflector"
+  packages = ["."]
+  revision = "16278e9db8130ac7ec405dc174cfb94344f16325"
+
+[[projects]]
   name = "github.com/ghodss/yaml"
   packages = ["."]
   revision = "0ca9ea5df5451ffdf184b4428c902747c2c11cd7"
@@ -554,7 +560,7 @@
     "pkg/tfbridge",
     "pkg/tfgen"
   ]
-  revision = "e86618687f5e295deee4756ac32dac7431bf7257"
+  revision = "b1672250664d402e48a1a0592d6256b4d8cf414b"
 
 [[projects]]
   branch = "master"
@@ -939,6 +945,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "cfd1c7981493a4382b8e5cbb200c28e4159a67f3437b4da4aad11322d0ee5700"
+  inputs-digest = "76aee803b060f7e1a746daee1cb132f51b58c8f6a86773b0d5b4cfd79bb90ab8"
   solver-name = "gps-cdcl"
   solver-version = 1
