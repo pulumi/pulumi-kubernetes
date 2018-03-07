@@ -4,60 +4,60 @@ import * as kubernetes from "@pulumi/kubernetes";
 
 // Create an nginx pod
 let nginxcontainer = new kubernetes.Pod("nginx", {
-    metadata: [{
+    metadata: {
         name: "nginx",
         labels: {
             app: "nginx",
         },
-    }],
-    spec: [{
-        container: [{
+    },
+    spec: {
+        containers: [{
             image: "nginx:1.7.9",
             name: "nginx",
-            port: [{
+            ports: [{
                 containerPort: 80,
             }],
         }],
-    }],
+    },
 });
 
 // Create an nginxvolume
 let nginxvolume = new kubernetes.PersistentVolume("redis", {
-    metadata: [{
+    metadata: {
         name: "nginxvolume"
-    }],
-    spec: [{
+    },
+    specs: [{
         capacity: {
             storage: "10Gi",
         },
         accessModes: ["ReadWriteMany"],
-        persistentVolumeSource: [{
-            gcePersistentDisk: [{
+        persistentVolumeSource: {
+            gcePersistentDisk: {
                 pdName: "test-123",
-            }],
-        }],
+            },
+        },
     }],
 });
 
 // create a redis pod
 let redispod = new kubernetes.Pod("redis", {
-    metadata: [{
+    metadata: {
         name: "redis",
-    }],
-    spec: [{
-        container: [{
+    },
+    spec: {
+        containers: [{
             name: "redis",
             image: "redis",
-            volumeMount: [{
+            volumeMounts: [{
                 name: "redis-persistent-storage",
                 mountPath: "/data/redis",
             }]
         }],
-        volume: [{
+        volumes: [{
             name: "redis-persistent-storage",
-            emptyDir: [{
+            emptyDir: {
                 medium: "",
-            }],
+            },
         }],
-    }],
+    },
 });

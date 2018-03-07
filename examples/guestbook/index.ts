@@ -7,79 +7,79 @@ import * as kubernetes from "@pulumi/kubernetes";
 
 let redisMasterLabels = { app: "redis", tier: "backend", role: "master"};
 let redisMasterService = new kubernetes.Service("redis-master", {
-    metadata: [{
+    metadata: {
         name: "redis-master",
         labels: [redisMasterLabels],
-    }],
-    spec: [{
-        port: [{ port: 6379, targetPort: 6379 }],
+    },
+    spec: {
+        ports: [{ port: 6379, targetPort: 6379 }],
         selector: [redisMasterLabels],
-    }],
+    },
 });
 let redisMasterDeployment = new kubernetes.Deployment("redis-master", {
-    metadata: [{
+    metadata: {
         name: "redis-master",
-    }],
-    spec: [{
-        selector: [redisMasterLabels],
+    },
+    spec: {
+        selector: redisMasterLabels,
         replicas: 1,
-        template: [{
-            metadata: [{
-                labels: [redisMasterLabels],
-            }],
-            spec: [{
-                container: [{
+        template: {
+            metadata: {
+                labels: redisMasterLabels,
+            },
+            spec: {
+                containers: [{
                     name: "master",
                     image: "k8s.gcr.io/redis:e2e",
-                    resources: [{
-                        requests: [{
+                    resources: {
+                        requests: {
                             cpu: "100m",
                             memory: "100Mi",
-                        }]
-                    }],
-                    port: [{
+                        },
+                    },
+                    ports: [{
                         containerPort: 6379,
                     }],
                 }],
-            }],
-        }],
-    }],
+            },
+        },
+    },
 });
 
 // REDIS SLAVE
 let redisSlaveLabels = { app: "redis", tier: "backend", role: "slave" };
 let redisSlaveService = new kubernetes.Service("redis-slave", {
-    metadata: [{
+    metadata: {
         name: "redis-slave",
-        labels: [redisSlaveLabels],
-    }],
-    spec: [{
-        port: [{ port: 6379, targetPort: 6379 }],
+        labels: redisSlaveLabels,
+    },
+    spec: {
+        ports: [{ port: 6379, targetPort: 6379 }],
         selector: [redisSlaveLabels],
-    }],
+    },
 });
 let redisSlaveDeployment = new kubernetes.Deployment("redis-slave", {
-    metadata: [{
+    metadata: {
         name: "redis-slave",
-    }],
-    spec: [{
-        selector: [redisSlaveLabels],
+    },
+    spec: {
+        selector: redisSlaveLabels,
         replicas: 1,
-        template: [{
-            metadata: [{
-                labels: [redisSlaveLabels],
-            }],
-            spec: [{
-                container: [{
+        template: {
+            metadata: {
+                labels: redisSlaveLabels,
+            },
+            spec: {
+                containers: [{
                     name: "slave",
                     image: "gcr.io/google_samples/gb-redisslave:v1",
-                    resources: [{
-                        requests: [{
+                    resources: {
+                        requests: {
                             cpu: "100m",
                             memory: "100Mi",
-                        }]
-                    }],
-                    env: [{
+                        },
+                    },
+                    envs: [{
                         name: "GET_HOSTS_FROM",
                         value: "dns",
                         // If your cluster config does not include a dns service, then to instead access an environment
@@ -87,52 +87,52 @@ let redisSlaveDeployment = new kubernetes.Deployment("redis-slave", {
                         // uncomment the line below: 
                         // value: "env"
                     }],
-                    port: [{
+                    ports: [{
                         containerPort: 6379,
                     }],
                 }],
-            }],
-        }],
-    }],
+            },
+        },
+    },
 });
 
 // FRONTEND
 let frontendLabels = { app: "guestbook", tier: "frontend" };
 let frontendService = new kubernetes.Service("frontend", {
-    metadata: [{
+    metadata: {
         name: "frontend",
         labels: [frontendLabels],
-    }],
-    spec: [{
+    },
+    spec: {
         // If your cluster supports it, uncomment the following to automatically create
         // an external load-balanced IP for the frontend service.
         // type: LoadBalancer
-        port: [{ port: 80 }],
+        ports: [{ port: 80 }],
         selector: [frontendLabels],
-    }],
+    },
 });
 let frontendDeployment = new kubernetes.Deployment("frontend", {
-    metadata: [{
+    metadata: {
         name: "frontend",
-    }],
-    spec: [{
-        selector: [frontendLabels],
+    },
+    spec: {
+        selector: frontendLabels,
         replicas: 3,
-        template: [{
-            metadata: [{
-                labels: [frontendLabels],
-            }],
-            spec: [{
-                container: [{
+        template: {
+            metadata: {
+                labels: frontendLabels,
+            },
+            spec: {
+                containers: [{
                     name: "php-redis",
                     image: "gcr.io/google-samples/gb-frontend:v4",
-                    resources: [{
-                        requests: [{
+                    resources: {
+                        requests: {
                             cpu: "100m",
                             memory: "100Mi",
-                        }]
-                    }],
-                    env: [{
+                        },
+                    },
+                    envs: [{
                         name: "GET_HOSTS_FROM",
                         value: "dns",
                         // If your cluster config does not include a dns service, then to instead access an environment
@@ -140,11 +140,11 @@ let frontendDeployment = new kubernetes.Deployment("frontend", {
                         // uncomment the line below: 
                         // value: "env"
                     }],
-                    port: [{
+                    ports: [{
                         containerPort: 80,
                     }],
                 }],
-            }],
-        }],
-    }],
+            },
+        },
+    },
 });
