@@ -40,7 +40,7 @@ copy_package() {
 run_go_build "${ROOT}/cmd/pulumi-resource-kubernetes"
 
 # Copy Packages
-copy_package "${ROOT}/pack/bin/." "@pulumi/kubernetes"
+copy_package "${ROOT}/pack/nodejs/bin/." "@pulumi/kubernetes"
 
 # Tar up the file and then print it out for use by the caller or script.
 tar -czf ${PUBFILE} -C ${PUBDIR} .
