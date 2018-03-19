@@ -6,11 +6,12 @@ ROOT=$(dirname $0)/..
 PUBDIR=$(mktemp -du)
 GITVER=$(git rev-parse HEAD)
 PUBFILE=$(dirname ${PUBDIR})/${GITVER}.tgz
+VERSION=$($ROOT/scripts/get-version)
 
 # Figure out which branch we're on. Prefer $TRAVIS_BRANCH, if set, since
 # Travis leaves us at detached HEAD and `git rev-parse` just returns "HEAD".
 BRANCH=${TRAVIS_BRANCH:-$(git rev-parse --abbrev-ref HEAD)}
-declare -a PUBTARGETS=(${GITVER} $(git describe --tags 2>/dev/null) ${BRANCH})
+declare -a PUBTARGETS=(${GITVER} ${VERSION} ${BRANCH})
 
 # usage: run_go_build <path-to-package-to-build>
 function run_go_build() {
