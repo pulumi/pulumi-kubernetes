@@ -73,11 +73,17 @@ func Provider() tfbridge.ProviderInfo {
 			"kubernetes_storage_class": {Tok: kubernetesDataSource(kubernetesCore, "getStorageClass")},
 		},
 		Overlay: &tfbridge.OverlayInfo{
-			Files:        []string{},
-			Modules:      map[string]*tfbridge.OverlayInfo{},
-			Dependencies: map[string]string{},
+			Files:   []string{},
+			Modules: map[string]*tfbridge.OverlayInfo{},
+		},
+		JavaScript: &tfbridge.JavaScriptInfo{
 			PeerDependencies: map[string]string{
 				"@pulumi/pulumi": "^0.11.0-dev-168-g7e14a09b",
+			},
+		},
+		Python: &tfbridge.PythonInfo{
+			Requires: map[string]string{
+				"pulumi": ">=0.11.0",
 			},
 		},
 	}
