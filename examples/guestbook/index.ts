@@ -106,7 +106,7 @@ let frontendService = new kubernetes.Service("frontend", {
     spec: {
         // If your cluster supports it, uncomment the following to automatically create
         // an external load-balanced IP for the frontend service.
-        // type: LoadBalancer
+        // type: "LoadBalancer",
         ports: [{ port: 80 }],
         selector: [frontendLabels],
     },
