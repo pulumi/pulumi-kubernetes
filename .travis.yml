@@ -27,15 +27,15 @@ before_install:
     # Install the AWS CLI so that we can publish the resulting release (if applicable) at the end.
     - pip install --upgrade --user awscli
     # Install kubectl
-    - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl
+    - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl
     - sudo chmod +x kubectl 
     - sudo mv kubectl /usr/local/bin/
     # Install minukube
-    - curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.25.2/minikube-linux-amd64
     - sudo chmod +x minikube 
     - sudo mv minikube /usr/local/bin/
     # Start minikube with no VM driver 
-    - sudo minikube start --vm-driver=none --kubernetes-version=v1.7.0
+    - sudo minikube start --vm-driver=none --kubernetes-version=v1.9.0
     # Register minikube context with kubernetes
     - minikube update-context
 install:
