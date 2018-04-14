@@ -46,8 +46,12 @@ func kubernetesResource(mod string, res string) tokens.Type {
 func Provider() tfbridge.ProviderInfo {
 	p := kubernetes.Provider().(*schema.Provider)
 	prov := tfbridge.ProviderInfo{
-		P:    p,
-		Name: "kubernetes",
+		P:           p,
+		Name:        "kubernetes",
+		Description: "A Pulumi package for creating and managing Kubernetes resources.",
+		Keywords:    []string{"pulumi", "kubernetes"},
+		Homepage:    "https://pulumi.io/kubernetes",
+		Repository:  "https://github.com/pulumi/pulumi-kubernetes",
 		Resources: map[string]*tfbridge.ResourceInfo{
 			// TODO[pulumi/pulumi-kubernetes#10] Until we are auto-generating `metadata.name` with a random suffix by
 			// default, we must mark all Kubernetes resources as delete-before-replace.  Without this, any change which
