@@ -1,4 +1,4 @@
-PROJECT_NAME := Kubernetes Package
+PROJECT_NAME := Pulumi Kubernetes Resource Provider
 include build/common.mk
 
 PACK             := kubernetes
@@ -6,9 +6,10 @@ PACKDIR          := pack
 PROJECT          := github.com/pulumi/pulumi-kubernetes
 NODE_MODULE_NAME := @pulumi/kubernetes
 
-TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
 VERSION         := $(shell scripts/get-version)
+
+VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}"
 
 GOMETALINTERBIN=gometalinter
 GOMETALINTER=${GOMETALINTERBIN} --config=Gometalinter.json
@@ -16,53 +17,7 @@ GOMETALINTER=${GOMETALINTERBIN} --config=Gometalinter.json
 TESTPARALLELISM := 10
 
 build::
-	go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${TFGEN}
-	go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${PROVIDER}
-	for LANGUAGE in "nodejs" "python" ; do \
-		$(TFGEN) $$LANGUAGE --out ${PACKDIR}/$$LANGUAGE/ || exit 3 ; \
-	done
-	cd ${PACKDIR}/nodejs/ && \
-		yarn install && \
-		yarn link @pulumi/pulumi && \
-		yarn run tsc
-	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
-	cd ${PACKDIR}/python/ && \
-		python setup.py clean --all 2>/dev/null && \
-		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
-		sed -i.bak "s/\$${VERSION}/$(VERSION)/g" ./bin/setup.py && rm ./bin/setup.py.bak && \
-		cd ./bin && python setup.py build sdist
+	go install $(VERSION_FLAGS) ${PROJECT}/cmd/${PROVIDER}
 
 lint::
 	$(GOMETALINTER) ./cmd/... resources.go | sort ; exit "$${PIPESTATUS[0]}"
-
-install::
-	GOBIN=$(PULUMI_BIN) go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${PROVIDER}
-	[ ! -e "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" ] || rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
-	mkdir -p "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
-	cp -r pack/nodejs/bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
-	rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)/node_modules"
-	cd "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" && \
-		yarn install --offline --production && \
-		(yarn unlink > /dev/null 2>&1 || true) && \
-		yarn link
-	cd ${PACKDIR}/python && pip install --upgrade --user -e .
-
-test_all::
-	PATH=$(PULUMI_BIN):$(PATH) go test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} ./examples
-
-.PHONY: publish_tgz
-publish_tgz:
-	$(call STEP_MESSAGE)
-	./scripts/publish_tgz.sh
-
-.PHONY: publish_packages
-publish_packages:
-	$(call STEP_MESSAGE)
-	./scripts/publish_packages.sh
-
-# The travis_* targets are entrypoints for CI.
-.PHONY: travis_cron travis_push travis_pull_request travis_api
-travis_cron: all
-travis_push: only_build publish_tgz only_test publish_packages
-travis_pull_request: all
-travis_api: all
