@@ -26,7 +26,7 @@ func Serve(providerName, version string) {
 			kubeconfig := clientcmd.NewInteractiveDeferredLoadingClientConfig(
 				loadingRules, &clientcmd.ConfigOverrides{}, os.Stdin)
 
-			return kubeProvider(providerName, version, kubeconfig)
+			return makeKubeProvider(providerName, version, kubeconfig)
 		})
 
 	if err != nil {
