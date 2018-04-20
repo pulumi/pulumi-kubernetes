@@ -122,8 +122,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	if err != nil {
 		return nil, err
 	}
+	obj := propMapToUnstructured(news)
 
-	obj := unstructured.Unstructured{Object: news.Mappable()}
 	gvk := k.gvkFromURN(resource.URN(req.GetUrn()))
 	schemaGroup := schemaGroupName(gvk.Group)
 	var failures []*pulumirpc.CheckFailure
@@ -145,7 +145,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	}
 
 	// Validate the object according to the OpenAPI schema.
-	for _, err := range schema.Validate(&obj) {
+	for _, err := range schema.Validate(obj) {
 		_, isNotFound := err.(TypeNotFoundError)
 		if isNotFound && gvkExists(gvk) {
 			failures = append(failures, &pulumirpc.CheckFailure{
@@ -170,8 +170,33 @@ func (k *kubeProvider) Diff(context.Context, *pulumirpc.DiffRequest) (*pulumirpc
 // Create allocates a new instance of the provided resource and returns its unique ID afterwards.
 // (The input ID must be blank.)  If this call fails, the resource must not have been created (i.e.,
 // it is "transacational").
-func (k *kubeProvider) Create(context.Context, *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error) {
-	panic("Create not implemented")
+func (k *kubeProvider) Create(
+	ctx context.Context, req *pulumirpc.CreateRequest,
+) (*pulumirpc.CreateResponse, error) {
+	props, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
+		KeepUnknowns: true, SkipNulls: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	obj := propMapToUnstructured(props)
+
+	rc, err := clientForResource(k.pool, k.client, obj, "default")
+	if err != nil {
+		return nil, err
+	}
+
+	newObj, err := rc.Create(obj)
+	if err != nil {
+		return nil, err
+	}
+	newProps := unstructuredToPropMap(newObj)
+	mprops, err := plugin.MarshalProperties(newProps, plugin.MarshalOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	return &pulumirpc.CreateResponse{Id: fqObjName(newObj), Properties: mprops}, nil
 }
 
 // Read the current live state associated with a resource.  Enough state must be include in the
@@ -227,4 +252,12 @@ func schemaGroupName(group string) string {
 	default:
 		return group
 	}
+}
+
+func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
+	return &unstructured.Unstructured{Object: pm.Mappable()}
+}
+
+func unstructuredToPropMap(u *unstructured.Unstructured) resource.PropertyMap {
+	return resource.NewPropertyMapFromMap(u.Object)
 }
