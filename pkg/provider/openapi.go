@@ -48,7 +48,7 @@ func NewInvalidTypeError(expected reflect.Kind, observed reflect.Kind, fieldName
 type TypeNotFoundError string
 
 func (tnfe TypeNotFoundError) Error() string {
-	return fmt.Sprintf("couldn't find type: %s", string(tnfe))
+	return fmt.Sprintf("couldn't find type: '%s'", string(tnfe))
 }
 
 // SwaggerSchema represents an OpenAPI/Swagger schema
@@ -137,6 +137,9 @@ func (s *SwaggerSchema) Validate(obj *unstructured.Unstructured) []error {
 		return s.validateList(obj.UnstructuredContent())
 	}
 	gvk := obj.GroupVersionKind()
+	if gvk.Version == "" || gvk.Kind == "" {
+		return []error{fmt.Errorf("Fields 'kind' and 'apiVersion' are required")}
+	}
 	return s.ValidateObject(obj.UnstructuredContent(), "", fmt.Sprintf("%s.%s", gvk.Version, gvk.Kind))
 }
 
