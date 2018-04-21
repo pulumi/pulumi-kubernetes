@@ -150,7 +150,7 @@ func (c *memcachedDiscoveryClient) OpenAPISchema() (*openapi_v2.Document, error)
 
 // clientForResource returns the ResourceClient for a given object
 func clientForResource(
-	pool dynamic.ClientPool, disco discovery.DiscoveryInterface, obj runtime.Object, defNs string,
+	pool dynamic.ClientPool, disco discovery.DiscoveryInterface, obj runtime.Object,
 ) (dynamic.ResourceInterface, error) {
 	gvk := obj.GetObjectKind().GroupVersionKind()
 	meta, err := meta.Accessor(obj)
@@ -158,12 +158,7 @@ func clientForResource(
 		return nil, err
 	}
 
-	namespace := meta.GetNamespace()
-	if namespace == "" {
-		namespace = defNs
-	}
-
-	return clientForGVK(pool, disco, gvk, namespace)
+	return clientForGVK(pool, disco, gvk, namespaceOrDefault(meta.GetNamespace()))
 }
 
 // clientForResource returns the ResourceClient for a given object

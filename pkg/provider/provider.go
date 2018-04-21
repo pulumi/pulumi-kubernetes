@@ -163,8 +163,60 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
-func (k *kubeProvider) Diff(context.Context, *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
-	panic("Diff not implemented")
+func (k *kubeProvider) Diff(
+	ctx context.Context, req *pulumirpc.DiffRequest,
+) (*pulumirpc.DiffResponse, error) {
+	//
+	// TODO(hausdorff): This implementation is naive!
+	//
+	// - [x] Allows for computing a diff between the two versions of an API object.
+	// - [ ] Correctly reports when a field will cause a replacement of the resource (i.e., it can't
+	//       be patched to reflect the new state). Currently we only report this status when name or
+	//       namespace change.
+	// - [ ] Correctly reports when a resource needs to be deleted before it replaced.
+	//
+
+	// Get old version of the object.
+	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+		KeepUnknowns: true, SkipNulls: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	oldObj := propMapToUnstructured(olds)
+
+	// Get proposed new version of the object.
+	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
+		KeepUnknowns: true, SkipNulls: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	newObj := propMapToUnstructured(news)
+
+	// Naive replacement strategy. We will kill and recreate a resource only if the name or namespace
+	// has changed.
+	replaces := []string{}
+	if newObj.GetName() != oldObj.GetName() {
+		replaces = append(replaces, ".metadata.name")
+	}
+
+	if namespaceOrDefault(newObj.GetNamespace()) != namespaceOrDefault(oldObj.GetNamespace()) {
+		replaces = append(replaces, ".metadata.namespace")
+	}
+
+	// Pack up PB, ship response back.
+	changes := pulumirpc.DiffResponse_DIFF_NONE
+	if len(replaces) > 0 {
+		changes = pulumirpc.DiffResponse_DIFF_SOME
+	}
+
+	return &pulumirpc.DiffResponse{
+		Changes:             changes,
+		Replaces:            replaces,
+		Stables:             []string{},
+		DeleteBeforeReplace: false,
+	}, nil
 }
 
 // Create allocates a new instance of the provided resource and returns its unique ID afterwards.
@@ -181,7 +233,7 @@ func (k *kubeProvider) Create(
 	}
 	obj := propMapToUnstructured(props)
 
-	rc, err := clientForResource(k.pool, k.client, obj, "default")
+	rc, err := clientForResource(k.pool, k.client, obj)
 	if err != nil {
 		return nil, err
 	}
@@ -260,4 +312,11 @@ func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 
 func unstructuredToPropMap(u *unstructured.Unstructured) resource.PropertyMap {
 	return resource.NewPropertyMapFromMap(u.Object)
+}
+
+func namespaceOrDefault(ns string) string {
+	if ns == "" {
+		return "default"
+	}
+	return ns
 }

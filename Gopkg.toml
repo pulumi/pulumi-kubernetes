@@ -48,4 +48,3 @@
 [[constraint]]
   name = "github.com/yudai/gojsondiff"
   revision = "9209d1532c51cabe0439993586a71c207b09a0ac"
-
