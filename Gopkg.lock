@@ -468,6 +468,17 @@
   version = "v1.3.1"
 
 [[projects]]
+  name = "github.com/yudai/gojsondiff"
+  packages = ["."]
+  revision = "9209d1532c51cabe0439993586a71c207b09a0ac"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/yudai/golcs"
+  packages = ["."]
+  revision = "ecda9a501e8220fae3b4b600c3db4b0ba22cfc68"
+
+[[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
   packages = [
@@ -716,6 +727,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "1211cb4f3b558553fdfaea2657b0bb036cfb5750038f4b6273a600775af1c145"
+  inputs-digest = "b28e2510f60eb5be80cfc9e8e8cadfe7b843373f554deb736ea1689d52a7da48"
   solver-name = "gps-cdcl"
   solver-version = 1
