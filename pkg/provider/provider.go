@@ -372,8 +372,47 @@ func (k *kubeProvider) Update(
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed
 // to still exist.
-func (k *kubeProvider) Delete(context.Context, *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
-	panic("Delete not implemented")
+func (k *kubeProvider) Delete(
+	ctx context.Context, req *pulumirpc.DeleteRequest,
+) (*pbempty.Empty, error) {
+	// Make delete options based on the version of the client.
+	version, err := fetchVersion(k.client)
+	if err != nil {
+		return nil, err
+	}
+
+	deleteOpts := metav1.DeleteOptions{}
+	if version.compare(1, 6) < 0 {
+		// 1.5.x option.
+		boolFalse := false
+		deleteOpts.OrphanDependents = &boolFalse
+	} else {
+		// 1.6.x option. (NOTE: Background delete propagation is broken in k8s v1.6, and maybe later.)
+		fg := metav1.DeletePropagationForeground
+		deleteOpts.PropagationPolicy = &fg
+	}
+
+	// TODO(hausdorff): Propagate other options, like grace period through flags.
+
+	// Obtain client and prepare for delete call.
+	gvk := k.gvkFromURN(resource.URN(req.GetUrn()))
+	gvk.Group = schemaGroupName(gvk.Group)
+
+	split := strings.Split(req.GetId(), ".")
+	namespace, name := split[0], split[1]
+	client, err := clientForGVK(k.pool, k.client, gvk, namespace)
+	if err != nil {
+		return nil, err
+	}
+
+	err = client.Delete(name, &deleteOpts)
+	if err != nil && !errors.IsNotFound(err) {
+		return nil, fmt.Errorf("Could not find resource '%s' for deletion: %s", req.GetId(), err)
+	} else if err != nil {
+		return nil, err
+	}
+
+	return &pbempty.Empty{}, nil
 }
 
 // GetPluginInfo returns generic information about this plugin, like its version.
