@@ -2,6 +2,7 @@ package provider
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -12,8 +13,11 @@ import (
 	"github.com/pulumi/pulumi/pkg/util/contract"
 	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 	"k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/jsonmergepatch"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
@@ -258,9 +262,112 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	panic("Read not implemented")
 }
 
-// Update updates an existing resource with new values.
-func (k *kubeProvider) Update(context.Context, *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
-	panic("Update not implemented")
+// Update updates an existing resource with new values. Currently this client supports the
+// Kubernetes-standard three-way JSON patch. See references here[1] and here[2].
+//
+// [1]: https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-json-merge-patch-to-update-a-deployment
+// [2]: https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
+func (k *kubeProvider) Update(
+	ctx context.Context, req *pulumirpc.UpdateRequest,
+) (*pulumirpc.UpdateResponse, error) {
+	//
+	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle and you should proceed to
+	// change them only if you understand them deeply.
+	//
+	// Briefly: when a user updates an existing resource definition (e.g., by modifying YAML), the API
+	// server must decide how to apply the changes inside it, to the version of the resource that it
+	// has stored in etcd. In Kubernetes this decision is turns out to be quite complex. `kubectl`
+	// currently uses the three-way "strategic merge" and falls back to the three-way JSON merge. We
+	// currently support the second, but eventually we'll have to support the first, too.
+	//
+	// (NOTE: This comment is scoped to the question of how to patch an existing resource, rather than
+	// how to recognize when a resource needs to be re-created from scratch.)
+	//
+	// There are several reasons for this complexity:
+	//
+	// * It's important not to clobber fields set or default-set by the server (e.g., NodePort,
+	//   namespace, service type, etc.), or by out-of-band tooling like admission controllers
+	//   (which, e.g., might do something like add a sidecar to a container list).
+	// * For example, consider a scenario where a user renames a container. It is a reasonable
+	//   expectation the old version of the container gets destroyed when the update is applied. And
+	//   if the update strategy is set to three-way JSON merge patching, it is.
+	// * But, consider if their administrator has set up (say) the Istio admission controller, which
+	//   embeds a sidecar container in pods submitted to the API. This container would not be present
+	//   in the YAML file representing that pod, but when an update is applied by the user, they
+	//   not want it to get destroyed. And, so, when the strategy is set to three-way strategic
+	//   merge, the container is not destroyed. (With this strategy, fields can have "merge keys" as
+	//   part of their schema, which tells the API server how to merge each particular field.)
+	//
+	// What's worse is, currently nearly all of this logic exists on the client rather than the
+	// server, though there is work moving forward to move this to the server.
+	//
+	// So the roadmap is:
+	//
+	// - [x] Implement `Update` using the three-way JSON merge strategy.
+	// - [ ] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
+	//       plumbing, because it expects nominal types representing the API schema, but the
+	//       discovery client is completely dynamic.)
+	// - [ ] Support server-side apply, when it comes out.
+	//
+
+	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
+	// validation routines.
+	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+		KeepUnknowns: true, SkipNulls: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	oldObj := propMapToUnstructured(olds)
+	oldJSON, err := json.Marshal(olds.Mappable())
+	if err != nil {
+		return nil, err
+	}
+
+	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
+	// validation routines.
+	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
+		KeepUnknowns: true, SkipNulls: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	newObj := propMapToUnstructured(news)
+	newJSON, err := json.Marshal(news.Mappable())
+	if err != nil {
+		return nil, err
+	}
+
+	// Retrieve live version of last submitted version of object.
+	client, err := clientForResource(k.pool, k.client, oldObj)
+	if err != nil {
+		return nil, err
+	}
+
+	liveOldObj, err := client.Get(oldObj.GetName(), metav1.GetOptions{})
+	if err != nil {
+		return nil, err
+	}
+	liveOldJSON, err := liveOldObj.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+
+	// Create JSON merge patch.
+	patch, err := jsonmergepatch.CreateThreeWayJSONMergePatch(oldJSON, liveOldJSON, newJSON)
+	if err != nil {
+		return nil, err
+	}
+
+	glog.V(3).Infof("%v", string(patch))
+
+	_, err = client.Patch(newObj.GetName(), types.MergePatchType, patch)
+	if err != nil {
+		return nil, err
+	}
+
+	// TODO(hausdorff): Add computed properties here.
+	return &pulumirpc.UpdateResponse{}, nil
 }
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed
