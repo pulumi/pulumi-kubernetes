@@ -85,12 +85,12 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PeerDependencies: map[string]string{
-				"@pulumi/pulumi": "^0.11.0-dev-168-g7e14a09b",
+				"@pulumi/pulumi": "^0.12.0-rc1",
 			},
 		},
 		Python: &tfbridge.PythonInfo{
 			Requires: map[string]string{
-				"pulumi": ">=0.11.0",
+				"pulumi": ">=0.12.0+rc1",
 			},
 		},
 	}

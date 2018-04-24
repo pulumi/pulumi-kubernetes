@@ -4,11 +4,11 @@
 
 [[override]]
   name = "github.com/pulumi/pulumi"
-  revision = "9ba6584bbfbda7c54e116b0e04c93c8480a5ed28"
+  branch = "release/0.12"
 
 [[override]]
   name = "github.com/pulumi/pulumi-terraform"
-  revision = "28cef72de7316f1f42aa79d11c76c0cea9123bf8"
+  branch = "release/0.12"
 
 [[constraint]]
   name = "github.com/terraform-providers/terraform-provider-kubernetes"
