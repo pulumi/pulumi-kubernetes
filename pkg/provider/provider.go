@@ -4,10 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
+	"github.com/pulumi/pulumi-kubernetes/pkg/await"
+	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/plugin"
 	"github.com/pulumi/pulumi/pkg/util/contract"
@@ -49,8 +52,17 @@ type kubeProvider struct {
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
-	name, version string, kubeconfig clientcmd.ClientConfig,
+	name, version string,
 ) (pulumirpc.ResourceProviderServer, error) {
+	// Use client-go to resolve the final configuration values for the client. Typically these
+	// values would would reside in the $KUBECONFIG file, but can also be altered in several
+	// places, including in env variables, client-go default values, and (if we allowed it) CLI
+	// flags.
+	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+	kubeconfig := clientcmd.NewInteractiveDeferredLoadingClientConfig(
+		loadingRules, &clientcmd.ConfigOverrides{}, os.Stdin)
+
 	// Configure the discovery client.
 	conf, err := kubeconfig.ClientConfig()
 	if err != nil {
@@ -64,7 +76,7 @@ func makeKubeProvider(
 
 	// Cache the discovery information (OpenAPI schema, etc.) so we don't have to retrieve it for
 	// every request.
-	discoCache := NewMemcachedDiscoveryClient(disco)
+	discoCache := client.NewMemcachedDiscoveryClient(disco)
 	mapper := discovery.NewDeferredDiscoveryRESTMapper(discoCache, dynamic.VersionInterfaces)
 	pathresolver := dynamic.LegacyAPIPathResolverFunc
 
@@ -205,7 +217,7 @@ func (k *kubeProvider) Diff(
 		replaces = append(replaces, ".metadata.name")
 	}
 
-	if namespaceOrDefault(newObj.GetNamespace()) != namespaceOrDefault(oldObj.GetNamespace()) {
+	if client.NamespaceOrDefault(newObj.GetNamespace()) != client.NamespaceOrDefault(oldObj.GetNamespace()) {
 		replaces = append(replaces, ".metadata.namespace")
 	}
 
@@ -229,6 +241,7 @@ func (k *kubeProvider) Diff(
 func (k *kubeProvider) Create(
 	ctx context.Context, req *pulumirpc.CreateRequest,
 ) (*pulumirpc.CreateResponse, error) {
+	// Obtain client from pool for the resource we're creating.
 	props, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
 		KeepUnknowns: true, SkipNulls: true,
 	})
@@ -237,22 +250,16 @@ func (k *kubeProvider) Create(
 	}
 	obj := propMapToUnstructured(props)
 
-	rc, err := clientForResource(k.pool, k.client, obj)
+	initialized, err := await.Creation(k.pool, k.client, obj)
+	if err != nil {
+		return nil, err
+	}
+	mprops, err := plugin.MarshalProperties(unstructuredToPropMap(initialized), plugin.MarshalOptions{})
 	if err != nil {
 		return nil, err
 	}
 
-	newObj, err := rc.Create(obj)
-	if err != nil {
-		return nil, err
-	}
-	newProps := unstructuredToPropMap(newObj)
-	mprops, err := plugin.MarshalProperties(newProps, plugin.MarshalOptions{})
-	if err != nil {
-		return nil, err
-	}
-
-	return &pulumirpc.CreateResponse{Id: fqObjName(newObj), Properties: mprops}, nil
+	return &pulumirpc.CreateResponse{Id: client.FqObjName(initialized), Properties: mprops}, nil
 }
 
 // Read the current live state associated with a resource.  Enough state must be include in the
@@ -339,7 +346,7 @@ func (k *kubeProvider) Update(
 	}
 
 	// Retrieve live version of last submitted version of object.
-	client, err := clientForResource(k.pool, k.client, oldObj)
+	client, err := client.FromResource(k.pool, k.client, oldObj)
 	if err != nil {
 		return nil, err
 	}
@@ -376,13 +383,13 @@ func (k *kubeProvider) Delete(
 	ctx context.Context, req *pulumirpc.DeleteRequest,
 ) (*pbempty.Empty, error) {
 	// Make delete options based on the version of the client.
-	version, err := fetchVersion(k.client)
+	version, err := client.FetchVersion(k.client)
 	if err != nil {
 		return nil, err
 	}
 
 	deleteOpts := metav1.DeleteOptions{}
-	if version.compare(1, 6) < 0 {
+	if version.Compare(1, 6) < 0 {
 		// 1.5.x option.
 		boolFalse := false
 		deleteOpts.OrphanDependents = &boolFalse
@@ -400,7 +407,7 @@ func (k *kubeProvider) Delete(
 
 	split := strings.Split(req.GetId(), ".")
 	namespace, name := split[0], split[1]
-	client, err := clientForGVK(k.pool, k.client, gvk, namespace)
+	client, err := client.FromGVK(k.pool, k.client, gvk, namespace)
 	if err != nil {
 		return nil, err
 	}
@@ -458,11 +465,4 @@ func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 
 func unstructuredToPropMap(u *unstructured.Unstructured) resource.PropertyMap {
 	return resource.NewPropertyMapFromMap(u.Object)
-}
-
-func namespaceOrDefault(ns string) string {
-	if ns == "" {
-		return "default"
-	}
-	return ns
 }
