@@ -15,9 +15,13 @@ GOMETALINTERBIN=gometalinter
 GOMETALINTER=${GOMETALINTERBIN} --config=Gometalinter.json
 
 TESTPARALLELISM := 10
+TESTABLE_PKGS   := ./pkg/await ./pkg/provider
 
 build::
 	go install $(VERSION_FLAGS) ${PROJECT}/cmd/${PROVIDER}
 
 lint::
 	$(GOMETALINTER) ./cmd/... resources.go | sort ; exit "$${PIPESTATUS[0]}"
+
+test_all::
+	PATH=$(PULUMI_BIN):$(PATH) go test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
