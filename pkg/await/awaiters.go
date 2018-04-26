@@ -6,6 +6,7 @@ import (
 
 	"github.com/golang/glog"
 	v1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
@@ -13,11 +14,49 @@ import (
 
 // --------------------------------------------------------------------------
 
-// Initializing awaiters.
+// Awaiters.
 //
-// A collection of functions that block until a given resource is (1) created, and (2) initialized.
-// For example, in the case of `v1.Service` we will create the object and then wait until it is
-// fully initialized and ready to recieve traffic.
+// A collection of functions that block until some operation (e.g., create, delete) on a given
+// resource is completed. For example, in the case of `v1.Service` we will create the object and
+// then wait until it is fully initialized and ready to recieve traffic.
+
+// --------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------
+
+// core/v1/Namespace
+
+// --------------------------------------------------------------------------
+
+func untilCoreV1NamespaceDeleted(
+	clientForResource dynamic.ResourceInterface, name string,
+) error {
+	stateConf := &StateChangeConf{
+		Target:  []string{},
+		Pending: []string{"Terminating"},
+		Timeout: 5 * time.Minute,
+		Refresh: func() (*unstructured.Unstructured, string, error) {
+			out, err := clientForResource.Get(name, metav1.GetOptions{})
+			if err != nil {
+				if statusErr, ok := err.(*errors.StatusError); ok && statusErr.ErrStatus.Code == 404 {
+					return nil, "", nil
+				}
+				glog.V(3).Infof("Received error: %#v", err)
+				return out, "Error", err
+			}
+
+			statusPhase, _ := pluck(out.Object, "status", "phase")
+			glog.V(3).Infof("Namespace %s status received: %#v", name, statusPhase)
+			return out, fmt.Sprintf("%v", statusPhase), nil
+		},
+	}
+	_, err := stateConf.WaitForState()
+	return err
+}
+
+// --------------------------------------------------------------------------
+
+// core/v1/PersistentVolume
 
 // --------------------------------------------------------------------------
 
@@ -45,6 +84,12 @@ func untilCoreV1PersistentVolumeInitialized(
 	return err
 }
 
+// --------------------------------------------------------------------------
+
+// core/v1/PersistentVolumeClaim
+
+// --------------------------------------------------------------------------
+
 func untilCoreV1PersistentVolumeClaimBound(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
@@ -68,6 +113,12 @@ func untilCoreV1PersistentVolumeClaimBound(
 	_, err := s.WaitForState()
 	return err
 }
+
+// --------------------------------------------------------------------------
+
+// core/v1/Pod
+
+// --------------------------------------------------------------------------
 
 func untilCoreV1PodInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
@@ -93,6 +144,32 @@ func untilCoreV1PodInitialized(
 	return err
 }
 
+func untilCoreV1PodDeleted(
+	clientForResource dynamic.ResourceInterface, name string,
+) error {
+	err := Retry(5*time.Minute, func() *RetryError {
+		out, err := clientForResource.Get(name, metav1.GetOptions{})
+		if err != nil {
+			if statusErr, ok := err.(*errors.StatusError); ok && statusErr.ErrStatus.Code == 404 {
+				return nil
+			}
+			return NonRetryableError(err)
+		}
+
+		statusPhase, _ := pluck(out.Object, "status", "phase")
+		glog.V(3).Infof("Current state of pod: %#v", statusPhase)
+		e := fmt.Errorf("Pod %s still exists (%v)", name, statusPhase)
+		return RetryableError(e)
+	})
+	return err
+}
+
+// --------------------------------------------------------------------------
+
+// core/v1/ReplicationController
+
+// --------------------------------------------------------------------------
+
 func untilCoreV1ReplicationControllerInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
@@ -101,7 +178,7 @@ func untilCoreV1ReplicationControllerInitialized(
 		obj.GetName(), replicas)
 
 	// 10 mins should be sufficient for scheduling ~10k replicas
-	err := Retry(10*time.Minute, waitForDesiredReplicasFunc(clientForResource, obj))
+	err := Retry(10*time.Minute, waitForDesiredReplicasFunc(clientForResource, obj.GetName()))
 	if err != nil {
 		return err
 	}
@@ -113,6 +190,19 @@ func untilCoreV1ReplicationControllerInitialized(
 
 	return nil
 }
+
+func untilCoreV1ReplicationControllerDeleted(
+	clientForResource dynamic.ResourceInterface, name string,
+) error {
+	// Wait until all replicas are gone
+	return Retry(10*time.Minute, waitForDesiredReplicasFunc(clientForResource, name))
+}
+
+// --------------------------------------------------------------------------
+
+// core/v1/ResourceQuota
+
+// --------------------------------------------------------------------------
 
 func untilCoreV1ResourceQuotaInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
@@ -137,6 +227,12 @@ func untilCoreV1ResourceQuotaInitialized(
 		return RetryableError(err)
 	})
 }
+
+// --------------------------------------------------------------------------
+
+// core/v1/Service
+
+// --------------------------------------------------------------------------
 
 func untilCoreV1ServiceInitialized(
 	clientForResource, clientForEvents dynamic.ResourceInterface, obj *unstructured.Unstructured,
@@ -185,10 +281,10 @@ func untilCoreV1ServiceInitialized(
 // --------------------------------------------------------------------------
 
 func waitForDesiredReplicasFunc(
-	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
+	clientForResource dynamic.ResourceInterface, name string,
 ) RetryFunc {
 	return func() *RetryError {
-		rc, err := clientForResource.Get(obj.GetName(), metav1.GetOptions{})
+		rc, err := clientForResource.Get(name, metav1.GetOptions{})
 		if err != nil {
 			return NonRetryableError(err)
 		}

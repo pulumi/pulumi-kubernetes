@@ -382,40 +382,16 @@ func (k *kubeProvider) Update(
 func (k *kubeProvider) Delete(
 	ctx context.Context, req *pulumirpc.DeleteRequest,
 ) (*pbempty.Empty, error) {
-	// Make delete options based on the version of the client.
-	version, err := client.FetchVersion(k.client)
-	if err != nil {
-		return nil, err
-	}
-
-	deleteOpts := metav1.DeleteOptions{}
-	if version.Compare(1, 6) < 0 {
-		// 1.5.x option.
-		boolFalse := false
-		deleteOpts.OrphanDependents = &boolFalse
-	} else {
-		// 1.6.x option. (NOTE: Background delete propagation is broken in k8s v1.6, and maybe later.)
-		fg := metav1.DeletePropagationForeground
-		deleteOpts.PropagationPolicy = &fg
-	}
-
 	// TODO(hausdorff): Propagate other options, like grace period through flags.
 
-	// Obtain client and prepare for delete call.
 	gvk := k.gvkFromURN(resource.URN(req.GetUrn()))
 	gvk.Group = schemaGroupName(gvk.Group)
 
 	split := strings.Split(req.GetId(), ".")
 	namespace, name := split[0], split[1]
-	client, err := client.FromGVK(k.pool, k.client, gvk, namespace)
-	if err != nil {
-		return nil, err
-	}
 
-	err = client.Delete(name, &deleteOpts)
-	if err != nil && !errors.IsNotFound(err) {
-		return nil, fmt.Errorf("Could not find resource '%s' for deletion: %s", req.GetId(), err)
-	} else if err != nil {
+	err := await.Deletion(k.pool, k.client, gvk, namespace, name)
+	if err != nil {
 		return nil, err
 	}
 
