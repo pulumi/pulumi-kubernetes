@@ -191,6 +191,12 @@ func untilCoreV1ReplicationControllerInitialized(
 	return nil
 }
 
+func untilCoreV1ReplicationControllerUpdated(
+	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
+) error {
+	return Retry(10*time.Minute, waitForDesiredReplicasFunc(clientForResource, obj.GetName()))
+}
+
 func untilCoreV1ReplicationControllerDeleted(
 	clientForResource dynamic.ResourceInterface, name string,
 ) error {
@@ -226,6 +232,12 @@ func untilCoreV1ResourceQuotaInitialized(
 			hard, hardStatus)
 		return RetryableError(err)
 	})
+}
+
+func untilCoreV1ResourceQuotaUpdated(
+	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
+) error {
+	return untilCoreV1ResourceQuotaInitialized(clientForResource, obj)
 }
 
 // --------------------------------------------------------------------------

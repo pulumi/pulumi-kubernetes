@@ -2,7 +2,6 @@ package provider
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
@@ -16,11 +15,8 @@ import (
 	"github.com/pulumi/pulumi/pkg/util/contract"
 	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 	"k8s.io/apimachinery/pkg/api/errors"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/apimachinery/pkg/util/jsonmergepatch"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
@@ -254,12 +250,13 @@ func (k *kubeProvider) Create(
 	if err != nil {
 		return nil, err
 	}
-	mprops, err := plugin.MarshalProperties(unstructuredToPropMap(initialized), plugin.MarshalOptions{})
+
+	computed, err := computedProperties(obj, initialized)
 	if err != nil {
 		return nil, err
 	}
 
-	return &pulumirpc.CreateResponse{Id: client.FqObjName(initialized), Properties: mprops}, nil
+	return &pulumirpc.CreateResponse{Id: client.FqObjName(initialized), Properties: computed}, nil
 }
 
 // Read the current live state associated with a resource.  Enough state must be include in the
@@ -326,10 +323,6 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 	oldObj := propMapToUnstructured(olds)
-	oldJSON, err := json.Marshal(olds.Mappable())
-	if err != nil {
-		return nil, err
-	}
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
@@ -340,41 +333,18 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 	newObj := propMapToUnstructured(news)
-	newJSON, err := json.Marshal(news.Mappable())
+
+	liveObj, err := await.Update(k.pool, k.client, oldObj, newObj)
 	if err != nil {
 		return nil, err
 	}
 
-	// Retrieve live version of last submitted version of object.
-	client, err := client.FromResource(k.pool, k.client, oldObj)
+	computed, err := computedProperties(newObj, liveObj)
 	if err != nil {
 		return nil, err
 	}
 
-	liveOldObj, err := client.Get(oldObj.GetName(), metav1.GetOptions{})
-	if err != nil {
-		return nil, err
-	}
-	liveOldJSON, err := liveOldObj.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-
-	// Create JSON merge patch.
-	patch, err := jsonmergepatch.CreateThreeWayJSONMergePatch(oldJSON, liveOldJSON, newJSON)
-	if err != nil {
-		return nil, err
-	}
-
-	glog.V(3).Infof("%v", string(patch))
-
-	_, err = client.Patch(newObj.GetName(), types.MergePatchType, patch)
-	if err != nil {
-		return nil, err
-	}
-
-	// TODO(hausdorff): Add computed properties here.
-	return &pulumirpc.UpdateResponse{}, nil
+	return &pulumirpc.UpdateResponse{Properties: computed}, nil
 }
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed
