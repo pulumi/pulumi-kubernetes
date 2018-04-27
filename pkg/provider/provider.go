@@ -125,18 +125,22 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return knownGVKs.Has(gvk.String())
 	}
 
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.Check(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
 	inputs := req.GetNews()
 	news, err := plugin.UnmarshalProperties(inputs, plugin.MarshalOptions{
-		KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
 	}
 	obj := propMapToUnstructured(news)
 
-	gvk := k.gvkFromURN(resource.URN(req.GetUrn()))
+	gvk := k.gvkFromURN(urn)
 	schemaGroup := schemaGroupName(gvk.Group)
 	var failures []*pulumirpc.CheckFailure
 
@@ -188,9 +192,13 @@ func (k *kubeProvider) Diff(
 	// - [ ] Correctly reports when a resource needs to be deleted before it replaced.
 	//
 
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
 	// Get old version of the object.
 	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
-		KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
@@ -199,7 +207,7 @@ func (k *kubeProvider) Diff(
 
 	// Get proposed new version of the object.
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
-		KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
@@ -237,9 +245,13 @@ func (k *kubeProvider) Diff(
 func (k *kubeProvider) Create(
 	ctx context.Context, req *pulumirpc.CreateRequest,
 ) (*pulumirpc.CreateResponse, error) {
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.Create(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
 	// Obtain client from pool for the resource we're creating.
 	props, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.properties", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
@@ -314,10 +326,14 @@ func (k *kubeProvider) Update(
 	// - [ ] Support server-side apply, when it comes out.
 	//
 
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
 	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
-		KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
@@ -327,7 +343,7 @@ func (k *kubeProvider) Update(
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
-		KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
@@ -352,6 +368,10 @@ func (k *kubeProvider) Update(
 func (k *kubeProvider) Delete(
 	ctx context.Context, req *pulumirpc.DeleteRequest,
 ) (*pbempty.Empty, error) {
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.Delete(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
 	// TODO(hausdorff): Propagate other options, like grace period through flags.
 
 	gvk := k.gvkFromURN(resource.URN(req.GetUrn()))
@@ -380,6 +400,10 @@ func (k *kubeProvider) GetPluginInfo(context.Context, *pbempty.Empty) (*pulumirp
 // Private helpers.
 
 // --------------------------------------------------------------------------
+
+func (k *kubeProvider) label() string {
+	return fmt.Sprintf("Provider[%s]", k.name)
+}
 
 func (k *kubeProvider) gvkFromURN(urn resource.URN) schema.GroupVersionKind {
 	// Strip prefix.
