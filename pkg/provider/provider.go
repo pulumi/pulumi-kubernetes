@@ -14,6 +14,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/resource/plugin"
 	"github.com/pulumi/pulumi/pkg/util/contract"
 	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
+	"github.com/yudai/gojsondiff"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -226,13 +227,14 @@ func (k *kubeProvider) Diff(
 	}
 
 	// Pack up PB, ship response back.
-	changes := pulumirpc.DiffResponse_DIFF_NONE
-	if len(replaces) > 0 {
-		changes = pulumirpc.DiffResponse_DIFF_SOME
+	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
+	diff := gojsondiff.New().CompareObjects(oldObj.Object, newObj.Object)
+	if len(diff.Deltas()) > 0 {
+		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
 	}
 
 	return &pulumirpc.DiffResponse{
-		Changes:             changes,
+		Changes:             hasChanges,
 		Replaces:            replaces,
 		Stables:             []string{},
 		DeleteBeforeReplace: false,
