@@ -265,10 +265,10 @@ func (k *kubeProvider) Create(
 		return nil, err
 	}
 
-	computed, err := computedProperties(obj, initialized)
-	if err != nil {
-		return nil, err
-	}
+	computed, err := plugin.MarshalProperties(
+		unstructuredToPropMap(initialized), plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.computed", label), KeepUnknowns: true, SkipNulls: true,
+		})
 
 	return &pulumirpc.CreateResponse{Id: client.FqObjName(initialized), Properties: computed}, nil
 }
@@ -357,10 +357,10 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
-	computed, err := computedProperties(newObj, liveObj)
-	if err != nil {
-		return nil, err
-	}
+	computed, err := plugin.MarshalProperties(
+		unstructuredToPropMap(liveObj), plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.computed", label), KeepUnknowns: true, SkipNulls: true,
+		})
 
 	return &pulumirpc.UpdateResponse{Properties: computed}, nil
 }
