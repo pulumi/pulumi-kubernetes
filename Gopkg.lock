@@ -51,6 +51,12 @@
   version = "v1.0.5"
 
 [[projects]]
+  name = "github.com/ahmetb/go-linq"
+  packages = ["."]
+  revision = "7e71c124c1f903df09ca08678f145f68b45d125e"
+  version = "v3.0.0"
+
+[[projects]]
   name = "github.com/apache/thrift"
   packages = ["lib/go/thrift"]
   revision = "b2a4d4ae21c789b689dd162deb819665567f481c"
@@ -102,6 +108,11 @@
   packages = ["."]
   revision = "2ee87856327ba09384cabd113bc6b5d174e9ec0f"
   version = "v3.5.1"
+
+[[projects]]
+  name = "github.com/cbroglie/mustache"
+  packages = ["."]
+  revision = "v1.0.0"
 
 [[projects]]
   branch = "master"
@@ -726,6 +737,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c988e8051a3732788bf7b5a17acc53fcf6dceae5b5434b91a3bed78d691c2d01"
+  inputs-digest = "9d3d918e743dd482934e0f0e389d4a94d7c3528986c6648847051530e90ce0eb"
   solver-name = "gps-cdcl"
   solver-version = 1

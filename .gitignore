@@ -4,3 +4,5 @@
 /node_modules/
 .pulumi
 Pulumi.*.yaml
+pulumi-gen-kubernetes
+pkg/gen/openapi-specs
