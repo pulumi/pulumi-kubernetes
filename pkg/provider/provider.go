@@ -265,7 +265,10 @@ func (k *kubeProvider) Create(
 		return nil, err
 	}
 
-	computed, err := computedProperties(obj, initialized)
+	computed, err := plugin.MarshalProperties(
+		unstructuredToPropMap(initialized), plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.computed", label), KeepUnknowns: true, SkipNulls: true,
+		})
 	if err != nil {
 		return nil, err
 	}
@@ -357,7 +360,10 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
-	computed, err := computedProperties(newObj, liveObj)
+	computed, err := plugin.MarshalProperties(
+		unstructuredToPropMap(liveObj), plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.computed", label), KeepUnknowns: true, SkipNulls: true,
+		})
 	if err != nil {
 		return nil, err
 	}
