@@ -187,9 +187,10 @@ func (k *kubeProvider) Diff(
 	// TODO(hausdorff): This implementation is naive!
 	//
 	// - [x] Allows for computing a diff between the two versions of an API object.
-	// - [ ] Correctly reports when a field will cause a replacement of the resource (i.e., it can't
+	// - [x] Correctly reports when a field will cause a replacement of the resource (i.e., it can't
 	//       be patched to reflect the new state). Currently we only report this status when name or
 	//       namespace change.
+	// - [x] Correctly reports when a field will cause a replacement for non-Terraform resources.
 	// - [ ] Correctly reports when a resource needs to be deleted before it replaced.
 	//
 
@@ -204,7 +205,7 @@ func (k *kubeProvider) Diff(
 	if err != nil {
 		return nil, err
 	}
-	oldObj := propMapToUnstructured(olds)
+	oldInputs, _ := parseCheckpointObject(olds)
 
 	// Get proposed new version of the object.
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
@@ -217,18 +218,14 @@ func (k *kubeProvider) Diff(
 
 	// Naive replacement strategy. We will kill and recreate a resource only if the name or namespace
 	// has changed.
-	replaces := []string{}
-	if newObj.GetName() != oldObj.GetName() {
-		replaces = append(replaces, ".metadata.name")
-	}
-
-	if client.NamespaceOrDefault(newObj.GetNamespace()) != client.NamespaceOrDefault(oldObj.GetNamespace()) {
-		replaces = append(replaces, ".metadata.namespace")
+	replaces, err := forceNewProperties(oldInputs.Object, newObj.Object, oldInputs.GroupVersionKind())
+	if err != nil {
+		return nil, err
 	}
 
 	// Pack up PB, ship response back.
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
-	diff := gojsondiff.New().CompareObjects(oldObj.Object, newObj.Object)
+	diff := gojsondiff.New().CompareObjects(oldInputs.Object, newObj.Object)
 	if len(diff.Deltas()) > 0 {
 		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
 	}
@@ -265,15 +262,17 @@ func (k *kubeProvider) Create(
 		return nil, err
 	}
 
-	computed, err := plugin.MarshalProperties(
-		unstructuredToPropMap(initialized), plugin.MarshalOptions{
-			Label: fmt.Sprintf("%s.computed", label), KeepUnknowns: true, SkipNulls: true,
+	inputsAndComputed, err := plugin.MarshalProperties(
+		checkpointObject(obj, initialized), plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
 		})
 	if err != nil {
 		return nil, err
 	}
 
-	return &pulumirpc.CreateResponse{Id: client.FqObjName(initialized), Properties: computed}, nil
+	return &pulumirpc.CreateResponse{
+		Id: client.FqObjName(initialized), Properties: inputsAndComputed,
+	}, nil
 }
 
 // Read the current live state associated with a resource.  Enough state must be include in the
@@ -362,15 +361,15 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
-	computed, err := plugin.MarshalProperties(
-		unstructuredToPropMap(liveObj), plugin.MarshalOptions{
-			Label: fmt.Sprintf("%s.computed", label), KeepUnknowns: true, SkipNulls: true,
+	inputsAndComputed, err := plugin.MarshalProperties(
+		checkpointObject(newObj, liveObj), plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
 		})
 	if err != nil {
 		return nil, err
 	}
 
-	return &pulumirpc.UpdateResponse{Properties: computed}, nil
+	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 }
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed
@@ -442,6 +441,16 @@ func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 	return &unstructured.Unstructured{Object: pm.Mappable()}
 }
 
-func unstructuredToPropMap(u *unstructured.Unstructured) resource.PropertyMap {
-	return resource.NewPropertyMapFromMap(u.Object)
+func checkpointObject(inputs, live *unstructured.Unstructured) resource.PropertyMap {
+	return resource.NewPropertyMapFromMap(map[string]interface{}{
+		"inputs": inputs.Object,
+		"live":   live.Object,
+	})
+}
+
+func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructured.Unstructured) {
+	pm := obj.Mappable()
+	oldInputs = &unstructured.Unstructured{Object: pm["inputs"].(map[string]interface{})}
+	live = &unstructured.Unstructured{Object: pm["live"].(map[string]interface{})}
+	return
 }
