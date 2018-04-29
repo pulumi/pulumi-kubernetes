@@ -187,9 +187,10 @@ func (k *kubeProvider) Diff(
 	// TODO(hausdorff): This implementation is naive!
 	//
 	// - [x] Allows for computing a diff between the two versions of an API object.
-	// - [ ] Correctly reports when a field will cause a replacement of the resource (i.e., it can't
+	// - [x] Correctly reports when a field will cause a replacement of the resource (i.e., it can't
 	//       be patched to reflect the new state). Currently we only report this status when name or
 	//       namespace change.
+	// - [x] Correctly reports when a field will cause a replacement for non-Terraform resources.
 	// - [ ] Correctly reports when a resource needs to be deleted before it replaced.
 	//
 
@@ -217,13 +218,9 @@ func (k *kubeProvider) Diff(
 
 	// Naive replacement strategy. We will kill and recreate a resource only if the name or namespace
 	// has changed.
-	replaces := []string{}
-	if newObj.GetName() != oldObj.GetName() {
-		replaces = append(replaces, ".metadata.name")
-	}
-
-	if client.NamespaceOrDefault(newObj.GetNamespace()) != client.NamespaceOrDefault(oldObj.GetNamespace()) {
-		replaces = append(replaces, ".metadata.namespace")
+	replaces, err := forceNewProperties(oldObj.Object, newObj.Object, oldObj.GroupVersionKind())
+	if err != nil {
+		return nil, err
 	}
 
 	// Pack up PB, ship response back.
