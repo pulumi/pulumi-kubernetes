@@ -1,0 +1,23 @@
+{
+    "name": "@pulumi/kubernetes",
+    "version": "v0.11.2-1525247748-g2e1d52e-dirty",
+    "description": "A Pulumi package for creating and managing Kubernetes resources.",
+    "keywords": [
+        "pulumi",
+        "kubernetes"
+    ],
+    "homepage": "https://pulumi.io/kubernetes",
+    "repository": "https://github.com/pulumi/pulumi-kubernetes",
+    "scripts": {
+        "build": "tsc"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.2"
+    },
+    "peerDependencies": {
+        "@pulumi/pulumi": "latest"
+    },
+    "pulumi": {
+        "resource": true
+    }
+}

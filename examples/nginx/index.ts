@@ -1,9 +1,9 @@
 // Copyright 2016-2018, Pulumi Corporation.  All rights reserved.
 
-import * as kubernetes from "@pulumi/kubernetes";
+import * as k8s from "@pulumi/kubernetes";
 
 // Create an nginx pod
-let nginxcontainer = new kubernetes.Pod("nginx", {
+let nginxcontainer = new k8s.core.v1.Pod("nginx", {
     metadata: {
         name: "nginx",
         labels: {
@@ -22,25 +22,23 @@ let nginxcontainer = new kubernetes.Pod("nginx", {
 });
 
 // Create an nginxvolume
-let nginxvolume = new kubernetes.PersistentVolume("redis", {
+let nginxvolume = new k8s.core.v1.PersistentVolume("redis", {
     metadata: {
         name: "nginxvolume"
     },
-    specs: [{
+    spec: {
         capacity: {
             storage: "10Gi",
         },
         accessModes: ["ReadWriteMany"],
-        persistentVolumeSource: {
-            gcePersistentDisk: {
-                pdName: "test-123",
-            },
+        gcePersistentDisk: {
+            pdName: "test-123",
         },
-    }],
+    },
 });
 
 // create a redis pod
-let redispod = new kubernetes.Pod("redis", {
+let redispod = new k8s.core.v1.Pod("redis", {
     metadata: {
         name: "redis",
     },

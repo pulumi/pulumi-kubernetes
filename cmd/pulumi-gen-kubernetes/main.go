@@ -27,7 +27,7 @@ func main() {
 	}
 
 	templateDir := os.Args[2]
-	apits, providerts, err := gen.NodeJSClient(data, templateDir)
+	apits, providerts, packagejson, err := gen.NodeJSClient(data, templateDir)
 	if err != nil {
 		panic(err)
 	}
@@ -47,4 +47,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	err = ioutil.WriteFile(fmt.Sprintf("%s/package.json", outdir), []byte(packagejson), 0777)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%s/package.json\n", outdir)
+	fmt.Println(err)
 }
