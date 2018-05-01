@@ -22,7 +22,7 @@ GOMETALINTER    :=${GOMETALINTERBIN} --config=Gometalinter.json
 CURL            ?= curl
 
 TESTPARALLELISM := 10
-TESTABLE_PKGS   := ./pkg/await ./pkg/provider
+TESTABLE_PKGS   := ./pkg/await ./pkg/provider ./examples
 
 $(OPENAPI_FILE)::
 	@mkdir -p pkg/gen/openapi-specs
@@ -34,9 +34,25 @@ build:: $(OPENAPI_FILE)
 	for LANGUAGE in "nodejs" ; do \
 		$(CODEGEN) $(OPENAPI_FILE) pkg/gen/node-templates $(PACKDIR)/$$LANGUAGE || exit 3 ; \
 	done
+	cd ${PACKDIR}/nodejs/ && \
+		yarn install && \
+		yarn link @pulumi/pulumi && \
+		yarn run tsc
+	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
 
 lint::
 	$(GOMETALINTER) ./cmd/... resources.go | sort ; exit "$${PIPESTATUS[0]}"
+
+install::
+	GOBIN=$(PULUMI_BIN) go install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
+	[ ! -e "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" ] || rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
+	mkdir -p "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
+	cp -r pack/nodejs/bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
+	rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)/node_modules"
+	cd "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" && \
+		yarn install --offline --production && \
+		(yarn unlink > /dev/null 2>&1 || true) && \
+		yarn link
 
 test_all::
 	PATH=$(PULUMI_BIN):$(PATH) go test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
