@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	linq "github.com/ahmetb/go-linq"
+	wordwrap "github.com/mitchellh/go-wordwrap"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 )
@@ -135,8 +136,15 @@ func fmtComment(comment interface{}, prefix string) string {
 	commentstr, _ := comment.(string)
 	if len(commentstr) > 0 {
 		split := strings.Split(commentstr, "\n")
-		joined := strings.Join(split, fmt.Sprintf("\n%s// ", prefix))
-		return fmt.Sprintf(`// %s`, joined)
+		lines := []string{}
+		for _, line := range split {
+			escaped := strings.Replace(line, "*/", "*&#8205;/", -1) // Escape comment termination.
+			borderLen := len(prefix + " * ")
+			wrapped := wordwrap.WrapString(escaped, 100-uint(borderLen))
+			lines = append(lines, strings.Split(wrapped, "\n")...)
+		}
+		joined := strings.Join(lines, fmt.Sprintf("\n%s * ", prefix))
+		return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
 	}
 	return ""
 }

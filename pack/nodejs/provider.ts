@@ -6,18 +6,38 @@ import * as api from "./api";
 
 export namespace admissionregistration {
   export namespace v1alpha1 {
-    // InitializerConfiguration describes the configuration of initializers.
+    /**
+     * InitializerConfiguration describes the configuration of initializers.
+     */
     export class InitializerConfiguration extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Initializers is a list of resources and their default initializers Order-sensitive. When merging multiple InitializerConfigurations, we sort the initializers from different InitializerConfigurations by the name of the InitializerConfigurations; the order of the initializers from the same InitializerConfiguration is preserved.
+      /**
+       * Initializers is a list of resources and their default initializers Order-sensitive. When
+       * merging multiple InitializerConfigurations, we sort the initializers from different
+       * InitializerConfigurations by the name of the InitializerConfigurations; the order of the
+       * initializers from the same InitializerConfiguration is preserved.
+       */
       public readonly initializers: pulumi.Output<api.admissionregistration.v1alpha1.Initializer[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+      /**
+       * Standard object metadata; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
 
@@ -38,18 +58,35 @@ export namespace admissionregistration {
       }
     }
 
-    // InitializerConfigurationList is a list of InitializerConfiguration.
+    /**
+     * InitializerConfigurationList is a list of InitializerConfiguration.
+     */
     export class InitializerConfigurationList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of InitializerConfiguration.
+      /**
+       * List of InitializerConfiguration.
+       */
       public readonly items: pulumi.Output<api.admissionregistration.v1alpha1.InitializerConfiguration[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -73,18 +110,36 @@ export namespace admissionregistration {
   }
 
   export namespace v1beta1 {
-    // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
+    /**
+     * MutatingWebhookConfiguration describes the configuration of and admission webhook that accept
+     * or reject and may change the object.
+     */
     export class MutatingWebhookConfiguration extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+      /**
+       * Standard object metadata; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Webhooks is a list of webhooks and the affected resources and operations.
+      /**
+       * Webhooks is a list of webhooks and the affected resources and operations.
+       */
       public readonly webhooks: pulumi.Output<api.admissionregistration.v1beta1.Webhook[]>;
 
 
@@ -105,18 +160,35 @@ export namespace admissionregistration {
       }
     }
 
-    // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+    /**
+     * MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+     */
     export class MutatingWebhookConfigurationList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of MutatingWebhookConfiguration.
+      /**
+       * List of MutatingWebhookConfiguration.
+       */
       public readonly items: pulumi.Output<api.admissionregistration.v1beta1.MutatingWebhookConfiguration[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -137,18 +209,36 @@ export namespace admissionregistration {
       }
     }
 
-    // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
+    /**
+     * ValidatingWebhookConfiguration describes the configuration of and admission webhook that
+     * accept or reject and object without changing it.
+     */
     export class ValidatingWebhookConfiguration extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+      /**
+       * Standard object metadata; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Webhooks is a list of webhooks and the affected resources and operations.
+      /**
+       * Webhooks is a list of webhooks and the affected resources and operations.
+       */
       public readonly webhooks: pulumi.Output<api.admissionregistration.v1beta1.Webhook[]>;
 
 
@@ -169,18 +259,35 @@ export namespace admissionregistration {
       }
     }
 
-    // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+    /**
+     * ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+     */
     export class ValidatingWebhookConfigurationList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of ValidatingWebhookConfiguration.
+      /**
+       * List of ValidatingWebhookConfiguration.
+       */
       public readonly items: pulumi.Output<api.admissionregistration.v1beta1.ValidatingWebhookConfiguration[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -207,21 +314,38 @@ export namespace admissionregistration {
 
 export namespace apiextensions {
   export namespace v1beta1 {
-    // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
+    /**
+     * CustomResourceDefinition represents a resource that should be exposed on the API server.  Its
+     * name MUST be in the format <.spec.name>.<.spec.group>.
+     */
     export class CustomResourceDefinition extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec describes how the user wants the resources to appear
+      /**
+       * Spec describes how the user wants the resources to appear
+       */
       public readonly spec: pulumi.Output<api.apiextensions.v1beta1.CustomResourceDefinitionSpec>;
 
-      // Status indicates the actual state of the CustomResourceDefinition
+      /**
+       * Status indicates the actual state of the CustomResourceDefinition
+       */
       public readonly status: pulumi.Output<api.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
 
 
@@ -243,15 +367,29 @@ export namespace apiextensions {
       }
     }
 
-    // CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+    /**
+     * CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+     */
     export class CustomResourceDefinitionList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items individual CustomResourceDefinitions
+      /**
+       * Items individual CustomResourceDefinitions
+       */
       public readonly items: pulumi.Output<api.apiextensions.v1beta1.CustomResourceDefinition[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
@@ -281,21 +419,37 @@ export namespace apiextensions {
 
 export namespace apiregistration {
   export namespace v1beta1 {
-    // APIService represents a server for a particular GroupVersion. Name must be "version.group".
+    /**
+     * APIService represents a server for a particular GroupVersion. Name must be "version.group".
+     */
     export class APIService extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec contains information for locating and communicating with a server
+      /**
+       * Spec contains information for locating and communicating with a server
+       */
       public readonly spec: pulumi.Output<api.apiregistration.v1beta1.APIServiceSpec>;
 
-      // Status contains derived information about an API server
+      /**
+       * Status contains derived information about an API server
+       */
       public readonly status: pulumi.Output<api.apiregistration.v1beta1.APIServiceStatus>;
 
 
@@ -317,15 +471,27 @@ export namespace apiregistration {
       }
     }
 
-    // APIServiceList is a list of APIService objects.
+    /**
+     * APIServiceList is a list of APIService objects.
+     */
     export class APIServiceList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
       
       public readonly items: pulumi.Output<api.apiregistration.v1beta1.APIService[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
@@ -355,21 +521,47 @@ export namespace apiregistration {
 
 export namespace apps {
   export namespace v1 {
-    // ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+    /**
+     * ControllerRevision implements an immutable snapshot of state data. Clients are responsible
+     * for serializing and deserializing the objects that contain their internal state. Once a
+     * ControllerRevision has been successfully created, it can not be updated. The API Server will
+     * fail validation of all requests that attempt to mutate the Data field. ControllerRevisions
+     * may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet
+     * controllers for update and rollback, this object is beta. However, it may be subject to name
+     * and representation changes in future releases, and clients should not depend on its
+     * stability. It is primarily for internal use by controllers.
+     */
     export class ControllerRevision extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Data is the serialized representation of the state.
+      /**
+       * Data is the serialized representation of the state.
+       */
       public readonly data: pulumi.Output<api.pkg.runtime.RawExtension>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Revision indicates the revision of the state represented by Data.
+      /**
+       * Revision indicates the revision of the state represented by Data.
+       */
       public readonly revision: pulumi.Output<number>;
 
 
@@ -391,18 +583,34 @@ export namespace apps {
       }
     }
 
-    // ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+    /**
+     * ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+     */
     export class ControllerRevisionList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of ControllerRevisions
+      /**
+       * Items is the list of ControllerRevisions
+       */
       public readonly items: pulumi.Output<api.apps.v1.ControllerRevision[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -423,21 +631,43 @@ export namespace apps {
       }
     }
 
-    // DaemonSet represents the configuration of a daemon set.
+    /**
+     * DaemonSet represents the configuration of a daemon set.
+     */
     export class DaemonSet extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * The desired behavior of this daemon set. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.apps.v1.DaemonSetSpec>;
 
-      // The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * The current status of this daemon set. This data may be out of date by some window of time.
+       * Populated by the system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.apps.v1.DaemonSetStatus>;
 
 
@@ -459,18 +689,35 @@ export namespace apps {
       }
     }
 
-    // DaemonSetList is a collection of daemon sets.
+    /**
+     * DaemonSetList is a collection of daemon sets.
+     */
     export class DaemonSetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // A list of daemon sets.
+      /**
+       * A list of daemon sets.
+       */
       public readonly items: pulumi.Output<api.apps.v1.DaemonSet[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -491,21 +738,39 @@ export namespace apps {
       }
     }
 
-    // Deployment enables declarative updates for Pods and ReplicaSets.
+    /**
+     * Deployment enables declarative updates for Pods and ReplicaSets.
+     */
     export class Deployment extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata.
+      /**
+       * Standard object metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior of the Deployment.
+      /**
+       * Specification of the desired behavior of the Deployment.
+       */
       public readonly spec: pulumi.Output<api.apps.v1.DeploymentSpec>;
 
-      // Most recently observed status of the Deployment.
+      /**
+       * Most recently observed status of the Deployment.
+       */
       public readonly status: pulumi.Output<api.apps.v1.DeploymentStatus>;
 
 
@@ -527,18 +792,34 @@ export namespace apps {
       }
     }
 
-    // DeploymentList is a list of Deployments.
+    /**
+     * DeploymentList is a list of Deployments.
+     */
     export class DeploymentList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of Deployments.
+      /**
+       * Items is the list of Deployments.
+       */
       public readonly items: pulumi.Output<api.apps.v1.Deployment[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata.
+      /**
+       * Standard list metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -559,21 +840,44 @@ export namespace apps {
       }
     }
 
-    // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+    /**
+     * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+     */
     export class ReplicaSet extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
+       * that the ReplicaSet manages. Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.apps.v1.ReplicaSetSpec>;
 
-      // Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Status is the most recently observed status of the ReplicaSet. This data may be out of date
+       * by some window of time. Populated by the system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.apps.v1.ReplicaSetStatus>;
 
 
@@ -595,18 +899,36 @@ export namespace apps {
       }
     }
 
-    // ReplicaSetList is a collection of ReplicaSets.
+    /**
+     * ReplicaSetList is a collection of ReplicaSets.
+     */
     export class ReplicaSetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+      /**
+       * List of ReplicaSets. More info:
+       * https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+       */
       public readonly items: pulumi.Output<api.apps.v1.ReplicaSet[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -627,24 +949,42 @@ export namespace apps {
       }
     }
 
-    // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-    //  - Network: A single stable DNS and hostname.
-    //  - Storage: As many VolumeClaims as requested.
-    // The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+    /**
+     * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+     *  - Network: A single stable DNS and hostname.
+     *  - Storage: As many VolumeClaims as requested.
+     * The StatefulSet guarantees that a given network identity will always map to the same storage
+     * identity.
+     */
     export class StatefulSet extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the desired identities of pods in this set.
+      /**
+       * Spec defines the desired identities of pods in this set.
+       */
       public readonly spec: pulumi.Output<api.apps.v1.StatefulSetSpec>;
 
-      // Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
+      /**
+       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
+       * some window of time.
+       */
       public readonly status: pulumi.Output<api.apps.v1.StatefulSetStatus>;
 
 
@@ -666,15 +1006,27 @@ export namespace apps {
       }
     }
 
-    // StatefulSetList is a collection of StatefulSets.
+    /**
+     * StatefulSetList is a collection of StatefulSets.
+     */
     export class StatefulSetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
       
       public readonly items: pulumi.Output<api.apps.v1.StatefulSet[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
@@ -701,21 +1053,49 @@ export namespace apps {
   }
 
   export namespace v1beta1 {
-    // DEPRECATED - This group version of ControllerRevision is deprecated by apps/v1beta2/ControllerRevision. See the release notes for more information. ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+    /**
+     * DEPRECATED - This group version of ControllerRevision is deprecated by
+     * apps/v1beta2/ControllerRevision. See the release notes for more information.
+     * ControllerRevision implements an immutable snapshot of state data. Clients are responsible
+     * for serializing and deserializing the objects that contain their internal state. Once a
+     * ControllerRevision has been successfully created, it can not be updated. The API Server will
+     * fail validation of all requests that attempt to mutate the Data field. ControllerRevisions
+     * may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet
+     * controllers for update and rollback, this object is beta. However, it may be subject to name
+     * and representation changes in future releases, and clients should not depend on its
+     * stability. It is primarily for internal use by controllers.
+     */
     export class ControllerRevision extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Data is the serialized representation of the state.
+      /**
+       * Data is the serialized representation of the state.
+       */
       public readonly data: pulumi.Output<api.pkg.runtime.RawExtension>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Revision indicates the revision of the state represented by Data.
+      /**
+       * Revision indicates the revision of the state represented by Data.
+       */
       public readonly revision: pulumi.Output<number>;
 
 
@@ -737,18 +1117,34 @@ export namespace apps {
       }
     }
 
-    // ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+    /**
+     * ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+     */
     export class ControllerRevisionList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of ControllerRevisions
+      /**
+       * Items is the list of ControllerRevisions
+       */
       public readonly items: pulumi.Output<api.apps.v1beta1.ControllerRevision[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -769,21 +1165,41 @@ export namespace apps {
       }
     }
 
-    // DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See the release notes for more information. Deployment enables declarative updates for Pods and ReplicaSets.
+    /**
+     * DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See
+     * the release notes for more information. Deployment enables declarative updates for Pods and
+     * ReplicaSets.
+     */
     export class Deployment extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata.
+      /**
+       * Standard object metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior of the Deployment.
+      /**
+       * Specification of the desired behavior of the Deployment.
+       */
       public readonly spec: pulumi.Output<api.apps.v1beta1.DeploymentSpec>;
 
-      // Most recently observed status of the Deployment.
+      /**
+       * Most recently observed status of the Deployment.
+       */
       public readonly status: pulumi.Output<api.apps.v1beta1.DeploymentStatus>;
 
 
@@ -805,18 +1221,34 @@ export namespace apps {
       }
     }
 
-    // DeploymentList is a list of Deployments.
+    /**
+     * DeploymentList is a list of Deployments.
+     */
     export class DeploymentList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of Deployments.
+      /**
+       * Items is the list of Deployments.
+       */
       public readonly items: pulumi.Output<api.apps.v1beta1.Deployment[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata.
+      /**
+       * Standard list metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -837,21 +1269,39 @@ export namespace apps {
       }
     }
 
-    // DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
+    /**
+     * DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
+     */
     export class DeploymentRollback extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Required: This must match the Name of a deployment.
+      /**
+       * Required: This must match the Name of a deployment.
+       */
       public readonly name: pulumi.Output<string>;
 
-      // The config of this deployment rollback.
+      /**
+       * The config of this deployment rollback.
+       */
       public readonly rollbackTo: pulumi.Output<api.apps.v1beta1.RollbackConfig>;
 
-      // The annotations to be updated to a deployment
+      /**
+       * The annotations to be updated to a deployment
+       */
       public readonly updatedAnnotations: pulumi.Output<object>;
 
 
@@ -873,21 +1323,43 @@ export namespace apps {
       }
     }
 
-    // Scale represents a scaling request for a resource.
+    /**
+     * Scale represents a scaling request for a resource.
+     */
     export class Scale extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+      /**
+       * Standard object metadata; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+      /**
+       * defines the behavior of the scale. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       */
       public readonly spec: pulumi.Output<api.apps.v1beta1.ScaleSpec>;
 
-      // current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
+      /**
+       * current status of the scale. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * Read-only.
+       */
       public readonly status: pulumi.Output<api.apps.v1beta1.ScaleStatus>;
 
 
@@ -909,24 +1381,44 @@ export namespace apps {
       }
     }
 
-    // DEPRECATED - This group version of StatefulSet is deprecated by apps/v1beta2/StatefulSet. See the release notes for more information. StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-    //  - Network: A single stable DNS and hostname.
-    //  - Storage: As many VolumeClaims as requested.
-    // The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+    /**
+     * DEPRECATED - This group version of StatefulSet is deprecated by apps/v1beta2/StatefulSet. See
+     * the release notes for more information. StatefulSet represents a set of pods with consistent
+     * identities. Identities are defined as:
+     *  - Network: A single stable DNS and hostname.
+     *  - Storage: As many VolumeClaims as requested.
+     * The StatefulSet guarantees that a given network identity will always map to the same storage
+     * identity.
+     */
     export class StatefulSet extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the desired identities of pods in this set.
+      /**
+       * Spec defines the desired identities of pods in this set.
+       */
       public readonly spec: pulumi.Output<api.apps.v1beta1.StatefulSetSpec>;
 
-      // Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
+      /**
+       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
+       * some window of time.
+       */
       public readonly status: pulumi.Output<api.apps.v1beta1.StatefulSetStatus>;
 
 
@@ -948,15 +1440,27 @@ export namespace apps {
       }
     }
 
-    // StatefulSetList is a collection of StatefulSets.
+    /**
+     * StatefulSetList is a collection of StatefulSets.
+     */
     export class StatefulSetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
       
       public readonly items: pulumi.Output<api.apps.v1beta1.StatefulSet[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
@@ -983,21 +1487,49 @@ export namespace apps {
   }
 
   export namespace v1beta2 {
-    // DEPRECATED - This group version of ControllerRevision is deprecated by apps/v1/ControllerRevision. See the release notes for more information. ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
+    /**
+     * DEPRECATED - This group version of ControllerRevision is deprecated by
+     * apps/v1/ControllerRevision. See the release notes for more information. ControllerRevision
+     * implements an immutable snapshot of state data. Clients are responsible for serializing and
+     * deserializing the objects that contain their internal state. Once a ControllerRevision has
+     * been successfully created, it can not be updated. The API Server will fail validation of all
+     * requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted.
+     * Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and
+     * rollback, this object is beta. However, it may be subject to name and representation changes
+     * in future releases, and clients should not depend on its stability. It is primarily for
+     * internal use by controllers.
+     */
     export class ControllerRevision extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Data is the serialized representation of the state.
+      /**
+       * Data is the serialized representation of the state.
+       */
       public readonly data: pulumi.Output<api.pkg.runtime.RawExtension>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Revision indicates the revision of the state represented by Data.
+      /**
+       * Revision indicates the revision of the state represented by Data.
+       */
       public readonly revision: pulumi.Output<number>;
 
 
@@ -1019,18 +1551,34 @@ export namespace apps {
       }
     }
 
-    // ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+    /**
+     * ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+     */
     export class ControllerRevisionList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of ControllerRevisions
+      /**
+       * Items is the list of ControllerRevisions
+       */
       public readonly items: pulumi.Output<api.apps.v1beta2.ControllerRevision[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -1051,21 +1599,44 @@ export namespace apps {
       }
     }
 
-    // DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the release notes for more information. DaemonSet represents the configuration of a daemon set.
+    /**
+     * DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the
+     * release notes for more information. DaemonSet represents the configuration of a daemon set.
+     */
     export class DaemonSet extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * The desired behavior of this daemon set. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.apps.v1beta2.DaemonSetSpec>;
 
-      // The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * The current status of this daemon set. This data may be out of date by some window of time.
+       * Populated by the system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.apps.v1beta2.DaemonSetStatus>;
 
 
@@ -1087,18 +1658,35 @@ export namespace apps {
       }
     }
 
-    // DaemonSetList is a collection of daemon sets.
+    /**
+     * DaemonSetList is a collection of daemon sets.
+     */
     export class DaemonSetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // A list of daemon sets.
+      /**
+       * A list of daemon sets.
+       */
       public readonly items: pulumi.Output<api.apps.v1beta2.DaemonSet[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -1119,21 +1707,41 @@ export namespace apps {
       }
     }
 
-    // DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the release notes for more information. Deployment enables declarative updates for Pods and ReplicaSets.
+    /**
+     * DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the
+     * release notes for more information. Deployment enables declarative updates for Pods and
+     * ReplicaSets.
+     */
     export class Deployment extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata.
+      /**
+       * Standard object metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior of the Deployment.
+      /**
+       * Specification of the desired behavior of the Deployment.
+       */
       public readonly spec: pulumi.Output<api.apps.v1beta2.DeploymentSpec>;
 
-      // Most recently observed status of the Deployment.
+      /**
+       * Most recently observed status of the Deployment.
+       */
       public readonly status: pulumi.Output<api.apps.v1beta2.DeploymentStatus>;
 
 
@@ -1155,18 +1763,34 @@ export namespace apps {
       }
     }
 
-    // DeploymentList is a list of Deployments.
+    /**
+     * DeploymentList is a list of Deployments.
+     */
     export class DeploymentList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of Deployments.
+      /**
+       * Items is the list of Deployments.
+       */
       public readonly items: pulumi.Output<api.apps.v1beta2.Deployment[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata.
+      /**
+       * Standard list metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -1187,21 +1811,46 @@ export namespace apps {
       }
     }
 
-    // DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the release notes for more information. ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+    /**
+     * DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the
+     * release notes for more information. ReplicaSet ensures that a specified number of pod
+     * replicas are running at any given time.
+     */
     export class ReplicaSet extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
+       * that the ReplicaSet manages. Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.apps.v1beta2.ReplicaSetSpec>;
 
-      // Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Status is the most recently observed status of the ReplicaSet. This data may be out of date
+       * by some window of time. Populated by the system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.apps.v1beta2.ReplicaSetStatus>;
 
 
@@ -1223,18 +1872,36 @@ export namespace apps {
       }
     }
 
-    // ReplicaSetList is a collection of ReplicaSets.
+    /**
+     * ReplicaSetList is a collection of ReplicaSets.
+     */
     export class ReplicaSetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+      /**
+       * List of ReplicaSets. More info:
+       * https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+       */
       public readonly items: pulumi.Output<api.apps.v1beta2.ReplicaSet[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -1255,21 +1922,43 @@ export namespace apps {
       }
     }
 
-    // Scale represents a scaling request for a resource.
+    /**
+     * Scale represents a scaling request for a resource.
+     */
     export class Scale extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+      /**
+       * Standard object metadata; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+      /**
+       * defines the behavior of the scale. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       */
       public readonly spec: pulumi.Output<api.apps.v1beta2.ScaleSpec>;
 
-      // current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
+      /**
+       * current status of the scale. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * Read-only.
+       */
       public readonly status: pulumi.Output<api.apps.v1beta2.ScaleStatus>;
 
 
@@ -1291,24 +1980,44 @@ export namespace apps {
       }
     }
 
-    // DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the release notes for more information. StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-    //  - Network: A single stable DNS and hostname.
-    //  - Storage: As many VolumeClaims as requested.
-    // The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+    /**
+     * DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the
+     * release notes for more information. StatefulSet represents a set of pods with consistent
+     * identities. Identities are defined as:
+     *  - Network: A single stable DNS and hostname.
+     *  - Storage: As many VolumeClaims as requested.
+     * The StatefulSet guarantees that a given network identity will always map to the same storage
+     * identity.
+     */
     export class StatefulSet extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the desired identities of pods in this set.
+      /**
+       * Spec defines the desired identities of pods in this set.
+       */
       public readonly spec: pulumi.Output<api.apps.v1beta2.StatefulSetSpec>;
 
-      // Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
+      /**
+       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
+       * some window of time.
+       */
       public readonly status: pulumi.Output<api.apps.v1beta2.StatefulSetStatus>;
 
 
@@ -1330,15 +2039,27 @@ export namespace apps {
       }
     }
 
-    // StatefulSetList is a collection of StatefulSets.
+    /**
+     * StatefulSetList is a collection of StatefulSets.
+     */
     export class StatefulSetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
       
       public readonly items: pulumi.Output<api.apps.v1beta2.StatefulSet[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
@@ -1368,21 +2089,38 @@ export namespace apps {
 
 export namespace authentication {
   export namespace v1 {
-    // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+    /**
+     * TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may
+     * be cached by the webhook token authenticator plugin in the kube-apiserver.
+     */
     export class TokenReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated
+      /**
+       * Spec holds information about the request being evaluated
+       */
       public readonly spec: pulumi.Output<api.authentication.v1.TokenReviewSpec>;
 
-      // Status is filled in by the server and indicates whether the request can be authenticated.
+      /**
+       * Status is filled in by the server and indicates whether the request can be authenticated.
+       */
       public readonly status: pulumi.Output<api.authentication.v1.TokenReviewStatus>;
 
 
@@ -1407,21 +2145,38 @@ export namespace authentication {
   }
 
   export namespace v1beta1 {
-    // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+    /**
+     * TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may
+     * be cached by the webhook token authenticator plugin in the kube-apiserver.
+     */
     export class TokenReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated
+      /**
+       * Spec holds information about the request being evaluated
+       */
       public readonly spec: pulumi.Output<api.authentication.v1beta1.TokenReviewSpec>;
 
-      // Status is filled in by the server and indicates whether the request can be authenticated.
+      /**
+       * Status is filled in by the server and indicates whether the request can be authenticated.
+       */
       public readonly status: pulumi.Output<api.authentication.v1beta1.TokenReviewStatus>;
 
 
@@ -1449,21 +2204,40 @@ export namespace authentication {
 
 export namespace authorization {
   export namespace v1 {
-    // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+    /**
+     * LocalSubjectAccessReview checks whether or not a user or group can perform an action in a
+     * given namespace. Having a namespace scoped resource makes it much easier to grant namespace
+     * scoped policy that includes permissions checking.
+     */
     export class LocalSubjectAccessReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
+      /**
+       * Spec holds information about the request being evaluated.  spec.namespace must be equal to
+       * the namespace you made the request against.  If empty, it is defaulted.
+       */
       public readonly spec: pulumi.Output<api.authorization.v1.SubjectAccessReviewSpec>;
 
-      // Status is filled in by the server and indicates whether the request is allowed or not
+      /**
+       * Status is filled in by the server and indicates whether the request is allowed or not
+       */
       public readonly status: pulumi.Output<api.authorization.v1.SubjectAccessReviewStatus>;
 
 
@@ -1485,21 +2259,39 @@ export namespace authorization {
       }
     }
 
-    // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+    /**
+     * SelfSubjectAccessReview checks whether or the current user can perform an action.  Not
+     * filling in a spec.namespace means "in all namespaces".  Self is a special case, because users
+     * should always be able to check whether they can perform an action
+     */
     export class SelfSubjectAccessReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated.  user and groups must be empty
+      /**
+       * Spec holds information about the request being evaluated.  user and groups must be empty
+       */
       public readonly spec: pulumi.Output<api.authorization.v1.SelfSubjectAccessReviewSpec>;
 
-      // Status is filled in by the server and indicates whether the request is allowed or not
+      /**
+       * Status is filled in by the server and indicates whether the request is allowed or not
+       */
       public readonly status: pulumi.Output<api.authorization.v1.SubjectAccessReviewStatus>;
 
 
@@ -1521,21 +2313,44 @@ export namespace authorization {
       }
     }
 
-    // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
+    /**
+     * SelfSubjectRulesReview enumerates the set of actions the current user can perform within a
+     * namespace. The returned list of actions may be incomplete depending on the server's
+     * authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview
+     * should be used by UIs to show/hide actions, or to quickly let an end user reason about their
+     * permissions. It should NOT Be used by external systems to drive authorization decisions as
+     * this raises confused deputy, cache lifetime/revocation, and correctness concerns.
+     * SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization
+     * decisions to the API server.
+     */
     export class SelfSubjectRulesReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated.
+      /**
+       * Spec holds information about the request being evaluated.
+       */
       public readonly spec: pulumi.Output<api.authorization.v1.SelfSubjectRulesReviewSpec>;
 
-      // Status is filled in by the server and indicates the set of actions a user can perform.
+      /**
+       * Status is filled in by the server and indicates the set of actions a user can perform.
+       */
       public readonly status: pulumi.Output<api.authorization.v1.SubjectRulesReviewStatus>;
 
 
@@ -1557,21 +2372,37 @@ export namespace authorization {
       }
     }
 
-    // SubjectAccessReview checks whether or not a user or group can perform an action.
+    /**
+     * SubjectAccessReview checks whether or not a user or group can perform an action.
+     */
     export class SubjectAccessReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated
+      /**
+       * Spec holds information about the request being evaluated
+       */
       public readonly spec: pulumi.Output<api.authorization.v1.SubjectAccessReviewSpec>;
 
-      // Status is filled in by the server and indicates whether the request is allowed or not
+      /**
+       * Status is filled in by the server and indicates whether the request is allowed or not
+       */
       public readonly status: pulumi.Output<api.authorization.v1.SubjectAccessReviewStatus>;
 
 
@@ -1596,21 +2427,40 @@ export namespace authorization {
   }
 
   export namespace v1beta1 {
-    // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+    /**
+     * LocalSubjectAccessReview checks whether or not a user or group can perform an action in a
+     * given namespace. Having a namespace scoped resource makes it much easier to grant namespace
+     * scoped policy that includes permissions checking.
+     */
     export class LocalSubjectAccessReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
+      /**
+       * Spec holds information about the request being evaluated.  spec.namespace must be equal to
+       * the namespace you made the request against.  If empty, it is defaulted.
+       */
       public readonly spec: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewSpec>;
 
-      // Status is filled in by the server and indicates whether the request is allowed or not
+      /**
+       * Status is filled in by the server and indicates whether the request is allowed or not
+       */
       public readonly status: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewStatus>;
 
 
@@ -1632,21 +2482,39 @@ export namespace authorization {
       }
     }
 
-    // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+    /**
+     * SelfSubjectAccessReview checks whether or the current user can perform an action.  Not
+     * filling in a spec.namespace means "in all namespaces".  Self is a special case, because users
+     * should always be able to check whether they can perform an action
+     */
     export class SelfSubjectAccessReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated.  user and groups must be empty
+      /**
+       * Spec holds information about the request being evaluated.  user and groups must be empty
+       */
       public readonly spec: pulumi.Output<api.authorization.v1beta1.SelfSubjectAccessReviewSpec>;
 
-      // Status is filled in by the server and indicates whether the request is allowed or not
+      /**
+       * Status is filled in by the server and indicates whether the request is allowed or not
+       */
       public readonly status: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewStatus>;
 
 
@@ -1668,21 +2536,44 @@ export namespace authorization {
       }
     }
 
-    // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
+    /**
+     * SelfSubjectRulesReview enumerates the set of actions the current user can perform within a
+     * namespace. The returned list of actions may be incomplete depending on the server's
+     * authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview
+     * should be used by UIs to show/hide actions, or to quickly let an end user reason about their
+     * permissions. It should NOT Be used by external systems to drive authorization decisions as
+     * this raises confused deputy, cache lifetime/revocation, and correctness concerns.
+     * SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization
+     * decisions to the API server.
+     */
     export class SelfSubjectRulesReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated.
+      /**
+       * Spec holds information about the request being evaluated.
+       */
       public readonly spec: pulumi.Output<api.authorization.v1beta1.SelfSubjectRulesReviewSpec>;
 
-      // Status is filled in by the server and indicates the set of actions a user can perform.
+      /**
+       * Status is filled in by the server and indicates the set of actions a user can perform.
+       */
       public readonly status: pulumi.Output<api.authorization.v1beta1.SubjectRulesReviewStatus>;
 
 
@@ -1704,21 +2595,37 @@ export namespace authorization {
       }
     }
 
-    // SubjectAccessReview checks whether or not a user or group can perform an action.
+    /**
+     * SubjectAccessReview checks whether or not a user or group can perform an action.
+     */
     export class SubjectAccessReview extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec holds information about the request being evaluated
+      /**
+       * Spec holds information about the request being evaluated
+       */
       public readonly spec: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewSpec>;
 
-      // Status is filled in by the server and indicates whether the request is allowed or not
+      /**
+       * Status is filled in by the server and indicates whether the request is allowed or not
+       */
       public readonly status: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewStatus>;
 
 
@@ -1746,15 +2653,25 @@ export namespace authorization {
 
 export namespace autoscaling {
   export namespace v1 {
-    // CrossVersionObjectReference contains enough information to let you identify the referred resource.
+    /**
+     * CrossVersionObjectReference contains enough information to let you identify the referred
+     * resource.
+     */
     export class CrossVersionObjectReference extends pulumi.CustomResource {
-      // API version of the referent
+      /**
+       * API version of the referent
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
+      /**
+       * Kind of the referent; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+      /**
+       * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+       */
       public readonly name: pulumi.Output<string>;
 
 
@@ -1774,21 +2691,41 @@ export namespace autoscaling {
       }
     }
 
-    // configuration of a horizontal pod autoscaler.
+    /**
+     * configuration of a horizontal pod autoscaler.
+     */
     export class HorizontalPodAutoscaler extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+      /**
+       * behaviour of autoscaler. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       */
       public readonly spec: pulumi.Output<api.autoscaling.v1.HorizontalPodAutoscalerSpec>;
 
-      // current information about the autoscaler.
+      /**
+       * current information about the autoscaler.
+       */
       public readonly status: pulumi.Output<api.autoscaling.v1.HorizontalPodAutoscalerStatus>;
 
 
@@ -1810,18 +2747,34 @@ export namespace autoscaling {
       }
     }
 
-    // list of horizontal pod autoscaler objects.
+    /**
+     * list of horizontal pod autoscaler objects.
+     */
     export class HorizontalPodAutoscalerList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // list of horizontal pod autoscaler objects.
+      /**
+       * list of horizontal pod autoscaler objects.
+       */
       public readonly items: pulumi.Output<api.autoscaling.v1.HorizontalPodAutoscaler[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata.
+      /**
+       * Standard list metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -1842,21 +2795,43 @@ export namespace autoscaling {
       }
     }
 
-    // Scale represents a scaling request for a resource.
+    /**
+     * Scale represents a scaling request for a resource.
+     */
     export class Scale extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+      /**
+       * Standard object metadata; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+      /**
+       * defines the behavior of the scale. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       */
       public readonly spec: pulumi.Output<api.autoscaling.v1.ScaleSpec>;
 
-      // current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
+      /**
+       * current status of the scale. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * Read-only.
+       */
       public readonly status: pulumi.Output<api.autoscaling.v1.ScaleStatus>;
 
 
@@ -1881,15 +2856,25 @@ export namespace autoscaling {
   }
 
   export namespace v2beta1 {
-    // CrossVersionObjectReference contains enough information to let you identify the referred resource.
+    /**
+     * CrossVersionObjectReference contains enough information to let you identify the referred
+     * resource.
+     */
     export class CrossVersionObjectReference extends pulumi.CustomResource {
-      // API version of the referent
+      /**
+       * API version of the referent
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
+      /**
+       * Kind of the referent; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+      /**
+       * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+       */
       public readonly name: pulumi.Output<string>;
 
 
@@ -1909,21 +2894,43 @@ export namespace autoscaling {
       }
     }
 
-    // HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
+    /**
+     * HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
+     * automatically manages the replica count of any resource implementing the scale subresource
+     * based on the metrics specified.
+     */
     export class HorizontalPodAutoscaler extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * metadata is the standard object metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+      /**
+       * spec is the specification for the behaviour of the autoscaler. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       */
       public readonly spec: pulumi.Output<api.autoscaling.v2beta1.HorizontalPodAutoscalerSpec>;
 
-      // status is the current information about the autoscaler.
+      /**
+       * status is the current information about the autoscaler.
+       */
       public readonly status: pulumi.Output<api.autoscaling.v2beta1.HorizontalPodAutoscalerStatus>;
 
 
@@ -1945,18 +2952,34 @@ export namespace autoscaling {
       }
     }
 
-    // HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.
+    /**
+     * HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.
+     */
     export class HorizontalPodAutoscalerList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // items is the list of horizontal pod autoscaler objects.
+      /**
+       * items is the list of horizontal pod autoscaler objects.
+       */
       public readonly items: pulumi.Output<api.autoscaling.v2beta1.HorizontalPodAutoscaler[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // metadata is the standard list metadata.
+      /**
+       * metadata is the standard list metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -1983,21 +3006,42 @@ export namespace autoscaling {
 
 export namespace batch {
   export namespace v1 {
-    // Job represents the configuration of a single job.
+    /**
+     * Job represents the configuration of a single job.
+     */
     export class Job extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Specification of the desired behavior of a job. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.batch.v1.JobSpec>;
 
-      // Current status of a job. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Current status of a job. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.batch.v1.JobStatus>;
 
 
@@ -2019,18 +3063,35 @@ export namespace batch {
       }
     }
 
-    // JobList is a collection of jobs.
+    /**
+     * JobList is a collection of jobs.
+     */
     export class JobList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // items is the list of Jobs.
+      /**
+       * items is the list of Jobs.
+       */
       public readonly items: pulumi.Output<api.batch.v1.Job[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2054,21 +3115,42 @@ export namespace batch {
   }
 
   export namespace v1beta1 {
-    // CronJob represents the configuration of a single cron job.
+    /**
+     * CronJob represents the configuration of a single cron job.
+     */
     export class CronJob extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Specification of the desired behavior of a cron job, including the schedule. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.batch.v1beta1.CronJobSpec>;
 
-      // Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Current status of a cron job. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.batch.v1beta1.CronJobStatus>;
 
 
@@ -2090,18 +3172,35 @@ export namespace batch {
       }
     }
 
-    // CronJobList is a collection of cron jobs.
+    /**
+     * CronJobList is a collection of cron jobs.
+     */
     export class CronJobList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // items is the list of CronJobs.
+      /**
+       * items is the list of CronJobs.
+       */
       public readonly items: pulumi.Output<api.batch.v1beta1.CronJob[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2125,21 +3224,42 @@ export namespace batch {
   }
 
   export namespace v2alpha1 {
-    // CronJob represents the configuration of a single cron job.
+    /**
+     * CronJob represents the configuration of a single cron job.
+     */
     export class CronJob extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Specification of the desired behavior of a cron job, including the schedule. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.batch.v2alpha1.CronJobSpec>;
 
-      // Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Current status of a cron job. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.batch.v2alpha1.CronJobStatus>;
 
 
@@ -2161,18 +3281,35 @@ export namespace batch {
       }
     }
 
-    // CronJobList is a collection of cron jobs.
+    /**
+     * CronJobList is a collection of cron jobs.
+     */
     export class CronJobList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // items is the list of CronJobs.
+      /**
+       * items is the list of CronJobs.
+       */
       public readonly items: pulumi.Output<api.batch.v2alpha1.CronJob[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2199,21 +3336,37 @@ export namespace batch {
 
 export namespace certificates {
   export namespace v1beta1 {
-    // Describes a certificate signing request
+    /**
+     * Describes a certificate signing request
+     */
     export class CertificateSigningRequest extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // The certificate request itself and any additional information.
+      /**
+       * The certificate request itself and any additional information.
+       */
       public readonly spec: pulumi.Output<api.certificates.v1beta1.CertificateSigningRequestSpec>;
 
-      // Derived information about the request.
+      /**
+       * Derived information about the request.
+       */
       public readonly status: pulumi.Output<api.certificates.v1beta1.CertificateSigningRequestStatus>;
 
 
@@ -2237,13 +3390,23 @@ export namespace certificates {
 
     
     export class CertificateSigningRequestList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
       
       public readonly items: pulumi.Output<api.certificates.v1beta1.CertificateSigningRequest[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
@@ -2273,18 +3436,36 @@ export namespace certificates {
 
 export namespace core {
   export namespace v1 {
-    // Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+    /**
+     * Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
+     * Deprecated in 1.7, please use the bindings subresource of pods instead.
+     */
     export class Binding extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // The target object that you want to bind to the standard object.
+      /**
+       * The target object that you want to bind to the standard object.
+       */
       public readonly target: pulumi.Output<api.core.v1.ObjectReference>;
 
 
@@ -2305,18 +3486,35 @@ export namespace core {
       }
     }
 
-    // ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+    /**
+     * ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+     */
     export class ComponentStatus extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of component conditions observed
+      /**
+       * List of component conditions observed
+       */
       public readonly conditions: pulumi.Output<api.core.v1.ComponentCondition[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
 
@@ -2337,18 +3535,35 @@ export namespace core {
       }
     }
 
-    // Status of all the conditions for the component as a list of ComponentStatus objects.
+    /**
+     * Status of all the conditions for the component as a list of ComponentStatus objects.
+     */
     export class ComponentStatusList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of ComponentStatus objects.
+      /**
+       * List of ComponentStatus objects.
+       */
       public readonly items: pulumi.Output<api.core.v1.ComponentStatus[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2369,18 +3584,36 @@ export namespace core {
       }
     }
 
-    // ConfigMap holds configuration data for pods to consume.
+    /**
+     * ConfigMap holds configuration data for pods to consume.
+     */
     export class ConfigMap extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'.
+      /**
+       * Data contains the configuration data. Each key must consist of alphanumeric characters,
+       * '-', '_' or '.'.
+       */
       public readonly data: pulumi.Output<object>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
 
@@ -2401,18 +3634,34 @@ export namespace core {
       }
     }
 
-    // ConfigMapList is a resource containing a list of ConfigMap objects.
+    /**
+     * ConfigMapList is a resource containing a list of ConfigMap objects.
+     */
     export class ConfigMapList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of ConfigMaps.
+      /**
+       * Items is the list of ConfigMaps.
+       */
       public readonly items: pulumi.Output<api.core.v1.ConfigMap[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2433,29 +3682,51 @@ export namespace core {
       }
     }
 
-    // Endpoints is a collection of endpoints that implement the actual service. Example:
-    //   Name: "mysvc",
-    //   Subsets: [
-    //     {
-    //       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-    //       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    //     },
-    //     {
-    //       Addresses: [{"ip": "10.10.3.3"}],
-    //       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-    //     },
-    //  ]
+    /**
+     * Endpoints is a collection of endpoints that implement the actual service. Example:
+     *   Name: "mysvc",
+     *   Subsets: [
+     *     {
+     *       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+     *       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+     *     },
+     *     {
+     *       Addresses: [{"ip": "10.10.3.3"}],
+     *       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+     *     },
+     *  ]
+     */
     export class Endpoints extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
+      /**
+       * The set of all endpoints is the union of all subsets. Addresses are placed into subsets
+       * according to the IPs they share. A single address with multiple ports, some of which are
+       * ready and some of which are not (because they come from different containers) will result
+       * in the address being displayed in different subsets for the different ports. No address
+       * will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses
+       * and ports that comprise a service.
+       */
       public readonly subsets: pulumi.Output<api.core.v1.EndpointSubset[]>;
 
 
@@ -2476,18 +3747,35 @@ export namespace core {
       }
     }
 
-    // EndpointsList is a list of endpoints.
+    /**
+     * EndpointsList is a list of endpoints.
+     */
     export class EndpointsList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of endpoints.
+      /**
+       * List of endpoints.
+       */
       public readonly items: pulumi.Output<api.core.v1.Endpoints[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2508,57 +3796,101 @@ export namespace core {
       }
     }
 
-    // Event is a report of an event somewhere in the cluster.
+    /**
+     * Event is a report of an event somewhere in the cluster.
+     */
     export class Event extends pulumi.CustomResource {
-      // What action was taken/failed regarding to the Regarding object.
+      /**
+       * What action was taken/failed regarding to the Regarding object.
+       */
       public readonly action: pulumi.Output<string>;
 
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // The number of times this event has occurred.
+      /**
+       * The number of times this event has occurred.
+       */
       public readonly count: pulumi.Output<number>;
 
-      // Time when this Event was first observed.
+      /**
+       * Time when this Event was first observed.
+       */
       public readonly eventTime: pulumi.Output<string>;
 
-      // The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
+      /**
+       * The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
+       */
       public readonly firstTimestamp: pulumi.Output<string>;
 
-      // The object that this event is about.
+      /**
+       * The object that this event is about.
+       */
       public readonly involvedObject: pulumi.Output<api.core.v1.ObjectReference>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // The time at which the most recent occurrence of this event was recorded.
+      /**
+       * The time at which the most recent occurrence of this event was recorded.
+       */
       public readonly lastTimestamp: pulumi.Output<string>;
 
-      // A human-readable description of the status of this operation.
+      /**
+       * A human-readable description of the status of this operation.
+       */
       public readonly message: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
+      /**
+       * This should be a short, machine understandable string that gives the reason for the
+       * transition into the object's current status.
+       */
       public readonly reason: pulumi.Output<string>;
 
-      // Optional secondary object for more complex actions.
+      /**
+       * Optional secondary object for more complex actions.
+       */
       public readonly related: pulumi.Output<api.core.v1.ObjectReference>;
 
-      // Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+      /**
+       * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+       */
       public readonly reportingComponent: pulumi.Output<string>;
 
-      // ID of the controller instance, e.g. `kubelet-xyzf`.
+      /**
+       * ID of the controller instance, e.g. `kubelet-xyzf`.
+       */
       public readonly reportingInstance: pulumi.Output<string>;
 
-      // Data about the Event series this event represents or nil if it's a singleton Event.
+      /**
+       * Data about the Event series this event represents or nil if it's a singleton Event.
+       */
       public readonly series: pulumi.Output<api.core.v1.EventSeries>;
 
-      // The component reporting this event. Should be a short machine understandable string.
+      /**
+       * The component reporting this event. Should be a short machine understandable string.
+       */
       public readonly source: pulumi.Output<api.core.v1.EventSource>;
 
-      // Type of this event (Normal, Warning), new types could be added in the future
+      /**
+       * Type of this event (Normal, Warning), new types could be added in the future
+       */
       public readonly type: pulumi.Output<string>;
 
 
@@ -2592,18 +3924,35 @@ export namespace core {
       }
     }
 
-    // EventList is a list of events.
+    /**
+     * EventList is a list of events.
+     */
     export class EventList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of events
+      /**
+       * List of events
+       */
       public readonly items: pulumi.Output<api.core.v1.Event[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2624,18 +3973,36 @@ export namespace core {
       }
     }
 
-    // LimitRange sets resource usage limits for each kind of resource in a Namespace.
+    /**
+     * LimitRange sets resource usage limits for each kind of resource in a Namespace.
+     */
     export class LimitRange extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec defines the limits enforced. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.core.v1.LimitRangeSpec>;
 
 
@@ -2656,18 +4023,36 @@ export namespace core {
       }
     }
 
-    // LimitRangeList is a list of LimitRange items.
+    /**
+     * LimitRangeList is a list of LimitRange items.
+     */
     export class LimitRangeList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+      /**
+       * Items is a list of LimitRange objects. More info:
+       * https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+       */
       public readonly items: pulumi.Output<api.core.v1.LimitRange[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2688,21 +4073,42 @@ export namespace core {
       }
     }
 
-    // Namespace provides a scope for Names. Use of multiple namespaces is optional.
+    /**
+     * Namespace provides a scope for Names. Use of multiple namespaces is optional.
+     */
     export class Namespace extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec defines the behavior of the Namespace. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.core.v1.NamespaceSpec>;
 
-      // Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Status describes the current status of a Namespace. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.core.v1.NamespaceStatus>;
 
 
@@ -2724,18 +4130,36 @@ export namespace core {
       }
     }
 
-    // NamespaceList is a list of Namespaces.
+    /**
+     * NamespaceList is a list of Namespaces.
+     */
     export class NamespaceList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+      /**
+       * Items is the list of Namespace objects in the list. More info:
+       * https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+       */
       public readonly items: pulumi.Output<api.core.v1.Namespace[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2756,21 +4180,43 @@ export namespace core {
       }
     }
 
-    // Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+    /**
+     * Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache
+     * (i.e. in etcd).
+     */
     export class Node extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec defines the behavior of a node.
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.core.v1.NodeSpec>;
 
-      // Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Most recently observed status of the node. Populated by the system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.core.v1.NodeStatus>;
 
 
@@ -2792,15 +4238,28 @@ export namespace core {
       }
     }
 
-    // NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.
+    /**
+     * NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding
+     * metadata) must be non-nil.
+     */
     export class NodeConfigSource extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
       
       public readonly configMapRef: pulumi.Output<api.core.v1.ObjectReference>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
 
@@ -2820,18 +4279,35 @@ export namespace core {
       }
     }
 
-    // NodeList is the whole list of all Nodes which have been registered with master.
+    /**
+     * NodeList is the whole list of all Nodes which have been registered with master.
+     */
     export class NodeList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of nodes
+      /**
+       * List of nodes
+       */
       public readonly items: pulumi.Output<api.core.v1.Node[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -2852,27 +4328,54 @@ export namespace core {
       }
     }
 
-    // ObjectReference contains enough information to let you inspect or modify the referred object.
+    /**
+     * ObjectReference contains enough information to let you inspect or modify the referred object.
+     */
     export class ObjectReference extends pulumi.CustomResource {
-      // API version of the referent.
+      /**
+       * API version of the referent.
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: "spec.containers{name}" (where "name" refers to the name of the container that triggered the event) or if no container name is specified "spec.containers[2]" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object.
+      /**
+       * If referring to a piece of an object instead of an entire object, this string should
+       * contain a valid JSON/Go field access statement, such as
+       * desiredState.manifest.containers[2]. For example, if the object reference is to a container
+       * within a pod, this would take on a value like: "spec.containers{name}" (where "name" refers
+       * to the name of the container that triggered the event) or if no container name is specified
+       * "spec.containers[2]" (container with index 2 in this pod). This syntax is chosen only to
+       * have some well-defined way of referencing a part of an object.
+       */
       public readonly fieldPath: pulumi.Output<string>;
 
-      // Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind of the referent. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+      /**
+       * Name of the referent. More info:
+       * https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+       */
       public readonly name: pulumi.Output<string>;
 
-      // Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+      /**
+       * Namespace of the referent. More info:
+       * https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+       */
       public readonly namespace: pulumi.Output<string>;
 
-      // Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#concurrency-control-and-consistency
+      /**
+       * Specific resourceVersion to which this reference is made, if any. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#concurrency-control-and-consistency
+       */
       public readonly resourceVersion: pulumi.Output<string>;
 
-      // UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+      /**
+       * UID of the referent. More info:
+       * https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+       */
       public readonly uid: pulumi.Output<string>;
 
 
@@ -2896,21 +4399,45 @@ export namespace core {
       }
     }
 
-    // PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+    /**
+     * PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous
+     * to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+     */
     export class PersistentVolume extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+      /**
+       * Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an
+       * administrator. More info:
+       * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+       */
       public readonly spec: pulumi.Output<api.core.v1.PersistentVolumeSpec>;
 
-      // Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+      /**
+       * Status represents the current information/status for the persistent volume. Populated by
+       * the system. Read-only. More info:
+       * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+       */
       public readonly status: pulumi.Output<api.core.v1.PersistentVolumeStatus>;
 
 
@@ -2932,21 +4459,43 @@ export namespace core {
       }
     }
 
-    // PersistentVolumeClaim is a user's request for and claim to a persistent volume
+    /**
+     * PersistentVolumeClaim is a user's request for and claim to a persistent volume
+     */
     export class PersistentVolumeClaim extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+      /**
+       * Spec defines the desired characteristics of a volume requested by a pod author. More info:
+       * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+       */
       public readonly spec: pulumi.Output<api.core.v1.PersistentVolumeClaimSpec>;
 
-      // Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+      /**
+       * Status represents the current information/status of a persistent volume claim. Read-only.
+       * More info:
+       * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+       */
       public readonly status: pulumi.Output<api.core.v1.PersistentVolumeClaimStatus>;
 
 
@@ -2968,18 +4517,36 @@ export namespace core {
       }
     }
 
-    // PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
+    /**
+     * PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
+     */
     export class PersistentVolumeClaimList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+      /**
+       * A list of persistent volume claims. More info:
+       * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+       */
       public readonly items: pulumi.Output<api.core.v1.PersistentVolumeClaim[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3000,18 +4567,36 @@ export namespace core {
       }
     }
 
-    // PersistentVolumeList is a list of PersistentVolume items.
+    /**
+     * PersistentVolumeList is a list of PersistentVolume items.
+     */
     export class PersistentVolumeList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+      /**
+       * List of persistent volumes. More info:
+       * https://kubernetes.io/docs/concepts/storage/persistent-volumes
+       */
       public readonly items: pulumi.Output<api.core.v1.PersistentVolume[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3032,21 +4617,44 @@ export namespace core {
       }
     }
 
-    // Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
+    /**
+     * Pod is a collection of containers that can run on a host. This resource is created by clients
+     * and scheduled onto hosts.
+     */
     export class Pod extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Specification of the desired behavior of the pod. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.core.v1.PodSpec>;
 
-      // Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Most recently observed status of the pod. This data may not be up to date. Populated by the
+       * system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.core.v1.PodStatus>;
 
 
@@ -3068,18 +4676,35 @@ export namespace core {
       }
     }
 
-    // PodList is a list of Pods.
+    /**
+     * PodList is a list of Pods.
+     */
     export class PodList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of pods. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md
+      /**
+       * List of pods. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md
+       */
       public readonly items: pulumi.Output<api.core.v1.Pod[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3100,18 +4725,36 @@ export namespace core {
       }
     }
 
-    // PodTemplate describes a template for creating copies of a predefined pod.
+    /**
+     * PodTemplate describes a template for creating copies of a predefined pod.
+     */
     export class PodTemplate extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Template defines the pods that will be created from this pod template.
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly template: pulumi.Output<api.core.v1.PodTemplateSpec>;
 
 
@@ -3132,18 +4775,35 @@ export namespace core {
       }
     }
 
-    // PodTemplateList is a list of PodTemplates.
+    /**
+     * PodTemplateList is a list of PodTemplates.
+     */
     export class PodTemplateList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of pod templates
+      /**
+       * List of pod templates
+       */
       public readonly items: pulumi.Output<api.core.v1.PodTemplate[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3164,21 +4824,44 @@ export namespace core {
       }
     }
 
-    // ReplicationController represents the configuration of a replication controller.
+    /**
+     * ReplicationController represents the configuration of a replication controller.
+     */
     export class ReplicationController extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * If the Labels of a ReplicationController are empty, they are defaulted to be the same as
+       * the Pod(s) that the replication controller manages. Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec defines the specification of the desired behavior of the replication controller. More
+       * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.core.v1.ReplicationControllerSpec>;
 
-      // Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Status is the most recently observed status of the replication controller. This data may be
+       * out of date by some window of time. Populated by the system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.core.v1.ReplicationControllerStatus>;
 
 
@@ -3200,18 +4883,36 @@ export namespace core {
       }
     }
 
-    // ReplicationControllerList is a collection of replication controllers.
+    /**
+     * ReplicationControllerList is a collection of replication controllers.
+     */
     export class ReplicationControllerList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of replication controllers. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+      /**
+       * List of replication controllers. More info:
+       * https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+       */
       public readonly items: pulumi.Output<api.core.v1.ReplicationController[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3232,21 +4933,42 @@ export namespace core {
       }
     }
 
-    // ResourceQuota sets aggregate quota restrictions enforced per namespace
+    /**
+     * ResourceQuota sets aggregate quota restrictions enforced per namespace
+     */
     export class ResourceQuota extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec defines the desired quota.
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.core.v1.ResourceQuotaSpec>;
 
-      // Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Status defines the actual enforced quota and its current usage.
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.core.v1.ResourceQuotaStatus>;
 
 
@@ -3268,18 +4990,36 @@ export namespace core {
       }
     }
 
-    // ResourceQuotaList is a list of ResourceQuota items.
+    /**
+     * ResourceQuotaList is a list of ResourceQuota items.
+     */
     export class ResourceQuotaList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+      /**
+       * Items is a list of ResourceQuota objects. More info:
+       * https://kubernetes.io/docs/concepts/policy/resource-quotas/
+       */
       public readonly items: pulumi.Output<api.core.v1.ResourceQuota[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3300,24 +5040,51 @@ export namespace core {
       }
     }
 
-    // Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
+    /**
+     * Secret holds secret data of a certain type. The total bytes of the values in the Data field
+     * must be less than MaxSecretSize bytes.
+     */
     export class Secret extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
+      /**
+       * Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_'
+       * or '.'. The serialized form of the secret data is a base64 encoded string, representing the
+       * arbitrary (possibly non-string) data value here. Described in
+       * https://tools.ietf.org/html/rfc4648#section-4
+       */
       public readonly data: pulumi.Output<object>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // stringData allows specifying non-binary secret data in string form. It is provided as a write-only convenience method. All keys and values are merged into the data field on write, overwriting any existing values. It is never output when reading from the API.
+      /**
+       * stringData allows specifying non-binary secret data in string form. It is provided as a
+       * write-only convenience method. All keys and values are merged into the data field on write,
+       * overwriting any existing values. It is never output when reading from the API.
+       */
       public readonly stringData: pulumi.Output<object>;
 
-      // Used to facilitate programmatic handling of secret data.
+      /**
+       * Used to facilitate programmatic handling of secret data.
+       */
       public readonly type: pulumi.Output<string>;
 
 
@@ -3340,18 +5107,36 @@ export namespace core {
       }
     }
 
-    // SecretList is a list of Secret.
+    /**
+     * SecretList is a list of Secret.
+     */
     export class SecretList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of secret objects. More info: https://kubernetes.io/docs/concepts/configuration/secret
+      /**
+       * Items is a list of secret objects. More info:
+       * https://kubernetes.io/docs/concepts/configuration/secret
+       */
       public readonly items: pulumi.Output<api.core.v1.Secret[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3372,21 +5157,44 @@ export namespace core {
       }
     }
 
-    // Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
+    /**
+     * Service is a named abstraction of software service (for example, mysql) consisting of local
+     * port (for example 3306) that the proxy listens on, and the selector that determines which
+     * pods will answer requests sent through the proxy.
+     */
     export class Service extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec defines the behavior of a service.
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.core.v1.ServiceSpec>;
 
-      // Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Most recently observed status of the service. Populated by the system. Read-only. More
+       * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.core.v1.ServiceStatus>;
 
 
@@ -3408,24 +5216,53 @@ export namespace core {
       }
     }
 
-    // ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
+    /**
+     * ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral
+     * systems, for an identity * a principal that can be authenticated and authorized * a set of
+     * secrets
+     */
     export class ServiceAccount extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
+      /**
+       * AutomountServiceAccountToken indicates whether pods running as this service account should
+       * have an API token automatically mounted. Can be overridden at the pod level.
+       */
       public readonly automountServiceAccountToken: pulumi.Output<boolean>;
 
-      // ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+      /**
+       * ImagePullSecrets is a list of references to secrets in the same namespace to use for
+       * pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are
+       * distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are
+       * only accessed by the kubelet. More info:
+       * https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+       */
       public readonly imagePullSecrets: pulumi.Output<api.core.v1.LocalObjectReference[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+      /**
+       * Secrets is the list of secrets allowed to be used by pods running using this
+       * ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+       */
       public readonly secrets: pulumi.Output<api.core.v1.ObjectReference[]>;
 
 
@@ -3448,18 +5285,36 @@ export namespace core {
       }
     }
 
-    // ServiceAccountList is a list of ServiceAccount objects
+    /**
+     * ServiceAccountList is a list of ServiceAccount objects
+     */
     export class ServiceAccountList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+      /**
+       * List of ServiceAccounts. More info:
+       * https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+       */
       public readonly items: pulumi.Output<api.core.v1.ServiceAccount[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3480,18 +5335,35 @@ export namespace core {
       }
     }
 
-    // ServiceList holds a list of services.
+    /**
+     * ServiceList holds a list of services.
+     */
     export class ServiceList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of services
+      /**
+       * List of services
+       */
       public readonly items: pulumi.Output<api.core.v1.Service[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3518,57 +5390,102 @@ export namespace core {
 
 export namespace events {
   export namespace v1beta1 {
-    // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+    /**
+     * Event is a report of an event somewhere in the cluster. It generally denotes some state
+     * change in the system.
+     */
     export class Event extends pulumi.CustomResource {
-      // What action was taken/failed regarding to the regarding object.
+      /**
+       * What action was taken/failed regarding to the regarding object.
+       */
       public readonly action: pulumi.Output<string>;
 
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Deprecated field assuring backward compatibility with core.v1 Event type
+      /**
+       * Deprecated field assuring backward compatibility with core.v1 Event type
+       */
       public readonly deprecatedCount: pulumi.Output<number>;
 
-      // Deprecated field assuring backward compatibility with core.v1 Event type
+      /**
+       * Deprecated field assuring backward compatibility with core.v1 Event type
+       */
       public readonly deprecatedFirstTimestamp: pulumi.Output<string>;
 
-      // Deprecated field assuring backward compatibility with core.v1 Event type
+      /**
+       * Deprecated field assuring backward compatibility with core.v1 Event type
+       */
       public readonly deprecatedLastTimestamp: pulumi.Output<string>;
 
-      // Deprecated field assuring backward compatibility with core.v1 Event type
+      /**
+       * Deprecated field assuring backward compatibility with core.v1 Event type
+       */
       public readonly deprecatedSource: pulumi.Output<api.core.v1.EventSource>;
 
-      // Required. Time when this Event was first observed.
+      /**
+       * Required. Time when this Event was first observed.
+       */
       public readonly eventTime: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+      /**
+       * Optional. A human-readable description of the status of this operation. Maximal length of
+       * the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+       */
       public readonly note: pulumi.Output<string>;
 
-      // Why the action was taken.
+      /**
+       * Why the action was taken.
+       */
       public readonly reason: pulumi.Output<string>;
 
-      // The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+      /**
+       * The object this Event is about. In most cases it's an Object reporting controller
+       * implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted
+       * because it acts on some changes in a ReplicaSet object.
+       */
       public readonly regarding: pulumi.Output<api.core.v1.ObjectReference>;
 
-      // Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+      /**
+       * Optional secondary object for more complex actions. E.g. when regarding object triggers a
+       * creation or deletion of related object.
+       */
       public readonly related: pulumi.Output<api.core.v1.ObjectReference>;
 
-      // Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+      /**
+       * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+       */
       public readonly reportingController: pulumi.Output<string>;
 
-      // ID of the controller instance, e.g. `kubelet-xyzf`.
+      /**
+       * ID of the controller instance, e.g. `kubelet-xyzf`.
+       */
       public readonly reportingInstance: pulumi.Output<string>;
 
-      // Data about the Event series this event represents or nil if it's a singleton Event.
+      /**
+       * Data about the Event series this event represents or nil if it's a singleton Event.
+       */
       public readonly series: pulumi.Output<api.events.v1beta1.EventSeries>;
 
-      // Type of this event (Normal, Warning), new types could be added in the future.
+      /**
+       * Type of this event (Normal, Warning), new types could be added in the future.
+       */
       public readonly type: pulumi.Output<string>;
 
 
@@ -3602,18 +5519,35 @@ export namespace events {
       }
     }
 
-    // EventList is a list of Event objects.
+    /**
+     * EventList is a list of Event objects.
+     */
     export class EventList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of schema objects.
+      /**
+       * Items is a list of schema objects.
+       */
       public readonly items: pulumi.Output<api.events.v1beta1.Event[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3640,21 +5574,44 @@ export namespace events {
 
 export namespace extensions {
   export namespace v1beta1 {
-    // DEPRECATED - This group version of DaemonSet is deprecated by apps/v1beta2/DaemonSet. See the release notes for more information. DaemonSet represents the configuration of a daemon set.
+    /**
+     * DEPRECATED - This group version of DaemonSet is deprecated by apps/v1beta2/DaemonSet. See the
+     * release notes for more information. DaemonSet represents the configuration of a daemon set.
+     */
     export class DaemonSet extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * The desired behavior of this daemon set. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.extensions.v1beta1.DaemonSetSpec>;
 
-      // The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * The current status of this daemon set. This data may be out of date by some window of time.
+       * Populated by the system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.extensions.v1beta1.DaemonSetStatus>;
 
 
@@ -3676,18 +5633,35 @@ export namespace extensions {
       }
     }
 
-    // DaemonSetList is a collection of daemon sets.
+    /**
+     * DaemonSetList is a collection of daemon sets.
+     */
     export class DaemonSetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // A list of daemon sets.
+      /**
+       * A list of daemon sets.
+       */
       public readonly items: pulumi.Output<api.extensions.v1beta1.DaemonSet[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3708,21 +5682,41 @@ export namespace extensions {
       }
     }
 
-    // DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See the release notes for more information. Deployment enables declarative updates for Pods and ReplicaSets.
+    /**
+     * DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See
+     * the release notes for more information. Deployment enables declarative updates for Pods and
+     * ReplicaSets.
+     */
     export class Deployment extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata.
+      /**
+       * Standard object metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior of the Deployment.
+      /**
+       * Specification of the desired behavior of the Deployment.
+       */
       public readonly spec: pulumi.Output<api.extensions.v1beta1.DeploymentSpec>;
 
-      // Most recently observed status of the Deployment.
+      /**
+       * Most recently observed status of the Deployment.
+       */
       public readonly status: pulumi.Output<api.extensions.v1beta1.DeploymentStatus>;
 
 
@@ -3744,18 +5738,34 @@ export namespace extensions {
       }
     }
 
-    // DeploymentList is a list of Deployments.
+    /**
+     * DeploymentList is a list of Deployments.
+     */
     export class DeploymentList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of Deployments.
+      /**
+       * Items is the list of Deployments.
+       */
       public readonly items: pulumi.Output<api.extensions.v1beta1.Deployment[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata.
+      /**
+       * Standard list metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3776,21 +5786,39 @@ export namespace extensions {
       }
     }
 
-    // DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
+    /**
+     * DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
+     */
     export class DeploymentRollback extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Required: This must match the Name of a deployment.
+      /**
+       * Required: This must match the Name of a deployment.
+       */
       public readonly name: pulumi.Output<string>;
 
-      // The config of this deployment rollback.
+      /**
+       * The config of this deployment rollback.
+       */
       public readonly rollbackTo: pulumi.Output<api.extensions.v1beta1.RollbackConfig>;
 
-      // The annotations to be updated to a deployment
+      /**
+       * The annotations to be updated to a deployment
+       */
       public readonly updatedAnnotations: pulumi.Output<object>;
 
 
@@ -3812,21 +5840,44 @@ export namespace extensions {
       }
     }
 
-    // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+    /**
+     * Ingress is a collection of rules that allow inbound connections to reach the endpoints
+     * defined by a backend. An Ingress can be configured to give services externally-reachable
+     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+     */
     export class Ingress extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec is the desired state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.extensions.v1beta1.IngressSpec>;
 
-      // Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Status is the current state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.extensions.v1beta1.IngressStatus>;
 
 
@@ -3848,18 +5899,35 @@ export namespace extensions {
       }
     }
 
-    // IngressList is a collection of Ingress.
+    /**
+     * IngressList is a collection of Ingress.
+     */
     export class IngressList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of Ingress.
+      /**
+       * Items is the list of Ingress.
+       */
       public readonly items: pulumi.Output<api.extensions.v1beta1.Ingress[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3880,18 +5948,37 @@ export namespace extensions {
       }
     }
 
-    // DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a set of Pods
+    /**
+     * DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by
+     * networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a
+     * set of Pods
+     */
     export class NetworkPolicy extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior for this NetworkPolicy.
+      /**
+       * Specification of the desired behavior for this NetworkPolicy.
+       */
       public readonly spec: pulumi.Output<api.extensions.v1beta1.NetworkPolicySpec>;
 
 
@@ -3912,18 +5999,36 @@ export namespace extensions {
       }
     }
 
-    // DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
+    /**
+     * DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by
+     * networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
+     */
     export class NetworkPolicyList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of schema objects.
+      /**
+       * Items is a list of schema objects.
+       */
       public readonly items: pulumi.Output<api.extensions.v1beta1.NetworkPolicy[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -3944,18 +6049,36 @@ export namespace extensions {
       }
     }
 
-    // Pod Security Policy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
+    /**
+     * Pod Security Policy governs the ability to make requests that affect the Security Context
+     * that will be applied to a pod and container.
+     */
     export class PodSecurityPolicy extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // spec defines the policy enforced.
+      /**
+       * spec defines the policy enforced.
+       */
       public readonly spec: pulumi.Output<api.extensions.v1beta1.PodSecurityPolicySpec>;
 
 
@@ -3976,18 +6099,35 @@ export namespace extensions {
       }
     }
 
-    // Pod Security Policy List is a list of PodSecurityPolicy objects.
+    /**
+     * Pod Security Policy List is a list of PodSecurityPolicy objects.
+     */
     export class PodSecurityPolicyList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of schema objects.
+      /**
+       * Items is a list of schema objects.
+       */
       public readonly items: pulumi.Output<api.extensions.v1beta1.PodSecurityPolicy[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -4008,21 +6148,46 @@ export namespace extensions {
       }
     }
 
-    // DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1beta2/ReplicaSet. See the release notes for more information. ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+    /**
+     * DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1beta2/ReplicaSet. See
+     * the release notes for more information. ReplicaSet ensures that a specified number of pod
+     * replicas are running at any given time.
+     */
     export class ReplicaSet extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
+       * that the ReplicaSet manages. Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly spec: pulumi.Output<api.extensions.v1beta1.ReplicaSetSpec>;
 
-      // Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Status is the most recently observed status of the ReplicaSet. This data may be out of date
+       * by some window of time. Populated by the system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<api.extensions.v1beta1.ReplicaSetStatus>;
 
 
@@ -4044,18 +6209,36 @@ export namespace extensions {
       }
     }
 
-    // ReplicaSetList is a collection of ReplicaSets.
+    /**
+     * ReplicaSetList is a collection of ReplicaSets.
+     */
     export class ReplicaSetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+      /**
+       * List of ReplicaSets. More info:
+       * https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+       */
       public readonly items: pulumi.Output<api.extensions.v1beta1.ReplicaSet[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -4076,21 +6259,43 @@ export namespace extensions {
       }
     }
 
-    // represents a scaling request for a resource.
+    /**
+     * represents a scaling request for a resource.
+     */
     export class Scale extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+      /**
+       * Standard object metadata; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+      /**
+       * defines the behavior of the scale. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       */
       public readonly spec: pulumi.Output<api.extensions.v1beta1.ScaleSpec>;
 
-      // current status of the scale. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status. Read-only.
+      /**
+       * current status of the scale. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * Read-only.
+       */
       public readonly status: pulumi.Output<api.extensions.v1beta1.ScaleStatus>;
 
 
@@ -4118,24 +6323,51 @@ export namespace extensions {
 
 export namespace meta {
   export namespace v1 {
-    // APIGroup contains the name, the supported versions, and the preferred version of a group.
+    /**
+     * APIGroup contains the name, the supported versions, and the preferred version of a group.
+     */
     export class APIGroup extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // name is the name of the group.
+      /**
+       * name is the name of the group.
+       */
       public readonly name: pulumi.Output<string>;
 
-      // preferredVersion is the version preferred by the API server, which probably is the storage version.
+      /**
+       * preferredVersion is the version preferred by the API server, which probably is the storage
+       * version.
+       */
       public readonly preferredVersion: pulumi.Output<api.meta.v1.GroupVersionForDiscovery>;
 
-      // a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+      /**
+       * a map of client CIDR to server address that is serving this group. This is to help clients
+       * reach servers in the most network-efficient way possible. Clients can use the appropriate
+       * server address as per the CIDR that they match. In case of multiple matches, clients should
+       * use the longest matching CIDR. The server returns only those CIDRs that it thinks that the
+       * client can match. For example: the master will return an internal IP CIDR only, if the
+       * client reaches the server using an internal IP. Server looks at X-Forwarded-For header or
+       * X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+       */
       public readonly serverAddressByClientCIDRs: pulumi.Output<api.meta.v1.ServerAddressByClientCIDR[]>;
 
-      // versions are the versions supported in this group.
+      /**
+       * versions are the versions supported in this group.
+       */
       public readonly versions: pulumi.Output<api.meta.v1.GroupVersionForDiscovery[]>;
 
 
@@ -4158,15 +6390,29 @@ export namespace meta {
       }
     }
 
-    // APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
+    /**
+     * APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
+     */
     export class APIGroupList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // groups is a list of APIGroup.
+      /**
+       * groups is a list of APIGroup.
+       */
       public readonly groups: pulumi.Output<api.meta.v1.APIGroup[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
 
@@ -4186,18 +6432,35 @@ export namespace meta {
       }
     }
 
-    // APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
+    /**
+     * APIResourceList is a list of APIResource, it is used to expose the name of the resources
+     * supported in a specific group and version, and if the resource is namespaced.
+     */
     export class APIResourceList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // groupVersion is the group and version this APIResourceList is for.
+      /**
+       * groupVersion is the group and version this APIResourceList is for.
+       */
       public readonly groupVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // resources contains the name of the resources and if they are namespaced.
+      /**
+       * resources contains the name of the resources and if they are namespaced.
+       */
       public readonly resources: pulumi.Output<api.meta.v1.APIResource[]>;
 
 
@@ -4218,18 +6481,41 @@ export namespace meta {
       }
     }
 
-    // APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
+    /**
+     * APIVersions lists the versions that are available, to allow clients to discover the API at
+     * /api, which is the root path of the legacy v1 API.
+     */
     export class APIVersions extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+      /**
+       * a map of client CIDR to server address that is serving this group. This is to help clients
+       * reach servers in the most network-efficient way possible. Clients can use the appropriate
+       * server address as per the CIDR that they match. In case of multiple matches, clients should
+       * use the longest matching CIDR. The server returns only those CIDRs that it thinks that the
+       * client can match. For example: the master will return an internal IP CIDR only, if the
+       * client reaches the server using an internal IP. Server looks at X-Forwarded-For header or
+       * X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
+       */
       public readonly serverAddressByClientCIDRs: pulumi.Output<api.meta.v1.ServerAddressByClientCIDR[]>;
 
-      // versions are the api versions that are available.
+      /**
+       * versions are the api versions that are available.
+       */
       public readonly versions: pulumi.Output<string[]>;
 
 
@@ -4250,24 +6536,56 @@ export namespace meta {
       }
     }
 
-    // DeleteOptions may be provided when deleting an API object.
+    /**
+     * DeleteOptions may be provided when deleting an API object.
+     */
     export class DeleteOptions extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
+      /**
+       * The duration in seconds before the object should be deleted. Value must be non-negative
+       * integer. The value zero indicates delete immediately. If this value is nil, the default
+       * grace period for the specified type will be used. Defaults to a per object value if not
+       * specified. zero means delete immediately.
+       */
       public readonly gracePeriodSeconds: pulumi.Output<number>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
+      /**
+       * Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should
+       * the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added
+       * to/removed from the object's finalizers list. Either this field or PropagationPolicy may be
+       * set, but not both.
+       */
       public readonly orphanDependents: pulumi.Output<boolean>;
 
-      // Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.
+      /**
+       * Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status
+       * will be returned.
+       */
       public readonly preconditions: pulumi.Output<api.meta.v1.Preconditions>;
 
-      // Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
+      /**
+       * Whether and how garbage collection will be performed. Either this field or OrphanDependents
+       * may be set, but not both. The default policy is decided by the existing finalizer set in
+       * the metadata.finalizers and the resource-specific default policy. Acceptable values are:
+       * 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the
+       * dependents in the background; 'Foreground' - a cascading policy that deletes all dependents
+       * in the foreground.
+       */
       public readonly propagationPolicy: pulumi.Output<string>;
 
 
@@ -4290,24 +6608,43 @@ export namespace meta {
       }
     }
 
-    // OwnerReference contains enough information to let you identify an owning object. Currently, an owning object must be in the same namespace, so there is no namespace field.
+    /**
+     * OwnerReference contains enough information to let you identify an owning object. Currently,
+     * an owning object must be in the same namespace, so there is no namespace field.
+     */
     export class OwnerReference extends pulumi.CustomResource {
-      // API version of the referent.
+      /**
+       * API version of the referent.
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
+      /**
+       * If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be
+       * deleted from the key-value store until this reference is removed. Defaults to false. To set
+       * this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable
+       * Entity) will be returned.
+       */
       public readonly blockOwnerDeletion: pulumi.Output<boolean>;
 
-      // If true, this reference points to the managing controller.
+      /**
+       * If true, this reference points to the managing controller.
+       */
       public readonly controller: pulumi.Output<boolean>;
 
-      // Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind of the referent. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+      /**
+       * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+       */
       public readonly name: pulumi.Output<string>;
 
-      // UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+      /**
+       * UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+       */
       public readonly uid: pulumi.Output<string>;
 
 
@@ -4330,30 +6667,60 @@ export namespace meta {
       }
     }
 
-    // Status is a return value for calls that don't return other objects.
+    /**
+     * Status is a return value for calls that don't return other objects.
+     */
     export class Status extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Suggested HTTP return code for this status, 0 if not set.
+      /**
+       * Suggested HTTP return code for this status, 0 if not set.
+       */
       public readonly code: pulumi.Output<number>;
 
-      // Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
+      /**
+       * Extended data associated with the reason.  Each reason may define its own extended details.
+       * This field is optional and the data returned is not guaranteed to conform to any schema
+       * except that defined by the reason type.
+       */
       public readonly details: pulumi.Output<api.meta.v1.StatusDetails>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // A human-readable description of the status of this operation.
+      /**
+       * A human-readable description of the status of this operation.
+       */
       public readonly message: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
-      // A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
+      /**
+       * A machine-readable description of why this operation is in the "Failure" status. If this
+       * value is empty there is no information available. A Reason clarifies an HTTP status code
+       * but does not override it.
+       */
       public readonly reason: pulumi.Output<string>;
 
-      // Status of the operation. One of: "Success" or "Failure". More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+      /**
+       * Status of the operation. One of: "Success" or "Failure". More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
       public readonly status: pulumi.Output<string>;
 
 
@@ -4384,18 +6751,35 @@ export namespace meta {
 
 export namespace networking {
   export namespace v1 {
-    // NetworkPolicy describes what network traffic is allowed for a set of Pods
+    /**
+     * NetworkPolicy describes what network traffic is allowed for a set of Pods
+     */
     export class NetworkPolicy extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior for this NetworkPolicy.
+      /**
+       * Specification of the desired behavior for this NetworkPolicy.
+       */
       public readonly spec: pulumi.Output<api.networking.v1.NetworkPolicySpec>;
 
 
@@ -4416,18 +6800,35 @@ export namespace networking {
       }
     }
 
-    // NetworkPolicyList is a list of NetworkPolicy objects.
+    /**
+     * NetworkPolicyList is a list of NetworkPolicy objects.
+     */
     export class NetworkPolicyList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of schema objects.
+      /**
+       * Items is a list of schema objects.
+       */
       public readonly items: pulumi.Output<api.networking.v1.NetworkPolicy[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -4454,18 +6855,36 @@ export namespace networking {
 
 export namespace policy {
   export namespace v1beta1 {
-    // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+    /**
+     * Eviction evicts a pod from its node subject to certain policies and safety constraints. This
+     * is a subresource of Pod.  A request to cause such an eviction is created by POSTing to
+     * .../pods/<pod name>/evictions.
+     */
     export class Eviction extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // DeleteOptions may be provided
+      /**
+       * DeleteOptions may be provided
+       */
       public readonly deleteOptions: pulumi.Output<api.meta.v1.DeleteOptions>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // ObjectMeta describes the pod that is being evicted.
+      /**
+       * ObjectMeta describes the pod that is being evicted.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
 
@@ -4486,21 +6905,38 @@ export namespace policy {
       }
     }
 
-    // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+    /**
+     * PodDisruptionBudget is an object to define the max disruption that can be caused to a
+     * collection of pods
+     */
     export class PodDisruptionBudget extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired behavior of the PodDisruptionBudget.
+      /**
+       * Specification of the desired behavior of the PodDisruptionBudget.
+       */
       public readonly spec: pulumi.Output<api.policy.v1beta1.PodDisruptionBudgetSpec>;
 
-      // Most recently observed status of the PodDisruptionBudget.
+      /**
+       * Most recently observed status of the PodDisruptionBudget.
+       */
       public readonly status: pulumi.Output<api.policy.v1beta1.PodDisruptionBudgetStatus>;
 
 
@@ -4522,15 +6958,27 @@ export namespace policy {
       }
     }
 
-    // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
+    /**
+     * PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
+     */
     export class PodDisruptionBudgetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
       
       public readonly items: pulumi.Output<api.policy.v1beta1.PodDisruptionBudget[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
@@ -4560,21 +7008,42 @@ export namespace policy {
 
 export namespace rbac {
   export namespace v1 {
-    // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
+    /**
+     * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
+     * unit by a RoleBinding or ClusterRoleBinding.
+     */
     export class ClusterRole extends pulumi.CustomResource {
-      // AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+      /**
+       * AggregationRule is an optional field that describes how to build the Rules for this
+       * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
+       * changes to Rules will be stomped by the controller.
+       */
       public readonly aggregationRule: pulumi.Output<api.rbac.v1.AggregationRule>;
 
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Rules holds all the PolicyRules for this ClusterRole
+      /**
+       * Rules holds all the PolicyRules for this ClusterRole
+       */
       public readonly rules: pulumi.Output<api.rbac.v1.PolicyRule[]>;
 
 
@@ -4596,21 +7065,41 @@ export namespace rbac {
       }
     }
 
-    // ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
+    /**
+     * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
+     * ClusterRole in the global namespace, and adds who information via Subject.
+     */
     export class ClusterRoleBinding extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+      /**
+       * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be
+       * resolved, the Authorizer must return an error.
+       */
       public readonly roleRef: pulumi.Output<api.rbac.v1.RoleRef>;
 
-      // Subjects holds references to the objects the role applies to.
+      /**
+       * Subjects holds references to the objects the role applies to.
+       */
       public readonly subjects: pulumi.Output<api.rbac.v1.Subject[]>;
 
 
@@ -4632,18 +7121,34 @@ export namespace rbac {
       }
     }
 
-    // ClusterRoleBindingList is a collection of ClusterRoleBindings
+    /**
+     * ClusterRoleBindingList is a collection of ClusterRoleBindings
+     */
     export class ClusterRoleBindingList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of ClusterRoleBindings
+      /**
+       * Items is a list of ClusterRoleBindings
+       */
       public readonly items: pulumi.Output<api.rbac.v1.ClusterRoleBinding[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -4664,18 +7169,34 @@ export namespace rbac {
       }
     }
 
-    // ClusterRoleList is a collection of ClusterRoles
+    /**
+     * ClusterRoleList is a collection of ClusterRoles
+     */
     export class ClusterRoleList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of ClusterRoles
+      /**
+       * Items is a list of ClusterRoles
+       */
       public readonly items: pulumi.Output<api.rbac.v1.ClusterRole[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -4696,18 +7217,35 @@ export namespace rbac {
       }
     }
 
-    // Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
+    /**
+     * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
+     * RoleBinding.
+     */
     export class Role extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Rules holds all the PolicyRules for this Role
+      /**
+       * Rules holds all the PolicyRules for this Role
+       */
       public readonly rules: pulumi.Output<api.rbac.v1.PolicyRule[]>;
 
 
@@ -4728,21 +7266,43 @@ export namespace rbac {
       }
     }
 
-    // RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace.
+    /**
+     * RoleBinding references a role, but does not contain it.  It can reference a Role in the same
+     * namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
+     * namespace information by which namespace it exists in.  RoleBindings in a given namespace
+     * only have effect in that namespace.
+     */
     export class RoleBinding extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+      /**
+       * RoleRef can reference a Role in the current namespace or a ClusterRole in the global
+       * namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+       */
       public readonly roleRef: pulumi.Output<api.rbac.v1.RoleRef>;
 
-      // Subjects holds references to the objects the role applies to.
+      /**
+       * Subjects holds references to the objects the role applies to.
+       */
       public readonly subjects: pulumi.Output<api.rbac.v1.Subject[]>;
 
 
@@ -4764,18 +7324,34 @@ export namespace rbac {
       }
     }
 
-    // RoleBindingList is a collection of RoleBindings
+    /**
+     * RoleBindingList is a collection of RoleBindings
+     */
     export class RoleBindingList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of RoleBindings
+      /**
+       * Items is a list of RoleBindings
+       */
       public readonly items: pulumi.Output<api.rbac.v1.RoleBinding[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -4796,18 +7372,34 @@ export namespace rbac {
       }
     }
 
-    // RoleList is a collection of Roles
+    /**
+     * RoleList is a collection of Roles
+     */
     export class RoleList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of Roles
+      /**
+       * Items is a list of Roles
+       */
       public readonly items: pulumi.Output<api.rbac.v1.Role[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -4831,21 +7423,42 @@ export namespace rbac {
   }
 
   export namespace v1alpha1 {
-    // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
+    /**
+     * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
+     * unit by a RoleBinding or ClusterRoleBinding.
+     */
     export class ClusterRole extends pulumi.CustomResource {
-      // AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+      /**
+       * AggregationRule is an optional field that describes how to build the Rules for this
+       * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
+       * changes to Rules will be stomped by the controller.
+       */
       public readonly aggregationRule: pulumi.Output<api.rbac.v1alpha1.AggregationRule>;
 
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Rules holds all the PolicyRules for this ClusterRole
+      /**
+       * Rules holds all the PolicyRules for this ClusterRole
+       */
       public readonly rules: pulumi.Output<api.rbac.v1alpha1.PolicyRule[]>;
 
 
@@ -4867,21 +7480,41 @@ export namespace rbac {
       }
     }
 
-    // ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
+    /**
+     * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
+     * ClusterRole in the global namespace, and adds who information via Subject.
+     */
     export class ClusterRoleBinding extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+      /**
+       * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be
+       * resolved, the Authorizer must return an error.
+       */
       public readonly roleRef: pulumi.Output<api.rbac.v1alpha1.RoleRef>;
 
-      // Subjects holds references to the objects the role applies to.
+      /**
+       * Subjects holds references to the objects the role applies to.
+       */
       public readonly subjects: pulumi.Output<api.rbac.v1alpha1.Subject[]>;
 
 
@@ -4903,18 +7536,34 @@ export namespace rbac {
       }
     }
 
-    // ClusterRoleBindingList is a collection of ClusterRoleBindings
+    /**
+     * ClusterRoleBindingList is a collection of ClusterRoleBindings
+     */
     export class ClusterRoleBindingList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of ClusterRoleBindings
+      /**
+       * Items is a list of ClusterRoleBindings
+       */
       public readonly items: pulumi.Output<api.rbac.v1alpha1.ClusterRoleBinding[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -4935,18 +7584,34 @@ export namespace rbac {
       }
     }
 
-    // ClusterRoleList is a collection of ClusterRoles
+    /**
+     * ClusterRoleList is a collection of ClusterRoles
+     */
     export class ClusterRoleList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of ClusterRoles
+      /**
+       * Items is a list of ClusterRoles
+       */
       public readonly items: pulumi.Output<api.rbac.v1alpha1.ClusterRole[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -4967,18 +7632,35 @@ export namespace rbac {
       }
     }
 
-    // Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
+    /**
+     * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
+     * RoleBinding.
+     */
     export class Role extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Rules holds all the PolicyRules for this Role
+      /**
+       * Rules holds all the PolicyRules for this Role
+       */
       public readonly rules: pulumi.Output<api.rbac.v1alpha1.PolicyRule[]>;
 
 
@@ -4999,21 +7681,43 @@ export namespace rbac {
       }
     }
 
-    // RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace.
+    /**
+     * RoleBinding references a role, but does not contain it.  It can reference a Role in the same
+     * namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
+     * namespace information by which namespace it exists in.  RoleBindings in a given namespace
+     * only have effect in that namespace.
+     */
     export class RoleBinding extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+      /**
+       * RoleRef can reference a Role in the current namespace or a ClusterRole in the global
+       * namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+       */
       public readonly roleRef: pulumi.Output<api.rbac.v1alpha1.RoleRef>;
 
-      // Subjects holds references to the objects the role applies to.
+      /**
+       * Subjects holds references to the objects the role applies to.
+       */
       public readonly subjects: pulumi.Output<api.rbac.v1alpha1.Subject[]>;
 
 
@@ -5035,18 +7739,34 @@ export namespace rbac {
       }
     }
 
-    // RoleBindingList is a collection of RoleBindings
+    /**
+     * RoleBindingList is a collection of RoleBindings
+     */
     export class RoleBindingList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of RoleBindings
+      /**
+       * Items is a list of RoleBindings
+       */
       public readonly items: pulumi.Output<api.rbac.v1alpha1.RoleBinding[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5067,18 +7787,34 @@ export namespace rbac {
       }
     }
 
-    // RoleList is a collection of Roles
+    /**
+     * RoleList is a collection of Roles
+     */
     export class RoleList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of Roles
+      /**
+       * Items is a list of Roles
+       */
       public readonly items: pulumi.Output<api.rbac.v1alpha1.Role[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5099,18 +7835,35 @@ export namespace rbac {
       }
     }
 
-    // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
+    /**
+     * Subject contains a reference to the object or user identities a role binding applies to.
+     * This can either hold a direct API object reference, or a value for non-objects such as user
+     * and group names.
+     */
     export class Subject extends pulumi.CustomResource {
-      // APIVersion holds the API group and version of the referenced subject. Defaults to "v1" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and Group subjects.
+      /**
+       * APIVersion holds the API group and version of the referenced subject. Defaults to "v1" for
+       * ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and
+       * Group subjects.
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+      /**
+       * Kind of object being referenced. Values defined by this API group are "User", "Group", and
+       * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
+       * should report an error.
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Name of the object being referenced.
+      /**
+       * Name of the object being referenced.
+       */
       public readonly name: pulumi.Output<string>;
 
-      // Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+      /**
+       * Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or
+       * "Group", and this value is not empty the Authorizer should report an error.
+       */
       public readonly namespace: pulumi.Output<string>;
 
 
@@ -5134,21 +7887,42 @@ export namespace rbac {
   }
 
   export namespace v1beta1 {
-    // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
+    /**
+     * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
+     * unit by a RoleBinding or ClusterRoleBinding.
+     */
     export class ClusterRole extends pulumi.CustomResource {
-      // AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+      /**
+       * AggregationRule is an optional field that describes how to build the Rules for this
+       * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
+       * changes to Rules will be stomped by the controller.
+       */
       public readonly aggregationRule: pulumi.Output<api.rbac.v1beta1.AggregationRule>;
 
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Rules holds all the PolicyRules for this ClusterRole
+      /**
+       * Rules holds all the PolicyRules for this ClusterRole
+       */
       public readonly rules: pulumi.Output<api.rbac.v1beta1.PolicyRule[]>;
 
 
@@ -5170,21 +7944,41 @@ export namespace rbac {
       }
     }
 
-    // ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
+    /**
+     * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
+     * ClusterRole in the global namespace, and adds who information via Subject.
+     */
     export class ClusterRoleBinding extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+      /**
+       * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be
+       * resolved, the Authorizer must return an error.
+       */
       public readonly roleRef: pulumi.Output<api.rbac.v1beta1.RoleRef>;
 
-      // Subjects holds references to the objects the role applies to.
+      /**
+       * Subjects holds references to the objects the role applies to.
+       */
       public readonly subjects: pulumi.Output<api.rbac.v1beta1.Subject[]>;
 
 
@@ -5206,18 +8000,34 @@ export namespace rbac {
       }
     }
 
-    // ClusterRoleBindingList is a collection of ClusterRoleBindings
+    /**
+     * ClusterRoleBindingList is a collection of ClusterRoleBindings
+     */
     export class ClusterRoleBindingList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of ClusterRoleBindings
+      /**
+       * Items is a list of ClusterRoleBindings
+       */
       public readonly items: pulumi.Output<api.rbac.v1beta1.ClusterRoleBinding[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5238,18 +8048,34 @@ export namespace rbac {
       }
     }
 
-    // ClusterRoleList is a collection of ClusterRoles
+    /**
+     * ClusterRoleList is a collection of ClusterRoles
+     */
     export class ClusterRoleList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of ClusterRoles
+      /**
+       * Items is a list of ClusterRoles
+       */
       public readonly items: pulumi.Output<api.rbac.v1beta1.ClusterRole[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5270,18 +8096,35 @@ export namespace rbac {
       }
     }
 
-    // Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
+    /**
+     * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
+     * RoleBinding.
+     */
     export class Role extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Rules holds all the PolicyRules for this Role
+      /**
+       * Rules holds all the PolicyRules for this Role
+       */
       public readonly rules: pulumi.Output<api.rbac.v1beta1.PolicyRule[]>;
 
 
@@ -5302,21 +8145,43 @@ export namespace rbac {
       }
     }
 
-    // RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace.
+    /**
+     * RoleBinding references a role, but does not contain it.  It can reference a Role in the same
+     * namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
+     * namespace information by which namespace it exists in.  RoleBindings in a given namespace
+     * only have effect in that namespace.
+     */
     export class RoleBinding extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+      /**
+       * RoleRef can reference a Role in the current namespace or a ClusterRole in the global
+       * namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+       */
       public readonly roleRef: pulumi.Output<api.rbac.v1beta1.RoleRef>;
 
-      // Subjects holds references to the objects the role applies to.
+      /**
+       * Subjects holds references to the objects the role applies to.
+       */
       public readonly subjects: pulumi.Output<api.rbac.v1beta1.Subject[]>;
 
 
@@ -5338,18 +8203,34 @@ export namespace rbac {
       }
     }
 
-    // RoleBindingList is a collection of RoleBindings
+    /**
+     * RoleBindingList is a collection of RoleBindings
+     */
     export class RoleBindingList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of RoleBindings
+      /**
+       * Items is a list of RoleBindings
+       */
       public readonly items: pulumi.Output<api.rbac.v1beta1.RoleBinding[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5370,18 +8251,34 @@ export namespace rbac {
       }
     }
 
-    // RoleList is a collection of Roles
+    /**
+     * RoleList is a collection of Roles
+     */
     export class RoleList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of Roles
+      /**
+       * Items is a list of Roles
+       */
       public readonly items: pulumi.Output<api.rbac.v1beta1.Role[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata.
+      /**
+       * Standard object's metadata.
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5408,24 +8305,49 @@ export namespace rbac {
 
 export namespace scheduling {
   export namespace v1alpha1 {
-    // PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+    /**
+     * PriorityClass defines mapping from a priority class name to the priority integer value. The
+     * value can be any valid integer.
+     */
     export class PriorityClass extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // description is an arbitrary string that usually provides guidelines on when this priority class should be used.
+      /**
+       * description is an arbitrary string that usually provides guidelines on when this priority
+       * class should be used.
+       */
       public readonly description: pulumi.Output<string>;
 
-      // globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class.
+      /**
+       * globalDefault specifies whether this PriorityClass should be considered as the default
+       * priority for pods that do not have any priority class.
+       */
       public readonly globalDefault: pulumi.Output<boolean>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+      /**
+       * The value of this priority class. This is the actual priority that pods receive when they
+       * have the name of this class in their pod spec.
+       */
       public readonly value: pulumi.Output<number>;
 
 
@@ -5448,18 +8370,35 @@ export namespace scheduling {
       }
     }
 
-    // PriorityClassList is a collection of priority classes.
+    /**
+     * PriorityClassList is a collection of priority classes.
+     */
     export class PriorityClassList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // items is the list of PriorityClasses
+      /**
+       * items is the list of PriorityClasses
+       */
       public readonly items: pulumi.Output<api.scheduling.v1alpha1.PriorityClass[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata More info:
+       * http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5486,12 +8425,24 @@ export namespace scheduling {
 
 export namespace settings {
   export namespace v1alpha1 {
-    // PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+    /**
+     * PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+     */
     export class PodPreset extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
       
@@ -5518,18 +8469,35 @@ export namespace settings {
       }
     }
 
-    // PodPresetList is a list of PodPreset objects.
+    /**
+     * PodPresetList is a list of PodPreset objects.
+     */
     export class PodPresetList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is a list of schema objects.
+      /**
+       * Items is a list of schema objects.
+       */
       public readonly items: pulumi.Output<api.settings.v1alpha1.PodPreset[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5556,35 +8524,70 @@ export namespace settings {
 
 export namespace storage {
   export namespace v1 {
-    // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
-    // 
-    // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+    /**
+     * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
+     * be dynamically provisioned.
+     * 
+     * StorageClasses are non-namespaced; the name of the storage class according to etcd is in
+     * ObjectMeta.Name.
+     */
     export class StorageClass extends pulumi.CustomResource {
-      // AllowVolumeExpansion shows whether the storage class allow volume expand
+      /**
+       * AllowVolumeExpansion shows whether the storage class allow volume expand
+       */
       public readonly allowVolumeExpansion: pulumi.Output<boolean>;
 
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+      /**
+       * Dynamically provisioned PersistentVolumes of this storage class are created with these
+       * mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one
+       * is invalid.
+       */
       public readonly mountOptions: pulumi.Output<string[]>;
 
-      // Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+      /**
+       * Parameters holds the parameters for the provisioner that should create volumes of this
+       * storage class.
+       */
       public readonly parameters: pulumi.Output<object>;
 
-      // Provisioner indicates the type of the provisioner.
+      /**
+       * Provisioner indicates the type of the provisioner.
+       */
       public readonly provisioner: pulumi.Output<string>;
 
-      // Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+      /**
+       * Dynamically provisioned PersistentVolumes of this storage class are created with this
+       * reclaimPolicy. Defaults to Delete.
+       */
       public readonly reclaimPolicy: pulumi.Output<string>;
 
-      // VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is alpha-level and is only honored by servers that enable the VolumeScheduling feature.
+      /**
+       * VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.
+       * When unset, VolumeBindingImmediate is used. This field is alpha-level and is only honored
+       * by servers that enable the VolumeScheduling feature.
+       */
       public readonly volumeBindingMode: pulumi.Output<string>;
 
 
@@ -5610,18 +8613,35 @@ export namespace storage {
       }
     }
 
-    // StorageClassList is a collection of storage classes.
+    /**
+     * StorageClassList is a collection of storage classes.
+     */
     export class StorageClassList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of StorageClasses
+      /**
+       * Items is the list of StorageClasses
+       */
       public readonly items: pulumi.Output<api.storage.v1.StorageClass[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5645,23 +8665,45 @@ export namespace storage {
   }
 
   export namespace v1alpha1 {
-    // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
-    // 
-    // VolumeAttachment objects are non-namespaced.
+    /**
+     * VolumeAttachment captures the intent to attach or detach the specified volume to/from the
+     * specified node.
+     * 
+     * VolumeAttachment objects are non-namespaced.
+     */
     export class VolumeAttachment extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+      /**
+       * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes
+       * system.
+       */
       public readonly spec: pulumi.Output<api.storage.v1alpha1.VolumeAttachmentSpec>;
 
-      // Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+      /**
+       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
+       * detach operation, i.e. the external-attacher.
+       */
       public readonly status: pulumi.Output<api.storage.v1alpha1.VolumeAttachmentStatus>;
 
 
@@ -5683,18 +8725,35 @@ export namespace storage {
       }
     }
 
-    // VolumeAttachmentList is a collection of VolumeAttachment objects.
+    /**
+     * VolumeAttachmentList is a collection of VolumeAttachment objects.
+     */
     export class VolumeAttachmentList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of VolumeAttachments
+      /**
+       * Items is the list of VolumeAttachments
+       */
       public readonly items: pulumi.Output<api.storage.v1alpha1.VolumeAttachment[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
@@ -5718,35 +8777,70 @@ export namespace storage {
   }
 
   export namespace v1beta1 {
-    // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
-    // 
-    // StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
+    /**
+     * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
+     * be dynamically provisioned.
+     * 
+     * StorageClasses are non-namespaced; the name of the storage class according to etcd is in
+     * ObjectMeta.Name.
+     */
     export class StorageClass extends pulumi.CustomResource {
-      // AllowVolumeExpansion shows whether the storage class allow volume expand
+      /**
+       * AllowVolumeExpansion shows whether the storage class allow volume expand
+       */
       public readonly allowVolumeExpansion: pulumi.Output<boolean>;
 
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
 
-      // Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+      /**
+       * Dynamically provisioned PersistentVolumes of this storage class are created with these
+       * mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one
+       * is invalid.
+       */
       public readonly mountOptions: pulumi.Output<string[]>;
 
-      // Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+      /**
+       * Parameters holds the parameters for the provisioner that should create volumes of this
+       * storage class.
+       */
       public readonly parameters: pulumi.Output<object>;
 
-      // Provisioner indicates the type of the provisioner.
+      /**
+       * Provisioner indicates the type of the provisioner.
+       */
       public readonly provisioner: pulumi.Output<string>;
 
-      // Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+      /**
+       * Dynamically provisioned PersistentVolumes of this storage class are created with this
+       * reclaimPolicy. Defaults to Delete.
+       */
       public readonly reclaimPolicy: pulumi.Output<string>;
 
-      // VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is alpha-level and is only honored by servers that enable the VolumeScheduling feature.
+      /**
+       * VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.
+       * When unset, VolumeBindingImmediate is used. This field is alpha-level and is only honored
+       * by servers that enable the VolumeScheduling feature.
+       */
       public readonly volumeBindingMode: pulumi.Output<string>;
 
 
@@ -5772,18 +8866,35 @@ export namespace storage {
       }
     }
 
-    // StorageClassList is a collection of storage classes.
+    /**
+     * StorageClassList is a collection of storage classes.
+     */
     export class StorageClassList extends pulumi.CustomResource {
-      // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
       public readonly apiVersion: pulumi.Output<string>;
 
-      // Items is the list of StorageClasses
+      /**
+       * Items is the list of StorageClasses
+       */
       public readonly items: pulumi.Output<api.storage.v1beta1.StorageClass[]>;
 
-      // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
       public readonly kind: pulumi.Output<string>;
 
-      // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
       public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
 
 
