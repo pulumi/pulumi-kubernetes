@@ -28,11 +28,26 @@ import (
 
 // --------------------------------------------------------------------------
 
+const (
+	autoscalingV1HorizontalPodAutoscaler = "autoscaling/v1/HorizontalPodAutoscaler"
+	storageV1StorageClass                = "storage.k8s.io/v1/StorageClass"
+	coreV1ConfigMap                      = "v1/ConfigMap"
+	coreV1LimitRange                     = "v1/LimitRange"
+	coreV1Namespace                      = "v1/Namespace"
+	coreV1PersistentVolume               = "v1/PersistentVolume"
+	coreV1PersistentVolumeClaim          = "v1/PersistentVolumeClaim"
+	coreV1Pod                            = "v1/Pod"
+	coreV1ReplicationController          = "v1/ReplicationController"
+	coreV1ResourceQuota                  = "v1/ResourceQuota"
+	coreV1Secret                         = "v1/Secret"
+	coreV1Service                        = "v1/Service"
+)
+
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
 func Creation(
-	pool dynamic.ClientPool, disco discovery.DiscoveryInterface, obj *unstructured.Unstructured,
+	pool dynamic.ClientPool, disco discovery.ServerResourcesInterface, obj *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
 	clientForResource, err := client.FromResource(pool, disco, obj)
 	if err != nil {
@@ -49,18 +64,18 @@ func Creation(
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", obj.GetAPIVersion(), obj.GetKind())
 	switch id {
-	case "v1/PersistentVolume":
+	case coreV1PersistentVolume:
 		waitErr = untilCoreV1PersistentVolumeInitialized(clientForResource, obj)
-	case "v1/PersistentVolumeClaim":
+	case coreV1PersistentVolumeClaim:
 		// TODO(hausdorff): Perhaps also support not waiting for PVC to be bound.
 		waitErr = untilCoreV1PersistentVolumeClaimBound(clientForResource, obj)
-	case "v1/Pod":
+	case coreV1Pod:
 		waitErr = untilCoreV1PodInitialized(clientForResource, obj)
-	case "v1/ReplicationController":
+	case coreV1ReplicationController:
 		waitErr = untilCoreV1ReplicationControllerInitialized(clientForResource, obj)
-	case "v1/ResourceQuota":
+	case coreV1ResourceQuota:
 		waitErr = untilCoreV1ResourceQuotaInitialized(clientForResource, obj)
-	case "v1/Service":
+	case coreV1Service:
 		{
 			clientForEvents, err := client.FromGVK(pool, disco, schema.GroupVersionKind{
 				Group:   "",
@@ -76,12 +91,12 @@ func Creation(
 	// TODO(hausdorff): ServiceAccount
 
 	// Cases where no wait is necessary.
-	case "autoscaling/v1/HorizontalPodAutoscaler":
-	case "storage.k8s.io/v1/StorageClass":
-	case "v1/ConfigMap":
-	case "v1/LimitRange":
-	case "v1/Namespace":
-	case "v1/Secret":
+	case autoscalingV1HorizontalPodAutoscaler:
+	case storageV1StorageClass:
+	case coreV1ConfigMap:
+	case coreV1LimitRange:
+	case coreV1Namespace:
+	case coreV1Secret:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.
@@ -105,12 +120,13 @@ func Creation(
 // Update updates an existing resource with new values. Currently this client supports the
 // Kubernetes-standard three-way JSON patch. See references here[1] and here[2].
 //
+// nolint
 // [1]:
 // https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-json-merge-patch-to-update-a-deployment
 // [2]:
 // https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
 func Update(
-	pool dynamic.ClientPool, disco discovery.DiscoveryInterface,
+	pool dynamic.ClientPool, disco discovery.ServerResourcesInterface,
 	lastSubmitted, currentSubmitted *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
 	//
@@ -199,9 +215,9 @@ func Update(
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", currentSubmitted.GetAPIVersion(), currentSubmitted.GetKind())
 	switch id {
-	case "v1/ReplicationController":
+	case coreV1ReplicationController:
 		waitErr = untilCoreV1ReplicationControllerUpdated(clientForResource, currentSubmitted)
-	case "v1/ResourceQuota":
+	case coreV1ResourceQuota:
 		{
 			oldSpec, _ := pluck(lastSubmitted.Object, "spec")
 			newSpec, _ := pluck(currentSubmitted.Object, "spec")
@@ -213,16 +229,16 @@ func Update(
 	// TODO(hausdorff): ServiceAccount
 
 	// Cases where no wait is necessary.
-	case "autoscaling/v1/HorizontalPodAutoscaler":
-	case "storage.k8s.io/v1/StorageClass":
-	case "v1/ConfigMap":
-	case "v1/LimitRange":
-	case "v1/Namespace":
-	case "v1/PersistentVolume":
-	case "v1/PersistentVolumeClaim":
-	case "v1/Pod":
-	case "v1/Secret":
-	case "v1/Service":
+	case autoscalingV1HorizontalPodAutoscaler:
+	case storageV1StorageClass:
+	case coreV1ConfigMap:
+	case coreV1LimitRange:
+	case coreV1Namespace:
+	case coreV1PersistentVolume:
+	case coreV1PersistentVolumeClaim:
+	case coreV1Pod:
+	case coreV1Secret:
+	case coreV1Service:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.
@@ -259,6 +275,7 @@ func Deletion(
 	if version.Compare(1, 6) < 0 {
 		// 1.5.x option.
 		boolFalse := false
+		// nolint
 		deleteOpts.OrphanDependents = &boolFalse
 	} else {
 		// 1.6.x option. (NOTE: Background delete propagation is broken in k8s v1.6, and maybe later.)
@@ -284,25 +301,25 @@ func Deletion(
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", gvk.GroupVersion().String(), gvk.Kind)
 	switch id {
-	case "v1/Namespace":
+	case coreV1Namespace:
 		waitErr = untilCoreV1NamespaceDeleted(clientForResource, name)
-	case "v1/Pod":
+	case coreV1Pod:
 		waitErr = untilCoreV1PodDeleted(clientForResource, name)
-	case "v1/ReplicationController":
+	case coreV1ReplicationController:
 		waitErr = untilCoreV1ReplicationControllerDeleted(clientForResource, name)
 
 	// TODO(hausdorff): ServiceAccount
 
 	// Cases where no wait is necessary.
-	case "autoscaling/v1/HorizontalPodAutoscaler":
-	case "storage.k8s.io/v1/StorageClass":
-	case "v1/ConfigMap":
-	case "v1/LimitRange":
-	case "v1/PersistentVolume":
-	case "v1/PersistentVolumeClaim":
-	case "v1/ResourceQuota":
-	case "v1/Secret":
-	case "v1/Service":
+	case autoscalingV1HorizontalPodAutoscaler:
+	case storageV1StorageClass:
+	case coreV1ConfigMap:
+	case coreV1LimitRange:
+	case coreV1PersistentVolume:
+	case coreV1PersistentVolumeClaim:
+	case coreV1ResourceQuota:
+	case coreV1Secret:
+	case coreV1Service:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.

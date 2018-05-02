@@ -157,7 +157,9 @@ func (s *SwaggerSchema) ValidateObject(obj interface{}, fieldName, typeName stri
 	if !ok && s.delegate != nil {
 		fields, mapOk := obj.(map[string]interface{})
 		if !mapOk {
-			return append(allErrs, fmt.Errorf("field %s for %s: expected object of type map[string]interface{}, but the actual type is %T", fieldName, typeName, obj))
+			return append(allErrs, fmt.Errorf(
+				"field %s for %s: expected object of type map[string]interface{}, but the actual type is %T",
+				fieldName, typeName, obj))
 		}
 		if delegated, errs := s.delegateIfDifferentAPIVersion(&unstructured.Unstructured{Object: fields}); delegated {
 			allErrs = append(allErrs, errs...)
@@ -175,7 +177,9 @@ func (s *SwaggerSchema) ValidateObject(obj interface{}, fieldName, typeName stri
 	}
 	fields, ok := obj.(map[string]interface{})
 	if !ok {
-		return append(allErrs, fmt.Errorf("field %s for %s: expected object of type map[string]interface{}, but the actual type is %T", fieldName, typeName, obj))
+		return append(allErrs, fmt.Errorf(
+			"field %s for %s: expected object of type map[string]interface{}, but the actual type is %T",
+			fieldName, typeName, obj))
 	}
 	if len(fieldName) > 0 {
 		fieldName = fieldName + "."
@@ -265,7 +269,9 @@ func (s *SwaggerSchema) isGenericArray(p swagger.ModelProperty) bool {
 // This matches type name in the swagger spec, such as "v1.Binding".
 var versionRegexp = regexp.MustCompile(`^(v.+|unversioned)\..*`)
 
-func (s *SwaggerSchema) validateField(value interface{}, fieldName, fieldType string, fieldDetails *swagger.ModelProperty) []error {
+func (s *SwaggerSchema) validateField(
+	value interface{}, fieldName, fieldType string, fieldDetails *swagger.ModelProperty,
+) []error {
 	allErrs := []error{}
 	if reflect.TypeOf(value) == nil {
 		return append(allErrs, fmt.Errorf("unexpected nil value for field %v", fieldName))

@@ -65,7 +65,7 @@ func getLastWarningsForObject(
 			log.Fatal(err)
 		}
 
-		err = warning.Unmarshal([]byte(str))
+		err = warning.Unmarshal(str)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -85,7 +85,7 @@ func getLastWarningsForObject(
 	// but API doesn't seem to support it
 	var warnings []v1.Event
 	warnCount := 0
-	uniqueWarnings := make(map[string]v1.Event, 0)
+	uniqueWarnings := make(map[string]v1.Event)
 	for _, e := range events {
 		if warnCount >= limit {
 			break
@@ -121,7 +121,7 @@ func pluck(obj map[string]interface{}, path ...string) (interface{}, bool) {
 		}
 
 		// Attempt to dot into the current element.
-		exists := false
+		var exists bool
 		curr, exists = currObj[component]
 		if !exists {
 			return nil, false

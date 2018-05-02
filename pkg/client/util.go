@@ -2,7 +2,6 @@ package client
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/golang/glog"
 
@@ -45,7 +44,7 @@ func NamespaceOrDefault(ns string) string {
 
 // FromResource returns the ResourceClient for a given object
 func FromResource(
-	pool dynamic.ClientPool, disco discovery.DiscoveryInterface, obj runtime.Object,
+	pool dynamic.ClientPool, disco discovery.ServerResourcesInterface, obj runtime.Object,
 ) (dynamic.ResourceInterface, error) {
 	gvk := obj.GetObjectKind().GroupVersionKind()
 	meta, err := meta.Accessor(obj)
@@ -58,7 +57,7 @@ func FromResource(
 
 // FromGVK returns the ResourceClient for a given object
 func FromGVK(
-	pool dynamic.ClientPool, disco discovery.DiscoveryInterface, gvk schema.GroupVersionKind,
+	pool dynamic.ClientPool, disco discovery.ServerResourcesInterface, gvk schema.GroupVersionKind,
 	namespace string,
 ) (dynamic.ResourceInterface, error) {
 	client, err := pool.ClientForGroupVersionKind(gvk)
@@ -92,31 +91,4 @@ func serverResourceForGVK(
 	}
 
 	return nil, fmt.Errorf("Server is unable to handle %s", gvk)
-}
-
-// resourceNameForGVK returns a lowercase plural form of a type, for
-// human messages.  Returns lowercased kind if discovery lookup fails.
-func resourceNameForObj(disco discovery.ServerResourcesInterface, o runtime.Object) string {
-	return resourceNameForGVK(disco, o.GetObjectKind().GroupVersionKind())
-}
-
-// resourceNameForGVK returns a lowercase plural form of a type, for
-// human messages.  Returns lowercased kind if discovery lookup fails.
-func resourceNameForGVK(
-	disco discovery.ServerResourcesInterface, gvk schema.GroupVersionKind,
-) string {
-	rls, err := disco.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
-	if err != nil {
-		glog.V(3).Infof("Discovery failed for %s: %s, falling back to kind", gvk, err)
-		return strings.ToLower(gvk.Kind)
-	}
-
-	for _, rl := range rls.APIResources {
-		if rl.Kind == gvk.Kind {
-			return rl.Name
-		}
-	}
-
-	glog.V(3).Infof("Discovery failed to find %s, falling back to kind", gvk)
-	return strings.ToLower(gvk.Kind)
 }

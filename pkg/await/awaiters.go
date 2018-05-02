@@ -18,9 +18,13 @@ import (
 //
 // A collection of functions that block until some operation (e.g., create, delete) on a given
 // resource is completed. For example, in the case of `v1.Service` we will create the object and
-// then wait until it is fully initialized and ready to recieve traffic.
+// then wait until it is fully initialized and ready to receive traffic.
 
 // --------------------------------------------------------------------------
+
+const (
+	pollError = "Error"
+)
 
 // --------------------------------------------------------------------------
 
@@ -42,7 +46,7 @@ func untilCoreV1NamespaceDeleted(
 					return nil, "", nil
 				}
 				glog.V(3).Infof("Received error: %#v", err)
-				return out, "Error", err
+				return out, pollError, err
 			}
 
 			statusPhase, _ := pluck(out.Object, "status", "phase")
@@ -71,7 +75,7 @@ func untilCoreV1PersistentVolumeInitialized(
 			out, err := clientForResource.Get(obj.GetName(), metav1.GetOptions{})
 			if err != nil {
 				glog.V(3).Infof("Received error: %#v", err)
-				return out, "Error", err
+				return out, pollError, err
 			}
 
 			statusPhase, _ := pluck(out.Object, "status", "phase")
@@ -131,7 +135,7 @@ func untilCoreV1PodInitialized(
 			out, err := clientForResource.Get(obj.GetName(), metav1.GetOptions{})
 			if err != nil {
 				glog.V(3).Infof("Received error: %#v", err)
-				return out, "Error", err
+				return out, pollError, err
 			}
 
 			statusPhase, _ := pluck(out.Object, "status", "phase")

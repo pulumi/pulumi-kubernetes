@@ -286,7 +286,9 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 // Update updates an existing resource with new values. Currently this client supports the
 // Kubernetes-standard three-way JSON patch. See references here[1] and here[2].
 //
+// nolint
 // [1]: https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-json-merge-patch-to-update-a-deployment
+// nolint
 // [2]: https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
 func (k *kubeProvider) Update(
 	ctx context.Context, req *pulumirpc.UpdateRequest,

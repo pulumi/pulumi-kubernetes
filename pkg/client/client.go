@@ -73,7 +73,9 @@ func (c *memcachedDiscoveryClient) ServerGroups() (*metav1.APIGroupList, error) 
 	return c.servergroups, err
 }
 
-func (c *memcachedDiscoveryClient) ServerResourcesForGroupVersion(groupVersion string) (*metav1.APIResourceList, error) {
+func (c *memcachedDiscoveryClient) ServerResourcesForGroupVersion(
+	groupVersion string,
+) (*metav1.APIResourceList, error) {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 

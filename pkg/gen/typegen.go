@@ -280,7 +280,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 			}
 
 			return linq.From([]*KindConfig{
-				&KindConfig{
+				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
@@ -311,7 +311,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 			kindsGroup := []*KindConfig{}
 			linq.From(kinds.Group).ToSlice(&kindsGroup)
 			return linq.From([]*VersionConfig{
-				&VersionConfig{
+				{
 					version: gv.Version,
 					kinds:   kindsGroup,
 					gv:      &gv,

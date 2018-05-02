@@ -21,7 +21,7 @@ func main() {
 	}
 
 	data := map[string]interface{}{}
-	err = json.Unmarshal([]byte(swagger), &data)
+	err = json.Unmarshal(swagger, &data)
 	if err != nil {
 		panic(err)
 	}
