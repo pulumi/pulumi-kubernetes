@@ -1,4 +1,4 @@
-PROJECT_NAME := Kubernetes Package
+PROJECT_NAME := Pulumi Kubernetes Resource Provider
 include build/common.mk
 
 PACK             := kubernetes
@@ -6,37 +6,45 @@ PACKDIR          := pack
 PROJECT          := github.com/pulumi/pulumi-kubernetes
 NODE_MODULE_NAME := @pulumi/kubernetes
 
-TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
+CODEGEN         := pulumi-gen-${PACK}
 VERSION         := $(shell scripts/get-version)
+KUBE_VERSION    ?= v1.9.7
+SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
+OPENAPI_DIR     := pkg/gen/openapi-specs
+OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 
-GOMETALINTERBIN=gometalinter
-GOMETALINTER=${GOMETALINTERBIN} --config=Gometalinter.json
+VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}"
+
+GO              ?= go
+GOMETALINTERBIN ?= gometalinter
+GOMETALINTER    :=${GOMETALINTERBIN} --config=Gometalinter.json
+CURL            ?= curl
 
 TESTPARALLELISM := 10
+TESTABLE_PKGS   := ./pkg/await ./pkg/provider ./examples
 
-build::
-	go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${TFGEN}
-	go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${PROVIDER}
-	for LANGUAGE in "nodejs" "python" ; do \
-		$(TFGEN) $$LANGUAGE --out ${PACKDIR}/$$LANGUAGE/ || exit 3 ; \
+$(OPENAPI_FILE)::
+	@mkdir -p pkg/gen/openapi-specs
+	$(CURL) -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
+
+build:: $(OPENAPI_FILE)
+	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
+	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
+	for LANGUAGE in "nodejs" ; do \
+		$(CODEGEN) $(OPENAPI_FILE) pkg/gen/node-templates $(PACKDIR)/$$LANGUAGE || exit 3 ; \
 	done
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
 		yarn link @pulumi/pulumi && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
-	cd ${PACKDIR}/python/ && \
-		python setup.py clean --all 2>/dev/null && \
-		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
-		sed -i.bak "s/\$${VERSION}/$(VERSION)/g" ./bin/setup.py && rm ./bin/setup.py.bak && \
-		cd ./bin && python setup.py build sdist
 
 lint::
 	$(GOMETALINTER) ./cmd/... resources.go | sort ; exit "$${PIPESTATUS[0]}"
 
 install::
-	GOBIN=$(PULUMI_BIN) go install -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}" ${PROJECT}/cmd/${PROVIDER}
+	GOBIN=$(PULUMI_BIN) go install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
 	[ ! -e "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" ] || rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	mkdir -p "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	cp -r pack/nodejs/bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
@@ -45,24 +53,6 @@ install::
 		yarn install --offline --production && \
 		(yarn unlink > /dev/null 2>&1 || true) && \
 		yarn link
-	cd ${PACKDIR}/python && pip install --upgrade --user -e .
 
 test_all::
-	PATH=$(PULUMI_BIN):$(PATH) go test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} ./examples
-
-.PHONY: publish_tgz
-publish_tgz:
-	$(call STEP_MESSAGE)
-	./scripts/publish_tgz.sh
-
-.PHONY: publish_packages
-publish_packages:
-	$(call STEP_MESSAGE)
-	./scripts/publish_packages.sh
-
-# The travis_* targets are entrypoints for CI.
-.PHONY: travis_cron travis_push travis_pull_request travis_api
-travis_cron: all
-travis_push: only_build publish_tgz only_test publish_packages
-travis_pull_request: all
-travis_api: all
+	PATH=$(PULUMI_BIN):$(PATH) go test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)

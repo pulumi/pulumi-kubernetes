@@ -1,6 +1,10 @@
-/pack/
 /vendor/
 /bin/
 /node_modules/
 .pulumi
 Pulumi.*.yaml
+/pkg/gen/openapi-specs
+/pack/nodejs/bin
+/pack/nodejs/node_modules
+/pack/nodejs/yarn.lock
+/pack/nodejs/package.json
