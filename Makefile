@@ -44,7 +44,7 @@ lint::
 	$(GOMETALINTER) ./cmd/... resources.go | sort ; exit "$${PIPESTATUS[0]}"
 
 install::
-	GOBIN=$(PULUMI_BIN) go install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
+	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
 	[ ! -e "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" ] || rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	mkdir -p "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	cp -r pack/nodejs/bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
@@ -55,4 +55,11 @@ install::
 		yarn link
 
 test_all::
-	PATH=$(PULUMI_BIN):$(PATH) go test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
+	PATH=$(PULUMI_BIN):$(PATH) $(GO) test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
+
+# The travis_* targets are entrypoints for CI.
+.PHONY: travis_cron travis_push travis_pull_request travis_api
+travis_cron: all
+travis_push: only_build publish_tgz only_test publish_packages
+travis_pull_request: all
+travis_api: all
