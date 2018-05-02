@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/golang/glog"
 
@@ -20,6 +21,16 @@ import (
 // FqObjName returns "namespace.name"
 func FqObjName(o metav1.Object) string {
 	return FqName(o.GetNamespace(), o.GetName())
+}
+
+// ParseFqName will parse a fully-qualified Kubernetes object name.
+func ParseFqName(id string) (namespace, name string) {
+	split := strings.Split(id, ".")
+	if len(split) == 1 {
+		return "", split[0]
+	}
+	namespace, name = split[0], split[1]
+	return
 }
 
 // FqName returns "namespace.name"

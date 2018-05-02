@@ -387,8 +387,7 @@ func (k *kubeProvider) Delete(
 	gvk := k.gvkFromURN(resource.URN(req.GetUrn()))
 	gvk.Group = schemaGroupName(gvk.Group)
 
-	split := strings.Split(req.GetId(), ".")
-	namespace, name := split[0], split[1]
+	namespace, name := client.ParseFqName(req.GetId())
 
 	err := await.Deletion(k.pool, k.client, gvk, namespace, name)
 	if err != nil {
