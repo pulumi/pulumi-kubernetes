@@ -29,7 +29,11 @@ import (
 // --------------------------------------------------------------------------
 
 const (
+	appsV1Deployment                     = "apps/v1/Deployment"
+	appsV1Beta1Deployment                = "apps/v1beta1/Deployment"
+	appsV1Beta2Deployment                = "apps/v1beta2/Deployment"
 	autoscalingV1HorizontalPodAutoscaler = "autoscaling/v1/HorizontalPodAutoscaler"
+	extensionsV1Beta1Deployment          = "extensions/v1beta1/Deployment"
 	storageV1StorageClass                = "storage.k8s.io/v1/StorageClass"
 	coreV1ConfigMap                      = "v1/ConfigMap"
 	coreV1LimitRange                     = "v1/LimitRange"
@@ -64,6 +68,8 @@ func Creation(
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", obj.GetAPIVersion(), obj.GetKind())
 	switch id {
+	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
+		waitErr = untilAppsDeploymentInitialized(clientForResource, obj)
 	case coreV1PersistentVolume:
 		waitErr = untilCoreV1PersistentVolumeInitialized(clientForResource, obj)
 	case coreV1PersistentVolumeClaim:
@@ -215,6 +221,8 @@ func Update(
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", currentSubmitted.GetAPIVersion(), currentSubmitted.GetKind())
 	switch id {
+	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
+		waitErr = untilDeploymentUpdated(clientForResource, currentSubmitted)
 	case coreV1ReplicationController:
 		waitErr = untilCoreV1ReplicationControllerUpdated(clientForResource, currentSubmitted)
 	case coreV1ResourceQuota:
@@ -301,6 +309,8 @@ func Deletion(
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", gvk.GroupVersion().String(), gvk.Kind)
 	switch id {
+	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
+		waitErr = untilDeploymentDeleted(clientForResource, name)
 	case coreV1Namespace:
 		waitErr = untilCoreV1NamespaceDeleted(clientForResource, name)
 	case coreV1Pod:

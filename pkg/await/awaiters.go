@@ -28,6 +28,74 @@ const (
 
 // --------------------------------------------------------------------------
 
+// apps/v1/Deployment, apps/v1beta1/Deployment, apps/v1beta2/Deployment,
+// extensions/v1beta1/Deployment
+
+// --------------------------------------------------------------------------
+
+func deploymentSpecReplicas(deployment *unstructured.Unstructured) (interface{}, bool) {
+	return pluck(deployment.Object, "spec", "replicas")
+}
+
+func deploymentStatusReplicas(deployment *unstructured.Unstructured) (interface{}, bool) {
+	return pluck(deployment.Object, "status", "replicas")
+}
+
+func untilAppsDeploymentInitialized(
+	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
+) error {
+	replicas, _ := pluck(obj.Object, "spec", "replicas")
+
+	glog.V(3).Infof("Waiting for deployment '%s' to schedule '%v' replicas", obj.GetName(), replicas)
+	// 10 mins should be sufficient for scheduling ~10k replicas
+	err := Retry(10*time.Minute,
+		waitForDesiredReplicasFunc(
+			clientForResource,
+			obj.GetName(),
+			deploymentSpecReplicas,
+			deploymentStatusReplicas))
+	if err != nil {
+		return err
+	}
+	// We could wait for all pods to actually reach Ready state
+	// but that means checking each pod status separately (which can be expensive at scale)
+	// as there's no aggregate data available from the API
+
+	glog.V(3).Infof("Submitted new deployment: %#v", obj)
+
+	return nil
+}
+
+func untilDeploymentUpdated(
+	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
+) error {
+	return Retry(10*time.Minute, waitForDesiredReplicasFunc(
+		clientForResource,
+		obj.GetName(),
+		deploymentSpecReplicas,
+		deploymentStatusReplicas))
+}
+
+func untilDeploymentDeleted(
+	clientForResource dynamic.ResourceInterface, name string,
+) error {
+	//
+	// TODO(hausdorff): Should we scale pods to 0 and then delete instead? Kubernetes should allow us
+	// to check the status after deletion, but there is some possibility if there is a long-ish
+	// transient network partition (or something) that it could be successfully deleted and GC'd
+	// before we get to check it, which I think would require manual intervention.
+	//
+
+	// Wait until all replicas are gone
+	return Retry(10*time.Minute, waitForDesiredReplicasFunc(
+		clientForResource,
+		name,
+		deploymentSpecReplicas,
+		deploymentStatusReplicas))
+}
+
+// --------------------------------------------------------------------------
+
 // core/v1/Namespace
 
 // --------------------------------------------------------------------------
@@ -174,6 +242,14 @@ func untilCoreV1PodDeleted(
 
 // --------------------------------------------------------------------------
 
+func replicationControllerSpecReplicas(rc *unstructured.Unstructured) (interface{}, bool) {
+	return pluck(rc.Object, "spec", "replicas")
+}
+
+func replicationControllerStatusFullyLabeledReplicas(rc *unstructured.Unstructured) (interface{}, bool) {
+	return pluck(rc.Object, "status", "fullyLabeledReplicas")
+}
+
 func untilCoreV1ReplicationControllerInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
@@ -182,7 +258,11 @@ func untilCoreV1ReplicationControllerInitialized(
 		obj.GetName(), replicas)
 
 	// 10 mins should be sufficient for scheduling ~10k replicas
-	err := Retry(10*time.Minute, waitForDesiredReplicasFunc(clientForResource, obj.GetName()))
+	err := Retry(10*time.Minute, waitForDesiredReplicasFunc(
+		clientForResource,
+		obj.GetName(),
+		replicationControllerSpecReplicas,
+		replicationControllerStatusFullyLabeledReplicas))
 	if err != nil {
 		return err
 	}
@@ -198,14 +278,22 @@ func untilCoreV1ReplicationControllerInitialized(
 func untilCoreV1ReplicationControllerUpdated(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
-	return Retry(10*time.Minute, waitForDesiredReplicasFunc(clientForResource, obj.GetName()))
+	return Retry(10*time.Minute, waitForDesiredReplicasFunc(
+		clientForResource,
+		obj.GetName(),
+		replicationControllerSpecReplicas,
+		replicationControllerStatusFullyLabeledReplicas))
 }
 
 func untilCoreV1ReplicationControllerDeleted(
 	clientForResource dynamic.ResourceInterface, name string,
 ) error {
 	// Wait until all replicas are gone
-	return Retry(10*time.Minute, waitForDesiredReplicasFunc(clientForResource, name))
+	return Retry(10*time.Minute, waitForDesiredReplicasFunc(
+		clientForResource,
+		name,
+		replicationControllerSpecReplicas,
+		replicationControllerStatusFullyLabeledReplicas))
 }
 
 // --------------------------------------------------------------------------
@@ -296,25 +384,34 @@ func untilCoreV1ServiceInitialized(
 
 // --------------------------------------------------------------------------
 
+// waitForDesiredReplicasFunc takes an object whose job is to replicate pods, and blocks (polling)
+// it until the desired replicas are the same as the current replicas. The user provides two
+// functions to obtain the replicas spec and status fields, as well as a client to access them.
 func waitForDesiredReplicasFunc(
-	clientForResource dynamic.ResourceInterface, name string,
+	clientForResource dynamic.ResourceInterface,
+	name string,
+	getReplicasSpec func(*unstructured.Unstructured) (interface{}, bool),
+	getReplicasStatus func(*unstructured.Unstructured) (interface{}, bool),
 ) RetryFunc {
 	return func() *RetryError {
-		rc, err := clientForResource.Get(name, metav1.GetOptions{})
+		replicator, err := clientForResource.Get(name, metav1.GetOptions{})
 		if err != nil {
 			return NonRetryableError(err)
 		}
 
-		desiredReplicas, _ := pluck(rc.Object, "spec", "replicas")
-		fullyLabeledReplicas, _ := pluck(rc.Object, "status", "fullyLabeledReplicas")
-		glog.V(3).Infof("Current number of labelled replicas of '%q': '%d' (of '%d')\n",
-			rc.GetName(), fullyLabeledReplicas, desiredReplicas)
+		desiredReplicas, hasReplicasSpec := getReplicasSpec(replicator)
+		fullyLabeledReplicas, hasReplicasStatus := getReplicasStatus(replicator)
 
-		if fullyLabeledReplicas == desiredReplicas {
+		glog.V(3).Infof("Current number of labelled replicas of '%q': '%d' (of '%d')\n",
+			replicator.GetName(), fullyLabeledReplicas, desiredReplicas)
+
+		if hasReplicasSpec && hasReplicasStatus && fullyLabeledReplicas == desiredReplicas {
 			return nil
+		} else if !hasReplicasSpec || !hasReplicasStatus {
+			glog.V(3).Infof("Could not obtain replicas spec or status for '%q'\n", replicator.GetName())
 		}
 
 		return RetryableError(fmt.Errorf("Waiting for '%d' replicas of '%q' to be scheduled (%d)",
-			desiredReplicas, rc.GetName(), fullyLabeledReplicas))
+			desiredReplicas, replicator.GetName(), fullyLabeledReplicas))
 	}
 }
