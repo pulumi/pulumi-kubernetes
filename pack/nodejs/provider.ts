@@ -30,9 +30,9 @@ export namespace admissionregistration {
       */
       constructor(name: string, args?: api.admissionregistration.v1alpha1.InitializerConfiguration, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
           inputs["initializers"] = args ? args.initializers : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "InitializerConfiguration";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:admissionregistration:v1alpha1:InitializerConfiguration", name, inputs, opts);
       }
@@ -62,9 +62,9 @@ export namespace admissionregistration {
       */
       constructor(name: string, args?: api.admissionregistration.v1alpha1.InitializerConfigurationList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "InitializerConfigurationList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:admissionregistration:v1alpha1:InitializerConfigurationList", name, inputs, opts);
       }
@@ -97,8 +97,8 @@ export namespace admissionregistration {
       */
       constructor(name: string, args?: api.admissionregistration.v1beta1.MutatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
+          inputs["kind"] = "MutatingWebhookConfiguration";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["webhooks"] = args ? args.webhooks : undefined;
           super("kubernetes:admissionregistration:v1beta1:MutatingWebhookConfiguration", name, inputs, opts);
@@ -129,9 +129,9 @@ export namespace admissionregistration {
       */
       constructor(name: string, args?: api.admissionregistration.v1beta1.MutatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "MutatingWebhookConfigurationList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:admissionregistration:v1beta1:MutatingWebhookConfigurationList", name, inputs, opts);
       }
@@ -161,8 +161,8 @@ export namespace admissionregistration {
       */
       constructor(name: string, args?: api.admissionregistration.v1beta1.ValidatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
+          inputs["kind"] = "ValidatingWebhookConfiguration";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["webhooks"] = args ? args.webhooks : undefined;
           super("kubernetes:admissionregistration:v1beta1:ValidatingWebhookConfiguration", name, inputs, opts);
@@ -193,9 +193,9 @@ export namespace admissionregistration {
       */
       constructor(name: string, args?: api.admissionregistration.v1beta1.ValidatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ValidatingWebhookConfigurationList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:admissionregistration:v1beta1:ValidatingWebhookConfigurationList", name, inputs, opts);
       }
@@ -234,8 +234,8 @@ export namespace apiextensions {
       */
       constructor(name: string, args?: api.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apiextensions/v1beta1";
+          inputs["kind"] = "CustomResourceDefinition";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -267,9 +267,9 @@ export namespace apiextensions {
       */
       constructor(name: string, args?: api.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apiextensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "CustomResourceDefinitionList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apiextensions:v1beta1:CustomResourceDefinitionList", name, inputs, opts);
       }
@@ -308,8 +308,8 @@ export namespace apiregistration {
       */
       constructor(name: string, args?: api.apiregistration.v1beta1.APIService, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apiregistration/v1beta1";
+          inputs["kind"] = "APIService";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -341,9 +341,9 @@ export namespace apiregistration {
       */
       constructor(name: string, args?: api.apiregistration.v1beta1.APIServiceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apiregistration/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "APIServiceList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apiregistration:v1beta1:APIServiceList", name, inputs, opts);
       }
@@ -382,9 +382,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.ControllerRevision, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1";
           inputs["data"] = args ? args.data : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ControllerRevision";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["revision"] = args ? args.revision : undefined;
           super("kubernetes:apps:v1:ControllerRevision", name, inputs, opts);
@@ -415,9 +415,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ControllerRevisionList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1:ControllerRevisionList", name, inputs, opts);
       }
@@ -450,8 +450,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.DaemonSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1";
+          inputs["kind"] = "DaemonSet";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -483,9 +483,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.DaemonSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "DaemonSetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1:DaemonSetList", name, inputs, opts);
       }
@@ -518,8 +518,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1";
+          inputs["kind"] = "Deployment";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -551,9 +551,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "DeploymentList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1:DeploymentList", name, inputs, opts);
       }
@@ -586,8 +586,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.ReplicaSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1";
+          inputs["kind"] = "ReplicaSet";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -619,9 +619,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ReplicaSetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1:ReplicaSetList", name, inputs, opts);
       }
@@ -657,8 +657,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.StatefulSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1";
+          inputs["kind"] = "StatefulSet";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -690,9 +690,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1.StatefulSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "StatefulSetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1:StatefulSetList", name, inputs, opts);
       }
@@ -728,9 +728,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta1.ControllerRevision, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta1";
           inputs["data"] = args ? args.data : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ControllerRevision";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["revision"] = args ? args.revision : undefined;
           super("kubernetes:apps:v1beta1:ControllerRevision", name, inputs, opts);
@@ -761,9 +761,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ControllerRevisionList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1beta1:ControllerRevisionList", name, inputs, opts);
       }
@@ -796,8 +796,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1beta1";
+          inputs["kind"] = "Deployment";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -829,9 +829,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "DeploymentList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1beta1:DeploymentList", name, inputs, opts);
       }
@@ -864,8 +864,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1beta1";
+          inputs["kind"] = "DeploymentRollback";
           inputs["name"] = args ? args.name : undefined;
           inputs["rollbackTo"] = args ? args.rollbackTo : undefined;
           inputs["updatedAnnotations"] = args ? args.updatedAnnotations : undefined;
@@ -900,8 +900,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1beta1";
+          inputs["kind"] = "Scale";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -939,8 +939,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta1.StatefulSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1beta1";
+          inputs["kind"] = "StatefulSet";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -972,9 +972,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta1.StatefulSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "StatefulSetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1beta1:StatefulSetList", name, inputs, opts);
       }
@@ -1010,9 +1010,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.ControllerRevision, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
           inputs["data"] = args ? args.data : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ControllerRevision";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["revision"] = args ? args.revision : undefined;
           super("kubernetes:apps:v1beta2:ControllerRevision", name, inputs, opts);
@@ -1043,9 +1043,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ControllerRevisionList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1beta2:ControllerRevisionList", name, inputs, opts);
       }
@@ -1078,8 +1078,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.DaemonSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
+          inputs["kind"] = "DaemonSet";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1111,9 +1111,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.DaemonSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "DaemonSetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1beta2:DaemonSetList", name, inputs, opts);
       }
@@ -1146,8 +1146,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
+          inputs["kind"] = "Deployment";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1179,9 +1179,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "DeploymentList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1beta2:DeploymentList", name, inputs, opts);
       }
@@ -1214,8 +1214,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.ReplicaSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
+          inputs["kind"] = "ReplicaSet";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1247,9 +1247,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.ReplicaSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ReplicaSetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1beta2:ReplicaSetList", name, inputs, opts);
       }
@@ -1282,8 +1282,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
+          inputs["kind"] = "Scale";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1321,8 +1321,8 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.StatefulSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
+          inputs["kind"] = "StatefulSet";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1354,9 +1354,9 @@ export namespace apps {
       */
       constructor(name: string, args?: api.apps.v1beta2.StatefulSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "StatefulSetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:apps:v1beta2:StatefulSetList", name, inputs, opts);
       }
@@ -1395,8 +1395,8 @@ export namespace authentication {
       */
       constructor(name: string, args?: api.authentication.v1.TokenReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authentication.k8s.io/v1";
+          inputs["kind"] = "TokenReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1434,8 +1434,8 @@ export namespace authentication {
       */
       constructor(name: string, args?: api.authentication.v1beta1.TokenReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authentication.k8s.io/v1beta1";
+          inputs["kind"] = "TokenReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1476,8 +1476,8 @@ export namespace authorization {
       */
       constructor(name: string, args?: api.authorization.v1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authorization.k8s.io/v1";
+          inputs["kind"] = "LocalSubjectAccessReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1512,8 +1512,8 @@ export namespace authorization {
       */
       constructor(name: string, args?: api.authorization.v1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authorization.k8s.io/v1";
+          inputs["kind"] = "SelfSubjectAccessReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1548,8 +1548,8 @@ export namespace authorization {
       */
       constructor(name: string, args?: api.authorization.v1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authorization.k8s.io/v1";
+          inputs["kind"] = "SelfSubjectRulesReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1584,8 +1584,8 @@ export namespace authorization {
       */
       constructor(name: string, args?: api.authorization.v1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authorization.k8s.io/v1";
+          inputs["kind"] = "SubjectAccessReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1623,8 +1623,8 @@ export namespace authorization {
       */
       constructor(name: string, args?: api.authorization.v1beta1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
+          inputs["kind"] = "LocalSubjectAccessReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1659,8 +1659,8 @@ export namespace authorization {
       */
       constructor(name: string, args?: api.authorization.v1beta1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
+          inputs["kind"] = "SelfSubjectAccessReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1695,8 +1695,8 @@ export namespace authorization {
       */
       constructor(name: string, args?: api.authorization.v1beta1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
+          inputs["kind"] = "SelfSubjectRulesReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1731,8 +1731,8 @@ export namespace authorization {
       */
       constructor(name: string, args?: api.authorization.v1beta1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
+          inputs["kind"] = "SubjectAccessReview";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1767,8 +1767,8 @@ export namespace autoscaling {
       */
       constructor(name: string, args?: api.autoscaling.v1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "autoscaling/v1";
+          inputs["kind"] = "CrossVersionObjectReference";
           inputs["name"] = args ? args.name : undefined;
           super("kubernetes:autoscaling:v1:CrossVersionObjectReference", name, inputs, opts);
       }
@@ -1801,8 +1801,8 @@ export namespace autoscaling {
       */
       constructor(name: string, args?: api.autoscaling.v1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "autoscaling/v1";
+          inputs["kind"] = "HorizontalPodAutoscaler";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1834,9 +1834,9 @@ export namespace autoscaling {
       */
       constructor(name: string, args?: api.autoscaling.v1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "autoscaling/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "HorizontalPodAutoscalerList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:autoscaling:v1:HorizontalPodAutoscalerList", name, inputs, opts);
       }
@@ -1869,8 +1869,8 @@ export namespace autoscaling {
       */
       constructor(name: string, args?: api.autoscaling.v1.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "autoscaling/v1";
+          inputs["kind"] = "Scale";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1902,8 +1902,8 @@ export namespace autoscaling {
       */
       constructor(name: string, args?: api.autoscaling.v2beta1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "autoscaling/v2beta1";
+          inputs["kind"] = "CrossVersionObjectReference";
           inputs["name"] = args ? args.name : undefined;
           super("kubernetes:autoscaling:v2beta1:CrossVersionObjectReference", name, inputs, opts);
       }
@@ -1936,8 +1936,8 @@ export namespace autoscaling {
       */
       constructor(name: string, args?: api.autoscaling.v2beta1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "autoscaling/v2beta1";
+          inputs["kind"] = "HorizontalPodAutoscaler";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -1969,9 +1969,9 @@ export namespace autoscaling {
       */
       constructor(name: string, args?: api.autoscaling.v2beta1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "HorizontalPodAutoscalerList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:autoscaling:v2beta1:HorizontalPodAutoscalerList", name, inputs, opts);
       }
@@ -2010,8 +2010,8 @@ export namespace batch {
       */
       constructor(name: string, args?: api.batch.v1.Job, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "batch/v1";
+          inputs["kind"] = "Job";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -2043,9 +2043,9 @@ export namespace batch {
       */
       constructor(name: string, args?: api.batch.v1.JobList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "batch/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "JobList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:batch:v1:JobList", name, inputs, opts);
       }
@@ -2081,8 +2081,8 @@ export namespace batch {
       */
       constructor(name: string, args?: api.batch.v1beta1.CronJob, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "batch/v1beta1";
+          inputs["kind"] = "CronJob";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -2114,9 +2114,9 @@ export namespace batch {
       */
       constructor(name: string, args?: api.batch.v1beta1.CronJobList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "batch/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "CronJobList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:batch:v1beta1:CronJobList", name, inputs, opts);
       }
@@ -2152,8 +2152,8 @@ export namespace batch {
       */
       constructor(name: string, args?: api.batch.v2alpha1.CronJob, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "batch/v2alpha1";
+          inputs["kind"] = "CronJob";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -2185,9 +2185,9 @@ export namespace batch {
       */
       constructor(name: string, args?: api.batch.v2alpha1.CronJobList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "batch/v2alpha1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "CronJobList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:batch:v2alpha1:CronJobList", name, inputs, opts);
       }
@@ -2226,8 +2226,8 @@ export namespace certificates {
       */
       constructor(name: string, args?: api.certificates.v1beta1.CertificateSigningRequest, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
+          inputs["kind"] = "CertificateSigningRequest";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -2259,9 +2259,9 @@ export namespace certificates {
       */
       constructor(name: string, args?: api.certificates.v1beta1.CertificateSigningRequestList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "CertificateSigningRequestList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:certificates:v1beta1:CertificateSigningRequestList", name, inputs, opts);
       }
@@ -2297,8 +2297,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.Binding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "Binding";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["target"] = args ? args.target : undefined;
           super("kubernetes:core:v1:Binding", name, inputs, opts);
@@ -2329,9 +2329,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ComponentStatus, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["conditions"] = args ? args.conditions : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ComponentStatus";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:ComponentStatus", name, inputs, opts);
       }
@@ -2361,9 +2361,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ComponentStatusList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ComponentStatusList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:ComponentStatusList", name, inputs, opts);
       }
@@ -2393,9 +2393,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ConfigMap, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["data"] = args ? args.data : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ConfigMap";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:ConfigMap", name, inputs, opts);
       }
@@ -2425,9 +2425,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ConfigMapList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ConfigMapList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:ConfigMapList", name, inputs, opts);
       }
@@ -2468,8 +2468,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.Endpoints, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "Endpoints";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["subsets"] = args ? args.subsets : undefined;
           super("kubernetes:core:v1:Endpoints", name, inputs, opts);
@@ -2500,9 +2500,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.EndpointsList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "EndpointsList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:EndpointsList", name, inputs, opts);
       }
@@ -2572,12 +2572,12 @@ export namespace core {
       constructor(name: string, args?: api.core.v1.Event, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["action"] = args ? args.action : undefined;
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["count"] = args ? args.count : undefined;
           inputs["eventTime"] = args ? args.eventTime : undefined;
           inputs["firstTimestamp"] = args ? args.firstTimestamp : undefined;
           inputs["involvedObject"] = args ? args.involvedObject : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "Event";
           inputs["lastTimestamp"] = args ? args.lastTimestamp : undefined;
           inputs["message"] = args ? args.message : undefined;
           inputs["metadata"] = args ? args.metadata : undefined;
@@ -2616,9 +2616,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.EventList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "EventList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:EventList", name, inputs, opts);
       }
@@ -2648,8 +2648,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.LimitRange, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "LimitRange";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           super("kubernetes:core:v1:LimitRange", name, inputs, opts);
@@ -2680,9 +2680,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.LimitRangeList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "LimitRangeList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:LimitRangeList", name, inputs, opts);
       }
@@ -2715,8 +2715,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.Namespace, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "Namespace";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -2748,9 +2748,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.NamespaceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "NamespaceList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:NamespaceList", name, inputs, opts);
       }
@@ -2783,8 +2783,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.Node, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "Node";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -2813,9 +2813,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.NodeConfigSource, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["configMapRef"] = args ? args.configMapRef : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "NodeConfigSource";
           super("kubernetes:core:v1:NodeConfigSource", name, inputs, opts);
       }
     }
@@ -2844,9 +2844,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.NodeList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "NodeList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:NodeList", name, inputs, opts);
       }
@@ -2885,9 +2885,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ObjectReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "core/v1";
           inputs["fieldPath"] = args ? args.fieldPath : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ObjectReference";
           inputs["name"] = args ? args.name : undefined;
           inputs["namespace"] = args ? args.namespace : undefined;
           inputs["resourceVersion"] = args ? args.resourceVersion : undefined;
@@ -2923,8 +2923,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.PersistentVolume, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "PersistentVolume";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -2959,8 +2959,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.PersistentVolumeClaim, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "PersistentVolumeClaim";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -2992,9 +2992,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.PersistentVolumeClaimList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "PersistentVolumeClaimList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:PersistentVolumeClaimList", name, inputs, opts);
       }
@@ -3024,9 +3024,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.PersistentVolumeList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "PersistentVolumeList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:PersistentVolumeList", name, inputs, opts);
       }
@@ -3059,8 +3059,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.Pod, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "Pod";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -3092,9 +3092,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.PodList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "PodList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:PodList", name, inputs, opts);
       }
@@ -3124,8 +3124,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.PodTemplate, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "PodTemplate";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["template"] = args ? args.template : undefined;
           super("kubernetes:core:v1:PodTemplate", name, inputs, opts);
@@ -3156,9 +3156,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.PodTemplateList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "PodTemplateList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:PodTemplateList", name, inputs, opts);
       }
@@ -3191,8 +3191,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ReplicationController, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "ReplicationController";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -3224,9 +3224,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ReplicationControllerList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ReplicationControllerList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:ReplicationControllerList", name, inputs, opts);
       }
@@ -3259,8 +3259,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ResourceQuota, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "ResourceQuota";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -3292,9 +3292,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ResourceQuotaList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ResourceQuotaList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:ResourceQuotaList", name, inputs, opts);
       }
@@ -3330,9 +3330,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.Secret, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["data"] = args ? args.data : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "Secret";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["stringData"] = args ? args.stringData : undefined;
           inputs["type"] = args ? args.type : undefined;
@@ -3364,9 +3364,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.SecretList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "SecretList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:SecretList", name, inputs, opts);
       }
@@ -3399,8 +3399,8 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.Service, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "Service";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -3438,10 +3438,10 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ServiceAccount, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
           inputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ServiceAccount";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["secrets"] = args ? args.secrets : undefined;
           super("kubernetes:core:v1:ServiceAccount", name, inputs, opts);
@@ -3472,9 +3472,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ServiceAccountList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ServiceAccountList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:ServiceAccountList", name, inputs, opts);
       }
@@ -3504,9 +3504,9 @@ export namespace core {
       */
       constructor(name: string, args?: api.core.v1.ServiceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ServiceList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:core:v1:ServiceList", name, inputs, opts);
       }
@@ -3582,13 +3582,13 @@ export namespace events {
       constructor(name: string, args?: api.events.v1beta1.Event, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["action"] = args ? args.action : undefined;
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "events.k8s.io/v1beta1";
           inputs["deprecatedCount"] = args ? args.deprecatedCount : undefined;
           inputs["deprecatedFirstTimestamp"] = args ? args.deprecatedFirstTimestamp : undefined;
           inputs["deprecatedLastTimestamp"] = args ? args.deprecatedLastTimestamp : undefined;
           inputs["deprecatedSource"] = args ? args.deprecatedSource : undefined;
           inputs["eventTime"] = args ? args.eventTime : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "Event";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["note"] = args ? args.note : undefined;
           inputs["reason"] = args ? args.reason : undefined;
@@ -3626,9 +3626,9 @@ export namespace events {
       */
       constructor(name: string, args?: api.events.v1beta1.EventList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "events.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "EventList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:events:v1beta1:EventList", name, inputs, opts);
       }
@@ -3667,8 +3667,8 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.DaemonSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
+          inputs["kind"] = "DaemonSet";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -3700,9 +3700,9 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.DaemonSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "DaemonSetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:extensions:v1beta1:DaemonSetList", name, inputs, opts);
       }
@@ -3735,8 +3735,8 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
+          inputs["kind"] = "Deployment";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -3768,9 +3768,9 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "DeploymentList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:extensions:v1beta1:DeploymentList", name, inputs, opts);
       }
@@ -3803,8 +3803,8 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
+          inputs["kind"] = "DeploymentRollback";
           inputs["name"] = args ? args.name : undefined;
           inputs["rollbackTo"] = args ? args.rollbackTo : undefined;
           inputs["updatedAnnotations"] = args ? args.updatedAnnotations : undefined;
@@ -3839,8 +3839,8 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.Ingress, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
+          inputs["kind"] = "Ingress";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -3872,9 +3872,9 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.IngressList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "IngressList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:extensions:v1beta1:IngressList", name, inputs, opts);
       }
@@ -3904,8 +3904,8 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
+          inputs["kind"] = "NetworkPolicy";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           super("kubernetes:extensions:v1beta1:NetworkPolicy", name, inputs, opts);
@@ -3936,9 +3936,9 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "NetworkPolicyList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:extensions:v1beta1:NetworkPolicyList", name, inputs, opts);
       }
@@ -3968,8 +3968,8 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.PodSecurityPolicy, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
+          inputs["kind"] = "PodSecurityPolicy";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           super("kubernetes:extensions:v1beta1:PodSecurityPolicy", name, inputs, opts);
@@ -4000,9 +4000,9 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.PodSecurityPolicyList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "PodSecurityPolicyList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:extensions:v1beta1:PodSecurityPolicyList", name, inputs, opts);
       }
@@ -4035,8 +4035,8 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.ReplicaSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
+          inputs["kind"] = "ReplicaSet";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -4068,9 +4068,9 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ReplicaSetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:extensions:v1beta1:ReplicaSetList", name, inputs, opts);
       }
@@ -4103,8 +4103,8 @@ export namespace extensions {
       */
       constructor(name: string, args?: api.extensions.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "extensions/v1beta1";
+          inputs["kind"] = "Scale";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -4148,8 +4148,8 @@ export namespace meta {
       */
       constructor(name: string, args?: api.meta.v1.APIGroup, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "APIGroup";
           inputs["name"] = args ? args.name : undefined;
           inputs["preferredVersion"] = args ? args.preferredVersion : undefined;
           inputs["serverAddressByClientCIDRs"] = args ? args.serverAddressByClientCIDRs : undefined;
@@ -4179,9 +4179,9 @@ export namespace meta {
       */
       constructor(name: string, args?: api.meta.v1.APIGroupList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["groups"] = args ? args.groups : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "APIGroupList";
           super("kubernetes:meta:v1:APIGroupList", name, inputs, opts);
       }
     }
@@ -4210,9 +4210,9 @@ export namespace meta {
       */
       constructor(name: string, args?: api.meta.v1.APIResourceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["groupVersion"] = args ? args.groupVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "APIResourceList";
           inputs["resources"] = args ? args.resources : undefined;
           super("kubernetes:meta:v1:APIResourceList", name, inputs, opts);
       }
@@ -4242,8 +4242,8 @@ export namespace meta {
       */
       constructor(name: string, args?: api.meta.v1.APIVersions, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "APIVersions";
           inputs["serverAddressByClientCIDRs"] = args ? args.serverAddressByClientCIDRs : undefined;
           inputs["versions"] = args ? args.versions : undefined;
           super("kubernetes:meta:v1:APIVersions", name, inputs, opts);
@@ -4280,9 +4280,9 @@ export namespace meta {
       */
       constructor(name: string, args?: api.meta.v1.DeleteOptions, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["gracePeriodSeconds"] = args ? args.gracePeriodSeconds : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "DeleteOptions";
           inputs["orphanDependents"] = args ? args.orphanDependents : undefined;
           inputs["preconditions"] = args ? args.preconditions : undefined;
           inputs["propagationPolicy"] = args ? args.propagationPolicy : undefined;
@@ -4320,10 +4320,10 @@ export namespace meta {
       */
       constructor(name: string, args?: api.meta.v1.OwnerReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "meta/v1";
           inputs["blockOwnerDeletion"] = args ? args.blockOwnerDeletion : undefined;
           inputs["controller"] = args ? args.controller : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "OwnerReference";
           inputs["name"] = args ? args.name : undefined;
           inputs["uid"] = args ? args.uid : undefined;
           super("kubernetes:meta:v1:OwnerReference", name, inputs, opts);
@@ -4366,10 +4366,10 @@ export namespace meta {
       */
       constructor(name: string, args?: api.meta.v1.Status, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "v1";
           inputs["code"] = args ? args.code : undefined;
           inputs["details"] = args ? args.details : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "Status";
           inputs["message"] = args ? args.message : undefined;
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["reason"] = args ? args.reason : undefined;
@@ -4408,8 +4408,8 @@ export namespace networking {
       */
       constructor(name: string, args?: api.networking.v1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "networking.k8s.io/v1";
+          inputs["kind"] = "NetworkPolicy";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           super("kubernetes:networking:v1:NetworkPolicy", name, inputs, opts);
@@ -4440,9 +4440,9 @@ export namespace networking {
       */
       constructor(name: string, args?: api.networking.v1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "networking.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "NetworkPolicyList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:networking:v1:NetworkPolicyList", name, inputs, opts);
       }
@@ -4478,9 +4478,9 @@ export namespace policy {
       */
       constructor(name: string, args?: api.policy.v1beta1.Eviction, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "policy/v1beta1";
           inputs["deleteOptions"] = args ? args.deleteOptions : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "Eviction";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:policy:v1beta1:Eviction", name, inputs, opts);
       }
@@ -4513,8 +4513,8 @@ export namespace policy {
       */
       constructor(name: string, args?: api.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "policy/v1beta1";
+          inputs["kind"] = "PodDisruptionBudget";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -4546,9 +4546,9 @@ export namespace policy {
       */
       constructor(name: string, args?: api.policy.v1beta1.PodDisruptionBudgetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "policy/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "PodDisruptionBudgetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:policy:v1beta1:PodDisruptionBudgetList", name, inputs, opts);
       }
@@ -4588,8 +4588,8 @@ export namespace rbac {
       constructor(name: string, args?: api.rbac.v1.ClusterRole, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
+          inputs["kind"] = "ClusterRole";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
           super("kubernetes:rbac:v1:ClusterRole", name, inputs, opts);
@@ -4623,8 +4623,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
+          inputs["kind"] = "ClusterRoleBinding";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
@@ -4656,9 +4656,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ClusterRoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1:ClusterRoleBindingList", name, inputs, opts);
       }
@@ -4688,9 +4688,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ClusterRoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1:ClusterRoleList", name, inputs, opts);
       }
@@ -4720,8 +4720,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1.Role, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
+          inputs["kind"] = "Role";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
           super("kubernetes:rbac:v1:Role", name, inputs, opts);
@@ -4755,8 +4755,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1.RoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
+          inputs["kind"] = "RoleBinding";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
@@ -4788,9 +4788,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1.RoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "RoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1:RoleBindingList", name, inputs, opts);
       }
@@ -4820,9 +4820,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1.RoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "RoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1:RoleList", name, inputs, opts);
       }
@@ -4859,8 +4859,8 @@ export namespace rbac {
       constructor(name: string, args?: api.rbac.v1alpha1.ClusterRole, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
+          inputs["kind"] = "ClusterRole";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
           super("kubernetes:rbac:v1alpha1:ClusterRole", name, inputs, opts);
@@ -4894,8 +4894,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1alpha1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
+          inputs["kind"] = "ClusterRoleBinding";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
@@ -4927,9 +4927,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1alpha1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ClusterRoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1alpha1:ClusterRoleBindingList", name, inputs, opts);
       }
@@ -4959,9 +4959,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1alpha1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ClusterRoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1alpha1:ClusterRoleList", name, inputs, opts);
       }
@@ -4991,8 +4991,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1alpha1.Role, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
+          inputs["kind"] = "Role";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
           super("kubernetes:rbac:v1alpha1:Role", name, inputs, opts);
@@ -5026,8 +5026,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1alpha1.RoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
+          inputs["kind"] = "RoleBinding";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
@@ -5059,9 +5059,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1alpha1.RoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "RoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1alpha1:RoleBindingList", name, inputs, opts);
       }
@@ -5091,9 +5091,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1alpha1.RoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "RoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1alpha1:RoleList", name, inputs, opts);
       }
@@ -5123,8 +5123,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1alpha1.Subject, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac/v1alpha1";
+          inputs["kind"] = "Subject";
           inputs["name"] = args ? args.name : undefined;
           inputs["namespace"] = args ? args.namespace : undefined;
           super("kubernetes:rbac:v1alpha1:Subject", name, inputs, opts);
@@ -5162,8 +5162,8 @@ export namespace rbac {
       constructor(name: string, args?: api.rbac.v1beta1.ClusterRole, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
+          inputs["kind"] = "ClusterRole";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
           super("kubernetes:rbac:v1beta1:ClusterRole", name, inputs, opts);
@@ -5197,8 +5197,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1beta1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
+          inputs["kind"] = "ClusterRoleBinding";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
@@ -5230,9 +5230,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1beta1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ClusterRoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1beta1:ClusterRoleBindingList", name, inputs, opts);
       }
@@ -5262,9 +5262,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1beta1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "ClusterRoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1beta1:ClusterRoleList", name, inputs, opts);
       }
@@ -5294,8 +5294,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1beta1.Role, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
+          inputs["kind"] = "Role";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
           super("kubernetes:rbac:v1beta1:Role", name, inputs, opts);
@@ -5329,8 +5329,8 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1beta1.RoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
+          inputs["kind"] = "RoleBinding";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
@@ -5362,9 +5362,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1beta1.RoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "RoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1beta1:RoleBindingList", name, inputs, opts);
       }
@@ -5394,9 +5394,9 @@ export namespace rbac {
       */
       constructor(name: string, args?: api.rbac.v1beta1.RoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "RoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:rbac:v1beta1:RoleList", name, inputs, opts);
       }
@@ -5438,10 +5438,10 @@ export namespace scheduling {
       */
       constructor(name: string, args?: api.scheduling.v1alpha1.PriorityClass, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
           inputs["description"] = args ? args.description : undefined;
           inputs["globalDefault"] = args ? args.globalDefault : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "PriorityClass";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["value"] = args ? args.value : undefined;
           super("kubernetes:scheduling:v1alpha1:PriorityClass", name, inputs, opts);
@@ -5472,9 +5472,9 @@ export namespace scheduling {
       */
       constructor(name: string, args?: api.scheduling.v1alpha1.PriorityClassList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "PriorityClassList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:scheduling:v1alpha1:PriorityClassList", name, inputs, opts);
       }
@@ -5510,8 +5510,8 @@ export namespace settings {
       */
       constructor(name: string, args?: api.settings.v1alpha1.PodPreset, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
+          inputs["kind"] = "PodPreset";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           super("kubernetes:settings:v1alpha1:PodPreset", name, inputs, opts);
@@ -5542,9 +5542,9 @@ export namespace settings {
       */
       constructor(name: string, args?: api.settings.v1alpha1.PodPresetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "PodPresetList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:settings:v1alpha1:PodPresetList", name, inputs, opts);
       }
@@ -5598,8 +5598,8 @@ export namespace storage {
       constructor(name: string, args?: api.storage.v1.StorageClass, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "storage.k8s.io/v1";
+          inputs["kind"] = "StorageClass";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["mountOptions"] = args ? args.mountOptions : undefined;
           inputs["parameters"] = args ? args.parameters : undefined;
@@ -5634,9 +5634,9 @@ export namespace storage {
       */
       constructor(name: string, args?: api.storage.v1.StorageClassList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "storage.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "StorageClassList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:storage:v1:StorageClassList", name, inputs, opts);
       }
@@ -5674,8 +5674,8 @@ export namespace storage {
       */
       constructor(name: string, args?: api.storage.v1alpha1.VolumeAttachment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
+          inputs["kind"] = "VolumeAttachment";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
@@ -5707,9 +5707,9 @@ export namespace storage {
       */
       constructor(name: string, args?: api.storage.v1alpha1.VolumeAttachmentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "VolumeAttachmentList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:storage:v1alpha1:VolumeAttachmentList", name, inputs, opts);
       }
@@ -5760,8 +5760,8 @@ export namespace storage {
       constructor(name: string, args?: api.storage.v1beta1.StorageClass, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["apiVersion"] = "storage.k8s.io/v1beta1";
+          inputs["kind"] = "StorageClass";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["mountOptions"] = args ? args.mountOptions : undefined;
           inputs["parameters"] = args ? args.parameters : undefined;
@@ -5796,9 +5796,9 @@ export namespace storage {
       */
       constructor(name: string, args?: api.storage.v1beta1.StorageClassList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = args ? args.apiVersion : undefined;
+          inputs["apiVersion"] = "storage.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
-          inputs["kind"] = args ? args.kind : undefined;
+          inputs["kind"] = "StorageClassList";
           inputs["metadata"] = args ? args.metadata : undefined;
           super("kubernetes:storage:v1beta1:StorageClassList", name, inputs, opts);
       }

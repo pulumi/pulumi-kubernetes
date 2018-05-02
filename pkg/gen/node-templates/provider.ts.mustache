@@ -27,7 +27,7 @@ export namespace {{Group}} {
       constructor(name: string, args?: api.{{Group}}.{{Version}}.{{Kind}}, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           {{#Properties}}
-          inputs["{{Name}}"] = args ? args.{{Name}} : undefined;
+          inputs["{{Name}}"] = {{{DefaultValue}}};
           {{/Properties}}
           super("kubernetes:{{Group}}:{{Version}}:{{Kind}}", name, inputs, opts);
       }

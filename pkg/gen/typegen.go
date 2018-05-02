@@ -35,7 +35,8 @@ type VersionConfig struct {
 	version string
 	kinds   []*KindConfig
 
-	gv *schema.GroupVersion // Used for sorting.
+	gv         *schema.GroupVersion // Used for sorting.
+	apiVersion string
 }
 
 // Version returns the name of the version (e.g., `apps/v1beta1` would return `v1beta1`).
@@ -44,6 +45,9 @@ func (vc *VersionConfig) Version() string { return vc.version }
 // Kinds returns the set of kinds in some Kubernetes API group/version combination (e.g.,
 // `apps/v1beta1` has the `Deployment` kind, etc.).
 func (vc *VersionConfig) Kinds() []*KindConfig { return vc.kinds }
+
+// APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
+func (vc *VersionConfig) APIVersion() string { return vc.apiVersion }
 
 // KindConfig represents a Kubernetes API kind (e.g., the `Deployment` type in
 // `apps/v1beta1/Deployment`).
@@ -54,7 +58,8 @@ type KindConfig struct {
 	requiredProperties []*Property
 	optionalProperties []*Property
 
-	gvk *schema.GroupVersionKind // Used for sorting.
+	gvk        *schema.GroupVersionKind // Used for sorting.
+	apiVersion string
 }
 
 // Kind returns the name of the Kubernetes API kind (e.g., `Deployment` for
@@ -78,12 +83,16 @@ func (kc *KindConfig) RequiredProperties() []*Property { return kc.requiredPrope
 // `thing.metadata`, etc.).
 func (kc *KindConfig) OptionalProperties() []*Property { return kc.optionalProperties }
 
+// APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
+func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
+
 // Property represents a property we want to expose on a Kubernetes API kind (i.e., things that we
 // will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
 type Property struct {
-	comment  string
-	propType string
-	name     string
+	name         string
+	comment      string
+	propType     string
+	defaultValue string
 }
 
 // Name returns the name of the property
@@ -94,6 +103,9 @@ func (p *Property) Comment() string { return p.comment }
 
 // PropType returns the type of the property.
 func (p *Property) PropType() string { return p.propType }
+
+// DefaultValue returns the type of the property.
+func (p *Property) DefaultValue() string { return p.defaultValue }
 
 // --------------------------------------------------------------------------
 
@@ -220,6 +232,22 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 				return linq.From([]KindConfig{})
 			}
 
+			// Make fully-qualified group name.
+			fqGroup := d.gvk.Group
+			if gvks, gvkExists :=
+				d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
+				gvk := gvks[0].(map[string]interface{})
+				group := gvk["group"].(string)
+				version := gvk["version"].(string)
+				if group == "" {
+					fqGroup = fmt.Sprintf(`"%s"`, version)
+				} else {
+					fqGroup = fmt.Sprintf(`"%s/%s"`, group, version)
+				}
+			} else {
+				fqGroup = fmt.Sprintf(`"%s"`, d.gvk.GroupVersion().String())
+			}
+
 			ps := linq.From(d.data["properties"]).
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				SelectT(func(kv linq.KeyValue) *Property {
@@ -235,10 +263,20 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 						panic("Unrecognized generator type")
 					}
 
+					// Create a default value for the field.
+					defaultValue := fmt.Sprintf("args ? args.%s : undefined", propName)
+					switch propName {
+					case "apiVersion":
+						defaultValue = fqGroup
+					case "kind":
+						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
+					}
+
 					return &Property{
-						comment:  fmtComment(prop["description"], "      "),
-						propType: typeLiteral,
-						name:     propName,
+						comment:      fmtComment(prop["description"], "      "),
+						propType:     typeLiteral,
+						name:         propName,
+						defaultValue: defaultValue,
 					}
 				})
 
@@ -289,6 +327,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 					requiredProperties: requiredProperties,
 					optionalProperties: optionalProperties,
 					gvk:                &d.gvk,
+					apiVersion:         fqGroup,
 				},
 			})
 		}).
@@ -310,11 +349,16 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 			gv := kinds.Key.(schema.GroupVersion)
 			kindsGroup := []*KindConfig{}
 			linq.From(kinds.Group).ToSlice(&kindsGroup)
+			if len(kindsGroup) == 0 {
+				return linq.From([]*VersionConfig{})
+			}
+
 			return linq.From([]*VersionConfig{
 				{
-					version: gv.Version,
-					kinds:   kindsGroup,
-					gv:      &gv,
+					version:    gv.Version,
+					kinds:      kindsGroup,
+					gv:         &gv,
+					apiVersion: kindsGroup[0].apiVersion, // NOTE: This is safe.
 				},
 			})
 		}).
@@ -330,13 +374,19 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 			func(e *VersionConfig) string { return e.gv.Group },
 			func(e *VersionConfig) *VersionConfig { return e }).
 		OrderByT(func(versions linq.Group) string { return versions.Key.(string) }).
-		SelectT(func(versions linq.Group) *GroupConfig {
+		SelectManyT(func(versions linq.Group) linq.Query {
 			versionsGroup := []*VersionConfig{}
 			linq.From(versions.Group).ToSlice(&versionsGroup)
-			return &GroupConfig{
-				group:    versions.Key.(string),
-				versions: versionsGroup,
+			if len(versionsGroup) == 0 {
+				return linq.From([]*GroupConfig{})
 			}
+
+			return linq.From([]*GroupConfig{
+				{
+					group:    versions.Key.(string),
+					versions: versionsGroup,
+				},
+			})
 		}).
 		WhereT(func(gc *GroupConfig) bool {
 			return len(gc.Versions()) != 0
