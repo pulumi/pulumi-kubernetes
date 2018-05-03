@@ -278,7 +278,7 @@ func Deletion(
 	// Make delete options based on the version of the client.
 	version, err := client.FetchVersion(disco)
 	if err != nil {
-		return err
+		version = client.DefaultVersion()
 	}
 
 	deleteOpts := metav1.DeleteOptions{}
