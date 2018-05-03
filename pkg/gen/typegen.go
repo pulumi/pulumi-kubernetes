@@ -185,7 +185,7 @@ func makeTypeLiteral(prop map[string]interface{}) string {
 }
 
 func makeAPITypeRef(prop map[string]interface{}) string {
-	return makeType(prop, "api")
+	return makeType(prop, "outputApi")
 }
 
 // --------------------------------------------------------------------------
@@ -204,7 +204,8 @@ type gentype int
 
 const (
 	provider gentype = iota
-	api
+	inputsAPI
+	outputsAPI
 )
 
 func createGroups(definitionsJSON map[string]interface{}, generatorType gentype) []*GroupConfig {
@@ -265,7 +266,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
 					var typeLiteral string
 					switch generatorType {
-					case api:
+					case inputsAPI, outputsAPI:
 						typeLiteral = makeTypeLiteral(prop)
 					case provider:
 						typeLiteral = makeAPITypeRef(prop)

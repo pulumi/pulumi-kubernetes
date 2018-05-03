@@ -2,7 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as api from "./api";
+import * as inputApi from "./inputApi";
+import * as outputApi from "./outputApi";
 
 export namespace admissionregistration {
   export namespace v1alpha1 {
@@ -24,7 +25,7 @@ export namespace admissionregistration {
        * InitializerConfigurations by the name of the InitializerConfigurations; the order of the
        * initializers from the same InitializerConfiguration is preserved.
        */
-      public readonly initializers: pulumi.Output<api.admissionregistration.v1alpha1.Initializer[]>;
+      public readonly initializers: pulumi.Output<outputApi.admissionregistration.v1alpha1.Initializer[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -38,7 +39,7 @@ export namespace admissionregistration {
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
 
       /**
@@ -48,7 +49,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.admissionregistration.v1alpha1.InitializerConfiguration, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.admissionregistration.v1alpha1.InitializerConfiguration, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
           inputs["initializers"] = args ? args.initializers : undefined;
@@ -73,7 +74,7 @@ export namespace admissionregistration {
       /**
        * List of InitializerConfiguration.
        */
-      public readonly items: pulumi.Output<api.admissionregistration.v1alpha1.InitializerConfiguration[]>;
+      public readonly items: pulumi.Output<outputApi.admissionregistration.v1alpha1.InitializerConfiguration[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -87,7 +88,7 @@ export namespace admissionregistration {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -97,7 +98,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.admissionregistration.v1alpha1.InitializerConfigurationList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
@@ -135,12 +136,12 @@ export namespace admissionregistration {
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Webhooks is a list of webhooks and the affected resources and operations.
        */
-      public readonly webhooks: pulumi.Output<api.admissionregistration.v1beta1.Webhook[]>;
+      public readonly webhooks: pulumi.Output<outputApi.admissionregistration.v1beta1.Webhook[]>;
 
 
       /**
@@ -150,7 +151,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.admissionregistration.v1beta1.MutatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["kind"] = "MutatingWebhookConfiguration";
@@ -175,7 +176,7 @@ export namespace admissionregistration {
       /**
        * List of MutatingWebhookConfiguration.
        */
-      public readonly items: pulumi.Output<api.admissionregistration.v1beta1.MutatingWebhookConfiguration[]>;
+      public readonly items: pulumi.Output<outputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -189,7 +190,7 @@ export namespace admissionregistration {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -199,7 +200,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.admissionregistration.v1beta1.MutatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -234,12 +235,12 @@ export namespace admissionregistration {
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Webhooks is a list of webhooks and the affected resources and operations.
        */
-      public readonly webhooks: pulumi.Output<api.admissionregistration.v1beta1.Webhook[]>;
+      public readonly webhooks: pulumi.Output<outputApi.admissionregistration.v1beta1.Webhook[]>;
 
 
       /**
@@ -249,7 +250,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.admissionregistration.v1beta1.ValidatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["kind"] = "ValidatingWebhookConfiguration";
@@ -274,7 +275,7 @@ export namespace admissionregistration {
       /**
        * List of ValidatingWebhookConfiguration.
        */
-      public readonly items: pulumi.Output<api.admissionregistration.v1beta1.ValidatingWebhookConfiguration[]>;
+      public readonly items: pulumi.Output<outputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -288,7 +289,7 @@ export namespace admissionregistration {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -298,7 +299,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.admissionregistration.v1beta1.ValidatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -336,17 +337,17 @@ export namespace apiextensions {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec describes how the user wants the resources to appear
        */
-      public readonly spec: pulumi.Output<api.apiextensions.v1beta1.CustomResourceDefinitionSpec>;
+      public readonly spec: pulumi.Output<outputApi.apiextensions.v1beta1.CustomResourceDefinitionSpec>;
 
       /**
        * Status indicates the actual state of the CustomResourceDefinition
        */
-      public readonly status: pulumi.Output<api.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
+      public readonly status: pulumi.Output<outputApi.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
 
 
       /**
@@ -356,7 +357,7 @@ export namespace apiextensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiextensions/v1beta1";
           inputs["kind"] = "CustomResourceDefinition";
@@ -382,7 +383,7 @@ export namespace apiextensions {
       /**
        * Items individual CustomResourceDefinitions
        */
-      public readonly items: pulumi.Output<api.apiextensions.v1beta1.CustomResourceDefinition[]>;
+      public readonly items: pulumi.Output<outputApi.apiextensions.v1beta1.CustomResourceDefinition[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -393,7 +394,7 @@ export namespace apiextensions {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -403,7 +404,7 @@ export namespace apiextensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiextensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -440,17 +441,17 @@ export namespace apiregistration {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec contains information for locating and communicating with a server
        */
-      public readonly spec: pulumi.Output<api.apiregistration.v1beta1.APIServiceSpec>;
+      public readonly spec: pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceSpec>;
 
       /**
        * Status contains derived information about an API server
        */
-      public readonly status: pulumi.Output<api.apiregistration.v1beta1.APIServiceStatus>;
+      public readonly status: pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceStatus>;
 
 
       /**
@@ -460,7 +461,7 @@ export namespace apiregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apiregistration.v1beta1.APIService, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apiregistration.v1beta1.APIService, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiregistration/v1beta1";
           inputs["kind"] = "APIService";
@@ -484,7 +485,7 @@ export namespace apiregistration {
       public readonly apiVersion: pulumi.Output<string>;
 
       
-      public readonly items: pulumi.Output<api.apiregistration.v1beta1.APIService[]>;
+      public readonly items: pulumi.Output<outputApi.apiregistration.v1beta1.APIService[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -495,7 +496,7 @@ export namespace apiregistration {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -505,7 +506,7 @@ export namespace apiregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apiregistration.v1beta1.APIServiceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apiregistration.v1beta1.APIServiceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiregistration/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -543,7 +544,7 @@ export namespace apps {
       /**
        * Data is the serialized representation of the state.
        */
-      public readonly data: pulumi.Output<api.pkg.runtime.RawExtension>;
+      public readonly data: pulumi.Output<outputApi.pkg.runtime.RawExtension>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -557,7 +558,7 @@ export namespace apps {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Revision indicates the revision of the state represented by Data.
@@ -572,7 +573,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.ControllerRevision, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.ControllerRevision, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["data"] = args ? args.data : undefined;
@@ -598,7 +599,7 @@ export namespace apps {
       /**
        * Items is the list of ControllerRevisions
        */
-      public readonly items: pulumi.Output<api.apps.v1.ControllerRevision[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1.ControllerRevision[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -611,7 +612,7 @@ export namespace apps {
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -621,7 +622,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -655,20 +656,20 @@ export namespace apps {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * The desired behavior of this daemon set. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.apps.v1.DaemonSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1.DaemonSetSpec>;
 
       /**
        * The current status of this daemon set. This data may be out of date by some window of time.
        * Populated by the system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.apps.v1.DaemonSetStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1.DaemonSetStatus>;
 
 
       /**
@@ -678,7 +679,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.DaemonSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.DaemonSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "DaemonSet";
@@ -704,7 +705,7 @@ export namespace apps {
       /**
        * A list of daemon sets.
        */
-      public readonly items: pulumi.Output<api.apps.v1.DaemonSet[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1.DaemonSet[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -718,7 +719,7 @@ export namespace apps {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -728,7 +729,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.DaemonSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.DaemonSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -761,17 +762,17 @@ export namespace apps {
       /**
        * Standard object metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of the Deployment.
        */
-      public readonly spec: pulumi.Output<api.apps.v1.DeploymentSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1.DeploymentSpec>;
 
       /**
        * Most recently observed status of the Deployment.
        */
-      public readonly status: pulumi.Output<api.apps.v1.DeploymentStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1.DeploymentStatus>;
 
 
       /**
@@ -781,7 +782,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "Deployment";
@@ -807,7 +808,7 @@ export namespace apps {
       /**
        * Items is the list of Deployments.
        */
-      public readonly items: pulumi.Output<api.apps.v1.Deployment[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1.Deployment[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -820,7 +821,7 @@ export namespace apps {
       /**
        * Standard list metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -830,7 +831,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -865,20 +866,20 @@ export namespace apps {
        * that the ReplicaSet manages. Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.apps.v1.ReplicaSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1.ReplicaSetSpec>;
 
       /**
        * Status is the most recently observed status of the ReplicaSet. This data may be out of date
        * by some window of time. Populated by the system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.apps.v1.ReplicaSetStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1.ReplicaSetStatus>;
 
 
       /**
@@ -888,7 +889,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.ReplicaSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.ReplicaSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "ReplicaSet";
@@ -915,7 +916,7 @@ export namespace apps {
        * List of ReplicaSets. More info:
        * https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
        */
-      public readonly items: pulumi.Output<api.apps.v1.ReplicaSet[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1.ReplicaSet[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -929,7 +930,7 @@ export namespace apps {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -939,7 +940,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -974,18 +975,18 @@ export namespace apps {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the desired identities of pods in this set.
        */
-      public readonly spec: pulumi.Output<api.apps.v1.StatefulSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1.StatefulSetSpec>;
 
       /**
        * Status is the current status of Pods in this StatefulSet. This data may be out of date by
        * some window of time.
        */
-      public readonly status: pulumi.Output<api.apps.v1.StatefulSetStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1.StatefulSetStatus>;
 
 
       /**
@@ -995,7 +996,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.StatefulSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.StatefulSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "StatefulSet";
@@ -1019,7 +1020,7 @@ export namespace apps {
       public readonly apiVersion: pulumi.Output<string>;
 
       
-      public readonly items: pulumi.Output<api.apps.v1.StatefulSet[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1.StatefulSet[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1030,7 +1031,7 @@ export namespace apps {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -1040,7 +1041,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1.StatefulSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1.StatefulSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -1077,7 +1078,7 @@ export namespace apps {
       /**
        * Data is the serialized representation of the state.
        */
-      public readonly data: pulumi.Output<api.pkg.runtime.RawExtension>;
+      public readonly data: pulumi.Output<outputApi.pkg.runtime.RawExtension>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1091,7 +1092,7 @@ export namespace apps {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Revision indicates the revision of the state represented by Data.
@@ -1106,7 +1107,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta1.ControllerRevision, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta1.ControllerRevision, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["data"] = args ? args.data : undefined;
@@ -1132,7 +1133,7 @@ export namespace apps {
       /**
        * Items is the list of ControllerRevisions
        */
-      public readonly items: pulumi.Output<api.apps.v1beta1.ControllerRevision[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1beta1.ControllerRevision[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1145,7 +1146,7 @@ export namespace apps {
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -1155,7 +1156,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -1190,17 +1191,17 @@ export namespace apps {
       /**
        * Standard object metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of the Deployment.
        */
-      public readonly spec: pulumi.Output<api.apps.v1beta1.DeploymentSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1beta1.DeploymentSpec>;
 
       /**
        * Most recently observed status of the Deployment.
        */
-      public readonly status: pulumi.Output<api.apps.v1beta1.DeploymentStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1beta1.DeploymentStatus>;
 
 
       /**
@@ -1210,7 +1211,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "Deployment";
@@ -1236,7 +1237,7 @@ export namespace apps {
       /**
        * Items is the list of Deployments.
        */
-      public readonly items: pulumi.Output<api.apps.v1beta1.Deployment[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1beta1.Deployment[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1249,7 +1250,7 @@ export namespace apps {
       /**
        * Standard list metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -1259,7 +1260,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -1297,7 +1298,7 @@ export namespace apps {
       /**
        * The config of this deployment rollback.
        */
-      public readonly rollbackTo: pulumi.Output<api.apps.v1beta1.RollbackConfig>;
+      public readonly rollbackTo: pulumi.Output<outputApi.apps.v1beta1.RollbackConfig>;
 
       /**
        * The annotations to be updated to a deployment
@@ -1312,7 +1313,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "DeploymentRollback";
@@ -1347,20 +1348,20 @@ export namespace apps {
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * defines the behavior of the scale. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        */
-      public readonly spec: pulumi.Output<api.apps.v1beta1.ScaleSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1beta1.ScaleSpec>;
 
       /**
        * current status of the scale. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        * Read-only.
        */
-      public readonly status: pulumi.Output<api.apps.v1beta1.ScaleStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1beta1.ScaleStatus>;
 
 
       /**
@@ -1370,7 +1371,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "Scale";
@@ -1408,18 +1409,18 @@ export namespace apps {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the desired identities of pods in this set.
        */
-      public readonly spec: pulumi.Output<api.apps.v1beta1.StatefulSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1beta1.StatefulSetSpec>;
 
       /**
        * Status is the current status of Pods in this StatefulSet. This data may be out of date by
        * some window of time.
        */
-      public readonly status: pulumi.Output<api.apps.v1beta1.StatefulSetStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1beta1.StatefulSetStatus>;
 
 
       /**
@@ -1429,7 +1430,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta1.StatefulSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta1.StatefulSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "StatefulSet";
@@ -1453,7 +1454,7 @@ export namespace apps {
       public readonly apiVersion: pulumi.Output<string>;
 
       
-      public readonly items: pulumi.Output<api.apps.v1beta1.StatefulSet[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1beta1.StatefulSet[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1464,7 +1465,7 @@ export namespace apps {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -1474,7 +1475,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta1.StatefulSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta1.StatefulSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -1511,7 +1512,7 @@ export namespace apps {
       /**
        * Data is the serialized representation of the state.
        */
-      public readonly data: pulumi.Output<api.pkg.runtime.RawExtension>;
+      public readonly data: pulumi.Output<outputApi.pkg.runtime.RawExtension>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1525,7 +1526,7 @@ export namespace apps {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Revision indicates the revision of the state represented by Data.
@@ -1540,7 +1541,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.ControllerRevision, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.ControllerRevision, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["data"] = args ? args.data : undefined;
@@ -1566,7 +1567,7 @@ export namespace apps {
       /**
        * Items is the list of ControllerRevisions
        */
-      public readonly items: pulumi.Output<api.apps.v1beta2.ControllerRevision[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1beta2.ControllerRevision[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1579,7 +1580,7 @@ export namespace apps {
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -1589,7 +1590,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
@@ -1624,20 +1625,20 @@ export namespace apps {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * The desired behavior of this daemon set. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.apps.v1beta2.DaemonSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1beta2.DaemonSetSpec>;
 
       /**
        * The current status of this daemon set. This data may be out of date by some window of time.
        * Populated by the system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.apps.v1beta2.DaemonSetStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1beta2.DaemonSetStatus>;
 
 
       /**
@@ -1647,7 +1648,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.DaemonSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.DaemonSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "DaemonSet";
@@ -1673,7 +1674,7 @@ export namespace apps {
       /**
        * A list of daemon sets.
        */
-      public readonly items: pulumi.Output<api.apps.v1beta2.DaemonSet[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1beta2.DaemonSet[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1687,7 +1688,7 @@ export namespace apps {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -1697,7 +1698,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.DaemonSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.DaemonSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
@@ -1732,17 +1733,17 @@ export namespace apps {
       /**
        * Standard object metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of the Deployment.
        */
-      public readonly spec: pulumi.Output<api.apps.v1beta2.DeploymentSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1beta2.DeploymentSpec>;
 
       /**
        * Most recently observed status of the Deployment.
        */
-      public readonly status: pulumi.Output<api.apps.v1beta2.DeploymentStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1beta2.DeploymentStatus>;
 
 
       /**
@@ -1752,7 +1753,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "Deployment";
@@ -1778,7 +1779,7 @@ export namespace apps {
       /**
        * Items is the list of Deployments.
        */
-      public readonly items: pulumi.Output<api.apps.v1beta2.Deployment[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1beta2.Deployment[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1791,7 +1792,7 @@ export namespace apps {
       /**
        * Standard list metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -1801,7 +1802,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
@@ -1838,20 +1839,20 @@ export namespace apps {
        * that the ReplicaSet manages. Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.apps.v1beta2.ReplicaSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1beta2.ReplicaSetSpec>;
 
       /**
        * Status is the most recently observed status of the ReplicaSet. This data may be out of date
        * by some window of time. Populated by the system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.apps.v1beta2.ReplicaSetStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1beta2.ReplicaSetStatus>;
 
 
       /**
@@ -1861,7 +1862,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.ReplicaSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.ReplicaSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "ReplicaSet";
@@ -1888,7 +1889,7 @@ export namespace apps {
        * List of ReplicaSets. More info:
        * https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
        */
-      public readonly items: pulumi.Output<api.apps.v1beta2.ReplicaSet[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1beta2.ReplicaSet[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1902,7 +1903,7 @@ export namespace apps {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -1912,7 +1913,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.ReplicaSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.ReplicaSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
@@ -1946,20 +1947,20 @@ export namespace apps {
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * defines the behavior of the scale. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        */
-      public readonly spec: pulumi.Output<api.apps.v1beta2.ScaleSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1beta2.ScaleSpec>;
 
       /**
        * current status of the scale. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        * Read-only.
        */
-      public readonly status: pulumi.Output<api.apps.v1beta2.ScaleStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1beta2.ScaleStatus>;
 
 
       /**
@@ -1969,7 +1970,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "Scale";
@@ -2007,18 +2008,18 @@ export namespace apps {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the desired identities of pods in this set.
        */
-      public readonly spec: pulumi.Output<api.apps.v1beta2.StatefulSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.apps.v1beta2.StatefulSetSpec>;
 
       /**
        * Status is the current status of Pods in this StatefulSet. This data may be out of date by
        * some window of time.
        */
-      public readonly status: pulumi.Output<api.apps.v1beta2.StatefulSetStatus>;
+      public readonly status: pulumi.Output<outputApi.apps.v1beta2.StatefulSetStatus>;
 
 
       /**
@@ -2028,7 +2029,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.StatefulSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.StatefulSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "StatefulSet";
@@ -2052,7 +2053,7 @@ export namespace apps {
       public readonly apiVersion: pulumi.Output<string>;
 
       
-      public readonly items: pulumi.Output<api.apps.v1beta2.StatefulSet[]>;
+      public readonly items: pulumi.Output<outputApi.apps.v1beta2.StatefulSet[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2063,7 +2064,7 @@ export namespace apps {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -2073,7 +2074,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.apps.v1beta2.StatefulSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.apps.v1beta2.StatefulSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args ? args.items : undefined;
@@ -2111,17 +2112,17 @@ export namespace authentication {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated
        */
-      public readonly spec: pulumi.Output<api.authentication.v1.TokenReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authentication.v1.TokenReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request can be authenticated.
        */
-      public readonly status: pulumi.Output<api.authentication.v1.TokenReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authentication.v1.TokenReviewStatus>;
 
 
       /**
@@ -2131,7 +2132,7 @@ export namespace authentication {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authentication.v1.TokenReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authentication.v1.TokenReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authentication.k8s.io/v1";
           inputs["kind"] = "TokenReview";
@@ -2167,17 +2168,17 @@ export namespace authentication {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated
        */
-      public readonly spec: pulumi.Output<api.authentication.v1beta1.TokenReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authentication.v1beta1.TokenReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request can be authenticated.
        */
-      public readonly status: pulumi.Output<api.authentication.v1beta1.TokenReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authentication.v1beta1.TokenReviewStatus>;
 
 
       /**
@@ -2187,7 +2188,7 @@ export namespace authentication {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authentication.v1beta1.TokenReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authentication.v1beta1.TokenReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authentication.k8s.io/v1beta1";
           inputs["kind"] = "TokenReview";
@@ -2227,18 +2228,18 @@ export namespace authorization {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated.  spec.namespace must be equal to
        * the namespace you made the request against.  If empty, it is defaulted.
        */
-      public readonly spec: pulumi.Output<api.authorization.v1.SubjectAccessReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authorization.v1.SubjectAccessReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request is allowed or not
        */
-      public readonly status: pulumi.Output<api.authorization.v1.SubjectAccessReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authorization.v1.SubjectAccessReviewStatus>;
 
 
       /**
@@ -2248,7 +2249,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authorization.v1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authorization.v1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "LocalSubjectAccessReview";
@@ -2282,17 +2283,17 @@ export namespace authorization {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated.  user and groups must be empty
        */
-      public readonly spec: pulumi.Output<api.authorization.v1.SelfSubjectAccessReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authorization.v1.SelfSubjectAccessReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request is allowed or not
        */
-      public readonly status: pulumi.Output<api.authorization.v1.SubjectAccessReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authorization.v1.SubjectAccessReviewStatus>;
 
 
       /**
@@ -2302,7 +2303,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authorization.v1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authorization.v1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "SelfSubjectAccessReview";
@@ -2341,17 +2342,17 @@ export namespace authorization {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated.
        */
-      public readonly spec: pulumi.Output<api.authorization.v1.SelfSubjectRulesReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authorization.v1.SelfSubjectRulesReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates the set of actions a user can perform.
        */
-      public readonly status: pulumi.Output<api.authorization.v1.SubjectRulesReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authorization.v1.SubjectRulesReviewStatus>;
 
 
       /**
@@ -2361,7 +2362,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authorization.v1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authorization.v1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "SelfSubjectRulesReview";
@@ -2393,17 +2394,17 @@ export namespace authorization {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated
        */
-      public readonly spec: pulumi.Output<api.authorization.v1.SubjectAccessReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authorization.v1.SubjectAccessReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request is allowed or not
        */
-      public readonly status: pulumi.Output<api.authorization.v1.SubjectAccessReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authorization.v1.SubjectAccessReviewStatus>;
 
 
       /**
@@ -2413,7 +2414,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authorization.v1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authorization.v1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "SubjectAccessReview";
@@ -2450,18 +2451,18 @@ export namespace authorization {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated.  spec.namespace must be equal to
        * the namespace you made the request against.  If empty, it is defaulted.
        */
-      public readonly spec: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request is allowed or not
        */
-      public readonly status: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewStatus>;
 
 
       /**
@@ -2471,7 +2472,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authorization.v1beta1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authorization.v1beta1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "LocalSubjectAccessReview";
@@ -2505,17 +2506,17 @@ export namespace authorization {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated.  user and groups must be empty
        */
-      public readonly spec: pulumi.Output<api.authorization.v1beta1.SelfSubjectAccessReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authorization.v1beta1.SelfSubjectAccessReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request is allowed or not
        */
-      public readonly status: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewStatus>;
 
 
       /**
@@ -2525,7 +2526,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authorization.v1beta1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authorization.v1beta1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "SelfSubjectAccessReview";
@@ -2564,17 +2565,17 @@ export namespace authorization {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated.
        */
-      public readonly spec: pulumi.Output<api.authorization.v1beta1.SelfSubjectRulesReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authorization.v1beta1.SelfSubjectRulesReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates the set of actions a user can perform.
        */
-      public readonly status: pulumi.Output<api.authorization.v1beta1.SubjectRulesReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authorization.v1beta1.SubjectRulesReviewStatus>;
 
 
       /**
@@ -2584,7 +2585,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authorization.v1beta1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authorization.v1beta1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "SelfSubjectRulesReview";
@@ -2616,17 +2617,17 @@ export namespace authorization {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated
        */
-      public readonly spec: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewSpec>;
+      public readonly spec: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request is allowed or not
        */
-      public readonly status: pulumi.Output<api.authorization.v1beta1.SubjectAccessReviewStatus>;
+      public readonly status: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewStatus>;
 
 
       /**
@@ -2636,7 +2637,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.authorization.v1beta1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.authorization.v1beta1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "SubjectAccessReview";
@@ -2682,7 +2683,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.autoscaling.v1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.autoscaling.v1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["kind"] = "CrossVersionObjectReference";
@@ -2715,18 +2716,18 @@ export namespace autoscaling {
        * Standard object metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * behaviour of autoscaler. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        */
-      public readonly spec: pulumi.Output<api.autoscaling.v1.HorizontalPodAutoscalerSpec>;
+      public readonly spec: pulumi.Output<outputApi.autoscaling.v1.HorizontalPodAutoscalerSpec>;
 
       /**
        * current information about the autoscaler.
        */
-      public readonly status: pulumi.Output<api.autoscaling.v1.HorizontalPodAutoscalerStatus>;
+      public readonly status: pulumi.Output<outputApi.autoscaling.v1.HorizontalPodAutoscalerStatus>;
 
 
       /**
@@ -2736,7 +2737,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.autoscaling.v1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.autoscaling.v1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["kind"] = "HorizontalPodAutoscaler";
@@ -2762,7 +2763,7 @@ export namespace autoscaling {
       /**
        * list of horizontal pod autoscaler objects.
        */
-      public readonly items: pulumi.Output<api.autoscaling.v1.HorizontalPodAutoscaler[]>;
+      public readonly items: pulumi.Output<outputApi.autoscaling.v1.HorizontalPodAutoscaler[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2775,7 +2776,7 @@ export namespace autoscaling {
       /**
        * Standard list metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -2785,7 +2786,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.autoscaling.v1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.autoscaling.v1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -2819,20 +2820,20 @@ export namespace autoscaling {
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * defines the behavior of the scale. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        */
-      public readonly spec: pulumi.Output<api.autoscaling.v1.ScaleSpec>;
+      public readonly spec: pulumi.Output<outputApi.autoscaling.v1.ScaleSpec>;
 
       /**
        * current status of the scale. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        * Read-only.
        */
-      public readonly status: pulumi.Output<api.autoscaling.v1.ScaleStatus>;
+      public readonly status: pulumi.Output<outputApi.autoscaling.v1.ScaleStatus>;
 
 
       /**
@@ -2842,7 +2843,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.autoscaling.v1.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.autoscaling.v1.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["kind"] = "Scale";
@@ -2885,7 +2886,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.autoscaling.v2beta1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.autoscaling.v2beta1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["kind"] = "CrossVersionObjectReference";
@@ -2920,18 +2921,18 @@ export namespace autoscaling {
        * metadata is the standard object metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * spec is the specification for the behaviour of the autoscaler. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        */
-      public readonly spec: pulumi.Output<api.autoscaling.v2beta1.HorizontalPodAutoscalerSpec>;
+      public readonly spec: pulumi.Output<outputApi.autoscaling.v2beta1.HorizontalPodAutoscalerSpec>;
 
       /**
        * status is the current information about the autoscaler.
        */
-      public readonly status: pulumi.Output<api.autoscaling.v2beta1.HorizontalPodAutoscalerStatus>;
+      public readonly status: pulumi.Output<outputApi.autoscaling.v2beta1.HorizontalPodAutoscalerStatus>;
 
 
       /**
@@ -2941,7 +2942,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.autoscaling.v2beta1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["kind"] = "HorizontalPodAutoscaler";
@@ -2967,7 +2968,7 @@ export namespace autoscaling {
       /**
        * items is the list of horizontal pod autoscaler objects.
        */
-      public readonly items: pulumi.Output<api.autoscaling.v2beta1.HorizontalPodAutoscaler[]>;
+      public readonly items: pulumi.Output<outputApi.autoscaling.v2beta1.HorizontalPodAutoscaler[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2980,7 +2981,7 @@ export namespace autoscaling {
       /**
        * metadata is the standard list metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -2990,7 +2991,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.autoscaling.v2beta1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -3030,19 +3031,19 @@ export namespace batch {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of a job. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.batch.v1.JobSpec>;
+      public readonly spec: pulumi.Output<outputApi.batch.v1.JobSpec>;
 
       /**
        * Current status of a job. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.batch.v1.JobStatus>;
+      public readonly status: pulumi.Output<outputApi.batch.v1.JobStatus>;
 
 
       /**
@@ -3052,7 +3053,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.batch.v1.Job, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.batch.v1.Job, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1";
           inputs["kind"] = "Job";
@@ -3078,7 +3079,7 @@ export namespace batch {
       /**
        * items is the list of Jobs.
        */
-      public readonly items: pulumi.Output<api.batch.v1.Job[]>;
+      public readonly items: pulumi.Output<outputApi.batch.v1.Job[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3092,7 +3093,7 @@ export namespace batch {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -3102,7 +3103,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.batch.v1.JobList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.batch.v1.JobList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -3139,19 +3140,19 @@ export namespace batch {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of a cron job, including the schedule. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.batch.v1beta1.CronJobSpec>;
+      public readonly spec: pulumi.Output<outputApi.batch.v1beta1.CronJobSpec>;
 
       /**
        * Current status of a cron job. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.batch.v1beta1.CronJobStatus>;
+      public readonly status: pulumi.Output<outputApi.batch.v1beta1.CronJobStatus>;
 
 
       /**
@@ -3161,7 +3162,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.batch.v1beta1.CronJob, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.batch.v1beta1.CronJob, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1beta1";
           inputs["kind"] = "CronJob";
@@ -3187,7 +3188,7 @@ export namespace batch {
       /**
        * items is the list of CronJobs.
        */
-      public readonly items: pulumi.Output<api.batch.v1beta1.CronJob[]>;
+      public readonly items: pulumi.Output<outputApi.batch.v1beta1.CronJob[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3201,7 +3202,7 @@ export namespace batch {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -3211,7 +3212,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.batch.v1beta1.CronJobList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.batch.v1beta1.CronJobList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -3248,19 +3249,19 @@ export namespace batch {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of a cron job, including the schedule. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.batch.v2alpha1.CronJobSpec>;
+      public readonly spec: pulumi.Output<outputApi.batch.v2alpha1.CronJobSpec>;
 
       /**
        * Current status of a cron job. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.batch.v2alpha1.CronJobStatus>;
+      public readonly status: pulumi.Output<outputApi.batch.v2alpha1.CronJobStatus>;
 
 
       /**
@@ -3270,7 +3271,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.batch.v2alpha1.CronJob, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.batch.v2alpha1.CronJob, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v2alpha1";
           inputs["kind"] = "CronJob";
@@ -3296,7 +3297,7 @@ export namespace batch {
       /**
        * items is the list of CronJobs.
        */
-      public readonly items: pulumi.Output<api.batch.v2alpha1.CronJob[]>;
+      public readonly items: pulumi.Output<outputApi.batch.v2alpha1.CronJob[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3310,7 +3311,7 @@ export namespace batch {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -3320,7 +3321,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.batch.v2alpha1.CronJobList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.batch.v2alpha1.CronJobList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v2alpha1";
           inputs["items"] = args ? args.items : undefined;
@@ -3357,17 +3358,17 @@ export namespace certificates {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * The certificate request itself and any additional information.
        */
-      public readonly spec: pulumi.Output<api.certificates.v1beta1.CertificateSigningRequestSpec>;
+      public readonly spec: pulumi.Output<outputApi.certificates.v1beta1.CertificateSigningRequestSpec>;
 
       /**
        * Derived information about the request.
        */
-      public readonly status: pulumi.Output<api.certificates.v1beta1.CertificateSigningRequestStatus>;
+      public readonly status: pulumi.Output<outputApi.certificates.v1beta1.CertificateSigningRequestStatus>;
 
 
       /**
@@ -3377,7 +3378,7 @@ export namespace certificates {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.certificates.v1beta1.CertificateSigningRequest, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.certificates.v1beta1.CertificateSigningRequest, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
           inputs["kind"] = "CertificateSigningRequest";
@@ -3399,7 +3400,7 @@ export namespace certificates {
       public readonly apiVersion: pulumi.Output<string>;
 
       
-      public readonly items: pulumi.Output<api.certificates.v1beta1.CertificateSigningRequest[]>;
+      public readonly items: pulumi.Output<outputApi.certificates.v1beta1.CertificateSigningRequest[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3410,7 +3411,7 @@ export namespace certificates {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -3420,7 +3421,7 @@ export namespace certificates {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.certificates.v1beta1.CertificateSigningRequestList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.certificates.v1beta1.CertificateSigningRequestList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -3461,12 +3462,12 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * The target object that you want to bind to the standard object.
        */
-      public readonly target: pulumi.Output<api.core.v1.ObjectReference>;
+      public readonly target: pulumi.Output<outputApi.core.v1.ObjectReference>;
 
 
       /**
@@ -3476,7 +3477,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.Binding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.Binding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Binding";
@@ -3501,7 +3502,7 @@ export namespace core {
       /**
        * List of component conditions observed
        */
-      public readonly conditions: pulumi.Output<api.core.v1.ComponentCondition[]>;
+      public readonly conditions: pulumi.Output<outputApi.core.v1.ComponentCondition[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3515,7 +3516,7 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
 
       /**
@@ -3525,7 +3526,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ComponentStatus, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ComponentStatus, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["conditions"] = args ? args.conditions : undefined;
@@ -3550,7 +3551,7 @@ export namespace core {
       /**
        * List of ComponentStatus objects.
        */
-      public readonly items: pulumi.Output<api.core.v1.ComponentStatus[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.ComponentStatus[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3564,7 +3565,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -3574,7 +3575,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ComponentStatusList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ComponentStatusList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -3614,7 +3615,7 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
 
       /**
@@ -3624,7 +3625,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ConfigMap, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ConfigMap, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["data"] = args ? args.data : undefined;
@@ -3649,7 +3650,7 @@ export namespace core {
       /**
        * Items is the list of ConfigMaps.
        */
-      public readonly items: pulumi.Output<api.core.v1.ConfigMap[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.ConfigMap[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3662,7 +3663,7 @@ export namespace core {
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -3672,7 +3673,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ConfigMapList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ConfigMapList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -3717,7 +3718,7 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * The set of all endpoints is the union of all subsets. Addresses are placed into subsets
@@ -3727,7 +3728,7 @@ export namespace core {
        * will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses
        * and ports that comprise a service.
        */
-      public readonly subsets: pulumi.Output<api.core.v1.EndpointSubset[]>;
+      public readonly subsets: pulumi.Output<outputApi.core.v1.EndpointSubset[]>;
 
 
       /**
@@ -3737,7 +3738,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.Endpoints, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.Endpoints, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Endpoints";
@@ -3762,7 +3763,7 @@ export namespace core {
       /**
        * List of endpoints.
        */
-      public readonly items: pulumi.Output<api.core.v1.Endpoints[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.Endpoints[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3776,7 +3777,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -3786,7 +3787,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.EndpointsList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.EndpointsList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -3831,7 +3832,7 @@ export namespace core {
       /**
        * The object that this event is about.
        */
-      public readonly involvedObject: pulumi.Output<api.core.v1.ObjectReference>;
+      public readonly involvedObject: pulumi.Output<outputApi.core.v1.ObjectReference>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3855,7 +3856,7 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * This should be a short, machine understandable string that gives the reason for the
@@ -3866,7 +3867,7 @@ export namespace core {
       /**
        * Optional secondary object for more complex actions.
        */
-      public readonly related: pulumi.Output<api.core.v1.ObjectReference>;
+      public readonly related: pulumi.Output<outputApi.core.v1.ObjectReference>;
 
       /**
        * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
@@ -3881,12 +3882,12 @@ export namespace core {
       /**
        * Data about the Event series this event represents or nil if it's a singleton Event.
        */
-      public readonly series: pulumi.Output<api.core.v1.EventSeries>;
+      public readonly series: pulumi.Output<outputApi.core.v1.EventSeries>;
 
       /**
        * The component reporting this event. Should be a short machine understandable string.
        */
-      public readonly source: pulumi.Output<api.core.v1.EventSource>;
+      public readonly source: pulumi.Output<outputApi.core.v1.EventSource>;
 
       /**
        * Type of this event (Normal, Warning), new types could be added in the future
@@ -3901,7 +3902,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.Event, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.Event, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["action"] = args ? args.action : undefined;
           inputs["apiVersion"] = "v1";
@@ -3939,7 +3940,7 @@ export namespace core {
       /**
        * List of events
        */
-      public readonly items: pulumi.Output<api.core.v1.Event[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.Event[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3953,7 +3954,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -3963,7 +3964,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.EventList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.EventList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -3997,13 +3998,13 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the limits enforced. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.core.v1.LimitRangeSpec>;
+      public readonly spec: pulumi.Output<outputApi.core.v1.LimitRangeSpec>;
 
 
       /**
@@ -4013,7 +4014,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.LimitRange, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.LimitRange, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "LimitRange";
@@ -4039,7 +4040,7 @@ export namespace core {
        * Items is a list of LimitRange objects. More info:
        * https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
        */
-      public readonly items: pulumi.Output<api.core.v1.LimitRange[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.LimitRange[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4053,7 +4054,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -4063,7 +4064,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.LimitRangeList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.LimitRangeList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -4097,19 +4098,19 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the behavior of the Namespace. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.core.v1.NamespaceSpec>;
+      public readonly spec: pulumi.Output<outputApi.core.v1.NamespaceSpec>;
 
       /**
        * Status describes the current status of a Namespace. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.core.v1.NamespaceStatus>;
+      public readonly status: pulumi.Output<outputApi.core.v1.NamespaceStatus>;
 
 
       /**
@@ -4119,7 +4120,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.Namespace, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.Namespace, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Namespace";
@@ -4146,7 +4147,7 @@ export namespace core {
        * Items is the list of Namespace objects in the list. More info:
        * https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
        */
-      public readonly items: pulumi.Output<api.core.v1.Namespace[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.Namespace[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4160,7 +4161,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -4170,7 +4171,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.NamespaceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.NamespaceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -4205,19 +4206,19 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the behavior of a node.
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.core.v1.NodeSpec>;
+      public readonly spec: pulumi.Output<outputApi.core.v1.NodeSpec>;
 
       /**
        * Most recently observed status of the node. Populated by the system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.core.v1.NodeStatus>;
+      public readonly status: pulumi.Output<outputApi.core.v1.NodeStatus>;
 
 
       /**
@@ -4227,7 +4228,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.Node, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.Node, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Node";
@@ -4252,7 +4253,7 @@ export namespace core {
       public readonly apiVersion: pulumi.Output<string>;
 
       
-      public readonly configMapRef: pulumi.Output<api.core.v1.ObjectReference>;
+      public readonly configMapRef: pulumi.Output<outputApi.core.v1.ObjectReference>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4270,7 +4271,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.NodeConfigSource, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.NodeConfigSource, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["configMapRef"] = args ? args.configMapRef : undefined;
@@ -4294,7 +4295,7 @@ export namespace core {
       /**
        * List of nodes
        */
-      public readonly items: pulumi.Output<api.core.v1.Node[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.Node[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4308,7 +4309,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -4318,7 +4319,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.NodeList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.NodeList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -4386,7 +4387,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ObjectReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ObjectReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "core/v1";
           inputs["fieldPath"] = args ? args.fieldPath : undefined;
@@ -4424,21 +4425,21 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an
        * administrator. More info:
        * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
        */
-      public readonly spec: pulumi.Output<api.core.v1.PersistentVolumeSpec>;
+      public readonly spec: pulumi.Output<outputApi.core.v1.PersistentVolumeSpec>;
 
       /**
        * Status represents the current information/status for the persistent volume. Populated by
        * the system. Read-only. More info:
        * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
        */
-      public readonly status: pulumi.Output<api.core.v1.PersistentVolumeStatus>;
+      public readonly status: pulumi.Output<outputApi.core.v1.PersistentVolumeStatus>;
 
 
       /**
@@ -4448,7 +4449,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.PersistentVolume, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.PersistentVolume, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PersistentVolume";
@@ -4483,20 +4484,20 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the desired characteristics of a volume requested by a pod author. More info:
        * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
        */
-      public readonly spec: pulumi.Output<api.core.v1.PersistentVolumeClaimSpec>;
+      public readonly spec: pulumi.Output<outputApi.core.v1.PersistentVolumeClaimSpec>;
 
       /**
        * Status represents the current information/status of a persistent volume claim. Read-only.
        * More info:
        * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
        */
-      public readonly status: pulumi.Output<api.core.v1.PersistentVolumeClaimStatus>;
+      public readonly status: pulumi.Output<outputApi.core.v1.PersistentVolumeClaimStatus>;
 
 
       /**
@@ -4506,7 +4507,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.PersistentVolumeClaim, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.PersistentVolumeClaim, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PersistentVolumeClaim";
@@ -4533,7 +4534,7 @@ export namespace core {
        * A list of persistent volume claims. More info:
        * https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
        */
-      public readonly items: pulumi.Output<api.core.v1.PersistentVolumeClaim[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.PersistentVolumeClaim[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4547,7 +4548,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -4557,7 +4558,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.PersistentVolumeClaimList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.PersistentVolumeClaimList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -4583,7 +4584,7 @@ export namespace core {
        * List of persistent volumes. More info:
        * https://kubernetes.io/docs/concepts/storage/persistent-volumes
        */
-      public readonly items: pulumi.Output<api.core.v1.PersistentVolume[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.PersistentVolume[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4597,7 +4598,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -4607,7 +4608,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.PersistentVolumeList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.PersistentVolumeList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -4642,20 +4643,20 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of the pod. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.core.v1.PodSpec>;
+      public readonly spec: pulumi.Output<outputApi.core.v1.PodSpec>;
 
       /**
        * Most recently observed status of the pod. This data may not be up to date. Populated by the
        * system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.core.v1.PodStatus>;
+      public readonly status: pulumi.Output<outputApi.core.v1.PodStatus>;
 
 
       /**
@@ -4665,7 +4666,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.Pod, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.Pod, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Pod";
@@ -4691,7 +4692,7 @@ export namespace core {
       /**
        * List of pods. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md
        */
-      public readonly items: pulumi.Output<api.core.v1.Pod[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.Pod[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4705,7 +4706,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -4715,7 +4716,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.PodList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.PodList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -4749,13 +4750,13 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Template defines the pods that will be created from this pod template.
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly template: pulumi.Output<api.core.v1.PodTemplateSpec>;
+      public readonly template: pulumi.Output<outputApi.core.v1.PodTemplateSpec>;
 
 
       /**
@@ -4765,7 +4766,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.PodTemplate, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.PodTemplate, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PodTemplate";
@@ -4790,7 +4791,7 @@ export namespace core {
       /**
        * List of pod templates
        */
-      public readonly items: pulumi.Output<api.core.v1.PodTemplate[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.PodTemplate[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4804,7 +4805,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -4814,7 +4815,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.PodTemplateList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.PodTemplateList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -4849,20 +4850,20 @@ export namespace core {
        * the Pod(s) that the replication controller manages. Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the specification of the desired behavior of the replication controller. More
        * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.core.v1.ReplicationControllerSpec>;
+      public readonly spec: pulumi.Output<outputApi.core.v1.ReplicationControllerSpec>;
 
       /**
        * Status is the most recently observed status of the replication controller. This data may be
        * out of date by some window of time. Populated by the system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.core.v1.ReplicationControllerStatus>;
+      public readonly status: pulumi.Output<outputApi.core.v1.ReplicationControllerStatus>;
 
 
       /**
@@ -4872,7 +4873,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ReplicationController, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ReplicationController, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "ReplicationController";
@@ -4899,7 +4900,7 @@ export namespace core {
        * List of replication controllers. More info:
        * https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
        */
-      public readonly items: pulumi.Output<api.core.v1.ReplicationController[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.ReplicationController[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4913,7 +4914,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -4923,7 +4924,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ReplicationControllerList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ReplicationControllerList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -4957,19 +4958,19 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the desired quota.
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.core.v1.ResourceQuotaSpec>;
+      public readonly spec: pulumi.Output<outputApi.core.v1.ResourceQuotaSpec>;
 
       /**
        * Status defines the actual enforced quota and its current usage.
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.core.v1.ResourceQuotaStatus>;
+      public readonly status: pulumi.Output<outputApi.core.v1.ResourceQuotaStatus>;
 
 
       /**
@@ -4979,7 +4980,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ResourceQuota, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ResourceQuota, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "ResourceQuota";
@@ -5006,7 +5007,7 @@ export namespace core {
        * Items is a list of ResourceQuota objects. More info:
        * https://kubernetes.io/docs/concepts/policy/resource-quotas/
        */
-      public readonly items: pulumi.Output<api.core.v1.ResourceQuota[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.ResourceQuota[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5020,7 +5021,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -5030,7 +5031,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ResourceQuotaList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ResourceQuotaList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -5073,7 +5074,7 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * stringData allows specifying non-binary secret data in string form. It is provided as a
@@ -5095,7 +5096,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.Secret, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.Secret, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["data"] = args ? args.data : undefined;
@@ -5123,7 +5124,7 @@ export namespace core {
        * Items is a list of secret objects. More info:
        * https://kubernetes.io/docs/concepts/configuration/secret
        */
-      public readonly items: pulumi.Output<api.core.v1.Secret[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.Secret[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5137,7 +5138,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -5147,7 +5148,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.SecretList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.SecretList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -5183,19 +5184,19 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the behavior of a service.
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.core.v1.ServiceSpec>;
+      public readonly spec: pulumi.Output<outputApi.core.v1.ServiceSpec>;
 
       /**
        * Most recently observed status of the service. Populated by the system. Read-only. More
        * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.core.v1.ServiceStatus>;
+      public readonly status: pulumi.Output<outputApi.core.v1.ServiceStatus>;
 
 
       /**
@@ -5205,7 +5206,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.Service, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.Service, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Service";
@@ -5243,7 +5244,7 @@ export namespace core {
        * only accessed by the kubelet. More info:
        * https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
        */
-      public readonly imagePullSecrets: pulumi.Output<api.core.v1.LocalObjectReference[]>;
+      public readonly imagePullSecrets: pulumi.Output<outputApi.core.v1.LocalObjectReference[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5257,13 +5258,13 @@ export namespace core {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Secrets is the list of secrets allowed to be used by pods running using this
        * ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
        */
-      public readonly secrets: pulumi.Output<api.core.v1.ObjectReference[]>;
+      public readonly secrets: pulumi.Output<outputApi.core.v1.ObjectReference[]>;
 
 
       /**
@@ -5273,7 +5274,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ServiceAccount, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ServiceAccount, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
@@ -5301,7 +5302,7 @@ export namespace core {
        * List of ServiceAccounts. More info:
        * https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
        */
-      public readonly items: pulumi.Output<api.core.v1.ServiceAccount[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.ServiceAccount[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5315,7 +5316,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -5325,7 +5326,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ServiceAccountList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ServiceAccountList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -5350,7 +5351,7 @@ export namespace core {
       /**
        * List of services
        */
-      public readonly items: pulumi.Output<api.core.v1.Service[]>;
+      public readonly items: pulumi.Output<outputApi.core.v1.Service[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5364,7 +5365,7 @@ export namespace core {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -5374,7 +5375,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.core.v1.ServiceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.core.v1.ServiceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args ? args.items : undefined;
@@ -5426,7 +5427,7 @@ export namespace events {
       /**
        * Deprecated field assuring backward compatibility with core.v1 Event type
        */
-      public readonly deprecatedSource: pulumi.Output<api.core.v1.EventSource>;
+      public readonly deprecatedSource: pulumi.Output<outputApi.core.v1.EventSource>;
 
       /**
        * Required. Time when this Event was first observed.
@@ -5442,7 +5443,7 @@ export namespace events {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Optional. A human-readable description of the status of this operation. Maximal length of
@@ -5460,13 +5461,13 @@ export namespace events {
        * implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted
        * because it acts on some changes in a ReplicaSet object.
        */
-      public readonly regarding: pulumi.Output<api.core.v1.ObjectReference>;
+      public readonly regarding: pulumi.Output<outputApi.core.v1.ObjectReference>;
 
       /**
        * Optional secondary object for more complex actions. E.g. when regarding object triggers a
        * creation or deletion of related object.
        */
-      public readonly related: pulumi.Output<api.core.v1.ObjectReference>;
+      public readonly related: pulumi.Output<outputApi.core.v1.ObjectReference>;
 
       /**
        * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
@@ -5481,7 +5482,7 @@ export namespace events {
       /**
        * Data about the Event series this event represents or nil if it's a singleton Event.
        */
-      public readonly series: pulumi.Output<api.events.v1beta1.EventSeries>;
+      public readonly series: pulumi.Output<outputApi.events.v1beta1.EventSeries>;
 
       /**
        * Type of this event (Normal, Warning), new types could be added in the future.
@@ -5496,7 +5497,7 @@ export namespace events {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.events.v1beta1.Event, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.events.v1beta1.Event, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["action"] = args ? args.action : undefined;
           inputs["apiVersion"] = "events.k8s.io/v1beta1";
@@ -5534,7 +5535,7 @@ export namespace events {
       /**
        * Items is a list of schema objects.
        */
-      public readonly items: pulumi.Output<api.events.v1beta1.Event[]>;
+      public readonly items: pulumi.Output<outputApi.events.v1beta1.Event[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5548,7 +5549,7 @@ export namespace events {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -5558,7 +5559,7 @@ export namespace events {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.events.v1beta1.EventList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.events.v1beta1.EventList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "events.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -5599,20 +5600,20 @@ export namespace extensions {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * The desired behavior of this daemon set. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.extensions.v1beta1.DaemonSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.DaemonSetSpec>;
 
       /**
        * The current status of this daemon set. This data may be out of date by some window of time.
        * Populated by the system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.extensions.v1beta1.DaemonSetStatus>;
+      public readonly status: pulumi.Output<outputApi.extensions.v1beta1.DaemonSetStatus>;
 
 
       /**
@@ -5622,7 +5623,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.DaemonSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.DaemonSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "DaemonSet";
@@ -5648,7 +5649,7 @@ export namespace extensions {
       /**
        * A list of daemon sets.
        */
-      public readonly items: pulumi.Output<api.extensions.v1beta1.DaemonSet[]>;
+      public readonly items: pulumi.Output<outputApi.extensions.v1beta1.DaemonSet[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5662,7 +5663,7 @@ export namespace extensions {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -5672,7 +5673,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.DaemonSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.DaemonSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -5707,17 +5708,17 @@ export namespace extensions {
       /**
        * Standard object metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of the Deployment.
        */
-      public readonly spec: pulumi.Output<api.extensions.v1beta1.DeploymentSpec>;
+      public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.DeploymentSpec>;
 
       /**
        * Most recently observed status of the Deployment.
        */
-      public readonly status: pulumi.Output<api.extensions.v1beta1.DeploymentStatus>;
+      public readonly status: pulumi.Output<outputApi.extensions.v1beta1.DeploymentStatus>;
 
 
       /**
@@ -5727,7 +5728,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Deployment";
@@ -5753,7 +5754,7 @@ export namespace extensions {
       /**
        * Items is the list of Deployments.
        */
-      public readonly items: pulumi.Output<api.extensions.v1beta1.Deployment[]>;
+      public readonly items: pulumi.Output<outputApi.extensions.v1beta1.Deployment[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5766,7 +5767,7 @@ export namespace extensions {
       /**
        * Standard list metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -5776,7 +5777,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -5814,7 +5815,7 @@ export namespace extensions {
       /**
        * The config of this deployment rollback.
        */
-      public readonly rollbackTo: pulumi.Output<api.extensions.v1beta1.RollbackConfig>;
+      public readonly rollbackTo: pulumi.Output<outputApi.extensions.v1beta1.RollbackConfig>;
 
       /**
        * The annotations to be updated to a deployment
@@ -5829,7 +5830,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "DeploymentRollback";
@@ -5866,19 +5867,19 @@ export namespace extensions {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec is the desired state of the Ingress. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.extensions.v1beta1.IngressSpec>;
+      public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.IngressSpec>;
 
       /**
        * Status is the current state of the Ingress. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.extensions.v1beta1.IngressStatus>;
+      public readonly status: pulumi.Output<outputApi.extensions.v1beta1.IngressStatus>;
 
 
       /**
@@ -5888,7 +5889,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.Ingress, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.Ingress, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Ingress";
@@ -5914,7 +5915,7 @@ export namespace extensions {
       /**
        * Items is the list of Ingress.
        */
-      public readonly items: pulumi.Output<api.extensions.v1beta1.Ingress[]>;
+      public readonly items: pulumi.Output<outputApi.extensions.v1beta1.Ingress[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5928,7 +5929,7 @@ export namespace extensions {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -5938,7 +5939,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.IngressList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.IngressList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -5974,12 +5975,12 @@ export namespace extensions {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior for this NetworkPolicy.
        */
-      public readonly spec: pulumi.Output<api.extensions.v1beta1.NetworkPolicySpec>;
+      public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.NetworkPolicySpec>;
 
 
       /**
@@ -5989,7 +5990,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "NetworkPolicy";
@@ -6015,7 +6016,7 @@ export namespace extensions {
       /**
        * Items is a list of schema objects.
        */
-      public readonly items: pulumi.Output<api.extensions.v1beta1.NetworkPolicy[]>;
+      public readonly items: pulumi.Output<outputApi.extensions.v1beta1.NetworkPolicy[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6029,7 +6030,7 @@ export namespace extensions {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -6039,7 +6040,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -6074,12 +6075,12 @@ export namespace extensions {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * spec defines the policy enforced.
        */
-      public readonly spec: pulumi.Output<api.extensions.v1beta1.PodSecurityPolicySpec>;
+      public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.PodSecurityPolicySpec>;
 
 
       /**
@@ -6089,7 +6090,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.PodSecurityPolicy, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.PodSecurityPolicy, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "PodSecurityPolicy";
@@ -6114,7 +6115,7 @@ export namespace extensions {
       /**
        * Items is a list of schema objects.
        */
-      public readonly items: pulumi.Output<api.extensions.v1beta1.PodSecurityPolicy[]>;
+      public readonly items: pulumi.Output<outputApi.extensions.v1beta1.PodSecurityPolicy[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6128,7 +6129,7 @@ export namespace extensions {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -6138,7 +6139,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.PodSecurityPolicyList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.PodSecurityPolicyList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -6175,20 +6176,20 @@ export namespace extensions {
        * that the ReplicaSet manages. Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<api.extensions.v1beta1.ReplicaSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.ReplicaSetSpec>;
 
       /**
        * Status is the most recently observed status of the ReplicaSet. This data may be out of date
        * by some window of time. Populated by the system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<api.extensions.v1beta1.ReplicaSetStatus>;
+      public readonly status: pulumi.Output<outputApi.extensions.v1beta1.ReplicaSetStatus>;
 
 
       /**
@@ -6198,7 +6199,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.ReplicaSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.ReplicaSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "ReplicaSet";
@@ -6225,7 +6226,7 @@ export namespace extensions {
        * List of ReplicaSets. More info:
        * https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
        */
-      public readonly items: pulumi.Output<api.extensions.v1beta1.ReplicaSet[]>;
+      public readonly items: pulumi.Output<outputApi.extensions.v1beta1.ReplicaSet[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6239,7 +6240,7 @@ export namespace extensions {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -6249,7 +6250,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -6283,20 +6284,20 @@ export namespace extensions {
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * defines the behavior of the scale. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        */
-      public readonly spec: pulumi.Output<api.extensions.v1beta1.ScaleSpec>;
+      public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.ScaleSpec>;
 
       /**
        * current status of the scale. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        * Read-only.
        */
-      public readonly status: pulumi.Output<api.extensions.v1beta1.ScaleStatus>;
+      public readonly status: pulumi.Output<outputApi.extensions.v1beta1.ScaleStatus>;
 
 
       /**
@@ -6306,7 +6307,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.extensions.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.extensions.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Scale";
@@ -6352,7 +6353,7 @@ export namespace meta {
        * preferredVersion is the version preferred by the API server, which probably is the storage
        * version.
        */
-      public readonly preferredVersion: pulumi.Output<api.meta.v1.GroupVersionForDiscovery>;
+      public readonly preferredVersion: pulumi.Output<outputApi.meta.v1.GroupVersionForDiscovery>;
 
       /**
        * a map of client CIDR to server address that is serving this group. This is to help clients
@@ -6363,12 +6364,12 @@ export namespace meta {
        * client reaches the server using an internal IP. Server looks at X-Forwarded-For header or
        * X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
        */
-      public readonly serverAddressByClientCIDRs: pulumi.Output<api.meta.v1.ServerAddressByClientCIDR[]>;
+      public readonly serverAddressByClientCIDRs: pulumi.Output<outputApi.meta.v1.ServerAddressByClientCIDR[]>;
 
       /**
        * versions are the versions supported in this group.
        */
-      public readonly versions: pulumi.Output<api.meta.v1.GroupVersionForDiscovery[]>;
+      public readonly versions: pulumi.Output<outputApi.meta.v1.GroupVersionForDiscovery[]>;
 
 
       /**
@@ -6378,7 +6379,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.meta.v1.APIGroup, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.meta.v1.APIGroup, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "APIGroup";
@@ -6405,7 +6406,7 @@ export namespace meta {
       /**
        * groups is a list of APIGroup.
        */
-      public readonly groups: pulumi.Output<api.meta.v1.APIGroup[]>;
+      public readonly groups: pulumi.Output<outputApi.meta.v1.APIGroup[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6423,7 +6424,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.meta.v1.APIGroupList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.meta.v1.APIGroupList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["groups"] = args ? args.groups : undefined;
@@ -6461,7 +6462,7 @@ export namespace meta {
       /**
        * resources contains the name of the resources and if they are namespaced.
        */
-      public readonly resources: pulumi.Output<api.meta.v1.APIResource[]>;
+      public readonly resources: pulumi.Output<outputApi.meta.v1.APIResource[]>;
 
 
       /**
@@ -6471,7 +6472,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.meta.v1.APIResourceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.meta.v1.APIResourceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["groupVersion"] = args ? args.groupVersion : undefined;
@@ -6511,7 +6512,7 @@ export namespace meta {
        * client reaches the server using an internal IP. Server looks at X-Forwarded-For header or
        * X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
        */
-      public readonly serverAddressByClientCIDRs: pulumi.Output<api.meta.v1.ServerAddressByClientCIDR[]>;
+      public readonly serverAddressByClientCIDRs: pulumi.Output<outputApi.meta.v1.ServerAddressByClientCIDR[]>;
 
       /**
        * versions are the api versions that are available.
@@ -6526,7 +6527,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.meta.v1.APIVersions, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.meta.v1.APIVersions, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "APIVersions";
@@ -6576,7 +6577,7 @@ export namespace meta {
        * Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status
        * will be returned.
        */
-      public readonly preconditions: pulumi.Output<api.meta.v1.Preconditions>;
+      public readonly preconditions: pulumi.Output<outputApi.meta.v1.Preconditions>;
 
       /**
        * Whether and how garbage collection will be performed. Either this field or OrphanDependents
@@ -6596,7 +6597,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.meta.v1.DeleteOptions, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.meta.v1.DeleteOptions, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["gracePeriodSeconds"] = args ? args.gracePeriodSeconds : undefined;
@@ -6655,7 +6656,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.meta.v1.OwnerReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.meta.v1.OwnerReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "meta/v1";
           inputs["blockOwnerDeletion"] = args ? args.blockOwnerDeletion : undefined;
@@ -6689,7 +6690,7 @@ export namespace meta {
        * This field is optional and the data returned is not guaranteed to conform to any schema
        * except that defined by the reason type.
        */
-      public readonly details: pulumi.Output<api.meta.v1.StatusDetails>;
+      public readonly details: pulumi.Output<outputApi.meta.v1.StatusDetails>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6708,7 +6709,7 @@ export namespace meta {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
       /**
        * A machine-readable description of why this operation is in the "Failure" status. If this
@@ -6731,7 +6732,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.meta.v1.Status, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.meta.v1.Status, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["code"] = args ? args.code : undefined;
@@ -6775,12 +6776,12 @@ export namespace networking {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior for this NetworkPolicy.
        */
-      public readonly spec: pulumi.Output<api.networking.v1.NetworkPolicySpec>;
+      public readonly spec: pulumi.Output<outputApi.networking.v1.NetworkPolicySpec>;
 
 
       /**
@@ -6790,7 +6791,7 @@ export namespace networking {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.networking.v1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.networking.v1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "networking.k8s.io/v1";
           inputs["kind"] = "NetworkPolicy";
@@ -6815,7 +6816,7 @@ export namespace networking {
       /**
        * Items is a list of schema objects.
        */
-      public readonly items: pulumi.Output<api.networking.v1.NetworkPolicy[]>;
+      public readonly items: pulumi.Output<outputApi.networking.v1.NetworkPolicy[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6829,7 +6830,7 @@ export namespace networking {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -6839,7 +6840,7 @@ export namespace networking {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.networking.v1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.networking.v1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "networking.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -6872,7 +6873,7 @@ export namespace policy {
       /**
        * DeleteOptions may be provided
        */
-      public readonly deleteOptions: pulumi.Output<api.meta.v1.DeleteOptions>;
+      public readonly deleteOptions: pulumi.Output<outputApi.meta.v1.DeleteOptions>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6885,7 +6886,7 @@ export namespace policy {
       /**
        * ObjectMeta describes the pod that is being evicted.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
 
       /**
@@ -6895,7 +6896,7 @@ export namespace policy {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.policy.v1beta1.Eviction, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.policy.v1beta1.Eviction, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
           inputs["deleteOptions"] = args ? args.deleteOptions : undefined;
@@ -6927,17 +6928,17 @@ export namespace policy {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of the PodDisruptionBudget.
        */
-      public readonly spec: pulumi.Output<api.policy.v1beta1.PodDisruptionBudgetSpec>;
+      public readonly spec: pulumi.Output<outputApi.policy.v1beta1.PodDisruptionBudgetSpec>;
 
       /**
        * Most recently observed status of the PodDisruptionBudget.
        */
-      public readonly status: pulumi.Output<api.policy.v1beta1.PodDisruptionBudgetStatus>;
+      public readonly status: pulumi.Output<outputApi.policy.v1beta1.PodDisruptionBudgetStatus>;
 
 
       /**
@@ -6947,7 +6948,7 @@ export namespace policy {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
           inputs["kind"] = "PodDisruptionBudget";
@@ -6971,7 +6972,7 @@ export namespace policy {
       public readonly apiVersion: pulumi.Output<string>;
 
       
-      public readonly items: pulumi.Output<api.policy.v1beta1.PodDisruptionBudget[]>;
+      public readonly items: pulumi.Output<outputApi.policy.v1beta1.PodDisruptionBudget[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6982,7 +6983,7 @@ export namespace policy {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -6992,7 +6993,7 @@ export namespace policy {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.policy.v1beta1.PodDisruptionBudgetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.policy.v1beta1.PodDisruptionBudgetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -7018,7 +7019,7 @@ export namespace rbac {
        * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
        * changes to Rules will be stomped by the controller.
        */
-      public readonly aggregationRule: pulumi.Output<api.rbac.v1.AggregationRule>;
+      public readonly aggregationRule: pulumi.Output<outputApi.rbac.v1.AggregationRule>;
 
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
@@ -7039,12 +7040,12 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Rules holds all the PolicyRules for this ClusterRole
        */
-      public readonly rules: pulumi.Output<api.rbac.v1.PolicyRule[]>;
+      public readonly rules: pulumi.Output<outputApi.rbac.v1.PolicyRule[]>;
 
 
       /**
@@ -7054,7 +7055,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1.ClusterRole, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1.ClusterRole, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
@@ -7089,18 +7090,18 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be
        * resolved, the Authorizer must return an error.
        */
-      public readonly roleRef: pulumi.Output<api.rbac.v1.RoleRef>;
+      public readonly roleRef: pulumi.Output<outputApi.rbac.v1.RoleRef>;
 
       /**
        * Subjects holds references to the objects the role applies to.
        */
-      public readonly subjects: pulumi.Output<api.rbac.v1.Subject[]>;
+      public readonly subjects: pulumi.Output<outputApi.rbac.v1.Subject[]>;
 
 
       /**
@@ -7110,7 +7111,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "ClusterRoleBinding";
@@ -7136,7 +7137,7 @@ export namespace rbac {
       /**
        * Items is a list of ClusterRoleBindings
        */
-      public readonly items: pulumi.Output<api.rbac.v1.ClusterRoleBinding[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1.ClusterRoleBinding[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7149,7 +7150,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -7159,7 +7160,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -7184,7 +7185,7 @@ export namespace rbac {
       /**
        * Items is a list of ClusterRoles
        */
-      public readonly items: pulumi.Output<api.rbac.v1.ClusterRole[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1.ClusterRole[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7197,7 +7198,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -7207,7 +7208,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -7241,12 +7242,12 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Rules holds all the PolicyRules for this Role
        */
-      public readonly rules: pulumi.Output<api.rbac.v1.PolicyRule[]>;
+      public readonly rules: pulumi.Output<outputApi.rbac.v1.PolicyRule[]>;
 
 
       /**
@@ -7256,7 +7257,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1.Role, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1.Role, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "Role";
@@ -7292,18 +7293,18 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * RoleRef can reference a Role in the current namespace or a ClusterRole in the global
        * namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
        */
-      public readonly roleRef: pulumi.Output<api.rbac.v1.RoleRef>;
+      public readonly roleRef: pulumi.Output<outputApi.rbac.v1.RoleRef>;
 
       /**
        * Subjects holds references to the objects the role applies to.
        */
-      public readonly subjects: pulumi.Output<api.rbac.v1.Subject[]>;
+      public readonly subjects: pulumi.Output<outputApi.rbac.v1.Subject[]>;
 
 
       /**
@@ -7313,7 +7314,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1.RoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1.RoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "RoleBinding";
@@ -7339,7 +7340,7 @@ export namespace rbac {
       /**
        * Items is a list of RoleBindings
        */
-      public readonly items: pulumi.Output<api.rbac.v1.RoleBinding[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1.RoleBinding[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7352,7 +7353,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -7362,7 +7363,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1.RoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1.RoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -7387,7 +7388,7 @@ export namespace rbac {
       /**
        * Items is a list of Roles
        */
-      public readonly items: pulumi.Output<api.rbac.v1.Role[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1.Role[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7400,7 +7401,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -7410,7 +7411,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1.RoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1.RoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -7433,7 +7434,7 @@ export namespace rbac {
        * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
        * changes to Rules will be stomped by the controller.
        */
-      public readonly aggregationRule: pulumi.Output<api.rbac.v1alpha1.AggregationRule>;
+      public readonly aggregationRule: pulumi.Output<outputApi.rbac.v1alpha1.AggregationRule>;
 
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
@@ -7454,12 +7455,12 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Rules holds all the PolicyRules for this ClusterRole
        */
-      public readonly rules: pulumi.Output<api.rbac.v1alpha1.PolicyRule[]>;
+      public readonly rules: pulumi.Output<outputApi.rbac.v1alpha1.PolicyRule[]>;
 
 
       /**
@@ -7469,7 +7470,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1alpha1.ClusterRole, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1alpha1.ClusterRole, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
@@ -7504,18 +7505,18 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be
        * resolved, the Authorizer must return an error.
        */
-      public readonly roleRef: pulumi.Output<api.rbac.v1alpha1.RoleRef>;
+      public readonly roleRef: pulumi.Output<outputApi.rbac.v1alpha1.RoleRef>;
 
       /**
        * Subjects holds references to the objects the role applies to.
        */
-      public readonly subjects: pulumi.Output<api.rbac.v1alpha1.Subject[]>;
+      public readonly subjects: pulumi.Output<outputApi.rbac.v1alpha1.Subject[]>;
 
 
       /**
@@ -7525,7 +7526,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1alpha1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1alpha1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "ClusterRoleBinding";
@@ -7551,7 +7552,7 @@ export namespace rbac {
       /**
        * Items is a list of ClusterRoleBindings
        */
-      public readonly items: pulumi.Output<api.rbac.v1alpha1.ClusterRoleBinding[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1alpha1.ClusterRoleBinding[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7564,7 +7565,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -7574,7 +7575,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1alpha1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1alpha1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
@@ -7599,7 +7600,7 @@ export namespace rbac {
       /**
        * Items is a list of ClusterRoles
        */
-      public readonly items: pulumi.Output<api.rbac.v1alpha1.ClusterRole[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1alpha1.ClusterRole[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7612,7 +7613,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -7622,7 +7623,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1alpha1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1alpha1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
@@ -7656,12 +7657,12 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Rules holds all the PolicyRules for this Role
        */
-      public readonly rules: pulumi.Output<api.rbac.v1alpha1.PolicyRule[]>;
+      public readonly rules: pulumi.Output<outputApi.rbac.v1alpha1.PolicyRule[]>;
 
 
       /**
@@ -7671,7 +7672,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1alpha1.Role, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1alpha1.Role, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "Role";
@@ -7707,18 +7708,18 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * RoleRef can reference a Role in the current namespace or a ClusterRole in the global
        * namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
        */
-      public readonly roleRef: pulumi.Output<api.rbac.v1alpha1.RoleRef>;
+      public readonly roleRef: pulumi.Output<outputApi.rbac.v1alpha1.RoleRef>;
 
       /**
        * Subjects holds references to the objects the role applies to.
        */
-      public readonly subjects: pulumi.Output<api.rbac.v1alpha1.Subject[]>;
+      public readonly subjects: pulumi.Output<outputApi.rbac.v1alpha1.Subject[]>;
 
 
       /**
@@ -7728,7 +7729,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1alpha1.RoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1alpha1.RoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "RoleBinding";
@@ -7754,7 +7755,7 @@ export namespace rbac {
       /**
        * Items is a list of RoleBindings
        */
-      public readonly items: pulumi.Output<api.rbac.v1alpha1.RoleBinding[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1alpha1.RoleBinding[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7767,7 +7768,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -7777,7 +7778,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1alpha1.RoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1alpha1.RoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
@@ -7802,7 +7803,7 @@ export namespace rbac {
       /**
        * Items is a list of Roles
        */
-      public readonly items: pulumi.Output<api.rbac.v1alpha1.Role[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1alpha1.Role[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7815,7 +7816,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -7825,7 +7826,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1alpha1.RoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1alpha1.RoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
@@ -7874,7 +7875,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1alpha1.Subject, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1alpha1.Subject, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac/v1alpha1";
           inputs["kind"] = "Subject";
@@ -7897,7 +7898,7 @@ export namespace rbac {
        * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
        * changes to Rules will be stomped by the controller.
        */
-      public readonly aggregationRule: pulumi.Output<api.rbac.v1beta1.AggregationRule>;
+      public readonly aggregationRule: pulumi.Output<outputApi.rbac.v1beta1.AggregationRule>;
 
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
@@ -7918,12 +7919,12 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Rules holds all the PolicyRules for this ClusterRole
        */
-      public readonly rules: pulumi.Output<api.rbac.v1beta1.PolicyRule[]>;
+      public readonly rules: pulumi.Output<outputApi.rbac.v1beta1.PolicyRule[]>;
 
 
       /**
@@ -7933,7 +7934,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1beta1.ClusterRole, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1beta1.ClusterRole, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
@@ -7968,18 +7969,18 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be
        * resolved, the Authorizer must return an error.
        */
-      public readonly roleRef: pulumi.Output<api.rbac.v1beta1.RoleRef>;
+      public readonly roleRef: pulumi.Output<outputApi.rbac.v1beta1.RoleRef>;
 
       /**
        * Subjects holds references to the objects the role applies to.
        */
-      public readonly subjects: pulumi.Output<api.rbac.v1beta1.Subject[]>;
+      public readonly subjects: pulumi.Output<outputApi.rbac.v1beta1.Subject[]>;
 
 
       /**
@@ -7989,7 +7990,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1beta1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1beta1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "ClusterRoleBinding";
@@ -8015,7 +8016,7 @@ export namespace rbac {
       /**
        * Items is a list of ClusterRoleBindings
        */
-      public readonly items: pulumi.Output<api.rbac.v1beta1.ClusterRoleBinding[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1beta1.ClusterRoleBinding[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8028,7 +8029,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -8038,7 +8039,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1beta1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1beta1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -8063,7 +8064,7 @@ export namespace rbac {
       /**
        * Items is a list of ClusterRoles
        */
-      public readonly items: pulumi.Output<api.rbac.v1beta1.ClusterRole[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1beta1.ClusterRole[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8076,7 +8077,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -8086,7 +8087,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1beta1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1beta1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -8120,12 +8121,12 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Rules holds all the PolicyRules for this Role
        */
-      public readonly rules: pulumi.Output<api.rbac.v1beta1.PolicyRule[]>;
+      public readonly rules: pulumi.Output<outputApi.rbac.v1beta1.PolicyRule[]>;
 
 
       /**
@@ -8135,7 +8136,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1beta1.Role, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1beta1.Role, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "Role";
@@ -8171,18 +8172,18 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * RoleRef can reference a Role in the current namespace or a ClusterRole in the global
        * namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
        */
-      public readonly roleRef: pulumi.Output<api.rbac.v1beta1.RoleRef>;
+      public readonly roleRef: pulumi.Output<outputApi.rbac.v1beta1.RoleRef>;
 
       /**
        * Subjects holds references to the objects the role applies to.
        */
-      public readonly subjects: pulumi.Output<api.rbac.v1beta1.Subject[]>;
+      public readonly subjects: pulumi.Output<outputApi.rbac.v1beta1.Subject[]>;
 
 
       /**
@@ -8192,7 +8193,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1beta1.RoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1beta1.RoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "RoleBinding";
@@ -8218,7 +8219,7 @@ export namespace rbac {
       /**
        * Items is a list of RoleBindings
        */
-      public readonly items: pulumi.Output<api.rbac.v1beta1.RoleBinding[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1beta1.RoleBinding[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8231,7 +8232,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -8241,7 +8242,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1beta1.RoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1beta1.RoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -8266,7 +8267,7 @@ export namespace rbac {
       /**
        * Items is a list of Roles
        */
-      public readonly items: pulumi.Output<api.rbac.v1beta1.Role[]>;
+      public readonly items: pulumi.Output<outputApi.rbac.v1beta1.Role[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8279,7 +8280,7 @@ export namespace rbac {
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -8289,7 +8290,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.rbac.v1beta1.RoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.rbac.v1beta1.RoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
@@ -8342,7 +8343,7 @@ export namespace scheduling {
        * Standard object's metadata. More info:
        * http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * The value of this priority class. This is the actual priority that pods receive when they
@@ -8358,7 +8359,7 @@ export namespace scheduling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.scheduling.v1alpha1.PriorityClass, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.scheduling.v1alpha1.PriorityClass, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
           inputs["description"] = args ? args.description : undefined;
@@ -8385,7 +8386,7 @@ export namespace scheduling {
       /**
        * items is the list of PriorityClasses
        */
-      public readonly items: pulumi.Output<api.scheduling.v1alpha1.PriorityClass[]>;
+      public readonly items: pulumi.Output<outputApi.scheduling.v1alpha1.PriorityClass[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8399,7 +8400,7 @@ export namespace scheduling {
        * Standard list metadata More info:
        * http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -8409,7 +8410,7 @@ export namespace scheduling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.scheduling.v1alpha1.PriorityClassList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.scheduling.v1alpha1.PriorityClassList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
@@ -8446,10 +8447,10 @@ export namespace settings {
       public readonly kind: pulumi.Output<string>;
 
       
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       
-      public readonly spec: pulumi.Output<api.settings.v1alpha1.PodPresetSpec>;
+      public readonly spec: pulumi.Output<outputApi.settings.v1alpha1.PodPresetSpec>;
 
 
       /**
@@ -8459,7 +8460,7 @@ export namespace settings {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.settings.v1alpha1.PodPreset, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.settings.v1alpha1.PodPreset, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
           inputs["kind"] = "PodPreset";
@@ -8484,7 +8485,7 @@ export namespace settings {
       /**
        * Items is a list of schema objects.
        */
-      public readonly items: pulumi.Output<api.settings.v1alpha1.PodPreset[]>;
+      public readonly items: pulumi.Output<outputApi.settings.v1alpha1.PodPreset[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8498,7 +8499,7 @@ export namespace settings {
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -8508,7 +8509,7 @@ export namespace settings {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.settings.v1alpha1.PodPresetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.settings.v1alpha1.PodPresetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
@@ -8557,7 +8558,7 @@ export namespace storage {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Dynamically provisioned PersistentVolumes of this storage class are created with these
@@ -8598,7 +8599,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.storage.v1.StorageClass, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.storage.v1.StorageClass, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
           inputs["apiVersion"] = "storage.k8s.io/v1";
@@ -8628,7 +8629,7 @@ export namespace storage {
       /**
        * Items is the list of StorageClasses
        */
-      public readonly items: pulumi.Output<api.storage.v1.StorageClass[]>;
+      public readonly items: pulumi.Output<outputApi.storage.v1.StorageClass[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8642,7 +8643,7 @@ export namespace storage {
        * Standard list metadata More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -8652,7 +8653,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.storage.v1.StorageClassList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.storage.v1.StorageClassList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1";
           inputs["items"] = args ? args.items : undefined;
@@ -8692,19 +8693,19 @@ export namespace storage {
        * Standard object metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes
        * system.
        */
-      public readonly spec: pulumi.Output<api.storage.v1alpha1.VolumeAttachmentSpec>;
+      public readonly spec: pulumi.Output<outputApi.storage.v1alpha1.VolumeAttachmentSpec>;
 
       /**
        * Status of the VolumeAttachment request. Populated by the entity completing the attach or
        * detach operation, i.e. the external-attacher.
        */
-      public readonly status: pulumi.Output<api.storage.v1alpha1.VolumeAttachmentStatus>;
+      public readonly status: pulumi.Output<outputApi.storage.v1alpha1.VolumeAttachmentStatus>;
 
 
       /**
@@ -8714,7 +8715,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.storage.v1alpha1.VolumeAttachment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.storage.v1alpha1.VolumeAttachment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
           inputs["kind"] = "VolumeAttachment";
@@ -8740,7 +8741,7 @@ export namespace storage {
       /**
        * Items is the list of VolumeAttachments
        */
-      public readonly items: pulumi.Output<api.storage.v1alpha1.VolumeAttachment[]>;
+      public readonly items: pulumi.Output<outputApi.storage.v1alpha1.VolumeAttachment[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8754,7 +8755,7 @@ export namespace storage {
        * Standard list metadata More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -8764,7 +8765,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.storage.v1alpha1.VolumeAttachmentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.storage.v1alpha1.VolumeAttachmentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
           inputs["items"] = args ? args.items : undefined;
@@ -8810,7 +8811,7 @@ export namespace storage {
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Dynamically provisioned PersistentVolumes of this storage class are created with these
@@ -8851,7 +8852,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.storage.v1beta1.StorageClass, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.storage.v1beta1.StorageClass, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
           inputs["apiVersion"] = "storage.k8s.io/v1beta1";
@@ -8881,7 +8882,7 @@ export namespace storage {
       /**
        * Items is the list of StorageClasses
        */
-      public readonly items: pulumi.Output<api.storage.v1beta1.StorageClass[]>;
+      public readonly items: pulumi.Output<outputApi.storage.v1beta1.StorageClass[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8895,7 +8896,7 @@ export namespace storage {
        * Standard list metadata More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<api.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
       /**
@@ -8905,7 +8906,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.storage.v1beta1.StorageClassList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.storage.v1beta1.StorageClassList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;

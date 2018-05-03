@@ -29,7 +29,7 @@ func main() {
 	}
 
 	templateDir := os.Args[2]
-	apits, providerts, packagejson, err := gen.NodeJSClient(data, templateDir)
+	inputAPIts, ouputAPIts, providerts, packagejson, err := gen.NodeJSClient(data, templateDir)
 	if err != nil {
 		panic(err)
 	}
@@ -40,7 +40,12 @@ func main() {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/api.ts", outdir), []byte(apits), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/inputApi.ts", outdir), []byte(inputAPIts), 0777)
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile(fmt.Sprintf("%s/outputApi.ts", outdir), []byte(ouputAPIts), 0777)
 	if err != nil {
 		panic(err)
 	}

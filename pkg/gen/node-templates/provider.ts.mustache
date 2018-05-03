@@ -2,7 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as api from "./api";
+import * as inputApi from "./inputApi";
+import * as outputApi from "./outputApi";
 
 {{#Groups}}
 export namespace {{Group}} {
@@ -24,7 +25,7 @@ export namespace {{Group}} {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: api.{{Group}}.{{Version}}.{{Kind}}, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args?: inputApi.{{Group}}.{{Version}}.{{Kind}}, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           {{#Properties}}
           inputs["{{Name}}"] = {{{DefaultValue}}};
