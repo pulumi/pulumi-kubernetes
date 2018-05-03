@@ -3,11 +3,12 @@
 package main
 
 import (
-	kubernetes "github.com/pulumi/pulumi-kubernetes"
+	"github.com/pulumi/pulumi-kubernetes/pkg/provider"
 	"github.com/pulumi/pulumi-kubernetes/pkg/version"
-	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
 )
 
+var providerName = "kubernetes"
+
 func main() {
-	tfbridge.Main("kubernetes", version.Version, kubernetes.Provider())
+	provider.Serve(providerName, version.Version)
 }
