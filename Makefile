@@ -57,6 +57,16 @@ install::
 test_all::
 	PATH=$(PULUMI_BIN):$(PATH) $(GO) test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
 
+.PHONY: publish_tgz
+publish_tgz:
+	$(call STEP_MESSAGE)
+	./scripts/publish_tgz.sh
+
+.PHONY: publish_packages
+publish_packages:
+	$(call STEP_MESSAGE)
+	./scripts/publish_packages.sh
+
 # The travis_* targets are entrypoints for CI.
 .PHONY: travis_cron travis_push travis_pull_request travis_api
 travis_cron: all
