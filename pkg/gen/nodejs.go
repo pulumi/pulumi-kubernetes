@@ -22,7 +22,7 @@ func NodeJSClient(
 	definitions := swagger["definitions"].(map[string]interface{})
 
 	groupsSlice := createGroups(definitions, inputsAPI)
-	inputsts, err = mustache.RenderFile(fmt.Sprintf("%s/inputApi.ts.mustache", templateDir),
+	inputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesInput.ts.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,
 		})
@@ -31,7 +31,7 @@ func NodeJSClient(
 	}
 
 	groupsSlice = createGroups(definitions, outputsAPI)
-	outputsts, err = mustache.RenderFile(fmt.Sprintf("%s/outputApi.ts.mustache", templateDir),
+	outputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesOutput.ts.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,
 		})

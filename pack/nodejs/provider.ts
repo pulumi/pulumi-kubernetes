@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "./inputApi";
-import * as outputApi from "./outputApi";
+import * as inputApi from "./types/input";
+import * as outputApi from "./types/output";
 
 export namespace admissionregistration {
   export namespace v1alpha1 {

@@ -1,6 +1,6 @@
 {
     "name": "@pulumi/kubernetes",
-    "version": "v0.11.2-1525384298-g84319bd-dirty",
+    "version": "v0.11.2-1525743426-gd8929d3-dirty",
     "description": "A Pulumi package for creating and managing Kubernetes resources.",
     "keywords": [
         "pulumi",

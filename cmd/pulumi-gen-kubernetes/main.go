@@ -40,12 +40,18 @@ func main() {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/inputApi.ts", outdir), []byte(inputAPIts), 0777)
+	typesDir := fmt.Sprintf("%s/types", outdir)
+	err = os.MkdirAll(typesDir, 0700)
 	if err != nil {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/outputApi.ts", outdir), []byte(ouputAPIts), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/input.ts", typesDir), []byte(inputAPIts), 0777)
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile(fmt.Sprintf("%s/output.ts", typesDir), []byte(ouputAPIts), 0777)
 	if err != nil {
 		panic(err)
 	}
