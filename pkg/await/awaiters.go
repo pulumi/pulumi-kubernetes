@@ -66,13 +66,13 @@ func untilAppsDeploymentInitialized(
 	return nil
 }
 
-func untilDeploymentUpdated(
+func untilAppsDeploymentUpdated(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
 	return untilAppsDeploymentInitialized(clientForResource, obj)
 }
 
-func untilDeploymentDeleted(
+func untilAppsDeploymentDeleted(
 	clientForResource dynamic.ResourceInterface, name string,
 ) error {
 	//

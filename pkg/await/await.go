@@ -224,7 +224,7 @@ func Update(
 	id := fmt.Sprintf("%s/%s", currentSubmitted.GetAPIVersion(), currentSubmitted.GetKind())
 	switch id {
 	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
-		waitErr = untilDeploymentUpdated(clientForResource, currentSubmitted)
+		waitErr = untilAppsDeploymentUpdated(clientForResource, currentSubmitted)
 	case coreV1ReplicationController:
 		waitErr = untilCoreV1ReplicationControllerUpdated(clientForResource, currentSubmitted)
 	case coreV1ResourceQuota:
@@ -312,7 +312,7 @@ func Deletion(
 	id := fmt.Sprintf("%s/%s", gvk.GroupVersion().String(), gvk.Kind)
 	switch id {
 	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
-		waitErr = untilDeploymentDeleted(clientForResource, name)
+		waitErr = untilAppsDeploymentDeleted(clientForResource, name)
 	case coreV1Namespace:
 		waitErr = untilCoreV1NamespaceDeleted(clientForResource, name)
 	case coreV1Pod:
