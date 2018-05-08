@@ -7,9 +7,8 @@ import (
 	"time"
 
 	"github.com/golang/glog"
+	"github.com/pulumi/pulumi-kubernetes/pkg/watcher"
 	v1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/api/errors"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
 )
@@ -23,10 +22,6 @@ import (
 // then wait until it is fully initialized and ready to receive traffic.
 
 // --------------------------------------------------------------------------
-
-const (
-	pollError = "Error"
-)
 
 // --------------------------------------------------------------------------
 
@@ -47,15 +42,18 @@ func untilAppsDeploymentInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
 	replicas, _ := pluck(obj.Object, "spec", "replicas")
-
 	glog.V(3).Infof("Waiting for deployment '%s' to schedule '%v' replicas", obj.GetName(), replicas)
+
 	// 10 mins should be sufficient for scheduling ~10k replicas
-	err := Retry(10*time.Minute,
-		waitForDesiredReplicasFunc(
-			clientForResource,
-			obj.GetName(),
-			deploymentSpecReplicas,
-			deploymentStatusReplicas))
+	name := obj.GetName()
+	err := watcher.ForObject(clientForResource, obj.GetName()).
+		WatchUntil(
+			waitForDesiredReplicasFunc(
+				clientForResource,
+				name,
+				deploymentSpecReplicas,
+				deploymentStatusReplicas),
+			10*time.Minute)
 	if err != nil {
 		return err
 	}
@@ -63,7 +61,7 @@ func untilAppsDeploymentInitialized(
 	// but that means checking each pod status separately (which can be expensive at scale)
 	// as there's no aggregate data available from the API
 
-	glog.V(3).Infof("Submitted new deployment: %#v", obj)
+	glog.V(3).Infof("Deployment '%s' initialized: %#v", obj.GetName(), obj)
 
 	return nil
 }
@@ -71,11 +69,7 @@ func untilAppsDeploymentInitialized(
 func untilDeploymentUpdated(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
-	return Retry(10*time.Minute, waitForDesiredReplicasFunc(
-		clientForResource,
-		obj.GetName(),
-		deploymentSpecReplicas,
-		deploymentStatusReplicas))
+	return untilAppsDeploymentInitialized(clientForResource, obj)
 }
 
 func untilDeploymentDeleted(
@@ -88,12 +82,22 @@ func untilDeploymentDeleted(
 	// before we get to check it, which I think would require manual intervention.
 	//
 
-	// Wait until all replicas are gone
-	return Retry(10*time.Minute, waitForDesiredReplicasFunc(
-		clientForResource,
-		name,
-		deploymentSpecReplicas,
-		deploymentStatusReplicas))
+	// Wait until all replicas are gone. 10 minutes should be enough for ~10 replicas.
+	err := watcher.ForObject(clientForResource, name).
+		WatchUntil(
+			waitForDesiredReplicasFunc(
+				clientForResource,
+				name,
+				deploymentSpecReplicas,
+				deploymentStatusReplicas),
+			10*time.Minute)
+	if err != nil {
+		return err
+	}
+
+	glog.V(3).Infof("Deployment '%s' deleted", name)
+
+	return nil
 }
 
 // --------------------------------------------------------------------------
@@ -105,27 +109,25 @@ func untilDeploymentDeleted(
 func untilCoreV1NamespaceDeleted(
 	clientForResource dynamic.ResourceInterface, name string,
 ) error {
-	stateConf := &StateChangeConf{
-		Target:  []string{},
-		Pending: []string{"Terminating"},
-		Timeout: 5 * time.Minute,
-		Refresh: func() (*unstructured.Unstructured, string, error) {
-			out, err := clientForResource.Get(name, metav1.GetOptions{})
-			if err != nil {
-				if statusErr, ok := err.(*errors.StatusError); ok && statusErr.ErrStatus.Code == 404 {
-					return nil, "", nil
-				}
-				glog.V(3).Infof("Received error: %#v", err)
-				return out, pollError, err
-			}
+	namespaceMissingOrKilled := func(ns *unstructured.Unstructured, err error) error {
+		if is404(err) {
+			return nil
+		} else if err != nil {
+			glog.V(3).Infof("Received error deleting namespace '%s': %#v", ns.GetName(), err)
+			return err
+		}
 
-			statusPhase, _ := pluck(out.Object, "status", "phase")
-			glog.V(3).Infof("Namespace %s status received: %#v", name, statusPhase)
-			return out, fmt.Sprintf("%v", statusPhase), nil
-		},
+		statusPhase, _ := pluck(ns.Object, "status", "phase")
+		glog.V(3).Infof("Namespace '%s' status received: %#v", name, statusPhase)
+		if statusPhase == "" {
+			return nil
+		}
+
+		return watcher.RetryableError(fmt.Errorf("Namespace '%s' still exists (%v)", name, statusPhase))
 	}
-	_, err := stateConf.WaitForState()
-	return err
+
+	return watcher.ForObject(clientForResource, name).
+		RetryUntil(namespaceMissingOrKilled, 5*time.Minute)
 }
 
 // --------------------------------------------------------------------------
@@ -137,25 +139,14 @@ func untilCoreV1NamespaceDeleted(
 func untilCoreV1PersistentVolumeInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
-	s := StateChangeConf{
-		Target:  []string{"Available", "Bound"},
-		Pending: []string{"Pending"},
-		Timeout: 5 * time.Minute,
-		Refresh: func() (*unstructured.Unstructured, string, error) {
-			out, err := clientForResource.Get(obj.GetName(), metav1.GetOptions{})
-			if err != nil {
-				glog.V(3).Infof("Received error: %#v", err)
-				return out, pollError, err
-			}
-
-			statusPhase, _ := pluck(out.Object, "status", "phase")
-			glog.V(3).Infof("Persistent volume '%s' status received: %#v", out.GetName(), statusPhase)
-			return out, fmt.Sprintf("%v", statusPhase), nil
-		},
+	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
+		statusPhase, _ := pluck(pv.Object, "status", "phase")
+		glog.V(3).Infof("Persistent volume '%s' status received: %#v", pv.GetName(), statusPhase)
+		return statusPhase == "Available" || statusPhase == "Bound"
 	}
 
-	_, err := s.WaitForState()
-	return err
+	return watcher.ForObject(clientForResource, obj.GetName()).
+		WatchUntil(pvAvailableOrBound, 5*time.Minute)
 }
 
 // --------------------------------------------------------------------------
@@ -167,25 +158,14 @@ func untilCoreV1PersistentVolumeInitialized(
 func untilCoreV1PersistentVolumeClaimBound(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
-	s := StateChangeConf{
-		Target:  []string{"Bound"},
-		Pending: []string{"Pending"},
-		Timeout: *DefaultTimeout(5 * time.Minute),
-		Refresh: func() (*unstructured.Unstructured, string, error) {
-			out, err := clientForResource.Get(obj.GetName(), metav1.GetOptions{})
-			if err != nil {
-				glog.V(3).Infof("Received error: %#v", err)
-				return out, "", err
-			}
-
-			statusPhase, _ := pluck(out.Object, "status", "phase")
-			glog.V(3).Infof("Persistent volume claim %s status received: %#v", out.GetName(), statusPhase)
-			return out, fmt.Sprintf("%v", statusPhase), nil
-		},
+	pvcBound := func(pvc *unstructured.Unstructured) bool {
+		statusPhase, _ := pluck(pvc.Object, "status", "phase")
+		glog.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), statusPhase)
+		return statusPhase == "Bound"
 	}
 
-	_, err := s.WaitForState()
-	return err
+	return watcher.ForObject(clientForResource, obj.GetName()).
+		WatchUntil(pvcBound, 5*time.Minute)
 }
 
 // --------------------------------------------------------------------------
@@ -197,45 +177,34 @@ func untilCoreV1PersistentVolumeClaimBound(
 func untilCoreV1PodInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
-	s := StateChangeConf{
-		Target:  []string{"Running"},
-		Pending: []string{"Pending"},
-		Timeout: *DefaultTimeout(5 * time.Minute),
-		Refresh: func() (*unstructured.Unstructured, string, error) {
-			out, err := clientForResource.Get(obj.GetName(), metav1.GetOptions{})
-			if err != nil {
-				glog.V(3).Infof("Received error: %#v", err)
-				return out, pollError, err
-			}
-
-			statusPhase, _ := pluck(out.Object, "status", "phase")
-			glog.V(3).Infof("Pods %s status received: %#v", out.GetName(), statusPhase)
-			return out, fmt.Sprintf("%v", statusPhase), nil
-		},
+	podRunning := func(pod *unstructured.Unstructured) bool {
+		statusPhase, _ := pluck(pod.Object, "status", "phase")
+		glog.V(3).Infof("Pods %s status received: %#v", pod.GetName(), statusPhase)
+		return statusPhase == "Running"
 	}
 
-	_, err := s.WaitForState()
-	return err
+	return watcher.ForObject(clientForResource, obj.GetName()).
+		WatchUntil(podRunning, 5*time.Minute)
 }
 
 func untilCoreV1PodDeleted(
 	clientForResource dynamic.ResourceInterface, name string,
 ) error {
-	err := Retry(5*time.Minute, func() *RetryError {
-		out, err := clientForResource.Get(name, metav1.GetOptions{})
-		if err != nil {
-			if statusErr, ok := err.(*errors.StatusError); ok && statusErr.ErrStatus.Code == 404 {
-				return nil
-			}
-			return NonRetryableError(err)
+	podMissingOrKilled := func(pod *unstructured.Unstructured, err error) error {
+		if is404(err) {
+			return nil
+		} else if err != nil {
+			return err
 		}
 
-		statusPhase, _ := pluck(out.Object, "status", "phase")
-		glog.V(3).Infof("Current state of pod: %#v", statusPhase)
-		e := fmt.Errorf("Pod %s still exists (%v)", name, statusPhase)
-		return RetryableError(e)
-	})
-	return err
+		statusPhase, _ := pluck(pod.Object, "status", "phase")
+		glog.V(3).Infof("Current state of pod '%s': %#v", name, statusPhase)
+		e := fmt.Errorf("Pod '%s' still exists (%v)", name, statusPhase)
+		return watcher.RetryableError(e)
+	}
+
+	return watcher.ForObject(clientForResource, name).
+		RetryUntil(podMissingOrKilled, 5*time.Minute)
 }
 
 // --------------------------------------------------------------------------
@@ -260,11 +229,15 @@ func untilCoreV1ReplicationControllerInitialized(
 		obj.GetName(), replicas)
 
 	// 10 mins should be sufficient for scheduling ~10k replicas
-	err := Retry(10*time.Minute, waitForDesiredReplicasFunc(
-		clientForResource,
-		obj.GetName(),
-		replicationControllerSpecReplicas,
-		replicationControllerStatusFullyLabeledReplicas))
+	name := obj.GetName()
+	err := watcher.ForObject(clientForResource, obj.GetName()).
+		WatchUntil(
+			waitForDesiredReplicasFunc(
+				clientForResource,
+				name,
+				replicationControllerSpecReplicas,
+				replicationControllerStatusFullyLabeledReplicas),
+			10*time.Minute)
 	if err != nil {
 		return err
 	}
@@ -272,7 +245,7 @@ func untilCoreV1ReplicationControllerInitialized(
 	// but that means checking each pod status separately (which can be expensive at scale)
 	// as there's no aggregate data available from the API
 
-	glog.V(3).Infof("Submitted new replication controller: %#v", obj)
+	glog.V(3).Infof("Replication controller '%s' initialized: %#v", obj)
 
 	return nil
 }
@@ -280,22 +253,35 @@ func untilCoreV1ReplicationControllerInitialized(
 func untilCoreV1ReplicationControllerUpdated(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
-	return Retry(10*time.Minute, waitForDesiredReplicasFunc(
-		clientForResource,
-		obj.GetName(),
-		replicationControllerSpecReplicas,
-		replicationControllerStatusFullyLabeledReplicas))
+	return untilCoreV1ReplicationControllerInitialized(clientForResource, obj)
 }
 
 func untilCoreV1ReplicationControllerDeleted(
 	clientForResource dynamic.ResourceInterface, name string,
 ) error {
-	// Wait until all replicas are gone
-	return Retry(10*time.Minute, waitForDesiredReplicasFunc(
-		clientForResource,
-		name,
-		replicationControllerSpecReplicas,
-		replicationControllerStatusFullyLabeledReplicas))
+	//
+	// TODO(hausdorff): Should we scale pods to 0 and then delete instead? Kubernetes should allow us
+	// to check the status after deletion, but there is some possibility if there is a long-ish
+	// transient network partition (or something) that it could be successfully deleted and GC'd
+	// before we get to check it, which I think would require manual intervention.
+	//
+
+	// Wait until all replicas are gone. 10 minutes should be enough for ~10 replicas.
+	err := watcher.ForObject(clientForResource, name).
+		WatchUntil(
+			waitForDesiredReplicasFunc(
+				clientForResource,
+				name,
+				replicationControllerSpecReplicas,
+				replicationControllerStatusFullyLabeledReplicas),
+			10*time.Minute)
+	if err != nil {
+		return err
+	}
+
+	glog.V(3).Infof("Replication controller '%s' deleted", name)
+
+	return nil
 }
 
 // --------------------------------------------------------------------------
@@ -307,12 +293,7 @@ func untilCoreV1ReplicationControllerDeleted(
 func untilCoreV1ResourceQuotaInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
-	return Retry(1*time.Minute, func() *RetryError {
-		quota, err := clientForResource.Get(obj.GetName(), metav1.GetOptions{})
-		if err != nil {
-			glog.V(3).Infof("Received error: %#v", err)
-			return NonRetryableError(err)
-		}
+	rqInitialized := func(quota *unstructured.Unstructured) bool {
 		hardRaw, _ := pluck(quota.Object, "spec", "hard")
 		hardStatusRaw, _ := pluck(quota.Object, "status", "hard")
 
@@ -320,12 +301,15 @@ func untilCoreV1ResourceQuotaInitialized(
 		hardStatus, hardStatusIsResourceList := hardStatusRaw.(v1.ResourceList)
 		if hardIsResourceList && hardStatusIsResourceList && resourceListEquals(hard, hardStatus) {
 			glog.V(3).Infof("ResourceQuota '%s' initialized: %#v", obj.GetName())
-			return nil
+			return true
 		}
-		err = fmt.Errorf("Quotas don't match after creation.\nExpected: %#v\nGiven: %#v",
+		glog.V(3).Infof("Quotas don't match after creation.\nExpected: %#v\nGiven: %#v",
 			hard, hardStatus)
-		return RetryableError(err)
-	})
+		return false
+	}
+
+	return watcher.ForObject(clientForResource, obj.GetName()).
+		WatchUntil(rqInitialized, 1*time.Minute)
 }
 
 func untilCoreV1ResourceQuotaUpdated(
@@ -343,28 +327,29 @@ func untilCoreV1ResourceQuotaUpdated(
 func untilCoreV1ServiceInitialized(
 	clientForResource, clientForEvents dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
-	specType, _ := pluck(obj.Object, "spec", "type")
-	if specType == v1.ServiceTypeLoadBalancer {
+	// Await logic for service of type LoadBalancer.
+	externalIPAllocated := func(svc *unstructured.Unstructured) bool {
+		lbIngress, _ := pluck(svc.Object, "status", "loadBalancer", "ingress")
+		status, _ := pluck(svc.Object, "status")
+
+		glog.V(3).Infof("Received service status: %#v", status)
+		if ing, isString := lbIngress.(string); isString && len(ing) > 0 {
+			return true
+		}
+
+		glog.V(3).Infof("Waiting for service '%q' to assign IP/hostname for a load balancer",
+			obj.GetName())
+
+		return false
+	}
+
+	// Await.
+	if specType, _ := pluck(obj.Object, "spec", "type"); specType == v1.ServiceTypeLoadBalancer {
 		glog.V(3).Infof("Waiting for load balancer to assign IP/hostname")
 
-		err := Retry(10*time.Minute, func() *RetryError {
-			svc, err := clientForResource.Get(obj.GetName(), metav1.GetOptions{})
-			if err != nil {
-				glog.V(3).Infof("Received error: %#v", err)
-				return NonRetryableError(err)
-			}
+		err := watcher.ForObject(clientForResource, obj.GetName()).
+			WatchUntil(externalIPAllocated, 10*time.Minute)
 
-			lbIngress, _ := pluck(svc.Object, "status", "loadBalancer", "ingress")
-			status, _ := pluck(svc.Object, "status")
-
-			glog.V(3).Infof("Received service status: %#v", status)
-			if ing, isString := lbIngress.(string); isString && len(ing) > 0 {
-				return nil
-			}
-
-			return RetryableError(fmt.Errorf(
-				"Waiting for service %q to assign IP/hostname for a load balancer", obj.GetName()))
-		})
 		if err != nil {
 			lastWarnings, wErr := getLastWarningsForObject(clientForEvents, obj.GetNamespace(),
 				obj.GetName(), "Service", 3)
@@ -374,7 +359,7 @@ func untilCoreV1ServiceInitialized(
 			return fmt.Errorf("%s%s", err, stringifyEvents(lastWarnings))
 		}
 
-		return err
+		return nil
 	}
 
 	return nil
@@ -394,13 +379,8 @@ func waitForDesiredReplicasFunc(
 	name string,
 	getReplicasSpec func(*unstructured.Unstructured) (interface{}, bool),
 	getReplicasStatus func(*unstructured.Unstructured) (interface{}, bool),
-) RetryFunc {
-	return func() *RetryError {
-		replicator, err := clientForResource.Get(name, metav1.GetOptions{})
-		if err != nil {
-			return NonRetryableError(err)
-		}
-
+) watcher.Predicate {
+	return func(replicator *unstructured.Unstructured) bool {
 		desiredReplicas, hasReplicasSpec := getReplicasSpec(replicator)
 		fullyLabeledReplicas, hasReplicasStatus := getReplicasStatus(replicator)
 
@@ -408,12 +388,11 @@ func waitForDesiredReplicasFunc(
 			replicator.GetName(), fullyLabeledReplicas, desiredReplicas)
 
 		if hasReplicasSpec && hasReplicasStatus && fullyLabeledReplicas == desiredReplicas {
-			return nil
-		} else if !hasReplicasSpec || !hasReplicasStatus {
-			glog.V(3).Infof("Could not obtain replicas spec or status for '%q'\n", replicator.GetName())
+			return true
 		}
 
-		return RetryableError(fmt.Errorf("Waiting for '%d' replicas of '%q' to be scheduled (%d)",
-			desiredReplicas, replicator.GetName(), fullyLabeledReplicas))
+		glog.V(3).Infof("Waiting for '%d' replicas of '%q' to be scheduled (have: '%d')",
+			desiredReplicas, replicator.GetName(), fullyLabeledReplicas)
+		return false
 	}
 }

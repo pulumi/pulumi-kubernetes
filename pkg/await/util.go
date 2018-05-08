@@ -9,6 +9,7 @@ import (
 
 	"github.com/golang/glog"
 	v1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
@@ -153,4 +154,15 @@ func resourceListEquals(x, y v1.ResourceList) bool {
 		}
 	}
 	return true
+}
+
+// --------------------------------------------------------------------------
+
+// Response helpers.
+
+// --------------------------------------------------------------------------
+
+func is404(err error) bool {
+	statusErr, ok := err.(*errors.StatusError)
+	return ok && statusErr.ErrStatus.Code == 404
 }
