@@ -108,6 +108,17 @@ func (k *kubeProvider) Invoke(context.Context, *pulumirpc.InvokeRequest) (*pulum
 // required for correctness, violations thereof can negatively impact the end-user experience, as
 // the provider inputs are using for detecting and rendering diffs.
 func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+	//
+	// Behavior as of v0.12.x: We take two inputs:
+	//
+	// 1. req.News, the new resource inputs, i.e., the property bag coming from a custom resource like
+	//    k8s.core.v1.Service
+	// 2. req.Olds, the last version submitted from a custom resource.
+	//
+	// `req.Olds` are ignored (and are sometimes nil). `req.News` are taken, validated, but NOT (at
+	// this point) changed.
+	//
+
 	// Utilities for determining whether a resource's GVK exists.
 	gvkExists := func(gvk schema.GroupVersionKind) bool {
 		knownGVKs := sets.NewString()
@@ -132,16 +143,16 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	label := fmt.Sprintf("%s.Check(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
-	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
-	// validation routines.
-	inputs := req.GetNews()
-	news, err := plugin.UnmarshalProperties(inputs, plugin.MarshalOptions{
+	// Obtain new resource inputs. This is the new version of the resource(s) supplied by the user as
+	// an update.
+	newResInputs := req.GetNews()
+	news, err := plugin.UnmarshalProperties(newResInputs, plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
 	}
-	obj := propMapToUnstructured(news)
+	newInputs := propMapToUnstructured(news)
 
 	gvk := k.gvkFromURN(urn)
 	schemaGroup := schemaGroupName(gvk.Group)
@@ -164,7 +175,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	}
 
 	// Validate the object according to the OpenAPI schema.
-	for _, err := range schema.Validate(obj) {
+	for _, err := range schema.Validate(newInputs) {
 		_, isNotFound := err.(TypeNotFoundError)
 		if isNotFound && gvkExists(gvk) {
 			failures = append(failures, &pulumirpc.CheckFailure{
@@ -177,8 +188,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
-	// Check has no affect on the outputs, so we simply return them unchanged.
-	return &pulumirpc.CheckResponse{Inputs: inputs, Failures: failures}, nil
+	// We currently don't change the inputs during check.
+	return &pulumirpc.CheckResponse{Inputs: newResInputs, Failures: failures}, nil
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
@@ -186,48 +197,53 @@ func (k *kubeProvider) Diff(
 	ctx context.Context, req *pulumirpc.DiffRequest,
 ) (*pulumirpc.DiffResponse, error) {
 	//
-	// TODO(hausdorff): This implementation is naive!
+	// Behavior as of v0.12.x: We take 2 inputs:
 	//
-	// - [x] Allows for computing a diff between the two versions of an API object.
-	// - [x] Correctly reports when a field will cause a replacement of the resource (i.e., it can't
-	//       be patched to reflect the new state). Currently we only report this status when name or
-	//       namespace change.
-	// - [x] Correctly reports when a field will cause a replacement for non-Terraform resources.
-	// - [ ] Correctly reports when a resource needs to be deleted before it replaced.
+	// 1. req.News, the new resource inputs, i.e., the property bag coming from a custom resource like
+	//    k8s.core.v1.Service
+	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`. The old state has the form
+	//    {inputs: {...}, live: {...}}, and is a struct that contains the old inputs as well as the
+	//    last computed value obtained from the Kubernetes API server.
+	//
+	// The list of properties that would cause replacement is then computed between the old and new
+	// _inputs_, as in Kubernetes this captures changes the user made that result in replacement
+	// (which is not true of the old computed values).
 	//
 
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
-	// Get old version of the object.
-	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+	// Get old state. This is an object of the form {inputs: {...}, live: {...}} where `inputs` is the
+	// previous resource inputs supplied by the user, and `live` is the computed state of that inputs
+	// we received back from the API server.
+	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
 	}
-	oldInputs, _ := parseCheckpointObject(olds)
+	oldInputs, _ := parseCheckpointObject(oldState)
 
-	// Get proposed new version of the object.
-	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
+	// Get new resouce inputs. The user is submitting these as an update.
+	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
 	}
-	newObj := propMapToUnstructured(news)
+	newInputs := propMapToUnstructured(newResInputs)
 
 	// Naive replacement strategy. We will kill and recreate a resource only if the name or namespace
 	// has changed.
-	replaces, err := forceNewProperties(oldInputs.Object, newObj.Object, oldInputs.GroupVersionKind())
+	replaces, err := forceNewProperties(oldInputs.Object, newInputs.Object, oldInputs.GroupVersionKind())
 	if err != nil {
 		return nil, err
 	}
 
 	// Pack up PB, ship response back.
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
-	diff := gojsondiff.New().CompareObjects(oldInputs.Object, newObj.Object)
+	diff := gojsondiff.New().CompareObjects(oldInputs.Object, newInputs.Object)
 	if len(diff.Deltas()) > 0 {
 		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
 	}
@@ -246,26 +262,38 @@ func (k *kubeProvider) Diff(
 func (k *kubeProvider) Create(
 	ctx context.Context, req *pulumirpc.CreateRequest,
 ) (*pulumirpc.CreateResponse, error) {
+	//
+	// Behavior as of v0.12.x: We take 1 input:
+	//
+	// 1. `req.Properties`, the new resource inputs submitted by the user, after having been returned
+	// by `Check`.
+	//
+	// This is used to create a new resource, and the computed values are returned. Importantly:
+	//
+	// * The return is formatted as a "checkpoint object", i.e., an object of the form
+	//   {inputs: {...}, live: {...}}. This is important both for `Diff` and for `Update`. See
+	//   comments in those methods for details.
+	//
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Create(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
 	// Obtain client from pool for the resource we're creating.
-	props, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
+	newResInputs, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.properties", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
 	}
-	obj := propMapToUnstructured(props)
+	newInputs := propMapToUnstructured(newResInputs)
 
-	initialized, err := await.Creation(k.pool, k.client, obj)
+	initialized, err := await.Creation(k.pool, k.client, newInputs)
 	if err != nil {
 		return nil, err
 	}
 
 	inputsAndComputed, err := plugin.MarshalProperties(
-		checkpointObject(obj, initialized), plugin.MarshalOptions{
+		checkpointObject(newInputs, initialized), plugin.MarshalOptions{
 			Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
 		})
 	if err != nil {
@@ -294,6 +322,21 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 func (k *kubeProvider) Update(
 	ctx context.Context, req *pulumirpc.UpdateRequest,
 ) (*pulumirpc.UpdateResponse, error) {
+	//
+	// Behavior as of v0.12.x: We take 2 inputs:
+	//
+	// 1. req.News, the new resource inputs, i.e., the property bag coming from a custom resource like
+	//    k8s.core.v1.Service
+	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`. The old state has the form
+	//    {inputs: {...}, live: {...}}, and is a struct that contains the old inputs as well as the
+	//    last computed value obtained from the Kubernetes API server.
+	//
+	// Unlike other providers, the update is computed as a three way merge between: (1) the new
+	// inputs, (2) the computed state returned by the API server, and (3) the old inputs. This is the
+	// main reason why the old state is an object with both the old inputs and the live version of the
+	// object.
+	//
+
 	//
 	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle and you should proceed to
 	// change them only if you understand them deeply.
@@ -340,31 +383,34 @@ func (k *kubeProvider) Update(
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
-	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
 	}
-	oldObj := propMapToUnstructured(olds)
+	// Ignore old state; we'll get it from Kubernetes later.
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
-	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
+	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
 	})
 	if err != nil {
 		return nil, err
 	}
-	newObj := propMapToUnstructured(news)
+	newInputs := propMapToUnstructured(newResInputs)
 
-	liveObj, err := await.Update(k.pool, k.client, oldObj, newObj)
+	// Apply update.
+	liveObj, err := await.Update(k.pool, k.client, oldInputs, newInputs)
 	if err != nil {
 		return nil, err
 	}
 
+	// Return a new "checkpoint object".
 	inputsAndComputed, err := plugin.MarshalProperties(
-		checkpointObject(newObj, liveObj), plugin.MarshalOptions{
+		checkpointObject(newInputs, liveObj), plugin.MarshalOptions{
 			Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
 		})
 	if err != nil {
@@ -452,7 +498,16 @@ func checkpointObject(inputs, live *unstructured.Unstructured) resource.Property
 
 func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructured.Unstructured) {
 	pm := obj.Mappable()
-	oldInputs = &unstructured.Unstructured{Object: pm["inputs"].(map[string]interface{})}
-	live = &unstructured.Unstructured{Object: pm["live"].(map[string]interface{})}
+	inputs := pm["inputs"]
+	if inputs == nil {
+		inputs = map[string]interface{}{}
+	}
+	oldInputs = &unstructured.Unstructured{Object: inputs.(map[string]interface{})}
+
+	liveMap := pm["live"]
+	if liveMap == nil {
+		liveMap = map[string]interface{}{}
+	}
+	live = &unstructured.Unstructured{Object: liveMap.(map[string]interface{})}
 	return
 }

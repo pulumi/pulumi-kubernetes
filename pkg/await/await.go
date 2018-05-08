@@ -191,12 +191,12 @@ func Update(
 	}
 
 	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
-	lastJSON, err := lastSubmitted.MarshalJSON()
+	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
 	if err != nil {
 		return nil, err
 	}
 
-	newJSON, err := currentSubmitted.MarshalJSON()
+	currentSubmittedJSON, err := currentSubmitted.MarshalJSON()
 	if err != nil {
 		return nil, err
 	}
@@ -207,7 +207,8 @@ func Update(
 	}
 
 	// Create JSON merge patch.
-	patch, err := jsonmergepatch.CreateThreeWayJSONMergePatch(lastJSON, liveOldJSON, newJSON)
+	patch, err := jsonmergepatch.CreateThreeWayJSONMergePatch(
+		lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
 	if err != nil {
 		return nil, err
 	}
