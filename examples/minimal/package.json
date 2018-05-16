@@ -11,6 +11,6 @@
     },
     "peerDependencies": {
         "@pulumi/kubernetes": "latest",
-        "@pulumi/pulumi": "^0.11.0-dev-65-g7aedf80f"
+        "@pulumi/pulumi": "^0.12.0"
     }
 }
