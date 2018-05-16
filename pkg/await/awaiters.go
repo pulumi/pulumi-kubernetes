@@ -34,13 +34,13 @@ func deploymentSpecReplicas(deployment *unstructured.Unstructured) (interface{},
 	return pluck(deployment.Object, "spec", "replicas")
 }
 
-func deploymentStatusReplicas(deployment *unstructured.Unstructured) (interface{}, bool) {
-	return pluck(deployment.Object, "status", "replicas")
-}
-
 func untilAppsDeploymentInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
+	availableReplicas := func(deployment *unstructured.Unstructured) (interface{}, bool) {
+		return pluck(deployment.Object, "status", "availableReplicas")
+	}
+
 	replicas, _ := pluck(obj.Object, "spec", "replicas")
 	glog.V(3).Infof("Waiting for deployment '%s' to schedule '%v' replicas", obj.GetName(), replicas)
 
@@ -52,7 +52,7 @@ func untilAppsDeploymentInitialized(
 				clientForResource,
 				name,
 				deploymentSpecReplicas,
-				deploymentStatusReplicas),
+				availableReplicas),
 			10*time.Minute)
 	if err != nil {
 		return err
@@ -66,13 +66,13 @@ func untilAppsDeploymentInitialized(
 	return nil
 }
 
-func untilDeploymentUpdated(
+func untilAppsDeploymentUpdated(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
 	return untilAppsDeploymentInitialized(clientForResource, obj)
 }
 
-func untilDeploymentDeleted(
+func untilAppsDeploymentDeleted(
 	clientForResource dynamic.ResourceInterface, name string,
 ) error {
 	//
@@ -81,16 +81,29 @@ func untilDeploymentDeleted(
 	// transient network partition (or something) that it could be successfully deleted and GC'd
 	// before we get to check it, which I think would require manual intervention.
 	//
+	statusReplicas := func(deployment *unstructured.Unstructured) (interface{}, bool) {
+		return pluck(deployment.Object, "status", "replicas")
+	}
 
-	// Wait until all replicas are gone. 10 minutes should be enough for ~10 replicas.
+	deploymentMissing := func(d *unstructured.Unstructured, err error) error {
+		if is404(err) {
+			return nil
+		} else if err != nil {
+			glog.V(3).Infof("Received error deleting deployment '%s': %#v", d.GetName(), err)
+			return err
+		}
+
+		currReplicas, _ := statusReplicas(d)
+		specReplicas, _ := deploymentSpecReplicas(d)
+
+		return watcher.RetryableError(
+			fmt.Errorf("Deployment '%s' still exists (%d / %d replicas exist)", name,
+				currReplicas, specReplicas))
+	}
+
+	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
 	err := watcher.ForObject(clientForResource, name).
-		WatchUntil(
-			waitForDesiredReplicasFunc(
-				clientForResource,
-				name,
-				deploymentSpecReplicas,
-				deploymentStatusReplicas),
-			10*time.Minute)
+		RetryUntil(deploymentMissing, 10*time.Minute)
 	if err != nil {
 		return err
 	}
@@ -217,13 +230,13 @@ func replicationControllerSpecReplicas(rc *unstructured.Unstructured) (interface
 	return pluck(rc.Object, "spec", "replicas")
 }
 
-func replicationControllerStatusFullyLabeledReplicas(rc *unstructured.Unstructured) (interface{}, bool) {
-	return pluck(rc.Object, "status", "fullyLabeledReplicas")
-}
-
 func untilCoreV1ReplicationControllerInitialized(
 	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
 ) error {
+	availableReplicas := func(rc *unstructured.Unstructured) (interface{}, bool) {
+		return pluck(rc.Object, "status", "availableReplicas")
+	}
+
 	replicas, _ := pluck(obj.Object, "spec", "replicas")
 	glog.V(3).Infof("Waiting for replication controller '%s' to schedule '%v' replicas",
 		obj.GetName(), replicas)
@@ -236,7 +249,7 @@ func untilCoreV1ReplicationControllerInitialized(
 				clientForResource,
 				name,
 				replicationControllerSpecReplicas,
-				replicationControllerStatusFullyLabeledReplicas),
+				availableReplicas),
 			10*time.Minute)
 	if err != nil {
 		return err
@@ -265,21 +278,34 @@ func untilCoreV1ReplicationControllerDeleted(
 	// transient network partition (or something) that it could be successfully deleted and GC'd
 	// before we get to check it, which I think would require manual intervention.
 	//
+	statusReplicas := func(rc *unstructured.Unstructured) (interface{}, bool) {
+		return pluck(rc.Object, "status", "replicas")
+	}
 
-	// Wait until all replicas are gone. 10 minutes should be enough for ~10 replicas.
+	rcMissing := func(rc *unstructured.Unstructured, err error) error {
+		if is404(err) {
+			return nil
+		} else if err != nil {
+			glog.V(3).Infof("Received error deleting ReplicationController '%s': %#v", rc.GetName(), err)
+			return err
+		}
+
+		currReplicas, _ := statusReplicas(rc)
+		specReplicas, _ := deploymentSpecReplicas(rc)
+
+		return watcher.RetryableError(
+			fmt.Errorf("ReplicationController '%s' still exists (%d / %d replicas exist)", name,
+				currReplicas, specReplicas))
+	}
+
+	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
 	err := watcher.ForObject(clientForResource, name).
-		WatchUntil(
-			waitForDesiredReplicasFunc(
-				clientForResource,
-				name,
-				replicationControllerSpecReplicas,
-				replicationControllerStatusFullyLabeledReplicas),
-			10*time.Minute)
+		RetryUntil(rcMissing, 10*time.Minute)
 	if err != nil {
 		return err
 	}
 
-	glog.V(3).Infof("Replication controller '%s' deleted", name)
+	glog.V(3).Infof("ReplicationController '%s' deleted", name)
 
 	return nil
 }

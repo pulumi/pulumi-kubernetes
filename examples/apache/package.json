@@ -1,5 +1,5 @@
 {
-  "name": "nodeserver",
+  "name": "apache",
   "version": "0.1",
   "main": "bin/index.js",
   "typings": "bin/index.d.ts",

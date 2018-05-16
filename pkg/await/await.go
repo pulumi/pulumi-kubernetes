@@ -191,12 +191,12 @@ func Update(
 	}
 
 	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
-	lastJSON, err := lastSubmitted.MarshalJSON()
+	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
 	if err != nil {
 		return nil, err
 	}
 
-	newJSON, err := currentSubmitted.MarshalJSON()
+	currentSubmittedJSON, err := currentSubmitted.MarshalJSON()
 	if err != nil {
 		return nil, err
 	}
@@ -207,7 +207,8 @@ func Update(
 	}
 
 	// Create JSON merge patch.
-	patch, err := jsonmergepatch.CreateThreeWayJSONMergePatch(lastJSON, liveOldJSON, newJSON)
+	patch, err := jsonmergepatch.CreateThreeWayJSONMergePatch(
+		lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
 	if err != nil {
 		return nil, err
 	}
@@ -224,7 +225,7 @@ func Update(
 	id := fmt.Sprintf("%s/%s", currentSubmitted.GetAPIVersion(), currentSubmitted.GetKind())
 	switch id {
 	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
-		waitErr = untilDeploymentUpdated(clientForResource, currentSubmitted)
+		waitErr = untilAppsDeploymentUpdated(clientForResource, currentSubmitted)
 	case coreV1ReplicationController:
 		waitErr = untilCoreV1ReplicationControllerUpdated(clientForResource, currentSubmitted)
 	case coreV1ResourceQuota:
@@ -312,7 +313,7 @@ func Deletion(
 	id := fmt.Sprintf("%s/%s", gvk.GroupVersion().String(), gvk.Kind)
 	switch id {
 	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
-		waitErr = untilDeploymentDeleted(clientForResource, name)
+		waitErr = untilAppsDeploymentDeleted(clientForResource, name)
 	case coreV1Namespace:
 		waitErr = untilCoreV1NamespaceDeleted(clientForResource, name)
 	case coreV1Pod:
