@@ -4,7 +4,7 @@
 
 [[override]]
   name = "github.com/pulumi/pulumi"
-  revision = "v0.12.2-rc1"
+  revision = "v0.12.2"
 
 [[override]]
   name = "github.com/ugorji/go"
