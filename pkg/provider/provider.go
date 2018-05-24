@@ -30,6 +30,7 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 	"github.com/yudai/gojsondiff"
 	"k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -321,7 +322,65 @@ func (k *kubeProvider) Create(
 // inputs to uniquely identify the resource; this is typically just the resource ID, but may also
 // include some properties.
 func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
-	panic("Read not implemented")
+	//
+	// Behavior as of v0.12.x: We take 1 input:
+	//
+	// 1. `req.Properties`, the new resource inputs submitted by the user, after
+	// having been persisted (e.g., by `Create` or `Update`).
+	//
+	// This is used to create a new resource, and the computed values are
+	// returned. Importantly:
+	//
+	// * The return is formatted as a "checkpoint object", i.e., an object of the
+	// form
+	//   {inputs: {...}, live: {...}}. This is important both for `Diff` and for `Update`. See
+	//   comments in those methods for details.
+	//
+
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
+	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
+	// validation routines.
+	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	// Ignore old state; we'll get it from Kubernetes later.
+	oldInputs, _ := parseCheckpointObject(oldState)
+
+	// Retrieve live version of last submitted version of object.
+	clientForResource, err := client.FromResource(k.pool, k.client, oldInputs)
+	if err != nil {
+		return nil, err
+	}
+
+	// Get the "live" version of the last submitted object. This is necessary because the server may
+	// have populated some fields automatically, updated status fields, and so on.
+	liveObj, err := clientForResource.Get(oldInputs.GetName(), metav1.GetOptions{})
+	if err != nil {
+		statusErr, ok := err.(*errors.StatusError)
+		if ok && statusErr.ErrStatus.Code == 404 {
+			// If it's a 404 error, this resource was probably deleted.
+			liveObj = &unstructured.Unstructured{Object: map[string]interface{}{}}
+		} else {
+			return nil, err
+		}
+	}
+
+	// Return a new "checkpoint object".
+	inputsAndComputed, err := plugin.MarshalProperties(
+		checkpointObject(oldInputs, liveObj), plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
+		})
+	if err != nil {
+		return nil, err
+	}
+
+	return &pulumirpc.ReadResponse{Id: client.FqObjName(liveObj), Properties: inputsAndComputed}, nil
 }
 
 // Update updates an existing resource with new values. Currently this client supports the
