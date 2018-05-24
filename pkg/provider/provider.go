@@ -481,10 +481,11 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) schema.GroupVersionKind {
 
 	// Emit GVK.
 	gvk := strings.Split(s, gvkDelimiter)
+	gv := strings.Split(gvk[0], "/")
 	return schema.GroupVersionKind{
-		Group:   gvk[0],
-		Version: gvk[1],
-		Kind:    gvk[2],
+		Group:   gv[0],
+		Version: gv[1],
+		Kind:    gvk[1],
 	}
 }
 

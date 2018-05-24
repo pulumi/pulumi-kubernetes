@@ -30,7 +30,7 @@ export namespace {{Group}} {
           {{#Properties}}
           inputs["{{Name}}"] = {{{DefaultValue}}};
           {{/Properties}}
-          super("kubernetes:{{Group}}:{{Version}}:{{Kind}}", name, inputs, opts);
+          super("kubernetes:{{Group}}/{{Version}}:{{Kind}}", name, inputs, opts);
       }
     }
 
