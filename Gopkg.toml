@@ -1,7 +1,3 @@
-[[constraint]]
-  name = "github.com/hashicorp/terraform"
-  version = "0.11.2"
-
 [[override]]
   name = "github.com/pulumi/pulumi"
   revision = "v0.12.0"
