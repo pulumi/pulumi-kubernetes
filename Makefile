@@ -39,6 +39,12 @@ build:: $(OPENAPI_FILE)
 		yarn link @pulumi/pulumi && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
+	$(MAKE) docs
+
+docs::
+	cd ${PACKDIR}/nodejs &&\
+		node_modules/.bin/typedoc --json \
+		bin/docs.json --mode modules --includeDeclarations --excludeExternals --excludeNotExported
 
 lint::
 	$(GOMETALINTER) ./cmd/... ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
