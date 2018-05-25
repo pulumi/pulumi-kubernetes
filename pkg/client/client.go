@@ -15,6 +15,7 @@
 package client
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/emicklei/go-restful-swagger12"
@@ -118,22 +119,7 @@ func (c *memcachedDiscoveryClient) ServerVersion() (*apiVers.Info, error) {
 }
 
 func (c *memcachedDiscoveryClient) SwaggerSchema(version schema.GroupVersion) (*swagger.ApiDeclaration, error) {
-	key := version.String()
-
-	c.lock.Lock()
-	defer c.lock.Unlock()
-
-	if c.schemas[key] != nil {
-		return c.schemas[key], nil
-	}
-
-	schema, err := c.cl.SwaggerSchema(version)
-	if err != nil {
-		return nil, err
-	}
-
-	c.schemas[key] = schema
-	return schema, nil
+	return nil, fmt.Errorf("Not implemented")
 }
 
 func (c *memcachedDiscoveryClient) OpenAPISchema() (*openapi_v2.Document, error) {

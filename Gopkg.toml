@@ -27,19 +27,23 @@
 
 [[constraint]]
   name = "k8s.io/api"
-  branch = "release-1.8"
+  branch = "release-1.10"
 
 [[constraint]]
   name = "k8s.io/apimachinery"
-  branch = "release-1.8"
+  branch = "release-1.10"
+
+[[override]]
+  name = "k8s.io/apiserver"
+  branch = "release-1.10"
 
 [[constraint]]
   name = "k8s.io/client-go"
-  version = "5.0.0"
+  version = "7.0.0"
 
 [[override]]
   name = "k8s.io/kubernetes"
-  revision = "v1.8.11"
+  revision = "v1.10.2"
 
 [[override]]
   name = "github.com/Azure/go-autorest"
