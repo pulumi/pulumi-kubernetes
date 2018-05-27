@@ -20,12 +20,11 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/apimachinery/pkg/util/jsonmergepatch"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
 )
@@ -146,7 +145,7 @@ func Creation(
 // [2]:
 // https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
 func Update(
-	pool dynamic.ClientPool, disco discovery.ServerResourcesInterface,
+	pool dynamic.ClientPool, disco discovery.CachedDiscoveryInterface,
 	lastSubmitted, currentSubmitted *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
 	//
@@ -202,32 +201,16 @@ func Update(
 		return nil, err
 	}
 
-	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
-	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
+	// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
+	patch, patchType, err := openapi.PatchForResourceUpdate(
+		disco, lastSubmitted, currentSubmitted, liveOldObj)
 	if err != nil {
 		return nil, err
 	}
 
-	currentSubmittedJSON, err := currentSubmitted.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-
-	liveOldJSON, err := liveOldObj.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-
-	// Create JSON merge patch.
-	patch, err := jsonmergepatch.CreateThreeWayJSONMergePatch(
-		lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
-	if err != nil {
-		return nil, err
-	}
-
-	// Issue patch request. NOTE: We can use the same client because if the `kind` changes, this will
-	// cause a replace (i.e., destroy and create).
-	_, err = clientForResource.Patch(currentSubmitted.GetName(), types.MergePatchType, patch)
+	// Issue patch request. NOTE: We can use the same client because if the `kind` changes, this
+	// will cause a replace (i.e., destroy and create).
+	_, err = clientForResource.Patch(currentSubmitted.GetName(), patchType, patch)
 	if err != nil {
 		return nil, err
 	}

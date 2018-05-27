@@ -118,6 +118,11 @@ func (c *memcachedDiscoveryClient) ServerVersion() (*apiVers.Info, error) {
 	return c.cl.ServerVersion()
 }
 
+// SwaggerSchema is unimplemented. It's required to implement `discovery.DiscoveryInterface`, but we
+// should always use `OpenAPISchema` instead. Since `discovery.DiscoveryInterface` implements
+// several other interfaces, we enforce this constraint at the type level by writing functions
+// that take as argument a "more specific" interface that describes the actual functionality needed,
+// e.g., `discovery.OpenAPISchemaInterface`, which does not define `SwaggerSchema` at all.
 func (c *memcachedDiscoveryClient) SwaggerSchema(version schema.GroupVersion) (*swagger.ApiDeclaration, error) {
 	return nil, fmt.Errorf("Not implemented")
 }

@@ -24,6 +24,7 @@ import (
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/plugin"
 	"github.com/pulumi/pulumi/pkg/util/contract"
@@ -168,13 +169,12 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	newInputs := propMapToUnstructured(news)
 
 	gvk := k.gvkFromURN(urn)
-	// schemaGroup := schemaGroupName(gvk.Group)
 	var failures []*pulumirpc.CheckFailure
 
 	// Get OpenAPI schema for the GVK.
-	errs := ValidateAgainstSchema(k.client, newInputs)
+	err = openapi.ValidateAgainstSchema(k.client, newInputs)
 	// Validate the object according to the OpenAPI schema.
-	for _, err := range errs {
+	if err != nil {
 		resourceNotFound := errors.IsNotFound(err) ||
 			strings.Contains(err.Error(), "is not supported by the server")
 		if resourceNotFound && gvkExists(gvk) {
