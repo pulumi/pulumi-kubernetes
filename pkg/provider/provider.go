@@ -24,6 +24,7 @@ import (
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/plugin"
 	"github.com/pulumi/pulumi/pkg/util/contract"
@@ -168,36 +169,20 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	newInputs := propMapToUnstructured(news)
 
 	gvk := k.gvkFromURN(urn)
-	schemaGroup := schemaGroupName(gvk.Group)
 	var failures []*pulumirpc.CheckFailure
 
 	// Get OpenAPI schema for the GVK.
-	schema, err := NewSwaggerSchemaFor(k.client, schema.GroupVersion{
-		Group: schemaGroup, Version: gvk.Version,
-	})
-	if err != nil {
-		isNotFound := errors.IsNotFound(err) ||
-			strings.Contains(err.Error(), "is not supported by the server")
-		if isNotFound && gvkExists(gvk) {
-			failures = append(failures, &pulumirpc.CheckFailure{
-				Reason: fmt.Sprintf(" No schema found for '%s'", gvk),
-			})
-		} else {
-			return nil, fmt.Errorf("Unable to fetch schema: %v", err)
-		}
-	}
-
+	err = openapi.ValidateAgainstSchema(k.client, newInputs)
 	// Validate the object according to the OpenAPI schema.
-	for _, err := range schema.Validate(newInputs) {
-		_, isNotFound := err.(TypeNotFoundError)
-		if isNotFound && gvkExists(gvk) {
+	if err != nil {
+		resourceNotFound := errors.IsNotFound(err) ||
+			strings.Contains(err.Error(), "is not supported by the server")
+		if resourceNotFound && gvkExists(gvk) {
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Reason: fmt.Sprintf(" Found API Group, but it did not contain a schema for '%s'", gvk),
 			})
 		} else {
-			failures = append(failures, &pulumirpc.CheckFailure{
-				Reason: fmt.Sprintf("Validation failed: %v", err),
-			})
+			return nil, fmt.Errorf("Unable to fetch schema: %v", err)
 		}
 	}
 

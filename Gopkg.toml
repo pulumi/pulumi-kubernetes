@@ -1,6 +1,8 @@
-[[constraint]]
-  name = "github.com/hashicorp/terraform"
-  version = "0.11.2"
+required = ["k8s.io/kubernetes/pkg/kubectl/cmd/util"]
+
+[prune]
+  unused-packages = true
+  go-tests = true
 
 [[override]]
   name = "github.com/pulumi/pulumi"
@@ -27,23 +29,27 @@
 
 [[constraint]]
   name = "k8s.io/api"
-  branch = "release-1.8"
+  revision = "kubernetes-1.10.2"
 
 [[constraint]]
   name = "k8s.io/apimachinery"
-  branch = "release-1.8"
+  version = "kubernetes-1.10.2"
+
+[[override]]
+  name = "k8s.io/apiserver"
+  version = "kubernetes-1.10.2"
 
 [[constraint]]
   name = "k8s.io/client-go"
-  version = "5.0.0"
+  version = "7.0.0"
 
-[[override]]
+[[constraint]]
   name = "k8s.io/kubernetes"
-  revision = "v1.8.11"
+  version = "v1.10.2"
 
 [[override]]
-  name = "github.com/Azure/go-autorest"
-  revision = "ab5671379918d9af294b6f0e3d8aaa98c829416d"
+  name = "github.com/russross/blackfriday"
+  version = "v1.5"
 
 # ---------------------------------------------------------------------------
 # End sensitive k8s.io dependencies.
