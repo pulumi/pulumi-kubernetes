@@ -349,7 +349,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		statusErr, ok := err.(*errors.StatusError)
 		if ok && statusErr.ErrStatus.Code == 404 {
 			// If it's a 404 error, this resource was probably deleted.
-			return nil, nil
+			return &pulumirpc.ReadResponse{Id: "", Properties: nil}, nil
 		}
 		return nil, err
 	}
