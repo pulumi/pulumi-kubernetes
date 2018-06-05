@@ -10,12 +10,12 @@ export namespace {{Group}} {
     export interface {{Kind}} {
       {{#RequiredProperties}}
       {{{Comment}}}
-      readonly {{Name}}: {{PropType}}
+      {{Name}}: {{PropType}}
 
       {{/RequiredProperties}}
       {{#OptionalProperties}}
       {{{Comment}}}
-      readonly {{Name}}?: {{PropType}}
+      {{Name}}?: {{PropType}}
 
       {{/OptionalProperties}}
     }
