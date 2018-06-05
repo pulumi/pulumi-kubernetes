@@ -31,7 +31,6 @@ func TestExamples(t *testing.T) {
 		},
 		Dependencies: []string{
 			"@pulumi/kubernetes",
-			"@pulumi/pulumi",
 		},
 	}
 
