@@ -36,7 +36,6 @@ build:: $(OPENAPI_FILE)
 	done
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
-		yarn link @pulumi/pulumi && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
 
