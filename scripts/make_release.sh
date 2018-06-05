@@ -6,7 +6,7 @@ ROOT=$(dirname $0)/..
 PUBDIR=$(mktemp -du)
 GITVER=$(git rev-parse HEAD)
 PUBFILE=$(dirname ${PUBDIR})/${GITVER}.tgz
-VERSION=$($ROOT/scripts/get-version)
+VERSION=$(jq -r '.version' < "${ROOT}/pack/nodejs/bin/package.json")
 
 # Figure out which branch we're on. Prefer $TRAVIS_BRANCH, if set, since
 # Travis leaves us at detached HEAD and `git rev-parse` just returns "HEAD".
