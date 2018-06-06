@@ -101,6 +101,7 @@ func makeKubeProvider(
 		client:         discoCache,
 		pool:           pool,
 		name:           name,
+		version:        version,
 		providerPrefix: name + gvkDelimiter,
 	}, nil
 }
