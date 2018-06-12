@@ -40,8 +40,10 @@ before_install:
     - minikube update-context
 install:
     # Clone the Pulumi repo and use install-locked.sh to install Pulumi components based on our Gopkg.lock.
-    - git clone git@github.com:pulumi/home ${GOPATH}/src/github.com/pulumi/home
-    - ${GOPATH}/src/github.com/pulumi/home/scripts/install-locked.sh ${PULUMI_ROOT} pulumi
+    - if [ "${TRAVIS_SECURE_ENV_VARS:-}" = "true" ]; then git clone git@github.com:pulumi/home ${GOPATH}/src/github.com/pulumi/home; fi
+    - git clone git@github.com:pulumi/scripts ${GOPATH}/src/github.com/pulumi/scripts
+    - ${GOPATH}/src/github.com/pulumi/scripts/ci/install-pulumi.sh v0.12.0
+    - export PATH=/usr/local/pulumi/bin:$PATH
     # Now restore all dependencies, after cloning, to rebuild vendor appropriately.
     - make ensure
 script:
