@@ -75,6 +75,7 @@ type KindConfig struct {
 
 	gvk        *schema.GroupVersionKind // Used for sorting.
 	apiVersion string
+	typeGuard  string
 }
 
 // Kind returns the name of the Kubernetes API kind (e.g., `Deployment` for
@@ -100,6 +101,9 @@ func (kc *KindConfig) OptionalProperties() []*Property { return kc.optionalPrope
 
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
+
+// TypeGuard returns the text of a TypeScript type guard for the given kind.
+func (kc *KindConfig) TypeGuard() string { return kc.typeGuard }
 
 // Property represents a property we want to expose on a Kubernetes API kind (i.e., things that we
 // will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
@@ -353,6 +357,14 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 				return linq.From([]*KindConfig{})
 			}
 
+			var typeGuard string
+			if apiVersionExists {
+				typeGuard = fmt.Sprintf(`
+    export function is%s(o: any): o is %s {
+      return o.apiVersion == "%s" && o.kind == "%s";
+    }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
+			}
+
 			return linq.From([]*KindConfig{
 				{
 					kind: d.gvk.Kind,
@@ -364,6 +376,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 					optionalProperties: optionalProperties,
 					gvk:                &d.gvk,
 					apiVersion:         fqGroupVersion,
+					typeGuard:          typeGuard,
 				},
 			})
 		}).
