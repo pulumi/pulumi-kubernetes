@@ -18,6 +18,9 @@ export namespace {{Group}} {
 
       {{/Properties}}
 
+      public getInputs(): inputApi.{{Group}}.{{Version}}.{{Kind}} { return this.__inputs; }
+      private readonly __inputs: inputApi.{{Group}}.{{Version}}.{{Kind}};
+
       /**
       * Create a {{Group}}.{{Version}}.{{Kind}} resource with the given unique name, arguments, and options.
       *
@@ -25,12 +28,13 @@ export namespace {{Group}} {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.{{Group}}.{{Version}}.{{Kind}}, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.{{Group}}.{{Version}}.{{Kind}}, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           {{#Properties}}
           inputs["{{Name}}"] = {{{DefaultValue}}};
           {{/Properties}}
           super("kubernetes:{{APIVersion}}:{{Kind}}", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
