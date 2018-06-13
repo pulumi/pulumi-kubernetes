@@ -1,6 +1,6 @@
 {
     "name": "@pulumi/kubernetes",
-    "version": "v0.13.1-dev-1528234300-gbdaccde",
+    "version": "v0.13.1-dev-1528839233-g598db27-dirty",
     "description": "A Pulumi package for creating and managing Kubernetes resources.",
     "keywords": [
         "pulumi",
@@ -12,7 +12,7 @@
         "build": "tsc"
     },
     "dependencies": {
-        "@pulumi/pulumi": "^0.12.2"
+        "@pulumi/pulumi": "^0.14.0-rc1"
     },
     "devDependencies": {
         "typescript": "^2.6.2"
