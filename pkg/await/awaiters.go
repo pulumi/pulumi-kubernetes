@@ -371,7 +371,7 @@ func untilCoreV1ServiceInitialized(
 		status, _ := pluck(svc.Object, "status")
 
 		glog.V(3).Infof("Received service status: %#v", status)
-		if ing, isString := lbIngress.(string); isString && len(ing) > 0 {
+		if ing, isSlice := lbIngress.([]interface{}); isSlice && len(ing) > 0 {
 			return true
 		}
 
@@ -382,8 +382,9 @@ func untilCoreV1ServiceInitialized(
 	}
 
 	// Await.
-	if specType, _ := pluck(obj.Object, "spec", "type"); specType == v1.ServiceTypeLoadBalancer {
-		glog.V(3).Infof("Waiting for load balancer to assign IP/hostname")
+	specType, _ := pluck(obj.Object, "spec", "type")
+	if fmt.Sprintf("%v", specType) == string(v1.ServiceTypeLoadBalancer) {
+		glog.V(3).Info("Waiting for load balancer to assign IP/hostname")
 
 		err := watcher.ForObject(clientForResource, obj.GetName()).
 			WatchUntil(externalIPAllocated, 10*time.Minute)
