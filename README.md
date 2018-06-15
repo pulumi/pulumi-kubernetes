@@ -2,10 +2,7 @@
 
 # Kubernetes Resource Provider
 
-:warning: **Pulumi is in private beta.  This package may not work unless you are already participating.
-Please visit [pulumi.com](https://pulumi.com/) to register for access.**
-
 The Kubernetes resource provider for Pulumi lets you use Kubernetes resources in your cloud programs.
 
-This package is meant for use with the Pulumi CLI.  Please visit [docs.pulumi.com](https://docs.pulumi.com) for
+This package is meant for use with the Pulumi CLI.  Please visit [pulumi.io](https://pulumi.io) for
 installation instructions.
