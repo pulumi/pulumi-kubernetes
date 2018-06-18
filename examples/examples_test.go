@@ -41,10 +41,7 @@ func TestExamples(t *testing.T) {
 		examples = append(examples, []integration.ProgramTestOptions{
 			base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "nginx")}),
 			base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "guestbook")}),
-			// TODO(hausdorff): Enable this when we transition to a version of minikube which correctly
-			// reports version.
-			//
-			// base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "mariadb")}),
+			base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "mariadb")}),
 		}...)
 	}
 
