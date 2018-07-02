@@ -406,6 +406,44 @@ func untilCoreV1ServiceInitialized(
 
 // --------------------------------------------------------------------------
 
+// core/v1/ServiceAccount
+
+// --------------------------------------------------------------------------
+
+func untilCoreV1ServiceAccountInitialized(
+	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
+) error {
+	//
+	// A ServiceAccount is considered initialized when the controller adds the default secret to the
+	// secrets array (i.e., in addition to the secrets specified by the user).
+	//
+
+	specSecrets, _ := pluck(obj.Object, "secrets")
+	var numSpecSecrets int
+	if specSecretsArr, isArr := specSecrets.([]interface{}); isArr {
+		numSpecSecrets = len(specSecretsArr)
+	} else {
+		numSpecSecrets = 0
+	}
+
+	defaultSecretAllocated := func(sa *unstructured.Unstructured) bool {
+		secrets, _ := pluck(sa.Object, "secrets")
+		glog.V(3).Infof("ServiceAccount '%s' contains secrets: %#v", sa.GetName(), secrets)
+		if secretsArr, isArr := secrets.([]interface{}); isArr {
+			numSecrets := len(secretsArr)
+			glog.V(3).Infof("ServiceAccount '%s' has allocated '%d' of '%d' secrets",
+				sa.GetName(), numSecrets, numSpecSecrets+1)
+			return numSecrets > numSpecSecrets
+		}
+		return false
+	}
+
+	return watcher.ForObject(clientForResource, obj.GetName()).
+		WatchUntil(defaultSecretAllocated, 5*time.Minute)
+}
+
+// --------------------------------------------------------------------------
+
 // Awaiter utilities.
 
 // --------------------------------------------------------------------------
