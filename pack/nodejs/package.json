@@ -1,12 +1,13 @@
 {
     "name": "@pulumi/kubernetes",
-    "version": "v0.13.1-dev-1528839233-g598db27-dirty",
+    "version": "v0.14.1-dev-1530572194-g218d72d-dirty",
     "description": "A Pulumi package for creating and managing Kubernetes resources.",
+    "license": "Apache 2.0",
     "keywords": [
         "pulumi",
         "kubernetes"
     ],
-    "homepage": "https://pulumi.io/kubernetes",
+    "homepage": "https://pulumi.io",
     "repository": "https://github.com/pulumi/pulumi-kubernetes",
     "scripts": {
         "build": "tsc"

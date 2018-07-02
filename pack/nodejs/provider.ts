@@ -55,7 +55,7 @@ export namespace admissionregistration {
           inputs["initializers"] = args ? args.initializers : undefined;
           inputs["kind"] = "InitializerConfiguration";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:admissionregistration/v1alpha1:InitializerConfiguration", name, inputs, opts);
+          super("kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfiguration", name, inputs, opts);
       }
     }
 
@@ -104,7 +104,7 @@ export namespace admissionregistration {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "InitializerConfigurationList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:admissionregistration/v1alpha1:InitializerConfigurationList", name, inputs, opts);
+          super("kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfigurationList", name, inputs, opts);
       }
     }
 
@@ -157,7 +157,7 @@ export namespace admissionregistration {
           inputs["kind"] = "MutatingWebhookConfiguration";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["webhooks"] = args ? args.webhooks : undefined;
-          super("kubernetes:admissionregistration/v1beta1:MutatingWebhookConfiguration", name, inputs, opts);
+          super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, inputs, opts);
       }
     }
 
@@ -206,7 +206,7 @@ export namespace admissionregistration {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "MutatingWebhookConfigurationList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:admissionregistration/v1beta1:MutatingWebhookConfigurationList", name, inputs, opts);
+          super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList", name, inputs, opts);
       }
     }
 
@@ -256,7 +256,7 @@ export namespace admissionregistration {
           inputs["kind"] = "ValidatingWebhookConfiguration";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["webhooks"] = args ? args.webhooks : undefined;
-          super("kubernetes:admissionregistration/v1beta1:ValidatingWebhookConfiguration", name, inputs, opts);
+          super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, inputs, opts);
       }
     }
 
@@ -305,7 +305,7 @@ export namespace admissionregistration {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "ValidatingWebhookConfigurationList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:admissionregistration/v1beta1:ValidatingWebhookConfigurationList", name, inputs, opts);
+          super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList", name, inputs, opts);
       }
     }
 
@@ -2139,7 +2139,7 @@ export namespace authentication {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authentication/v1:TokenReview", name, inputs, opts);
+          super("kubernetes:authentication.k8s.io/v1:TokenReview", name, inputs, opts);
       }
     }
 
@@ -2195,7 +2195,7 @@ export namespace authentication {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authentication/v1beta1:TokenReview", name, inputs, opts);
+          super("kubernetes:authentication.k8s.io/v1beta1:TokenReview", name, inputs, opts);
       }
     }
 
@@ -2256,7 +2256,7 @@ export namespace authorization {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authorization/v1:LocalSubjectAccessReview", name, inputs, opts);
+          super("kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview", name, inputs, opts);
       }
     }
 
@@ -2310,7 +2310,7 @@ export namespace authorization {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authorization/v1:SelfSubjectAccessReview", name, inputs, opts);
+          super("kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview", name, inputs, opts);
       }
     }
 
@@ -2369,7 +2369,7 @@ export namespace authorization {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authorization/v1:SelfSubjectRulesReview", name, inputs, opts);
+          super("kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview", name, inputs, opts);
       }
     }
 
@@ -2421,7 +2421,7 @@ export namespace authorization {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authorization/v1:SubjectAccessReview", name, inputs, opts);
+          super("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", name, inputs, opts);
       }
     }
 
@@ -2479,7 +2479,7 @@ export namespace authorization {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authorization/v1beta1:LocalSubjectAccessReview", name, inputs, opts);
+          super("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name, inputs, opts);
       }
     }
 
@@ -2533,7 +2533,7 @@ export namespace authorization {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authorization/v1beta1:SelfSubjectAccessReview", name, inputs, opts);
+          super("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview", name, inputs, opts);
       }
     }
 
@@ -2592,7 +2592,7 @@ export namespace authorization {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authorization/v1beta1:SelfSubjectRulesReview", name, inputs, opts);
+          super("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview", name, inputs, opts);
       }
     }
 
@@ -2644,7 +2644,7 @@ export namespace authorization {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:authorization/v1beta1:SubjectAccessReview", name, inputs, opts);
+          super("kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview", name, inputs, opts);
       }
     }
 
@@ -3385,7 +3385,7 @@ export namespace certificates {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:certificates/v1beta1:CertificateSigningRequest", name, inputs, opts);
+          super("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", name, inputs, opts);
       }
     }
 
@@ -3427,7 +3427,7 @@ export namespace certificates {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "CertificateSigningRequestList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:certificates/v1beta1:CertificateSigningRequestList", name, inputs, opts);
+          super("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList", name, inputs, opts);
       }
     }
 
@@ -5516,7 +5516,7 @@ export namespace events {
           inputs["reportingInstance"] = args ? args.reportingInstance : undefined;
           inputs["series"] = args ? args.series : undefined;
           inputs["type"] = args ? args.type : undefined;
-          super("kubernetes:events/v1beta1:Event", name, inputs, opts);
+          super("kubernetes:events.k8s.io/v1beta1:Event", name, inputs, opts);
       }
     }
 
@@ -5565,7 +5565,7 @@ export namespace events {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "EventList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:events/v1beta1:EventList", name, inputs, opts);
+          super("kubernetes:events.k8s.io/v1beta1:EventList", name, inputs, opts);
       }
     }
 
@@ -6387,7 +6387,7 @@ export namespace meta {
           inputs["preferredVersion"] = args ? args.preferredVersion : undefined;
           inputs["serverAddressByClientCIDRs"] = args ? args.serverAddressByClientCIDRs : undefined;
           inputs["versions"] = args ? args.versions : undefined;
-          super("kubernetes:meta/v1:APIGroup", name, inputs, opts);
+          super("kubernetes:core/v1:APIGroup", name, inputs, opts);
       }
     }
 
@@ -6429,7 +6429,7 @@ export namespace meta {
           inputs["apiVersion"] = "v1";
           inputs["groups"] = args ? args.groups : undefined;
           inputs["kind"] = "APIGroupList";
-          super("kubernetes:meta/v1:APIGroupList", name, inputs, opts);
+          super("kubernetes:core/v1:APIGroupList", name, inputs, opts);
       }
     }
 
@@ -6478,7 +6478,7 @@ export namespace meta {
           inputs["groupVersion"] = args ? args.groupVersion : undefined;
           inputs["kind"] = "APIResourceList";
           inputs["resources"] = args ? args.resources : undefined;
-          super("kubernetes:meta/v1:APIResourceList", name, inputs, opts);
+          super("kubernetes:core/v1:APIResourceList", name, inputs, opts);
       }
     }
 
@@ -6533,7 +6533,7 @@ export namespace meta {
           inputs["kind"] = "APIVersions";
           inputs["serverAddressByClientCIDRs"] = args ? args.serverAddressByClientCIDRs : undefined;
           inputs["versions"] = args ? args.versions : undefined;
-          super("kubernetes:meta/v1:APIVersions", name, inputs, opts);
+          super("kubernetes:core/v1:APIVersions", name, inputs, opts);
       }
     }
 
@@ -6605,7 +6605,7 @@ export namespace meta {
           inputs["orphanDependents"] = args ? args.orphanDependents : undefined;
           inputs["preconditions"] = args ? args.preconditions : undefined;
           inputs["propagationPolicy"] = args ? args.propagationPolicy : undefined;
-          super("kubernetes:meta/v1:DeleteOptions", name, inputs, opts);
+          super("kubernetes:core/v1:DeleteOptions", name, inputs, opts);
       }
     }
 
@@ -6742,7 +6742,7 @@ export namespace meta {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["reason"] = args ? args.reason : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:meta/v1:Status", name, inputs, opts);
+          super("kubernetes:core/v1:Status", name, inputs, opts);
       }
     }
 
@@ -6797,7 +6797,7 @@ export namespace networking {
           inputs["kind"] = "NetworkPolicy";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
-          super("kubernetes:networking/v1:NetworkPolicy", name, inputs, opts);
+          super("kubernetes:networking.k8s.io/v1:NetworkPolicy", name, inputs, opts);
       }
     }
 
@@ -6846,7 +6846,7 @@ export namespace networking {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "NetworkPolicyList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:networking/v1:NetworkPolicyList", name, inputs, opts);
+          super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, inputs, opts);
       }
     }
 
@@ -7062,7 +7062,7 @@ export namespace rbac {
           inputs["kind"] = "ClusterRole";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
-          super("kubernetes:rbac/v1:ClusterRole", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, inputs, opts);
       }
     }
 
@@ -7118,7 +7118,7 @@ export namespace rbac {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
-          super("kubernetes:rbac/v1:ClusterRoleBinding", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding", name, inputs, opts);
       }
     }
 
@@ -7166,7 +7166,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "ClusterRoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1:ClusterRoleBindingList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingList", name, inputs, opts);
       }
     }
 
@@ -7214,7 +7214,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "ClusterRoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1:ClusterRoleList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleList", name, inputs, opts);
       }
     }
 
@@ -7263,7 +7263,7 @@ export namespace rbac {
           inputs["kind"] = "Role";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
-          super("kubernetes:rbac/v1:Role", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1:Role", name, inputs, opts);
       }
     }
 
@@ -7321,7 +7321,7 @@ export namespace rbac {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
-          super("kubernetes:rbac/v1:RoleBinding", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", name, inputs, opts);
       }
     }
 
@@ -7369,7 +7369,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "RoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1:RoleBindingList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList", name, inputs, opts);
       }
     }
 
@@ -7417,7 +7417,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "RoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1:RoleList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1:RoleList", name, inputs, opts);
       }
     }
 
@@ -7477,7 +7477,7 @@ export namespace rbac {
           inputs["kind"] = "ClusterRole";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
-          super("kubernetes:rbac/v1alpha1:ClusterRole", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole", name, inputs, opts);
       }
     }
 
@@ -7533,7 +7533,7 @@ export namespace rbac {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
-          super("kubernetes:rbac/v1alpha1:ClusterRoleBinding", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding", name, inputs, opts);
       }
     }
 
@@ -7581,7 +7581,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "ClusterRoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1alpha1:ClusterRoleBindingList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", name, inputs, opts);
       }
     }
 
@@ -7629,7 +7629,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "ClusterRoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1alpha1:ClusterRoleList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleList", name, inputs, opts);
       }
     }
 
@@ -7678,7 +7678,7 @@ export namespace rbac {
           inputs["kind"] = "Role";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
-          super("kubernetes:rbac/v1alpha1:Role", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role", name, inputs, opts);
       }
     }
 
@@ -7736,7 +7736,7 @@ export namespace rbac {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
-          super("kubernetes:rbac/v1alpha1:RoleBinding", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", name, inputs, opts);
       }
     }
 
@@ -7784,7 +7784,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "RoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1alpha1:RoleBindingList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList", name, inputs, opts);
       }
     }
 
@@ -7832,7 +7832,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "RoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1alpha1:RoleList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList", name, inputs, opts);
       }
     }
 
@@ -7941,7 +7941,7 @@ export namespace rbac {
           inputs["kind"] = "ClusterRole";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
-          super("kubernetes:rbac/v1beta1:ClusterRole", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole", name, inputs, opts);
       }
     }
 
@@ -7997,7 +7997,7 @@ export namespace rbac {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
-          super("kubernetes:rbac/v1beta1:ClusterRoleBinding", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding", name, inputs, opts);
       }
     }
 
@@ -8045,7 +8045,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "ClusterRoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1beta1:ClusterRoleBindingList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList", name, inputs, opts);
       }
     }
 
@@ -8093,7 +8093,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "ClusterRoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1beta1:ClusterRoleList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList", name, inputs, opts);
       }
     }
 
@@ -8142,7 +8142,7 @@ export namespace rbac {
           inputs["kind"] = "Role";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["rules"] = args ? args.rules : undefined;
-          super("kubernetes:rbac/v1beta1:Role", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1beta1:Role", name, inputs, opts);
       }
     }
 
@@ -8200,7 +8200,7 @@ export namespace rbac {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["roleRef"] = args ? args.roleRef : undefined;
           inputs["subjects"] = args ? args.subjects : undefined;
-          super("kubernetes:rbac/v1beta1:RoleBinding", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, inputs, opts);
       }
     }
 
@@ -8248,7 +8248,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "RoleBindingList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1beta1:RoleBindingList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList", name, inputs, opts);
       }
     }
 
@@ -8296,7 +8296,7 @@ export namespace rbac {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "RoleList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:rbac/v1beta1:RoleList", name, inputs, opts);
+          super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList", name, inputs, opts);
       }
     }
 
@@ -8367,7 +8367,7 @@ export namespace scheduling {
           inputs["kind"] = "PriorityClass";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["value"] = args ? args.value : undefined;
-          super("kubernetes:scheduling/v1alpha1:PriorityClass", name, inputs, opts);
+          super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass", name, inputs, opts);
       }
     }
 
@@ -8416,7 +8416,7 @@ export namespace scheduling {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "PriorityClassList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:scheduling/v1alpha1:PriorityClassList", name, inputs, opts);
+          super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList", name, inputs, opts);
       }
     }
 
@@ -8466,7 +8466,7 @@ export namespace settings {
           inputs["kind"] = "PodPreset";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
-          super("kubernetes:settings/v1alpha1:PodPreset", name, inputs, opts);
+          super("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, inputs, opts);
       }
     }
 
@@ -8515,7 +8515,7 @@ export namespace settings {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "PodPresetList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:settings/v1alpha1:PodPresetList", name, inputs, opts);
+          super("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", name, inputs, opts);
       }
     }
 
@@ -8610,7 +8610,7 @@ export namespace storage {
           inputs["provisioner"] = args ? args.provisioner : undefined;
           inputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
           inputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
-          super("kubernetes:storage/v1:StorageClass", name, inputs, opts);
+          super("kubernetes:storage.k8s.io/v1:StorageClass", name, inputs, opts);
       }
     }
 
@@ -8659,7 +8659,7 @@ export namespace storage {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "StorageClassList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:storage/v1:StorageClassList", name, inputs, opts);
+          super("kubernetes:storage.k8s.io/v1:StorageClassList", name, inputs, opts);
       }
     }
 
@@ -8722,7 +8722,7 @@ export namespace storage {
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:storage/v1alpha1:VolumeAttachment", name, inputs, opts);
+          super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", name, inputs, opts);
       }
     }
 
@@ -8771,7 +8771,7 @@ export namespace storage {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "VolumeAttachmentList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:storage/v1alpha1:VolumeAttachmentList", name, inputs, opts);
+          super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList", name, inputs, opts);
       }
     }
 
@@ -8863,7 +8863,7 @@ export namespace storage {
           inputs["provisioner"] = args ? args.provisioner : undefined;
           inputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
           inputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
-          super("kubernetes:storage/v1beta1:StorageClass", name, inputs, opts);
+          super("kubernetes:storage.k8s.io/v1beta1:StorageClass", name, inputs, opts);
       }
     }
 
@@ -8912,7 +8912,7 @@ export namespace storage {
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "StorageClassList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:storage/v1beta1:StorageClassList", name, inputs, opts);
+          super("kubernetes:storage.k8s.io/v1beta1:StorageClassList", name, inputs, opts);
       }
     }
 
