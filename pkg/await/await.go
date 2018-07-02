@@ -59,6 +59,12 @@ const (
 	coreV1Secret                         = "v1/Secret"
 	coreV1Service                        = "v1/Service"
 	coreV1ServiceAccount                 = "v1/ServiceAccount"
+	rbacAuthorizationV1ClusterRole       = "rbac.authorization.k8s.io/v1/ClusterRole"
+	rbacAuthorizationV1Role              = "rbac.authorization.k8s.io/v1/Role"
+	rbacAuthorizationV1Alpha1ClusterRole = "rbac.authorization.k8s.io/v1alpha1/ClusterRole"
+	rbacAuthorizationV1Alpha1Role        = "rbac.authorization.k8s.io/v1alpha1/Role"
+	rbacAuthorizationV1Beta1ClusterRole  = "rbac.authorization.k8s.io/v1beta1/ClusterRole"
+	rbacAuthorizationV1Beta1Role         = "rbac.authorization.k8s.io/v1beta1/Role"
 )
 
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
@@ -117,6 +123,12 @@ func Creation(
 	case coreV1LimitRange:
 	case coreV1Namespace:
 	case coreV1Secret:
+	case rbacAuthorizationV1ClusterRole:
+	case rbacAuthorizationV1Role:
+	case rbacAuthorizationV1Alpha1ClusterRole:
+	case rbacAuthorizationV1Alpha1Role:
+	case rbacAuthorizationV1Beta1ClusterRole:
+	case rbacAuthorizationV1Beta1Role:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.
@@ -245,6 +257,12 @@ func Update(
 	case coreV1Secret:
 	case coreV1Service:
 	case coreV1ServiceAccount:
+	case rbacAuthorizationV1ClusterRole:
+	case rbacAuthorizationV1Role:
+	case rbacAuthorizationV1Alpha1ClusterRole:
+	case rbacAuthorizationV1Alpha1Role:
+	case rbacAuthorizationV1Beta1ClusterRole:
+	case rbacAuthorizationV1Beta1Role:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.
@@ -327,6 +345,12 @@ func Deletion(
 	case coreV1Secret:
 	case coreV1Service:
 	case coreV1ServiceAccount:
+	case rbacAuthorizationV1ClusterRole:
+	case rbacAuthorizationV1Role:
+	case rbacAuthorizationV1Alpha1ClusterRole:
+	case rbacAuthorizationV1Alpha1Role:
+	case rbacAuthorizationV1Beta1ClusterRole:
+	case rbacAuthorizationV1Beta1Role:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.
