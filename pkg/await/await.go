@@ -58,6 +58,7 @@ const (
 	coreV1ResourceQuota                  = "v1/ResourceQuota"
 	coreV1Secret                         = "v1/Secret"
 	coreV1Service                        = "v1/Service"
+	coreV1ServiceAccount                 = "v1/ServiceAccount"
 )
 
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
@@ -106,8 +107,8 @@ func Creation(
 			}
 			waitErr = untilCoreV1ServiceInitialized(clientForResource, clientForEvents, obj)
 		}
-
-	// TODO(hausdorff): ServiceAccount
+	case coreV1ServiceAccount:
+		waitErr = untilCoreV1ServiceAccountInitialized(clientForResource, obj)
 
 	// Cases where no wait is necessary.
 	case autoscalingV1HorizontalPodAutoscaler:
@@ -232,8 +233,6 @@ func Update(
 			}
 		}
 
-	// TODO(hausdorff): ServiceAccount
-
 	// Cases where no wait is necessary.
 	case autoscalingV1HorizontalPodAutoscaler:
 	case storageV1StorageClass:
@@ -245,6 +244,7 @@ func Update(
 	case coreV1Pod:
 	case coreV1Secret:
 	case coreV1Service:
+	case coreV1ServiceAccount:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.
@@ -316,8 +316,6 @@ func Deletion(
 	case coreV1ReplicationController:
 		waitErr = untilCoreV1ReplicationControllerDeleted(clientForResource, name)
 
-	// TODO(hausdorff): ServiceAccount
-
 	// Cases where no wait is necessary.
 	case autoscalingV1HorizontalPodAutoscaler:
 	case storageV1StorageClass:
@@ -328,6 +326,7 @@ func Deletion(
 	case coreV1ResourceQuota:
 	case coreV1Secret:
 	case coreV1Service:
+	case coreV1ServiceAccount:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.
