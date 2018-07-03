@@ -22,7 +22,7 @@ before_install:
     # Install Twine so that we can publish Pip packages.
     - pip install --upgrade --user twine==1.9.1
     # Ensure that we can access Pulumi's private NPM and PyPI orgs.
-    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc
+    - if [ ! -z "${NPM_TOKEN}" ]; then echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc; fi
     - mkdir -p ~/.config/pip && echo -e "[global]\nextra-index-url = https://${PULUMI_API_TOKEN}@pypi.pulumi.com/simple" >> ~/.config/pip/pip.conf
     # Install the AWS CLI so that we can publish the resulting release (if applicable) at the end.
     - pip install --upgrade --user awscli
