@@ -274,8 +274,14 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 					fqGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
 				}
 			} else {
-				defaultGroupVersion = fmt.Sprintf(`%s`, d.gvk.GroupVersion().String())
-				fqGroupVersion = fmt.Sprintf(`%s`, d.gvk.GroupVersion().String())
+				gv := d.gvk.GroupVersion().String()
+				if strings.HasPrefix(gv, "apiextensions/") && strings.HasPrefix(d.gvk.Kind, "CustomResource") {
+					// Special case. Kubernetes OpenAPI spec should have an `x-kubernetes-group-version-kind`
+					// CustomResource, but it doesn't. Hence, we hard-code it.
+					gv = fmt.Sprintf("apiextensions.k8s.io/%s", d.gvk.Version)
+				}
+				defaultGroupVersion = gv
+				fqGroupVersion = gv
 			}
 
 			ps := linq.From(d.data["properties"]).
