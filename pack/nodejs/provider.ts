@@ -359,12 +359,12 @@ export namespace apiextensions {
       */
       constructor(name: string, args?: inputApi.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "apiextensions/v1beta1";
+          inputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
           inputs["kind"] = "CustomResourceDefinition";
           inputs["metadata"] = args ? args.metadata : undefined;
           inputs["spec"] = args ? args.spec : undefined;
           inputs["status"] = args ? args.status : undefined;
-          super("kubernetes:apiextensions/v1beta1:CustomResourceDefinition", name, inputs, opts);
+          super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", name, inputs, opts);
       }
     }
 
@@ -406,11 +406,11 @@ export namespace apiextensions {
       */
       constructor(name: string, args?: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "apiextensions/v1beta1";
+          inputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
           inputs["items"] = args ? args.items : undefined;
           inputs["kind"] = "CustomResourceDefinitionList";
           inputs["metadata"] = args ? args.metadata : undefined;
-          super("kubernetes:apiextensions/v1beta1:CustomResourceDefinitionList", name, inputs, opts);
+          super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList", name, inputs, opts);
       }
     }
 
