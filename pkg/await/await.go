@@ -42,22 +42,36 @@ import (
 // --------------------------------------------------------------------------
 
 const (
-	appsV1Deployment                     = "apps/v1/Deployment"
-	appsV1Beta1Deployment                = "apps/v1beta1/Deployment"
-	appsV1Beta2Deployment                = "apps/v1beta2/Deployment"
-	autoscalingV1HorizontalPodAutoscaler = "autoscaling/v1/HorizontalPodAutoscaler"
-	extensionsV1Beta1Deployment          = "extensions/v1beta1/Deployment"
-	storageV1StorageClass                = "storage.k8s.io/v1/StorageClass"
-	coreV1ConfigMap                      = "v1/ConfigMap"
-	coreV1LimitRange                     = "v1/LimitRange"
-	coreV1Namespace                      = "v1/Namespace"
-	coreV1PersistentVolume               = "v1/PersistentVolume"
-	coreV1PersistentVolumeClaim          = "v1/PersistentVolumeClaim"
-	coreV1Pod                            = "v1/Pod"
-	coreV1ReplicationController          = "v1/ReplicationController"
-	coreV1ResourceQuota                  = "v1/ResourceQuota"
-	coreV1Secret                         = "v1/Secret"
-	coreV1Service                        = "v1/Service"
+	appsV1Deployment                            = "apps/v1/Deployment"
+	appsV1Beta1Deployment                       = "apps/v1beta1/Deployment"
+	appsV1Beta2Deployment                       = "apps/v1beta2/Deployment"
+	autoscalingV1HorizontalPodAutoscaler        = "autoscaling/v1/HorizontalPodAutoscaler"
+	extensionsV1Beta1Deployment                 = "extensions/v1beta1/Deployment"
+	storageV1StorageClass                       = "storage.k8s.io/v1/StorageClass"
+	coreV1ConfigMap                             = "v1/ConfigMap"
+	coreV1LimitRange                            = "v1/LimitRange"
+	coreV1Namespace                             = "v1/Namespace"
+	coreV1PersistentVolume                      = "v1/PersistentVolume"
+	coreV1PersistentVolumeClaim                 = "v1/PersistentVolumeClaim"
+	coreV1Pod                                   = "v1/Pod"
+	coreV1ReplicationController                 = "v1/ReplicationController"
+	coreV1ResourceQuota                         = "v1/ResourceQuota"
+	coreV1Secret                                = "v1/Secret"
+	coreV1Service                               = "v1/Service"
+	coreV1ServiceAccount                        = "v1/ServiceAccount"
+	extensionsV1Beta1Ingress                    = "extensions/v1beta1/Ingress"
+	rbacAuthorizationV1ClusterRole              = "rbac.authorization.k8s.io/v1/ClusterRole"
+	rbacAuthorizationV1ClusterRoleBinding       = "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
+	rbacAuthorizationV1Role                     = "rbac.authorization.k8s.io/v1/Role"
+	rbacAuthorizationV1RoleBinding              = "rbac.authorization.k8s.io/v1/RoleBinding"
+	rbacAuthorizationV1Alpha1ClusterRole        = "rbac.authorization.k8s.io/v1alpha1/ClusterRole"
+	rbacAuthorizationV1Alpha1ClusterRoleBinding = "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding"
+	rbacAuthorizationV1Alpha1Role               = "rbac.authorization.k8s.io/v1alpha1/Role"
+	rbacAuthorizationV1Alpha1RoleBinding        = "rbac.authorization.k8s.io/v1alpha1/RoleBinding"
+	rbacAuthorizationV1Beta1ClusterRole         = "rbac.authorization.k8s.io/v1beta1/ClusterRole"
+	rbacAuthorizationV1Beta1ClusterRoleBinding  = "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding"
+	rbacAuthorizationV1Beta1Role                = "rbac.authorization.k8s.io/v1beta1/Role"
+	rbacAuthorizationV1Beta1RoleBinding         = "rbac.authorization.k8s.io/v1beta1/RoleBinding"
 )
 
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
@@ -106,8 +120,20 @@ func Creation(
 			}
 			waitErr = untilCoreV1ServiceInitialized(clientForResource, clientForEvents, obj)
 		}
-
-	// TODO(hausdorff): ServiceAccount
+	case coreV1ServiceAccount:
+		waitErr = untilCoreV1ServiceAccountInitialized(clientForResource, obj)
+	case extensionsV1Beta1Ingress:
+		{
+			clientForEvents, err := client.FromGVK(pool, disco, schema.GroupVersionKind{
+				Group:   "",
+				Version: "v1",
+				Kind:    "Event",
+			}, obj.GetNamespace())
+			if err != nil {
+				return nil, err
+			}
+			waitErr = untilExtensionsV1Beta1IngressInitialized(clientForResource, clientForEvents, obj)
+		}
 
 	// Cases where no wait is necessary.
 	case autoscalingV1HorizontalPodAutoscaler:
@@ -116,6 +142,18 @@ func Creation(
 	case coreV1LimitRange:
 	case coreV1Namespace:
 	case coreV1Secret:
+	case rbacAuthorizationV1ClusterRole:
+	case rbacAuthorizationV1ClusterRoleBinding:
+	case rbacAuthorizationV1Role:
+	case rbacAuthorizationV1RoleBinding:
+	case rbacAuthorizationV1Alpha1ClusterRole:
+	case rbacAuthorizationV1Alpha1ClusterRoleBinding:
+	case rbacAuthorizationV1Alpha1Role:
+	case rbacAuthorizationV1Alpha1RoleBinding:
+	case rbacAuthorizationV1Beta1ClusterRole:
+	case rbacAuthorizationV1Beta1ClusterRoleBinding:
+	case rbacAuthorizationV1Beta1Role:
+	case rbacAuthorizationV1Beta1RoleBinding:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.
@@ -232,8 +270,6 @@ func Update(
 			}
 		}
 
-	// TODO(hausdorff): ServiceAccount
-
 	// Cases where no wait is necessary.
 	case autoscalingV1HorizontalPodAutoscaler:
 	case storageV1StorageClass:
@@ -245,6 +281,20 @@ func Update(
 	case coreV1Pod:
 	case coreV1Secret:
 	case coreV1Service:
+	case coreV1ServiceAccount:
+	case extensionsV1Beta1Ingress:
+	case rbacAuthorizationV1ClusterRole:
+	case rbacAuthorizationV1ClusterRoleBinding:
+	case rbacAuthorizationV1Role:
+	case rbacAuthorizationV1RoleBinding:
+	case rbacAuthorizationV1Alpha1ClusterRole:
+	case rbacAuthorizationV1Alpha1ClusterRoleBinding:
+	case rbacAuthorizationV1Alpha1Role:
+	case rbacAuthorizationV1Alpha1RoleBinding:
+	case rbacAuthorizationV1Beta1ClusterRole:
+	case rbacAuthorizationV1Beta1ClusterRoleBinding:
+	case rbacAuthorizationV1Beta1Role:
+	case rbacAuthorizationV1Beta1RoleBinding:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.
@@ -316,8 +366,6 @@ func Deletion(
 	case coreV1ReplicationController:
 		waitErr = untilCoreV1ReplicationControllerDeleted(clientForResource, name)
 
-	// TODO(hausdorff): ServiceAccount
-
 	// Cases where no wait is necessary.
 	case autoscalingV1HorizontalPodAutoscaler:
 	case storageV1StorageClass:
@@ -328,6 +376,20 @@ func Deletion(
 	case coreV1ResourceQuota:
 	case coreV1Secret:
 	case coreV1Service:
+	case coreV1ServiceAccount:
+	case extensionsV1Beta1Ingress:
+	case rbacAuthorizationV1ClusterRole:
+	case rbacAuthorizationV1ClusterRoleBinding:
+	case rbacAuthorizationV1Role:
+	case rbacAuthorizationV1RoleBinding:
+	case rbacAuthorizationV1Alpha1ClusterRole:
+	case rbacAuthorizationV1Alpha1ClusterRoleBinding:
+	case rbacAuthorizationV1Alpha1Role:
+	case rbacAuthorizationV1Alpha1RoleBinding:
+	case rbacAuthorizationV1Beta1ClusterRole:
+	case rbacAuthorizationV1Beta1ClusterRoleBinding:
+	case rbacAuthorizationV1Beta1Role:
+	case rbacAuthorizationV1Beta1RoleBinding:
 		break
 
 	// TODO(hausdorff): Find some sensible default for unknown kinds.

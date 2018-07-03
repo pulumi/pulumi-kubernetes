@@ -406,6 +406,86 @@ func untilCoreV1ServiceInitialized(
 
 // --------------------------------------------------------------------------
 
+// core/v1/ServiceAccount
+
+// --------------------------------------------------------------------------
+
+func untilCoreV1ServiceAccountInitialized(
+	clientForResource dynamic.ResourceInterface, obj *unstructured.Unstructured,
+) error {
+	//
+	// A ServiceAccount is considered initialized when the controller adds the default secret to the
+	// secrets array (i.e., in addition to the secrets specified by the user).
+	//
+
+	specSecrets, _ := pluck(obj.Object, "secrets")
+	var numSpecSecrets int
+	if specSecretsArr, isArr := specSecrets.([]interface{}); isArr {
+		numSpecSecrets = len(specSecretsArr)
+	} else {
+		numSpecSecrets = 0
+	}
+
+	defaultSecretAllocated := func(sa *unstructured.Unstructured) bool {
+		secrets, _ := pluck(sa.Object, "secrets")
+		glog.V(3).Infof("ServiceAccount '%s' contains secrets: %#v", sa.GetName(), secrets)
+		if secretsArr, isArr := secrets.([]interface{}); isArr {
+			numSecrets := len(secretsArr)
+			glog.V(3).Infof("ServiceAccount '%s' has allocated '%d' of '%d' secrets",
+				sa.GetName(), numSecrets, numSpecSecrets+1)
+			return numSecrets > numSpecSecrets
+		}
+		return false
+	}
+
+	return watcher.ForObject(clientForResource, obj.GetName()).
+		WatchUntil(defaultSecretAllocated, 5*time.Minute)
+}
+
+// --------------------------------------------------------------------------
+
+// extensions/v1beta1/Ingress
+
+// --------------------------------------------------------------------------
+
+func untilExtensionsV1Beta1IngressInitialized(
+	clientForResource, clientForEvents dynamic.ResourceInterface, obj *unstructured.Unstructured,
+) error {
+	externalIPAllocated := func(svc *unstructured.Unstructured) bool {
+		lbIngress, _ := pluck(svc.Object, "status", "loadBalancer", "ingress")
+		status, _ := pluck(svc.Object, "status")
+
+		glog.V(3).Infof("Received Ingress status: %#v", status)
+		if ing, isSlice := lbIngress.([]interface{}); isSlice && len(ing) > 0 {
+			return true
+		}
+
+		glog.V(3).Infof("Waiting for Ingress '%q' to assign IP/hostname for a load balancer",
+			obj.GetName())
+
+		return false
+	}
+
+	// Await.
+	glog.V(3).Info("Waiting for load balancer to assign IP/hostname")
+
+	err := watcher.ForObject(clientForResource, obj.GetName()).
+		WatchUntil(externalIPAllocated, 10*time.Minute)
+
+	if err != nil {
+		lastWarnings, wErr := getLastWarningsForObject(clientForEvents, obj.GetNamespace(),
+			obj.GetName(), "Ingress", 3)
+		if wErr != nil {
+			return wErr
+		}
+		return fmt.Errorf("%s%s", err, stringifyEvents(lastWarnings))
+	}
+
+	return nil
+}
+
+// --------------------------------------------------------------------------
+
 // Awaiter utilities.
 
 // --------------------------------------------------------------------------
