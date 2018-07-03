@@ -255,20 +255,33 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 				return linq.From([]KindConfig{})
 			}
 
-			// Make fully-qualified group name.
-			fqGroup := d.gvk.Group
+			// Make fully-qualified and "default" GroupVersion. The "default" GV is the `apiVersion` that
+			// appears when writing Kubernetes YAML (e.g., `v1` instead of `core/v1`), while the
+			// fully-qualified version is the "official" GV (e.g., `core/v1` instead of `v1` or
+			// `admissionregistration.k8s.io/v1alpha1` instead of `admissionregistration/v1alpha1`).
+			defaultGroupVersion := d.gvk.Group
+			fqGroupVersion := d.gvk.Group
 			if gvks, gvkExists :=
 				d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
 				gvk := gvks[0].(map[string]interface{})
 				group := gvk["group"].(string)
 				version := gvk["version"].(string)
 				if group == "" {
-					fqGroup = fmt.Sprintf(`"%s"`, version)
+					defaultGroupVersion = fmt.Sprintf(`%s`, version)
+					fqGroupVersion = fmt.Sprintf(`core/%s`, version)
 				} else {
-					fqGroup = fmt.Sprintf(`"%s/%s"`, group, version)
+					defaultGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
+					fqGroupVersion = fmt.Sprintf(`%s/%s`, group, version)
 				}
 			} else {
-				fqGroup = fmt.Sprintf(`"%s"`, d.gvk.GroupVersion().String())
+				gv := d.gvk.GroupVersion().String()
+				if strings.HasPrefix(gv, "apiextensions/") && strings.HasPrefix(d.gvk.Kind, "CustomResource") {
+					// Special case. Kubernetes OpenAPI spec should have an `x-kubernetes-group-version-kind`
+					// CustomResource, but it doesn't. Hence, we hard-code it.
+					gv = fmt.Sprintf("apiextensions.k8s.io/%s", d.gvk.Version)
+				}
+				defaultGroupVersion = gv
+				fqGroupVersion = gv
 			}
 
 			ps := linq.From(d.data["properties"]).
@@ -290,7 +303,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 					defaultValue := fmt.Sprintf("args ? args.%s : undefined", propName)
 					switch propName {
 					case "apiVersion":
-						defaultValue = fqGroup
+						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
 					case "kind":
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
 					}
@@ -350,7 +363,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 					requiredProperties: requiredProperties,
 					optionalProperties: optionalProperties,
 					gvk:                &d.gvk,
-					apiVersion:         fqGroup,
+					apiVersion:         fqGroupVersion,
 				},
 			})
 		}).
