@@ -59,6 +59,7 @@ const (
 	coreV1Secret                                = "v1/Secret"
 	coreV1Service                               = "v1/Service"
 	coreV1ServiceAccount                        = "v1/ServiceAccount"
+	extensionsV1Beta1Ingress                    = "extensions/v1beta1/Ingress"
 	rbacAuthorizationV1ClusterRole              = "rbac.authorization.k8s.io/v1/ClusterRole"
 	rbacAuthorizationV1ClusterRoleBinding       = "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
 	rbacAuthorizationV1Role                     = "rbac.authorization.k8s.io/v1/Role"
@@ -121,6 +122,18 @@ func Creation(
 		}
 	case coreV1ServiceAccount:
 		waitErr = untilCoreV1ServiceAccountInitialized(clientForResource, obj)
+	case extensionsV1Beta1Ingress:
+		{
+			clientForEvents, err := client.FromGVK(pool, disco, schema.GroupVersionKind{
+				Group:   "",
+				Version: "v1",
+				Kind:    "Event",
+			}, obj.GetNamespace())
+			if err != nil {
+				return nil, err
+			}
+			waitErr = untilExtensionsV1Beta1IngressInitialized(clientForResource, clientForEvents, obj)
+		}
 
 	// Cases where no wait is necessary.
 	case autoscalingV1HorizontalPodAutoscaler:
@@ -269,6 +282,7 @@ func Update(
 	case coreV1Secret:
 	case coreV1Service:
 	case coreV1ServiceAccount:
+	case extensionsV1Beta1Ingress:
 	case rbacAuthorizationV1ClusterRole:
 	case rbacAuthorizationV1ClusterRoleBinding:
 	case rbacAuthorizationV1Role:
@@ -363,6 +377,7 @@ func Deletion(
 	case coreV1Secret:
 	case coreV1Service:
 	case coreV1ServiceAccount:
+	case extensionsV1Beta1Ingress:
 	case rbacAuthorizationV1ClusterRole:
 	case rbacAuthorizationV1ClusterRoleBinding:
 	case rbacAuthorizationV1Role:
