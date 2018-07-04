@@ -16,7 +16,6 @@ package await
 
 import (
 	"fmt"
-	"reflect"
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
@@ -41,39 +40,6 @@ import (
 
 // --------------------------------------------------------------------------
 
-const (
-	appsV1Deployment                            = "apps/v1/Deployment"
-	appsV1Beta1Deployment                       = "apps/v1beta1/Deployment"
-	appsV1Beta2Deployment                       = "apps/v1beta2/Deployment"
-	autoscalingV1HorizontalPodAutoscaler        = "autoscaling/v1/HorizontalPodAutoscaler"
-	extensionsV1Beta1Deployment                 = "extensions/v1beta1/Deployment"
-	storageV1StorageClass                       = "storage.k8s.io/v1/StorageClass"
-	coreV1ConfigMap                             = "v1/ConfigMap"
-	coreV1LimitRange                            = "v1/LimitRange"
-	coreV1Namespace                             = "v1/Namespace"
-	coreV1PersistentVolume                      = "v1/PersistentVolume"
-	coreV1PersistentVolumeClaim                 = "v1/PersistentVolumeClaim"
-	coreV1Pod                                   = "v1/Pod"
-	coreV1ReplicationController                 = "v1/ReplicationController"
-	coreV1ResourceQuota                         = "v1/ResourceQuota"
-	coreV1Secret                                = "v1/Secret"
-	coreV1Service                               = "v1/Service"
-	coreV1ServiceAccount                        = "v1/ServiceAccount"
-	extensionsV1Beta1Ingress                    = "extensions/v1beta1/Ingress"
-	rbacAuthorizationV1ClusterRole              = "rbac.authorization.k8s.io/v1/ClusterRole"
-	rbacAuthorizationV1ClusterRoleBinding       = "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
-	rbacAuthorizationV1Role                     = "rbac.authorization.k8s.io/v1/Role"
-	rbacAuthorizationV1RoleBinding              = "rbac.authorization.k8s.io/v1/RoleBinding"
-	rbacAuthorizationV1Alpha1ClusterRole        = "rbac.authorization.k8s.io/v1alpha1/ClusterRole"
-	rbacAuthorizationV1Alpha1ClusterRoleBinding = "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding"
-	rbacAuthorizationV1Alpha1Role               = "rbac.authorization.k8s.io/v1alpha1/Role"
-	rbacAuthorizationV1Alpha1RoleBinding        = "rbac.authorization.k8s.io/v1alpha1/RoleBinding"
-	rbacAuthorizationV1Beta1ClusterRole         = "rbac.authorization.k8s.io/v1beta1/ClusterRole"
-	rbacAuthorizationV1Beta1ClusterRoleBinding  = "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding"
-	rbacAuthorizationV1Beta1Role                = "rbac.authorization.k8s.io/v1beta1/Role"
-	rbacAuthorizationV1Beta1RoleBinding         = "rbac.authorization.k8s.io/v1beta1/RoleBinding"
-)
-
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
@@ -91,74 +57,21 @@ func Creation(
 		return nil, err
 	}
 
-	// Wait until create resolves as success or error.
+	// Wait until create resolves as success or error. Note that the conditional is set up to log only
+	// if we don't have an entry for the resource type; in the event that we do, but the await logic
+	// is blank, simply do nothing instead of logging an error.
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", obj.GetAPIVersion(), obj.GetKind())
-	switch id {
-	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
-		waitErr = untilAppsDeploymentInitialized(clientForResource, obj)
-	case coreV1PersistentVolume:
-		waitErr = untilCoreV1PersistentVolumeInitialized(clientForResource, obj)
-	case coreV1PersistentVolumeClaim:
-		// TODO(hausdorff): Perhaps also support not waiting for PVC to be bound.
-		waitErr = untilCoreV1PersistentVolumeClaimBound(clientForResource, obj)
-	case coreV1Pod:
-		waitErr = untilCoreV1PodInitialized(clientForResource, obj)
-	case coreV1ReplicationController:
-		waitErr = untilCoreV1ReplicationControllerInitialized(clientForResource, obj)
-	case coreV1ResourceQuota:
-		waitErr = untilCoreV1ResourceQuotaInitialized(clientForResource, obj)
-	case coreV1Service:
-		{
-			clientForEvents, err := client.FromGVK(pool, disco, schema.GroupVersionKind{
-				Group:   "",
-				Version: "v1",
-				Kind:    "Event",
-			}, obj.GetNamespace())
-			if err != nil {
-				return nil, err
+	if awaiter, exists := awaiters[id]; exists {
+		if awaiter.awaitCreation != nil {
+			conf := initAwaitConfig{
+				pool: pool, disco: disco, clientForResource: clientForResource, currentInputs: obj,
 			}
-			waitErr = untilCoreV1ServiceInitialized(clientForResource, clientForEvents, obj)
+			waitErr = awaiter.awaitCreation(conf)
 		}
-	case coreV1ServiceAccount:
-		waitErr = untilCoreV1ServiceAccountInitialized(clientForResource, obj)
-	case extensionsV1Beta1Ingress:
-		{
-			clientForEvents, err := client.FromGVK(pool, disco, schema.GroupVersionKind{
-				Group:   "",
-				Version: "v1",
-				Kind:    "Event",
-			}, obj.GetNamespace())
-			if err != nil {
-				return nil, err
-			}
-			waitErr = untilExtensionsV1Beta1IngressInitialized(clientForResource, clientForEvents, obj)
-		}
-
-	// Cases where no wait is necessary.
-	case autoscalingV1HorizontalPodAutoscaler:
-	case storageV1StorageClass:
-	case coreV1ConfigMap:
-	case coreV1LimitRange:
-	case coreV1Namespace:
-	case coreV1Secret:
-	case rbacAuthorizationV1ClusterRole:
-	case rbacAuthorizationV1ClusterRoleBinding:
-	case rbacAuthorizationV1Role:
-	case rbacAuthorizationV1RoleBinding:
-	case rbacAuthorizationV1Alpha1ClusterRole:
-	case rbacAuthorizationV1Alpha1ClusterRoleBinding:
-	case rbacAuthorizationV1Alpha1Role:
-	case rbacAuthorizationV1Alpha1RoleBinding:
-	case rbacAuthorizationV1Beta1ClusterRole:
-	case rbacAuthorizationV1Beta1ClusterRoleBinding:
-	case rbacAuthorizationV1Beta1Role:
-	case rbacAuthorizationV1Beta1RoleBinding:
-		break
-
-	// TODO(hausdorff): Find some sensible default for unknown kinds.
-	default:
-		return nil, fmt.Errorf("Could not find object of type '%s'", id)
+	} else {
+		glog.V(1).Infof(
+			"No initialization logic found for object of type '%s'; defaulting to assuming initialization successful", id)
 	}
 
 	if waitErr != nil {
@@ -253,53 +166,24 @@ func Update(
 		return nil, err
 	}
 
-	// Wait until patch resolves as success or error.
+	// Wait until patch resolves as success or error. Note that the conditional is set up to log only
+	// if we don't have an entry for the resource type; in the event that we do, but the await logic
+	// is blank, simply do nothing instead of logging an error.
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", currentSubmitted.GetAPIVersion(), currentSubmitted.GetKind())
-	switch id {
-	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
-		waitErr = untilAppsDeploymentUpdated(clientForResource, currentSubmitted)
-	case coreV1ReplicationController:
-		waitErr = untilCoreV1ReplicationControllerUpdated(clientForResource, currentSubmitted)
-	case coreV1ResourceQuota:
-		{
-			oldSpec, _ := pluck(lastSubmitted.Object, "spec")
-			newSpec, _ := pluck(currentSubmitted.Object, "spec")
-			if !reflect.DeepEqual(oldSpec, newSpec) {
-				waitErr = untilCoreV1ResourceQuotaUpdated(clientForResource, currentSubmitted)
+	if awaiter, exists := awaiters[id]; exists {
+		if awaiter.awaitUpdate != nil {
+			conf := updateAwaitConfig{
+				initAwaitConfig: initAwaitConfig{
+					pool: pool, disco: disco, clientForResource: clientForResource, currentInputs: currentSubmitted,
+				},
+				lastInputs:  lastSubmitted,
+				lastOutputs: liveOldObj,
 			}
+			waitErr = awaiter.awaitUpdate(conf)
 		}
-
-	// Cases where no wait is necessary.
-	case autoscalingV1HorizontalPodAutoscaler:
-	case storageV1StorageClass:
-	case coreV1ConfigMap:
-	case coreV1LimitRange:
-	case coreV1Namespace:
-	case coreV1PersistentVolume:
-	case coreV1PersistentVolumeClaim:
-	case coreV1Pod:
-	case coreV1Secret:
-	case coreV1Service:
-	case coreV1ServiceAccount:
-	case extensionsV1Beta1Ingress:
-	case rbacAuthorizationV1ClusterRole:
-	case rbacAuthorizationV1ClusterRoleBinding:
-	case rbacAuthorizationV1Role:
-	case rbacAuthorizationV1RoleBinding:
-	case rbacAuthorizationV1Alpha1ClusterRole:
-	case rbacAuthorizationV1Alpha1ClusterRoleBinding:
-	case rbacAuthorizationV1Alpha1Role:
-	case rbacAuthorizationV1Alpha1RoleBinding:
-	case rbacAuthorizationV1Beta1ClusterRole:
-	case rbacAuthorizationV1Beta1ClusterRoleBinding:
-	case rbacAuthorizationV1Beta1Role:
-	case rbacAuthorizationV1Beta1RoleBinding:
-		break
-
-	// TODO(hausdorff): Find some sensible default for unknown kinds.
-	default:
-		return nil, fmt.Errorf("Could not find object of type '%s'", id)
+	} else {
+		glog.V(1).Infof("No initialization logic found for object of type '%s'; defaulting to assuming initialization successful", id)
 	}
 
 	if waitErr != nil {
@@ -353,48 +237,17 @@ func Deletion(
 		return err
 	}
 
-	// Wait until create resolves as success or error.
+	// Wait until delete resolves as success or error. Note that the conditional is set up to log only
+	// if we don't have an entry for the resource type; in the event that we do, but the await logic
+	// is blank, simply do nothing instead of logging an error.
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", gvk.GroupVersion().String(), gvk.Kind)
-	switch id {
-	case appsV1Deployment, appsV1Beta1Deployment, appsV1Beta2Deployment, extensionsV1Beta1Deployment:
-		waitErr = untilAppsDeploymentDeleted(clientForResource, name)
-	case coreV1Namespace:
-		waitErr = untilCoreV1NamespaceDeleted(clientForResource, name)
-	case coreV1Pod:
-		waitErr = untilCoreV1PodDeleted(clientForResource, name)
-	case coreV1ReplicationController:
-		waitErr = untilCoreV1ReplicationControllerDeleted(clientForResource, name)
-
-	// Cases where no wait is necessary.
-	case autoscalingV1HorizontalPodAutoscaler:
-	case storageV1StorageClass:
-	case coreV1ConfigMap:
-	case coreV1LimitRange:
-	case coreV1PersistentVolume:
-	case coreV1PersistentVolumeClaim:
-	case coreV1ResourceQuota:
-	case coreV1Secret:
-	case coreV1Service:
-	case coreV1ServiceAccount:
-	case extensionsV1Beta1Ingress:
-	case rbacAuthorizationV1ClusterRole:
-	case rbacAuthorizationV1ClusterRoleBinding:
-	case rbacAuthorizationV1Role:
-	case rbacAuthorizationV1RoleBinding:
-	case rbacAuthorizationV1Alpha1ClusterRole:
-	case rbacAuthorizationV1Alpha1ClusterRoleBinding:
-	case rbacAuthorizationV1Alpha1Role:
-	case rbacAuthorizationV1Alpha1RoleBinding:
-	case rbacAuthorizationV1Beta1ClusterRole:
-	case rbacAuthorizationV1Beta1ClusterRoleBinding:
-	case rbacAuthorizationV1Beta1Role:
-	case rbacAuthorizationV1Beta1RoleBinding:
-		break
-
-	// TODO(hausdorff): Find some sensible default for unknown kinds.
-	default:
-		return fmt.Errorf("Could not find object of type '%s'", id)
+	if awaiter, exists := awaiters[id]; exists {
+		if awaiter.awaitDeletion != nil {
+			waitErr = awaiter.awaitDeletion(clientForResource, name)
+		}
+	} else {
+		glog.V(1).Infof("No deletion logic found for object of type '%s'; defaulting to assuming deletion successful", id)
 	}
 
 	return waitErr
