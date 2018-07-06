@@ -21,6 +21,7 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/watcher"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -194,17 +195,17 @@ var awaiters = map[string]awaitSpec{
 // --------------------------------------------------------------------------
 
 func deploymentSpecReplicas(deployment *unstructured.Unstructured) (interface{}, bool) {
-	return pluck(deployment.Object, "spec", "replicas")
+	return openapi.Pluck(deployment.Object, "spec", "replicas")
 }
 
 func untilAppsDeploymentInitialized(c createAwaitConfig) error {
 	availableReplicas := func(deployment *unstructured.Unstructured) (interface{}, bool) {
-		return pluck(deployment.Object, "status", "availableReplicas")
+		return openapi.Pluck(deployment.Object, "status", "availableReplicas")
 	}
 
 	name := c.currentInputs.GetName()
 
-	replicas, _ := pluck(c.currentInputs.Object, "spec", "replicas")
+	replicas, _ := openapi.Pluck(c.currentInputs.Object, "spec", "replicas")
 	glog.V(3).Infof("Waiting for deployment '%s' to schedule '%v' replicas", name, replicas)
 
 	// 10 mins should be sufficient for scheduling ~10k replicas
@@ -242,7 +243,7 @@ func untilAppsDeploymentDeleted(
 	// before we get to check it, which I think would require manual intervention.
 	//
 	statusReplicas := func(deployment *unstructured.Unstructured) (interface{}, bool) {
-		return pluck(deployment.Object, "status", "replicas")
+		return openapi.Pluck(deployment.Object, "status", "replicas")
 	}
 
 	deploymentMissing := func(d *unstructured.Unstructured, err error) error {
@@ -290,7 +291,7 @@ func untilCoreV1NamespaceDeleted(
 			return err
 		}
 
-		statusPhase, _ := pluck(ns.Object, "status", "phase")
+		statusPhase, _ := openapi.Pluck(ns.Object, "status", "phase")
 		glog.V(3).Infof("Namespace '%s' status received: %#v", name, statusPhase)
 		if statusPhase == "" {
 			return nil
@@ -311,7 +312,7 @@ func untilCoreV1NamespaceDeleted(
 
 func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
-		statusPhase, _ := pluck(pv.Object, "status", "phase")
+		statusPhase, _ := openapi.Pluck(pv.Object, "status", "phase")
 		glog.V(3).Infof("Persistent volume '%s' status received: %#v", pv.GetName(), statusPhase)
 		return statusPhase == "Available" || statusPhase == "Bound"
 	}
@@ -328,7 +329,7 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 
 func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 	pvcBound := func(pvc *unstructured.Unstructured) bool {
-		statusPhase, _ := pluck(pvc.Object, "status", "phase")
+		statusPhase, _ := openapi.Pluck(pvc.Object, "status", "phase")
 		glog.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), statusPhase)
 		return statusPhase == "Bound"
 	}
@@ -345,7 +346,7 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 
 func untilCoreV1PodInitialized(c createAwaitConfig) error {
 	podRunning := func(pod *unstructured.Unstructured) bool {
-		statusPhase, _ := pluck(pod.Object, "status", "phase")
+		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
 		glog.V(3).Infof("Pods %s status received: %#v", pod.GetName(), statusPhase)
 		return statusPhase == "Running"
 	}
@@ -364,7 +365,7 @@ func untilCoreV1PodDeleted(
 			return err
 		}
 
-		statusPhase, _ := pluck(pod.Object, "status", "phase")
+		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
 		glog.V(3).Infof("Current state of pod '%s': %#v", name, statusPhase)
 		e := fmt.Errorf("Pod '%s' still exists (%v)", name, statusPhase)
 		return watcher.RetryableError(e)
@@ -381,17 +382,17 @@ func untilCoreV1PodDeleted(
 // --------------------------------------------------------------------------
 
 func replicationControllerSpecReplicas(rc *unstructured.Unstructured) (interface{}, bool) {
-	return pluck(rc.Object, "spec", "replicas")
+	return openapi.Pluck(rc.Object, "spec", "replicas")
 }
 
 func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	availableReplicas := func(rc *unstructured.Unstructured) (interface{}, bool) {
-		return pluck(rc.Object, "status", "availableReplicas")
+		return openapi.Pluck(rc.Object, "status", "availableReplicas")
 	}
 
 	name := c.currentInputs.GetName()
 
-	replicas, _ := pluck(c.currentInputs.Object, "spec", "replicas")
+	replicas, _ := openapi.Pluck(c.currentInputs.Object, "spec", "replicas")
 	glog.V(3).Infof("Waiting for replication controller '%s' to schedule '%v' replicas",
 		name, replicas)
 
@@ -430,7 +431,7 @@ func untilCoreV1ReplicationControllerDeleted(
 	// before we get to check it, which I think would require manual intervention.
 	//
 	statusReplicas := func(rc *unstructured.Unstructured) (interface{}, bool) {
-		return pluck(rc.Object, "status", "replicas")
+		return openapi.Pluck(rc.Object, "status", "replicas")
 	}
 
 	rcMissing := func(rc *unstructured.Unstructured, err error) error {
@@ -469,8 +470,8 @@ func untilCoreV1ReplicationControllerDeleted(
 
 func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 	rqInitialized := func(quota *unstructured.Unstructured) bool {
-		hardRaw, _ := pluck(quota.Object, "spec", "hard")
-		hardStatusRaw, _ := pluck(quota.Object, "status", "hard")
+		hardRaw, _ := openapi.Pluck(quota.Object, "spec", "hard")
+		hardStatusRaw, _ := openapi.Pluck(quota.Object, "status", "hard")
 
 		hard, hardIsResourceList := hardRaw.(v1.ResourceList)
 		hardStatus, hardStatusIsResourceList := hardStatusRaw.(v1.ResourceList)
@@ -488,8 +489,8 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 }
 
 func untilCoreV1ResourceQuotaUpdated(c updateAwaitConfig) error {
-	oldSpec, _ := pluck(c.lastInputs.Object, "spec")
-	newSpec, _ := pluck(c.currentInputs.Object, "spec")
+	oldSpec, _ := openapi.Pluck(c.lastInputs.Object, "spec")
+	newSpec, _ := openapi.Pluck(c.currentInputs.Object, "spec")
 	if !reflect.DeepEqual(oldSpec, newSpec) {
 		return untilCoreV1ResourceQuotaInitialized(c.createAwaitConfig)
 	}
@@ -512,8 +513,8 @@ func untilCoreV1ServiceInitialized(c createAwaitConfig) error {
 
 	// Await logic for service of type LoadBalancer.
 	externalIPAllocated := func(svc *unstructured.Unstructured) bool {
-		lbIngress, _ := pluck(svc.Object, "status", "loadBalancer", "ingress")
-		status, _ := pluck(svc.Object, "status")
+		lbIngress, _ := openapi.Pluck(svc.Object, "status", "loadBalancer", "ingress")
+		status, _ := openapi.Pluck(svc.Object, "status")
 
 		glog.V(3).Infof("Received service status: %#v", status)
 		if ing, isSlice := lbIngress.([]interface{}); isSlice && len(ing) > 0 {
@@ -526,7 +527,7 @@ func untilCoreV1ServiceInitialized(c createAwaitConfig) error {
 	}
 
 	// Await.
-	specType, _ := pluck(c.currentInputs.Object, "spec", "type")
+	specType, _ := openapi.Pluck(c.currentInputs.Object, "spec", "type")
 	if fmt.Sprintf("%v", specType) == string(v1.ServiceTypeLoadBalancer) {
 		glog.V(3).Info("Waiting for load balancer to assign IP/hostname")
 
@@ -560,7 +561,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 	// secrets array (i.e., in addition to the secrets specified by the user).
 	//
 
-	specSecrets, _ := pluck(c.currentInputs.Object, "secrets")
+	specSecrets, _ := openapi.Pluck(c.currentInputs.Object, "secrets")
 	var numSpecSecrets int
 	if specSecretsArr, isArr := specSecrets.([]interface{}); isArr {
 		numSpecSecrets = len(specSecretsArr)
@@ -569,7 +570,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 	}
 
 	defaultSecretAllocated := func(sa *unstructured.Unstructured) bool {
-		secrets, _ := pluck(sa.Object, "secrets")
+		secrets, _ := openapi.Pluck(sa.Object, "secrets")
 		glog.V(3).Infof("ServiceAccount '%s' contains secrets: %#v", sa.GetName(), secrets)
 		if secretsArr, isArr := secrets.([]interface{}); isArr {
 			numSecrets := len(secretsArr)
@@ -599,8 +600,8 @@ func untilExtensionsV1Beta1IngressInitialized(c createAwaitConfig) error {
 	name := c.currentInputs.GetName()
 
 	externalIPAllocated := func(svc *unstructured.Unstructured) bool {
-		lbIngress, _ := pluck(svc.Object, "status", "loadBalancer", "ingress")
-		status, _ := pluck(svc.Object, "status")
+		lbIngress, _ := openapi.Pluck(svc.Object, "status", "loadBalancer", "ingress")
+		status, _ := openapi.Pluck(svc.Object, "status")
 
 		glog.V(3).Infof("Received Ingress status: %#v", status)
 		if ing, isSlice := lbIngress.([]interface{}); isSlice && len(ing) > 0 {
