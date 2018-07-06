@@ -59,23 +59,24 @@ func Creation(
 
 	// Wait until create resolves as success or error. Note that the conditional is set up to log only
 	// if we don't have an entry for the resource type; in the event that we do, but the await logic
-	// is blank, simply do nothing instead of logging an error.
-	var waitErr error
+	// is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", obj.GetAPIVersion(), obj.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitCreation != nil {
-			conf := initAwaitConfig{
-				pool: pool, disco: disco, clientForResource: clientForResource, currentInputs: obj,
+			conf := createAwaitConfig{
+				pool:              pool,
+				disco:             disco,
+				clientForResource: clientForResource,
+				currentInputs:     obj,
 			}
-			waitErr = awaiter.awaitCreation(conf)
+			waitErr := awaiter.awaitCreation(conf)
+			if waitErr != nil {
+				return nil, waitErr
+			}
 		}
 	} else {
 		glog.V(1).Infof(
 			"No initialization logic found for object of type '%s'; defaulting to assuming initialization successful", id)
-	}
-
-	if waitErr != nil {
-		return nil, waitErr
 	}
 
 	return clientForResource.Get(obj.GetName(), metav1.GetOptions{})
@@ -168,26 +169,24 @@ func Update(
 
 	// Wait until patch resolves as success or error. Note that the conditional is set up to log only
 	// if we don't have an entry for the resource type; in the event that we do, but the await logic
-	// is blank, simply do nothing instead of logging an error.
-	var waitErr error
+	// is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", currentSubmitted.GetAPIVersion(), currentSubmitted.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitUpdate != nil {
 			conf := updateAwaitConfig{
-				initAwaitConfig: initAwaitConfig{
+				createAwaitConfig: createAwaitConfig{
 					pool: pool, disco: disco, clientForResource: clientForResource, currentInputs: currentSubmitted,
 				},
 				lastInputs:  lastSubmitted,
 				lastOutputs: liveOldObj,
 			}
-			waitErr = awaiter.awaitUpdate(conf)
+			waitErr := awaiter.awaitUpdate(conf)
+			if waitErr != nil {
+				return nil, waitErr
+			}
 		}
 	} else {
 		glog.V(1).Infof("No initialization logic found for object of type '%s'; defaulting to assuming initialization successful", id)
-	}
-
-	if waitErr != nil {
-		return nil, waitErr
 	}
 
 	gvk := currentSubmitted.GroupVersionKind()
@@ -239,7 +238,7 @@ func Deletion(
 
 	// Wait until delete resolves as success or error. Note that the conditional is set up to log only
 	// if we don't have an entry for the resource type; in the event that we do, but the await logic
-	// is blank, simply do nothing instead of logging an error.
+	// is blank, simply do nothing instead of logging.
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", gvk.GroupVersion().String(), gvk.Kind)
 	if awaiter, exists := awaiters[id]; exists {

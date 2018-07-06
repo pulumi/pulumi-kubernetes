@@ -29,20 +29,38 @@ import (
 	"k8s.io/client-go/dynamic"
 )
 
-type initAwaitConfig struct {
+// createAwaitConfig specifies on which conditions we are to consider a resource created and fully
+// initialized. For example, we might consider a `Deployment` created and initialized only when the
+// live number of Pods reaches the minimum liveness threshold. `pool` and `disco` are provided
+// typically from a client pool so that polling is reasonably efficient.
+type createAwaitConfig struct {
 	pool              dynamic.ClientPool
 	disco             discovery.ServerResourcesInterface
 	clientForResource dynamic.ResourceInterface
 	currentInputs     *unstructured.Unstructured
 }
 
+func (cac *createAwaitConfig) eventClient() (dynamic.ResourceInterface, error) {
+	return client.FromGVK(cac.pool, cac.disco, schema.GroupVersionKind{
+		Group:   "",
+		Version: "v1",
+		Kind:    "Event",
+	}, cac.currentInputs.GetNamespace())
+}
+
+// updateAwaitConfig specifies on which conditions we are to consider a resource "fully updated",
+// i.e., the spec of the API object has changed and the controllers have reached a steady state. For
+// example, we might consider a `Deployment` "fully updated" only when the previous generation of
+// Pods has been killed and the new generation's live number of Pods reaches the minimum liveness
+// threshold. `pool` and `disco` are provided typically from a client pool so that polling is
+// reasonably efficient.
 type updateAwaitConfig struct {
-	initAwaitConfig
+	createAwaitConfig
 	lastInputs  *unstructured.Unstructured
 	lastOutputs *unstructured.Unstructured
 }
 
-type initAwaiter func(initAwaitConfig) error
+type createAwaiter func(createAwaitConfig) error
 type updateAwaiter func(updateAwaitConfig) error
 type deletionAwaiter func(dynamic.ResourceInterface, string) error
 
@@ -89,7 +107,7 @@ const (
 )
 
 type awaitSpec struct {
-	awaitCreation initAwaiter
+	awaitCreation createAwaiter
 	awaitUpdate   updateAwaiter
 	awaitDeletion deletionAwaiter
 }
@@ -132,7 +150,7 @@ var awaiters = map[string]awaitSpec{
 		awaitCreation: untilCoreV1ResourceQuotaInitialized,
 		awaitUpdate:   untilCoreV1ResourceQuotaUpdated,
 	},
-	coreV1Secret: {},
+	coreV1Secret: { /* NONE */ },
 	coreV1Service: {
 		awaitCreation: untilCoreV1ServiceInitialized,
 	},
@@ -179,7 +197,7 @@ func deploymentSpecReplicas(deployment *unstructured.Unstructured) (interface{},
 	return pluck(deployment.Object, "spec", "replicas")
 }
 
-func untilAppsDeploymentInitialized(c initAwaitConfig) error {
+func untilAppsDeploymentInitialized(c createAwaitConfig) error {
 	availableReplicas := func(deployment *unstructured.Unstructured) (interface{}, bool) {
 		return pluck(deployment.Object, "status", "availableReplicas")
 	}
@@ -211,7 +229,7 @@ func untilAppsDeploymentInitialized(c initAwaitConfig) error {
 }
 
 func untilAppsDeploymentUpdated(c updateAwaitConfig) error {
-	return untilAppsDeploymentInitialized(c.initAwaitConfig)
+	return untilAppsDeploymentInitialized(c.createAwaitConfig)
 }
 
 func untilAppsDeploymentDeleted(
@@ -291,7 +309,7 @@ func untilCoreV1NamespaceDeleted(
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1PersistentVolumeInitialized(c initAwaitConfig) error {
+func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
 		statusPhase, _ := pluck(pv.Object, "status", "phase")
 		glog.V(3).Infof("Persistent volume '%s' status received: %#v", pv.GetName(), statusPhase)
@@ -308,7 +326,7 @@ func untilCoreV1PersistentVolumeInitialized(c initAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1PersistentVolumeClaimBound(c initAwaitConfig) error {
+func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 	pvcBound := func(pvc *unstructured.Unstructured) bool {
 		statusPhase, _ := pluck(pvc.Object, "status", "phase")
 		glog.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), statusPhase)
@@ -325,7 +343,7 @@ func untilCoreV1PersistentVolumeClaimBound(c initAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1PodInitialized(c initAwaitConfig) error {
+func untilCoreV1PodInitialized(c createAwaitConfig) error {
 	podRunning := func(pod *unstructured.Unstructured) bool {
 		statusPhase, _ := pluck(pod.Object, "status", "phase")
 		glog.V(3).Infof("Pods %s status received: %#v", pod.GetName(), statusPhase)
@@ -366,7 +384,7 @@ func replicationControllerSpecReplicas(rc *unstructured.Unstructured) (interface
 	return pluck(rc.Object, "spec", "replicas")
 }
 
-func untilCoreV1ReplicationControllerInitialized(c initAwaitConfig) error {
+func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	availableReplicas := func(rc *unstructured.Unstructured) (interface{}, bool) {
 		return pluck(rc.Object, "status", "availableReplicas")
 	}
@@ -399,7 +417,7 @@ func untilCoreV1ReplicationControllerInitialized(c initAwaitConfig) error {
 }
 
 func untilCoreV1ReplicationControllerUpdated(c updateAwaitConfig) error {
-	return untilCoreV1ReplicationControllerInitialized(c.initAwaitConfig)
+	return untilCoreV1ReplicationControllerInitialized(c.createAwaitConfig)
 }
 
 func untilCoreV1ReplicationControllerDeleted(
@@ -449,7 +467,7 @@ func untilCoreV1ReplicationControllerDeleted(
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1ResourceQuotaInitialized(c initAwaitConfig) error {
+func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 	rqInitialized := func(quota *unstructured.Unstructured) bool {
 		hardRaw, _ := pluck(quota.Object, "spec", "hard")
 		hardStatusRaw, _ := pluck(quota.Object, "status", "hard")
@@ -473,7 +491,7 @@ func untilCoreV1ResourceQuotaUpdated(c updateAwaitConfig) error {
 	oldSpec, _ := pluck(c.lastInputs.Object, "spec")
 	newSpec, _ := pluck(c.currentInputs.Object, "spec")
 	if !reflect.DeepEqual(oldSpec, newSpec) {
-		return untilCoreV1ResourceQuotaInitialized(c.initAwaitConfig)
+		return untilCoreV1ResourceQuotaInitialized(c.createAwaitConfig)
 	}
 	return nil
 }
@@ -484,12 +502,8 @@ func untilCoreV1ResourceQuotaUpdated(c updateAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1ServiceInitialized(c initAwaitConfig) error {
-	clientForEvents, err := client.FromGVK(c.pool, c.disco, schema.GroupVersionKind{
-		Group:   "",
-		Version: "v1",
-		Kind:    "Event",
-	}, c.currentInputs.GetNamespace())
+func untilCoreV1ServiceInitialized(c createAwaitConfig) error {
+	clientForEvents, err := c.eventClient()
 	if err != nil {
 		return err
 	}
@@ -540,7 +554,7 @@ func untilCoreV1ServiceInitialized(c initAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1ServiceAccountInitialized(c initAwaitConfig) error {
+func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 	//
 	// A ServiceAccount is considered initialized when the controller adds the default secret to the
 	// secrets array (i.e., in addition to the secrets specified by the user).
@@ -576,12 +590,8 @@ func untilCoreV1ServiceAccountInitialized(c initAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func untilExtensionsV1Beta1IngressInitialized(c initAwaitConfig) error {
-	clientForEvents, err := client.FromGVK(c.pool, c.disco, schema.GroupVersionKind{
-		Group:   "",
-		Version: "v1",
-		Kind:    "Event",
-	}, c.currentInputs.GetNamespace())
+func untilExtensionsV1Beta1IngressInitialized(c createAwaitConfig) error {
+	clientForEvents, err := c.eventClient()
 	if err != nil {
 		return err
 	}

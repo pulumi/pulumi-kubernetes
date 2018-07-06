@@ -294,7 +294,6 @@
   revision = "24b0969c4cb722950103eed87108c8d291a8df00"
 
 [[projects]]
-  branch = "master"
   name = "github.com/golang/protobuf"
   packages = [
     "proto",
@@ -306,7 +305,8 @@
     "ptypes/struct",
     "ptypes/timestamp"
   ]
-  revision = "c65a0412e71e8b9b3bfd22925720d23c0f054237"
+  revision = "b4deda0973fb4c70b50d226b1af49f3da59f5265"
+  version = "v1.1.0"
 
 [[projects]]
   branch = "master"
@@ -560,6 +560,7 @@
   revision = "8b1c2da0d56deffdbb9e48d4414b4e674bd8083e"
 
 [[projects]]
+  branch = "master"
   name = "github.com/pulumi/pulumi"
   packages = [
     "pkg/apitype",
@@ -596,8 +597,7 @@
     "pkg/workspace",
     "sdk/proto/go"
   ]
-  revision = "e1f34a842fbbe9806fde686c1064f83470eb5894"
-  version = "v0.14.0-rc1"
+  revision = "fe7c8d554a1f64dd4ff54e6f60ec0f7e0aab46e5"
 
 [[projects]]
   branch = "master"
@@ -1378,6 +1378,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d9c002f7d536b4898b58be3a8e7e02f419c63f5cf1ea5da767096d8bf48bf682"
+  inputs-digest = "f4623d7279f537366e9f25fa7cdc36c1e20aa435ef810160d987c2ec4ef01043"
   solver-name = "gps-cdcl"
   solver-version = 1
