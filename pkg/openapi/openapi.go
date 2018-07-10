@@ -116,6 +116,28 @@ func PatchForResourceUpdate(
 	return jsonMergePatch(lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
 }
 
+// Pluck obtains the property identified by the string components in `path`. For example,
+// `Pluck(foo, "bar", "baz")` returns `foo.bar.baz`.
+func Pluck(obj map[string]interface{}, path ...string) (interface{}, bool) {
+	var curr interface{} = obj
+	for _, component := range path {
+		// Make sure we can actually dot into the current element.
+		currObj, isMap := curr.(map[string]interface{})
+		if !isMap {
+			return nil, false
+		}
+
+		// Attempt to dot into the current element.
+		var exists bool
+		curr, exists = currObj[component]
+		if !exists {
+			return nil, false
+		}
+	}
+
+	return curr, true
+}
+
 // --------------------------------------------------------------------------
 
 // Utility functions.

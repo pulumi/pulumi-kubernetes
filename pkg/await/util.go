@@ -126,26 +126,6 @@ func getLastWarningsForObject(
 
 // --------------------------------------------------------------------------
 
-func pluck(obj map[string]interface{}, path ...string) (interface{}, bool) {
-	var curr interface{} = obj
-	for _, component := range path {
-		// Make sure we can actually dot into the current element.
-		currObj, isMap := curr.(map[string]interface{})
-		if !isMap {
-			return nil, false
-		}
-
-		// Attempt to dot into the current element.
-		var exists bool
-		curr, exists = currObj[component]
-		if !exists {
-			return nil, false
-		}
-	}
-
-	return curr, true
-}
-
 func resourceListEquals(x, y v1.ResourceList) bool {
 	for k, v := range x {
 		yValue, ok := y[k]

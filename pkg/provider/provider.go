@@ -22,14 +22,17 @@ import (
 
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
+	structpb "github.com/golang/protobuf/ptypes/struct"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/plugin"
 	"github.com/pulumi/pulumi/pkg/util/contract"
+	"github.com/pulumi/pulumi/pkg/util/rpcutil/rpcerror"
 	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 	"github.com/yudai/gojsondiff"
+	"google.golang.org/grpc/codes"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -286,9 +289,16 @@ func (k *kubeProvider) Create(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
-	initialized, err := await.Creation(k.pool, k.client, newInputs)
-	if err != nil {
-		return nil, err
+	initialized, awaitErr := await.Creation(k.pool, k.client, newInputs)
+	if awaitErr != nil {
+		var getErr error
+		initialized, getErr = k.readLiveObject(newInputs)
+		if getErr != nil {
+			// Object creation failed.
+			return nil, awaitErr
+		}
+		// If we get here, resource successfully registered with the API server, but failed to
+		// initialize.
 	}
 
 	inputsAndComputed, err := plugin.MarshalProperties(
@@ -297,6 +307,12 @@ func (k *kubeProvider) Create(
 		})
 	if err != nil {
 		return nil, err
+	}
+
+	if awaitErr != nil {
+		// Resource was created but failed to initialize. Return live version of object so it can be
+		// checkpointed.
+		return nil, initializationError(client.FqObjName(initialized), awaitErr, inputsAndComputed)
 	}
 
 	return &pulumirpc.CreateResponse{
@@ -458,18 +474,31 @@ func (k *kubeProvider) Update(
 	newInputs := propMapToUnstructured(newResInputs)
 
 	// Apply update.
-	liveObj, err := await.Update(k.pool, k.client, oldInputs, newInputs)
-	if err != nil {
-		return nil, err
+	initialized, awaitErr := await.Update(k.pool, k.client, oldInputs, newInputs)
+	if awaitErr != nil {
+		var getErr error
+		initialized, getErr = k.readLiveObject(newInputs)
+		if getErr != nil {
+			// Object update/creation failed.
+			return nil, awaitErr
+		}
+		// If we get here, resource successfully registered with the API server, but failed to
+		// initialize.
 	}
 
 	// Return a new "checkpoint object".
 	inputsAndComputed, err := plugin.MarshalProperties(
-		checkpointObject(newInputs, liveObj), plugin.MarshalOptions{
+		checkpointObject(newInputs, initialized), plugin.MarshalOptions{
 			Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
 		})
 	if err != nil {
 		return nil, err
+	}
+
+	if awaitErr != nil {
+		// Resource was updated/created but failed to initialize. Return live version of object so it
+		// can be checkpointed.
+		return nil, initializationError(client.FqObjName(initialized), awaitErr, inputsAndComputed)
 	}
 
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
@@ -532,6 +561,20 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) schema.GroupVersionKind {
 	}
 }
 
+func (k *kubeProvider) readLiveObject(
+	obj *unstructured.Unstructured,
+) (*unstructured.Unstructured, error) {
+	// Retrieve live version of last submitted version of object.
+	clientForResource, err := client.FromResource(k.pool, k.client, obj)
+	if err != nil {
+		return nil, err
+	}
+
+	// Get the "live" version of the last submitted object. This is necessary because the server may
+	// have populated some fields automatically, updated status fields, and so on.
+	return clientForResource.Get(obj.GetName(), metav1.GetOptions{})
+}
+
 func schemaGroupName(group string) string {
 	switch group {
 	case "core":
@@ -566,4 +609,13 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 	}
 	live = &unstructured.Unstructured{Object: liveMap.(map[string]interface{})}
 	return
+}
+
+func initializationError(id string, err error, inputsAndComputed *structpb.Struct) error {
+	detail := pulumirpc.ErrorResourceInitFailed{
+		Id:         id,
+		Properties: inputsAndComputed,
+		Reasons:    []string{err.Error()},
+	}
+	return rpcerror.WithDetails(rpcerror.New(codes.Unknown, err.Error()), &detail)
 }
