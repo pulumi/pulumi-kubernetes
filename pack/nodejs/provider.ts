@@ -42,6 +42,9 @@ export namespace admissionregistration {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
 
+      public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfiguration { return this.__inputs; }
+      private readonly __inputs: inputApi.admissionregistration.v1alpha1.InitializerConfiguration;
+
       /**
       * Create a admissionregistration.v1alpha1.InitializerConfiguration resource with the given unique name, arguments, and options.
       *
@@ -49,13 +52,14 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.admissionregistration.v1alpha1.InitializerConfiguration, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1alpha1.InitializerConfiguration, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
-          inputs["initializers"] = args ? args.initializers : undefined;
+          inputs["initializers"] = args.initializers;
           inputs["kind"] = "InitializerConfiguration";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfiguration", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -91,6 +95,9 @@ export namespace admissionregistration {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfigurationList { return this.__inputs; }
+      private readonly __inputs: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList;
+
       /**
       * Create a admissionregistration.v1alpha1.InitializerConfigurationList resource with the given unique name, arguments, and options.
       *
@@ -98,13 +105,14 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "InitializerConfigurationList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfigurationList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -144,6 +152,9 @@ export namespace admissionregistration {
       public readonly webhooks: pulumi.Output<outputApi.admissionregistration.v1beta1.Webhook[]>;
 
 
+      public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration { return this.__inputs; }
+      private readonly __inputs: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration;
+
       /**
       * Create a admissionregistration.v1beta1.MutatingWebhookConfiguration resource with the given unique name, arguments, and options.
       *
@@ -151,13 +162,14 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["kind"] = "MutatingWebhookConfiguration";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["webhooks"] = args ? args.webhooks : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["webhooks"] = args.webhooks;
           super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -193,6 +205,9 @@ export namespace admissionregistration {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList { return this.__inputs; }
+      private readonly __inputs: inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList;
+
       /**
       * Create a admissionregistration.v1beta1.MutatingWebhookConfigurationList resource with the given unique name, arguments, and options.
       *
@@ -200,13 +215,14 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "MutatingWebhookConfigurationList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -243,6 +259,9 @@ export namespace admissionregistration {
       public readonly webhooks: pulumi.Output<outputApi.admissionregistration.v1beta1.Webhook[]>;
 
 
+      public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration { return this.__inputs; }
+      private readonly __inputs: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration;
+
       /**
       * Create a admissionregistration.v1beta1.ValidatingWebhookConfiguration resource with the given unique name, arguments, and options.
       *
@@ -250,13 +269,14 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["kind"] = "ValidatingWebhookConfiguration";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["webhooks"] = args ? args.webhooks : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["webhooks"] = args.webhooks;
           super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -292,6 +312,9 @@ export namespace admissionregistration {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList { return this.__inputs; }
+      private readonly __inputs: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList;
+
       /**
       * Create a admissionregistration.v1beta1.ValidatingWebhookConfigurationList resource with the given unique name, arguments, and options.
       *
@@ -299,13 +322,14 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ValidatingWebhookConfigurationList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -350,6 +374,9 @@ export namespace apiextensions {
       public readonly status: pulumi.Output<outputApi.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
 
 
+      public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinition { return this.__inputs; }
+      private readonly __inputs: inputApi.apiextensions.v1beta1.CustomResourceDefinition;
+
       /**
       * Create a apiextensions.v1beta1.CustomResourceDefinition resource with the given unique name, arguments, and options.
       *
@@ -357,14 +384,15 @@ export namespace apiextensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
           inputs["kind"] = "CustomResourceDefinition";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -397,6 +425,9 @@ export namespace apiextensions {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinitionList { return this.__inputs; }
+      private readonly __inputs: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList;
+
       /**
       * Create a apiextensions.v1beta1.CustomResourceDefinitionList resource with the given unique name, arguments, and options.
       *
@@ -404,13 +435,14 @@ export namespace apiextensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "CustomResourceDefinitionList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -454,6 +486,9 @@ export namespace apiregistration {
       public readonly status: pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceStatus>;
 
 
+      public getInputs(): inputApi.apiregistration.v1beta1.APIService { return this.__inputs; }
+      private readonly __inputs: inputApi.apiregistration.v1beta1.APIService;
+
       /**
       * Create a apiregistration.v1beta1.APIService resource with the given unique name, arguments, and options.
       *
@@ -461,14 +496,15 @@ export namespace apiregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apiregistration.v1beta1.APIService, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apiregistration.v1beta1.APIService, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiregistration/v1beta1";
           inputs["kind"] = "APIService";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apiregistration/v1beta1:APIService", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -499,6 +535,9 @@ export namespace apiregistration {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apiregistration.v1beta1.APIServiceList { return this.__inputs; }
+      private readonly __inputs: inputApi.apiregistration.v1beta1.APIServiceList;
+
       /**
       * Create a apiregistration.v1beta1.APIServiceList resource with the given unique name, arguments, and options.
       *
@@ -506,13 +545,14 @@ export namespace apiregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apiregistration.v1beta1.APIServiceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apiregistration.v1beta1.APIServiceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiregistration/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "APIServiceList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apiregistration/v1beta1:APIServiceList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -566,6 +606,9 @@ export namespace apps {
       public readonly revision: pulumi.Output<number>;
 
 
+      public getInputs(): inputApi.apps.v1.ControllerRevision { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.ControllerRevision;
+
       /**
       * Create a apps.v1.ControllerRevision resource with the given unique name, arguments, and options.
       *
@@ -573,14 +616,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.ControllerRevision, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.ControllerRevision, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
-          inputs["data"] = args ? args.data : undefined;
+          inputs["data"] = args.data;
           inputs["kind"] = "ControllerRevision";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["revision"] = args ? args.revision : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["revision"] = args.revision;
           super("kubernetes:apps/v1:ControllerRevision", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -615,6 +659,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1.ControllerRevisionList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.ControllerRevisionList;
+
       /**
       * Create a apps.v1.ControllerRevisionList resource with the given unique name, arguments, and options.
       *
@@ -622,13 +669,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ControllerRevisionList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1:ControllerRevisionList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -672,6 +720,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1.DaemonSetStatus>;
 
 
+      public getInputs(): inputApi.apps.v1.DaemonSet { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.DaemonSet;
+
       /**
       * Create a apps.v1.DaemonSet resource with the given unique name, arguments, and options.
       *
@@ -679,14 +730,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.DaemonSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.DaemonSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "DaemonSet";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1:DaemonSet", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -722,6 +774,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1.DaemonSetList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.DaemonSetList;
+
       /**
       * Create a apps.v1.DaemonSetList resource with the given unique name, arguments, and options.
       *
@@ -729,13 +784,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.DaemonSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.DaemonSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "DaemonSetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1:DaemonSetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -775,6 +831,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1.DeploymentStatus>;
 
 
+      public getInputs(): inputApi.apps.v1.Deployment { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.Deployment;
+
       /**
       * Create a apps.v1.Deployment resource with the given unique name, arguments, and options.
       *
@@ -782,14 +841,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "Deployment";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1:Deployment", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -824,6 +884,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1.DeploymentList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.DeploymentList;
+
       /**
       * Create a apps.v1.DeploymentList resource with the given unique name, arguments, and options.
       *
@@ -831,13 +894,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "DeploymentList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1:DeploymentList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -882,6 +946,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1.ReplicaSetStatus>;
 
 
+      public getInputs(): inputApi.apps.v1.ReplicaSet { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.ReplicaSet;
+
       /**
       * Create a apps.v1.ReplicaSet resource with the given unique name, arguments, and options.
       *
@@ -889,14 +956,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.ReplicaSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.ReplicaSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "ReplicaSet";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1:ReplicaSet", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -933,6 +1001,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1.ReplicaSetList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.ReplicaSetList;
+
       /**
       * Create a apps.v1.ReplicaSetList resource with the given unique name, arguments, and options.
       *
@@ -940,13 +1011,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ReplicaSetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1:ReplicaSetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -989,6 +1061,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1.StatefulSetStatus>;
 
 
+      public getInputs(): inputApi.apps.v1.StatefulSet { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.StatefulSet;
+
       /**
       * Create a apps.v1.StatefulSet resource with the given unique name, arguments, and options.
       *
@@ -996,14 +1071,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.StatefulSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.StatefulSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "StatefulSet";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1:StatefulSet", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1034,6 +1110,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1.StatefulSetList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.StatefulSetList;
+
       /**
       * Create a apps.v1.StatefulSetList resource with the given unique name, arguments, and options.
       *
@@ -1041,13 +1120,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1.StatefulSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.StatefulSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "StatefulSetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1:StatefulSetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1100,6 +1180,9 @@ export namespace apps {
       public readonly revision: pulumi.Output<number>;
 
 
+      public getInputs(): inputApi.apps.v1beta1.ControllerRevision { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta1.ControllerRevision;
+
       /**
       * Create a apps.v1beta1.ControllerRevision resource with the given unique name, arguments, and options.
       *
@@ -1107,14 +1190,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta1.ControllerRevision, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.ControllerRevision, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
-          inputs["data"] = args ? args.data : undefined;
+          inputs["data"] = args.data;
           inputs["kind"] = "ControllerRevision";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["revision"] = args ? args.revision : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["revision"] = args.revision;
           super("kubernetes:apps/v1beta1:ControllerRevision", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1149,6 +1233,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1beta1.ControllerRevisionList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta1.ControllerRevisionList;
+
       /**
       * Create a apps.v1beta1.ControllerRevisionList resource with the given unique name, arguments, and options.
       *
@@ -1156,13 +1243,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ControllerRevisionList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1beta1:ControllerRevisionList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1204,6 +1292,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1beta1.DeploymentStatus>;
 
 
+      public getInputs(): inputApi.apps.v1beta1.Deployment { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta1.Deployment;
+
       /**
       * Create a apps.v1beta1.Deployment resource with the given unique name, arguments, and options.
       *
@@ -1211,14 +1302,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "Deployment";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1beta1:Deployment", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1253,6 +1345,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1beta1.DeploymentList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta1.DeploymentList;
+
       /**
       * Create a apps.v1beta1.DeploymentList resource with the given unique name, arguments, and options.
       *
@@ -1260,13 +1355,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "DeploymentList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1beta1:DeploymentList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1306,6 +1402,9 @@ export namespace apps {
       public readonly updatedAnnotations: pulumi.Output<object>;
 
 
+      public getInputs(): inputApi.apps.v1beta1.DeploymentRollback { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta1.DeploymentRollback;
+
       /**
       * Create a apps.v1beta1.DeploymentRollback resource with the given unique name, arguments, and options.
       *
@@ -1313,14 +1412,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "DeploymentRollback";
-          inputs["name"] = args ? args.name : undefined;
-          inputs["rollbackTo"] = args ? args.rollbackTo : undefined;
-          inputs["updatedAnnotations"] = args ? args.updatedAnnotations : undefined;
+          inputs["name"] = args.name;
+          inputs["rollbackTo"] = args.rollbackTo;
+          inputs["updatedAnnotations"] = args.updatedAnnotations;
           super("kubernetes:apps/v1beta1:DeploymentRollback", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1364,6 +1464,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1beta1.ScaleStatus>;
 
 
+      public getInputs(): inputApi.apps.v1beta1.Scale { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta1.Scale;
+
       /**
       * Create a apps.v1beta1.Scale resource with the given unique name, arguments, and options.
       *
@@ -1371,14 +1474,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "Scale";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1beta1:Scale", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1423,6 +1527,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1beta1.StatefulSetStatus>;
 
 
+      public getInputs(): inputApi.apps.v1beta1.StatefulSet { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta1.StatefulSet;
+
       /**
       * Create a apps.v1beta1.StatefulSet resource with the given unique name, arguments, and options.
       *
@@ -1430,14 +1537,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta1.StatefulSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.StatefulSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "StatefulSet";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1beta1:StatefulSet", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1468,6 +1576,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1beta1.StatefulSetList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta1.StatefulSetList;
+
       /**
       * Create a apps.v1beta1.StatefulSetList resource with the given unique name, arguments, and options.
       *
@@ -1475,13 +1586,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta1.StatefulSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.StatefulSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "StatefulSetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1beta1:StatefulSetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1534,6 +1646,9 @@ export namespace apps {
       public readonly revision: pulumi.Output<number>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.ControllerRevision { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.ControllerRevision;
+
       /**
       * Create a apps.v1beta2.ControllerRevision resource with the given unique name, arguments, and options.
       *
@@ -1541,14 +1656,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.ControllerRevision, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.ControllerRevision, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
-          inputs["data"] = args ? args.data : undefined;
+          inputs["data"] = args.data;
           inputs["kind"] = "ControllerRevision";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["revision"] = args ? args.revision : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["revision"] = args.revision;
           super("kubernetes:apps/v1beta2:ControllerRevision", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1583,6 +1699,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.ControllerRevisionList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.ControllerRevisionList;
+
       /**
       * Create a apps.v1beta2.ControllerRevisionList resource with the given unique name, arguments, and options.
       *
@@ -1590,13 +1709,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ControllerRevisionList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1beta2:ControllerRevisionList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1641,6 +1761,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1beta2.DaemonSetStatus>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.DaemonSet { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.DaemonSet;
+
       /**
       * Create a apps.v1beta2.DaemonSet resource with the given unique name, arguments, and options.
       *
@@ -1648,14 +1771,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.DaemonSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.DaemonSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "DaemonSet";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1beta2:DaemonSet", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1691,6 +1815,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.DaemonSetList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.DaemonSetList;
+
       /**
       * Create a apps.v1beta2.DaemonSetList resource with the given unique name, arguments, and options.
       *
@@ -1698,13 +1825,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.DaemonSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.DaemonSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "DaemonSetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1beta2:DaemonSetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1746,6 +1874,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1beta2.DeploymentStatus>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.Deployment { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.Deployment;
+
       /**
       * Create a apps.v1beta2.Deployment resource with the given unique name, arguments, and options.
       *
@@ -1753,14 +1884,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "Deployment";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1beta2:Deployment", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1795,6 +1927,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.DeploymentList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.DeploymentList;
+
       /**
       * Create a apps.v1beta2.DeploymentList resource with the given unique name, arguments, and options.
       *
@@ -1802,13 +1937,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "DeploymentList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1beta2:DeploymentList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1855,6 +1991,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1beta2.ReplicaSetStatus>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.ReplicaSet { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.ReplicaSet;
+
       /**
       * Create a apps.v1beta2.ReplicaSet resource with the given unique name, arguments, and options.
       *
@@ -1862,14 +2001,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.ReplicaSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.ReplicaSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "ReplicaSet";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1beta2:ReplicaSet", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1906,6 +2046,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.ReplicaSetList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.ReplicaSetList;
+
       /**
       * Create a apps.v1beta2.ReplicaSetList resource with the given unique name, arguments, and options.
       *
@@ -1913,13 +2056,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.ReplicaSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.ReplicaSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ReplicaSetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1beta2:ReplicaSetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -1963,6 +2107,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1beta2.ScaleStatus>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.Scale { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.Scale;
+
       /**
       * Create a apps.v1beta2.Scale resource with the given unique name, arguments, and options.
       *
@@ -1970,14 +2117,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "Scale";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1beta2:Scale", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2022,6 +2170,9 @@ export namespace apps {
       public readonly status: pulumi.Output<outputApi.apps.v1beta2.StatefulSetStatus>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.StatefulSet { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.StatefulSet;
+
       /**
       * Create a apps.v1beta2.StatefulSet resource with the given unique name, arguments, and options.
       *
@@ -2029,14 +2180,15 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.StatefulSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.StatefulSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "StatefulSet";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:apps/v1beta2:StatefulSet", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2067,6 +2219,9 @@ export namespace apps {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.apps.v1beta2.StatefulSetList { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1beta2.StatefulSetList;
+
       /**
       * Create a apps.v1beta2.StatefulSetList resource with the given unique name, arguments, and options.
       *
@@ -2074,13 +2229,14 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.apps.v1beta2.StatefulSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.StatefulSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "StatefulSetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:apps/v1beta2:StatefulSetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2125,6 +2281,9 @@ export namespace authentication {
       public readonly status: pulumi.Output<outputApi.authentication.v1.TokenReviewStatus>;
 
 
+      public getInputs(): inputApi.authentication.v1.TokenReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authentication.v1.TokenReview;
+
       /**
       * Create a authentication.v1.TokenReview resource with the given unique name, arguments, and options.
       *
@@ -2132,14 +2291,15 @@ export namespace authentication {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authentication.v1.TokenReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authentication.v1.TokenReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authentication.k8s.io/v1";
           inputs["kind"] = "TokenReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authentication.k8s.io/v1:TokenReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2181,6 +2341,9 @@ export namespace authentication {
       public readonly status: pulumi.Output<outputApi.authentication.v1beta1.TokenReviewStatus>;
 
 
+      public getInputs(): inputApi.authentication.v1beta1.TokenReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authentication.v1beta1.TokenReview;
+
       /**
       * Create a authentication.v1beta1.TokenReview resource with the given unique name, arguments, and options.
       *
@@ -2188,14 +2351,15 @@ export namespace authentication {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authentication.v1beta1.TokenReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authentication.v1beta1.TokenReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authentication.k8s.io/v1beta1";
           inputs["kind"] = "TokenReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authentication.k8s.io/v1beta1:TokenReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2242,6 +2406,9 @@ export namespace authorization {
       public readonly status: pulumi.Output<outputApi.authorization.v1.SubjectAccessReviewStatus>;
 
 
+      public getInputs(): inputApi.authorization.v1.LocalSubjectAccessReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authorization.v1.LocalSubjectAccessReview;
+
       /**
       * Create a authorization.v1.LocalSubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -2249,14 +2416,15 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authorization.v1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "LocalSubjectAccessReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2296,6 +2464,9 @@ export namespace authorization {
       public readonly status: pulumi.Output<outputApi.authorization.v1.SubjectAccessReviewStatus>;
 
 
+      public getInputs(): inputApi.authorization.v1.SelfSubjectAccessReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authorization.v1.SelfSubjectAccessReview;
+
       /**
       * Create a authorization.v1.SelfSubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -2303,14 +2474,15 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authorization.v1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "SelfSubjectAccessReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2355,6 +2527,9 @@ export namespace authorization {
       public readonly status: pulumi.Output<outputApi.authorization.v1.SubjectRulesReviewStatus>;
 
 
+      public getInputs(): inputApi.authorization.v1.SelfSubjectRulesReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authorization.v1.SelfSubjectRulesReview;
+
       /**
       * Create a authorization.v1.SelfSubjectRulesReview resource with the given unique name, arguments, and options.
       *
@@ -2362,14 +2537,15 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authorization.v1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "SelfSubjectRulesReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2407,6 +2583,9 @@ export namespace authorization {
       public readonly status: pulumi.Output<outputApi.authorization.v1.SubjectAccessReviewStatus>;
 
 
+      public getInputs(): inputApi.authorization.v1.SubjectAccessReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authorization.v1.SubjectAccessReview;
+
       /**
       * Create a authorization.v1.SubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -2414,14 +2593,15 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authorization.v1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "SubjectAccessReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2465,6 +2645,9 @@ export namespace authorization {
       public readonly status: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewStatus>;
 
 
+      public getInputs(): inputApi.authorization.v1beta1.LocalSubjectAccessReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authorization.v1beta1.LocalSubjectAccessReview;
+
       /**
       * Create a authorization.v1beta1.LocalSubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -2472,14 +2655,15 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authorization.v1beta1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1beta1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "LocalSubjectAccessReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2519,6 +2703,9 @@ export namespace authorization {
       public readonly status: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewStatus>;
 
 
+      public getInputs(): inputApi.authorization.v1beta1.SelfSubjectAccessReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authorization.v1beta1.SelfSubjectAccessReview;
+
       /**
       * Create a authorization.v1beta1.SelfSubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -2526,14 +2713,15 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authorization.v1beta1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1beta1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "SelfSubjectAccessReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2578,6 +2766,9 @@ export namespace authorization {
       public readonly status: pulumi.Output<outputApi.authorization.v1beta1.SubjectRulesReviewStatus>;
 
 
+      public getInputs(): inputApi.authorization.v1beta1.SelfSubjectRulesReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authorization.v1beta1.SelfSubjectRulesReview;
+
       /**
       * Create a authorization.v1beta1.SelfSubjectRulesReview resource with the given unique name, arguments, and options.
       *
@@ -2585,14 +2776,15 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authorization.v1beta1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1beta1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "SelfSubjectRulesReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2630,6 +2822,9 @@ export namespace authorization {
       public readonly status: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewStatus>;
 
 
+      public getInputs(): inputApi.authorization.v1beta1.SubjectAccessReview { return this.__inputs; }
+      private readonly __inputs: inputApi.authorization.v1beta1.SubjectAccessReview;
+
       /**
       * Create a authorization.v1beta1.SubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -2637,14 +2832,15 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.authorization.v1beta1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1beta1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "SubjectAccessReview";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2676,6 +2872,9 @@ export namespace autoscaling {
       public readonly name: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.autoscaling.v1.CrossVersionObjectReference { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v1.CrossVersionObjectReference;
+
       /**
       * Create a autoscaling.v1.CrossVersionObjectReference resource with the given unique name, arguments, and options.
       *
@@ -2683,12 +2882,13 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.autoscaling.v1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["kind"] = "CrossVersionObjectReference";
-          inputs["name"] = args ? args.name : undefined;
+          inputs["name"] = args.name;
           super("kubernetes:autoscaling/v1:CrossVersionObjectReference", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2730,6 +2930,9 @@ export namespace autoscaling {
       public readonly status: pulumi.Output<outputApi.autoscaling.v1.HorizontalPodAutoscalerStatus>;
 
 
+      public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscaler { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v1.HorizontalPodAutoscaler;
+
       /**
       * Create a autoscaling.v1.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
       *
@@ -2737,14 +2940,15 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.autoscaling.v1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["kind"] = "HorizontalPodAutoscaler";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2779,6 +2983,9 @@ export namespace autoscaling {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscalerList { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v1.HorizontalPodAutoscalerList;
+
       /**
       * Create a autoscaling.v1.HorizontalPodAutoscalerList resource with the given unique name, arguments, and options.
       *
@@ -2786,13 +2993,14 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.autoscaling.v1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "HorizontalPodAutoscalerList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:autoscaling/v1:HorizontalPodAutoscalerList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2836,6 +3044,9 @@ export namespace autoscaling {
       public readonly status: pulumi.Output<outputApi.autoscaling.v1.ScaleStatus>;
 
 
+      public getInputs(): inputApi.autoscaling.v1.Scale { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v1.Scale;
+
       /**
       * Create a autoscaling.v1.Scale resource with the given unique name, arguments, and options.
       *
@@ -2843,14 +3054,15 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.autoscaling.v1.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v1.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["kind"] = "Scale";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:autoscaling/v1:Scale", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2879,6 +3091,9 @@ export namespace autoscaling {
       public readonly name: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.autoscaling.v2beta1.CrossVersionObjectReference { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v2beta1.CrossVersionObjectReference;
+
       /**
       * Create a autoscaling.v2beta1.CrossVersionObjectReference resource with the given unique name, arguments, and options.
       *
@@ -2886,12 +3101,13 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.autoscaling.v2beta1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v2beta1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["kind"] = "CrossVersionObjectReference";
-          inputs["name"] = args ? args.name : undefined;
+          inputs["name"] = args.name;
           super("kubernetes:autoscaling/v2beta1:CrossVersionObjectReference", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2935,6 +3151,9 @@ export namespace autoscaling {
       public readonly status: pulumi.Output<outputApi.autoscaling.v2beta1.HorizontalPodAutoscalerStatus>;
 
 
+      public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler;
+
       /**
       * Create a autoscaling.v2beta1.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
       *
@@ -2942,14 +3161,15 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["kind"] = "HorizontalPodAutoscaler";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -2984,6 +3204,9 @@ export namespace autoscaling {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList;
+
       /**
       * Create a autoscaling.v2beta1.HorizontalPodAutoscalerList resource with the given unique name, arguments, and options.
       *
@@ -2991,13 +3214,14 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "HorizontalPodAutoscalerList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3046,6 +3270,9 @@ export namespace batch {
       public readonly status: pulumi.Output<outputApi.batch.v1.JobStatus>;
 
 
+      public getInputs(): inputApi.batch.v1.Job { return this.__inputs; }
+      private readonly __inputs: inputApi.batch.v1.Job;
+
       /**
       * Create a batch.v1.Job resource with the given unique name, arguments, and options.
       *
@@ -3053,14 +3280,15 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.batch.v1.Job, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v1.Job, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1";
           inputs["kind"] = "Job";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:batch/v1:Job", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3096,6 +3324,9 @@ export namespace batch {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.batch.v1.JobList { return this.__inputs; }
+      private readonly __inputs: inputApi.batch.v1.JobList;
+
       /**
       * Create a batch.v1.JobList resource with the given unique name, arguments, and options.
       *
@@ -3103,13 +3334,14 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.batch.v1.JobList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v1.JobList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "JobList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:batch/v1:JobList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3155,6 +3387,9 @@ export namespace batch {
       public readonly status: pulumi.Output<outputApi.batch.v1beta1.CronJobStatus>;
 
 
+      public getInputs(): inputApi.batch.v1beta1.CronJob { return this.__inputs; }
+      private readonly __inputs: inputApi.batch.v1beta1.CronJob;
+
       /**
       * Create a batch.v1beta1.CronJob resource with the given unique name, arguments, and options.
       *
@@ -3162,14 +3397,15 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.batch.v1beta1.CronJob, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v1beta1.CronJob, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1beta1";
           inputs["kind"] = "CronJob";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:batch/v1beta1:CronJob", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3205,6 +3441,9 @@ export namespace batch {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.batch.v1beta1.CronJobList { return this.__inputs; }
+      private readonly __inputs: inputApi.batch.v1beta1.CronJobList;
+
       /**
       * Create a batch.v1beta1.CronJobList resource with the given unique name, arguments, and options.
       *
@@ -3212,13 +3451,14 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.batch.v1beta1.CronJobList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v1beta1.CronJobList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "CronJobList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:batch/v1beta1:CronJobList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3264,6 +3504,9 @@ export namespace batch {
       public readonly status: pulumi.Output<outputApi.batch.v2alpha1.CronJobStatus>;
 
 
+      public getInputs(): inputApi.batch.v2alpha1.CronJob { return this.__inputs; }
+      private readonly __inputs: inputApi.batch.v2alpha1.CronJob;
+
       /**
       * Create a batch.v2alpha1.CronJob resource with the given unique name, arguments, and options.
       *
@@ -3271,14 +3514,15 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.batch.v2alpha1.CronJob, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v2alpha1.CronJob, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v2alpha1";
           inputs["kind"] = "CronJob";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:batch/v2alpha1:CronJob", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3314,6 +3558,9 @@ export namespace batch {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.batch.v2alpha1.CronJobList { return this.__inputs; }
+      private readonly __inputs: inputApi.batch.v2alpha1.CronJobList;
+
       /**
       * Create a batch.v2alpha1.CronJobList resource with the given unique name, arguments, and options.
       *
@@ -3321,13 +3568,14 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.batch.v2alpha1.CronJobList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v2alpha1.CronJobList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v2alpha1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "CronJobList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:batch/v2alpha1:CronJobList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3371,6 +3619,9 @@ export namespace certificates {
       public readonly status: pulumi.Output<outputApi.certificates.v1beta1.CertificateSigningRequestStatus>;
 
 
+      public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequest { return this.__inputs; }
+      private readonly __inputs: inputApi.certificates.v1beta1.CertificateSigningRequest;
+
       /**
       * Create a certificates.v1beta1.CertificateSigningRequest resource with the given unique name, arguments, and options.
       *
@@ -3378,14 +3629,15 @@ export namespace certificates {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.certificates.v1beta1.CertificateSigningRequest, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.certificates.v1beta1.CertificateSigningRequest, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
           inputs["kind"] = "CertificateSigningRequest";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3414,6 +3666,9 @@ export namespace certificates {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequestList { return this.__inputs; }
+      private readonly __inputs: inputApi.certificates.v1beta1.CertificateSigningRequestList;
+
       /**
       * Create a certificates.v1beta1.CertificateSigningRequestList resource with the given unique name, arguments, and options.
       *
@@ -3421,13 +3676,14 @@ export namespace certificates {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.certificates.v1beta1.CertificateSigningRequestList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.certificates.v1beta1.CertificateSigningRequestList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "CertificateSigningRequestList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3470,6 +3726,9 @@ export namespace core {
       public readonly target: pulumi.Output<outputApi.core.v1.ObjectReference>;
 
 
+      public getInputs(): inputApi.core.v1.Binding { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Binding;
+
       /**
       * Create a core.v1.Binding resource with the given unique name, arguments, and options.
       *
@@ -3477,13 +3736,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.Binding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Binding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Binding";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["target"] = args ? args.target : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["target"] = args.target;
           super("kubernetes:core/v1:Binding", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3519,6 +3779,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
 
+      public getInputs(): inputApi.core.v1.ComponentStatus { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ComponentStatus;
+
       /**
       * Create a core.v1.ComponentStatus resource with the given unique name, arguments, and options.
       *
@@ -3526,13 +3789,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ComponentStatus, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ComponentStatus, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["conditions"] = args ? args.conditions : undefined;
+          inputs["conditions"] = args.conditions;
           inputs["kind"] = "ComponentStatus";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:ComponentStatus", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3568,6 +3832,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.ComponentStatusList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ComponentStatusList;
+
       /**
       * Create a core.v1.ComponentStatusList resource with the given unique name, arguments, and options.
       *
@@ -3575,13 +3842,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ComponentStatusList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ComponentStatusList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ComponentStatusList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:ComponentStatusList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3618,6 +3886,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
 
+      public getInputs(): inputApi.core.v1.ConfigMap { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ConfigMap;
+
       /**
       * Create a core.v1.ConfigMap resource with the given unique name, arguments, and options.
       *
@@ -3625,13 +3896,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ConfigMap, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ConfigMap, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["data"] = args ? args.data : undefined;
+          inputs["data"] = args.data;
           inputs["kind"] = "ConfigMap";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:ConfigMap", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3666,6 +3938,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.ConfigMapList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ConfigMapList;
+
       /**
       * Create a core.v1.ConfigMapList resource with the given unique name, arguments, and options.
       *
@@ -3673,13 +3948,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ConfigMapList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ConfigMapList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ConfigMapList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:ConfigMapList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3731,6 +4007,9 @@ export namespace core {
       public readonly subsets: pulumi.Output<outputApi.core.v1.EndpointSubset[]>;
 
 
+      public getInputs(): inputApi.core.v1.Endpoints { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Endpoints;
+
       /**
       * Create a core.v1.Endpoints resource with the given unique name, arguments, and options.
       *
@@ -3738,13 +4017,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.Endpoints, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Endpoints, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Endpoints";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["subsets"] = args ? args.subsets : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["subsets"] = args.subsets;
           super("kubernetes:core/v1:Endpoints", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3780,6 +4060,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.EndpointsList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.EndpointsList;
+
       /**
       * Create a core.v1.EndpointsList resource with the given unique name, arguments, and options.
       *
@@ -3787,13 +4070,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.EndpointsList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.EndpointsList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "EndpointsList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:EndpointsList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3895,6 +4179,9 @@ export namespace core {
       public readonly type: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.core.v1.Event { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Event;
+
       /**
       * Create a core.v1.Event resource with the given unique name, arguments, and options.
       *
@@ -3902,26 +4189,27 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.Event, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Event, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["action"] = args ? args.action : undefined;
+          inputs["action"] = args.action;
           inputs["apiVersion"] = "v1";
-          inputs["count"] = args ? args.count : undefined;
-          inputs["eventTime"] = args ? args.eventTime : undefined;
-          inputs["firstTimestamp"] = args ? args.firstTimestamp : undefined;
-          inputs["involvedObject"] = args ? args.involvedObject : undefined;
+          inputs["count"] = args.count;
+          inputs["eventTime"] = args.eventTime;
+          inputs["firstTimestamp"] = args.firstTimestamp;
+          inputs["involvedObject"] = args.involvedObject;
           inputs["kind"] = "Event";
-          inputs["lastTimestamp"] = args ? args.lastTimestamp : undefined;
-          inputs["message"] = args ? args.message : undefined;
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["reason"] = args ? args.reason : undefined;
-          inputs["related"] = args ? args.related : undefined;
-          inputs["reportingComponent"] = args ? args.reportingComponent : undefined;
-          inputs["reportingInstance"] = args ? args.reportingInstance : undefined;
-          inputs["series"] = args ? args.series : undefined;
-          inputs["source"] = args ? args.source : undefined;
-          inputs["type"] = args ? args.type : undefined;
+          inputs["lastTimestamp"] = args.lastTimestamp;
+          inputs["message"] = args.message;
+          inputs["metadata"] = args.metadata;
+          inputs["reason"] = args.reason;
+          inputs["related"] = args.related;
+          inputs["reportingComponent"] = args.reportingComponent;
+          inputs["reportingInstance"] = args.reportingInstance;
+          inputs["series"] = args.series;
+          inputs["source"] = args.source;
+          inputs["type"] = args.type;
           super("kubernetes:core/v1:Event", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -3957,6 +4245,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.EventList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.EventList;
+
       /**
       * Create a core.v1.EventList resource with the given unique name, arguments, and options.
       *
@@ -3964,13 +4255,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.EventList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.EventList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "EventList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:EventList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4007,6 +4299,9 @@ export namespace core {
       public readonly spec: pulumi.Output<outputApi.core.v1.LimitRangeSpec>;
 
 
+      public getInputs(): inputApi.core.v1.LimitRange { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.LimitRange;
+
       /**
       * Create a core.v1.LimitRange resource with the given unique name, arguments, and options.
       *
@@ -4014,13 +4309,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.LimitRange, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.LimitRange, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "LimitRange";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
           super("kubernetes:core/v1:LimitRange", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4057,6 +4353,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.LimitRangeList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.LimitRangeList;
+
       /**
       * Create a core.v1.LimitRangeList resource with the given unique name, arguments, and options.
       *
@@ -4064,13 +4363,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.LimitRangeList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.LimitRangeList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "LimitRangeList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:LimitRangeList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4113,6 +4413,9 @@ export namespace core {
       public readonly status: pulumi.Output<outputApi.core.v1.NamespaceStatus>;
 
 
+      public getInputs(): inputApi.core.v1.Namespace { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Namespace;
+
       /**
       * Create a core.v1.Namespace resource with the given unique name, arguments, and options.
       *
@@ -4120,14 +4423,15 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.Namespace, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Namespace, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Namespace";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:core/v1:Namespace", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4164,6 +4468,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.NamespaceList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.NamespaceList;
+
       /**
       * Create a core.v1.NamespaceList resource with the given unique name, arguments, and options.
       *
@@ -4171,13 +4478,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.NamespaceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.NamespaceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "NamespaceList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:NamespaceList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4221,6 +4529,9 @@ export namespace core {
       public readonly status: pulumi.Output<outputApi.core.v1.NodeStatus>;
 
 
+      public getInputs(): inputApi.core.v1.Node { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Node;
+
       /**
       * Create a core.v1.Node resource with the given unique name, arguments, and options.
       *
@@ -4228,14 +4539,15 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.Node, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Node, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Node";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:core/v1:Node", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4264,6 +4576,9 @@ export namespace core {
       public readonly kind: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.core.v1.NodeConfigSource { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.NodeConfigSource;
+
       /**
       * Create a core.v1.NodeConfigSource resource with the given unique name, arguments, and options.
       *
@@ -4271,12 +4586,13 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.NodeConfigSource, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.NodeConfigSource, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["configMapRef"] = args ? args.configMapRef : undefined;
+          inputs["configMapRef"] = args.configMapRef;
           inputs["kind"] = "NodeConfigSource";
           super("kubernetes:core/v1:NodeConfigSource", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4312,6 +4628,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.NodeList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.NodeList;
+
       /**
       * Create a core.v1.NodeList resource with the given unique name, arguments, and options.
       *
@@ -4319,13 +4638,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.NodeList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.NodeList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "NodeList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:NodeList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4380,6 +4700,9 @@ export namespace core {
       public readonly uid: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.core.v1.ObjectReference { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ObjectReference;
+
       /**
       * Create a core.v1.ObjectReference resource with the given unique name, arguments, and options.
       *
@@ -4387,16 +4710,17 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ObjectReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ObjectReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "core/v1";
-          inputs["fieldPath"] = args ? args.fieldPath : undefined;
+          inputs["fieldPath"] = args.fieldPath;
           inputs["kind"] = "ObjectReference";
-          inputs["name"] = args ? args.name : undefined;
-          inputs["namespace"] = args ? args.namespace : undefined;
-          inputs["resourceVersion"] = args ? args.resourceVersion : undefined;
-          inputs["uid"] = args ? args.uid : undefined;
+          inputs["name"] = args.name;
+          inputs["namespace"] = args.namespace;
+          inputs["resourceVersion"] = args.resourceVersion;
+          inputs["uid"] = args.uid;
           super("kubernetes:core/v1:ObjectReference", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4442,6 +4766,9 @@ export namespace core {
       public readonly status: pulumi.Output<outputApi.core.v1.PersistentVolumeStatus>;
 
 
+      public getInputs(): inputApi.core.v1.PersistentVolume { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.PersistentVolume;
+
       /**
       * Create a core.v1.PersistentVolume resource with the given unique name, arguments, and options.
       *
@@ -4449,14 +4776,15 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.PersistentVolume, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PersistentVolume, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PersistentVolume";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:core/v1:PersistentVolume", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4500,6 +4828,9 @@ export namespace core {
       public readonly status: pulumi.Output<outputApi.core.v1.PersistentVolumeClaimStatus>;
 
 
+      public getInputs(): inputApi.core.v1.PersistentVolumeClaim { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.PersistentVolumeClaim;
+
       /**
       * Create a core.v1.PersistentVolumeClaim resource with the given unique name, arguments, and options.
       *
@@ -4507,14 +4838,15 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.PersistentVolumeClaim, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PersistentVolumeClaim, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PersistentVolumeClaim";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:core/v1:PersistentVolumeClaim", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4551,6 +4883,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.PersistentVolumeClaimList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.PersistentVolumeClaimList;
+
       /**
       * Create a core.v1.PersistentVolumeClaimList resource with the given unique name, arguments, and options.
       *
@@ -4558,13 +4893,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.PersistentVolumeClaimList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PersistentVolumeClaimList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "PersistentVolumeClaimList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:PersistentVolumeClaimList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4601,6 +4937,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.PersistentVolumeList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.PersistentVolumeList;
+
       /**
       * Create a core.v1.PersistentVolumeList resource with the given unique name, arguments, and options.
       *
@@ -4608,13 +4947,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.PersistentVolumeList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PersistentVolumeList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "PersistentVolumeList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:PersistentVolumeList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4659,6 +4999,9 @@ export namespace core {
       public readonly status: pulumi.Output<outputApi.core.v1.PodStatus>;
 
 
+      public getInputs(): inputApi.core.v1.Pod { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Pod;
+
       /**
       * Create a core.v1.Pod resource with the given unique name, arguments, and options.
       *
@@ -4666,14 +5009,15 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.Pod, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Pod, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Pod";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:core/v1:Pod", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4709,6 +5053,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.PodList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.PodList;
+
       /**
       * Create a core.v1.PodList resource with the given unique name, arguments, and options.
       *
@@ -4716,13 +5063,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.PodList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PodList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "PodList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:PodList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4759,6 +5107,9 @@ export namespace core {
       public readonly template: pulumi.Output<outputApi.core.v1.PodTemplateSpec>;
 
 
+      public getInputs(): inputApi.core.v1.PodTemplate { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.PodTemplate;
+
       /**
       * Create a core.v1.PodTemplate resource with the given unique name, arguments, and options.
       *
@@ -4766,13 +5117,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.PodTemplate, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PodTemplate, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PodTemplate";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["template"] = args ? args.template : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["template"] = args.template;
           super("kubernetes:core/v1:PodTemplate", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4808,6 +5160,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.PodTemplateList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.PodTemplateList;
+
       /**
       * Create a core.v1.PodTemplateList resource with the given unique name, arguments, and options.
       *
@@ -4815,13 +5170,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.PodTemplateList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PodTemplateList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "PodTemplateList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:PodTemplateList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4866,6 +5222,9 @@ export namespace core {
       public readonly status: pulumi.Output<outputApi.core.v1.ReplicationControllerStatus>;
 
 
+      public getInputs(): inputApi.core.v1.ReplicationController { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ReplicationController;
+
       /**
       * Create a core.v1.ReplicationController resource with the given unique name, arguments, and options.
       *
@@ -4873,14 +5232,15 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ReplicationController, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ReplicationController, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "ReplicationController";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:core/v1:ReplicationController", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4917,6 +5277,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.ReplicationControllerList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ReplicationControllerList;
+
       /**
       * Create a core.v1.ReplicationControllerList resource with the given unique name, arguments, and options.
       *
@@ -4924,13 +5287,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ReplicationControllerList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ReplicationControllerList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ReplicationControllerList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:ReplicationControllerList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -4973,6 +5337,9 @@ export namespace core {
       public readonly status: pulumi.Output<outputApi.core.v1.ResourceQuotaStatus>;
 
 
+      public getInputs(): inputApi.core.v1.ResourceQuota { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ResourceQuota;
+
       /**
       * Create a core.v1.ResourceQuota resource with the given unique name, arguments, and options.
       *
@@ -4980,14 +5347,15 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ResourceQuota, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ResourceQuota, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "ResourceQuota";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:core/v1:ResourceQuota", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5024,6 +5392,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.ResourceQuotaList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ResourceQuotaList;
+
       /**
       * Create a core.v1.ResourceQuotaList resource with the given unique name, arguments, and options.
       *
@@ -5031,13 +5402,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ResourceQuotaList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ResourceQuotaList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ResourceQuotaList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:ResourceQuotaList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5089,6 +5461,9 @@ export namespace core {
       public readonly type: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.core.v1.Secret { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Secret;
+
       /**
       * Create a core.v1.Secret resource with the given unique name, arguments, and options.
       *
@@ -5096,15 +5471,16 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.Secret, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Secret, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["data"] = args ? args.data : undefined;
+          inputs["data"] = args.data;
           inputs["kind"] = "Secret";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["stringData"] = args ? args.stringData : undefined;
-          inputs["type"] = args ? args.type : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["stringData"] = args.stringData;
+          inputs["type"] = args.type;
           super("kubernetes:core/v1:Secret", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5141,6 +5517,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.SecretList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.SecretList;
+
       /**
       * Create a core.v1.SecretList resource with the given unique name, arguments, and options.
       *
@@ -5148,13 +5527,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.SecretList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.SecretList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "SecretList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:SecretList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5199,6 +5579,9 @@ export namespace core {
       public readonly status: pulumi.Output<outputApi.core.v1.ServiceStatus>;
 
 
+      public getInputs(): inputApi.core.v1.Service { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Service;
+
       /**
       * Create a core.v1.Service resource with the given unique name, arguments, and options.
       *
@@ -5206,14 +5589,15 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.Service, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Service, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Service";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:core/v1:Service", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5267,6 +5651,9 @@ export namespace core {
       public readonly secrets: pulumi.Output<outputApi.core.v1.ObjectReference[]>;
 
 
+      public getInputs(): inputApi.core.v1.ServiceAccount { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ServiceAccount;
+
       /**
       * Create a core.v1.ServiceAccount resource with the given unique name, arguments, and options.
       *
@@ -5274,15 +5661,16 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ServiceAccount, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ServiceAccount, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
-          inputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
+          inputs["automountServiceAccountToken"] = args.automountServiceAccountToken;
+          inputs["imagePullSecrets"] = args.imagePullSecrets;
           inputs["kind"] = "ServiceAccount";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["secrets"] = args ? args.secrets : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["secrets"] = args.secrets;
           super("kubernetes:core/v1:ServiceAccount", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5319,6 +5707,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.ServiceAccountList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ServiceAccountList;
+
       /**
       * Create a core.v1.ServiceAccountList resource with the given unique name, arguments, and options.
       *
@@ -5326,13 +5717,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ServiceAccountList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ServiceAccountList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ServiceAccountList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:ServiceAccountList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5368,6 +5760,9 @@ export namespace core {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.core.v1.ServiceList { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ServiceList;
+
       /**
       * Create a core.v1.ServiceList resource with the given unique name, arguments, and options.
       *
@@ -5375,13 +5770,14 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.core.v1.ServiceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ServiceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ServiceList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:core/v1:ServiceList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5490,6 +5886,9 @@ export namespace events {
       public readonly type: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.events.v1beta1.Event { return this.__inputs; }
+      private readonly __inputs: inputApi.events.v1beta1.Event;
+
       /**
       * Create a events.v1beta1.Event resource with the given unique name, arguments, and options.
       *
@@ -5497,26 +5896,27 @@ export namespace events {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.events.v1beta1.Event, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.events.v1beta1.Event, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["action"] = args ? args.action : undefined;
+          inputs["action"] = args.action;
           inputs["apiVersion"] = "events.k8s.io/v1beta1";
-          inputs["deprecatedCount"] = args ? args.deprecatedCount : undefined;
-          inputs["deprecatedFirstTimestamp"] = args ? args.deprecatedFirstTimestamp : undefined;
-          inputs["deprecatedLastTimestamp"] = args ? args.deprecatedLastTimestamp : undefined;
-          inputs["deprecatedSource"] = args ? args.deprecatedSource : undefined;
-          inputs["eventTime"] = args ? args.eventTime : undefined;
+          inputs["deprecatedCount"] = args.deprecatedCount;
+          inputs["deprecatedFirstTimestamp"] = args.deprecatedFirstTimestamp;
+          inputs["deprecatedLastTimestamp"] = args.deprecatedLastTimestamp;
+          inputs["deprecatedSource"] = args.deprecatedSource;
+          inputs["eventTime"] = args.eventTime;
           inputs["kind"] = "Event";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["note"] = args ? args.note : undefined;
-          inputs["reason"] = args ? args.reason : undefined;
-          inputs["regarding"] = args ? args.regarding : undefined;
-          inputs["related"] = args ? args.related : undefined;
-          inputs["reportingController"] = args ? args.reportingController : undefined;
-          inputs["reportingInstance"] = args ? args.reportingInstance : undefined;
-          inputs["series"] = args ? args.series : undefined;
-          inputs["type"] = args ? args.type : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["note"] = args.note;
+          inputs["reason"] = args.reason;
+          inputs["regarding"] = args.regarding;
+          inputs["related"] = args.related;
+          inputs["reportingController"] = args.reportingController;
+          inputs["reportingInstance"] = args.reportingInstance;
+          inputs["series"] = args.series;
+          inputs["type"] = args.type;
           super("kubernetes:events.k8s.io/v1beta1:Event", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5552,6 +5952,9 @@ export namespace events {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.events.v1beta1.EventList { return this.__inputs; }
+      private readonly __inputs: inputApi.events.v1beta1.EventList;
+
       /**
       * Create a events.v1beta1.EventList resource with the given unique name, arguments, and options.
       *
@@ -5559,13 +5962,14 @@ export namespace events {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.events.v1beta1.EventList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.events.v1beta1.EventList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "events.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "EventList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:events.k8s.io/v1beta1:EventList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5616,6 +6020,9 @@ export namespace extensions {
       public readonly status: pulumi.Output<outputApi.extensions.v1beta1.DaemonSetStatus>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.DaemonSet { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.DaemonSet;
+
       /**
       * Create a extensions.v1beta1.DaemonSet resource with the given unique name, arguments, and options.
       *
@@ -5623,14 +6030,15 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.DaemonSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.DaemonSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "DaemonSet";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:extensions/v1beta1:DaemonSet", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5666,6 +6074,9 @@ export namespace extensions {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.DaemonSetList { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.DaemonSetList;
+
       /**
       * Create a extensions.v1beta1.DaemonSetList resource with the given unique name, arguments, and options.
       *
@@ -5673,13 +6084,14 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.DaemonSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.DaemonSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "DaemonSetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:extensions/v1beta1:DaemonSetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5721,6 +6133,9 @@ export namespace extensions {
       public readonly status: pulumi.Output<outputApi.extensions.v1beta1.DeploymentStatus>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.Deployment { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.Deployment;
+
       /**
       * Create a extensions.v1beta1.Deployment resource with the given unique name, arguments, and options.
       *
@@ -5728,14 +6143,15 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Deployment";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:extensions/v1beta1:Deployment", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5770,6 +6186,9 @@ export namespace extensions {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.DeploymentList { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.DeploymentList;
+
       /**
       * Create a extensions.v1beta1.DeploymentList resource with the given unique name, arguments, and options.
       *
@@ -5777,13 +6196,14 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "DeploymentList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:extensions/v1beta1:DeploymentList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5823,6 +6243,9 @@ export namespace extensions {
       public readonly updatedAnnotations: pulumi.Output<object>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.DeploymentRollback { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.DeploymentRollback;
+
       /**
       * Create a extensions.v1beta1.DeploymentRollback resource with the given unique name, arguments, and options.
       *
@@ -5830,14 +6253,15 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "DeploymentRollback";
-          inputs["name"] = args ? args.name : undefined;
-          inputs["rollbackTo"] = args ? args.rollbackTo : undefined;
-          inputs["updatedAnnotations"] = args ? args.updatedAnnotations : undefined;
+          inputs["name"] = args.name;
+          inputs["rollbackTo"] = args.rollbackTo;
+          inputs["updatedAnnotations"] = args.updatedAnnotations;
           super("kubernetes:extensions/v1beta1:DeploymentRollback", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5882,6 +6306,9 @@ export namespace extensions {
       public readonly status: pulumi.Output<outputApi.extensions.v1beta1.IngressStatus>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.Ingress { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.Ingress;
+
       /**
       * Create a extensions.v1beta1.Ingress resource with the given unique name, arguments, and options.
       *
@@ -5889,14 +6316,15 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.Ingress, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.Ingress, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Ingress";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:extensions/v1beta1:Ingress", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5932,6 +6360,9 @@ export namespace extensions {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.IngressList { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.IngressList;
+
       /**
       * Create a extensions.v1beta1.IngressList resource with the given unique name, arguments, and options.
       *
@@ -5939,13 +6370,14 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.IngressList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.IngressList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "IngressList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:extensions/v1beta1:IngressList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -5983,6 +6415,9 @@ export namespace extensions {
       public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.NetworkPolicySpec>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.NetworkPolicy { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.NetworkPolicy;
+
       /**
       * Create a extensions.v1beta1.NetworkPolicy resource with the given unique name, arguments, and options.
       *
@@ -5990,13 +6425,14 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "NetworkPolicy";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
           super("kubernetes:extensions/v1beta1:NetworkPolicy", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6033,6 +6469,9 @@ export namespace extensions {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.NetworkPolicyList { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.NetworkPolicyList;
+
       /**
       * Create a extensions.v1beta1.NetworkPolicyList resource with the given unique name, arguments, and options.
       *
@@ -6040,13 +6479,14 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "NetworkPolicyList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:extensions/v1beta1:NetworkPolicyList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6083,6 +6523,9 @@ export namespace extensions {
       public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.PodSecurityPolicySpec>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicy { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.PodSecurityPolicy;
+
       /**
       * Create a extensions.v1beta1.PodSecurityPolicy resource with the given unique name, arguments, and options.
       *
@@ -6090,13 +6533,14 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.PodSecurityPolicy, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.PodSecurityPolicy, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "PodSecurityPolicy";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
           super("kubernetes:extensions/v1beta1:PodSecurityPolicy", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6132,6 +6576,9 @@ export namespace extensions {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicyList { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.PodSecurityPolicyList;
+
       /**
       * Create a extensions.v1beta1.PodSecurityPolicyList resource with the given unique name, arguments, and options.
       *
@@ -6139,13 +6586,14 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.PodSecurityPolicyList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.PodSecurityPolicyList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "PodSecurityPolicyList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:extensions/v1beta1:PodSecurityPolicyList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6192,6 +6640,9 @@ export namespace extensions {
       public readonly status: pulumi.Output<outputApi.extensions.v1beta1.ReplicaSetStatus>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.ReplicaSet { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.ReplicaSet;
+
       /**
       * Create a extensions.v1beta1.ReplicaSet resource with the given unique name, arguments, and options.
       *
@@ -6199,14 +6650,15 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.ReplicaSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.ReplicaSet, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "ReplicaSet";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:extensions/v1beta1:ReplicaSet", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6243,6 +6695,9 @@ export namespace extensions {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.ReplicaSetList { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.ReplicaSetList;
+
       /**
       * Create a extensions.v1beta1.ReplicaSetList resource with the given unique name, arguments, and options.
       *
@@ -6250,13 +6705,14 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ReplicaSetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:extensions/v1beta1:ReplicaSetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6300,6 +6756,9 @@ export namespace extensions {
       public readonly status: pulumi.Output<outputApi.extensions.v1beta1.ScaleStatus>;
 
 
+      public getInputs(): inputApi.extensions.v1beta1.Scale { return this.__inputs; }
+      private readonly __inputs: inputApi.extensions.v1beta1.Scale;
+
       /**
       * Create a extensions.v1beta1.Scale resource with the given unique name, arguments, and options.
       *
@@ -6307,14 +6766,15 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Scale";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:extensions/v1beta1:Scale", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6372,6 +6832,9 @@ export namespace meta {
       public readonly versions: pulumi.Output<outputApi.meta.v1.GroupVersionForDiscovery[]>;
 
 
+      public getInputs(): inputApi.meta.v1.APIGroup { return this.__inputs; }
+      private readonly __inputs: inputApi.meta.v1.APIGroup;
+
       /**
       * Create a meta.v1.APIGroup resource with the given unique name, arguments, and options.
       *
@@ -6379,15 +6842,16 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.meta.v1.APIGroup, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.APIGroup, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "APIGroup";
-          inputs["name"] = args ? args.name : undefined;
-          inputs["preferredVersion"] = args ? args.preferredVersion : undefined;
-          inputs["serverAddressByClientCIDRs"] = args ? args.serverAddressByClientCIDRs : undefined;
-          inputs["versions"] = args ? args.versions : undefined;
+          inputs["name"] = args.name;
+          inputs["preferredVersion"] = args.preferredVersion;
+          inputs["serverAddressByClientCIDRs"] = args.serverAddressByClientCIDRs;
+          inputs["versions"] = args.versions;
           super("kubernetes:core/v1:APIGroup", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6417,6 +6881,9 @@ export namespace meta {
       public readonly kind: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.meta.v1.APIGroupList { return this.__inputs; }
+      private readonly __inputs: inputApi.meta.v1.APIGroupList;
+
       /**
       * Create a meta.v1.APIGroupList resource with the given unique name, arguments, and options.
       *
@@ -6424,12 +6891,13 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.meta.v1.APIGroupList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.APIGroupList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["groups"] = args ? args.groups : undefined;
+          inputs["groups"] = args.groups;
           inputs["kind"] = "APIGroupList";
           super("kubernetes:core/v1:APIGroupList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6465,6 +6933,9 @@ export namespace meta {
       public readonly resources: pulumi.Output<outputApi.meta.v1.APIResource[]>;
 
 
+      public getInputs(): inputApi.meta.v1.APIResourceList { return this.__inputs; }
+      private readonly __inputs: inputApi.meta.v1.APIResourceList;
+
       /**
       * Create a meta.v1.APIResourceList resource with the given unique name, arguments, and options.
       *
@@ -6472,13 +6943,14 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.meta.v1.APIResourceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.APIResourceList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["groupVersion"] = args ? args.groupVersion : undefined;
+          inputs["groupVersion"] = args.groupVersion;
           inputs["kind"] = "APIResourceList";
-          inputs["resources"] = args ? args.resources : undefined;
+          inputs["resources"] = args.resources;
           super("kubernetes:core/v1:APIResourceList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6520,6 +6992,9 @@ export namespace meta {
       public readonly versions: pulumi.Output<string[]>;
 
 
+      public getInputs(): inputApi.meta.v1.APIVersions { return this.__inputs; }
+      private readonly __inputs: inputApi.meta.v1.APIVersions;
+
       /**
       * Create a meta.v1.APIVersions resource with the given unique name, arguments, and options.
       *
@@ -6527,13 +7002,14 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.meta.v1.APIVersions, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.APIVersions, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "APIVersions";
-          inputs["serverAddressByClientCIDRs"] = args ? args.serverAddressByClientCIDRs : undefined;
-          inputs["versions"] = args ? args.versions : undefined;
+          inputs["serverAddressByClientCIDRs"] = args.serverAddressByClientCIDRs;
+          inputs["versions"] = args.versions;
           super("kubernetes:core/v1:APIVersions", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6590,6 +7066,9 @@ export namespace meta {
       public readonly propagationPolicy: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.meta.v1.DeleteOptions { return this.__inputs; }
+      private readonly __inputs: inputApi.meta.v1.DeleteOptions;
+
       /**
       * Create a meta.v1.DeleteOptions resource with the given unique name, arguments, and options.
       *
@@ -6597,15 +7076,16 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.meta.v1.DeleteOptions, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.DeleteOptions, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["gracePeriodSeconds"] = args ? args.gracePeriodSeconds : undefined;
+          inputs["gracePeriodSeconds"] = args.gracePeriodSeconds;
           inputs["kind"] = "DeleteOptions";
-          inputs["orphanDependents"] = args ? args.orphanDependents : undefined;
-          inputs["preconditions"] = args ? args.preconditions : undefined;
-          inputs["propagationPolicy"] = args ? args.propagationPolicy : undefined;
+          inputs["orphanDependents"] = args.orphanDependents;
+          inputs["preconditions"] = args.preconditions;
+          inputs["propagationPolicy"] = args.propagationPolicy;
           super("kubernetes:core/v1:DeleteOptions", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6649,6 +7129,9 @@ export namespace meta {
       public readonly uid: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.meta.v1.OwnerReference { return this.__inputs; }
+      private readonly __inputs: inputApi.meta.v1.OwnerReference;
+
       /**
       * Create a meta.v1.OwnerReference resource with the given unique name, arguments, and options.
       *
@@ -6656,15 +7139,16 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.meta.v1.OwnerReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.OwnerReference, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "meta/v1";
-          inputs["blockOwnerDeletion"] = args ? args.blockOwnerDeletion : undefined;
-          inputs["controller"] = args ? args.controller : undefined;
+          inputs["blockOwnerDeletion"] = args.blockOwnerDeletion;
+          inputs["controller"] = args.controller;
           inputs["kind"] = "OwnerReference";
-          inputs["name"] = args ? args.name : undefined;
-          inputs["uid"] = args ? args.uid : undefined;
+          inputs["name"] = args.name;
+          inputs["uid"] = args.uid;
           super("kubernetes:meta/v1:OwnerReference", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6725,6 +7209,9 @@ export namespace meta {
       public readonly status: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.meta.v1.Status { return this.__inputs; }
+      private readonly __inputs: inputApi.meta.v1.Status;
+
       /**
       * Create a meta.v1.Status resource with the given unique name, arguments, and options.
       *
@@ -6732,17 +7219,18 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.meta.v1.Status, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.Status, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
-          inputs["code"] = args ? args.code : undefined;
-          inputs["details"] = args ? args.details : undefined;
+          inputs["code"] = args.code;
+          inputs["details"] = args.details;
           inputs["kind"] = "Status";
-          inputs["message"] = args ? args.message : undefined;
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["reason"] = args ? args.reason : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["message"] = args.message;
+          inputs["metadata"] = args.metadata;
+          inputs["reason"] = args.reason;
+          inputs["status"] = args.status;
           super("kubernetes:core/v1:Status", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6784,6 +7272,9 @@ export namespace networking {
       public readonly spec: pulumi.Output<outputApi.networking.v1.NetworkPolicySpec>;
 
 
+      public getInputs(): inputApi.networking.v1.NetworkPolicy { return this.__inputs; }
+      private readonly __inputs: inputApi.networking.v1.NetworkPolicy;
+
       /**
       * Create a networking.v1.NetworkPolicy resource with the given unique name, arguments, and options.
       *
@@ -6791,13 +7282,14 @@ export namespace networking {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.networking.v1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.networking.v1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "networking.k8s.io/v1";
           inputs["kind"] = "NetworkPolicy";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
           super("kubernetes:networking.k8s.io/v1:NetworkPolicy", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6833,6 +7325,9 @@ export namespace networking {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.networking.v1.NetworkPolicyList { return this.__inputs; }
+      private readonly __inputs: inputApi.networking.v1.NetworkPolicyList;
+
       /**
       * Create a networking.v1.NetworkPolicyList resource with the given unique name, arguments, and options.
       *
@@ -6840,13 +7335,14 @@ export namespace networking {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.networking.v1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.networking.v1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "networking.k8s.io/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "NetworkPolicyList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6889,6 +7385,9 @@ export namespace policy {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
 
+      public getInputs(): inputApi.policy.v1beta1.Eviction { return this.__inputs; }
+      private readonly __inputs: inputApi.policy.v1beta1.Eviction;
+
       /**
       * Create a policy.v1beta1.Eviction resource with the given unique name, arguments, and options.
       *
@@ -6896,13 +7395,14 @@ export namespace policy {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.policy.v1beta1.Eviction, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.policy.v1beta1.Eviction, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
-          inputs["deleteOptions"] = args ? args.deleteOptions : undefined;
+          inputs["deleteOptions"] = args.deleteOptions;
           inputs["kind"] = "Eviction";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:policy/v1beta1:Eviction", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6941,6 +7441,9 @@ export namespace policy {
       public readonly status: pulumi.Output<outputApi.policy.v1beta1.PodDisruptionBudgetStatus>;
 
 
+      public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudget { return this.__inputs; }
+      private readonly __inputs: inputApi.policy.v1beta1.PodDisruptionBudget;
+
       /**
       * Create a policy.v1beta1.PodDisruptionBudget resource with the given unique name, arguments, and options.
       *
@@ -6948,14 +7451,15 @@ export namespace policy {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
           inputs["kind"] = "PodDisruptionBudget";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:policy/v1beta1:PodDisruptionBudget", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -6986,6 +7490,9 @@ export namespace policy {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudgetList { return this.__inputs; }
+      private readonly __inputs: inputApi.policy.v1beta1.PodDisruptionBudgetList;
+
       /**
       * Create a policy.v1beta1.PodDisruptionBudgetList resource with the given unique name, arguments, and options.
       *
@@ -6993,13 +7500,14 @@ export namespace policy {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.policy.v1beta1.PodDisruptionBudgetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.policy.v1beta1.PodDisruptionBudgetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "PodDisruptionBudgetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7048,6 +7556,9 @@ export namespace rbac {
       public readonly rules: pulumi.Output<outputApi.rbac.v1.PolicyRule[]>;
 
 
+      public getInputs(): inputApi.rbac.v1.ClusterRole { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1.ClusterRole;
+
       /**
       * Create a rbac.v1.ClusterRole resource with the given unique name, arguments, and options.
       *
@@ -7055,14 +7566,15 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1.ClusterRole, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.ClusterRole, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
+          inputs["aggregationRule"] = args.aggregationRule;
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "ClusterRole";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["rules"] = args ? args.rules : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["rules"] = args.rules;
           super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7104,6 +7616,9 @@ export namespace rbac {
       public readonly subjects: pulumi.Output<outputApi.rbac.v1.Subject[]>;
 
 
+      public getInputs(): inputApi.rbac.v1.ClusterRoleBinding { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1.ClusterRoleBinding;
+
       /**
       * Create a rbac.v1.ClusterRoleBinding resource with the given unique name, arguments, and options.
       *
@@ -7111,14 +7626,15 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "ClusterRoleBinding";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["roleRef"] = args ? args.roleRef : undefined;
-          inputs["subjects"] = args ? args.subjects : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["roleRef"] = args.roleRef;
+          inputs["subjects"] = args.subjects;
           super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7153,6 +7669,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1.ClusterRoleBindingList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1.ClusterRoleBindingList;
+
       /**
       * Create a rbac.v1.ClusterRoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -7160,13 +7679,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ClusterRoleBindingList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7201,6 +7721,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1.ClusterRoleList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1.ClusterRoleList;
+
       /**
       * Create a rbac.v1.ClusterRoleList resource with the given unique name, arguments, and options.
       *
@@ -7208,13 +7731,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ClusterRoleList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7250,6 +7774,9 @@ export namespace rbac {
       public readonly rules: pulumi.Output<outputApi.rbac.v1.PolicyRule[]>;
 
 
+      public getInputs(): inputApi.rbac.v1.Role { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1.Role;
+
       /**
       * Create a rbac.v1.Role resource with the given unique name, arguments, and options.
       *
@@ -7257,13 +7784,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1.Role, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.Role, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "Role";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["rules"] = args ? args.rules : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["rules"] = args.rules;
           super("kubernetes:rbac.authorization.k8s.io/v1:Role", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7307,6 +7835,9 @@ export namespace rbac {
       public readonly subjects: pulumi.Output<outputApi.rbac.v1.Subject[]>;
 
 
+      public getInputs(): inputApi.rbac.v1.RoleBinding { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1.RoleBinding;
+
       /**
       * Create a rbac.v1.RoleBinding resource with the given unique name, arguments, and options.
       *
@@ -7314,14 +7845,15 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1.RoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.RoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "RoleBinding";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["roleRef"] = args ? args.roleRef : undefined;
-          inputs["subjects"] = args ? args.subjects : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["roleRef"] = args.roleRef;
+          inputs["subjects"] = args.subjects;
           super("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7356,6 +7888,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1.RoleBindingList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1.RoleBindingList;
+
       /**
       * Create a rbac.v1.RoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -7363,13 +7898,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1.RoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.RoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "RoleBindingList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7404,6 +7940,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1.RoleList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1.RoleList;
+
       /**
       * Create a rbac.v1.RoleList resource with the given unique name, arguments, and options.
       *
@@ -7411,13 +7950,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1.RoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.RoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "RoleList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1:RoleList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7463,6 +8003,9 @@ export namespace rbac {
       public readonly rules: pulumi.Output<outputApi.rbac.v1alpha1.PolicyRule[]>;
 
 
+      public getInputs(): inputApi.rbac.v1alpha1.ClusterRole { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRole;
+
       /**
       * Create a rbac.v1alpha1.ClusterRole resource with the given unique name, arguments, and options.
       *
@@ -7470,14 +8013,15 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.ClusterRole, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRole, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
+          inputs["aggregationRule"] = args.aggregationRule;
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "ClusterRole";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["rules"] = args ? args.rules : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["rules"] = args.rules;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7519,6 +8063,9 @@ export namespace rbac {
       public readonly subjects: pulumi.Output<outputApi.rbac.v1alpha1.Subject[]>;
 
 
+      public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBinding { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRoleBinding;
+
       /**
       * Create a rbac.v1alpha1.ClusterRoleBinding resource with the given unique name, arguments, and options.
       *
@@ -7526,14 +8073,15 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "ClusterRoleBinding";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["roleRef"] = args ? args.roleRef : undefined;
-          inputs["subjects"] = args ? args.subjects : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["roleRef"] = args.roleRef;
+          inputs["subjects"] = args.subjects;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7568,6 +8116,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBindingList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRoleBindingList;
+
       /**
       * Create a rbac.v1alpha1.ClusterRoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -7575,13 +8126,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ClusterRoleBindingList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7616,6 +8168,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRoleList;
+
       /**
       * Create a rbac.v1alpha1.ClusterRoleList resource with the given unique name, arguments, and options.
       *
@@ -7623,13 +8178,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ClusterRoleList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7665,6 +8221,9 @@ export namespace rbac {
       public readonly rules: pulumi.Output<outputApi.rbac.v1alpha1.PolicyRule[]>;
 
 
+      public getInputs(): inputApi.rbac.v1alpha1.Role { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1alpha1.Role;
+
       /**
       * Create a rbac.v1alpha1.Role resource with the given unique name, arguments, and options.
       *
@@ -7672,13 +8231,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.Role, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.Role, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "Role";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["rules"] = args ? args.rules : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["rules"] = args.rules;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7722,6 +8282,9 @@ export namespace rbac {
       public readonly subjects: pulumi.Output<outputApi.rbac.v1alpha1.Subject[]>;
 
 
+      public getInputs(): inputApi.rbac.v1alpha1.RoleBinding { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1alpha1.RoleBinding;
+
       /**
       * Create a rbac.v1alpha1.RoleBinding resource with the given unique name, arguments, and options.
       *
@@ -7729,14 +8292,15 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.RoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.RoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "RoleBinding";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["roleRef"] = args ? args.roleRef : undefined;
-          inputs["subjects"] = args ? args.subjects : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["roleRef"] = args.roleRef;
+          inputs["subjects"] = args.subjects;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7771,6 +8335,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1alpha1.RoleBindingList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1alpha1.RoleBindingList;
+
       /**
       * Create a rbac.v1alpha1.RoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -7778,13 +8345,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.RoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.RoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "RoleBindingList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7819,6 +8387,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1alpha1.RoleList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1alpha1.RoleList;
+
       /**
       * Create a rbac.v1alpha1.RoleList resource with the given unique name, arguments, and options.
       *
@@ -7826,13 +8397,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.RoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.RoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "RoleList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7868,6 +8440,9 @@ export namespace rbac {
       public readonly namespace: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.rbac.v1alpha1.Subject { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1alpha1.Subject;
+
       /**
       * Create a rbac.v1alpha1.Subject resource with the given unique name, arguments, and options.
       *
@@ -7875,13 +8450,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.Subject, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.Subject, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac/v1alpha1";
           inputs["kind"] = "Subject";
-          inputs["name"] = args ? args.name : undefined;
-          inputs["namespace"] = args ? args.namespace : undefined;
+          inputs["name"] = args.name;
+          inputs["namespace"] = args.namespace;
           super("kubernetes:rbac/v1alpha1:Subject", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7927,6 +8503,9 @@ export namespace rbac {
       public readonly rules: pulumi.Output<outputApi.rbac.v1beta1.PolicyRule[]>;
 
 
+      public getInputs(): inputApi.rbac.v1beta1.ClusterRole { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1beta1.ClusterRole;
+
       /**
       * Create a rbac.v1beta1.ClusterRole resource with the given unique name, arguments, and options.
       *
@@ -7934,14 +8513,15 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1beta1.ClusterRole, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRole, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
+          inputs["aggregationRule"] = args.aggregationRule;
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "ClusterRole";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["rules"] = args ? args.rules : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["rules"] = args.rules;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -7983,6 +8563,9 @@ export namespace rbac {
       public readonly subjects: pulumi.Output<outputApi.rbac.v1beta1.Subject[]>;
 
 
+      public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBinding { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleBinding;
+
       /**
       * Create a rbac.v1beta1.ClusterRoleBinding resource with the given unique name, arguments, and options.
       *
@@ -7990,14 +8573,15 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1beta1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "ClusterRoleBinding";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["roleRef"] = args ? args.roleRef : undefined;
-          inputs["subjects"] = args ? args.subjects : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["roleRef"] = args.roleRef;
+          inputs["subjects"] = args.subjects;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8032,6 +8616,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBindingList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleBindingList;
+
       /**
       * Create a rbac.v1beta1.ClusterRoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -8039,13 +8626,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1beta1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ClusterRoleBindingList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8080,6 +8668,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1beta1.ClusterRoleList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleList;
+
       /**
       * Create a rbac.v1beta1.ClusterRoleList resource with the given unique name, arguments, and options.
       *
@@ -8087,13 +8678,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1beta1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "ClusterRoleList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8129,6 +8721,9 @@ export namespace rbac {
       public readonly rules: pulumi.Output<outputApi.rbac.v1beta1.PolicyRule[]>;
 
 
+      public getInputs(): inputApi.rbac.v1beta1.Role { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1beta1.Role;
+
       /**
       * Create a rbac.v1beta1.Role resource with the given unique name, arguments, and options.
       *
@@ -8136,13 +8731,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1beta1.Role, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.Role, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "Role";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["rules"] = args ? args.rules : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["rules"] = args.rules;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:Role", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8186,6 +8782,9 @@ export namespace rbac {
       public readonly subjects: pulumi.Output<outputApi.rbac.v1beta1.Subject[]>;
 
 
+      public getInputs(): inputApi.rbac.v1beta1.RoleBinding { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1beta1.RoleBinding;
+
       /**
       * Create a rbac.v1beta1.RoleBinding resource with the given unique name, arguments, and options.
       *
@@ -8193,14 +8792,15 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1beta1.RoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.RoleBinding, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "RoleBinding";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["roleRef"] = args ? args.roleRef : undefined;
-          inputs["subjects"] = args ? args.subjects : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["roleRef"] = args.roleRef;
+          inputs["subjects"] = args.subjects;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8235,6 +8835,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1beta1.RoleBindingList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1beta1.RoleBindingList;
+
       /**
       * Create a rbac.v1beta1.RoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -8242,13 +8845,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1beta1.RoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.RoleBindingList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "RoleBindingList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8283,6 +8887,9 @@ export namespace rbac {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.rbac.v1beta1.RoleList { return this.__inputs; }
+      private readonly __inputs: inputApi.rbac.v1beta1.RoleList;
+
       /**
       * Create a rbac.v1beta1.RoleList resource with the given unique name, arguments, and options.
       *
@@ -8290,13 +8897,14 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.rbac.v1beta1.RoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.RoleList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "RoleList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8352,6 +8960,9 @@ export namespace scheduling {
       public readonly value: pulumi.Output<number>;
 
 
+      public getInputs(): inputApi.scheduling.v1alpha1.PriorityClass { return this.__inputs; }
+      private readonly __inputs: inputApi.scheduling.v1alpha1.PriorityClass;
+
       /**
       * Create a scheduling.v1alpha1.PriorityClass resource with the given unique name, arguments, and options.
       *
@@ -8359,15 +8970,16 @@ export namespace scheduling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.scheduling.v1alpha1.PriorityClass, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.scheduling.v1alpha1.PriorityClass, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
-          inputs["description"] = args ? args.description : undefined;
-          inputs["globalDefault"] = args ? args.globalDefault : undefined;
+          inputs["description"] = args.description;
+          inputs["globalDefault"] = args.globalDefault;
           inputs["kind"] = "PriorityClass";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["value"] = args ? args.value : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["value"] = args.value;
           super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8403,6 +9015,9 @@ export namespace scheduling {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.scheduling.v1alpha1.PriorityClassList { return this.__inputs; }
+      private readonly __inputs: inputApi.scheduling.v1alpha1.PriorityClassList;
+
       /**
       * Create a scheduling.v1alpha1.PriorityClassList resource with the given unique name, arguments, and options.
       *
@@ -8410,13 +9025,14 @@ export namespace scheduling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.scheduling.v1alpha1.PriorityClassList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.scheduling.v1alpha1.PriorityClassList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "PriorityClassList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8453,6 +9069,9 @@ export namespace settings {
       public readonly spec: pulumi.Output<outputApi.settings.v1alpha1.PodPresetSpec>;
 
 
+      public getInputs(): inputApi.settings.v1alpha1.PodPreset { return this.__inputs; }
+      private readonly __inputs: inputApi.settings.v1alpha1.PodPreset;
+
       /**
       * Create a settings.v1alpha1.PodPreset resource with the given unique name, arguments, and options.
       *
@@ -8460,13 +9079,14 @@ export namespace settings {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.settings.v1alpha1.PodPreset, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.settings.v1alpha1.PodPreset, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
           inputs["kind"] = "PodPreset";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
           super("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8502,6 +9122,9 @@ export namespace settings {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.settings.v1alpha1.PodPresetList { return this.__inputs; }
+      private readonly __inputs: inputApi.settings.v1alpha1.PodPresetList;
+
       /**
       * Create a settings.v1alpha1.PodPresetList resource with the given unique name, arguments, and options.
       *
@@ -8509,13 +9132,14 @@ export namespace settings {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.settings.v1alpha1.PodPresetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.settings.v1alpha1.PodPresetList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "PodPresetList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8592,6 +9216,9 @@ export namespace storage {
       public readonly volumeBindingMode: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.storage.v1.StorageClass { return this.__inputs; }
+      private readonly __inputs: inputApi.storage.v1.StorageClass;
+
       /**
       * Create a storage.v1.StorageClass resource with the given unique name, arguments, and options.
       *
@@ -8599,18 +9226,19 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.storage.v1.StorageClass, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1.StorageClass, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
+          inputs["allowVolumeExpansion"] = args.allowVolumeExpansion;
           inputs["apiVersion"] = "storage.k8s.io/v1";
           inputs["kind"] = "StorageClass";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["mountOptions"] = args ? args.mountOptions : undefined;
-          inputs["parameters"] = args ? args.parameters : undefined;
-          inputs["provisioner"] = args ? args.provisioner : undefined;
-          inputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
-          inputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["mountOptions"] = args.mountOptions;
+          inputs["parameters"] = args.parameters;
+          inputs["provisioner"] = args.provisioner;
+          inputs["reclaimPolicy"] = args.reclaimPolicy;
+          inputs["volumeBindingMode"] = args.volumeBindingMode;
           super("kubernetes:storage.k8s.io/v1:StorageClass", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8646,6 +9274,9 @@ export namespace storage {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.storage.v1.StorageClassList { return this.__inputs; }
+      private readonly __inputs: inputApi.storage.v1.StorageClassList;
+
       /**
       * Create a storage.v1.StorageClassList resource with the given unique name, arguments, and options.
       *
@@ -8653,13 +9284,14 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.storage.v1.StorageClassList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1.StorageClassList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "StorageClassList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:storage.k8s.io/v1:StorageClassList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8708,6 +9340,9 @@ export namespace storage {
       public readonly status: pulumi.Output<outputApi.storage.v1alpha1.VolumeAttachmentStatus>;
 
 
+      public getInputs(): inputApi.storage.v1alpha1.VolumeAttachment { return this.__inputs; }
+      private readonly __inputs: inputApi.storage.v1alpha1.VolumeAttachment;
+
       /**
       * Create a storage.v1alpha1.VolumeAttachment resource with the given unique name, arguments, and options.
       *
@@ -8715,14 +9350,15 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.storage.v1alpha1.VolumeAttachment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1alpha1.VolumeAttachment, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
           inputs["kind"] = "VolumeAttachment";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["spec"] = args ? args.spec : undefined;
-          inputs["status"] = args ? args.status : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["spec"] = args.spec;
+          inputs["status"] = args.status;
           super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8758,6 +9394,9 @@ export namespace storage {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.storage.v1alpha1.VolumeAttachmentList { return this.__inputs; }
+      private readonly __inputs: inputApi.storage.v1alpha1.VolumeAttachmentList;
+
       /**
       * Create a storage.v1alpha1.VolumeAttachmentList resource with the given unique name, arguments, and options.
       *
@@ -8765,13 +9404,14 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.storage.v1alpha1.VolumeAttachmentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1alpha1.VolumeAttachmentList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "VolumeAttachmentList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8845,6 +9485,9 @@ export namespace storage {
       public readonly volumeBindingMode: pulumi.Output<string>;
 
 
+      public getInputs(): inputApi.storage.v1beta1.StorageClass { return this.__inputs; }
+      private readonly __inputs: inputApi.storage.v1beta1.StorageClass;
+
       /**
       * Create a storage.v1beta1.StorageClass resource with the given unique name, arguments, and options.
       *
@@ -8852,18 +9495,19 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.storage.v1beta1.StorageClass, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1beta1.StorageClass, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
+          inputs["allowVolumeExpansion"] = args.allowVolumeExpansion;
           inputs["apiVersion"] = "storage.k8s.io/v1beta1";
           inputs["kind"] = "StorageClass";
-          inputs["metadata"] = args ? args.metadata : undefined;
-          inputs["mountOptions"] = args ? args.mountOptions : undefined;
-          inputs["parameters"] = args ? args.parameters : undefined;
-          inputs["provisioner"] = args ? args.provisioner : undefined;
-          inputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
-          inputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
+          inputs["metadata"] = args.metadata;
+          inputs["mountOptions"] = args.mountOptions;
+          inputs["parameters"] = args.parameters;
+          inputs["provisioner"] = args.provisioner;
+          inputs["reclaimPolicy"] = args.reclaimPolicy;
+          inputs["volumeBindingMode"] = args.volumeBindingMode;
           super("kubernetes:storage.k8s.io/v1beta1:StorageClass", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
@@ -8899,6 +9543,9 @@ export namespace storage {
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
+      public getInputs(): inputApi.storage.v1beta1.StorageClassList { return this.__inputs; }
+      private readonly __inputs: inputApi.storage.v1beta1.StorageClassList;
+
       /**
       * Create a storage.v1beta1.StorageClassList resource with the given unique name, arguments, and options.
       *
@@ -8906,13 +9553,14 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args?: inputApi.storage.v1beta1.StorageClassList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1beta1.StorageClassList, opts?: pulumi.ResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1beta1";
-          inputs["items"] = args ? args.items : undefined;
+          inputs["items"] = args.items;
           inputs["kind"] = "StorageClassList";
-          inputs["metadata"] = args ? args.metadata : undefined;
+          inputs["metadata"] = args.metadata;
           super("kubernetes:storage.k8s.io/v1beta1:StorageClassList", name, inputs, opts);
+          this.__inputs = args;
       }
     }
 
