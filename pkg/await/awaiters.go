@@ -15,6 +15,7 @@
 package await
 
 import (
+	"context"
 	"fmt"
 	"reflect"
 	"time"
@@ -35,6 +36,7 @@ import (
 // live number of Pods reaches the minimum liveness threshold. `pool` and `disco` are provided
 // typically from a client pool so that polling is reasonably efficient.
 type createAwaitConfig struct {
+	ctx               context.Context
 	pool              dynamic.ClientPool
 	disco             discovery.ServerResourcesInterface
 	clientForResource dynamic.ResourceInterface
@@ -63,7 +65,7 @@ type updateAwaitConfig struct {
 
 type createAwaiter func(createAwaitConfig) error
 type updateAwaiter func(updateAwaitConfig) error
-type deletionAwaiter func(dynamic.ResourceInterface, string) error
+type deletionAwaiter func(context.Context, dynamic.ResourceInterface, string) error
 
 // --------------------------------------------------------------------------
 
@@ -209,7 +211,7 @@ func untilAppsDeploymentInitialized(c createAwaitConfig) error {
 	glog.V(3).Infof("Waiting for deployment '%s' to schedule '%v' replicas", name, replicas)
 
 	// 10 mins should be sufficient for scheduling ~10k replicas
-	err := watcher.ForObject(c.clientForResource, name).
+	err := watcher.ForObject(c.ctx, c.clientForResource, name).
 		WatchUntil(
 			waitForDesiredReplicasFunc(
 				c.clientForResource,
@@ -234,7 +236,7 @@ func untilAppsDeploymentUpdated(c updateAwaitConfig) error {
 }
 
 func untilAppsDeploymentDeleted(
-	clientForResource dynamic.ResourceInterface, name string,
+	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
 ) error {
 	//
 	// TODO(hausdorff): Should we scale pods to 0 and then delete instead? Kubernetes should allow us
@@ -263,7 +265,7 @@ func untilAppsDeploymentDeleted(
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	err := watcher.ForObject(clientForResource, name).
+	err := watcher.ForObject(ctx, clientForResource, name).
 		RetryUntil(deploymentMissing, 10*time.Minute)
 	if err != nil {
 		return err
@@ -281,7 +283,7 @@ func untilAppsDeploymentDeleted(
 // --------------------------------------------------------------------------
 
 func untilCoreV1NamespaceDeleted(
-	clientForResource dynamic.ResourceInterface, name string,
+	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
 ) error {
 	namespaceMissingOrKilled := func(ns *unstructured.Unstructured, err error) error {
 		if is404(err) {
@@ -300,7 +302,7 @@ func untilCoreV1NamespaceDeleted(
 		return watcher.RetryableError(fmt.Errorf("Namespace '%s' still exists (%v)", name, statusPhase))
 	}
 
-	return watcher.ForObject(clientForResource, name).
+	return watcher.ForObject(ctx, clientForResource, name).
 		RetryUntil(namespaceMissingOrKilled, 5*time.Minute)
 }
 
@@ -317,7 +319,7 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 		return statusPhase == "Available" || statusPhase == "Bound"
 	}
 
-	return watcher.ForObject(c.clientForResource, c.currentInputs.GetName()).
+	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
 		WatchUntil(pvAvailableOrBound, 5*time.Minute)
 }
 
@@ -334,7 +336,7 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 		return statusPhase == "Bound"
 	}
 
-	return watcher.ForObject(c.clientForResource, c.currentInputs.GetName()).
+	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
 		WatchUntil(pvcBound, 5*time.Minute)
 }
 
@@ -351,12 +353,12 @@ func untilCoreV1PodInitialized(c createAwaitConfig) error {
 		return statusPhase == "Running"
 	}
 
-	return watcher.ForObject(c.clientForResource, c.currentInputs.GetName()).
+	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
 		WatchUntil(podRunning, 5*time.Minute)
 }
 
 func untilCoreV1PodDeleted(
-	clientForResource dynamic.ResourceInterface, name string,
+	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
 ) error {
 	podMissingOrKilled := func(pod *unstructured.Unstructured, err error) error {
 		if is404(err) {
@@ -371,7 +373,7 @@ func untilCoreV1PodDeleted(
 		return watcher.RetryableError(e)
 	}
 
-	return watcher.ForObject(clientForResource, name).
+	return watcher.ForObject(ctx, clientForResource, name).
 		RetryUntil(podMissingOrKilled, 5*time.Minute)
 }
 
@@ -397,7 +399,7 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 		name, replicas)
 
 	// 10 mins should be sufficient for scheduling ~10k replicas
-	err := watcher.ForObject(c.clientForResource, name).
+	err := watcher.ForObject(c.ctx, c.clientForResource, name).
 		WatchUntil(
 			waitForDesiredReplicasFunc(
 				c.clientForResource,
@@ -422,7 +424,7 @@ func untilCoreV1ReplicationControllerUpdated(c updateAwaitConfig) error {
 }
 
 func untilCoreV1ReplicationControllerDeleted(
-	clientForResource dynamic.ResourceInterface, name string,
+	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
 ) error {
 	//
 	// TODO(hausdorff): Should we scale pods to 0 and then delete instead? Kubernetes should allow us
@@ -451,7 +453,7 @@ func untilCoreV1ReplicationControllerDeleted(
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	err := watcher.ForObject(clientForResource, name).
+	err := watcher.ForObject(ctx, clientForResource, name).
 		RetryUntil(rcMissing, 10*time.Minute)
 	if err != nil {
 		return err
@@ -484,7 +486,7 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	return watcher.ForObject(c.clientForResource, c.currentInputs.GetName()).
+	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
 		WatchUntil(rqInitialized, 1*time.Minute)
 }
 
@@ -531,7 +533,7 @@ func untilCoreV1ServiceInitialized(c createAwaitConfig) error {
 	if fmt.Sprintf("%v", specType) == string(v1.ServiceTypeLoadBalancer) {
 		glog.V(3).Info("Waiting for load balancer to assign IP/hostname")
 
-		err := watcher.ForObject(c.clientForResource, name).
+		err := watcher.ForObject(c.ctx, c.clientForResource, name).
 			WatchUntil(externalIPAllocated, 10*time.Minute)
 
 		if err != nil {
@@ -581,7 +583,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	return watcher.ForObject(c.clientForResource, c.currentInputs.GetName()).
+	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
 		WatchUntil(defaultSecretAllocated, 5*time.Minute)
 }
 
@@ -616,7 +618,7 @@ func untilExtensionsV1Beta1IngressInitialized(c createAwaitConfig) error {
 	// Await.
 	glog.V(3).Info("Waiting for load balancer to assign IP/hostname")
 
-	err = watcher.ForObject(c.clientForResource, c.currentInputs.GetName()).
+	err = watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
 		WatchUntil(externalIPAllocated, 10*time.Minute)
 
 	if err != nil {
