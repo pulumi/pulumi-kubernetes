@@ -15,6 +15,7 @@
 package watcher
 
 import (
+	"context"
 	"strings"
 	"testing"
 	"time"
@@ -22,8 +23,9 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-func testObjWatcher(poll pollFunc) *ObjectWatcher {
+func testObjWatcher(ctx context.Context, poll pollFunc) *ObjectWatcher {
 	return &ObjectWatcher{
+		ctx:      ctx,
 		pollFunc: poll,
 	}
 }
@@ -72,6 +74,7 @@ func Test_WatchUntil_PollFuncTimeout(t *testing.T) {
 		go func(test timeoutTest) {
 			pollFuncCalls, watchFuncCalls := 0, 0
 			err := testObjWatcher(
+				context.Background(),
 				func() (*unstructured.Unstructured, error) {
 					pollFuncCalls++
 					return test.pollFunc()
@@ -107,6 +110,7 @@ func Test_WatchUntil_PollFuncTimeout(t *testing.T) {
 func Test_WatchUntil_Success(t *testing.T) {
 	// Timeout because the `WatchUntil` predicate always returns false.
 	err := testObjWatcher(
+		context.Background(),
 		func() (*unstructured.Unstructured, error) {
 			return &unstructured.Unstructured{}, nil
 		}).
@@ -124,6 +128,7 @@ func Test_WatchUntil_Success(t *testing.T) {
 func Test_RetryUntil_Success(t *testing.T) {
 	// Timeout because the `WatchUntil` predicate always returns false.
 	err := testObjWatcher(
+		context.Background(),
 		func() (*unstructured.Unstructured, error) {
 			return &unstructured.Unstructured{}, nil
 		}).
@@ -135,5 +140,26 @@ func Test_RetryUntil_Success(t *testing.T) {
 
 	if err != nil {
 		t.Error("Expected watch to terminate without error")
+	}
+}
+
+func Test_RetryUntil_Cancel(t *testing.T) {
+	cancelCtx, cancel := context.WithCancel(context.Background())
+	cancel()
+
+	// Timeout because the `WatchUntil` predicate always returns false.
+	err := testObjWatcher(
+		cancelCtx,
+		func() (*unstructured.Unstructured, error) {
+			return &unstructured.Unstructured{}, nil
+		}).
+		RetryUntil(
+			func(*unstructured.Unstructured, error) error {
+				return nil // Always succeeds.
+			},
+			1*time.Second)
+
+	if err == nil {
+		t.Error("Expected watch to terminate with an initialization error")
 	}
 }

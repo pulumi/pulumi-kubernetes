@@ -15,6 +15,7 @@
 package watcher
 
 import (
+	"context"
 	"fmt"
 	"math/rand"
 	"time"
@@ -37,15 +38,17 @@ type pollFunc func() (*unstructured.Unstructured, error)
 // ObjectWatcher will block and watch or retry some operation on an object until a timeout, or some
 // condition is true.
 type ObjectWatcher struct {
+	ctx      context.Context
 	objName  string
 	pollFunc pollFunc
 }
 
 // ForObject creates an `ObjectWatcher` to watch some object.
 func ForObject(
-	clientForResource dynamic.ResourceInterface, name string,
+	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
 ) *ObjectWatcher {
 	return &ObjectWatcher{
+		ctx:     ctx,
 		objName: name,
 		pollFunc: func() (*unstructured.Unstructured, error) {
 			obj, err := clientForResource.Get(name, metav1.GetOptions{})
@@ -125,6 +128,8 @@ func (ow *ObjectWatcher) watch(
 		select {
 		case <-timeoutCh:
 			return fmt.Errorf("Timeout occurred polling for '%s'", ow.objName)
+		case <-ow.ctx.Done():
+			return fmt.Errorf("Resource operation was cancelled for '%s'", ow.objName)
 		case res := <-results:
 			if stop, err := until(res.Obj, res.Err); err != nil {
 				return err

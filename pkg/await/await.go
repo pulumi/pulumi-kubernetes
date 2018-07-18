@@ -15,6 +15,7 @@
 package await
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/golang/glog"
@@ -44,7 +45,7 @@ import (
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
 func Creation(
-	pool dynamic.ClientPool, disco discovery.ServerResourcesInterface, obj *unstructured.Unstructured,
+	ctx context.Context, pool dynamic.ClientPool, disco discovery.ServerResourcesInterface, obj *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
 	clientForResource, err := client.FromResource(pool, disco, obj)
 	if err != nil {
@@ -64,6 +65,7 @@ func Creation(
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitCreation != nil {
 			conf := createAwaitConfig{
+				ctx:               ctx,
 				pool:              pool,
 				disco:             disco,
 				clientForResource: clientForResource,
@@ -97,7 +99,7 @@ func Creation(
 // [2]:
 // https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
 func Update(
-	pool dynamic.ClientPool, disco discovery.CachedDiscoveryInterface,
+	ctx context.Context, pool dynamic.ClientPool, disco discovery.CachedDiscoveryInterface,
 	lastSubmitted, currentSubmitted *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
 	//
@@ -201,8 +203,8 @@ func Update(
 // (1) the Kubernetes resource is reported to be deleted; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being deleted.
 func Deletion(
-	pool dynamic.ClientPool, disco discovery.DiscoveryInterface, gvk schema.GroupVersionKind,
-	namespace, name string,
+	ctx context.Context, pool dynamic.ClientPool, disco discovery.DiscoveryInterface,
+	gvk schema.GroupVersionKind, namespace, name string,
 ) error {
 	// Make delete options based on the version of the client.
 	version, err := client.FetchVersion(disco)
@@ -243,7 +245,7 @@ func Deletion(
 	id := fmt.Sprintf("%s/%s", gvk.GroupVersion().String(), gvk.Kind)
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitDeletion != nil {
-			waitErr = awaiter.awaitDeletion(clientForResource, name)
+			waitErr = awaiter.awaitDeletion(ctx, clientForResource, name)
 		}
 	} else {
 		glog.V(1).Infof("No deletion logic found for object of type '%s'; defaulting to assuming deletion successful", id)

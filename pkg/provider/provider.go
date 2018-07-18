@@ -57,7 +57,21 @@ const (
 	gvkDelimiter = ":"
 )
 
+type cancellationContext struct {
+	context context.Context
+	cancel  context.CancelFunc
+}
+
+func makeCancellationContext() *cancellationContext {
+	var ctx, cancel = context.WithCancel(context.Background())
+	return &cancellationContext{
+		context: ctx,
+		cancel:  cancel,
+	}
+}
+
 type kubeProvider struct {
+	canceler       *cancellationContext
 	client         discovery.CachedDiscoveryInterface
 	pool           dynamic.ClientPool
 	name           string
@@ -101,6 +115,7 @@ func makeKubeProvider(
 	pool := dynamic.NewClientPool(conf, mapper, pathresolver)
 
 	return &kubeProvider{
+		canceler:       makeCancellationContext(),
 		client:         discoCache,
 		pool:           pool,
 		name:           name,
@@ -289,7 +304,7 @@ func (k *kubeProvider) Create(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
-	initialized, awaitErr := await.Creation(k.pool, k.client, newInputs)
+	initialized, awaitErr := await.Creation(k.canceler.context, k.pool, k.client, newInputs)
 	if awaitErr != nil {
 		var getErr error
 		initialized, getErr = k.readLiveObject(newInputs)
@@ -474,7 +489,7 @@ func (k *kubeProvider) Update(
 	newInputs := propMapToUnstructured(newResInputs)
 
 	// Apply update.
-	initialized, awaitErr := await.Update(k.pool, k.client, oldInputs, newInputs)
+	initialized, awaitErr := await.Update(k.canceler.context, k.pool, k.client, oldInputs, newInputs)
 	if awaitErr != nil {
 		var getErr error
 		initialized, getErr = k.readLiveObject(newInputs)
@@ -520,7 +535,7 @@ func (k *kubeProvider) Delete(
 
 	namespace, name := client.ParseFqName(req.GetId())
 
-	err := await.Deletion(k.pool, k.client, gvk, namespace, name)
+	err := await.Deletion(k.canceler.context, k.pool, k.client, gvk, namespace, name)
 	if err != nil {
 		return nil, err
 	}
@@ -533,6 +548,16 @@ func (k *kubeProvider) GetPluginInfo(context.Context, *pbempty.Empty) (*pulumirp
 	return &pulumirpc.PluginInfo{
 		Version: k.version,
 	}, nil
+}
+
+// Cancel signals the provider to gracefully shut down and abort any ongoing resource operations.
+// Operations aborted in this way will return an error (e.g., `Update` and `Create` will either a
+// creation error or an initialization error). Since Cancel is advisory and non-blocking, it is up
+// to the host to decide how long to wait after Cancel is called before (e.g.)
+// hard-closing any gRPC connection.
+func (k *kubeProvider) Cancel(context.Context, *pbempty.Empty) (*pbempty.Empty, error) {
+	k.canceler.cancel()
+	return &pbempty.Empty{}, nil
 }
 
 // --------------------------------------------------------------------------
