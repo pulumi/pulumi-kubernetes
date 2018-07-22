@@ -251,9 +251,8 @@ func (k *kubeProvider) Diff(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
-	// Naive replacement strategy. We will kill and recreate a resource only if the name or namespace
-	// has changed.
-	replaces, err := forceNewProperties(oldInputs.Object, newInputs.Object, oldInputs.GroupVersionKind())
+	// Decide whether to replace the resource.
+	replaces, err := forceNewProperties(oldInputs.Object, newInputs.Object, k.gvkFromURN(urn))
 	if err != nil {
 		return nil, err
 	}
@@ -265,11 +264,12 @@ func (k *kubeProvider) Diff(
 		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
 	}
 
+	// TODO[pulumi/pulumi-kubernetes#10]: Implement auto-naming to remove need delete-before-replace.
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
 		Replaces:            replaces,
 		Stables:             []string{},
-		DeleteBeforeReplace: false,
+		DeleteBeforeReplace: len(replaces) > 0,
 	}, nil
 }
 

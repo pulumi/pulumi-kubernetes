@@ -141,6 +141,8 @@ var awaiters = map[string]awaitSpec{
 		awaitCreation: untilCoreV1PersistentVolumeClaimBound,
 	},
 	coreV1Pod: {
+		// NOTE: Because we replace the Pod in most situations, we do not require special logic for the
+		// update path.
 		awaitCreation: untilCoreV1PodInitialized,
 		awaitDeletion: untilCoreV1PodDeleted,
 	},
