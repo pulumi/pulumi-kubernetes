@@ -84,14 +84,35 @@ var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 func makeKubeProvider(
 	name, version string,
 ) (pulumirpc.ResourceProviderServer, error) {
-	// Use client-go to resolve the final configuration values for the client. Typically these
-	// values would would reside in the $KUBECONFIG file, but can also be altered in several
-	// places, including in env variables, client-go default values, and (if we allowed it) CLI
-	// flags.
-	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-	kubeconfig := clientcmd.NewInteractiveDeferredLoadingClientConfig(
-		loadingRules, &clientcmd.ConfigOverrides{}, os.Stdin)
+	return &kubeProvider{
+		canceler:       makeCancellationContext(),
+		name:           name,
+		version:        version,
+		providerPrefix: name + gvkDelimiter,
+	}, nil
+}
+
+// Configure configures the resource provider with "globals" that control its behavior.
+func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pbempty.Empty, error) {
+	vars := req.GetVariables()
+
+	var kubeconfig clientcmd.ClientConfig
+	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
+		config, err := clientcmd.Load([]byte(configJSON))
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
+		}
+		kubeconfig = clientcmd.NewDefaultClientConfig(*config, &clientcmd.ConfigOverrides{})
+	} else {
+		// Use client-go to resolve the final configuration values for the client. Typically these
+		// values would would reside in the $KUBECONFIG file, but can also be altered in several
+		// places, including in env variables, client-go default values, and (if we allowed it) CLI
+		// flags.
+		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(
+			loadingRules, &clientcmd.ConfigOverrides{}, os.Stdin)
+	}
 
 	// Configure the discovery client.
 	conf, err := kubeconfig.ClientConfig()
@@ -114,18 +135,7 @@ func makeKubeProvider(
 	// apps, etc.)
 	pool := dynamic.NewClientPool(conf, mapper, pathresolver)
 
-	return &kubeProvider{
-		canceler:       makeCancellationContext(),
-		client:         discoCache,
-		pool:           pool,
-		name:           name,
-		version:        version,
-		providerPrefix: name + gvkDelimiter,
-	}, nil
-}
-
-// Configure configures the resource provider with "globals" that control its behavior.
-func (k *kubeProvider) Configure(context.Context, *pulumirpc.ConfigureRequest) (*pbempty.Empty, error) {
+	k.client, k.pool = discoCache, pool
 	return &pbempty.Empty{}, nil
 }
 
