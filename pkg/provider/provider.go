@@ -148,8 +148,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	//    k8s.core.v1.Service
 	// 2. req.Olds, the last version submitted from a custom resource.
 	//
-	// `req.Olds` are ignored (and are sometimes nil). `req.News` are taken, validated, but NOT (at
-	// this point) changed.
+	// `req.Olds` are ignored (and are sometimes nil). `req.News` are validated, and `.metadata.name`
+	// is given to it if it's not already provided.
 	//
 
 	// Utilities for determining whether a resource's GVK exists.
@@ -176,6 +176,17 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	label := fmt.Sprintf("%s.Check(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
+	// Obtain old resource inputs. This is the old version of the resource(s) supplied by the user as
+	// an update.
+	oldResInputs := req.GetOlds()
+	olds, err := plugin.UnmarshalProperties(oldResInputs, plugin.MarshalOptions{
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	oldInputs := propMapToUnstructured(olds)
+
 	// Obtain new resource inputs. This is the new version of the resource(s) supplied by the user as
 	// an update.
 	newResInputs := req.GetNews()
@@ -187,8 +198,33 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	}
 	newInputs := propMapToUnstructured(news)
 
-	gvk := k.gvkFromURN(urn)
 	var failures []*pulumirpc.CheckFailure
+
+	// If annotations with the prefix `pulumi.com/` exist, report that as error.
+	for k := range newInputs.GetAnnotations() {
+		if strings.HasPrefix(k, annotationInternalPrefix) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Reason: fmt.Sprintf("annotation '%s' uses illegal prefix `pulumi.com/internal`", k),
+			})
+		}
+	}
+
+	// Adopt name from old object if appropriate.
+	//
+	// If the user HAS NOT assigned a name in the new inputs, we autoname it and mark the object as
+	// autonamed in `.metadata.annotations`. This makes it easier for `Diff` to decide whether this
+	// needs to be `DeleteBeforeReplace`'d. If the resource is marked `DeleteBeforeReplace`, then
+	// `Create` will allocate it a new name later.
+	if len(oldInputs.Object) > 0 {
+		// NOTE: If old inputs exist, they have a name, either provided by the user or filled in with a
+		// previous run of `Check`.
+		contract.Assert(oldInputs.GetName() != "")
+		adoptOldNameIfUnnamed(newInputs, oldInputs)
+	} else {
+		assignNameIfAutonamable(newInputs, urn.Name())
+	}
+
+	gvk := k.gvkFromURN(urn)
 
 	// Get OpenAPI schema for the GVK.
 	err = openapi.ValidateAgainstSchema(k.client, newInputs)
@@ -205,8 +241,16 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
-	// We currently don't change the inputs during check.
-	return &pulumirpc.CheckResponse{Inputs: newResInputs, Failures: failures}, nil
+	autonamedInputs, err := plugin.MarshalProperties(
+		resource.NewPropertyMapFromMap(newInputs.Object), plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.autonamedInputs", label), KeepUnknowns: true, SkipNulls: true,
+		})
+	if err != nil {
+		return nil, err
+	}
+
+	// Return new, possibly-autonamed inputs.
+	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
@@ -264,12 +308,25 @@ func (k *kubeProvider) Diff(
 		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
 	}
 
-	// TODO[pulumi/pulumi-kubernetes#10]: Implement auto-naming to remove need delete-before-replace.
+	// Delete before replacement if we are forced to replace the old object, and the new version of
+	// that object MUST have the same name.
+	deleteBeforeReplace :=
+		// 1. We know resource must be replaced.
+		(len(replaces) > 0 &&
+			// 2. Object is NOT autonamed (i.e., user manually named it, and therefore we can't
+			// auto-generate the name).
+			!isAutonamed(newInputs) &&
+			// 3. The new, user-specified name is the same as the old name.
+			newInputs.GetName() == oldInputs.GetName() &&
+			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the
+			// object in a new namespace and then deleting the old one).
+			canonicalNamespace(newInputs.GetNamespace()) == canonicalNamespace(oldInputs.GetNamespace()))
+
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
 		Replaces:            replaces,
 		Stables:             []string{},
-		DeleteBeforeReplace: len(replaces) > 0,
+		DeleteBeforeReplace: deleteBeforeReplace,
 	}, nil
 }
 
@@ -643,4 +700,13 @@ func initializationError(id string, err error, inputsAndComputed *structpb.Struc
 		Reasons:    []string{err.Error()},
 	}
 	return rpcerror.WithDetails(rpcerror.New(codes.Unknown, err.Error()), &detail)
+}
+
+// canonicalNamespace will provides the canonical name for a namespace. Specifically, if the
+// namespace is "", the empty string, we report this as its canonical name, "default".
+func canonicalNamespace(ns string) string {
+	if ns == "" {
+		return "default"
+	}
+	return ns
 }
