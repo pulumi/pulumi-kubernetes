@@ -50,8 +50,9 @@ type VersionConfig struct {
 	version string
 	kinds   []*KindConfig
 
-	gv         *schema.GroupVersion // Used for sorting.
-	apiVersion string
+	gv            *schema.GroupVersion // Used for sorting.
+	apiVersion    string
+	rawAPIVersion string
 }
 
 // Version returns the name of the version (e.g., `apps/v1beta1` would return `v1beta1`).
@@ -64,6 +65,9 @@ func (vc *VersionConfig) Kinds() []*KindConfig { return vc.kinds }
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (vc *VersionConfig) APIVersion() string { return vc.apiVersion }
 
+// RawAPIVersion returns the "raw" apiVersion (e.g., `v1` rather than `core/v1`).
+func (vc *VersionConfig) RawAPIVersion() string { return vc.rawAPIVersion }
+
 // KindConfig represents a Kubernetes API kind (e.g., the `Deployment` type in
 // `apps/v1beta1/Deployment`).
 type KindConfig struct {
@@ -73,9 +77,10 @@ type KindConfig struct {
 	requiredProperties []*Property
 	optionalProperties []*Property
 
-	gvk        *schema.GroupVersionKind // Used for sorting.
-	apiVersion string
-	typeGuard  string
+	gvk           *schema.GroupVersionKind // Used for sorting.
+	apiVersion    string
+	rawAPIVersion string
+	typeGuard     string
 }
 
 // Kind returns the name of the Kubernetes API kind (e.g., `Deployment` for
@@ -101,6 +106,9 @@ func (kc *KindConfig) OptionalProperties() []*Property { return kc.optionalPrope
 
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
+
+// RawAPIVersion returns the "raw" apiVersion (e.g., `v1` rather than `core/v1`).
+func (kc *KindConfig) RawAPIVersion() string { return kc.rawAPIVersion }
 
 // TypeGuard returns the text of a TypeScript type guard for the given kind.
 func (kc *KindConfig) TypeGuard() string { return kc.typeGuard }
@@ -376,6 +384,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 					optionalProperties: optionalProperties,
 					gvk:                &d.gvk,
 					apiVersion:         fqGroupVersion,
+					rawAPIVersion:      defaultGroupVersion,
 					typeGuard:          typeGuard,
 				},
 			})
@@ -404,10 +413,11 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 
 			return linq.From([]*VersionConfig{
 				{
-					version:    gv.Version,
-					kinds:      kindsGroup,
-					gv:         &gv,
-					apiVersion: kindsGroup[0].apiVersion, // NOTE: This is safe.
+					version:       gv.Version,
+					kinds:         kindsGroup,
+					gv:            &gv,
+					apiVersion:    kindsGroup[0].apiVersion,    // NOTE: This is safe.
+					rawAPIVersion: kindsGroup[0].rawAPIVersion, // NOTE: This is safe.
 				},
 			})
 		}).
