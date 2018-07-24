@@ -411,7 +411,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	//
 
 	urn := resource.URN(req.GetUrn())
-	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
+	label := fmt.Sprintf("%s.Read(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
