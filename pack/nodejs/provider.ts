@@ -5,6 +5,513 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "./types/input";
 import * as outputApi from "./types/output";
 
+export function fromJson(...objs: any[]): pulumi.CustomResource[] {
+  const resources: pulumi.CustomResource[] = [];
+  for (const obj of objs) {
+    if (obj == null) {
+      continue;
+    }
+
+    const kind = obj["kind"];
+    const apiVersion = obj["apiVersion"];
+    if (kind == null || apiVersion == null) {
+      continue;
+    }
+    const name = obj["metadata"]["name"]
+    switch (`${apiVersion}/${kind}`) {
+      case "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration":
+        resources.push(new admissionregistration.v1alpha1.InitializerConfiguration(name, obj));
+        break;
+      case "admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList":
+        resources.push(new admissionregistration.v1alpha1.InitializerConfigurationList(name, obj));
+        break;
+      case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
+        resources.push(new admissionregistration.v1beta1.MutatingWebhookConfiguration(name, obj));
+        break;
+      case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
+        resources.push(new admissionregistration.v1beta1.MutatingWebhookConfigurationList(name, obj));
+        break;
+      case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
+        resources.push(new admissionregistration.v1beta1.ValidatingWebhookConfiguration(name, obj));
+        break;
+      case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
+        resources.push(new admissionregistration.v1beta1.ValidatingWebhookConfigurationList(name, obj));
+        break;
+      case "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
+        resources.push(new apiextensions.v1beta1.CustomResourceDefinition(name, obj));
+        break;
+      case "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
+        resources.push(new apiextensions.v1beta1.CustomResourceDefinitionList(name, obj));
+        break;
+      case "apiregistration/v1beta1/APIService":
+        resources.push(new apiregistration.v1beta1.APIService(name, obj));
+        break;
+      case "apiregistration/v1beta1/APIServiceList":
+        resources.push(new apiregistration.v1beta1.APIServiceList(name, obj));
+        break;
+      case "apps/v1/ControllerRevision":
+        resources.push(new apps.v1.ControllerRevision(name, obj));
+        break;
+      case "apps/v1/ControllerRevisionList":
+        resources.push(new apps.v1.ControllerRevisionList(name, obj));
+        break;
+      case "apps/v1/DaemonSet":
+        resources.push(new apps.v1.DaemonSet(name, obj));
+        break;
+      case "apps/v1/DaemonSetList":
+        resources.push(new apps.v1.DaemonSetList(name, obj));
+        break;
+      case "apps/v1/Deployment":
+        resources.push(new apps.v1.Deployment(name, obj));
+        break;
+      case "apps/v1/DeploymentList":
+        resources.push(new apps.v1.DeploymentList(name, obj));
+        break;
+      case "apps/v1/ReplicaSet":
+        resources.push(new apps.v1.ReplicaSet(name, obj));
+        break;
+      case "apps/v1/ReplicaSetList":
+        resources.push(new apps.v1.ReplicaSetList(name, obj));
+        break;
+      case "apps/v1/StatefulSet":
+        resources.push(new apps.v1.StatefulSet(name, obj));
+        break;
+      case "apps/v1/StatefulSetList":
+        resources.push(new apps.v1.StatefulSetList(name, obj));
+        break;
+      case "apps/v1beta1/ControllerRevision":
+        resources.push(new apps.v1beta1.ControllerRevision(name, obj));
+        break;
+      case "apps/v1beta1/ControllerRevisionList":
+        resources.push(new apps.v1beta1.ControllerRevisionList(name, obj));
+        break;
+      case "apps/v1beta1/Deployment":
+        resources.push(new apps.v1beta1.Deployment(name, obj));
+        break;
+      case "apps/v1beta1/DeploymentList":
+        resources.push(new apps.v1beta1.DeploymentList(name, obj));
+        break;
+      case "apps/v1beta1/DeploymentRollback":
+        resources.push(new apps.v1beta1.DeploymentRollback(name, obj));
+        break;
+      case "apps/v1beta1/Scale":
+        resources.push(new apps.v1beta1.Scale(name, obj));
+        break;
+      case "apps/v1beta1/StatefulSet":
+        resources.push(new apps.v1beta1.StatefulSet(name, obj));
+        break;
+      case "apps/v1beta1/StatefulSetList":
+        resources.push(new apps.v1beta1.StatefulSetList(name, obj));
+        break;
+      case "apps/v1beta2/ControllerRevision":
+        resources.push(new apps.v1beta2.ControllerRevision(name, obj));
+        break;
+      case "apps/v1beta2/ControllerRevisionList":
+        resources.push(new apps.v1beta2.ControllerRevisionList(name, obj));
+        break;
+      case "apps/v1beta2/DaemonSet":
+        resources.push(new apps.v1beta2.DaemonSet(name, obj));
+        break;
+      case "apps/v1beta2/DaemonSetList":
+        resources.push(new apps.v1beta2.DaemonSetList(name, obj));
+        break;
+      case "apps/v1beta2/Deployment":
+        resources.push(new apps.v1beta2.Deployment(name, obj));
+        break;
+      case "apps/v1beta2/DeploymentList":
+        resources.push(new apps.v1beta2.DeploymentList(name, obj));
+        break;
+      case "apps/v1beta2/ReplicaSet":
+        resources.push(new apps.v1beta2.ReplicaSet(name, obj));
+        break;
+      case "apps/v1beta2/ReplicaSetList":
+        resources.push(new apps.v1beta2.ReplicaSetList(name, obj));
+        break;
+      case "apps/v1beta2/Scale":
+        resources.push(new apps.v1beta2.Scale(name, obj));
+        break;
+      case "apps/v1beta2/StatefulSet":
+        resources.push(new apps.v1beta2.StatefulSet(name, obj));
+        break;
+      case "apps/v1beta2/StatefulSetList":
+        resources.push(new apps.v1beta2.StatefulSetList(name, obj));
+        break;
+      case "authentication.k8s.io/v1/TokenReview":
+        resources.push(new authentication.v1.TokenReview(name, obj));
+        break;
+      case "authentication.k8s.io/v1beta1/TokenReview":
+        resources.push(new authentication.v1beta1.TokenReview(name, obj));
+        break;
+      case "authorization.k8s.io/v1/LocalSubjectAccessReview":
+        resources.push(new authorization.v1.LocalSubjectAccessReview(name, obj));
+        break;
+      case "authorization.k8s.io/v1/SelfSubjectAccessReview":
+        resources.push(new authorization.v1.SelfSubjectAccessReview(name, obj));
+        break;
+      case "authorization.k8s.io/v1/SelfSubjectRulesReview":
+        resources.push(new authorization.v1.SelfSubjectRulesReview(name, obj));
+        break;
+      case "authorization.k8s.io/v1/SubjectAccessReview":
+        resources.push(new authorization.v1.SubjectAccessReview(name, obj));
+        break;
+      case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
+        resources.push(new authorization.v1beta1.LocalSubjectAccessReview(name, obj));
+        break;
+      case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
+        resources.push(new authorization.v1beta1.SelfSubjectAccessReview(name, obj));
+        break;
+      case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
+        resources.push(new authorization.v1beta1.SelfSubjectRulesReview(name, obj));
+        break;
+      case "authorization.k8s.io/v1beta1/SubjectAccessReview":
+        resources.push(new authorization.v1beta1.SubjectAccessReview(name, obj));
+        break;
+      case "autoscaling/v1/CrossVersionObjectReference":
+        resources.push(new autoscaling.v1.CrossVersionObjectReference(name, obj));
+        break;
+      case "autoscaling/v1/HorizontalPodAutoscaler":
+        resources.push(new autoscaling.v1.HorizontalPodAutoscaler(name, obj));
+        break;
+      case "autoscaling/v1/HorizontalPodAutoscalerList":
+        resources.push(new autoscaling.v1.HorizontalPodAutoscalerList(name, obj));
+        break;
+      case "autoscaling/v1/Scale":
+        resources.push(new autoscaling.v1.Scale(name, obj));
+        break;
+      case "autoscaling/v2beta1/CrossVersionObjectReference":
+        resources.push(new autoscaling.v2beta1.CrossVersionObjectReference(name, obj));
+        break;
+      case "autoscaling/v2beta1/HorizontalPodAutoscaler":
+        resources.push(new autoscaling.v2beta1.HorizontalPodAutoscaler(name, obj));
+        break;
+      case "autoscaling/v2beta1/HorizontalPodAutoscalerList":
+        resources.push(new autoscaling.v2beta1.HorizontalPodAutoscalerList(name, obj));
+        break;
+      case "batch/v1/Job":
+        resources.push(new batch.v1.Job(name, obj));
+        break;
+      case "batch/v1/JobList":
+        resources.push(new batch.v1.JobList(name, obj));
+        break;
+      case "batch/v1beta1/CronJob":
+        resources.push(new batch.v1beta1.CronJob(name, obj));
+        break;
+      case "batch/v1beta1/CronJobList":
+        resources.push(new batch.v1beta1.CronJobList(name, obj));
+        break;
+      case "batch/v2alpha1/CronJob":
+        resources.push(new batch.v2alpha1.CronJob(name, obj));
+        break;
+      case "batch/v2alpha1/CronJobList":
+        resources.push(new batch.v2alpha1.CronJobList(name, obj));
+        break;
+      case "certificates.k8s.io/v1beta1/CertificateSigningRequest":
+        resources.push(new certificates.v1beta1.CertificateSigningRequest(name, obj));
+        break;
+      case "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
+        resources.push(new certificates.v1beta1.CertificateSigningRequestList(name, obj));
+        break;
+      case "v1/Binding":
+        resources.push(new core.v1.Binding(name, obj));
+        break;
+      case "v1/ComponentStatus":
+        resources.push(new core.v1.ComponentStatus(name, obj));
+        break;
+      case "v1/ComponentStatusList":
+        resources.push(new core.v1.ComponentStatusList(name, obj));
+        break;
+      case "v1/ConfigMap":
+        resources.push(new core.v1.ConfigMap(name, obj));
+        break;
+      case "v1/ConfigMapList":
+        resources.push(new core.v1.ConfigMapList(name, obj));
+        break;
+      case "v1/Endpoints":
+        resources.push(new core.v1.Endpoints(name, obj));
+        break;
+      case "v1/EndpointsList":
+        resources.push(new core.v1.EndpointsList(name, obj));
+        break;
+      case "v1/Event":
+        resources.push(new core.v1.Event(name, obj));
+        break;
+      case "v1/EventList":
+        resources.push(new core.v1.EventList(name, obj));
+        break;
+      case "v1/LimitRange":
+        resources.push(new core.v1.LimitRange(name, obj));
+        break;
+      case "v1/LimitRangeList":
+        resources.push(new core.v1.LimitRangeList(name, obj));
+        break;
+      case "v1/Namespace":
+        resources.push(new core.v1.Namespace(name, obj));
+        break;
+      case "v1/NamespaceList":
+        resources.push(new core.v1.NamespaceList(name, obj));
+        break;
+      case "v1/Node":
+        resources.push(new core.v1.Node(name, obj));
+        break;
+      case "v1/NodeConfigSource":
+        resources.push(new core.v1.NodeConfigSource(name, obj));
+        break;
+      case "v1/NodeList":
+        resources.push(new core.v1.NodeList(name, obj));
+        break;
+      case "core/v1/ObjectReference":
+        resources.push(new core.v1.ObjectReference(name, obj));
+        break;
+      case "v1/PersistentVolume":
+        resources.push(new core.v1.PersistentVolume(name, obj));
+        break;
+      case "v1/PersistentVolumeClaim":
+        resources.push(new core.v1.PersistentVolumeClaim(name, obj));
+        break;
+      case "v1/PersistentVolumeClaimList":
+        resources.push(new core.v1.PersistentVolumeClaimList(name, obj));
+        break;
+      case "v1/PersistentVolumeList":
+        resources.push(new core.v1.PersistentVolumeList(name, obj));
+        break;
+      case "v1/Pod":
+        resources.push(new core.v1.Pod(name, obj));
+        break;
+      case "v1/PodList":
+        resources.push(new core.v1.PodList(name, obj));
+        break;
+      case "v1/PodTemplate":
+        resources.push(new core.v1.PodTemplate(name, obj));
+        break;
+      case "v1/PodTemplateList":
+        resources.push(new core.v1.PodTemplateList(name, obj));
+        break;
+      case "v1/ReplicationController":
+        resources.push(new core.v1.ReplicationController(name, obj));
+        break;
+      case "v1/ReplicationControllerList":
+        resources.push(new core.v1.ReplicationControllerList(name, obj));
+        break;
+      case "v1/ResourceQuota":
+        resources.push(new core.v1.ResourceQuota(name, obj));
+        break;
+      case "v1/ResourceQuotaList":
+        resources.push(new core.v1.ResourceQuotaList(name, obj));
+        break;
+      case "v1/Secret":
+        resources.push(new core.v1.Secret(name, obj));
+        break;
+      case "v1/SecretList":
+        resources.push(new core.v1.SecretList(name, obj));
+        break;
+      case "v1/Service":
+        resources.push(new core.v1.Service(name, obj));
+        break;
+      case "v1/ServiceAccount":
+        resources.push(new core.v1.ServiceAccount(name, obj));
+        break;
+      case "v1/ServiceAccountList":
+        resources.push(new core.v1.ServiceAccountList(name, obj));
+        break;
+      case "v1/ServiceList":
+        resources.push(new core.v1.ServiceList(name, obj));
+        break;
+      case "events.k8s.io/v1beta1/Event":
+        resources.push(new events.v1beta1.Event(name, obj));
+        break;
+      case "events.k8s.io/v1beta1/EventList":
+        resources.push(new events.v1beta1.EventList(name, obj));
+        break;
+      case "extensions/v1beta1/DaemonSet":
+        resources.push(new extensions.v1beta1.DaemonSet(name, obj));
+        break;
+      case "extensions/v1beta1/DaemonSetList":
+        resources.push(new extensions.v1beta1.DaemonSetList(name, obj));
+        break;
+      case "extensions/v1beta1/Deployment":
+        resources.push(new extensions.v1beta1.Deployment(name, obj));
+        break;
+      case "extensions/v1beta1/DeploymentList":
+        resources.push(new extensions.v1beta1.DeploymentList(name, obj));
+        break;
+      case "extensions/v1beta1/DeploymentRollback":
+        resources.push(new extensions.v1beta1.DeploymentRollback(name, obj));
+        break;
+      case "extensions/v1beta1/Ingress":
+        resources.push(new extensions.v1beta1.Ingress(name, obj));
+        break;
+      case "extensions/v1beta1/IngressList":
+        resources.push(new extensions.v1beta1.IngressList(name, obj));
+        break;
+      case "extensions/v1beta1/NetworkPolicy":
+        resources.push(new extensions.v1beta1.NetworkPolicy(name, obj));
+        break;
+      case "extensions/v1beta1/NetworkPolicyList":
+        resources.push(new extensions.v1beta1.NetworkPolicyList(name, obj));
+        break;
+      case "extensions/v1beta1/PodSecurityPolicy":
+        resources.push(new extensions.v1beta1.PodSecurityPolicy(name, obj));
+        break;
+      case "extensions/v1beta1/PodSecurityPolicyList":
+        resources.push(new extensions.v1beta1.PodSecurityPolicyList(name, obj));
+        break;
+      case "extensions/v1beta1/ReplicaSet":
+        resources.push(new extensions.v1beta1.ReplicaSet(name, obj));
+        break;
+      case "extensions/v1beta1/ReplicaSetList":
+        resources.push(new extensions.v1beta1.ReplicaSetList(name, obj));
+        break;
+      case "extensions/v1beta1/Scale":
+        resources.push(new extensions.v1beta1.Scale(name, obj));
+        break;
+      case "v1/APIGroup":
+        resources.push(new meta.v1.APIGroup(name, obj));
+        break;
+      case "v1/APIGroupList":
+        resources.push(new meta.v1.APIGroupList(name, obj));
+        break;
+      case "v1/APIResourceList":
+        resources.push(new meta.v1.APIResourceList(name, obj));
+        break;
+      case "v1/APIVersions":
+        resources.push(new meta.v1.APIVersions(name, obj));
+        break;
+      case "v1/DeleteOptions":
+        resources.push(new meta.v1.DeleteOptions(name, obj));
+        break;
+      case "meta/v1/OwnerReference":
+        resources.push(new meta.v1.OwnerReference(name, obj));
+        break;
+      case "v1/Status":
+        resources.push(new meta.v1.Status(name, obj));
+        break;
+      case "networking.k8s.io/v1/NetworkPolicy":
+        resources.push(new networking.v1.NetworkPolicy(name, obj));
+        break;
+      case "networking.k8s.io/v1/NetworkPolicyList":
+        resources.push(new networking.v1.NetworkPolicyList(name, obj));
+        break;
+      case "policy/v1beta1/Eviction":
+        resources.push(new policy.v1beta1.Eviction(name, obj));
+        break;
+      case "policy/v1beta1/PodDisruptionBudget":
+        resources.push(new policy.v1beta1.PodDisruptionBudget(name, obj));
+        break;
+      case "policy/v1beta1/PodDisruptionBudgetList":
+        resources.push(new policy.v1beta1.PodDisruptionBudgetList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1/ClusterRole":
+        resources.push(new rbac.v1.ClusterRole(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
+        resources.push(new rbac.v1.ClusterRoleBinding(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
+        resources.push(new rbac.v1.ClusterRoleBindingList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1/ClusterRoleList":
+        resources.push(new rbac.v1.ClusterRoleList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1/Role":
+        resources.push(new rbac.v1.Role(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1/RoleBinding":
+        resources.push(new rbac.v1.RoleBinding(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1/RoleBindingList":
+        resources.push(new rbac.v1.RoleBindingList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1/RoleList":
+        resources.push(new rbac.v1.RoleList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
+        resources.push(new rbac.v1alpha1.ClusterRole(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
+        resources.push(new rbac.v1alpha1.ClusterRoleBinding(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
+        resources.push(new rbac.v1alpha1.ClusterRoleBindingList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
+        resources.push(new rbac.v1alpha1.ClusterRoleList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1alpha1/Role":
+        resources.push(new rbac.v1alpha1.Role(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
+        resources.push(new rbac.v1alpha1.RoleBinding(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
+        resources.push(new rbac.v1alpha1.RoleBindingList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1alpha1/RoleList":
+        resources.push(new rbac.v1alpha1.RoleList(name, obj));
+        break;
+      case "rbac/v1alpha1/Subject":
+        resources.push(new rbac.v1alpha1.Subject(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1beta1/ClusterRole":
+        resources.push(new rbac.v1beta1.ClusterRole(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
+        resources.push(new rbac.v1beta1.ClusterRoleBinding(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
+        resources.push(new rbac.v1beta1.ClusterRoleBindingList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
+        resources.push(new rbac.v1beta1.ClusterRoleList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1beta1/Role":
+        resources.push(new rbac.v1beta1.Role(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1beta1/RoleBinding":
+        resources.push(new rbac.v1beta1.RoleBinding(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
+        resources.push(new rbac.v1beta1.RoleBindingList(name, obj));
+        break;
+      case "rbac.authorization.k8s.io/v1beta1/RoleList":
+        resources.push(new rbac.v1beta1.RoleList(name, obj));
+        break;
+      case "scheduling.k8s.io/v1alpha1/PriorityClass":
+        resources.push(new scheduling.v1alpha1.PriorityClass(name, obj));
+        break;
+      case "scheduling.k8s.io/v1alpha1/PriorityClassList":
+        resources.push(new scheduling.v1alpha1.PriorityClassList(name, obj));
+        break;
+      case "settings.k8s.io/v1alpha1/PodPreset":
+        resources.push(new settings.v1alpha1.PodPreset(name, obj));
+        break;
+      case "settings.k8s.io/v1alpha1/PodPresetList":
+        resources.push(new settings.v1alpha1.PodPresetList(name, obj));
+        break;
+      case "storage.k8s.io/v1/StorageClass":
+        resources.push(new storage.v1.StorageClass(name, obj));
+        break;
+      case "storage.k8s.io/v1/StorageClassList":
+        resources.push(new storage.v1.StorageClassList(name, obj));
+        break;
+      case "storage.k8s.io/v1alpha1/VolumeAttachment":
+        resources.push(new storage.v1alpha1.VolumeAttachment(name, obj));
+        break;
+      case "storage.k8s.io/v1alpha1/VolumeAttachmentList":
+        resources.push(new storage.v1alpha1.VolumeAttachmentList(name, obj));
+        break;
+      case "storage.k8s.io/v1beta1/StorageClass":
+        resources.push(new storage.v1beta1.StorageClass(name, obj));
+        break;
+      case "storage.k8s.io/v1beta1/StorageClassList":
+        resources.push(new storage.v1beta1.StorageClassList(name, obj));
+        break;
+      default:
+        throw new Error(`Unrecognized resource type ${apiVersion}/${kind}`);
+    }
+  }
+  return resources;
+}
+
 export namespace admissionregistration {
   export namespace v1alpha1 {
     /**

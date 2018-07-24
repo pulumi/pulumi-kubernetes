@@ -5,6 +5,36 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "./types/input";
 import * as outputApi from "./types/output";
 
+export function fromJson(...objs: any[]): pulumi.CustomResource[] {
+  const resources: pulumi.CustomResource[] = [];
+  for (const obj of objs) {
+    if (obj == null) {
+      continue;
+    }
+
+    const kind = obj["kind"];
+    const apiVersion = obj["apiVersion"];
+    if (kind == null || apiVersion == null) {
+      continue;
+    }
+    const name = obj["metadata"]["name"]
+    switch (`${apiVersion}/${kind}`) {
+      {{#Groups}}
+      {{#Versions}}
+      {{#Kinds}}
+      case "{{RawAPIVersion}}/{{Kind}}":
+        resources.push(new {{Group}}.{{Version}}.{{Kind}}(name, obj));
+        break;
+      {{/Kinds}}
+      {{/Versions}}
+      {{/Groups}}
+      default:
+        throw new Error(`Unrecognized resource type ${apiVersion}/${kind}`);
+    }
+  }
+  return resources;
+}
+
 {{#Groups}}
 export namespace {{Group}} {
   {{#Versions}}
