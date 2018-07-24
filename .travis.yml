@@ -3,29 +3,14 @@ if: branch = master OR branch =~ ^release/ OR tag IS present
 language: go
 go: 1.9
 sudo: true # give us 7.5GB and >2 bursted cores.
-env:
-    - CHANGE_MINIKUBE_NONE_USER=true
+git:
+    depth: false
 before_install:
-    - export PULUMI_ROOT=/opt/pulumi
-    # Travis only fetches 50 commits by default, and we want them all so we can do git describe --tags
-    # - git fetch --unshallow
-    # Dep for Go dependency management.
-    - go get -v github.com/golang/dep/cmd/dep
-    # Gometalinter for good Go linting/hygiene.
-    - go get -v github.com/alecthomas/gometalinter
-    - gometalinter --install
-    # Node.js 6.10.2 for all JavaScript code (to match AWS Lambda).
-    - nvm install v6.10.2
-    # Install Yarn as per https://yarnpkg.com/lang/en/docs/install-ci/#travis-tab.
-    - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.2.1
-    - export PATH=$HOME/.yarn/bin:$PATH
-    # Install Twine so that we can publish Pip packages.
-    - pip install --upgrade --user twine==1.9.1
-    # Ensure that we can access Pulumi's private NPM and PyPI orgs.
-    - if [ ! -z "${NPM_TOKEN}" ]; then echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc; fi
-    - mkdir -p ~/.config/pip && echo -e "[global]\nextra-index-url = https://${PULUMI_API_TOKEN}@pypi.pulumi.com/simple" >> ~/.config/pip/pip.conf
-    # Install the AWS CLI so that we can publish the resulting release (if applicable) at the end.
-    - pip install --upgrade --user awscli
+    - git clone https://github.com/pulumi/scripts ${GOPATH}/src/github.com/pulumi/scripts
+    - source ${GOPATH}/src/github.com/pulumi/scripts/ci/prepare-environment.sh
+    - source ${PULUMI_SCRIPTS}/ci/keep-failed-tests.sh
+install:
+    - source ${PULUMI_SCRIPTS}/ci/install-common-toolchain.sh
     # Install kubectl
     - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl
     - sudo chmod +x kubectl 
@@ -35,18 +20,18 @@ before_install:
     - sudo chmod +x minikube 
     - sudo mv minikube /usr/local/bin/
     # Start minikube with no VM driver 
+    - export CHANGE_MINIKUBE_NONE_USER=true
     - sudo minikube start --vm-driver=none --kubernetes-version=v1.9.0
     # Register minikube context with kubernetes
     - minikube update-context
-install:
-    # Clone the Pulumi repo and use install-locked.sh to install Pulumi components based on our Gopkg.lock.
-    - git clone https://github.com/pulumi/scripts ${GOPATH}/src/github.com/pulumi/scripts
-    # Install Pulumi
-    - curl -L https://get.pulumi.com/ | bash -s -- --version 0.14.0-rc1
+    # Install Pulumi   
+    - curl -L https://get.pulumi.com/ | bash -s -- --version 0.14.0
     - export PATH=$HOME/.pulumi/bin:$PATH
-    # Now restore all dependencies, after cloning, to rebuild vendor appropriately.
-    - make ensure
+before_script:
+    - ${PULUMI_SCRIPTS}/ci/ensure-dependencies
 script:
     - make travis_${TRAVIS_EVENT_TYPE}
+after_failure:
+    - ${PULUMI_SCRIPTS}/ci/upload-failed-tests
 notifications:
     webhooks: https://ufci1w66n3.execute-api.us-west-2.amazonaws.com/stage/travis
