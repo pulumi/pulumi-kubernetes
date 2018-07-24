@@ -1,0 +1,17 @@
+{
+    "name": "steps",
+    "main": "bin/index.js",
+    "typings": "bin/index.d.ts",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^0.14.0-rc1"
+    },
+    "devDependencies": {
+        "typescript": "^2.5.3"
+    },
+    "peerDependencies": {
+        "@pulumi/kubernetes": "latest"
+    }
+}

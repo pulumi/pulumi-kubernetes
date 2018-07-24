@@ -20,7 +20,6 @@ import (
 	"fmt"
 
 	jsonpatch "github.com/evanphx/json-patch"
-	"github.com/golang/glog"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/util/jsonpath"
 )
@@ -90,8 +89,6 @@ func mergePatchObj(oldObj, newObj map[string]interface{}) (map[string]interface{
 		return nil, err
 	}
 
-	glog.V(3).Infof("%v", string(patchBytes))
-
 	patch := map[string]interface{}{}
 	err = json.Unmarshal(patchBytes, &patch)
 	if err != nil {
@@ -107,38 +104,44 @@ type kinds map[string]properties
 type properties []string
 
 var forceNew = groups{
-	"core": versions{
-		"v1": kinds{
-			"PersistentVolumeClaim": append(
-				properties{
-					".spec",
-					".spec.accessModes",
-					".spec.resources",
-					".spec.resources.limits",
-					".spec.resources.requests",
-					".spec.selector",
-					".spec.storageClassName",
-					".spec.volumeName",
-				},
-				labelSelectorForceNewProperties(".spec")...),
-			"Pod": containerForceNewProperties(".spec.containers[*]"),
-			"ResourceQuota": properties{
-				".spec.scopes",
-			},
-			"Secret": properties{
-				".type",
-			},
-			"Service": properties{
-				".spec.clusterIP",
-			},
-		},
-	},
+	// List `core` under its canonical name and under it's legacy name (i.e., "", the empty string)
+	// for compatibility purposes.
+	"core": core,
+	"":     core,
 	"storage.k8s.io": versions{
 		"v1": kinds{
 			"StorageClass": properties{
 				".parameters",
 				".provisioner",
 			},
+		},
+	},
+}
+
+var core = versions{
+	"v1": kinds{
+		"PersistentVolumeClaim": append(
+			properties{
+				".spec",
+				".spec.accessModes",
+				".spec.resources",
+				".spec.resources.limits",
+				".spec.resources.requests",
+				".spec.selector",
+				".spec.storageClassName",
+				".spec.volumeName",
+			},
+			labelSelectorForceNewProperties(".spec")...),
+		"Pod": containerForceNewProperties(".spec.containers[*]"),
+		"ResourceQuota": properties{
+			".spec.scopes",
+		},
+		"Secret": properties{
+			".type",
+		},
+		"Service": properties{
+			".spec.clusterIP",
+			".spec.type",
 		},
 	},
 }
@@ -154,6 +157,7 @@ func containerForceNewProperties(prefix string) properties {
 	return properties{
 		prefix + ".env",
 		prefix + ".env.value",
+		prefix + ".image",
 		prefix + ".lifecycle",
 		prefix + ".livenessProbe",
 		prefix + ".readinessProbe",

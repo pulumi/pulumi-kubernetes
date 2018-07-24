@@ -22,7 +22,7 @@ GOMETALINTER    :=${GOMETALINTERBIN} --config=Gometalinter.json
 CURL            ?= curl
 
 TESTPARALLELISM := 10
-TESTABLE_PKGS   := ./pkg/... ./examples
+TESTABLE_PKGS   := ./pkg/... ./examples ./tests/...
 
 $(OPENAPI_FILE)::
 	@mkdir -p $(OPENAPI_DIR)
