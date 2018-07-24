@@ -1,0 +1,3 @@
+name: configmap-rollout-test
+description: Tests that change to a configmap will trigger a new rollout of a Deployment
+runtime: nodejs

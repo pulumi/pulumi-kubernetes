@@ -120,6 +120,10 @@ var forceNew = groups{
 
 var core = versions{
 	"v1": kinds{
+		"ConfigMap": properties{
+			".data",
+			".binaryData",
+		},
 		"PersistentVolumeClaim": append(
 			properties{
 				".spec",
