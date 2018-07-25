@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "./types/input";
 import * as outputApi from "./types/output";
 
-export function fromJson(...objs: any[]): pulumi.CustomResource[] {
+export function fromJson(objs: any[], opts?: pulumi.ResourceOptions): pulumi.CustomResource[] {
   const resources: pulumi.CustomResource[] = [];
   for (const obj of objs) {
     if (obj == null) {
@@ -23,7 +23,7 @@ export function fromJson(...objs: any[]): pulumi.CustomResource[] {
       {{#Versions}}
       {{#Kinds}}
       case "{{RawAPIVersion}}/{{Kind}}":
-        resources.push(new {{Group}}.{{Version}}.{{Kind}}(name, obj));
+        resources.push(new {{Group}}.{{Version}}.{{Kind}}(name, obj, opts));
         break;
       {{/Kinds}}
       {{/Versions}}

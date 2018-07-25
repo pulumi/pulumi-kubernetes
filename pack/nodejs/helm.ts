@@ -5,10 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as yaml from "js-yaml";
 
 export namespace v2 {
-    export class Chart {
+    export class Chart extends pulumi.ComponentResource {
         public readonly resources: pulumi.CustomResource[];
 
-        constructor(releaseName: string, path: string, values: object) {
+        constructor(name: string, path: string, values: object, opts?: pulumi.ResourceOptions) {
+            super("kubernetes:v2:Chart", name, { path: path, values: values }, opts);
             // Does not require Tiller. From the `helm template` documentation:
             //
             // >  Render chart templates locally and display the output.
@@ -18,10 +19,10 @@ export namespace v2 {
             // > of the server-side testing of chart validity (e.g. whether an API is supported)
             // > is done.
             const yamlStream = execSync(
-                `helm template ${path} --name-template="${releaseName}-{{randAscii 6}}"`
+                `helm template ${path} --name-template="${name}-{{randAscii 6}}"`
             ).toString();
             const resourcesObjects = yaml.safeLoadAll(yamlStream);
-            this.resources = k8s.fromJson(...resourcesObjects);
+            this.resources = k8s.fromJson(resourcesObjects, { ...opts, parent: this });
         }
     }
 }

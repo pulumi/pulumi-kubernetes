@@ -1,6 +1,6 @@
 {
     "name": "@pulumi/kubernetes",
-    "version": "v0.14.1-dev-1530572194-g218d72d-dirty",
+    "version": "v0.14.1-dev-1532552854-g7431a11",
     "description": "A Pulumi package for creating and managing Kubernetes resources.",
     "license": "Apache 2.0",
     "keywords": [
