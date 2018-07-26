@@ -19,7 +19,7 @@ export namespace v2 {
             // > of the server-side testing of chart validity (e.g. whether an API is supported)
             // > is done.
             const yamlStream = execSync(
-                `helm template ${path} --name-template="${name}-{{randAscii 6}}"`
+                `helm template ${path} --name-template="${name}"`
             ).toString();
             const resourcesObjects = yaml.safeLoadAll(yamlStream);
             this.resources = k8s.fromJson(resourcesObjects, { ...opts, parent: this });
