@@ -162,6 +162,7 @@ func TestExamples(t *testing.T) {
 
 				},
 			}),
+			base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "helm")}),
 			// TODO(hausdorff): Enable this when we transition to a version of minikube which correctly
 			// reports version.
 			//
