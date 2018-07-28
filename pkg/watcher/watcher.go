@@ -105,8 +105,6 @@ func (ow *ObjectWatcher) RetryUntil(r Retry, timeout time.Duration) error {
 func (ow *ObjectWatcher) watch(
 	until func(*unstructured.Unstructured, error) (bool, error), timeout time.Duration,
 ) error {
-	const maxTimeout = 30000 * time.Millisecond
-
 	timeoutCh := make(chan struct{})
 	go func() {
 		time.Sleep(timeout)
@@ -119,11 +117,9 @@ func (ow *ObjectWatcher) watch(
 		results <- result{Obj: obj, Err: err}
 	}
 
-	// Poll with exponential backoff.
 	wait := 500 * time.Millisecond
 	for {
-		// Race between timeout and getting one Kubernetes object from the polling function. If the
-		// object does not satisfy `until`, we'll back off.
+		// Race between timeout and getting one Kubernetes object from the polling function.
 		go poll()
 		select {
 		case <-timeoutCh:
@@ -137,10 +133,6 @@ func (ow *ObjectWatcher) watch(
 				return nil
 			}
 			time.Sleep(wait + time.Duration(rand.Intn(int(float64(wait)*0.2))))
-			wait *= 2
-			if maxTimeout < wait {
-				wait = maxTimeout
-			}
 		}
 	}
 }
