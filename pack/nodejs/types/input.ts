@@ -2380,7 +2380,7 @@ export namespace apps {
       /**
        * The annotations to be updated to a deployment
        */
-      updatedAnnotations?: pulumi.Input<object>
+      updatedAnnotations?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
     }
 
@@ -2646,7 +2646,7 @@ export namespace apps {
        * label query over pods that should match the replicas count. More info:
        * http://kubernetes.io/docs/user-guide/labels#label-selectors
        */
-      selector?: pulumi.Input<object>
+      selector?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * label selector for pods that should match the replicas count. This is a serializated
@@ -3820,7 +3820,7 @@ export namespace apps {
        * label query over pods that should match the replicas count. More info:
        * http://kubernetes.io/docs/user-guide/labels#label-selectors
        */
-      selector?: pulumi.Input<object>
+      selector?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * label selector for pods that should match the replicas count. This is a serializated
@@ -7080,7 +7080,7 @@ export namespace core {
        * Data contains the configuration data. Each key must consist of alphanumeric characters,
        * '-', '_' or '.'.
        */
-      data?: pulumi.Input<object>
+      data?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8228,7 +8228,7 @@ export namespace core {
       /**
        * Optional: Extra command options if any.
        */
-      options?: pulumi.Input<object>
+      options?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
@@ -10415,7 +10415,7 @@ export namespace core {
        * must match a node's labels for the pod to be scheduled on that node. More info:
        * https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
        */
-      nodeSelector?: pulumi.Input<object>
+      nodeSelector?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * The priority value. Various system components use this field to find the priority of the
@@ -11072,7 +11072,7 @@ export namespace core {
        * defaulted to labels on Pod template. More info:
        * https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
        */
-      selector?: pulumi.Input<object>
+      selector?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * Template is the object that describes the pod that will be created if insufficient replicas
@@ -11476,7 +11476,7 @@ export namespace core {
        * write-only convenience method. All keys and values are merged into the data field on write,
        * overwriting any existing values. It is never output when reading from the API.
        */
-      stringData?: pulumi.Input<object>
+      stringData?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * Used to facilitate programmatic handling of secret data.
@@ -12026,7 +12026,7 @@ export namespace core {
        * LoadBalancer. Ignored if type is ExternalName. More info:
        * https://kubernetes.io/docs/concepts/services-networking/service/
        */
-      selector?: pulumi.Input<object>
+      selector?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based
@@ -13136,7 +13136,7 @@ export namespace extensions {
       /**
        * The annotations to be updated to a deployment
        */
-      updatedAnnotations?: pulumi.Input<object>
+      updatedAnnotations?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
     }
 
@@ -14357,7 +14357,7 @@ export namespace extensions {
        * label query over pods that should match the replicas count. More info:
        * http://kubernetes.io/docs/user-guide/labels#label-selectors
        */
-      selector?: pulumi.Input<object>
+      selector?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * label selector for pods that should match the replicas count. This is a serializated
@@ -14746,7 +14746,7 @@ export namespace meta {
        * equivalent to an element of matchExpressions, whose key field is "key", the operator is
        * "In", and the values array contains only "value". The requirements are ANDed.
        */
-      matchLabels?: pulumi.Input<object>
+      matchLabels?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
     }
 
@@ -14819,7 +14819,7 @@ export namespace meta {
        * be preserved when modifying objects. More info:
        * http://kubernetes.io/docs/user-guide/annotations
        */
-      annotations?: pulumi.Input<object>
+      annotations?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * The name of the cluster which the object belongs to. This is used to distinguish resources
@@ -14914,7 +14914,7 @@ export namespace meta {
        * select) objects. May match selectors of replication controllers and services. More info:
        * http://kubernetes.io/docs/user-guide/labels
        */
-      labels?: pulumi.Input<object>
+      labels?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * Name must be unique within a namespace. Is required when creating resources, although some
@@ -17288,7 +17288,7 @@ export namespace storage {
        * Parameters holds the parameters for the provisioner that should create volumes of this
        * storage class.
        */
-      parameters?: pulumi.Input<object>
+      parameters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * Dynamically provisioned PersistentVolumes of this storage class are created with this
@@ -17491,7 +17491,7 @@ export namespace storage {
        * operation that must be passed into subsequent WaitForAttach or Mount calls. This field must
        * only be set by the entity completing the attach operation, i.e. the external-attacher.
        */
-      attachmentMetadata?: pulumi.Input<object>
+      attachmentMetadata?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * The last error encountered during detach operation, if any. This field must only be set by
@@ -17574,7 +17574,7 @@ export namespace storage {
        * Parameters holds the parameters for the provisioner that should create volumes of this
        * storage class.
        */
-      parameters?: pulumi.Input<object>
+      parameters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
       /**
        * Dynamically provisioned PersistentVolumes of this storage class are created with this

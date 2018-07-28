@@ -2242,7 +2242,7 @@ export namespace apps {
       /**
        * The annotations to be updated to a deployment
        */
-      readonly updatedAnnotations: object
+      readonly updatedAnnotations: {[key: string]: string}
 
     }
 
@@ -2493,7 +2493,7 @@ export namespace apps {
        * label query over pods that should match the replicas count. More info:
        * http://kubernetes.io/docs/user-guide/labels#label-selectors
        */
-      readonly selector: object
+      readonly selector: {[key: string]: string}
 
       /**
        * label selector for pods that should match the replicas count. This is a serializated
@@ -3603,7 +3603,7 @@ export namespace apps {
        * label query over pods that should match the replicas count. More info:
        * http://kubernetes.io/docs/user-guide/labels#label-selectors
        */
-      readonly selector: object
+      readonly selector: {[key: string]: string}
 
       /**
        * label selector for pods that should match the replicas count. This is a serializated
@@ -6674,7 +6674,7 @@ export namespace core {
        * Data contains the configuration data. Each key must consist of alphanumeric characters,
        * '-', '_' or '.'.
        */
-      readonly data: object
+      readonly data: {[key: string]: string}
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7771,7 +7771,7 @@ export namespace core {
       /**
        * Optional: Extra command options if any.
        */
-      readonly options: object
+      readonly options: {[key: string]: string}
 
       /**
        * Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
@@ -9851,7 +9851,7 @@ export namespace core {
        * must match a node's labels for the pod to be scheduled on that node. More info:
        * https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
        */
-      readonly nodeSelector: object
+      readonly nodeSelector: {[key: string]: string}
 
       /**
        * The priority value. Various system components use this field to find the priority of the
@@ -10481,7 +10481,7 @@ export namespace core {
        * defaulted to labels on Pod template. More info:
        * https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
        */
-      readonly selector: object
+      readonly selector: {[key: string]: string}
 
       /**
        * Template is the object that describes the pod that will be created if insufficient replicas
@@ -10868,7 +10868,7 @@ export namespace core {
        * write-only convenience method. All keys and values are merged into the data field on write,
        * overwriting any existing values. It is never output when reading from the API.
        */
-      readonly stringData: object
+      readonly stringData: {[key: string]: string}
 
       /**
        * Used to facilitate programmatic handling of secret data.
@@ -11387,7 +11387,7 @@ export namespace core {
        * LoadBalancer. Ignored if type is ExternalName. More info:
        * https://kubernetes.io/docs/concepts/services-networking/service/
        */
-      readonly selector: object
+      readonly selector: {[key: string]: string}
 
       /**
        * Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based
@@ -12451,7 +12451,7 @@ export namespace extensions {
       /**
        * The annotations to be updated to a deployment
        */
-      readonly updatedAnnotations: object
+      readonly updatedAnnotations: {[key: string]: string}
 
     }
 
@@ -13603,7 +13603,7 @@ export namespace extensions {
        * label query over pods that should match the replicas count. More info:
        * http://kubernetes.io/docs/user-guide/labels#label-selectors
        */
-      readonly selector: object
+      readonly selector: {[key: string]: string}
 
       /**
        * label selector for pods that should match the replicas count. This is a serializated
@@ -13966,7 +13966,7 @@ export namespace meta {
        * equivalent to an element of matchExpressions, whose key field is "key", the operator is
        * "In", and the values array contains only "value". The requirements are ANDed.
        */
-      readonly matchLabels: object
+      readonly matchLabels: {[key: string]: string}
 
     }
 
@@ -14036,7 +14036,7 @@ export namespace meta {
        * be preserved when modifying objects. More info:
        * http://kubernetes.io/docs/user-guide/annotations
        */
-      readonly annotations: object
+      readonly annotations: {[key: string]: string}
 
       /**
        * The name of the cluster which the object belongs to. This is used to distinguish resources
@@ -14131,7 +14131,7 @@ export namespace meta {
        * select) objects. May match selectors of replication controllers and services. More info:
        * http://kubernetes.io/docs/user-guide/labels
        */
-      readonly labels: object
+      readonly labels: {[key: string]: string}
 
       /**
        * Name must be unique within a namespace. Is required when creating resources, although some
@@ -16328,7 +16328,7 @@ export namespace storage {
        * Parameters holds the parameters for the provisioner that should create volumes of this
        * storage class.
        */
-      readonly parameters: object
+      readonly parameters: {[key: string]: string}
 
       /**
        * Provisioner indicates the type of the provisioner.
@@ -16518,7 +16518,7 @@ export namespace storage {
        * operation that must be passed into subsequent WaitForAttach or Mount calls. This field must
        * only be set by the entity completing the attach operation, i.e. the external-attacher.
        */
-      readonly attachmentMetadata: object
+      readonly attachmentMetadata: {[key: string]: string}
 
       /**
        * The last error encountered during detach operation, if any. This field must only be set by
@@ -16594,7 +16594,7 @@ export namespace storage {
        * Parameters holds the parameters for the provisioner that should create volumes of this
        * storage class.
        */
-      readonly parameters: object
+      readonly parameters: {[key: string]: string}
 
       /**
        * Provisioner indicates the type of the provisioner.
