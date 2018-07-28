@@ -11,20 +11,31 @@ before_install:
     - source ${PULUMI_SCRIPTS}/ci/keep-failed-tests.sh
 install:
     - source ${PULUMI_SCRIPTS}/ci/install-common-toolchain.sh
+
+    # Install Helm CLI. Do not install Tiller.
+    - curl -LO  https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz
+    - tar -xvf helm-v2.9.1-linux-amd64.tar.gz
+    - sudo mv linux-amd64/helm /usr/local/bin
+    - helm init --client-only
+
     # Install kubectl
     - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl
-    - sudo chmod +x kubectl 
+    - sudo chmod +x kubectl
     - sudo mv kubectl /usr/local/bin/
+
     # Install minukube
     - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.25.2/minikube-linux-amd64
-    - sudo chmod +x minikube 
+    - sudo chmod +x minikube
     - sudo mv minikube /usr/local/bin/
-    # Start minikube with no VM driver 
+
+    # Start minikube with no VM driver
     - export CHANGE_MINIKUBE_NONE_USER=true
     - sudo minikube start --vm-driver=none --kubernetes-version=v1.9.0
+
     # Register minikube context with kubernetes
     - minikube update-context
-    # Install Pulumi   
+
+    # Install Pulumi
     - curl -L https://get.pulumi.com/ | bash -s -- --version 0.14.0
     - export PATH=$HOME/.pulumi/bin:$PATH
 before_script:
