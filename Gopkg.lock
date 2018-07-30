@@ -597,7 +597,7 @@
     "pkg/workspace",
     "sdk/proto/go"
   ]
-  revision = "2e9a2e8a91db1cd73ae5961041c247755a330eaf"
+  revision = "b0c383e1e841977d3f4abb3978e4e29946e10085"
 
 [[projects]]
   branch = "master"
@@ -1378,6 +1378,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f4623d7279f537366e9f25fa7cdc36c1e20aa435ef810160d987c2ec4ef01043"
+  inputs-digest = "0b565c5bfab567d99e5729a9790dac6087444adb99418ccd9b0c424e0e61beef"
   solver-name = "gps-cdcl"
   solver-version = 1
