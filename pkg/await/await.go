@@ -177,7 +177,11 @@ func Update(
 		if awaiter.awaitUpdate != nil {
 			conf := updateAwaitConfig{
 				createAwaitConfig: createAwaitConfig{
-					pool: pool, disco: disco, clientForResource: clientForResource, currentInputs: currentSubmitted,
+					ctx:               ctx,
+					pool:              pool,
+					disco:             disco,
+					clientForResource: clientForResource,
+					currentInputs:     currentSubmitted,
 				},
 				lastInputs:  lastSubmitted,
 				lastOutputs: liveOldObj,
