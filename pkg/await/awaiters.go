@@ -120,8 +120,12 @@ type awaitSpec struct {
 }
 
 var deploymentAwaiter = awaitSpec{
-	awaitCreation: untilAppsDeploymentInitialized,
-	awaitUpdate:   untilAppsDeploymentUpdated,
+	awaitCreation: func(c createAwaitConfig) error {
+		return makeDeploymentInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Await()
+	},
+	awaitUpdate: func(u updateAwaitConfig) error {
+		return makeDeploymentInitAwaiter(u).Await()
+	},
 	awaitDeletion: untilAppsDeploymentDeleted,
 }
 
@@ -145,9 +149,9 @@ var awaiters = map[string]awaitSpec{
 		awaitCreation: untilCoreV1PersistentVolumeClaimBound,
 	},
 	coreV1Pod: {
-		// NOTE: Because we replace the Pod in most situations, we do not require special logic for the
-		// update path.
-		awaitCreation: untilCoreV1PodInitialized,
+		// NOTE: Because we replace the Pod in most situations, we do not require special logic for
+		// the update path.
+		awaitCreation: func(c createAwaitConfig) error { return makePodInitAwaiter(c).Await() },
 		awaitDeletion: untilCoreV1PodDeleted,
 	},
 	coreV1ReplicationController: {
@@ -161,7 +165,7 @@ var awaiters = map[string]awaitSpec{
 	},
 	coreV1Secret: { /* NONE */ },
 	coreV1Service: {
-		awaitCreation: untilCoreV1ServiceInitialized,
+		awaitCreation: awaitServiceInit,
 	},
 	coreV1ServiceAccount: {
 		awaitCreation: untilCoreV1ServiceAccountInitialized,
@@ -204,41 +208,6 @@ var awaiters = map[string]awaitSpec{
 
 func deploymentSpecReplicas(deployment *unstructured.Unstructured) (interface{}, bool) {
 	return openapi.Pluck(deployment.Object, "spec", "replicas")
-}
-
-func untilAppsDeploymentInitialized(c createAwaitConfig) error {
-	availableReplicas := func(deployment *unstructured.Unstructured) (interface{}, bool) {
-		return openapi.Pluck(deployment.Object, "status", "availableReplicas")
-	}
-
-	name := c.currentInputs.GetName()
-
-	replicas, _ := openapi.Pluck(c.currentInputs.Object, "spec", "replicas")
-	glog.V(3).Infof("Waiting for deployment '%s' to schedule '%v' replicas", name, replicas)
-
-	// 10 mins should be sufficient for scheduling ~10k replicas
-	err := watcher.ForObject(c.ctx, c.clientForResource, name).
-		WatchUntil(
-			waitForDesiredReplicasFunc(
-				c.clientForResource,
-				name,
-				deploymentSpecReplicas,
-				availableReplicas),
-			10*time.Minute)
-	if err != nil {
-		return err
-	}
-	// We could wait for all pods to actually reach Ready state
-	// but that means checking each pod status separately (which can be expensive at scale)
-	// as there's no aggregate data available from the API
-
-	glog.V(3).Infof("Deployment '%s' initialized: %#v", c.currentInputs.GetName(), c.currentInputs)
-
-	return nil
-}
-
-func untilAppsDeploymentUpdated(c updateAwaitConfig) error {
-	return untilAppsDeploymentInitialized(c.createAwaitConfig)
 }
 
 func untilAppsDeploymentDeleted(
@@ -351,17 +320,6 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 // core/v1/Pod
 
 // --------------------------------------------------------------------------
-
-func untilCoreV1PodInitialized(c createAwaitConfig) error {
-	podRunning := func(pod *unstructured.Unstructured) bool {
-		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
-		glog.V(3).Infof("Pods %s status received: %#v", pod.GetName(), statusPhase)
-		return statusPhase == "Running"
-	}
-
-	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
-		WatchUntil(podRunning, 5*time.Minute)
-}
 
 func untilCoreV1PodDeleted(
 	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
@@ -502,58 +460,6 @@ func untilCoreV1ResourceQuotaUpdated(c updateAwaitConfig) error {
 	if !reflect.DeepEqual(oldSpec, newSpec) {
 		return untilCoreV1ResourceQuotaInitialized(c.createAwaitConfig)
 	}
-	return nil
-}
-
-// --------------------------------------------------------------------------
-
-// core/v1/Service
-
-// --------------------------------------------------------------------------
-
-func untilCoreV1ServiceInitialized(c createAwaitConfig) error {
-	clientForEvents, err := c.eventClient()
-	if err != nil {
-		return err
-	}
-
-	name := c.currentInputs.GetName()
-
-	// Await logic for service of type LoadBalancer.
-	externalIPAllocated := func(svc *unstructured.Unstructured) bool {
-		lbIngress, _ := openapi.Pluck(svc.Object, "status", "loadBalancer", "ingress")
-		status, _ := openapi.Pluck(svc.Object, "status")
-
-		glog.V(3).Infof("Received service status: %#v", status)
-		if ing, isSlice := lbIngress.([]interface{}); isSlice && len(ing) > 0 {
-			return true
-		}
-
-		glog.V(3).Infof("Waiting for service '%q' to assign IP/hostname for a load balancer", name)
-
-		return false
-	}
-
-	// Await.
-	specType, _ := openapi.Pluck(c.currentInputs.Object, "spec", "type")
-	if fmt.Sprintf("%v", specType) == string(v1.ServiceTypeLoadBalancer) {
-		glog.V(3).Info("Waiting for load balancer to assign IP/hostname")
-
-		err := watcher.ForObject(c.ctx, c.clientForResource, name).
-			WatchUntil(externalIPAllocated, 10*time.Minute)
-
-		if err != nil {
-			lastWarnings, wErr := getLastWarningsForObject(clientForEvents, c.currentInputs.GetNamespace(),
-				name, "Service", 3)
-			if wErr != nil {
-				return wErr
-			}
-			return fmt.Errorf("%s%s", err, stringifyEvents(lastWarnings))
-		}
-
-		return nil
-	}
-
 	return nil
 }
 
