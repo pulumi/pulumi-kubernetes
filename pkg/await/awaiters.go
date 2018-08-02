@@ -24,6 +24,8 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/watcher"
+	"github.com/pulumi/pulumi/pkg/resource"
+	"github.com/pulumi/pulumi/pkg/resource/provider"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -36,10 +38,12 @@ import (
 // live number of Pods reaches the minimum liveness threshold. `pool` and `disco` are provided
 // typically from a client pool so that polling is reasonably efficient.
 type createAwaitConfig struct {
+	host              *provider.HostClient
 	ctx               context.Context
 	pool              dynamic.ClientPool
 	disco             discovery.ServerResourcesInterface
 	clientForResource dynamic.ResourceInterface
+	urn               resource.URN
 	currentInputs     *unstructured.Unstructured
 }
 

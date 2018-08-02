@@ -28,7 +28,7 @@ func Serve(providerName, version string) {
 	// Start gRPC service.
 	err := provider.Main(
 		providerName, func(host *provider.HostClient) (lumirpc.ResourceProviderServer, error) {
-			return makeKubeProvider(providerName, version)
+			return makeKubeProvider(host, providerName, version)
 		})
 
 	if err != nil {

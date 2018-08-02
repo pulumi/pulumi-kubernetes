@@ -28,6 +28,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/plugin"
+	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"github.com/pulumi/pulumi/pkg/util/contract"
 	"github.com/pulumi/pulumi/pkg/util/rpcutil/rpcerror"
 	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
@@ -71,6 +72,7 @@ func makeCancellationContext() *cancellationContext {
 }
 
 type kubeProvider struct {
+	host           *provider.HostClient
 	canceler       *cancellationContext
 	client         discovery.CachedDiscoveryInterface
 	pool           dynamic.ClientPool
@@ -82,7 +84,7 @@ type kubeProvider struct {
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
-	name, version string,
+	host *provider.HostClient, name, version string,
 ) (pulumirpc.ResourceProviderServer, error) {
 	// Use client-go to resolve the final configuration values for the client. Typically these
 	// values would would reside in the $KUBECONFIG file, but can also be altered in several
@@ -115,6 +117,7 @@ func makeKubeProvider(
 	pool := dynamic.NewClientPool(conf, mapper, pathresolver)
 
 	return &kubeProvider{
+		host:           host,
 		canceler:       makeCancellationContext(),
 		client:         discoCache,
 		pool:           pool,
@@ -361,7 +364,8 @@ func (k *kubeProvider) Create(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
-	initialized, awaitErr := await.Creation(k.canceler.context, k.pool, k.client, newInputs)
+	initialized, awaitErr := await.Creation(k.canceler.context, k.host, k.pool, k.client,
+		resource.URN(req.GetUrn()), newInputs)
 	if awaitErr != nil {
 		var getErr error
 		initialized, getErr = k.readLiveObject(newInputs)
@@ -546,7 +550,8 @@ func (k *kubeProvider) Update(
 	newInputs := propMapToUnstructured(newResInputs)
 
 	// Apply update.
-	initialized, awaitErr := await.Update(k.canceler.context, k.pool, k.client, oldInputs, newInputs)
+	initialized, awaitErr := await.Update(k.canceler.context, k.host, k.pool, k.client,
+		resource.URN(req.GetUrn()), oldInputs, newInputs)
 	if awaitErr != nil {
 		var getErr error
 		initialized, getErr = k.readLiveObject(newInputs)
@@ -592,7 +597,7 @@ func (k *kubeProvider) Delete(
 
 	namespace, name := client.ParseFqName(req.GetId())
 
-	err := await.Deletion(k.canceler.context, k.pool, k.client, gvk, namespace, name)
+	err := await.Deletion(k.canceler.context, k.host, k.pool, k.client, gvk, namespace, name)
 	if err != nil {
 		return nil, err
 	}
