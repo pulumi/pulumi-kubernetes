@@ -694,10 +694,14 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 }
 
 func initializationError(id string, err error, inputsAndComputed *structpb.Struct) error {
+	reasons := []string{err.Error()}
+	if aggregate, isAggregate := err.(await.AggregatedError); isAggregate {
+		reasons = append(reasons, aggregate.SubErrors()...)
+	}
 	detail := pulumirpc.ErrorResourceInitFailed{
 		Id:         id,
 		Properties: inputsAndComputed,
-		Reasons:    []string{err.Error()},
+		Reasons:    reasons,
 	}
 	return rpcerror.WithDetails(rpcerror.New(codes.Unknown, err.Error()), &detail)
 }

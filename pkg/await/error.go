@@ -1,108 +1,44 @@
-// Copyright 2016-2018, Pulumi Corporation.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package await
 
-import (
-	"fmt"
-	"strings"
-	"time"
-)
+import "fmt"
 
-// --------------------------------------------------------------------------
-
-// Await errors.
-//
-// A collection of errors encountered related to polling, retrying, and generally awaiting
-// asynchronous operations on Kubernetes objects.
-//
-// NOTE: This is very heavily influenced by
-// github.com/hashicorp/terraform/blob/v0.11.7/helper/resource/error.go.
-
-// --------------------------------------------------------------------------
-
-// NotFoundError is returned when we can't find an API object, potentially after some number of
-// retries.
-type NotFoundError struct {
-	LastError    error
-	LastRequest  interface{}
-	LastResponse interface{}
-	Message      string
-	Retries      int
+// AggregatedError represents an error with 0 or more sub-errors.
+type AggregatedError interface {
+	SubErrors() []string
 }
 
-func (e *NotFoundError) Error() string {
-	if e.Message != "" {
-		return e.Message
-	}
-
-	if e.Retries > 0 {
-		return fmt.Sprintf("couldn't find resource (%d retries)", e.Retries)
-	}
-
-	return "couldn't find resource"
+// cancellationError represents an operation that failed because the user cancelled it.
+type cancellationError struct {
+	objectName string
+	subErrors  []string
 }
 
-// UnexpectedStateError is returned when Refresh returns a state that's neither in Target nor
-// Pending.
-type UnexpectedStateError struct {
-	LastError     error
-	State         string
-	ExpectedState []string
+var _ error = (*cancellationError)(nil)
+var _ AggregatedError = (*cancellationError)(nil)
+
+func (ce *cancellationError) Error() string {
+	return fmt.Sprintf("Resource operation was cancelled for '%s'", ce.objectName)
 }
 
-func (e *UnexpectedStateError) Error() string {
-	return fmt.Sprintf(
-		"unexpected state '%s', wanted target '%s'. last error: %s",
-		e.State,
-		strings.Join(e.ExpectedState, ", "),
-		e.LastError,
-	)
+// SubErrors returns the errors that were present when cancellation occurred.
+func (ce *cancellationError) SubErrors() []string {
+	return ce.subErrors
 }
 
-// TimeoutError is returned when WaitForState times out
-type TimeoutError struct {
-	LastError     error
-	LastState     string
-	Timeout       time.Duration
-	ExpectedState []string
+// timeoutError represents an operation that failed because it timed out.
+type timeoutError struct {
+	objectName string
+	subErrors  []string
 }
 
-func (e *TimeoutError) Error() string {
-	expectedState := "resource to be gone"
-	if len(e.ExpectedState) > 0 {
-		expectedState = fmt.Sprintf("state to become '%s'", strings.Join(e.ExpectedState, ", "))
-	}
+var _ error = (*timeoutError)(nil)
+var _ AggregatedError = (*timeoutError)(nil)
 
-	extraInfo := make([]string, 0)
-	if e.LastState != "" {
-		extraInfo = append(extraInfo, fmt.Sprintf("last state: '%s'", e.LastState))
-	}
-	if e.Timeout > 0 {
-		extraInfo = append(extraInfo, fmt.Sprintf("timeout: %s", e.Timeout.String()))
-	}
+func (te *timeoutError) Error() string {
+	return fmt.Sprintf("Timeout occurred for '%s'", te.objectName)
+}
 
-	suffix := ""
-	if len(extraInfo) > 0 {
-		suffix = fmt.Sprintf(" (%s)", strings.Join(extraInfo, ", "))
-	}
-
-	if e.LastError != nil {
-		return fmt.Sprintf("timeout while waiting for %s%s: %s",
-			expectedState, suffix, e.LastError)
-	}
-
-	return fmt.Sprintf("timeout while waiting for %s%s",
-		expectedState, suffix)
+// SubErrors returns the errors that were present when timeout occurred.
+func (te *timeoutError) SubErrors() []string {
+	return te.subErrors
 }
