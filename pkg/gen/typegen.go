@@ -175,13 +175,37 @@ func fmtComment(comment interface{}, prefix string) string {
 	return ""
 }
 
-func makeType(prop map[string]interface{}, refPrefix string) string {
+type refType int
+
+const (
+	inputRef refType = iota
+	outputRef
+	providerRef
+)
+
+func makeType(prop map[string]interface{}, refPrefix string, rt refType) string {
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
 		if tstr == "array" {
-			return fmt.Sprintf("%s[]", makeType(prop["items"].(map[string]interface{}), refPrefix))
+			return fmt.Sprintf("%s[]", makeType(prop["items"].(map[string]interface{}), refPrefix, rt))
 		} else if tstr == "integer" {
 			return "number"
+		} else if tstr == "object" {
+			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
+			// values both have type `type`. This type is never a `$ref`.
+			if additionalProperties, exists := prop["additionalProperties"]; exists {
+				mapType := additionalProperties.(map[string]interface{})
+				if ktype, exists := mapType["type"]; exists && len(mapType) == 1 {
+					switch rt {
+					case inputRef:
+						return fmt.Sprintf("{[key: %s]: pulumi.Input<%s>}", ktype, ktype)
+					case outputRef:
+						return fmt.Sprintf("{[key: %s]: %s}", ktype, ktype)
+					case providerRef:
+						return fmt.Sprintf("{[key: %s]: pulumi.Output<%s>}", ktype, ktype)
+					}
+				}
+			}
 		}
 		return tstr
 	}
@@ -204,12 +228,12 @@ func makeType(prop map[string]interface{}, refPrefix string) string {
 	return fmt.Sprintf("%s.%s.%s.%s", refPrefix, gvk.Group, gvk.Version, gvk.Kind)
 }
 
-func makeTypeLiteral(prop map[string]interface{}) string {
-	return makeType(prop, "")
+func makeTypeLiteral(prop map[string]interface{}, t refType) string {
+	return makeType(prop, "", t)
 }
 
 func makeAPITypeRef(prop map[string]interface{}) string {
-	return makeType(prop, "outputApi")
+	return makeType(prop, "outputApi", providerRef)
 }
 
 // --------------------------------------------------------------------------
@@ -303,8 +327,10 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
 					var typeLiteral string
 					switch generatorType {
-					case inputsAPI, outputsAPI:
-						typeLiteral = makeTypeLiteral(prop)
+					case inputsAPI:
+						typeLiteral = makeTypeLiteral(prop, inputRef)
+					case outputsAPI:
+						typeLiteral = makeTypeLiteral(prop, outputRef)
 					case provider:
 						typeLiteral = makeAPITypeRef(prop)
 					default:

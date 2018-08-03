@@ -12,12 +12,12 @@ export namespace {{Group}} {
     export interface {{Kind}} {
       {{#RequiredProperties}}
       {{{Comment}}}
-      {{Name}}: pulumi.Input<{{PropType}}>
+      {{Name}}: pulumi.Input<{{{PropType}}}>
 
       {{/RequiredProperties}}
       {{#OptionalProperties}}
       {{{Comment}}}
-      {{Name}}?: pulumi.Input<{{PropType}}>
+      {{Name}}?: pulumi.Input<{{{PropType}}}>
 
       {{/OptionalProperties}}
     }

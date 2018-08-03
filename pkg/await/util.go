@@ -28,6 +28,8 @@ import (
 	"k8s.io/client-go/dynamic"
 )
 
+const trueStatus = "True"
+
 // --------------------------------------------------------------------------
 
 // Event helpers.

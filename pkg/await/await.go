@@ -21,6 +21,8 @@ import (
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
+	"github.com/pulumi/pulumi/pkg/resource"
+	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -45,7 +47,8 @@ import (
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
 func Creation(
-	ctx context.Context, pool dynamic.ClientPool, disco discovery.ServerResourcesInterface, obj *unstructured.Unstructured,
+	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
+	disco discovery.ServerResourcesInterface, urn resource.URN, obj *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
 	clientForResource, err := client.FromResource(pool, disco, obj)
 	if err != nil {
@@ -65,10 +68,12 @@ func Creation(
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitCreation != nil {
 			conf := createAwaitConfig{
+				host:              host,
 				ctx:               ctx,
 				pool:              pool,
 				disco:             disco,
 				clientForResource: clientForResource,
+				urn:               urn,
 				currentInputs:     obj,
 			}
 			waitErr := awaiter.awaitCreation(conf)
@@ -99,7 +104,8 @@ func Creation(
 // [2]:
 // https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
 func Update(
-	ctx context.Context, pool dynamic.ClientPool, disco discovery.CachedDiscoveryInterface,
+	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
+	disco discovery.CachedDiscoveryInterface, urn resource.URN,
 	lastSubmitted, currentSubmitted *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
 	//
@@ -177,7 +183,13 @@ func Update(
 		if awaiter.awaitUpdate != nil {
 			conf := updateAwaitConfig{
 				createAwaitConfig: createAwaitConfig{
-					pool: pool, disco: disco, clientForResource: clientForResource, currentInputs: currentSubmitted,
+					host:              host,
+					ctx:               ctx,
+					pool:              pool,
+					disco:             disco,
+					clientForResource: clientForResource,
+					urn:               urn,
+					currentInputs:     currentSubmitted,
 				},
 				lastInputs:  lastSubmitted,
 				lastOutputs: liveOldObj,
@@ -203,8 +215,8 @@ func Update(
 // (1) the Kubernetes resource is reported to be deleted; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being deleted.
 func Deletion(
-	ctx context.Context, pool dynamic.ClientPool, disco discovery.DiscoveryInterface,
-	gvk schema.GroupVersionKind, namespace, name string,
+	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
+	disco discovery.DiscoveryInterface, gvk schema.GroupVersionKind, namespace, name string,
 ) error {
 	// Make delete options based on the version of the client.
 	version, err := client.FetchVersion(disco)

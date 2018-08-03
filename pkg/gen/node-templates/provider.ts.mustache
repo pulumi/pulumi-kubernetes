@@ -14,7 +14,7 @@ export namespace {{Group}} {
     export class {{Kind}} extends pulumi.CustomResource {
       {{#Properties}}
       {{{Comment}}}
-      public readonly {{Name}}: pulumi.Output<{{PropType}}>;
+      public readonly {{Name}}: pulumi.Output<{{{PropType}}}>;
 
       {{/Properties}}
 

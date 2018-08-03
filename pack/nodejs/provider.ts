@@ -1399,7 +1399,7 @@ export namespace apps {
       /**
        * The annotations to be updated to a deployment
        */
-      public readonly updatedAnnotations: pulumi.Output<object>;
+      public readonly updatedAnnotations: pulumi.Output<{[key: string]: pulumi.Output<string>}>;
 
 
       public getInputs(): inputApi.apps.v1beta1.DeploymentRollback { return this.__inputs; }
@@ -3869,7 +3869,7 @@ export namespace core {
        * Data contains the configuration data. Each key must consist of alphanumeric characters,
        * '-', '_' or '.'.
        */
-      public readonly data: pulumi.Output<object>;
+      public readonly data: pulumi.Output<{[key: string]: pulumi.Output<string>}>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5453,7 +5453,7 @@ export namespace core {
        * write-only convenience method. All keys and values are merged into the data field on write,
        * overwriting any existing values. It is never output when reading from the API.
        */
-      public readonly stringData: pulumi.Output<object>;
+      public readonly stringData: pulumi.Output<{[key: string]: pulumi.Output<string>}>;
 
       /**
        * Used to facilitate programmatic handling of secret data.
@@ -6240,7 +6240,7 @@ export namespace extensions {
       /**
        * The annotations to be updated to a deployment
        */
-      public readonly updatedAnnotations: pulumi.Output<object>;
+      public readonly updatedAnnotations: pulumi.Output<{[key: string]: pulumi.Output<string>}>;
 
 
       public getInputs(): inputApi.extensions.v1beta1.DeploymentRollback { return this.__inputs; }
@@ -9195,7 +9195,7 @@ export namespace storage {
        * Parameters holds the parameters for the provisioner that should create volumes of this
        * storage class.
        */
-      public readonly parameters: pulumi.Output<object>;
+      public readonly parameters: pulumi.Output<{[key: string]: pulumi.Output<string>}>;
 
       /**
        * Provisioner indicates the type of the provisioner.
@@ -9464,7 +9464,7 @@ export namespace storage {
        * Parameters holds the parameters for the provisioner that should create volumes of this
        * storage class.
        */
-      public readonly parameters: pulumi.Output<object>;
+      public readonly parameters: pulumi.Output<{[key: string]: pulumi.Output<string>}>;
 
       /**
        * Provisioner indicates the type of the provisioner.
