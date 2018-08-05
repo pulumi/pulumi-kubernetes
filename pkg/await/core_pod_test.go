@@ -151,6 +151,15 @@ func Test_Core_Pod(t *testing.T) {
 				},
 			},
 		},
+		{
+			description: "Should succeed terminated successfully and restart policy is 'Never'",
+			do: func(pods chan watch.Event, timeout chan time.Time) {
+				pods <- watchAddedEvent(podSucceeded("default", "foo-4setj4y6"))
+
+				// Mark endpoint objects as having settled. Success.
+				timeout <- time.Now()
+			},
+		},
 	}
 
 	for _, test := range tests {
@@ -753,6 +762,200 @@ func podTerminatedSuccess(namespace, name string) *unstructured.Unstructured {
             }
         ],
         "qosClass": "BestEffort"
+    }
+}`, namespace, name))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func podSucceeded(namespace, name string) *unstructured.Unstructured {
+	// nolint
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s"
+    },
+    "spec": {
+        "containers": [
+            {
+                "command": [
+                    "/tools/bats/bats",
+                    "-t",
+                    "/tests/run.sh"
+                ],
+                "image": "mysql:5.7.14",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "mysql-test",
+                "resources": {
+                    "requests": {
+                        "cpu": "100m"
+                    }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/tests",
+                        "name": "tests",
+                        "readOnly": true
+                    },
+                    {
+                        "mountPath": "/tools",
+                        "name": "tools"
+                    },
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "default-token-bx8t4",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "initContainers": [
+            {
+                "command": [
+                    "bash",
+                    "-c",
+                    "set -ex\n# copy bats to tools dir\ncp -R /usr/local/libexec/ /tools/bats/\n"
+                ],
+                "image": "dduportal/bats:0.4.0",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "test-framework",
+                "resources": {
+                    "requests": {
+                        "cpu": "100m"
+                    }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/tools",
+                        "name": "tools"
+                    },
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "default-token-bx8t4",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "nodeName": "gke-test-ci-default-pool-098d687f-jv41",
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "configMap": {
+                    "defaultMode": 420,
+                    "name": "mysql-test"
+                },
+                "name": "tests"
+            },
+            {
+                "emptyDir": {},
+                "name": "tools"
+            },
+            {
+                "name": "default-token-bx8t4",
+                "secret": {
+                    "defaultMode": 420,
+                    "secretName": "default-token-bx8t4"
+                }
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2018-08-05T19:27:09Z",
+                "reason": "PodCompleted",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2018-08-05T19:27:07Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2018-08-05T19:27:07Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "docker://3d85d5c4fa4f71505ea6d593e0753f6bf71762e7d317605bad599deb765e2f70",
+                "image": "mysql:5.7.14",
+                "imageID": "docker-pullable://mysql@sha256:c8f03238ca1783d25af320877f063a36dbfce0daa56a7b4955e6c6e05ab5c70b",
+                "lastState": {},
+                "name": "mysql-test",
+                "ready": false,
+                "restartCount": 0,
+                "state": {
+                    "terminated": {
+                        "containerID": "docker://3d85d5c4fa4f71505ea6d593e0753f6bf71762e7d317605bad599deb765e2f70",
+                        "exitCode": 0,
+                        "finishedAt": "2018-08-05T19:27:09Z",
+                        "reason": "Completed",
+                        "startedAt": "2018-08-05T19:27:09Z"
+                    }
+                }
+            }
+        ],
+        "hostIP": "10.0.0.3",
+        "initContainerStatuses": [
+            {
+                "containerID": "docker://ebf0e41f162380240a5f8885a4052e253649f9ecd6a8e2601867c675e0774c76",
+                "image": "dduportal/bats:0.4.0",
+                "imageID": "docker-pullable://dduportal/bats@sha256:b2d533b27109f7c9ea1e270e23f212c47906346f9cffaa4da6da48ed9d8031da",
+                "lastState": {},
+                "name": "test-framework",
+                "ready": true,
+                "restartCount": 0,
+                "state": {
+                    "terminated": {
+                        "containerID": "docker://ebf0e41f162380240a5f8885a4052e253649f9ecd6a8e2601867c675e0774c76",
+                        "exitCode": 0,
+                        "finishedAt": "2018-08-05T19:27:09Z",
+                        "reason": "Completed",
+                        "startedAt": "2018-08-05T19:27:09Z"
+                    }
+                }
+            }
+        ],
+        "phase": "Succeeded",
+        "podIP": "10.44.2.67",
+        "qosClass": "Burstable",
+        "startTime": "2018-08-05T19:27:07Z"
     }
 }`, namespace, name))
 	if err != nil {

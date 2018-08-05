@@ -75,7 +75,7 @@ import (
 //
 //
 // x-refs:
-//   * https://kubernetes-v1-4.github.io/docs/user-guide/pod-states/
+//   * https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
 
 // ------------------------------------------------------------------------------------------------
 
@@ -95,6 +95,7 @@ type podChecker struct {
 	podInitErrors      map[string]string
 	podReady           bool
 	podReadyErrors     map[string]string
+	podSuccess         bool
 	containerErrors    map[string][]string
 }
 
@@ -132,6 +133,8 @@ func (pc *podChecker) check(pod *unstructured.Unstructured) {
 	switch phase := status["phase"]; phase {
 	case "Running", "Pending", "Failed", "Unknown", nil, "":
 		pc.checkPod(pod, status)
+	case "Succeeded":
+		pc.podSuccess = true
 	default:
 		glog.V(3).Infof("Pod '%s' has unknown status phase '%s'",
 			pod.GetName(), phase)
@@ -327,7 +330,7 @@ func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time
 	inputPodName := pia.config.currentInputs.GetName()
 	for {
 		// Check whether we've succeeded.
-		if pia.podReady {
+		if pia.podReady || pia.podSuccess {
 			return nil
 		}
 
@@ -342,19 +345,11 @@ func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time
 		// TODO: If Pod is added and not making progress on initialization after
 		// ~30 seconds, report that.
 		case <-pia.config.ctx.Done():
-			// On cancel, check one last time if the service is ready.
-			if pia.podReady {
-				return nil
-			}
 			return &cancellationError{
 				objectName: inputPodName,
 				subErrors:  pia.errorMessages(),
 			}
 		case <-timeout:
-			// On timeout, check one last time if the service is ready.
-			if pia.podReady {
-				return nil
-			}
 			return &timeoutError{
 				objectName: inputPodName,
 				subErrors:  pia.errorMessages(),
