@@ -85,7 +85,8 @@ const (
 
 type deploymentInitAwaiter struct {
 	config                 updateAwaitConfig
-	rolloutComplete        bool
+	deploymentAvailable    bool
+	replicaSetAvailable    bool
 	updatedReplicaSetReady bool
 	currentGeneration      string
 
@@ -98,7 +99,8 @@ type deploymentInitAwaiter struct {
 func makeDeploymentInitAwaiter(c updateAwaitConfig) *deploymentInitAwaiter {
 	return &deploymentInitAwaiter{
 		config:                 c,
-		rolloutComplete:        false,
+		deploymentAvailable:    false,
+		replicaSetAvailable:    false,
 		updatedReplicaSetReady: false,
 		// NOTE: Generation 0 is invalid, so this is a good sentinel value.
 		currentGeneration: "0",
@@ -114,11 +116,18 @@ func (dia *deploymentInitAwaiter) Await() error {
 	//
 	// We succeed when only when all of the following are true:
 	//
-	//   1. `.metadata.generation` is equal to `.status.observedGeneration`
-	//   2. `.status.conditions` has a status of type `Progressing`, whose `status` member is set
-	//      to `True`, and whose `reason` is `NewReplicaSetAvailable`.
-	//   3. `.status.conditions` has a status of type `Available` whose `status` member is set to
-	//      `True`.
+	//   1. The Deployment has begun to be updated by the Deployment controller. If the current
+	//      generation of the Deployment is > 1, then this means that the current generation must
+	//      be different from the generation reported by the last outputs.
+	//   2. There exists a ReplicaSet whose revision is equal to the current revision of the
+	//      Deployment.
+	//   2. The Deployment's `.status.conditions` has a status of type `Available` whose `status`
+	//      member is set to `True`.
+	//   3. If the Deployment has generation > 1, then `.status.conditions` has a status of type
+	//      `Progressing`, whose `status` member is set to `True`, and whose `reason` is
+	//      `NewReplicaSetAvailable`. For generation <= 1, this status field does not exist,
+	//      because it doesn't do a rollout (i.e., it simply creates the Deployment and
+	//      corresponding ReplicaSet), and therefore there is no rollout to mark as "Progressing".
 	//
 
 	// Create Deployment watcher.
@@ -183,9 +192,24 @@ func (dia *deploymentInitAwaiter) await(
 ) error {
 	inputPodName := dia.config.currentInputs.GetName()
 	for {
-		// Check whether we've succeeded.
-		if dia.rolloutComplete && dia.updatedReplicaSetReady {
-			return nil
+		// Check whether we've succeeded. There are two cases:
+		//
+		//   1. If the generation of the Deployment is > 1, we need to check that (1) the
+		//      Deployment is marked as available, (2) the ReplicaSet we're trying to roll to is
+		//      marked as Available, and (3) the Deployment has marked the new ReplicaSet as
+		//      "ready".
+		//   2. If it's the first generation of the Deployment, the object is simply created,
+		//      rather than rolled out. This means there is no rollout to be marked as
+		//      "progressing", so we need only check that the Deployment was created, and the
+		//      corresponding ReplicaSet needs to be marked available.
+		if dia.currentGeneration == "1" {
+			if dia.deploymentAvailable && dia.updatedReplicaSetReady {
+				return nil
+			}
+		} else {
+			if dia.deploymentAvailable && dia.replicaSetAvailable && dia.updatedReplicaSetReady {
+				return nil
+			}
 		}
 
 		// Else, wait for updates.
@@ -230,7 +254,6 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	}
 
 	// Start over, prove that rollout is complete.
-	dia.rolloutComplete = false
 	dia.deploymentErrors = map[string]string{}
 
 	// Do nothing if this is not the Deployment we're waiting for.
@@ -262,8 +285,6 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 
 	// Success occurs when the ReplicaSet of the `currentGeneration` is marked as available, and
 	// when the deployment is available.
-	replicaSetAvailable := false
-	deploymentAvailable := false
 	for _, rawCondition := range conditions {
 		condition, isMap := rawCondition.(map[string]interface{})
 		if !isMap {
@@ -288,12 +309,12 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 				dia.warn(message)
 			}
 
-			replicaSetAvailable = condition["reason"] == "NewReplicaSetAvailable" && isProgressing
+			dia.replicaSetAvailable = condition["reason"] == "NewReplicaSetAvailable" && isProgressing
 		}
 
 		if condition["type"] == "Available" {
-			deploymentAvailable = condition["status"] == trueStatus
-			if !deploymentAvailable {
+			dia.deploymentAvailable = condition["status"] == trueStatus
+			if !dia.deploymentAvailable {
 				rawReason, hasReason := condition["reason"]
 				reason, isString := rawReason.(string)
 				if !hasReason || !isString {
@@ -310,7 +331,6 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 		}
 	}
 
-	dia.rolloutComplete = replicaSetAvailable && deploymentAvailable
 	dia.checkReplicaSetStatus()
 }
 
@@ -322,10 +342,14 @@ func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 		return
 	}
 
+	glog.V(3).Infof("Received update for ReplicaSet '%s'", rs.GetName())
+
 	// Check whether this ReplicaSet was created by our Deployment.
 	if !isOwnedBy(rs, dia.config.currentInputs) {
 		return
 	}
+
+	glog.V(3).Infof("ReplicaSet '%s' is owned by '%s'", rs.GetName(), dia.config.currentInputs.GetName())
 
 	// If Pod was deleted, remove it from our aggregated checkers.
 	generation := rs.GetAnnotations()[revision]
@@ -359,14 +383,17 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 
 	rawSpecReplicas, specReplicasExists := openapi.Pluck(inputs.Object, "spec", "replicas")
 	specReplicas, _ := rawSpecReplicas.(float64)
+	if !specReplicasExists {
+		specReplicas = 1
+	}
 	rawReadyReplicas, readyReplicasExists := openapi.Pluck(rs.Object, "status", "readyReplicas")
 	readyReplicas, _ := rawReadyReplicas.(int64)
 
 	glog.V(3).Infof("ReplicaSet '%s' requests '%v' replicas, but has '%v' ready",
-		rs.GetName(), specReplicas, lastGeneration)
+		rs.GetName(), specReplicas, readyReplicas)
 
 	dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && udpatedReplicaSetCreated &&
-		specReplicasExists && readyReplicasExists && readyReplicas >= int64(specReplicas)
+		readyReplicasExists && readyReplicas >= int64(specReplicas)
 }
 
 func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {

@@ -15,6 +15,7 @@ const (
 	deploymentInputName     = "foo-4setj4y6"
 	replicaSetGeneratedName = "foo-4setj4y6-7cdf7ddc54"
 	revision1               = "1"
+	revision2               = "2"
 )
 
 func Test_Apps_Deployment(t *testing.T) {
@@ -24,7 +25,7 @@ func Test_Apps_Deployment(t *testing.T) {
 		expectedError error
 	}{
 		{
-			description: "Should succeed after creating first ReplicaSet",
+			description: "[Revision 1] Should succeed after creating ReplicaSet",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes Deployment and ReplicaSet
 				// objects.
@@ -45,7 +46,28 @@ func Test_Apps_Deployment(t *testing.T) {
 			},
 		},
 		{
-			description: "Should succeed even if ReplicaSet becomes available before Deployment repots it",
+			description: "[Revision 2] Should succeed after creating ReplicaSet",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				// API server successfully creates and initializes Deployment and ReplicaSet
+				// objects.
+				deployments <- watchAddedEvent(
+					deploymentAdded(inputNamespace, deploymentInputName, revision2))
+				deployments <- watchAddedEvent(
+					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
+				deployments <- watchAddedEvent(
+					deploymentProgressingUnavailable(inputNamespace, deploymentInputName, revision2))
+				deployments <- watchAddedEvent(
+					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision2))
+
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description: "[Revision 1] Succeed if ReplicaSet becomes available before Deployment repots it",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes Deployment and ReplicaSet
 				// objects.
@@ -65,26 +87,46 @@ func Test_Apps_Deployment(t *testing.T) {
 			},
 		},
 		{
-			description: "Should succeed if update has rolled out",
+			description: "[Revision 2] Succeed if ReplicaSet becomes available before Deployment repots it",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				// API server successfully creates and initializes Deployment and ReplicaSet
+				// objects.
+				deployments <- watchAddedEvent(
+					deploymentAdded(inputNamespace, deploymentInputName, revision2))
+				deployments <- watchAddedEvent(
+					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
+				deployments <- watchAddedEvent(
+					deploymentProgressingUnavailable(inputNamespace, deploymentInputName, revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+				deployments <- watchAddedEvent(
+					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision2))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description: "[Revision 2] Should succeed if update has rolled out",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// Deployment is updated by the user. The controller creates and successfully
 				// initializes the ReplicaSet.
 				deployments <- watchAddedEvent(
-					deploymentUpdated(inputNamespace, deploymentInputName, revision1))
+					deploymentUpdated(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentUpdatedReplicaSetProgressing(inputNamespace, deploymentInputName, revision1))
+					deploymentUpdatedReplicaSetProgressing(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentUpdatedReplicaSetProgressed(inputNamespace, deploymentInputName, revision1))
+					deploymentUpdatedReplicaSetProgressed(inputNamespace, deploymentInputName, revision2))
 
 				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
 
 				// Timeout. Success.
 				timeout <- time.Now()
 			},
 		},
 		{
-			description: "Should fail if unrelated Deployment succeeds",
+			description: "[Revision 1] Should fail if unrelated Deployment succeeds",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentAdded(inputNamespace, deploymentInputName, revision1))
@@ -101,7 +143,24 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{}},
 		},
 		{
-			description: "Should succeed when unrelated deployment fails",
+			description: "[Revision 2] Should fail if unrelated Deployment succeeds",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				deployments <- watchAddedEvent(
+					deploymentAdded(inputNamespace, deploymentInputName, revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+
+				deployments <- watchAddedEvent(deploymentRolloutComplete(inputNamespace, "bar", revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, "bar-ablksd", "bar", revision2))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{}},
+		},
+		{
+			description: "[Revision 1] Should succeed when unrelated deployment fails",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1))
@@ -117,7 +176,23 @@ func Test_Apps_Deployment(t *testing.T) {
 			},
 		},
 		{
-			description: "Should report success immediately even if the next event is a failure",
+			description: "[Revision 2] Should succeed when unrelated deployment fails",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				deployments <- watchAddedEvent(
+					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+
+				deployments <- watchAddedEvent(deploymentAdded(inputNamespace, "bar", revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, "bar-ablksd", "bar", revision2))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description: "[Revision 1] Should report success even if the next event is a failure",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
 					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1))
@@ -131,7 +206,21 @@ func Test_Apps_Deployment(t *testing.T) {
 			},
 		},
 		{
-			description: "Should fail if timeout occurs before Deployment controller progresses",
+			description: "[Revision 2] Should report success even if the next event is a failure",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				deployments <- watchAddedEvent(
+					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+				deployments <- watchAddedEvent(
+					deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision2))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description: "[Revision 1] Should fail if timeout occurs before ReplicaSet becomes available",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller hasn't created the ReplicaSet when we time
 				// out.
@@ -147,14 +236,30 @@ func Test_Apps_Deployment(t *testing.T) {
 				objectName: deploymentInputName, subErrors: []string{}},
 		},
 		{
-			description: "Should fail if timeout occurs before ReplicaSet is created",
+			description: "[Revision 2] Should fail if timeout occurs before Deployment controller progresses",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				// User submits a deployment. Controller hasn't created the ReplicaSet when we time
+				// out.
+				deployments <- watchAddedEvent(
+					deploymentAdded(inputNamespace, deploymentInputName, revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				objectName: deploymentInputName, subErrors: []string{}},
+		},
+		{
+			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet is created",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, but the replication
 				// controller does not start initializing it before it errors out.
 				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision1))
+					deploymentAdded(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentProgressing(inputNamespace, deploymentInputName, revision1))
+					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
@@ -163,16 +268,16 @@ func Test_Apps_Deployment(t *testing.T) {
 				objectName: deploymentInputName, subErrors: []string{"Updated ReplicaSet was never created"}},
 		},
 		{
-			description: "Should fail if timeout occurs before ReplicaSet becomes available",
+			description: "[Revision 2] Should fail if timeout occurs before ReplicaSet becomes available",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, but it's still
 				// unavailable when we time out.
 				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision1))
+					deploymentAdded(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentProgressing(inputNamespace, deploymentInputName, revision1))
+					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentProgressingUnavailable(inputNamespace, deploymentInputName, revision1))
+					deploymentProgressingUnavailable(inputNamespace, deploymentInputName, revision2))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
@@ -184,12 +289,12 @@ func Test_Apps_Deployment(t *testing.T) {
 					"Updated ReplicaSet was never created"}},
 		},
 		{
-			description: "Should fail if new ReplicaSet isn't created after an update",
+			description: "[Revision 2] Should fail if new ReplicaSet isn't created after an update",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// Deployment is updated by the user. The controller does not create a new
 				// ReplicaSet before we time out.
 				deployments <- watchAddedEvent(
-					deploymentUpdated(inputNamespace, deploymentInputName, revision1))
+					deploymentUpdated(inputNamespace, deploymentInputName, revision2))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
@@ -198,14 +303,14 @@ func Test_Apps_Deployment(t *testing.T) {
 				objectName: deploymentInputName, subErrors: []string{"Updated ReplicaSet was never created"}},
 		},
 		{
-			description: "Should fail if timeout before new ReplicaSet becomes available",
+			description: "[Revision 2] Should fail if timeout before new ReplicaSet becomes available",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// Deployment is updated by the user. The controller creates the ReplicaSet, but we
 				// time out before it can complete initializing.
 				deployments <- watchAddedEvent(
-					deploymentUpdated(inputNamespace, deploymentInputName, revision1))
+					deploymentUpdated(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentUpdatedReplicaSetProgressing(inputNamespace, deploymentInputName, revision1))
+					deploymentUpdatedReplicaSetProgressing(inputNamespace, deploymentInputName, revision2))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
@@ -214,18 +319,55 @@ func Test_Apps_Deployment(t *testing.T) {
 				objectName: deploymentInputName, subErrors: []string{"Updated ReplicaSet was never created"}},
 		},
 		{
-			description: "Should fail if Deployment not progressing",
+			description: "[Revision 1] Deployment should succeed and not report 'Progressing' condition",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				// User submits a deployment. In the first revision, the "Progressing" condition is
+				// not reported, because nothing is rolling out -- the ReplicaSet need only be
+				// created and become available.
+				deployments <- watchAddedEvent(
+					deploymentAdded(inputNamespace, deploymentInputName, revision1))
+				deployments <- watchAddedEvent(
+					deploymentRevision1Created(inputNamespace, deploymentInputName))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description: "[Revision 2] Deployment should fail if 'Progressing' condition is missing",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				// User submits a deployment. In the first revision, the "Progressing" condition is
+				// not reported, because nothing is rolling out -- the ReplicaSet need only be
+				// created and become available.
+				deployments <- watchAddedEvent(
+					deploymentAdded(inputNamespace, deploymentInputName, revision2))
+				deployments <- watchAddedEvent(
+					deploymentRevision2Created(inputNamespace, deploymentInputName))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				objectName: deploymentInputName,
+				subErrors:  []string{}},
+		},
+		{
+			description: "[Revision 2] Deployment should fail if Deployment reports 'Progressing' failure",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, and it tries to
 				// progress, but it fails.
 				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision1))
+					deploymentAdded(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentProgressing(inputNamespace, deploymentInputName, revision1))
+					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentNotProgressing(inputNamespace, deploymentInputName, revision1))
+					deploymentNotProgressing(inputNamespace, deploymentInputName, revision2))
 				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
@@ -237,18 +379,18 @@ func Test_Apps_Deployment(t *testing.T) {
 						`out progressing.`}},
 		},
 		{
-			description: "Should fail if Deployment is progressing but new ReplicaSet not available",
+			description: "[Revision 2] Should fail if Deployment is progressing but new ReplicaSet not available",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				// User submits a deployment. Controller creates ReplicaSet, and it tries to
 				// progress, but it will not, because it is using an invalid container image.
 				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision1))
+					deploymentAdded(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentProgressing(inputNamespace, deploymentInputName, revision1))
+					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
 				deployments <- watchAddedEvent(
-					deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision1))
+					deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision2))
 				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
@@ -257,7 +399,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				objectName: deploymentInputName, subErrors: []string{}},
 		},
 		{
-			description: "Failure should only report Pods from active ReplicaSet, part 1",
+			description: "[Revision 1] Failure should only report Pods from active ReplicaSet, part 1",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				readyPodName := "foo-4setj4y6-7cdf7ddc54-kvh2w"
 
@@ -278,7 +420,28 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{}},
 		},
 		{
-			description: "Failure should only report Pods from active ReplicaSet, part 2",
+			description: "[Revision 2] Failure should only report Pods from active ReplicaSet, part 1",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				readyPodName := "foo-4setj4y6-7cdf7ddc54-kvh2w"
+
+				deployments <- watchAddedEvent(
+					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+
+				// Ready Pod should generate no errors.
+				pods <- watchAddedEvent(deployedReadyPod(inputNamespace, readyPodName, replicaSetGeneratedName))
+
+				// Pod belonging to some other ReplicaSet should not show up in the errors.
+				pods <- watchAddedEvent(deployedFailedPod(inputNamespace, readyPodName, "bar"))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{}},
+		},
+		{
+			description: "[Revision 1] Failure should only report Pods from active ReplicaSet, part 2",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				readyPodName := "foo-4setj4y6-7cdf7ddc54-kvh2w"
 
@@ -286,6 +449,27 @@ func Test_Apps_Deployment(t *testing.T) {
 					deploymentProgressing(inputNamespace, deploymentInputName, revision1))
 				replicaSets <- watchAddedEvent(
 					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
+
+				// Failed Pod should show up in the errors.
+				pods <- watchAddedEvent(deployedFailedPod(inputNamespace, readyPodName, replicaSetGeneratedName))
+
+				// // Unrelated successful Pod should generate no errors.
+				pods <- watchAddedEvent(deployedReadyPod(inputNamespace, readyPodName, "bar"))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{}},
+		},
+		{
+			description: "[Revision 2] Failure should only report Pods from active ReplicaSet, part 2",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				readyPodName := "foo-4setj4y6-7cdf7ddc54-kvh2w"
+
+				deployments <- watchAddedEvent(
+					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
 
 				// Failed Pod should show up in the errors.
 				pods <- watchAddedEvent(deployedFailedPod(inputNamespace, readyPodName, replicaSetGeneratedName))
@@ -700,6 +884,139 @@ func deploymentProgressingUnavailable(namespace, name, revision string) *unstruc
         ]
     }
 }`, namespace, name, revision))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// deploymentRevision1Created is a lot like `deploymentRolloutComplete`, except that revision 1 does
+// not need to report "Progressing" conditions, because a rollout does not occur. It needs only to
+// report that the ReplicaSet is available to succeed.
+func deploymentRevision1Created(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "Deployment",
+    "apiVersion": "extensions/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+        "generation": 1,
+        "labels": {
+            "app": "foo"
+        },
+        "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "pulumi.com/autonamed": "true"
+        }
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx"
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "observedGeneration": 1,
+        "replicas": 1,
+        "updatedReplicas": 1,
+        "readyReplicas": 1,
+        "availableReplicas": 1,
+        "conditions": [
+            {
+                "type": "Available",
+                "status": "True",
+                "lastUpdateTime": "2018-07-31T21:49:11Z",
+                "lastTransitionTime": "2018-07-31T21:49:11Z",
+                "reason": "MinimumReplicasAvailable",
+                "message": "Deployment has minimum availability."
+            }
+        ]
+    }
+}`, namespace, name))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// deploymentRevision2Created differs from `deploymentRevision1Created` only in the revision being 2
+// instead of 1. Because the 'Progressing' condition is missing, this should cause a failure.
+func deploymentRevision2Created(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "Deployment",
+    "apiVersion": "extensions/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+        "generation": 1,
+        "labels": {
+            "app": "foo"
+        },
+        "annotations": {
+            "deployment.kubernetes.io/revision": "2",
+            "pulumi.com/autonamed": "true"
+        }
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx"
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "observedGeneration": 1,
+        "replicas": 1,
+        "updatedReplicas": 1,
+        "readyReplicas": 1,
+        "availableReplicas": 1,
+        "conditions": [
+            {
+                "type": "Available",
+                "status": "True",
+                "lastUpdateTime": "2018-07-31T21:49:11Z",
+                "lastTransitionTime": "2018-07-31T21:49:11Z",
+                "reason": "MinimumReplicasAvailable",
+                "message": "Deployment has minimum availability."
+            }
+        ]
+    }
+}`, namespace, name))
 	if err != nil {
 		panic(err)
 	}
