@@ -69,6 +69,7 @@ type updateAwaitConfig struct {
 
 type createAwaiter func(createAwaitConfig) error
 type updateAwaiter func(updateAwaitConfig) error
+type readAwaiter func(createAwaitConfig) error
 type deletionAwaiter func(context.Context, dynamic.ResourceInterface, string) error
 
 // --------------------------------------------------------------------------
@@ -116,6 +117,7 @@ const (
 type awaitSpec struct {
 	awaitCreation createAwaiter
 	awaitUpdate   updateAwaiter
+	awaitRead     readAwaiter
 	awaitDeletion deletionAwaiter
 }
 
@@ -125,6 +127,9 @@ var deploymentAwaiter = awaitSpec{
 	},
 	awaitUpdate: func(u updateAwaitConfig) error {
 		return makeDeploymentInitAwaiter(u).Await()
+	},
+	awaitRead: func(c createAwaitConfig) error {
+		return makeDeploymentInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Read()
 	},
 	awaitDeletion: untilAppsDeploymentDeleted,
 }

@@ -13,8 +13,10 @@ import (
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/client-go/dynamic"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -130,6 +132,11 @@ func (dia *deploymentInitAwaiter) Await() error {
 	//      corresponding ReplicaSet), and therefore there is no rollout to mark as "Progressing".
 	//
 
+	replicaSetClient, podClient, err := dia.makeClients()
+	if err != nil {
+		return err
+	}
+
 	// Create Deployment watcher.
 	deploymentWatcher, err := dia.config.clientForResource.Watch(metav1.ListOptions{})
 	if err != nil {
@@ -139,18 +146,6 @@ func (dia *deploymentInitAwaiter) Await() error {
 	defer deploymentWatcher.Stop()
 
 	// Create ReplicaSet watcher.
-	replicaSetClient, err := client.FromGVK(dia.config.pool, dia.config.disco,
-		schema.GroupVersionKind{
-			Group:   "extensions",
-			Version: "v1beta1",
-			Kind:    "ReplicaSet",
-		}, dia.config.currentInputs.GetNamespace())
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not make client to watch ReplicaSets associated with Deployment '%s'",
-			dia.config.currentInputs.GetName())
-	}
-
 	replicaSetWatcher, err := replicaSetClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
@@ -160,18 +155,6 @@ func (dia *deploymentInitAwaiter) Await() error {
 	defer replicaSetWatcher.Stop()
 
 	// Create Pod watcher.
-	podClient, err := client.FromGVK(dia.config.pool, dia.config.disco,
-		schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    "Pod",
-		}, dia.config.currentInputs.GetNamespace())
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not make client to watch Pods associated with Deployment '%s'",
-			dia.config.currentInputs.GetName())
-	}
-
 	podWatcher, err := podClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
@@ -186,30 +169,87 @@ func (dia *deploymentInitAwaiter) Await() error {
 	return dia.await(deploymentWatcher, replicaSetWatcher, podWatcher, time.After(5*time.Minute), period.C)
 }
 
+func (dia *deploymentInitAwaiter) Read() error {
+	// Get clients needed to retrieve live versions of relevant Deployments, ReplicaSets, and Pods.
+	replicaSetClient, podClient, err := dia.makeClients()
+	if err != nil {
+		return err
+	}
+
+	// Get live versions of Deployment, ReplicaSets, and Pods.
+	deployment, err := dia.config.clientForResource.Get(dia.config.currentInputs.GetName(),
+		metav1.GetOptions{})
+	if err != nil {
+		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
+		// can mark the deployment as having been deleted.
+		return err
+	}
+
+	//
+	// In contrast to the case of `deployment`, an error getting the ReplicaSet or Pod lists does
+	// not indicate that this resource was deleted, and we therefore should report the wrapped error
+	// in a way that is useful to the user.
+	//
+
+	rsList, err := replicaSetClient.List(metav1.ListOptions{})
+	if err != nil {
+		glog.V(3).Infof("Error retrieving ReplicaSet list for Deployment '%s': %v",
+			deployment.GetName(), err)
+		rsList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
+	}
+
+	podList, err := podClient.List(metav1.ListOptions{})
+	if err != nil {
+		glog.V(3).Infof("Error retrieving Pod list for Deployment '%s': %v",
+			deployment.GetName(), err)
+		podList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
+	}
+
+	return dia.read(deployment, rsList.(*unstructured.UnstructuredList),
+		podList.(*unstructured.UnstructuredList))
+}
+
+func (dia *deploymentInitAwaiter) read(
+	deployment *unstructured.Unstructured, replicaSets, pods *unstructured.UnstructuredList,
+) error {
+	dia.processDeploymentEvent(watchAddedEvent(deployment))
+
+	err := replicaSets.EachListItem(func(rs runtime.Object) error {
+		dia.processReplicaSetEvent(watchAddedEvent(rs.(*unstructured.Unstructured)))
+		return nil
+	})
+	if err != nil {
+		glog.V(3).Infof("Error iterating over ReplicaSet list for Deployment '%s': %v",
+			deployment.GetName(), err)
+	}
+
+	err = pods.EachListItem(func(pod runtime.Object) error {
+		dia.processReplicaSetEvent(watchAddedEvent(pod.(*unstructured.Unstructured)))
+		return nil
+	})
+	if err != nil {
+		glog.V(3).Infof("Error iterating over Pod list for Deployment '%s': %v",
+			deployment.GetName(), err)
+	}
+
+	if dia.succeeded() {
+		return nil
+	}
+
+	return &initializationError{
+		subErrors: dia.errorMessages(),
+		object:    deployment,
+	}
+}
+
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (dia *deploymentInitAwaiter) await(
 	deploymentWatcher, replicaSetWatcher, podWatcher watch.Interface, timeout, period <-chan time.Time,
 ) error {
 	inputPodName := dia.config.currentInputs.GetName()
 	for {
-		// Check whether we've succeeded. There are two cases:
-		//
-		//   1. If the generation of the Deployment is > 1, we need to check that (1) the
-		//      Deployment is marked as available, (2) the ReplicaSet we're trying to roll to is
-		//      marked as Available, and (3) the Deployment has marked the new ReplicaSet as
-		//      "ready".
-		//   2. If it's the first generation of the Deployment, the object is simply created,
-		//      rather than rolled out. This means there is no rollout to be marked as
-		//      "progressing", so we need only check that the Deployment was created, and the
-		//      corresponding ReplicaSet needs to be marked available.
-		if dia.currentGeneration == "1" {
-			if dia.deploymentAvailable && dia.updatedReplicaSetReady {
-				return nil
-			}
-		} else {
-			if dia.deploymentAvailable && dia.replicaSetAvailable && dia.updatedReplicaSetReady {
-				return nil
-			}
+		if dia.succeeded() {
+			return nil
 		}
 
 		// Else, wait for updates.
@@ -241,6 +281,29 @@ func (dia *deploymentInitAwaiter) await(
 			dia.processPodEvent(event)
 		}
 	}
+}
+
+// Check whether we've succeeded. There are two cases:
+//
+//   1. If the generation of the Deployment is > 1, we need to check that (1) the Deployment is
+//      marked as available, (2) the ReplicaSet we're trying to roll to is marked as Available,
+//      and (3) the Deployment has marked the new ReplicaSet as "ready".
+//   2. If it's the first generation of the Deployment, the object is simply created, rather than
+//      rolled out. This means there is no rollout to be marked as "progressing", so we need only
+//      check that the Deployment was created, and the corresponding ReplicaSet needs to be marked
+//      available.
+func (dia *deploymentInitAwaiter) succeeded() bool {
+	if dia.currentGeneration == "1" {
+		if dia.deploymentAvailable && dia.updatedReplicaSetReady {
+			return true
+		}
+	} else {
+		if dia.deploymentAvailable && dia.replicaSetAvailable && dia.updatedReplicaSetReady {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
@@ -488,7 +551,38 @@ func (dia *deploymentInitAwaiter) errorMessages() []string {
 	return messages
 }
 
-// canonicalizeDeploymentAPIVersion unifies the various pre-release apiVerion values for a Deployment into "apps/v1".
+func (dia *deploymentInitAwaiter) makeClients() (
+	replicaSetClient, podClient dynamic.ResourceInterface, err error,
+) {
+	replicaSetClient, err = client.FromGVK(dia.config.pool, dia.config.disco,
+		schema.GroupVersionKind{
+			Group:   "extensions",
+			Version: "v1beta1",
+			Kind:    "ReplicaSet",
+		}, dia.config.currentInputs.GetNamespace())
+	if err != nil {
+		return nil, nil, errors.Wrapf(err,
+			"Could not make client to watch ReplicaSets associated with Deployment '%s'",
+			dia.config.currentInputs.GetName())
+	}
+
+	podClient, err = client.FromGVK(dia.config.pool, dia.config.disco,
+		schema.GroupVersionKind{
+			Group:   "",
+			Version: "v1",
+			Kind:    "Pod",
+		}, dia.config.currentInputs.GetNamespace())
+	if err != nil {
+		return nil, nil, errors.Wrapf(err,
+			"Could not make client to watch Pods associated with Deployment '%s'",
+			dia.config.currentInputs.GetName())
+	}
+
+	return replicaSetClient, podClient, nil
+}
+
+// canonicalizeDeploymentAPIVersion unifies the various pre-release apiVerion values for a
+// Deployment into "apps/v1".
 func canonicalizeDeploymentAPIVersion(ver string) string {
 	switch ver {
 	case "extensions/v1beta1", "apps/v1beta1", "apps/v1beta2", "apps/v1":

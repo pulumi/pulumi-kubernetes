@@ -447,22 +447,24 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	// Ignore old state; we'll get it from Kubernetes later.
 	oldInputs, _ := parseCheckpointObject(oldState)
 
-	// Retrieve live version of last submitted version of object.
-	clientForResource, err := client.FromResource(k.pool, k.client, oldInputs)
-	if err != nil {
-		return nil, err
-	}
+	liveObj, readErr := await.Read(k.canceler.context, k.host, k.pool, k.client,
+		resource.URN(req.GetUrn()), oldInputs)
+	if readErr != nil {
+		glog.V(3).Infof("%v", readErr)
 
-	// Get the "live" version of the last submitted object. This is necessary because the server may
-	// have populated some fields automatically, updated status fields, and so on.
-	liveObj, err := clientForResource.Get(oldInputs.GetName(), metav1.GetOptions{})
-	if err != nil {
-		statusErr, ok := err.(*errors.StatusError)
+		statusErr, ok := readErr.(*errors.StatusError)
 		if ok && statusErr.ErrStatus.Code == 404 {
 			// If it's a 404 error, this resource was probably deleted.
 			return &pulumirpc.ReadResponse{Id: "", Properties: nil}, nil
 		}
-		return nil, err
+
+		initErr, ok := readErr.(await.InitializationError)
+		if ok {
+			glog.V(3).Infof("is init err")
+			liveObj = initErr.Object()
+		}
+		// If we get here, resource successfully registered with the API server, but failed to
+		// initialize.
 	}
 
 	// Return a new "checkpoint object".
@@ -472,6 +474,13 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		})
 	if err != nil {
 		return nil, err
+	}
+
+	if readErr != nil {
+		// Resource was created but failed to initialize. Return live version of object so it can be
+		// checkpointed.
+		glog.V(3).Infof("%v", initializationError(client.FqObjName(liveObj), readErr, inputsAndComputed))
+		return nil, initializationError(client.FqObjName(liveObj), readErr, inputsAndComputed)
 	}
 
 	return &pulumirpc.ReadResponse{Id: client.FqObjName(liveObj), Properties: inputsAndComputed}, nil

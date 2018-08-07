@@ -61,9 +61,9 @@ func Creation(
 		return nil, err
 	}
 
-	// Wait until create resolves as success or error. Note that the conditional is set up to log only
-	// if we don't have an entry for the resource type; in the event that we do, but the await logic
-	// is blank, simply do nothing instead of logging.
+	// Wait until create resolves as success or error. Note that the conditional is set up to log
+	// only if we don't have an entry for the resource type; in the event that we do, but the await
+	// logic is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", obj.GetAPIVersion(), obj.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitCreation != nil {
@@ -86,6 +86,44 @@ func Creation(
 			"No initialization logic found for object of type '%s'; defaulting to assuming initialization successful", id)
 	}
 
+	return clientForResource.Get(obj.GetName(), metav1.GetOptions{})
+}
+
+// Read checks a resource, returning the object if it was created and initialized successfully.
+func Read(
+	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
+	disco discovery.ServerResourcesInterface, urn resource.URN, obj *unstructured.Unstructured,
+) (*unstructured.Unstructured, error) {
+	// Retrieve live version of last submitted version of object.
+	clientForResource, err := client.FromResource(pool, disco, obj)
+	if err != nil {
+		return nil, err
+	}
+
+	id := fmt.Sprintf("%s/%s", obj.GetAPIVersion(), obj.GetKind())
+	if awaiter, exists := awaiters[id]; exists {
+		if awaiter.awaitRead != nil {
+			conf := createAwaitConfig{
+				host:              host,
+				ctx:               ctx,
+				pool:              pool,
+				disco:             disco,
+				clientForResource: clientForResource,
+				urn:               urn,
+				currentInputs:     obj,
+			}
+			waitErr := awaiter.awaitRead(conf)
+			if waitErr != nil {
+				return nil, waitErr
+			}
+		}
+	}
+
+	glog.V(1).Infof(
+		"No read logic found for object of type '%s'; falling back to retrieving object", id)
+
+	// Get the "live" version of the last submitted object. This is necessary because the server
+	// may have populated some fields automatically, updated status fields, and so on.
 	return clientForResource.Get(obj.GetName(), metav1.GetOptions{})
 }
 

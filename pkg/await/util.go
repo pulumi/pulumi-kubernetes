@@ -25,6 +25,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 )
 
@@ -39,6 +41,29 @@ const trueStatus = "True"
 // status updates.
 
 // --------------------------------------------------------------------------
+
+// chanWatcher is a `watch.Interface` implementation meant to make it easy to mock the Kubernetes
+// client-go's resource watchers. This is useful any place we'd want to provide a series of updates
+// to resources from a source other than the Kubernetes API server. For example, for testing we
+// might want to mock the API server, providing synthetic updates to some resource.
+type chanWatcher struct {
+	results chan watch.Event
+}
+
+var _ watch.Interface = (*chanWatcher)(nil)
+
+func (mw *chanWatcher) Stop() {}
+
+func (mw *chanWatcher) ResultChan() <-chan watch.Event {
+	return mw.results
+}
+
+func watchAddedEvent(obj runtime.Object) watch.Event {
+	return watch.Event{
+		Type:   watch.Added,
+		Object: obj,
+	}
+}
 
 func stringifyEvents(events []v1.Event) string {
 	var output string
