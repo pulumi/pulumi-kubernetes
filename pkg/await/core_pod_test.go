@@ -169,7 +169,7 @@ func Test_Core_Pod(t *testing.T) {
 		timeout := make(chan time.Time)
 		go test.do(pods, timeout)
 
-		err := awaiter.await(&mockWatcher{results: pods}, timeout)
+		err := awaiter.await(&chanWatcher{results: pods}, timeout)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }

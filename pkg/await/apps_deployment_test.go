@@ -511,9 +511,135 @@ func Test_Apps_Deployment(t *testing.T) {
 		period := make(chan time.Time)
 		go test.do(deployments, replicaSets, pods, timeout)
 
-		err := awaiter.await(&mockWatcher{results: deployments}, &mockWatcher{results: replicaSets},
-			&mockWatcher{results: pods}, timeout, period)
+		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
+			&chanWatcher{results: pods}, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
+	}
+}
+
+func Test_Core_Deployment_Read(t *testing.T) {
+	tests := []struct {
+		description        string
+		deployment         func(namespace, name, revision string) *unstructured.Unstructured
+		deploymentRevision string
+		replicaset         func(namespace, name, deploymentName, revision string) *unstructured.Unstructured
+		replicaSetRevision string
+		expectedSubErrors  []string
+	}{
+		{
+			description:        "Read should fail if Deployment status empty",
+			deployment:         deploymentAdded,
+			deploymentRevision: revision1,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision1,
+			expectedSubErrors:  []string{},
+		},
+		{
+			description:        "Read should fail if Deployment status empty",
+			deployment:         deploymentAdded,
+			deploymentRevision: revision1,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision1,
+			expectedSubErrors:  []string{},
+		},
+		{
+			description:        "Read should fail if Deployment is progressing",
+			deployment:         deploymentProgressing,
+			deploymentRevision: revision1,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision1,
+			expectedSubErrors:  []string{},
+		},
+		{
+			description:        "[Revision 2] Read should fail if Deployment Progressing status set to False",
+			deployment:         deploymentNotProgressing,
+			deploymentRevision: revision2,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision2,
+			expectedSubErrors: []string{
+				"[ProgressDeadlineExceeded] ReplicaSet \"foo-13y9rdnu-b94df86d6\" has timed out progressing.",
+			},
+		},
+		{
+			description:        "[Revision 2] Read should fail if Deployment has invalid container",
+			deployment:         deploymentProgressingInvalidContainer,
+			deploymentRevision: revision2,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision2,
+			expectedSubErrors:  []string{},
+		},
+		{
+			description:        "[Revision 2] Read should fail if Deployment progressing but unavailable",
+			deployment:         deploymentProgressingUnavailable,
+			deploymentRevision: revision2,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision2,
+			expectedSubErrors: []string{
+				"[MinimumReplicasUnavailable] Deployment does not have minimum availability.",
+			},
+		},
+		{
+			description: "[Revision 1] Read should succeed if Deployment reported available",
+			deployment: func(namespace, name, _ string) *unstructured.Unstructured {
+				return deploymentRevision1Created(namespace, name)
+			},
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision1,
+		},
+		{
+			description: "[Revision 2] Read should fail if Deployment available but no progressing status",
+			deployment: func(namespace, name, _ string) *unstructured.Unstructured {
+				return deploymentRevision2Created(namespace, name)
+			},
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision2,
+			expectedSubErrors:  []string{},
+		},
+		{
+			description:        "[Revision 2] Read should succeed if rollout completes",
+			deployment:         deploymentRolloutComplete,
+			deploymentRevision: revision2,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision2,
+		},
+		{
+			description:        "[Revision 2] Read should fail Deployment if new ReplicaSet not created",
+			deployment:         deploymentUpdated,
+			deploymentRevision: revision2,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision1,
+			expectedSubErrors:  []string{"Updated ReplicaSet was never created"},
+		},
+		{
+			description:        "[Revision 2] Read should fail Deployment if new ReplicaSet still progressing",
+			deployment:         deploymentUpdatedReplicaSetProgressing,
+			deploymentRevision: revision2,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision2,
+			expectedSubErrors:  []string{},
+		},
+		{
+			description:        "[Revision 2] Read should succeed Deployment if new ReplicaSet still rolled out",
+			deployment:         deploymentUpdatedReplicaSetProgressed,
+			deploymentRevision: revision2,
+			replicaset:         availableReplicaSet,
+			replicaSetRevision: revision2,
+		},
+	}
+
+	for _, test := range tests {
+		awaiter := makeDeploymentInitAwaiter(
+			updateAwaitConfig{
+				createAwaitConfig: mockAwaitConfig(deploymentInput("default", "foo-4setj4y6")),
+			})
+		service := test.deployment("default", "foo-4setj4y6", test.deploymentRevision)
+		replicaset := test.replicaset("default", "foo-4setj4y6", "foo-4setj4y6", test.replicaSetRevision)
+		err := awaiter.read(service, unstructuredList(*replicaset), unstructuredList())
+		if test.expectedSubErrors != nil {
+			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
+		} else {
+			assert.Nil(t, err, test.description)
+		}
 	}
 }
 
