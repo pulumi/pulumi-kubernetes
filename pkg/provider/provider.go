@@ -42,6 +42,7 @@ import (
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/tools/clientcmd"
+	clientapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
 // --------------------------------------------------------------------------
@@ -98,13 +99,22 @@ func makeKubeProvider(
 func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pbempty.Empty, error) {
 	vars := req.GetVariables()
 
+	// Compute config overrides.
+	overrides := &clientcmd.ConfigOverrides{
+		Context: clientapi.Context{
+			Cluster:   vars["kubernetes:config:cluster"],
+			Namespace: vars["kubernetes:config:namespace"],
+		},
+		CurrentContext: vars["kubernetes:config:context"],
+	}
+
 	var kubeconfig clientcmd.ClientConfig
 	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
 		config, err := clientcmd.Load([]byte(configJSON))
 		if err != nil {
 			return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
 		}
-		kubeconfig = clientcmd.NewDefaultClientConfig(*config, &clientcmd.ConfigOverrides{})
+		kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
 	} else {
 		// Use client-go to resolve the final configuration values for the client. Typically these
 		// values would would reside in the $KUBECONFIG file, but can also be altered in several
@@ -112,8 +122,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		// flags.
 		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
 		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(
-			loadingRules, &clientcmd.ConfigOverrides{}, os.Stdin)
+		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
 	}
 
 	// Configure the discovery client.
