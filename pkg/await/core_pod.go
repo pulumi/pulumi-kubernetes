@@ -325,12 +325,38 @@ func (pia *podInitAwaiter) Await() error {
 	return pia.await(podWatcher, time.After(5*time.Minute))
 }
 
+func (pia *podInitAwaiter) Read() error {
+	// Get live version of Pod.
+	pod, err := pia.config.clientForResource.Get(pia.config.currentInputs.GetName(),
+		metav1.GetOptions{})
+	if err != nil {
+		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
+		// can mark the Pod as having been deleted.
+		return err
+	}
+
+	return pia.read(pod)
+}
+
+func (pia *podInitAwaiter) read(pod *unstructured.Unstructured) error {
+	pia.processPodEvent(watchAddedEvent(pod))
+
+	// Check whether we've succeeded.
+	if pia.succeeded() {
+		return nil
+	}
+
+	return &initializationError{
+		subErrors: pia.errorMessages(),
+		object:    pod,
+	}
+}
+
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time.Time) error {
 	inputPodName := pia.config.currentInputs.GetName()
 	for {
-		// Check whether we've succeeded.
-		if pia.podReady || pia.podSuccess {
+		if pia.succeeded() {
 			return nil
 		}
 
@@ -382,4 +408,8 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	}
 
 	pia.check(pod)
+}
+
+func (pia *podInitAwaiter) succeeded() bool {
+	return pia.podReady || pia.podSuccess
 }
