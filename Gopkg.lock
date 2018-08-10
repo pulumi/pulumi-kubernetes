@@ -564,6 +564,7 @@
   name = "github.com/pulumi/pulumi"
   packages = [
     "pkg/apitype",
+    "pkg/apitype/migrate",
     "pkg/backend",
     "pkg/backend/local",
     "pkg/diag",
@@ -574,6 +575,7 @@
     "pkg/resource",
     "pkg/resource/config",
     "pkg/resource/deploy",
+    "pkg/resource/deploy/providers",
     "pkg/resource/graph",
     "pkg/resource/plugin",
     "pkg/resource/provider",
@@ -597,7 +599,7 @@
     "pkg/workspace",
     "sdk/proto/go"
   ]
-  revision = "b0c383e1e841977d3f4abb3978e4e29946e10085"
+  revision = "afa27cf52cc1135d0937b6efa621caef9ea8a13a"
 
 [[projects]]
   branch = "master"
@@ -610,6 +612,12 @@
   packages = ["."]
   revision = "55d61fa8aa702f59229e6cff85793c22e580eaf5"
   version = "v1.5.1"
+
+[[projects]]
+  name = "github.com/satori/go.uuid"
+  packages = ["."]
+  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
+  version = "v1.2.0"
 
 [[projects]]
   name = "github.com/sergi/go-diff"
@@ -1378,6 +1386,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "cc43a37fc57695ea63a4a49b841702f1450bd03c7cd53420e559564724fb39d3"
+  inputs-digest = "6370629347bcac4efff629ce3268eb3873389e1b8b76f6af495be6aa3558a21a"
   solver-name = "gps-cdcl"
   solver-version = 1
