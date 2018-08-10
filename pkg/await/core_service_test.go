@@ -146,6 +146,45 @@ func Test_Core_Service(t *testing.T) {
 	}
 }
 
+func Test_Core_Service_Read(t *testing.T) {
+	tests := []struct {
+		description       string
+		service           func(namespace, name string) *unstructured.Unstructured
+		endpoint          func(namespace, name string) *unstructured.Unstructured
+		expectedSubErrors []string
+	}{
+		{
+			description:       "Read should fail if Service does not target any Pods",
+			service:           initializedService,
+			endpoint:          uninitializedEndpoint,
+			expectedSubErrors: []string{"Service does not target any Pods"},
+		},
+		{
+			description: "Read should succeed if Service does target Pods",
+			service:     initializedService,
+			endpoint:    initializedEndpoint,
+		},
+		{
+			description:       "Read should fail if Service not allocated an IP address",
+			service:           serviceInput,
+			endpoint:          initializedEndpoint,
+			expectedSubErrors: []string{"Service was not allocated an IP address"},
+		},
+	}
+
+	for _, test := range tests {
+		awaiter := makeServiceInitAwaiter(mockAwaitConfig(serviceInput("default", "foo-4setj4y6")))
+		service := test.service("default", "foo-4setj4y6")
+		endpoint := test.endpoint("default", "foo-4setj4y6")
+		err := awaiter.read(service, unstructuredList(*endpoint))
+		if test.expectedSubErrors != nil {
+			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
+		} else {
+			assert.Nil(t, err, test.description)
+		}
+	}
+}
+
 // --------------------------------------------------------------------------
 
 // Utility constructs.
@@ -287,4 +326,8 @@ func initializedEndpoint(namespace, name string) *unstructured.Unstructured {
 		panic(err)
 	}
 	return obj
+}
+
+func unstructuredList(us ...unstructured.Unstructured) *unstructured.UnstructuredList {
+	return &unstructured.UnstructuredList{Items: us}
 }
