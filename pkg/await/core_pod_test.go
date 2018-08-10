@@ -174,6 +174,95 @@ func Test_Core_Pod(t *testing.T) {
 	}
 }
 
+func Test_Core_Pod_Read(t *testing.T) {
+	tests := []struct {
+		description       string
+		pod               func(namespace, name string) *unstructured.Unstructured
+		expectedSubErrors []string
+	}{
+		{
+			description:       "Read should fail if Pod status pending",
+			pod:               podAdded,
+			expectedSubErrors: []string{},
+		},
+		{
+			description: "Read should fail if Pod unschedulable",
+			pod:         podUnschedulable,
+			expectedSubErrors: []string{
+				"Pod unscheduled: [Unschedulable] No nodes are available that match all of the " +
+					"predicates: Insufficient cpu (3).",
+			},
+		},
+		{
+			description:       "Read should fail if Pod scheduled but not running",
+			pod:               podScheduled,
+			expectedSubErrors: []string{},
+		},
+		{
+			description: "Read should fail if containers are creating",
+			pod:         podContainerCreating,
+			expectedSubErrors: []string{
+				"Pod not ready: [ContainersNotReady] containers with unready status: [nginx]",
+			},
+		},
+		{
+			description: "Read should fail if image fails to pull",
+			pod:         podErrImagePull,
+			expectedSubErrors: []string{
+				"Pod not ready: [ContainersNotReady] containers with unready status: [nginx]",
+				"[ErrImagePull] repository dsjkdsjkljks not found: does not exist or no pull access",
+			},
+		},
+		{
+			description: "Read should fail if image pull backoff",
+			pod:         podImagePullBackoff,
+			expectedSubErrors: []string{
+				"Pod not ready: [ContainersNotReady] containers with unready status: [nginx]",
+				"[ImagePullBackOff] Back-off pulling image \"dsjkdsjkljks\"",
+			},
+		},
+		{
+			description: "Read should succeed if Pod is running",
+			pod:         podRunning,
+		},
+		{
+			description: "Read should fail if Pod terminated with error",
+			pod:         podTerminatedError,
+			expectedSubErrors: []string{
+				"Pod not ready: [ContainersNotReady] containers with unready status: [completer]",
+				"[RunContainerError] failed to start container " +
+					"\"ce5652ee18060c0f58144968587f5c333cf97dad907c6743e1e95a63541aab72\": Error " +
+					"response from daemon: oci runtime error: container_linux.go:262: starting " +
+					"container process caused \"exec: \\\"echo foo\\\": executable file not " +
+					"found in $PATH\"",
+			},
+		},
+		{
+			description: "Read should fail if Pod terminated successfully but restart policy is always",
+			pod:         podTerminatedSuccess,
+			expectedSubErrors: []string{
+				"Pod not ready: [ContainersNotReady] containers with unready status: [completer]",
+				"[Completed] Container completed with exit code 0",
+			},
+		},
+		{
+			description: "Read should succeed if Pod successfully completed",
+			pod:         podSucceeded,
+		},
+	}
+
+	for _, test := range tests {
+		awaiter := makePodInitAwaiter(mockAwaitConfig(podInput("default", "foo-4setj4y6")))
+		pod := test.pod("default", "foo-4setj4y6")
+		err := awaiter.read(pod)
+		if test.expectedSubErrors != nil {
+			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
+		} else {
+			assert.Nil(t, err, test.description)
+		}
+	}
+}
+
 // --------------------------------------------------------------------------
 
 // Utility constructs.
