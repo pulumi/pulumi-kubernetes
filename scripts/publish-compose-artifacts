@@ -1,0 +1,16 @@
+#!/bin/bash
+set -eou pipefail
+
+if [ -z "${1:-}" ]; then
+    echo "usage: $0 <s3-prefix>"
+    exit 1
+fi
+
+S3_ROOT="$1"
+TEMP_DIR=$(mktemp -d)
+NPM_PACKAGE_NAME="pulumi-kubernetes.tgz"
+
+yarn --cwd ./pack/nodejs/bin pack --filename "${TEMP_DIR}/${NPM_PACKAGE_NAME}"
+
+aws s3 cp --acl public-read "${TEMP_DIR}/${NPM_PACKAGE_NAME}" "${S3_ROOT}/nodejs/${NPM_PACKAGE_NAME}"
+aws s3 cp --acl public-read "${PULUMI_ROOT}/bin/pulumi-resource-kubernetes" "${S3_ROOT}/bin/"
