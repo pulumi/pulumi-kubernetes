@@ -9,6 +9,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests"
 	"github.com/pulumi/pulumi/pkg/resource"
+	"github.com/pulumi/pulumi/pkg/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 	"github.com/stretchr/testify/assert"
 )
@@ -34,7 +35,7 @@ func TestPod(t *testing.T) {
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
 			provRes := stackInfo.Deployment.Resources[1]
-			assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
+			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			//
 			// Assert pod is successfully created.
@@ -83,7 +84,7 @@ func TestPod(t *testing.T) {
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
 					provRes := stackInfo.Deployment.Resources[1]
-					assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
 					// Assert Pod is deleted before being replaced with the new Pod, running
@@ -137,7 +138,7 @@ func TestPod(t *testing.T) {
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
 					provRes := stackInfo.Deployment.Resources[1]
-					assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
 					// Assert new Pod is deleted before being replaced with the new Pod, running

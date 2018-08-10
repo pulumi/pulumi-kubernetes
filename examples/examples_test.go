@@ -84,7 +84,7 @@ func TestExamples(t *testing.T) {
 
 					// Verify the provider resource.
 					provRes := stackInfo.Deployment.Resources[3]
-					assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					// Verify root resource.
 					stackRes := stackInfo.Deployment.Resources[4]
@@ -165,7 +165,7 @@ func TestExamples(t *testing.T) {
 
 			//		// Verify the provider resource.
 			//		provRes := stackInfo.Deployment.Resources[6]
-			//		assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
+			//		assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			//		// Verify root resource.
 			//		stackRes := stackInfo.Deployment.Resources[7]
