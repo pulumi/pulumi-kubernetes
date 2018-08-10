@@ -4,7 +4,7 @@ required = ["k8s.io/kubernetes/pkg/kubectl/cmd/util"]
   unused-packages = true
   go-tests = true
 
-[[override]]
+[[constraint]]
   name = "github.com/pulumi/pulumi"
   branch = "master"
 
