@@ -13,6 +13,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 )
@@ -117,6 +118,72 @@ func (sia *serviceInitAwaiter) Await() error {
 	defer endpointWatcher.Stop()
 
 	return sia.await(serviceWatcher, endpointWatcher, time.After(10*time.Minute), make(chan struct{}))
+}
+
+func (sia *serviceInitAwaiter) Read() error {
+	// Get live versions of Service and Endpoints.
+	service, err := sia.config.clientForResource.Get(sia.config.currentInputs.GetName(),
+		metav1.GetOptions{})
+	if err != nil {
+		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
+		// can mark the deployment as having been deleted.
+		return err
+	}
+
+	//
+	// In contrast to the case of `deployment`, an error getting the ReplicaSet or Pod lists does
+	// not indicate that this resource was deleted, and we therefore should report the wrapped error
+	// in a way that is useful to the user.
+	//
+
+	// Create endpoint watcher.
+	endpointClient, err := client.FromGVK(sia.config.pool, sia.config.disco, schema.GroupVersionKind{
+		Group:   "",
+		Version: "v1",
+		Kind:    "Endpoints",
+	}, sia.config.currentInputs.GetNamespace())
+	if err != nil {
+		return errors.Wrapf(err,
+			"Could not make client to list Endpoint object associated with Service '%s'",
+			sia.config.currentInputs.GetName())
+	}
+
+	endpointList, err := endpointClient.List(metav1.ListOptions{})
+	if err != nil {
+		glog.V(3).Infof("Error retrieving ReplicaSet list for Service '%s': %v",
+			service.GetName(), err)
+		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
+	}
+
+	return sia.read(service, endpointList.(*unstructured.UnstructuredList))
+}
+
+func (sia *serviceInitAwaiter) read(
+	service *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
+) error {
+	sia.processServiceEvent(watchAddedEvent(service))
+
+	var err error
+	settled := make(chan struct{})
+	err = endpoints.EachListItem(func(endpoint runtime.Object) error {
+		sia.processEndpointEvent(watchAddedEvent(endpoint.(*unstructured.Unstructured)), settled)
+		return nil
+	})
+	if err != nil {
+		glog.V(3).Infof("Error iterating over ReplicaSet list for Deployment '%s': %v",
+			service.GetName(), err)
+	}
+
+	sia.endpointsSettled = true
+
+	if sia.succeeded() {
+		return nil
+	}
+
+	return &initializationError{
+		subErrors: sia.errorMessages(),
+		object:    service,
+	}
 }
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
@@ -293,4 +360,8 @@ func (sia *serviceInitAwaiter) collectWarningEvents() error {
 			sia.config.currentInputs.GetName(), wErr)
 	}
 	return fmt.Errorf("%s%s", err, stringifyEvents(lastWarnings))
+}
+
+func (sia *serviceInitAwaiter) succeeded() bool {
+	return sia.serviceReady && sia.endpointsSettled && sia.endpointsReady
 }
