@@ -488,16 +488,28 @@ func (dia *deploymentInitAwaiter) errorMessages() []string {
 	return messages
 }
 
+// canonicalizeDeploymentAPIVersion unifies the various pre-release apiVerion values for a Deployment into "apps/v1".
+func canonicalizeDeploymentAPIVersion(ver string) string {
+	switch ver {
+	case "extensions/v1beta1", "apps/v1beta1", "apps/v1beta2", "apps/v1":
+		// Canonicalize all of these to "apps/v1".
+		return "apps/v1"
+	default:
+		// If the input version was not a version we understand, just return it as-is.
+		return ver
+	}
+}
+
 func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
 	// Canonicalize apiVersion for Deployments.
-	if possibleOwner.GetAPIVersion() == "extensions/v1beta1" && possibleOwner.GetKind() == "Deployment" {
-		possibleOwner.SetAPIVersion("apps/v1beta1")
+	if possibleOwner.GetKind() == "Deployment" {
+		possibleOwner.SetAPIVersion(canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion()))
 	}
 
 	owners := obj.GetOwnerReferences()
 	for _, owner := range owners {
-		if owner.APIVersion == "extensions/v1beta1" && owner.Kind == "Deployment" {
-			owner.APIVersion = "apps/v1beta1"
+		if owner.Kind == "Deployment" {
+			owner.APIVersion = canonicalizeDeploymentAPIVersion(owner.APIVersion)
 		}
 
 		if owner.APIVersion == possibleOwner.GetAPIVersion() &&
