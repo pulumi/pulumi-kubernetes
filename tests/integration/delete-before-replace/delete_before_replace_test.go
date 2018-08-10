@@ -26,12 +26,15 @@ func TestPod(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 2, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
-			stackRes := stackInfo.Deployment.Resources[1]
+			stackRes := stackInfo.Deployment.Resources[2]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+			provRes := stackInfo.Deployment.Resources[1]
+			assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
 
 			//
 			// Assert pod is successfully created.
@@ -72,12 +75,15 @@ func TestPod(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 2, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[1]
+					stackRes := stackInfo.Deployment.Resources[2]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+					provRes := stackInfo.Deployment.Resources[1]
+					assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
 
 					//
 					// Assert Pod is deleted before being replaced with the new Pod, running
@@ -123,12 +129,15 @@ func TestPod(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 2, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[1]
+					stackRes := stackInfo.Deployment.Resources[2]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+					provRes := stackInfo.Deployment.Resources[1]
+					assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
 
 					//
 					// Assert new Pod is deleted before being replaced with the new Pod, running

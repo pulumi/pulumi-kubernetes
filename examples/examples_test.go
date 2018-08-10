@@ -11,6 +11,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/resource"
+	"github.com/pulumi/pulumi/pkg/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 	"github.com/pulumi/pulumi/pkg/tokens"
 	"github.com/stretchr/testify/assert"
@@ -50,7 +51,7 @@ func TestExamples(t *testing.T) {
 					t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 				) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
 
 					sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
 						ri := stackInfo.Deployment.Resources[i]
@@ -81,8 +82,12 @@ func TestExamples(t *testing.T) {
 					status, _ = openapi.Pluck(redisPod.Outputs, "live", "status", "phase")
 					assert.Equal(t, "Running", status)
 
+					// Verify the provider resource.
+					provRes := stackInfo.Deployment.Resources[3]
+					assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
+
 					// Verify root resource.
-					stackRes := stackInfo.Deployment.Resources[3]
+					stackRes := stackInfo.Deployment.Resources[4]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 				},
 			}),
@@ -94,7 +99,7 @@ func TestExamples(t *testing.T) {
 			// 		t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			// 	) {
 			// 		assert.NotNil(t, stackInfo.Deployment)
-			// 		assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
+			// 		assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
 
 			// 		sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
 			// 			ri := stackInfo.Deployment.Resources[i]
@@ -158,9 +163,13 @@ func TestExamples(t *testing.T) {
 			// 		status, _ = openapi.Pluck(redisSlaveService.Outputs, "live", "spec", "clusterIP")
 			// 		assert.True(t, len(status.(string)) > 1)
 
-			// 		// Verify root resource.
-			// 		stackRes := stackInfo.Deployment.Resources[6]
-			// 		assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+			//		// Verify the provider resource.
+			//		provRes := stackInfo.Deployment.Resources[6]
+			//		assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
+
+			//		// Verify root resource.
+			//		stackRes := stackInfo.Deployment.Resources[7]
+			//		assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 			// 	},
 			// }),
 

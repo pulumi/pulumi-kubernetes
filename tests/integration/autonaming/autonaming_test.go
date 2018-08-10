@@ -9,7 +9,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests"
-	"github.com/pulumi/pulumi/pkg/resource"
+	"github.com/pulumi/pulumi/pkg/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 	"github.com/stretchr/testify/assert"
 )
@@ -31,12 +31,15 @@ func TestAutonaming(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 2, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
-			stackRes := stackInfo.Deployment.Resources[1]
+			stackRes := stackInfo.Deployment.Resources[2]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+			provRes := stackInfo.Deployment.Resources[1]
+			assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
 
 			//
 			// Assert Pod is successfully given a unique name by Pulumi.
@@ -57,12 +60,15 @@ func TestAutonaming(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 2, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[1]
+					stackRes := stackInfo.Deployment.Resources[2]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+					provRes := stackInfo.Deployment.Resources[1]
+					assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
 
 					//
 					// Assert Pod was replaced, i.e., destroyed and re-created, with allocating a new name.
@@ -86,12 +92,15 @@ func TestAutonaming(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 2, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[1]
+					stackRes := stackInfo.Deployment.Resources[2]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+					provRes := stackInfo.Deployment.Resources[1]
+					assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
 
 					//
 					// Assert Pod was NOT replaced, and has the same name, previously allocated by Pulumi.
@@ -114,12 +123,15 @@ func TestAutonaming(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 2, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[1]
+					stackRes := stackInfo.Deployment.Resources[2]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+					provRes := stackInfo.Deployment.Resources[1]
+					assert.True(t, providers.IsProvidertype(provRes.URN.Type()))
 
 					//
 					// User has specified their own name for the Pod, so we replace it, and Pulumi does NOT
