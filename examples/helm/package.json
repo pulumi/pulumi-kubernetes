@@ -2,7 +2,7 @@
   "name": "nodeserver",
   "version": "0.1.0",
   "dependencies": {
-    "@pulumi/pulumi": "^0.15.1-dev",
+    "@pulumi/pulumi": "^0.15.0-rc",
     "@types/js-yaml": "^3.11.2",
     "js-yaml": "^3.12.0"
   },

@@ -560,7 +560,6 @@
   revision = "8b1c2da0d56deffdbb9e48d4414b4e674bd8083e"
 
 [[projects]]
-  branch = "master"
   name = "github.com/pulumi/pulumi"
   packages = [
     "pkg/apitype",
@@ -599,7 +598,8 @@
     "pkg/workspace",
     "sdk/proto/go"
   ]
-  revision = "58a75cbbf45d25f1fa7450ac812cfe5d331a44fd"
+  revision = "b9ec4438d6ba7f0ee8d105f0bd0f125b365bed5b"
+  version = "v0.15.0-rc2"
 
 [[projects]]
   branch = "master"
@@ -1386,6 +1386,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "27d37b7a50d4e560b7578a4143223e962e7c69a75a57998bb458fc1989af06b7"
+  inputs-digest = "0e1fabb29f9357351339b9b732db1abca31bf6d0b9abcc117e0277f5d1af145b"
   solver-name = "gps-cdcl"
   solver-version = 1
