@@ -96,7 +96,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.admissionregistration.v1alpha1.InitializerConfiguration, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1alpha1.InitializerConfiguration, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
           inputs["initializers"] = args.initializers;
@@ -149,7 +149,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
           inputs["items"] = args.items;
@@ -206,7 +206,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["kind"] = "MutatingWebhookConfiguration";
@@ -259,7 +259,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["items"] = args.items;
@@ -313,7 +313,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["kind"] = "ValidatingWebhookConfiguration";
@@ -366,7 +366,7 @@ export namespace admissionregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["items"] = args.items;
@@ -428,7 +428,7 @@ export namespace apiextensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
           inputs["kind"] = "CustomResourceDefinition";
@@ -479,7 +479,7 @@ export namespace apiextensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
           inputs["items"] = args.items;
@@ -540,7 +540,7 @@ export namespace apiregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apiregistration.v1beta1.APIService, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apiregistration.v1beta1.APIService, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiregistration/v1beta1";
           inputs["kind"] = "APIService";
@@ -589,7 +589,7 @@ export namespace apiregistration {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apiregistration.v1beta1.APIServiceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apiregistration.v1beta1.APIServiceList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiregistration/v1beta1";
           inputs["items"] = args.items;
@@ -660,7 +660,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.ControllerRevision, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.ControllerRevision, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["data"] = args.data;
@@ -713,7 +713,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.ControllerRevisionList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args.items;
@@ -774,7 +774,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.DaemonSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.DaemonSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "DaemonSet";
@@ -828,7 +828,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.DaemonSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.DaemonSetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args.items;
@@ -885,7 +885,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.Deployment, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "Deployment";
@@ -938,7 +938,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.DeploymentList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args.items;
@@ -1000,7 +1000,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.ReplicaSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.ReplicaSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "ReplicaSet";
@@ -1055,7 +1055,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.ReplicaSetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args.items;
@@ -1115,7 +1115,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.StatefulSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.StatefulSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["kind"] = "StatefulSet";
@@ -1164,7 +1164,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1.StatefulSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1.StatefulSetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1";
           inputs["items"] = args.items;
@@ -1234,7 +1234,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta1.ControllerRevision, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.ControllerRevision, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["data"] = args.data;
@@ -1287,7 +1287,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta1.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.ControllerRevisionList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["items"] = args.items;
@@ -1346,7 +1346,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.Deployment, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "Deployment";
@@ -1399,7 +1399,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.DeploymentList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["items"] = args.items;
@@ -1456,7 +1456,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.DeploymentRollback, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "DeploymentRollback";
@@ -1518,7 +1518,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.Scale, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "Scale";
@@ -1581,7 +1581,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta1.StatefulSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.StatefulSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["kind"] = "StatefulSet";
@@ -1630,7 +1630,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta1.StatefulSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta1.StatefulSetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["items"] = args.items;
@@ -1700,7 +1700,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.ControllerRevision, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.ControllerRevision, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["data"] = args.data;
@@ -1753,7 +1753,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.ControllerRevisionList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.ControllerRevisionList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args.items;
@@ -1815,7 +1815,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.DaemonSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.DaemonSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "DaemonSet";
@@ -1869,7 +1869,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.DaemonSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.DaemonSetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args.items;
@@ -1928,7 +1928,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.Deployment, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "Deployment";
@@ -1981,7 +1981,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.DeploymentList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args.items;
@@ -2045,7 +2045,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.ReplicaSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.ReplicaSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "ReplicaSet";
@@ -2100,7 +2100,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.ReplicaSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.ReplicaSetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args.items;
@@ -2161,7 +2161,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.Scale, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "Scale";
@@ -2224,7 +2224,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.StatefulSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.StatefulSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "StatefulSet";
@@ -2273,7 +2273,7 @@ export namespace apps {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.apps.v1beta2.StatefulSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.apps.v1beta2.StatefulSetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args.items;
@@ -2335,7 +2335,7 @@ export namespace authentication {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authentication.v1.TokenReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authentication.v1.TokenReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authentication.k8s.io/v1";
           inputs["kind"] = "TokenReview";
@@ -2395,7 +2395,7 @@ export namespace authentication {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authentication.v1beta1.TokenReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authentication.v1beta1.TokenReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authentication.k8s.io/v1beta1";
           inputs["kind"] = "TokenReview";
@@ -2460,7 +2460,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authorization.v1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1.LocalSubjectAccessReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "LocalSubjectAccessReview";
@@ -2518,7 +2518,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authorization.v1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1.SelfSubjectAccessReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "SelfSubjectAccessReview";
@@ -2581,7 +2581,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authorization.v1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1.SelfSubjectRulesReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "SelfSubjectRulesReview";
@@ -2637,7 +2637,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authorization.v1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1.SubjectAccessReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1";
           inputs["kind"] = "SubjectAccessReview";
@@ -2699,7 +2699,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authorization.v1beta1.LocalSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1beta1.LocalSubjectAccessReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "LocalSubjectAccessReview";
@@ -2757,7 +2757,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authorization.v1beta1.SelfSubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1beta1.SelfSubjectAccessReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "SelfSubjectAccessReview";
@@ -2820,7 +2820,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authorization.v1beta1.SelfSubjectRulesReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1beta1.SelfSubjectRulesReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "SelfSubjectRulesReview";
@@ -2876,7 +2876,7 @@ export namespace authorization {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.authorization.v1beta1.SubjectAccessReview, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.authorization.v1beta1.SubjectAccessReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "SubjectAccessReview";
@@ -2926,7 +2926,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.autoscaling.v1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v1.CrossVersionObjectReference, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["kind"] = "CrossVersionObjectReference";
@@ -2984,7 +2984,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.autoscaling.v1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v1.HorizontalPodAutoscaler, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["kind"] = "HorizontalPodAutoscaler";
@@ -3037,7 +3037,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.autoscaling.v1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v1.HorizontalPodAutoscalerList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["items"] = args.items;
@@ -3098,7 +3098,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.autoscaling.v1.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v1.Scale, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v1";
           inputs["kind"] = "Scale";
@@ -3145,7 +3145,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.autoscaling.v2beta1.CrossVersionObjectReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v2beta1.CrossVersionObjectReference, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["kind"] = "CrossVersionObjectReference";
@@ -3205,7 +3205,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["kind"] = "HorizontalPodAutoscaler";
@@ -3258,7 +3258,7 @@ export namespace autoscaling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["items"] = args.items;
@@ -3324,7 +3324,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.batch.v1.Job, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v1.Job, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1";
           inputs["kind"] = "Job";
@@ -3378,7 +3378,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.batch.v1.JobList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v1.JobList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1";
           inputs["items"] = args.items;
@@ -3441,7 +3441,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.batch.v1beta1.CronJob, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v1beta1.CronJob, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1beta1";
           inputs["kind"] = "CronJob";
@@ -3495,7 +3495,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.batch.v1beta1.CronJobList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v1beta1.CronJobList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1beta1";
           inputs["items"] = args.items;
@@ -3558,7 +3558,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.batch.v2alpha1.CronJob, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v2alpha1.CronJob, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v2alpha1";
           inputs["kind"] = "CronJob";
@@ -3612,7 +3612,7 @@ export namespace batch {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.batch.v2alpha1.CronJobList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.batch.v2alpha1.CronJobList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v2alpha1";
           inputs["items"] = args.items;
@@ -3673,7 +3673,7 @@ export namespace certificates {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.certificates.v1beta1.CertificateSigningRequest, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.certificates.v1beta1.CertificateSigningRequest, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
           inputs["kind"] = "CertificateSigningRequest";
@@ -3720,7 +3720,7 @@ export namespace certificates {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.certificates.v1beta1.CertificateSigningRequestList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.certificates.v1beta1.CertificateSigningRequestList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
           inputs["items"] = args.items;
@@ -3780,7 +3780,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.Binding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Binding, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Binding";
@@ -3833,7 +3833,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ComponentStatus, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ComponentStatus, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["conditions"] = args.conditions;
@@ -3886,7 +3886,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ComponentStatusList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ComponentStatusList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -3940,7 +3940,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ConfigMap, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ConfigMap, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["data"] = args.data;
@@ -3992,7 +3992,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ConfigMapList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ConfigMapList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -4061,7 +4061,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.Endpoints, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Endpoints, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Endpoints";
@@ -4114,7 +4114,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.EndpointsList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.EndpointsList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -4233,7 +4233,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.Event, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Event, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["action"] = args.action;
           inputs["apiVersion"] = "v1";
@@ -4299,7 +4299,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.EventList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.EventList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -4353,7 +4353,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.LimitRange, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.LimitRange, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "LimitRange";
@@ -4407,7 +4407,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.LimitRangeList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.LimitRangeList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -4467,7 +4467,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.Namespace, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Namespace, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Namespace";
@@ -4522,7 +4522,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.NamespaceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.NamespaceList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -4583,7 +4583,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.Node, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Node, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Node";
@@ -4630,7 +4630,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.NodeConfigSource, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.NodeConfigSource, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["configMapRef"] = args.configMapRef;
@@ -4682,7 +4682,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.NodeList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.NodeList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -4754,7 +4754,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ObjectReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ObjectReference, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "core/v1";
           inputs["fieldPath"] = args.fieldPath;
@@ -4820,7 +4820,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.PersistentVolume, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PersistentVolume, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PersistentVolume";
@@ -4882,7 +4882,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.PersistentVolumeClaim, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PersistentVolumeClaim, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PersistentVolumeClaim";
@@ -4937,7 +4937,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.PersistentVolumeClaimList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PersistentVolumeClaimList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -4991,7 +4991,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.PersistentVolumeList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PersistentVolumeList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -5053,7 +5053,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.Pod, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Pod, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Pod";
@@ -5107,7 +5107,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.PodList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PodList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -5161,7 +5161,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.PodTemplate, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PodTemplate, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PodTemplate";
@@ -5214,7 +5214,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.PodTemplateList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.PodTemplateList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -5276,7 +5276,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ReplicationController, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ReplicationController, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "ReplicationController";
@@ -5331,7 +5331,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ReplicationControllerList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ReplicationControllerList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -5391,7 +5391,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ResourceQuota, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ResourceQuota, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "ResourceQuota";
@@ -5446,7 +5446,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ResourceQuotaList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ResourceQuotaList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -5515,7 +5515,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.Secret, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Secret, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["data"] = args.data;
@@ -5571,7 +5571,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.SecretList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.SecretList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -5633,7 +5633,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.Service, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.Service, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Service";
@@ -5705,7 +5705,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ServiceAccount, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ServiceAccount, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["automountServiceAccountToken"] = args.automountServiceAccountToken;
@@ -5761,7 +5761,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ServiceAccountList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ServiceAccountList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -5814,7 +5814,7 @@ export namespace core {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.core.v1.ServiceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.core.v1.ServiceList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["items"] = args.items;
@@ -5940,7 +5940,7 @@ export namespace events {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.events.v1beta1.Event, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.events.v1beta1.Event, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["action"] = args.action;
           inputs["apiVersion"] = "events.k8s.io/v1beta1";
@@ -6006,7 +6006,7 @@ export namespace events {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.events.v1beta1.EventList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.events.v1beta1.EventList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "events.k8s.io/v1beta1";
           inputs["items"] = args.items;
@@ -6074,7 +6074,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.DaemonSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.DaemonSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "DaemonSet";
@@ -6128,7 +6128,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.DaemonSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.DaemonSetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args.items;
@@ -6187,7 +6187,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.Deployment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.Deployment, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Deployment";
@@ -6240,7 +6240,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.DeploymentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.DeploymentList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args.items;
@@ -6297,7 +6297,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.DeploymentRollback, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.DeploymentRollback, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "DeploymentRollback";
@@ -6360,7 +6360,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.Ingress, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.Ingress, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Ingress";
@@ -6414,7 +6414,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.IngressList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.IngressList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args.items;
@@ -6469,7 +6469,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.NetworkPolicy, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "NetworkPolicy";
@@ -6523,7 +6523,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.NetworkPolicyList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args.items;
@@ -6577,7 +6577,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.PodSecurityPolicy, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.PodSecurityPolicy, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "PodSecurityPolicy";
@@ -6630,7 +6630,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.PodSecurityPolicyList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.PodSecurityPolicyList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args.items;
@@ -6694,7 +6694,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.ReplicaSet, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.ReplicaSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "ReplicaSet";
@@ -6749,7 +6749,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.ReplicaSetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.ReplicaSetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["items"] = args.items;
@@ -6810,7 +6810,7 @@ export namespace extensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.extensions.v1beta1.Scale, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.extensions.v1beta1.Scale, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Scale";
@@ -6886,7 +6886,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.meta.v1.APIGroup, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.APIGroup, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "APIGroup";
@@ -6935,7 +6935,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.meta.v1.APIGroupList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.APIGroupList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["groups"] = args.groups;
@@ -6987,7 +6987,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.meta.v1.APIResourceList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.APIResourceList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["groupVersion"] = args.groupVersion;
@@ -7046,7 +7046,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.meta.v1.APIVersions, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.APIVersions, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "APIVersions";
@@ -7120,7 +7120,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.meta.v1.DeleteOptions, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.DeleteOptions, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["gracePeriodSeconds"] = args.gracePeriodSeconds;
@@ -7183,7 +7183,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.meta.v1.OwnerReference, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.OwnerReference, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "meta/v1";
           inputs["blockOwnerDeletion"] = args.blockOwnerDeletion;
@@ -7263,7 +7263,7 @@ export namespace meta {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.meta.v1.Status, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.meta.v1.Status, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["code"] = args.code;
@@ -7326,7 +7326,7 @@ export namespace networking {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.networking.v1.NetworkPolicy, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.networking.v1.NetworkPolicy, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "networking.k8s.io/v1";
           inputs["kind"] = "NetworkPolicy";
@@ -7379,7 +7379,7 @@ export namespace networking {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.networking.v1.NetworkPolicyList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.networking.v1.NetworkPolicyList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "networking.k8s.io/v1";
           inputs["items"] = args.items;
@@ -7439,7 +7439,7 @@ export namespace policy {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.policy.v1beta1.Eviction, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.policy.v1beta1.Eviction, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
           inputs["deleteOptions"] = args.deleteOptions;
@@ -7495,7 +7495,7 @@ export namespace policy {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
           inputs["kind"] = "PodDisruptionBudget";
@@ -7544,7 +7544,7 @@ export namespace policy {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.policy.v1beta1.PodDisruptionBudgetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.policy.v1beta1.PodDisruptionBudgetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
           inputs["items"] = args.items;
@@ -7610,7 +7610,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1.ClusterRole, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.ClusterRole, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["aggregationRule"] = args.aggregationRule;
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
@@ -7670,7 +7670,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.ClusterRoleBinding, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "ClusterRoleBinding";
@@ -7723,7 +7723,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.ClusterRoleBindingList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args.items;
@@ -7775,7 +7775,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.ClusterRoleList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args.items;
@@ -7828,7 +7828,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1.Role, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.Role, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "Role";
@@ -7889,7 +7889,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1.RoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.RoleBinding, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["kind"] = "RoleBinding";
@@ -7942,7 +7942,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1.RoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.RoleBindingList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args.items;
@@ -7994,7 +7994,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1.RoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1.RoleList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
           inputs["items"] = args.items;
@@ -8057,7 +8057,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRole, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRole, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["aggregationRule"] = args.aggregationRule;
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
@@ -8117,7 +8117,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRoleBinding, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "ClusterRoleBinding";
@@ -8170,7 +8170,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRoleBindingList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args.items;
@@ -8222,7 +8222,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.ClusterRoleList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args.items;
@@ -8275,7 +8275,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1alpha1.Role, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.Role, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "Role";
@@ -8336,7 +8336,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1alpha1.RoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.RoleBinding, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "RoleBinding";
@@ -8389,7 +8389,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1alpha1.RoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.RoleBindingList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args.items;
@@ -8441,7 +8441,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1alpha1.RoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.RoleList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["items"] = args.items;
@@ -8494,7 +8494,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1alpha1.Subject, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1alpha1.Subject, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac/v1alpha1";
           inputs["kind"] = "Subject";
@@ -8557,7 +8557,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRole, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRole, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["aggregationRule"] = args.aggregationRule;
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
@@ -8617,7 +8617,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRoleBinding, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "ClusterRoleBinding";
@@ -8670,7 +8670,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRoleBindingList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args.items;
@@ -8722,7 +8722,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.ClusterRoleList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args.items;
@@ -8775,7 +8775,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1beta1.Role, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.Role, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "Role";
@@ -8836,7 +8836,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1beta1.RoleBinding, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.RoleBinding, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["kind"] = "RoleBinding";
@@ -8889,7 +8889,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1beta1.RoleBindingList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.RoleBindingList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args.items;
@@ -8941,7 +8941,7 @@ export namespace rbac {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.rbac.v1beta1.RoleList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.rbac.v1beta1.RoleList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args.items;
@@ -9014,7 +9014,7 @@ export namespace scheduling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.scheduling.v1alpha1.PriorityClass, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.scheduling.v1alpha1.PriorityClass, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
           inputs["description"] = args.description;
@@ -9069,7 +9069,7 @@ export namespace scheduling {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.scheduling.v1alpha1.PriorityClassList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.scheduling.v1alpha1.PriorityClassList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
           inputs["items"] = args.items;
@@ -9123,7 +9123,7 @@ export namespace settings {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.settings.v1alpha1.PodPreset, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.settings.v1alpha1.PodPreset, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
           inputs["kind"] = "PodPreset";
@@ -9176,7 +9176,7 @@ export namespace settings {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.settings.v1alpha1.PodPresetList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.settings.v1alpha1.PodPresetList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
           inputs["items"] = args.items;
@@ -9270,7 +9270,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.storage.v1.StorageClass, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1.StorageClass, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["allowVolumeExpansion"] = args.allowVolumeExpansion;
           inputs["apiVersion"] = "storage.k8s.io/v1";
@@ -9328,7 +9328,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.storage.v1.StorageClassList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1.StorageClassList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1";
           inputs["items"] = args.items;
@@ -9394,7 +9394,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.storage.v1alpha1.VolumeAttachment, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1alpha1.VolumeAttachment, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
           inputs["kind"] = "VolumeAttachment";
@@ -9448,7 +9448,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.storage.v1alpha1.VolumeAttachmentList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1alpha1.VolumeAttachmentList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
           inputs["items"] = args.items;
@@ -9539,7 +9539,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.storage.v1beta1.StorageClass, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1beta1.StorageClass, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["allowVolumeExpansion"] = args.allowVolumeExpansion;
           inputs["apiVersion"] = "storage.k8s.io/v1beta1";
@@ -9597,7 +9597,7 @@ export namespace storage {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.storage.v1beta1.StorageClassList, opts?: pulumi.ResourceOptions) {
+      constructor(name: string, args: inputApi.storage.v1beta1.StorageClassList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1beta1";
           inputs["items"] = args.items;
