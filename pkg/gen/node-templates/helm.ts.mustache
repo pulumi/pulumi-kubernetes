@@ -34,7 +34,7 @@ export namespace v2 {
     export class Chart extends pulumi.ComponentResource {
         public readonly resources: {[key: string]: pulumi.CustomResource};
 
-        constructor(releaseName: string, config: ChartOpts, opts?: pulumi.ResourceOptions) {
+        constructor(releaseName: string, config: ChartOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:helm.sh/v2:Chart", releaseName, config, opts);
 
             // Create temporary directories and files to hold chart data and override values.
@@ -65,7 +65,7 @@ export namespace v2 {
                     `helm template ${chart} --name ${release} --values ${values}`
                 ).toString();
                 const resourcesObjects = yaml.safeLoadAll(yamlStream);
-                this.resources = fromList(resourcesObjects, config.transformations || [], { ...opts, parent: this });
+                this.resources = fromList(resourcesObjects, config.transformations || [], { parent: this });
             } finally {
                 // Clean up temporary files and directories.
                 chartDir.removeCallback()
@@ -162,7 +162,7 @@ export function fetch(chart: string, opts?: FetchOpts) {
 
 
 function fromList(
-    objs: any[], transforms?: ((o: any) => void)[], opts?: pulumi.ResourceOptions,
+    objs: any[], transforms?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
 ): {[key: string]: pulumi.CustomResource} {
     const resources: {[key: string]: pulumi.CustomResource} = {};
     for (const obj of objs) {
