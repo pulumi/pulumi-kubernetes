@@ -1,0 +1,4 @@
+name: provider
+description: Use an explicit Pulumi Kubernetes provider.
+runtime: nodejs
+
