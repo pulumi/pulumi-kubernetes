@@ -32,9 +32,6 @@ func TestExamples(t *testing.T) {
 
 	// base options shared amongst all tests.
 	base := integration.ProgramTestOptions{
-		Config: map[string]string{
-			"kubernetes:config:configContext": kubectx,
-		},
 		Dependencies: []string{
 			"@pulumi/kubernetes",
 		},
@@ -171,13 +168,12 @@ func TestExamples(t *testing.T) {
 				},
 			}),
 
-			// TODO[pulumi-kubernetes#130]: Enable this test once CI configuration is worked out.
-			// base.With(integration.ProgramTestOptions{
-			// 	Dir: path.Join(cwd, "provider"),
-			// 	Config: map[string]string{
-			// 		"context": kubectx,
-			// 	},
-			// }),
+			base.With(integration.ProgramTestOptions{
+				Dir: path.Join(cwd, "provider"),
+				Config: map[string]string{
+					"context": kubectx,
+				},
+			}),
 
 			// TODO[pulumi-kubernetes#117]: Enable this when parallelism is turned on.
 			//
