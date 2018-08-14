@@ -46,8 +46,8 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
 
 "@pulumi/pulumi@^0.15.1-dev":
-  version "0.15.1-dev-1533943101-g58a75cbb"
-  resolved "https://registry.yarnpkg.com/@pulumi/pulumi/-/pulumi-0.15.1-dev-1533943101-g58a75cbb.tgz#076f1cccec4f4df6b56279896c4dc8ee17e7bd51"
+  version "0.15.1-dev-1534221790-gd83774ca"
+  resolved "https://npmjs.pulumi.com/@pulumi%2fpulumi/-/pulumi-0.15.1-dev-1534221790-gd83774ca.tgz#7e70b2bb7432d8b07958f9463b03fb7738998764"
   dependencies:
     google-protobuf "^3.5.0"
     grpc "^1.12.2"
@@ -64,8 +64,8 @@
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
 
 "@types/node@^10.1.0":
-  version "10.5.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.7.tgz#960d9feb3ade2233bcc9843c918d740b4f78a7cf"
+  version "10.7.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.7.0.tgz#d384b2c8625414ab2aa18fdf989c288d6a7a8202"
 
 abbrev@1:
   version "1.1.1"
@@ -695,8 +695,8 @@ tar@^4:
     yallist "^3.0.2"
 
 ts-node@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-7.0.0.tgz#a94a13c75e5e1aa6b82814b84c68deb339ba7bff"
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-7.0.1.tgz#9562dc2d1e6d248d24bc55f773e3f614337d9baf"
   dependencies:
     arrify "^1.0.0"
     buffer-from "^1.1.0"
