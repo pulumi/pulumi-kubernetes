@@ -88,6 +88,7 @@ func makeKubeProvider(
 	host *provider.HostClient, name, version string,
 ) (pulumirpc.ResourceProviderServer, error) {
 	return &kubeProvider{
+		host:           host,
 		canceler:       makeCancellationContext(),
 		name:           name,
 		version:        version,
