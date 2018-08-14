@@ -2,7 +2,7 @@
     "name": "minimal",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "^0.15.0-rc"
+        "@pulumi/pulumi": "^0.15.0"
     },
     "devDependencies": {
         "typescript": "^2.5.3"

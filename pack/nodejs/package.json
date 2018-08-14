@@ -1,6 +1,6 @@
 {
     "name": "@pulumi/kubernetes",
-    "version": "v0.15.0-rc2-1534200460-g7112093-dirty",
+    "version": "v0.15.0-rc4-dirty",
     "description": "A Pulumi package for creating and managing Kubernetes resources.",
     "license": "Apache 2.0",
     "keywords": [
@@ -13,7 +13,7 @@
         "build": "tsc"
     },
     "dependencies": {
-        "@pulumi/pulumi": "^0.15.0-rc",
+        "@pulumi/pulumi": "^0.15.0",
         "@types/js-yaml": "^3.11.2",
         "js-yaml": "^3.12.0",
         "shell-quote": "^1.6.1",
