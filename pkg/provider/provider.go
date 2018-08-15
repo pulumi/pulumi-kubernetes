@@ -720,6 +720,8 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 		inputs, hasInputs = pm["__inputs"]
 		if hasInputs {
 			delete(liveMap.(map[string]interface{}), "__inputs")
+		} else {
+			inputs = map[string]interface{}{}
 		}
 	}
 
