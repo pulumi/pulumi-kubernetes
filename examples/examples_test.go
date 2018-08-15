@@ -53,10 +53,10 @@ func TestExamples(t *testing.T) {
 					sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
 						ri := stackInfo.Deployment.Resources[i]
 						rj := stackInfo.Deployment.Resources[j]
-						riname, _ := openapi.Pluck(ri.Outputs, "live", "metadata", "name")
-						rinamespace, _ := openapi.Pluck(ri.Outputs, "live", "metadata", "namespace")
-						rjname, _ := openapi.Pluck(rj.Outputs, "live", "metadata", "name")
-						rjnamespace, _ := openapi.Pluck(rj.Outputs, "live", "metadata", "namespace")
+						riname, _ := openapi.Pluck(ri.Outputs, "metadata", "name")
+						rinamespace, _ := openapi.Pluck(ri.Outputs, "metadata", "namespace")
+						rjname, _ := openapi.Pluck(rj.Outputs, "metadata", "name")
+						rjnamespace, _ := openapi.Pluck(rj.Outputs, "metadata", "namespace")
 						return fmt.Sprintf("%s/%s/%s", ri.URN.Type(), rinamespace, riname) <
 							fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
 					})
@@ -64,19 +64,19 @@ func TestExamples(t *testing.T) {
 					// Verify redis pod.
 					redisPV := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:PersistentVolume"), redisPV.URN.Type())
-					status, _ := openapi.Pluck(redisPV.Outputs, "live", "status", "phase")
+					status, _ := openapi.Pluck(redisPV.Outputs, "status", "phase")
 					assert.Equal(t, "Available", status)
 
 					// Verify nginx pod.
 					nginxPod := stackInfo.Deployment.Resources[1]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), nginxPod.URN.Type())
-					status, _ = openapi.Pluck(nginxPod.Outputs, "live", "status", "phase")
+					status, _ = openapi.Pluck(nginxPod.Outputs, "status", "phase")
 					assert.Equal(t, "Running", status)
 
 					// Verify redis pod.
 					redisPod := stackInfo.Deployment.Resources[2]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), redisPod.URN.Type())
-					status, _ = openapi.Pluck(redisPod.Outputs, "live", "status", "phase")
+					status, _ = openapi.Pluck(redisPod.Outputs, "status", "phase")
 					assert.Equal(t, "Running", status)
 
 					// Verify the provider resource.
@@ -99,10 +99,10 @@ func TestExamples(t *testing.T) {
 					sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
 						ri := stackInfo.Deployment.Resources[i]
 						rj := stackInfo.Deployment.Resources[j]
-						riname, _ := openapi.Pluck(ri.Outputs, "live", "metadata", "name")
-						rinamespace, _ := openapi.Pluck(ri.Outputs, "live", "metadata", "namespace")
-						rjname, _ := openapi.Pluck(rj.Outputs, "live", "metadata", "name")
-						rjnamespace, _ := openapi.Pluck(rj.Outputs, "live", "metadata", "namespace")
+						riname, _ := openapi.Pluck(ri.Outputs, "metadata", "name")
+						rinamespace, _ := openapi.Pluck(ri.Outputs, "metadata", "namespace")
+						rjname, _ := openapi.Pluck(rj.Outputs, "metadata", "name")
+						rjnamespace, _ := openapi.Pluck(rj.Outputs, "metadata", "namespace")
 						return fmt.Sprintf("%s/%s/%s", ri.URN.Type(), rinamespace, riname) <
 							fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
 					})
@@ -113,49 +113,49 @@ func TestExamples(t *testing.T) {
 					// Verify frontend deployment.
 					frontendDepl := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), frontendDepl.URN.Type())
-					name, _ = openapi.Pluck(frontendDepl.Outputs, "live", "metadata", "name")
+					name, _ = openapi.Pluck(frontendDepl.Outputs, "metadata", "name")
 					assert.Equal(t, "frontend", name)
-					status, _ = openapi.Pluck(frontendDepl.Outputs, "live", "status", "readyReplicas")
+					status, _ = openapi.Pluck(frontendDepl.Outputs, "status", "readyReplicas")
 					assert.Equal(t, float64(3), status)
 
 					// Verify redis-master deployment.
 					redisMasterDepl := stackInfo.Deployment.Resources[1]
 					assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisMasterDepl.URN.Type())
-					name, _ = openapi.Pluck(redisMasterDepl.Outputs, "live", "metadata", "name")
+					name, _ = openapi.Pluck(redisMasterDepl.Outputs, "metadata", "name")
 					assert.Equal(t, "redis-master", name)
-					status, _ = openapi.Pluck(redisMasterDepl.Outputs, "live", "status", "readyReplicas")
+					status, _ = openapi.Pluck(redisMasterDepl.Outputs, "status", "readyReplicas")
 					assert.Equal(t, float64(1), status)
 
 					// Verify redis-slave deployment.
 					redisSlaveDepl := stackInfo.Deployment.Resources[2]
 					assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisSlaveDepl.URN.Type())
-					name, _ = openapi.Pluck(redisSlaveDepl.Outputs, "live", "metadata", "name")
+					name, _ = openapi.Pluck(redisSlaveDepl.Outputs, "metadata", "name")
 					assert.Equal(t, "redis-slave", name)
-					status, _ = openapi.Pluck(redisSlaveDepl.Outputs, "live", "status", "readyReplicas")
+					status, _ = openapi.Pluck(redisSlaveDepl.Outputs, "status", "readyReplicas")
 					assert.Equal(t, float64(1), status)
 
 					// Verify frontend service.
 					frontentService := stackInfo.Deployment.Resources[3]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), frontentService.URN.Type())
-					name, _ = openapi.Pluck(frontentService.Outputs, "live", "metadata", "name")
+					name, _ = openapi.Pluck(frontentService.Outputs, "metadata", "name")
 					assert.Equal(t, "frontend", name)
-					status, _ = openapi.Pluck(frontentService.Outputs, "live", "spec", "clusterIP")
+					status, _ = openapi.Pluck(frontentService.Outputs, "spec", "clusterIP")
 					assert.True(t, len(status.(string)) > 1)
 
 					// Verify redis-master service.
 					redisMasterService := stackInfo.Deployment.Resources[4]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisMasterService.URN.Type())
-					name, _ = openapi.Pluck(redisMasterService.Outputs, "live", "metadata", "name")
+					name, _ = openapi.Pluck(redisMasterService.Outputs, "metadata", "name")
 					assert.Equal(t, "redis-master", name)
-					status, _ = openapi.Pluck(redisMasterService.Outputs, "live", "spec", "clusterIP")
+					status, _ = openapi.Pluck(redisMasterService.Outputs, "spec", "clusterIP")
 					assert.True(t, len(status.(string)) > 1)
 
 					// Verify redis-slave service.
 					redisSlaveService := stackInfo.Deployment.Resources[5]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisSlaveService.URN.Type())
-					name, _ = openapi.Pluck(redisSlaveService.Outputs, "live", "metadata", "name")
+					name, _ = openapi.Pluck(redisSlaveService.Outputs, "metadata", "name")
 					assert.Equal(t, "redis-slave", name)
-					status, _ = openapi.Pluck(redisSlaveService.Outputs, "live", "spec", "clusterIP")
+					status, _ = openapi.Pluck(redisSlaveService.Outputs, "spec", "clusterIP")
 					assert.True(t, len(status.(string)) > 1)
 
 					// Verify the provider resource.
