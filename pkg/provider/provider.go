@@ -704,24 +704,26 @@ func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 }
 
 func checkpointObject(inputs, live *unstructured.Unstructured) resource.PropertyMap {
-	return resource.NewPropertyMapFromMap(map[string]interface{}{
-		"inputs": inputs.Object,
-		"live":   live.Object,
-	})
+	object := resource.NewPropertyMapFromMap(live.Object)
+	object["__inputs"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(inputs.Object))
+	return object
 }
 
 func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructured.Unstructured) {
 	pm := obj.Mappable()
-	inputs := pm["inputs"]
-	if inputs == nil {
-		inputs = map[string]interface{}{}
-	}
-	oldInputs = &unstructured.Unstructured{Object: inputs.(map[string]interface{})}
 
-	liveMap := pm["live"]
-	if liveMap == nil {
-		liveMap = map[string]interface{}{}
+	inputs, hasInputs := pm["inputs"]
+	liveMap, hasLive := pm["live"]
+	if !hasInputs || !hasLive {
+		liveMap = pm
+
+		inputs, hasInputs = pm["__inputs"]
+		if hasInputs {
+			delete(liveMap.(map[string]interface{}), "__inputs")
+		}
 	}
+
+	oldInputs = &unstructured.Unstructured{Object: inputs.(map[string]interface{})}
 	live = &unstructured.Unstructured{Object: liveMap.(map[string]interface{})}
 	return
 }
