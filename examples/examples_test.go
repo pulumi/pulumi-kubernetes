@@ -170,9 +170,6 @@ func TestExamples(t *testing.T) {
 
 			base.With(integration.ProgramTestOptions{
 				Dir: path.Join(cwd, "provider"),
-				Config: map[string]string{
-					"context": kubectx,
-				},
 			}),
 
 			// TODO[pulumi-kubernetes#117]: Enable this when parallelism is turned on.
