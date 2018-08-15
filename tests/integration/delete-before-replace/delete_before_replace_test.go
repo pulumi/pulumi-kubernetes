@@ -42,20 +42,19 @@ func TestPod(t *testing.T) {
 			//
 
 			pod := stackInfo.Deployment.Resources[0]
-			name, _ := openapi.Pluck(pod.Outputs, "live", "metadata", "name")
+			name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
 			assert.Equal(t, name.(string), "pod-test")
 
 			// Not autonamed.
-			_, autonamed := openapi.Pluck(pod.Outputs, "live", "metadata", "annotations",
-				"pulumi.com/autonamed")
+			_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
 			assert.False(t, autonamed)
 
 			// Status is "Running"
-			phase, _ := openapi.Pluck(pod.Outputs, "live", "status", "phase")
+			phase, _ := openapi.Pluck(pod.Outputs, "status", "phase")
 			assert.Equal(t, "Running", phase)
 
 			// Status "Ready" is "True".
-			conditions, _ := openapi.Pluck(pod.Outputs, "live", "status", "conditions")
+			conditions, _ := openapi.Pluck(pod.Outputs, "status", "conditions")
 			ready := conditions.([]interface{})[1].(map[string]interface{})
 			readyType, _ := ready["type"]
 			assert.Equal(t, "Ready", readyType)
@@ -63,7 +62,7 @@ func TestPod(t *testing.T) {
 			assert.Equal(t, "True", readyStatus)
 
 			// Container is called "nginx" and uses image "nginx:1.13-alpine".
-			containerStatuses, _ := openapi.Pluck(pod.Outputs, "live", "status", "containerStatuses")
+			containerStatuses, _ := openapi.Pluck(pod.Outputs, "status", "containerStatuses")
 			containerStatus := containerStatuses.([]interface{})[0].(map[string]interface{})
 			containerName, _ := containerStatus["name"]
 			assert.Equal(t, "nginx", containerName)
@@ -96,20 +95,19 @@ func TestPod(t *testing.T) {
 					//
 
 					pod := stackInfo.Deployment.Resources[0]
-					name, _ := openapi.Pluck(pod.Outputs, "live", "metadata", "name")
+					name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.Equal(t, name.(string), "pod-test")
 
 					// Not autonamed.
-					_, autonamed := openapi.Pluck(pod.Outputs, "live", "metadata", "annotations",
-						"pulumi.com/autonamed")
+					_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
 					assert.False(t, autonamed)
 
 					// Status is "Running"
-					phase, _ := openapi.Pluck(pod.Outputs, "live", "status", "phase")
+					phase, _ := openapi.Pluck(pod.Outputs, "status", "phase")
 					assert.Equal(t, "Running", phase)
 
 					// Status "Ready" is "True".
-					conditions, _ := openapi.Pluck(pod.Outputs, "live", "status", "conditions")
+					conditions, _ := openapi.Pluck(pod.Outputs, "status", "conditions")
 					ready := conditions.([]interface{})[1].(map[string]interface{})
 					readyType, _ := ready["type"]
 					assert.Equal(t, "Ready", readyType)
@@ -117,7 +115,7 @@ func TestPod(t *testing.T) {
 					assert.Equal(t, "True", readyStatus)
 
 					// Container is called "nginx" and uses image "nginx:1.13-alpine".
-					containerStatuses, _ := openapi.Pluck(pod.Outputs, "live", "status", "containerStatuses")
+					containerStatuses, _ := openapi.Pluck(pod.Outputs, "status", "containerStatuses")
 					containerStatus := containerStatuses.([]interface{})[0].(map[string]interface{})
 					containerName, _ := containerStatus["name"]
 					assert.Equal(t, "nginx", containerName)
@@ -148,20 +146,19 @@ func TestPod(t *testing.T) {
 					//
 
 					pod := stackInfo.Deployment.Resources[0]
-					name, _ := openapi.Pluck(pod.Outputs, "live", "metadata", "name")
+					name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.Equal(t, name.(string), "pod-test")
 
 					// Not autonamed.
-					_, autonamed := openapi.Pluck(pod.Outputs, "live", "metadata", "annotations",
-						"pulumi.com/autonamed")
+					_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
 					assert.False(t, autonamed)
 
 					// Status is "Running"
-					phase, _ := openapi.Pluck(pod.Outputs, "live", "status", "phase")
+					phase, _ := openapi.Pluck(pod.Outputs, "status", "phase")
 					assert.Equal(t, "Running", phase)
 
 					// Status "Ready" is "True".
-					conditions, _ := openapi.Pluck(pod.Outputs, "live", "status", "conditions")
+					conditions, _ := openapi.Pluck(pod.Outputs, "status", "conditions")
 					ready := conditions.([]interface{})[1].(map[string]interface{})
 					readyType, _ := ready["type"]
 					assert.Equal(t, "Ready", readyType)
@@ -169,7 +166,7 @@ func TestPod(t *testing.T) {
 					assert.Equal(t, "True", readyStatus)
 
 					// Container is called "nginx" and uses image "nginx:1.13-alpine".
-					containerStatuses, _ := openapi.Pluck(pod.Outputs, "live", "status", "containerStatuses")
+					containerStatuses, _ := openapi.Pluck(pod.Outputs, "status", "containerStatuses")
 					containerStatus := containerStatuses.([]interface{})[0].(map[string]interface{})
 					containerName, _ := containerStatus["name"]
 					assert.Equal(t, "nginx", containerName)

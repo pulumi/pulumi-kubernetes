@@ -48,11 +48,10 @@ func TestAutonaming(t *testing.T) {
 
 			pod := stackInfo.Deployment.Resources[0]
 			assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
-			step1Name, _ = openapi.Pluck(pod.Outputs, "live", "metadata", "name")
+			step1Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 			assert.True(t, strings.HasPrefix(step1Name.(string), "autonaming-test-"))
 
-			autonamed, _ := openapi.Pluck(pod.Outputs, "live", "metadata", "annotations",
-				"pulumi.com/autonamed")
+			autonamed, _ := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
 			assert.Equal(t, "true", autonamed)
 		},
 		EditDirs: []integration.EditDir{
@@ -77,11 +76,10 @@ func TestAutonaming(t *testing.T) {
 
 					pod := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
-					step2Name, _ = openapi.Pluck(pod.Outputs, "live", "metadata", "name")
+					step2Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.True(t, strings.HasPrefix(step2Name.(string), "autonaming-test-"))
 
-					autonamed, _ := openapi.Pluck(pod.Outputs, "live", "metadata", "annotations",
-						"pulumi.com/autonamed")
+					autonamed, _ := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
 					assert.Equal(t, "true", autonamed)
 
 					assert.NotEqual(t, step1Name, step2Name)
@@ -109,11 +107,10 @@ func TestAutonaming(t *testing.T) {
 
 					pod := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
-					step3Name, _ = openapi.Pluck(pod.Outputs, "live", "metadata", "name")
+					step3Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.True(t, strings.HasPrefix(step3Name.(string), "autonaming-test-"))
 
-					autonamed, _ := openapi.Pluck(pod.Outputs, "live", "metadata", "annotations",
-						"pulumi.com/autonamed")
+					autonamed, _ := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
 					assert.Equal(t, "true", autonamed)
 
 					assert.Equal(t, step2Name, step3Name)
@@ -141,11 +138,10 @@ func TestAutonaming(t *testing.T) {
 
 					pod := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
-					name, _ := openapi.Pluck(pod.Outputs, "live", "metadata", "name")
+					name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.Equal(t, "autonaming-test", name.(string))
 
-					_, autonamed := openapi.Pluck(pod.Outputs, "live", "metadata", "annotations",
-						"pulumi.com/autonamed")
+					_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
 					assert.False(t, autonamed)
 				},
 			},

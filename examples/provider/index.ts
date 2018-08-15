@@ -9,14 +9,9 @@ import * as path from "path";
 // Use the existing ~/.kube/config kubeconfig
 const kubeconfig = fs.readFileSync(path.join(os.homedir(), ".kube", "config")).toString();
 
-// Pick a context using config
-const config = new pulumi.Config("provider");
-const context = config.require("context");
-
 // Create a new provider
 const myk8s = new k8s.Provider("myk8s", {
     kubeconfig: kubeconfig,
-    context: context,
 });
 
 // Create a Pod using the custom provider

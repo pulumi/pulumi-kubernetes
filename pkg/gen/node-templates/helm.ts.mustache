@@ -5,7 +5,6 @@ import * as k8s from "./index";
 import * as pulumi from "@pulumi/pulumi";
 import * as shell from "shell-quote";
 import * as tmp from "tmp";
-import * as yaml from "js-yaml";
 
 export namespace v2 {
     export interface ChartOpts {
@@ -31,9 +30,7 @@ export namespace v2 {
     // The semantics of `update` on a Chart are identical to those of Helm and kubectl; for example,
     // unlike a "normal" Pulumi program, updating a ConfigMap does not trigger a cascading update
     // among Deployments that reference it.
-    export class Chart extends pulumi.ComponentResource {
-        public readonly resources: {[key: string]: pulumi.CustomResource};
-
+    export class Chart extends k8s.yaml.CollectionComponentResource {
         constructor(releaseName: string, config: ChartOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:helm.sh/v2:Chart", releaseName, config, opts);
 
@@ -64,8 +61,10 @@ export namespace v2 {
                 const yamlStream = execSync(
                     `helm template ${chart} --name ${release} --values ${values}`
                 ).toString();
-                const resourcesObjects = yaml.safeLoadAll(yamlStream);
-                this.resources = fromList(resourcesObjects, config.transformations || [], { parent: this });
+                this.resources = k8s.yaml.parse({
+                    yaml: [yamlStream],
+                    transformations: config.transformations || [],
+                }, { parent: this });
             } finally {
                 // Clean up temporary files and directories.
                 chartDir.removeCallback()
@@ -158,43 +157,4 @@ export function fetch(chart: string, opts?: FetchOpts) {
         if (opts.verify === true)           { flags.push(`--verify`);                                         }
     }
     execSync(`helm fetch ${shell.quote([chart])} ${flags.join(" ")}`);
-}
-
-
-function fromList(
-    objs: any[], transforms?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
-): {[key: string]: pulumi.CustomResource} {
-    const resources: {[key: string]: pulumi.CustomResource} = {};
-    for (const obj of objs) {
-        if (obj == null) {
-            continue;
-        }
-
-        for (const t of transforms || []) {
-            t(obj);
-        }
-
-        const kind = obj["kind"];
-        const apiVersion = obj["apiVersion"];
-        if (kind == null || apiVersion == null) {
-            continue;
-        }
-        const namespace = obj["metadata"]["namespace"] || "default";
-        const name = obj["metadata"]["name"];
-        switch (`${apiVersion}/${kind}`) {
-            {{#Groups}}
-            {{#Versions}}
-            {{#Kinds}}
-            case "{{RawAPIVersion}}/{{Kind}}":
-                resources[`{{RawAPIVersion}}/{{Kind}}::${namespace}/${name}`] =
-                    new k8s.{{Group}}.{{Version}}.{{Kind}}(name, obj, opts);
-                break;
-            {{/Kinds}}
-            {{/Versions}}
-            {{/Groups}}
-            default:
-            throw new Error(`Unrecognized resource type ${apiVersion}/${kind}`);
-        }
-    }
-    return resources;
 }
