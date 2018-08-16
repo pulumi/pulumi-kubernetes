@@ -38,6 +38,7 @@ build:: $(OPENAPI_FILE)
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
+	sed -i 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
 
 lint::
 	$(GOMETALINTER) ./cmd/... ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
@@ -66,9 +67,13 @@ publish_packages:
 	$(call STEP_MESSAGE)
 	./scripts/publish_packages.sh
 
+.PHONY: check_clean_worktree
+check_clean_worktree:
+	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/check-worktree-is-clean.sh
+
 # The travis_* targets are entrypoints for CI.
 .PHONY: travis_cron travis_push travis_pull_request travis_api
 travis_cron: all
-travis_push: only_build publish_tgz only_test publish_packages
-travis_pull_request: all
+travis_push: only_build check_clean_worktree publish_tgz only_test publish_packages
+travis_pull_request: all check_clean_worktree
 travis_api: all
