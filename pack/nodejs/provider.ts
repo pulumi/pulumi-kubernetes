@@ -763,7 +763,7 @@ export namespace yaml {
     }
 
     export class ConfigFile extends CollectionComponentResource {
-        constructor(name: string, config: ConfigOpts, opts?: pulumi.CustomResourceOptions) {
+        constructor(name: string, config: ConfigOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:yaml:ConfigFile", name, config, opts);
             this.resources = parseYamlDocument(config, {parent: this});
         }
