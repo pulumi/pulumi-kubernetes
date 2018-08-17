@@ -804,7 +804,7 @@ export namespace yaml {
         let id: string = obj["metadata"]["name"];
         const namespace = obj["metadata"]["namespace"] || undefined;
         if (namespace !== undefined) {
-            id = `${namespace}/${name}`;
+            id = `${namespace}/${id}`;
         }
         switch (`${apiVersion}/${kind}`) {
             case "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration":
