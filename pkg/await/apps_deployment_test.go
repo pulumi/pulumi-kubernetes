@@ -517,6 +517,77 @@ func Test_Apps_Deployment(t *testing.T) {
 	}
 }
 
+type setCurrInputs func(obj *unstructured.Unstructured)
+type setLastInputs func(obj *unstructured.Unstructured)
+
+func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
+	tests := []struct {
+		description string
+		inputs      func() *unstructured.Unstructured
+		firstUpdate func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
+			setLast setLastInputs)
+		secondUpdate  func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time)
+		expectedError error
+	}{
+		{
+			description: "Should succeed if replicas are scaled",
+			inputs:      regressionDeploymentScaled3Input,
+			firstUpdate: func(
+				deployments, replicaSets, pods chan watch.Event, timeout chan time.Time,
+				setLast setLastInputs,
+			) {
+				computed := regressionDeploymentScaled3()
+				deployments <- watchAddedEvent(computed)
+				replicaSets <- watchAddedEvent(regressionReplicaSetScaled3())
+
+				setLast(regressionDeploymentScaled3Input())
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+			secondUpdate: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				deployments <- watchAddedEvent(regressionDeploymentScaled5())
+				replicaSets <- watchAddedEvent(regressionReplicaSetScaled5())
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+	}
+
+	for _, test := range tests {
+		awaiter := makeDeploymentInitAwaiter(
+			updateAwaitConfig{
+				createAwaitConfig: mockAwaitConfig(test.inputs()),
+			})
+		deployments := make(chan watch.Event)
+		replicaSets := make(chan watch.Event)
+		pods := make(chan watch.Event)
+
+		timeout := make(chan time.Time)
+		period := make(chan time.Time)
+		go test.firstUpdate(deployments, replicaSets, pods, timeout,
+			func(obj *unstructured.Unstructured) {
+				awaiter.config.lastInputs = obj
+			})
+
+		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
+			&chanWatcher{results: pods}, timeout, period)
+		assert.Nil(t, err, test.description)
+
+		deployments = make(chan watch.Event)
+		replicaSets = make(chan watch.Event)
+		pods = make(chan watch.Event)
+
+		timeout = make(chan time.Time)
+		period = make(chan time.Time)
+		go test.secondUpdate(deployments, replicaSets, pods, timeout)
+
+		err = awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
+			&chanWatcher{results: pods}, timeout, period)
+		assert.Equal(t, test.expectedError, err, test.description)
+	}
+}
+
 func Test_Core_Deployment_Read(t *testing.T) {
 	tests := []struct {
 		description        string
@@ -1436,6 +1507,463 @@ func deploymentUpdatedReplicaSetProgressed(namespace, name, revision string) *un
         ]
     }
 }`, namespace, name, revision))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// --------------------------------------------------------------------------
+
+// Tests from data found in the wild
+
+// --------------------------------------------------------------------------
+
+func regressionDeploymentScaled3Input() *unstructured.Unstructured {
+	obj, err := decodeUnstructured(`{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "Deployment",
+    "metadata": {
+        "name": "frontend-ur1fwk62",
+        "namespace": "default"
+    },
+    "spec": {
+        "selector": { "matchLabels": { "app": "frontend" } },
+        "replicas": 3,
+        "template": {
+            "metadata": { "labels": { "app": "frontend" } },
+            "spec": { "containers": [{
+                "name": "php-redis",
+                "image": "gcr.io/google-samples/gb-frontend:v4",
+                "resources": { "requests": { "cpu": "100m", "memory": "100Mi" } },
+                "env": [{ "name": "GET_HOSTS_FROM", "value": "dns" }],
+                "ports": [{ "containerPort": 80 }]
+            }] }
+        }
+    }
+}`)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func regressionDeploymentScaled3() *unstructured.Unstructured {
+	obj, err := decodeUnstructured(`{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "Deployment",
+    "metadata": {
+        "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "pulumi.com/autonamed": "true"
+        },
+        "creationTimestamp": "2018-08-21T21:55:11Z",
+        "generation": 1,
+        "labels": {
+            "app": "frontend"
+        },
+        "name": "frontend-ur1fwk62",
+        "namespace": "default",
+        "resourceVersion": "917821",
+        "selfLink": "/apis/extensions/v1beta1/namespaces/default/deployments/frontend-ur1fwk62",
+        "uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
+    },
+    "spec": {
+        "progressDeadlineSeconds": 600,
+        "replicas": 3,
+        "revisionHistoryLimit": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "frontend"
+            }
+        },
+        "strategy": {
+            "rollingUpdate": {
+                "maxSurge": "25%",
+                "maxUnavailable": "25%"
+            },
+            "type": "RollingUpdate"
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "frontend"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "GET_HOSTS_FROM",
+                                "value": "dns"
+                            }
+                        ],
+                        "image": "gcr.io/google-samples/gb-frontend:v4",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "php-redis",
+                        "ports": [
+                            {
+                                "containerPort": 80,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "100Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File"
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30
+            }
+        }
+    },
+    "status": {
+        "availableReplicas": 3,
+        "conditions": [
+            {
+                "lastTransitionTime": "2018-08-21T21:55:16Z",
+                "lastUpdateTime": "2018-08-21T21:55:16Z",
+                "message": "Deployment has minimum availability.",
+                "reason": "MinimumReplicasAvailable",
+                "status": "True",
+                "type": "Available"
+            },
+            {
+                "lastTransitionTime": "2018-08-21T21:55:11Z",
+                "lastUpdateTime": "2018-08-21T21:55:16Z",
+                "message": "ReplicaSet \"frontend-ur1fwk62-777d669468\" has successfully progressed.",
+                "reason": "NewReplicaSetAvailable",
+                "status": "True",
+                "type": "Progressing"
+            }
+        ],
+        "observedGeneration": 1,
+        "readyReplicas": 3,
+        "replicas": 3,
+        "updatedReplicas": 3
+    }
+}`)
+
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func regressionDeploymentScaled5() *unstructured.Unstructured {
+	obj, err := decodeUnstructured(`{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "Deployment",
+    "metadata": {
+        "annotations": {
+            "deployment.kubernetes.io/revision": "1",
+            "pulumi.com/autonamed": "true"
+        },
+        "creationTimestamp": "2018-08-21T21:55:11Z",
+        "generation": 2,
+        "labels": {
+            "app": "frontend"
+        },
+        "name": "frontend-ur1fwk62",
+        "namespace": "default",
+        "resourceVersion": "918077",
+        "selfLink": "/apis/extensions/v1beta1/namespaces/default/deployments/frontend-ur1fwk62",
+        "uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
+    },
+    "spec": {
+        "progressDeadlineSeconds": 600,
+        "replicas": 5,
+        "revisionHistoryLimit": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "frontend"
+            }
+        },
+        "strategy": {
+            "rollingUpdate": {
+                "maxSurge": "25%",
+                "maxUnavailable": "25%"
+            },
+            "type": "RollingUpdate"
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "frontend"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "GET_HOSTS_FROM",
+                                "value": "dns"
+                            }
+                        ],
+                        "image": "gcr.io/google-samples/gb-frontend:v4",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "php-redis",
+                        "ports": [
+                            {
+                                "containerPort": 80,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "100Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File"
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30
+            }
+        }
+    },
+    "status": {
+        "availableReplicas": 5,
+        "conditions": [
+            {
+                "lastTransitionTime": "2018-08-21T21:55:11Z",
+                "lastUpdateTime": "2018-08-21T21:55:16Z",
+                "message": "ReplicaSet \"frontend-ur1fwk62-777d669468\" has successfully progressed.",
+                "reason": "NewReplicaSetAvailable",
+                "status": "True",
+                "type": "Progressing"
+            },
+            {
+                "lastTransitionTime": "2018-08-21T21:58:27Z",
+                "lastUpdateTime": "2018-08-21T21:58:27Z",
+                "message": "Deployment has minimum availability.",
+                "reason": "MinimumReplicasAvailable",
+                "status": "True",
+                "type": "Available"
+            }
+        ],
+        "observedGeneration": 2,
+        "readyReplicas": 5,
+        "replicas": 5,
+        "updatedReplicas": 5
+    }
+}`)
+
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func regressionReplicaSetScaled3() *unstructured.Unstructured {
+	obj, err := decodeUnstructured(`{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "ReplicaSet",
+    "metadata": {
+        "annotations": {
+            "deployment.kubernetes.io/desired-replicas": "3",
+            "deployment.kubernetes.io/max-replicas": "4",
+            "deployment.kubernetes.io/revision": "1",
+            "pulumi.com/autonamed": "true"
+        },
+        "creationTimestamp": "2018-08-21T23:28:40Z",
+        "generation": 1,
+        "labels": {
+            "app": "frontend",
+            "pod-template-hash": "3338225024"
+        },
+        "name": "frontend-ur1fwk62-777d669468",
+        "namespace": "default",
+        "ownerReferences": [
+            {
+                "apiVersion": "extensions/v1beta1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "Deployment",
+                "name": "frontend-ur1fwk62",
+                "uid": "ef9a0d10-a599-11e8-8cb4-080027bd9056"
+            }
+        ],
+        "resourceVersion": "924664",
+        "selfLink": "/apis/extensions/v1beta1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468",
+        "uid": "ef9a880f-a599-11e8-8cb4-080027bd9056"
+    },
+    "spec": {
+        "replicas": 3,
+        "selector": {
+            "matchLabels": {
+                "app": "frontend",
+                "pod-template-hash": "3338225024"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "frontend",
+                    "pod-template-hash": "3338225024"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "GET_HOSTS_FROM",
+                                "value": "dns"
+                            }
+                        ],
+                        "image": "gcr.io/google-samples/gb-frontend:v4",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "php-redis",
+                        "ports": [
+                            {
+                                "containerPort": 80,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "100Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File"
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30
+            }
+        }
+    },
+    "status": {
+        "availableReplicas": 3,
+        "fullyLabeledReplicas": 3,
+        "observedGeneration": 1,
+        "readyReplicas": 3,
+        "replicas": 3
+    }
+}`)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func regressionReplicaSetScaled5() *unstructured.Unstructured {
+	obj, err := decodeUnstructured(`{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "ReplicaSet",
+    "metadata": {
+        "annotations": {
+            "deployment.kubernetes.io/desired-replicas": "5",
+            "deployment.kubernetes.io/max-replicas": "7",
+            "deployment.kubernetes.io/revision": "1",
+            "pulumi.com/autonamed": "true"
+        },
+        "creationTimestamp": "2018-08-21T21:55:11Z",
+        "generation": 2,
+        "labels": {
+            "app": "frontend",
+            "pod-template-hash": "3338225024"
+        },
+        "name": "frontend-ur1fwk62-777d669468",
+        "namespace": "default",
+        "ownerReferences": [
+            {
+                "apiVersion": "extensions/v1beta1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "Deployment",
+                "name": "frontend-ur1fwk62",
+                "uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
+            }
+        ],
+        "resourceVersion": "918076",
+        "selfLink": "/apis/extensions/v1beta1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468",
+        "uid": "e0a588b0-a58c-11e8-8cb4-080027bd9056"
+    },
+    "spec": {
+        "replicas": 5,
+        "selector": {
+            "matchLabels": {
+                "app": "frontend",
+                "pod-template-hash": "3338225024"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "frontend",
+                    "pod-template-hash": "3338225024"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "GET_HOSTS_FROM",
+                                "value": "dns"
+                            }
+                        ],
+                        "image": "gcr.io/google-samples/gb-frontend:v4",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "php-redis",
+                        "ports": [
+                            {
+                                "containerPort": 80,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "100Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File"
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30
+            }
+        }
+    },
+    "status": {
+        "availableReplicas": 5,
+        "fullyLabeledReplicas": 5,
+        "observedGeneration": 2,
+        "readyReplicas": 5,
+        "replicas": 5
+    }
+}`)
 	if err != nil {
 		panic(err)
 	}
