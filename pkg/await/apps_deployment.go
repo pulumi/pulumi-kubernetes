@@ -595,18 +595,21 @@ func canonicalizeDeploymentAPIVersion(ver string) string {
 }
 
 func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
+	var possibleOwnerAPIVersion string
+
 	// Canonicalize apiVersion for Deployments.
 	if possibleOwner.GetKind() == "Deployment" {
-		possibleOwner.SetAPIVersion(canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion()))
+		possibleOwnerAPIVersion = canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion())
 	}
 
 	owners := obj.GetOwnerReferences()
 	for _, owner := range owners {
+		var ownerAPIVersion string
 		if owner.Kind == "Deployment" {
-			owner.APIVersion = canonicalizeDeploymentAPIVersion(owner.APIVersion)
+			ownerAPIVersion = canonicalizeDeploymentAPIVersion(owner.APIVersion)
 		}
 
-		if owner.APIVersion == possibleOwner.GetAPIVersion() &&
+		if ownerAPIVersion == possibleOwnerAPIVersion &&
 			possibleOwner.GetKind() == owner.Kind && possibleOwner.GetName() == owner.Name {
 			return true
 		}
