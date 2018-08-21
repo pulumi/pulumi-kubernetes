@@ -39,7 +39,7 @@ func FqObjName(o metav1.Object) string {
 
 // ParseFqName will parse a fully-qualified Kubernetes object name.
 func ParseFqName(id string) (namespace, name string) {
-	split := strings.Split(id, ".")
+	split := strings.Split(id, "/")
 	if len(split) == 1 {
 		return "", split[0]
 	}
@@ -47,12 +47,12 @@ func ParseFqName(id string) (namespace, name string) {
 	return
 }
 
-// FqName returns "namespace.name"
+// FqName returns "namespace/name"
 func FqName(namespace, name string) string {
 	if namespace == "" {
 		return name
 	}
-	return fmt.Sprintf("%s.%s", namespace, name)
+	return fmt.Sprintf("%s/%s", namespace, name)
 }
 
 // NamespaceOrDefault returns `ns` or the the default namespace `"default"` if `ns` is empty.
