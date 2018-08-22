@@ -38,6 +38,7 @@ build:: $(OPENAPI_FILE)
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
+	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
 
 lint::
 	$(GOMETALINTER) ./cmd/... ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
@@ -48,12 +49,16 @@ install::
 	mkdir -p "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	cp -r pack/nodejs/bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)/node_modules"
+	rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)/tests"
 	cd "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" && \
 		yarn install --offline --production && \
 		(yarn unlink > /dev/null 2>&1 || true) && \
 		yarn link
 
-test_all::
+test_fast::
+	./pack/nodejs/node_modules/mocha/bin/mocha ./pack/nodejs/bin/tests
+
+test_all:: test_fast
 	PATH=$(PULUMI_BIN):$(PATH) $(GO) test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
 
 .PHONY: publish_tgz
@@ -66,9 +71,13 @@ publish_packages:
 	$(call STEP_MESSAGE)
 	./scripts/publish_packages.sh
 
+.PHONY: check_clean_worktree
+check_clean_worktree:
+	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/check-worktree-is-clean.sh
+
 # The travis_* targets are entrypoints for CI.
 .PHONY: travis_cron travis_push travis_pull_request travis_api
 travis_cron: all
-travis_push: only_build publish_tgz only_test publish_packages
-travis_pull_request: all
+travis_push: only_build check_clean_worktree publish_tgz only_test publish_packages
+travis_pull_request: all check_clean_worktree
 travis_api: all

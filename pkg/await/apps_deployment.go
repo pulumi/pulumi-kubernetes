@@ -455,8 +455,32 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	glog.V(3).Infof("ReplicaSet '%s' requests '%v' replicas, but has '%v' ready",
 		rs.GetName(), specReplicas, readyReplicas)
 
-	dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && udpatedReplicaSetCreated &&
-		readyReplicasExists && readyReplicas >= int64(specReplicas)
+	if dia.changeTriggeredRollout() {
+		dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && udpatedReplicaSetCreated &&
+			readyReplicasExists && readyReplicas >= int64(specReplicas)
+	} else {
+		dia.updatedReplicaSetReady = udpatedReplicaSetCreated &&
+			readyReplicasExists && readyReplicas >= int64(specReplicas)
+	}
+}
+
+func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
+	if dia.config.lastInputs == nil {
+		return true
+	}
+
+	fields, err := openapi.PropertiesChanged(
+		dia.config.lastInputs.Object, dia.config.currentInputs.Object,
+		[]string{
+			".spec.template.spec",
+		})
+	if err != nil {
+		glog.V(3).Infof("Failed to check whether Pod template for Deployment '%s' changed",
+			dia.config.currentInputs.GetName())
+		return false
+	}
+
+	return len(fields) > 0
 }
 
 func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
@@ -595,18 +619,21 @@ func canonicalizeDeploymentAPIVersion(ver string) string {
 }
 
 func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
+	var possibleOwnerAPIVersion string
+
 	// Canonicalize apiVersion for Deployments.
 	if possibleOwner.GetKind() == "Deployment" {
-		possibleOwner.SetAPIVersion(canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion()))
+		possibleOwnerAPIVersion = canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion())
 	}
 
 	owners := obj.GetOwnerReferences()
 	for _, owner := range owners {
+		var ownerAPIVersion string
 		if owner.Kind == "Deployment" {
-			owner.APIVersion = canonicalizeDeploymentAPIVersion(owner.APIVersion)
+			ownerAPIVersion = canonicalizeDeploymentAPIVersion(owner.APIVersion)
 		}
 
-		if owner.APIVersion == possibleOwner.GetAPIVersion() &&
+		if ownerAPIVersion == possibleOwnerAPIVersion &&
 			possibleOwner.GetKind() == owner.Kind && possibleOwner.GetName() == owner.Name {
 			return true
 		}

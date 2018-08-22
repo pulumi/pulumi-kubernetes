@@ -5,6 +5,8 @@ package provider
 import (
 	"reflect"
 	"testing"
+
+	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 )
 
 type object map[string]interface{}
@@ -40,7 +42,7 @@ func TestFieldsChanged(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		diff, err := matchingProperties(test.old, test.new,
+		diff, err := openapi.PropertiesChanged(test.old, test.new,
 			forceNew[test.group][test.version][test.kind])
 		if err != nil {
 			t.Error(err)

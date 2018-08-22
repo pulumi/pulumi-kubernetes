@@ -5,6 +5,7 @@ import * as k8s from "./index";
 import * as pulumi from "@pulumi/pulumi";
 import * as shell from "shell-quote";
 import * as tmp from "tmp";
+import * as path from "./path";
 
 export namespace v2 {
     export interface ChartOpts {
@@ -65,6 +66,9 @@ export namespace v2 {
                     yaml: [yamlStream],
                     transformations: config.transformations || [],
                 }, { parent: this });
+            } catch (e) {
+                // Shed stack trace, only emit the error.
+                throw new pulumi.RunError(e.toString());
             } finally {
                 // Clean up temporary files and directories.
                 chartDir.removeCallback()
@@ -142,16 +146,16 @@ export function fetch(chart: string, opts?: FetchOpts) {
         if(opts.untar !== false) { flags.push(`--untar`); }
 
         if (opts.version !== undefined)     { flags.push(`--version ${shell.quote([opts.version])}`);         }
-        if (opts.caFile !== undefined)      { flags.push(`--ca-file ${shell.quote([opts.caFile])}`);          }
-        if (opts.certFile !== undefined)    { flags.push(`--cert-file ${shell.quote([opts.certFile])}`);      }
-        if (opts.keyFile !== undefined)     { flags.push(`--key-file ${shell.quote([opts.keyFile])}`);        }
-        if (opts.destination !== undefined) { flags.push(`--destination ${shell.quote([opts.destination])}`); }
-        if (opts.keyring !== undefined)     { flags.push(`--keyring ${shell.quote([opts.keyring])}`);         }
+        if (opts.caFile !== undefined)      { flags.push(`--ca-file ${path.quotePath(opts.caFile)}`);          }
+        if (opts.certFile !== undefined)    { flags.push(`--cert-file ${path.quotePath(opts.certFile)}`);      }
+        if (opts.keyFile !== undefined)     { flags.push(`--key-file ${path.quotePath(opts.keyFile)}`);        }
+        if (opts.destination !== undefined) { flags.push(`--destination ${path.quotePath(opts.destination)}`); }
+        if (opts.keyring !== undefined)     { flags.push(`--keyring ${path.quotePath(opts.keyring)}`);         }
         if (opts.password !== undefined)    { flags.push(`--password ${shell.quote([opts.password])}`);       }
         if (opts.repo !== undefined)        { flags.push(`--repo ${shell.quote([opts.repo])}`);               }
-        if (opts.untardir !== undefined)    { flags.push(`--untardir ${shell.quote([opts.untardir])}`);       }
+        if (opts.untardir !== undefined)    { flags.push(`--untardir ${path.quotePath(opts.untardir)}`);       }
         if (opts.username !== undefined)    { flags.push(`--username ${shell.quote([opts.username])}`);       }
-        if (opts.home !== undefined)        { flags.push(`--home ${shell.quote([opts.home])}`);               }
+        if (opts.home !== undefined)        { flags.push(`--home ${path.quotePath(opts.home)}`);               }
         if (opts.devel === true)            { flags.push(`--devel`);                                          }
         if (opts.prov === true)             { flags.push(`--prov`);                                           }
         if (opts.verify === true)           { flags.push(`--verify`);                                         }

@@ -70,7 +70,7 @@ export namespace yaml {
         resources: { [key: string]: pulumi.CustomResource };
 
         constructor(
-            resourceType: string, name: string, config: any, opts?: pulumi.CustomResourceOptions,
+            resourceType: string, name: string, config: any, opts?: pulumi.ComponentResourceOptions,
         ) {
             super(resourceType, name, config, opts);
         }
@@ -756,14 +756,14 @@ export namespace yaml {
      *        a. `{files: "foo.yaml", yaml: "(LITERAL YAML HERE)"}`
      */
     export class ConfigGroup extends CollectionComponentResource {
-        constructor(name: string, config: ConfigGroupOpts, opts?: pulumi.CustomResourceOptions) {
+        constructor(name: string, config: ConfigGroupOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:yaml:ConfigGroup", name, config, opts);
             this.resources = parse(config, {parent: this});
         }
     }
 
     export class ConfigFile extends CollectionComponentResource {
-        constructor(name: string, config: ConfigOpts, opts?: pulumi.CustomResourceOptions) {
+        constructor(name: string, config: ConfigOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:yaml:ConfigFile", name, config, opts);
             this.resources = parseYamlDocument(config, {parent: this});
         }
@@ -804,7 +804,7 @@ export namespace yaml {
         let id: string = obj["metadata"]["name"];
         const namespace = obj["metadata"]["namespace"] || undefined;
         if (namespace !== undefined) {
-            id = `${namespace}/${name}`;
+            id = `${namespace}/${id}`;
         }
         switch (`${apiVersion}/${kind}`) {
             case "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration":

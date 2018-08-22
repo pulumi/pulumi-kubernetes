@@ -15,13 +15,8 @@
 package provider
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-
-	jsonpatch "github.com/evanphx/json-patch"
+	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/client-go/util/jsonpath"
 )
 
 func forceNewProperties(
@@ -36,66 +31,7 @@ func forceNewProperties(
 		}
 	}
 
-	return matchingProperties(oldObj, newObj, props)
-}
-
-func matchingProperties(oldObj, newObj map[string]interface{}, ps properties) ([]string, error) {
-	patch, err := mergePatchObj(oldObj, newObj)
-	if err != nil {
-		return nil, err
-	}
-
-	j := jsonpath.New("")
-	matches := []string{}
-	for _, path := range ps {
-		j.AllowMissingKeys(true)
-		err := j.Parse(fmt.Sprintf("{%s}", path))
-		if err != nil {
-			return nil, err
-		}
-		buf := new(bytes.Buffer)
-		err = j.Execute(buf, patch)
-		if err != nil {
-			continue
-		}
-
-		if len(buf.String()) > 0 {
-			matches = append(matches, path)
-		}
-	}
-
-	return matches, nil
-}
-
-// mergePatchObj takes a two objects and returns an object that is the union of all
-// fields that were changed (e.g., were deleted, were added, and so on) between the two.
-//
-// For example, say we have {a: 1, c:3} and {a:1, b:2}. This function would then return {b:2, c:3}.
-//
-// This is useful so that we can (e.g.) use jsonpath to see which fields were altered.
-func mergePatchObj(oldObj, newObj map[string]interface{}) (map[string]interface{}, error) {
-	oldJSON, err := json.Marshal(oldObj)
-	if err != nil {
-		return nil, err
-	}
-
-	newJSON, err := json.Marshal(newObj)
-	if err != nil {
-		return nil, err
-	}
-
-	patchBytes, err := jsonpatch.CreateMergePatch(oldJSON, newJSON)
-	if err != nil {
-		return nil, err
-	}
-
-	patch := map[string]interface{}{}
-	err = json.Unmarshal(patchBytes, &patch)
-	if err != nil {
-		return nil, err
-	}
-
-	return patch, nil
+	return openapi.PropertiesChanged(oldObj, newObj, props)
 }
 
 type groups map[string]versions
@@ -104,6 +40,11 @@ type kinds map[string]properties
 type properties []string
 
 var forceNew = groups{
+	"apps": versions{
+		// NOTE: These fields do NOT trigger a replace in extensions/v1beta1 or apps/v1beta1.
+		"v1beta2": kinds{"Deployment": deployment},
+		"v1":      kinds{"Deployment": deployment},
+	},
 	// List `core` under its canonical name and under it's legacy name (i.e., "", the empty string)
 	// for compatibility purposes.
 	"core": core,
@@ -145,6 +86,10 @@ var core = versions{
 			".spec.type",
 		},
 	},
+}
+
+var deployment = properties{
+	".spec.selector",
 }
 
 func metadataForceNewProperties(prefix string) properties {
