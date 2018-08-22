@@ -271,6 +271,10 @@ func (pc *podChecker) errorMessages() []string {
 	}
 
 	for reason, errors := range pc.containerErrors {
+		// Ignore non-useful status messages.
+		if reason == "ContainersNotReady" {
+			continue
+		}
 		for _, message := range errors {
 			messages = append(messages, fmt.Sprintf("[%s] %s", reason, message))
 		}
