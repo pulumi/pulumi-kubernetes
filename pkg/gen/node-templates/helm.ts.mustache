@@ -66,6 +66,9 @@ export namespace v2 {
                     yaml: [yamlStream],
                     transformations: config.transformations || [],
                 }, { parent: this });
+            } catch (e) {
+                // Shed stack trace, only emit the error.
+                throw new pulumi.RunError(e.toString());
             } finally {
                 // Clean up temporary files and directories.
                 chartDir.removeCallback()
