@@ -40,6 +40,11 @@ type kinds map[string]properties
 type properties []string
 
 var forceNew = groups{
+	"apps": versions{
+		// NOTE: These fields do NOT trigger a replace in extensions/v1beta1 or apps/v1beta1.
+		"v1beta2": kinds{"Deployment": deployment},
+		"v1":      kinds{"Deployment": deployment},
+	},
 	// List `core` under its canonical name and under it's legacy name (i.e., "", the empty string)
 	// for compatibility purposes.
 	"core": core,
@@ -81,6 +86,10 @@ var core = versions{
 			".spec.type",
 		},
 	},
+}
+
+var deployment = properties{
+	".spec.selector",
 }
 
 func metadataForceNewProperties(prefix string) properties {
