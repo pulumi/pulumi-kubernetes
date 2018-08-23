@@ -13,6 +13,7 @@ export namespace v2 {
         chart: string;
         version: string;
 
+        namespace?: string;
         values?: any;
         transformations?: ((o: any) => void)[];
         fetchOpts?: FetchOpts;
@@ -59,8 +60,9 @@ export namespace v2 {
                 const chart = `${shell.quote([chartDir.name])}/${shell.quote([config.chart])}`;
                 const release = shell.quote([releaseName]);
                 const values = shell.quote([overrides.name]);
+                const namespaceArg = config.namespace ? `--namespace ${shell.quote([config.namespace])}` : "";
                 const yamlStream = execSync(
-                    `helm template ${chart} --name ${release} --values ${values}`
+                    `helm template ${chart} --name ${release} --values ${values} ${namespaceArg}`
                 ).toString();
                 this.resources = k8s.yaml.parse({
                     yaml: [yamlStream],
