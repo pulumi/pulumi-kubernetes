@@ -248,18 +248,22 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	gvk := k.gvkFromURN(urn)
 
-	// Get OpenAPI schema for the GVK.
-	err = openapi.ValidateAgainstSchema(k.client, newInputs)
-	// Validate the object according to the OpenAPI schema.
-	if err != nil {
-		resourceNotFound := errors.IsNotFound(err) ||
-			strings.Contains(err.Error(), "is not supported by the server")
-		if resourceNotFound && gvkExists(gvk) {
-			failures = append(failures, &pulumirpc.CheckFailure{
-				Reason: fmt.Sprintf(" Found API Group, but it did not contain a schema for '%s'", gvk),
-			})
-		} else {
-			return nil, fmt.Errorf("Unable to fetch schema: %v", err)
+	// HACK: Do not validate against OpenAPI spec if there is a computed value. The OpenAPI spec
+	// does not know how to deal with the placeholder values for computed values.
+	if !hasComputedValue(newInputs) {
+		// Get OpenAPI schema for the GVK.
+		err = openapi.ValidateAgainstSchema(k.client, newInputs)
+		// Validate the object according to the OpenAPI schema.
+		if err != nil {
+			resourceNotFound := errors.IsNotFound(err) ||
+				strings.Contains(err.Error(), "is not supported by the server")
+			if resourceNotFound && gvkExists(gvk) {
+				failures = append(failures, &pulumirpc.CheckFailure{
+					Reason: fmt.Sprintf(" Found API Group, but it did not contain a schema for '%s'", gvk),
+				})
+			} else {
+				return nil, fmt.Errorf("Unable to fetch schema: %v", err)
+			}
 		}
 	}
 
