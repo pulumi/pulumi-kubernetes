@@ -232,7 +232,7 @@ func (dia *deploymentInitAwaiter) read(
 			deployment.GetName(), err)
 	}
 
-	if dia.succeeded() {
+	if dia.checkAndLogStatus() {
 		return nil
 	}
 
@@ -247,8 +247,11 @@ func (dia *deploymentInitAwaiter) await(
 	deploymentWatcher, replicaSetWatcher, podWatcher watch.Interface, timeout, period <-chan time.Time,
 ) error {
 	inputPodName := dia.config.currentInputs.GetName()
+
+	dia.config.logStatus(diag.Info, "[1/2] Waiting for app ReplicaSet be marked available")
+
 	for {
-		if dia.succeeded() {
+		if dia.checkAndLogStatus() {
 			return nil
 		}
 
@@ -267,11 +270,11 @@ func (dia *deploymentInitAwaiter) await(
 		case <-period:
 			scheduleErrors, containerErrors := dia.aggregatePodErrors()
 			for _, message := range scheduleErrors {
-				dia.warn(message)
+				dia.config.logStatus(diag.Warning, message)
 			}
 
 			for _, message := range containerErrors {
-				dia.warn(message)
+				dia.config.logStatus(diag.Warning, message)
 			}
 		case event := <-deploymentWatcher.ResultChan():
 			dia.processDeploymentEvent(event)
@@ -283,7 +286,8 @@ func (dia *deploymentInitAwaiter) await(
 	}
 }
 
-// Check whether we've succeeded. There are two cases:
+// Check whether we've succeeded, log the result as a status message to the provider. There are two
+// cases:
 //
 //   1. If the generation of the Deployment is > 1, we need to check that (1) the Deployment is
 //      marked as available, (2) the ReplicaSet we're trying to roll to is marked as Available,
@@ -292,13 +296,15 @@ func (dia *deploymentInitAwaiter) await(
 //      rolled out. This means there is no rollout to be marked as "progressing", so we need only
 //      check that the Deployment was created, and the corresponding ReplicaSet needs to be marked
 //      available.
-func (dia *deploymentInitAwaiter) succeeded() bool {
+func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
 	if dia.currentGeneration == "1" {
 		if dia.deploymentAvailable && dia.updatedReplicaSetReady {
+			dia.config.logStatus(diag.Info, "✅ Deployment initialization complete")
 			return true
 		}
 	} else {
 		if dia.deploymentAvailable && dia.replicaSetAvailable && dia.updatedReplicaSetReady {
+			dia.config.logStatus(diag.Info, "✅ Deployment initialization complete")
 			return true
 		}
 	}
@@ -369,13 +375,13 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 				}
 				message = fmt.Sprintf("[%s] %s", reason, message)
 				dia.deploymentErrors[reason] = message
-				dia.warn(message)
+				dia.config.logStatus(diag.Warning, message)
 			}
 
 			dia.replicaSetAvailable = condition["reason"] == "NewReplicaSetAvailable" && isProgressing
 		}
 
-		if condition["type"] == "Available" {
+		if condition["type"] == statusAvailable {
 			dia.deploymentAvailable = condition["status"] == trueStatus
 			if !dia.deploymentAvailable {
 				rawReason, hasReason := condition["reason"]
@@ -390,6 +396,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 				}
 				message = fmt.Sprintf("[%s] %s", reason, message)
 				dia.deploymentErrors[reason] = message
+				dia.config.logStatus(diag.Warning, message)
 			}
 		}
 	}
@@ -462,6 +469,13 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		dia.updatedReplicaSetReady = udpatedReplicaSetCreated &&
 			readyReplicasExists && readyReplicas >= int64(specReplicas)
 	}
+
+	if !dia.updatedReplicaSetReady {
+		dia.config.logStatus(
+			diag.Info,
+			fmt.Sprintf("[1/2] Waiting for app ReplicaSet be marked available (%d/%d Pods available)",
+				readyReplicas, int64(specReplicas)))
+	}
 }
 
 func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
@@ -506,12 +520,6 @@ func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 	}
 
 	dia.pods[podName] = pod
-}
-
-func (dia *deploymentInitAwaiter) warn(message string) {
-	if dia.config.host != nil {
-		_ = dia.config.host.Log(dia.config.ctx, diag.Warning, dia.config.urn, message)
-	}
 }
 
 func (dia *deploymentInitAwaiter) aggregatePodErrors() ([]string, []string) {
@@ -565,9 +573,28 @@ func (dia *deploymentInitAwaiter) errorMessages() []string {
 	for _, message := range dia.deploymentErrors {
 		messages = append(messages, message)
 	}
-	if !dia.updatedReplicaSetReady {
-		messages = append(messages, "Updated ReplicaSet was never created")
+
+	if dia.currentGeneration == "1" {
+		if !dia.deploymentAvailable {
+			messages = append(messages,
+				"Minimum number of live Pods was not attained")
+		} else if !dia.updatedReplicaSetReady {
+			messages = append(messages,
+				"Minimum number of Pods to consider the application live was not attained")
+		}
+	} else {
+		if !dia.deploymentAvailable {
+			messages = append(messages,
+				"Minimum number of live Pods was not attained")
+		} else if !dia.replicaSetAvailable {
+			messages = append(messages,
+				"Minimum number of Pods to consider the application live was not attained")
+		} else if !dia.updatedReplicaSetReady {
+			messages = append(messages,
+				"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live")
+		}
 	}
+
 	scheduleErrors, containerErrors := dia.aggregatePodErrors()
 	messages = append(messages, scheduleErrors...)
 	messages = append(messages, containerErrors...)

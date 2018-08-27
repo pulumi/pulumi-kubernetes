@@ -259,27 +259,51 @@ func (pc *podChecker) clearErrors() {
 func (pc *podChecker) errorMessages() []string {
 	messages := []string{}
 	for reason, message := range pc.podScheduledErrors {
-		messages = append(messages, fmt.Sprintf("Pod unscheduled: [%s] %s", reason, message))
+		messages = append(messages, podSchedulerError(reason, message))
 	}
 
 	for reason, message := range pc.podInitErrors {
-		messages = append(messages, fmt.Sprintf("Pod uninitialized: [%s] %s", reason, message))
+		messages = append(messages, podUninitializedError(reason, message))
 	}
 
 	for reason, message := range pc.podReadyErrors {
-		messages = append(messages, fmt.Sprintf("Pod not ready: [%s] %s", reason, message))
+		messages = append(messages, podNotReadyError(reason, message))
 	}
 
 	for reason, errors := range pc.containerErrors {
+		for _, message := range errors {
+			messages = append(messages, containerError(reason, message))
+		}
+	}
+	return messages
+}
+
+func (pia *podInitAwaiter) logErrors() {
+	for reason, message := range pia.podScheduledErrors {
+		pia.config.logStatus(diag.Warning, podSchedulerError(reason, message))
+	}
+
+	for reason, message := range pia.podInitErrors {
+		// Ignore non-useful status messages.
+		if reason == "ContainersNotInitialized" {
+			continue
+		}
+		pia.config.logStatus(diag.Warning, podUninitializedError(reason, message))
+	}
+
+	for reason, message := range pia.podReadyErrors {
 		// Ignore non-useful status messages.
 		if reason == "ContainersNotReady" {
 			continue
 		}
+		pia.config.logStatus(diag.Warning, podNotReadyError(reason, message))
+	}
+
+	for reason, errors := range pia.containerErrors {
 		for _, message := range errors {
-			messages = append(messages, fmt.Sprintf("[%s] %s", reason, message))
+			pia.config.logStatus(diag.Warning, containerError(reason, message))
 		}
 	}
-	return messages
 }
 
 func errorFromCondition(errors map[string]string, condition map[string]interface{}) {
@@ -346,7 +370,7 @@ func (pia *podInitAwaiter) read(pod *unstructured.Unstructured) error {
 	pia.processPodEvent(watchAddedEvent(pod))
 
 	// Check whether we've succeeded.
-	if pia.succeeded() {
+	if pia.checkAndLogStatus() {
 		return nil
 	}
 
@@ -359,16 +383,15 @@ func (pia *podInitAwaiter) read(pod *unstructured.Unstructured) error {
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time.Time) error {
 	inputPodName := pia.config.currentInputs.GetName()
+
+	pia.config.logStatus(diag.Info, "[1/2] Pulling container images")
+
 	for {
-		if pia.succeeded() {
+		if pia.checkAndLogStatus() {
 			return nil
 		}
 
-		if pia.config.host != nil {
-			for _, message := range pia.errorMessages() {
-				_ = pia.config.host.Log(pia.config.ctx, diag.Warning, pia.config.urn, message)
-			}
-		}
+		pia.logErrors()
 
 		// Else, wait for updates.
 		select {
@@ -414,6 +437,28 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	pia.check(pod)
 }
 
-func (pia *podInitAwaiter) succeeded() bool {
+func (pia *podInitAwaiter) checkAndLogStatus() bool {
+	if pia.podReady {
+		pia.config.logStatus(diag.Info, "✅ Pod reported ready status")
+	} else if pia.podSuccess {
+		pia.config.logStatus(diag.Info, "✅ Pod completed successfully")
+	}
+
 	return pia.podReady || pia.podSuccess
+}
+
+func podSchedulerError(reason, message string) string {
+	return fmt.Sprintf("Pod unscheduled: [%s] %s", reason, message)
+}
+
+func podUninitializedError(reason, message string) string {
+	return fmt.Sprintf("Pod uninitialized: [%s] %s", reason, message)
+}
+
+func podNotReadyError(reason, message string) string {
+	return fmt.Sprintf("Pod not ready: [%s] %s", reason, message)
+}
+
+func containerError(reason, message string) string {
+	return fmt.Sprintf("[%s] %s", reason, message)
 }
