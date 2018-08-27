@@ -24,6 +24,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/watcher"
+	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/provider"
 	v1 "k8s.io/api/core/v1"
@@ -31,6 +32,11 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
+)
+
+const (
+	statusAvailable = "Available"
+	statusBound     = "Bound"
 )
 
 // createAwaitConfig specifies on which conditions we are to consider a resource created and fully
@@ -53,6 +59,12 @@ func (cac *createAwaitConfig) eventClient() (dynamic.ResourceInterface, error) {
 		Version: "v1",
 		Kind:    "Event",
 	}, cac.currentInputs.GetNamespace())
+}
+
+func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
+	if cac.host != nil {
+		_ = cac.host.LogStatus(cac.ctx, sev, cac.urn, message)
+	}
 }
 
 // updateAwaitConfig specifies on which conditions we are to consider a resource "fully updated",
@@ -296,7 +308,12 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
 		statusPhase, _ := openapi.Pluck(pv.Object, "status", "phase")
 		glog.V(3).Infof("Persistent volume '%s' status received: %#v", pv.GetName(), statusPhase)
-		return statusPhase == "Available" || statusPhase == "Bound"
+		if statusPhase == statusAvailable {
+			c.logStatus(diag.Info, "✅ PVC marked available")
+		} else if statusPhase == statusBound {
+			c.logStatus(diag.Info, "✅ PVC has been bound")
+		}
+		return statusPhase == statusAvailable || statusPhase == statusBound
 	}
 
 	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
@@ -313,7 +330,7 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 	pvcBound := func(pvc *unstructured.Unstructured) bool {
 		statusPhase, _ := openapi.Pluck(pvc.Object, "status", "phase")
 		glog.V(3).Infof("Persistent volume claim %s status received: %#v", pvc.GetName(), statusPhase)
-		return statusPhase == "Bound"
+		return statusPhase == statusBound
 	}
 
 	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).

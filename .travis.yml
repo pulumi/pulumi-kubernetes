@@ -36,7 +36,7 @@ install:
     - minikube update-context
 
     # Install Pulumi
-    - curl -L https://get.pulumi.com/ | bash -s -- --version 0.15.1-dev-1534221790-gd83774ca
+    - curl -L https://get.pulumi.com/ | bash -s -- --version 0.15.1-dev-1535756213-gdea68b8b
     - export PATH=$HOME/.pulumi/bin:$PATH
 before_script:
     - ${PULUMI_SCRIPTS}/ci/ensure-dependencies

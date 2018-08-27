@@ -38,7 +38,7 @@ type ServerVersion struct {
 // DefaultVersion takes a wild guess (v1.9) at the version of a Kubernetes cluster.
 func DefaultVersion() ServerVersion {
 	cmdutil.Diag().Warningf(
-		diag.Message("", "Cluster failed to report its version number; falling back to 1.9"))
+		diag.Message("", "Cluster failed to report its version number; falling back to 1.9"), false)
 
 	//
 	// Fallback behavior to work around [1]. Some versions of minikube erroneously report a blank

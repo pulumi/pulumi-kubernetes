@@ -50,8 +50,10 @@ func Test_Core_Service(t *testing.T) {
 			},
 			expectedError: &timeoutError{
 				objectName: "foo-4setj4y6",
-				subErrors: []string{"Service does not target any Pods",
-					"Service was not allocated an IP address"}},
+				subErrors: []string{
+					"Service does not target any Pods. Application Pods may failed to become alive, or " +
+						"field '.spec.selector' may not match labels on any Pods",
+					"Service was not allocated an IP address; does your cloud provider support this?"}},
 		},
 		{
 			description: "Should succeed when unrelated Service fails",
@@ -89,8 +91,9 @@ func Test_Core_Service(t *testing.T) {
 			expectedError: &timeoutError{
 				objectName: "foo-4setj4y6",
 				subErrors: []string{
-					"Service does not target any Pods",
-					"Service was not allocated an IP address"}},
+					"Service does not target any Pods. Application Pods may failed to become alive, or " +
+						"field '.spec.selector' may not match labels on any Pods",
+					"Service was not allocated an IP address; does your cloud provider support this?"}},
 		},
 		{
 			description: "Should fail if Endpoints have not initialized",
@@ -108,7 +111,9 @@ func Test_Core_Service(t *testing.T) {
 			},
 			expectedError: &timeoutError{
 				objectName: "foo-4setj4y6",
-				subErrors:  []string{"Service does not target any Pods"}},
+				subErrors: []string{
+					"Service does not target any Pods. Application Pods may failed to become alive, or " +
+						"field '.spec.selector' may not match labels on any Pods"}},
 		},
 		{
 			description: "Should fail if Service is not allocated an IP address",
@@ -126,7 +131,9 @@ func Test_Core_Service(t *testing.T) {
 			},
 			expectedError: &timeoutError{
 				objectName: "foo-4setj4y6",
-				subErrors:  []string{"Service was not allocated an IP address"}},
+				subErrors: []string{
+					"Service was not allocated an IP address; does your cloud provider support this?",
+				}},
 		},
 	}
 
@@ -154,10 +161,12 @@ func Test_Core_Service_Read(t *testing.T) {
 		expectedSubErrors []string
 	}{
 		{
-			description:       "Read should fail if Service does not target any Pods",
-			service:           initializedService,
-			endpoint:          uninitializedEndpoint,
-			expectedSubErrors: []string{"Service does not target any Pods"},
+			description: "Read should fail if Service does not target any Pods",
+			service:     initializedService,
+			endpoint:    uninitializedEndpoint,
+			expectedSubErrors: []string{
+				"Service does not target any Pods. Application Pods may failed to become alive, or " +
+					"field '.spec.selector' may not match labels on any Pods"},
 		},
 		{
 			description: "Read should succeed if Service does target Pods",
@@ -165,10 +174,12 @@ func Test_Core_Service_Read(t *testing.T) {
 			endpoint:    initializedEndpoint,
 		},
 		{
-			description:       "Read should fail if Service not allocated an IP address",
-			service:           serviceInput,
-			endpoint:          initializedEndpoint,
-			expectedSubErrors: []string{"Service was not allocated an IP address"},
+			description: "Read should fail if Service not allocated an IP address",
+			service:     serviceInput,
+			endpoint:    initializedEndpoint,
+			expectedSubErrors: []string{
+				"Service was not allocated an IP address; does your cloud provider support this?",
+			},
 		},
 	}
 
