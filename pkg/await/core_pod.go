@@ -263,18 +263,22 @@ func (pc *podChecker) errorMessages() []string {
 	}
 
 	for reason, message := range pc.podInitErrors {
+		// Ignore non-useful status messages.
+		if reason == "ContainersNotInitialized" {
+			continue
+		}
 		messages = append(messages, fmt.Sprintf("Pod uninitialized: [%s] %s", reason, message))
 	}
 
 	for reason, message := range pc.podReadyErrors {
-		messages = append(messages, fmt.Sprintf("Pod not ready: [%s] %s", reason, message))
-	}
-
-	for reason, errors := range pc.containerErrors {
 		// Ignore non-useful status messages.
 		if reason == "ContainersNotReady" {
 			continue
 		}
+		messages = append(messages, fmt.Sprintf("Pod not ready: [%s] %s", reason, message))
+	}
+
+	for reason, errors := range pc.containerErrors {
 		for _, message := range errors {
 			messages = append(messages, fmt.Sprintf("[%s] %s", reason, message))
 		}
