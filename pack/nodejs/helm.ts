@@ -6,6 +6,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as shell from "shell-quote";
 import * as tmp from "tmp";
 import * as path from "./path";
+import * as nodepath from "path";
 
 export namespace v2 {
     export interface ChartOpts {
@@ -57,9 +58,9 @@ export namespace v2 {
                 // > looked up or retrieved in-cluster will be faked locally. Additionally, none
                 // > of the server-side testing of chart validity (e.g. whether an API is supported)
                 // > is done.
-                const chart = `${shell.quote([chartDir.name])}/${shell.quote([config.chart])}`;
+                const chart = path.quotePath(nodepath.join(chartDir.name, config.chart));
                 const release = shell.quote([releaseName]);
-                const values = shell.quote([overrides.name]);
+                const values = path.quotePath(overrides.name);
                 const namespaceArg = config.namespace ? `--namespace ${shell.quote([config.namespace])}` : "";
                 const yamlStream = execSync(
                     `helm template ${chart} --name ${release} --values ${values} ${namespaceArg}`
@@ -147,6 +148,9 @@ export function fetch(chart: string, opts?: FetchOpts) {
         // Untar by default.
         if(opts.untar !== false) { flags.push(`--untar`); }
 
+        // For arguments that are not paths to files, it is sufficent to use shell.quote to quote the arguments.
+        // However, for arguments that are actual paths to files we use path.quotePath (note that path here is
+        // not the node path builtin module). This ensures proper escaping of paths on Windows.
         if (opts.version !== undefined)     { flags.push(`--version ${shell.quote([opts.version])}`);         }
         if (opts.caFile !== undefined)      { flags.push(`--ca-file ${path.quotePath(opts.caFile)}`);          }
         if (opts.certFile !== undefined)    { flags.push(`--cert-file ${path.quotePath(opts.certFile)}`);      }
