@@ -2,7 +2,7 @@
     "name": "@pulumi/kubernetes",
     "version": "${VERSION}",
     "description": "A Pulumi package for creating and managing Kubernetes resources.",
-    "license": "Apache 2.0",
+    "license": "Apache-2.0",
     "keywords": [
         "pulumi",
         "kubernetes"
