@@ -220,17 +220,16 @@ func (sia *serviceInitAwaiter) await(
 			}
 		case <-settled:
 			var message string
-			sev := diag.Warning
 			if sia.endpointsReady {
-				message = fmt.Sprintf("✅ Service '%s' successfully created endpoint objects\n",
+				message = fmt.Sprintf("✅ Service '%s' targets 1 or more Pods\n",
 					inputServiceName)
-				sev = diag.Info
 			} else {
-				message = fmt.Sprintf("Service '%s' does not target any Pods\n", inputServiceName)
+				message = fmt.Sprintf(
+					"Service '%s' attempting find Pods to direct traffic to\n", inputServiceName)
 			}
 
 			if sia.config.host != nil {
-				_ = sia.config.host.Log(sia.config.ctx, sev, sia.config.urn, message)
+				_ = sia.config.host.Log(sia.config.ctx, diag.Info, sia.config.urn, message)
 			}
 			sia.endpointsSettled = true
 		case event := <-serviceWatcher.ResultChan():
@@ -335,12 +334,15 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 func (sia *serviceInitAwaiter) errorMessages() []string {
 	messages := []string{}
 	if !sia.endpointsReady {
-		messages = append(messages, "Service does not target any Pods")
+		messages = append(messages,
+			"Service does not target any Pods. Application Pods may failed to become alive, or "+
+				"field '.spec.selector' may not match labels on any Pods")
 	}
 
 	specType, _ := openapi.Pluck(sia.config.currentInputs.Object, "spec", "type")
 	if fmt.Sprintf("%v", specType) == string(v1.ServiceTypeLoadBalancer) && !sia.serviceReady {
-		messages = append(messages, "Service was not allocated an IP address")
+		messages = append(messages,
+			"Service was not allocated an IP address; does your cloud provider support this?")
 	}
 
 	return messages
