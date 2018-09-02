@@ -16,7 +16,7 @@ export namespace v2 {
 
         namespace?: string;
         values?: any;
-        transformations?: ((o: any) => void)[];
+        transforms?: ((o: any) => void)[];
         fetchOpts?: FetchOpts;
     }
 
@@ -24,7 +24,7 @@ export namespace v2 {
     // Chart. The Chart can be fetched from any source that is accessible to the `helm` command
     // line. Values in the `values.yml` file can be overridden using `ChartOpts.values` (equivalent
     // to `--set` or having multiple `values.yml` files). Objects can be tranformed arbitrarily by
-    // supplying callbacks to `ChartOpts.transformations`.
+    // supplying callbacks to `ChartOpts.transforms`.
     //
     // `Chart` does not use Tiller. The Chart specified is copied and expanded locally; any values
     // that would be retrieved in-cluster would be assigned fake values, and none of Tiller's
@@ -67,7 +67,7 @@ export namespace v2 {
                 ).toString();
                 this.resources = k8s.yaml.parse({
                     yaml: [yamlStream],
-                    transformations: config.transformations || [],
+                    transforms: config.transforms || [],
                 }, { parent: this });
             } catch (e) {
                 // Shed stack trace, only emit the error.

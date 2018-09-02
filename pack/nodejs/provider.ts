@@ -13,12 +13,17 @@ export namespace yaml {
     export interface ConfigGroupOpts {
         files?: string[] | string;
         yaml?: string[] | string;
-        transformations?: ((o: any) => void)[];
+        transforms?: ((o: any) => void)[];
+    }
+
+    export interface ConfigFileOpts {
+        file?: string;
+        transforms?: ((o: any) => void)[];
     }
 
     export interface ConfigOpts {
         objs: any[];
-        transformations?: ((o: any) => void)[];
+        transforms?: ((o: any) => void)[];
     }
 
     export function parse(
@@ -37,10 +42,8 @@ export namespace yaml {
             }
 
             for (const file of files) {
-                const text = fs.readFileSync(file).toString();
-                const objs = jsyaml.safeLoadAll(text);
                 const cf = new ConfigFile(file,
-                    {objs: objs, transformations: config.transformations}, opts);
+                    {file: file, transforms: config.transforms}, opts);
                 if (cf != null) {
                     resources = {...resources, ...cf.resources}
                 }
@@ -58,7 +61,7 @@ export namespace yaml {
             for (const text of yamlTexts) {
                 const objs = jsyaml.safeLoadAll(text);
                 const docResources = parseYamlDocument(
-                    {objs: objs, transformations: config.transformations}, opts);
+                    {objs: objs, transforms: config.transforms}, opts);
                 resources = {...resources, ...docResources};
             }
         }
@@ -763,9 +766,14 @@ export namespace yaml {
     }
 
     export class ConfigFile extends CollectionComponentResource {
-        constructor(name: string, config: ConfigOpts, opts?: pulumi.ComponentResourceOptions) {
+        constructor(name: string, config?: ConfigFileOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:yaml:ConfigFile", name, config, opts);
-            this.resources = parseYamlDocument(config, {parent: this});
+            const text = fs.readFileSync(config && config.file || name).toString();
+            const objs = jsyaml.safeLoadAll(text);
+            this.resources = parseYamlDocument({
+                objs: objs,
+                transforms: config && config.transforms || []
+            }, {parent: this});
         }
     }
 
@@ -775,7 +783,7 @@ export namespace yaml {
         let resources: {[key: string]: pulumi.CustomResource} = {};
 
         for (const obj of config.objs) {
-            const fileObject = parseYamlObject(obj, config.transformations, opts);
+            const fileObject = parseYamlObject(obj, config.transforms, opts);
             if (fileObject != null) {
                 resources[fileObject.name] = fileObject.resource;
             }
@@ -785,13 +793,13 @@ export namespace yaml {
     }
 
     function parseYamlObject(
-        obj: any, transformations?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
+        obj: any, transforms?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
     ): {name: string, resource: pulumi.CustomResource} | null {
         if (obj == null || Object.keys(obj).length == 0) {
             return null;
         }
 
-        for (const t of transformations || []) {
+        for (const t of transforms || []) {
             t(obj);
         }
 
