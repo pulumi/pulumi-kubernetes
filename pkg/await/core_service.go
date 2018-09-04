@@ -63,14 +63,25 @@ type serviceInitAwaiter struct {
 	serviceReady     bool
 	endpointsReady   bool
 	endpointsSettled bool
+	serviceType      string
 }
 
 func makeServiceInitAwaiter(c createAwaitConfig) *serviceInitAwaiter {
+	specType, _ := openapi.Pluck(c.currentInputs.Object, "spec", "type")
+	var t string
+	if specTypeString, isString := specType.(string); isString {
+		t = specTypeString
+	} else {
+		// The default value if `.spec.type` is not present.
+		t = "ClusterIP"
+	}
+
 	return &serviceInitAwaiter{
 		config:           c,
 		serviceReady:     false,
 		endpointsReady:   false,
 		endpointsSettled: false,
+		serviceType:      t,
 	}
 }
 
@@ -254,8 +265,7 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 		return
 	}
 
-	specType, _ := openapi.Pluck(sia.config.currentInputs.Object, "spec", "type")
-	if fmt.Sprintf("%v", specType) == string(v1.ServiceTypeLoadBalancer) {
+	if sia.serviceType == string(v1.ServiceTypeLoadBalancer) {
 		// If it's type `LoadBalancer`, check whether an IP was allocated.
 		lbIngress, _ := openapi.Pluck(service.Object, "status", "loadBalancer", "ingress")
 		status, _ := openapi.Pluck(service.Object, "status")
@@ -318,14 +328,17 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 
 func (sia *serviceInitAwaiter) errorMessages() []string {
 	messages := []string{}
+	if sia.serviceType == string(v1.ServiceTypeExternalName) {
+		return messages
+	}
+
 	if !sia.endpointsReady {
 		messages = append(messages,
 			"Service does not target any Pods. Application Pods may failed to become alive, or "+
 				"field '.spec.selector' may not match labels on any Pods")
 	}
 
-	specType, _ := openapi.Pluck(sia.config.currentInputs.Object, "spec", "type")
-	if fmt.Sprintf("%v", specType) == string(v1.ServiceTypeLoadBalancer) && !sia.serviceReady {
+	if sia.serviceType == string(v1.ServiceTypeLoadBalancer) && !sia.serviceReady {
 		messages = append(messages,
 			"Service was not allocated an IP address; does your cloud provider support this?")
 	}
@@ -350,6 +363,11 @@ func (sia *serviceInitAwaiter) collectWarningEvents() error {
 }
 
 func (sia *serviceInitAwaiter) checkAndLogStatus() bool {
+	if sia.serviceType == string(v1.ServiceTypeExternalName) {
+		// External services do not target Pods.
+		return sia.serviceReady
+	}
+
 	success := sia.serviceReady && sia.endpointsSettled && sia.endpointsReady
 	if success {
 		sia.config.logStatus(diag.Info, "✅ Service initialization complete")

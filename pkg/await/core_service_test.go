@@ -13,11 +13,13 @@ import (
 func Test_Core_Service(t *testing.T) {
 	tests := []struct {
 		description   string
+		serviceInput  func(namespace, name string) *unstructured.Unstructured
 		do            func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time)
 		expectedError error
 	}{
 		{
-			description: "Should succeed when Service is allocated an IP address and Endpoints target a Pod",
+			description:  "Should succeed when Service is allocated an IP address and Endpoints target a Pod",
+			serviceInput: serviceInput,
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				// API server passes initialized service and endpoint objects back.
 				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
@@ -28,7 +30,8 @@ func Test_Core_Service(t *testing.T) {
 			},
 		},
 		{
-			description: "Should succeed if Endpoints have settled when timeout occurs",
+			description:  "Should succeed if Endpoints have settled when timeout occurs",
+			serviceInput: serviceInput,
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				// API server passes initialized service back.
 				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
@@ -41,7 +44,8 @@ func Test_Core_Service(t *testing.T) {
 			},
 		},
 		{
-			description: "Should fail if unrelated Service succeeds",
+			description:  "Should fail if unrelated Service succeeds",
+			serviceInput: serviceInput,
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(initializedService("default", "bar"))
 				endpoints <- watchAddedEvent(initializedEndpoint("default", "bar"))
@@ -56,7 +60,8 @@ func Test_Core_Service(t *testing.T) {
 					"Service was not allocated an IP address; does your cloud provider support this?"}},
 		},
 		{
-			description: "Should succeed when unrelated Service fails",
+			description:  "Should succeed when unrelated Service fails",
+			serviceInput: serviceInput,
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
 				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
@@ -69,7 +74,8 @@ func Test_Core_Service(t *testing.T) {
 			},
 		},
 		{
-			description: "Should report success immediately even if the next event is a failure",
+			description:  "Should report success immediately even if the next event is a failure",
+			serviceInput: serviceInput,
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				// API server passes initialized service and endpoint objects back.
 				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
@@ -83,7 +89,8 @@ func Test_Core_Service(t *testing.T) {
 			},
 		},
 		{
-			description: "Should fail if neither the Service nor the Endpoints have initialized",
+			description:  "Should fail if neither the Service nor the Endpoints have initialized",
+			serviceInput: serviceInput,
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				// Trigger timeout.
 				timeout <- time.Now()
@@ -96,7 +103,8 @@ func Test_Core_Service(t *testing.T) {
 					"Service was not allocated an IP address; does your cloud provider support this?"}},
 		},
 		{
-			description: "Should fail if Endpoints have not initialized",
+			description:  "Should fail if Endpoints have not initialized",
+			serviceInput: serviceInput,
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				// API server passes initialized service back.
 				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
@@ -116,7 +124,8 @@ func Test_Core_Service(t *testing.T) {
 						"field '.spec.selector' may not match labels on any Pods"}},
 		},
 		{
-			description: "Should fail if Service is not allocated an IP address",
+			description:  "Should fail if Service is not allocated an IP address",
+			serviceInput: serviceInput,
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				// API server passes uninitialized service back.
 				services <- watchAddedEvent(serviceInput("default", "foo-4setj4y6"))
@@ -135,11 +144,22 @@ func Test_Core_Service(t *testing.T) {
 					"Service was not allocated an IP address; does your cloud provider support this?",
 				}},
 		},
+
+		{
+			description:  "Should succeed if Externalname doesn't target any Pods",
+			serviceInput: externalNameService,
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				services <- watchAddedEvent(externalNameService("default", "foo-4setj4y6"))
+
+				// Finally, time out.
+				timeout <- time.Now()
+			},
+		},
 	}
 
 	for _, test := range tests {
 		awaiter := makeServiceInitAwaiter(
-			mockAwaitConfig(serviceInput("default", "foo-4setj4y6")))
+			mockAwaitConfig(test.serviceInput("default", "foo-4setj4y6")))
 
 		services := make(chan watch.Event)
 		endpoints := make(chan watch.Event)
@@ -156,38 +176,53 @@ func Test_Core_Service(t *testing.T) {
 func Test_Core_Service_Read(t *testing.T) {
 	tests := []struct {
 		description       string
+		serviceInput      func(namespace, name string) *unstructured.Unstructured
 		service           func(namespace, name string) *unstructured.Unstructured
 		endpoint          func(namespace, name string) *unstructured.Unstructured
 		expectedSubErrors []string
 	}{
 		{
-			description: "Read should fail if Service does not target any Pods",
-			service:     initializedService,
-			endpoint:    uninitializedEndpoint,
+			description:  "Read should fail if Service does not target any Pods",
+			serviceInput: serviceInput,
+			service:      initializedService,
+			endpoint:     uninitializedEndpoint,
 			expectedSubErrors: []string{
 				"Service does not target any Pods. Application Pods may failed to become alive, or " +
 					"field '.spec.selector' may not match labels on any Pods"},
 		},
 		{
-			description: "Read should succeed if Service does target Pods",
-			service:     initializedService,
-			endpoint:    initializedEndpoint,
+			description:  "Read should succeed if Service does target Pods",
+			serviceInput: serviceInput,
+			service:      initializedService,
+			endpoint:     initializedEndpoint,
 		},
 		{
-			description: "Read should fail if Service not allocated an IP address",
-			service:     serviceInput,
-			endpoint:    initializedEndpoint,
+			description:  "Read should fail if Service not allocated an IP address",
+			serviceInput: serviceInput,
+			service:      serviceInput,
+			endpoint:     initializedEndpoint,
 			expectedSubErrors: []string{
 				"Service was not allocated an IP address; does your cloud provider support this?",
 			},
 		},
+		{
+			description:  "Read succeed if ExternalName doesn't target any Pods",
+			serviceInput: externalNameService,
+			service:      externalNameService,
+		},
 	}
 
 	for _, test := range tests {
-		awaiter := makeServiceInitAwaiter(mockAwaitConfig(serviceInput("default", "foo-4setj4y6")))
+		awaiter := makeServiceInitAwaiter(mockAwaitConfig(test.serviceInput("default", "foo-4setj4y6")))
 		service := test.service("default", "foo-4setj4y6")
-		endpoint := test.endpoint("default", "foo-4setj4y6")
-		err := awaiter.read(service, unstructuredList(*endpoint))
+
+		var err error
+		if test.endpoint != nil {
+			endpoint := test.endpoint("default", "foo-4setj4y6")
+			err = awaiter.read(service, unstructuredList(*endpoint))
+		} else {
+			err = awaiter.read(service, unstructuredList())
+		}
 		if test.expectedSubErrors != nil {
 			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
 		} else {
@@ -333,6 +368,30 @@ func initializedEndpoint(namespace, name string) *unstructured.Unstructured {
         }
     ]
 }`, name, name, namespace))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func externalNameService(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(
+		fmt.Sprintf(`{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"name": "%s",
+				"namespace": "%s"
+			},
+			"spec": {
+				"externalName": "google.com",
+				"sessionAffinity": "None",
+				"type": "ExternalName"
+			},
+			"status": {
+				"loadBalancer": {}
+			}
+		}`, name, namespace))
 	if err != nil {
 		panic(err)
 	}
