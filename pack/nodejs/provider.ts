@@ -411,334 +411,7 @@ export namespace yaml {
                 id = `${namespaceOrName}/${name}`;
             }
 
-            switch (`${groupVersionKind}`) {
-                case "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apiregistration/v1beta1/APIService":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apiregistration/v1beta1/APIServiceList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/ControllerRevision":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/ControllerRevisionList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/DaemonSet":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/DaemonSetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/Deployment":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/DeploymentList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/ReplicaSet":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/ReplicaSetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/StatefulSet":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1/StatefulSetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta1/ControllerRevision":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta1/ControllerRevisionList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta1/Deployment":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta1/DeploymentList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta1/DeploymentRollback":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta1/Scale":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta1/StatefulSet":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta1/StatefulSetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/ControllerRevision":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/ControllerRevisionList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/DaemonSet":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/DaemonSetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/Deployment":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/DeploymentList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/ReplicaSet":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/ReplicaSetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/Scale":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/StatefulSet":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "apps/v1beta2/StatefulSetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authentication.k8s.io/v1/TokenReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authentication.k8s.io/v1beta1/TokenReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authorization.k8s.io/v1/LocalSubjectAccessReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authorization.k8s.io/v1/SelfSubjectAccessReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authorization.k8s.io/v1/SelfSubjectRulesReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authorization.k8s.io/v1/SubjectAccessReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "authorization.k8s.io/v1beta1/SubjectAccessReview":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "autoscaling/v1/CrossVersionObjectReference":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "autoscaling/v1/HorizontalPodAutoscaler":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "autoscaling/v1/HorizontalPodAutoscalerList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "autoscaling/v1/Scale":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "autoscaling/v2beta1/CrossVersionObjectReference":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "autoscaling/v2beta1/HorizontalPodAutoscaler":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "autoscaling/v2beta1/HorizontalPodAutoscalerList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "batch/v1/Job":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "batch/v1/JobList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "batch/v1beta1/CronJob":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "batch/v1beta1/CronJobList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "batch/v2alpha1/CronJob":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "batch/v2alpha1/CronJobList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "certificates.k8s.io/v1beta1/CertificateSigningRequest":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/Binding":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ComponentStatus":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ComponentStatusList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ConfigMap":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ConfigMapList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/Endpoints":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/EndpointsList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/Event":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/EventList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/LimitRange":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/LimitRangeList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/Namespace":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/NamespaceList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/Node":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/NodeConfigSource":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/NodeList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "core/v1/ObjectReference":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/PersistentVolume":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/PersistentVolumeClaim":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/PersistentVolumeClaimList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/PersistentVolumeList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/Pod":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/PodList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/PodTemplate":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/PodTemplateList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ReplicationController":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ReplicationControllerList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ResourceQuota":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ResourceQuotaList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/Secret":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/SecretList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/Service":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ServiceAccount":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ServiceAccountList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/ServiceList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "events.k8s.io/v1beta1/Event":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "events.k8s.io/v1beta1/EventList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/DaemonSet":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/DaemonSetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/Deployment":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/DeploymentList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/DeploymentRollback":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/Ingress":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/IngressList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/NetworkPolicy":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/NetworkPolicyList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/PodSecurityPolicy":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/PodSecurityPolicyList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/ReplicaSet":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/ReplicaSetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "extensions/v1beta1/Scale":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/APIGroup":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/APIGroupList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/APIResourceList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/APIVersions":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/DeleteOptions":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "meta/v1/OwnerReference":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "v1/Status":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "networking.k8s.io/v1/NetworkPolicy":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "networking.k8s.io/v1/NetworkPolicyList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "policy/v1beta1/Eviction":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "policy/v1beta1/PodDisruptionBudget":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "policy/v1beta1/PodDisruptionBudgetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1/ClusterRole":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1/ClusterRoleList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1/Role":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1/RoleBinding":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1/RoleBindingList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1/RoleList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1alpha1/Role":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1alpha1/RoleList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac/v1alpha1/Subject":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1beta1/ClusterRole":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1beta1/Role":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1beta1/RoleBinding":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "rbac.authorization.k8s.io/v1beta1/RoleList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "scheduling.k8s.io/v1alpha1/PriorityClass":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "scheduling.k8s.io/v1alpha1/PriorityClassList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "settings.k8s.io/v1alpha1/PodPreset":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "settings.k8s.io/v1alpha1/PodPresetList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "storage.k8s.io/v1/StorageClass":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "storage.k8s.io/v1/StorageClassList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "storage.k8s.io/v1alpha1/VolumeAttachment":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "storage.k8s.io/v1alpha1/VolumeAttachmentList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "storage.k8s.io/v1beta1/StorageClass":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                case "storage.k8s.io/v1beta1/StorageClassList":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                default:
-                    throw new Error(`Unrecognized resource type '${groupVersionKind}'`);
-            }
+            return <T>this.resources[`${groupVersionKind}::${id}`];
         }
     }
 
@@ -765,6 +438,10 @@ export namespace yaml {
         }
     }
 
+    /**
+     * ConfigFile creates a set of Kubernetes resources from Kubernetes YAML file. If `config.name`
+     * is not specified, `ConfigFile` assumes the argument `name` is the filename.
+     */
     export class ConfigFile extends CollectionComponentResource {
         constructor(name: string, config?: ConfigFileOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:yaml:ConfigFile", name, config, opts);
@@ -1626,8 +1303,61 @@ export namespace yaml {
                     resource: new storage.v1beta1.StorageClassList(id, obj, opts),
                 };
             default:
-                throw new Error(`Unrecognized resource type ${apiVersion}/${kind}`);
+                return {
+                    name: `${apiVersion}/${kind}::${id}`,
+                    resource: new apiextensions.CustomResource(id, obj, opts),
+                };
         }
+    }
+}
+
+export namespace apiextensions {
+    export class CustomResource extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+
+
+      public getInputs(): inputApi.apps.v1.DaemonSetList { return this.__inputs; }
+      private readonly __inputs: any;
+
+      /**
+      * Create a CustomResource resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args: {
+          apiVersion: pulumi.Input<string>,
+          kind: pulumi.Input<string>
+          metadata?: pulumi.Input<outputApi.meta.v1.ListMeta>;
+      }, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          for (const key of Object.keys(args)) {
+              inputs[key] = (args as any)[key];
+          }
+          super(`kubernetes:${args.apiVersion}:${args.kind}`, name, inputs, opts);
+          this.__inputs = args;
+      }
     }
 }
 

@@ -72,6 +72,10 @@ func makeCancellationContext() *cancellationContext {
 	}
 }
 
+type kubeOpts struct {
+	rejectUnknownResources bool
+}
+
 type kubeProvider struct {
 	host           *provider.HostClient
 	canceler       *cancellationContext
@@ -80,6 +84,7 @@ type kubeProvider struct {
 	name           string
 	version        string
 	providerPrefix string
+	opts           kubeOpts
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -99,6 +104,18 @@ func makeKubeProvider(
 // Configure configures the resource provider with "globals" that control its behavior.
 func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pbempty.Empty, error) {
 	vars := req.GetVariables()
+
+	//
+	// Set simple configuration settings.
+	//
+
+	k.opts = kubeOpts{
+		rejectUnknownResources: vars["kubernetes:config:rejectUnknownResources"] == "true",
+	}
+
+	//
+	// Configure client-go using provided or ambient kubeconfig file.
+	//
 
 	// Compute config overrides.
 	overrides := &clientcmd.ConfigOverrides{
@@ -261,7 +278,10 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 				failures = append(failures, &pulumirpc.CheckFailure{
 					Reason: fmt.Sprintf(" Found API Group, but it did not contain a schema for '%s'", gvk),
 				})
-			} else {
+			} else if k.opts.rejectUnknownResources {
+				// If the schema doesn't exist, it could still be a CRD (which may not have a
+				// schema). Thus, if we are directed to check resources even if they have unknown
+				// types, we fail here.
 				return nil, fmt.Errorf("Unable to fetch schema: %v", err)
 			}
 		}
