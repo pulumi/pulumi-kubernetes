@@ -95,18 +95,7 @@ export namespace yaml {
                 id = `${namespaceOrName}/${name}`;
             }
 
-            switch (`${groupVersionKind}`) {
-                {{#Groups}}
-                {{#Versions}}
-                {{#Kinds}}
-                case "{{RawAPIVersion}}/{{Kind}}":
-                    return <T>this.resources[`${groupVersionKind}::${id}`];
-                {{/Kinds}}
-                {{/Versions}}
-                {{/Groups}}
-                default:
-                    throw new Error(`Unrecognized resource type '${groupVersionKind}'`);
-            }
+            return <T>this.resources[`${groupVersionKind}::${id}`];
         }
     }
 
@@ -199,8 +188,61 @@ export namespace yaml {
             {{/Versions}}
             {{/Groups}}
             default:
-                throw new Error(`Unrecognized resource type ${apiVersion}/${kind}`);
+                return {
+                    name: `${apiVersion}/${kind}::${id}`,
+                    resource: new apiextensions.CustomResource(id, obj, opts),
+                };
         }
+    }
+}
+
+export namespace apiextensions {
+    export class CustomResource extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+
+
+      public getInputs(): inputApi.apps.v1.DaemonSetList { return this.__inputs; }
+      private readonly __inputs: any;
+
+      /**
+      * Create a CustomResource resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args: {
+          apiVersion: pulumi.Input<string>,
+          kind: pulumi.Input<string>
+          metadata?: pulumi.Input<outputApi.meta.v1.ListMeta>;
+      }, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          for (const key of Object.keys(args)) {
+              inputs[key] = (args as any)[key];
+          }
+          super(`kubernetes:${args.apiVersion}:${args.kind}`, name, inputs, opts);
+          this.__inputs = args;
+      }
     }
 }
 
