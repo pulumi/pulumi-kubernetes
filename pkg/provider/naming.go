@@ -10,6 +10,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
+const trueAnnotation = "true"
 const annotationInternalPrefix = "pulumi.com/"
 const annotationInternalAutonamed = "pulumi.com/autonamed"
 
@@ -42,14 +43,14 @@ func setAutonameAnnotation(obj *unstructured.Unstructured) {
 	if annotations == nil {
 		annotations = map[string]string{}
 	}
-	annotations[annotationInternalAutonamed] = "true"
+	annotations[annotationInternalAutonamed] = trueAnnotation
 	obj.SetAnnotations(annotations)
 }
 
 func isAutonamed(obj *unstructured.Unstructured) bool {
 	annotations := obj.GetAnnotations()
 	autonamed := annotations[annotationInternalAutonamed]
-	return autonamed == "true"
+	return autonamed == trueAnnotation
 }
 
 func randString(n int) string {
