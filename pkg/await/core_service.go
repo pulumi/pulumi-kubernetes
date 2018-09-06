@@ -89,6 +89,10 @@ func awaitServiceInit(c createAwaitConfig) error {
 	return makeServiceInitAwaiter(c).Await()
 }
 
+func awaitServiceUpdate(u updateAwaitConfig) error {
+	return makeServiceInitAwaiter(u.createAwaitConfig).Await()
+}
+
 func (sia *serviceInitAwaiter) Await() error {
 	//
 	// We succeed only when all of the following are true:
