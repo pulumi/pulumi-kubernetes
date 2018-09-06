@@ -27,7 +27,6 @@ import (
 	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/provider"
-	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
@@ -461,9 +460,9 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		hardRaw, _ := openapi.Pluck(quota.Object, "spec", "hard")
 		hardStatusRaw, _ := openapi.Pluck(quota.Object, "status", "hard")
 
-		hard, hardIsResourceList := hardRaw.(v1.ResourceList)
-		hardStatus, hardStatusIsResourceList := hardStatusRaw.(v1.ResourceList)
-		if hardIsResourceList && hardStatusIsResourceList && resourceListEquals(hard, hardStatus) {
+		hard, hardIsMap := hardRaw.(map[string]interface{})
+		hardStatus, hardStatusIsMap := hardStatusRaw.(map[string]interface{})
+		if hardIsMap && hardStatusIsMap && reflect.DeepEqual(hard, hardStatus) {
 			glog.V(3).Infof("ResourceQuota '%s' initialized: %#v", c.currentInputs.GetName())
 			return true
 		}
