@@ -224,7 +224,7 @@ func (dia *deploymentInitAwaiter) read(
 	}
 
 	err = pods.EachListItem(func(pod runtime.Object) error {
-		dia.processReplicaSetEvent(watchAddedEvent(pod.(*unstructured.Unstructured)))
+		dia.processPodEvent(watchAddedEvent(pod.(*unstructured.Unstructured)))
 		return nil
 	})
 	if err != nil {
