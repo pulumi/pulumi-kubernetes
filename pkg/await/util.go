@@ -149,34 +149,6 @@ func getLastWarningsForObject(
 
 // --------------------------------------------------------------------------
 
-// Path helpers.
-
-// --------------------------------------------------------------------------
-
-func resourceListEquals(x, y v1.ResourceList) bool {
-	for k, v := range x {
-		yValue, ok := y[k]
-		if !ok {
-			return false
-		}
-		if v.Cmp(yValue) != 0 {
-			return false
-		}
-	}
-	for k, v := range y {
-		xValue, ok := x[k]
-		if !ok {
-			return false
-		}
-		if v.Cmp(xValue) != 0 {
-			return false
-		}
-	}
-	return true
-}
-
-// --------------------------------------------------------------------------
-
 // Response helpers.
 
 // --------------------------------------------------------------------------
