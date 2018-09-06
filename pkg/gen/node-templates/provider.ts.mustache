@@ -13,17 +13,17 @@ export namespace yaml {
     export interface ConfigGroupOpts {
         files?: string[] | string;
         yaml?: string[] | string;
-        transforms?: ((o: any) => void)[];
+        transformations?: ((o: any) => void)[];
     }
 
     export interface ConfigFileOpts {
         file?: string;
-        transforms?: ((o: any) => void)[];
+        transformations?: ((o: any) => void)[];
     }
 
     export interface ConfigOpts {
         objs: any[];
-        transforms?: ((o: any) => void)[];
+        transformations?: ((o: any) => void)[];
     }
 
     export function parse(
@@ -43,7 +43,7 @@ export namespace yaml {
 
             for (const file of files) {
                 const cf = new ConfigFile(file,
-                    {file: file, transforms: config.transforms}, opts);
+                    {file: file, transformations: config.transformations}, opts);
                 if (cf != null) {
                     resources = {...resources, ...cf.resources}
                 }
@@ -61,7 +61,7 @@ export namespace yaml {
             for (const text of yamlTexts) {
                 const objs = jsyaml.safeLoadAll(text);
                 const docResources = parseYamlDocument(
-                    {objs: objs, transforms: config.transforms}, opts);
+                    {objs: objs, transformations: config.transformations}, opts);
                 resources = {...resources, ...docResources};
             }
         }
@@ -133,7 +133,7 @@ export namespace yaml {
             const objs = jsyaml.safeLoadAll(text);
             this.resources = parseYamlDocument({
                 objs: objs,
-                transforms: config && config.transforms || []
+                transformations: config && config.transformations || []
             }, {parent: this});
         }
     }
@@ -144,7 +144,7 @@ export namespace yaml {
         let resources: {[key: string]: pulumi.CustomResource} = {};
 
         for (const obj of config.objs) {
-            const fileObject = parseYamlObject(obj, config.transforms, opts);
+            const fileObject = parseYamlObject(obj, config.transformations, opts);
             if (fileObject != null) {
                 resources[fileObject.name] = fileObject.resource;
             }
@@ -154,13 +154,13 @@ export namespace yaml {
     }
 
     function parseYamlObject(
-        obj: any, transforms?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
+        obj: any, transformations?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
     ): {name: string, resource: pulumi.CustomResource} | null {
         if (obj == null || Object.keys(obj).length == 0) {
             return null;
         }
 
-        for (const t of transforms || []) {
+        for (const t of transformations || []) {
             t(obj);
         }
 
