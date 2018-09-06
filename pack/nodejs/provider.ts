@@ -480,14 +480,15 @@ export namespace yaml {
             t(obj);
         }
 
-        const kind = obj["kind"];
-        const apiVersion = obj["apiVersion"];
-        if (kind == null || apiVersion == null) {
+        if (!("kind" in obj && "apiVersion" in obj && "metadata" in obj)) {
             return null;
         }
 
-        let id: string = obj["metadata"]["name"];
-        const namespace = obj["metadata"]["namespace"] || undefined;
+        const kind = obj["kind"];
+        const apiVersion = obj["apiVersion"];
+        const meta = obj["metadata"];
+        let id: string = meta["name"];
+        const namespace = meta["namespace"] || undefined;
         if (namespace !== undefined) {
             id = `${namespace}/${id}`;
         }
