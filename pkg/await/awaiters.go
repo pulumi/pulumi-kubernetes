@@ -182,6 +182,7 @@ var awaiters = map[string]awaitSpec{
 	coreV1Secret: { /* NONE */ },
 	coreV1Service: {
 		awaitCreation: awaitServiceInit,
+		awaitUpdate:   awaitServiceUpdate,
 	},
 	coreV1ServiceAccount: {
 		awaitCreation: untilCoreV1ServiceAccountInitialized,
