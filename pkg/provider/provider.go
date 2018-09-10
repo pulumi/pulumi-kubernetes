@@ -660,7 +660,7 @@ func (k *kubeProvider) Delete(
 
 	namespace, name := client.ParseFqName(req.GetId())
 
-	err = await.Deletion(k.canceler.context, k.host, k.pool, k.client, gvk, namespace, name)
+	err = await.Deletion(k.canceler.context, k.host, k.pool, k.client, urn, gvk, namespace, name)
 	if err != nil {
 		return nil, err
 	}
