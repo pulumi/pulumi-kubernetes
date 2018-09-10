@@ -13,6 +13,7 @@ export namespace yaml {
     export interface ConfigGroupOpts {
         files?: string[] | string;
         yaml?: string[] | string;
+        objs?: any[] | any;
         transformations?: ((o: any) => void)[];
     }
 
@@ -64,6 +65,13 @@ export namespace yaml {
                     {objs: objs, transformations: config.transformations}, opts);
                 resources = {...resources, ...docResources};
             }
+        }
+
+        if (config.objs !== undefined) {
+            const objs= Array.isArray(config.objs) ? config.objs: [config.objs];
+                const docResources = parseYamlDocument(
+                    {objs: objs, transformations: config.transformations}, opts);
+                resources = {...resources, ...docResources};
         }
 
         return resources;

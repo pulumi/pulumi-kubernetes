@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import * as fs from "fs";
+import * as jsyaml from "js-yaml";
 
 import * as k8s from "./index";
 import * as pulumi from "@pulumi/pulumi";
@@ -33,6 +34,11 @@ export namespace v2 {
     // The semantics of `update` on a Chart are identical to those of Helm and kubectl; for example,
     // unlike a "normal" Pulumi program, updating a ConfigMap does not trigger a cascading update
     // among Deployments that reference it.
+    //
+    // NOTE: `Chart` will attempt to sort the resources in the same way that Helm does, to ensure
+    // that (e.g.) namespaces are created before things that are in them. But, because the Pulumi
+    // engine delivers the these calls asynchronously, they could arrive "somewhat" out of order.
+    // This should not affect many Helm charts.
     export class Chart extends k8s.yaml.CollectionComponentResource {
         constructor(releaseName: string, config: ChartOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:helm.sh/v2:Chart", releaseName, config, opts);
@@ -66,10 +72,7 @@ export namespace v2 {
                 const yamlStream = execSync(
                     `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
                 ).toString();
-                this.resources = k8s.yaml.parse({
-                    yaml: [yamlStream],
-                    transformations: config.transformations || [],
-                }, { parent: this });
+                this.resources = this.parseTemplate(yamlStream, config);
             } catch (e) {
                 // Shed stack trace, only emit the error.
                 throw new pulumi.RunError(e.toString());
@@ -79,6 +82,81 @@ export namespace v2 {
                 overrides.removeCallback()
             }
         }
+
+        parseTemplate(
+            yamlStream: string,
+            config: ChartOpts
+        ): { [key: string]: pulumi.CustomResource } {
+            const objs = jsyaml
+                .safeLoadAll(yamlStream)
+                .filter(a => a != null && "kind" in a)
+                .sort(helmSort);
+            return k8s.yaml.parse(
+                {
+                    yaml: objs.map(o => jsyaml.safeDump(o)),
+                    transformations: config.transformations || []
+                },
+                { parent: this }
+            );
+        }
+    }
+
+    // helmSort is a JavaScript implementation of the Helm Kind sorter[1]. It provides a
+    // best-effort topology of Kubernetes kinds, which in most cases should ensure that resources
+    // that must be created first, are.
+    //
+    // [1]: https://github.com/helm/helm/blob/094b97ab5d7e2f6eda6d0ab0f2ede9cf578c003c/pkg/tiller/kind_sorter.go
+    /* @internal */ export function helmSort(a: { kind: string }, b: { kind: string }): number {
+        const installOrder = [
+            "Namespace",
+            "ResourceQuota",
+            "LimitRange",
+            "PodSecurityPolicy",
+            "Secret",
+            "ConfigMap",
+            "StorageClass",
+            "PersistentVolume",
+            "PersistentVolumeClaim",
+            "ServiceAccount",
+            "CustomResourceDefinition",
+            "ClusterRole",
+            "ClusterRoleBinding",
+            "Role",
+            "RoleBinding",
+            "Service",
+            "DaemonSet",
+            "Pod",
+            "ReplicationController",
+            "ReplicaSet",
+            "Deployment",
+            "StatefulSet",
+            "Job",
+            "CronJob",
+            "Ingress",
+            "APIService"
+        ];
+
+        const ordering: { [key: string]: number } = {};
+        installOrder.forEach((_, i) => {
+            ordering[installOrder[i]] = i;
+        });
+
+        const aKind = a["kind"];
+        const bKind = b["kind"];
+
+        if (!(aKind in ordering) && !(bKind in ordering)) {
+            return aKind.localeCompare(bKind);
+        }
+
+        if (!(aKind in ordering)) {
+            return 1;
+        }
+
+        if (!(bKind in ordering)) {
+            return -1;
+        }
+
+        return ordering[aKind] - ordering[bKind];
     }
 }
 
