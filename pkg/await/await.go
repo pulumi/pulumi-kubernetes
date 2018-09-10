@@ -17,10 +17,13 @@ package await
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/pkg/watcher"
+	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -254,7 +257,8 @@ func Update(
 // occurred; or (3) an error has occurred while the resource was being deleted.
 func Deletion(
 	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
-	disco discovery.DiscoveryInterface, gvk schema.GroupVersionKind, namespace, name string,
+	disco discovery.DiscoveryInterface, urn resource.URN, gvk schema.GroupVersionKind, namespace,
+	name string,
 ) error {
 	// Make delete options based on the version of the client.
 	version, err := client.FetchVersion(disco)
@@ -293,12 +297,21 @@ func Deletion(
 	// is blank, simply do nothing instead of logging.
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", gvk.GroupVersion().String(), gvk.Kind)
-	if awaiter, exists := awaiters[id]; exists {
-		if awaiter.awaitDeletion != nil {
-			waitErr = awaiter.awaitDeletion(ctx, clientForResource, name)
-		}
+	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
+		waitErr = awaiter.awaitDeletion(ctx, clientForResource, name)
 	} else {
-		glog.V(1).Infof("No deletion logic found for object of type '%s'; defaulting to assuming deletion successful", id)
+		objectMissing := func(d *unstructured.Unstructured, err error) error {
+			if is404(err) {
+				return nil
+			} else if err != nil {
+				glog.V(3).Infof("Received error deleting object '%s': %#v", d.GetName(), err)
+				return err
+			}
+			_ = host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("Waiting for deletion of %s '%s'", id, name))
+			return watcher.RetryableError(fmt.Errorf("Object '%s' still exists", name))
+		}
+		return watcher.ForObject(ctx, clientForResource, name).
+			RetryUntil(objectMissing, 5*time.Minute)
 	}
 
 	return waitErr
