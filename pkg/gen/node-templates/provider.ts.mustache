@@ -144,8 +144,8 @@ export namespace yaml {
         let resources: {[key: string]: pulumi.CustomResource} = {};
 
         for (const obj of config.objs) {
-            const fileObject = parseYamlObject(obj, config.transformations, opts);
-            if (fileObject != null) {
+            const fileObjects = parseYamlObject(obj, config.transformations, opts);
+            for (const fileObject of fileObjects) {
                 resources[fileObject.name] = fileObject.resource;
             }
         }
@@ -155,21 +155,38 @@ export namespace yaml {
 
     function parseYamlObject(
         obj: any, transformations?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
-    ): {name: string, resource: pulumi.CustomResource} | null {
+    ): {name: string, resource: pulumi.CustomResource}[] {
         if (obj == null || Object.keys(obj).length == 0) {
-            return null;
+            return [];
         }
 
+        // Allow users to change API objects before any validation.
         for (const t of transformations || []) {
             t(obj);
         }
 
-        if (!("kind" in obj && "apiVersion" in obj && "metadata" in obj)) {
-            return null;
+        if (!("kind" in obj && "apiVersion" in obj)) {
+            throw new Error(`Kubernetes resources require a kind and apiVersion: ${JSON.stringify(obj)}`)
         }
 
         const kind = obj["kind"];
         const apiVersion = obj["apiVersion"];
+
+        // Flatten `v1.List`. `v1.List` is an undocumented Kubernetes resource, and does not appear
+        // in the Kubernetes OpenAPI spec. `kubectl`, ksonnet, and Helm all flatten it.
+        if (apiVersion == "v1" && kind == "List") {
+            const objs = [];
+            const items = obj["items"] || [];
+            for (const item of items) {
+                objs.push(...parseYamlObject(item, transformations, opts));
+            }
+            return objs;
+        }
+
+        if (!("metadata" in obj) || !("name" in obj["metadata"])) {
+            throw new Error(`YAML object does not have a .metadata.name: ${JSON.stringify(obj)}`)
+        }
+
         const meta = obj["metadata"];
         let id: string = meta["name"];
         const namespace = meta["namespace"] || undefined;
@@ -181,18 +198,18 @@ export namespace yaml {
             {{#Versions}}
             {{#Kinds}}
             case "{{RawAPIVersion}}/{{Kind}}":
-                return {
+                return [{
                     name: `{{RawAPIVersion}}/{{Kind}}::${id}`,
                     resource: new {{Group}}.{{Version}}.{{Kind}}(id, obj, opts),
-                };
+                }];
             {{/Kinds}}
             {{/Versions}}
             {{/Groups}}
             default:
-                return {
+                return [{
                     name: `${apiVersion}/${kind}::${id}`,
                     resource: new apiextensions.CustomResource(id, obj, opts),
-                };
+                }];
         }
     }
 }
