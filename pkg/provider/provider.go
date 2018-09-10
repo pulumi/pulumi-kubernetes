@@ -263,7 +263,10 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		assignNameIfAutonamable(newInputs, urn.Name())
 	}
 
-	gvk := k.gvkFromURN(urn)
+	gvk, err := k.gvkFromURN(urn)
+	if err != nil {
+		return nil, err
+	}
 
 	// HACK: Do not validate against OpenAPI spec if there is a computed value. The OpenAPI spec
 	// does not know how to deal with the placeholder values for computed values.
@@ -341,8 +344,13 @@ func (k *kubeProvider) Diff(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
+	gvk, err := k.gvkFromURN(urn)
+	if err != nil {
+		return nil, err
+	}
+
 	// Decide whether to replace the resource.
-	replaces, err := forceNewProperties(oldInputs.Object, newInputs.Object, k.gvkFromURN(urn))
+	replaces, err := forceNewProperties(oldInputs.Object, newInputs.Object, gvk)
 	if err != nil {
 		return nil, err
 	}
@@ -644,12 +652,15 @@ func (k *kubeProvider) Delete(
 
 	// TODO(hausdorff): Propagate other options, like grace period through flags.
 
-	gvk := k.gvkFromURN(resource.URN(req.GetUrn()))
+	gvk, err := k.gvkFromURN(resource.URN(req.GetUrn()))
+	if err != nil {
+		return nil, err
+	}
 	gvk.Group = schemaGroupName(gvk.Group)
 
 	namespace, name := client.ParseFqName(req.GetId())
 
-	err := await.Deletion(k.canceler.context, k.host, k.pool, k.client, gvk, namespace, name)
+	err = await.Deletion(k.canceler.context, k.host, k.pool, k.client, gvk, namespace, name)
 	if err != nil {
 		return nil, err
 	}
@@ -684,7 +695,7 @@ func (k *kubeProvider) label() string {
 	return fmt.Sprintf("Provider[%s]", k.name)
 }
 
-func (k *kubeProvider) gvkFromURN(urn resource.URN) schema.GroupVersionKind {
+func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, error) {
 	// Strip prefix.
 	s := string(urn.Type())
 	contract.Assertf(strings.HasPrefix(s, k.providerPrefix), "Kubernetes GVK is: '%s'", string(urn))
@@ -693,11 +704,19 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) schema.GroupVersionKind {
 	// Emit GVK.
 	gvk := strings.Split(s, gvkDelimiter)
 	gv := strings.Split(gvk[0], "/")
+	if len(gvk) < 2 {
+		return schema.GroupVersionKind{},
+			fmt.Errorf("GVK must have both an apiVersion and a Kind: '%s'", s)
+	} else if len(gv) != 2 {
+		return schema.GroupVersionKind{},
+			fmt.Errorf("apiVersion does not have both a group and a version: '%s'", s)
+	}
+
 	return schema.GroupVersionKind{
 		Group:   gv[0],
 		Version: gv[1],
 		Kind:    gvk[1],
-	}
+	}, nil
 }
 
 func (k *kubeProvider) readLiveObject(
