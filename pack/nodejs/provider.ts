@@ -460,8 +460,8 @@ export namespace yaml {
         let resources: {[key: string]: pulumi.CustomResource} = {};
 
         for (const obj of config.objs) {
-            const fileObject = parseYamlObject(obj, config.transformations, opts);
-            if (fileObject != null) {
+            const fileObjects = parseYamlObject(obj, config.transformations, opts);
+            for (const fileObject of fileObjects) {
                 resources[fileObject.name] = fileObject.resource;
             }
         }
@@ -471,21 +471,38 @@ export namespace yaml {
 
     function parseYamlObject(
         obj: any, transformations?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
-    ): {name: string, resource: pulumi.CustomResource} | null {
+    ): {name: string, resource: pulumi.CustomResource}[] {
         if (obj == null || Object.keys(obj).length == 0) {
-            return null;
+            return [];
         }
 
+        // Allow users to change API objects before any validation.
         for (const t of transformations || []) {
             t(obj);
         }
 
-        if (!("kind" in obj && "apiVersion" in obj && "metadata" in obj)) {
-            return null;
+        if (!("kind" in obj && "apiVersion" in obj)) {
+            throw new Error(`Kubernetes resources require a kind and apiVersion: ${JSON.stringify(obj)}`)
         }
 
         const kind = obj["kind"];
         const apiVersion = obj["apiVersion"];
+
+        // Flatten `v1.List`. `v1.List` is an undocumented Kubernetes resource, and does not appear
+        // in the Kubernetes OpenAPI spec. `kubectl`, ksonnet, and Helm all flatten it.
+        if (apiVersion == "v1" && kind == "List") {
+            const objs = [];
+            const items = obj["items"] || [];
+            for (const item of items) {
+                objs.push(...parseYamlObject(item, transformations, opts));
+            }
+            return objs;
+        }
+
+        if (!("metadata" in obj) || !("name" in obj["metadata"])) {
+            throw new Error(`YAML object does not have a .metadata.name: ${JSON.stringify(obj)}`)
+        }
+
         const meta = obj["metadata"];
         let id: string = meta["name"];
         const namespace = meta["namespace"] || undefined;
@@ -494,820 +511,820 @@ export namespace yaml {
         }
         switch (`${apiVersion}/${kind}`) {
             case "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration":
-                return {
+                return [{
                     name: `admissionregistration.k8s.io/v1alpha1/InitializerConfiguration::${id}`,
                     resource: new admissionregistration.v1alpha1.InitializerConfiguration(id, obj, opts),
-                };
+                }];
             case "admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList":
-                return {
+                return [{
                     name: `admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList::${id}`,
                     resource: new admissionregistration.v1alpha1.InitializerConfigurationList(id, obj, opts),
-                };
+                }];
             case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
-                return {
+                return [{
                     name: `admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration::${id}`,
                     resource: new admissionregistration.v1beta1.MutatingWebhookConfiguration(id, obj, opts),
-                };
+                }];
             case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
-                return {
+                return [{
                     name: `admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList::${id}`,
                     resource: new admissionregistration.v1beta1.MutatingWebhookConfigurationList(id, obj, opts),
-                };
+                }];
             case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
-                return {
+                return [{
                     name: `admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration::${id}`,
                     resource: new admissionregistration.v1beta1.ValidatingWebhookConfiguration(id, obj, opts),
-                };
+                }];
             case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
-                return {
+                return [{
                     name: `admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList::${id}`,
                     resource: new admissionregistration.v1beta1.ValidatingWebhookConfigurationList(id, obj, opts),
-                };
+                }];
             case "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
-                return {
+                return [{
                     name: `apiextensions.k8s.io/v1beta1/CustomResourceDefinition::${id}`,
                     resource: new apiextensions.v1beta1.CustomResourceDefinition(id, obj, opts),
-                };
+                }];
             case "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
-                return {
+                return [{
                     name: `apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList::${id}`,
                     resource: new apiextensions.v1beta1.CustomResourceDefinitionList(id, obj, opts),
-                };
+                }];
             case "apiregistration/v1beta1/APIService":
-                return {
+                return [{
                     name: `apiregistration/v1beta1/APIService::${id}`,
                     resource: new apiregistration.v1beta1.APIService(id, obj, opts),
-                };
+                }];
             case "apiregistration/v1beta1/APIServiceList":
-                return {
+                return [{
                     name: `apiregistration/v1beta1/APIServiceList::${id}`,
                     resource: new apiregistration.v1beta1.APIServiceList(id, obj, opts),
-                };
+                }];
             case "apps/v1/ControllerRevision":
-                return {
+                return [{
                     name: `apps/v1/ControllerRevision::${id}`,
                     resource: new apps.v1.ControllerRevision(id, obj, opts),
-                };
+                }];
             case "apps/v1/ControllerRevisionList":
-                return {
+                return [{
                     name: `apps/v1/ControllerRevisionList::${id}`,
                     resource: new apps.v1.ControllerRevisionList(id, obj, opts),
-                };
+                }];
             case "apps/v1/DaemonSet":
-                return {
+                return [{
                     name: `apps/v1/DaemonSet::${id}`,
                     resource: new apps.v1.DaemonSet(id, obj, opts),
-                };
+                }];
             case "apps/v1/DaemonSetList":
-                return {
+                return [{
                     name: `apps/v1/DaemonSetList::${id}`,
                     resource: new apps.v1.DaemonSetList(id, obj, opts),
-                };
+                }];
             case "apps/v1/Deployment":
-                return {
+                return [{
                     name: `apps/v1/Deployment::${id}`,
                     resource: new apps.v1.Deployment(id, obj, opts),
-                };
+                }];
             case "apps/v1/DeploymentList":
-                return {
+                return [{
                     name: `apps/v1/DeploymentList::${id}`,
                     resource: new apps.v1.DeploymentList(id, obj, opts),
-                };
+                }];
             case "apps/v1/ReplicaSet":
-                return {
+                return [{
                     name: `apps/v1/ReplicaSet::${id}`,
                     resource: new apps.v1.ReplicaSet(id, obj, opts),
-                };
+                }];
             case "apps/v1/ReplicaSetList":
-                return {
+                return [{
                     name: `apps/v1/ReplicaSetList::${id}`,
                     resource: new apps.v1.ReplicaSetList(id, obj, opts),
-                };
+                }];
             case "apps/v1/StatefulSet":
-                return {
+                return [{
                     name: `apps/v1/StatefulSet::${id}`,
                     resource: new apps.v1.StatefulSet(id, obj, opts),
-                };
+                }];
             case "apps/v1/StatefulSetList":
-                return {
+                return [{
                     name: `apps/v1/StatefulSetList::${id}`,
                     resource: new apps.v1.StatefulSetList(id, obj, opts),
-                };
+                }];
             case "apps/v1beta1/ControllerRevision":
-                return {
+                return [{
                     name: `apps/v1beta1/ControllerRevision::${id}`,
                     resource: new apps.v1beta1.ControllerRevision(id, obj, opts),
-                };
+                }];
             case "apps/v1beta1/ControllerRevisionList":
-                return {
+                return [{
                     name: `apps/v1beta1/ControllerRevisionList::${id}`,
                     resource: new apps.v1beta1.ControllerRevisionList(id, obj, opts),
-                };
+                }];
             case "apps/v1beta1/Deployment":
-                return {
+                return [{
                     name: `apps/v1beta1/Deployment::${id}`,
                     resource: new apps.v1beta1.Deployment(id, obj, opts),
-                };
+                }];
             case "apps/v1beta1/DeploymentList":
-                return {
+                return [{
                     name: `apps/v1beta1/DeploymentList::${id}`,
                     resource: new apps.v1beta1.DeploymentList(id, obj, opts),
-                };
+                }];
             case "apps/v1beta1/DeploymentRollback":
-                return {
+                return [{
                     name: `apps/v1beta1/DeploymentRollback::${id}`,
                     resource: new apps.v1beta1.DeploymentRollback(id, obj, opts),
-                };
+                }];
             case "apps/v1beta1/Scale":
-                return {
+                return [{
                     name: `apps/v1beta1/Scale::${id}`,
                     resource: new apps.v1beta1.Scale(id, obj, opts),
-                };
+                }];
             case "apps/v1beta1/StatefulSet":
-                return {
+                return [{
                     name: `apps/v1beta1/StatefulSet::${id}`,
                     resource: new apps.v1beta1.StatefulSet(id, obj, opts),
-                };
+                }];
             case "apps/v1beta1/StatefulSetList":
-                return {
+                return [{
                     name: `apps/v1beta1/StatefulSetList::${id}`,
                     resource: new apps.v1beta1.StatefulSetList(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/ControllerRevision":
-                return {
+                return [{
                     name: `apps/v1beta2/ControllerRevision::${id}`,
                     resource: new apps.v1beta2.ControllerRevision(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/ControllerRevisionList":
-                return {
+                return [{
                     name: `apps/v1beta2/ControllerRevisionList::${id}`,
                     resource: new apps.v1beta2.ControllerRevisionList(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/DaemonSet":
-                return {
+                return [{
                     name: `apps/v1beta2/DaemonSet::${id}`,
                     resource: new apps.v1beta2.DaemonSet(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/DaemonSetList":
-                return {
+                return [{
                     name: `apps/v1beta2/DaemonSetList::${id}`,
                     resource: new apps.v1beta2.DaemonSetList(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/Deployment":
-                return {
+                return [{
                     name: `apps/v1beta2/Deployment::${id}`,
                     resource: new apps.v1beta2.Deployment(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/DeploymentList":
-                return {
+                return [{
                     name: `apps/v1beta2/DeploymentList::${id}`,
                     resource: new apps.v1beta2.DeploymentList(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/ReplicaSet":
-                return {
+                return [{
                     name: `apps/v1beta2/ReplicaSet::${id}`,
                     resource: new apps.v1beta2.ReplicaSet(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/ReplicaSetList":
-                return {
+                return [{
                     name: `apps/v1beta2/ReplicaSetList::${id}`,
                     resource: new apps.v1beta2.ReplicaSetList(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/Scale":
-                return {
+                return [{
                     name: `apps/v1beta2/Scale::${id}`,
                     resource: new apps.v1beta2.Scale(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/StatefulSet":
-                return {
+                return [{
                     name: `apps/v1beta2/StatefulSet::${id}`,
                     resource: new apps.v1beta2.StatefulSet(id, obj, opts),
-                };
+                }];
             case "apps/v1beta2/StatefulSetList":
-                return {
+                return [{
                     name: `apps/v1beta2/StatefulSetList::${id}`,
                     resource: new apps.v1beta2.StatefulSetList(id, obj, opts),
-                };
+                }];
             case "authentication.k8s.io/v1/TokenReview":
-                return {
+                return [{
                     name: `authentication.k8s.io/v1/TokenReview::${id}`,
                     resource: new authentication.v1.TokenReview(id, obj, opts),
-                };
+                }];
             case "authentication.k8s.io/v1beta1/TokenReview":
-                return {
+                return [{
                     name: `authentication.k8s.io/v1beta1/TokenReview::${id}`,
                     resource: new authentication.v1beta1.TokenReview(id, obj, opts),
-                };
+                }];
             case "authorization.k8s.io/v1/LocalSubjectAccessReview":
-                return {
+                return [{
                     name: `authorization.k8s.io/v1/LocalSubjectAccessReview::${id}`,
                     resource: new authorization.v1.LocalSubjectAccessReview(id, obj, opts),
-                };
+                }];
             case "authorization.k8s.io/v1/SelfSubjectAccessReview":
-                return {
+                return [{
                     name: `authorization.k8s.io/v1/SelfSubjectAccessReview::${id}`,
                     resource: new authorization.v1.SelfSubjectAccessReview(id, obj, opts),
-                };
+                }];
             case "authorization.k8s.io/v1/SelfSubjectRulesReview":
-                return {
+                return [{
                     name: `authorization.k8s.io/v1/SelfSubjectRulesReview::${id}`,
                     resource: new authorization.v1.SelfSubjectRulesReview(id, obj, opts),
-                };
+                }];
             case "authorization.k8s.io/v1/SubjectAccessReview":
-                return {
+                return [{
                     name: `authorization.k8s.io/v1/SubjectAccessReview::${id}`,
                     resource: new authorization.v1.SubjectAccessReview(id, obj, opts),
-                };
+                }];
             case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
-                return {
+                return [{
                     name: `authorization.k8s.io/v1beta1/LocalSubjectAccessReview::${id}`,
                     resource: new authorization.v1beta1.LocalSubjectAccessReview(id, obj, opts),
-                };
+                }];
             case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
-                return {
+                return [{
                     name: `authorization.k8s.io/v1beta1/SelfSubjectAccessReview::${id}`,
                     resource: new authorization.v1beta1.SelfSubjectAccessReview(id, obj, opts),
-                };
+                }];
             case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
-                return {
+                return [{
                     name: `authorization.k8s.io/v1beta1/SelfSubjectRulesReview::${id}`,
                     resource: new authorization.v1beta1.SelfSubjectRulesReview(id, obj, opts),
-                };
+                }];
             case "authorization.k8s.io/v1beta1/SubjectAccessReview":
-                return {
+                return [{
                     name: `authorization.k8s.io/v1beta1/SubjectAccessReview::${id}`,
                     resource: new authorization.v1beta1.SubjectAccessReview(id, obj, opts),
-                };
+                }];
             case "autoscaling/v1/CrossVersionObjectReference":
-                return {
+                return [{
                     name: `autoscaling/v1/CrossVersionObjectReference::${id}`,
                     resource: new autoscaling.v1.CrossVersionObjectReference(id, obj, opts),
-                };
+                }];
             case "autoscaling/v1/HorizontalPodAutoscaler":
-                return {
+                return [{
                     name: `autoscaling/v1/HorizontalPodAutoscaler::${id}`,
                     resource: new autoscaling.v1.HorizontalPodAutoscaler(id, obj, opts),
-                };
+                }];
             case "autoscaling/v1/HorizontalPodAutoscalerList":
-                return {
+                return [{
                     name: `autoscaling/v1/HorizontalPodAutoscalerList::${id}`,
                     resource: new autoscaling.v1.HorizontalPodAutoscalerList(id, obj, opts),
-                };
+                }];
             case "autoscaling/v1/Scale":
-                return {
+                return [{
                     name: `autoscaling/v1/Scale::${id}`,
                     resource: new autoscaling.v1.Scale(id, obj, opts),
-                };
+                }];
             case "autoscaling/v2beta1/CrossVersionObjectReference":
-                return {
+                return [{
                     name: `autoscaling/v2beta1/CrossVersionObjectReference::${id}`,
                     resource: new autoscaling.v2beta1.CrossVersionObjectReference(id, obj, opts),
-                };
+                }];
             case "autoscaling/v2beta1/HorizontalPodAutoscaler":
-                return {
+                return [{
                     name: `autoscaling/v2beta1/HorizontalPodAutoscaler::${id}`,
                     resource: new autoscaling.v2beta1.HorizontalPodAutoscaler(id, obj, opts),
-                };
+                }];
             case "autoscaling/v2beta1/HorizontalPodAutoscalerList":
-                return {
+                return [{
                     name: `autoscaling/v2beta1/HorizontalPodAutoscalerList::${id}`,
                     resource: new autoscaling.v2beta1.HorizontalPodAutoscalerList(id, obj, opts),
-                };
+                }];
             case "batch/v1/Job":
-                return {
+                return [{
                     name: `batch/v1/Job::${id}`,
                     resource: new batch.v1.Job(id, obj, opts),
-                };
+                }];
             case "batch/v1/JobList":
-                return {
+                return [{
                     name: `batch/v1/JobList::${id}`,
                     resource: new batch.v1.JobList(id, obj, opts),
-                };
+                }];
             case "batch/v1beta1/CronJob":
-                return {
+                return [{
                     name: `batch/v1beta1/CronJob::${id}`,
                     resource: new batch.v1beta1.CronJob(id, obj, opts),
-                };
+                }];
             case "batch/v1beta1/CronJobList":
-                return {
+                return [{
                     name: `batch/v1beta1/CronJobList::${id}`,
                     resource: new batch.v1beta1.CronJobList(id, obj, opts),
-                };
+                }];
             case "batch/v2alpha1/CronJob":
-                return {
+                return [{
                     name: `batch/v2alpha1/CronJob::${id}`,
                     resource: new batch.v2alpha1.CronJob(id, obj, opts),
-                };
+                }];
             case "batch/v2alpha1/CronJobList":
-                return {
+                return [{
                     name: `batch/v2alpha1/CronJobList::${id}`,
                     resource: new batch.v2alpha1.CronJobList(id, obj, opts),
-                };
+                }];
             case "certificates.k8s.io/v1beta1/CertificateSigningRequest":
-                return {
+                return [{
                     name: `certificates.k8s.io/v1beta1/CertificateSigningRequest::${id}`,
                     resource: new certificates.v1beta1.CertificateSigningRequest(id, obj, opts),
-                };
+                }];
             case "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
-                return {
+                return [{
                     name: `certificates.k8s.io/v1beta1/CertificateSigningRequestList::${id}`,
                     resource: new certificates.v1beta1.CertificateSigningRequestList(id, obj, opts),
-                };
+                }];
             case "v1/Binding":
-                return {
+                return [{
                     name: `v1/Binding::${id}`,
                     resource: new core.v1.Binding(id, obj, opts),
-                };
+                }];
             case "v1/ComponentStatus":
-                return {
+                return [{
                     name: `v1/ComponentStatus::${id}`,
                     resource: new core.v1.ComponentStatus(id, obj, opts),
-                };
+                }];
             case "v1/ComponentStatusList":
-                return {
+                return [{
                     name: `v1/ComponentStatusList::${id}`,
                     resource: new core.v1.ComponentStatusList(id, obj, opts),
-                };
+                }];
             case "v1/ConfigMap":
-                return {
+                return [{
                     name: `v1/ConfigMap::${id}`,
                     resource: new core.v1.ConfigMap(id, obj, opts),
-                };
+                }];
             case "v1/ConfigMapList":
-                return {
+                return [{
                     name: `v1/ConfigMapList::${id}`,
                     resource: new core.v1.ConfigMapList(id, obj, opts),
-                };
+                }];
             case "v1/Endpoints":
-                return {
+                return [{
                     name: `v1/Endpoints::${id}`,
                     resource: new core.v1.Endpoints(id, obj, opts),
-                };
+                }];
             case "v1/EndpointsList":
-                return {
+                return [{
                     name: `v1/EndpointsList::${id}`,
                     resource: new core.v1.EndpointsList(id, obj, opts),
-                };
+                }];
             case "v1/Event":
-                return {
+                return [{
                     name: `v1/Event::${id}`,
                     resource: new core.v1.Event(id, obj, opts),
-                };
+                }];
             case "v1/EventList":
-                return {
+                return [{
                     name: `v1/EventList::${id}`,
                     resource: new core.v1.EventList(id, obj, opts),
-                };
+                }];
             case "v1/LimitRange":
-                return {
+                return [{
                     name: `v1/LimitRange::${id}`,
                     resource: new core.v1.LimitRange(id, obj, opts),
-                };
+                }];
             case "v1/LimitRangeList":
-                return {
+                return [{
                     name: `v1/LimitRangeList::${id}`,
                     resource: new core.v1.LimitRangeList(id, obj, opts),
-                };
+                }];
             case "v1/Namespace":
-                return {
+                return [{
                     name: `v1/Namespace::${id}`,
                     resource: new core.v1.Namespace(id, obj, opts),
-                };
+                }];
             case "v1/NamespaceList":
-                return {
+                return [{
                     name: `v1/NamespaceList::${id}`,
                     resource: new core.v1.NamespaceList(id, obj, opts),
-                };
+                }];
             case "v1/Node":
-                return {
+                return [{
                     name: `v1/Node::${id}`,
                     resource: new core.v1.Node(id, obj, opts),
-                };
+                }];
             case "v1/NodeConfigSource":
-                return {
+                return [{
                     name: `v1/NodeConfigSource::${id}`,
                     resource: new core.v1.NodeConfigSource(id, obj, opts),
-                };
+                }];
             case "v1/NodeList":
-                return {
+                return [{
                     name: `v1/NodeList::${id}`,
                     resource: new core.v1.NodeList(id, obj, opts),
-                };
+                }];
             case "core/v1/ObjectReference":
-                return {
+                return [{
                     name: `core/v1/ObjectReference::${id}`,
                     resource: new core.v1.ObjectReference(id, obj, opts),
-                };
+                }];
             case "v1/PersistentVolume":
-                return {
+                return [{
                     name: `v1/PersistentVolume::${id}`,
                     resource: new core.v1.PersistentVolume(id, obj, opts),
-                };
+                }];
             case "v1/PersistentVolumeClaim":
-                return {
+                return [{
                     name: `v1/PersistentVolumeClaim::${id}`,
                     resource: new core.v1.PersistentVolumeClaim(id, obj, opts),
-                };
+                }];
             case "v1/PersistentVolumeClaimList":
-                return {
+                return [{
                     name: `v1/PersistentVolumeClaimList::${id}`,
                     resource: new core.v1.PersistentVolumeClaimList(id, obj, opts),
-                };
+                }];
             case "v1/PersistentVolumeList":
-                return {
+                return [{
                     name: `v1/PersistentVolumeList::${id}`,
                     resource: new core.v1.PersistentVolumeList(id, obj, opts),
-                };
+                }];
             case "v1/Pod":
-                return {
+                return [{
                     name: `v1/Pod::${id}`,
                     resource: new core.v1.Pod(id, obj, opts),
-                };
+                }];
             case "v1/PodList":
-                return {
+                return [{
                     name: `v1/PodList::${id}`,
                     resource: new core.v1.PodList(id, obj, opts),
-                };
+                }];
             case "v1/PodTemplate":
-                return {
+                return [{
                     name: `v1/PodTemplate::${id}`,
                     resource: new core.v1.PodTemplate(id, obj, opts),
-                };
+                }];
             case "v1/PodTemplateList":
-                return {
+                return [{
                     name: `v1/PodTemplateList::${id}`,
                     resource: new core.v1.PodTemplateList(id, obj, opts),
-                };
+                }];
             case "v1/ReplicationController":
-                return {
+                return [{
                     name: `v1/ReplicationController::${id}`,
                     resource: new core.v1.ReplicationController(id, obj, opts),
-                };
+                }];
             case "v1/ReplicationControllerList":
-                return {
+                return [{
                     name: `v1/ReplicationControllerList::${id}`,
                     resource: new core.v1.ReplicationControllerList(id, obj, opts),
-                };
+                }];
             case "v1/ResourceQuota":
-                return {
+                return [{
                     name: `v1/ResourceQuota::${id}`,
                     resource: new core.v1.ResourceQuota(id, obj, opts),
-                };
+                }];
             case "v1/ResourceQuotaList":
-                return {
+                return [{
                     name: `v1/ResourceQuotaList::${id}`,
                     resource: new core.v1.ResourceQuotaList(id, obj, opts),
-                };
+                }];
             case "v1/Secret":
-                return {
+                return [{
                     name: `v1/Secret::${id}`,
                     resource: new core.v1.Secret(id, obj, opts),
-                };
+                }];
             case "v1/SecretList":
-                return {
+                return [{
                     name: `v1/SecretList::${id}`,
                     resource: new core.v1.SecretList(id, obj, opts),
-                };
+                }];
             case "v1/Service":
-                return {
+                return [{
                     name: `v1/Service::${id}`,
                     resource: new core.v1.Service(id, obj, opts),
-                };
+                }];
             case "v1/ServiceAccount":
-                return {
+                return [{
                     name: `v1/ServiceAccount::${id}`,
                     resource: new core.v1.ServiceAccount(id, obj, opts),
-                };
+                }];
             case "v1/ServiceAccountList":
-                return {
+                return [{
                     name: `v1/ServiceAccountList::${id}`,
                     resource: new core.v1.ServiceAccountList(id, obj, opts),
-                };
+                }];
             case "v1/ServiceList":
-                return {
+                return [{
                     name: `v1/ServiceList::${id}`,
                     resource: new core.v1.ServiceList(id, obj, opts),
-                };
+                }];
             case "events.k8s.io/v1beta1/Event":
-                return {
+                return [{
                     name: `events.k8s.io/v1beta1/Event::${id}`,
                     resource: new events.v1beta1.Event(id, obj, opts),
-                };
+                }];
             case "events.k8s.io/v1beta1/EventList":
-                return {
+                return [{
                     name: `events.k8s.io/v1beta1/EventList::${id}`,
                     resource: new events.v1beta1.EventList(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/DaemonSet":
-                return {
+                return [{
                     name: `extensions/v1beta1/DaemonSet::${id}`,
                     resource: new extensions.v1beta1.DaemonSet(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/DaemonSetList":
-                return {
+                return [{
                     name: `extensions/v1beta1/DaemonSetList::${id}`,
                     resource: new extensions.v1beta1.DaemonSetList(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/Deployment":
-                return {
+                return [{
                     name: `extensions/v1beta1/Deployment::${id}`,
                     resource: new extensions.v1beta1.Deployment(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/DeploymentList":
-                return {
+                return [{
                     name: `extensions/v1beta1/DeploymentList::${id}`,
                     resource: new extensions.v1beta1.DeploymentList(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/DeploymentRollback":
-                return {
+                return [{
                     name: `extensions/v1beta1/DeploymentRollback::${id}`,
                     resource: new extensions.v1beta1.DeploymentRollback(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/Ingress":
-                return {
+                return [{
                     name: `extensions/v1beta1/Ingress::${id}`,
                     resource: new extensions.v1beta1.Ingress(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/IngressList":
-                return {
+                return [{
                     name: `extensions/v1beta1/IngressList::${id}`,
                     resource: new extensions.v1beta1.IngressList(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/NetworkPolicy":
-                return {
+                return [{
                     name: `extensions/v1beta1/NetworkPolicy::${id}`,
                     resource: new extensions.v1beta1.NetworkPolicy(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/NetworkPolicyList":
-                return {
+                return [{
                     name: `extensions/v1beta1/NetworkPolicyList::${id}`,
                     resource: new extensions.v1beta1.NetworkPolicyList(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/PodSecurityPolicy":
-                return {
+                return [{
                     name: `extensions/v1beta1/PodSecurityPolicy::${id}`,
                     resource: new extensions.v1beta1.PodSecurityPolicy(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/PodSecurityPolicyList":
-                return {
+                return [{
                     name: `extensions/v1beta1/PodSecurityPolicyList::${id}`,
                     resource: new extensions.v1beta1.PodSecurityPolicyList(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/ReplicaSet":
-                return {
+                return [{
                     name: `extensions/v1beta1/ReplicaSet::${id}`,
                     resource: new extensions.v1beta1.ReplicaSet(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/ReplicaSetList":
-                return {
+                return [{
                     name: `extensions/v1beta1/ReplicaSetList::${id}`,
                     resource: new extensions.v1beta1.ReplicaSetList(id, obj, opts),
-                };
+                }];
             case "extensions/v1beta1/Scale":
-                return {
+                return [{
                     name: `extensions/v1beta1/Scale::${id}`,
                     resource: new extensions.v1beta1.Scale(id, obj, opts),
-                };
+                }];
             case "v1/APIGroup":
-                return {
+                return [{
                     name: `v1/APIGroup::${id}`,
                     resource: new meta.v1.APIGroup(id, obj, opts),
-                };
+                }];
             case "v1/APIGroupList":
-                return {
+                return [{
                     name: `v1/APIGroupList::${id}`,
                     resource: new meta.v1.APIGroupList(id, obj, opts),
-                };
+                }];
             case "v1/APIResourceList":
-                return {
+                return [{
                     name: `v1/APIResourceList::${id}`,
                     resource: new meta.v1.APIResourceList(id, obj, opts),
-                };
+                }];
             case "v1/APIVersions":
-                return {
+                return [{
                     name: `v1/APIVersions::${id}`,
                     resource: new meta.v1.APIVersions(id, obj, opts),
-                };
+                }];
             case "v1/DeleteOptions":
-                return {
+                return [{
                     name: `v1/DeleteOptions::${id}`,
                     resource: new meta.v1.DeleteOptions(id, obj, opts),
-                };
+                }];
             case "meta/v1/OwnerReference":
-                return {
+                return [{
                     name: `meta/v1/OwnerReference::${id}`,
                     resource: new meta.v1.OwnerReference(id, obj, opts),
-                };
+                }];
             case "v1/Status":
-                return {
+                return [{
                     name: `v1/Status::${id}`,
                     resource: new meta.v1.Status(id, obj, opts),
-                };
+                }];
             case "networking.k8s.io/v1/NetworkPolicy":
-                return {
+                return [{
                     name: `networking.k8s.io/v1/NetworkPolicy::${id}`,
                     resource: new networking.v1.NetworkPolicy(id, obj, opts),
-                };
+                }];
             case "networking.k8s.io/v1/NetworkPolicyList":
-                return {
+                return [{
                     name: `networking.k8s.io/v1/NetworkPolicyList::${id}`,
                     resource: new networking.v1.NetworkPolicyList(id, obj, opts),
-                };
+                }];
             case "policy/v1beta1/Eviction":
-                return {
+                return [{
                     name: `policy/v1beta1/Eviction::${id}`,
                     resource: new policy.v1beta1.Eviction(id, obj, opts),
-                };
+                }];
             case "policy/v1beta1/PodDisruptionBudget":
-                return {
+                return [{
                     name: `policy/v1beta1/PodDisruptionBudget::${id}`,
                     resource: new policy.v1beta1.PodDisruptionBudget(id, obj, opts),
-                };
+                }];
             case "policy/v1beta1/PodDisruptionBudgetList":
-                return {
+                return [{
                     name: `policy/v1beta1/PodDisruptionBudgetList::${id}`,
                     resource: new policy.v1beta1.PodDisruptionBudgetList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1/ClusterRole":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1/ClusterRole::${id}`,
                     resource: new rbac.v1.ClusterRole(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1/ClusterRoleBinding::${id}`,
                     resource: new rbac.v1.ClusterRoleBinding(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1/ClusterRoleBindingList::${id}`,
                     resource: new rbac.v1.ClusterRoleBindingList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1/ClusterRoleList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1/ClusterRoleList::${id}`,
                     resource: new rbac.v1.ClusterRoleList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1/Role":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1/Role::${id}`,
                     resource: new rbac.v1.Role(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1/RoleBinding":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1/RoleBinding::${id}`,
                     resource: new rbac.v1.RoleBinding(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1/RoleBindingList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1/RoleBindingList::${id}`,
                     resource: new rbac.v1.RoleBindingList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1/RoleList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1/RoleList::${id}`,
                     resource: new rbac.v1.RoleList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1alpha1/ClusterRole::${id}`,
                     resource: new rbac.v1alpha1.ClusterRole(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding::${id}`,
                     resource: new rbac.v1alpha1.ClusterRoleBinding(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList::${id}`,
                     resource: new rbac.v1alpha1.ClusterRoleBindingList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1alpha1/ClusterRoleList::${id}`,
                     resource: new rbac.v1alpha1.ClusterRoleList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1alpha1/Role":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1alpha1/Role::${id}`,
                     resource: new rbac.v1alpha1.Role(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1alpha1/RoleBinding::${id}`,
                     resource: new rbac.v1alpha1.RoleBinding(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1alpha1/RoleBindingList::${id}`,
                     resource: new rbac.v1alpha1.RoleBindingList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1alpha1/RoleList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1alpha1/RoleList::${id}`,
                     resource: new rbac.v1alpha1.RoleList(id, obj, opts),
-                };
+                }];
             case "rbac/v1alpha1/Subject":
-                return {
+                return [{
                     name: `rbac/v1alpha1/Subject::${id}`,
                     resource: new rbac.v1alpha1.Subject(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1beta1/ClusterRole":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1beta1/ClusterRole::${id}`,
                     resource: new rbac.v1beta1.ClusterRole(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding::${id}`,
                     resource: new rbac.v1beta1.ClusterRoleBinding(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList::${id}`,
                     resource: new rbac.v1beta1.ClusterRoleBindingList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1beta1/ClusterRoleList::${id}`,
                     resource: new rbac.v1beta1.ClusterRoleList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1beta1/Role":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1beta1/Role::${id}`,
                     resource: new rbac.v1beta1.Role(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1beta1/RoleBinding":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1beta1/RoleBinding::${id}`,
                     resource: new rbac.v1beta1.RoleBinding(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1beta1/RoleBindingList::${id}`,
                     resource: new rbac.v1beta1.RoleBindingList(id, obj, opts),
-                };
+                }];
             case "rbac.authorization.k8s.io/v1beta1/RoleList":
-                return {
+                return [{
                     name: `rbac.authorization.k8s.io/v1beta1/RoleList::${id}`,
                     resource: new rbac.v1beta1.RoleList(id, obj, opts),
-                };
+                }];
             case "scheduling.k8s.io/v1alpha1/PriorityClass":
-                return {
+                return [{
                     name: `scheduling.k8s.io/v1alpha1/PriorityClass::${id}`,
                     resource: new scheduling.v1alpha1.PriorityClass(id, obj, opts),
-                };
+                }];
             case "scheduling.k8s.io/v1alpha1/PriorityClassList":
-                return {
+                return [{
                     name: `scheduling.k8s.io/v1alpha1/PriorityClassList::${id}`,
                     resource: new scheduling.v1alpha1.PriorityClassList(id, obj, opts),
-                };
+                }];
             case "settings.k8s.io/v1alpha1/PodPreset":
-                return {
+                return [{
                     name: `settings.k8s.io/v1alpha1/PodPreset::${id}`,
                     resource: new settings.v1alpha1.PodPreset(id, obj, opts),
-                };
+                }];
             case "settings.k8s.io/v1alpha1/PodPresetList":
-                return {
+                return [{
                     name: `settings.k8s.io/v1alpha1/PodPresetList::${id}`,
                     resource: new settings.v1alpha1.PodPresetList(id, obj, opts),
-                };
+                }];
             case "storage.k8s.io/v1/StorageClass":
-                return {
+                return [{
                     name: `storage.k8s.io/v1/StorageClass::${id}`,
                     resource: new storage.v1.StorageClass(id, obj, opts),
-                };
+                }];
             case "storage.k8s.io/v1/StorageClassList":
-                return {
+                return [{
                     name: `storage.k8s.io/v1/StorageClassList::${id}`,
                     resource: new storage.v1.StorageClassList(id, obj, opts),
-                };
+                }];
             case "storage.k8s.io/v1alpha1/VolumeAttachment":
-                return {
+                return [{
                     name: `storage.k8s.io/v1alpha1/VolumeAttachment::${id}`,
                     resource: new storage.v1alpha1.VolumeAttachment(id, obj, opts),
-                };
+                }];
             case "storage.k8s.io/v1alpha1/VolumeAttachmentList":
-                return {
+                return [{
                     name: `storage.k8s.io/v1alpha1/VolumeAttachmentList::${id}`,
                     resource: new storage.v1alpha1.VolumeAttachmentList(id, obj, opts),
-                };
+                }];
             case "storage.k8s.io/v1beta1/StorageClass":
-                return {
+                return [{
                     name: `storage.k8s.io/v1beta1/StorageClass::${id}`,
                     resource: new storage.v1beta1.StorageClass(id, obj, opts),
-                };
+                }];
             case "storage.k8s.io/v1beta1/StorageClassList":
-                return {
+                return [{
                     name: `storage.k8s.io/v1beta1/StorageClassList::${id}`,
                     resource: new storage.v1beta1.StorageClassList(id, obj, opts),
-                };
+                }];
             default:
-                return {
+                return [{
                     name: `${apiVersion}/${kind}::${id}`,
                     resource: new apiextensions.CustomResource(id, obj, opts),
-                };
+                }];
         }
     }
 }
