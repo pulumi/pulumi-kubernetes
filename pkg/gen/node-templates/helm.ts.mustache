@@ -61,9 +61,10 @@ export namespace v2 {
                 const chart = path.quotePath(nodepath.join(chartDir.name, config.chart));
                 const release = shell.quote([releaseName]);
                 const values = path.quotePath(overrides.name);
+                const defaultValues = path.quotePath(nodepath.join(chartDir.name, config.chart, "values.yaml"));
                 const namespaceArg = config.namespace ? `--namespace ${shell.quote([config.namespace])}` : "";
                 const yamlStream = execSync(
-                    `helm template ${chart} --name ${release} --values ${values} ${namespaceArg}`
+                    `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
                 ).toString();
                 this.resources = k8s.yaml.parse({
                     yaml: [yamlStream],
