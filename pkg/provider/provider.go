@@ -17,6 +17,7 @@ package provider
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
 
@@ -127,8 +128,12 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	var kubeconfig clientcmd.ClientConfig
-	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
-		config, err := clientcmd.Load([]byte(configJSON))
+	if configFile, ok := vars["kubernetes:config:kubeconfig"]; ok {
+		configData, err := ioutil.ReadFile(configFile)
+		if err != nil {
+			return nil, fmt.Errorf("failed to open kubeconfig: %v", err)
+		}
+		config, err := clientcmd.Load([]byte(configData))
 		if err != nil {
 			return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
 		}
