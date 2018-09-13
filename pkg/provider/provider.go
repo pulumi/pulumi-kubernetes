@@ -133,7 +133,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		if err != nil {
 			return nil, fmt.Errorf("failed to open kubeconfig: %v", err)
 		}
-		config, err := clientcmd.Load([]byte(configData))
+		config, err := clientcmd.Load(configData)
 		if err != nil {
 			return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
 		}
