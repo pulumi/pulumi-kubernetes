@@ -451,7 +451,12 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 
 	glog.V(3).Infof("The last generation of Deployment '%s' was '%s'", inputs.GetName(), lastGeneration)
 
-	rawSpecReplicas, specReplicasExists := openapi.Pluck(inputs.Object, "spec", "replicas")
+	// NOTE: Check `.spec.replicas` in the live `ReplicaSet` instead of the last input `Deployment`,
+	// since this is the plan of record. This protects against (e.g.) a user running `kubectl scale`
+	// to reduce the number of replicas, which would cause subsequent `pulumi refresh` to fail, as
+	// we would now have fewer replicas than we had requested in the `Deployment` we last submitted
+	// when we last ran `pulumi up`.
+	rawSpecReplicas, specReplicasExists := openapi.Pluck(rs.Object, "spec", "replicas")
 	specReplicas, _ := rawSpecReplicas.(float64)
 	if !specReplicasExists {
 		specReplicas = 1
