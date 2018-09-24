@@ -26,7 +26,7 @@ TESTABLE_PKGS   := ./pkg/... ./examples ./tests/...
 
 $(OPENAPI_FILE)::
 	@mkdir -p $(OPENAPI_DIR)
-	$(CURL) -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
+	test -f $(OPENAPI_FILE) || $(CURL) -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
 build:: $(OPENAPI_FILE)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
