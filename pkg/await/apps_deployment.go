@@ -94,6 +94,7 @@ type deploymentInitAwaiter struct {
 
 	deploymentErrors map[string]string
 
+	deployment  *unstructured.Unstructured
 	replicaSets map[string]*unstructured.Unstructured
 	pods        map[string]*unstructured.Unstructured
 }
@@ -109,6 +110,7 @@ func makeDeploymentInitAwaiter(c updateAwaitConfig) *deploymentInitAwaiter {
 
 		deploymentErrors: map[string]string{},
 
+		deployment:  c.currentOutputs,
 		pods:        map[string]*unstructured.Unstructured{},
 		replicaSets: map[string]*unstructured.Unstructured{},
 	}
@@ -246,8 +248,6 @@ func (dia *deploymentInitAwaiter) read(
 func (dia *deploymentInitAwaiter) await(
 	deploymentWatcher, replicaSetWatcher, podWatcher watch.Interface, timeout, period <-chan time.Time,
 ) error {
-	inputPodName := dia.config.currentInputs.GetName()
-
 	dia.config.logStatus(diag.Info, "[1/2] Waiting for app ReplicaSet be marked available")
 
 	for {
@@ -259,13 +259,13 @@ func (dia *deploymentInitAwaiter) await(
 		select {
 		case <-dia.config.ctx.Done():
 			return &cancellationError{
-				objectName: inputPodName,
-				subErrors:  dia.errorMessages(),
+				object:    dia.deployment,
+				subErrors: dia.errorMessages(),
 			}
 		case <-timeout:
 			return &timeoutError{
-				objectName: inputPodName,
-				subErrors:  dia.errorMessages(),
+				object:    dia.deployment,
+				subErrors: dia.errorMessages(),
 			}
 		case <-period:
 			scheduleErrors, containerErrors := dia.aggregatePodErrors()
@@ -334,6 +334,8 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	if event.Type == watch.Deleted {
 		return
 	}
+
+	dia.deployment = deployment
 
 	// Get current generation of the Deployment.
 	dia.currentGeneration = deployment.GetAnnotations()[revision]

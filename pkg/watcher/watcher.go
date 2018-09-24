@@ -111,9 +111,11 @@ func (ow *ObjectWatcher) watch(
 		timeoutCh <- struct{}{}
 	}()
 
+	var obj *unstructured.Unstructured
 	results := make(chan result)
 	poll := func() {
-		obj, err := ow.pollFunc()
+		var err error
+		obj, err = ow.pollFunc()
 		results <- result{Obj: obj, Err: err}
 	}
 
@@ -123,9 +125,9 @@ func (ow *ObjectWatcher) watch(
 		go poll()
 		select {
 		case <-timeoutCh:
-			return fmt.Errorf("Timeout occurred polling for '%s'", ow.objName)
+			return timeoutErr(ow.objName, obj)
 		case <-ow.ctx.Done():
-			return fmt.Errorf("Resource operation was cancelled for '%s'", ow.objName)
+			return cancellationErr(ow.objName, obj)
 		case res := <-results:
 			if stop, err := until(res.Obj, res.Err); err != nil {
 				return err
@@ -155,6 +157,31 @@ type result struct {
 // A collection of errors used to implement retry and watch logic.
 
 // --------------------------------------------------------------------------
+
+func timeoutErr(name string, obj *unstructured.Unstructured) error {
+	return &watchError{object: obj,
+		message: fmt.Sprintf("Timeout occurred polling for '%s'", name)}
+}
+
+func cancellationErr(name string, obj *unstructured.Unstructured) error {
+	return &watchError{object: obj,
+		message: fmt.Sprintf("Resource operation was cancelled for '%s'", name)}
+}
+
+type watchError struct {
+	object  *unstructured.Unstructured
+	message string
+}
+
+var _ error = (*watchError)(nil)
+
+func (we *watchError) Error() string {
+	return we.message
+}
+
+func (we *watchError) Object() *unstructured.Unstructured {
+	return we.object
+}
 
 // RetryError is the required return type of RetryFunc. It forces client code
 // to choose whether or not a given error is retryable.

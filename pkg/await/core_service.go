@@ -60,6 +60,7 @@ import (
 
 type serviceInitAwaiter struct {
 	config           createAwaitConfig
+	service          *unstructured.Unstructured
 	serviceReady     bool
 	endpointsReady   bool
 	endpointsSettled bool
@@ -78,6 +79,7 @@ func makeServiceInitAwaiter(c createAwaitConfig) *serviceInitAwaiter {
 
 	return &serviceInitAwaiter{
 		config:           c,
+		service:          c.currentOutputs,
 		serviceReady:     false,
 		endpointsReady:   false,
 		endpointsSettled: false,
@@ -210,8 +212,6 @@ func (sia *serviceInitAwaiter) await(
 	serviceWatcher, endpointWatcher watch.Interface, timeout <-chan time.Time,
 	settled chan struct{},
 ) error {
-	inputServiceName := sia.config.currentInputs.GetName()
-
 	sia.config.logStatus(diag.Info, "[1/3] Finding Pods to direct traffic to")
 
 	for {
@@ -228,8 +228,8 @@ func (sia *serviceInitAwaiter) await(
 				return nil
 			}
 			return &cancellationError{
-				objectName: inputServiceName,
-				subErrors:  sia.errorMessages(),
+				object:    sia.service,
+				subErrors: sia.errorMessages(),
 			}
 		case <-timeout:
 			// On timeout, check one last time if the service is ready.
@@ -237,8 +237,8 @@ func (sia *serviceInitAwaiter) await(
 				return nil
 			}
 			return &timeoutError{
-				objectName: inputServiceName,
-				subErrors:  sia.errorMessages(),
+				object:    sia.service,
+				subErrors: sia.errorMessages(),
 			}
 		case <-settled:
 			sia.endpointsSettled = true
@@ -272,6 +272,8 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 	if event.Type == watch.Deleted {
 		return
 	}
+
+	sia.service = service
 
 	if sia.serviceType == string(v1.ServiceTypeLoadBalancer) {
 		// If it's type `LoadBalancer`, check whether an IP was allocated.

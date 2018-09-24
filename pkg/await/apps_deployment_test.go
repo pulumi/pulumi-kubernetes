@@ -140,9 +140,11 @@ func Test_Apps_Deployment(t *testing.T) {
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
-			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{
-				"Minimum number of live Pods was not attained",
-			}},
+			expectedError: &timeoutError{
+				object: deploymentAdded(inputNamespace, deploymentInputName, revision1),
+				subErrors: []string{
+					"Minimum number of live Pods was not attained",
+				}},
 		},
 		{
 			description: "[Revision 2] Should fail if unrelated Deployment succeeds",
@@ -159,9 +161,11 @@ func Test_Apps_Deployment(t *testing.T) {
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
-			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{
-				"Minimum number of live Pods was not attained",
-			}},
+			expectedError: &timeoutError{
+				object: deploymentAdded(inputNamespace, deploymentInputName, revision2),
+				subErrors: []string{
+					"Minimum number of live Pods was not attained",
+				}},
 		},
 		{
 			description: "[Revision 1] Should succeed when unrelated deployment fails",
@@ -237,7 +241,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: deploymentInputName, subErrors: []string{
+				object: deploymentAdded(inputNamespace, deploymentInputName, revision1),
+				subErrors: []string{
 					"Minimum number of live Pods was not attained",
 				}},
 		},
@@ -255,7 +260,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: deploymentInputName, subErrors: []string{
+				object: deploymentAdded(inputNamespace, deploymentInputName, revision2),
+				subErrors: []string{
 					"Minimum number of live Pods was not attained",
 				}},
 		},
@@ -273,7 +279,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: deploymentInputName, subErrors: []string{
+				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
+				subErrors: []string{
 					"Minimum number of live Pods was not attained"}},
 		},
 		{
@@ -292,7 +299,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: deploymentInputName,
+				object: deploymentProgressingUnavailable(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"[MinimumReplicasUnavailable] Deployment does not have minimum availability.",
 					"Minimum number of live Pods was not attained"}},
@@ -309,7 +316,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: deploymentInputName, subErrors: []string{
+				object: deploymentUpdated(inputNamespace, deploymentInputName, revision2),
+				subErrors: []string{
 					"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live"}},
 		},
 		{
@@ -326,7 +334,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: deploymentInputName, subErrors: []string{
+				object: deploymentUpdatedReplicaSetProgressing(inputNamespace, deploymentInputName, revision2),
+				subErrors: []string{
 					"Minimum number of Pods to consider the application live was not attained"}},
 		},
 		{
@@ -363,7 +372,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: deploymentInputName,
+				object: deploymentRevision2Created(inputNamespace, deploymentInputName),
 				subErrors: []string{
 					"Minimum number of Pods to consider the application live was not attained"}},
 		},
@@ -385,7 +394,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: deploymentInputName,
+				object: deploymentNotProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					`[ProgressDeadlineExceeded] ReplicaSet "foo-13y9rdnu-b94df86d6" has timed ` +
 						`out progressing.`,
@@ -409,7 +418,8 @@ func Test_Apps_Deployment(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: deploymentInputName, subErrors: []string{
+				object: deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision2),
+				subErrors: []string{
 					"Minimum number of Pods to consider the application live was not attained",
 				}},
 		},
@@ -432,9 +442,11 @@ func Test_Apps_Deployment(t *testing.T) {
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
-			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{
-				"Minimum number of live Pods was not attained",
-			}},
+			expectedError: &timeoutError{
+				object: deploymentProgressing(inputNamespace, deploymentInputName, revision1),
+				subErrors: []string{
+					"Minimum number of live Pods was not attained",
+				}},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active ReplicaSet, part 1",
@@ -455,9 +467,11 @@ func Test_Apps_Deployment(t *testing.T) {
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
-			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{
-				"Minimum number of live Pods was not attained",
-			}},
+			expectedError: &timeoutError{
+				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
+				subErrors: []string{
+					"Minimum number of live Pods was not attained",
+				}},
 		},
 		{
 			description: "[Revision 1] Failure should only report Pods from active ReplicaSet, part 2",
@@ -478,9 +492,11 @@ func Test_Apps_Deployment(t *testing.T) {
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
-			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{
-				"Minimum number of live Pods was not attained",
-			}},
+			expectedError: &timeoutError{
+				object: deploymentProgressing(inputNamespace, deploymentInputName, revision1),
+				subErrors: []string{
+					"Minimum number of live Pods was not attained",
+				}},
 		},
 		{
 			description: "[Revision 2] Failure should only report Pods from active ReplicaSet, part 2",
@@ -501,9 +517,11 @@ func Test_Apps_Deployment(t *testing.T) {
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
-			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{
-				"Minimum number of live Pods was not attained",
-			}},
+			expectedError: &timeoutError{
+				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
+				subErrors: []string{
+					"Minimum number of live Pods was not attained",
+				}},
 		},
 		{
 			description: "Should fail if ReplicaSet generations do not match",
@@ -516,8 +534,10 @@ func Test_Apps_Deployment(t *testing.T) {
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
-			expectedError: &timeoutError{objectName: deploymentInputName, subErrors: []string{
-				"Minimum number of Pods to consider the application live was not attained"}},
+			expectedError: &timeoutError{
+				object: deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1),
+				subErrors: []string{
+					"Minimum number of Pods to consider the application live was not attained"}},
 		},
 	}
 

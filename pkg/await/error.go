@@ -19,15 +19,15 @@ type InitializationError interface {
 
 // cancellationError represents an operation that failed because the user cancelled it.
 type cancellationError struct {
-	objectName string
-	subErrors  []string
+	object    *unstructured.Unstructured
+	subErrors []string
 }
 
 var _ error = (*cancellationError)(nil)
 var _ AggregatedError = (*cancellationError)(nil)
 
 func (ce *cancellationError) Error() string {
-	return fmt.Sprintf("Resource operation was cancelled for '%s'", ce.objectName)
+	return fmt.Sprintf("Resource operation was cancelled for '%s'", ce.object.GetName())
 }
 
 // SubErrors returns the errors that were present when cancellation occurred.
@@ -37,15 +37,15 @@ func (ce *cancellationError) SubErrors() []string {
 
 // timeoutError represents an operation that failed because it timed out.
 type timeoutError struct {
-	objectName string
-	subErrors  []string
+	object    *unstructured.Unstructured
+	subErrors []string
 }
 
 var _ error = (*timeoutError)(nil)
 var _ AggregatedError = (*timeoutError)(nil)
 
 func (te *timeoutError) Error() string {
-	return fmt.Sprintf("Timeout occurred for '%s'", te.objectName)
+	return fmt.Sprintf("Timeout occurred for '%s'", te.object.GetName())
 }
 
 // SubErrors returns the errors that were present when timeout occurred.
