@@ -52,7 +52,7 @@ func Test_Core_Pod(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6", subErrors: []string{}},
+				object: podAdded("default", "foo-4setj4y6"), subErrors: []string{}},
 		},
 		{
 			description: "Should fail if Pod is scheduled but containers aren't created",
@@ -64,7 +64,7 @@ func Test_Core_Pod(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6", subErrors: []string{}},
+				object: podScheduled("default", "foo-4setj4y6"), subErrors: []string{}},
 		},
 		{
 			description: "Should fail if Pod is unschedulable",
@@ -76,7 +76,7 @@ func Test_Core_Pod(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6",
+				object: podUnschedulable("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Pod unscheduled: [Unschedulable] No nodes are available that match all " +
 						"of the predicates: Insufficient cpu (3).",
@@ -93,7 +93,7 @@ func Test_Core_Pod(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6", subErrors: []string{
+				object: podContainerCreating("default", "foo-4setj4y6"), subErrors: []string{
 					"Pod not ready: [ContainersNotReady] containers with unready status: [nginx]",
 				}},
 		},
@@ -107,7 +107,7 @@ func Test_Core_Pod(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6",
+				object: podErrImagePull("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Pod not ready: [ContainersNotReady] containers with unready status: [nginx]",
 					"[ErrImagePull] repository dsjkdsjkljks not found: does not exist or no " +
@@ -124,7 +124,7 @@ func Test_Core_Pod(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6",
+				object: podTerminatedError("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Pod not ready: [ContainersNotReady] containers with unready status: [completer]",
 					"[RunContainerError] failed to start container " +
@@ -144,7 +144,7 @@ func Test_Core_Pod(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6",
+				object: podTerminatedSuccess("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Pod not ready: [ContainersNotReady] containers with unready status: [completer]",
 					"[Completed] Container completed with exit code 0",

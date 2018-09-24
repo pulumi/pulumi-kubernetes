@@ -418,14 +418,14 @@ func (k *kubeProvider) Create(
 	initialized, awaitErr := await.Creation(k.canceler.context, k.host, k.pool, k.client,
 		resource.URN(req.GetUrn()), newInputs)
 	if awaitErr != nil {
-		var getErr error
-		initialized, getErr = k.readLiveObject(newInputs)
-		if getErr != nil {
+		initErr, isInitErr := awaitErr.(await.InitializationError)
+		if !isInitErr {
 			// Object creation failed.
 			return nil, awaitErr
 		}
-		// If we get here, resource successfully registered with the API server, but failed to
-		// initialize.
+
+		// Resource was created, but failed to become fully initialized.
+		initialized = initErr.Object()
 	}
 
 	inputsAndComputed, err := plugin.MarshalProperties(

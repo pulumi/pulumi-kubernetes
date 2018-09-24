@@ -51,15 +51,15 @@ import (
 // occurred; or (3) an error has occurred while the resource was being initialized.
 func Creation(
 	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
-	disco discovery.ServerResourcesInterface, urn resource.URN, obj *unstructured.Unstructured,
+	disco discovery.ServerResourcesInterface, urn resource.URN, inputs *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
-	clientForResource, err := client.FromResource(pool, disco, obj)
+	clientForResource, err := client.FromResource(pool, disco, inputs)
 	if err != nil {
 		return nil, err
 	}
 
 	// Issue create request.
-	_, err = clientForResource.Create(obj)
+	outputs, err := clientForResource.Create(inputs)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func Creation(
 	// Wait until create resolves as success or error. Note that the conditional is set up to log
 	// only if we don't have an entry for the resource type; in the event that we do, but the await
 	// logic is blank, simply do nothing instead of logging.
-	id := fmt.Sprintf("%s/%s", obj.GetAPIVersion(), obj.GetKind())
+	id := fmt.Sprintf("%s/%s", inputs.GetAPIVersion(), inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitCreation != nil {
 			conf := createAwaitConfig{
@@ -77,7 +77,8 @@ func Creation(
 				disco:             disco,
 				clientForResource: clientForResource,
 				urn:               urn,
-				currentInputs:     obj,
+				currentInputs:     inputs,
+				currentOutputs:    outputs,
 			}
 			waitErr := awaiter.awaitCreation(conf)
 			if waitErr != nil {
@@ -89,7 +90,7 @@ func Creation(
 			"No initialization logic found for object of type '%s'; defaulting to assuming initialization successful", id)
 	}
 
-	return clientForResource.Get(obj.GetName(), metav1.GetOptions{})
+	return clientForResource.Get(inputs.GetName(), metav1.GetOptions{})
 }
 
 // Read checks a resource, returning the object if it was created and initialized successfully.
@@ -104,10 +105,13 @@ func Read(
 		return nil, err
 	}
 
-	// No inputs means that we do not manage the resource, i.e., it's a call to
-	// `CustomResource#get`. Simply return the object.
-	if inputs == nil || len(inputs.Object) == 0 {
-		return clientForResource.Get(name, metav1.GetOptions{})
+	outputs, err := clientForResource.Get(name, metav1.GetOptions{})
+	if err != nil {
+		return nil, err
+	} else if inputs == nil || len(inputs.Object) == 0 {
+		// No inputs means that we do not manage the resource, i.e., it's a call to
+		// `CustomResource#get`. Simply return the object.
+		return outputs, nil
 	}
 
 	id := fmt.Sprintf("%s/%s", gvk.GroupVersion(), gvk.Kind)
@@ -121,6 +125,7 @@ func Read(
 				clientForResource: clientForResource,
 				urn:               urn,
 				currentInputs:     inputs,
+				currentOutputs:    outputs,
 			}
 			waitErr := awaiter.awaitRead(conf)
 			if waitErr != nil {
@@ -218,7 +223,7 @@ func Update(
 
 	// Issue patch request. NOTE: We can use the same client because if the `kind` changes, this
 	// will cause a replace (i.e., destroy and create).
-	_, err = clientForResource.Patch(currentSubmitted.GetName(), patchType, patch)
+	currentOutputs, err := clientForResource.Patch(currentSubmitted.GetName(), patchType, patch)
 	if err != nil {
 		return nil, err
 	}
@@ -238,6 +243,7 @@ func Update(
 					clientForResource: clientForResource,
 					urn:               urn,
 					currentInputs:     currentSubmitted,
+					currentOutputs:    currentOutputs,
 				},
 				lastInputs:  lastSubmitted,
 				lastOutputs: liveOldObj,

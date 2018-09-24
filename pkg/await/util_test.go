@@ -7,13 +7,14 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-func mockAwaitConfig(obj *unstructured.Unstructured) createAwaitConfig {
+func mockAwaitConfig(inputs *unstructured.Unstructured) createAwaitConfig {
 	return createAwaitConfig{
 		ctx:               context.Background(),
 		pool:              nil,
 		disco:             nil,
 		clientForResource: nil,
-		currentInputs:     obj,
+		currentInputs:     inputs,
+		currentOutputs:    inputs,
 	}
 }
 

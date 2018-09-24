@@ -53,7 +53,7 @@ func Test_Core_Service(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6",
+				object: serviceInput("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Service does not target any Pods. Application Pods may failed to become alive, or " +
 						"field '.spec.selector' may not match labels on any Pods",
@@ -96,7 +96,7 @@ func Test_Core_Service(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6",
+				object: serviceInput("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Service does not target any Pods. Application Pods may failed to become alive, or " +
 						"field '.spec.selector' may not match labels on any Pods",
@@ -118,7 +118,7 @@ func Test_Core_Service(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6",
+				object: initializedService("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Service does not target any Pods. Application Pods may failed to become alive, or " +
 						"field '.spec.selector' may not match labels on any Pods"}},
@@ -139,7 +139,7 @@ func Test_Core_Service(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				objectName: "foo-4setj4y6",
+				object: serviceInput("default", "foo-4setj4y6"),
 				subErrors: []string{
 					"Service was not allocated an IP address; does your cloud provider support this?",
 				}},

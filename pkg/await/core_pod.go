@@ -328,12 +328,14 @@ func errorFromCondition(errors map[string]string, condition map[string]interface
 
 type podInitAwaiter struct {
 	podChecker
+	pod    *unstructured.Unstructured
 	config createAwaitConfig
 }
 
 func makePodInitAwaiter(c createAwaitConfig) *podInitAwaiter {
 	return &podInitAwaiter{
 		config:     c,
+		pod:        c.currentOutputs,
 		podChecker: *makePodChecker(),
 	}
 }
@@ -382,8 +384,6 @@ func (pia *podInitAwaiter) read(pod *unstructured.Unstructured) error {
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time.Time) error {
-	inputPodName := pia.config.currentInputs.GetName()
-
 	pia.config.logStatus(diag.Info, "[1/2] Pulling container images")
 
 	for {
@@ -399,13 +399,13 @@ func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time
 		// ~30 seconds, report that.
 		case <-pia.config.ctx.Done():
 			return &cancellationError{
-				objectName: inputPodName,
-				subErrors:  pia.errorMessages(),
+				object:    pia.pod,
+				subErrors: pia.errorMessages(),
 			}
 		case <-timeout:
 			return &timeoutError{
-				objectName: inputPodName,
-				subErrors:  pia.errorMessages(),
+				object:    pia.pod,
+				subErrors: pia.errorMessages(),
 			}
 		case event := <-podWatcher.ResultChan():
 			pia.processPodEvent(event)
@@ -433,6 +433,8 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	if event.Type == watch.Deleted {
 		return
 	}
+
+	pia.pod = pod
 
 	pia.check(pod)
 }

@@ -50,6 +50,7 @@ type createAwaitConfig struct {
 	clientForResource dynamic.ResourceInterface
 	urn               resource.URN
 	currentInputs     *unstructured.Unstructured
+	currentOutputs    *unstructured.Unstructured
 }
 
 func (cac *createAwaitConfig) eventClient() (dynamic.ResourceInterface, error) {
@@ -401,7 +402,8 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	// but that means checking each pod status separately (which can be expensive at scale)
 	// as there's no aggregate data available from the API
 
-	glog.V(3).Infof("Replication controller '%s' initialized: %#v", c.currentInputs)
+	glog.V(3).Infof("Replication controller '%s' initialized: %#v", c.currentInputs.GetName(),
+		c.currentInputs)
 
 	return nil
 }
@@ -465,7 +467,8 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		hard, hardIsMap := hardRaw.(map[string]interface{})
 		hardStatus, hardStatusIsMap := hardStatusRaw.(map[string]interface{})
 		if hardIsMap && hardStatusIsMap && reflect.DeepEqual(hard, hardStatus) {
-			glog.V(3).Infof("ResourceQuota '%s' initialized: %#v", c.currentInputs.GetName())
+			glog.V(3).Infof("ResourceQuota '%s' initialized: %#v", c.currentInputs.GetName(),
+				c.currentInputs)
 			return true
 		}
 		glog.V(3).Infof("Quotas don't match after creation.\nExpected: %#v\nGiven: %#v",
