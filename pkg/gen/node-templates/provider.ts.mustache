@@ -223,6 +223,29 @@ export namespace yaml {
 }
 
 export namespace apiextensions {
+    /**
+     * CustomResourceArgs represents a resource definiton we'd use to create an instance of a
+     * Kubernetes CustomResourceDefinition (CRD). For example, the CoreOS Prometheus operator
+     * exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to create a `ServiceMonitor`, we'd
+     * pass a `CustomResourceArgs` containing the `ServiceMonitor` definition to
+     * `apiextensions.CustomResource`.
+     *
+     * NOTE: This type is fairly loose, since other than `apiVersion` and `kind`, there are no
+     * fields required across all CRDs.
+     */
+    export interface CustomResourceArgs {
+        apiVersion: pulumi.Input<string>,
+        kind: pulumi.Input<string>
+        metadata?: pulumi.Input<outputApi.meta.v1.ListMeta>;
+        [othersFields: string]: pulumi.Input<any>;
+    }
+
+    /**
+     * CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the
+     * CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to
+     * instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the
+     * `ServiceMonitor` resource definition as an argument.
+     */
     export class CustomResource extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
@@ -257,11 +280,7 @@ export namespace apiextensions {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: {
-          apiVersion: pulumi.Input<string>,
-          kind: pulumi.Input<string>
-          metadata?: pulumi.Input<outputApi.meta.v1.ListMeta>;
-      }, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args: CustomResourceArgs, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           for (const key of Object.keys(args)) {
               inputs[key] = (args as any)[key];
