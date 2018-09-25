@@ -491,11 +491,18 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			return &pulumirpc.ReadResponse{Id: "", Properties: nil}, nil
 		}
 
-		initErr, ok := readErr.(await.InitializationError)
-		if ok {
+		if initErr, ok := readErr.(await.InitializationError); ok {
 			glog.V(3).Infof("is init err")
 			liveObj = initErr.Object()
 		}
+
+		// If `liveObj == nil` at this point, it means we've encountered an error that is neither a
+		// 404, nor an `await.InitializationError`. For example, the master could be unreachable. We
+		// should fail in this case.
+		if liveObj == nil {
+			return nil, readErr
+		}
+
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
 	}
