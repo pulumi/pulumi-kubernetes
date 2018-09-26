@@ -410,6 +410,8 @@ export namespace yaml {
         public getResource(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", namespace: string, name: string): storage.v1beta1.StorageClass;
         public getResource(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", name: string): storage.v1beta1.StorageClassList;
         public getResource(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", namespace: string, name: string): storage.v1beta1.StorageClassList;
+        public getResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string): T;
+        public getResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string, name: string): T;
         public getResource<T extends pulumi.CustomResource>(
             groupVersionKind: string, namespaceOrName: string, name?: string,
         ): T {

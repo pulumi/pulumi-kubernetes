@@ -94,6 +94,8 @@ export namespace yaml {
         {{/Kinds}}
         {{/Versions}}
         {{/Groups}}
+        public getResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string): T;
+        public getResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string, name: string): T;
         public getResource<T extends pulumi.CustomResource>(
             groupVersionKind: string, namespaceOrName: string, name?: string,
         ): T {
