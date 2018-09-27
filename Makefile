@@ -2,7 +2,7 @@ PROJECT_NAME := Pulumi Kubernetes Resource Provider
 include build/common.mk
 
 PACK             := kubernetes
-PACKDIR          := pack
+PACKDIR          := sdk
 PROJECT          := github.com/pulumi/pulumi-kubernetes
 NODE_MODULE_NAME := @pulumi/kubernetes
 
@@ -47,7 +47,7 @@ install::
 	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
 	[ ! -e "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" ] || rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	mkdir -p "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
-	cp -r pack/nodejs/bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
+	cp -r sdk/nodejs/bin/. "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)"
 	rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)/node_modules"
 	rm -rf "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)/tests"
 	cd "$(PULUMI_NODE_MODULES)/$(NODE_MODULE_NAME)" && \
@@ -56,7 +56,7 @@ install::
 		yarn link
 
 test_fast::
-	./pack/nodejs/node_modules/mocha/bin/mocha ./pack/nodejs/bin/tests
+	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests
 
 test_all:: test_fast
 	PATH=$(PULUMI_BIN):$(PATH) $(GO) test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)

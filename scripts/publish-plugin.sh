@@ -5,7 +5,7 @@ set -o nounset -o errexit -o pipefail
 
 ROOT=$(dirname $0)/..
 WORK_PATH=$(mktemp -d)
-VERSION=$(jq -r '.version' < "${ROOT}/pack/nodejs/bin/package.json")
+VERSION=$(jq -r '.version' < "${ROOT}/sdk/nodejs/bin/package.json")
 PLUGIN_PACKAGE_NAME="pulumi-resource-kubernetes-${VERSION}-$(go env GOOS)-$(go env GOARCH).tar.gz"
 PLUGIN_PACKAGE_DIR="$(mktemp -d)"
 PLUGIN_PACKAGE_PATH="${PLUGIN_PACKAGE_DIR}/${PLUGIN_PACKAGE_NAME}"
