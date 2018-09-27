@@ -6,7 +6,7 @@ ROOT=$(dirname $0)/..
 PUBDIR=$(mktemp -du)
 GITVER=$(git rev-parse HEAD)
 PUBFILE=$(dirname ${PUBDIR})/${GITVER}.tgz
-VERSION=$(jq -r '.version' < "${ROOT}/pack/nodejs/bin/package.json")
+VERSION=$(jq -r '.version' < "${ROOT}/sdk/nodejs/bin/package.json")
 
 # Figure out which branch we're on. Prefer $TRAVIS_BRANCH, if set, since
 # Travis leaves us at detached HEAD and `git rev-parse` just returns "HEAD".
@@ -41,7 +41,7 @@ copy_package() {
 run_go_build "${ROOT}/cmd/pulumi-resource-kubernetes"
 
 # Copy Packages
-copy_package "${ROOT}/pack/nodejs/bin/." "@pulumi/kubernetes"
+copy_package "${ROOT}/sdk/nodejs/bin/." "@pulumi/kubernetes"
 
 # Tar up the file and then print it out for use by the caller or script.
 tar -czf ${PUBFILE} -C ${PUBDIR} .
