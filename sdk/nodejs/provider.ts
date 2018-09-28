@@ -86,6 +86,12 @@ export namespace yaml {
             super(resourceType, name, config, opts);
         }
 
+        /**
+         * getResource returns a resource defined by a built-in Kubernetes group/version/kind and name.
+         *
+         * For example:
+         *     getResource("apps/v1/Deployment", "nginx")
+         */
         public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration", name: string): admissionregistration.v1alpha1.InitializerConfiguration;
         public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration", namespace: string, name: string): admissionregistration.v1alpha1.InitializerConfiguration;
         public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList", name: string): admissionregistration.v1alpha1.InitializerConfigurationList;
@@ -410,18 +416,31 @@ export namespace yaml {
         public getResource(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", namespace: string, name: string): storage.v1beta1.StorageClass;
         public getResource(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", name: string): storage.v1beta1.StorageClassList;
         public getResource(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", namespace: string, name: string): storage.v1beta1.StorageClassList;
-        public getResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string): T;
-        public getResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string, name: string): T;
-        public getResource<T extends pulumi.CustomResource>(
-            groupVersionKind: string, namespaceOrName: string, name?: string,
-        ): T {
-            // `id` will either be `${name}` or `${namespace}/${name}`.
+        public getResource(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.CustomResource {
+            return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
+        }
+
+        
+        /**
+         * getCustomResource returns a resource defined by a CRD with the given group/version/kind and name.
+         *
+         * For example:
+         *     getCustomResource("monitoring.coreos.com/v1/ServiceMonitor", "kube-prometheus-exporter-kubernetes")
+         */
+        public getCustomResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string): T;
+        public getCustomResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string, name: string): T;
+        public getCustomResource(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.CustomResource {
+            return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
+        }
+
+        private getResourceImpl(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.CustomResource {
+           // `id` will either be `${name}` or `${namespace}/${name}`.
             let id = namespaceOrName;
             if (name !== undefined) {
                 id = `${namespaceOrName}/${name}`;
             }
 
-            return <T>this.resources[`${groupVersionKind}::${id}`];
+            return this.resources[`${groupVersionKind}::${id}`];
         }
     }
 
