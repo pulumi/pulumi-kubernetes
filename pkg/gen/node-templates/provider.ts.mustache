@@ -104,7 +104,6 @@ export namespace yaml {
             return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
         }
 
-        
         /**
          * getCustomResource returns a resource defined by a CRD with the given group/version/kind and name.
          *
@@ -369,6 +368,17 @@ export namespace {{Group}} {
 
       {{/Properties}}
 
+      /**
+       * Get an existing {{Kind}} resource's state with the given name, ID, and optional extra
+       * properties used to qualify the lookup.
+       *
+       * @param name The _unique_ name of the resulting resource.
+       * @param id The _unique_ provider ID of the resource to lookup.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): {{Kind}} {
+          return new {{Kind}}(name, undefined, { id });
+      }
+
       public getInputs(): inputApi.{{Group}}.{{Version}}.{{Kind}} { return this.__inputs; }
       private readonly __inputs: inputApi.{{Group}}.{{Version}}.{{Kind}};
 
@@ -379,13 +389,13 @@ export namespace {{Group}} {
       * @param args The arguments to use to populate this resource's properties.
       * @param opts A bag of options that control this resource's behavior.
       */
-      constructor(name: string, args: inputApi.{{Group}}.{{Version}}.{{Kind}}, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputApi.{{Group}}.{{Version}}.{{Kind}}, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           {{#Properties}}
           inputs["{{Name}}"] = {{{DefaultValue}}};
           {{/Properties}}
           super("kubernetes:{{APIVersion}}:{{Kind}}", name, inputs, opts);
-          this.__inputs = args;
+          this.__inputs = <any>args;
       }
     }
 
