@@ -89,6 +89,10 @@ func awaitServiceInit(c createAwaitConfig) error {
 	return makeServiceInitAwaiter(c).Await()
 }
 
+func awaitServiceRead(c createAwaitConfig) error {
+	return makeServiceInitAwaiter(c).Read()
+}
+
 func awaitServiceUpdate(u updateAwaitConfig) error {
 	return makeServiceInitAwaiter(u.createAwaitConfig).Await()
 }
