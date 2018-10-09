@@ -86,6 +86,12 @@ export namespace yaml {
             super(resourceType, name, config, opts);
         }
 
+        /**
+         * getResource returns a resource defined by a built-in Kubernetes group/version/kind and name.
+         *
+         * For example:
+         *     getResource("apps/v1/Deployment", "nginx")
+         */
         {{#Groups}}
         {{#Versions}}
         {{#Kinds}}
@@ -94,16 +100,31 @@ export namespace yaml {
         {{/Kinds}}
         {{/Versions}}
         {{/Groups}}
-        public getResource<T extends pulumi.CustomResource>(
-            groupVersionKind: string, namespaceOrName: string, name?: string,
-        ): T {
-            // `id` will either be `${name}` or `${namespace}/${name}`.
+        public getResource(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.CustomResource {
+            return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
+        }
+
+        
+        /**
+         * getCustomResource returns a resource defined by a CRD with the given group/version/kind and name.
+         *
+         * For example:
+         *     getCustomResource("monitoring.coreos.com/v1/ServiceMonitor", "kube-prometheus-exporter-kubernetes")
+         */
+        public getCustomResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string): T;
+        public getCustomResource<T extends pulumi.CustomResource>(groupVersionKind: string, namespace: string, name: string): T;
+        public getCustomResource(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.CustomResource {
+            return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
+        }
+
+        private getResourceImpl(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.CustomResource {
+           // `id` will either be `${name}` or `${namespace}/${name}`.
             let id = namespaceOrName;
             if (name !== undefined) {
                 id = `${namespaceOrName}/${name}`;
             }
 
-            return <T>this.resources[`${groupVersionKind}::${id}`];
+            return this.resources[`${groupVersionKind}::${id}`];
         }
     }
 
