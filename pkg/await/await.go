@@ -95,15 +95,22 @@ func Creation(
 // Read checks a resource, returning the object if it was created and initialized successfully.
 func Read(
 	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
-	disco discovery.ServerResourcesInterface, urn resource.URN, obj *unstructured.Unstructured,
+	disco discovery.ServerResourcesInterface, urn resource.URN, gvk schema.GroupVersionKind,
+	namespace, name string, inputs *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
 	// Retrieve live version of last submitted version of object.
-	clientForResource, err := client.FromResource(pool, disco, obj)
+	clientForResource, err := client.FromGVK(pool, disco, gvk, namespace)
 	if err != nil {
 		return nil, err
 	}
 
-	id := fmt.Sprintf("%s/%s", obj.GetAPIVersion(), obj.GetKind())
+	// No inputs means that we do not manage the resource, i.e., it's a call to
+	// `CustomResource#get`. Simply return the object.
+	if inputs == nil || len(inputs.Object) == 0 {
+		return clientForResource.Get(name, metav1.GetOptions{})
+	}
+
+	id := fmt.Sprintf("%s/%s", gvk.GroupVersion(), gvk.Kind)
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitRead != nil {
 			conf := createAwaitConfig{
@@ -113,7 +120,7 @@ func Read(
 				disco:             disco,
 				clientForResource: clientForResource,
 				urn:               urn,
-				currentInputs:     obj,
+				currentInputs:     inputs,
 			}
 			waitErr := awaiter.awaitRead(conf)
 			if waitErr != nil {
@@ -127,7 +134,7 @@ func Read(
 
 	// Get the "live" version of the last submitted object. This is necessary because the server
 	// may have populated some fields automatically, updated status fields, and so on.
-	return clientForResource.Get(obj.GetName(), metav1.GetOptions{})
+	return clientForResource.Get(name, metav1.GetOptions{})
 }
 
 // Update takes `lastSubmitted` (the last version of a Kubernetes API object submitted to the API

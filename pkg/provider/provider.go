@@ -480,8 +480,15 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	// Ignore old state; we'll get it from Kubernetes later.
 	oldInputs, _ := parseCheckpointObject(oldState)
 
+	gvk, err := k.gvkFromURN(urn)
+	if err != nil {
+		return nil, err
+	}
+	gvk.Group = schemaGroupName(gvk.Group)
+
+	namespace, name := client.ParseFqName(req.GetId())
 	liveObj, readErr := await.Read(k.canceler.context, k.host, k.pool, k.client,
-		resource.URN(req.GetUrn()), oldInputs)
+		resource.URN(req.GetUrn()), gvk, canonicalNamespace(namespace), name, oldInputs)
 	if readErr != nil {
 		glog.V(3).Infof("%v", readErr)
 
@@ -507,6 +514,11 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		// initialize.
 	}
 
+	id := client.FqObjName(liveObj)
+	if reqID := req.GetId(); len(reqID) > 0 {
+		id = reqID
+	}
+
 	// Return a new "checkpoint object".
 	inputsAndComputed, err := plugin.MarshalProperties(
 		checkpointObject(oldInputs, liveObj), plugin.MarshalOptions{
@@ -519,11 +531,11 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if readErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		glog.V(3).Infof("%v", initializationError(client.FqObjName(liveObj), readErr, inputsAndComputed))
-		return nil, initializationError(client.FqObjName(liveObj), readErr, inputsAndComputed)
+		glog.V(3).Infof("%v", initializationError(id, readErr, inputsAndComputed))
+		return nil, initializationError(id, readErr, inputsAndComputed)
 	}
 
-	return &pulumirpc.ReadResponse{Id: client.FqObjName(liveObj), Properties: inputsAndComputed}, nil
+	return &pulumirpc.ReadResponse{Id: id, Properties: inputsAndComputed}, nil
 }
 
 // Update updates an existing resource with new values. Currently this client supports the
