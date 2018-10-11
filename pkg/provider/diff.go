@@ -41,9 +41,14 @@ type properties []string
 
 var forceNew = groups{
 	"apps": versions{
-		// NOTE: These fields do NOT trigger a replace in extensions/v1beta1 or apps/v1beta1.
-		"v1beta2": kinds{"Deployment": deployment},
-		"v1":      kinds{"Deployment": deployment},
+		// NOTE: .spec.selector triggers a replacement in Deployment only AFTER v1beta1.
+		"v1beta1": kinds{"StatefulSet": statefulSet},
+		"v1beta2": kinds{
+			"Deployment":  deployment,
+			"StatefulSet": statefulSet},
+		"v1": kinds{
+			"Deployment":  deployment,
+			"StatefulSet": statefulSet},
 	},
 	// List `core` under its canonical name and under it's legacy name (i.e., "", the empty string)
 	// for compatibility purposes.
@@ -90,6 +95,14 @@ var core = versions{
 
 var deployment = properties{
 	".spec.selector",
+}
+
+var statefulSet = properties{
+	".spec.podManagementPolicy",
+	".spec.revisionHistoryLimit",
+	".spec.selector",
+	".spec.serviceName",
+	".spec.volumeClaimTemplates",
 }
 
 func metadataForceNewProperties(prefix string) properties {
