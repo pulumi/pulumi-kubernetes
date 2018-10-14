@@ -1508,14 +1508,18 @@ export namespace admissionregistration {
 
 
       /**
-       * Get an existing InitializerConfiguration resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `InitializerConfiguration` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): InitializerConfiguration {
-          return new InitializerConfiguration(name, undefined, { id });
+          return new InitializerConfiguration(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfiguration { return this.__inputs; }
@@ -1572,14 +1576,18 @@ export namespace admissionregistration {
 
 
       /**
-       * Get an existing InitializerConfigurationList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `InitializerConfigurationList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): InitializerConfigurationList {
-          return new InitializerConfigurationList(name, undefined, { id });
+          return new InitializerConfigurationList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfigurationList { return this.__inputs; }
@@ -1640,14 +1648,18 @@ export namespace admissionregistration {
 
 
       /**
-       * Get an existing MutatingWebhookConfiguration resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `MutatingWebhookConfiguration` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): MutatingWebhookConfiguration {
-          return new MutatingWebhookConfiguration(name, undefined, { id });
+          return new MutatingWebhookConfiguration(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration { return this.__inputs; }
@@ -1704,14 +1716,18 @@ export namespace admissionregistration {
 
 
       /**
-       * Get an existing MutatingWebhookConfigurationList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `MutatingWebhookConfigurationList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): MutatingWebhookConfigurationList {
-          return new MutatingWebhookConfigurationList(name, undefined, { id });
+          return new MutatingWebhookConfigurationList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList { return this.__inputs; }
@@ -1769,14 +1785,18 @@ export namespace admissionregistration {
 
 
       /**
-       * Get an existing ValidatingWebhookConfiguration resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ValidatingWebhookConfiguration` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ValidatingWebhookConfiguration {
-          return new ValidatingWebhookConfiguration(name, undefined, { id });
+          return new ValidatingWebhookConfiguration(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration { return this.__inputs; }
@@ -1833,14 +1853,18 @@ export namespace admissionregistration {
 
 
       /**
-       * Get an existing ValidatingWebhookConfigurationList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ValidatingWebhookConfigurationList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ValidatingWebhookConfigurationList {
-          return new ValidatingWebhookConfigurationList(name, undefined, { id });
+          return new ValidatingWebhookConfigurationList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList { return this.__inputs; }
@@ -1906,14 +1930,18 @@ export namespace apiextensions {
 
 
       /**
-       * Get an existing CustomResourceDefinition resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CustomResourceDefinition` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CustomResourceDefinition {
-          return new CustomResourceDefinition(name, undefined, { id });
+          return new CustomResourceDefinition(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinition { return this.__inputs; }
@@ -1968,14 +1996,18 @@ export namespace apiextensions {
 
 
       /**
-       * Get an existing CustomResourceDefinitionList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CustomResourceDefinitionList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CustomResourceDefinitionList {
-          return new CustomResourceDefinitionList(name, undefined, { id });
+          return new CustomResourceDefinitionList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinitionList { return this.__inputs; }
@@ -2040,14 +2072,18 @@ export namespace apiregistration {
 
 
       /**
-       * Get an existing APIService resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `APIService` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): APIService {
-          return new APIService(name, undefined, { id });
+          return new APIService(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apiregistration.v1beta1.APIService { return this.__inputs; }
@@ -2100,14 +2136,18 @@ export namespace apiregistration {
 
 
       /**
-       * Get an existing APIServiceList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `APIServiceList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): APIServiceList {
-          return new APIServiceList(name, undefined, { id });
+          return new APIServiceList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apiregistration.v1beta1.APIServiceList { return this.__inputs; }
@@ -2182,14 +2222,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ControllerRevision resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ControllerRevision` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevision {
-          return new ControllerRevision(name, undefined, { id });
+          return new ControllerRevision(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.ControllerRevision { return this.__inputs; }
@@ -2246,14 +2290,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ControllerRevisionList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ControllerRevisionList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevisionList {
-          return new ControllerRevisionList(name, undefined, { id });
+          return new ControllerRevisionList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.ControllerRevisionList { return this.__inputs; }
@@ -2318,14 +2366,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing DaemonSet resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DaemonSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSet {
-          return new DaemonSet(name, undefined, { id });
+          return new DaemonSet(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.DaemonSet { return this.__inputs; }
@@ -2383,14 +2435,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing DaemonSetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DaemonSetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSetList {
-          return new DaemonSetList(name, undefined, { id });
+          return new DaemonSetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.DaemonSetList { return this.__inputs; }
@@ -2451,14 +2507,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing Deployment resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Deployment` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Deployment {
-          return new Deployment(name, undefined, { id });
+          return new Deployment(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.Deployment { return this.__inputs; }
@@ -2515,14 +2575,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing DeploymentList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DeploymentList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentList {
-          return new DeploymentList(name, undefined, { id });
+          return new DeploymentList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.DeploymentList { return this.__inputs; }
@@ -2588,14 +2652,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ReplicaSet resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ReplicaSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSet {
-          return new ReplicaSet(name, undefined, { id });
+          return new ReplicaSet(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.ReplicaSet { return this.__inputs; }
@@ -2654,14 +2722,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ReplicaSetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ReplicaSetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSetList {
-          return new ReplicaSetList(name, undefined, { id });
+          return new ReplicaSetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.ReplicaSetList { return this.__inputs; }
@@ -2725,14 +2797,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing StatefulSet resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StatefulSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSet {
-          return new StatefulSet(name, undefined, { id });
+          return new StatefulSet(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.StatefulSet { return this.__inputs; }
@@ -2785,14 +2861,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing StatefulSetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StatefulSetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSetList {
-          return new StatefulSetList(name, undefined, { id });
+          return new StatefulSetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1.StatefulSetList { return this.__inputs; }
@@ -2866,14 +2946,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ControllerRevision resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ControllerRevision` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevision {
-          return new ControllerRevision(name, undefined, { id });
+          return new ControllerRevision(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.ControllerRevision { return this.__inputs; }
@@ -2930,14 +3014,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ControllerRevisionList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ControllerRevisionList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevisionList {
-          return new ControllerRevisionList(name, undefined, { id });
+          return new ControllerRevisionList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.ControllerRevisionList { return this.__inputs; }
@@ -3000,14 +3088,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing Deployment resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Deployment` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Deployment {
-          return new Deployment(name, undefined, { id });
+          return new Deployment(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.Deployment { return this.__inputs; }
@@ -3064,14 +3156,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing DeploymentList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DeploymentList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentList {
-          return new DeploymentList(name, undefined, { id });
+          return new DeploymentList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.DeploymentList { return this.__inputs; }
@@ -3132,14 +3228,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing DeploymentRollback resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DeploymentRollback` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentRollback {
-          return new DeploymentRollback(name, undefined, { id });
+          return new DeploymentRollback(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.DeploymentRollback { return this.__inputs; }
@@ -3205,14 +3305,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing Scale resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Scale` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Scale {
-          return new Scale(name, undefined, { id });
+          return new Scale(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.Scale { return this.__inputs; }
@@ -3279,14 +3383,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing StatefulSet resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StatefulSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSet {
-          return new StatefulSet(name, undefined, { id });
+          return new StatefulSet(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.StatefulSet { return this.__inputs; }
@@ -3339,14 +3447,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing StatefulSetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StatefulSetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSetList {
-          return new StatefulSetList(name, undefined, { id });
+          return new StatefulSetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.StatefulSetList { return this.__inputs; }
@@ -3420,14 +3532,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ControllerRevision resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ControllerRevision` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevision {
-          return new ControllerRevision(name, undefined, { id });
+          return new ControllerRevision(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.ControllerRevision { return this.__inputs; }
@@ -3484,14 +3600,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ControllerRevisionList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ControllerRevisionList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevisionList {
-          return new ControllerRevisionList(name, undefined, { id });
+          return new ControllerRevisionList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.ControllerRevisionList { return this.__inputs; }
@@ -3557,14 +3677,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing DaemonSet resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DaemonSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSet {
-          return new DaemonSet(name, undefined, { id });
+          return new DaemonSet(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.DaemonSet { return this.__inputs; }
@@ -3622,14 +3746,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing DaemonSetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DaemonSetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSetList {
-          return new DaemonSetList(name, undefined, { id });
+          return new DaemonSetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.DaemonSetList { return this.__inputs; }
@@ -3692,14 +3820,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing Deployment resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Deployment` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Deployment {
-          return new Deployment(name, undefined, { id });
+          return new Deployment(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.Deployment { return this.__inputs; }
@@ -3756,14 +3888,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing DeploymentList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DeploymentList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentList {
-          return new DeploymentList(name, undefined, { id });
+          return new DeploymentList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.DeploymentList { return this.__inputs; }
@@ -3831,14 +3967,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ReplicaSet resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ReplicaSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSet {
-          return new ReplicaSet(name, undefined, { id });
+          return new ReplicaSet(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.ReplicaSet { return this.__inputs; }
@@ -3897,14 +4037,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing ReplicaSetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ReplicaSetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSetList {
-          return new ReplicaSetList(name, undefined, { id });
+          return new ReplicaSetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.ReplicaSetList { return this.__inputs; }
@@ -3969,14 +4113,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing Scale resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Scale` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Scale {
-          return new Scale(name, undefined, { id });
+          return new Scale(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.Scale { return this.__inputs; }
@@ -4043,14 +4191,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing StatefulSet resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StatefulSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSet {
-          return new StatefulSet(name, undefined, { id });
+          return new StatefulSet(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.StatefulSet { return this.__inputs; }
@@ -4103,14 +4255,18 @@ export namespace apps {
 
 
       /**
-       * Get an existing StatefulSetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StatefulSetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSetList {
-          return new StatefulSetList(name, undefined, { id });
+          return new StatefulSetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.StatefulSetList { return this.__inputs; }
@@ -4176,14 +4332,18 @@ export namespace authentication {
 
 
       /**
-       * Get an existing TokenReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `TokenReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): TokenReview {
-          return new TokenReview(name, undefined, { id });
+          return new TokenReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authentication.v1.TokenReview { return this.__inputs; }
@@ -4247,14 +4407,18 @@ export namespace authentication {
 
 
       /**
-       * Get an existing TokenReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `TokenReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): TokenReview {
-          return new TokenReview(name, undefined, { id });
+          return new TokenReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authentication.v1beta1.TokenReview { return this.__inputs; }
@@ -4323,14 +4487,18 @@ export namespace authorization {
 
 
       /**
-       * Get an existing LocalSubjectAccessReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `LocalSubjectAccessReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): LocalSubjectAccessReview {
-          return new LocalSubjectAccessReview(name, undefined, { id });
+          return new LocalSubjectAccessReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authorization.v1.LocalSubjectAccessReview { return this.__inputs; }
@@ -4392,14 +4560,18 @@ export namespace authorization {
 
 
       /**
-       * Get an existing SelfSubjectAccessReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `SelfSubjectAccessReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): SelfSubjectAccessReview {
-          return new SelfSubjectAccessReview(name, undefined, { id });
+          return new SelfSubjectAccessReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authorization.v1.SelfSubjectAccessReview { return this.__inputs; }
@@ -4466,14 +4638,18 @@ export namespace authorization {
 
 
       /**
-       * Get an existing SelfSubjectRulesReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `SelfSubjectRulesReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): SelfSubjectRulesReview {
-          return new SelfSubjectRulesReview(name, undefined, { id });
+          return new SelfSubjectRulesReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authorization.v1.SelfSubjectRulesReview { return this.__inputs; }
@@ -4533,14 +4709,18 @@ export namespace authorization {
 
 
       /**
-       * Get an existing SubjectAccessReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `SubjectAccessReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): SubjectAccessReview {
-          return new SubjectAccessReview(name, undefined, { id });
+          return new SubjectAccessReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authorization.v1.SubjectAccessReview { return this.__inputs; }
@@ -4606,14 +4786,18 @@ export namespace authorization {
 
 
       /**
-       * Get an existing LocalSubjectAccessReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `LocalSubjectAccessReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): LocalSubjectAccessReview {
-          return new LocalSubjectAccessReview(name, undefined, { id });
+          return new LocalSubjectAccessReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authorization.v1beta1.LocalSubjectAccessReview { return this.__inputs; }
@@ -4675,14 +4859,18 @@ export namespace authorization {
 
 
       /**
-       * Get an existing SelfSubjectAccessReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `SelfSubjectAccessReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): SelfSubjectAccessReview {
-          return new SelfSubjectAccessReview(name, undefined, { id });
+          return new SelfSubjectAccessReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authorization.v1beta1.SelfSubjectAccessReview { return this.__inputs; }
@@ -4749,14 +4937,18 @@ export namespace authorization {
 
 
       /**
-       * Get an existing SelfSubjectRulesReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `SelfSubjectRulesReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): SelfSubjectRulesReview {
-          return new SelfSubjectRulesReview(name, undefined, { id });
+          return new SelfSubjectRulesReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authorization.v1beta1.SelfSubjectRulesReview { return this.__inputs; }
@@ -4816,14 +5008,18 @@ export namespace authorization {
 
 
       /**
-       * Get an existing SubjectAccessReview resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `SubjectAccessReview` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): SubjectAccessReview {
-          return new SubjectAccessReview(name, undefined, { id });
+          return new SubjectAccessReview(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.authorization.v1beta1.SubjectAccessReview { return this.__inputs; }
@@ -4877,14 +5073,18 @@ export namespace autoscaling {
 
 
       /**
-       * Get an existing CrossVersionObjectReference resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CrossVersionObjectReference` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CrossVersionObjectReference {
-          return new CrossVersionObjectReference(name, undefined, { id });
+          return new CrossVersionObjectReference(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v1.CrossVersionObjectReference { return this.__inputs; }
@@ -4946,14 +5146,18 @@ export namespace autoscaling {
 
 
       /**
-       * Get an existing HorizontalPodAutoscaler resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `HorizontalPodAutoscaler` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscaler {
-          return new HorizontalPodAutoscaler(name, undefined, { id });
+          return new HorizontalPodAutoscaler(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscaler { return this.__inputs; }
@@ -5010,14 +5214,18 @@ export namespace autoscaling {
 
 
       /**
-       * Get an existing HorizontalPodAutoscalerList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `HorizontalPodAutoscalerList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscalerList {
-          return new HorizontalPodAutoscalerList(name, undefined, { id });
+          return new HorizontalPodAutoscalerList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscalerList { return this.__inputs; }
@@ -5082,14 +5290,18 @@ export namespace autoscaling {
 
 
       /**
-       * Get an existing Scale resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Scale` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Scale {
-          return new Scale(name, undefined, { id });
+          return new Scale(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v1.Scale { return this.__inputs; }
@@ -5140,14 +5352,18 @@ export namespace autoscaling {
 
 
       /**
-       * Get an existing CrossVersionObjectReference resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CrossVersionObjectReference` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CrossVersionObjectReference {
-          return new CrossVersionObjectReference(name, undefined, { id });
+          return new CrossVersionObjectReference(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v2beta1.CrossVersionObjectReference { return this.__inputs; }
@@ -5211,14 +5427,18 @@ export namespace autoscaling {
 
 
       /**
-       * Get an existing HorizontalPodAutoscaler resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `HorizontalPodAutoscaler` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscaler {
-          return new HorizontalPodAutoscaler(name, undefined, { id });
+          return new HorizontalPodAutoscaler(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler { return this.__inputs; }
@@ -5275,14 +5495,18 @@ export namespace autoscaling {
 
 
       /**
-       * Get an existing HorizontalPodAutoscalerList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `HorizontalPodAutoscalerList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscalerList {
-          return new HorizontalPodAutoscalerList(name, undefined, { id });
+          return new HorizontalPodAutoscalerList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList { return this.__inputs; }
@@ -5352,14 +5576,18 @@ export namespace batch {
 
 
       /**
-       * Get an existing Job resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Job` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Job {
-          return new Job(name, undefined, { id });
+          return new Job(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.batch.v1.Job { return this.__inputs; }
@@ -5417,14 +5645,18 @@ export namespace batch {
 
 
       /**
-       * Get an existing JobList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `JobList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): JobList {
-          return new JobList(name, undefined, { id });
+          return new JobList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.batch.v1.JobList { return this.__inputs; }
@@ -5491,14 +5723,18 @@ export namespace batch {
 
 
       /**
-       * Get an existing CronJob resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CronJob` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CronJob {
-          return new CronJob(name, undefined, { id });
+          return new CronJob(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.batch.v1beta1.CronJob { return this.__inputs; }
@@ -5556,14 +5792,18 @@ export namespace batch {
 
 
       /**
-       * Get an existing CronJobList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CronJobList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CronJobList {
-          return new CronJobList(name, undefined, { id });
+          return new CronJobList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.batch.v1beta1.CronJobList { return this.__inputs; }
@@ -5630,14 +5870,18 @@ export namespace batch {
 
 
       /**
-       * Get an existing CronJob resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CronJob` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CronJob {
-          return new CronJob(name, undefined, { id });
+          return new CronJob(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.batch.v2alpha1.CronJob { return this.__inputs; }
@@ -5695,14 +5939,18 @@ export namespace batch {
 
 
       /**
-       * Get an existing CronJobList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CronJobList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CronJobList {
-          return new CronJobList(name, undefined, { id });
+          return new CronJobList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.batch.v2alpha1.CronJobList { return this.__inputs; }
@@ -5767,14 +6015,18 @@ export namespace certificates {
 
 
       /**
-       * Get an existing CertificateSigningRequest resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CertificateSigningRequest` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CertificateSigningRequest {
-          return new CertificateSigningRequest(name, undefined, { id });
+          return new CertificateSigningRequest(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequest { return this.__inputs; }
@@ -5825,14 +6077,18 @@ export namespace certificates {
 
 
       /**
-       * Get an existing CertificateSigningRequestList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `CertificateSigningRequestList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): CertificateSigningRequestList {
-          return new CertificateSigningRequestList(name, undefined, { id });
+          return new CertificateSigningRequestList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequestList { return this.__inputs; }
@@ -5896,14 +6152,18 @@ export namespace core {
 
 
       /**
-       * Get an existing Binding resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Binding` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Binding {
-          return new Binding(name, undefined, { id });
+          return new Binding(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.Binding { return this.__inputs; }
@@ -5960,14 +6220,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ComponentStatus resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ComponentStatus` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ComponentStatus {
-          return new ComponentStatus(name, undefined, { id });
+          return new ComponentStatus(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ComponentStatus { return this.__inputs; }
@@ -6024,14 +6288,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ComponentStatusList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ComponentStatusList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ComponentStatusList {
-          return new ComponentStatusList(name, undefined, { id });
+          return new ComponentStatusList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ComponentStatusList { return this.__inputs; }
@@ -6089,14 +6357,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ConfigMap resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ConfigMap` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ConfigMap {
-          return new ConfigMap(name, undefined, { id });
+          return new ConfigMap(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ConfigMap { return this.__inputs; }
@@ -6152,14 +6424,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ConfigMapList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ConfigMapList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ConfigMapList {
-          return new ConfigMapList(name, undefined, { id });
+          return new ConfigMapList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ConfigMapList { return this.__inputs; }
@@ -6232,14 +6508,18 @@ export namespace core {
 
 
       /**
-       * Get an existing Endpoints resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Endpoints` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Endpoints {
-          return new Endpoints(name, undefined, { id });
+          return new Endpoints(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.Endpoints { return this.__inputs; }
@@ -6296,14 +6576,18 @@ export namespace core {
 
 
       /**
-       * Get an existing EndpointsList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `EndpointsList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): EndpointsList {
-          return new EndpointsList(name, undefined, { id });
+          return new EndpointsList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.EndpointsList { return this.__inputs; }
@@ -6426,14 +6710,18 @@ export namespace core {
 
 
       /**
-       * Get an existing Event resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Event` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Event {
-          return new Event(name, undefined, { id });
+          return new Event(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.Event { return this.__inputs; }
@@ -6503,14 +6791,18 @@ export namespace core {
 
 
       /**
-       * Get an existing EventList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `EventList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): EventList {
-          return new EventList(name, undefined, { id });
+          return new EventList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.EventList { return this.__inputs; }
@@ -6568,14 +6860,18 @@ export namespace core {
 
 
       /**
-       * Get an existing LimitRange resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `LimitRange` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): LimitRange {
-          return new LimitRange(name, undefined, { id });
+          return new LimitRange(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.LimitRange { return this.__inputs; }
@@ -6633,14 +6929,18 @@ export namespace core {
 
 
       /**
-       * Get an existing LimitRangeList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `LimitRangeList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): LimitRangeList {
-          return new LimitRangeList(name, undefined, { id });
+          return new LimitRangeList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.LimitRangeList { return this.__inputs; }
@@ -6704,14 +7004,18 @@ export namespace core {
 
 
       /**
-       * Get an existing Namespace resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Namespace` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Namespace {
-          return new Namespace(name, undefined, { id });
+          return new Namespace(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.Namespace { return this.__inputs; }
@@ -6770,14 +7074,18 @@ export namespace core {
 
 
       /**
-       * Get an existing NamespaceList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `NamespaceList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): NamespaceList {
-          return new NamespaceList(name, undefined, { id });
+          return new NamespaceList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.NamespaceList { return this.__inputs; }
@@ -6842,14 +7150,18 @@ export namespace core {
 
 
       /**
-       * Get an existing Node resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Node` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Node {
-          return new Node(name, undefined, { id });
+          return new Node(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.Node { return this.__inputs; }
@@ -6900,14 +7212,18 @@ export namespace core {
 
 
       /**
-       * Get an existing NodeConfigSource resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `NodeConfigSource` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): NodeConfigSource {
-          return new NodeConfigSource(name, undefined, { id });
+          return new NodeConfigSource(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.NodeConfigSource { return this.__inputs; }
@@ -6963,14 +7279,18 @@ export namespace core {
 
 
       /**
-       * Get an existing NodeList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `NodeList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): NodeList {
-          return new NodeList(name, undefined, { id });
+          return new NodeList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.NodeList { return this.__inputs; }
@@ -7046,14 +7366,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ObjectReference resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ObjectReference` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ObjectReference {
-          return new ObjectReference(name, undefined, { id });
+          return new ObjectReference(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ObjectReference { return this.__inputs; }
@@ -7123,14 +7447,18 @@ export namespace core {
 
 
       /**
-       * Get an existing PersistentVolume resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PersistentVolume` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PersistentVolume {
-          return new PersistentVolume(name, undefined, { id });
+          return new PersistentVolume(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.PersistentVolume { return this.__inputs; }
@@ -7196,14 +7524,18 @@ export namespace core {
 
 
       /**
-       * Get an existing PersistentVolumeClaim resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PersistentVolumeClaim` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PersistentVolumeClaim {
-          return new PersistentVolumeClaim(name, undefined, { id });
+          return new PersistentVolumeClaim(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.PersistentVolumeClaim { return this.__inputs; }
@@ -7262,14 +7594,18 @@ export namespace core {
 
 
       /**
-       * Get an existing PersistentVolumeClaimList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PersistentVolumeClaimList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PersistentVolumeClaimList {
-          return new PersistentVolumeClaimList(name, undefined, { id });
+          return new PersistentVolumeClaimList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.PersistentVolumeClaimList { return this.__inputs; }
@@ -7327,14 +7663,18 @@ export namespace core {
 
 
       /**
-       * Get an existing PersistentVolumeList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PersistentVolumeList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PersistentVolumeList {
-          return new PersistentVolumeList(name, undefined, { id });
+          return new PersistentVolumeList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.PersistentVolumeList { return this.__inputs; }
@@ -7400,14 +7740,18 @@ export namespace core {
 
 
       /**
-       * Get an existing Pod resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Pod` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Pod {
-          return new Pod(name, undefined, { id });
+          return new Pod(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.Pod { return this.__inputs; }
@@ -7465,14 +7809,18 @@ export namespace core {
 
 
       /**
-       * Get an existing PodList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PodList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PodList {
-          return new PodList(name, undefined, { id });
+          return new PodList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.PodList { return this.__inputs; }
@@ -7530,14 +7878,18 @@ export namespace core {
 
 
       /**
-       * Get an existing PodTemplate resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PodTemplate` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PodTemplate {
-          return new PodTemplate(name, undefined, { id });
+          return new PodTemplate(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.PodTemplate { return this.__inputs; }
@@ -7594,14 +7946,18 @@ export namespace core {
 
 
       /**
-       * Get an existing PodTemplateList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PodTemplateList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PodTemplateList {
-          return new PodTemplateList(name, undefined, { id });
+          return new PodTemplateList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.PodTemplateList { return this.__inputs; }
@@ -7667,14 +8023,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ReplicationController resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ReplicationController` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicationController {
-          return new ReplicationController(name, undefined, { id });
+          return new ReplicationController(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ReplicationController { return this.__inputs; }
@@ -7733,14 +8093,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ReplicationControllerList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ReplicationControllerList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicationControllerList {
-          return new ReplicationControllerList(name, undefined, { id });
+          return new ReplicationControllerList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ReplicationControllerList { return this.__inputs; }
@@ -7804,14 +8168,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ResourceQuota resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ResourceQuota` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ResourceQuota {
-          return new ResourceQuota(name, undefined, { id });
+          return new ResourceQuota(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ResourceQuota { return this.__inputs; }
@@ -7870,14 +8238,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ResourceQuotaList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ResourceQuotaList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ResourceQuotaList {
-          return new ResourceQuotaList(name, undefined, { id });
+          return new ResourceQuotaList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ResourceQuotaList { return this.__inputs; }
@@ -7950,14 +8322,18 @@ export namespace core {
 
 
       /**
-       * Get an existing Secret resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Secret` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Secret {
-          return new Secret(name, undefined, { id });
+          return new Secret(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.Secret { return this.__inputs; }
@@ -8017,14 +8393,18 @@ export namespace core {
 
 
       /**
-       * Get an existing SecretList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `SecretList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): SecretList {
-          return new SecretList(name, undefined, { id });
+          return new SecretList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.SecretList { return this.__inputs; }
@@ -8090,14 +8470,18 @@ export namespace core {
 
 
       /**
-       * Get an existing Service resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Service` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Service {
-          return new Service(name, undefined, { id });
+          return new Service(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.Service { return this.__inputs; }
@@ -8173,14 +8557,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ServiceAccount resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ServiceAccount` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ServiceAccount {
-          return new ServiceAccount(name, undefined, { id });
+          return new ServiceAccount(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ServiceAccount { return this.__inputs; }
@@ -8240,14 +8628,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ServiceAccountList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ServiceAccountList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ServiceAccountList {
-          return new ServiceAccountList(name, undefined, { id });
+          return new ServiceAccountList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ServiceAccountList { return this.__inputs; }
@@ -8304,14 +8696,18 @@ export namespace core {
 
 
       /**
-       * Get an existing ServiceList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ServiceList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ServiceList {
-          return new ServiceList(name, undefined, { id });
+          return new ServiceList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.core.v1.ServiceList { return this.__inputs; }
@@ -8441,14 +8837,18 @@ export namespace events {
 
 
       /**
-       * Get an existing Event resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Event` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Event {
-          return new Event(name, undefined, { id });
+          return new Event(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.events.v1beta1.Event { return this.__inputs; }
@@ -8518,14 +8918,18 @@ export namespace events {
 
 
       /**
-       * Get an existing EventList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `EventList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): EventList {
-          return new EventList(name, undefined, { id });
+          return new EventList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.events.v1beta1.EventList { return this.__inputs; }
@@ -8597,14 +9001,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing DaemonSet resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DaemonSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSet {
-          return new DaemonSet(name, undefined, { id });
+          return new DaemonSet(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.DaemonSet { return this.__inputs; }
@@ -8662,14 +9070,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing DaemonSetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DaemonSetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSetList {
-          return new DaemonSetList(name, undefined, { id });
+          return new DaemonSetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.DaemonSetList { return this.__inputs; }
@@ -8732,14 +9144,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing Deployment resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Deployment` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Deployment {
-          return new Deployment(name, undefined, { id });
+          return new Deployment(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.Deployment { return this.__inputs; }
@@ -8796,14 +9212,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing DeploymentList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DeploymentList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentList {
-          return new DeploymentList(name, undefined, { id });
+          return new DeploymentList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.DeploymentList { return this.__inputs; }
@@ -8864,14 +9284,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing DeploymentRollback resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DeploymentRollback` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentRollback {
-          return new DeploymentRollback(name, undefined, { id });
+          return new DeploymentRollback(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.DeploymentRollback { return this.__inputs; }
@@ -8938,14 +9362,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing Ingress resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Ingress` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Ingress {
-          return new Ingress(name, undefined, { id });
+          return new Ingress(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.Ingress { return this.__inputs; }
@@ -9003,14 +9431,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing IngressList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `IngressList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): IngressList {
-          return new IngressList(name, undefined, { id });
+          return new IngressList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.IngressList { return this.__inputs; }
@@ -9069,14 +9501,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing NetworkPolicy resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `NetworkPolicy` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): NetworkPolicy {
-          return new NetworkPolicy(name, undefined, { id });
+          return new NetworkPolicy(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.NetworkPolicy { return this.__inputs; }
@@ -9134,14 +9570,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing NetworkPolicyList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `NetworkPolicyList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): NetworkPolicyList {
-          return new NetworkPolicyList(name, undefined, { id });
+          return new NetworkPolicyList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.NetworkPolicyList { return this.__inputs; }
@@ -9199,14 +9639,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing PodSecurityPolicy resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PodSecurityPolicy` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PodSecurityPolicy {
-          return new PodSecurityPolicy(name, undefined, { id });
+          return new PodSecurityPolicy(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicy { return this.__inputs; }
@@ -9263,14 +9707,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing PodSecurityPolicyList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PodSecurityPolicyList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PodSecurityPolicyList {
-          return new PodSecurityPolicyList(name, undefined, { id });
+          return new PodSecurityPolicyList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicyList { return this.__inputs; }
@@ -9338,14 +9786,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing ReplicaSet resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ReplicaSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSet {
-          return new ReplicaSet(name, undefined, { id });
+          return new ReplicaSet(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.ReplicaSet { return this.__inputs; }
@@ -9404,14 +9856,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing ReplicaSetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ReplicaSetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSetList {
-          return new ReplicaSetList(name, undefined, { id });
+          return new ReplicaSetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.ReplicaSetList { return this.__inputs; }
@@ -9476,14 +9932,18 @@ export namespace extensions {
 
 
       /**
-       * Get an existing Scale resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Scale` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Scale {
-          return new Scale(name, undefined, { id });
+          return new Scale(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.Scale { return this.__inputs; }
@@ -9563,14 +10023,18 @@ export namespace meta {
 
 
       /**
-       * Get an existing APIGroup resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `APIGroup` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): APIGroup {
-          return new APIGroup(name, undefined, { id });
+          return new APIGroup(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.meta.v1.APIGroup { return this.__inputs; }
@@ -9623,14 +10087,18 @@ export namespace meta {
 
 
       /**
-       * Get an existing APIGroupList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `APIGroupList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): APIGroupList {
-          return new APIGroupList(name, undefined, { id });
+          return new APIGroupList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.meta.v1.APIGroupList { return this.__inputs; }
@@ -9686,14 +10154,18 @@ export namespace meta {
 
 
       /**
-       * Get an existing APIResourceList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `APIResourceList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): APIResourceList {
-          return new APIResourceList(name, undefined, { id });
+          return new APIResourceList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.meta.v1.APIResourceList { return this.__inputs; }
@@ -9756,14 +10228,18 @@ export namespace meta {
 
 
       /**
-       * Get an existing APIVersions resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `APIVersions` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): APIVersions {
-          return new APIVersions(name, undefined, { id });
+          return new APIVersions(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.meta.v1.APIVersions { return this.__inputs; }
@@ -9841,14 +10317,18 @@ export namespace meta {
 
 
       /**
-       * Get an existing DeleteOptions resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `DeleteOptions` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): DeleteOptions {
-          return new DeleteOptions(name, undefined, { id });
+          return new DeleteOptions(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.meta.v1.DeleteOptions { return this.__inputs; }
@@ -9915,14 +10395,18 @@ export namespace meta {
 
 
       /**
-       * Get an existing OwnerReference resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `OwnerReference` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): OwnerReference {
-          return new OwnerReference(name, undefined, { id });
+          return new OwnerReference(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.meta.v1.OwnerReference { return this.__inputs; }
@@ -10006,14 +10490,18 @@ export namespace meta {
 
 
       /**
-       * Get an existing Status resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Status` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Status {
-          return new Status(name, undefined, { id });
+          return new Status(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.meta.v1.Status { return this.__inputs; }
@@ -10080,14 +10568,18 @@ export namespace networking {
 
 
       /**
-       * Get an existing NetworkPolicy resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `NetworkPolicy` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): NetworkPolicy {
-          return new NetworkPolicy(name, undefined, { id });
+          return new NetworkPolicy(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.networking.v1.NetworkPolicy { return this.__inputs; }
@@ -10144,14 +10636,18 @@ export namespace networking {
 
 
       /**
-       * Get an existing NetworkPolicyList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `NetworkPolicyList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): NetworkPolicyList {
-          return new NetworkPolicyList(name, undefined, { id });
+          return new NetworkPolicyList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.networking.v1.NetworkPolicyList { return this.__inputs; }
@@ -10215,14 +10711,18 @@ export namespace policy {
 
 
       /**
-       * Get an existing Eviction resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Eviction` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Eviction {
-          return new Eviction(name, undefined, { id });
+          return new Eviction(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.policy.v1beta1.Eviction { return this.__inputs; }
@@ -10282,14 +10782,18 @@ export namespace policy {
 
 
       /**
-       * Get an existing PodDisruptionBudget resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PodDisruptionBudget` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PodDisruptionBudget {
-          return new PodDisruptionBudget(name, undefined, { id });
+          return new PodDisruptionBudget(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudget { return this.__inputs; }
@@ -10342,14 +10846,18 @@ export namespace policy {
 
 
       /**
-       * Get an existing PodDisruptionBudgetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PodDisruptionBudgetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PodDisruptionBudgetList {
-          return new PodDisruptionBudgetList(name, undefined, { id });
+          return new PodDisruptionBudgetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudgetList { return this.__inputs; }
@@ -10419,14 +10927,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRole resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRole` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRole {
-          return new ClusterRole(name, undefined, { id });
+          return new ClusterRole(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.ClusterRole { return this.__inputs; }
@@ -10490,14 +11002,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRoleBinding resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRoleBinding` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBinding {
-          return new ClusterRoleBinding(name, undefined, { id });
+          return new ClusterRoleBinding(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.ClusterRoleBinding { return this.__inputs; }
@@ -10554,14 +11070,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRoleBindingList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRoleBindingList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBindingList {
-          return new ClusterRoleBindingList(name, undefined, { id });
+          return new ClusterRoleBindingList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.ClusterRoleBindingList { return this.__inputs; }
@@ -10617,14 +11137,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRoleList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRoleList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleList {
-          return new ClusterRoleList(name, undefined, { id });
+          return new ClusterRoleList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.ClusterRoleList { return this.__inputs; }
@@ -10681,14 +11205,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing Role resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Role` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Role {
-          return new Role(name, undefined, { id });
+          return new Role(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.Role { return this.__inputs; }
@@ -10753,14 +11281,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing RoleBinding resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `RoleBinding` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBinding {
-          return new RoleBinding(name, undefined, { id });
+          return new RoleBinding(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.RoleBinding { return this.__inputs; }
@@ -10817,14 +11349,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing RoleBindingList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `RoleBindingList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBindingList {
-          return new RoleBindingList(name, undefined, { id });
+          return new RoleBindingList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.RoleBindingList { return this.__inputs; }
@@ -10880,14 +11416,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing RoleList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `RoleList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleList {
-          return new RoleList(name, undefined, { id });
+          return new RoleList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.RoleList { return this.__inputs; }
@@ -10954,14 +11494,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRole resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRole` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRole {
-          return new ClusterRole(name, undefined, { id });
+          return new ClusterRole(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRole { return this.__inputs; }
@@ -11025,14 +11569,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRoleBinding resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRoleBinding` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBinding {
-          return new ClusterRoleBinding(name, undefined, { id });
+          return new ClusterRoleBinding(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBinding { return this.__inputs; }
@@ -11089,14 +11637,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRoleBindingList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRoleBindingList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBindingList {
-          return new ClusterRoleBindingList(name, undefined, { id });
+          return new ClusterRoleBindingList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBindingList { return this.__inputs; }
@@ -11152,14 +11704,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRoleList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRoleList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleList {
-          return new ClusterRoleList(name, undefined, { id });
+          return new ClusterRoleList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleList { return this.__inputs; }
@@ -11216,14 +11772,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing Role resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Role` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Role {
-          return new Role(name, undefined, { id });
+          return new Role(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.Role { return this.__inputs; }
@@ -11288,14 +11848,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing RoleBinding resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `RoleBinding` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBinding {
-          return new RoleBinding(name, undefined, { id });
+          return new RoleBinding(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.RoleBinding { return this.__inputs; }
@@ -11352,14 +11916,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing RoleBindingList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `RoleBindingList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBindingList {
-          return new RoleBindingList(name, undefined, { id });
+          return new RoleBindingList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.RoleBindingList { return this.__inputs; }
@@ -11415,14 +11983,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing RoleList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `RoleList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleList {
-          return new RoleList(name, undefined, { id });
+          return new RoleList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.RoleList { return this.__inputs; }
@@ -11479,14 +12051,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing Subject resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Subject` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Subject {
-          return new Subject(name, undefined, { id });
+          return new Subject(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.Subject { return this.__inputs; }
@@ -11553,14 +12129,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRole resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRole` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRole {
-          return new ClusterRole(name, undefined, { id });
+          return new ClusterRole(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.ClusterRole { return this.__inputs; }
@@ -11624,14 +12204,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRoleBinding resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRoleBinding` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBinding {
-          return new ClusterRoleBinding(name, undefined, { id });
+          return new ClusterRoleBinding(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBinding { return this.__inputs; }
@@ -11688,14 +12272,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRoleBindingList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRoleBindingList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBindingList {
-          return new ClusterRoleBindingList(name, undefined, { id });
+          return new ClusterRoleBindingList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBindingList { return this.__inputs; }
@@ -11751,14 +12339,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing ClusterRoleList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `ClusterRoleList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleList {
-          return new ClusterRoleList(name, undefined, { id });
+          return new ClusterRoleList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleList { return this.__inputs; }
@@ -11815,14 +12407,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing Role resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `Role` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): Role {
-          return new Role(name, undefined, { id });
+          return new Role(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.Role { return this.__inputs; }
@@ -11887,14 +12483,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing RoleBinding resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `RoleBinding` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBinding {
-          return new RoleBinding(name, undefined, { id });
+          return new RoleBinding(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.RoleBinding { return this.__inputs; }
@@ -11951,14 +12551,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing RoleBindingList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `RoleBindingList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBindingList {
-          return new RoleBindingList(name, undefined, { id });
+          return new RoleBindingList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.RoleBindingList { return this.__inputs; }
@@ -12014,14 +12618,18 @@ export namespace rbac {
 
 
       /**
-       * Get an existing RoleList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `RoleList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleList {
-          return new RoleList(name, undefined, { id });
+          return new RoleList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.RoleList { return this.__inputs; }
@@ -12098,14 +12706,18 @@ export namespace scheduling {
 
 
       /**
-       * Get an existing PriorityClass resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PriorityClass` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PriorityClass {
-          return new PriorityClass(name, undefined, { id });
+          return new PriorityClass(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.scheduling.v1alpha1.PriorityClass { return this.__inputs; }
@@ -12164,14 +12776,18 @@ export namespace scheduling {
 
 
       /**
-       * Get an existing PriorityClassList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PriorityClassList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PriorityClassList {
-          return new PriorityClassList(name, undefined, { id });
+          return new PriorityClassList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.scheduling.v1alpha1.PriorityClassList { return this.__inputs; }
@@ -12229,14 +12845,18 @@ export namespace settings {
 
 
       /**
-       * Get an existing PodPreset resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PodPreset` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PodPreset {
-          return new PodPreset(name, undefined, { id });
+          return new PodPreset(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.settings.v1alpha1.PodPreset { return this.__inputs; }
@@ -12293,14 +12913,18 @@ export namespace settings {
 
 
       /**
-       * Get an existing PodPresetList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `PodPresetList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): PodPresetList {
-          return new PodPresetList(name, undefined, { id });
+          return new PodPresetList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.settings.v1alpha1.PodPresetList { return this.__inputs; }
@@ -12398,14 +13022,18 @@ export namespace storage {
 
 
       /**
-       * Get an existing StorageClass resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StorageClass` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StorageClass {
-          return new StorageClass(name, undefined, { id });
+          return new StorageClass(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.storage.v1.StorageClass { return this.__inputs; }
@@ -12467,14 +13095,18 @@ export namespace storage {
 
 
       /**
-       * Get an existing StorageClassList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StorageClassList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StorageClassList {
-          return new StorageClassList(name, undefined, { id });
+          return new StorageClassList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.storage.v1.StorageClassList { return this.__inputs; }
@@ -12544,14 +13176,18 @@ export namespace storage {
 
 
       /**
-       * Get an existing VolumeAttachment resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `VolumeAttachment` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachment {
-          return new VolumeAttachment(name, undefined, { id });
+          return new VolumeAttachment(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.storage.v1alpha1.VolumeAttachment { return this.__inputs; }
@@ -12609,14 +13245,18 @@ export namespace storage {
 
 
       /**
-       * Get an existing VolumeAttachmentList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `VolumeAttachmentList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachmentList {
-          return new VolumeAttachmentList(name, undefined, { id });
+          return new VolumeAttachmentList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.storage.v1alpha1.VolumeAttachmentList { return this.__inputs; }
@@ -12711,14 +13351,18 @@ export namespace storage {
 
 
       /**
-       * Get an existing StorageClass resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StorageClass` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StorageClass {
-          return new StorageClass(name, undefined, { id });
+          return new StorageClass(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.storage.v1beta1.StorageClass { return this.__inputs; }
@@ -12780,14 +13424,18 @@ export namespace storage {
 
 
       /**
-       * Get an existing StorageClassList resource's state with the given name, ID, and optional extra
-       * properties used to qualify the lookup.
+       * Get the state of an existing `StorageClassList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
-       * @param name The _unique_ name of the resulting resource.
-       * @param id The _unique_ provider ID of the resource to lookup.
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>): StorageClassList {
-          return new StorageClassList(name, undefined, { id });
+          return new StorageClassList(name, undefined, { id: id });
       }
 
       public getInputs(): inputApi.storage.v1beta1.StorageClassList { return this.__inputs; }
