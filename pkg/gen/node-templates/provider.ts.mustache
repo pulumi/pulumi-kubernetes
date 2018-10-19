@@ -256,7 +256,7 @@ export namespace apiextensions {
     export interface CustomResourceArgs {
         apiVersion: pulumi.Input<string>,
         kind: pulumi.Input<string>
-        metadata?: pulumi.Input<outputApi.meta.v1.ListMeta>;
+        metadata?: pulumi.Input<inputApi.meta.v1.ObjectMeta>;
         [othersFields: string]: pulumi.Input<any>;
     }
 
@@ -284,14 +284,13 @@ export namespace apiextensions {
       public readonly kind: pulumi.Output<string>;
 
       /**
-       * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * Standard object metadata; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
-
-      public getInputs(): inputApi.apps.v1.DaemonSetList { return this.__inputs; }
-      private readonly __inputs: any;
+      public getInputs(): CustomResourceArgs { return this.__inputs; }
+      private readonly __inputs: CustomResourceArgs;
 
       /**
       * Create a CustomResource resource with the given unique name, arguments, and options.
