@@ -85,6 +85,8 @@ var core = versions{
 		},
 		"Secret": properties{
 			".type",
+			".stringData",
+			".data",
 		},
 		"Service": properties{
 			".spec.clusterIP",
