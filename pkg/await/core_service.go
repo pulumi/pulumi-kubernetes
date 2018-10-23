@@ -74,7 +74,7 @@ func makeServiceInitAwaiter(c createAwaitConfig) *serviceInitAwaiter {
 		t = specTypeString
 	} else {
 		// The default value if `.spec.type` is not present.
-		t = "ClusterIP"
+		t = string(v1.ServiceTypeClusterIP)
 	}
 
 	return &serviceInitAwaiter{
@@ -338,7 +338,7 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 
 func (sia *serviceInitAwaiter) errorMessages() []string {
 	messages := []string{}
-	if sia.serviceType == string(v1.ServiceTypeExternalName) {
+	if sia.emptyHeadlessOrExternalName() {
 		return messages
 	}
 
@@ -354,6 +354,22 @@ func (sia *serviceInitAwaiter) errorMessages() []string {
 	}
 
 	return messages
+}
+
+// emptyHeadlessOrExternalName checks whether the current `Service` is either an "empty" headless
+// `Service`[1] (i.e., it targets 0 `Pod`s) or a `Service` with `.spec.type: ExternalName` (which
+// also targets 0 `Pod`s). This is useful to know when deciding whether to wait for a `Service` to
+// target some number of `Pod`s.
+//
+// [1]: https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+func (sia *serviceInitAwaiter) emptyHeadlessOrExternalName() bool {
+	clusterIP, _ := openapi.Pluck(sia.service.Object, "spec", "clusterIP")
+	selectorI, _ := openapi.Pluck(sia.service.Object, "spec", "selector")
+	selector, _ := selectorI.(map[string]interface{})
+
+	headlessEmpty := len(selector) == 0 && clusterIP == v1.ClusterIPNone
+	return headlessEmpty || sia.serviceType == string(v1.ServiceTypeExternalName)
+
 }
 
 func (sia *serviceInitAwaiter) collectWarningEvents() error {
@@ -373,8 +389,7 @@ func (sia *serviceInitAwaiter) collectWarningEvents() error {
 }
 
 func (sia *serviceInitAwaiter) checkAndLogStatus() bool {
-	if sia.serviceType == string(v1.ServiceTypeExternalName) {
-		// External services do not target Pods.
+	if sia.emptyHeadlessOrExternalName() {
 		return sia.serviceReady
 	}
 
