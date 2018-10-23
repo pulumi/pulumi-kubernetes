@@ -155,6 +155,52 @@ func Test_Core_Service(t *testing.T) {
 				timeout <- time.Now()
 			},
 		},
+		{
+			description:  "[Part 1] Should succeed if empty headless service doesn't target any Pods",
+			serviceInput: headlessEmptyServiceInput,
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				services <- watchAddedEvent(headlessEmptyServiceOutput1("default", "foo-4setj4y6"))
+
+				// Finally, time out.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description:  "[Part 2] Should succeed if empty headless service doesn't target any Pods",
+			serviceInput: headlessEmptyServiceInput,
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				services <- watchAddedEvent(headlessEmptyServiceOutput2("default", "foo-4setj4y6"))
+
+				// Finally, time out.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description:  "Should succeed if non-empty headless service targets Pods",
+			serviceInput: headlessNonemptyServiceInput,
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
+				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
+
+				// Finally, time out.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description:  "Should fail if non-empty headless service doesn't target any Pods",
+			serviceInput: headlessNonemptyServiceInput,
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
+
+				// Finally, time out.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: headlessNonemptyServiceOutput("default", "foo-4setj4y6"),
+				subErrors: []string{
+					"Service does not target any Pods. Application Pods may failed to become alive, or " +
+						"field '.spec.selector' may not match labels on any Pods"}},
+		},
 	}
 
 	for _, test := range tests {
@@ -209,6 +255,19 @@ func Test_Core_Service_Read(t *testing.T) {
 			description:  "Read succeed if ExternalName doesn't target any Pods",
 			serviceInput: externalNameService,
 			service:      externalNameService,
+		},
+		{
+			description:  "Read succeed if headless empty Service doesn't target any Pods",
+			serviceInput: headlessEmptyServiceInput,
+			service:      headlessEmptyServiceInput,
+		},
+		{
+			description:  "Read fail if headless non-empty Service doesn't target any Pods",
+			serviceInput: headlessNonemptyServiceInput,
+			service:      headlessNonemptyServiceInput,
+			expectedSubErrors: []string{
+				"Service does not target any Pods. Application Pods may failed to become alive, or " +
+					"field '.spec.selector' may not match labels on any Pods"},
 		},
 	}
 
@@ -398,6 +457,154 @@ func externalNameService(namespace, name string) *unstructured.Unstructured {
 	return obj
 }
 
+func headlessEmptyServiceInput(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "namespace": "%s",
+    "name": "%s"
+  },
+  "spec": {
+    "clusterIP": "None",
+    "selector": {},
+    "ports": [
+      {
+        "protocol": "TCP",
+        "port": 80,
+        "targetPort": 9376
+      }
+    ]
+  }
+}`, namespace, name))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+
+}
+
+func headlessEmptyServiceOutput1(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s"
+    },
+    "spec": {
+        "clusterIP": "None",
+        "ports": [
+            {
+                "port": 80,
+                "protocol": "TCP",
+                "targetPort": 9376
+            }
+        ],
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+    },
+    "status": {
+        "loadBalancer": {}
+    }
+}`, namespace, name))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func headlessEmptyServiceOutput2(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s"
+    },
+    "spec": {
+        "clusterIP": "None",
+        "selector": {},
+        "ports": [
+            {
+                "port": 80,
+                "protocol": "TCP",
+                "targetPort": 9376
+            }
+        ],
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+    },
+    "status": {
+        "loadBalancer": {}
+    }
+}`, namespace, name))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func headlessNonemptyServiceInput(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "namespace": "%s",
+    "name": "%s"
+  },
+  "spec": {
+    "clusterIP": "None",
+    "selector": {
+      "app": "foo"
+    },
+    "ports": [
+      {
+        "protocol": "TCP",
+        "port": 80,
+        "targetPort": 9376
+      }
+    ]
+  }
+}`, namespace, name))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func headlessNonemptyServiceOutput(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s"
+    },
+    "spec": {
+        "clusterIP": "None",
+        "ports": [
+            {
+                "port": 80,
+                "protocol": "TCP",
+                "targetPort": 9376
+            }
+        ],
+        "selector": {
+            "app": "foo"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+    },
+    "status": {
+        "loadBalancer": {}
+    }
+}`, namespace, name))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
 func unstructuredList(us ...unstructured.Unstructured) *unstructured.UnstructuredList {
 	return &unstructured.UnstructuredList{Items: us}
 }
