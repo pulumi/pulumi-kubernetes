@@ -10,15 +10,31 @@ import * as path from "./path";
 import * as nodepath from "path";
 
 export namespace v2 {
-    export interface ChartOpts {
+    interface BaseChartOpts {
+        namespace?: string;
+        values?: any;
+        transformations?: ((o: any) => void)[];
+    }
+
+    export interface ChartOpts extends BaseChartOpts {
         repo: string;
         chart: string;
         version: string;
 
-        namespace?: string;
-        values?: any;
-        transformations?: ((o: any) => void)[];
         fetchOpts?: FetchOpts;
+    }
+
+    function isChartOpts(o: any): o is ChartOpts {
+        return "repo" in o && "chart" in o && "version" in o;
+    }
+
+    export interface LocalChartOpts extends BaseChartOpts {
+        // path of the Chart directory, which contains the `Chart.yaml` file.
+        path: string;
+    }
+
+    function isLocalChartOpts(o: any): o is LocalChartOpts {
+        return "path" in o;
     }
 
     // Chart is a component representing a collection of resources described by an arbitrary Helm
@@ -40,17 +56,34 @@ export namespace v2 {
     // engine delivers the these calls asynchronously, they could arrive "somewhat" out of order.
     // This should not affect many Helm charts.
     export class Chart extends k8s.yaml.CollectionComponentResource {
-        constructor(releaseName: string, config: ChartOpts, opts?: pulumi.ComponentResourceOptions) {
+        constructor(
+            releaseName: string,
+            config: ChartOpts | LocalChartOpts,
+            opts?: pulumi.ComponentResourceOptions
+        ) {
             super("kubernetes:helm.sh/v2:Chart", releaseName, config, opts);
 
             // Create temporary directories and files to hold chart data and override values.
-            const overrides = tmp.fileSync({postfix: ".yaml"});
-            const chartDir = tmp.dirSync({unsafeCleanup: true});
+            const overrides = tmp.fileSync({ postfix: ".yaml" });
+            const chartDir = tmp.dirSync({ unsafeCleanup: true });
 
             try {
-                // Fetch chart.
-                fetch(`${config.repo}/${config.chart}`,
-                    {destination: chartDir.name, version: config.version});
+                let chart: string;
+                let defaultValues: string;
+                if (isChartOpts(config)) {
+                    // Fetch chart.
+                    fetch(`${config.repo}/${config.chart}`, {
+                        destination: chartDir.name,
+                        version: config.version
+                    });
+                    chart = path.quotePath(nodepath.join(chartDir.name, config.chart));
+                    defaultValues = path.quotePath(
+                        nodepath.join(chartDir.name, config.chart, "values.yaml")
+                    );
+                } else {
+                    chart = path.quotePath(config.path);
+                    defaultValues = path.quotePath(nodepath.join(chart, "values.yaml"));
+                }
 
                 // Write overrides file.
                 const data = JSON.stringify(config.values || {}, undefined, "  ");
@@ -64,28 +97,28 @@ export namespace v2 {
                 // > looked up or retrieved in-cluster will be faked locally. Additionally, none
                 // > of the server-side testing of chart validity (e.g. whether an API is supported)
                 // > is done.
-                const chart = path.quotePath(nodepath.join(chartDir.name, config.chart));
                 const release = shell.quote([releaseName]);
                 const values = path.quotePath(overrides.name);
-                const defaultValues = path.quotePath(nodepath.join(chartDir.name, config.chart, "values.yaml"));
-                const namespaceArg = config.namespace ? `--namespace ${shell.quote([config.namespace])}` : "";
+                const namespaceArg = config.namespace
+                    ? `--namespace ${shell.quote([config.namespace])}`
+                    : "";
                 const yamlStream = execSync(
                     `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
                 ).toString();
-                this.resources = this.parseTemplate(yamlStream, config);
+                this.resources = this.parseTemplate(yamlStream, config.transformations);
             } catch (e) {
                 // Shed stack trace, only emit the error.
                 throw new pulumi.RunError(e.toString());
             } finally {
                 // Clean up temporary files and directories.
-                chartDir.removeCallback()
-                overrides.removeCallback()
+                chartDir.removeCallback();
+                overrides.removeCallback();
             }
         }
 
         parseTemplate(
             yamlStream: string,
-            config: ChartOpts
+            transformations?: ((o: any) => void)[]
         ): { [key: string]: pulumi.CustomResource } {
             const objs = jsyaml
                 .safeLoadAll(yamlStream)
@@ -94,7 +127,7 @@ export namespace v2 {
             return k8s.yaml.parse(
                 {
                     yaml: objs.map(o => jsyaml.safeDump(o)),
-                    transformations: config.transformations || []
+                    transformations: transformations || []
                 },
                 { parent: this }
             );

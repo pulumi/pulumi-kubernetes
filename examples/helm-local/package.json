@@ -1,0 +1,17 @@
+{
+  "name": "nodeserver",
+  "version": "0.1.0",
+  "dependencies": {
+    "@pulumi/pulumi": "^0.15.1",
+    "@types/js-yaml": "^3.11.2",
+    "js-yaml": "^3.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^9.3.0",
+    "typescript": "^2.5.3"
+  },
+  "peerDependencies": {
+    "@pulumi/kubernetes": "latest"
+  },
+  "license": "MIT"
+}

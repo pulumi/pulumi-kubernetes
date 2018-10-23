@@ -172,9 +172,21 @@ func TestExamples(t *testing.T) {
 				Dir: path.Join(cwd, "provider"),
 			}),
 
-			// TODO[pulumi-kubernetes#117]: Enable this when parallelism is turned on.
-			//
-			// base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "helm")}),
+			base.With(integration.ProgramTestOptions{
+				SkipRefresh: true, // Deployment controller changes object out-of-band.
+				Dir:         path.Join(cwd, "helm"),
+			}),
+
+			base.With(integration.ProgramTestOptions{
+				Dir:         path.Join(cwd, "helm-local"),
+				SkipRefresh: true, // Deployment controller changes object out-of-band.
+				ExtraRuntimeValidation: func(
+					t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
+				) {
+					assert.NotNil(t, stackInfo.Deployment)
+					assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
+				},
+			}),
 
 			// TODO(hausdorff): Enable this when we transition to a version of minikube which correctly
 			// reports version.
