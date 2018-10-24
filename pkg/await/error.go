@@ -25,6 +25,7 @@ type cancellationError struct {
 
 var _ error = (*cancellationError)(nil)
 var _ AggregatedError = (*cancellationError)(nil)
+var _ InitializationError = (*cancellationError)(nil)
 
 func (ce *cancellationError) Error() string {
 	return fmt.Sprintf("Resource operation was cancelled for '%s'", ce.object.GetName())
@@ -33,6 +34,10 @@ func (ce *cancellationError) Error() string {
 // SubErrors returns the errors that were present when cancellation occurred.
 func (ce *cancellationError) SubErrors() []string {
 	return ce.subErrors
+}
+
+func (ce *cancellationError) Object() *unstructured.Unstructured {
+	return ce.object
 }
 
 // timeoutError represents an operation that failed because it timed out.
