@@ -1,0 +1,2 @@
+pulumi>=0.16.0
+pulumi-kubernetes>=0.17.3
