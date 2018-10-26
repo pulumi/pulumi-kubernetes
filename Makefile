@@ -8,7 +8,8 @@ NODE_MODULE_NAME := @pulumi/kubernetes
 
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
-VERSION         := $(shell scripts/get-version)
+VERSION         ?= $(shell scripts/get-version)
+PYPI_VERSION    := $(shell scripts/get-py-version)
 KUBE_VERSION    ?= v1.9.7
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
 OPENAPI_DIR     := pkg/gen/openapi-specs
@@ -32,8 +33,8 @@ $(OPENAPI_FILE)::
 build:: $(OPENAPI_FILE)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
-	for LANGUAGE in "nodejs" ; do \
-		$(CODEGEN) $(OPENAPI_FILE) pkg/gen/node-templates $(PACKDIR)/$$LANGUAGE || exit 3 ; \
+	for LANGUAGE in "nodejs" "python" ; do \
+		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
 	done
 	cd ${PACKDIR}/nodejs/ && \
 		yarn install && \
@@ -47,11 +48,11 @@ build:: $(OPENAPI_FILE)
 			echo "warning: pandoc not found, not generating README.rst"; \
 			echo "" > README.rst; \
 		fi && \
-		$(PYTHON) setup.py clean --all 2>/dev/null
-		# rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
-		# sed -i.bak -e "s/\$${VERSION}/$(PYPI_VERSION)/g" -e "s/\$${PLUGIN_VERSION}/$(VERSION)/g" ./bin/setup.py && \
-		# rm ./bin/setup.py.bak && \
-		# cd ./bin && $(PYTHON) setup.py build sdist
+		$(PYTHON) setup.py clean --all 2>/dev/null && \
+		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
+		sed -i.bak -e "s/\$${VERSION}/$(PYPI_VERSION)/g" -e "s/\$${PLUGIN_VERSION}/$(VERSION)/g" ./bin/setup.py && \
+		rm ./bin/setup.py.bak && \
+		cd ./bin && $(PYTHON) setup.py build sdist
 
 lint::
 	$(GOMETALINTER) ./cmd/... ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
