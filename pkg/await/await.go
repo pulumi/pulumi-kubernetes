@@ -360,12 +360,19 @@ func Deletion(
 				case watch.Deleted:
 					return nil
 				case watch.Error:
-					return &initializationError{} // TODO: not sure what object to put here
+					resource, _ := clientForResource.Get(name, metav1.GetOptions{})
+					return &initializationError{
+						object:    resource,
+						subErrors: []string{errors.FromObject(event.Object).Error()},
+					}
 				}
 			case <-ctx.Done(): // Handle user cancellation during watch for deletion.
 				watcher.Stop()
 				glog.V(3).Infof("Received error deleting object '%s': %#v", id, err)
-				return &cancellationError{} // TODO: not sure what object to put here
+				resource, _ := clientForResource.Get(name, metav1.GetOptions{})
+				return &cancellationError{
+					object: resource,
+				}
 			}
 		}
 	}
