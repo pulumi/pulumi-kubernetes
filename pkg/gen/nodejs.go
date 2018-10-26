@@ -33,7 +33,7 @@ func NodeJSClient(
 ) (inputsts, outputsts, providerts, helmts, packagejson string, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
-	groupsSlice := createGroups(definitions, inputsAPI)
+	groupsSlice := createGroups(definitions, nodeJSInputs())
 	inputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesInput.ts.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,
@@ -42,7 +42,7 @@ func NodeJSClient(
 		return "", "", "", "", "", err
 	}
 
-	groupsSlice = createGroups(definitions, outputsAPI)
+	groupsSlice = createGroups(definitions, nodeJSOutputs())
 	outputsts, err = mustache.RenderFile(fmt.Sprintf("%s/typesOutput.ts.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,
@@ -51,7 +51,7 @@ func NodeJSClient(
 		return "", "", "", "", "", err
 	}
 
-	groupsSlice = createGroups(definitions, provider)
+	groupsSlice = createGroups(definitions, nodeJSProvider())
 	providerts, err = mustache.RenderFile(fmt.Sprintf("%s/provider.ts.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,

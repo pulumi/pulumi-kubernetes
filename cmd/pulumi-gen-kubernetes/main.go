@@ -25,11 +25,13 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 4 {
+	if len(os.Args) < 5 {
 		log.Fatal("Usage: gen <swagger-file> <template-dir> <out-dir>")
 	}
 
-	swagger, err := ioutil.ReadFile(os.Args[1])
+	language := os.Args[1]
+
+	swagger, err := ioutil.ReadFile(os.Args[2])
 	if err != nil {
 		panic(err)
 	}
@@ -40,13 +42,25 @@ func main() {
 		panic(err)
 	}
 
-	templateDir := os.Args[2]
+	templateDir := os.Args[3]
+	outdir := fmt.Sprintf("%s/%s", os.Args[4], language)
+
+	switch language {
+	case "nodejs":
+		writeNodeJSClient(data, outdir, templateDir)
+	case "python":
+		writePythonClient(data, outdir, templateDir)
+	default:
+		panic(fmt.Sprintf("Unrecognized language '%s'", language))
+	}
+}
+
+func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
 	inputAPIts, ouputAPIts, providerts, helmts, packagejson, err := gen.NodeJSClient(data, templateDir)
 	if err != nil {
 		panic(err)
 	}
 
-	outdir := os.Args[3]
 	err = os.MkdirAll(outdir, 0700)
 	if err != nil {
 		panic(err)
@@ -84,4 +98,41 @@ func main() {
 	}
 	fmt.Printf("%s/package.json\n", outdir)
 	fmt.Println(err)
+}
+
+func writePythonClient(data map[string]interface{}, outdir, templateDir string) {
+	err := gen.PythonClient(
+		data,
+		templateDir,
+		func(initPy string) error {
+			return ioutil.WriteFile(
+				fmt.Sprintf("%s/pulumi_kubernetes/__init__.py", outdir), []byte(initPy), 0777)
+		},
+		func(group, initPy string) error {
+			path := fmt.Sprintf("%s/pulumi_kubernetes/%s", outdir, group)
+
+			err := os.MkdirAll(path, 0700)
+			if err != nil {
+				return err
+			}
+
+			return ioutil.WriteFile(fmt.Sprintf("%s/__init__.py", path), []byte(initPy), 0777)
+		},
+		func(group, version, initPy string) error {
+			path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s", outdir, group, version)
+
+			err := os.MkdirAll(path, 0700)
+			if err != nil {
+				return err
+			}
+
+			return ioutil.WriteFile(fmt.Sprintf("%s/__init__.py", path), []byte(initPy), 0777)
+		},
+		func(group, version, kind, kindPy string) error {
+			path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s/%s.py", outdir, group, version, kind)
+			return ioutil.WriteFile(path, []byte(kindPy), 0777)
+		})
+	if err != nil {
+		panic(err)
+	}
 }
