@@ -20,6 +20,7 @@ GO              ?= go
 GOMETALINTERBIN ?= gometalinter
 GOMETALINTER    :=${GOMETALINTERBIN} --config=Gometalinter.json
 CURL            ?= curl
+PYTHON          ?= python
 
 TESTPARALLELISM := 10
 TESTABLE_PKGS   := ./pkg/... ./examples ./tests/...
@@ -39,6 +40,18 @@ build:: $(OPENAPI_FILE)
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
 	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
+	cd ${PACKDIR}/python/ && \
+		if [ $$(command -v pandoc) ]; then \
+			pandoc --from=markdown --to=rst --output=README.rst ../../README.md; \
+		else \
+			echo "warning: pandoc not found, not generating README.rst"; \
+			echo "" > README.rst; \
+		fi && \
+		$(PYTHON) setup.py clean --all 2>/dev/null
+		# rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
+		# sed -i.bak -e "s/\$${VERSION}/$(PYPI_VERSION)/g" -e "s/\$${PLUGIN_VERSION}/$(VERSION)/g" ./bin/setup.py && \
+		# rm ./bin/setup.py.bak && \
+		# cd ./bin && $(PYTHON) setup.py build sdist
 
 lint::
 	$(GOMETALINTER) ./cmd/... ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"

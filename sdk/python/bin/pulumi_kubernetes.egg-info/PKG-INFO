@@ -1,0 +1,25 @@
+Metadata-Version: 1.0
+Name: pulumi-kubernetes
+Version: 0.17.3.post1540965342
+Summary: A Pulumi package for creating and managing Kubernetes resources.
+Home-page: https://pulumi.io
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: Apache-2.0
+Project-URL: Repository, https://github.com/pulumi/pulumi-kubernetes
+Description: |Build Status|
+        
+        Kubernetes Resource Provider
+        ============================
+        
+        The Kubernetes resource provider for Pulumi lets you use Kubernetes
+        resources in your cloud programs.
+        
+        This package is meant for use with the Pulumi CLI. Please visit
+        `pulumi.io <https://pulumi.io>`__ for installation instructions.
+        
+        .. |Build Status| image:: https://travis-ci.com/pulumi/pulumi-kubernetes.svg?token=eHg7Zp5zdDDJfTjY8ejq&branch=master
+           :target: https://travis-ci.com/pulumi/pulumi-kubernetes
+        
+Keywords: pulumi kubernetes
+Platform: UNKNOWN
