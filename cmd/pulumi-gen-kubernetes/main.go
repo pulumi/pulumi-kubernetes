@@ -26,7 +26,7 @@ import (
 
 func main() {
 	if len(os.Args) < 5 {
-		log.Fatal("Usage: gen <swagger-file> <template-dir> <out-dir>")
+		log.Fatal("Usage: gen <language> <swagger-file> <template-dir> <out-dir>")
 	}
 
 	language := os.Args[1]
