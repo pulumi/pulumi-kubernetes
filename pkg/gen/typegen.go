@@ -24,6 +24,12 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 
+const (
+	object  = "object"
+	stringT = "string"
+	str     = "str"
+)
+
 // --------------------------------------------------------------------------
 
 // A collection of data structures and utility functions to transform an OpenAPI spec for the
@@ -155,53 +161,76 @@ func stripPrefix(name string) string {
 	return strings.TrimPrefix(name, prefix)
 }
 
-func fmtComment(comment interface{}, prefix string) string {
+func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 	if comment == nil {
 		return ""
 	}
+
+	var wrapParagraph func(line string) []string
+	var renderComment func(lines []string) string
+	switch opts.language {
+	case python:
+		wrapParagraph = func(paragraph string) []string {
+			borderLen := len(prefix)
+			wrapped := wordwrap.WrapString(paragraph, 100-uint(borderLen))
+			return strings.Split(wrapped, "\n")
+		}
+		renderComment = func(lines []string) string {
+			joined := strings.Join(lines, fmt.Sprintf("\n%s", prefix))
+			return fmt.Sprintf("\"\"\"\n%s%s\n%s\"\"\"", prefix, joined, prefix)
+		}
+	case typescript:
+		wrapParagraph = func(paragraph string) []string {
+			// Escape comment termination.
+			escaped := strings.Replace(paragraph, "*/", "*&#8205;/", -1)
+			borderLen := len(prefix + " * ")
+			wrapped := wordwrap.WrapString(escaped, 100-uint(borderLen))
+			return strings.Split(wrapped, "\n")
+		}
+		renderComment = func(lines []string) string {
+			joined := strings.Join(lines, fmt.Sprintf("\n%s * ", prefix))
+			return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
+		}
+	default:
+		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
+	}
+
 	commentstr, _ := comment.(string)
 	if len(commentstr) > 0 {
 		split := strings.Split(commentstr, "\n")
 		lines := []string{}
-		for _, line := range split {
-			escaped := strings.Replace(line, "*/", "*&#8205;/", -1) // Escape comment termination.
-			borderLen := len(prefix + " * ")
-			wrapped := wordwrap.WrapString(escaped, 100-uint(borderLen))
-			lines = append(lines, strings.Split(wrapped, "\n")...)
+		for _, paragraph := range split {
+			lines = append(lines, wrapParagraph(paragraph)...)
 		}
-		joined := strings.Join(lines, fmt.Sprintf("\n%s * ", prefix))
-		return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
+		return renderComment(lines)
 	}
 	return ""
 }
 
-type refType int
+func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
+	refPrefix := ""
+	if opts.generatorType == provider {
+		refPrefix = "outputApi"
+	}
 
-const (
-	inputRef refType = iota
-	outputRef
-	providerRef
-)
-
-func makeType(prop map[string]interface{}, refPrefix string, rt refType) string {
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
 		if tstr == "array" {
-			return fmt.Sprintf("%s[]", makeType(prop["items"].(map[string]interface{}), refPrefix, rt))
+			return fmt.Sprintf("%s[]", makeTypescriptType(prop["items"].(map[string]interface{}), opts))
 		} else if tstr == "integer" {
 			return "number"
-		} else if tstr == "object" {
+		} else if tstr == object {
 			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
 			// values both have type `type`. This type is never a `$ref`.
 			if additionalProperties, exists := prop["additionalProperties"]; exists {
 				mapType := additionalProperties.(map[string]interface{})
 				if ktype, exists := mapType["type"]; exists && len(mapType) == 1 {
-					switch rt {
-					case inputRef:
+					switch opts.generatorType {
+					case inputsAPI:
 						return fmt.Sprintf("{[key: %s]: pulumi.Input<%s>}", ktype, ktype)
-					case outputRef:
+					case outputsAPI:
 						return fmt.Sprintf("{[key: %s]: %s}", ktype, ktype)
-					case providerRef:
+					case provider:
 						return fmt.Sprintf("{[key: %s]: pulumi.Output<%s>}", ktype, ktype)
 					}
 				}
@@ -212,13 +241,13 @@ func makeType(prop map[string]interface{}, refPrefix string, rt refType) string 
 
 	ref := stripPrefix(prop["$ref"].(string))
 	if ref == "io.k8s.apimachinery.pkg.api.resource.Quantity" {
-		return "string"
+		return stringT
 	} else if ref == "io.k8s.apimachinery.pkg.util.intstr.IntOrString" {
 		return "number | string"
 	} else if ref == "io.k8s.apimachinery.pkg.apis.meta.v1.Time" ||
 		ref == "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime" {
 		// TODO: Automatically deserialized with `DateConstructor`.
-		return "string"
+		return stringT
 	}
 
 	gvk := gvkFromRef(ref)
@@ -228,12 +257,47 @@ func makeType(prop map[string]interface{}, refPrefix string, rt refType) string 
 	return fmt.Sprintf("%s.%s.%s.%s", refPrefix, gvk.Group, gvk.Version, gvk.Kind)
 }
 
-func makeTypeLiteral(prop map[string]interface{}, t refType) string {
-	return makeType(prop, "", t)
+func makePythonType(prop map[string]interface{}, opts groupOpts) string {
+	if opts.generatorType != provider {
+		panic("Python does not support output or input types")
+	}
+
+	if t, exists := prop["type"]; exists {
+		tstr := t.(string)
+		if tstr == "array" {
+			return "list"
+		} else if tstr == "integer" {
+			return "int"
+		} else if tstr == object {
+			return "dict"
+		} else if tstr == stringT {
+			return str
+		}
+		return tstr
+	}
+
+	ref := stripPrefix(prop["$ref"].(string))
+	if ref == "io.k8s.apimachinery.pkg.api.resource.Quantity" {
+		return str
+	} else if ref == "io.k8s.apimachinery.pkg.util.intstr.IntOrString" {
+		return object
+	} else if ref == "io.k8s.apimachinery.pkg.apis.meta.v1.Time" ||
+		ref == "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime" {
+		// TODO: Automatically deserialized with `DateConstructor`.
+		return str
+	}
+	return "dict"
 }
 
-func makeAPITypeRef(prop map[string]interface{}) string {
-	return makeType(prop, "outputApi", providerRef)
+func makeType(prop map[string]interface{}, opts groupOpts) string {
+	switch opts.language {
+	case typescript:
+		return makeTypescriptType(prop, opts)
+	case python:
+		return makePythonType(prop, opts)
+	default:
+		panic("Unrecognized generator type")
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -256,7 +320,25 @@ const (
 	outputsAPI
 )
 
-func createGroups(definitionsJSON map[string]interface{}, generatorType gentype) []*GroupConfig {
+type language string
+
+const (
+	python     = "python"
+	typescript = "typescript"
+)
+
+type groupOpts struct {
+	generatorType gentype
+	language      language
+}
+
+func nodeJSInputs() groupOpts   { return groupOpts{generatorType: inputsAPI, language: typescript} }
+func nodeJSOutputs() groupOpts  { return groupOpts{generatorType: outputsAPI, language: typescript} }
+func nodeJSProvider() groupOpts { return groupOpts{generatorType: provider, language: typescript} }
+
+func pythonProvider() groupOpts { return groupOpts{generatorType: provider, language: python} }
+
+func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*GroupConfig {
 	// Map definition JSON object -> `definition` with metadata.
 	definitions := []*definition{}
 	linq.From(definitionsJSON).
@@ -322,20 +404,16 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 
 			ps := linq.From(d.data["properties"]).
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
+				WhereT(func(kv linq.KeyValue) bool {
+					propName := kv.Key.(string)
+					if opts.language == python && (propName == "apiVersion" || propName == "kind") {
+						return false
+					}
+					return true
+				}).
 				SelectT(func(kv linq.KeyValue) *Property {
 					propName := kv.Key.(string)
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
-					var typeLiteral string
-					switch generatorType {
-					case inputsAPI:
-						typeLiteral = makeTypeLiteral(prop, inputRef)
-					case outputsAPI:
-						typeLiteral = makeTypeLiteral(prop, outputRef)
-					case provider:
-						typeLiteral = makeAPITypeRef(prop)
-					default:
-						panic("Unrecognized generator type")
-					}
 
 					// Create a default value for the field.
 					defaultValue := fmt.Sprintf("args && args.%s || undefined", propName)
@@ -346,9 +424,17 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
 					}
 
+					var prefix string
+					switch opts.language {
+					case typescript:
+						prefix = "      "
+					case python:
+						prefix = "        "
+					}
+
 					return &Property{
-						comment:      fmtComment(prop["description"], "      "),
-						propType:     typeLiteral,
+						comment:      fmtComment(prop["description"], prefix, opts),
+						propType:     makeType(prop, opts),
 						name:         propName,
 						defaultValue: defaultValue,
 					}
@@ -387,7 +473,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 			props := d.data["properties"].(map[string]interface{})
 			_, kindExists := props["kind"]
 			_, apiVersionExists := props["apiVersion"]
-			if generatorType == provider && (!kindExists || !apiVersionExists) {
+			if opts.generatorType == provider && (!kindExists || !apiVersionExists) {
 				return linq.From([]*KindConfig{})
 			}
 
@@ -404,7 +490,7 @@ func createGroups(definitionsJSON map[string]interface{}, generatorType gentype)
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:            fmtComment(d.data["description"], "    "),
+					comment:            fmtComment(d.data["description"], "    ", opts),
 					properties:         properties,
 					requiredProperties: requiredProperties,
 					optionalProperties: optionalProperties,
