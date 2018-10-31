@@ -131,6 +131,10 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 		func(group, version, kind, kindPy string) error {
 			path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s/%s.py", outdir, group, version, kind)
 			return ioutil.WriteFile(path, []byte(kindPy), 0777)
+		},
+		func(table string) error {
+			path := fmt.Sprintf("%s/pulumi_kubernetes/tables.py", outdir)
+			return ioutil.WriteFile(path, []byte(table), 0777)
 		})
 	if err != nil {
 		panic(err)
