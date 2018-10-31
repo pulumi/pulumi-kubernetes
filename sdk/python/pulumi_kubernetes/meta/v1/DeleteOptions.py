@@ -5,7 +5,7 @@ class DeleteOptions(pulumi.CustomResource):
     """
     DeleteOptions may be provided when deleting an API object.
     """
-    def __init__(self, __name__, __opts__=None, gracePeriodSeconds=None, orphanDependents=None, preconditions=None, propagationPolicy=None):
+    def __init__(self, __name__, __opts__=None, grace_period_seconds=None, orphan_dependents=None, preconditions=None, propagation_policy=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -21,27 +21,27 @@ class DeleteOptions(pulumi.CustomResource):
         __props__['kind'] = 'DeleteOptions'
         self.kind = 'DeleteOptions'
 
-        if gracePeriodSeconds and not isinstance(gracePeriodSeconds, int):
+        if grace_period_seconds and not isinstance(grace_period_seconds, int):
             raise TypeError('Expected property aliases to be a int')
-        self.gracePeriodSeconds = gracePeriodSeconds
+        self.grace_period_seconds = grace_period_seconds
         """
         The duration in seconds before the object should be deleted. Value must be non-negative
         integer. The value zero indicates delete immediately. If this value is nil, the default
         grace period for the specified type will be used. Defaults to a per object value if not
         specified. zero means delete immediately.
         """
-        __props__['gracePeriodSeconds'] = gracePeriodSeconds
+        __props__['gracePeriodSeconds'] = grace_period_seconds
 
-        if orphanDependents and not isinstance(orphanDependents, boolean):
+        if orphan_dependents and not isinstance(orphan_dependents, boolean):
             raise TypeError('Expected property aliases to be a boolean')
-        self.orphanDependents = orphanDependents
+        self.orphan_dependents = orphan_dependents
         """
         Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should
         the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added
         to/removed from the object's finalizers list. Either this field or PropagationPolicy may be
         set, but not both.
         """
-        __props__['orphanDependents'] = orphanDependents
+        __props__['orphanDependents'] = orphan_dependents
 
         if preconditions and not isinstance(preconditions, dict):
             raise TypeError('Expected property aliases to be a dict')
@@ -52,9 +52,9 @@ class DeleteOptions(pulumi.CustomResource):
         """
         __props__['preconditions'] = preconditions
 
-        if propagationPolicy and not isinstance(propagationPolicy, str):
+        if propagation_policy and not isinstance(propagation_policy, str):
             raise TypeError('Expected property aliases to be a str')
-        self.propagationPolicy = propagationPolicy
+        self.propagation_policy = propagation_policy
         """
         Whether and how garbage collection will be performed. Either this field or OrphanDependents
         may be set, but not both. The default policy is decided by the existing finalizer set in the
@@ -63,7 +63,7 @@ class DeleteOptions(pulumi.CustomResource):
         dependents in the background; 'Foreground' - a cascading policy that deletes all dependents
         in the foreground.
         """
-        __props__['propagationPolicy'] = propagationPolicy
+        __props__['propagationPolicy'] = propagation_policy
 
         super(DeleteOptions, self).__init__(
             "kubernetes:core/v1:DeleteOptions",

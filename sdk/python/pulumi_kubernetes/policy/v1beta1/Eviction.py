@@ -7,7 +7,7 @@ class Eviction(pulumi.CustomResource):
     a subresource of Pod.  A request to cause such an eviction is created by POSTing to
     .../pods/<pod name>/evictions.
     """
-    def __init__(self, __name__, __opts__=None, deleteOptions=None, metadata=None):
+    def __init__(self, __name__, __opts__=None, delete_options=None, metadata=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -23,13 +23,13 @@ class Eviction(pulumi.CustomResource):
         __props__['kind'] = 'Eviction'
         self.kind = 'Eviction'
 
-        if deleteOptions and not isinstance(deleteOptions, dict):
+        if delete_options and not isinstance(delete_options, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.deleteOptions = deleteOptions
+        self.delete_options = delete_options
         """
         DeleteOptions may be provided
         """
-        __props__['deleteOptions'] = deleteOptions
+        __props__['deleteOptions'] = delete_options
 
         if metadata and not isinstance(metadata, dict):
             raise TypeError('Expected property aliases to be a dict')

@@ -6,7 +6,7 @@ class Secret(pulumi.CustomResource):
     Secret holds secret data of a certain type. The total bytes of the values in the Data field must
     be less than MaxSecretSize bytes.
     """
-    def __init__(self, __name__, __opts__=None, data=None, metadata=None, stringData=None, type=None):
+    def __init__(self, __name__, __opts__=None, data=None, metadata=None, string_data=None, type=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -42,15 +42,15 @@ class Secret(pulumi.CustomResource):
         """
         __props__['metadata'] = metadata
 
-        if stringData and not isinstance(stringData, dict):
+        if string_data and not isinstance(string_data, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.stringData = stringData
+        self.string_data = string_data
         """
         stringData allows specifying non-binary secret data in string form. It is provided as a
         write-only convenience method. All keys and values are merged into the data field on write,
         overwriting any existing values. It is never output when reading from the API.
         """
-        __props__['stringData'] = stringData
+        __props__['stringData'] = string_data
 
         if type and not isinstance(type, str):
             raise TypeError('Expected property aliases to be a str')

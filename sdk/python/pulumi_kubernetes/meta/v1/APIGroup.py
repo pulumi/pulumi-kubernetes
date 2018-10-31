@@ -5,7 +5,7 @@ class APIGroup(pulumi.CustomResource):
     """
     APIGroup contains the name, the supported versions, and the preferred version of a group.
     """
-    def __init__(self, __name__, __opts__=None, name=None, preferredVersion=None, serverAddressByClientCIDRs=None, versions=None):
+    def __init__(self, __name__, __opts__=None, name=None, preferred_version=None, server_address_by_client_cid_rs=None, versions=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -35,7 +35,7 @@ class APIGroup(pulumi.CustomResource):
             raise TypeError('Missing required property serverAddressByClientCIDRs')
         elif not isinstance(serverAddressByClientCIDRs, list):
             raise TypeError('Expected property aliases to be a list')
-        self.serverAddressByClientCIDRs = serverAddressByClientCIDRs
+        self.server_address_by_client_cid_rs = server_address_by_client_cid_rs
         """
         a map of client CIDR to server address that is serving this group. This is to help clients
         reach servers in the most network-efficient way possible. Clients can use the appropriate
@@ -45,7 +45,7 @@ class APIGroup(pulumi.CustomResource):
         client reaches the server using an internal IP. Server looks at X-Forwarded-For header or
         X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
         """
-        __props__['serverAddressByClientCIDRs'] = serverAddressByClientCIDRs
+        __props__['serverAddressByClientCIDRs'] = server_address_by_client_cid_rs
 
         if not versions:
             raise TypeError('Missing required property versions')
@@ -57,14 +57,14 @@ class APIGroup(pulumi.CustomResource):
         """
         __props__['versions'] = versions
 
-        if preferredVersion and not isinstance(preferredVersion, dict):
+        if preferred_version and not isinstance(preferred_version, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.preferredVersion = preferredVersion
+        self.preferred_version = preferred_version
         """
         preferredVersion is the version preferred by the API server, which probably is the storage
         version.
         """
-        __props__['preferredVersion'] = preferredVersion
+        __props__['preferredVersion'] = preferred_version
 
         super(APIGroup, self).__init__(
             "kubernetes:core/v1:APIGroup",

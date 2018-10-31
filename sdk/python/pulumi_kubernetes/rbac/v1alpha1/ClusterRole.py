@@ -6,7 +6,7 @@ class ClusterRole(pulumi.CustomResource):
     ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit
     by a RoleBinding or ClusterRoleBinding.
     """
-    def __init__(self, __name__, __opts__=None, aggregationRule=None, metadata=None, rules=None):
+    def __init__(self, __name__, __opts__=None, aggregation_rule=None, metadata=None, rules=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -32,15 +32,15 @@ class ClusterRole(pulumi.CustomResource):
         """
         __props__['rules'] = rules
 
-        if aggregationRule and not isinstance(aggregationRule, dict):
+        if aggregation_rule and not isinstance(aggregation_rule, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.aggregationRule = aggregationRule
+        self.aggregation_rule = aggregation_rule
         """
         AggregationRule is an optional field that describes how to build the Rules for this
         ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
         changes to Rules will be stomped by the controller.
         """
-        __props__['aggregationRule'] = aggregationRule
+        __props__['aggregationRule'] = aggregation_rule
 
         if metadata and not isinstance(metadata, dict):
             raise TypeError('Expected property aliases to be a dict')

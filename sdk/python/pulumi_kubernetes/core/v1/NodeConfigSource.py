@@ -6,7 +6,7 @@ class NodeConfigSource(pulumi.CustomResource):
     NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding
     metadata) must be non-nil.
     """
-    def __init__(self, __name__, __opts__=None, configMapRef=None):
+    def __init__(self, __name__, __opts__=None, config_map_ref=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -22,11 +22,11 @@ class NodeConfigSource(pulumi.CustomResource):
         __props__['kind'] = 'NodeConfigSource'
         self.kind = 'NodeConfigSource'
 
-        if configMapRef and not isinstance(configMapRef, dict):
+        if config_map_ref and not isinstance(config_map_ref, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.configMapRef = configMapRef
+        self.config_map_ref = config_map_ref
         
-        __props__['configMapRef'] = configMapRef
+        __props__['configMapRef'] = config_map_ref
 
         super(NodeConfigSource, self).__init__(
             "kubernetes:core/v1:NodeConfigSource",

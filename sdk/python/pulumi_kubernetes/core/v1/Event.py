@@ -5,7 +5,7 @@ class Event(pulumi.CustomResource):
     """
     Event is a report of an event somewhere in the cluster.
     """
-    def __init__(self, __name__, __opts__=None, action=None, count=None, eventTime=None, firstTimestamp=None, involvedObject=None, lastTimestamp=None, message=None, metadata=None, reason=None, related=None, reportingComponent=None, reportingInstance=None, series=None, source=None, type=None):
+    def __init__(self, __name__, __opts__=None, action=None, count=None, event_time=None, first_timestamp=None, involved_object=None, last_timestamp=None, message=None, metadata=None, reason=None, related=None, reporting_component=None, reporting_instance=None, series=None, source=None, type=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -25,11 +25,11 @@ class Event(pulumi.CustomResource):
             raise TypeError('Missing required property involvedObject')
         elif not isinstance(involvedObject, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.involvedObject = involvedObject
+        self.involved_object = involved_object
         """
         The object that this event is about.
         """
-        __props__['involvedObject'] = involvedObject
+        __props__['involvedObject'] = involved_object
 
         if not metadata:
             raise TypeError('Missing required property metadata')
@@ -58,29 +58,29 @@ class Event(pulumi.CustomResource):
         """
         __props__['count'] = count
 
-        if eventTime and not isinstance(eventTime, str):
+        if event_time and not isinstance(event_time, str):
             raise TypeError('Expected property aliases to be a str')
-        self.eventTime = eventTime
+        self.event_time = event_time
         """
         Time when this Event was first observed.
         """
-        __props__['eventTime'] = eventTime
+        __props__['eventTime'] = event_time
 
-        if firstTimestamp and not isinstance(firstTimestamp, str):
+        if first_timestamp and not isinstance(first_timestamp, str):
             raise TypeError('Expected property aliases to be a str')
-        self.firstTimestamp = firstTimestamp
+        self.first_timestamp = first_timestamp
         """
         The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
         """
-        __props__['firstTimestamp'] = firstTimestamp
+        __props__['firstTimestamp'] = first_timestamp
 
-        if lastTimestamp and not isinstance(lastTimestamp, str):
+        if last_timestamp and not isinstance(last_timestamp, str):
             raise TypeError('Expected property aliases to be a str')
-        self.lastTimestamp = lastTimestamp
+        self.last_timestamp = last_timestamp
         """
         The time at which the most recent occurrence of this event was recorded.
         """
-        __props__['lastTimestamp'] = lastTimestamp
+        __props__['lastTimestamp'] = last_timestamp
 
         if message and not isinstance(message, str):
             raise TypeError('Expected property aliases to be a str')
@@ -107,21 +107,21 @@ class Event(pulumi.CustomResource):
         """
         __props__['related'] = related
 
-        if reportingComponent and not isinstance(reportingComponent, str):
+        if reporting_component and not isinstance(reporting_component, str):
             raise TypeError('Expected property aliases to be a str')
-        self.reportingComponent = reportingComponent
+        self.reporting_component = reporting_component
         """
         Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         """
-        __props__['reportingComponent'] = reportingComponent
+        __props__['reportingComponent'] = reporting_component
 
-        if reportingInstance and not isinstance(reportingInstance, str):
+        if reporting_instance and not isinstance(reporting_instance, str):
             raise TypeError('Expected property aliases to be a str')
-        self.reportingInstance = reportingInstance
+        self.reporting_instance = reporting_instance
         """
         ID of the controller instance, e.g. `kubelet-xyzf`.
         """
-        __props__['reportingInstance'] = reportingInstance
+        __props__['reportingInstance'] = reporting_instance
 
         if series and not isinstance(series, dict):
             raise TypeError('Expected property aliases to be a dict')
