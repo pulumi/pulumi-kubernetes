@@ -6,7 +6,7 @@ class ClusterRoleBinding(pulumi.CustomResource):
     ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole
     in the global namespace, and adds who information via Subject.
     """
-    def __init__(self, __name__, __opts__=None, metadata=None, roleRef=None, subjects=None):
+    def __init__(self, __name__, __opts__=None, metadata=None, role_ref=None, subjects=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -26,12 +26,12 @@ class ClusterRoleBinding(pulumi.CustomResource):
             raise TypeError('Missing required property roleRef')
         elif not isinstance(roleRef, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.roleRef = roleRef
+        self.role_ref = role_ref
         """
         RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be
         resolved, the Authorizer must return an error.
         """
-        __props__['roleRef'] = roleRef
+        __props__['roleRef'] = role_ref
 
         if not subjects:
             raise TypeError('Missing required property subjects')

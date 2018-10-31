@@ -6,7 +6,7 @@ class PriorityClass(pulumi.CustomResource):
     PriorityClass defines mapping from a priority class name to the priority integer value. The
     value can be any valid integer.
     """
-    def __init__(self, __name__, __opts__=None, description=None, globalDefault=None, metadata=None, value=None):
+    def __init__(self, __name__, __opts__=None, description=None, global_default=None, metadata=None, value=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -42,14 +42,14 @@ class PriorityClass(pulumi.CustomResource):
         """
         __props__['description'] = description
 
-        if globalDefault and not isinstance(globalDefault, boolean):
+        if global_default and not isinstance(global_default, boolean):
             raise TypeError('Expected property aliases to be a boolean')
-        self.globalDefault = globalDefault
+        self.global_default = global_default
         """
         globalDefault specifies whether this PriorityClass should be considered as the default
         priority for pods that do not have any priority class.
         """
-        __props__['globalDefault'] = globalDefault
+        __props__['globalDefault'] = global_default
 
         if metadata and not isinstance(metadata, dict):
             raise TypeError('Expected property aliases to be a dict')

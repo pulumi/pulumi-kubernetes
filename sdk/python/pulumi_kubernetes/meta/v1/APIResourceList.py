@@ -6,7 +6,7 @@ class APIResourceList(pulumi.CustomResource):
     APIResourceList is a list of APIResource, it is used to expose the name of the resources
     supported in a specific group and version, and if the resource is namespaced.
     """
-    def __init__(self, __name__, __opts__=None, groupVersion=None, resources=None):
+    def __init__(self, __name__, __opts__=None, group_version=None, resources=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -26,11 +26,11 @@ class APIResourceList(pulumi.CustomResource):
             raise TypeError('Missing required property groupVersion')
         elif not isinstance(groupVersion, str):
             raise TypeError('Expected property aliases to be a str')
-        self.groupVersion = groupVersion
+        self.group_version = group_version
         """
         groupVersion is the group and version this APIResourceList is for.
         """
-        __props__['groupVersion'] = groupVersion
+        __props__['groupVersion'] = group_version
 
         if not resources:
             raise TypeError('Missing required property resources')

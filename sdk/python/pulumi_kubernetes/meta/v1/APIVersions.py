@@ -6,7 +6,7 @@ class APIVersions(pulumi.CustomResource):
     APIVersions lists the versions that are available, to allow clients to discover the API at /api,
     which is the root path of the legacy v1 API.
     """
-    def __init__(self, __name__, __opts__=None, serverAddressByClientCIDRs=None, versions=None):
+    def __init__(self, __name__, __opts__=None, server_address_by_client_cid_rs=None, versions=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -26,7 +26,7 @@ class APIVersions(pulumi.CustomResource):
             raise TypeError('Missing required property serverAddressByClientCIDRs')
         elif not isinstance(serverAddressByClientCIDRs, list):
             raise TypeError('Expected property aliases to be a list')
-        self.serverAddressByClientCIDRs = serverAddressByClientCIDRs
+        self.server_address_by_client_cid_rs = server_address_by_client_cid_rs
         """
         a map of client CIDR to server address that is serving this group. This is to help clients
         reach servers in the most network-efficient way possible. Clients can use the appropriate
@@ -36,7 +36,7 @@ class APIVersions(pulumi.CustomResource):
         client reaches the server using an internal IP. Server looks at X-Forwarded-For header or
         X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
         """
-        __props__['serverAddressByClientCIDRs'] = serverAddressByClientCIDRs
+        __props__['serverAddressByClientCIDRs'] = server_address_by_client_cid_rs
 
         if not versions:
             raise TypeError('Missing required property versions')

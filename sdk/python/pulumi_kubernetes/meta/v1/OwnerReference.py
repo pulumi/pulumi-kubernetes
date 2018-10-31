@@ -6,7 +6,7 @@ class OwnerReference(pulumi.CustomResource):
     OwnerReference contains enough information to let you identify an owning object. Currently, an
     owning object must be in the same namespace, so there is no namespace field.
     """
-    def __init__(self, __name__, __opts__=None, blockOwnerDeletion=None, controller=None, name=None, uid=None):
+    def __init__(self, __name__, __opts__=None, block_owner_deletion=None, controller=None, name=None, uid=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -42,16 +42,16 @@ class OwnerReference(pulumi.CustomResource):
         """
         __props__['uid'] = uid
 
-        if blockOwnerDeletion and not isinstance(blockOwnerDeletion, boolean):
+        if block_owner_deletion and not isinstance(block_owner_deletion, boolean):
             raise TypeError('Expected property aliases to be a boolean')
-        self.blockOwnerDeletion = blockOwnerDeletion
+        self.block_owner_deletion = block_owner_deletion
         """
         If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be
         deleted from the key-value store until this reference is removed. Defaults to false. To set
         this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable
         Entity) will be returned.
         """
-        __props__['blockOwnerDeletion'] = blockOwnerDeletion
+        __props__['blockOwnerDeletion'] = block_owner_deletion
 
         if controller and not isinstance(controller, boolean):
             raise TypeError('Expected property aliases to be a boolean')

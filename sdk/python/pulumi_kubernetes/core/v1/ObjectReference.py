@@ -5,7 +5,7 @@ class ObjectReference(pulumi.CustomResource):
     """
     ObjectReference contains enough information to let you inspect or modify the referred object.
     """
-    def __init__(self, __name__, __opts__=None, fieldPath=None, name=None, namespace=None, resourceVersion=None, uid=None):
+    def __init__(self, __name__, __opts__=None, field_path=None, name=None, namespace=None, resource_version=None, uid=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -21,9 +21,9 @@ class ObjectReference(pulumi.CustomResource):
         __props__['kind'] = 'ObjectReference'
         self.kind = 'ObjectReference'
 
-        if fieldPath and not isinstance(fieldPath, str):
+        if field_path and not isinstance(field_path, str):
             raise TypeError('Expected property aliases to be a str')
-        self.fieldPath = fieldPath
+        self.field_path = field_path
         """
         If referring to a piece of an object instead of an entire object, this string should contain
         a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For
@@ -33,7 +33,7 @@ class ObjectReference(pulumi.CustomResource):
         with index 2 in this pod). This syntax is chosen only to have some well-defined way of
         referencing a part of an object.
         """
-        __props__['fieldPath'] = fieldPath
+        __props__['fieldPath'] = field_path
 
         if name and not isinstance(name, str):
             raise TypeError('Expected property aliases to be a str')
@@ -53,14 +53,14 @@ class ObjectReference(pulumi.CustomResource):
         """
         __props__['namespace'] = namespace
 
-        if resourceVersion and not isinstance(resourceVersion, str):
+        if resource_version and not isinstance(resource_version, str):
             raise TypeError('Expected property aliases to be a str')
-        self.resourceVersion = resourceVersion
+        self.resource_version = resource_version
         """
         Specific resourceVersion to which this reference is made, if any. More info:
         https://git.k8s.io/community/contributors/devel/api-conventions.md#concurrency-control-and-consistency
         """
-        __props__['resourceVersion'] = resourceVersion
+        __props__['resourceVersion'] = resource_version
 
         if uid and not isinstance(uid, str):
             raise TypeError('Expected property aliases to be a str')

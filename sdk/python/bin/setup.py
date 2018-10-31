@@ -15,7 +15,7 @@ def readme():
         return f.read()
 
 setup(name='pulumi_kubernetes',
-      version='0.17.3.post1540965342',
+      version='0.17.3.post1540965677+dirty',
       description='A Pulumi package for creating and managing Kubernetes resources.',
       long_description=readme(),
       cmdclass={

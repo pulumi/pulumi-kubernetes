@@ -123,13 +123,17 @@ func (kc *KindConfig) TypeGuard() string { return kc.typeGuard }
 // will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
 type Property struct {
 	name         string
+	languageName string
 	comment      string
 	propType     string
 	defaultValue string
 }
 
-// Name returns the name of the property
+// Name returns the name of the property.
 func (p *Property) Name() string { return p.name }
+
+// LanguageName returns the name of the property.
+func (p *Property) LanguageName() string { return p.languageName }
 
 // Comment returns the comments associated with some property.
 func (p *Property) Comment() string { return p.comment }
@@ -436,6 +440,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						comment:      fmtComment(prop["description"], prefix, opts),
 						propType:     makeType(prop, opts),
 						name:         propName,
+						languageName: pyName(propName),
 						defaultValue: defaultValue,
 					}
 				})

@@ -5,7 +5,7 @@ class DeploymentRollback(pulumi.CustomResource):
     """
     DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
     """
-    def __init__(self, __name__, __opts__=None, name=None, rollbackTo=None, updatedAnnotations=None):
+    def __init__(self, __name__, __opts__=None, name=None, rollback_to=None, updated_annotations=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -35,19 +35,19 @@ class DeploymentRollback(pulumi.CustomResource):
             raise TypeError('Missing required property rollbackTo')
         elif not isinstance(rollbackTo, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.rollbackTo = rollbackTo
+        self.rollback_to = rollback_to
         """
         The config of this deployment rollback.
         """
-        __props__['rollbackTo'] = rollbackTo
+        __props__['rollbackTo'] = rollback_to
 
-        if updatedAnnotations and not isinstance(updatedAnnotations, dict):
+        if updated_annotations and not isinstance(updated_annotations, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.updatedAnnotations = updatedAnnotations
+        self.updated_annotations = updated_annotations
         """
         The annotations to be updated to a deployment
         """
-        __props__['updatedAnnotations'] = updatedAnnotations
+        __props__['updatedAnnotations'] = updated_annotations
 
         super(DeploymentRollback, self).__init__(
             "kubernetes:apps/v1beta1:DeploymentRollback",

@@ -6,7 +6,7 @@ class Event(pulumi.CustomResource):
     Event is a report of an event somewhere in the cluster. It generally denotes some state change
     in the system.
     """
-    def __init__(self, __name__, __opts__=None, action=None, deprecatedCount=None, deprecatedFirstTimestamp=None, deprecatedLastTimestamp=None, deprecatedSource=None, eventTime=None, metadata=None, note=None, reason=None, regarding=None, related=None, reportingController=None, reportingInstance=None, series=None, type=None):
+    def __init__(self, __name__, __opts__=None, action=None, deprecated_count=None, deprecated_first_timestamp=None, deprecated_last_timestamp=None, deprecated_source=None, event_time=None, metadata=None, note=None, reason=None, regarding=None, related=None, reporting_controller=None, reporting_instance=None, series=None, type=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -26,11 +26,11 @@ class Event(pulumi.CustomResource):
             raise TypeError('Missing required property eventTime')
         elif not isinstance(eventTime, str):
             raise TypeError('Expected property aliases to be a str')
-        self.eventTime = eventTime
+        self.event_time = event_time
         """
         Required. Time when this Event was first observed.
         """
-        __props__['eventTime'] = eventTime
+        __props__['eventTime'] = event_time
 
         if action and not isinstance(action, str):
             raise TypeError('Expected property aliases to be a str')
@@ -40,37 +40,37 @@ class Event(pulumi.CustomResource):
         """
         __props__['action'] = action
 
-        if deprecatedCount and not isinstance(deprecatedCount, int):
+        if deprecated_count and not isinstance(deprecated_count, int):
             raise TypeError('Expected property aliases to be a int')
-        self.deprecatedCount = deprecatedCount
+        self.deprecated_count = deprecated_count
         """
         Deprecated field assuring backward compatibility with core.v1 Event type
         """
-        __props__['deprecatedCount'] = deprecatedCount
+        __props__['deprecatedCount'] = deprecated_count
 
-        if deprecatedFirstTimestamp and not isinstance(deprecatedFirstTimestamp, str):
+        if deprecated_first_timestamp and not isinstance(deprecated_first_timestamp, str):
             raise TypeError('Expected property aliases to be a str')
-        self.deprecatedFirstTimestamp = deprecatedFirstTimestamp
+        self.deprecated_first_timestamp = deprecated_first_timestamp
         """
         Deprecated field assuring backward compatibility with core.v1 Event type
         """
-        __props__['deprecatedFirstTimestamp'] = deprecatedFirstTimestamp
+        __props__['deprecatedFirstTimestamp'] = deprecated_first_timestamp
 
-        if deprecatedLastTimestamp and not isinstance(deprecatedLastTimestamp, str):
+        if deprecated_last_timestamp and not isinstance(deprecated_last_timestamp, str):
             raise TypeError('Expected property aliases to be a str')
-        self.deprecatedLastTimestamp = deprecatedLastTimestamp
+        self.deprecated_last_timestamp = deprecated_last_timestamp
         """
         Deprecated field assuring backward compatibility with core.v1 Event type
         """
-        __props__['deprecatedLastTimestamp'] = deprecatedLastTimestamp
+        __props__['deprecatedLastTimestamp'] = deprecated_last_timestamp
 
-        if deprecatedSource and not isinstance(deprecatedSource, dict):
+        if deprecated_source and not isinstance(deprecated_source, dict):
             raise TypeError('Expected property aliases to be a dict')
-        self.deprecatedSource = deprecatedSource
+        self.deprecated_source = deprecated_source
         """
         Deprecated field assuring backward compatibility with core.v1 Event type
         """
-        __props__['deprecatedSource'] = deprecatedSource
+        __props__['deprecatedSource'] = deprecated_source
 
         if metadata and not isinstance(metadata, dict):
             raise TypeError('Expected property aliases to be a dict')
@@ -114,21 +114,21 @@ class Event(pulumi.CustomResource):
         """
         __props__['related'] = related
 
-        if reportingController and not isinstance(reportingController, str):
+        if reporting_controller and not isinstance(reporting_controller, str):
             raise TypeError('Expected property aliases to be a str')
-        self.reportingController = reportingController
+        self.reporting_controller = reporting_controller
         """
         Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         """
-        __props__['reportingController'] = reportingController
+        __props__['reportingController'] = reporting_controller
 
-        if reportingInstance and not isinstance(reportingInstance, str):
+        if reporting_instance and not isinstance(reporting_instance, str):
             raise TypeError('Expected property aliases to be a str')
-        self.reportingInstance = reportingInstance
+        self.reporting_instance = reporting_instance
         """
         ID of the controller instance, e.g. `kubelet-xyzf`.
         """
-        __props__['reportingInstance'] = reportingInstance
+        __props__['reportingInstance'] = reporting_instance
 
         if series and not isinstance(series, dict):
             raise TypeError('Expected property aliases to be a dict')
