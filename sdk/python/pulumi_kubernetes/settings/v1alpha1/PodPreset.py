@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ...tables import _CASING_FORWARD_TABLE, _CASING_BACKWARD_TABLE
+
 class PodPreset(pulumi.CustomResource):
     """
     PodPreset is a policy resource that defines additional runtime requirements for a Pod.
@@ -38,3 +40,9 @@ class PodPreset(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return _CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return _CASING_BACKWARD_TABLE.get(prop) or prop

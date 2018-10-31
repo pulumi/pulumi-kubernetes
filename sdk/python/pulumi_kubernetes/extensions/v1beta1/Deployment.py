@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ...tables import _CASING_FORWARD_TABLE, _CASING_BACKWARD_TABLE
+
 class Deployment(pulumi.CustomResource):
     """
     DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See the
@@ -52,3 +54,9 @@ class Deployment(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return _CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return _CASING_BACKWARD_TABLE.get(prop) or prop

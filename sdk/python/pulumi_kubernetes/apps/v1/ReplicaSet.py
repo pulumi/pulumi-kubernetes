@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ...tables import _CASING_FORWARD_TABLE, _CASING_BACKWARD_TABLE
+
 class ReplicaSet(pulumi.CustomResource):
     """
     ReplicaSet ensures that a specified number of pod replicas are running at any given time.
@@ -55,3 +57,9 @@ class ReplicaSet(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return _CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return _CASING_BACKWARD_TABLE.get(prop) or prop

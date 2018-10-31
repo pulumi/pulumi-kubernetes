@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ...tables import _CASING_FORWARD_TABLE, _CASING_BACKWARD_TABLE
+
 class ObjectReference(pulumi.CustomResource):
     """
     ObjectReference contains enough information to let you inspect or modify the referred object.
@@ -76,3 +78,9 @@ class ObjectReference(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return _CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return _CASING_BACKWARD_TABLE.get(prop) or prop

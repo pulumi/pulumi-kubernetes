@@ -1,6 +1,7 @@
 README.rst
 setup.py
 pulumi_kubernetes/__init__.py
+pulumi_kubernetes/tables.py
 pulumi_kubernetes.egg-info/PKG-INFO
 pulumi_kubernetes.egg-info/SOURCES.txt
 pulumi_kubernetes.egg-info/dependency_links.txt
