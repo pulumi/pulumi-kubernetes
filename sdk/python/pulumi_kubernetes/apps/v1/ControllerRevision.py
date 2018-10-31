@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ...tables import _CASING_FORWARD_TABLE, _CASING_BACKWARD_TABLE
+
 class ControllerRevision(pulumi.CustomResource):
     """
     ControllerRevision implements an immutable snapshot of state data. Clients are responsible for
@@ -60,3 +62,9 @@ class ControllerRevision(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return _CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return _CASING_BACKWARD_TABLE.get(prop) or prop
