@@ -18,29 +18,10 @@ class ReplicaSetList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'apps/v1beta2'
-        self.apiVersion = 'apps/v1beta2'
-
         __props__['kind'] = 'ReplicaSetList'
-        self.kind = 'ReplicaSetList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        List of ReplicaSets. More info:
-        https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard list metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-        """
         __props__['metadata'] = metadata
 
         super(ReplicaSetList, self).__init__(

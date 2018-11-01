@@ -18,29 +18,10 @@ class PersistentVolumeClaimList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'v1'
-        self.apiVersion = 'v1'
-
         __props__['kind'] = 'PersistentVolumeClaimList'
-        self.kind = 'PersistentVolumeClaimList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        A list of persistent volume claims. More info:
-        https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard list metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-        """
         __props__['metadata'] = metadata
 
         super(PersistentVolumeClaimList, self).__init__(

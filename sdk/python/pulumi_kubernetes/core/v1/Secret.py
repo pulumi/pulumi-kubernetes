@@ -19,47 +19,10 @@ class Secret(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'v1'
-        self.apiVersion = 'v1'
-
         __props__['kind'] = 'Secret'
-        self.kind = 'Secret'
-
-        if data and not isinstance(data, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.data = data
-        """
-        Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or
-        '.'. The serialized form of the secret data is a base64 encoded string, representing the
-        arbitrary (possibly non-string) data value here. Described in
-        https://tools.ietf.org/html/rfc4648#section-4
-        """
         __props__['data'] = data
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
-
-        if string_data and not isinstance(string_data, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.string_data = string_data
-        """
-        stringData allows specifying non-binary secret data in string form. It is provided as a
-        write-only convenience method. All keys and values are merged into the data field on write,
-        overwriting any existing values. It is never output when reading from the API.
-        """
         __props__['stringData'] = string_data
-
-        if type and not isinstance(type, str):
-            raise TypeError('Expected property aliases to be a str')
-        self.type = type
-        """
-        Used to facilitate programmatic handling of secret data.
-        """
         __props__['type'] = type
 
         super(Secret, self).__init__(

@@ -24,32 +24,9 @@ class StatefulSet(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'apps/v1beta1'
-        self.apiVersion = 'apps/v1beta1'
-
         __props__['kind'] = 'StatefulSet'
-        self.kind = 'StatefulSet'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Spec defines the desired identities of pods in this set.
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Status is the current status of Pods in this StatefulSet. This data may be out of date by
-        some window of time.
-        """
         __props__['status'] = status
 
         super(StatefulSet, self).__init__(

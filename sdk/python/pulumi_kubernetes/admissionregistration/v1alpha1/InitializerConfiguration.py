@@ -18,29 +18,8 @@ class InitializerConfiguration(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'admissionregistration.k8s.io/v1alpha1'
-        self.apiVersion = 'admissionregistration.k8s.io/v1alpha1'
-
         __props__['kind'] = 'InitializerConfiguration'
-        self.kind = 'InitializerConfiguration'
-
-        if initializers and not isinstance(initializers, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.initializers = initializers
-        """
-        Initializers is a list of resources and their default initializers Order-sensitive. When
-        merging multiple InitializerConfigurations, we sort the initializers from different
-        InitializerConfigurations by the name of the InitializerConfigurations; the order of the
-        initializers from the same InitializerConfiguration is preserved.
-        """
         __props__['initializers'] = initializers
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object metadata; More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-        """
         __props__['metadata'] = metadata
 
         super(InitializerConfiguration, self).__init__(

@@ -18,28 +18,10 @@ class IngressList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'extensions/v1beta1'
-        self.apiVersion = 'extensions/v1beta1'
-
         __props__['kind'] = 'IngressList'
-        self.kind = 'IngressList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        Items is the list of Ingress.
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
 
         super(IngressList, self).__init__(

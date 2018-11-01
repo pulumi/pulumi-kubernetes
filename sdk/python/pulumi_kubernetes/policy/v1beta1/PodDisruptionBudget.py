@@ -19,31 +19,9 @@ class PodDisruptionBudget(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'policy/v1beta1'
-        self.apiVersion = 'policy/v1beta1'
-
         __props__['kind'] = 'PodDisruptionBudget'
-        self.kind = 'PodDisruptionBudget'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Specification of the desired behavior of the PodDisruptionBudget.
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Most recently observed status of the PodDisruptionBudget.
-        """
         __props__['status'] = status
 
         super(PodDisruptionBudget, self).__init__(

@@ -20,35 +20,9 @@ class HorizontalPodAutoscaler(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'autoscaling/v2beta1'
-        self.apiVersion = 'autoscaling/v2beta1'
-
         __props__['kind'] = 'HorizontalPodAutoscaler'
-        self.kind = 'HorizontalPodAutoscaler'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        metadata is the standard object metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        spec is the specification for the behaviour of the autoscaler. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        status is the current information about the autoscaler.
-        """
         __props__['status'] = status
 
         super(HorizontalPodAutoscaler, self).__init__(

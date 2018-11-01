@@ -21,38 +21,11 @@ class VolumeAttachment(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'storage.k8s.io/v1alpha1'
-        self.apiVersion = 'storage.k8s.io/v1alpha1'
-
         __props__['kind'] = 'VolumeAttachment'
-        self.kind = 'VolumeAttachment'
-
         if not spec:
             raise TypeError('Missing required property spec')
-        elif not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Specification of the desired attach/detach volume behavior. Populated by the Kubernetes
-        system.
-        """
         __props__['spec'] = spec
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Status of the VolumeAttachment request. Populated by the entity completing the attach or
-        detach operation, i.e. the external-attacher.
-        """
         __props__['status'] = status
 
         super(VolumeAttachment, self).__init__(

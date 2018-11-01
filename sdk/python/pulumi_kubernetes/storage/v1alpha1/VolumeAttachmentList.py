@@ -18,28 +18,10 @@ class VolumeAttachmentList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'storage.k8s.io/v1alpha1'
-        self.apiVersion = 'storage.k8s.io/v1alpha1'
-
         __props__['kind'] = 'VolumeAttachmentList'
-        self.kind = 'VolumeAttachmentList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        Items is the list of VolumeAttachments
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard list metadata More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
 
         super(VolumeAttachmentList, self).__init__(

@@ -18,25 +18,10 @@ class CustomResourceDefinitionList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'apiextensions.k8s.io/v1beta1'
-        self.apiVersion = 'apiextensions.k8s.io/v1beta1'
-
         __props__['kind'] = 'CustomResourceDefinitionList'
-        self.kind = 'CustomResourceDefinitionList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        Items individual CustomResourceDefinitions
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
 
         super(CustomResourceDefinitionList, self).__init__(

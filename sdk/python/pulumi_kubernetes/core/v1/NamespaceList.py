@@ -18,29 +18,10 @@ class NamespaceList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'v1'
-        self.apiVersion = 'v1'
-
         __props__['kind'] = 'NamespaceList'
-        self.kind = 'NamespaceList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        Items is the list of Namespace objects in the list. More info:
-        https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard list metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-        """
         __props__['metadata'] = metadata
 
         super(NamespaceList, self).__init__(

@@ -18,19 +18,9 @@ class APIGroupList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'v1'
-        self.apiVersion = 'v1'
-
         __props__['kind'] = 'APIGroupList'
-        self.kind = 'APIGroupList'
-
         if not groups:
             raise TypeError('Missing required property groups')
-        elif not isinstance(groups, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.groups = groups
-        """
-        groups is a list of APIGroup.
-        """
         __props__['groups'] = groups
 
         super(APIGroupList, self).__init__(

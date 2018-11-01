@@ -18,26 +18,8 @@ class ComponentStatus(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'v1'
-        self.apiVersion = 'v1'
-
         __props__['kind'] = 'ComponentStatus'
-        self.kind = 'ComponentStatus'
-
-        if conditions and not isinstance(conditions, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.conditions = conditions
-        """
-        List of component conditions observed
-        """
         __props__['conditions'] = conditions
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
 
         super(ComponentStatus, self).__init__(

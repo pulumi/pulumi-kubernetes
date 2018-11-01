@@ -18,26 +18,8 @@ class NetworkPolicy(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'networking.k8s.io/v1'
-        self.apiVersion = 'networking.k8s.io/v1'
-
         __props__['kind'] = 'NetworkPolicy'
-        self.kind = 'NetworkPolicy'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Specification of the desired behavior for this NetworkPolicy.
-        """
         __props__['spec'] = spec
 
         super(NetworkPolicy, self).__init__(

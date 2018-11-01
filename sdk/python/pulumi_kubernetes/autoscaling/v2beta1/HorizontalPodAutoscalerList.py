@@ -18,27 +18,10 @@ class HorizontalPodAutoscalerList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'autoscaling/v2beta1'
-        self.apiVersion = 'autoscaling/v2beta1'
-
         __props__['kind'] = 'HorizontalPodAutoscalerList'
-        self.kind = 'HorizontalPodAutoscalerList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        items is the list of horizontal pod autoscaler objects.
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        metadata is the standard list metadata.
-        """
         __props__['metadata'] = metadata
 
         super(HorizontalPodAutoscalerList, self).__init__(

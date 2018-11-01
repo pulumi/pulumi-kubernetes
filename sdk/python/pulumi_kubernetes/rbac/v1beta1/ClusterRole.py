@@ -19,37 +19,11 @@ class ClusterRole(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1beta1'
-        self.apiVersion = 'rbac.authorization.k8s.io/v1beta1'
-
         __props__['kind'] = 'ClusterRole'
-        self.kind = 'ClusterRole'
-
         if not rules:
             raise TypeError('Missing required property rules')
-        elif not isinstance(rules, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.rules = rules
-        """
-        Rules holds all the PolicyRules for this ClusterRole
-        """
         __props__['rules'] = rules
-
-        if aggregation_rule and not isinstance(aggregation_rule, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.aggregation_rule = aggregation_rule
-        """
-        AggregationRule is an optional field that describes how to build the Rules for this
-        ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
-        changes to Rules will be stomped by the controller.
-        """
         __props__['aggregationRule'] = aggregation_rule
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata.
-        """
         __props__['metadata'] = metadata
 
         super(ClusterRole, self).__init__(

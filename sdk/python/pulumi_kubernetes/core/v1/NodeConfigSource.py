@@ -19,15 +19,7 @@ class NodeConfigSource(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'v1'
-        self.apiVersion = 'v1'
-
         __props__['kind'] = 'NodeConfigSource'
-        self.kind = 'NodeConfigSource'
-
-        if config_map_ref and not isinstance(config_map_ref, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.config_map_ref = config_map_ref
-        
         __props__['configMapRef'] = config_map_ref
 
         super(NodeConfigSource, self).__init__(

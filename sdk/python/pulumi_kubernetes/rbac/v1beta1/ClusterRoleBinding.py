@@ -19,38 +19,13 @@ class ClusterRoleBinding(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1beta1'
-        self.apiVersion = 'rbac.authorization.k8s.io/v1beta1'
-
         __props__['kind'] = 'ClusterRoleBinding'
-        self.kind = 'ClusterRoleBinding'
-
         if not roleRef:
             raise TypeError('Missing required property roleRef')
-        elif not isinstance(roleRef, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.role_ref = role_ref
-        """
-        RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be
-        resolved, the Authorizer must return an error.
-        """
         __props__['roleRef'] = role_ref
-
         if not subjects:
             raise TypeError('Missing required property subjects')
-        elif not isinstance(subjects, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.subjects = subjects
-        """
-        Subjects holds references to the objects the role applies to.
-        """
         __props__['subjects'] = subjects
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata.
-        """
         __props__['metadata'] = metadata
 
         super(ClusterRoleBinding, self).__init__(

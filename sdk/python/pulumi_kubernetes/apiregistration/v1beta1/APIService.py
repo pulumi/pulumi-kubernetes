@@ -18,31 +18,9 @@ class APIService(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'apiregistration/v1beta1'
-        self.apiVersion = 'apiregistration/v1beta1'
-
         __props__['kind'] = 'APIService'
-        self.kind = 'APIService'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Spec contains information for locating and communicating with a server
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Status contains derived information about an API server
-        """
         __props__['status'] = status
 
         super(APIService, self).__init__(

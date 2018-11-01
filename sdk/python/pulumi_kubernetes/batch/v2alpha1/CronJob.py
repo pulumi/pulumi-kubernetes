@@ -18,36 +18,9 @@ class CronJob(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'batch/v2alpha1'
-        self.apiVersion = 'batch/v2alpha1'
-
         __props__['kind'] = 'CronJob'
-        self.kind = 'CronJob'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Specification of the desired behavior of a cron job, including the schedule. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Current status of a cron job. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-        """
         __props__['status'] = status
 
         super(CronJob, self).__init__(

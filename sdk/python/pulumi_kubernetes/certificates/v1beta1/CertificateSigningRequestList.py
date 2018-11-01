@@ -16,23 +16,10 @@ class CertificateSigningRequestList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'certificates.k8s.io/v1beta1'
-        self.apiVersion = 'certificates.k8s.io/v1beta1'
-
         __props__['kind'] = 'CertificateSigningRequestList'
-        self.kind = 'CertificateSigningRequestList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
 
         super(CertificateSigningRequestList, self).__init__(

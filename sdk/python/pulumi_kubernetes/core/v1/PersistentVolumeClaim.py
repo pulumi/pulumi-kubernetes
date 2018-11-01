@@ -18,37 +18,9 @@ class PersistentVolumeClaim(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'v1'
-        self.apiVersion = 'v1'
-
         __props__['kind'] = 'PersistentVolumeClaim'
-        self.kind = 'PersistentVolumeClaim'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Spec defines the desired characteristics of a volume requested by a pod author. More info:
-        https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Status represents the current information/status of a persistent volume claim. Read-only.
-        More info:
-        https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        """
         __props__['status'] = status
 
         super(PersistentVolumeClaim, self).__init__(

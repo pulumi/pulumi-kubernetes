@@ -18,21 +18,8 @@ class PodPreset(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'settings.k8s.io/v1alpha1'
-        self.apiVersion = 'settings.k8s.io/v1alpha1'
-
         __props__['kind'] = 'PodPreset'
-        self.kind = 'PodPreset'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        
         __props__['spec'] = spec
 
         super(PodPreset, self).__init__(

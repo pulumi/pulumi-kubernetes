@@ -29,33 +29,10 @@ class Endpoints(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'v1'
-        self.apiVersion = 'v1'
-
         __props__['kind'] = 'Endpoints'
-        self.kind = 'Endpoints'
-
         if not subsets:
             raise TypeError('Missing required property subsets')
-        elif not isinstance(subsets, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.subsets = subsets
-        """
-        The set of all endpoints is the union of all subsets. Addresses are placed into subsets
-        according to the IPs they share. A single address with multiple ports, some of which are
-        ready and some of which are not (because they come from different containers) will result in
-        the address being displayed in different subsets for the different ports. No address will
-        appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and
-        ports that comprise a service.
-        """
         __props__['subsets'] = subsets
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
 
         super(Endpoints, self).__init__(

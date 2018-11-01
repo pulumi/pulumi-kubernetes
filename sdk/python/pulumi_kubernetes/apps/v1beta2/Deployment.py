@@ -20,33 +20,9 @@ class Deployment(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'apps/v1beta2'
-        self.apiVersion = 'apps/v1beta2'
-
         __props__['kind'] = 'Deployment'
-        self.kind = 'Deployment'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object metadata.
-        """
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Specification of the desired behavior of the Deployment.
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Most recently observed status of the Deployment.
-        """
         __props__['status'] = status
 
         super(Deployment, self).__init__(

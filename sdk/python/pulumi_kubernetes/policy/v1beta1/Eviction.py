@@ -20,25 +20,8 @@ class Eviction(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'policy/v1beta1'
-        self.apiVersion = 'policy/v1beta1'
-
         __props__['kind'] = 'Eviction'
-        self.kind = 'Eviction'
-
-        if delete_options and not isinstance(delete_options, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.delete_options = delete_options
-        """
-        DeleteOptions may be provided
-        """
         __props__['deleteOptions'] = delete_options
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        ObjectMeta describes the pod that is being evicted.
-        """
         __props__['metadata'] = metadata
 
         super(Eviction, self).__init__(

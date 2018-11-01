@@ -19,35 +19,12 @@ class APIVersions(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'v1'
-        self.apiVersion = 'v1'
-
         __props__['kind'] = 'APIVersions'
-        self.kind = 'APIVersions'
-
         if not serverAddressByClientCIDRs:
             raise TypeError('Missing required property serverAddressByClientCIDRs')
-        elif not isinstance(serverAddressByClientCIDRs, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.server_address_by_client_cid_rs = server_address_by_client_cid_rs
-        """
-        a map of client CIDR to server address that is serving this group. This is to help clients
-        reach servers in the most network-efficient way possible. Clients can use the appropriate
-        server address as per the CIDR that they match. In case of multiple matches, clients should
-        use the longest matching CIDR. The server returns only those CIDRs that it thinks that the
-        client can match. For example: the master will return an internal IP CIDR only, if the
-        client reaches the server using an internal IP. Server looks at X-Forwarded-For header or
-        X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.
-        """
         __props__['serverAddressByClientCIDRs'] = server_address_by_client_cid_rs
-
         if not versions:
             raise TypeError('Missing required property versions')
-        elif not isinstance(versions, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.versions = versions
-        """
-        versions are the api versions that are available.
-        """
         __props__['versions'] = versions
 
         super(APIVersions, self).__init__(

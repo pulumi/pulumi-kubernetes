@@ -18,27 +18,10 @@ class ClusterRoleBindingList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1alpha1'
-        self.apiVersion = 'rbac.authorization.k8s.io/v1alpha1'
-
         __props__['kind'] = 'ClusterRoleBindingList'
-        self.kind = 'ClusterRoleBindingList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        Items is a list of ClusterRoleBindings
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata.
-        """
         __props__['metadata'] = metadata
 
         super(ClusterRoleBindingList, self).__init__(

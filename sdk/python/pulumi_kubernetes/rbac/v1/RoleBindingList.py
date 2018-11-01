@@ -18,27 +18,10 @@ class RoleBindingList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1'
-        self.apiVersion = 'rbac.authorization.k8s.io/v1'
-
         __props__['kind'] = 'RoleBindingList'
-        self.kind = 'RoleBindingList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        Items is a list of RoleBindings
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata.
-        """
         __props__['metadata'] = metadata
 
         super(RoleBindingList, self).__init__(
