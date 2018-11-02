@@ -31,4 +31,10 @@ if [[ "${TRAVIS_OS_NAME:-}" == "linux" ]]; then
     mv package.json package.json.publish
     mv package.json.dev package.json
     popd
+
+    # Next, publish the PyPI package.
+    echo "Publishing Pip package to pulumi.com:"
+    twine upload \
+        -u pulumi -p ${PYPI_PASSWORD} \
+        ${ROOT}/sdk/python/bin/dist/*.tar.gz
 fi
