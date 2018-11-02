@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class ControllerRevision(pulumi.CustomResource):
     """
     DEPRECATED - This group version of ControllerRevision is deprecated by
@@ -25,36 +27,11 @@ class ControllerRevision(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'apps/v1beta2'
-        self.apiVersion = 'apps/v1beta2'
-
         __props__['kind'] = 'ControllerRevision'
-        self.kind = 'ControllerRevision'
-
         if not revision:
             raise TypeError('Missing required property revision')
-        elif not isinstance(revision, int):
-            raise TypeError('Expected property aliases to be a int')
-        self.revision = revision
-        """
-        Revision indicates the revision of the state represented by Data.
-        """
         __props__['revision'] = revision
-
-        if data and not isinstance(data, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.data = data
-        """
-        Data is the serialized representation of the state.
-        """
         __props__['data'] = data
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
 
         super(ControllerRevision, self).__init__(
@@ -62,3 +39,9 @@ class ControllerRevision(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

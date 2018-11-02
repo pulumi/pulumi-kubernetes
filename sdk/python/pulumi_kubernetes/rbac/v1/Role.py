@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class Role(pulumi.CustomResource):
     """
     Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
@@ -17,27 +19,10 @@ class Role(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1'
-        self.apiVersion = 'rbac.authorization.k8s.io/v1'
-
         __props__['kind'] = 'Role'
-        self.kind = 'Role'
-
         if not rules:
             raise TypeError('Missing required property rules')
-        elif not isinstance(rules, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.rules = rules
-        """
-        Rules holds all the PolicyRules for this Role
-        """
         __props__['rules'] = rules
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object's metadata.
-        """
         __props__['metadata'] = metadata
 
         super(Role, self).__init__(
@@ -45,3 +30,9 @@ class Role(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

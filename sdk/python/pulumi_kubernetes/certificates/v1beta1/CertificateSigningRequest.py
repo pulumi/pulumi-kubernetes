@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class CertificateSigningRequest(pulumi.CustomResource):
     """
     Describes a certificate signing request
@@ -16,31 +18,9 @@ class CertificateSigningRequest(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'certificates.k8s.io/v1beta1'
-        self.apiVersion = 'certificates.k8s.io/v1beta1'
-
         __props__['kind'] = 'CertificateSigningRequest'
-        self.kind = 'CertificateSigningRequest'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        The certificate request itself and any additional information.
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Derived information about the request.
-        """
         __props__['status'] = status
 
         super(CertificateSigningRequest, self).__init__(
@@ -48,3 +28,9 @@ class CertificateSigningRequest(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class StatefulSet(pulumi.CustomResource):
     """
     DEPRECATED - This group version of StatefulSet is deprecated by apps/v1beta2/StatefulSet. See
@@ -22,32 +24,9 @@ class StatefulSet(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'apps/v1beta1'
-        self.apiVersion = 'apps/v1beta1'
-
         __props__['kind'] = 'StatefulSet'
-        self.kind = 'StatefulSet'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Spec defines the desired identities of pods in this set.
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Status is the current status of Pods in this StatefulSet. This data may be out of date by
-        some window of time.
-        """
         __props__['status'] = status
 
         super(StatefulSet, self).__init__(
@@ -55,3 +34,9 @@ class StatefulSet(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

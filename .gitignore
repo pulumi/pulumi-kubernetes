@@ -1,9 +1,6 @@
 /vendor/
-/bin/
-/node_modules/
+**/bin/
+**/node_modules/
 .pulumi
 Pulumi.*.yaml
 /pkg/gen/openapi-specs
-/sdk/nodejs/bin
-/sdk/nodejs/node_modules
-/sdk/python/bin

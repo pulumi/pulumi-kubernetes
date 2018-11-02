@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class ValidatingWebhookConfiguration(pulumi.CustomResource):
     """
     ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept
@@ -17,26 +19,8 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'admissionregistration.k8s.io/v1beta1'
-        self.apiVersion = 'admissionregistration.k8s.io/v1beta1'
-
         __props__['kind'] = 'ValidatingWebhookConfiguration'
-        self.kind = 'ValidatingWebhookConfiguration'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object metadata; More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-        """
         __props__['metadata'] = metadata
-
-        if webhooks and not isinstance(webhooks, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.webhooks = webhooks
-        """
-        Webhooks is a list of webhooks and the affected resources and operations.
-        """
         __props__['webhooks'] = webhooks
 
         super(ValidatingWebhookConfiguration, self).__init__(
@@ -44,3 +28,9 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

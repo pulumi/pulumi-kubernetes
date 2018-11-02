@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class NetworkPolicyList(pulumi.CustomResource):
     """
     NetworkPolicyList is a list of NetworkPolicy objects.
@@ -16,28 +18,10 @@ class NetworkPolicyList(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'networking.k8s.io/v1'
-        self.apiVersion = 'networking.k8s.io/v1'
-
         __props__['kind'] = 'NetworkPolicyList'
-        self.kind = 'NetworkPolicyList'
-
         if not items:
             raise TypeError('Missing required property items')
-        elif not isinstance(items, list):
-            raise TypeError('Expected property aliases to be a list')
-        self.items = items
-        """
-        Items is a list of schema objects.
-        """
         __props__['items'] = items
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard list metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
 
         super(NetworkPolicyList, self).__init__(
@@ -45,3 +29,9 @@ class NetworkPolicyList(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

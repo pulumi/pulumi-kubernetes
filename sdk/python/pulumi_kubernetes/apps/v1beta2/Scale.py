@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class Scale(pulumi.CustomResource):
     """
     Scale represents a scaling request for a resource.
@@ -16,37 +18,9 @@ class Scale(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'apps/v1beta2'
-        self.apiVersion = 'apps/v1beta2'
-
         __props__['kind'] = 'Scale'
-        self.kind = 'Scale'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object metadata; More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-        """
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        defines the behavior of the scale. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        current status of the scale. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-        Read-only.
-        """
         __props__['status'] = status
 
         super(Scale, self).__init__(
@@ -54,3 +28,9 @@ class Scale(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

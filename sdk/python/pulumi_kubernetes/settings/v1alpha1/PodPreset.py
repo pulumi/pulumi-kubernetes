@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class PodPreset(pulumi.CustomResource):
     """
     PodPreset is a policy resource that defines additional runtime requirements for a Pod.
@@ -16,21 +18,8 @@ class PodPreset(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'settings.k8s.io/v1alpha1'
-        self.apiVersion = 'settings.k8s.io/v1alpha1'
-
         __props__['kind'] = 'PodPreset'
-        self.kind = 'PodPreset'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        
         __props__['spec'] = spec
 
         super(PodPreset, self).__init__(
@@ -38,3 +27,9 @@ class PodPreset(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

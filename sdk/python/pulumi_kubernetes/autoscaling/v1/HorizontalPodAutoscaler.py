@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class HorizontalPodAutoscaler(pulumi.CustomResource):
     """
     configuration of a horizontal pod autoscaler.
@@ -16,35 +18,9 @@ class HorizontalPodAutoscaler(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'autoscaling/v1'
-        self.apiVersion = 'autoscaling/v1'
-
         __props__['kind'] = 'HorizontalPodAutoscaler'
-        self.kind = 'HorizontalPodAutoscaler'
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        """
-        Standard object metadata. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        """
         __props__['metadata'] = metadata
-
-        if spec and not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        behaviour of autoscaler. More info:
-        https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-        """
         __props__['spec'] = spec
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        current information about the autoscaler.
-        """
         __props__['status'] = status
 
         super(HorizontalPodAutoscaler, self).__init__(
@@ -52,3 +28,9 @@ class HorizontalPodAutoscaler(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

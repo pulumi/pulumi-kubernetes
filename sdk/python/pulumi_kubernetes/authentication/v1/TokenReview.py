@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class TokenReview(pulumi.CustomResource):
     """
     TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be
@@ -17,33 +19,11 @@ class TokenReview(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'authentication.k8s.io/v1'
-        self.apiVersion = 'authentication.k8s.io/v1'
-
         __props__['kind'] = 'TokenReview'
-        self.kind = 'TokenReview'
-
         if not spec:
             raise TypeError('Missing required property spec')
-        elif not isinstance(spec, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.spec = spec
-        """
-        Spec holds information about the request being evaluated
-        """
         __props__['spec'] = spec
-
-        if metadata and not isinstance(metadata, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.metadata = metadata
-        
         __props__['metadata'] = metadata
-
-        if status and not isinstance(status, dict):
-            raise TypeError('Expected property aliases to be a dict')
-        self.status = status
-        """
-        Status is filled in by the server and indicates whether the request can be authenticated.
-        """
         __props__['status'] = status
 
         super(TokenReview, self).__init__(
@@ -51,3 +31,9 @@ class TokenReview(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

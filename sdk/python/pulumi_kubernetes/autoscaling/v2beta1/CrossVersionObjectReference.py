@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class CrossVersionObjectReference(pulumi.CustomResource):
     """
     CrossVersionObjectReference contains enough information to let you identify the referred
@@ -17,19 +19,9 @@ class CrossVersionObjectReference(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'autoscaling/v2beta1'
-        self.apiVersion = 'autoscaling/v2beta1'
-
         __props__['kind'] = 'CrossVersionObjectReference'
-        self.kind = 'CrossVersionObjectReference'
-
         if not name:
             raise TypeError('Missing required property name')
-        elif not isinstance(name, str):
-            raise TypeError('Expected property aliases to be a str')
-        self.name = name
-        """
-        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
-        """
         __props__['name'] = name
 
         super(CrossVersionObjectReference, self).__init__(
@@ -37,3 +29,9 @@ class CrossVersionObjectReference(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

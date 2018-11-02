@@ -1,9 +1,11 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class {{Kind}}(pulumi.CustomResource):
     {{{Comment}}}
-    def __init__(self, __name__, __opts__=None{{#Properties}}, {{Name}}=None{{/Properties}}):
+    def __init__(self, __name__, __opts__=None{{#Properties}}, {{LanguageName}}=None{{/Properties}}):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -14,27 +16,14 @@ class {{Kind}}(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = '{{RawAPIVersion}}'
-        self.apiVersion = '{{RawAPIVersion}}'
-
         __props__['kind'] = '{{Kind}}'
-        self.kind = '{{Kind}}'
         {{#RequiredProperties}}
-
         if not {{Name}}:
             raise TypeError('Missing required property {{Name}}')
-        elif not isinstance({{Name}}, {{PropType}}):
-            raise TypeError('Expected property aliases to be a {{PropType}}')
-        self.{{Name}} = {{Name}}
-        {{{Comment}}}
-        __props__['{{Name}}'] = {{Name}}
+        __props__['{{Name}}'] = {{LanguageName}}
         {{/RequiredProperties}}
         {{#OptionalProperties}}
-
-        if {{Name}} and not isinstance({{Name}}, {{PropType}}):
-            raise TypeError('Expected property aliases to be a {{PropType}}')
-        self.{{Name}} = {{Name}}
-        {{{Comment}}}
-        __props__['{{Name}}'] = {{Name}}
+        __props__['{{Name}}'] = {{LanguageName}}
         {{/OptionalProperties}}
 
         super({{Kind}}, self).__init__(
@@ -42,3 +31,9 @@ class {{Kind}}(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop

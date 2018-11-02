@@ -1,6 +1,8 @@
 import pulumi
 import pulumi.runtime
 
+from ... import tables
+
 class Subject(pulumi.CustomResource):
     """
     Subject contains a reference to the object or user identities a role binding applies to.  This
@@ -18,28 +20,10 @@ class Subject(pulumi.CustomResource):
         __props__ = dict()
 
         __props__['apiVersion'] = 'rbac/v1alpha1'
-        self.apiVersion = 'rbac/v1alpha1'
-
         __props__['kind'] = 'Subject'
-        self.kind = 'Subject'
-
         if not name:
             raise TypeError('Missing required property name')
-        elif not isinstance(name, str):
-            raise TypeError('Expected property aliases to be a str')
-        self.name = name
-        """
-        Name of the object being referenced.
-        """
         __props__['name'] = name
-
-        if namespace and not isinstance(namespace, str):
-            raise TypeError('Expected property aliases to be a str')
-        self.namespace = namespace
-        """
-        Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or
-        "Group", and this value is not empty the Authorizer should report an error.
-        """
         __props__['namespace'] = namespace
 
         super(Subject, self).__init__(
@@ -47,3 +31,9 @@ class Subject(pulumi.CustomResource):
             __name__,
             __props__,
             __opts__)
+
+    def translate_output_property(self, prop: str) -> str:
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
+
+    def translate_input_property(self, prop: str) -> str:
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop
