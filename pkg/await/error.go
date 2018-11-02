@@ -48,6 +48,7 @@ type timeoutError struct {
 
 var _ error = (*timeoutError)(nil)
 var _ AggregatedError = (*timeoutError)(nil)
+var _ InitializationError = (*timeoutError)(nil)
 
 func (te *timeoutError) Error() string {
 	return fmt.Sprintf("Timeout occurred for '%s'", te.object.GetName())
@@ -56,6 +57,10 @@ func (te *timeoutError) Error() string {
 // SubErrors returns the errors that were present when timeout occurred.
 func (te *timeoutError) SubErrors() []string {
 	return te.subErrors
+}
+
+func (te *timeoutError) Object() *unstructured.Unstructured {
+	return te.object
 }
 
 // readError occurs when we attempt to read a resource that failed to fully initialize.
