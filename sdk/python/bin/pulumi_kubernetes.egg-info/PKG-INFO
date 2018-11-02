@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: pulumi-kubernetes
-Version: 0.17.3.post1541031041
+Version: 0.17.3.post1541179853+dirty
 Summary: A Pulumi package for creating and managing Kubernetes resources.
 Home-page: https://pulumi.io
 Author: UNKNOWN

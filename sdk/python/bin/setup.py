@@ -8,14 +8,14 @@ from subprocess import check_call
 class InstallPluginCommand(install):
     def run(self):
         install.run(self)
-        check_call(['pulumi', 'plugin', 'install', 'resource', 'kubernetes', 'v0.17.3-1541031041-g0e757d9'])
+        check_call(['pulumi', 'plugin', 'install', 'resource', 'kubernetes', 'v0.17.3-1541179853-g5188213-dirty'])
 
 def readme():
     with open('README.rst') as f:
         return f.read()
 
 setup(name='pulumi_kubernetes',
-      version='0.17.3.post1541031041',
+      version='0.17.3.post1541179853+dirty',
       description='A Pulumi package for creating and managing Kubernetes resources.',
       long_description=readme(),
       cmdclass={
