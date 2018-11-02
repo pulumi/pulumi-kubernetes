@@ -16,7 +16,6 @@ package gen
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strings"
 	"unicode"
 
@@ -36,7 +35,6 @@ func PythonClient(
 	groupInit func(group, initPy string) error,
 	versionInit func(group, version, initPy string) error,
 	kindFile func(group, version, kind, kindPy string) error,
-	tableFile func(tablePy string) error,
 ) error {
 	definitions := swagger["definitions"].(map[string]interface{})
 
@@ -52,15 +50,6 @@ func PythonClient(
 	}
 	err = rootInit(rootInitPy)
 	if err != nil {
-		return err
-	}
-
-	table, err := ioutil.ReadFile(fmt.Sprintf("%s/tables.py", templateDir))
-	if err != nil {
-		return err
-	}
-
-	if err = tableFile(string(table)); err != nil {
 		return err
 	}
 

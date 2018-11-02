@@ -1,7 +1,7 @@
 import pulumi
 import pulumi.runtime
 
-from ...tables import _CASING_FORWARD_TABLE, _CASING_BACKWARD_TABLE
+from ... import tables
 
 class PriorityClassList(pulumi.CustomResource):
     """
@@ -31,7 +31,7 @@ class PriorityClassList(pulumi.CustomResource):
             __opts__)
 
     def translate_output_property(self, prop: str) -> str:
-        return _CASING_FORWARD_TABLE.get(prop) or prop
+        return tables._CASING_FORWARD_TABLE.get(prop) or prop
 
     def translate_input_property(self, prop: str) -> str:
-        return _CASING_BACKWARD_TABLE.get(prop) or prop
+        return tables._CASING_BACKWARD_TABLE.get(prop) or prop
