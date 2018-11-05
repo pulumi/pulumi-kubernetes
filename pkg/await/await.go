@@ -58,8 +58,28 @@ func Creation(
 		return nil, err
 	}
 
-	// Issue create request.
-	outputs, err := clientForResource.Create(inputs)
+	// Issue create request. We retry the create REST request on failure, so that we can tolerate
+	// some amount of misordering (e.g., creating a `Pod` before the `Namespace` it goes in;
+	// creating a custom resource before the CRD is registered; etc.), which is common among Helm
+	// Charts and YAML files.
+	//
+	// For more discussion see pulumi-kubernetes#239. See also the retry logic `kubectl` uses to
+	// mitigate resource conflicts:
+	//
+	// nolint
+	// https://github.com/kubernetes/kubernetes/blob/54889d581a35acf940d52a8a384cccaa0b597ddc/pkg/kubectl/cmd/apply/apply.go#L94
+	var outputs *unstructured.Unstructured
+	err = sleepingRetry(
+		func(i uint) error {
+			if i > 0 {
+				_ = host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("Creation failed, retrying (%d)", i))
+			}
+			outputs, err = clientForResource.Create(inputs)
+			return err
+		}).
+		WithMaxRetries(5).
+		WithBackoffFactor(2).
+		Do()
 	if err != nil {
 		return nil, err
 	}
