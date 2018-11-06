@@ -41,7 +41,8 @@ build:: $(OPENAPI_FILE)
 	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
 
 lint::
-	$(GOMETALINTER) ./cmd/... ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
+	$(GOMETALINTER) ./cmd/... | sort ; exit "$${PIPESTATUS[0]}"
+	$(GOMETALINTER) ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
 
 install::
 	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
