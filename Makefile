@@ -55,7 +55,8 @@ build:: $(OPENAPI_FILE)
 		cd ./bin && $(PYTHON) setup.py build sdist
 
 lint::
-	$(GOMETALINTER) ./cmd/... ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
+	$(GOMETALINTER) ./cmd/... | sort ; exit "$${PIPESTATUS[0]}"
+	$(GOMETALINTER) ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
 
 install::
 	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
