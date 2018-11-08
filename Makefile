@@ -71,7 +71,7 @@ test_fast::
 	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests
 
 test_all:: test_fast
-	PATH=$(PULUMI_BIN):$(PATH) $(GO) test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
+	PATH=$(PULUMI_BIN):$(PATH) $(GO) test -v -count=1 -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
 
 .PHONY: publish_tgz
 publish_tgz:
