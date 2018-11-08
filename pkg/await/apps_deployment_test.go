@@ -560,7 +560,6 @@ func Test_Apps_Deployment(t *testing.T) {
 	}
 }
 
-type setCurrInputs func(obj *unstructured.Unstructured)
 type setLastInputs func(obj *unstructured.Unstructured)
 
 func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {

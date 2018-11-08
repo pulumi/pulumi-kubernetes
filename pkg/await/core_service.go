@@ -1,7 +1,6 @@
 package await
 
 import (
-	"fmt"
 	"reflect"
 	"time"
 
@@ -370,22 +369,6 @@ func (sia *serviceInitAwaiter) emptyHeadlessOrExternalName() bool {
 	headlessEmpty := len(selector) == 0 && clusterIP == v1.ClusterIPNone
 	return headlessEmpty || sia.serviceType == string(v1.ServiceTypeExternalName)
 
-}
-
-func (sia *serviceInitAwaiter) collectWarningEvents() error {
-	clientForEvents, err := sia.config.eventClient()
-	if err != nil {
-		glog.V(3).Infof("Could not retrieve warning events for service '%s': %v",
-			sia.config.currentInputs.GetName(), err)
-	}
-	lastWarnings, wErr := getLastWarningsForObject(clientForEvents,
-		sia.config.currentInputs.GetNamespace(),
-		sia.config.currentInputs.GetName(), "Service", 3)
-	if wErr != nil {
-		glog.V(3).Infof("Could not retrieve warning events for service '%s': %v",
-			sia.config.currentInputs.GetName(), wErr)
-	}
-	return fmt.Errorf("%s%s", err, stringifyEvents(lastWarnings))
 }
 
 func (sia *serviceInitAwaiter) checkAndLogStatus() bool {

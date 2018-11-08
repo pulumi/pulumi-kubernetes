@@ -18,8 +18,6 @@ OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.Version=${VERSION}"
 
 GO              ?= go
-GOMETALINTERBIN ?= gometalinter
-GOMETALINTER    :=${GOMETALINTERBIN} --config=Gometalinter.json
 CURL            ?= curl
 PYTHON          ?= python
 
@@ -55,8 +53,7 @@ build:: $(OPENAPI_FILE)
 		cd ./bin && $(PYTHON) setup.py build sdist
 
 lint::
-	$(GOMETALINTER) ./cmd/... | sort ; exit "$${PIPESTATUS[0]}"
-	$(GOMETALINTER) ./pkg/... | sort ; exit "$${PIPESTATUS[0]}"
+	golangci-lint run
 
 install::
 	GOBIN=$(PULUMI_BIN) $(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
