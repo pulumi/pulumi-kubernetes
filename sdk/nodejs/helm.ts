@@ -11,17 +11,17 @@ import * as nodepath from "path";
 
 export namespace v2 {
     interface BaseChartOpts {
-        namespace?: string;
-        values?: any;
+        namespace?: pulumi.Input<string>;
+        values?: pulumi.Inputs;
         transformations?: ((o: any) => void)[];
     }
 
     export interface ChartOpts extends BaseChartOpts {
-        repo: string;
-        chart: string;
-        version: string;
+        repo: pulumi.Input<string>;
+        chart: pulumi.Input<string>;
+        version: pulumi.Input<string>;
 
-        fetchOpts?: FetchOpts;
+        fetchOpts?: pulumi.Input<FetchOpts>;
     }
 
     function isChartOpts(o: any): o is ChartOpts {
@@ -63,63 +63,76 @@ export namespace v2 {
         ) {
             super("kubernetes:helm.sh/v2:Chart", releaseName, config, opts);
 
-            // Create temporary directories and files to hold chart data and override values.
-            const overrides = tmp.fileSync({ postfix: ".yaml" });
-            const chartDir = tmp.dirSync({ unsafeCleanup: true });
+			const allConfig = pulumi.output(config);
+			const configDeps = Array.from(<Set<pulumi.Resource>>(<any>allConfig).resources());
 
-            try {
-                let chart: string;
-                let defaultValues: string;
-                if (isChartOpts(config)) {
-                    // Fetch chart.
-                    fetch(`${config.repo}/${config.chart}`, {
-                        destination: chartDir.name,
-                        version: config.version
-                    });
-                    chart = path.quotePath(nodepath.join(chartDir.name, config.chart));
-                    defaultValues = path.quotePath(
-                        nodepath.join(chartDir.name, config.chart, "values.yaml")
-                    );
-                } else {
-                    chart = path.quotePath(config.path);
-                    defaultValues = path.quotePath(nodepath.join(chart, "values.yaml"));
-                }
+			(<any>allConfig).isKnown.then((isKnown: boolean) => {
+				if (!isKnown) {
+					// Note that this can only happen during a preview.
+					pulumi.log.info("Note: some chart inputs are unknown; the chart's resources will not be displayed.");
+				}
+			});
 
-                // Write overrides file.
-                const data = JSON.stringify(config.values || {}, undefined, "  ");
-                fs.writeFileSync(overrides.name, data);
+			this.resources = allConfig.apply(cfg => {
+				// Create temporary directories and files to hold chart data and override values.
+				const overrides = tmp.fileSync({ postfix: ".yaml" });
+				const chartDir = tmp.dirSync({ unsafeCleanup: true });
 
-                // Does not require Tiller. From the `helm template` documentation:
-                //
-                // >  Render chart templates locally and display the output.
-                // >
-                // > This does not require Tiller. However, any values that would normally be
-                // > looked up or retrieved in-cluster will be faked locally. Additionally, none
-                // > of the server-side testing of chart validity (e.g. whether an API is supported)
-                // > is done.
-                const release = shell.quote([releaseName]);
-                const values = path.quotePath(overrides.name);
-                const namespaceArg = config.namespace
-                    ? `--namespace ${shell.quote([config.namespace])}`
-                    : "";
-                const yamlStream = execSync(
-                    `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
-                ).toString();
-                this.resources = this.parseTemplate(yamlStream, config.transformations);
-            } catch (e) {
-                // Shed stack trace, only emit the error.
-                throw new pulumi.RunError(e.toString());
-            } finally {
-                // Clean up temporary files and directories.
-                chartDir.removeCallback();
-                overrides.removeCallback();
-            }
+				try {
+					let chart: string;
+					let defaultValues: string;
+					if (isChartOpts(cfg)) {
+						// Fetch chart.
+						fetch(`${cfg.repo}/${cfg.chart}`, {
+							destination: chartDir.name,
+							version: cfg.version
+						});
+						chart = path.quotePath(nodepath.join(chartDir.name, cfg.chart));
+						defaultValues = path.quotePath(
+							nodepath.join(chartDir.name, cfg.chart, "values.yaml")
+						);
+					} else {
+						chart = path.quotePath(cfg.path);
+						defaultValues = path.quotePath(nodepath.join(chart, "values.yaml"));
+					}
+
+					// Write overrides file.
+					const data = JSON.stringify(cfg.values || {}, undefined, "  ");
+					fs.writeFileSync(overrides.name, data);
+
+					// Does not require Tiller. From the `helm template` documentation:
+					//
+					// >  Render chart templates locally and display the output.
+					// >
+					// > This does not require Tiller. However, any values that would normally be
+					// > looked up or retrieved in-cluster will be faked locally. Additionally, none
+					// > of the server-side testing of chart validity (e.g. whether an API is supported)
+					// > is done.
+					const release = shell.quote([releaseName]);
+					const values = path.quotePath(overrides.name);
+					const namespaceArg = cfg.namespace
+						? `--namespace ${shell.quote([cfg.namespace])}`
+						: "";
+					const yamlStream = execSync(
+						`helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
+					).toString();
+					return this.parseTemplate(yamlStream, cfg.transformations, configDeps);
+				} catch (e) {
+					// Shed stack trace, only emit the error.
+					throw new pulumi.RunError(e.toString());
+				} finally {
+					// Clean up temporary files and directories.
+					chartDir.removeCallback();
+					overrides.removeCallback();
+				}
+			});
         }
 
         parseTemplate(
             yamlStream: string,
-            transformations?: ((o: any) => void)[]
-        ): { [key: string]: pulumi.CustomResource } {
+            transformations: ((o: any) => void)[] | undefined,
+			dependsOn: pulumi.Resource[]
+        ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
             const objs = jsyaml
                 .safeLoadAll(yamlStream)
                 .filter(a => a != null && "kind" in a)
@@ -129,7 +142,7 @@ export namespace v2 {
                     yaml: objs.map(o => jsyaml.safeDump(o)),
                     transformations: transformations || []
                 },
-                { parent: this }
+                { parent: this, dependsOn: dependsOn }
             );
         }
     }
@@ -195,51 +208,69 @@ export namespace v2 {
 
 export interface FetchOpts {
     // Specific version of a chart. Without this, the latest version is fetched.
-    version?: string;
+    version?: pulumi.Input<string>;
 
     // Verify certificates of HTTPS-enabled servers using this CA bundle.
-    caFile?: string;
+    caFile?: pulumi.Input<string>;
 
     // Identify HTTPS client using this SSL certificate file.
-    certFile?: string;
+    certFile?: pulumi.Input<string>;
 
     // Identify HTTPS client using this SSL key file.
-    keyFile?: string;
+    keyFile?: pulumi.Input<string>;
 
     // Location to write the chart. If this and tardir are specified, tardir is appended to this
     // (default ".").
-    destination?: string;
+    destination?: pulumi.Input<string>;
 
     // Keyring containing public keys (default "/Users/alex/.gnupg/pubring.gpg").
-    keyring?: string;
+    keyring?: pulumi.Input<string>;
 
     // Chart repository password.
-    password?: string;
+    password?: pulumi.Input<string>;
 
     // Chart repository url where to locate the requested chart.
-    repo?: string;
+    repo?: pulumi.Input<string>;
 
     // If untar is specified, this flag specifies the name of the directory into which the chart is
     // expanded (default ".").
-    untardir?: string;
+    untardir?: pulumi.Input<string>;
 
     // Chart repository username.
-    username?: string;
+    username?: pulumi.Input<string>;
 
     // Location of your Helm config. Overrides $HELM_HOME (default "/Users/alex/.helm").
-    home?: string;
+    home?: pulumi.Input<string>;
 
     // Use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is
     // ignored.
-    devel?: boolean;
+    devel?: pulumi.Input<boolean>;
 
     // Fetch the provenance file, but don't perform verification.
-    prov?: boolean;
+    prov?: pulumi.Input<boolean>;
 
     // If set to false, will leave the chart as a tarball after downloading.
-    untar?: boolean;
+    untar?: pulumi.Input<boolean>;
 
     // Verify the package against its signature.
+    verify?: pulumi.Input<boolean>;
+}
+
+interface ResolvedFetchOpts {
+    version?: string;
+    caFile?: string;
+    certFile?: string;
+    keyFile?: string;
+    destination?: string;
+    keyring?: string;
+    password?: string;
+    repo?: string;
+    untardir?: string;
+    username?: string;
+    home?: string;
+    devel?: boolean;
+    prov?: boolean;
+    untar?: boolean;
     verify?: boolean;
 }
 
@@ -254,7 +285,7 @@ export interface FetchOpts {
 // If the `verify` option is specified, the requested chart MUST have a provenance file, and MUST
 // pass the verification process. Failure in any part of this will result in an error, and the chart
 // will not be saved locally.
-export function fetch(chart: string, opts?: FetchOpts) {
+export function fetch(chart: string, opts?: ResolvedFetchOpts) {
     const flags: string[] = [];
     if (opts !== undefined) {
         // Untar by default.
