@@ -99,6 +99,28 @@ export namespace yaml {
             return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
         }
 
+		/**
+		 * getResourceProperty returns a single property of a resource defined by a built-in Kubernetes group/version/kind and name.
+		 *
+         * For example:
+         *     getResourceProperty("v1/Service", "nginx", "spec")
+		 */
+        {{#Groups}}
+        {{#Versions}}
+        {{#Kinds}}
+		{{#Properties}}
+        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", name: string, property: "{{LanguageName}}"): pulumi.Output<{{{PropType}}}>;
+        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", namespace: string, name: string, property: "{{LanguageName}}"): pulumi.Output<{{{PropType}}}>;
+		{{/Properties}}
+		{{/Kinds}}
+		{{/Versions}}
+		{{/Groups}}
+		public getResourceProperty(groupVersionKind: string, namespaceOrName: string, nameOrProperty: string, property?: string): pulumi.Output<any> {
+			const name = property !== undefined ? nameOrProperty : undefined;
+			return this.getResourceImpl(groupVersionKind, namespaceOrName, name)
+				.apply(r => (<any>r)[property || nameOrProperty]);
+		}
+
         /**
          * getCustomResource returns a resource defined by a CRD with the given group/version/kind and name.
          *
