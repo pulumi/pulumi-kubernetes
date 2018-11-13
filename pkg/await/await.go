@@ -353,29 +353,53 @@ func Deletion(
 			select {
 			case event, ok := <-watcher.ResultChan():
 				if !ok {
-					return fmt.Errorf("Timed out waiting for deletion of %s '%s'", id, name)
+					if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
+						return nil
+					} else {
+						return &timeoutError{
+							object:    obj,
+							subErrors: []string{fmt.Sprintf("Timed out waiting for deletion of %s '%s'", id, name)},
+						}
+					}
 				}
 
 				switch event.Type {
 				case watch.Deleted:
 					return nil
 				case watch.Error:
-					resource, _ := clientForResource.Get(name, metav1.GetOptions{})
-					return &initializationError{
-						object:    resource,
-						subErrors: []string{errors.FromObject(event.Object).Error()},
+					if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
+						return nil
+					} else {
+						return &initializationError{
+							object:    obj,
+							subErrors: []string{errors.FromObject(event.Object).Error()},
+						}
 					}
 				}
 			case <-ctx.Done(): // Handle user cancellation during watch for deletion.
 				watcher.Stop()
 				glog.V(3).Infof("Received error deleting object '%s': %#v", id, err)
-				resource, _ := clientForResource.Get(name, metav1.GetOptions{})
-				return &cancellationError{
-					object: resource,
+				if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
+					return nil
+				} else {
+					return &cancellationError{
+						object: obj,
+					}
 				}
 			}
 		}
 	}
 
 	return waitErr
+}
+
+// checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
+// Return the resource if it still exists.
+func checkIfResourceDeleted(name string, client dynamic.ResourceInterface) (bool, *unstructured.Unstructured) {
+	obj, err := client.Get(name, metav1.GetOptions{})
+	if err != nil && is404(err) { // In case of 404, the resource no longer exists, so return success.
+		return true, nil
+	}
+
+	return false, obj
 }
