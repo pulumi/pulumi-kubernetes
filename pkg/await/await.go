@@ -17,6 +17,7 @@ package await
 import (
 	"context"
 	"fmt"
+
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
@@ -318,10 +319,7 @@ func Deletion(
 
 	timeoutSeconds := int64(300)
 	listOpts := metav1.ListOptions{
-		FieldSelector: fields.AndSelectors(
-			fields.OneTermEqualSelector("metadata.namespace", namespace),
-			fields.OneTermEqualSelector("metadata.name", name),
-		).String(),
+		FieldSelector:  fields.OneTermEqualSelector("metadata.name", name).String(),
 		TimeoutSeconds: &timeoutSeconds,
 	}
 
