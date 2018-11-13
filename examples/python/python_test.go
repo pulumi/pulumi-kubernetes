@@ -18,6 +18,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 )
 
@@ -33,8 +35,12 @@ func TestSmoke(t *testing.T) {
 		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
 	}
 
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join("python", "smoke-test"),
+		Dir: filepath.Join(cwd, "smoke-test"),
 	})
 	integration.ProgramTest(t, &options)
 }
