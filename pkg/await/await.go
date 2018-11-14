@@ -301,6 +301,24 @@ func Deletion(
 	disco discovery.DiscoveryInterface, urn resource.URN, gvk schema.GroupVersionKind, namespace,
 	name string,
 ) error {
+	// nilIfGVKDeleted takes an error and returns nil if `errors.IsNotFound`; otherwise, it returns
+	// the error argument unchanged.
+	//
+	// Rationale: If we have gotten to this point, this resource was successfully created and is now
+	// being deleted. This implies that the G/V/K once did exist, but now does not. This, in turn,
+	// implies that it has been successfully deleted. For example: the resource was likely a CR, but
+	// the CRD has since been removed. Otherwise, the resource was deleted out-of-band.
+	//
+	// This is necessary for CRs, which are often deleted after the relevant CRDs (especially in
+	// Helm charts), and it is acceptable for other resources because it is semantically like
+	// running `refresh` before deletion.
+	nilIfGVKDeleted := func(err error) error {
+		if errors.IsNotFound(err) {
+			return nil
+		}
+		return err
+	}
+
 	// Make delete options based on the version of the client.
 	version, err := client.FetchVersion(disco)
 	if err != nil {
@@ -322,15 +340,13 @@ func Deletion(
 	// Obtain client for the resource being deleted.
 	clientForResource, err := client.FromGVK(pool, disco, gvk, namespace)
 	if err != nil {
-		return err
+		return nilIfGVKDeleted(err)
 	}
 
 	// Issue deletion request.
 	err = clientForResource.Delete(name, &deleteOpts)
-	if err != nil && !errors.IsNotFound(err) {
-		return fmt.Errorf("Could not find resource '%s/%s' for deletion: %s", namespace, name, err)
-	} else if err != nil {
-		return err
+	if err != nil {
+		return nilIfGVKDeleted(err)
 	}
 
 	// Wait until delete resolves as success or error. Note that the conditional is set up to log only
