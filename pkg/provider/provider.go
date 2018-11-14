@@ -442,6 +442,13 @@ func (k *kubeProvider) Create(
 		return nil, initializationError(client.FqObjName(initialized), awaitErr, inputsAndComputed)
 	}
 
+	// Invalidate the client cache if this was a CRD. This will require subsequent CR creations to
+	// refresh the cache, at which point the CRD definition will be present, so that it doesn't fail
+	// with an `errors.IsNotFound`.
+	if isCRD(newInputs) {
+		k.client.Invalidate()
+	}
+
 	return &pulumirpc.CreateResponse{
 		Id: client.FqObjName(initialized), Properties: inputsAndComputed,
 	}, nil
@@ -597,7 +604,7 @@ func (k *kubeProvider) Update(
 	// So the roadmap is:
 	//
 	// - [x] Implement `Update` using the three-way JSON merge strategy.
-	// - [ ] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
+	// - [x] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
 	//       plumbing, because it expects nominal types representing the API schema, but the
 	//       discovery client is completely dynamic.)
 	// - [ ] Support server-side apply, when it comes out.
@@ -812,4 +819,10 @@ func canonicalNamespace(ns string) string {
 		return "default"
 	}
 	return ns
+}
+
+// isCRD returns true if a Kubernetes resource is a CRD.
+func isCRD(obj *unstructured.Unstructured) bool {
+	return obj.GetKind() == "CustomResourceDefinition" &&
+		strings.HasPrefix(obj.GetAPIVersion(), "apiextensions.k8s.io/")
 }
