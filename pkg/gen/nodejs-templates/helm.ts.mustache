@@ -69,7 +69,7 @@ export namespace v2 {
 			(<any>allConfig).isKnown.then((isKnown: boolean) => {
 				if (!isKnown) {
 					// Note that this can only happen during a preview.
-					pulumi.log.info("Note: some chart inputs are unknown; the chart's resources will not be displayed.");
+					pulumi.log.info("[Can't preview] all chart values must be known ahead of time to generate an accurate preview.", this);
 				}
 			});
 
