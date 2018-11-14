@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func ExamplePluck_path_found() {
+func ExamplePluck_pathFound() {
 	obj := map[string]interface{}{
 		"a": map[string]interface{}{
 			"x": map[string]interface{}{
@@ -23,7 +23,7 @@ func ExamplePluck_path_found() {
 	// a.x.bar = 2
 }
 
-func ExamplePluck_path_not_found() {
+func ExamplePluck_pathNotFound() {
 	obj := map[string]interface{}{
 		"a": map[string]interface{}{
 			"x": map[string]interface{}{
