@@ -53,11 +53,6 @@ func Creation(
 	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
 	disco discovery.ServerResourcesInterface, urn resource.URN, inputs *unstructured.Unstructured,
 ) (*unstructured.Unstructured, error) {
-	clientForResource, err := client.FromResource(pool, disco, inputs)
-	if err != nil {
-		return nil, err
-	}
-
 	// Issue create request. We retry the create REST request on failure, so that we can tolerate
 	// some amount of misordering (e.g., creating a `Pod` before the `Namespace` it goes in;
 	// creating a custom resource before the CRD is registered; etc.), which is common among Helm
@@ -69,10 +64,23 @@ func Creation(
 	// nolint
 	// https://github.com/kubernetes/kubernetes/blob/54889d581a35acf940d52a8a384cccaa0b597ddc/pkg/kubectl/cmd/apply/apply.go#L94
 	var outputs *unstructured.Unstructured
-	err = sleepingRetry(
+	var clientForResource dynamic.ResourceInterface
+	err := sleepingRetry(
 		func(i uint) error {
 			if i > 0 {
 				_ = host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("Creation failed, retrying (%d)", i))
+			}
+
+			// Recreate the client for resource, in case the client's cache of the server API was
+			// invalidated. For example, when a CRD is created, it will invalidate the client cache;
+			// this allows CRs that we tried (and failed) to create before to re-try with the new
+			// server API, at which point they should hopefully succeed.
+			var err error
+			if clientForResource == nil {
+				clientForResource, err = client.FromResource(pool, disco, inputs)
+				if err != nil {
+					return err
+				}
 			}
 			outputs, err = clientForResource.Create(inputs)
 			return err
