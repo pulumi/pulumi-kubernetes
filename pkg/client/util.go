@@ -105,7 +105,7 @@ func serverResourceForGVK(
 ) (*metav1.APIResource, error) {
 	resources, err := disco.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
 	if err != nil {
-		return nil, fmt.Errorf("unable to fetch resource description for %s: %v", gvk.GroupVersion(), err)
+		return nil, err
 	}
 
 	for _, r := range resources.APIResources {
