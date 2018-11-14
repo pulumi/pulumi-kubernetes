@@ -17,19 +17,19 @@ package await
 import (
 	"context"
 	"fmt"
-	"time"
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/pkg/watcher"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
 )
@@ -317,6 +317,18 @@ func Deletion(
 		return err
 	}
 
+	timeoutSeconds := int64(300)
+	listOpts := metav1.ListOptions{
+		FieldSelector:  fields.OneTermEqualSelector("metadata.name", name).String(),
+		TimeoutSeconds: &timeoutSeconds,
+	}
+
+	// Set up a watcher for the selected resource.
+	watcher, err := clientForResource.Watch(listOpts)
+	if err != nil {
+		return err
+	}
+
 	// Issue deletion request.
 	err = clientForResource.Delete(name, &deleteOpts)
 	if err != nil && !errors.IsNotFound(err) {
@@ -333,19 +345,59 @@ func Deletion(
 	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
 		waitErr = awaiter.awaitDeletion(ctx, clientForResource, name)
 	} else {
-		objectMissing := func(d *unstructured.Unstructured, err error) error {
-			if is404(err) {
-				return nil
-			} else if err != nil {
-				glog.V(3).Infof("Received error deleting object '%s': %#v", d.GetName(), err)
-				return err
+		_ = host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("Waiting for deletion of %s '%s'", id, name))
+
+		for {
+			select {
+			case event, ok := <-watcher.ResultChan():
+				if !ok {
+					if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
+						return nil
+					} else {
+						return &timeoutError{
+							object:    obj,
+							subErrors: []string{fmt.Sprintf("Timed out waiting for deletion of %s '%s'", id, name)},
+						}
+					}
+				}
+
+				switch event.Type {
+				case watch.Deleted:
+					return nil
+				case watch.Error:
+					if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
+						return nil
+					} else {
+						return &initializationError{
+							object:    obj,
+							subErrors: []string{errors.FromObject(event.Object).Error()},
+						}
+					}
+				}
+			case <-ctx.Done(): // Handle user cancellation during watch for deletion.
+				watcher.Stop()
+				glog.V(3).Infof("Received error deleting object '%s': %#v", id, err)
+				if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
+					return nil
+				} else {
+					return &cancellationError{
+						object: obj,
+					}
+				}
 			}
-			_ = host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("Waiting for deletion of %s '%s'", id, name))
-			return watcher.RetryableError(fmt.Errorf("Object '%s' still exists", name))
 		}
-		return watcher.ForObject(ctx, clientForResource, name).
-			RetryUntil(objectMissing, 5*time.Minute)
 	}
 
 	return waitErr
+}
+
+// checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
+// Return the resource if it still exists.
+func checkIfResourceDeleted(name string, client dynamic.ResourceInterface) (bool, *unstructured.Unstructured) {
+	obj, err := client.Get(name, metav1.GetOptions{})
+	if err != nil && is404(err) { // In case of 404, the resource no longer exists, so return success.
+		return true, nil
+	}
+
+	return false, obj
 }
