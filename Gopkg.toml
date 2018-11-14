@@ -6,7 +6,7 @@ required = ["k8s.io/kubernetes/pkg/kubectl/cmd/util"]
 
 [[constraint]]
   name = "github.com/pulumi/pulumi"
-  revision = "v0.15.1"
+  branch = "master"
 
 [[override]]
   name = "github.com/ugorji/go"

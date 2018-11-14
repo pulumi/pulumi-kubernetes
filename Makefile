@@ -22,7 +22,7 @@ CURL            ?= curl
 PYTHON          ?= python
 
 TESTPARALLELISM := 10
-TESTABLE_PKGS   := ./pkg/... ./examples ./tests/...
+TESTABLE_PKGS   := ./pkg/... ./examples/... ./tests/...
 
 $(OPENAPI_FILE)::
 	@mkdir -p $(OPENAPI_DIR)
