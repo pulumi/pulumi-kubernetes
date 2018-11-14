@@ -44,7 +44,7 @@ export namespace yaml {
 
             for (const file of files) {
                 const cf = new ConfigFile(file, {file: file, transformations: config.transformations}, opts);
-				resources = pulumi.all([resources, cf.resources]).apply(([rs, cfrs]) => ({...rs, ...cfrs}));
+                resources = pulumi.all([resources, cf.resources]).apply(([rs, cfrs]) => ({...rs, ...cfrs}));
             }
         }
 
@@ -59,14 +59,14 @@ export namespace yaml {
             for (const text of yamlTexts) {
                 const objs = jsyaml.safeLoadAll(text);
                 const docResources = parseYamlDocument({objs: objs, transformations: config.transformations}, opts);
-				resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
+                resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
             }
         }
 
         if (config.objs !== undefined) {
             const objs= Array.isArray(config.objs) ? config.objs: [config.objs];
                 const docResources = parseYamlDocument({objs: objs, transformations: config.transformations}, opts);
-				resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
+                resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
         }
 
         return resources;
@@ -415,12 +415,12 @@ export namespace yaml {
             return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
         }
 
-		/**
-		 * getResourceProperty returns a single property of a resource defined by a built-in Kubernetes group/version/kind and name.
-		 *
+        /**
+         * getResourceProperty returns a single property of a resource defined by a built-in Kubernetes group/version/kind and name.
+         *
          * For example:
          *     getResourceProperty("v1/Service", "nginx", "spec")
-		 */
+         */
         public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration", name: string, property: "initializers"): pulumi.Output<outputApi.admissionregistration.v1alpha1.Initializer[]>;
@@ -1939,11 +1939,11 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
-		public getResourceProperty(groupVersionKind: string, namespaceOrName: string, nameOrProperty: string, property?: string): pulumi.Output<any> {
-			const name = property !== undefined ? nameOrProperty : undefined;
-			return this.getResourceImpl(groupVersionKind, namespaceOrName, name)
-				.apply(r => (<any>r)[property || nameOrProperty]);
-		}
+        public getResourceProperty(groupVersionKind: string, namespaceOrName: string, nameOrProperty: string, property?: string): pulumi.Output<any> {
+            const name = property !== undefined ? nameOrProperty : undefined;
+            return this.getResourceImpl(groupVersionKind, namespaceOrName, name)
+                .apply(r => (<any>r)[property || nameOrProperty]);
+        }
 
         /**
          * getCustomResource returns a resource defined by a CRD with the given group/version/kind and name.

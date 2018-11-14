@@ -63,75 +63,75 @@ export namespace v2 {
         ) {
             super("kubernetes:helm.sh/v2:Chart", releaseName, config, opts);
 
-			const allConfig = pulumi.output(config);
-			const configDeps = Array.from(<Set<pulumi.Resource>>(<any>allConfig).resources());
+            const allConfig = pulumi.output(config);
+            const configDeps = Array.from(<Set<pulumi.Resource>>(<any>allConfig).resources());
 
-			(<any>allConfig).isKnown.then((isKnown: boolean) => {
-				if (!isKnown) {
-					// Note that this can only happen during a preview.
-					pulumi.log.info("[Can't preview] all chart values must be known ahead of time to generate an accurate preview.", this);
-				}
-			});
+            (<any>allConfig).isKnown.then((isKnown: boolean) => {
+                if (!isKnown) {
+                    // Note that this can only happen during a preview.
+                    pulumi.log.info("[Can't preview] all chart values must be known ahead of time to generate an accurate preview.", this);
+                }
+            });
 
-			this.resources = allConfig.apply(cfg => {
-				// Create temporary directories and files to hold chart data and override values.
-				const overrides = tmp.fileSync({ postfix: ".yaml" });
-				const chartDir = tmp.dirSync({ unsafeCleanup: true });
+            this.resources = allConfig.apply(cfg => {
+                // Create temporary directories and files to hold chart data and override values.
+                const overrides = tmp.fileSync({ postfix: ".yaml" });
+                const chartDir = tmp.dirSync({ unsafeCleanup: true });
 
-				try {
-					let chart: string;
-					let defaultValues: string;
-					if (isChartOpts(cfg)) {
-						// Fetch chart.
-						fetch(`${cfg.repo}/${cfg.chart}`, {
-							destination: chartDir.name,
-							version: cfg.version
-						});
-						chart = path.quotePath(nodepath.join(chartDir.name, cfg.chart));
-						defaultValues = path.quotePath(
-							nodepath.join(chartDir.name, cfg.chart, "values.yaml")
-						);
-					} else {
-						chart = path.quotePath(cfg.path);
-						defaultValues = path.quotePath(nodepath.join(chart, "values.yaml"));
-					}
+                try {
+                    let chart: string;
+                    let defaultValues: string;
+                    if (isChartOpts(cfg)) {
+                        // Fetch chart.
+                        fetch(`${cfg.repo}/${cfg.chart}`, {
+                            destination: chartDir.name,
+                            version: cfg.version
+                        });
+                        chart = path.quotePath(nodepath.join(chartDir.name, cfg.chart));
+                        defaultValues = path.quotePath(
+                            nodepath.join(chartDir.name, cfg.chart, "values.yaml")
+                        );
+                    } else {
+                        chart = path.quotePath(cfg.path);
+                        defaultValues = path.quotePath(nodepath.join(chart, "values.yaml"));
+                    }
 
-					// Write overrides file.
-					const data = JSON.stringify(cfg.values || {}, undefined, "  ");
-					fs.writeFileSync(overrides.name, data);
+                    // Write overrides file.
+                    const data = JSON.stringify(cfg.values || {}, undefined, "  ");
+                    fs.writeFileSync(overrides.name, data);
 
-					// Does not require Tiller. From the `helm template` documentation:
-					//
-					// >  Render chart templates locally and display the output.
-					// >
-					// > This does not require Tiller. However, any values that would normally be
-					// > looked up or retrieved in-cluster will be faked locally. Additionally, none
-					// > of the server-side testing of chart validity (e.g. whether an API is supported)
-					// > is done.
-					const release = shell.quote([releaseName]);
-					const values = path.quotePath(overrides.name);
-					const namespaceArg = cfg.namespace
-						? `--namespace ${shell.quote([cfg.namespace])}`
-						: "";
-					const yamlStream = execSync(
-						`helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
-					).toString();
-					return this.parseTemplate(yamlStream, cfg.transformations, configDeps);
-				} catch (e) {
-					// Shed stack trace, only emit the error.
-					throw new pulumi.RunError(e.toString());
-				} finally {
-					// Clean up temporary files and directories.
-					chartDir.removeCallback();
-					overrides.removeCallback();
-				}
-			});
+                    // Does not require Tiller. From the `helm template` documentation:
+                    //
+                    // >  Render chart templates locally and display the output.
+                    // >
+                    // > This does not require Tiller. However, any values that would normally be
+                    // > looked up or retrieved in-cluster will be faked locally. Additionally, none
+                    // > of the server-side testing of chart validity (e.g. whether an API is supported)
+                    // > is done.
+                    const release = shell.quote([releaseName]);
+                    const values = path.quotePath(overrides.name);
+                    const namespaceArg = cfg.namespace
+                        ? `--namespace ${shell.quote([cfg.namespace])}`
+                        : "";
+                    const yamlStream = execSync(
+                        `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
+                    ).toString();
+                    return this.parseTemplate(yamlStream, cfg.transformations, configDeps);
+                } catch (e) {
+                    // Shed stack trace, only emit the error.
+                    throw new pulumi.RunError(e.toString());
+                } finally {
+                    // Clean up temporary files and directories.
+                    chartDir.removeCallback();
+                    overrides.removeCallback();
+                }
+            });
         }
 
         parseTemplate(
             yamlStream: string,
             transformations: ((o: any) => void)[] | undefined,
-			dependsOn: pulumi.Resource[]
+            dependsOn: pulumi.Resource[]
         ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
             const objs = jsyaml
                 .safeLoadAll(yamlStream)
