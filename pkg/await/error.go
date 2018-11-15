@@ -63,7 +63,7 @@ func (te *timeoutError) Object() *unstructured.Unstructured {
 	return te.object
 }
 
-// readError occurs when we attempt to read a resource that failed to fully initialize.
+// initializationError occurs when we attempt to read a resource that failed to fully initialize.
 type initializationError struct {
 	subErrors []string
 	object    *unstructured.Unstructured
