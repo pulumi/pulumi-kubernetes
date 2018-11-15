@@ -193,8 +193,7 @@ func (pc *podChecker) checkPod(pod *unstructured.Unstructured, status map[string
 		// Best effort attempt to get name of container. (This should always succeed and if it
 		// doesn't, it's not worth crashing the provider over).
 		rawName := containerStatus["name"]
-		var name string
-		name, _ = rawName.(string)
+		name, _ := rawName.(string)
 
 		// Process container that's waiting.
 		rawWaiting, isWaiting := openapi.Pluck(containerStatus, "state", "waiting")
@@ -270,8 +269,8 @@ func (pc *podChecker) errorMessages() []string {
 		messages = append(messages, podNotReadyError(reason, message))
 	}
 
-	for reason, errors := range pc.containerErrors {
-		for _, message := range errors {
+	for reason, errs := range pc.containerErrors {
+		for _, message := range errs {
 			messages = append(messages, containerError(reason, message))
 		}
 	}
@@ -299,14 +298,14 @@ func (pia *podInitAwaiter) logErrors() {
 		pia.config.logStatus(diag.Warning, podNotReadyError(reason, message))
 	}
 
-	for reason, errors := range pia.containerErrors {
-		for _, message := range errors {
+	for reason, errs := range pia.containerErrors {
+		for _, message := range errs {
 			pia.config.logStatus(diag.Warning, containerError(reason, message))
 		}
 	}
 }
 
-func errorFromCondition(errors map[string]string, condition map[string]interface{}) {
+func errorFromCondition(errs map[string]string, condition map[string]interface{}) {
 	rawReason, hasReason := condition["reason"]
 	reason, isString := rawReason.(string)
 	if !hasReason || !isString {
@@ -317,7 +316,7 @@ func errorFromCondition(errors map[string]string, condition map[string]interface
 	if !hasMessage || !isString {
 		return
 	}
-	errors[reason] = message
+	errs[reason] = message
 }
 
 // --------------------------------------------------------------------------
