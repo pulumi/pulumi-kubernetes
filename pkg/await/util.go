@@ -96,7 +96,7 @@ func getLastWarningsForObject(
 	}
 
 	items := out.(*unstructured.UnstructuredList).Items
-	events := []v1.Event{}
+	var events []v1.Event
 	for _, item := range items {
 		// Round trip conversion from `Unstructured` to `v1.Event`. There doesn't seem to be a good way
 		// to do this conversion in client-go, and this is not a performance-critical section. When we

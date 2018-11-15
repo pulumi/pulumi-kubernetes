@@ -191,7 +191,9 @@ var awaiters = map[string]awaitSpec{
 	},
 	extensionsV1Beta1Deployment: deploymentAwaiter,
 	extensionsV1Beta1Ingress: {
-		awaitCreation: untilExtensionsV1Beta1IngressInitialized,
+		awaitCreation: awaitIngressInit,
+		awaitRead:     awaitIngressRead,
+		awaitUpdate:   awaitIngressUpdate,
 	},
 	rbacAuthorizationV1ClusterRole:              { /* NONE */ },
 	rbacAuthorizationV1ClusterRoleBinding:       { /* NONE */ },
@@ -523,52 +525,6 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 
 	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
 		WatchUntil(defaultSecretAllocated, 5*time.Minute)
-}
-
-// --------------------------------------------------------------------------
-
-// extensions/v1beta1/Ingress
-
-// --------------------------------------------------------------------------
-
-func untilExtensionsV1Beta1IngressInitialized(c createAwaitConfig) error {
-	clientForEvents, err := c.eventClient()
-	if err != nil {
-		return err
-	}
-
-	name := c.currentInputs.GetName()
-
-	externalIPAllocated := func(svc *unstructured.Unstructured) bool {
-		lbIngress, _ := openapi.Pluck(svc.Object, "status", "loadBalancer", "ingress")
-		status, _ := openapi.Pluck(svc.Object, "status")
-
-		glog.V(3).Infof("Received Ingress status: %#v", status)
-		if ing, isSlice := lbIngress.([]interface{}); isSlice && len(ing) > 0 {
-			return true
-		}
-
-		glog.V(3).Infof("Waiting for Ingress '%q' to assign IP/hostname for a load balancer", name)
-
-		return false
-	}
-
-	// Await.
-	glog.V(3).Info("Waiting for load balancer to assign IP/hostname")
-
-	err = watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
-		WatchUntil(externalIPAllocated, 10*time.Minute)
-
-	if err != nil {
-		lastWarnings, wErr := getLastWarningsForObject(clientForEvents, c.currentInputs.GetNamespace(),
-			name, "Ingress", 3)
-		if wErr != nil {
-			return wErr
-		}
-		return fmt.Errorf("%s%s", err, stringifyEvents(lastWarnings))
-	}
-
-	return nil
 }
 
 // --------------------------------------------------------------------------
