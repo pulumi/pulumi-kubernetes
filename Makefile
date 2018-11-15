@@ -43,7 +43,8 @@ build:: $(OPENAPI_FILE)
 		if [ $$(command -v pandoc) ]; then \
 			pandoc --from=markdown --to=rst --output=README.rst ../../README.md; \
 		else \
-			echo "warning: pandoc not found, not generating README.rst"; \
+			echo "error: pandoc is required; please install it and try again"; \
+			exit 1; \
 		fi && \
 		$(PYTHON) setup.py clean --all 2>/dev/null && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
