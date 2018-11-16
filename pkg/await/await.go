@@ -67,10 +67,6 @@ func Creation(
 	var clientForResource dynamic.ResourceInterface
 	err := sleepingRetry(
 		func(i uint) error {
-			if i > 0 {
-				_ = host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("Creation failed, retrying (%d)", i))
-			}
-
 			// Recreate the client for resource, in case the client's cache of the server API was
 			// invalidated. For example, when a CRD is created, it will invalidate the client cache;
 			// this allows CRs that we tried (and failed) to create before to re-try with the new
@@ -83,6 +79,9 @@ func Creation(
 				}
 			}
 			outputs, err = clientForResource.Create(inputs)
+			if err != nil {
+				_ = host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("Retry #%d; creation failed: %v", i, err))
+			}
 			return err
 		}).
 		WithMaxRetries(5).
@@ -91,6 +90,7 @@ func Creation(
 	if err != nil {
 		return nil, err
 	}
+	_ = clearStatus(ctx, host, urn)
 
 	// Wait until create resolves as success or error. Note that the conditional is set up to log
 	// only if we don't have an entry for the resource type; in the event that we do, but the await
@@ -380,13 +380,12 @@ func Deletion(
 	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
 		waitErr = awaiter.awaitDeletion(ctx, clientForResource, name)
 	} else {
-		_ = host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("Waiting for deletion of %s '%s'", id, name))
-
 		for {
 			select {
 			case event, ok := <-watcher.ResultChan():
 				if !ok {
 					if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
+						_ = clearStatus(ctx, host, urn)
 						return nil
 					} else {
 						return &timeoutError{
@@ -398,9 +397,11 @@ func Deletion(
 
 				switch event.Type {
 				case watch.Deleted:
+					_ = clearStatus(ctx, host, urn)
 					return nil
 				case watch.Error:
 					if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
+						_ = clearStatus(ctx, host, urn)
 						return nil
 					} else {
 						return &initializationError{
@@ -413,6 +414,7 @@ func Deletion(
 				watcher.Stop()
 				glog.V(3).Infof("Received error deleting object '%s': %#v", id, err)
 				if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
+					_ = clearStatus(ctx, host, urn)
 					return nil
 				} else {
 					return &cancellationError{
@@ -435,4 +437,9 @@ func checkIfResourceDeleted(name string, client dynamic.ResourceInterface) (bool
 	}
 
 	return false, obj
+}
+
+// clearStatus will clear the `Info` column of the CLI of all statuses and messages.
+func clearStatus(context context.Context, host *provider.HostClient, urn resource.URN) error {
+	return host.LogStatus(context, diag.Info, urn, "")
 }
