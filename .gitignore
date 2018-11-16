@@ -4,3 +4,4 @@
 .pulumi
 Pulumi.*.yaml
 /pkg/gen/openapi-specs
+yarn.lock
