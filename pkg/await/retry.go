@@ -2,6 +2,8 @@ package await
 
 import (
 	"time"
+
+	"k8s.io/apimachinery/pkg/api/errors"
 )
 
 type retrier struct {
@@ -39,7 +41,7 @@ func (r *retrier) Do() error {
 	for r.tries <= r.maxRetries {
 		err = r.try(r.tries)
 		r.tries++
-		if err != nil {
+		if errors.IsNotFound(err) {
 			r.sleep(r.waitTime)
 		} else {
 			break

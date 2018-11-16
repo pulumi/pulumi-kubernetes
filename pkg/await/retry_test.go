@@ -1,11 +1,12 @@
 package await
 
 import (
-	"fmt"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func mockRetrier(try func(uint) error) *retrier {
@@ -17,6 +18,12 @@ func mockRetrier(try func(uint) error) *retrier {
 		maxRetries:    5,
 		backOffFactor: 3,
 	}
+}
+
+func notFound(msg string) error {
+	return &errors.StatusError{ErrStatus: metav1.Status{
+		Reason:  metav1.StatusReasonNotFound,
+		Message: msg}}
 }
 
 func Test_Retrier(t *testing.T) {
@@ -44,7 +51,7 @@ func Test_Retrier(t *testing.T) {
 			retrier: mockRetrier(
 				func(i uint) error {
 					if i == 0 {
-						return fmt.Errorf("Operation failed")
+						return notFound("Operation failed")
 					}
 					return nil
 				}).
@@ -55,10 +62,10 @@ func Test_Retrier(t *testing.T) {
 		},
 		{
 			description: "Should fail if retry budget exceeded",
-			retrier: mockRetrier(func(uint) error { return fmt.Errorf("Operation failed") }).
+			retrier: mockRetrier(func(uint) error { return notFound("Operation failed") }).
 				WithMaxRetries(3).
 				WithBackoffFactor(2),
-			err:           fmt.Errorf("Operation failed"),
+			err:           notFound("Operation failed"),
 			tries:         4,
 			finalWaitTime: 16 * time.Second,
 		},

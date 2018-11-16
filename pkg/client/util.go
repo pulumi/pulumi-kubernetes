@@ -20,6 +20,7 @@ import (
 
 	"github.com/golang/glog"
 
+	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -115,5 +116,8 @@ func serverResourceForGVK(
 		}
 	}
 
-	return nil, fmt.Errorf("Server is unable to handle %s", gvk)
+	se := &errors.StatusError{ErrStatus: metav1.Status{
+		Reason:  metav1.StatusReasonNotFound,
+		Message: fmt.Sprintf("Server does not support kind: %s", gvk)}}
+	return nil, se
 }
