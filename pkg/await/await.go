@@ -363,7 +363,7 @@ func Deletion(
 	// Set up a watcher for the selected resource.
 	watcher, err := clientForResource.Watch(listOpts)
 	if err != nil {
-		return err
+		return nilIfGVKDeleted(err)
 	}
 
 	// Issue deletion request.
