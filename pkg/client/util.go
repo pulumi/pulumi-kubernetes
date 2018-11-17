@@ -96,8 +96,9 @@ func FromGVK(
 		return nil, err
 	}
 
-	glog.V(3).Infof("Fetching client for %s namespace=%s", resource, namespace)
-	rc := client.Resource(resource, namespace)
+	ns := NamespaceOrDefault(namespace)
+	glog.V(3).Infof("Fetching client for %s namespace=%s", resource, ns)
+	rc := client.Resource(resource, ns)
 	return rc, nil
 }
 
