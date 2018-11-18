@@ -19,7 +19,7 @@ export namespace v2 {
     export interface ChartOpts extends BaseChartOpts {
         repo: pulumi.Input<string>;
         chart: pulumi.Input<string>;
-        version: pulumi.Input<string>;
+        version?: pulumi.Input<string>;
 
         fetchOpts?: pulumi.Input<FetchOpts>;
     }
