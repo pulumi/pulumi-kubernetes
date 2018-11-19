@@ -339,7 +339,7 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 }
 
 func (sia *serviceInitAwaiter) errorMessages() []string {
-	messages := []string{}
+	messages := make([]string, 0)
 	if sia.emptyHeadlessOrExternalName() {
 		return messages
 	}

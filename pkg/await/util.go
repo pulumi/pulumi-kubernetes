@@ -65,6 +65,7 @@ func watchAddedEvent(obj runtime.Object) watch.Event {
 	}
 }
 
+// nolint
 func stringifyEvents(events []v1.Event) string {
 	var output string
 	for _, e := range events {
@@ -75,6 +76,7 @@ func stringifyEvents(events []v1.Event) string {
 	return output
 }
 
+// nolint
 func getLastWarningsForObject(
 	clientForEvents dynamic.ResourceInterface, namespace, name, kind string, limit int,
 ) ([]v1.Event, error) {

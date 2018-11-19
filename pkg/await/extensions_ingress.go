@@ -45,22 +45,22 @@ import (
 type ingressInitAwaiter struct {
 	config           createAwaitConfig
 	ingress          *unstructured.Unstructured
-	ingressPaths     map[string]*v1beta1.HTTPIngressPath
 	ingressReady     bool
 	ingressClient    *dynamic.ResourceInterface
 	endpointsReady   bool
 	endpointsSettled bool
 	endpointClient   *dynamic.ResourceInterface
+	endpointExists   map[string]bool
 }
 
 func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
 	return &ingressInitAwaiter{
 		config:           c,
 		ingress:          c.currentOutputs,
-		ingressPaths:     make(map[string]*v1beta1.HTTPIngressPath),
 		ingressReady:     false,
 		endpointsReady:   false,
 		endpointsSettled: false,
+		endpointExists:   make(map[string]bool),
 	}
 }
 
@@ -145,8 +145,7 @@ func (iia *ingressInitAwaiter) Read() error {
 		return err
 	}
 
-	// Create endpoint watcher.
-
+	// Get live version of Endpoints.
 	endpointList, err := (*iia.endpointClient).List(metav1.ListOptions{})
 	if err != nil {
 		glog.V(3).Infof("Failed to list endpoints needed for Ingress awaiter: %v", err)
@@ -191,7 +190,6 @@ func (iia *ingressInitAwaiter) await(
 	settled chan struct{},
 ) error {
 	iia.config.logStatus(diag.Info, "[1/3] Waiting on endpoints for each Ingress path")
-	iia.endpointsReady = iia.checkIfEndpointsReady()
 
 	for {
 		// Check whether we've succeeded.
@@ -203,7 +201,7 @@ func (iia *ingressInitAwaiter) await(
 		select {
 		case <-iia.config.ctx.Done():
 			// On cancel, check one last time if the ingress is ready.
-			if iia.ingressReady {
+			if iia.ingressReady && iia.endpointsReady {
 				return nil
 			}
 			return &cancellationError{
@@ -212,7 +210,7 @@ func (iia *ingressInitAwaiter) await(
 			}
 		case <-timeout:
 			// On timeout, check one last time if the ingress is ready.
-			if iia.ingressReady {
+			if iia.ingressReady && iia.endpointsReady {
 				return nil
 			}
 			return &timeoutError{
@@ -259,6 +257,8 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 		return
 	}
 
+	iia.endpointsReady = iia.checkIfEndpointsReady()
+
 	glog.V(3).Infof("Received status for ingress '%s': %#v", inputIngressName, obj.Status)
 
 	// Update status of ingress object so that we can check success.
@@ -291,14 +291,10 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
 
 	for _, rule := range obj.Spec.Rules {
 		for _, path := range rule.HTTP.Paths {
-			_, err := (*iia.endpointClient).Get(path.Backend.ServiceName, metav1.GetOptions{})
-			if err != nil {
-				if is404(err) {
-					// No matching endpoint found for ingress rule
-					iia.config.logStatus(diag.Error,
-						fmt.Sprintf("No matching service found for ingress rule: %q", path.Path))
-					return false
-				}
+			if !iia.endpointExists[path.Backend.ServiceName] {
+				iia.config.logStatus(diag.Error,
+					fmt.Sprintf("No matching service found for ingress rule: %q", path.Path))
+				return false
 			}
 		}
 	}
@@ -307,8 +303,6 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
 }
 
 func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh chan<- struct{}) {
-	inputIngressName := iia.config.currentInputs.GetName()
-
 	// Get endpoint object.
 	endpoint, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
@@ -317,16 +311,15 @@ func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 		return
 	}
 
-	// Ignore if it's not one of the endpoint objects created by the ingress.
-	//
-	// NOTE: Because the client pool is per-namespace, the endpointName can be used as an
-	// ID, as it's guaranteed by the API server to be unique.
-	if endpoint.GetName() != inputIngressName {
-		return
+	name := endpoint.GetName()
+	switch event.Type {
+	case watch.Added, watch.Modified:
+		iia.endpointExists[name] = true
+	case watch.Deleted:
+		iia.endpointExists[name] = false
 	}
 
-	// Start over, prove that ingress is ready.
-	iia.endpointsReady = false
+	// Start over, prove that endpoints are ready.
 	iia.endpointsReady = iia.checkIfEndpointsReady()
 
 	// Every time we get an update to one of our endpoints objects, give it a few seconds
@@ -339,12 +332,17 @@ func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 }
 
 func (iia *ingressInitAwaiter) errorMessages() []string {
-	messages := []string{}
+	messages := make([]string, 0)
 
 	if !iia.endpointsReady {
 		messages = append(messages,
 			"Ingress has at least one rule that does not target any Service. "+
 				"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service")
+	}
+
+	if !iia.ingressReady {
+		messages = append(messages,
+			"Ingress was not allocated an IP address; does your cloud provider support this?")
 	}
 
 	return messages

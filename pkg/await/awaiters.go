@@ -53,6 +53,7 @@ type createAwaitConfig struct {
 	currentOutputs    *unstructured.Unstructured
 }
 
+// nolint
 func (cac *createAwaitConfig) eventClient() (dynamic.ResourceInterface, error) {
 	return client.FromGVK(cac.pool, cac.disco, schema.GroupVersionKind{
 		Group:   "",
