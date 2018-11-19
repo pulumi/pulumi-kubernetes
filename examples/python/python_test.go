@@ -62,7 +62,7 @@ func TestGuestbook(t *testing.T) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join(cwd, "smoke-test"),
+		Dir: filepath.Join(cwd, "guestbook"),
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
@@ -93,7 +93,7 @@ func TestGuestbook(t *testing.T) {
 			redisLeaderDepl := stackInfo.Deployment.Resources[1]
 			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisLeaderDepl.URN.Type())
 			name, _ = openapi.Pluck(redisLeaderDepl.Outputs, "metadata", "name")
-			assert.Equal(t, "redis-leader", name)
+			assert.Equal(t, "redis-master", name)
 			status, _ = openapi.Pluck(redisLeaderDepl.Outputs, "status", "readyReplicas")
 			assert.Equal(t, float64(1), status)
 
@@ -101,7 +101,7 @@ func TestGuestbook(t *testing.T) {
 			redisFollowerDepl := stackInfo.Deployment.Resources[2]
 			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisFollowerDepl.URN.Type())
 			name, _ = openapi.Pluck(redisFollowerDepl.Outputs, "metadata", "name")
-			assert.Equal(t, "redis-follower", name)
+			assert.Equal(t, "redis-slave", name)
 			status, _ = openapi.Pluck(redisFollowerDepl.Outputs, "status", "readyReplicas")
 			assert.Equal(t, float64(1), status)
 
@@ -117,7 +117,7 @@ func TestGuestbook(t *testing.T) {
 			redisLeaderService := stackInfo.Deployment.Resources[4]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisLeaderService.URN.Type())
 			name, _ = openapi.Pluck(redisLeaderService.Outputs, "metadata", "name")
-			assert.Equal(t, "redis-leader", name)
+			assert.Equal(t, "redis-master", name)
 			status, _ = openapi.Pluck(redisLeaderService.Outputs, "spec", "clusterIP")
 			assert.True(t, len(status.(string)) > 1)
 
@@ -125,7 +125,7 @@ func TestGuestbook(t *testing.T) {
 			redisFollowerService := stackInfo.Deployment.Resources[5]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisFollowerService.URN.Type())
 			name, _ = openapi.Pluck(redisFollowerService.Outputs, "metadata", "name")
-			assert.Equal(t, "redis-follower", name)
+			assert.Equal(t, "redis-slave", name)
 			status, _ = openapi.Pluck(redisFollowerService.Outputs, "spec", "clusterIP")
 			assert.True(t, len(status.(string)) > 1)
 
