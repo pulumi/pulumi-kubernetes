@@ -11,15 +11,15 @@ import * as nodepath from "path";
 
 export namespace v2 {
     interface BaseChartOpts {
-        /** 
+        /**
          * The optional namespace to install chart resources into.
          */
         namespace?: pulumi.Input<string>;
-        /** 
-         * Overrides for chart values. 
+        /**
+         * Overrides for chart values.
          */
         values?: pulumi.Inputs;
-        /** 
+        /**
          * Optional array of transformations to apply to resources that will be created by this chart prior to
          * creation. Allows customization of the chart behaviour without directly modifying the chart itself.
          */
@@ -53,7 +53,7 @@ export namespace v2 {
     }
 
     export interface LocalChartOpts extends BaseChartOpts {
-        /** 
+        /**
          * The path to the chart directory which contains the `Chart.yaml` file.
          */
         path: string;
