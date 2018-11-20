@@ -27,10 +27,12 @@ import (
 // resource as it is being initialized. The idea is that if something goes wrong early, we want
 // to alert the user so they can cancel the operation instead of waiting for timeout (~10 minutes).
 //
-// The design of this awaiter is fundamentally an event loop on three channels:
+// The design of this awaiter is fundamentally an event loop on four channels:
 //
 //   1. The Ingress channel, to which the Kubernetes API server will proactively push every change
 //      (additions, modifications, deletions) to any Ingress it knows about.
+//   2. The Endpoint channel, which is the same idea as the Ingress channel, except it gets updates
+//      to Endpoint objects.
 //   3. A timeout channel, which fires after some time.
 //   4. A cancellation channel, with which the user can signal cancellation (e.g., using SIGINT).
 //
