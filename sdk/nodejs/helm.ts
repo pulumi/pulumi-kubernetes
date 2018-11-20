@@ -133,8 +133,15 @@ export namespace v2 {
             transformations: ((o: any) => void)[] | undefined,
             dependsOn: pulumi.Resource[]
         ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
-            const objs = jsyaml
-                .safeLoadAll(yamlStream)
+            // NOTE: We must manually split the YAML stream because of js-yaml#456. Perusing the
+            // code and the spec, it looks like a YAML stream is delimited by `^---`, though it is
+            // difficult to know for sure.
+            //
+            // NOTE: We use `{json: true}` here so that we conform to Helm's YAML parsing
+            // semantics. Specifically, a duplicate key overrides its predecessory, rather than
+            // throwing an exception.
+            const objs = yamlStream.split(/^---/m)
+                .map(yaml => jsyaml.safeLoad(yaml, {json: true}))
                 .filter(a => a != null && "kind" in a)
                 .sort(helmSort);
             return k8s.yaml.parse(
