@@ -6,3 +6,5 @@
 from .Eviction import *
 from .PodDisruptionBudget import *
 from .PodDisruptionBudgetList import *
+from .PodSecurityPolicy import *
+from .PodSecurityPolicyList import *

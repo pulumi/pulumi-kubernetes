@@ -3,9 +3,13 @@ import pulumi.runtime
 
 from ... import tables
 
-class {{Kind}}(pulumi.CustomResource):
-    {{{Comment}}}
-    def __init__(self, __name__, __opts__=None{{#Properties}}, {{LanguageName}}=None{{/Properties}}):
+class HorizontalPodAutoscaler(pulumi.CustomResource):
+    """
+    HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
+    automatically manages the replica count of any resource implementing the scale subresource based
+    on the metrics specified.
+    """
+    def __init__(self, __name__, __opts__=None, metadata=None, spec=None, status=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -15,19 +19,14 @@ class {{Kind}}(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = '{{RawAPIVersion}}'
-        __props__['kind'] = '{{Kind}}'
-        {{#RequiredProperties}}
-        if not {{Name}}:
-            raise TypeError('Missing required property {{Name}}')
-        __props__['{{Name}}'] = {{LanguageName}}
-        {{/RequiredProperties}}
-        {{#OptionalProperties}}
-        __props__['{{Name}}'] = {{LanguageName}}
-        {{/OptionalProperties}}
+        __props__['apiVersion'] = 'autoscaling/v2beta2'
+        __props__['kind'] = 'HorizontalPodAutoscaler'
+        __props__['metadata'] = metadata
+        __props__['spec'] = spec
+        __props__['status'] = status
 
-        super({{Kind}}, self).__init__(
-            "kubernetes:{{URNAPIVersion}}:{{Kind}}",
+        super(HorizontalPodAutoscaler, self).__init__(
+            "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler",
             __name__,
             __props__,
             __opts__)

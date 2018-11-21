@@ -17,7 +17,7 @@ class APIServiceList(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'apiregistration/v1beta1'
+        __props__['apiVersion'] = 'apiregistration.k8s.io/v1beta1'
         __props__['kind'] = 'APIServiceList'
         if not items:
             raise TypeError('Missing required property items')

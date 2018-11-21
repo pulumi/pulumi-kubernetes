@@ -3,11 +3,12 @@ import pulumi.runtime
 
 from ... import tables
 
-class DeleteOptions(pulumi.CustomResource):
+class PriorityClass(pulumi.CustomResource):
     """
-    DeleteOptions may be provided when deleting an API object.
+    PriorityClass defines mapping from a priority class name to the priority integer value. The
+    value can be any valid integer.
     """
-    def __init__(self, __name__, __opts__=None, dry_run=None, grace_period_seconds=None, orphan_dependents=None, preconditions=None, propagation_policy=None):
+    def __init__(self, __name__, __opts__=None, description=None, global_default=None, metadata=None, value=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -17,16 +18,17 @@ class DeleteOptions(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'v1'
-        __props__['kind'] = 'DeleteOptions'
-        __props__['dryRun'] = dry_run
-        __props__['gracePeriodSeconds'] = grace_period_seconds
-        __props__['orphanDependents'] = orphan_dependents
-        __props__['preconditions'] = preconditions
-        __props__['propagationPolicy'] = propagation_policy
+        __props__['apiVersion'] = 'scheduling.k8s.io/v1beta1'
+        __props__['kind'] = 'PriorityClass'
+        if not value:
+            raise TypeError('Missing required property value')
+        __props__['value'] = value
+        __props__['description'] = description
+        __props__['globalDefault'] = global_default
+        __props__['metadata'] = metadata
 
-        super(DeleteOptions, self).__init__(
-            "kubernetes:core/v1:DeleteOptions",
+        super(PriorityClass, self).__init__(
+            "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass",
             __name__,
             __props__,
             __opts__)

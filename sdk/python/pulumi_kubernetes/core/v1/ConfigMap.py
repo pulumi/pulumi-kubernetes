@@ -7,7 +7,7 @@ class ConfigMap(pulumi.CustomResource):
     """
     ConfigMap holds configuration data for pods to consume.
     """
-    def __init__(self, __name__, __opts__=None, data=None, metadata=None):
+    def __init__(self, __name__, __opts__=None, binary_data=None, data=None, metadata=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -19,6 +19,7 @@ class ConfigMap(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'v1'
         __props__['kind'] = 'ConfigMap'
+        __props__['binaryData'] = binary_data
         __props__['data'] = data
         __props__['metadata'] = metadata
 

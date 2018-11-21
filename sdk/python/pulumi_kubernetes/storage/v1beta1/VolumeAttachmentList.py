@@ -3,9 +3,11 @@ import pulumi.runtime
 
 from ... import tables
 
-class {{Kind}}(pulumi.CustomResource):
-    {{{Comment}}}
-    def __init__(self, __name__, __opts__=None{{#Properties}}, {{LanguageName}}=None{{/Properties}}):
+class VolumeAttachmentList(pulumi.CustomResource):
+    """
+    VolumeAttachmentList is a collection of VolumeAttachment objects.
+    """
+    def __init__(self, __name__, __opts__=None, items=None, metadata=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -15,19 +17,15 @@ class {{Kind}}(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = '{{RawAPIVersion}}'
-        __props__['kind'] = '{{Kind}}'
-        {{#RequiredProperties}}
-        if not {{Name}}:
-            raise TypeError('Missing required property {{Name}}')
-        __props__['{{Name}}'] = {{LanguageName}}
-        {{/RequiredProperties}}
-        {{#OptionalProperties}}
-        __props__['{{Name}}'] = {{LanguageName}}
-        {{/OptionalProperties}}
+        __props__['apiVersion'] = 'storage.k8s.io/v1beta1'
+        __props__['kind'] = 'VolumeAttachmentList'
+        if not items:
+            raise TypeError('Missing required property items')
+        __props__['items'] = items
+        __props__['metadata'] = metadata
 
-        super({{Kind}}, self).__init__(
-            "kubernetes:{{URNAPIVersion}}:{{Kind}}",
+        super(VolumeAttachmentList, self).__init__(
+            "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList",
             __name__,
             __props__,
             __opts__)

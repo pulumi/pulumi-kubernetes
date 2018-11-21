@@ -22,13 +22,11 @@ class APIGroup(pulumi.CustomResource):
         if not name:
             raise TypeError('Missing required property name')
         __props__['name'] = name
-        if not serverAddressByClientCIDRs:
-            raise TypeError('Missing required property serverAddressByClientCIDRs')
-        __props__['serverAddressByClientCIDRs'] = server_address_by_client_cid_rs
         if not versions:
             raise TypeError('Missing required property versions')
         __props__['versions'] = versions
         __props__['preferredVersion'] = preferred_version
+        __props__['serverAddressByClientCIDRs'] = server_address_by_client_cid_rs
 
         super(APIGroup, self).__init__(
             "kubernetes:core/v1:APIGroup",
