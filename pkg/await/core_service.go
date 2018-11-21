@@ -129,6 +129,7 @@ func (sia *serviceInitAwaiter) Await() error {
 			sia.config.currentInputs.GetName())
 	}
 
+	glog.V(3).Infof("Service Endpoint client namespace: %q", sia.config.currentInputs.GetNamespace())
 	endpointWatcher, err := endpointClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
@@ -185,6 +186,8 @@ func (sia *serviceInitAwaiter) read(
 
 	var err error
 	settled := make(chan struct{})
+
+	glog.V(3).Infof("Processing endpoint list: %#v", endpoints)
 	err = endpoints.EachListItem(func(endpoint runtime.Object) error {
 		sia.processEndpointEvent(watchAddedEvent(endpoint.(*unstructured.Unstructured)), settled)
 		return nil
@@ -336,7 +339,7 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 }
 
 func (sia *serviceInitAwaiter) errorMessages() []string {
-	messages := []string{}
+	messages := make([]string, 0)
 	if sia.emptyHeadlessOrExternalName() {
 		return messages
 	}

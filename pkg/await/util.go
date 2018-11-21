@@ -65,6 +65,7 @@ func watchAddedEvent(obj runtime.Object) watch.Event {
 	}
 }
 
+// nolint
 func stringifyEvents(events []v1.Event) string {
 	var output string
 	for _, e := range events {
@@ -75,6 +76,7 @@ func stringifyEvents(events []v1.Event) string {
 	return output
 }
 
+// nolint
 func getLastWarningsForObject(
 	clientForEvents dynamic.ResourceInterface, namespace, name, kind string, limit int,
 ) ([]v1.Event, error) {
@@ -96,7 +98,7 @@ func getLastWarningsForObject(
 	}
 
 	items := out.(*unstructured.UnstructuredList).Items
-	events := []v1.Event{}
+	var events []v1.Event
 	for _, item := range items {
 		// Round trip conversion from `Unstructured` to `v1.Event`. There doesn't seem to be a good way
 		// to do this conversion in client-go, and this is not a performance-critical section. When we
