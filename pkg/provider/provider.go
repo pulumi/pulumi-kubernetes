@@ -17,6 +17,7 @@ package provider
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"os"
 	"strings"
 
@@ -277,9 +278,20 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		if err != nil {
 			resourceNotFound := errors.IsNotFound(err) ||
 				strings.Contains(err.Error(), "is not supported by the server")
+			k8sAPIUnreachable := strings.Contains(err.Error(), "connection refused")
 			if resourceNotFound && gvkExists(gvk) {
 				failures = append(failures, &pulumirpc.CheckFailure{
 					Reason: fmt.Sprintf(" Found API Group, but it did not contain a schema for '%s'", gvk),
+				})
+			} else if k8sAPIUnreachable {
+				k8sURL := ""
+				if err, ok := err.(*url.Error); ok {
+					k8sURL = fmt.Sprintf("at %q", err.URL)
+				}
+				failures = append(failures, &pulumirpc.CheckFailure{
+					Reason: fmt.Sprintf(" Kubernetes API server %s is unreachable. It's "+
+						"possible that the URL or authentication information in your "+
+						"kubeconfig is incorrect: %v", k8sURL, err),
 				})
 			} else if k.opts.rejectUnknownResources {
 				// If the schema doesn't exist, it could still be a CRD (which may not have a
