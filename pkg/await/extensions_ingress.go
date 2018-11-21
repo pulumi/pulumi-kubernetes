@@ -16,7 +16,6 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/client-go/dynamic"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -48,10 +47,8 @@ type ingressInitAwaiter struct {
 	config           createAwaitConfig
 	ingress          *unstructured.Unstructured
 	ingressReady     bool
-	ingressClient    *dynamic.ResourceInterface
 	endpointsReady   bool
 	endpointsSettled bool
-	endpointClient   *dynamic.ResourceInterface
 	endpointExists   map[string]bool
 }
 
@@ -87,20 +84,24 @@ func (iia *ingressInitAwaiter) Await() error {
 	//   3. Ingress entry exists for .status.loadBalancer.ingress.
 	//
 
-	if err := iia.initializeClients(); err != nil {
-		glog.V(3).Infof("Failed to initialize client(s): %v", err)
-		return errors.Wrapf(err, "Failed to initialize client(s) required for Ingress awaiter")
-	}
-
 	// Create ingress watcher.
-	ingressWatcher, err := (*iia.ingressClient).Watch(metav1.ListOptions{})
+	ingressWatcher, err := iia.config.clientForResource.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err, "Could not set up watch for Ingress object %q",
 			iia.config.currentInputs.GetName())
 	}
 	defer ingressWatcher.Stop()
 
-	endpointWatcher, err := (*iia.endpointClient).Watch(metav1.ListOptions{})
+	endpointsClient, err := client.FromGVK(iia.config.pool, iia.config.disco, schema.GroupVersionKind{
+		Group:   "",
+		Version: "v1",
+		Kind:    "Endpoints",
+	}, iia.config.currentInputs.GetNamespace())
+	if err != nil {
+		glog.V(3).Infof("Failed to initialize Endpoints client: %v", err)
+		return err
+	}
+	endpointWatcher, err := endpointsClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for Endpoint objects associated with Ingress %q",
@@ -111,36 +112,9 @@ func (iia *ingressInitAwaiter) Await() error {
 	return iia.await(ingressWatcher, endpointWatcher, time.After(10*time.Minute), make(chan struct{}))
 }
 
-func (iia *ingressInitAwaiter) initializeClients() error {
-	if iia.ingressClient == nil {
-		iia.ingressClient = &iia.config.clientForResource
-	}
-
-	if iia.endpointClient == nil {
-		client, err := client.FromGVK(iia.config.pool, iia.config.disco, schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    "Endpoints",
-		}, iia.config.currentInputs.GetNamespace())
-		if err != nil {
-			glog.V(3).Infof("Failed to initialize Endpoints client: %v", err)
-			return err
-		}
-
-		iia.endpointClient = &client
-	}
-
-	return nil
-}
-
 func (iia *ingressInitAwaiter) Read() error {
-	if err := iia.initializeClients(); err != nil {
-		glog.V(3).Infof("Failed to initialize client(s): %v", err)
-		return errors.Wrapf(err, "Failed to initialize client(s) required for Ingress awaiter")
-	}
-
 	// Get live versions of Ingress.
-	ingress, err := (*iia.ingressClient).Get(iia.config.currentInputs.GetName(), metav1.GetOptions{})
+	ingress, err := iia.config.clientForResource.Get(iia.config.currentInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the deployment as having been deleted.
@@ -148,7 +122,16 @@ func (iia *ingressInitAwaiter) Read() error {
 	}
 
 	// Get live version of Endpoints.
-	endpointList, err := (*iia.endpointClient).List(metav1.ListOptions{})
+	endpointsClient, err := client.FromGVK(iia.config.pool, iia.config.disco, schema.GroupVersionKind{
+		Group:   "",
+		Version: "v1",
+		Kind:    "Endpoints",
+	}, iia.config.currentInputs.GetNamespace())
+	if err != nil {
+		glog.V(3).Infof("Failed to initialize Endpoints client: %v", err)
+		return err
+	}
+	endpointList, err := endpointsClient.List(metav1.ListOptions{})
 	if err != nil {
 		glog.V(3).Infof("Failed to list endpoints needed for Ingress awaiter: %v", err)
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
@@ -191,7 +174,7 @@ func (iia *ingressInitAwaiter) await(
 	ingressWatcher, endpointWatcher watch.Interface, timeout <-chan time.Time,
 	settled chan struct{},
 ) error {
-	iia.config.logStatus(diag.Info, "[1/3] Waiting on endpoints for each Ingress path")
+	iia.config.logStatus(diag.Info, "[1/3] Finding a matching service for each Ingress path")
 
 	for {
 		// Check whether we've succeeded.
