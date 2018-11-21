@@ -10,6 +10,8 @@ before_install:
     - source ${GOPATH}/src/github.com/pulumi/scripts/ci/prepare-environment.sh
     - source ${PULUMI_SCRIPTS}/ci/keep-failed-tests.sh
 install:
+    # Work around https://github.com/pypa/pipenv/issues/3257 until Pipenv cuts a new release with the fix
+    - mkdir -p /home/travis/.local/share/virtualenvs
     - source ${PULUMI_SCRIPTS}/ci/install-common-toolchain.sh
 
     # Install Helm CLI. Do not install Tiller.
