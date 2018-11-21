@@ -19,6 +19,7 @@ import (
 	"strings"
 
 	linq "github.com/ahmetb/go-linq"
+	"github.com/jinzhu/copier"
 	wordwrap "github.com/mitchellh/go-wordwrap"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -27,7 +28,10 @@ import (
 const (
 	object  = "object"
 	stringT = "string"
-	str     = "str"
+)
+
+const (
+	apiRegistration = "apiregistration.k8s.io"
 )
 
 // --------------------------------------------------------------------------
@@ -67,6 +71,26 @@ func (vc *VersionConfig) Version() string { return vc.version }
 // Kinds returns the set of kinds in some Kubernetes API group/version combination (e.g.,
 // `apps/v1beta1` has the `Deployment` kind, etc.).
 func (vc *VersionConfig) Kinds() []*KindConfig { return vc.kinds }
+
+// KindsAndAliases will produce a list of kinds, including aliases (e.g., both `apiregistration` and
+// `apiregistration.k8s.io`).
+func (vc *VersionConfig) KindsAndAliases() []*KindConfig {
+	kindsAndAliases := []*KindConfig{}
+	for _, kind := range vc.kinds {
+		kindsAndAliases = append(kindsAndAliases, kind)
+		if strings.HasPrefix(kind.APIVersion(), apiRegistration) {
+			alias := KindConfig{}
+			err := copier.Copy(&alias, kind)
+			if err != nil {
+				panic(err)
+			}
+			rawAPIVersion := "apiregistration" + strings.TrimPrefix(kind.APIVersion(), apiRegistration)
+			alias.rawAPIVersion = rawAPIVersion
+			kindsAndAliases = append(kindsAndAliases, &alias)
+		}
+	}
+	return kindsAndAliases
+}
 
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (vc *VersionConfig) APIVersion() string { return vc.apiVersion }
@@ -115,6 +139,15 @@ func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
 
 // RawAPIVersion returns the "raw" apiVersion (e.g., `v1` rather than `core/v1`).
 func (kc *KindConfig) RawAPIVersion() string { return kc.rawAPIVersion }
+
+// URNAPIVersion returns API version that can be used in a URN (e.g., using the backwards-compatible
+// alias `apiextensions` instead of `apiextensions.k8s.io`).
+func (kc *KindConfig) URNAPIVersion() string {
+	if strings.HasPrefix(kc.apiVersion, apiRegistration) {
+		return "apiregistration" + strings.TrimPrefix(kc.apiVersion, apiRegistration)
+	}
+	return kc.apiVersion
+}
 
 // TypeGuard returns the text of a TypeScript type guard for the given kind.
 func (kc *KindConfig) TypeGuard() string { return kc.typeGuard }
@@ -252,6 +285,14 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 		ref == "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime" {
 		// TODO: Automatically deserialized with `DateConstructor`.
 		return stringT
+	} else if ref == "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSONSchemaPropsOrBool" {
+		return "apiextensions.v1beta1.JSONSchemaProps | boolean"
+	} else if ref == "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSONSchemaPropsOrArray" {
+		return "apiextensions.v1beta1.JSONSchemaProps | any[]"
+	} else if ref == "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSON" {
+		return "any"
+	} else if ref == "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresourceStatus" {
+		return "any"
 	}
 
 	gvk := gvkFromRef(ref)

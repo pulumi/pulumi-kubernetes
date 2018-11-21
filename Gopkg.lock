@@ -412,6 +412,12 @@
   revision = "d14ea06fba99483203c19d92cfcd13ebe73135f4"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/jinzhu/copier"
+  packages = ["."]
+  revision = "7e38e58719c33e0d44d585c4ab477a30f8cb82dd"
+
+[[projects]]
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
   revision = "0b12d6b5"
@@ -635,7 +641,7 @@
     "pkg/workspace",
     "sdk/proto/go"
   ]
-  revision = "a337fd73793c8fba7db7b602fec9cf32aab1c72f"
+  revision = "cea165615e6abd05948491d4618d00b979c94f64"
 
 [[projects]]
   branch = "master"
@@ -1438,6 +1444,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a5e4f5cf50719b898fcfaa231dcce5f461e7160972997d98169a87cac8d2c5ca"
+  inputs-digest = "94c5b5a36a241d6f2517bb5242a65af10f98b5e6798727baa698b8516e8bf2a0"
   solver-name = "gps-cdcl"
   solver-version = 1

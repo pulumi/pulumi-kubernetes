@@ -13,6 +13,7 @@ __all__ = [
     "autoscaling",
     "batch",
     "certificates",
+    "coordination",
     "core",
     "events",
     "extensions",

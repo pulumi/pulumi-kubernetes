@@ -3,9 +3,12 @@ import pulumi.runtime
 
 from ... import tables
 
-class {{Kind}}(pulumi.CustomResource):
-    {{{Comment}}}
-    def __init__(self, __name__, __opts__=None{{#Properties}}, {{LanguageName}}=None{{/Properties}}):
+class PodSecurityPolicy(pulumi.CustomResource):
+    """
+    PodSecurityPolicy governs the ability to make requests that affect the Security Context that
+    will be applied to a pod and container.
+    """
+    def __init__(self, __name__, __opts__=None, metadata=None, spec=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -15,19 +18,13 @@ class {{Kind}}(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = '{{RawAPIVersion}}'
-        __props__['kind'] = '{{Kind}}'
-        {{#RequiredProperties}}
-        if not {{Name}}:
-            raise TypeError('Missing required property {{Name}}')
-        __props__['{{Name}}'] = {{LanguageName}}
-        {{/RequiredProperties}}
-        {{#OptionalProperties}}
-        __props__['{{Name}}'] = {{LanguageName}}
-        {{/OptionalProperties}}
+        __props__['apiVersion'] = 'policy/v1beta1'
+        __props__['kind'] = 'PodSecurityPolicy'
+        __props__['metadata'] = metadata
+        __props__['spec'] = spec
 
-        super({{Kind}}, self).__init__(
-            "kubernetes:{{URNAPIVersion}}:{{Kind}}",
+        super(PodSecurityPolicy, self).__init__(
+            "kubernetes:policy/v1beta1:PodSecurityPolicy",
             __name__,
             __props__,
             __opts__)

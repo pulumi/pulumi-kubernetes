@@ -89,10 +89,10 @@ export namespace yaml {
          */
         {{#Groups}}
         {{#Versions}}
-        {{#Kinds}}
+        {{#KindsAndAliases}}
         public getResource(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", name: string): pulumi.Output<{{Group}}.{{Version}}.{{Kind}}>;
         public getResource(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", namespace: string, name: string): pulumi.Output<{{Group}}.{{Version}}.{{Kind}}>;
-        {{/Kinds}}
+        {{/KindsAndAliases}}
         {{/Versions}}
         {{/Groups}}
         public getResource(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.Output<pulumi.CustomResource> {
@@ -107,12 +107,12 @@ export namespace yaml {
          */
         {{#Groups}}
         {{#Versions}}
-        {{#Kinds}}
+        {{#KindsAndAliases}}
         {{#Properties}}
         public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", name: string, property: "{{LanguageName}}"): pulumi.Output<{{{PropType}}}>;
         public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", namespace: string, name: string, property: "{{LanguageName}}"): pulumi.Output<{{{PropType}}}>;
         {{/Properties}}
-        {{/Kinds}}
+        {{/KindsAndAliases}}
         {{/Versions}}
         {{/Groups}}
         public getResourceProperty(groupVersionKind: string, namespaceOrName: string, nameOrProperty: string, property?: string): pulumi.Output<any> {
@@ -241,13 +241,13 @@ export namespace yaml {
         switch (`${apiVersion}/${kind}`) {
             {{#Groups}}
             {{#Versions}}
-            {{#Kinds}}
+            {{#KindsAndAliases}}
             case "{{RawAPIVersion}}/{{Kind}}":
                 return [{
                     name: `{{RawAPIVersion}}/{{Kind}}::${id}`,
                     resource: new {{Group}}.{{Version}}.{{Kind}}(id, obj, opts),
                 }];
-            {{/Kinds}}
+            {{/KindsAndAliases}}
             {{/Versions}}
             {{/Groups}}
             default:
@@ -414,7 +414,7 @@ export namespace {{Group}} {
           {{#Properties}}
           inputs["{{Name}}"] = {{{DefaultValue}}};
           {{/Properties}}
-          super("kubernetes:{{APIVersion}}:{{Kind}}", name, inputs, opts);
+          super("kubernetes:{{URNAPIVersion}}:{{Kind}}", name, inputs, opts);
           this.__inputs = <any>args;
       }
     }

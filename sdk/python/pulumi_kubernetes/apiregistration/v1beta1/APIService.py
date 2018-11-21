@@ -17,7 +17,7 @@ class APIService(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'apiregistration/v1beta1'
+        __props__['apiVersion'] = 'apiregistration.k8s.io/v1beta1'
         __props__['kind'] = 'APIService'
         __props__['metadata'] = metadata
         __props__['spec'] = spec

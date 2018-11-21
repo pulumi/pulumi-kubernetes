@@ -5,7 +5,8 @@ from ... import tables
 
 class PodSecurityPolicyList(pulumi.CustomResource):
     """
-    Pod Security Policy List is a list of PodSecurityPolicy objects.
+    PodSecurityPolicyList is a list of PodSecurityPolicy objects. Deprecated: use
+    PodSecurityPolicyList from policy API Group instead.
     """
     def __init__(self, __name__, __opts__=None, items=None, metadata=None):
         if not __name__:

@@ -103,8 +103,20 @@ export namespace yaml {
         public getResource(groupVersionKind: "apiextensions.k8s.io/v1beta1/CustomResourceDefinition", namespace: string, name: string): pulumi.Output<apiextensions.v1beta1.CustomResourceDefinition>;
         public getResource(groupVersionKind: "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList", name: string): pulumi.Output<apiextensions.v1beta1.CustomResourceDefinitionList>;
         public getResource(groupVersionKind: "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList", namespace: string, name: string): pulumi.Output<apiextensions.v1beta1.CustomResourceDefinitionList>;
+        public getResource(groupVersionKind: "apiregistration.k8s.io/v1/APIService", name: string): pulumi.Output<apiregistration.v1.APIService>;
+        public getResource(groupVersionKind: "apiregistration.k8s.io/v1/APIService", namespace: string, name: string): pulumi.Output<apiregistration.v1.APIService>;
+        public getResource(groupVersionKind: "apiregistration/v1/APIService", name: string): pulumi.Output<apiregistration.v1.APIService>;
+        public getResource(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string): pulumi.Output<apiregistration.v1.APIService>;
+        public getResource(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", name: string): pulumi.Output<apiregistration.v1.APIServiceList>;
+        public getResource(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", namespace: string, name: string): pulumi.Output<apiregistration.v1.APIServiceList>;
+        public getResource(groupVersionKind: "apiregistration/v1/APIServiceList", name: string): pulumi.Output<apiregistration.v1.APIServiceList>;
+        public getResource(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string): pulumi.Output<apiregistration.v1.APIServiceList>;
+        public getResource(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string): pulumi.Output<apiregistration.v1beta1.APIService>;
+        public getResource(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string): pulumi.Output<apiregistration.v1beta1.APIService>;
         public getResource(groupVersionKind: "apiregistration/v1beta1/APIService", name: string): pulumi.Output<apiregistration.v1beta1.APIService>;
         public getResource(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string): pulumi.Output<apiregistration.v1beta1.APIService>;
+        public getResource(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", name: string): pulumi.Output<apiregistration.v1beta1.APIServiceList>;
+        public getResource(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", namespace: string, name: string): pulumi.Output<apiregistration.v1beta1.APIServiceList>;
         public getResource(groupVersionKind: "apiregistration/v1beta1/APIServiceList", name: string): pulumi.Output<apiregistration.v1beta1.APIServiceList>;
         public getResource(groupVersionKind: "apiregistration/v1beta1/APIServiceList", namespace: string, name: string): pulumi.Output<apiregistration.v1beta1.APIServiceList>;
         public getResource(groupVersionKind: "apps/v1/ControllerRevision", name: string): pulumi.Output<apps.v1.ControllerRevision>;
@@ -199,6 +211,12 @@ export namespace yaml {
         public getResource(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscaler", namespace: string, name: string): pulumi.Output<autoscaling.v2beta1.HorizontalPodAutoscaler>;
         public getResource(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscalerList", name: string): pulumi.Output<autoscaling.v2beta1.HorizontalPodAutoscalerList>;
         public getResource(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscalerList", namespace: string, name: string): pulumi.Output<autoscaling.v2beta1.HorizontalPodAutoscalerList>;
+        public getResource(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", name: string): pulumi.Output<autoscaling.v2beta2.CrossVersionObjectReference>;
+        public getResource(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", namespace: string, name: string): pulumi.Output<autoscaling.v2beta2.CrossVersionObjectReference>;
+        public getResource(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", name: string): pulumi.Output<autoscaling.v2beta2.HorizontalPodAutoscaler>;
+        public getResource(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", namespace: string, name: string): pulumi.Output<autoscaling.v2beta2.HorizontalPodAutoscaler>;
+        public getResource(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", name: string): pulumi.Output<autoscaling.v2beta2.HorizontalPodAutoscalerList>;
+        public getResource(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", namespace: string, name: string): pulumi.Output<autoscaling.v2beta2.HorizontalPodAutoscalerList>;
         public getResource(groupVersionKind: "batch/v1/Job", name: string): pulumi.Output<batch.v1.Job>;
         public getResource(groupVersionKind: "batch/v1/Job", namespace: string, name: string): pulumi.Output<batch.v1.Job>;
         public getResource(groupVersionKind: "batch/v1/JobList", name: string): pulumi.Output<batch.v1.JobList>;
@@ -215,6 +233,10 @@ export namespace yaml {
         public getResource(groupVersionKind: "certificates.k8s.io/v1beta1/CertificateSigningRequest", namespace: string, name: string): pulumi.Output<certificates.v1beta1.CertificateSigningRequest>;
         public getResource(groupVersionKind: "certificates.k8s.io/v1beta1/CertificateSigningRequestList", name: string): pulumi.Output<certificates.v1beta1.CertificateSigningRequestList>;
         public getResource(groupVersionKind: "certificates.k8s.io/v1beta1/CertificateSigningRequestList", namespace: string, name: string): pulumi.Output<certificates.v1beta1.CertificateSigningRequestList>;
+        public getResource(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", name: string): pulumi.Output<coordination.v1beta1.Lease>;
+        public getResource(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", namespace: string, name: string): pulumi.Output<coordination.v1beta1.Lease>;
+        public getResource(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", name: string): pulumi.Output<coordination.v1beta1.LeaseList>;
+        public getResource(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", namespace: string, name: string): pulumi.Output<coordination.v1beta1.LeaseList>;
         public getResource(groupVersionKind: "v1/Binding", name: string): pulumi.Output<core.v1.Binding>;
         public getResource(groupVersionKind: "v1/Binding", namespace: string, name: string): pulumi.Output<core.v1.Binding>;
         public getResource(groupVersionKind: "v1/ComponentStatus", name: string): pulumi.Output<core.v1.ComponentStatus>;
@@ -243,8 +265,6 @@ export namespace yaml {
         public getResource(groupVersionKind: "v1/NamespaceList", namespace: string, name: string): pulumi.Output<core.v1.NamespaceList>;
         public getResource(groupVersionKind: "v1/Node", name: string): pulumi.Output<core.v1.Node>;
         public getResource(groupVersionKind: "v1/Node", namespace: string, name: string): pulumi.Output<core.v1.Node>;
-        public getResource(groupVersionKind: "v1/NodeConfigSource", name: string): pulumi.Output<core.v1.NodeConfigSource>;
-        public getResource(groupVersionKind: "v1/NodeConfigSource", namespace: string, name: string): pulumi.Output<core.v1.NodeConfigSource>;
         public getResource(groupVersionKind: "v1/NodeList", name: string): pulumi.Output<core.v1.NodeList>;
         public getResource(groupVersionKind: "v1/NodeList", namespace: string, name: string): pulumi.Output<core.v1.NodeList>;
         public getResource(groupVersionKind: "core/v1/ObjectReference", name: string): pulumi.Output<core.v1.ObjectReference>;
@@ -341,6 +361,10 @@ export namespace yaml {
         public getResource(groupVersionKind: "policy/v1beta1/PodDisruptionBudget", namespace: string, name: string): pulumi.Output<policy.v1beta1.PodDisruptionBudget>;
         public getResource(groupVersionKind: "policy/v1beta1/PodDisruptionBudgetList", name: string): pulumi.Output<policy.v1beta1.PodDisruptionBudgetList>;
         public getResource(groupVersionKind: "policy/v1beta1/PodDisruptionBudgetList", namespace: string, name: string): pulumi.Output<policy.v1beta1.PodDisruptionBudgetList>;
+        public getResource(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", name: string): pulumi.Output<policy.v1beta1.PodSecurityPolicy>;
+        public getResource(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", namespace: string, name: string): pulumi.Output<policy.v1beta1.PodSecurityPolicy>;
+        public getResource(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", name: string): pulumi.Output<policy.v1beta1.PodSecurityPolicyList>;
+        public getResource(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", namespace: string, name: string): pulumi.Output<policy.v1beta1.PodSecurityPolicyList>;
         public getResource(groupVersionKind: "rbac.authorization.k8s.io/v1/ClusterRole", name: string): pulumi.Output<rbac.v1.ClusterRole>;
         public getResource(groupVersionKind: "rbac.authorization.k8s.io/v1/ClusterRole", namespace: string, name: string): pulumi.Output<rbac.v1.ClusterRole>;
         public getResource(groupVersionKind: "rbac.authorization.k8s.io/v1/ClusterRoleBinding", name: string): pulumi.Output<rbac.v1.ClusterRoleBinding>;
@@ -395,6 +419,10 @@ export namespace yaml {
         public getResource(groupVersionKind: "scheduling.k8s.io/v1alpha1/PriorityClass", namespace: string, name: string): pulumi.Output<scheduling.v1alpha1.PriorityClass>;
         public getResource(groupVersionKind: "scheduling.k8s.io/v1alpha1/PriorityClassList", name: string): pulumi.Output<scheduling.v1alpha1.PriorityClassList>;
         public getResource(groupVersionKind: "scheduling.k8s.io/v1alpha1/PriorityClassList", namespace: string, name: string): pulumi.Output<scheduling.v1alpha1.PriorityClassList>;
+        public getResource(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", name: string): pulumi.Output<scheduling.v1beta1.PriorityClass>;
+        public getResource(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", namespace: string, name: string): pulumi.Output<scheduling.v1beta1.PriorityClass>;
+        public getResource(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", name: string): pulumi.Output<scheduling.v1beta1.PriorityClassList>;
+        public getResource(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", namespace: string, name: string): pulumi.Output<scheduling.v1beta1.PriorityClassList>;
         public getResource(groupVersionKind: "settings.k8s.io/v1alpha1/PodPreset", name: string): pulumi.Output<settings.v1alpha1.PodPreset>;
         public getResource(groupVersionKind: "settings.k8s.io/v1alpha1/PodPreset", namespace: string, name: string): pulumi.Output<settings.v1alpha1.PodPreset>;
         public getResource(groupVersionKind: "settings.k8s.io/v1alpha1/PodPresetList", name: string): pulumi.Output<settings.v1alpha1.PodPresetList>;
@@ -411,6 +439,10 @@ export namespace yaml {
         public getResource(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", namespace: string, name: string): pulumi.Output<storage.v1beta1.StorageClass>;
         public getResource(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", name: string): pulumi.Output<storage.v1beta1.StorageClassList>;
         public getResource(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", namespace: string, name: string): pulumi.Output<storage.v1beta1.StorageClassList>;
+        public getResource(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", name: string): pulumi.Output<storage.v1beta1.VolumeAttachment>;
+        public getResource(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", namespace: string, name: string): pulumi.Output<storage.v1beta1.VolumeAttachment>;
+        public getResource(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", name: string): pulumi.Output<storage.v1beta1.VolumeAttachmentList>;
+        public getResource(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", namespace: string, name: string): pulumi.Output<storage.v1beta1.VolumeAttachmentList>;
         public getResource(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.Output<pulumi.CustomResource> {
             return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
         }
@@ -487,6 +519,52 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", name: string, property: "spec"): pulumi.Output<outputApi.apiregistration.v1.APIServiceSpec>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.apiregistration.v1.APIServiceSpec>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", name: string, property: "status"): pulumi.Output<outputApi.apiregistration.v1.APIServiceStatus>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIService", namespace: string, name: string, property: "status"): pulumi.Output<outputApi.apiregistration.v1.APIServiceStatus>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "spec"): pulumi.Output<outputApi.apiregistration.v1.APIServiceSpec>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.apiregistration.v1.APIServiceSpec>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", name: string, property: "status"): pulumi.Output<outputApi.apiregistration.v1.APIServiceStatus>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIService", namespace: string, name: string, property: "status"): pulumi.Output<outputApi.apiregistration.v1.APIServiceStatus>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", name: string, property: "items"): pulumi.Output<outputApi.apiregistration.v1.APIService[]>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", namespace: string, name: string, property: "items"): pulumi.Output<outputApi.apiregistration.v1.APIService[]>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1/APIServiceList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", name: string, property: "items"): pulumi.Output<outputApi.apiregistration.v1.APIService[]>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string, property: "items"): pulumi.Output<outputApi.apiregistration.v1.APIService[]>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration/v1/APIServiceList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string, property: "spec"): pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceSpec>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceSpec>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", name: string, property: "status"): pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceStatus>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIService", namespace: string, name: string, property: "status"): pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceStatus>;
         public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", name: string, property: "kind"): pulumi.Output<string>;
@@ -497,6 +575,14 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceSpec>;
         public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", name: string, property: "status"): pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceStatus>;
         public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIService", namespace: string, name: string, property: "status"): pulumi.Output<outputApi.apiregistration.v1beta1.APIServiceStatus>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", name: string, property: "items"): pulumi.Output<outputApi.apiregistration.v1beta1.APIService[]>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", namespace: string, name: string, property: "items"): pulumi.Output<outputApi.apiregistration.v1beta1.APIService[]>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "apiregistration.k8s.io/v1beta1/APIServiceList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "apiregistration/v1beta1/APIServiceList", name: string, property: "items"): pulumi.Output<outputApi.apiregistration.v1beta1.APIService[]>;
@@ -927,6 +1013,30 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscalerList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscalerList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscalerList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", name: string, property: "name"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", namespace: string, name: string, property: "name"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", name: string, property: "spec"): pulumi.Output<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerSpec>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerSpec>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", name: string, property: "status"): pulumi.Output<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerStatus>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", namespace: string, name: string, property: "status"): pulumi.Output<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerStatus>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", name: string, property: "items"): pulumi.Output<outputApi.autoscaling.v2beta2.HorizontalPodAutoscaler[]>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", namespace: string, name: string, property: "items"): pulumi.Output<outputApi.autoscaling.v2beta2.HorizontalPodAutoscaler[]>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscalerList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "batch/v1/Job", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "batch/v1/Job", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "batch/v1/Job", name: string, property: "kind"): pulumi.Output<string>;
@@ -999,6 +1109,22 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "certificates.k8s.io/v1beta1/CertificateSigningRequestList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "certificates.k8s.io/v1beta1/CertificateSigningRequestList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "certificates.k8s.io/v1beta1/CertificateSigningRequestList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", name: string, property: "spec"): pulumi.Output<outputApi.coordination.v1beta1.LeaseSpec>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/Lease", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.coordination.v1beta1.LeaseSpec>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", name: string, property: "items"): pulumi.Output<outputApi.coordination.v1beta1.Lease[]>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", namespace: string, name: string, property: "items"): pulumi.Output<outputApi.coordination.v1beta1.Lease[]>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "coordination.k8s.io/v1beta1/LeaseList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "v1/Binding", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "v1/Binding", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "v1/Binding", name: string, property: "kind"): pulumi.Output<string>;
@@ -1025,6 +1151,8 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "v1/ComponentStatusList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "binary_data"): pulumi.Output<object>;
+        public getResourceProperty(groupVersionKind: "v1/ConfigMap", namespace: string, name: string, property: "binary_data"): pulumi.Output<object>;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "data"): pulumi.Output<{[key: string]: pulumi.Output<string>}>;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", namespace: string, name: string, property: "data"): pulumi.Output<{[key: string]: pulumi.Output<string>}>;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "kind"): pulumi.Output<string>;
@@ -1141,12 +1269,6 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "v1/Node", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.core.v1.NodeSpec>;
         public getResourceProperty(groupVersionKind: "v1/Node", name: string, property: "status"): pulumi.Output<outputApi.core.v1.NodeStatus>;
         public getResourceProperty(groupVersionKind: "v1/Node", namespace: string, name: string, property: "status"): pulumi.Output<outputApi.core.v1.NodeStatus>;
-        public getResourceProperty(groupVersionKind: "v1/NodeConfigSource", name: string, property: "api_version"): pulumi.Output<string>;
-        public getResourceProperty(groupVersionKind: "v1/NodeConfigSource", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
-        public getResourceProperty(groupVersionKind: "v1/NodeConfigSource", name: string, property: "config_map_ref"): pulumi.Output<outputApi.core.v1.ObjectReference>;
-        public getResourceProperty(groupVersionKind: "v1/NodeConfigSource", namespace: string, name: string, property: "config_map_ref"): pulumi.Output<outputApi.core.v1.ObjectReference>;
-        public getResourceProperty(groupVersionKind: "v1/NodeConfigSource", name: string, property: "kind"): pulumi.Output<string>;
-        public getResourceProperty(groupVersionKind: "v1/NodeConfigSource", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "v1/NodeList", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "v1/NodeList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "v1/NodeList", name: string, property: "items"): pulumi.Output<outputApi.core.v1.Node[]>;
@@ -1535,6 +1657,8 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "v1/APIVersions", namespace: string, name: string, property: "versions"): pulumi.Output<string[]>;
         public getResourceProperty(groupVersionKind: "v1/DeleteOptions", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "v1/DeleteOptions", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "v1/DeleteOptions", name: string, property: "dry_run"): pulumi.Output<string[]>;
+        public getResourceProperty(groupVersionKind: "v1/DeleteOptions", namespace: string, name: string, property: "dry_run"): pulumi.Output<string[]>;
         public getResourceProperty(groupVersionKind: "v1/DeleteOptions", name: string, property: "grace_period_seconds"): pulumi.Output<number>;
         public getResourceProperty(groupVersionKind: "v1/DeleteOptions", namespace: string, name: string, property: "grace_period_seconds"): pulumi.Output<number>;
         public getResourceProperty(groupVersionKind: "v1/DeleteOptions", name: string, property: "kind"): pulumi.Output<string>;
@@ -1615,6 +1739,22 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "policy/v1beta1/PodDisruptionBudgetList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "policy/v1beta1/PodDisruptionBudgetList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "policy/v1beta1/PodDisruptionBudgetList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", name: string, property: "spec"): pulumi.Output<outputApi.policy.v1beta1.PodSecurityPolicySpec>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicy", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.policy.v1beta1.PodSecurityPolicySpec>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", name: string, property: "items"): pulumi.Output<outputApi.policy.v1beta1.PodSecurityPolicy[]>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", namespace: string, name: string, property: "items"): pulumi.Output<outputApi.policy.v1beta1.PodSecurityPolicy[]>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "policy/v1beta1/PodSecurityPolicyList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "rbac.authorization.k8s.io/v1/ClusterRole", name: string, property: "aggregation_rule"): pulumi.Output<outputApi.rbac.v1.AggregationRule>;
         public getResourceProperty(groupVersionKind: "rbac.authorization.k8s.io/v1/ClusterRole", namespace: string, name: string, property: "aggregation_rule"): pulumi.Output<outputApi.rbac.v1.AggregationRule>;
         public getResourceProperty(groupVersionKind: "rbac.authorization.k8s.io/v1/ClusterRole", name: string, property: "api_version"): pulumi.Output<string>;
@@ -1853,6 +1993,26 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1alpha1/PriorityClassList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1alpha1/PriorityClassList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1alpha1/PriorityClassList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", name: string, property: "description"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", namespace: string, name: string, property: "description"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", name: string, property: "global_default"): pulumi.Output<boolean>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", namespace: string, name: string, property: "global_default"): pulumi.Output<boolean>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", name: string, property: "value"): pulumi.Output<number>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClass", namespace: string, name: string, property: "value"): pulumi.Output<number>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", name: string, property: "items"): pulumi.Output<outputApi.scheduling.v1beta1.PriorityClass[]>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", namespace: string, name: string, property: "items"): pulumi.Output<outputApi.scheduling.v1beta1.PriorityClass[]>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1beta1/PriorityClassList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "settings.k8s.io/v1alpha1/PodPreset", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "settings.k8s.io/v1alpha1/PodPreset", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "settings.k8s.io/v1alpha1/PodPreset", name: string, property: "kind"): pulumi.Output<string>;
@@ -1871,6 +2031,8 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "settings.k8s.io/v1alpha1/PodPresetList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/StorageClass", name: string, property: "allow_volume_expansion"): pulumi.Output<boolean>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/StorageClass", namespace: string, name: string, property: "allow_volume_expansion"): pulumi.Output<boolean>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/StorageClass", name: string, property: "allowed_topologies"): pulumi.Output<outputApi.core.v1.TopologySelectorTerm[]>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/StorageClass", namespace: string, name: string, property: "allowed_topologies"): pulumi.Output<outputApi.core.v1.TopologySelectorTerm[]>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/StorageClass", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/StorageClass", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/StorageClass", name: string, property: "kind"): pulumi.Output<string>;
@@ -1915,6 +2077,8 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1alpha1/VolumeAttachmentList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", name: string, property: "allow_volume_expansion"): pulumi.Output<boolean>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", namespace: string, name: string, property: "allow_volume_expansion"): pulumi.Output<boolean>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", name: string, property: "allowed_topologies"): pulumi.Output<outputApi.core.v1.TopologySelectorTerm[]>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", namespace: string, name: string, property: "allowed_topologies"): pulumi.Output<outputApi.core.v1.TopologySelectorTerm[]>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClass", name: string, property: "kind"): pulumi.Output<string>;
@@ -1939,6 +2103,24 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/StorageClassList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", name: string, property: "spec"): pulumi.Output<outputApi.storage.v1beta1.VolumeAttachmentSpec>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.storage.v1beta1.VolumeAttachmentSpec>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", name: string, property: "status"): pulumi.Output<outputApi.storage.v1beta1.VolumeAttachmentStatus>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachment", namespace: string, name: string, property: "status"): pulumi.Output<outputApi.storage.v1beta1.VolumeAttachmentStatus>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", name: string, property: "items"): pulumi.Output<outputApi.storage.v1beta1.VolumeAttachment[]>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", namespace: string, name: string, property: "items"): pulumi.Output<outputApi.storage.v1beta1.VolumeAttachment[]>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1beta1/VolumeAttachmentList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: string, namespaceOrName: string, nameOrProperty: string, property?: string): pulumi.Output<any> {
             const name = property !== undefined ? nameOrProperty : undefined;
             return this.getResourceImpl(groupVersionKind, namespaceOrName, name)
@@ -2103,10 +2285,40 @@ export namespace yaml {
                     name: `apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList::${id}`,
                     resource: new apiextensions.v1beta1.CustomResourceDefinitionList(id, obj, opts),
                 }];
+            case "apiregistration.k8s.io/v1/APIService":
+                return [{
+                    name: `apiregistration.k8s.io/v1/APIService::${id}`,
+                    resource: new apiregistration.v1.APIService(id, obj, opts),
+                }];
+            case "apiregistration/v1/APIService":
+                return [{
+                    name: `apiregistration/v1/APIService::${id}`,
+                    resource: new apiregistration.v1.APIService(id, obj, opts),
+                }];
+            case "apiregistration.k8s.io/v1/APIServiceList":
+                return [{
+                    name: `apiregistration.k8s.io/v1/APIServiceList::${id}`,
+                    resource: new apiregistration.v1.APIServiceList(id, obj, opts),
+                }];
+            case "apiregistration/v1/APIServiceList":
+                return [{
+                    name: `apiregistration/v1/APIServiceList::${id}`,
+                    resource: new apiregistration.v1.APIServiceList(id, obj, opts),
+                }];
+            case "apiregistration.k8s.io/v1beta1/APIService":
+                return [{
+                    name: `apiregistration.k8s.io/v1beta1/APIService::${id}`,
+                    resource: new apiregistration.v1beta1.APIService(id, obj, opts),
+                }];
             case "apiregistration/v1beta1/APIService":
                 return [{
                     name: `apiregistration/v1beta1/APIService::${id}`,
                     resource: new apiregistration.v1beta1.APIService(id, obj, opts),
+                }];
+            case "apiregistration.k8s.io/v1beta1/APIServiceList":
+                return [{
+                    name: `apiregistration.k8s.io/v1beta1/APIServiceList::${id}`,
+                    resource: new apiregistration.v1beta1.APIServiceList(id, obj, opts),
                 }];
             case "apiregistration/v1beta1/APIServiceList":
                 return [{
@@ -2343,6 +2555,21 @@ export namespace yaml {
                     name: `autoscaling/v2beta1/HorizontalPodAutoscalerList::${id}`,
                     resource: new autoscaling.v2beta1.HorizontalPodAutoscalerList(id, obj, opts),
                 }];
+            case "autoscaling/v2beta2/CrossVersionObjectReference":
+                return [{
+                    name: `autoscaling/v2beta2/CrossVersionObjectReference::${id}`,
+                    resource: new autoscaling.v2beta2.CrossVersionObjectReference(id, obj, opts),
+                }];
+            case "autoscaling/v2beta2/HorizontalPodAutoscaler":
+                return [{
+                    name: `autoscaling/v2beta2/HorizontalPodAutoscaler::${id}`,
+                    resource: new autoscaling.v2beta2.HorizontalPodAutoscaler(id, obj, opts),
+                }];
+            case "autoscaling/v2beta2/HorizontalPodAutoscalerList":
+                return [{
+                    name: `autoscaling/v2beta2/HorizontalPodAutoscalerList::${id}`,
+                    resource: new autoscaling.v2beta2.HorizontalPodAutoscalerList(id, obj, opts),
+                }];
             case "batch/v1/Job":
                 return [{
                     name: `batch/v1/Job::${id}`,
@@ -2382,6 +2609,16 @@ export namespace yaml {
                 return [{
                     name: `certificates.k8s.io/v1beta1/CertificateSigningRequestList::${id}`,
                     resource: new certificates.v1beta1.CertificateSigningRequestList(id, obj, opts),
+                }];
+            case "coordination.k8s.io/v1beta1/Lease":
+                return [{
+                    name: `coordination.k8s.io/v1beta1/Lease::${id}`,
+                    resource: new coordination.v1beta1.Lease(id, obj, opts),
+                }];
+            case "coordination.k8s.io/v1beta1/LeaseList":
+                return [{
+                    name: `coordination.k8s.io/v1beta1/LeaseList::${id}`,
+                    resource: new coordination.v1beta1.LeaseList(id, obj, opts),
                 }];
             case "v1/Binding":
                 return [{
@@ -2452,11 +2689,6 @@ export namespace yaml {
                 return [{
                     name: `v1/Node::${id}`,
                     resource: new core.v1.Node(id, obj, opts),
-                }];
-            case "v1/NodeConfigSource":
-                return [{
-                    name: `v1/NodeConfigSource::${id}`,
-                    resource: new core.v1.NodeConfigSource(id, obj, opts),
                 }];
             case "v1/NodeList":
                 return [{
@@ -2698,6 +2930,16 @@ export namespace yaml {
                     name: `policy/v1beta1/PodDisruptionBudgetList::${id}`,
                     resource: new policy.v1beta1.PodDisruptionBudgetList(id, obj, opts),
                 }];
+            case "policy/v1beta1/PodSecurityPolicy":
+                return [{
+                    name: `policy/v1beta1/PodSecurityPolicy::${id}`,
+                    resource: new policy.v1beta1.PodSecurityPolicy(id, obj, opts),
+                }];
+            case "policy/v1beta1/PodSecurityPolicyList":
+                return [{
+                    name: `policy/v1beta1/PodSecurityPolicyList::${id}`,
+                    resource: new policy.v1beta1.PodSecurityPolicyList(id, obj, opts),
+                }];
             case "rbac.authorization.k8s.io/v1/ClusterRole":
                 return [{
                     name: `rbac.authorization.k8s.io/v1/ClusterRole::${id}`,
@@ -2833,6 +3075,16 @@ export namespace yaml {
                     name: `scheduling.k8s.io/v1alpha1/PriorityClassList::${id}`,
                     resource: new scheduling.v1alpha1.PriorityClassList(id, obj, opts),
                 }];
+            case "scheduling.k8s.io/v1beta1/PriorityClass":
+                return [{
+                    name: `scheduling.k8s.io/v1beta1/PriorityClass::${id}`,
+                    resource: new scheduling.v1beta1.PriorityClass(id, obj, opts),
+                }];
+            case "scheduling.k8s.io/v1beta1/PriorityClassList":
+                return [{
+                    name: `scheduling.k8s.io/v1beta1/PriorityClassList::${id}`,
+                    resource: new scheduling.v1beta1.PriorityClassList(id, obj, opts),
+                }];
             case "settings.k8s.io/v1alpha1/PodPreset":
                 return [{
                     name: `settings.k8s.io/v1alpha1/PodPreset::${id}`,
@@ -2872,6 +3124,16 @@ export namespace yaml {
                 return [{
                     name: `storage.k8s.io/v1beta1/StorageClassList::${id}`,
                     resource: new storage.v1beta1.StorageClassList(id, obj, opts),
+                }];
+            case "storage.k8s.io/v1beta1/VolumeAttachment":
+                return [{
+                    name: `storage.k8s.io/v1beta1/VolumeAttachment::${id}`,
+                    resource: new storage.v1beta1.VolumeAttachment(id, obj, opts),
+                }];
+            case "storage.k8s.io/v1beta1/VolumeAttachmentList":
+                return [{
+                    name: `storage.k8s.io/v1beta1/VolumeAttachmentList::${id}`,
+                    resource: new storage.v1beta1.VolumeAttachmentList(id, obj, opts),
                 }];
             default:
                 return [{
@@ -3560,6 +3822,143 @@ export namespace apiextensions {
 }
 
 export namespace apiregistration {
+  export namespace v1 {
+    /**
+     * APIService represents a server for a particular GroupVersion. Name must be "version.group".
+     */
+    export class APIService extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+
+      /**
+       * Spec contains information for locating and communicating with a server
+       */
+      public readonly spec: pulumi.Output<outputApi.apiregistration.v1.APIServiceSpec>;
+
+      /**
+       * Status contains derived information about an API server
+       */
+      public readonly status: pulumi.Output<outputApi.apiregistration.v1.APIServiceStatus>;
+
+
+      /**
+       * Get the state of an existing `APIService` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIService {
+          return new APIService(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.apiregistration.v1.APIService { return this.__inputs; }
+      private readonly __inputs: inputApi.apiregistration.v1.APIService;
+
+      /**
+      * Create a apiregistration.v1.APIService resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.apiregistration.v1.APIService, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "apiregistration.k8s.io/v1";
+          inputs["kind"] = "APIService";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["spec"] = args && args.spec || undefined;
+          inputs["status"] = args && args.status || undefined;
+          super("kubernetes:apiregistration/v1:APIService", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+    /**
+     * APIServiceList is a list of APIService objects.
+     */
+    export class APIServiceList extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      
+      public readonly items: pulumi.Output<outputApi.apiregistration.v1.APIService[]>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+
+
+      /**
+       * Get the state of an existing `APIServiceList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIServiceList {
+          return new APIServiceList(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.apiregistration.v1.APIServiceList { return this.__inputs; }
+      private readonly __inputs: inputApi.apiregistration.v1.APIServiceList;
+
+      /**
+      * Create a apiregistration.v1.APIServiceList resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.apiregistration.v1.APIServiceList, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "apiregistration.k8s.io/v1";
+          inputs["items"] = args && args.items || undefined;
+          inputs["kind"] = "APIServiceList";
+          inputs["metadata"] = args && args.metadata || undefined;
+          super("kubernetes:apiregistration/v1:APIServiceList", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+  }
+
   export namespace v1beta1 {
     /**
      * APIService represents a server for a particular GroupVersion. Name must be "version.group".
@@ -3622,7 +4021,7 @@ export namespace apiregistration {
       */
       constructor(name: string, args?: inputApi.apiregistration.v1beta1.APIService, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "apiregistration/v1beta1";
+          inputs["apiVersion"] = "apiregistration.k8s.io/v1beta1";
           inputs["kind"] = "APIService";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
@@ -3686,7 +4085,7 @@ export namespace apiregistration {
       */
       constructor(name: string, args?: inputApi.apiregistration.v1beta1.APIServiceList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "apiregistration/v1beta1";
+          inputs["apiVersion"] = "apiregistration.k8s.io/v1beta1";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "APIServiceList";
           inputs["metadata"] = args && args.metadata || undefined;
@@ -7056,6 +7455,210 @@ export namespace autoscaling {
 
   }
 
+  export namespace v2beta2 {
+    /**
+     * CrossVersionObjectReference contains enough information to let you identify the referred
+     * resource.
+     */
+    export class CrossVersionObjectReference extends pulumi.CustomResource {
+      /**
+       * API version of the referent
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Kind of the referent; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+       */
+      public readonly name: pulumi.Output<string>;
+
+
+      /**
+       * Get the state of an existing `CrossVersionObjectReference` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): CrossVersionObjectReference {
+          return new CrossVersionObjectReference(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.autoscaling.v2beta2.CrossVersionObjectReference { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v2beta2.CrossVersionObjectReference;
+
+      /**
+      * Create a autoscaling.v2beta2.CrossVersionObjectReference resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.autoscaling.v2beta2.CrossVersionObjectReference, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "autoscaling/v2beta2";
+          inputs["kind"] = "CrossVersionObjectReference";
+          inputs["name"] = args && args.name || undefined;
+          super("kubernetes:autoscaling/v2beta2:CrossVersionObjectReference", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+    /**
+     * HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
+     * automatically manages the replica count of any resource implementing the scale subresource
+     * based on the metrics specified.
+     */
+    export class HorizontalPodAutoscaler extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * metadata is the standard object metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+
+      /**
+       * spec is the specification for the behaviour of the autoscaler. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       */
+      public readonly spec: pulumi.Output<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerSpec>;
+
+      /**
+       * status is the current information about the autoscaler.
+       */
+      public readonly status: pulumi.Output<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerStatus>;
+
+
+      /**
+       * Get the state of an existing `HorizontalPodAutoscaler` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscaler {
+          return new HorizontalPodAutoscaler(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler;
+
+      /**
+      * Create a autoscaling.v2beta2.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "autoscaling/v2beta2";
+          inputs["kind"] = "HorizontalPodAutoscaler";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["spec"] = args && args.spec || undefined;
+          inputs["status"] = args && args.status || undefined;
+          super("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+    /**
+     * HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
+     */
+    export class HorizontalPodAutoscalerList extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * items is the list of horizontal pod autoscaler objects.
+       */
+      public readonly items: pulumi.Output<outputApi.autoscaling.v2beta2.HorizontalPodAutoscaler[]>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * metadata is the standard list metadata.
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+
+
+      /**
+       * Get the state of an existing `HorizontalPodAutoscalerList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscalerList {
+          return new HorizontalPodAutoscalerList(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList;
+
+      /**
+      * Create a autoscaling.v2beta2.HorizontalPodAutoscalerList resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "autoscaling/v2beta2";
+          inputs["items"] = args && args.items || undefined;
+          inputs["kind"] = "HorizontalPodAutoscalerList";
+          inputs["metadata"] = args && args.metadata || undefined;
+          super("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerList", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+  }
+
 }
 
 export namespace batch {
@@ -7640,6 +8243,148 @@ export namespace certificates {
 
 }
 
+export namespace coordination {
+  export namespace v1beta1 {
+    /**
+     * Lease defines a lease concept.
+     */
+    export class Lease extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+
+      /**
+       * Specification of the Lease. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      public readonly spec: pulumi.Output<outputApi.coordination.v1beta1.LeaseSpec>;
+
+
+      /**
+       * Get the state of an existing `Lease` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): Lease {
+          return new Lease(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.coordination.v1beta1.Lease { return this.__inputs; }
+      private readonly __inputs: inputApi.coordination.v1beta1.Lease;
+
+      /**
+      * Create a coordination.v1beta1.Lease resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.coordination.v1beta1.Lease, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "coordination.k8s.io/v1beta1";
+          inputs["kind"] = "Lease";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["spec"] = args && args.spec || undefined;
+          super("kubernetes:coordination.k8s.io/v1beta1:Lease", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+    /**
+     * LeaseList is a list of Lease objects.
+     */
+    export class LeaseList extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Items is a list of schema objects.
+       */
+      public readonly items: pulumi.Output<outputApi.coordination.v1beta1.Lease[]>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+
+
+      /**
+       * Get the state of an existing `LeaseList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): LeaseList {
+          return new LeaseList(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.coordination.v1beta1.LeaseList { return this.__inputs; }
+      private readonly __inputs: inputApi.coordination.v1beta1.LeaseList;
+
+      /**
+      * Create a coordination.v1beta1.LeaseList resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.coordination.v1beta1.LeaseList, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "coordination.k8s.io/v1beta1";
+          inputs["items"] = args && args.items || undefined;
+          inputs["kind"] = "LeaseList";
+          inputs["metadata"] = args && args.metadata || undefined;
+          super("kubernetes:coordination.k8s.io/v1beta1:LeaseList", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+  }
+
+}
+
 export namespace core {
   export namespace v1 {
     /**
@@ -7860,8 +8605,18 @@ export namespace core {
       public readonly apiVersion: pulumi.Output<string>;
 
       /**
+       * BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-',
+       * '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys
+       * stored in BinaryData must not overlap with the ones in the Data field, this is enforced
+       * during validation process. Using this field will require 1.10+ apiserver and kubelet.
+       */
+      public readonly binaryData: pulumi.Output<object>;
+
+      /**
        * Data contains the configuration data. Each key must consist of alphanumeric characters,
-       * '-', '_' or '.'.
+       * '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The
+       * keys stored in Data must not overlap with the keys in the BinaryData field, this is
+       * enforced during validation process.
        */
       public readonly data: pulumi.Output<{[key: string]: pulumi.Output<string>}>;
 
@@ -7908,6 +8663,7 @@ export namespace core {
       constructor(name: string, args?: inputApi.core.v1.ConfigMap, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
+          inputs["binaryData"] = args && args.binaryData || undefined;
           inputs["data"] = args && args.data || undefined;
           inputs["kind"] = "ConfigMap";
           inputs["metadata"] = args && args.metadata || undefined;
@@ -8706,66 +9462,6 @@ export namespace core {
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:core/v1:Node", name, inputs, opts);
-          this.__inputs = <any>args;
-      }
-    }
-
-    /**
-     * NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding
-     * metadata) must be non-nil.
-     */
-    export class NodeConfigSource extends pulumi.CustomResource {
-      /**
-       * APIVersion defines the versioned schema of this representation of an object. Servers should
-       * convert recognized schemas to the latest internal value, and may reject unrecognized
-       * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-       */
-      public readonly apiVersion: pulumi.Output<string>;
-
-      
-      public readonly configMapRef: pulumi.Output<outputApi.core.v1.ObjectReference>;
-
-      /**
-       * Kind is a string value representing the REST resource this object represents. Servers may
-       * infer this from the endpoint the client submits requests to. Cannot be updated. In
-       * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      public readonly kind: pulumi.Output<string>;
-
-
-      /**
-       * Get the state of an existing `NodeConfigSource` resource, as identified by `id`.
-       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
-       * Kubernetes convention) the ID becomes default/<name>.
-       *
-       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
-       *
-       * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
-       *  <namespace>/<name> or <name>.
-       */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): NodeConfigSource {
-          return new NodeConfigSource(name, undefined, { id: id });
-      }
-
-      public getInputs(): inputApi.core.v1.NodeConfigSource { return this.__inputs; }
-      private readonly __inputs: inputApi.core.v1.NodeConfigSource;
-
-      /**
-      * Create a core.v1.NodeConfigSource resource with the given unique name, arguments, and options.
-      *
-      * @param name The _unique_ name of the resource.
-      * @param args The arguments to use to populate this resource's properties.
-      * @param opts A bag of options that control this resource's behavior.
-      */
-      constructor(name: string, args?: inputApi.core.v1.NodeConfigSource, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "v1";
-          inputs["configMapRef"] = args && args.configMapRef || undefined;
-          inputs["kind"] = "NodeConfigSource";
-          super("kubernetes:core/v1:NodeConfigSource", name, inputs, opts);
           this.__inputs = <any>args;
       }
     }
@@ -11130,8 +11826,9 @@ export namespace extensions {
     }
 
     /**
-     * Pod Security Policy governs the ability to make requests that affect the Security Context
-     * that will be applied to a pod and container.
+     * PodSecurityPolicy governs the ability to make requests that affect the Security Context that
+     * will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API
+     * Group instead.
      */
     export class PodSecurityPolicy extends pulumi.CustomResource {
       /**
@@ -11199,7 +11896,8 @@ export namespace extensions {
     }
 
     /**
-     * Pod Security Policy List is a list of PodSecurityPolicy objects.
+     * PodSecurityPolicyList is a list of PodSecurityPolicy objects. Deprecated: use
+     * PodSecurityPolicyList from policy API Group instead.
      */
     export class PodSecurityPolicyList extends pulumi.CustomResource {
       /**
@@ -11211,7 +11909,7 @@ export namespace extensions {
       public readonly apiVersion: pulumi.Output<string>;
 
       /**
-       * Items is a list of schema objects.
+       * items is a list of schema objects.
        */
       public readonly items: pulumi.Output<outputApi.extensions.v1beta1.PodSecurityPolicy[]>;
 
@@ -11800,6 +12498,13 @@ export namespace meta {
       public readonly apiVersion: pulumi.Output<string>;
 
       /**
+       * When present, indicates that modifications should not be persisted. An invalid or
+       * unrecognized dryRun directive will result in an error response and no further processing of
+       * the request. Valid values are: - All: all dry run stages will be processed
+       */
+      public readonly dryRun: pulumi.Output<string[]>;
+
+      /**
        * The duration in seconds before the object should be deleted. Value must be non-negative
        * integer. The value zero indicates delete immediately. If this value is nil, the default
        * grace period for the specified type will be used. Defaults to a per object value if not
@@ -11868,6 +12573,7 @@ export namespace meta {
       constructor(name: string, args?: inputApi.meta.v1.DeleteOptions, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
+          inputs["dryRun"] = args && args.dryRun || undefined;
           inputs["gracePeriodSeconds"] = args && args.gracePeriodSeconds || undefined;
           inputs["kind"] = "DeleteOptions";
           inputs["orphanDependents"] = args && args.orphanDependents || undefined;
@@ -12401,6 +13107,143 @@ export namespace policy {
           inputs["kind"] = "PodDisruptionBudgetList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+    /**
+     * PodSecurityPolicy governs the ability to make requests that affect the Security Context that
+     * will be applied to a pod and container.
+     */
+    export class PodSecurityPolicy extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+
+      /**
+       * spec defines the policy enforced.
+       */
+      public readonly spec: pulumi.Output<outputApi.policy.v1beta1.PodSecurityPolicySpec>;
+
+
+      /**
+       * Get the state of an existing `PodSecurityPolicy` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodSecurityPolicy {
+          return new PodSecurityPolicy(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.policy.v1beta1.PodSecurityPolicy { return this.__inputs; }
+      private readonly __inputs: inputApi.policy.v1beta1.PodSecurityPolicy;
+
+      /**
+      * Create a policy.v1beta1.PodSecurityPolicy resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.policy.v1beta1.PodSecurityPolicy, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "policy/v1beta1";
+          inputs["kind"] = "PodSecurityPolicy";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["spec"] = args && args.spec || undefined;
+          super("kubernetes:policy/v1beta1:PodSecurityPolicy", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+    /**
+     * PodSecurityPolicyList is a list of PodSecurityPolicy objects.
+     */
+    export class PodSecurityPolicyList extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * items is a list of schema objects.
+       */
+      public readonly items: pulumi.Output<outputApi.policy.v1beta1.PodSecurityPolicy[]>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+
+
+      /**
+       * Get the state of an existing `PodSecurityPolicyList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodSecurityPolicyList {
+          return new PodSecurityPolicyList(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.policy.v1beta1.PodSecurityPolicyList { return this.__inputs; }
+      private readonly __inputs: inputApi.policy.v1beta1.PodSecurityPolicyList;
+
+      /**
+      * Create a policy.v1beta1.PodSecurityPolicyList resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.policy.v1beta1.PodSecurityPolicyList, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "policy/v1beta1";
+          inputs["items"] = args && args.items || undefined;
+          inputs["kind"] = "PodSecurityPolicyList";
+          inputs["metadata"] = args && args.metadata || undefined;
+          super("kubernetes:policy/v1beta1:PodSecurityPolicyList", name, inputs, opts);
           this.__inputs = <any>args;
       }
     }
@@ -14204,7 +15047,10 @@ export namespace scheduling {
 
       /**
        * globalDefault specifies whether this PriorityClass should be considered as the default
-       * priority for pods that do not have any priority class.
+       * priority for pods that do not have any priority class. Only one PriorityClass can be marked
+       * as `globalDefault`. However, if more than one PriorityClasses exists with their
+       * `globalDefault` field set to true, the smallest value of such global default
+       * PriorityClasses will be used as the default priority.
        */
       public readonly globalDefault: pulumi.Output<boolean>;
 
@@ -14218,7 +15064,7 @@ export namespace scheduling {
 
       /**
        * Standard object's metadata. More info:
-       * http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
@@ -14294,7 +15140,7 @@ export namespace scheduling {
 
       /**
        * Standard list metadata More info:
-       * http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
@@ -14331,6 +15177,164 @@ export namespace scheduling {
           inputs["kind"] = "PriorityClassList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+  }
+
+  export namespace v1beta1 {
+    /**
+     * PriorityClass defines mapping from a priority class name to the priority integer value. The
+     * value can be any valid integer.
+     */
+    export class PriorityClass extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * description is an arbitrary string that usually provides guidelines on when this priority
+       * class should be used.
+       */
+      public readonly description: pulumi.Output<string>;
+
+      /**
+       * globalDefault specifies whether this PriorityClass should be considered as the default
+       * priority for pods that do not have any priority class. Only one PriorityClass can be marked
+       * as `globalDefault`. However, if more than one PriorityClasses exists with their
+       * `globalDefault` field set to true, the smallest value of such global default
+       * PriorityClasses will be used as the default priority.
+       */
+      public readonly globalDefault: pulumi.Output<boolean>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+
+      /**
+       * The value of this priority class. This is the actual priority that pods receive when they
+       * have the name of this class in their pod spec.
+       */
+      public readonly value: pulumi.Output<number>;
+
+
+      /**
+       * Get the state of an existing `PriorityClass` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): PriorityClass {
+          return new PriorityClass(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.scheduling.v1beta1.PriorityClass { return this.__inputs; }
+      private readonly __inputs: inputApi.scheduling.v1beta1.PriorityClass;
+
+      /**
+      * Create a scheduling.v1beta1.PriorityClass resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.scheduling.v1beta1.PriorityClass, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "scheduling.k8s.io/v1beta1";
+          inputs["description"] = args && args.description || undefined;
+          inputs["globalDefault"] = args && args.globalDefault || undefined;
+          inputs["kind"] = "PriorityClass";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["value"] = args && args.value || undefined;
+          super("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+    /**
+     * PriorityClassList is a collection of priority classes.
+     */
+    export class PriorityClassList extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * items is the list of PriorityClasses
+       */
+      public readonly items: pulumi.Output<outputApi.scheduling.v1beta1.PriorityClass[]>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+
+
+      /**
+       * Get the state of an existing `PriorityClassList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): PriorityClassList {
+          return new PriorityClassList(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.scheduling.v1beta1.PriorityClassList { return this.__inputs; }
+      private readonly __inputs: inputApi.scheduling.v1beta1.PriorityClassList;
+
+      /**
+      * Create a scheduling.v1beta1.PriorityClassList resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.scheduling.v1beta1.PriorityClassList, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "scheduling.k8s.io/v1beta1";
+          inputs["items"] = args && args.items || undefined;
+          inputs["kind"] = "PriorityClassList";
+          inputs["metadata"] = args && args.metadata || undefined;
+          super("kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList", name, inputs, opts);
           this.__inputs = <any>args;
       }
     }
@@ -14492,6 +15496,14 @@ export namespace storage {
       public readonly allowVolumeExpansion: pulumi.Output<boolean>;
 
       /**
+       * Restrict the node topologies where volumes can be dynamically provisioned. Each volume
+       * plugin defines its own supported topology specifications. An empty TopologySelectorTerm
+       * list means there is no topology restriction. This field is only honored by servers that
+       * enable the VolumeScheduling feature.
+       */
+      public readonly allowedTopologies: pulumi.Output<outputApi.core.v1.TopologySelectorTerm[]>;
+
+      /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
@@ -14539,8 +15551,8 @@ export namespace storage {
 
       /**
        * VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.
-       * When unset, VolumeBindingImmediate is used. This field is alpha-level and is only honored
-       * by servers that enable the VolumeScheduling feature.
+       * When unset, VolumeBindingImmediate is used. This field is only honored by servers that
+       * enable the VolumeScheduling feature.
        */
       public readonly volumeBindingMode: pulumi.Output<string>;
 
@@ -14573,6 +15585,7 @@ export namespace storage {
       constructor(name: string, args?: inputApi.storage.v1.StorageClass, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["allowVolumeExpansion"] = args && args.allowVolumeExpansion || undefined;
+          inputs["allowedTopologies"] = args && args.allowedTopologies || undefined;
           inputs["apiVersion"] = "storage.k8s.io/v1";
           inputs["kind"] = "StorageClass";
           inputs["metadata"] = args && args.metadata || undefined;
@@ -14821,6 +15834,14 @@ export namespace storage {
       public readonly allowVolumeExpansion: pulumi.Output<boolean>;
 
       /**
+       * Restrict the node topologies where volumes can be dynamically provisioned. Each volume
+       * plugin defines its own supported topology specifications. An empty TopologySelectorTerm
+       * list means there is no topology restriction. This field is only honored by servers that
+       * enable the VolumeScheduling feature.
+       */
+      public readonly allowedTopologies: pulumi.Output<outputApi.core.v1.TopologySelectorTerm[]>;
+
+      /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
@@ -14868,8 +15889,8 @@ export namespace storage {
 
       /**
        * VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.
-       * When unset, VolumeBindingImmediate is used. This field is alpha-level and is only honored
-       * by servers that enable the VolumeScheduling feature.
+       * When unset, VolumeBindingImmediate is used. This field is only honored by servers that
+       * enable the VolumeScheduling feature.
        */
       public readonly volumeBindingMode: pulumi.Output<string>;
 
@@ -14902,6 +15923,7 @@ export namespace storage {
       constructor(name: string, args?: inputApi.storage.v1beta1.StorageClass, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["allowVolumeExpansion"] = args && args.allowVolumeExpansion || undefined;
+          inputs["allowedTopologies"] = args && args.allowedTopologies || undefined;
           inputs["apiVersion"] = "storage.k8s.io/v1beta1";
           inputs["kind"] = "StorageClass";
           inputs["metadata"] = args && args.metadata || undefined;
@@ -14979,6 +16001,153 @@ export namespace storage {
           inputs["kind"] = "StorageClassList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:storage.k8s.io/v1beta1:StorageClassList", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+    /**
+     * VolumeAttachment captures the intent to attach or detach the specified volume to/from the
+     * specified node.
+     * 
+     * VolumeAttachment objects are non-namespaced.
+     */
+    export class VolumeAttachment extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Standard object metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+
+      /**
+       * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes
+       * system.
+       */
+      public readonly spec: pulumi.Output<outputApi.storage.v1beta1.VolumeAttachmentSpec>;
+
+      /**
+       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
+       * detach operation, i.e. the external-attacher.
+       */
+      public readonly status: pulumi.Output<outputApi.storage.v1beta1.VolumeAttachmentStatus>;
+
+
+      /**
+       * Get the state of an existing `VolumeAttachment` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachment {
+          return new VolumeAttachment(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.storage.v1beta1.VolumeAttachment { return this.__inputs; }
+      private readonly __inputs: inputApi.storage.v1beta1.VolumeAttachment;
+
+      /**
+      * Create a storage.v1beta1.VolumeAttachment resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.storage.v1beta1.VolumeAttachment, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "storage.k8s.io/v1beta1";
+          inputs["kind"] = "VolumeAttachment";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["spec"] = args && args.spec || undefined;
+          inputs["status"] = args && args.status || undefined;
+          super("kubernetes:storage.k8s.io/v1beta1:VolumeAttachment", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
+
+    /**
+     * VolumeAttachmentList is a collection of VolumeAttachment objects.
+     */
+    export class VolumeAttachmentList extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<string>;
+
+      /**
+       * Items is the list of VolumeAttachments
+       */
+      public readonly items: pulumi.Output<outputApi.storage.v1beta1.VolumeAttachment[]>;
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<string>;
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+
+
+      /**
+       * Get the state of an existing `VolumeAttachmentList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       *  <namespace>/<name> or <name>.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachmentList {
+          return new VolumeAttachmentList(name, undefined, { id: id });
+      }
+
+      public getInputs(): inputApi.storage.v1beta1.VolumeAttachmentList { return this.__inputs; }
+      private readonly __inputs: inputApi.storage.v1beta1.VolumeAttachmentList;
+
+      /**
+      * Create a storage.v1beta1.VolumeAttachmentList resource with the given unique name, arguments, and options.
+      *
+      * @param name The _unique_ name of the resource.
+      * @param args The arguments to use to populate this resource's properties.
+      * @param opts A bag of options that control this resource's behavior.
+      */
+      constructor(name: string, args?: inputApi.storage.v1beta1.VolumeAttachmentList, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "storage.k8s.io/v1beta1";
+          inputs["items"] = args && args.items || undefined;
+          inputs["kind"] = "VolumeAttachmentList";
+          inputs["metadata"] = args && args.metadata || undefined;
+          super("kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList", name, inputs, opts);
           this.__inputs = <any>args;
       }
     }

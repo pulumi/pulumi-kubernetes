@@ -5,8 +5,9 @@ from ... import tables
 
 class PodSecurityPolicy(pulumi.CustomResource):
     """
-    Pod Security Policy governs the ability to make requests that affect the Security Context that
-    will be applied to a pod and container.
+    PodSecurityPolicy governs the ability to make requests that affect the Security Context that
+    will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API Group
+    instead.
     """
     def __init__(self, __name__, __opts__=None, metadata=None, spec=None):
         if not __name__:

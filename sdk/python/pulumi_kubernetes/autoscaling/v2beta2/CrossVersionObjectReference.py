@@ -3,12 +3,12 @@ import pulumi.runtime
 
 from ... import tables
 
-class NodeConfigSource(pulumi.CustomResource):
+class CrossVersionObjectReference(pulumi.CustomResource):
     """
-    NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding
-    metadata) must be non-nil.
+    CrossVersionObjectReference contains enough information to let you identify the referred
+    resource.
     """
-    def __init__(self, __name__, __opts__=None, config_map_ref=None):
+    def __init__(self, __name__, __opts__=None, name=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -18,12 +18,14 @@ class NodeConfigSource(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'v1'
-        __props__['kind'] = 'NodeConfigSource'
-        __props__['configMapRef'] = config_map_ref
+        __props__['apiVersion'] = 'autoscaling/v2beta2'
+        __props__['kind'] = 'CrossVersionObjectReference'
+        if not name:
+            raise TypeError('Missing required property name')
+        __props__['name'] = name
 
-        super(NodeConfigSource, self).__init__(
-            "kubernetes:core/v1:NodeConfigSource",
+        super(CrossVersionObjectReference, self).__init__(
+            "kubernetes:autoscaling/v2beta2:CrossVersionObjectReference",
             __name__,
             __props__,
             __opts__)

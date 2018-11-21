@@ -20,8 +20,10 @@ class CustomResourceDefinition(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'apiextensions.k8s.io/v1beta1'
         __props__['kind'] = 'CustomResourceDefinition'
-        __props__['metadata'] = metadata
+        if not spec:
+            raise TypeError('Missing required property spec')
         __props__['spec'] = spec
+        __props__['metadata'] = metadata
         __props__['status'] = status
 
         super(CustomResourceDefinition, self).__init__(

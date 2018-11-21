@@ -17,7 +17,6 @@ from .LimitRangeList import *
 from .Namespace import *
 from .NamespaceList import *
 from .Node import *
-from .NodeConfigSource import *
 from .NodeList import *
 from .ObjectReference import *
 from .PersistentVolume import *

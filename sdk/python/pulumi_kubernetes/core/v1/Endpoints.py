@@ -30,10 +30,8 @@ class Endpoints(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'v1'
         __props__['kind'] = 'Endpoints'
-        if not subsets:
-            raise TypeError('Missing required property subsets')
-        __props__['subsets'] = subsets
         __props__['metadata'] = metadata
+        __props__['subsets'] = subsets
 
         super(Endpoints, self).__init__(
             "kubernetes:core/v1:Endpoints",

@@ -11,7 +11,7 @@ class StorageClass(pulumi.CustomResource):
     StorageClasses are non-namespaced; the name of the storage class according to etcd is in
     ObjectMeta.Name.
     """
-    def __init__(self, __name__, __opts__=None, allow_volume_expansion=None, metadata=None, mount_options=None, parameters=None, provisioner=None, reclaim_policy=None, volume_binding_mode=None):
+    def __init__(self, __name__, __opts__=None, allow_volume_expansion=None, allowed_topologies=None, metadata=None, mount_options=None, parameters=None, provisioner=None, reclaim_policy=None, volume_binding_mode=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -27,6 +27,7 @@ class StorageClass(pulumi.CustomResource):
             raise TypeError('Missing required property provisioner')
         __props__['provisioner'] = provisioner
         __props__['allowVolumeExpansion'] = allow_volume_expansion
+        __props__['allowedTopologies'] = allowed_topologies
         __props__['metadata'] = metadata
         __props__['mountOptions'] = mount_options
         __props__['parameters'] = parameters

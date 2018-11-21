@@ -10,7 +10,7 @@ PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
 VERSION         ?= $(shell scripts/get-version)
 PYPI_VERSION    := $(shell scripts/get-py-version)
-KUBE_VERSION    ?= v1.9.7
+KUBE_VERSION    ?= v1.12.2
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
 OPENAPI_DIR     := pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
@@ -31,6 +31,8 @@ $(OPENAPI_FILE)::
 build:: $(OPENAPI_FILE)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(PROVIDER)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
+	# Delete only files and folders that are generated.
+	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
 	for LANGUAGE in "nodejs" "python" ; do \
 		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
 	done
