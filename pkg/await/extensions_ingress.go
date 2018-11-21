@@ -249,7 +249,7 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 	// Update status of ingress object so that we can check success.
 	iia.ingressReady = len(obj.Status.LoadBalancer.Ingress) > 0
 
-	glog.V(3).Infof("Waiting for ingress '%q' to assign IP/hostname for a load balancer",
+	glog.V(3).Infof("Waiting for ingress '%q' to update .status.loadBalancer with hostname/IP",
 		inputIngressName)
 }
 
@@ -327,7 +327,9 @@ func (iia *ingressInitAwaiter) errorMessages() []string {
 
 	if !iia.ingressReady {
 		messages = append(messages,
-			"Ingress was not allocated an IP address; does your cloud provider support this?")
+			"Ingress .status.loadBalancer field was not updated with a hostname/IP address; "+
+				"If you're using the Traefik ingress-controller, make sure it is configured with the "+
+				"kubernetes.ingressEndpoint config.")
 	}
 
 	return messages
@@ -338,7 +340,7 @@ func (iia *ingressInitAwaiter) checkAndLogStatus() bool {
 	if success {
 		iia.config.logStatus(diag.Info, "✅ Ingress initialization complete")
 	} else if iia.endpointsReady {
-		iia.config.logStatus(diag.Info, "[2/3] Waiting for load balancer to assign IP/hostname")
+		iia.config.logStatus(diag.Info, "[2/3] Waiting for update of .status.loadBalancer with hostname/IP")
 	}
 
 	return success
