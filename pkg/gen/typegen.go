@@ -277,21 +277,31 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 	}
 
 	ref := stripPrefix(prop["$ref"].(string))
-	if ref == "io.k8s.apimachinery.pkg.api.resource.Quantity" {
+	const (
+		apiextensionsV1beta1          = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
+		quantity                      = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+		intOrString                   = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+		v1Time                        = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+		v1MicroTime                   = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
+		v1beta1JSONSchemaPropsOrBool  = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
+		v1beta1JSONSchemaPropsOrArray = apiextensionsV1beta1 + ".JSONSchemaPropsOrArray"
+		v1beta1JSON                   = apiextensionsV1beta1 + ".JSON"
+		v1beta1CRSubresourceStatus    = apiextensionsV1beta1 + ".CustomResourceSubresourceStatus"
+	)
+
+	switch ref {
+	case quantity:
 		return stringT
-	} else if ref == "io.k8s.apimachinery.pkg.util.intstr.IntOrString" {
+	case intOrString:
 		return "number | string"
-	} else if ref == "io.k8s.apimachinery.pkg.apis.meta.v1.Time" ||
-		ref == "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime" {
+	case v1Time, v1MicroTime:
 		// TODO: Automatically deserialized with `DateConstructor`.
 		return stringT
-	} else if ref == "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSONSchemaPropsOrBool" {
+	case v1beta1JSONSchemaPropsOrBool:
 		return "apiextensions.v1beta1.JSONSchemaProps | boolean"
-	} else if ref == "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSONSchemaPropsOrArray" {
+	case v1beta1JSONSchemaPropsOrArray:
 		return "apiextensions.v1beta1.JSONSchemaProps | any[]"
-	} else if ref == "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSON" {
-		return "any"
-	} else if ref == "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresourceStatus" {
+	case v1beta1JSON, v1beta1CRSubresourceStatus:
 		return "any"
 	}
 
