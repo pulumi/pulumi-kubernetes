@@ -302,44 +302,12 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 	return fmt.Sprintf("%s.%s.%s.%s", refPrefix, gvk.Group, gvk.Version, gvk.Kind)
 }
 
-func makePythonType(prop map[string]interface{}, opts groupOpts) string {
-	if opts.generatorType != provider {
-		panic("Python does not support output or input types")
-	}
-
-	if t, exists := prop["type"]; exists {
-		tstr := t.(string)
-		if tstr == "array" {
-			return "list"
-		} else if tstr == "integer" {
-			return "int"
-		} else if tstr == object {
-			return "dict"
-		} else if tstr == stringT {
-			return str
-		}
-		return tstr
-	}
-
-	ref := stripPrefix(prop["$ref"].(string))
-	if ref == "io.k8s.apimachinery.pkg.api.resource.Quantity" {
-		return str
-	} else if ref == "io.k8s.apimachinery.pkg.util.intstr.IntOrString" {
-		return object
-	} else if ref == "io.k8s.apimachinery.pkg.apis.meta.v1.Time" ||
-		ref == "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime" {
-		// TODO: Automatically deserialized with `DateConstructor`.
-		return str
-	}
-	return "dict"
-}
-
 func makeType(prop map[string]interface{}, opts groupOpts) string {
 	switch opts.language {
 	case typescript:
 		return makeTypescriptType(prop, opts)
 	case python:
-		return makePythonType(prop, opts)
+		panic("Python does not support output or input types")
 	default:
 		panic("Unrecognized generator type")
 	}
@@ -470,16 +438,19 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					}
 
 					var prefix string
+					var t string
 					switch opts.language {
 					case typescript:
 						prefix = "      "
+						t = makeType(prop, opts)
 					case python:
 						prefix = "        "
+						// Python currently does not emit types for use.
 					}
 
 					return &Property{
 						comment:      fmtComment(prop["description"], prefix, opts),
-						propType:     makeType(prop, opts),
+						propType:     t,
 						name:         propName,
 						languageName: pyName(propName),
 						defaultValue: defaultValue,
