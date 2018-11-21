@@ -21,20 +21,10 @@ redis_leader_labels = {
     "role": "master"
 }
 
-redis_leader_service = Service("redis-leader",
-    spec={
-        "ports": [{
-            "port": 6379,
-            "target_port": 6379,
-        }],
-        "selector": redis_leader_labels
-    },
-    metadata={
-        "name": "redis-master",
-        "labels": redis_leader_labels
-    })
-
 redis_leader_deployment = Deployment("redis-leader",
+    metadata={
+        "name": "redis-master"
+    },
     spec={
         "selector": {
             "match_labels": redis_leader_labels,
@@ -60,31 +50,31 @@ redis_leader_deployment = Deployment("redis-leader",
                 }],
             },
         },
-    },
-    metadata={
-        "name": "redis-master"
     })
 
+redis_leader_service = Service("redis-leader",
+    metadata={
+        "name": "redis-master",
+        "labels": redis_leader_labels
+    },
+    spec={
+        "ports": [{
+            "port": 6379,
+            "target_port": 6379,
+        }],
+        "selector": redis_leader_labels
+    })
+    
 redis_follower_labels = {
     "app": "redis",
     "tier": "backend",
     "role": "slave"
 }
 
-redis_follower_service = Service("redis-follower",
-    spec={
-        "ports": [{
-            "port": 6379,
-            "target_port": 6379,
-        }],
-        "selector": redis_follower_labels
-    },
+redis_follower_deployment = Deployment("redis-follower",
     metadata={
         "name": "redis-slave",
-        "labels": redis_follower_labels 
-    })
-
-redis_follower_deployment = Deployment("redis-follower",
+    },
     spec={
         "selector": {
             "match_labels": redis_follower_labels
@@ -118,9 +108,19 @@ redis_follower_deployment = Deployment("redis-follower",
                 }],
             },
         },
-    },
+    })
+    
+redis_follower_service = Service("redis-follower",
     metadata={
         "name": "redis-slave",
+        "labels": redis_follower_labels 
+    },
+    spec={
+        "ports": [{
+            "port": 6379,
+            "target_port": 6379,
+        }],
+        "selector": redis_follower_labels
     })
 
 # Frontend
@@ -129,6 +129,10 @@ frontend_labels = {
     "tier": "frontend"
 }
 frontend_service = Service("frontend",
+    metadata={
+        "name": "frontend",
+        "labels": frontend_labels
+    },
     spec={
         # If your cluster supports it, uncomment the following to automatically create
         # an external load-balanced IP for the frontend service.
@@ -137,10 +141,6 @@ frontend_service = Service("frontend",
             "port": 80
         }],
         "selector": frontend_labels
-    },
-    metadata={
-        "name": "frontend",
-        "labels": frontend_labels
     })
 
 frontend_deployment = Deployment("frontend",
