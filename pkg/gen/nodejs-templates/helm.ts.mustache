@@ -11,25 +11,51 @@ import * as nodepath from "path";
 
 export namespace v2 {
     interface BaseChartOpts {
+        /**
+         * The optional namespace to install chart resources into.
+         */
         namespace?: pulumi.Input<string>;
+        /**
+         * Overrides for chart values.
+         */
         values?: pulumi.Inputs;
+        /**
+         * Optional array of transformations to apply to resources that will be created by this chart prior to
+         * creation. Allows customization of the chart behaviour without directly modifying the chart itself.
+         */
         transformations?: ((o: any) => void)[];
     }
 
     export interface ChartOpts extends BaseChartOpts {
-        repo: pulumi.Input<string>;
+        /**
+         * The repository containing the desired chart.  If not provided, [chart] must be a fully qualified chart URL
+         * or repo/chartname.
+         */
+        repo?: pulumi.Input<string>;
+        /**
+         * The chart to deploy.  If [repo] is provided, this chart name is looked up in the given repository.  Else
+         * this chart name must be a fully qualified chart URL or `repo/chartname`.
+         */
         chart: pulumi.Input<string>;
-        version: pulumi.Input<string>;
+        /**
+         * The version of the chart to deploy. If not provided, the latest version will be deployed.
+         */
+        version?: pulumi.Input<string>;
 
+        /**
+         * Additional options to customize the fetching of the Helm chart.
+         */
         fetchOpts?: pulumi.Input<FetchOpts>;
     }
 
     function isChartOpts(o: any): o is ChartOpts {
-        return "repo" in o && "chart" in o && "version" in o;
+        return "chart" in o;
     }
 
     export interface LocalChartOpts extends BaseChartOpts {
-        // path of the Chart directory, which contains the `Chart.yaml` file.
+        /**
+         * The path to the chart directory which contains the `Chart.yaml` file.
+         */
         path: string;
     }
 
@@ -83,13 +109,16 @@ export namespace v2 {
                     let defaultValues: string;
                     if (isChartOpts(cfg)) {
                         // Fetch chart.
-                        fetch(`${cfg.repo}/${cfg.chart}`, {
+                        const chartToFetch = cfg.repo ? `${cfg.repo}/${cfg.chart}` : cfg.chart;
+                        const fetchOpts = Object.assign({}, cfg.fetchOpts, {
                             destination: chartDir.name,
                             version: cfg.version
                         });
-                        chart = path.quotePath(nodepath.join(chartDir.name, cfg.chart));
+                        fetch(chartToFetch, fetchOpts);
+                        const fetchedChartName = fs.readdirSync(chartDir.name)[0];
+                        chart = path.quotePath(nodepath.join(chartDir.name, fetchedChartName));
                         defaultValues = path.quotePath(
-                            nodepath.join(chartDir.name, cfg.chart, "values.yaml")
+                            nodepath.join(chartDir.name, fetchedChartName, "values.yaml")
                         );
                     } else {
                         chart = path.quotePath(cfg.path);
