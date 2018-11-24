@@ -217,9 +217,28 @@ export namespace yaml {
         const kind = obj["kind"];
         const apiVersion = obj["apiVersion"];
 
-        // Flatten `v1.List`. `v1.List` is an undocumented Kubernetes resource, and does not appear
-        // in the Kubernetes OpenAPI spec. `kubectl`, ksonnet, and Helm all flatten it.
-        if (apiVersion == "v1" && kind == "List") {
+        // Recursively traverse built-in Kubernetes list types into a single set of "naked" resource
+        // definitions that we can register with the Pulumi engine.
+        //
+        // Kubernetes does not instantiate list types like `v1.List`. When the API server receives
+        // a list, it will recursively traverse it and perform the necessary operations on the
+        // each "instantiable" resource it finds. For example, `kubectl apply` on a
+        // `v1.ConfigMapList` will cause the API server to traverse the list, and `apply` each
+        // `v1.ConfigMap` it finds.
+        //
+        // Since Kubernetes does not instantiate list types directly, Pulumi also traverses lists
+        // for resource definitions that can be managed by Kubernetes, and registers those with the
+        // engine instead.
+        if (
+               (apiVersion == "v1" && kind == "List")
+            {{#Groups}}
+            {{#Versions}}
+            {{#ListKindsAndAliases}}
+            || (apiVersion == "{{RawAPIVersion}}" && kind == "{{Kind}}")
+            {{/ListKindsAndAliases}}
+            {{/Versions}}
+            {{/Groups}}
+        ) {
             const objs = [];
             const items = obj["items"] || [];
             for (const item of items) {
@@ -229,7 +248,7 @@ export namespace yaml {
         }
 
         if (!("metadata" in obj) || !("name" in obj["metadata"])) {
-            throw new Error(`YAML object does not have a .metadata.name: ${JSON.stringify(obj)}`)
+            throw new Error(`YAML object does not have a .metadata.name: ${obj.apiVersion}/${obj.kind} ${JSON.stringify(obj.metadata)}`)
         }
 
         const meta = obj["metadata"];
