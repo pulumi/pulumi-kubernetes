@@ -92,6 +92,30 @@ func (vc *VersionConfig) KindsAndAliases() []*KindConfig {
 	return kindsAndAliases
 }
 
+// ListKindsAndAliases will return all known `Kind`s that are lists, or aliases of lists. These
+// `Kind`s are not instantiated by the API server, and we must "flatten" them client-side to get an
+// accurate view of what resource operations we need to perform.
+func (vc *VersionConfig) ListKindsAndAliases() []*KindConfig {
+	listKinds := []*KindConfig{}
+	for _, kind := range vc.KindsAndAliases() {
+		hasItems := false
+		for _, prop := range kind.properties {
+			if prop.name == "items" {
+				hasItems = true
+				break
+			}
+		}
+
+		fmt.Println(kind.Kind(), strings.HasSuffix(kind.Kind(), "List"), hasItems)
+
+		if strings.HasSuffix(kind.Kind(), "List") && hasItems {
+			listKinds = append(listKinds, kind)
+		}
+	}
+
+	return listKinds
+}
+
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (vc *VersionConfig) APIVersion() string { return vc.apiVersion }
 

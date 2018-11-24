@@ -2223,9 +2223,95 @@ export namespace yaml {
         const kind = obj["kind"];
         const apiVersion = obj["apiVersion"];
 
-        // Flatten `v1.List`. `v1.List` is an undocumented Kubernetes resource, and does not appear
-        // in the Kubernetes OpenAPI spec. `kubectl`, ksonnet, and Helm all flatten it.
-        if (apiVersion == "v1" && kind == "List") {
+        // Recursively traverse built-in Kubernetes list types into a single set of "naked" resource
+        // definitions that we can register with the Pulumi engine.
+        //
+        // Kubernetes does not instantiate list types like `v1.List`. When the API server receives
+        // a list, it will recursively traverse it and perform the necessary operations on the
+        // each "instantiable" resource it finds. For example, `kubectl apply` on a
+        // `v1.ConfigMapList` will cause the API server to traverse the list, and `apply` each
+        // `v1.ConfigMap` it finds.
+        //
+        // Since Kubernetes does not instantiate list types directly, Pulumi also traverses lists
+        // for resource definitions that can be managed by Kubernetes, and registers those with the
+        // engine instead.
+        if (
+               (apiVersion == "v1" && kind == "List")
+            || (apiVersion == "admissionregistration.k8s.io/v1alpha1" && kind == "InitializerConfigurationList")
+            || (apiVersion == "admissionregistration.k8s.io/v1beta1" && kind == "MutatingWebhookConfigurationList")
+            || (apiVersion == "admissionregistration.k8s.io/v1beta1" && kind == "ValidatingWebhookConfigurationList")
+            || (apiVersion == "apiextensions.k8s.io/v1beta1" && kind == "CustomResourceDefinitionList")
+            || (apiVersion == "apiregistration.k8s.io/v1" && kind == "APIServiceList")
+            || (apiVersion == "apiregistration/v1" && kind == "APIServiceList")
+            || (apiVersion == "apiregistration.k8s.io/v1beta1" && kind == "APIServiceList")
+            || (apiVersion == "apiregistration/v1beta1" && kind == "APIServiceList")
+            || (apiVersion == "apps/v1" && kind == "ControllerRevisionList")
+            || (apiVersion == "apps/v1" && kind == "DaemonSetList")
+            || (apiVersion == "apps/v1" && kind == "DeploymentList")
+            || (apiVersion == "apps/v1" && kind == "ReplicaSetList")
+            || (apiVersion == "apps/v1" && kind == "StatefulSetList")
+            || (apiVersion == "apps/v1beta1" && kind == "ControllerRevisionList")
+            || (apiVersion == "apps/v1beta1" && kind == "DeploymentList")
+            || (apiVersion == "apps/v1beta1" && kind == "StatefulSetList")
+            || (apiVersion == "apps/v1beta2" && kind == "ControllerRevisionList")
+            || (apiVersion == "apps/v1beta2" && kind == "DaemonSetList")
+            || (apiVersion == "apps/v1beta2" && kind == "DeploymentList")
+            || (apiVersion == "apps/v1beta2" && kind == "ReplicaSetList")
+            || (apiVersion == "apps/v1beta2" && kind == "StatefulSetList")
+            || (apiVersion == "autoscaling/v1" && kind == "HorizontalPodAutoscalerList")
+            || (apiVersion == "autoscaling/v2beta1" && kind == "HorizontalPodAutoscalerList")
+            || (apiVersion == "autoscaling/v2beta2" && kind == "HorizontalPodAutoscalerList")
+            || (apiVersion == "batch/v1" && kind == "JobList")
+            || (apiVersion == "batch/v1beta1" && kind == "CronJobList")
+            || (apiVersion == "batch/v2alpha1" && kind == "CronJobList")
+            || (apiVersion == "certificates.k8s.io/v1beta1" && kind == "CertificateSigningRequestList")
+            || (apiVersion == "coordination.k8s.io/v1beta1" && kind == "LeaseList")
+            || (apiVersion == "v1" && kind == "ComponentStatusList")
+            || (apiVersion == "v1" && kind == "ConfigMapList")
+            || (apiVersion == "v1" && kind == "EndpointsList")
+            || (apiVersion == "v1" && kind == "EventList")
+            || (apiVersion == "v1" && kind == "LimitRangeList")
+            || (apiVersion == "v1" && kind == "NamespaceList")
+            || (apiVersion == "v1" && kind == "NodeList")
+            || (apiVersion == "v1" && kind == "PersistentVolumeClaimList")
+            || (apiVersion == "v1" && kind == "PersistentVolumeList")
+            || (apiVersion == "v1" && kind == "PodList")
+            || (apiVersion == "v1" && kind == "PodTemplateList")
+            || (apiVersion == "v1" && kind == "ReplicationControllerList")
+            || (apiVersion == "v1" && kind == "ResourceQuotaList")
+            || (apiVersion == "v1" && kind == "SecretList")
+            || (apiVersion == "v1" && kind == "ServiceAccountList")
+            || (apiVersion == "v1" && kind == "ServiceList")
+            || (apiVersion == "events.k8s.io/v1beta1" && kind == "EventList")
+            || (apiVersion == "extensions/v1beta1" && kind == "DaemonSetList")
+            || (apiVersion == "extensions/v1beta1" && kind == "DeploymentList")
+            || (apiVersion == "extensions/v1beta1" && kind == "IngressList")
+            || (apiVersion == "extensions/v1beta1" && kind == "NetworkPolicyList")
+            || (apiVersion == "extensions/v1beta1" && kind == "PodSecurityPolicyList")
+            || (apiVersion == "extensions/v1beta1" && kind == "ReplicaSetList")
+            || (apiVersion == "networking.k8s.io/v1" && kind == "NetworkPolicyList")
+            || (apiVersion == "policy/v1beta1" && kind == "PodDisruptionBudgetList")
+            || (apiVersion == "policy/v1beta1" && kind == "PodSecurityPolicyList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1" && kind == "ClusterRoleBindingList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1" && kind == "ClusterRoleList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1" && kind == "RoleBindingList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1" && kind == "RoleList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1alpha1" && kind == "ClusterRoleBindingList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1alpha1" && kind == "ClusterRoleList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1alpha1" && kind == "RoleBindingList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1alpha1" && kind == "RoleList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1beta1" && kind == "ClusterRoleBindingList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1beta1" && kind == "ClusterRoleList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1beta1" && kind == "RoleBindingList")
+            || (apiVersion == "rbac.authorization.k8s.io/v1beta1" && kind == "RoleList")
+            || (apiVersion == "scheduling.k8s.io/v1alpha1" && kind == "PriorityClassList")
+            || (apiVersion == "scheduling.k8s.io/v1beta1" && kind == "PriorityClassList")
+            || (apiVersion == "settings.k8s.io/v1alpha1" && kind == "PodPresetList")
+            || (apiVersion == "storage.k8s.io/v1" && kind == "StorageClassList")
+            || (apiVersion == "storage.k8s.io/v1alpha1" && kind == "VolumeAttachmentList")
+            || (apiVersion == "storage.k8s.io/v1beta1" && kind == "StorageClassList")
+            || (apiVersion == "storage.k8s.io/v1beta1" && kind == "VolumeAttachmentList")
+        ) {
             const objs = [];
             const items = obj["items"] || [];
             for (const item of items) {
@@ -2235,7 +2321,7 @@ export namespace yaml {
         }
 
         if (!("metadata" in obj) || !("name" in obj["metadata"])) {
-            throw new Error(`YAML object does not have a .metadata.name: ${JSON.stringify(obj)}`)
+            throw new Error(`YAML object does not have a .metadata.name: ${obj.apiVersion}/${obj.kind} ${JSON.stringify(obj.metadata)}`)
         }
 
         const meta = obj["metadata"];
