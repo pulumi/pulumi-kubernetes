@@ -286,7 +286,7 @@ func untilCoreV1NamespaceDeleted(
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting namespace '%s': %#v", ns.GetName(), err)
+			glog.V(3).Infof("Received error deleting namespace '%s': %#v", name, err)
 			return err
 		}
 
