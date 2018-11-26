@@ -6,6 +6,22 @@ sudo: true # give us 7.5GB and >2 bursted cores.
 git:
     depth: false
 before_install:
+    - openssl aes-256-cbc -K $encrypted_095ae97b50fd_key -iv $encrypted_095ae97b50fd_iv
+      -in credentials.tar.gz.enc -out credentials.tar.gz -d
+    - tar -xzf credentials.tar.gz
+
+    # Install and log into gcloud so that we can access the GKE CI cluster.
+    - if [ ! -d ${HOME}/google-cloud-sdk ]; then
+        curl https://sdk.cloud.google.com > gcloud-install.sh;
+        chmod a+x ./gcloud-install.sh;
+        ./gcloud-install.sh --disable-prompts;
+      fi
+    - gcloud auth activate-service-account --key-file client-secret.json
+
+    # Put kubeconfig file in the usual place. The test harness picks this up and refers to it as
+    # $KUBERNETES_CONTEXT.
+    - mkdir ~/.kube && mv ./kubeconfig.yaml ~/.kube/config
+
     - git clone https://github.com/pulumi/scripts ${GOPATH}/src/github.com/pulumi/scripts
     - source ${GOPATH}/src/github.com/pulumi/scripts/ci/prepare-environment.sh
     - source ${PULUMI_SCRIPTS}/ci/keep-failed-tests.sh
@@ -25,26 +41,14 @@ install:
     - sudo chmod +x kubectl
     - sudo mv kubectl /usr/local/bin/
 
-    # Install minukube
-    - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.25.2/minikube-linux-amd64
-    - sudo chmod +x minikube
-    - sudo mv minikube /usr/local/bin/
-
-    # Start minikube with no VM driver
-    - export CHANGE_MINIKUBE_NONE_USER=true
-    - sudo minikube start --vm-driver=none --kubernetes-version=v1.9.0
-
-    # Register minikube context with kubernetes
-    - minikube update-context
-
     # Install Pulumi
     - curl -L https://get.pulumi.com/ | bash
     - export PATH=$HOME/.pulumi/bin:$PATH
 before_script:
-    - ${PULUMI_SCRIPTS}/ci/ensure-dependencies
+    - "${PULUMI_SCRIPTS}/ci/ensure-dependencies"
 script:
     - make travis_${TRAVIS_EVENT_TYPE}
 after_failure:
-    - ${PULUMI_SCRIPTS}/ci/upload-failed-tests
+    - "${PULUMI_SCRIPTS}/ci/upload-failed-tests"
 notifications:
     webhooks: https://ufci1w66n3.execute-api.us-west-2.amazonaws.com/stage/travis
