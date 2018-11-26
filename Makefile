@@ -80,10 +80,12 @@ publish_tgz:
 	$(call STEP_MESSAGE)
 	./scripts/publish_tgz.sh
 
+# While pulumi-kubernetes is not built using tfgen/tfbridge, the layout of the source tree is the same as these
+# style of repositories, so we can re-use the common publishing scripts.
 .PHONY: publish_packages
 publish_packages:
 	$(call STEP_MESSAGE)
-	./scripts/publish_packages.sh
+	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/publish-tfgen-package .
 
 .PHONY: check_clean_worktree
 check_clean_worktree:
