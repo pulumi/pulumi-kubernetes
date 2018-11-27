@@ -106,8 +106,6 @@ func (vc *VersionConfig) ListKindsAndAliases() []*KindConfig {
 			}
 		}
 
-		fmt.Println(kind.Kind(), strings.HasSuffix(kind.Kind(), "List"), hasItems)
-
 		if strings.HasSuffix(kind.Kind(), "List") && hasItems {
 			listKinds = append(listKinds, kind)
 		}
