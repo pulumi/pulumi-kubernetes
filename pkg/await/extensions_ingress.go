@@ -327,9 +327,8 @@ func (iia *ingressInitAwaiter) errorMessages() []string {
 
 	if !iia.ingressReady {
 		messages = append(messages,
-			"Ingress .status.loadBalancer field was not updated with a hostname/IP address; "+
-				"If you're using the Traefik ingress-controller, make sure it is configured with the "+
-				"kubernetes.ingressEndpoint config.")
+			"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
+			"<pulumi.io/help/k8s-ingress-lbstatus>")
 	}
 
 	return messages
