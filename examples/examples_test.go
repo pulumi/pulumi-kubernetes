@@ -43,52 +43,6 @@ func TestExamples(t *testing.T) {
 	if !testing.Short() {
 		examples = append(examples, []integration.ProgramTestOptions{
 			base.With(integration.ProgramTestOptions{
-				Dir: path.Join(cwd, "nginx"),
-				ExtraRuntimeValidation: func(
-					t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
-				) {
-					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
-
-					sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
-						ri := stackInfo.Deployment.Resources[i]
-						rj := stackInfo.Deployment.Resources[j]
-						riname, _ := openapi.Pluck(ri.Outputs, "metadata", "name")
-						rinamespace, _ := openapi.Pluck(ri.Outputs, "metadata", "namespace")
-						rjname, _ := openapi.Pluck(rj.Outputs, "metadata", "name")
-						rjnamespace, _ := openapi.Pluck(rj.Outputs, "metadata", "namespace")
-						return fmt.Sprintf("%s/%s/%s", ri.URN.Type(), rinamespace, riname) <
-							fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
-					})
-
-					// Verify redis pod.
-					redisPV := stackInfo.Deployment.Resources[0]
-					assert.Equal(t, tokens.Type("kubernetes:core/v1:PersistentVolume"), redisPV.URN.Type())
-					status, _ := openapi.Pluck(redisPV.Outputs, "status", "phase")
-					assert.Equal(t, "Available", status)
-
-					// Verify nginx pod.
-					nginxPod := stackInfo.Deployment.Resources[1]
-					assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), nginxPod.URN.Type())
-					status, _ = openapi.Pluck(nginxPod.Outputs, "status", "phase")
-					assert.Equal(t, "Running", status)
-
-					// Verify redis pod.
-					redisPod := stackInfo.Deployment.Resources[2]
-					assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), redisPod.URN.Type())
-					status, _ = openapi.Pluck(redisPod.Outputs, "status", "phase")
-					assert.Equal(t, "Running", status)
-
-					// Verify the provider resource.
-					provRes := stackInfo.Deployment.Resources[3]
-					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
-
-					// Verify root resource.
-					stackRes := stackInfo.Deployment.Resources[4]
-					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-				},
-			}),
-			base.With(integration.ProgramTestOptions{
 				Dir: path.Join(cwd, "guestbook"),
 				ExtraRuntimeValidation: func(
 					t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
