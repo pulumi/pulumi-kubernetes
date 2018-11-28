@@ -42,7 +42,7 @@ func Test_Extensions_Ingress(t *testing.T) {
 					"Ingress has at least one rule that does not target any Service. " +
 						"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service",
 					"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
-						"<pulumi.io/help/k8s-ingress-lbstatus>",
+						"\n    for more information about this error, see https://pulumi.io/xdv72s",
 				}},
 		},
 		{
@@ -82,7 +82,7 @@ func Test_Extensions_Ingress(t *testing.T) {
 				object: ingressInput("default", "foo", "foo-4setj4y6"),
 				subErrors: []string{
 					"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
-						"<pulumi.io/help/k8s-ingress-lbstatus>",
+						"\n    for more information about this error, see https://pulumi.io/xdv72s",
 				}},
 		},
 	}
@@ -133,7 +133,7 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 			endpoint:     initializedEndpoint,
 			expectedSubErrors: []string{
 				"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
-					"<pulumi.io/help/k8s-ingress-lbstatus>",
+					"\n    for more information about this error, see https://pulumi.io/xdv72s",
 			},
 		},
 		{
@@ -144,7 +144,7 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 				"Ingress has at least one rule that does not target any Service. " +
 					"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service",
 				"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
-					"<pulumi.io/help/k8s-ingress-lbstatus>",
+					"\n    for more information about this error, see https://pulumi.io/xdv72s",
 			},
 		},
 	}

@@ -327,8 +327,8 @@ func (iia *ingressInitAwaiter) errorMessages() []string {
 
 	if !iia.ingressReady {
 		messages = append(messages,
-			"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
-			"<pulumi.io/help/k8s-ingress-lbstatus>")
+			"Ingress .status.loadBalancer field was not updated with a hostname/IP address. "+
+				"\n    for more information about this error, see https://pulumi.io/xdv72s")
 	}
 
 	return messages
