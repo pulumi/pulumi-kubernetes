@@ -98,6 +98,9 @@ const (
 	appsV1Deployment                            = "apps/v1/Deployment"
 	appsV1Beta1Deployment                       = "apps/v1beta1/Deployment"
 	appsV1Beta2Deployment                       = "apps/v1beta2/Deployment"
+	appsV1StatefulSet                           = "apps/v1/StatefulSet"
+	appsV1Beta1StatefulSet                      = "apps/v1beta1/StatefulSet"
+	appsV1Beta2StatefulSet                      = "apps/v1beta2/StatefulSet"
 	autoscalingV1HorizontalPodAutoscaler        = "autoscaling/v1/HorizontalPodAutoscaler"
 	coreV1ConfigMap                             = "v1/ConfigMap"
 	coreV1LimitRange                            = "v1/LimitRange"
@@ -147,6 +150,19 @@ var deploymentAwaiter = awaitSpec{
 	awaitDeletion: untilAppsDeploymentDeleted,
 }
 
+var statefulsetAwaiter = awaitSpec{
+	awaitCreation: func(c createAwaitConfig) error {
+		return makeStatefulSetInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Await()
+	},
+	awaitUpdate: func(u updateAwaitConfig) error {
+		return makeStatefulSetInitAwaiter(u).Await()
+	},
+	awaitRead: func(c createAwaitConfig) error {
+		return makeStatefulSetInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Read()
+	},
+	awaitDeletion: untilAppsStatefulSetDeleted,
+}
+
 // NOTE: Some GVKs below are blank so that we can distinguish between resource types that we know
 // about, but don't require await logic, vs. resource types that we don't know about.
 
@@ -154,6 +170,9 @@ var awaiters = map[string]awaitSpec{
 	appsV1Deployment:                     deploymentAwaiter,
 	appsV1Beta1Deployment:                deploymentAwaiter,
 	appsV1Beta2Deployment:                deploymentAwaiter,
+	appsV1StatefulSet:                    statefulsetAwaiter,
+	appsV1Beta1StatefulSet:               statefulsetAwaiter,
+	appsV1Beta2StatefulSet:               statefulsetAwaiter,
 	autoscalingV1HorizontalPodAutoscaler: { /* NONE */ },
 	coreV1ConfigMap:                      { /* NONE */ },
 	coreV1LimitRange:                     { /* NONE */ },
@@ -269,6 +288,50 @@ func untilAppsDeploymentDeleted(
 	}
 
 	glog.V(3).Infof("Deployment '%s' deleted", name)
+
+	return nil
+}
+
+// --------------------------------------------------------------------------
+
+// apps/v1/StatefulSet, apps/v1beta1/StatefulSet, apps/v1beta2/StatefulSet,
+
+// --------------------------------------------------------------------------
+
+func untilAppsStatefulSetDeleted(
+	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
+) error {
+	specReplicas := func(statefulset *unstructured.Unstructured) (interface{}, bool) {
+		return openapi.Pluck(statefulset.Object, "spec", "replicas")
+	}
+	statusReplicas := func(statefulset *unstructured.Unstructured) (interface{}, bool) {
+		return openapi.Pluck(statefulset.Object, "status", "replicas")
+	}
+
+	statefulsetmissing := func(d *unstructured.Unstructured, err error) error {
+		if is404(err) {
+			return nil
+		} else if err != nil {
+			glog.V(3).Infof("Received error deleting StatefulSet %q: %#v", d.GetName(), err)
+			return err
+		}
+
+		currReplicas, _ := statusReplicas(d)
+		specReplicas, _ := specReplicas(d)
+
+		return watcher.RetryableError(
+			fmt.Errorf("StatefulSet %q still exists (%d / %d replicas exist)", name,
+				currReplicas, specReplicas))
+	}
+
+	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
+	err := watcher.ForObject(ctx, clientForResource, name).
+		RetryUntil(statefulsetmissing, 10*time.Minute)
+	if err != nil {
+		return err
+	}
+
+	glog.V(3).Infof("StatefulSet %q deleted", name)
 
 	return nil
 }
