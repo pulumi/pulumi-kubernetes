@@ -41,7 +41,9 @@ func Test_Extensions_Ingress(t *testing.T) {
 				subErrors: []string{
 					"Ingress has at least one rule that does not target any Service. " +
 						"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service",
-					"Ingress was not allocated an IP address; does your cloud provider support this?"}},
+					"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
+						"\n    for more information about this error, see https://pulumi.io/xdv72s",
+				}},
 		},
 		{
 			description:  "Should fail if not all Ingress paths match existing Endpoints",
@@ -79,7 +81,8 @@ func Test_Extensions_Ingress(t *testing.T) {
 			expectedError: &timeoutError{
 				object: ingressInput("default", "foo", "foo-4setj4y6"),
 				subErrors: []string{
-					"Ingress was not allocated an IP address; does your cloud provider support this?",
+					"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
+						"\n    for more information about this error, see https://pulumi.io/xdv72s",
 				}},
 		},
 	}
@@ -129,7 +132,8 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 			ingress:      ingressInput,
 			endpoint:     initializedEndpoint,
 			expectedSubErrors: []string{
-				"Ingress was not allocated an IP address; does your cloud provider support this?",
+				"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
+					"\n    for more information about this error, see https://pulumi.io/xdv72s",
 			},
 		},
 		{
@@ -139,7 +143,8 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 			expectedSubErrors: []string{
 				"Ingress has at least one rule that does not target any Service. " +
 					"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service",
-				"Ingress was not allocated an IP address; does your cloud provider support this?",
+				"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
+					"\n    for more information about this error, see https://pulumi.io/xdv72s",
 			},
 		},
 	}
