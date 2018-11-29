@@ -141,7 +141,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	// Create Deployment watcher.
 	deploymentWatcher, err := dia.config.clientForResource.Watch(metav1.ListOptions{})
 	if err != nil {
-		return errors.Wrapf(err, "Could set up watch for Deployment object '%s'",
+		return errors.Wrapf(err, "Could not set up watch for Deployment object %q",
 			dia.config.currentInputs.GetName())
 	}
 	defer deploymentWatcher.Stop()
@@ -150,7 +150,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	replicaSetWatcher, err := replicaSetClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
-			"Could not create watcher for ReplicaSet objects associated with Deployment '%s'",
+			"Could not create watcher for ReplicaSet objects associated with Deployment %q",
 			dia.config.currentInputs.GetName())
 	}
 	defer replicaSetWatcher.Stop()
@@ -159,7 +159,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	podWatcher, err := podClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
-			"Could not create watcher for Pods objects associated with Deployment '%s'",
+			"Could not create watcher for Pods objects associated with Deployment %q",
 			dia.config.currentInputs.GetName())
 	}
 	defer podWatcher.Stop()
@@ -194,14 +194,14 @@ func (dia *deploymentInitAwaiter) Read() error {
 
 	rsList, err := replicaSetClient.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Error retrieving ReplicaSet list for Deployment '%s': %v",
+		glog.V(3).Infof("Error retrieving ReplicaSet list for Deployment %q: %v",
 			deployment.GetName(), err)
 		rsList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
 	podList, err := podClient.List(metav1.ListOptions{})
 	if err != nil {
-		glog.V(3).Infof("Error retrieving Pod list for Deployment '%s': %v",
+		glog.V(3).Infof("Error retrieving Pod list for Deployment %q: %v",
 			deployment.GetName(), err)
 		podList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
@@ -220,7 +220,7 @@ func (dia *deploymentInitAwaiter) read(
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over ReplicaSet list for Deployment '%s': %v",
+		glog.V(3).Infof("Error iterating over ReplicaSet list for Deployment %q: %v",
 			deployment.GetName(), err)
 	}
 
@@ -229,7 +229,7 @@ func (dia *deploymentInitAwaiter) read(
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over Pod list for Deployment '%s': %v",
+		glog.V(3).Infof("Error iterating over Pod list for Deployment %q: %v",
 			deployment.GetName(), err)
 	}
 
@@ -316,7 +316,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 
 	deployment, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Deployment watch received unknown object type '%s'",
+		glog.V(3).Infof("Deployment watch received unknown object type %q",
 			reflect.TypeOf(deployment))
 		return
 	}
@@ -408,19 +408,19 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 	rs, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("ReplicaSet watch received unknown object type '%s'",
+		glog.V(3).Infof("ReplicaSet watch received unknown object type %q",
 			reflect.TypeOf(rs))
 		return
 	}
 
-	glog.V(3).Infof("Received update for ReplicaSet '%s'", rs.GetName())
+	glog.V(3).Infof("Received update for ReplicaSet %q", rs.GetName())
 
 	// Check whether this ReplicaSet was created by our Deployment.
 	if !isOwnedBy(rs, dia.config.currentInputs) {
 		return
 	}
 
-	glog.V(3).Infof("ReplicaSet '%s' is owned by '%s'", rs.GetName(), dia.config.currentInputs.GetName())
+	glog.V(3).Infof("ReplicaSet %q is owned by %q", rs.GetName(), dia.config.currentInputs.GetName())
 
 	// If Pod was deleted, remove it from our aggregated checkers.
 	generation := rs.GetAnnotations()[revision]
@@ -435,14 +435,14 @@ func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	inputs := dia.config.currentInputs
 
-	glog.V(3).Infof("Checking ReplicaSet status for Deployment '%s'", inputs.GetName())
+	glog.V(3).Infof("Checking ReplicaSet status for Deployment %q", inputs.GetName())
 
 	rs, udpatedReplicaSetCreated := dia.replicaSets[dia.currentGeneration]
 	if dia.currentGeneration == "0" || !udpatedReplicaSetCreated {
 		return
 	}
 
-	glog.V(3).Infof("Deployment '%s' has generation '%s', which corresponds to ReplicaSet '%s'",
+	glog.V(3).Infof("Deployment %q has generation %q, which corresponds to ReplicaSet %q",
 		inputs.GetName(), dia.currentGeneration, rs.GetName())
 
 	var lastGeneration string
@@ -450,7 +450,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		lastGeneration = outputs.GetAnnotations()[revision]
 	}
 
-	glog.V(3).Infof("The last generation of Deployment '%s' was '%s'", inputs.GetName(), lastGeneration)
+	glog.V(3).Infof("The last generation of Deployment %q was %q", inputs.GetName(), lastGeneration)
 
 	// NOTE: Check `.spec.replicas` in the live `ReplicaSet` instead of the last input `Deployment`,
 	// since this is the plan of record. This protects against (e.g.) a user running `kubectl scale`
@@ -465,7 +465,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	rawReadyReplicas, readyReplicasExists := openapi.Pluck(rs.Object, "status", "readyReplicas")
 	readyReplicas, _ := rawReadyReplicas.(int64)
 
-	glog.V(3).Infof("ReplicaSet '%s' requests '%v' replicas, but has '%v' ready",
+	glog.V(3).Infof("ReplicaSet %q requests '%v' replicas, but has '%v' ready",
 		rs.GetName(), specReplicas, readyReplicas)
 
 	if dia.changeTriggeredRollout() {
@@ -495,7 +495,7 @@ func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
 			".spec.template.spec",
 		})
 	if err != nil {
-		glog.V(3).Infof("Failed to check whether Pod template for Deployment '%s' changed",
+		glog.V(3).Infof("Failed to check whether Pod template for Deployment %q changed",
 			dia.config.currentInputs.GetName())
 		return false
 	}
@@ -506,7 +506,7 @@ func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
 func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 	pod, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Pod watch received unknown object type '%s'",
+		glog.V(3).Infof("Pod watch received unknown object type %q",
 			reflect.TypeOf(pod))
 		return
 	}
@@ -618,7 +618,7 @@ func (dia *deploymentInitAwaiter) makeClients() (
 		}, dia.config.currentInputs.GetNamespace())
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
-			"Could not make client to watch ReplicaSets associated with Deployment '%s'",
+			"Could not make client to watch ReplicaSets associated with Deployment %q",
 			dia.config.currentInputs.GetName())
 	}
 
@@ -630,50 +630,9 @@ func (dia *deploymentInitAwaiter) makeClients() (
 		}, dia.config.currentInputs.GetNamespace())
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Pods associated with Deployment '%s'",
+			"Could not make client to watch Pods associated with Deployment %q",
 			dia.config.currentInputs.GetName())
 	}
 
 	return replicaSetClient, podClient, nil
-}
-
-// canonicalizeDeploymentAPIVersion unifies the various pre-release apiVerion values for a
-// Deployment into "apps/v1".
-func canonicalizeDeploymentAPIVersion(ver string) string {
-	switch ver {
-	case "extensions/v1beta1", "apps/v1beta1", "apps/v1beta2", "apps/v1":
-		// Canonicalize all of these to "apps/v1".
-		return "apps/v1"
-	default:
-		// If the input version was not a version we understand, just return it as-is.
-		return ver
-	}
-}
-
-func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
-	if possibleOwner == nil {
-		return false
-	}
-
-	var possibleOwnerAPIVersion string
-
-	// Canonicalize apiVersion for Deployments.
-	if possibleOwner.GetKind() == "Deployment" {
-		possibleOwnerAPIVersion = canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion())
-	}
-
-	owners := obj.GetOwnerReferences()
-	for _, owner := range owners {
-		var ownerAPIVersion string
-		if owner.Kind == "Deployment" {
-			ownerAPIVersion = canonicalizeDeploymentAPIVersion(owner.APIVersion)
-		}
-
-		if ownerAPIVersion == possibleOwnerAPIVersion &&
-			possibleOwner.GetKind() == owner.Kind && possibleOwner.GetName() == owner.Name {
-			return true
-		}
-	}
-
-	return false
 }

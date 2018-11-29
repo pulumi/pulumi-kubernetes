@@ -286,17 +286,17 @@ func untilCoreV1NamespaceDeleted(
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting namespace '%s': %#v", name, err)
+			glog.V(3).Infof("Received error deleting namespace %q: %#v", name, err)
 			return err
 		}
 
 		statusPhase, _ := openapi.Pluck(ns.Object, "status", "phase")
-		glog.V(3).Infof("Namespace '%s' status received: %#v", name, statusPhase)
+		glog.V(3).Infof("Namespace %q status received: %#v", name, statusPhase)
 		if statusPhase == "" {
 			return nil
 		}
 
-		return watcher.RetryableError(fmt.Errorf("Namespace '%s' still exists (%v)", name, statusPhase))
+		return watcher.RetryableError(fmt.Errorf("Namespace %q still exists (%v)", name, statusPhase))
 	}
 
 	return watcher.ForObject(ctx, clientForResource, name).
@@ -312,7 +312,7 @@ func untilCoreV1NamespaceDeleted(
 func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
 		statusPhase, _ := openapi.Pluck(pv.Object, "status", "phase")
-		glog.V(3).Infof("Persistent volume '%s' status received: %#v", pv.GetName(), statusPhase)
+		glog.V(3).Infof("Persistent volume %q status received: %#v", pv.GetName(), statusPhase)
 		if statusPhase == statusAvailable {
 			c.logStatus(diag.Info, "✅ PVC marked available")
 		} else if statusPhase == statusBound {
@@ -359,8 +359,8 @@ func untilCoreV1PodDeleted(
 		}
 
 		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
-		glog.V(3).Infof("Current state of pod '%s': %#v", name, statusPhase)
-		e := fmt.Errorf("Pod '%s' still exists (%v)", name, statusPhase)
+		glog.V(3).Infof("Current state of pod %q: %#v", name, statusPhase)
+		e := fmt.Errorf("Pod %q still exists (%v)", name, statusPhase)
 		return watcher.RetryableError(e)
 	}
 
@@ -386,7 +386,7 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	name := c.currentInputs.GetName()
 
 	replicas, _ := openapi.Pluck(c.currentInputs.Object, "spec", "replicas")
-	glog.V(3).Infof("Waiting for replication controller '%s' to schedule '%v' replicas",
+	glog.V(3).Infof("Waiting for replication controller %q to schedule '%v' replicas",
 		name, replicas)
 
 	// 10 mins should be sufficient for scheduling ~10k replicas
@@ -405,7 +405,7 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	// but that means checking each pod status separately (which can be expensive at scale)
 	// as there's no aggregate data available from the API
 
-	glog.V(3).Infof("Replication controller '%s' initialized: %#v", c.currentInputs.GetName(),
+	glog.V(3).Infof("Replication controller %q initialized: %#v", c.currentInputs.GetName(),
 		c.currentInputs)
 
 	return nil
@@ -432,7 +432,7 @@ func untilCoreV1ReplicationControllerDeleted(
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting ReplicationController '%s': %#v", rc.GetName(), err)
+			glog.V(3).Infof("Received error deleting ReplicationController %q: %#v", rc.GetName(), err)
 			return err
 		}
 
@@ -440,7 +440,7 @@ func untilCoreV1ReplicationControllerDeleted(
 		specReplicas, _ := deploymentSpecReplicas(rc)
 
 		return watcher.RetryableError(
-			fmt.Errorf("ReplicationController '%s' still exists (%d / %d replicas exist)", name,
+			fmt.Errorf("ReplicationController %q still exists (%d / %d replicas exist)", name,
 				currReplicas, specReplicas))
 	}
 
@@ -451,7 +451,7 @@ func untilCoreV1ReplicationControllerDeleted(
 		return err
 	}
 
-	glog.V(3).Infof("ReplicationController '%s' deleted", name)
+	glog.V(3).Infof("ReplicationController %q deleted", name)
 
 	return nil
 }
@@ -470,7 +470,7 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		hard, hardIsMap := hardRaw.(map[string]interface{})
 		hardStatus, hardStatusIsMap := hardStatusRaw.(map[string]interface{})
 		if hardIsMap && hardStatusIsMap && reflect.DeepEqual(hard, hardStatus) {
-			glog.V(3).Infof("ResourceQuota '%s' initialized: %#v", c.currentInputs.GetName(),
+			glog.V(3).Infof("ResourceQuota %q initialized: %#v", c.currentInputs.GetName(),
 				c.currentInputs)
 			return true
 		}
@@ -514,10 +514,10 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 
 	defaultSecretAllocated := func(sa *unstructured.Unstructured) bool {
 		secrets, _ := openapi.Pluck(sa.Object, "secrets")
-		glog.V(3).Infof("ServiceAccount '%s' contains secrets: %#v", sa.GetName(), secrets)
+		glog.V(3).Infof("ServiceAccount %q contains secrets: %#v", sa.GetName(), secrets)
 		if secretsArr, isArr := secrets.([]interface{}); isArr {
 			numSecrets := len(secretsArr)
-			glog.V(3).Infof("ServiceAccount '%s' has allocated '%d' of '%d' secrets",
+			glog.V(3).Infof("ServiceAccount %q has allocated '%d' of '%d' secrets",
 				sa.GetName(), numSecrets, numSpecSecrets+1)
 			return numSecrets > numSpecSecrets
 		}
