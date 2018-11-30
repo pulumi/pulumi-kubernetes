@@ -437,8 +437,8 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 
 	glog.V(3).Infof("Checking ReplicaSet status for Deployment %q", inputs.GetName())
 
-	rs, udpatedReplicaSetCreated := dia.replicaSets[dia.currentGeneration]
-	if dia.currentGeneration == "0" || !udpatedReplicaSetCreated {
+	rs, updatedReplicaSetCreated := dia.replicaSets[dia.currentGeneration]
+	if dia.currentGeneration == "0" || !updatedReplicaSetCreated {
 		return
 	}
 
@@ -469,10 +469,10 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		rs.GetName(), specReplicas, readyReplicas)
 
 	if dia.changeTriggeredRollout() {
-		dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && udpatedReplicaSetCreated &&
+		dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
 			readyReplicasExists && readyReplicas >= int64(specReplicas)
 	} else {
-		dia.updatedReplicaSetReady = udpatedReplicaSetCreated &&
+		dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
 			readyReplicasExists && readyReplicas >= int64(specReplicas)
 	}
 

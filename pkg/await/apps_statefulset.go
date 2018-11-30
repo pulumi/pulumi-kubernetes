@@ -36,12 +36,9 @@ import (
 //
 // The success conditions are somewhat complex:
 //
-//   1. `.metadata.generation` in the current StatefulSet must have been incremented by the
-//   	StatefulSet controller, i.e., it must not be equal to the generation number in the
-//   	previous outputs.
-//   2. `.status.updateRevision` matches `.status.currentRevision`.
-//   3. `.status.replicas`, `.status.currentReplicas` and `.status.readyReplicas` match the
+//   1. `.status.replicas`, `.status.currentReplicas` and `.status.readyReplicas` match the
 //      value of `.spec.replicas`.
+//   2. `.status.updateRevision` matches `.status.currentRevision`.
 //
 // The event loop depends on the following channels:
 //
@@ -83,10 +80,10 @@ type statefulsetInitAwaiter struct {
 
 	statefulsetErrors map[string]string
 
-	statefulset    *unstructured.Unstructured
-	pods           map[string]*unstructured.Unstructured
-	replicas       int64
-	targetReplicas int64
+	statefulset     *unstructured.Unstructured
+	pods            map[string]*unstructured.Unstructured
+	currentReplicas int64
+	targetReplicas  int64
 }
 
 func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
@@ -109,11 +106,9 @@ func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
 //
 // We succeed when only when all of the following are true:
 //
-//   1. The value of `metadata.generation` is greater than 0 and the previous generation
-//   of the StatefulSet.
-//   2. The value of `.status.updateRevision` matches `.status.currentRevision`.
-//   3. The value of `spec.replicas` matches `.status.replicas`, `.status.currentReplicas`,
+//   1. The value of `spec.replicas` matches `.status.replicas`, `.status.currentReplicas`,
 //      and `.status.readyReplicas`.
+//   2. The value of `.status.updateRevision` matches `.status.currentRevision`.
 func (sia *statefulsetInitAwaiter) Await() error {
 
 	podClient, err := sia.makeClients()
@@ -205,9 +200,6 @@ func (sia *statefulsetInitAwaiter) read(
 func (sia *statefulsetInitAwaiter) await(
 	statefulsetWatcher, podWatcher watch.Interface, timeout, period <-chan time.Time,
 ) error {
-	sia.config.logStatus(diag.Info, fmt.Sprintf("[1/2] Waiting for StatefulSet replicas to be ready (%d/%d)",
-		sia.replicas, sia.targetReplicas))
-
 	for {
 		if sia.checkAndLogStatus() {
 			return nil
@@ -248,6 +240,22 @@ func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
 	if sia.replicasReady && sia.revisionReady {
 		sia.config.logStatus(diag.Info, "✅ StatefulSet initialization complete")
 		return true
+	}
+
+	isInitialDeployment := sia.currentGeneration <= 1
+
+	// For initial generation, the revision doesn't need to be updated, so skip that step in the log.
+	if isInitialDeployment {
+		sia.config.logStatus(diag.Info, fmt.Sprintf("[1/2] Waiting for StatefulSet to create Pods (%d/%d Pods ready)",
+			sia.currentReplicas, sia.targetReplicas))
+	} else {
+		switch {
+		case !sia.replicasReady:
+			sia.config.logStatus(diag.Info, fmt.Sprintf("[1/3] Waiting for StatefulSet update to roll out (%d/%d Pods ready)",
+				sia.currentReplicas, sia.targetReplicas))
+		case !sia.revisionReady:
+			sia.config.logStatus(diag.Info, "[2/3] Waiting for StatefulSet to update .status.currentRevision")
+		}
 	}
 
 	return false
@@ -300,7 +308,7 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 	sia.revisionReady = (currentRevision != "") && (currentRevision == updateRevision)
 
 	// Check if all expected replicas are ready.
-	var replicas, statusReplicas, statusReadyReplicas, statusCurrentReplicas int64
+	var replicas, statusReplicas, statusReadyReplicas, statusCurrentReplicas, statusUpdatedReplicas int64
 	if rawReplicas, ok := openapi.Pluck(statefulset.Object, "spec", "replicas"); ok {
 		replicas = rawReplicas.(int64)
 	}
@@ -313,39 +321,31 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 	if rawStatusCurrentReplicas, ok := openapi.Pluck(statefulset.Object, "status", "currentReplicas"); ok {
 		statusCurrentReplicas = rawStatusCurrentReplicas.(int64)
 	}
+	if rawStatusUpdatedReplicas, ok := openapi.Pluck(statefulset.Object, "status", "updatedReplicas"); ok {
+		statusUpdatedReplicas = rawStatusUpdatedReplicas.(int64)
+	} else {
+		statusUpdatedReplicas = 0
+	}
 	sia.replicasReady = (replicas == statusReplicas) &&
 		(replicas == statusReadyReplicas) &&
 		(replicas == statusCurrentReplicas)
 
-	// Set replica counts for logging purposes.
-	sia.replicas = replicas
-	if statusCurrentReplicas > statusReadyReplicas {
+	// Set current and target replica counts for logging purposes.
+	sia.targetReplicas = replicas
+	// For the initial rollout, .status.readyReplicas is an accurate gauge of progress.
+	// For subsequent updates, we must also account for .status.updatedReplicas.
+	if sia.revisionReady {
+		sia.currentReplicas = statusReadyReplicas
+	} else {
 		// During a rollout, the number of "ready" replicas can include instances of the previous revision,
 		// so don't count those towards the target count.
-		sia.targetReplicas = statusCurrentReplicas
-	} else {
-		sia.targetReplicas = statusReadyReplicas
+		if statusReadyReplicas > statusUpdatedReplicas {
+			sia.currentReplicas = statusUpdatedReplicas
+		} else {
+			sia.currentReplicas = statusReadyReplicas
+		}
 	}
 }
-
-//func (dia *statefulsetInitAwaiter) changeTriggeredRollout() bool {
-//	if dia.config.lastInputs == nil {
-//		return true
-//	}
-//
-//	fields, err := openapi.PropertiesChanged(
-//		dia.config.lastInputs.Object, dia.config.currentInputs.Object,
-//		[]string{
-//			".spec.template.spec",
-//		})
-//	if err != nil {
-//		glog.V(3).Infof("Failed to check whether Pod template for StatefulSet %q changed",
-//			dia.config.currentInputs.GetName())
-//		return false
-//	}
-//
-//	return len(fields) > 0
-//}
 
 func (sia *statefulsetInitAwaiter) processPodEvent(event watch.Event) {
 	inputStatefulSetName := sia.config.currentInputs.GetName()
@@ -357,9 +357,9 @@ func (sia *statefulsetInitAwaiter) processPodEvent(event watch.Event) {
 		return
 	}
 
-	// Check whether this Pod was created by our Deployment.
+	// Check whether this Pod was created by our StatefulSet.
 	podName := pod.GetName()
-	if !strings.HasPrefix(podName+"-", inputStatefulSetName) {
+	if !strings.HasPrefix(podName, inputStatefulSetName) {
 		return
 	}
 
@@ -376,12 +376,6 @@ func (sia *statefulsetInitAwaiter) aggregatePodErrors() ([]string, []string) {
 	scheduleErrorCounts := map[string]int{}
 	containerErrorCounts := map[string]int{}
 	for _, pod := range sia.pods {
-		// TODO: needed?
-		//// Filter down to only Pods owned by the StatefulSet.
-		//if !isOwnedBy(pod, rs) {
-		//	continue
-		//}
-
 		// Check the pod for errors.
 		checker := makePodChecker()
 		checker.check(pod)
@@ -420,26 +414,13 @@ func (sia *statefulsetInitAwaiter) errorMessages() []string {
 		messages = append(messages, message)
 	}
 
-	// TODO: update error messages
-	if sia.currentGeneration == 1 {
-		if !sia.revisionReady {
-			messages = append(messages,
-				".status.currentRevision does not match .status.updateRevision")
-		}
-		if !sia.replicasReady {
-			messages = append(messages,
-				"Failed to observe the expected number of ready replicas")
-		}
-	} else {
-		// TODO: add error message for generation stuff?
-		if !sia.revisionReady {
-			messages = append(messages,
-				".status.currentRevision does not match .status.updateRevision")
-		}
-		if !sia.replicasReady {
-			messages = append(messages,
-				"Failed to observe the expected number of ready replicas")
-		}
+	if !sia.replicasReady {
+		messages = append(messages,
+			"Failed to observe the expected number of ready replicas")
+	}
+	if !sia.revisionReady {
+		messages = append(messages,
+			".status.currentRevision does not match .status.updateRevision")
 	}
 
 	scheduleErrors, containerErrors := sia.aggregatePodErrors()
