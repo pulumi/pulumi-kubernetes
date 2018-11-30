@@ -18,6 +18,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -93,7 +94,7 @@ func TestGuestbook(t *testing.T) {
 			redisLeaderDepl := stackInfo.Deployment.Resources[1]
 			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisLeaderDepl.URN.Type())
 			name, _ = openapi.Pluck(redisLeaderDepl.Outputs, "metadata", "name")
-			assert.Equal(t, "redis-master", name)
+			assert.True(t, strings.HasPrefix(name.(string), "redis-master"))
 			status, _ = openapi.Pluck(redisLeaderDepl.Outputs, "status", "readyReplicas")
 			assert.Equal(t, float64(1), status)
 
@@ -101,7 +102,7 @@ func TestGuestbook(t *testing.T) {
 			redisFollowerDepl := stackInfo.Deployment.Resources[2]
 			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisFollowerDepl.URN.Type())
 			name, _ = openapi.Pluck(redisFollowerDepl.Outputs, "metadata", "name")
-			assert.Equal(t, "redis-slave", name)
+			assert.True(t, strings.HasPrefix(name.(string), "redis-slave"))
 			status, _ = openapi.Pluck(redisFollowerDepl.Outputs, "status", "readyReplicas")
 			assert.Equal(t, float64(1), status)
 
@@ -109,7 +110,7 @@ func TestGuestbook(t *testing.T) {
 			frontendService := stackInfo.Deployment.Resources[3]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), frontendService.URN.Type())
 			name, _ = openapi.Pluck(frontendService.Outputs, "metadata", "name")
-			assert.Equal(t, "frontend", name)
+			assert.True(t, strings.HasPrefix(name.(string), "frontend"))
 			status, _ = openapi.Pluck(frontendService.Outputs, "spec", "clusterIP")
 			assert.True(t, len(status.(string)) > 1)
 
@@ -117,7 +118,7 @@ func TestGuestbook(t *testing.T) {
 			redisLeaderService := stackInfo.Deployment.Resources[4]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisLeaderService.URN.Type())
 			name, _ = openapi.Pluck(redisLeaderService.Outputs, "metadata", "name")
-			assert.Equal(t, "redis-master", name)
+			assert.True(t, strings.HasPrefix(name.(string), "redis-master"))
 			status, _ = openapi.Pluck(redisLeaderService.Outputs, "spec", "clusterIP")
 			assert.True(t, len(status.(string)) > 1)
 
@@ -125,7 +126,7 @@ func TestGuestbook(t *testing.T) {
 			redisFollowerService := stackInfo.Deployment.Resources[5]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisFollowerService.URN.Type())
 			name, _ = openapi.Pluck(redisFollowerService.Outputs, "metadata", "name")
-			assert.Equal(t, "redis-slave", name)
+			assert.True(t, strings.HasPrefix(name.(string), "redis-slave"))
 			status, _ = openapi.Pluck(redisFollowerService.Outputs, "spec", "clusterIP")
 			assert.True(t, len(status.(string)) > 1)
 

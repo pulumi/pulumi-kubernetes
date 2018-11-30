@@ -22,9 +22,6 @@ redis_leader_labels = {
 }
 
 redis_leader_deployment = Deployment("redis-leader",
-    metadata={
-        "name": "redis-master"
-    },
     spec={
         "selector": {
             "match_labels": redis_leader_labels,
@@ -54,7 +51,6 @@ redis_leader_deployment = Deployment("redis-leader",
 
 redis_leader_service = Service("redis-leader",
     metadata={
-        "name": "redis-master",
         "labels": redis_leader_labels
     },
     spec={
@@ -64,7 +60,7 @@ redis_leader_service = Service("redis-leader",
         }],
         "selector": redis_leader_labels
     })
-    
+
 redis_follower_labels = {
     "app": "redis",
     "tier": "backend",
@@ -72,9 +68,6 @@ redis_follower_labels = {
 }
 
 redis_follower_deployment = Deployment("redis-follower",
-    metadata={
-        "name": "redis-slave",
-    },
     spec={
         "selector": {
             "match_labels": redis_follower_labels
@@ -109,11 +102,10 @@ redis_follower_deployment = Deployment("redis-follower",
             },
         },
     })
-    
+
 redis_follower_service = Service("redis-follower",
     metadata={
-        "name": "redis-slave",
-        "labels": redis_follower_labels 
+        "labels": redis_follower_labels
     },
     spec={
         "ports": [{
@@ -130,7 +122,6 @@ frontend_labels = {
 }
 frontend_service = Service("frontend",
     metadata={
-        "name": "frontend",
         "labels": frontend_labels
     },
     spec={
@@ -140,13 +131,10 @@ frontend_service = Service("frontend",
         "ports": [{
             "port": 80
         }],
-        "selector": frontend_labels
+        "selector": frontend_labels,
     })
 
 frontend_deployment = Deployment("frontend",
-    metadata={
-        "name": "frontend",
-    },
     spec={
         "selector": {
             "match_labels": frontend_labels,
