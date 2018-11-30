@@ -9,6 +9,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -33,7 +34,7 @@ import (
 // the user). When the new application Pods becomes "live" (as specified by the liveness and
 // readiness probes), the old Pods are killed and deleted.
 //
-// Because this resource abstracts over so much, the success conditions are fairly complex:
+// The success conditions are somewhat complex:
 //
 //   1. `.metadata.generation` in the current StatefulSet must have been incremented by the
 //   	StatefulSet controller, i.e., it must not be equal to the generation number in the
@@ -75,24 +76,24 @@ import (
 // ------------------------------------------------------------------------------------------------
 
 type statefulsetInitAwaiter struct {
-	config               updateAwaitConfig
-	statefulsetAvailable bool
-	revisionReady        bool
-	replicasReady        bool
-	currentGeneration    int64
+	config            updateAwaitConfig
+	revisionReady     bool
+	replicasReady     bool
+	currentGeneration int64
 
 	statefulsetErrors map[string]string
 
-	statefulset *unstructured.Unstructured
-	pods        map[string]*unstructured.Unstructured
+	statefulset    *unstructured.Unstructured
+	pods           map[string]*unstructured.Unstructured
+	replicas       int64
+	targetReplicas int64
 }
 
 func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
 	return &statefulsetInitAwaiter{
-		config:               c,
-		statefulsetAvailable: false,
-		revisionReady:        false,
-		replicasReady:        false,
+		config:        c,
+		revisionReady: false,
+		replicasReady: false,
 
 		// NOTE: Generation 0 is invalid, so this is a good sentinel value.
 		currentGeneration: 0,
@@ -204,8 +205,8 @@ func (sia *statefulsetInitAwaiter) read(
 func (sia *statefulsetInitAwaiter) await(
 	statefulsetWatcher, podWatcher watch.Interface, timeout, period <-chan time.Time,
 ) error {
-	//TODO: update status message
-	sia.config.logStatus(diag.Info, "[1/2] Waiting for app ReplicaSet be marked available")
+	sia.config.logStatus(diag.Info, fmt.Sprintf("[1/2] Waiting for StatefulSet replicas to be ready (%d/%d)",
+		sia.replicas, sia.targetReplicas))
 
 	for {
 		if sia.checkAndLogStatus() {
@@ -243,29 +244,10 @@ func (sia *statefulsetInitAwaiter) await(
 
 // checkAndLogStatus checks whether we've succeeded, and logs the result as a status message to
 // the provider.
-//
-// There are two cases:
-//
-// TODO: update these conditions
-//   1. If the generation of the StatefulSet is > 1, we need to check that (1) the StatefulSet is
-//      marked as available, (2) the ReplicaSet we're trying to roll to is marked as Available,
-//      and (3) the Deployment has marked the new ReplicaSet as "ready".
-//   2. If it's the first generation of the StatefulSet, the object is simply created, rather than
-//      rolled out. This means there is no rollout to be marked as "progressing", so we need only
-//      check that the StatefulSet was created, and the corresponding ReplicaSet needs to be marked
-//      available.
 func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
-	if sia.currentGeneration == 1 {
-		if sia.statefulsetAvailable && sia.replicasReady {
-			sia.config.logStatus(diag.Info, "✅ StatefulSet initialization complete")
-			return true
-		}
-	} else {
-		// TODO: update condition
-		//if sia.deploymentAvailable && sia.replicaSetAvailable && sia.updatedReplicaSetReady {
-		//	sia.config.logStatus(diag.Info, "✅ StatefulSet initialization complete")
-		return false
-		//}
+	if sia.replicasReady && sia.revisionReady {
+		sia.config.logStatus(diag.Info, "✅ StatefulSet initialization complete")
+		return true
 	}
 
 	return false
@@ -283,6 +265,8 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 
 	// Start over, prove that rollout is complete.
 	sia.statefulsetErrors = map[string]string{}
+	sia.revisionReady = false
+	sia.replicasReady = false
 
 	// Do nothing if this is not the StatefulSet we're waiting for.
 	if statefulset.GetName() != inputStatefulSetName {
@@ -299,70 +283,49 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 	// Get current generation of the StatefulSet.
 	sia.currentGeneration = statefulset.GetGeneration()
 
-	// TODO: update conditions for a StatefulSet
-	//if sia.currentGeneration == 0 {
-	//	// No current generation, Deployment controller has not yet created a ReplicaSet. Do
-	//	// nothing.
-	//	return
-	//}
+	if sia.currentGeneration == 0 {
+		// No current generation, StatefulSet controller has not yet created a StatefulSet.
+		// Do nothing.
+		return
+	}
 
-	//// Check Deployments conditions to see whether new ReplicaSet is available. If it is, we are
-	//// successful.
-	//rawConditions, hasConditions := openapi.Pluck(statefulset.Object, "status", "conditions")
-	//conditions, isSlice := rawConditions.([]interface{})
-	//if !hasConditions || !isSlice {
-	//	// Deployment controller has not made progress yet. Do nothing.
-	//	return
-	//}
-	//
-	//// Success occurs when the ReplicaSet of the `currentGeneration` is marked as available, and
-	//// when the statefulset is available.
-	//for _, rawCondition := range conditions {
-	//	condition, isMap := rawCondition.(map[string]interface{})
-	//	if !isMap {
-	//		continue
-	//	}
-	//
-	//	if condition["type"] == "Progressing" {
-	//		isProgressing := condition["status"] == trueStatus
-	//		if !isProgressing {
-	//			rawReason, hasReason := condition["reason"]
-	//			reason, isString := rawReason.(string)
-	//			if !hasReason || !isString {
-	//				continue
-	//			}
-	//			rawMessage, hasMessage := condition["message"]
-	//			message, isString := rawMessage.(string)
-	//			if !hasMessage || !isString {
-	//				continue
-	//			}
-	//			message = fmt.Sprintf("[%s] %s", reason, message)
-	//			sia.deploymentErrors[reason] = message
-	//			sia.config.logStatus(diag.Warning, message)
-	//		}
-	//
-	//		sia.replicaSetAvailable = condition["reason"] == "NewReplicaSetAvailable" && isProgressing
-	//	}
-	//
-	//	if condition["type"] == statusAvailable {
-	//		sia.deploymentAvailable = condition["status"] == trueStatus
-	//		if !sia.deploymentAvailable {
-	//			rawReason, hasReason := condition["reason"]
-	//			reason, isString := rawReason.(string)
-	//			if !hasReason || !isString {
-	//				continue
-	//			}
-	//			rawMessage, hasMessage := condition["message"]
-	//			message, isString := rawMessage.(string)
-	//			if !hasMessage || !isString {
-	//				continue
-	//			}
-	//			message = fmt.Sprintf("[%s] %s", reason, message)
-	//			sia.deploymentErrors[reason] = message
-	//			sia.config.logStatus(diag.Warning, message)
-	//		}
-	//	}
-	//}
+	// Check if current revision matches update revision.
+	var currentRevision, updateRevision string
+	if rawCurrentRevision, ok := openapi.Pluck(statefulset.Object, "status", "currentRevision"); ok {
+		currentRevision = rawCurrentRevision.(string)
+	}
+	if rawUpdateRevision, ok := openapi.Pluck(statefulset.Object, "status", "updateRevision"); ok {
+		updateRevision = rawUpdateRevision.(string)
+	}
+	sia.revisionReady = (currentRevision != "") && (currentRevision == updateRevision)
+
+	// Check if all expected replicas are ready.
+	var replicas, statusReplicas, statusReadyReplicas, statusCurrentReplicas int64
+	if rawReplicas, ok := openapi.Pluck(statefulset.Object, "spec", "replicas"); ok {
+		replicas = rawReplicas.(int64)
+	}
+	if rawStatusReplicas, ok := openapi.Pluck(statefulset.Object, "status", "replicas"); ok {
+		statusReplicas = rawStatusReplicas.(int64)
+	}
+	if rawStatusReadyReplicas, ok := openapi.Pluck(statefulset.Object, "status", "readyReplicas"); ok {
+		statusReadyReplicas = rawStatusReadyReplicas.(int64)
+	}
+	if rawStatusCurrentReplicas, ok := openapi.Pluck(statefulset.Object, "status", "currentReplicas"); ok {
+		statusCurrentReplicas = rawStatusCurrentReplicas.(int64)
+	}
+	sia.replicasReady = (replicas == statusReplicas) &&
+		(replicas == statusReadyReplicas) &&
+		(replicas == statusCurrentReplicas)
+
+	// Set replica counts for logging purposes.
+	sia.replicas = replicas
+	if statusCurrentReplicas > statusReadyReplicas {
+		// During a rollout, the number of "ready" replicas can include instances of the previous revision,
+		// so don't count those towards the target count.
+		sia.targetReplicas = statusCurrentReplicas
+	} else {
+		sia.targetReplicas = statusReadyReplicas
+	}
 }
 
 //func (dia *statefulsetInitAwaiter) changeTriggeredRollout() bool {
@@ -457,23 +420,25 @@ func (sia *statefulsetInitAwaiter) errorMessages() []string {
 		messages = append(messages, message)
 	}
 
+	// TODO: update error messages
 	if sia.currentGeneration == 1 {
-		if !sia.statefulsetAvailable {
+		if !sia.revisionReady {
 			messages = append(messages,
-				"Minimum number of live Pods was not attained")
+				".status.currentRevision does not match .status.updateRevision")
+		}
+		if !sia.replicasReady {
+			messages = append(messages,
+				"Failed to observe the expected number of ready replicas")
 		}
 	} else {
-		if !sia.statefulsetAvailable {
+		// TODO: add error message for generation stuff?
+		if !sia.revisionReady {
 			messages = append(messages,
-				"Minimum number of live Pods was not attained")
-		} else if !sia.replicasReady {
-			//TODO: fix error message
+				".status.currentRevision does not match .status.updateRevision")
+		}
+		if !sia.replicasReady {
 			messages = append(messages,
-				"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live")
-		} else if !sia.revisionReady {
-			//TODO: fix error message
-			messages = append(messages,
-				"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live")
+				"Failed to observe the expected number of ready replicas")
 		}
 	}
 
