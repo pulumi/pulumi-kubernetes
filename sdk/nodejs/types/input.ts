@@ -447,9 +447,9 @@ export namespace admissionregistration {
     export interface WebhookClientConfig {
       /**
        * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server
-       * certificate. Required.
+       * certificate. If unspecified, system trust roots on the apiserver are used.
        */
-      caBundle: pulumi.Input<string>
+      caBundle?: pulumi.Input<string>
 
       /**
        * `service` is a reference to the service for this webhook. Either `service` or `url` must be
@@ -462,8 +462,8 @@ export namespace admissionregistration {
       service?: pulumi.Input<admissionregistration.v1beta1.ServiceReference>
 
       /**
-       * `url` gives the location of the webhook, in standard URL form
-       * (`[scheme://]host:port/path`). Exactly one of `url` or `service` must be specified.
+       * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
+       * Exactly one of `url` or `service` must be specified.
        * 
        * The `host` should not refer to a service running in the cluster; use the `service` field
        * instead. The host might be resolved via external DNS in some apiservers (e.g.,
@@ -535,6 +535,28 @@ export namespace apiextensions {
        * scenarios should be given a higher priority.
        */
       priority?: pulumi.Input<number>
+
+    }
+
+
+    /**
+     * CustomResourceConversion describes how to convert different versions of a CR.
+     */
+    export interface CustomResourceConversion {
+      /**
+       * `strategy` specifies the conversion strategy. Allowed values are: - `None`: The converter
+       * only change the apiVersion and would not touch any other field in the CR. - `Webhook`: API
+       * Server will call to an external webhook to do the conversion. Additional information is
+       * needed for this option.
+       */
+      strategy: pulumi.Input<string>
+
+      /**
+       * `webhookClientConfig` is the instructions for how to call the webhook if strategy is
+       * `Webhook`. This field is alpha-level and is only honored by servers that enable the
+       * CustomResourceWebhookConversion feature.
+       */
+      webhookClientConfig?: pulumi.Input<apiextensions.v1beta1.WebhookClientConfig>
 
     }
 
@@ -706,17 +728,27 @@ export namespace apiextensions {
 
       /**
        * AdditionalPrinterColumns are additional columns shown e.g. in kubectl next to the name.
-       * Defaults to a created-at column.
+       * Defaults to a created-at column. Optional, the global columns for all versions. Top-level
+       * and per-version columns are mutually exclusive.
        */
       additionalPrinterColumns?: pulumi.Input<apiextensions.v1beta1.CustomResourceColumnDefinition[]>
 
       /**
-       * Subresources describes the subresources for CustomResources
+       * `conversion` defines conversion settings for the CRD.
+       */
+      conversion?: pulumi.Input<apiextensions.v1beta1.CustomResourceConversion>
+
+      /**
+       * Subresources describes the subresources for CustomResource Optional, the global
+       * subresources for all versions. Top-level and per-version subresources are mutually
+       * exclusive.
        */
       subresources?: pulumi.Input<apiextensions.v1beta1.CustomResourceSubresources>
 
       /**
-       * Validation describes the validation methods for CustomResources
+       * Validation describes the validation methods for CustomResources Optional, the global
+       * validation schema for all versions. Top-level and per-version schemas are mutually
+       * exclusive.
        */
       validation?: pulumi.Input<apiextensions.v1beta1.CustomResourceValidation>
 
@@ -772,7 +804,9 @@ export namespace apiextensions {
     }
 
 
-    
+    /**
+     * CustomResourceDefinitionVersion describes a version for CRD.
+     */
     export interface CustomResourceDefinitionVersion {
       /**
        * Name is the version name, e.g. “v1”, “v2beta1”, etc.
@@ -789,6 +823,35 @@ export namespace apiextensions {
        * version.
        */
       storage: pulumi.Input<boolean>
+
+      /**
+       * AdditionalPrinterColumns are additional columns shown e.g. in kubectl next to the name.
+       * Defaults to a created-at column. Top-level and per-version columns are mutually exclusive.
+       * Per-version columns must not all be set to identical values (top-level columns should be
+       * used instead) This field is alpha-level and is only honored by servers that enable the
+       * CustomResourceWebhookConversion feature. NOTE: CRDs created prior to 1.13 populated the
+       * top-level additionalPrinterColumns field by default. To apply an update that changes to
+       * per-version additionalPrinterColumns, the top-level additionalPrinterColumns field must be
+       * explicitly set to null
+       */
+      additionalPrinterColumns?: pulumi.Input<apiextensions.v1beta1.CustomResourceColumnDefinition[]>
+
+      /**
+       * Schema describes the schema for CustomResource used in validation, pruning, and defaulting.
+       * Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all
+       * be set to identical values (top-level validation schema should be used instead) This field
+       * is alpha-level and is only honored by servers that enable the
+       * CustomResourceWebhookConversion feature.
+       */
+      schema?: pulumi.Input<apiextensions.v1beta1.CustomResourceValidation>
+
+      /**
+       * Subresources describes the subresources for CustomResource Top-level and per-version
+       * subresources are mutually exclusive. Per-version subresources must not all be set to
+       * identical values (top-level subresources should be used instead) This field is alpha-level
+       * and is only honored by servers that enable the CustomResourceWebhookConversion feature.
+       */
+      subresources?: pulumi.Input<apiextensions.v1beta1.CustomResourceSubresources>
 
     }
 
@@ -983,6 +1046,76 @@ export namespace apiextensions {
     }
 
 
+    /**
+     * ServiceReference holds a reference to Service.legacy.k8s.io
+     */
+    export interface ServiceReference {
+      /**
+       * `name` is the name of the service. Required
+       */
+      name: pulumi.Input<string>
+
+      /**
+       * `namespace` is the namespace of the service. Required
+       */
+      namespace: pulumi.Input<string>
+
+      /**
+       * `path` is an optional URL path which will be sent in any request to this service.
+       */
+      path?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * WebhookClientConfig contains the information to make a TLS connection with the webhook. It
+     * has the same field as admissionregistration.v1beta1.WebhookClientConfig.
+     */
+    export interface WebhookClientConfig {
+      /**
+       * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server
+       * certificate. If unspecified, system trust roots on the apiserver are used.
+       */
+      caBundle?: pulumi.Input<string>
+
+      /**
+       * `service` is a reference to the service for this webhook. Either `service` or `url` must be
+       * specified.
+       * 
+       * If the webhook is running within the cluster, then you should use `service`.
+       * 
+       * Port 443 will be used if it is open, otherwise it is an error.
+       */
+      service?: pulumi.Input<apiextensions.v1beta1.ServiceReference>
+
+      /**
+       * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
+       * Exactly one of `url` or `service` must be specified.
+       * 
+       * The `host` should not refer to a service running in the cluster; use the `service` field
+       * instead. The host might be resolved via external DNS in some apiservers (e.g.,
+       * `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation).
+       * `host` may also be an IP address.
+       * 
+       * Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take
+       * great care to run this webhook on all hosts which run an apiserver which might need to make
+       * calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn
+       * up in a new cluster.
+       * 
+       * The scheme must be "https"; the URL must begin with "https://".
+       * 
+       * A path is optional, and if present may be any string permissible in a URL. You may use the
+       * path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+       * 
+       * Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments
+       * ("#...") and query parameters ("?...") are not allowed, either.
+       */
+      url?: pulumi.Input<string>
+
+    }
+
+
   }
 
 }
@@ -1131,7 +1264,7 @@ export namespace apiregistration {
 
       /**
        * CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving
-       * certificate.
+       * certificate. If unspecified, system trust roots on the apiserver are used.
        */
       caBundle?: pulumi.Input<string>
 
@@ -1328,7 +1461,7 @@ export namespace apiregistration {
 
       /**
        * CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving
-       * certificate.
+       * certificate. If unspecified, system trust roots on the apiserver are used.
        */
       caBundle?: pulumi.Input<string>
 
@@ -4424,6 +4557,218 @@ export namespace apps {
 
 }
 
+export namespace auditregistration {
+  export namespace v1alpha1 {
+    /**
+     * AuditSink represents a cluster level audit sink
+     */
+    export interface AuditSink {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<string>
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<string>
+
+      
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Spec defines the audit configuration spec
+       */
+      spec?: pulumi.Input<auditregistration.v1alpha1.AuditSinkSpec>
+
+    }
+
+    export function isAuditSink(o: any): o is AuditSink {
+      return o.apiVersion == "auditregistration.k8s.io/v1alpha1" && o.kind == "AuditSink";
+    }
+
+    /**
+     * AuditSinkList is a list of AuditSink items.
+     */
+    export interface AuditSinkList {
+      /**
+       * List of audit configurations.
+       */
+      items: pulumi.Input<auditregistration.v1alpha1.AuditSink[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<string>
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<string>
+
+      
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isAuditSinkList(o: any): o is AuditSinkList {
+      return o.apiVersion == "auditregistration.k8s.io/v1alpha1" && o.kind == "AuditSinkList";
+    }
+
+    /**
+     * AuditSinkSpec holds the spec for the audit sink
+     */
+    export interface AuditSinkSpec {
+      /**
+       * Policy defines the policy for selecting which events should be sent to the webhook required
+       */
+      policy: pulumi.Input<auditregistration.v1alpha1.Policy>
+
+      /**
+       * Webhook to send events required
+       */
+      webhook: pulumi.Input<auditregistration.v1alpha1.Webhook>
+
+    }
+
+
+    /**
+     * Policy defines the configuration of how audit events are logged
+     */
+    export interface Policy {
+      /**
+       * The Level that all requests are recorded at. available options: None, Metadata, Request,
+       * RequestResponse required
+       */
+      level: pulumi.Input<string>
+
+      /**
+       * Stages is a list of stages for which events are created.
+       */
+      stages?: pulumi.Input<string[]>
+
+    }
+
+
+    /**
+     * ServiceReference holds a reference to Service.legacy.k8s.io
+     */
+    export interface ServiceReference {
+      /**
+       * `name` is the name of the service. Required
+       */
+      name: pulumi.Input<string>
+
+      /**
+       * `namespace` is the namespace of the service. Required
+       */
+      namespace: pulumi.Input<string>
+
+      /**
+       * `path` is an optional URL path which will be sent in any request to this service.
+       */
+      path?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * Webhook holds the configuration of the webhook
+     */
+    export interface Webhook {
+      /**
+       * ClientConfig holds the connection parameters for the webhook required
+       */
+      clientConfig: pulumi.Input<auditregistration.v1alpha1.WebhookClientConfig>
+
+      /**
+       * Throttle holds the options for throttling the webhook
+       */
+      throttle?: pulumi.Input<auditregistration.v1alpha1.WebhookThrottleConfig>
+
+    }
+
+
+    /**
+     * WebhookClientConfig contains the information to make a connection with the webhook
+     */
+    export interface WebhookClientConfig {
+      /**
+       * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server
+       * certificate. If unspecified, system trust roots on the apiserver are used.
+       */
+      caBundle?: pulumi.Input<string>
+
+      /**
+       * `service` is a reference to the service for this webhook. Either `service` or `url` must be
+       * specified.
+       * 
+       * If the webhook is running within the cluster, then you should use `service`.
+       * 
+       * Port 443 will be used if it is open, otherwise it is an error.
+       */
+      service?: pulumi.Input<auditregistration.v1alpha1.ServiceReference>
+
+      /**
+       * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
+       * Exactly one of `url` or `service` must be specified.
+       * 
+       * The `host` should not refer to a service running in the cluster; use the `service` field
+       * instead. The host might be resolved via external DNS in some apiservers (e.g.,
+       * `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation).
+       * `host` may also be an IP address.
+       * 
+       * Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take
+       * great care to run this webhook on all hosts which run an apiserver which might need to make
+       * calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn
+       * up in a new cluster.
+       * 
+       * The scheme must be "https"; the URL must begin with "https://".
+       * 
+       * A path is optional, and if present may be any string permissible in a URL. You may use the
+       * path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+       * 
+       * Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments
+       * ("#...") and query parameters ("?...") are not allowed, either.
+       */
+      url?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * WebhookThrottleConfig holds the configuration for throttling events
+     */
+    export interface WebhookThrottleConfig {
+      /**
+       * ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
+       */
+      burst?: pulumi.Input<number>
+
+      /**
+       * ThrottleQPS maximum number of batches per second default 10 QPS
+       */
+      qps?: pulumi.Input<number>
+
+    }
+
+
+  }
+
+}
+
 export namespace authentication {
   export namespace v1 {
     /**
@@ -4471,6 +4816,14 @@ export namespace authentication {
      */
     export interface TokenReviewSpec {
       /**
+       * Audiences is a list of the identifiers that the resource server presented with the token
+       * identifies as. Audience-aware token authenticators will verify that the token was intended
+       * for at least one of the audiences in this list. If no audiences are provided, the audience
+       * will default to the audience of the Kubernetes apiserver.
+       */
+      audiences?: pulumi.Input<string[]>
+
+      /**
        * Token is the opaque bearer token.
        */
       token?: pulumi.Input<string>
@@ -4482,6 +4835,17 @@ export namespace authentication {
      * TokenReviewStatus is the result of the token authentication request.
      */
     export interface TokenReviewStatus {
+      /**
+       * Audiences are audience identifiers chosen by the authenticator that are compatible with
+       * both the TokenReview and token. An identifier is any identifier in the intersection of the
+       * TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that
+       * sets the spec.audiences field should validate that a compatible audience identifier is
+       * returned in the status.audiences field to ensure that the TokenReview server is audience
+       * aware. If a TokenReview returns an empty status.audience field where status.authenticated
+       * is "true", the token is valid against the audience of the Kubernetes API server.
+       */
+      audiences?: pulumi.Input<string[]>
+
       /**
        * Authenticated indicates that the token was associated with a known user.
        */
@@ -4576,6 +4940,14 @@ export namespace authentication {
      */
     export interface TokenReviewSpec {
       /**
+       * Audiences is a list of the identifiers that the resource server presented with the token
+       * identifies as. Audience-aware token authenticators will verify that the token was intended
+       * for at least one of the audiences in this list. If no audiences are provided, the audience
+       * will default to the audience of the Kubernetes apiserver.
+       */
+      audiences?: pulumi.Input<string[]>
+
+      /**
        * Token is the opaque bearer token.
        */
       token?: pulumi.Input<string>
@@ -4587,6 +4959,17 @@ export namespace authentication {
      * TokenReviewStatus is the result of the token authentication request.
      */
     export interface TokenReviewStatus {
+      /**
+       * Audiences are audience identifiers chosen by the authenticator that are compatible with
+       * both the TokenReview and token. An identifier is any identifier in the intersection of the
+       * TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that
+       * sets the spec.audiences field should validate that a compatible audience identifier is
+       * returned in the status.audiences field to ensure that the TokenReview server is audience
+       * aware. If a TokenReview returns an empty status.audience field where status.authenticated
+       * is "true", the token is valid against the audience of the Kubernetes API server.
+       */
+      audiences?: pulumi.Input<string[]>
+
       /**
        * Authenticated indicates that the token was associated with a known user.
        */
@@ -7917,7 +8300,7 @@ export namespace core {
       /**
        * ControllerPublishSecretRef is a reference to the secret object containing sensitive
        * information to pass to the CSI driver to complete the CSI ControllerPublishVolume and
-       * ControllerUnpublishVolume calls. This field is optional, and  may be empty if no secret is
+       * ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is
        * required. If the secret object contains more than one secret, all secrets are passed.
        */
       controllerPublishSecretRef?: pulumi.Input<core.v1.SecretReference>
@@ -7931,7 +8314,7 @@ export namespace core {
       /**
        * NodePublishSecretRef is a reference to the secret object containing sensitive information
        * to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume
-       * calls. This field is optional, and  may be empty if no secret is required. If the secret
+       * calls. This field is optional, and may be empty if no secret is required. If the secret
        * object contains more than one secret, all secrets are passed.
        */
       nodePublishSecretRef?: pulumi.Input<core.v1.SecretReference>
@@ -7939,8 +8322,8 @@ export namespace core {
       /**
        * NodeStageSecretRef is a reference to the secret object containing sensitive information to
        * pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and
-       * NodeUnstageVolume calls. This field is optional, and  may be empty if no secret is
-       * required. If the secret object contains more than one secret, all secrets are passed.
+       * NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required.
+       * If the secret object contains more than one secret, all secrets are passed.
        */
       nodeStageSecretRef?: pulumi.Input<core.v1.SecretReference>
 
@@ -8629,8 +9012,8 @@ export namespace core {
       tty?: pulumi.Input<boolean>
 
       /**
-       * volumeDevices is the list of block devices to be used by the container. This is an alpha
-       * feature and may change in the future.
+       * volumeDevices is the list of block devices to be used by the container. This is a beta
+       * feature.
        */
       volumeDevices?: pulumi.Input<core.v1.VolumeDevice[]>
 
@@ -9595,6 +9978,40 @@ export namespace core {
        * Commit hash for the specified revision.
        */
       revision?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not
+     * support ownership management or SELinux relabeling.
+     */
+    export interface GlusterfsPersistentVolumeSource {
+      /**
+       * EndpointsName is the endpoint name that details Glusterfs topology. More info:
+       * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod
+       */
+      endpoints: pulumi.Input<string>
+
+      /**
+       * Path is the Glusterfs volume path. More info:
+       * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod
+       */
+      path: pulumi.Input<string>
+
+      /**
+       * EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is
+       * empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info:
+       * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod
+       */
+      endpointsNamespace?: pulumi.Input<string>
+
+      /**
+       * ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions.
+       * Defaults to false. More info:
+       * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod
+       */
+      readOnly?: pulumi.Input<boolean>
 
     }
 
@@ -11012,8 +11429,7 @@ export namespace core {
 
       /**
        * volumeMode defines what type of volume is required by the claim. Value of Filesystem is
-       * implied when not included in claim spec. This is an alpha feature and may change in the
-       * future.
+       * implied when not included in claim spec. This is a beta feature.
        */
       volumeMode?: pulumi.Input<string>
 
@@ -11201,7 +11617,7 @@ export namespace core {
        * Provisioned by an admin. More info:
        * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md
        */
-      glusterfs?: pulumi.Input<core.v1.GlusterfsVolumeSource>
+      glusterfs?: pulumi.Input<core.v1.GlusterfsPersistentVolumeSource>
 
       /**
        * HostPath represents a directory on the host. Provisioned by a developer or tester. This is
@@ -11293,7 +11709,7 @@ export namespace core {
       /**
        * volumeMode defines if a volume is intended to be used with a formatted filesystem or to
        * remain in raw block state. Value of Filesystem is implied when not included in spec. This
-       * is an alpha feature and may change in the future.
+       * is a beta feature.
        */
       volumeMode?: pulumi.Input<string>
 
@@ -11716,6 +12132,12 @@ export namespace core {
        * 'ClusterFirstWithHostNet'.
        */
       dnsPolicy?: pulumi.Input<string>
+
+      /**
+       * EnableServiceLinks indicates whether information about services should be injected into
+       * pod's environment variables, matching the syntax of Docker links.
+       */
+      enableServiceLinks?: pulumi.Input<boolean>
 
       /**
        * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts
@@ -14795,7 +15217,8 @@ export namespace extensions {
 
       /**
        * The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish
-       * between explicit zero and not specified.
+       * between explicit zero and not specified. This is set to the max value of int32 (i.e.
+       * 2147483647) by default, which means "retaining all old RelicaSets".
        */
       revisionHistoryLimit?: pulumi.Input<number>
 
@@ -15639,6 +16062,13 @@ export namespace extensions {
       requiredDropCapabilities?: pulumi.Input<string[]>
 
       /**
+       * RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be
+       * set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires
+       * the RunAsGroup feature gate to be enabled.
+       */
+      runAsGroup?: pulumi.Input<extensions.v1beta1.RunAsGroupStrategyOptions>
+
+      /**
        * volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be
        * used. To allow all volumes you may use '*'.
        */
@@ -15900,6 +16330,25 @@ export namespace extensions {
        * 70% of desired pods.
        */
       maxUnavailable?: pulumi.Input<number | string>
+
+    }
+
+
+    /**
+     * RunAsGroupStrategyOptions defines the strategy type and any options used to create the
+     * strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
+     */
+    export interface RunAsGroupStrategyOptions {
+      /**
+       * rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
+       */
+      rule: pulumi.Input<string>
+
+      /**
+       * ranges are the allowed ranges of gids that may be used. If you would like to force a single
+       * gid then supply a single range with the same start and end. Required for MustRunAs.
+       */
+      ranges?: pulumi.Input<extensions.v1beta1.IDRange[]>
 
     }
 
@@ -16639,8 +17088,9 @@ export namespace meta {
 
 
     /**
-     * OwnerReference contains enough information to let you identify an owning object. Currently,
-     * an owning object must be in the same namespace, so there is no namespace field.
+     * OwnerReference contains enough information to let you identify an owning object. An owning
+     * object must be in the same namespace as the dependent, or be cluster-scoped, so there is no
+     * namespace field.
      */
     export interface OwnerReference {
       /**
@@ -17707,10 +18157,36 @@ export namespace policy {
       requiredDropCapabilities?: pulumi.Input<string[]>
 
       /**
+       * RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be
+       * set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires
+       * the RunAsGroup feature gate to be enabled.
+       */
+      runAsGroup?: pulumi.Input<policy.v1beta1.RunAsGroupStrategyOptions>
+
+      /**
        * volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be
        * used. To allow all volumes you may use '*'.
        */
       volumes?: pulumi.Input<string[]>
+
+    }
+
+
+    /**
+     * RunAsGroupStrategyOptions defines the strategy type and any options used to create the
+     * strategy.
+     */
+    export interface RunAsGroupStrategyOptions {
+      /**
+       * rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
+       */
+      rule: pulumi.Input<string>
+
+      /**
+       * ranges are the allowed ranges of gids that may be used. If you would like to force a single
+       * gid then supply a single range with the same start and end. Required for MustRunAs.
+       */
+      ranges?: pulumi.Input<policy.v1beta1.IDRange[]>
 
     }
 
@@ -19483,6 +19959,177 @@ export namespace storage {
     export function isStorageClassList(o: any): o is StorageClassList {
       return o.apiVersion == "storage.k8s.io/v1" && o.kind == "StorageClassList";
     }
+
+    /**
+     * VolumeAttachment captures the intent to attach or detach the specified volume to/from the
+     * specified node.
+     * 
+     * VolumeAttachment objects are non-namespaced.
+     */
+    export interface VolumeAttachment {
+      /**
+       * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes
+       * system.
+       */
+      spec: pulumi.Input<storage.v1.VolumeAttachmentSpec>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<string>
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<string>
+
+      /**
+       * Standard object metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
+       * detach operation, i.e. the external-attacher.
+       */
+      status?: pulumi.Input<storage.v1.VolumeAttachmentStatus>
+
+    }
+
+    export function isVolumeAttachment(o: any): o is VolumeAttachment {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "VolumeAttachment";
+    }
+
+    /**
+     * VolumeAttachmentList is a collection of VolumeAttachment objects.
+     */
+    export interface VolumeAttachmentList {
+      /**
+       * Items is the list of VolumeAttachments
+       */
+      items: pulumi.Input<storage.v1.VolumeAttachment[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<string>
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<string>
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isVolumeAttachmentList(o: any): o is VolumeAttachmentList {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "VolumeAttachmentList";
+    }
+
+    /**
+     * VolumeAttachmentSource represents a volume that should be attached. Right now only
+     * PersistenVolumes can be attached via external attacher, in future we may allow also inline
+     * volumes in pods. Exactly one member can be set.
+     */
+    export interface VolumeAttachmentSource {
+      /**
+       * Name of the persistent volume to attach.
+       */
+      persistentVolumeName?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+     */
+    export interface VolumeAttachmentSpec {
+      /**
+       * Attacher indicates the name of the volume driver that MUST handle this request. This is the
+       * name returned by GetPluginName().
+       */
+      attacher: pulumi.Input<string>
+
+      /**
+       * The node that the volume should be attached to.
+       */
+      nodeName: pulumi.Input<string>
+
+      /**
+       * Source represents the volume that should be attached.
+       */
+      source: pulumi.Input<storage.v1.VolumeAttachmentSource>
+
+    }
+
+
+    /**
+     * VolumeAttachmentStatus is the status of a VolumeAttachment request.
+     */
+    export interface VolumeAttachmentStatus {
+      /**
+       * Indicates the volume is successfully attached. This field must only be set by the entity
+       * completing the attach operation, i.e. the external-attacher.
+       */
+      attached: pulumi.Input<boolean>
+
+      /**
+       * The last error encountered during attach operation, if any. This field must only be set by
+       * the entity completing the attach operation, i.e. the external-attacher.
+       */
+      attachError?: pulumi.Input<storage.v1.VolumeError>
+
+      /**
+       * Upon successful attach, this field is populated with any information returned by the attach
+       * operation that must be passed into subsequent WaitForAttach or Mount calls. This field must
+       * only be set by the entity completing the attach operation, i.e. the external-attacher.
+       */
+      attachmentMetadata?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
+
+      /**
+       * The last error encountered during detach operation, if any. This field must only be set by
+       * the entity completing the detach operation, i.e. the external-attacher.
+       */
+      detachError?: pulumi.Input<storage.v1.VolumeError>
+
+    }
+
+
+    /**
+     * VolumeError captures an error encountered during a volume operation.
+     */
+    export interface VolumeError {
+      /**
+       * String detailing the error encountered during Attach or Detach operation. This string maybe
+       * logged, so it should not contain sensitive information.
+       */
+      message?: pulumi.Input<string>
+
+      /**
+       * Time the error was encountered.
+       */
+      time?: pulumi.Input<string>
+
+    }
+
 
   }
 

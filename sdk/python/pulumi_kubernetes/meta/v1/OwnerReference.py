@@ -5,8 +5,9 @@ from ... import tables
 
 class OwnerReference(pulumi.CustomResource):
     """
-    OwnerReference contains enough information to let you identify an owning object. Currently, an
-    owning object must be in the same namespace, so there is no namespace field.
+    OwnerReference contains enough information to let you identify an owning object. An owning
+    object must be in the same namespace as the dependent, or be cluster-scoped, so there is no
+    namespace field.
     """
     def __init__(self, __name__, __opts__=None, block_owner_deletion=None, controller=None, name=None, uid=None):
         if not __name__:

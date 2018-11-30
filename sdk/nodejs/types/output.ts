@@ -416,7 +416,7 @@ export namespace admissionregistration {
     export interface WebhookClientConfig {
       /**
        * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server
-       * certificate. Required.
+       * certificate. If unspecified, system trust roots on the apiserver are used.
        */
       readonly caBundle: string
 
@@ -431,8 +431,8 @@ export namespace admissionregistration {
       readonly service: admissionregistration.v1beta1.ServiceReference
 
       /**
-       * `url` gives the location of the webhook, in standard URL form
-       * (`[scheme://]host:port/path`). Exactly one of `url` or `service` must be specified.
+       * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
+       * Exactly one of `url` or `service` must be specified.
        * 
        * The `host` should not refer to a service running in the cluster; use the `service` field
        * instead. The host might be resolved via external DNS in some apiservers (e.g.,
@@ -503,6 +503,27 @@ export namespace apiextensions {
        * more.
        */
       readonly type: string
+
+    }
+
+    /**
+     * CustomResourceConversion describes how to convert different versions of a CR.
+     */
+    export interface CustomResourceConversion {
+      /**
+       * `strategy` specifies the conversion strategy. Allowed values are: - `None`: The converter
+       * only change the apiVersion and would not touch any other field in the CR. - `Webhook`: API
+       * Server will call to an external webhook to do the conversion. Additional information is
+       * needed for this option.
+       */
+      readonly strategy: string
+
+      /**
+       * `webhookClientConfig` is the instructions for how to call the webhook if strategy is
+       * `Webhook`. This field is alpha-level and is only honored by servers that enable the
+       * CustomResourceWebhookConversion feature.
+       */
+      readonly webhookClientConfig: apiextensions.v1beta1.WebhookClientConfig
 
     }
 
@@ -647,9 +668,15 @@ export namespace apiextensions {
     export interface CustomResourceDefinitionSpec {
       /**
        * AdditionalPrinterColumns are additional columns shown e.g. in kubectl next to the name.
-       * Defaults to a created-at column.
+       * Defaults to a created-at column. Optional, the global columns for all versions. Top-level
+       * and per-version columns are mutually exclusive.
        */
       readonly additionalPrinterColumns: apiextensions.v1beta1.CustomResourceColumnDefinition[]
+
+      /**
+       * `conversion` defines conversion settings for the CRD.
+       */
+      readonly conversion: apiextensions.v1beta1.CustomResourceConversion
 
       /**
        * Group is the group this resource belongs in
@@ -668,12 +695,16 @@ export namespace apiextensions {
       readonly scope: string
 
       /**
-       * Subresources describes the subresources for CustomResources
+       * Subresources describes the subresources for CustomResource Optional, the global
+       * subresources for all versions. Top-level and per-version subresources are mutually
+       * exclusive.
        */
       readonly subresources: apiextensions.v1beta1.CustomResourceSubresources
 
       /**
-       * Validation describes the validation methods for CustomResources
+       * Validation describes the validation methods for CustomResources Optional, the global
+       * validation schema for all versions. Top-level and per-version schemas are mutually
+       * exclusive.
        */
       readonly validation: apiextensions.v1beta1.CustomResourceValidation
 
@@ -727,12 +758,35 @@ export namespace apiextensions {
 
     }
 
-    
+    /**
+     * CustomResourceDefinitionVersion describes a version for CRD.
+     */
     export interface CustomResourceDefinitionVersion {
+      /**
+       * AdditionalPrinterColumns are additional columns shown e.g. in kubectl next to the name.
+       * Defaults to a created-at column. Top-level and per-version columns are mutually exclusive.
+       * Per-version columns must not all be set to identical values (top-level columns should be
+       * used instead) This field is alpha-level and is only honored by servers that enable the
+       * CustomResourceWebhookConversion feature. NOTE: CRDs created prior to 1.13 populated the
+       * top-level additionalPrinterColumns field by default. To apply an update that changes to
+       * per-version additionalPrinterColumns, the top-level additionalPrinterColumns field must be
+       * explicitly set to null
+       */
+      readonly additionalPrinterColumns: apiextensions.v1beta1.CustomResourceColumnDefinition[]
+
       /**
        * Name is the version name, e.g. “v1”, “v2beta1”, etc.
        */
       readonly name: string
+
+      /**
+       * Schema describes the schema for CustomResource used in validation, pruning, and defaulting.
+       * Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all
+       * be set to identical values (top-level validation schema should be used instead) This field
+       * is alpha-level and is only honored by servers that enable the
+       * CustomResourceWebhookConversion feature.
+       */
+      readonly schema: apiextensions.v1beta1.CustomResourceValidation
 
       /**
        * Served is a flag enabling/disabling this version from being served via REST APIs
@@ -744,6 +798,14 @@ export namespace apiextensions {
        * version.
        */
       readonly storage: boolean
+
+      /**
+       * Subresources describes the subresources for CustomResource Top-level and per-version
+       * subresources are mutually exclusive. Per-version subresources must not all be set to
+       * identical values (top-level subresources should be used instead) This field is alpha-level
+       * and is only honored by servers that enable the CustomResourceWebhookConversion feature.
+       */
+      readonly subresources: apiextensions.v1beta1.CustomResourceSubresources
 
     }
 
@@ -932,6 +994,74 @@ export namespace apiextensions {
 
     }
 
+    /**
+     * ServiceReference holds a reference to Service.legacy.k8s.io
+     */
+    export interface ServiceReference {
+      /**
+       * `name` is the name of the service. Required
+       */
+      readonly name: string
+
+      /**
+       * `namespace` is the namespace of the service. Required
+       */
+      readonly namespace: string
+
+      /**
+       * `path` is an optional URL path which will be sent in any request to this service.
+       */
+      readonly path: string
+
+    }
+
+    /**
+     * WebhookClientConfig contains the information to make a TLS connection with the webhook. It
+     * has the same field as admissionregistration.v1beta1.WebhookClientConfig.
+     */
+    export interface WebhookClientConfig {
+      /**
+       * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server
+       * certificate. If unspecified, system trust roots on the apiserver are used.
+       */
+      readonly caBundle: string
+
+      /**
+       * `service` is a reference to the service for this webhook. Either `service` or `url` must be
+       * specified.
+       * 
+       * If the webhook is running within the cluster, then you should use `service`.
+       * 
+       * Port 443 will be used if it is open, otherwise it is an error.
+       */
+      readonly service: apiextensions.v1beta1.ServiceReference
+
+      /**
+       * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
+       * Exactly one of `url` or `service` must be specified.
+       * 
+       * The `host` should not refer to a service running in the cluster; use the `service` field
+       * instead. The host might be resolved via external DNS in some apiservers (e.g.,
+       * `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation).
+       * `host` may also be an IP address.
+       * 
+       * Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take
+       * great care to run this webhook on all hosts which run an apiserver which might need to make
+       * calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn
+       * up in a new cluster.
+       * 
+       * The scheme must be "https"; the URL must begin with "https://".
+       * 
+       * A path is optional, and if present may be any string permissible in a URL. You may use the
+       * path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+       * 
+       * Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments
+       * ("#...") and query parameters ("?...") are not allowed, either.
+       */
+      readonly url: string
+
+    }
+
   }
 
 }
@@ -1037,7 +1167,7 @@ export namespace apiregistration {
     export interface APIServiceSpec {
       /**
        * CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving
-       * certificate.
+       * certificate. If unspecified, system trust roots on the apiserver are used.
        */
       readonly caBundle: string
 
@@ -1222,7 +1352,7 @@ export namespace apiregistration {
     export interface APIServiceSpec {
       /**
        * CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving
-       * certificate.
+       * certificate. If unspecified, system trust roots on the apiserver are used.
        */
       readonly caBundle: string
 
@@ -4182,6 +4312,204 @@ export namespace apps {
 
 }
 
+export namespace auditregistration {
+  export namespace v1alpha1 {
+    /**
+     * AuditSink represents a cluster level audit sink
+     */
+    export interface AuditSink {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: string
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: string
+
+      
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * Spec defines the audit configuration spec
+       */
+      readonly spec: auditregistration.v1alpha1.AuditSinkSpec
+
+    }
+
+    /**
+     * AuditSinkList is a list of AuditSink items.
+     */
+    export interface AuditSinkList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: string
+
+      /**
+       * List of audit configurations.
+       */
+      readonly items: auditregistration.v1alpha1.AuditSink[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: string
+
+      
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * AuditSinkSpec holds the spec for the audit sink
+     */
+    export interface AuditSinkSpec {
+      /**
+       * Policy defines the policy for selecting which events should be sent to the webhook required
+       */
+      readonly policy: auditregistration.v1alpha1.Policy
+
+      /**
+       * Webhook to send events required
+       */
+      readonly webhook: auditregistration.v1alpha1.Webhook
+
+    }
+
+    /**
+     * Policy defines the configuration of how audit events are logged
+     */
+    export interface Policy {
+      /**
+       * The Level that all requests are recorded at. available options: None, Metadata, Request,
+       * RequestResponse required
+       */
+      readonly level: string
+
+      /**
+       * Stages is a list of stages for which events are created.
+       */
+      readonly stages: string[]
+
+    }
+
+    /**
+     * ServiceReference holds a reference to Service.legacy.k8s.io
+     */
+    export interface ServiceReference {
+      /**
+       * `name` is the name of the service. Required
+       */
+      readonly name: string
+
+      /**
+       * `namespace` is the namespace of the service. Required
+       */
+      readonly namespace: string
+
+      /**
+       * `path` is an optional URL path which will be sent in any request to this service.
+       */
+      readonly path: string
+
+    }
+
+    /**
+     * Webhook holds the configuration of the webhook
+     */
+    export interface Webhook {
+      /**
+       * ClientConfig holds the connection parameters for the webhook required
+       */
+      readonly clientConfig: auditregistration.v1alpha1.WebhookClientConfig
+
+      /**
+       * Throttle holds the options for throttling the webhook
+       */
+      readonly throttle: auditregistration.v1alpha1.WebhookThrottleConfig
+
+    }
+
+    /**
+     * WebhookClientConfig contains the information to make a connection with the webhook
+     */
+    export interface WebhookClientConfig {
+      /**
+       * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server
+       * certificate. If unspecified, system trust roots on the apiserver are used.
+       */
+      readonly caBundle: string
+
+      /**
+       * `service` is a reference to the service for this webhook. Either `service` or `url` must be
+       * specified.
+       * 
+       * If the webhook is running within the cluster, then you should use `service`.
+       * 
+       * Port 443 will be used if it is open, otherwise it is an error.
+       */
+      readonly service: auditregistration.v1alpha1.ServiceReference
+
+      /**
+       * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
+       * Exactly one of `url` or `service` must be specified.
+       * 
+       * The `host` should not refer to a service running in the cluster; use the `service` field
+       * instead. The host might be resolved via external DNS in some apiservers (e.g.,
+       * `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation).
+       * `host` may also be an IP address.
+       * 
+       * Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take
+       * great care to run this webhook on all hosts which run an apiserver which might need to make
+       * calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn
+       * up in a new cluster.
+       * 
+       * The scheme must be "https"; the URL must begin with "https://".
+       * 
+       * A path is optional, and if present may be any string permissible in a URL. You may use the
+       * path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+       * 
+       * Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments
+       * ("#...") and query parameters ("?...") are not allowed, either.
+       */
+      readonly url: string
+
+    }
+
+    /**
+     * WebhookThrottleConfig holds the configuration for throttling events
+     */
+    export interface WebhookThrottleConfig {
+      /**
+       * ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
+       */
+      readonly burst: number
+
+      /**
+       * ThrottleQPS maximum number of batches per second default 10 QPS
+       */
+      readonly qps: number
+
+    }
+
+  }
+
+}
+
 export namespace authentication {
   export namespace v1 {
     /**
@@ -4225,6 +4553,14 @@ export namespace authentication {
      */
     export interface TokenReviewSpec {
       /**
+       * Audiences is a list of the identifiers that the resource server presented with the token
+       * identifies as. Audience-aware token authenticators will verify that the token was intended
+       * for at least one of the audiences in this list. If no audiences are provided, the audience
+       * will default to the audience of the Kubernetes apiserver.
+       */
+      readonly audiences: string[]
+
+      /**
        * Token is the opaque bearer token.
        */
       readonly token: string
@@ -4235,6 +4571,17 @@ export namespace authentication {
      * TokenReviewStatus is the result of the token authentication request.
      */
     export interface TokenReviewStatus {
+      /**
+       * Audiences are audience identifiers chosen by the authenticator that are compatible with
+       * both the TokenReview and token. An identifier is any identifier in the intersection of the
+       * TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that
+       * sets the spec.audiences field should validate that a compatible audience identifier is
+       * returned in the status.audiences field to ensure that the TokenReview server is audience
+       * aware. If a TokenReview returns an empty status.audience field where status.authenticated
+       * is "true", the token is valid against the audience of the Kubernetes API server.
+       */
+      readonly audiences: string[]
+
       /**
        * Authenticated indicates that the token was associated with a known user.
        */
@@ -4323,6 +4670,14 @@ export namespace authentication {
      */
     export interface TokenReviewSpec {
       /**
+       * Audiences is a list of the identifiers that the resource server presented with the token
+       * identifies as. Audience-aware token authenticators will verify that the token was intended
+       * for at least one of the audiences in this list. If no audiences are provided, the audience
+       * will default to the audience of the Kubernetes apiserver.
+       */
+      readonly audiences: string[]
+
+      /**
        * Token is the opaque bearer token.
        */
       readonly token: string
@@ -4333,6 +4688,17 @@ export namespace authentication {
      * TokenReviewStatus is the result of the token authentication request.
      */
     export interface TokenReviewStatus {
+      /**
+       * Audiences are audience identifiers chosen by the authenticator that are compatible with
+       * both the TokenReview and token. An identifier is any identifier in the intersection of the
+       * TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that
+       * sets the spec.audiences field should validate that a compatible audience identifier is
+       * returned in the status.audiences field to ensure that the TokenReview server is audience
+       * aware. If a TokenReview returns an empty status.audience field where status.authenticated
+       * is "true", the token is valid against the audience of the Kubernetes API server.
+       */
+      readonly audiences: string[]
+
       /**
        * Authenticated indicates that the token was associated with a known user.
        */
@@ -7464,7 +7830,7 @@ export namespace core {
       /**
        * ControllerPublishSecretRef is a reference to the secret object containing sensitive
        * information to pass to the CSI driver to complete the CSI ControllerPublishVolume and
-       * ControllerUnpublishVolume calls. This field is optional, and  may be empty if no secret is
+       * ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is
        * required. If the secret object contains more than one secret, all secrets are passed.
        */
       readonly controllerPublishSecretRef: core.v1.SecretReference
@@ -7483,7 +7849,7 @@ export namespace core {
       /**
        * NodePublishSecretRef is a reference to the secret object containing sensitive information
        * to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume
-       * calls. This field is optional, and  may be empty if no secret is required. If the secret
+       * calls. This field is optional, and may be empty if no secret is required. If the secret
        * object contains more than one secret, all secrets are passed.
        */
       readonly nodePublishSecretRef: core.v1.SecretReference
@@ -7491,8 +7857,8 @@ export namespace core {
       /**
        * NodeStageSecretRef is a reference to the secret object containing sensitive information to
        * pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and
-       * NodeUnstageVolume calls. This field is optional, and  may be empty if no secret is
-       * required. If the secret object contains more than one secret, all secrets are passed.
+       * NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required.
+       * If the secret object contains more than one secret, all secrets are passed.
        */
       readonly nodeStageSecretRef: core.v1.SecretReference
 
@@ -8158,8 +8524,8 @@ export namespace core {
       readonly tty: boolean
 
       /**
-       * volumeDevices is the list of block devices to be used by the container. This is an alpha
-       * feature and may change in the future.
+       * volumeDevices is the list of block devices to be used by the container. This is a beta
+       * feature.
        */
       readonly volumeDevices: core.v1.VolumeDevice[]
 
@@ -9081,6 +9447,39 @@ export namespace core {
        * Commit hash for the specified revision.
        */
       readonly revision: string
+
+    }
+
+    /**
+     * Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not
+     * support ownership management or SELinux relabeling.
+     */
+    export interface GlusterfsPersistentVolumeSource {
+      /**
+       * EndpointsName is the endpoint name that details Glusterfs topology. More info:
+       * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod
+       */
+      readonly endpoints: string
+
+      /**
+       * EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is
+       * empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info:
+       * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod
+       */
+      readonly endpointsNamespace: string
+
+      /**
+       * Path is the Glusterfs volume path. More info:
+       * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod
+       */
+      readonly path: string
+
+      /**
+       * ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions.
+       * Defaults to false. More info:
+       * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod
+       */
+      readonly readOnly: boolean
 
     }
 
@@ -10421,8 +10820,7 @@ export namespace core {
 
       /**
        * volumeMode defines what type of volume is required by the claim. Value of Filesystem is
-       * implied when not included in claim spec. This is an alpha feature and may change in the
-       * future.
+       * implied when not included in claim spec. This is a beta feature.
        */
       readonly volumeMode: string
 
@@ -10603,7 +11001,7 @@ export namespace core {
        * Provisioned by an admin. More info:
        * https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md
        */
-      readonly glusterfs: core.v1.GlusterfsVolumeSource
+      readonly glusterfs: core.v1.GlusterfsPersistentVolumeSource
 
       /**
        * HostPath represents a directory on the host. Provisioned by a developer or tester. This is
@@ -10695,7 +11093,7 @@ export namespace core {
       /**
        * volumeMode defines if a volume is intended to be used with a formatted filesystem or to
        * remain in raw block state. Value of Filesystem is implied when not included in spec. This
-       * is an alpha feature and may change in the future.
+       * is a beta feature.
        */
       readonly volumeMode: string
 
@@ -11099,6 +11497,12 @@ export namespace core {
        * 'ClusterFirstWithHostNet'.
        */
       readonly dnsPolicy: string
+
+      /**
+       * EnableServiceLinks indicates whether information about services should be injected into
+       * pod's environment variables, matching the syntax of Docker links.
+       */
+      readonly enableServiceLinks: boolean
 
       /**
        * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts
@@ -14040,7 +14444,8 @@ export namespace extensions {
 
       /**
        * The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish
-       * between explicit zero and not specified.
+       * between explicit zero and not specified. This is set to the max value of int32 (i.e.
+       * 2147483647) by default, which means "retaining all old RelicaSets".
        */
       readonly revisionHistoryLimit: number
 
@@ -14830,6 +15235,13 @@ export namespace extensions {
       readonly requiredDropCapabilities: string[]
 
       /**
+       * RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be
+       * set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires
+       * the RunAsGroup feature gate to be enabled.
+       */
+      readonly runAsGroup: extensions.v1beta1.RunAsGroupStrategyOptions
+
+      /**
        * runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
        */
       readonly runAsUser: extensions.v1beta1.RunAsUserStrategyOptions
@@ -15093,6 +15505,24 @@ export namespace extensions {
        * 70% of desired pods.
        */
       readonly maxUnavailable: number | string
+
+    }
+
+    /**
+     * RunAsGroupStrategyOptions defines the strategy type and any options used to create the
+     * strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
+     */
+    export interface RunAsGroupStrategyOptions {
+      /**
+       * ranges are the allowed ranges of gids that may be used. If you would like to force a single
+       * gid then supply a single range with the same start and end. Required for MustRunAs.
+       */
+      readonly ranges: extensions.v1beta1.IDRange[]
+
+      /**
+       * rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
+       */
+      readonly rule: string
 
     }
 
@@ -15794,8 +16224,9 @@ export namespace meta {
     }
 
     /**
-     * OwnerReference contains enough information to let you identify an owning object. Currently,
-     * an owning object must be in the same namespace, so there is no namespace field.
+     * OwnerReference contains enough information to let you identify an owning object. An owning
+     * object must be in the same namespace as the dependent, or be cluster-scoped, so there is no
+     * namespace field.
      */
     export interface OwnerReference {
       /**
@@ -16790,6 +17221,13 @@ export namespace policy {
       readonly requiredDropCapabilities: string[]
 
       /**
+       * RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be
+       * set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires
+       * the RunAsGroup feature gate to be enabled.
+       */
+      readonly runAsGroup: policy.v1beta1.RunAsGroupStrategyOptions
+
+      /**
        * runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
        */
       readonly runAsUser: policy.v1beta1.RunAsUserStrategyOptions
@@ -16810,6 +17248,24 @@ export namespace policy {
        * used. To allow all volumes you may use '*'.
        */
       readonly volumes: string[]
+
+    }
+
+    /**
+     * RunAsGroupStrategyOptions defines the strategy type and any options used to create the
+     * strategy.
+     */
+    export interface RunAsGroupStrategyOptions {
+      /**
+       * ranges are the allowed ranges of gids that may be used. If you would like to force a single
+       * gid then supply a single range with the same start and end. Required for MustRunAs.
+       */
+      readonly ranges: policy.v1beta1.IDRange[]
+
+      /**
+       * rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
+       */
+      readonly rule: string
 
     }
 
@@ -18432,6 +18888,165 @@ export namespace storage {
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * VolumeAttachment captures the intent to attach or detach the specified volume to/from the
+     * specified node.
+     * 
+     * VolumeAttachment objects are non-namespaced.
+     */
+    export interface VolumeAttachment {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: string
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: string
+
+      /**
+       * Standard object metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes
+       * system.
+       */
+      readonly spec: storage.v1.VolumeAttachmentSpec
+
+      /**
+       * Status of the VolumeAttachment request. Populated by the entity completing the attach or
+       * detach operation, i.e. the external-attacher.
+       */
+      readonly status: storage.v1.VolumeAttachmentStatus
+
+    }
+
+    /**
+     * VolumeAttachmentList is a collection of VolumeAttachment objects.
+     */
+    export interface VolumeAttachmentList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: string
+
+      /**
+       * Items is the list of VolumeAttachments
+       */
+      readonly items: storage.v1.VolumeAttachment[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: string
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * VolumeAttachmentSource represents a volume that should be attached. Right now only
+     * PersistenVolumes can be attached via external attacher, in future we may allow also inline
+     * volumes in pods. Exactly one member can be set.
+     */
+    export interface VolumeAttachmentSource {
+      /**
+       * Name of the persistent volume to attach.
+       */
+      readonly persistentVolumeName: string
+
+    }
+
+    /**
+     * VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+     */
+    export interface VolumeAttachmentSpec {
+      /**
+       * Attacher indicates the name of the volume driver that MUST handle this request. This is the
+       * name returned by GetPluginName().
+       */
+      readonly attacher: string
+
+      /**
+       * The node that the volume should be attached to.
+       */
+      readonly nodeName: string
+
+      /**
+       * Source represents the volume that should be attached.
+       */
+      readonly source: storage.v1.VolumeAttachmentSource
+
+    }
+
+    /**
+     * VolumeAttachmentStatus is the status of a VolumeAttachment request.
+     */
+    export interface VolumeAttachmentStatus {
+      /**
+       * The last error encountered during attach operation, if any. This field must only be set by
+       * the entity completing the attach operation, i.e. the external-attacher.
+       */
+      readonly attachError: storage.v1.VolumeError
+
+      /**
+       * Indicates the volume is successfully attached. This field must only be set by the entity
+       * completing the attach operation, i.e. the external-attacher.
+       */
+      readonly attached: boolean
+
+      /**
+       * Upon successful attach, this field is populated with any information returned by the attach
+       * operation that must be passed into subsequent WaitForAttach or Mount calls. This field must
+       * only be set by the entity completing the attach operation, i.e. the external-attacher.
+       */
+      readonly attachmentMetadata: {[key: string]: string}
+
+      /**
+       * The last error encountered during detach operation, if any. This field must only be set by
+       * the entity completing the detach operation, i.e. the external-attacher.
+       */
+      readonly detachError: storage.v1.VolumeError
+
+    }
+
+    /**
+     * VolumeError captures an error encountered during a volume operation.
+     */
+    export interface VolumeError {
+      /**
+       * String detailing the error encountered during Attach or Detach operation. This string maybe
+       * logged, so it should not contain sensitive information.
+       */
+      readonly message: string
+
+      /**
+       * Time the error was encountered.
+       */
+      readonly time: string
 
     }
 

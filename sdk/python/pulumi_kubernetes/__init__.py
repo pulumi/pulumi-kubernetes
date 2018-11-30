@@ -8,6 +8,7 @@ __all__ = [
     "apiextensions",
     "apiregistration",
     "apps",
+    "auditregistration",
     "authentication",
     "authorization",
     "autoscaling",
