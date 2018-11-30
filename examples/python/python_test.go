@@ -86,48 +86,48 @@ func TestGuestbook(t *testing.T) {
 			frontendDepl := stackInfo.Deployment.Resources[0]
 			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), frontendDepl.URN.Type())
 			name, _ = openapi.Pluck(frontendDepl.Outputs, "metadata", "name")
-			assert.Equal(t, "frontend", name)
+			assert.True(t, strings.HasPrefix(name.(string), "frontend"))
 			status, _ = openapi.Pluck(frontendDepl.Outputs, "status", "readyReplicas")
 			assert.Equal(t, float64(3), status)
 
-			// Verify redis-leader deployment.
-			redisLeaderDepl := stackInfo.Deployment.Resources[1]
-			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisLeaderDepl.URN.Type())
-			name, _ = openapi.Pluck(redisLeaderDepl.Outputs, "metadata", "name")
-			assert.True(t, strings.HasPrefix(name.(string), "redis-master"))
-			status, _ = openapi.Pluck(redisLeaderDepl.Outputs, "status", "readyReplicas")
-			assert.Equal(t, float64(1), status)
-
 			// Verify redis-follower deployment.
-			redisFollowerDepl := stackInfo.Deployment.Resources[2]
+			redisFollowerDepl := stackInfo.Deployment.Resources[1]
 			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisFollowerDepl.URN.Type())
 			name, _ = openapi.Pluck(redisFollowerDepl.Outputs, "metadata", "name")
-			assert.True(t, strings.HasPrefix(name.(string), "redis-slave"))
+			assert.True(t, strings.HasPrefix(name.(string), "redis-follower"), fmt.Sprintf("%s %s", name, "redis-slave"))
 			status, _ = openapi.Pluck(redisFollowerDepl.Outputs, "status", "readyReplicas")
+			assert.Equal(t, float64(1), status)
+
+			// Verify redis-leader deployment.
+			redisLeaderDepl := stackInfo.Deployment.Resources[2]
+			assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisLeaderDepl.URN.Type())
+			name, _ = openapi.Pluck(redisLeaderDepl.Outputs, "metadata", "name")
+			assert.True(t, strings.HasPrefix(name.(string), "redis-leader"), fmt.Sprintf("%s %s", name, "redis-master"))
+			status, _ = openapi.Pluck(redisLeaderDepl.Outputs, "status", "readyReplicas")
 			assert.Equal(t, float64(1), status)
 
 			// Verify frontend service.
 			frontendService := stackInfo.Deployment.Resources[3]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), frontendService.URN.Type())
 			name, _ = openapi.Pluck(frontendService.Outputs, "metadata", "name")
-			assert.True(t, strings.HasPrefix(name.(string), "frontend"))
+			assert.True(t, strings.HasPrefix(name.(string), "frontend"), fmt.Sprintf("%s %s", name, "frontend"))
 			status, _ = openapi.Pluck(frontendService.Outputs, "spec", "clusterIP")
 			assert.True(t, len(status.(string)) > 1)
 
-			// Verify redis-leader service.
-			redisLeaderService := stackInfo.Deployment.Resources[4]
-			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisLeaderService.URN.Type())
-			name, _ = openapi.Pluck(redisLeaderService.Outputs, "metadata", "name")
-			assert.True(t, strings.HasPrefix(name.(string), "redis-master"))
-			status, _ = openapi.Pluck(redisLeaderService.Outputs, "spec", "clusterIP")
-			assert.True(t, len(status.(string)) > 1)
-
 			// Verify redis-follower service.
-			redisFollowerService := stackInfo.Deployment.Resources[5]
+			redisFollowerService := stackInfo.Deployment.Resources[4]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisFollowerService.URN.Type())
 			name, _ = openapi.Pluck(redisFollowerService.Outputs, "metadata", "name")
-			assert.True(t, strings.HasPrefix(name.(string), "redis-slave"))
+			assert.True(t, strings.HasPrefix(name.(string), "redis-follower"), fmt.Sprintf("%s %s", name, "redis-slave"))
 			status, _ = openapi.Pluck(redisFollowerService.Outputs, "spec", "clusterIP")
+			assert.True(t, len(status.(string)) > 1)
+
+			// Verify redis-leader service.
+			redisLeaderService := stackInfo.Deployment.Resources[5]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisLeaderService.URN.Type())
+			name, _ = openapi.Pluck(redisLeaderService.Outputs, "metadata", "name")
+			assert.True(t, strings.HasPrefix(name.(string), "redis-leader"), fmt.Sprintf("%s %s", name, "redis-master"))
+			status, _ = openapi.Pluck(redisLeaderService.Outputs, "spec", "clusterIP")
 			assert.True(t, len(status.(string)) > 1)
 
 			// Verify the provider resource.
