@@ -610,14 +610,14 @@ func waitForDesiredReplicasFunc(
 		desiredReplicas, hasReplicasSpec := getReplicasSpec(replicator)
 		fullyLabeledReplicas, hasReplicasStatus := getReplicasStatus(replicator)
 
-		glog.V(3).Infof("Current number of labelled replicas of '%q': '%d' (of '%d')\n",
+		glog.V(3).Infof("Current number of labelled replicas of %q: '%d' (of '%d')\n",
 			replicator.GetName(), fullyLabeledReplicas, desiredReplicas)
 
 		if hasReplicasSpec && hasReplicasStatus && fullyLabeledReplicas == desiredReplicas {
 			return true
 		}
 
-		glog.V(3).Infof("Waiting for '%d' replicas of '%q' to be scheduled (have: '%d')",
+		glog.V(3).Infof("Waiting for '%d' replicas of %q to be scheduled (have: '%d')",
 			desiredReplicas, replicator.GetName(), fullyLabeledReplicas)
 		return false
 	}

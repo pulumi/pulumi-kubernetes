@@ -9,7 +9,6 @@ import (
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
-	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -114,18 +113,18 @@ func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
 //   2. The value of `.status.updateRevision` matches `.status.currentRevision`.
 //   3. The value of `spec.replicas` matches `.status.replicas`, `.status.currentReplicas`,
 //      and `.status.readyReplicas`.
-func (dia *statefulsetInitAwaiter) Await() error {
+func (sia *statefulsetInitAwaiter) Await() error {
 
-	podClient, err := dia.makeClients()
+	podClient, err := sia.makeClients()
 	if err != nil {
 		return err
 	}
 
 	// Create Deployment watcher.
-	statefulsetWatcher, err := dia.config.clientForResource.Watch(metav1.ListOptions{})
+	statefulsetWatcher, err := sia.config.clientForResource.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err, "Could not set up watch for StatefulSet object %q",
-			dia.config.currentInputs.GetName())
+			sia.config.currentInputs.GetName())
 	}
 	defer statefulsetWatcher.Stop()
 
@@ -134,25 +133,25 @@ func (dia *statefulsetInitAwaiter) Await() error {
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for Pods objects associated with StatefulSet %q",
-			dia.config.currentInputs.GetName())
+			sia.config.currentInputs.GetName())
 	}
 	defer podWatcher.Stop()
 
 	period := time.NewTicker(10 * time.Second)
 	defer period.Stop()
 
-	return dia.await(statefulsetWatcher, podWatcher, time.After(5*time.Minute), period.C)
+	return sia.await(statefulsetWatcher, podWatcher, time.After(5*time.Minute), period.C)
 }
 
-func (dia *statefulsetInitAwaiter) Read() error {
+func (sia *statefulsetInitAwaiter) Read() error {
 	// Get clients needed to retrieve live versions of relevant Deployments, ReplicaSets, and Pods.
-	podClient, err := dia.makeClients()
+	podClient, err := sia.makeClients()
 	if err != nil {
 		return err
 	}
 
 	// Get live versions of StatefulSet and Pods.
-	statefulset, err := dia.config.clientForResource.Get(dia.config.currentInputs.GetName(),
+	statefulset, err := sia.config.clientForResource.Get(sia.config.currentInputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
@@ -173,17 +172,17 @@ func (dia *statefulsetInitAwaiter) Read() error {
 		podList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	return dia.read(statefulset, podList.(*unstructured.UnstructuredList))
+	return sia.read(statefulset, podList.(*unstructured.UnstructuredList))
 }
 
 // read is a helper companion to `Read` designed to make it easy to test this module.
-func (dia *statefulsetInitAwaiter) read(
+func (sia *statefulsetInitAwaiter) read(
 	statefulset *unstructured.Unstructured, pods *unstructured.UnstructuredList,
 ) error {
-	dia.processStatefulSetEvent(watchAddedEvent(statefulset))
+	sia.processStatefulSetEvent(watchAddedEvent(statefulset))
 
 	err := pods.EachListItem(func(pod runtime.Object) error {
-		dia.processPodEvent(watchAddedEvent(pod.(*unstructured.Unstructured)))
+		sia.processPodEvent(watchAddedEvent(pod.(*unstructured.Unstructured)))
 		return nil
 	})
 	if err != nil {
@@ -191,53 +190,53 @@ func (dia *statefulsetInitAwaiter) read(
 			statefulset.GetName(), err)
 	}
 
-	if dia.checkAndLogStatus() {
+	if sia.checkAndLogStatus() {
 		return nil
 	}
 
 	return &initializationError{
-		subErrors: dia.errorMessages(),
+		subErrors: sia.errorMessages(),
 		object:    statefulset,
 	}
 }
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
-func (dia *statefulsetInitAwaiter) await(
+func (sia *statefulsetInitAwaiter) await(
 	statefulsetWatcher, podWatcher watch.Interface, timeout, period <-chan time.Time,
 ) error {
 	//TODO: update status message
-	dia.config.logStatus(diag.Info, "[1/2] Waiting for app ReplicaSet be marked available")
+	sia.config.logStatus(diag.Info, "[1/2] Waiting for app ReplicaSet be marked available")
 
 	for {
-		if dia.checkAndLogStatus() {
+		if sia.checkAndLogStatus() {
 			return nil
 		}
 
 		// Else, wait for updates.
 		select {
-		case <-dia.config.ctx.Done():
+		case <-sia.config.ctx.Done():
 			return &cancellationError{
-				object:    dia.statefulset,
-				subErrors: dia.errorMessages(),
+				object:    sia.statefulset,
+				subErrors: sia.errorMessages(),
 			}
 		case <-timeout:
 			return &timeoutError{
-				object:    dia.statefulset,
-				subErrors: dia.errorMessages(),
+				object:    sia.statefulset,
+				subErrors: sia.errorMessages(),
 			}
 		case <-period:
-			scheduleErrors, containerErrors := dia.aggregatePodErrors()
+			scheduleErrors, containerErrors := sia.aggregatePodErrors()
 			for _, message := range scheduleErrors {
-				dia.config.logStatus(diag.Warning, message)
+				sia.config.logStatus(diag.Warning, message)
 			}
 
 			for _, message := range containerErrors {
-				dia.config.logStatus(diag.Warning, message)
+				sia.config.logStatus(diag.Warning, message)
 			}
 		case event := <-statefulsetWatcher.ResultChan():
-			dia.processStatefulSetEvent(event)
+			sia.processStatefulSetEvent(event)
 		case event := <-podWatcher.ResultChan():
-			dia.processPodEvent(event)
+			sia.processPodEvent(event)
 		}
 	}
 }
@@ -255,25 +254,25 @@ func (dia *statefulsetInitAwaiter) await(
 //      rolled out. This means there is no rollout to be marked as "progressing", so we need only
 //      check that the StatefulSet was created, and the corresponding ReplicaSet needs to be marked
 //      available.
-func (dia *statefulsetInitAwaiter) checkAndLogStatus() bool {
-	if dia.currentGeneration == 1 {
-		if dia.statefulsetAvailable && dia.replicasReady {
-			dia.config.logStatus(diag.Info, "✅ StatefulSet initialization complete")
+func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
+	if sia.currentGeneration == 1 {
+		if sia.statefulsetAvailable && sia.replicasReady {
+			sia.config.logStatus(diag.Info, "✅ StatefulSet initialization complete")
 			return true
 		}
 	} else {
 		// TODO: update condition
-		//if dia.deploymentAvailable && dia.replicaSetAvailable && dia.updatedReplicaSetReady {
-		//	dia.config.logStatus(diag.Info, "✅ StatefulSet initialization complete")
-		//	return true
+		//if sia.deploymentAvailable && sia.replicaSetAvailable && sia.updatedReplicaSetReady {
+		//	sia.config.logStatus(diag.Info, "✅ StatefulSet initialization complete")
+		return false
 		//}
 	}
 
 	return false
 }
 
-func (dia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
-	inputStatefulSetName := dia.config.currentInputs.GetName()
+func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
+	inputStatefulSetName := sia.config.currentInputs.GetName()
 
 	statefulset, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
@@ -283,7 +282,7 @@ func (dia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 	}
 
 	// Start over, prove that rollout is complete.
-	dia.statefulsetErrors = map[string]string{}
+	sia.statefulsetErrors = map[string]string{}
 
 	// Do nothing if this is not the StatefulSet we're waiting for.
 	if statefulset.GetName() != inputStatefulSetName {
@@ -295,11 +294,13 @@ func (dia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 		return
 	}
 
-	dia.statefulset = statefulset
+	sia.statefulset = statefulset
 
 	// Get current generation of the StatefulSet.
-	dia.currentGeneration = statefulset.GetGeneration()
-	//if dia.currentGeneration == 0 {
+	sia.currentGeneration = statefulset.GetGeneration()
+
+	// TODO: update conditions for a StatefulSet
+	//if sia.currentGeneration == 0 {
 	//	// No current generation, Deployment controller has not yet created a ReplicaSet. Do
 	//	// nothing.
 	//	return
@@ -336,16 +337,16 @@ func (dia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 	//				continue
 	//			}
 	//			message = fmt.Sprintf("[%s] %s", reason, message)
-	//			dia.deploymentErrors[reason] = message
-	//			dia.config.logStatus(diag.Warning, message)
+	//			sia.deploymentErrors[reason] = message
+	//			sia.config.logStatus(diag.Warning, message)
 	//		}
 	//
-	//		dia.replicaSetAvailable = condition["reason"] == "NewReplicaSetAvailable" && isProgressing
+	//		sia.replicaSetAvailable = condition["reason"] == "NewReplicaSetAvailable" && isProgressing
 	//	}
 	//
 	//	if condition["type"] == statusAvailable {
-	//		dia.deploymentAvailable = condition["status"] == trueStatus
-	//		if !dia.deploymentAvailable {
+	//		sia.deploymentAvailable = condition["status"] == trueStatus
+	//		if !sia.deploymentAvailable {
 	//			rawReason, hasReason := condition["reason"]
 	//			reason, isString := rawReason.(string)
 	//			if !hasReason || !isString {
@@ -357,34 +358,34 @@ func (dia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 	//				continue
 	//			}
 	//			message = fmt.Sprintf("[%s] %s", reason, message)
-	//			dia.deploymentErrors[reason] = message
-	//			dia.config.logStatus(diag.Warning, message)
+	//			sia.deploymentErrors[reason] = message
+	//			sia.config.logStatus(diag.Warning, message)
 	//		}
 	//	}
 	//}
 }
 
-func (dia *statefulsetInitAwaiter) changeTriggeredRollout() bool {
-	if dia.config.lastInputs == nil {
-		return true
-	}
+//func (dia *statefulsetInitAwaiter) changeTriggeredRollout() bool {
+//	if dia.config.lastInputs == nil {
+//		return true
+//	}
+//
+//	fields, err := openapi.PropertiesChanged(
+//		dia.config.lastInputs.Object, dia.config.currentInputs.Object,
+//		[]string{
+//			".spec.template.spec",
+//		})
+//	if err != nil {
+//		glog.V(3).Infof("Failed to check whether Pod template for StatefulSet %q changed",
+//			dia.config.currentInputs.GetName())
+//		return false
+//	}
+//
+//	return len(fields) > 0
+//}
 
-	fields, err := openapi.PropertiesChanged(
-		dia.config.lastInputs.Object, dia.config.currentInputs.Object,
-		[]string{
-			".spec.template.spec",
-		})
-	if err != nil {
-		glog.V(3).Infof("Failed to check whether Pod template for StatefulSet %q changed",
-			dia.config.currentInputs.GetName())
-		return false
-	}
-
-	return len(fields) > 0
-}
-
-func (dia *statefulsetInitAwaiter) processPodEvent(event watch.Event) {
-	inputStatefulSetName := dia.config.currentInputs.GetName()
+func (sia *statefulsetInitAwaiter) processPodEvent(event watch.Event) {
+	inputStatefulSetName := sia.config.currentInputs.GetName()
 
 	pod, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
@@ -401,17 +402,17 @@ func (dia *statefulsetInitAwaiter) processPodEvent(event watch.Event) {
 
 	// If Pod was deleted, remove it from our aggregated checkers.
 	if event.Type == watch.Deleted {
-		delete(dia.pods, podName)
+		delete(sia.pods, podName)
 		return
 	}
 
-	dia.pods[podName] = pod
+	sia.pods[podName] = pod
 }
 
-func (dia *statefulsetInitAwaiter) aggregatePodErrors() ([]string, []string) {
+func (sia *statefulsetInitAwaiter) aggregatePodErrors() ([]string, []string) {
 	scheduleErrorCounts := map[string]int{}
 	containerErrorCounts := map[string]int{}
-	for _, pod := range dia.pods {
+	for _, pod := range sia.pods {
 		// TODO: needed?
 		//// Filter down to only Pods owned by the StatefulSet.
 		//if !isOwnedBy(pod, rs) {
@@ -450,52 +451,52 @@ func (dia *statefulsetInitAwaiter) aggregatePodErrors() ([]string, []string) {
 	return scheduleErrors, containerErrors
 }
 
-func (dia *statefulsetInitAwaiter) errorMessages() []string {
+func (sia *statefulsetInitAwaiter) errorMessages() []string {
 	messages := make([]string, 0)
-	for _, message := range dia.statefulsetErrors {
+	for _, message := range sia.statefulsetErrors {
 		messages = append(messages, message)
 	}
 
-	if dia.currentGeneration == 1 {
-		if !dia.statefulsetAvailable {
+	if sia.currentGeneration == 1 {
+		if !sia.statefulsetAvailable {
 			messages = append(messages,
 				"Minimum number of live Pods was not attained")
 		}
 	} else {
-		if !dia.statefulsetAvailable {
+		if !sia.statefulsetAvailable {
 			messages = append(messages,
 				"Minimum number of live Pods was not attained")
-		} else if !dia.replicasReady {
-			//TODO: error message
-			//messages = append(messages,
-			//	"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live")
-		} else if !dia.revisionReady {
-			//TODO: error message
-			//messages = append(messages,
-			//	"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live")
+		} else if !sia.replicasReady {
+			//TODO: fix error message
+			messages = append(messages,
+				"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live")
+		} else if !sia.revisionReady {
+			//TODO: fix error message
+			messages = append(messages,
+				"Attempted to roll forward to new ReplicaSet, but minimum number of Pods did not become live")
 		}
 	}
 
-	scheduleErrors, containerErrors := dia.aggregatePodErrors()
+	scheduleErrors, containerErrors := sia.aggregatePodErrors()
 	messages = append(messages, scheduleErrors...)
 	messages = append(messages, containerErrors...)
 
 	return messages
 }
 
-func (dia *statefulsetInitAwaiter) makeClients() (
+func (sia *statefulsetInitAwaiter) makeClients() (
 	podClient dynamic.ResourceInterface, err error,
 ) {
-	podClient, err = client.FromGVK(dia.config.pool, dia.config.disco,
+	podClient, err = client.FromGVK(sia.config.pool, sia.config.disco,
 		schema.GroupVersionKind{
 			Group:   "",
 			Version: "v1",
 			Kind:    "Pod",
-		}, dia.config.currentInputs.GetNamespace())
+		}, sia.config.currentInputs.GetNamespace())
 	if err != nil {
 		return nil, errors.Wrapf(err,
 			"Could not make client to watch Pods associated with StatefulSet %q",
-			dia.config.currentInputs.GetName())
+			sia.config.currentInputs.GetName())
 	}
 
 	return podClient, nil
