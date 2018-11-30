@@ -376,6 +376,11 @@ func (sia *statefulsetInitAwaiter) aggregatePodErrors() ([]string, []string) {
 	scheduleErrorCounts := map[string]int{}
 	containerErrorCounts := map[string]int{}
 	for _, pod := range sia.pods {
+		// Filter down to only Pods owned by the active ReplicaSet.
+		if !isOwnedBy(pod, sia.statefulset) {
+			continue
+		}
+
 		// Check the pod for errors.
 		checker := makePodChecker()
 		checker.check(pod)

@@ -38,6 +38,131 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				timeout <- time.Now()
 			},
 		},
+		{
+			description: "[Revision 2] Should succeed after updating StatefulSet",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				// API server successfully updates StatefulSet object.
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdate(inputNamespace, inputName, targetService))
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdating(inputNamespace, inputName, targetService))
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdatingWithActiveReplica(inputNamespace, inputName, targetService))
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdateSuccess(inputNamespace, inputName, targetService))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description: "[Revision 1] Should fail if timeout occurs before successful creation",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				// API server successfully creates StatefulSet object.
+				statefulsets <- watchAddedEvent(
+					statefulsetAdded(inputNamespace, inputName, targetService))
+				statefulsets <- watchAddedEvent(
+					statefulsetCreating(inputNamespace, inputName, targetService))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: statefulsetCreating(inputNamespace, inputName, targetService),
+				subErrors: []string{
+					"Failed to observe the expected number of ready replicas",
+				}},
+		},
+		{
+			description: "[Revision 2] Should fail if timeout occurs before successful update rollout",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				// API server successfully updates StatefulSet object.
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdate(inputNamespace, inputName, targetService))
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdating(inputNamespace, inputName, targetService))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: statefulsetUpdating(inputNamespace, inputName, targetService),
+				subErrors: []string{
+					"Failed to observe the expected number of ready replicas",
+					".status.currentRevision does not match .status.updateRevision",
+				}},
+		},
+		{
+			description: "[Revision 1] Failure should only report Pods from active StatefulSet, part 1",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				podName := "foo-0"
+
+				statefulsets <- watchAddedEvent(
+					statefulsetProgressing(inputNamespace, inputName, targetService))
+
+				// Ready Pod should generate no errors.
+				pods <- watchAddedEvent(statefulsetReadyPod(inputNamespace, podName, inputName))
+
+				// Pod belonging to some other StatefulSet should not show up in the errors.
+				pods <- watchAddedEvent(statefulsetFailedPod(inputNamespace, podName, "bar"))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: statefulsetProgressing(inputNamespace, inputName, targetService),
+				subErrors: []string{
+					"Failed to observe the expected number of ready replicas",
+				}},
+		},
+		{
+			description: "[Revision 2] Failure should only report Pods from active StatefulSet, part 1",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				podName := "foo-0"
+
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdating(inputNamespace, inputName, targetService))
+
+				// Ready Pod should generate no errors.
+				pods <- watchAddedEvent(statefulsetReadyPod(inputNamespace, podName, inputName))
+
+				// Pod belonging to some other StatefulSet should not show up in the errors.
+				pods <- watchAddedEvent(statefulsetFailedPod(inputNamespace, podName, "bar"))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: statefulsetUpdating(inputNamespace, inputName, targetService),
+				subErrors: []string{
+					"Failed to observe the expected number of ready replicas",
+					".status.currentRevision does not match .status.updateRevision",
+				}},
+		},
+		{
+			// fixme: This should be failing - not sure why it's not producing an error message for the pod.
+			description: "[Revision 1] Failure should only report Pods from active StatefulSet, part 2",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				podName := "foo-0"
+
+				statefulsets <- watchAddedEvent(
+					statefulsetProgressing(inputNamespace, inputName, targetService))
+
+				// Failed Pod should show up in the errors.
+				pods <- watchAddedEvent(statefulsetFailedPod(inputNamespace, podName, inputName))
+
+				// // Unrelated successful Pod should generate no errors.
+				pods <- watchAddedEvent(statefulsetReadyPod(inputNamespace, podName, "bar"))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: statefulsetProgressing(inputNamespace, inputName, targetService),
+				subErrors: []string{
+					"Failed to observe the expected number of ready replicas",
+				}},
+		},
 	}
 
 	for _, test := range tests {
@@ -420,6 +545,630 @@ func statefulsetReady(namespace, name, targetService string) *unstructured.Unstr
 		"readyReplicas": 2
     }
 }`, namespace, name, targetService))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func statefulsetUpdate(namespace, name, targetService string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+		"generation": 2,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "%s",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    }
+}`, namespace, name, targetService))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func statefulsetUpdating(namespace, name, targetService string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+		"generation": 2,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "%s",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    },
+	"status": {
+		"replicas": 2,
+		"collisionCount": 0,
+		"currentReplicas": 1,
+		"currentRevision": "foo-7b5cf87b78",
+		"observedGeneration": 2,
+		"updateRevision": "foo-789c4b994f",
+		"readyReplicas": 2
+    }
+}`, namespace, name, targetService))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func statefulsetUpdatingWithActiveReplica(namespace, name, targetService string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+		"generation": 2,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "%s",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    },
+	"status": {
+		"replicas": 2,
+		"collisionCount": 0,
+		"currentReplicas": 1,
+		"currentRevision": "foo-7b5cf87b78",
+		"observedGeneration": 2,
+		"updateRevision": "foo-789c4b994f",
+		"readyReplicas": 1,
+		"updatedReplicas": 1
+    }
+}`, namespace, name, targetService))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func statefulsetUpdateSuccess(namespace, name, targetService string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+		"generation": 2,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "%s",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    },
+	"status": {
+		"replicas": 2,
+		"collisionCount": 0,
+		"currentReplicas": 2,
+		"currentRevision": "foo-789c4b994f",
+		"observedGeneration": 2,
+		"updateRevision": "foo-789c4b994f",
+		"readyReplicas": 2
+    }
+}`, namespace, name, targetService))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func statefulsetReadyPod(namespace, name, statefulsetName string) *unstructured.Unstructured {
+	// nolint
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container nginx"
+        },
+        "creationTimestamp": "2018-11-30T21:59:10Z",
+        "generateName": "%s-",
+        "labels": {
+            "app": "foo",
+            "controller-revision-hash": "foo-78fd4cddbd",
+            "statefulset.kubernetes.io/pod-name": "%s-0"
+        },
+        "name": "%s",
+        "namespace": "%s",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "StatefulSet",
+                "name": "%s",
+                "uid": "984ac0f5-f4ea-11e8-bebe-42010a8a0080"
+            }
+        ],
+        "resourceVersion": "459191",
+        "selfLink": "/api/v1/namespaces/default/pods/%s-0",
+        "uid": "2a73a5d2-f4eb-11e8-bebe-42010a8a0080"
+    },
+    "spec": {
+        "containers": [
+            {
+                "image": "nginx",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "nginx",
+                "ports": [
+                    {
+                        "containerPort": 80,
+                        "name": "web",
+                        "protocol": "TCP"
+                    }
+                ],
+                "resources": {
+                    "requests": {
+                        "cpu": "100m"
+                    }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/usr/share/nginx/html",
+                        "name": "www"
+                    },
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "default-token-p74mp",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "hostname": "foo-0",
+        "nodeName": "gke-gke-cluster-8d214cd-default-pool-df2b3fc2-zlkv",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "subdomain": "ss-service",
+        "terminationGracePeriodSeconds": 10,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "name": "www",
+                "persistentVolumeClaim": {
+                    "claimName": "www-%s-0"
+                }
+            },
+            {
+                "name": "default-token-p74mp",
+                "secret": {
+                    "defaultMode": 420,
+                    "secretName": "default-token-p74mp"
+                }
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2018-11-30T21:59:10Z",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2018-11-30T21:59:21Z",
+                "status": "True",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": null,
+                "status": "True",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2018-11-30T21:59:10Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "docker://4a89a0e2ab5ad945aad2af0fb12d9660a2715ea77a2e9f214a732a5446088c55",
+                "image": "nginx:latest",
+                "imageID": "docker-pullable://nginx@sha256:87e9b6904b4286b8d41bba4461c0b736835fcc218f7ecbe5544b53fdd467189f",
+                "lastState": {},
+                "name": "nginx",
+                "ready": true,
+                "restartCount": 0,
+                "state": {
+                    "running": {
+                        "startedAt": "2018-11-30T21:59:21Z"
+                    }
+                }
+            }
+        ],
+        "hostIP": "10.138.0.2",
+        "phase": "Running",
+        "podIP": "10.32.1.26",
+        "qosClass": "Burstable",
+        "startTime": "2018-11-30T21:59:10Z"
+    }
+}`, statefulsetName, statefulsetName, name, namespace, statefulsetName, statefulsetName, statefulsetName))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func statefulsetFailedPod(namespace, name, statefulsetName string) *unstructured.Unstructured {
+	// nolint
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "kubernetes.io/limit-ranger": "LimitRanger plugin set: cpu request for container nginx"
+        },
+        "creationTimestamp": "2018-11-30T21:59:10Z",
+        "generateName": "%s-",
+        "labels": {
+            "app": "foo",
+            "controller-revision-hash": "foo-78fd4cddbd",
+            "statefulset.kubernetes.io/pod-name": "%s-0"
+        },
+        "name": "%s",
+        "namespace": "%s",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "StatefulSet",
+                "name": "%s",
+                "uid": "984ac0f5-f4ea-11e8-bebe-42010a8a0080"
+            }
+        ],
+        "resourceVersion": "459191",
+        "selfLink": "/api/v1/namespaces/default/pods/%s-0",
+        "uid": "2a73a5d2-f4eb-11e8-bebe-42010a8a0080"
+    },
+    "spec": {
+        "containers": [
+            {
+                "image": "nginx:busted",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "nginx",
+                "ports": [
+                    {
+                        "containerPort": 80,
+                        "name": "web",
+                        "protocol": "TCP"
+                    }
+                ],
+                "resources": {
+                    "requests": {
+                        "cpu": "100m"
+                    }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/usr/share/nginx/html",
+                        "name": "www"
+                    },
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "default-token-p74mp",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "hostname": "foo-0",
+        "nodeName": "gke-gke-cluster-8d214cd-default-pool-df2b3fc2-zlkv",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "subdomain": "ss-service",
+        "terminationGracePeriodSeconds": 10,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "name": "www",
+                "persistentVolumeClaim": {
+                    "claimName": "www-%s-0"
+                }
+            },
+            {
+                "name": "default-token-p74mp",
+                "secret": {
+                    "defaultMode": 420,
+                    "secretName": "default-token-p74mp"
+                }
+            }
+        ]
+    },
+	"status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2018-11-30T23:10:58Z",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2018-11-30T23:10:58Z",
+                "message": "containers with unready status: [nginx]",
+                "reason": "ContainersNotReady",
+                "status": "False",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": null,
+                "message": "containers with unready status: [nginx]",
+                "reason": "ContainersNotReady",
+                "status": "False",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2018-11-30T23:10:58Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "image": "nginx:busted",
+                "imageID": "",
+                "lastState": {},
+                "name": "nginx",
+                "ready": false,
+                "restartCount": 0,
+                "state": {
+                    "waiting": {
+                        "message": "rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:busted not found",
+                        "reason": "ErrImagePull"
+                    }
+                }
+            }
+        ],
+        "hostIP": "10.138.0.2",
+        "phase": "Running",
+        "podIP": "10.32.1.26",
+        "qosClass": "Burstable",
+        "startTime": "2018-11-30T21:59:10Z"
+    }
+}`, statefulsetName, statefulsetName, name, namespace, statefulsetName, statefulsetName, statefulsetName))
 	if err != nil {
 		panic(err)
 	}
