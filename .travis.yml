@@ -17,10 +17,17 @@ before_install:
         ./gcloud-install.sh --disable-prompts;
       fi
     - gcloud auth activate-service-account --key-file client-secret.json
+    - export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/client-secret.json"
 
     # Put kubeconfig file in the usual place. The test harness picks this up and refers to it as
     # $KUBERNETES_CONTEXT.
     - mkdir ~/.kube && mv ./kubeconfig.yaml ~/.kube/config
+
+    # Install istioctl for the Istio integration tests.
+    - curl -sL https://github.com/istio/istio/releases/download/1.0.1/istio-1.0.1-linux.tar.gz > istio.tar.gz
+    - tar -xzf istio.tar.gz
+    - sudo mv istio-1.0.1/bin/istioctl /usr/local/bin
+    - rm -rf istio-1.0.1 # Delete so go doesn't pick up the Istio source.
 
     - git clone https://github.com/pulumi/scripts ${GOPATH}/src/github.com/pulumi/scripts
     - source ${GOPATH}/src/github.com/pulumi/scripts/ci/prepare-environment.sh
@@ -47,7 +54,7 @@ install:
 before_script:
     - "${PULUMI_SCRIPTS}/ci/ensure-dependencies"
 script:
-    - make travis_${TRAVIS_EVENT_TYPE}
+    - travis_wait 30 make travis_${TRAVIS_EVENT_TYPE}
 after_failure:
     - "${PULUMI_SCRIPTS}/ci/upload-failed-tests"
 notifications:
