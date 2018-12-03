@@ -486,7 +486,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				// Failed Pod should show up in the errors.
 				pods <- watchAddedEvent(deployedFailedPod(inputNamespace, readyPodName, replicaSetGeneratedName))
 
-				// // Unrelated successful Pod should generate no errors.
+				// Unrelated successful Pod should generate no errors.
 				pods <- watchAddedEvent(deployedReadyPod(inputNamespace, readyPodName, "bar"))
 
 				// Timeout. Failure.
@@ -496,6 +496,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision1),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
+					`1 Pods failed to run because: [ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
 				}},
 		},
 		{
@@ -511,7 +512,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				// Failed Pod should show up in the errors.
 				pods <- watchAddedEvent(deployedFailedPod(inputNamespace, readyPodName, replicaSetGeneratedName))
 
-				// // Unrelated successful Pod should generate no errors.
+				// Unrelated successful Pod should generate no errors.
 				pods <- watchAddedEvent(deployedReadyPod(inputNamespace, readyPodName, "bar"))
 
 				// Timeout. Failure.
@@ -521,6 +522,7 @@ func Test_Apps_Deployment(t *testing.T) {
 				object: deploymentProgressing(inputNamespace, deploymentInputName, revision2),
 				subErrors: []string{
 					"Minimum number of live Pods was not attained",
+					`1 Pods failed to run because: [ImagePullBackOff] Back-off pulling image "sdkjlsdlkj"`,
 				}},
 		},
 		{
