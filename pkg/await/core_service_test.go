@@ -55,7 +55,7 @@ func Test_Core_Service(t *testing.T) {
 			expectedError: &timeoutError{
 				object: serviceInput("default", "foo-4setj4y6"),
 				subErrors: []string{
-					"Service does not target any Pods. Application Pods may failed to become alive, or " +
+					"Service does not target any Pods. Selected Pods may not be ready, or " +
 						"field '.spec.selector' may not match labels on any Pods",
 					"Service was not allocated an IP address; does your cloud provider support this?"}},
 		},
@@ -98,7 +98,7 @@ func Test_Core_Service(t *testing.T) {
 			expectedError: &timeoutError{
 				object: serviceInput("default", "foo-4setj4y6"),
 				subErrors: []string{
-					"Service does not target any Pods. Application Pods may failed to become alive, or " +
+					"Service does not target any Pods. Selected Pods may not be ready, or " +
 						"field '.spec.selector' may not match labels on any Pods",
 					"Service was not allocated an IP address; does your cloud provider support this?"}},
 		},
@@ -120,7 +120,7 @@ func Test_Core_Service(t *testing.T) {
 			expectedError: &timeoutError{
 				object: initializedService("default", "foo-4setj4y6"),
 				subErrors: []string{
-					"Service does not target any Pods. Application Pods may failed to become alive, or " +
+					"Service does not target any Pods. Selected Pods may not be ready, or " +
 						"field '.spec.selector' may not match labels on any Pods"}},
 		},
 		{
@@ -198,7 +198,7 @@ func Test_Core_Service(t *testing.T) {
 			expectedError: &timeoutError{
 				object: headlessNonemptyServiceOutput("default", "foo-4setj4y6"),
 				subErrors: []string{
-					"Service does not target any Pods. Application Pods may failed to become alive, or " +
+					"Service does not target any Pods. Selected Pods may not be ready, or " +
 						"field '.spec.selector' may not match labels on any Pods"}},
 		},
 	}
@@ -233,7 +233,7 @@ func Test_Core_Service_Read(t *testing.T) {
 			service:      initializedService,
 			endpoint:     uninitializedEndpoint,
 			expectedSubErrors: []string{
-				"Service does not target any Pods. Application Pods may failed to become alive, or " +
+				"Service does not target any Pods. Selected Pods may not be ready, or " +
 					"field '.spec.selector' may not match labels on any Pods"},
 		},
 		{
@@ -266,7 +266,7 @@ func Test_Core_Service_Read(t *testing.T) {
 			serviceInput: headlessNonemptyServiceInput,
 			service:      headlessNonemptyServiceInput,
 			expectedSubErrors: []string{
-				"Service does not target any Pods. Application Pods may failed to become alive, or " +
+				"Service does not target any Pods. Selected Pods may not be ready, or " +
 					"field '.spec.selector' may not match labels on any Pods"},
 		},
 	}
