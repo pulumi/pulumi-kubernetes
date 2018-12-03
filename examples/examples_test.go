@@ -142,10 +142,7 @@ func TestExamples(t *testing.T) {
 				},
 			}),
 
-			// TODO(hausdorff): Enable this when we transition to a version of minikube which correctly
-			// reports version.
-			//
-			// base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "mariadb")}),
+			base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "mariadb")}),
 		}...)
 	}
 

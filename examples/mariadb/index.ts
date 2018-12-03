@@ -1,364 +1,315 @@
 // Copyright 2016-2018, Pulumi Corporation.  All rights reserved.
 
+import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
+import * as input from "@pulumi/kubernetes/types/input";
+import { AppConfig, appConfig } from "./config";
 
 // --------------------------------------------------------------------------
 // MariaDB library.
 // --------------------------------------------------------------------------
 
-const appLabels = {app: "apache"};
-const defaults = {
-    name: "mariadb",
-    namespace: "default",
-    labels: appLabels,
-    metricsEnabled: true,
+function defaultLabels(appConfig: AppConfig): any {
+    return { app: appConfig.appName };
+}
 
-    mariaConfig: {
-        user: "",
-        db: "",
-        cnf: `[mysqld]
-        innodb_buffer_pool_size=2G`,
-    },
+export function makeService(appConfig: AppConfig): k8s.core.v1.Service {
+    const labels = defaultLabels(appConfig);
 
-    mariaRootPassword: "password",
-    mariaStorageClassName: "",
-    mariaPvAccessMode: "ReadWriteOnce",
-    mariaPvSize: "8Gi",
-
-    image: "bitnami/mariadb:10.1.26-r2",
-    imagePullPolicy: "IfNotPresent",
-    serviceType: "ClusterIP",
-    persistence: {
-        accessMode: "ReadWriteOnce",
-        size: "8Gi",
-    },
-    resources: {
-        requests: {
-            memory: "256Mi",
-            cpu: "250m",
-        },
-    },
-    metrics: {
-        image: "prom/mysqld-exporter",
-        imageTag: "v0.10.0",
-        imagePullPolicy: "IfNotPresent",
-        resources: {},
-        annotations: {
-            "prometheus.io/scrape": "true",
-            "prometheus.io/port": "9104",
-        },
-    },
-};
-
-export function makeService(
-    namespace: string, name: string, metricsEnabled=true, labels: object={app:name},
-    selector: object={app:name},
-): k8s.core.v1.Service {
     const ports = [
         {
             name: "mysql",
             port: 3306,
-            targetPort: "mysql",
-        },
+            targetPort: "mysql"
+        }
     ];
 
-    if (metricsEnabled) {
+    if (appConfig.metricsEnabled) {
         ports.push({
             name: "metrics",
             port: 9104,
-            targetPort: "metrics",
-        })
+            targetPort: "metrics"
+        });
     }
 
-    return new k8s.core.v1.Service(
-        name,
-        {
-            metadata: {
-                name: name,
-                labels: labels,
-                ...metricsEnabled && {
-                    annotations: {
-                        "prometheus.io/scrape": "true",
-                        "prometheus.io/port": "9104",
-                    },
-                },
-            },
-            spec: {
-                type: "ClusterIP",
-                ports: ports,
-                selector: labels,
-            },
-        });
+    return new k8s.core.v1.Service(appConfig.appName, {
+        metadata: {
+            name: appConfig.appName,
+            namespace: appConfig.namespace,
+            labels: labels,
+            ...(appConfig.metricsEnabled && {
+                annotations: {
+                    "prometheus.io/scrape": "true",
+                    "prometheus.io/port": "9104"
+                }
+            })
+        },
+        spec: {
+            type: "ClusterIP",
+            ports: ports,
+            selector: labels
+        }
+    });
 }
 
-export function makeSecret(
-    namespace: string, name: string, mariaRootPassword: string, labels: object={app:name},
-): k8s.core.v1.Secret {
-    return new k8s.core.v1.Secret(
-        name,
-        {
-            metadata: {
-                name: name,
-                namespace: namespace,
-                labels: labels,
-            },
-            type: "Opaque",
-            data: {
-                "mariadb-root-password": Buffer.from(mariaRootPassword).toString('base64'),
-            },
-        });
+export function makeSecret(appConfig: AppConfig): k8s.core.v1.Secret {
+    const labels = defaultLabels(appConfig);
+    return new k8s.core.v1.Secret(appConfig.appName, {
+        metadata: {
+            name: appConfig.appName,
+            namespace: appConfig.namespace,
+            labels: labels
+        },
+        type: "Opaque",
+        data: {
+            "mariadb-root-password": pulumi
+                .output(appConfig.mariaConfig)
+                .apply(config => Buffer.from(config.rootPassword).toString("base64")),
+            "mariadb-password": pulumi
+                .output(appConfig.mariaConfig)
+                .apply(config => Buffer.from(config.password).toString("base64"))
+        }
+    });
 }
 
-export function makeConfigMap(
-    namespace:string , name: string, labels: object={app:name},
-): k8s.core.v1.ConfigMap {
-    return new k8s.core.v1.ConfigMap(
-        name,
-        {
-            metadata: {
-                name: name,
-                namespace: namespace,
-                labels: labels,
-            },
-            data: {
-                "my.cnf": defaults.mariaConfig.cnf,
-            },
-        });
+export function makeConfigMap(appConfig: AppConfig): k8s.core.v1.ConfigMap {
+    const labels = defaultLabels(appConfig);
+    return new k8s.core.v1.ConfigMap(appConfig.appName, {
+        metadata: {
+            name: appConfig.appName,
+            namespace: appConfig.namespace,
+            labels: labels
+        },
+        data: {
+            "my.cnf": pulumi.output(appConfig.mariaConfig).apply(config => config.cnf)
+        }
+    });
 }
 
-export function makePersistentVolumeClaim(
-    namespace: string, name: string, storageClassName="", labels: object={app:name},
-): k8s.core.v1.PersistentVolumeClaim {
-    return new k8s.core.v1.PersistentVolumeClaim(
-        name,
-        {
-            metadata: {
-                name: name,
-                namespace: namespace,
-                labels: labels,
-            },
-            spec: {
-                accessModes: [
-                    defaults.mariaPvAccessMode,
-                ],
-                resources: {
-                    requests: {
-                        storage: defaults.mariaPvSize,
-                    },
-                },
-                ...defaults.mariaStorageClassName != null && {
-                    storageClassName: defaults.mariaStorageClassName
-                },
-            },
-        });
+export function makePersistentVolumeClaim(appConfig: AppConfig): k8s.core.v1.PersistentVolumeClaim {
+    const labels = defaultLabels(appConfig);
+    const accessModes = pulumi.output(appConfig.persistence).apply(pers => [pers.accessMode]);
+    const size = pulumi.output(appConfig.persistence).apply(pers => pers.size);
+    return new k8s.core.v1.PersistentVolumeClaim(appConfig.appName, {
+        metadata: {
+            name: appConfig.appName,
+            namespace: appConfig.namespace,
+            labels: labels
+        },
+        spec: {
+            accessModes: accessModes,
+            resources: {
+                requests: {
+                    storage: size
+                }
+            }
+        }
+    });
 }
 
 namespace deployment {
     export function makePersistent(
-        namespace: string, name: string, passwordSecretName: string, mariaConfig=defaults.mariaConfig,
-        metricsEnabled=true, existingClaim=name, labels={app:name}, configMapName=name,
+        appConfig: AppConfig,
+        passwordSecret: k8s.core.v1.Secret,
+        pvcName: pulumi.Input<string>,
+        configMap: k8s.core.v1.ConfigMap
     ): k8s.apps.v1.Deployment {
         const volume = {
             name: "data",
             persistentVolumeClaim: {
-                claimName: existingClaim
+                claimName: pvcName
             }
         };
-        const dep = base(namespace, name, passwordSecretName, mariaConfig, metricsEnabled,
-            existingClaim, labels, configMapName);
-            (<any>dep).spec.template.spec.volumes.push(volume);
-            (<any>dep).spec.template.spec.containers.map((c: any) => {
-                if (c.name == name) {
-                    c.volumeMounts.push({
-                        name: "data",
-                        mountPath: "/bitnami/mariadb",
-                    });
-                }
-                return c;
-            })
-            return dep;
+        const dep = base(appConfig, passwordSecret, configMap);
+        (<any>dep).spec.template.spec.volumes.push(volume);
+        (<any>dep).spec.template.spec.containers.map((c: any) => {
+            if (c.name == appConfig.appName) {
+                c.volumeMounts.push({
+                    name: "data",
+                    mountPath: "/bitnami/mariadb"
+                });
+            }
+            return c;
+        });
+        return new k8s.apps.v1.Deployment(appConfig.appName, dep);
     }
 
-    export function makeNonPersistent(
-        namespace: string, name: string, passwordSecretName: string,
-        mariaConfig=defaults.mariaConfig, metricsEnabled=true, existingClaim=name,
-        labels: object={app:name}, configMapName=name,
-    ): k8s.apps.v1.Deployment {
-        return base(namespace, name, passwordSecretName, mariaConfig, metricsEnabled, existingClaim,
-            labels, configMapName);
-    }
-
-    const secure = (passwordSecretName: string) => [
+    const secure = (passwordSecret: k8s.core.v1.Secret) => [
         {
             name: "MARIADB_ROOT_PASSWORD",
             valueFrom: {
                 secretKeyRef: {
-                    name: passwordSecretName,
-                    key: "mariadb-root-password",
-                },
-            },
+                    name: passwordSecret.metadata.apply(m => m.name),
+                    key: "mariadb-root-password"
+                }
+            }
         },
         {
             name: "MARIADB_PASSWORD",
             valueFrom: {
                 secretKeyRef: {
-                    name: passwordSecretName,
-                    key: "mariadb-password",
-                },
-            },
-        },
+                    name: passwordSecret.metadata.apply(m => m.name),
+                    key: "mariadb-password"
+                }
+            }
+        }
     ];
 
     const insecure = (passwordSecretName: string) => [
         {
             name: "ALLOW_EMPTY_PASSWORD",
-            value: "yes",
+            value: "yes"
         },
         {
             name: "MARIADB_PASSWORD",
             valueFrom: {
                 secretKeyRef: {
                     name: passwordSecretName,
-                    key: "mariadb-password",
-                },
-            },
+                    key: "mariadb-password"
+                }
+            }
         }
     ];
 
     const base = (
-        namespace:string, name: string, passwordSecretName: string,
-        mariaConfig: any, metricsEnabled: boolean, existingClaim: string,
-        labels: object, configMapName: string,
-    ): k8s.apps.v1.Deployment => {
+        appConfig: AppConfig,
+        passwordSecret: k8s.core.v1.Secret,
+        configMap: k8s.core.v1.ConfigMap
+    ): input.apps.v1.Deployment => {
+        const labels = defaultLabels(appConfig);
         const metricsContainer =
-        metricsEnabled == false
-        ? []
-        : [
-            {
-                name: "metrics",
-                image: `${defaults.metrics.image}:${defaults.metrics.imageTag}`,
-                imagePullPolicy: defaults.metrics.imagePullPolicy,
-                env: [
-                    {
-                        name: "MARIADB_ROOT_PASSWORD",
-                        valueFrom: {
-                            secretKeyRef: {
-                                name: name,
-                                key: "mariadb-root-password",
-                            },
-                        },
-                    },
-                ],
-                command: [ 'sh', '-c', 'DATA_SOURCE_NAME="root:$MARIADB_ROOT_PASSWORD@(localhost:3306)/" /bin/mysqld_exporter' ],
-                ports: [
-                    {
-                        name: "metrics",
-                        containerPort: 9104,
-                    },
-                ],
-                livenessProbe: {
-                    httpGet: {
-                        path: "/metrics",
-                        port: "metrics",
-                    },
-                    initialDelaySeconds: 15,
-                    timeoutSeconds: 5,
-                },
-                readinessProbe: {
-                    httpGet: {
-                        path: "/metrics",
-                        port: "metrics",
-                    },
-                    initialDelaySeconds: 5,
-                    timeoutSeconds: 1,
-                },
-                resources: defaults.metrics.resources,
-            },
-        ];
+            appConfig.metricsEnabled == false
+                ? []
+                : [
+                      {
+                          name: "metrics",
+                          image: pulumi
+                              .output(appConfig.metrics)
+                              .apply(m => `${m.image}:${m.imageTag}`),
+                          imagePullPolicy: pulumi
+                              .output(appConfig.metrics)
+                              .apply(m => m.imagePullPolicy),
+                          env: [
+                              {
+                                  name: "MARIADB_ROOT_PASSWORD",
+                                  valueFrom: {
+                                      secretKeyRef: {
+                                          name: appConfig.appName,
+                                          key: "mariadb-root-password"
+                                      }
+                                  }
+                              }
+                          ],
+                          command: [
+                              "sh",
+                              "-c",
+                              'DATA_SOURCE_NAME="root:$MARIADB_ROOT_PASSWORD@(localhost:3306)/" /bin/mysqld_exporter'
+                          ],
+                          ports: [
+                              {
+                                  name: "metrics",
+                                  containerPort: 9104
+                              }
+                          ],
+                          livenessProbe: {
+                              httpGet: {
+                                  path: "/metrics",
+                                  port: "metrics"
+                              },
+                              initialDelaySeconds: 15,
+                              timeoutSeconds: 5
+                          },
+                          readinessProbe: {
+                              httpGet: {
+                                  path: "/metrics",
+                                  port: "metrics"
+                              },
+                              initialDelaySeconds: 5,
+                              timeoutSeconds: 1
+                          },
+                          resources: pulumi.output(appConfig).apply(ac => ac.metrics.resources)
+                      }
+                  ];
 
-        return new k8s.apps.v1.Deployment(
-            name,
-            {
-                metadata: {
-                    name: name,
-                    namespace: namespace,
-                    labels: labels,
+        return {
+            metadata: {
+                name: appConfig.appName,
+                namespace: appConfig.namespace,
+                labels: labels
+            },
+            spec: {
+                selector: {
+                    matchLabels: labels
                 },
-                spec: {
-                    selector: {
-                        matchLabels: labels,
+                template: {
+                    metadata: {
+                        namespace: appConfig.namespace,
+                        labels: labels
                     },
-                    template: {
-                        metadata: {
-                            namespace: namespace,
-                            labels: labels,
-                        },
-                        spec: {
-                            containers: [
-                                {
-                                    name: "mariadb",
-                                    image: defaults.image,
-                                    imagePullPolicy: defaults.imagePullPolicy,
-                                    env: [
-                                        ...secure(passwordSecretName),
-                                        {
-                                            name: "MARIADB_USER",
-                                            value: mariaConfig.user
-                                        },
-                                        {
-                                            name: "MARIADB_DATABASE",
-                                            value:  mariaConfig.db
-                                        },
-                                    ],
-                                    ports: [
-                                        {
-                                            name: "mysql",
-                                            containerPort: 3306,
-                                        },
-                                    ],
-                                    livenessProbe: {
-                                        exec: {
-                                            command: [
-                                                "mysqladmin",
-                                                "ping",
-                                            ],
-                                        },
-                                        initialDelaySeconds: 30,
-                                        timeoutSeconds: 5,
+                    spec: {
+                        containers: [
+                            {
+                                name: "mariadb",
+                                image: appConfig.image,
+                                imagePullPolicy: appConfig.imagePullPolicy,
+                                env: [
+                                    ...secure(passwordSecret),
+                                    {
+                                        name: "MARIADB_USER",
+                                        value: pulumi
+                                            .output(appConfig)
+                                            .apply(ac => ac.mariaConfig.user)
                                     },
-                                    readinessProbe: {
-                                        exec: {
-                                            command: [
-                                                "mysqladmin",
-                                                "ping",
-                                            ],
-                                        },
-                                        initialDelaySeconds: 5,
-                                        timeoutSeconds: 1,
+                                    {
+                                        name: "MARIADB_DATABASE",
+                                        value: pulumi
+                                            .output(appConfig)
+                                            .apply(ac => ac.mariaConfig.db)
+                                    }
+                                ],
+                                ports: [
+                                    {
+                                        name: "mysql",
+                                        containerPort: 3306
+                                    }
+                                ],
+                                livenessProbe: {
+                                    exec: {
+                                        command: ["mysqladmin", "ping"]
                                     },
-                                    resources: defaults.resources,
-                                    volumeMounts: [
-                                        {
-                                            name: "config",
-                                            mountPath: "/bitnami/mariadb/conf/my_custom.cnf",
-                                            subPath: "my.cnf",
-                                        },
-                                    ],
+                                    initialDelaySeconds: 30,
+                                    timeoutSeconds: 5
                                 },
-                                ...metricsContainer
-                            ],
-                            volumes: [
-                                {
-                                    name: "config",
-                                    configMap: {
-                                        name: configMapName,
+                                readinessProbe: {
+                                    exec: {
+                                        command: ["mysqladmin", "ping"]
                                     },
+                                    initialDelaySeconds: 5,
+                                    timeoutSeconds: 1
+                                },
+                                resources: appConfig.resources,
+                                volumeMounts: [
+                                    {
+                                        name: "config",
+                                        mountPath: "/bitnami/mariadb/conf/my_custom.cnf",
+                                        subPath: "my.cnf"
+                                    }
+                                ]
+                            },
+                            ...metricsContainer
+                        ],
+                        volumes: [
+                            {
+                                name: "config",
+                                configMap: {
+                                    name: configMap.metadata.apply(m => m.name)
                                 }
-                            ],
-                        },
-                    },
-                },
-            });
+                            }
+                        ]
+                    }
+                }
+            }
+        };
     };
 }
 
@@ -366,8 +317,8 @@ namespace deployment {
 // Example app.
 // --------------------------------------------------------------------------
 
-const cm = makeConfigMap("default", "mariadb-app");
-const d = deployment.makeNonPersistent("default", "mariadb-app", "mariadb-app");
-// const pvc = persistentVolumeClaim.make("default", "mariadb-app");
-const s = makeSecret("default", "mariadb-app", "mariaRootPassword");
-const svc = makeService("default", "mariadb-app")
+const cm = makeConfigMap(appConfig);
+const s = makeSecret(appConfig);
+const pvc = makePersistentVolumeClaim(appConfig);
+const d = deployment.makePersistent(appConfig, s, pvc.metadata.apply(m => m.name), cm);
+const svc = makeService(appConfig);
