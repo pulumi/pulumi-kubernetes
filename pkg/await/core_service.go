@@ -346,7 +346,7 @@ func (sia *serviceInitAwaiter) errorMessages() []string {
 
 	if !sia.endpointsReady {
 		messages = append(messages,
-			"Service does not target any Pods. Application Pods may failed to become alive, or "+
+			"Service does not target any Pods. Selected Pods may not be ready, or "+
 				"field '.spec.selector' may not match labels on any Pods")
 	}
 
