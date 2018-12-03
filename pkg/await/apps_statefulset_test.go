@@ -140,7 +140,6 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				}},
 		},
 		{
-			// fixme: This should be failing - not sure why it's not producing an error message for the pod.
 			description: "[Revision 1] Failure should only report Pods from active StatefulSet, part 2",
 			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
 				podName := "foo-0"
@@ -151,7 +150,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				// Failed Pod should show up in the errors.
 				pods <- watchAddedEvent(statefulsetFailedPod(inputNamespace, podName, inputName))
 
-				// // Unrelated successful Pod should generate no errors.
+				// Unrelated successful Pod should generate no errors.
 				pods <- watchAddedEvent(statefulsetReadyPod(inputNamespace, podName, "bar"))
 
 				// Timeout. Failure.
@@ -161,6 +160,32 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetProgressing(inputNamespace, inputName, targetService),
 				subErrors: []string{
 					"Failed to observe the expected number of ready replicas",
+					"1 Pods failed to run because: [ErrImagePull] manifest for nginx:busted not found",
+				}},
+		},
+		{
+			description: "[Revision 2] Failure should only report Pods from active StatefulSet, part 2",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				podName := "foo-0"
+
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdating(inputNamespace, inputName, targetService))
+
+				// Failed Pod should show up in the errors.
+				pods <- watchAddedEvent(statefulsetFailedPod(inputNamespace, podName, inputName))
+
+				// Unrelated successful Pod should generate no errors.
+				pods <- watchAddedEvent(statefulsetReadyPod(inputNamespace, podName, "bar"))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: statefulsetUpdating(inputNamespace, inputName, targetService),
+				subErrors: []string{
+					"Failed to observe the expected number of ready replicas",
+					".status.currentRevision does not match .status.updateRevision",
+					"1 Pods failed to run because: [ErrImagePull] manifest for nginx:busted not found",
 				}},
 		},
 	}

@@ -169,7 +169,7 @@ func is404(err error) bool {
 func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
 	var possibleOwnerAPIVersion string
 
-	// Canonicalize apiVersion for Deployments.
+	// Canonicalize apiVersion.
 	switch possibleOwner.GetKind() {
 	case "Deployment":
 		possibleOwnerAPIVersion = canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion())

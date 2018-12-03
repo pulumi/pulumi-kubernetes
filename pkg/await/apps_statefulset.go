@@ -3,7 +3,6 @@ package await
 import (
 	"fmt"
 	"reflect"
-	"strings"
 	"time"
 
 	"github.com/golang/glog"
@@ -348,8 +347,6 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 }
 
 func (sia *statefulsetInitAwaiter) processPodEvent(event watch.Event) {
-	inputStatefulSetName := sia.config.currentInputs.GetName()
-
 	pod, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
 		glog.V(3).Infof("Pod watch received unknown object type %q",
@@ -358,10 +355,10 @@ func (sia *statefulsetInitAwaiter) processPodEvent(event watch.Event) {
 	}
 
 	// Check whether this Pod was created by our StatefulSet.
-	podName := pod.GetName()
-	if !strings.HasPrefix(podName, inputStatefulSetName) {
+	if !isOwnedBy(pod, sia.statefulset) {
 		return
 	}
+	podName := pod.GetName()
 
 	// If Pod was deleted, remove it from our aggregated checkers.
 	if event.Type == watch.Deleted {
@@ -376,7 +373,7 @@ func (sia *statefulsetInitAwaiter) aggregatePodErrors() ([]string, []string) {
 	scheduleErrorCounts := map[string]int{}
 	containerErrorCounts := map[string]int{}
 	for _, pod := range sia.pods {
-		// Filter down to only Pods owned by the active ReplicaSet.
+		// Filter down to only Pods owned by the active StatefulSet.
 		if !isOwnedBy(pod, sia.statefulset) {
 			continue
 		}
