@@ -13,8 +13,8 @@ import (
 func Test_Apps_StatefulSet(t *testing.T) {
 	const (
 		inputNamespace = "default"
-		inputName = "foo"
-		targetService = "foo-service"
+		inputName      = "foo"
+		targetService  = "foo-service"
 	)
 	tests := []struct {
 		description   string
@@ -204,6 +204,57 @@ func Test_Apps_StatefulSet(t *testing.T) {
 
 		err := awaiter.await(&chanWatcher{results: statefulsets}, &chanWatcher{results: pods}, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
+	}
+}
+
+func Test_Apps_StatefulSetRead(t *testing.T) {
+	const (
+		inputNamespace = "default"
+		inputName      = "foo"
+		targetService  = "foo-service"
+	)
+	tests := []struct {
+		description       string
+		statefulset       func(namespace, name, targetService string) *unstructured.Unstructured
+		expectedSubErrors []string
+	}{
+		{
+			description: "Read should fail if StatefulSet status empty",
+			statefulset: statefulsetAdded,
+			expectedSubErrors: []string{
+				"Failed to observe the expected number of ready replicas",
+				".status.currentRevision does not match .status.updateRevision",
+			},
+		},
+		{
+			description: "Read should fail if StatefulSet is progressing",
+			statefulset: statefulsetProgressing,
+			expectedSubErrors: []string{
+				"Failed to observe the expected number of ready replicas",
+			},
+		},
+		{
+			description: "Read should succeed if StatefulSet is ready",
+			statefulset: statefulsetReady,
+		},
+		{
+			description: "Read should succeed if StatefulSet update is ready",
+			statefulset: statefulsetUpdateSuccess,
+		},
+	}
+
+	for _, test := range tests {
+		awaiter := makeStatefulSetInitAwaiter(
+			updateAwaitConfig{
+				createAwaitConfig: mockAwaitConfig(statefulsetInput(inputNamespace, inputName, targetService)),
+			})
+		statefulset := test.statefulset(inputNamespace, inputName, targetService)
+		err := awaiter.read(statefulset, unstructuredList())
+		if test.expectedSubErrors != nil {
+			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
+		} else {
+			assert.Nil(t, err, test.description)
+		}
 	}
 }
 
