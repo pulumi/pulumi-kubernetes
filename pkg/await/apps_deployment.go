@@ -3,7 +3,6 @@ package await
 import (
 	"fmt"
 	"reflect"
-	"strings"
 	"time"
 
 	"github.com/golang/glog"
@@ -459,7 +458,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	// we would now have fewer replicas than we had requested in the `Deployment` we last submitted
 	// when we last ran `pulumi up`.
 	rawSpecReplicas, specReplicasExists := openapi.Pluck(rs.Object, "spec", "replicas")
-	specReplicas, _ := rawSpecReplicas.(float64)
+	specReplicas, _ := rawSpecReplicas.(int64)
 	if !specReplicasExists {
 		specReplicas = 1
 	}
@@ -505,8 +504,6 @@ func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
 }
 
 func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
-	inputDeploymentName := dia.config.currentInputs.GetName()
-
 	pod, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
 		glog.V(3).Infof("Pod watch received unknown object type '%s'",
@@ -515,10 +512,11 @@ func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 	}
 
 	// Check whether this Pod was created by our Deployment.
-	podName := pod.GetName()
-	if !strings.HasPrefix(podName+"-", inputDeploymentName) {
+	currentReplicaSet := dia.replicaSets[dia.currentGeneration]
+	if !isOwnedBy(pod, currentReplicaSet) {
 		return
 	}
+	podName := pod.GetName()
 
 	// If Pod was deleted, remove it from our aggregated checkers.
 	if event.Type == watch.Deleted {
@@ -653,6 +651,10 @@ func canonicalizeDeploymentAPIVersion(ver string) string {
 }
 
 func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
+	if possibleOwner == nil {
+		return false
+	}
+
 	var possibleOwnerAPIVersion string
 
 	// Canonicalize apiVersion for Deployments.
