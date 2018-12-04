@@ -167,6 +167,10 @@ func is404(err error) bool {
 // --------------------------------------------------------------------------
 
 func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
+	if possibleOwner == nil {
+		return false
+	}
+
 	var possibleOwnerAPIVersion string
 
 	// Canonicalize apiVersion.

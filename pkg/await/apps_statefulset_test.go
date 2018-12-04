@@ -88,6 +88,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 			expectedError: &timeoutError{
 				object: statefulsetUpdating(inputNamespace, inputName, targetService),
 				subErrors: []string{
+					// TODO: update error message
+					// x of y replicas succeeded readiness checks
 					"Failed to observe the expected number of ready replicas",
 					".status.currentRevision does not match .status.updateRevision",
 				}},
@@ -207,6 +209,74 @@ func Test_Apps_StatefulSet(t *testing.T) {
 	}
 }
 
+func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
+	tests := []struct {
+		description string
+		inputs      func() *unstructured.Unstructured
+		firstUpdate func(statefulsets, pods chan watch.Event, timeout chan time.Time,
+			setLast setLastInputs)
+		secondUpdate        func(statefulsets, pods chan watch.Event, timeout chan time.Time)
+		firstExpectedError  error
+		secondExpectedError error
+	}{
+		{
+			description: "StatefulSet fails, is updated with working config, and then succeeds",
+			inputs:      statefulsetFailed,
+			firstUpdate: func(
+				statefulsets, pods chan watch.Event, timeout chan time.Time,
+				setLast setLastInputs,
+			) {
+				statefulsets <- watchAddedEvent(statefulsetFailed())
+
+				setLast(statefulsetFailed())
+				// Timeout. Failed.
+				timeout <- time.Now()
+			},
+			firstExpectedError: &timeoutError{
+				object: statefulsetFailed(),
+				subErrors: []string{
+					"Failed to observe the expected number of ready replicas",
+				}},
+			secondUpdate: func(statefulset, pods chan watch.Event, timeout chan time.Time) {
+				statefulset <- watchAddedEvent(statefulsetUpdatedAfterFailed())
+				statefulset <- watchAddedEvent(statefulsetSucceedAfterFailed())
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+	}
+
+	for _, test := range tests {
+		awaiter := makeStatefulSetInitAwaiter(
+			updateAwaitConfig{
+				createAwaitConfig: mockAwaitConfig(test.inputs()),
+			})
+		statefulsets := make(chan watch.Event)
+		pods := make(chan watch.Event)
+
+		timeout := make(chan time.Time)
+		period := make(chan time.Time)
+		go test.firstUpdate(statefulsets, pods, timeout,
+			func(obj *unstructured.Unstructured) {
+				awaiter.config.lastInputs = obj
+			})
+
+		err := awaiter.await(&chanWatcher{results: statefulsets}, &chanWatcher{results: pods}, timeout, period)
+		assert.Equal(t, test.firstExpectedError, err, test.description)
+
+		statefulsets = make(chan watch.Event)
+		pods = make(chan watch.Event)
+
+		timeout = make(chan time.Time)
+		period = make(chan time.Time)
+		go test.secondUpdate(statefulsets, pods, timeout)
+
+		err = awaiter.await(&chanWatcher{results: statefulsets}, &chanWatcher{results: pods}, timeout, period)
+		assert.Equal(t, test.secondExpectedError, err, test.description)
+	}
+}
+
 func Test_Apps_StatefulSetRead(t *testing.T) {
 	const (
 		inputNamespace = "default"
@@ -264,6 +334,7 @@ func Test_Apps_StatefulSetRead(t *testing.T) {
 
 // --------------------------------------------------------------------------
 
+// statefulsetInput is the user-provided declaration of a StatefulSet
 func statefulsetInput(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
@@ -330,6 +401,7 @@ func statefulsetInput(namespace, name, targetService string) *unstructured.Unstr
 	return obj
 }
 
+// statefulsetAdded is the initial state of the StatefulSet object after being added through the API
 func statefulsetAdded(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
@@ -400,6 +472,7 @@ func statefulsetAdded(namespace, name, targetService string) *unstructured.Unstr
 	return obj
 }
 
+// statefulsetCreating is the state of the StatefulSet object while initial Pods are created but before any are ready
 func statefulsetCreating(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
@@ -475,6 +548,7 @@ func statefulsetCreating(namespace, name, targetService string) *unstructured.Un
 	return obj
 }
 
+// statefulsetProgressing is the state of the StatefulSet object after a Pod is ready
 func statefulsetProgressing(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
@@ -551,6 +625,7 @@ func statefulsetProgressing(namespace, name, targetService string) *unstructured
 	return obj
 }
 
+// statefulsetReady is the state of the StatefulSet object after all Pods are ready
 func statefulsetReady(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
@@ -627,6 +702,7 @@ func statefulsetReady(namespace, name, targetService string) *unstructured.Unstr
 	return obj
 }
 
+// statefulsetReady is the state of the StatefulSet object after an update is issued through the API
 func statefulsetUpdate(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
@@ -694,6 +770,7 @@ func statefulsetUpdate(namespace, name, targetService string) *unstructured.Unst
 	return obj
 }
 
+// statefulsetUpdating is the state of the StatefulSet object while an update is rolling out
 func statefulsetUpdating(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
@@ -770,6 +847,7 @@ func statefulsetUpdating(namespace, name, targetService string) *unstructured.Un
 	return obj
 }
 
+// statefulsetUpdating is the state of the StatefulSet object while an update is rolling out and a new Pod is active
 func statefulsetUpdatingWithActiveReplica(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
@@ -847,6 +925,7 @@ func statefulsetUpdatingWithActiveReplica(namespace, name, targetService string)
 	return obj
 }
 
+// statefulsetUpdateSuccess is the state of the StatefulSet object after an update is rolled out successfully
 func statefulsetUpdateSuccess(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
@@ -923,6 +1002,7 @@ func statefulsetUpdateSuccess(namespace, name, targetService string) *unstructur
 	return obj
 }
 
+// statefulsetReadyPod is an example Pod created by a StatefulSet that is ready
 func statefulsetReadyPod(namespace, name, statefulsetName string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
@@ -1085,6 +1165,7 @@ func statefulsetReadyPod(namespace, name, statefulsetName string) *unstructured.
 	return obj
 }
 
+// statefulsetFailedPod is an example Pod created by a StatefulSet that is failed
 func statefulsetFailedPod(namespace, name, statefulsetName string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
@@ -1245,6 +1326,237 @@ func statefulsetFailedPod(namespace, name, statefulsetName string) *unstructured
         "startTime": "2018-11-30T21:59:10Z"
     }
 }`, statefulsetName, statefulsetName, name, namespace, statefulsetName, statefulsetName, statefulsetName))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// statefulsetFailed is the state of the StatefulSet object that is failing to be ready (invalid image)
+func statefulsetFailed() *unstructured.Unstructured {
+	obj, err := decodeUnstructured(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "default",
+        "name": "foo",
+		"generation": 1,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "ss-service",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:busted",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    },
+	"status": {
+		"replicas": 1,
+		"collisionCount": 0,
+		"currentReplicas": 1,
+		"currentRevision": "foo-7b5cf87b78",
+		"observedGeneration": 1,
+		"updateRevision": "foo-7b5cf87b78"
+    }
+}`)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// statefulsetFailed is the state of the StatefulSet object that is updating after failing to be ready (invalid image)
+func statefulsetUpdatedAfterFailed() *unstructured.Unstructured {
+	obj, err := decodeUnstructured(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "default",
+        "name": "foo",
+		"generation": 2,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "ss-service",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    },
+	"status": {
+		"collisionCount": 0,
+		"currentRevision": "foo-7b5cf87b78",
+		"observedGeneration": 2,
+		"readyReplicas": 1,
+		"replicas": 2,
+		"updateRevision": "foo-789c4b994f",
+		"updatedReplicas": 1
+    }
+}`)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// statefulsetSucceedAfterFailed is the state of the StatefulSet object that succeeded
+// after failing to be ready (invalid image)
+func statefulsetSucceedAfterFailed() *unstructured.Unstructured {
+	obj, err := decodeUnstructured(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "default",
+        "name": "foo",
+		"generation": 2,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "ss-service",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    },
+	"status": {
+		"collisionCount": 0,
+		"currentReplicas": 2,
+		"currentRevision": "foo-789c4b994f",
+		"observedGeneration": 2,
+		"readyReplicas": 2,
+		"replicas": 2,
+		"updateRevision": "foo-789c4b994f"
+    }
+}`)
 	if err != nil {
 		panic(err)
 	}

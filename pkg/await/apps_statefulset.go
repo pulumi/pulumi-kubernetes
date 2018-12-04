@@ -101,8 +101,6 @@ type statefulsetInitAwaiter struct {
 	replicasReady     bool
 	currentGeneration int64
 
-	statefulsetErrors map[string]string
-
 	statefulset     *unstructured.Unstructured
 	pods            map[string]*unstructured.Unstructured
 	currentReplicas int64
@@ -117,8 +115,6 @@ func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
 
 		// NOTE: Generation 0 is invalid, so this is a good sentinel value.
 		currentGeneration: 0,
-
-		statefulsetErrors: map[string]string{},
 
 		statefulset: c.currentOutputs,
 		pods:        map[string]*unstructured.Unstructured{},
@@ -295,7 +291,6 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 	}
 
 	// Start over, prove that rollout is complete.
-	sia.statefulsetErrors = map[string]string{}
 	sia.revisionReady = false
 	sia.replicasReady = false
 
@@ -436,9 +431,6 @@ func (sia *statefulsetInitAwaiter) aggregatePodErrors() ([]string, []string) {
 
 func (sia *statefulsetInitAwaiter) errorMessages() []string {
 	messages := make([]string, 0)
-	for _, message := range sia.statefulsetErrors {
-		messages = append(messages, message)
-	}
 
 	if !sia.replicasReady {
 		messages = append(messages,
