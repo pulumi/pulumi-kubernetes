@@ -651,6 +651,10 @@ func canonicalizeDeploymentAPIVersion(ver string) string {
 }
 
 func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
+	if possibleOwner == nil {
+		return false
+	}
+
 	var possibleOwnerAPIVersion string
 
 	// Canonicalize apiVersion for Deployments.
