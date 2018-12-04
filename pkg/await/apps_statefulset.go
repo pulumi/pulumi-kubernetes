@@ -39,6 +39,30 @@ import (
 //      value of `.spec.replicas`.
 //   2. `.status.updateRevision` matches `.status.currentRevision`.
 //
+// ------
+// The following table illustrates the timeline of status updates:
+//
+// Current replicas    Ready replicas  Updated replicas    Notes
+// 3                   3               --
+// <Update image>
+// 2                   3               --                  observedGeneration/updateRevision changes
+// 2                   2               --
+// 2                   2               1
+// 1                   3               1
+// 1                   2               1
+// 1                   2               2
+// --                  3               2
+// --                  2               2
+// --                  2               3
+// 3                   3               3                   currentRevision updated to updateRevision
+// 3                   3               --
+//
+// (1) observedGeneration updated (corresponds to .metadata.generation)
+// (2) updateRevision updated -> currentRevision matches updateRevision
+// (3) spec.replicas == current replicas == ready replicas == updated replicas (field deleted after currentRevision updates)
+//
+// ------
+//
 // The event loop depends on the following channels:
 //
 //   1. The StatefulSet channel, to which the Kubernetes API server will push every change
