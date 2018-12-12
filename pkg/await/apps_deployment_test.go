@@ -13,6 +13,7 @@ import (
 const (
 	inputNamespace          = "default"
 	deploymentInputName     = "foo-4setj4y6"
+	pvcInputName            = "foo"
 	replicaSetGeneratedName = "foo-4setj4y6-7cdf7ddc54"
 	revision1               = "1"
 	revision2               = "2"
@@ -557,7 +558,63 @@ func Test_Apps_Deployment(t *testing.T) {
 		go test.do(deployments, replicaSets, pods, timeout)
 
 		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
-			&chanWatcher{results: pods}, timeout, period)
+			&chanWatcher{results: pods}, &chanWatcher{}, timeout, period)
+		assert.Equal(t, test.expectedError, err, test.description)
+	}
+}
+
+func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
+	tests := []struct {
+		description   string
+		do            func(deployments, replicaSets, pods, pvcs chan watch.Event, timeout chan time.Time)
+		expectedError error
+	}{
+		{
+			description: "[Revision 1] Deployment should fail if Deployment reports 'Progressing' failure due to a PersistentVolumeClaim being in the 'Pending' phase: it has not successfully bounded to a PersistentVolume",
+			do: func(deployments, replicaSets, pods, pvcs chan watch.Event, timeout chan time.Time) {
+				// User submits a Deployment with a PersistentVolumeClaim.
+				// Controller creates ReplicaSet, and it tries to progress, but
+				// it fails when there are no PersistentVolumes available to fulfill the
+				// PersistentVolumeClaim.
+				pvcs <- watchAddedEvent(
+					persistentVolumeClaimInput(inputNamespace, pvcInputName))
+				deployments <- watchAddedEvent(
+					deploymentWithPVCAdded(inputNamespace, deploymentInputName, revision1, pvcInputName))
+				deployments <- watchAddedEvent(
+					deploymentWithPVCProgressing(inputNamespace, deploymentInputName, revision1, pvcInputName))
+				deployments <- watchAddedEvent(
+					deploymentWithPVCNotProgressing(inputNamespace, deploymentInputName, revision1, pvcInputName))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSetWithPVC(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1, pvcInputName))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: deploymentWithPVCNotProgressing(inputNamespace, deploymentInputName, revision1, pvcInputName),
+				subErrors: []string{
+					`[ProgressDeadlineExceeded] ReplicaSet "foo-13y9rdnu-b94df86d6" has timed ` +
+						`out progressing.`,
+					fmt.Sprintf("Failed to bind PersistentVolumeClaim(s): %q", pvcInputName)}},
+		},
+	}
+
+	for _, test := range tests {
+		awaiter := makeDeploymentInitAwaiter(
+			updateAwaitConfig{
+				createAwaitConfig: mockAwaitConfig(deploymentWithPVCInput(inputNamespace, deploymentInputName, pvcInputName)),
+			})
+		deployments := make(chan watch.Event)
+		replicaSets := make(chan watch.Event)
+		pods := make(chan watch.Event)
+		pvcs := make(chan watch.Event)
+
+		timeout := make(chan time.Time)
+		period := make(chan time.Time)
+		go test.do(deployments, replicaSets, pods, pvcs, timeout)
+
+		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
+			&chanWatcher{results: pods}, &chanWatcher{results: pvcs}, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -615,7 +672,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 			})
 
 		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
-			&chanWatcher{results: pods}, timeout, period)
+			&chanWatcher{results: pods}, &chanWatcher{}, timeout, period)
 		assert.Nil(t, err, test.description)
 
 		deployments = make(chan watch.Event)
@@ -627,7 +684,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 		go test.secondUpdate(deployments, replicaSets, pods, timeout)
 
 		err = awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
-			&chanWatcher{results: pods}, timeout, period)
+			&chanWatcher{results: pods}, &chanWatcher{}, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -755,7 +812,7 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			})
 		service := test.deployment("default", "foo-4setj4y6", test.deploymentRevision)
 		replicaset := test.replicaset("default", "foo-4setj4y6", "foo-4setj4y6", test.replicaSetRevision)
-		err := awaiter.read(service, unstructuredList(*replicaset), unstructuredList())
+		err := awaiter.read(service, unstructuredList(*replicaset), unstructuredList(), unstructuredList())
 		if test.expectedSubErrors != nil {
 			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
 		} else {
@@ -1563,6 +1620,319 @@ func deploymentUpdatedReplicaSetProgressed(namespace, name, revision string) *un
 	return obj
 }
 
+func deploymentWithPVCAdded(namespace, name, revision, pvcName string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "Deployment",
+    "apiVersion": "extensions/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+        "generation": 1,
+        "labels": {
+            "app": "foo"
+        },
+        "annotations": {
+            "deployment.kubernetes.io/revision": "%s",
+            "pulumi.com/autonamed": "true"
+        }
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/opt/data",
+                                "name": "data"
+                            }
+                        ]
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "data",
+                        "persistentVolumeClaim": {
+                            "claimName": "%s"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "status": {}
+}`, namespace, name, revision, pvcName))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func deploymentWithPVCProgressing(namespace, name, revision, pvcName string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "Deployment",
+    "apiVersion": "extensions/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+        "generation": 1,
+        "labels": {
+            "app": "foo"
+        },
+        "annotations": {
+            "deployment.kubernetes.io/revision": "%s",
+            "pulumi.com/autonamed": "true"
+        }
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/opt/data",
+                                "name": "data"
+                            }
+                        ]
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "data",
+                        "persistentVolumeClaim": {
+                            "claimName": "%s"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "conditions": [
+            {
+                "type": "Progressing",
+                "status": "True",
+                "lastUpdateTime": "2018-07-31T21:49:04Z",
+                "lastTransitionTime": "2018-07-31T21:49:04Z",
+                "reason": "NewReplicaSetCreated",
+                "message": "Created new replica set \"foo-lobqxn87-546cb87d96\""
+            }
+        ]
+    }
+}`, namespace, name, revision, pvcName))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func deploymentWithPVCNotProgressing(namespace, name, revision, pvcName string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "Deployment",
+    "metadata": {
+        "generation": 3,
+        "labels": {
+            "app": "foo"
+        },
+        "namespace": "%s",
+        "name": "%s",
+        "annotations": {
+            "deployment.kubernetes.io/revision": "%s",
+            "pulumi.com/autonamed": "true"
+        }
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+						"name": "nginx",
+                        "image": "nginx",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/opt/data",
+                                "name": "data"
+                            }
+                        ]
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "data",
+                        "persistentVolumeClaim": {
+                            "claimName": "%s"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "availableReplicas": 1,
+        "conditions": [
+            {
+                "lastTransitionTime": "2018-07-31T23:42:21Z",
+                "lastUpdateTime": "2018-07-31T23:42:21Z",
+                "message": "Deployment has minimum availability.",
+                "reason": "MinimumReplicasAvailable",
+                "status": "True",
+                "type": "Available"
+            },
+            {
+                "lastTransitionTime": "2018-08-01T02:46:31Z",
+                "lastUpdateTime": "2018-08-01T02:46:31Z",
+                "message": "ReplicaSet \"foo-13y9rdnu-b94df86d6\" has timed out progressing.",
+                "reason": "ProgressDeadlineExceeded",
+                "status": "False",
+                "type": "Progressing"
+            }
+        ],
+        "observedGeneration": 3,
+        "readyReplicas": 1,
+        "replicas": 2,
+        "unavailableReplicas": 1,
+        "updatedReplicas": 1
+    }
+}`, namespace, name, revision, pvcName))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func deploymentWithPVCInput(namespace, name, pvcName string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "Deployment",
+    "apiVersion": "extensions/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/opt/data",
+                                "name": "data"
+                            }
+                        ]
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "data",
+                        "persistentVolumeClaim": {
+                            "claimName": "%s"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}`, namespace, name, pvcName))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// --------------------------------------------------------------------------
+
+// PersistentVolumeClaim objects.
+
+// --------------------------------------------------------------------------
+
+func persistentVolumeClaimInput(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "PersistentVolumeClaim",
+    "apiVersion": "v1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "accessModes": [
+            "ReadWriteOnce"
+        ],
+        "dataSource": null,
+        "resources": {
+            "requests": {
+                "storage": "1Gi"
+            }
+        },
+        "storageClassName": "standard"
+    }
+}`, namespace, name))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
 // --------------------------------------------------------------------------
 
 // Tests from data found in the wild
@@ -2118,6 +2488,103 @@ func availableReplicaSet(namespace, name, deploymentName, revision string) *unst
     }
 }
 `, revision, namespace, name, deploymentName))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func availableReplicaSetWithPVC(namespace, name, deploymentName, revision, pvcName string) *unstructured.Unstructured {
+	// nolint
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "ReplicaSet",
+    "metadata": {
+        "annotations": {
+            "deployment.kubernetes.io/desired-replicas": "3",
+            "deployment.kubernetes.io/max-replicas": "4",
+            "deployment.kubernetes.io/revision": "%s",
+            "deployment.kubernetes.io/revision-history": "3",
+            "moolumi.com/metricsChecked": "true",
+            "pulumi.com/autonamed": "true"
+        },
+        "creationTimestamp": "2018-08-03T05:03:53Z",
+        "generation": 1,
+        "labels": {
+            "app": "foo",
+            "pod-template-hash": "3789388710"
+        },
+        "namespace": "%s",
+        "name": "%s",
+        "ownerReferences": [
+            {
+                "apiVersion": "extensions/v1beta1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "Deployment",
+                "name": "%s",
+                "uid": "e4a728af-96d9-11e8-9050-080027bd9056"
+            }
+        ]
+    },
+    "spec": {
+        "replicas": 3,
+        "selector": {
+            "matchLabels": {
+                "app": "foo",
+                "pod-template-hash": "3789388710"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "foo",
+                    "pod-template-hash": "3789388710"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "nginx:1.15-alpine",
+                        "imagePullPolicy": "Always",
+                        "name": "nginx",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/opt/data",
+                                "name": "data"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30,
+                "volumes": [
+                    {
+                        "name": "data",
+                        "persistentVolumeClaim": {
+                            "claimName": "%s"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "availableReplicas": 3,
+        "fullyLabeledReplicas": 3,
+        "observedGeneration": 3,
+        "readyReplicas": 3,
+        "replicas": 3
+    }
+}
+`, revision, namespace, name, deploymentName, pvcName))
 	if err != nil {
 		panic(err)
 	}
