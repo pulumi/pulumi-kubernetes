@@ -9,6 +9,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"k8s.io/api/extensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -50,6 +51,7 @@ type ingressInitAwaiter struct {
 	endpointsReady   bool
 	endpointsSettled bool
 	endpointExists   map[string]bool
+	externalServices map[string]bool
 }
 
 func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
@@ -60,6 +62,7 @@ func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
 		endpointsReady:   false,
 		endpointsSettled: false,
 		endpointExists:   make(map[string]bool),
+		externalServices: make(map[string]bool),
 	}
 }
 
@@ -79,9 +82,10 @@ func (iia *ingressInitAwaiter) Await() error {
 	//
 	// We succeed only when all of the following are true:
 	//
-	//   1. Ingress object exists.
-	//   2. Endpoint objects exist with matching names for each Ingress path.
-	//   3. Ingress entry exists for .status.loadBalancer.ingress.
+	//   1.  Ingress object exists.
+	//   2.  Endpoint objects exist with matching names for each Ingress path.
+	//	 2.1 Alternatively, a Service with type: ExternalName must path the Ingress path.
+	//   3.  Ingress entry exists for .status.loadBalancer.ingress.
 	//
 
 	// Create ingress watcher.
@@ -109,7 +113,23 @@ func (iia *ingressInitAwaiter) Await() error {
 	}
 	defer endpointWatcher.Stop()
 
-	return iia.await(ingressWatcher, endpointWatcher, time.After(10*time.Minute), make(chan struct{}))
+	servicesClient, err := client.FromGVK(iia.config.pool, iia.config.disco, schema.GroupVersionKind{
+		Group:   "",
+		Version: "v1",
+		Kind:    "Service",
+	}, iia.config.currentInputs.GetNamespace())
+	if err != nil {
+		glog.V(3).Infof("Failed to initialize Services client: %v", err)
+		return err
+	}
+	serviceWatcher, err := servicesClient.Watch(metav1.ListOptions{})
+	if err != nil {
+		return errors.Wrapf(err,
+			"Could not create watcher for Service objects associated with Ingress %q",
+			iia.config.currentInputs.GetName())
+	}
+
+	return iia.await(ingressWatcher, serviceWatcher, endpointWatcher, make(chan struct{}), time.After(10*time.Minute))
 }
 
 func (iia *ingressInitAwaiter) Read() error {
@@ -137,16 +157,36 @@ func (iia *ingressInitAwaiter) Read() error {
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	return iia.read(ingress, endpointList.(*unstructured.UnstructuredList))
+	servicesClient, err := client.FromGVK(iia.config.pool, iia.config.disco, schema.GroupVersionKind{
+		Group:   "",
+		Version: "v1",
+		Kind:    "Service",
+	}, iia.config.currentInputs.GetNamespace())
+	if err != nil {
+		glog.V(3).Infof("Failed to initialize Services client: %v", err)
+		return err
+	}
+	serviceList, err := servicesClient.List(metav1.ListOptions{})
+	if err != nil {
+		glog.V(3).Infof("Failed to list services needed for Ingress awaiter: %v", err)
+		serviceList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
+	}
+
+	return iia.read(ingress, endpointList.(*unstructured.UnstructuredList), serviceList.(*unstructured.UnstructuredList))
 }
 
-func (iia *ingressInitAwaiter) read(
-	ingress *unstructured.Unstructured,
-	endpoints *unstructured.UnstructuredList,
-) error {
+func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
+	services *unstructured.UnstructuredList) error {
 	iia.processIngressEvent(watchAddedEvent(ingress))
 
-	var err error
+	err := services.EachListItem(func(service runtime.Object) error {
+		iia.processServiceEvent(watchAddedEvent(service.(*unstructured.Unstructured)))
+		return nil
+	})
+	if err != nil {
+		glog.V(3).Infof("Error iterating over endpoint list for service %q: %v", ingress.GetName(), err)
+	}
+
 	settled := make(chan struct{})
 
 	glog.V(3).Infof("Processing endpoint list: %#v", endpoints)
@@ -158,6 +198,7 @@ func (iia *ingressInitAwaiter) read(
 		glog.V(3).Infof("Error iterating over endpoint list for ingress %q: %v", ingress.GetName(), err)
 	}
 
+	iia.endpointsReady = iia.checkIfEndpointsReady()
 	iia.endpointsSettled = true
 	if iia.checkAndLogStatus() {
 		return nil
@@ -170,10 +211,8 @@ func (iia *ingressInitAwaiter) read(
 }
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
-func (iia *ingressInitAwaiter) await(
-	ingressWatcher, endpointWatcher watch.Interface, timeout <-chan time.Time,
-	settled chan struct{},
-) error {
+func (iia *ingressInitAwaiter) await(ingressWatcher, serviceWatcher, endpointWatcher watch.Interface,
+	settled chan struct{}, timeout <-chan time.Time) error {
 	iia.config.logStatus(diag.Info, "[1/3] Finding a matching service for each Ingress path")
 
 	for {
@@ -195,6 +234,7 @@ func (iia *ingressInitAwaiter) await(
 			}
 		case <-timeout:
 			// On timeout, check one last time if the ingress is ready.
+			iia.endpointsReady = iia.checkIfEndpointsReady()
 			if iia.ingressReady && iia.endpointsReady {
 				return nil
 			}
@@ -208,7 +248,27 @@ func (iia *ingressInitAwaiter) await(
 			iia.processIngressEvent(event)
 		case event := <-endpointWatcher.ResultChan():
 			iia.processEndpointEvent(event, settled)
+		case event := <-serviceWatcher.ResultChan():
+			iia.processServiceEvent(event)
 		}
+	}
+}
+
+func (iia *ingressInitAwaiter) processServiceEvent(event watch.Event) {
+	service, isUnstructured := event.Object.(*unstructured.Unstructured)
+	if !isUnstructured {
+		glog.V(3).Infof("Service watch received unknown object type %q",
+			reflect.TypeOf(service))
+		return
+	}
+
+	name := service.GetName()
+
+	t, ok := openapi.Pluck(service.Object, "spec", "type")
+	if ok && t.(string) == "ExternalName" {
+		iia.externalServices[name] = true
+	} else {
+		iia.externalServices[name] = false
 	}
 }
 
@@ -217,7 +277,7 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 
 	ingress, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Ingress watch received unknown object type '%s'",
+		glog.V(3).Infof("Ingress watch received unknown object type %q",
 			reflect.TypeOf(ingress))
 		return
 	}
@@ -242,15 +302,32 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 		return
 	}
 
+	var serviceNames []string
+	for _, rule := range obj.Spec.Rules {
+		for _, path := range rule.HTTP.Paths {
+			serviceNames = append(serviceNames, path.Backend.ServiceName)
+		}
+	}
+	iia.ignoreExternalNameServices(serviceNames)
+
 	iia.endpointsReady = iia.checkIfEndpointsReady()
 
-	glog.V(3).Infof("Received status for ingress '%s': %#v", inputIngressName, obj.Status)
+	glog.V(3).Infof("Received status for ingress %q: %#v", inputIngressName, obj.Status)
 
 	// Update status of ingress object so that we can check success.
 	iia.ingressReady = len(obj.Status.LoadBalancer.Ingress) > 0
 
-	glog.V(3).Infof("Waiting for ingress '%q' to update .status.loadBalancer with hostname/IP",
+	glog.V(3).Infof("Waiting for ingress %q to update .status.loadBalancer with hostname/IP",
 		inputIngressName)
+}
+
+func (iia *ingressInitAwaiter) ignoreExternalNameServices(names []string) {
+	// Services with type: ExternalName do not have associated Pods/Endpoints to wait for, so mark as ready.
+	for _, name := range names {
+		if iia.externalServices[name] {
+			iia.endpointExists[name] = true
+		}
+	}
 }
 
 func decodeIngress(u *unstructured.Unstructured) (*v1beta1.Ingress, error) {
@@ -276,6 +353,11 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
 
 	for _, rule := range obj.Spec.Rules {
 		for _, path := range rule.HTTP.Paths {
+			// Ignore ExternalName services
+			if iia.externalServices[path.Backend.ServiceName] {
+				continue
+			}
+
 			if !iia.endpointExists[path.Backend.ServiceName] {
 				iia.config.logStatus(diag.Error,
 					fmt.Sprintf("No matching service found for ingress rule: %q", path.Path))
