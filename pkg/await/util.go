@@ -159,3 +159,43 @@ func is404(err error) bool {
 	statusErr, ok := err.(*errors.StatusError)
 	return ok && statusErr.ErrStatus.Code == 404
 }
+
+// --------------------------------------------------------------------------
+
+// Ownership helpers.
+
+// --------------------------------------------------------------------------
+
+func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
+	if possibleOwner == nil {
+		return false
+	}
+
+	var possibleOwnerAPIVersion string
+
+	// Canonicalize apiVersion.
+	switch possibleOwner.GetKind() {
+	case "Deployment":
+		possibleOwnerAPIVersion = canonicalizeDeploymentAPIVersion(possibleOwner.GetAPIVersion())
+	case "StatefulSet":
+		possibleOwnerAPIVersion = canonicalizeStatefulSetAPIVersion(possibleOwner.GetAPIVersion())
+	}
+
+	owners := obj.GetOwnerReferences()
+	for _, owner := range owners {
+		var ownerAPIVersion string
+		switch owner.Kind {
+		case "Deployment":
+			ownerAPIVersion = canonicalizeDeploymentAPIVersion(owner.APIVersion)
+		case "StatefulSet":
+			ownerAPIVersion = canonicalizeStatefulSetAPIVersion(owner.APIVersion)
+		}
+
+		if ownerAPIVersion == possibleOwnerAPIVersion &&
+			possibleOwner.GetKind() == owner.Kind && possibleOwner.GetName() == owner.Name {
+			return true
+		}
+	}
+
+	return false
+}

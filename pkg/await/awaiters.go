@@ -98,6 +98,9 @@ const (
 	appsV1Deployment                            = "apps/v1/Deployment"
 	appsV1Beta1Deployment                       = "apps/v1beta1/Deployment"
 	appsV1Beta2Deployment                       = "apps/v1beta2/Deployment"
+	appsV1StatefulSet                           = "apps/v1/StatefulSet"
+	appsV1Beta1StatefulSet                      = "apps/v1beta1/StatefulSet"
+	appsV1Beta2StatefulSet                      = "apps/v1beta2/StatefulSet"
 	autoscalingV1HorizontalPodAutoscaler        = "autoscaling/v1/HorizontalPodAutoscaler"
 	coreV1ConfigMap                             = "v1/ConfigMap"
 	coreV1LimitRange                            = "v1/LimitRange"
@@ -147,6 +150,19 @@ var deploymentAwaiter = awaitSpec{
 	awaitDeletion: untilAppsDeploymentDeleted,
 }
 
+var statefulsetAwaiter = awaitSpec{
+	awaitCreation: func(c createAwaitConfig) error {
+		return makeStatefulSetInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Await()
+	},
+	awaitUpdate: func(u updateAwaitConfig) error {
+		return makeStatefulSetInitAwaiter(u).Await()
+	},
+	awaitRead: func(c createAwaitConfig) error {
+		return makeStatefulSetInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Read()
+	},
+	awaitDeletion: untilAppsStatefulSetDeleted,
+}
+
 // NOTE: Some GVKs below are blank so that we can distinguish between resource types that we know
 // about, but don't require await logic, vs. resource types that we don't know about.
 
@@ -154,6 +170,9 @@ var awaiters = map[string]awaitSpec{
 	appsV1Deployment:                     deploymentAwaiter,
 	appsV1Beta1Deployment:                deploymentAwaiter,
 	appsV1Beta2Deployment:                deploymentAwaiter,
+	appsV1StatefulSet:                    statefulsetAwaiter,
+	appsV1Beta1StatefulSet:               statefulsetAwaiter,
+	appsV1Beta2StatefulSet:               statefulsetAwaiter,
 	autoscalingV1HorizontalPodAutoscaler: { /* NONE */ },
 	coreV1ConfigMap:                      { /* NONE */ },
 	coreV1LimitRange:                     { /* NONE */ },
@@ -275,6 +294,50 @@ func untilAppsDeploymentDeleted(
 
 // --------------------------------------------------------------------------
 
+// apps/v1/StatefulSet, apps/v1beta1/StatefulSet, apps/v1beta2/StatefulSet,
+
+// --------------------------------------------------------------------------
+
+func untilAppsStatefulSetDeleted(
+	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
+) error {
+	specReplicas := func(statefulset *unstructured.Unstructured) (interface{}, bool) {
+		return openapi.Pluck(statefulset.Object, "spec", "replicas")
+	}
+	statusReplicas := func(statefulset *unstructured.Unstructured) (interface{}, bool) {
+		return openapi.Pluck(statefulset.Object, "status", "replicas")
+	}
+
+	statefulsetmissing := func(d *unstructured.Unstructured, err error) error {
+		if is404(err) {
+			return nil
+		} else if err != nil {
+			glog.V(3).Infof("Received error deleting StatefulSet %q: %#v", d.GetName(), err)
+			return err
+		}
+
+		currReplicas, _ := statusReplicas(d)
+		specReplicas, _ := specReplicas(d)
+
+		return watcher.RetryableError(
+			fmt.Errorf("StatefulSet %q still exists (%d / %d replicas exist)", name,
+				currReplicas, specReplicas))
+	}
+
+	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
+	err := watcher.ForObject(ctx, clientForResource, name).
+		RetryUntil(statefulsetmissing, 10*time.Minute)
+	if err != nil {
+		return err
+	}
+
+	glog.V(3).Infof("StatefulSet %q deleted", name)
+
+	return nil
+}
+
+// --------------------------------------------------------------------------
+
 // core/v1/Namespace
 
 // --------------------------------------------------------------------------
@@ -286,17 +349,17 @@ func untilCoreV1NamespaceDeleted(
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting namespace '%s': %#v", name, err)
+			glog.V(3).Infof("Received error deleting namespace %q: %#v", name, err)
 			return err
 		}
 
 		statusPhase, _ := openapi.Pluck(ns.Object, "status", "phase")
-		glog.V(3).Infof("Namespace '%s' status received: %#v", name, statusPhase)
+		glog.V(3).Infof("Namespace %q status received: %#v", name, statusPhase)
 		if statusPhase == "" {
 			return nil
 		}
 
-		return watcher.RetryableError(fmt.Errorf("Namespace '%s' still exists (%v)", name, statusPhase))
+		return watcher.RetryableError(fmt.Errorf("Namespace %q still exists (%v)", name, statusPhase))
 	}
 
 	return watcher.ForObject(ctx, clientForResource, name).
@@ -312,7 +375,7 @@ func untilCoreV1NamespaceDeleted(
 func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 	pvAvailableOrBound := func(pv *unstructured.Unstructured) bool {
 		statusPhase, _ := openapi.Pluck(pv.Object, "status", "phase")
-		glog.V(3).Infof("Persistent volume '%s' status received: %#v", pv.GetName(), statusPhase)
+		glog.V(3).Infof("Persistent volume %q status received: %#v", pv.GetName(), statusPhase)
 		if statusPhase == statusAvailable {
 			c.logStatus(diag.Info, "✅ PVC marked available")
 		} else if statusPhase == statusBound {
@@ -359,8 +422,8 @@ func untilCoreV1PodDeleted(
 		}
 
 		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
-		glog.V(3).Infof("Current state of pod '%s': %#v", name, statusPhase)
-		e := fmt.Errorf("Pod '%s' still exists (%v)", name, statusPhase)
+		glog.V(3).Infof("Current state of pod %q: %#v", name, statusPhase)
+		e := fmt.Errorf("Pod %q still exists (%v)", name, statusPhase)
 		return watcher.RetryableError(e)
 	}
 
@@ -386,7 +449,7 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	name := c.currentInputs.GetName()
 
 	replicas, _ := openapi.Pluck(c.currentInputs.Object, "spec", "replicas")
-	glog.V(3).Infof("Waiting for replication controller '%s' to schedule '%v' replicas",
+	glog.V(3).Infof("Waiting for replication controller %q to schedule '%v' replicas",
 		name, replicas)
 
 	// 10 mins should be sufficient for scheduling ~10k replicas
@@ -405,7 +468,7 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	// but that means checking each pod status separately (which can be expensive at scale)
 	// as there's no aggregate data available from the API
 
-	glog.V(3).Infof("Replication controller '%s' initialized: %#v", c.currentInputs.GetName(),
+	glog.V(3).Infof("Replication controller %q initialized: %#v", c.currentInputs.GetName(),
 		c.currentInputs)
 
 	return nil
@@ -432,7 +495,7 @@ func untilCoreV1ReplicationControllerDeleted(
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting ReplicationController '%s': %#v", rc.GetName(), err)
+			glog.V(3).Infof("Received error deleting ReplicationController %q: %#v", rc.GetName(), err)
 			return err
 		}
 
@@ -440,7 +503,7 @@ func untilCoreV1ReplicationControllerDeleted(
 		specReplicas, _ := deploymentSpecReplicas(rc)
 
 		return watcher.RetryableError(
-			fmt.Errorf("ReplicationController '%s' still exists (%d / %d replicas exist)", name,
+			fmt.Errorf("ReplicationController %q still exists (%d / %d replicas exist)", name,
 				currReplicas, specReplicas))
 	}
 
@@ -451,7 +514,7 @@ func untilCoreV1ReplicationControllerDeleted(
 		return err
 	}
 
-	glog.V(3).Infof("ReplicationController '%s' deleted", name)
+	glog.V(3).Infof("ReplicationController %q deleted", name)
 
 	return nil
 }
@@ -470,7 +533,7 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		hard, hardIsMap := hardRaw.(map[string]interface{})
 		hardStatus, hardStatusIsMap := hardStatusRaw.(map[string]interface{})
 		if hardIsMap && hardStatusIsMap && reflect.DeepEqual(hard, hardStatus) {
-			glog.V(3).Infof("ResourceQuota '%s' initialized: %#v", c.currentInputs.GetName(),
+			glog.V(3).Infof("ResourceQuota %q initialized: %#v", c.currentInputs.GetName(),
 				c.currentInputs)
 			return true
 		}
@@ -514,10 +577,10 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 
 	defaultSecretAllocated := func(sa *unstructured.Unstructured) bool {
 		secrets, _ := openapi.Pluck(sa.Object, "secrets")
-		glog.V(3).Infof("ServiceAccount '%s' contains secrets: %#v", sa.GetName(), secrets)
+		glog.V(3).Infof("ServiceAccount %q contains secrets: %#v", sa.GetName(), secrets)
 		if secretsArr, isArr := secrets.([]interface{}); isArr {
 			numSecrets := len(secretsArr)
-			glog.V(3).Infof("ServiceAccount '%s' has allocated '%d' of '%d' secrets",
+			glog.V(3).Infof("ServiceAccount %q has allocated '%d' of '%d' secrets",
 				sa.GetName(), numSecrets, numSpecSecrets+1)
 			return numSecrets > numSpecSecrets
 		}
@@ -547,14 +610,14 @@ func waitForDesiredReplicasFunc(
 		desiredReplicas, hasReplicasSpec := getReplicasSpec(replicator)
 		fullyLabeledReplicas, hasReplicasStatus := getReplicasStatus(replicator)
 
-		glog.V(3).Infof("Current number of labelled replicas of '%q': '%d' (of '%d')\n",
+		glog.V(3).Infof("Current number of labelled replicas of %q: '%d' (of '%d')\n",
 			replicator.GetName(), fullyLabeledReplicas, desiredReplicas)
 
 		if hasReplicasSpec && hasReplicasStatus && fullyLabeledReplicas == desiredReplicas {
 			return true
 		}
 
-		glog.V(3).Infof("Waiting for '%d' replicas of '%q' to be scheduled (have: '%d')",
+		glog.V(3).Infof("Waiting for '%d' replicas of %q to be scheduled (have: '%d')",
 			desiredReplicas, replicator.GetName(), fullyLabeledReplicas)
 		return false
 	}
