@@ -62,6 +62,11 @@ var forceNew = groups{
 			},
 		},
 	},
+	"batch": versions{
+		"v1beta1":  kinds{"Job": job},
+		"v1":       kinds{"Job": job},
+		"v2alpha1": kinds{"Job": job},
+	},
 }
 
 var core = versions{
@@ -96,6 +101,10 @@ var core = versions{
 }
 
 var deployment = properties{
+	".spec.selector",
+}
+
+var job = properties{
 	".spec.selector",
 }
 
