@@ -7,5 +7,7 @@ from .CustomResource import *
 
 # Make subpackages available:
 __all__ = [
-    "v1beta1",
+    {{#Versions}}
+    "{{Version}}",
+    {{/Versions}}
 ]

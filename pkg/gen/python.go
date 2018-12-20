@@ -16,6 +16,7 @@ package gen
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 	"unicode"
 
@@ -33,6 +34,7 @@ func PythonClient(
 	swagger map[string]interface{}, templateDir string,
 	rootInit func(initPy string) error,
 	groupInit func(group, initPy string) error,
+	customResource func(crPy string) error,
 	versionInit func(group, version, initPy string) error,
 	kindFile func(group, version, kind, kindPy string) error,
 ) error {
@@ -54,9 +56,14 @@ func PythonClient(
 	}
 
 	for _, group := range groupsSlice {
+		groupTemplate := "%s/group__init__.py.mustache"
+		if group.Group() == "apiextensions" {
+			// Special case: apiextensions, which exports a class, `CustomResource`.
+			groupTemplate = "%s/apiextensions_init.py.mustache"
+		}
 
 		groupInitPy, err := mustache.RenderFile(
-			fmt.Sprintf("%s/group__init__.py.mustache", templateDir), group)
+			fmt.Sprintf(groupTemplate, templateDir), group)
 		if err != nil {
 			return err
 		}
@@ -64,6 +71,19 @@ func PythonClient(
 		err = groupInit(group.Group(), groupInitPy)
 		if err != nil {
 			return err
+		}
+
+		// Special case: copy the custom class `CustomResource` to the `apiextensions` group.
+		if group.Group() == "apiextensions" {
+			crBytes, err := ioutil.ReadFile(fmt.Sprintf("%s/CustomResource.py", templateDir))
+			if err != nil {
+				return err
+			}
+
+			customResource(string(crBytes))
+			if err != nil {
+				return err
+			}
 		}
 
 		for _, version := range group.Versions() {

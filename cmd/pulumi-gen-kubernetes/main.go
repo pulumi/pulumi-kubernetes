@@ -118,6 +118,10 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 
 			return ioutil.WriteFile(fmt.Sprintf("%s/__init__.py", path), []byte(initPy), 0777)
 		},
+		func(crBytes string) error {
+			return ioutil.WriteFile(
+				fmt.Sprintf("%s/pulumi_kubernetes/apiextensions/CustomResource.py", outdir), []byte(crBytes), 0777)
+		},
 		func(group, version, initPy string) error {
 			path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s", outdir, group, version)
 
