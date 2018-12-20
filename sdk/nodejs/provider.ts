@@ -3306,10 +3306,52 @@ export namespace apiextensions {
      * fields required across all CRDs.
      */
     export interface CustomResourceArgs {
-        apiVersion: pulumi.Input<string>,
-        kind: pulumi.Input<string>
+        /**
+         * APIVersion defines the versioned schema of this representation of an object. Servers should
+         * convert recognized schemas to the latest internal value, and may reject unrecognized
+         * values. More info:
+         * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+         */
+        apiVersion: pulumi.Input<string>;
+
+        /**
+         * Kind is a string value representing the REST resource this object represents. Servers may
+         * infer this from the endpoint the client submits requests to. Cannot be updated. In
+         * CamelCase. More info:
+         * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+         */
+        kind: pulumi.Input<string>;
+
+        /**
+         * Standard object metadata; More info:
+         * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+         */
         metadata?: pulumi.Input<inputApi.meta.v1.ObjectMeta>;
         [othersFields: string]: pulumi.Input<any>;
+    }
+
+    /**
+     * CustomResourceGetOptions uniquely identifies a Kubernetes CustomResource, primarily for use
+     * in supplied to `apiextensions.CustomResource#get`.
+     */
+    export interface CustomResourceGetOptions {
+        /**
+         * apiVersion is the API version of the apiExtensions.CustomResource we wish to select,
+         * as specified by the CustomResourceDefinition that defines it on the API server.
+         */
+        apiVersion: pulumi.Input<string>;
+
+        /**
+         * kind is the kind of the apiextensions.CustomResource we wish to select, as specified by
+         * the CustomResourceDefinition that defines it on the API server.
+         */
+        kind: pulumi.Input<string>
+
+        /**
+         * An ID for the Kubernetes resource to retrive. Takes the form <namespace>/<name> or
+         * <name>.
+         */
+        id: pulumi.Input<pulumi.ID>;
     }
 
     /**
@@ -3340,6 +3382,20 @@ export namespace apiextensions {
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+
+      /**
+       * Get the state of an existing `CustomResource`, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param opts Uniquely specifies a CustomResource to select.
+       */
+      public static get(name: string, opts: CustomResourceGetOptions): CustomResource {
+          return new CustomResource(name, {apiVersion: opts.apiVersion, kind: opts.kind}, { id: opts.id });
+      }
 
       public getInputs(): CustomResourceArgs { return this.__inputs; }
       private readonly __inputs: CustomResourceArgs;
