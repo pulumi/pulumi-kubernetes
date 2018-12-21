@@ -8,22 +8,45 @@ import * as inputApi from "./types/input";
 import * as outputApi from "./types/output";
 import * as jsyaml from "js-yaml";
 import * as glob from "glob";
+import * as got from "got";
 
 export namespace yaml {
     export interface ConfigGroupOpts {
+        /** Set of paths or a URLs that uniquely identify files. */
         files?: string[] | string;
+
+        /** YAML text containing Kubernetes resource definitions. */
         yaml?: string[] | string;
+
+        /** JavaScript objects represeting Kubernetes resources. */
         objs?: any[] | any;
+
+        /**
+         * A set of transformations to apply to Kubernetes resource definitions before registering
+         * with engine.
+         */
         transformations?: ((o: any) => void)[];
     }
 
     export interface ConfigFileOpts {
+        /** Path or a URL that uniquely identifies a file. */
         file?: string;
+
+        /**
+         * A set of transformations to apply to Kubernetes resource definitions before registering
+         * with engine.
+         */
         transformations?: ((o: any) => void)[];
     }
 
     export interface ConfigOpts {
+        /** JavaScript objects represeting Kubernetes resources. */
         objs: any[];
+
+        /**
+         * A set of transformations to apply to Kubernetes resource definitions before registering
+         * with engine.
+         */
         transformations?: ((o: any) => void)[];
     }
 
@@ -174,10 +197,16 @@ export namespace yaml {
     export class ConfigFile extends CollectionComponentResource {
         constructor(name: string, config?: ConfigFileOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:yaml:ConfigFile", name, config, opts);
-            const text = fs.readFileSync(config && config.file || name).toString();
-            const objs = jsyaml.safeLoadAll(text);
-            this.resources = pulumi.output(parseYamlDocument({
-                objs: objs,
+            const fileId = config && config.file || name
+            let text: Promise<string>;
+            if (fileId.startsWith("http://") || fileId.startsWith("https://")) {
+                text = got(fileId).then(r => r.body)
+            } else {
+                text = Promise.resolve(fs.readFileSync(fileId).toString());
+            }
+
+            this.resources = pulumi.output(text).apply(t => parseYamlDocument({
+                objs: jsyaml.safeLoadAll(t),
                 transformations: config && config.transformations || []
             }, {parent: this}));
         }
