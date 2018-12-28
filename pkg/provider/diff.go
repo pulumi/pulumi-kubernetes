@@ -106,6 +106,8 @@ var deployment = properties{
 
 var job = properties{
 	".spec.selector",
+	".spec.template.spec.containers[*]",
+	".spec.template.spec.restartPolicy",
 }
 
 var statefulSet = properties{
