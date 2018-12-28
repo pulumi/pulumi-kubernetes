@@ -106,6 +106,7 @@ var deployment = properties{
 
 var job = properties{
 	".spec.selector",
+	".spec.template",
 }
 
 var statefulSet = properties{
