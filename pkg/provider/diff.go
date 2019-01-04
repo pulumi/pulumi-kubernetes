@@ -54,6 +54,11 @@ var forceNew = groups{
 	// for compatibility purposes.
 	"core": core,
 	"":     core,
+	"rbac.authorization.k8s.io": versions{
+		"v1alpha1": kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
+		"v1beta1":  kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
+		"v1":       kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
+	},
 	"storage.k8s.io": versions{
 		"v1": kinds{
 			"StorageClass": properties{
@@ -107,6 +112,10 @@ var deployment = properties{
 var job = properties{
 	".spec.selector",
 	".spec.template",
+}
+
+var roleBinding = properties{
+	".roleRef",
 }
 
 var statefulSet = properties{
