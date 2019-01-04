@@ -16,6 +16,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/watch"
 )
 
@@ -45,24 +46,22 @@ import (
 // ------------------------------------------------------------------------------------------------
 
 type ingressInitAwaiter struct {
-	config           createAwaitConfig
-	ingress          *unstructured.Unstructured
-	ingressReady     bool
-	endpointsReady   bool
-	endpointsSettled bool
-	endpointExists   map[string]bool
-	externalServices map[string]bool
+	config                    createAwaitConfig
+	ingress                   *unstructured.Unstructured
+	ingressReady              bool
+	endpointsSettled          bool
+	knownEndpointObjects      sets.String
+	knownExternalNameServices sets.String
 }
 
 func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
 	return &ingressInitAwaiter{
-		config:           c,
-		ingress:          c.currentOutputs,
-		ingressReady:     false,
-		endpointsReady:   false,
-		endpointsSettled: false,
-		endpointExists:   make(map[string]bool),
-		externalServices: make(map[string]bool),
+		config:                    c,
+		ingress:                   c.currentOutputs,
+		ingressReady:              false,
+		endpointsSettled:          false,
+		knownEndpointObjects:      sets.NewString(),
+		knownExternalNameServices: sets.NewString(),
 	}
 }
 
@@ -83,8 +82,8 @@ func (iia *ingressInitAwaiter) Await() error {
 	// We succeed only when all of the following are true:
 	//
 	//   1.  Ingress object exists.
-	//   2.  Endpoint objects exist with matching names for each Ingress path.
-	//	 2.1 Alternatively, a Service with type: ExternalName must path the Ingress path.
+	//   2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+	//       type is ExternalName).
 	//   3.  Ingress entry exists for .status.loadBalancer.ingress.
 	//
 
@@ -198,7 +197,6 @@ func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoint
 		glog.V(3).Infof("Error iterating over endpoint list for ingress %q: %v", ingress.GetName(), err)
 	}
 
-	iia.endpointsReady = iia.checkIfEndpointsReady()
 	iia.endpointsSettled = true
 	if iia.checkAndLogStatus() {
 		return nil
@@ -225,7 +223,7 @@ func (iia *ingressInitAwaiter) await(ingressWatcher, serviceWatcher, endpointWat
 		select {
 		case <-iia.config.ctx.Done():
 			// On cancel, check one last time if the ingress is ready.
-			if iia.ingressReady && iia.endpointsReady {
+			if iia.ingressReady && iia.checkIfEndpointsReady() {
 				return nil
 			}
 			return &cancellationError{
@@ -234,8 +232,7 @@ func (iia *ingressInitAwaiter) await(ingressWatcher, serviceWatcher, endpointWat
 			}
 		case <-timeout:
 			// On timeout, check one last time if the ingress is ready.
-			iia.endpointsReady = iia.checkIfEndpointsReady()
-			if iia.ingressReady && iia.endpointsReady {
+			if iia.ingressReady && iia.checkIfEndpointsReady() {
 				return nil
 			}
 			return &timeoutError{
@@ -264,11 +261,14 @@ func (iia *ingressInitAwaiter) processServiceEvent(event watch.Event) {
 
 	name := service.GetName()
 
+	if event.Type == watch.Deleted {
+		iia.knownExternalNameServices.Delete(name)
+		return
+	}
+
 	t, ok := openapi.Pluck(service.Object, "spec", "type")
 	if ok && t.(string) == "ExternalName" {
-		iia.externalServices[name] = true
-	} else {
-		iia.externalServices[name] = false
+		iia.knownExternalNameServices.Insert(name)
 	}
 }
 
@@ -302,16 +302,6 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 		return
 	}
 
-	var serviceNames []string
-	for _, rule := range obj.Spec.Rules {
-		for _, path := range rule.HTTP.Paths {
-			serviceNames = append(serviceNames, path.Backend.ServiceName)
-		}
-	}
-	iia.ignoreExternalNameServices(serviceNames)
-
-	iia.endpointsReady = iia.checkIfEndpointsReady()
-
 	glog.V(3).Infof("Received status for ingress %q: %#v", inputIngressName, obj.Status)
 
 	// Update status of ingress object so that we can check success.
@@ -319,15 +309,6 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 
 	glog.V(3).Infof("Waiting for ingress %q to update .status.loadBalancer with hostname/IP",
 		inputIngressName)
-}
-
-func (iia *ingressInitAwaiter) ignoreExternalNameServices(names []string) {
-	// Services with type: ExternalName do not have associated Pods/Endpoints to wait for, so mark as ready.
-	for _, name := range names {
-		if iia.externalServices[name] {
-			iia.endpointExists[name] = true
-		}
-	}
 }
 
 func decodeIngress(u *unstructured.Unstructured) (*v1beta1.Ingress, error) {
@@ -354,11 +335,11 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
 	for _, rule := range obj.Spec.Rules {
 		for _, path := range rule.HTTP.Paths {
 			// Ignore ExternalName services
-			if iia.externalServices[path.Backend.ServiceName] {
+			if iia.knownExternalNameServices.Has(path.Backend.ServiceName) {
 				continue
 			}
 
-			if !iia.endpointExists[path.Backend.ServiceName] {
+			if !iia.knownEndpointObjects.Has(path.Backend.ServiceName) {
 				iia.config.logStatus(diag.Error,
 					fmt.Sprintf("No matching service found for ingress rule: %q", path.Path))
 				return false
@@ -381,13 +362,12 @@ func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 	name := endpoint.GetName()
 	switch event.Type {
 	case watch.Added, watch.Modified:
-		iia.endpointExists[name] = true
+		iia.knownEndpointObjects.Insert(name)
 	case watch.Deleted:
-		iia.endpointExists[name] = false
+		iia.knownEndpointObjects.Delete(name)
+		// NOTE: Unlike `processServiceEvent` don't return; we still want to set
+		// `iia.endpointsSettled` to `false`.
 	}
-
-	// Start over, prove that endpoints are ready.
-	iia.endpointsReady = iia.checkIfEndpointsReady()
 
 	// Every time we get an update to one of our endpoints objects, give it a few seconds
 	// for them to settle.
@@ -401,7 +381,7 @@ func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 func (iia *ingressInitAwaiter) errorMessages() []string {
 	messages := make([]string, 0)
 
-	if !iia.endpointsReady {
+	if !iia.checkIfEndpointsReady() {
 		messages = append(messages,
 			"Ingress has at least one rule that does not target any Service. "+
 				"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service")
@@ -417,10 +397,10 @@ func (iia *ingressInitAwaiter) errorMessages() []string {
 }
 
 func (iia *ingressInitAwaiter) checkAndLogStatus() bool {
-	success := iia.ingressReady && iia.endpointsReady
+	success := iia.ingressReady && iia.checkIfEndpointsReady()
 	if success {
 		iia.config.logStatus(diag.Info, "✅ Ingress initialization complete")
-	} else if iia.endpointsReady {
+	} else if iia.checkIfEndpointsReady() {
 		iia.config.logStatus(diag.Info, "[2/3] Waiting for update of .status.loadBalancer with hostname/IP")
 	}
 

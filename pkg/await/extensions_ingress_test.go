@@ -134,7 +134,16 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 			endpoint:     initializedEndpoint,
 		},
 		{
-			description:  "Read should succeed when Ingress is allocated an IP address and all paths match an existing Endpoint",
+			description:  "Read should fail if not all Ingress paths match existing Endpoints",
+			ingressInput: ingressInput,
+			ingress:      initializedIngress,
+			expectedSubErrors: []string{
+				"Ingress has at least one rule that does not target any Service. " +
+					"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service",
+			},
+		},
+		{
+			description:  "Read should succeed when Ingress is allocated an IP address and Service is type ExternalName",
 			ingressInput: ingressInput,
 			ingress:      initializedIngress,
 			service:      externalNameService,
