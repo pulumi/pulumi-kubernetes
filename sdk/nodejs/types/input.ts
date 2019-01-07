@@ -674,7 +674,7 @@ export namespace apiextensions {
       /**
        * Kind is the serialized kind of the resource.  It is normally CamelCase and singular.
        */
-      kind: pulumi.Input<"CustomResourceDefinitionNames">
+      kind: pulumi.Input<string>
 
       /**
        * Plural is the plural name of the resource to serve.  It must match the name of the
@@ -5888,7 +5888,7 @@ export namespace autoscaling {
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      kind: pulumi.Input<"CrossVersionObjectReference">
+      kind: pulumi.Input<string>
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -5898,7 +5898,7 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      apiVersion?: pulumi.Input<"autoscaling/v1">
+      apiVersion?: pulumi.Input<string>
 
     }
 
@@ -6138,7 +6138,7 @@ export namespace autoscaling {
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      kind: pulumi.Input<"CrossVersionObjectReference">
+      kind: pulumi.Input<string>
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -6148,7 +6148,7 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      apiVersion?: pulumi.Input<"autoscaling/v2beta1">
+      apiVersion?: pulumi.Input<string>
 
     }
 
@@ -6692,7 +6692,7 @@ export namespace autoscaling {
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      kind: pulumi.Input<"CrossVersionObjectReference">
+      kind: pulumi.Input<string>
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -6702,7 +6702,7 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      apiVersion?: pulumi.Input<"autoscaling/v2beta2">
+      apiVersion?: pulumi.Input<string>
 
     }
 
@@ -8181,7 +8181,7 @@ export namespace core {
        * disk per storage account  Managed: azure managed data disk (only in managed availability
        * set). defaults to shared
        */
-      kind?: pulumi.Input<"AzureDiskVolumeSource">
+      kind?: pulumi.Input<string>
 
       /**
        * Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
@@ -11160,7 +11160,7 @@ export namespace core {
       /**
        * Version of the schema the FieldPath is written in terms of, defaults to "v1".
        */
-      apiVersion?: pulumi.Input<"core/v1">
+      apiVersion?: pulumi.Input<string>
 
     }
 
@@ -11175,7 +11175,7 @@ export namespace core {
       /**
        * API version of the referent.
        */
-      apiVersion?: pulumi.Input<"core/v1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * If referring to a piece of an object instead of an entire object, this string should
@@ -11192,7 +11192,7 @@ export namespace core {
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"ObjectReference">
+      kind?: pulumi.Input<string>
 
       /**
        * Name of the referent. More info:
@@ -14240,7 +14240,7 @@ export namespace core {
       /**
        * Kind is the type of resource being referenced
        */
-      kind: pulumi.Input<"TypedLocalObjectReference">
+      kind: pulumi.Input<string>
 
       /**
        * Name is the name of resource being referenced
@@ -16594,7 +16594,7 @@ export namespace meta {
       /**
        * kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')
        */
-      kind: pulumi.Input<"APIResource">
+      kind: pulumi.Input<string>
 
       /**
        * name is the plural name of the resource.
@@ -17096,13 +17096,13 @@ export namespace meta {
       /**
        * API version of the referent.
        */
-      apiVersion: pulumi.Input<"meta/v1">
+      apiVersion: pulumi.Input<string>
 
       /**
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind: pulumi.Input<"OwnerReference">
+      kind: pulumi.Input<string>
 
       /**
        * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -17282,7 +17282,7 @@ export namespace meta {
        * operations may differ from the requested resource Kind. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"StatusDetails">
+      kind?: pulumi.Input<string>
 
       /**
        * The name attribute of the resource associated with the status StatusReason (when there is a
@@ -18636,7 +18636,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      kind: pulumi.Input<"RoleRef">
+      kind: pulumi.Input<string>
 
       /**
        * Name is the name of resource being referenced
@@ -18657,7 +18657,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      kind: pulumi.Input<"Subject">
+      kind: pulumi.Input<string>
 
       /**
        * Name of the object being referenced.
@@ -19064,7 +19064,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      kind: pulumi.Input<"RoleRef">
+      kind: pulumi.Input<string>
 
       /**
        * Name is the name of resource being referenced
@@ -19085,7 +19085,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      kind: pulumi.Input<"Subject">
+      kind: pulumi.Input<string>
 
       /**
        * Name of the object being referenced.
@@ -19097,7 +19097,7 @@ export namespace rbac {
        * ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and
        * Group subjects.
        */
-      apiVersion?: pulumi.Input<"rbac/v1alpha1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or
@@ -19496,7 +19496,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      kind: pulumi.Input<"RoleRef">
+      kind: pulumi.Input<string>
 
       /**
        * Name is the name of resource being referenced
@@ -19517,7 +19517,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      kind: pulumi.Input<"Subject">
+      kind: pulumi.Input<string>
 
       /**
        * Name of the object being referenced.
