@@ -38,7 +38,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1alpha1">
 
       /**
        * Initializers is a list of resources and their default initializers Order-sensitive. When
@@ -54,7 +54,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"InitializerConfiguration">
 
       /**
        * Standard object metadata; More info:
@@ -83,7 +83,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -91,7 +91,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"InitializerConfigurationList">
 
       /**
        * Standard list metadata. More info:
@@ -153,7 +153,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -161,7 +161,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"MutatingWebhookConfiguration">
 
       /**
        * Standard object metadata; More info:
@@ -195,7 +195,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -203,7 +203,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"MutatingWebhookConfigurationList">
 
       /**
        * Standard list metadata. More info:
@@ -290,7 +290,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -298,7 +298,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ValidatingWebhookConfiguration">
 
       /**
        * Standard object metadata; More info:
@@ -332,7 +332,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -340,7 +340,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ValidatingWebhookConfigurationList">
 
       /**
        * Standard list metadata. More info:
@@ -577,7 +577,7 @@ export namespace apiextensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apiextensions.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -585,7 +585,7 @@ export namespace apiextensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"CustomResourceDefinition">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -648,7 +648,7 @@ export namespace apiextensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apiextensions.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -656,7 +656,7 @@ export namespace apiextensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"CustomResourceDefinitionList">
 
       
       metadata?: pulumi.Input<meta.v1.ListMeta>
@@ -674,7 +674,7 @@ export namespace apiextensions {
       /**
        * Kind is the serialized kind of the resource.  It is normally CamelCase and singular.
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"CustomResourceDefinitionNames">
 
       /**
        * Plural is the plural name of the resource to serve.  It must match the name of the
@@ -1132,7 +1132,7 @@ export namespace apiregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apiregistration.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1140,7 +1140,7 @@ export namespace apiregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"APIService">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -1204,7 +1204,7 @@ export namespace apiregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apiregistration.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1212,7 +1212,7 @@ export namespace apiregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"APIServiceList">
 
       
       metadata?: pulumi.Input<meta.v1.ListMeta>
@@ -1329,7 +1329,7 @@ export namespace apiregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apiregistration.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1337,7 +1337,7 @@ export namespace apiregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"APIService">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -1401,7 +1401,7 @@ export namespace apiregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apiregistration.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1409,7 +1409,7 @@ export namespace apiregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"APIServiceList">
 
       
       metadata?: pulumi.Input<meta.v1.ListMeta>
@@ -1541,7 +1541,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Data is the serialized representation of the state.
@@ -1554,7 +1554,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ControllerRevision">
 
       /**
        * Standard object's metadata. More info:
@@ -1583,7 +1583,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1591,7 +1591,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ControllerRevisionList">
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -1614,7 +1614,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1622,7 +1622,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DaemonSet">
 
       /**
        * Standard object's metadata. More info:
@@ -1696,7 +1696,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1704,7 +1704,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DaemonSetList">
 
       /**
        * Standard list metadata. More info:
@@ -1851,7 +1851,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1859,7 +1859,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Deployment">
 
       /**
        * Standard object metadata.
@@ -1934,7 +1934,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1942,7 +1942,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DeploymentList">
 
       /**
        * Standard list metadata.
@@ -2092,7 +2092,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2100,7 +2100,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ReplicaSet">
 
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
@@ -2176,7 +2176,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2184,7 +2184,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ReplicaSetList">
 
       /**
        * Standard list metadata. More info:
@@ -2353,7 +2353,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2361,7 +2361,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StatefulSet">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -2428,7 +2428,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2436,7 +2436,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StatefulSetList">
 
       
       metadata?: pulumi.Input<meta.v1.ListMeta>
@@ -2624,7 +2624,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta1">
 
       /**
        * Data is the serialized representation of the state.
@@ -2637,7 +2637,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ControllerRevision">
 
       /**
        * Standard object's metadata. More info:
@@ -2666,7 +2666,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2674,7 +2674,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ControllerRevisionList">
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -2699,7 +2699,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2707,7 +2707,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Deployment">
 
       /**
        * Standard object metadata.
@@ -2782,7 +2782,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2790,7 +2790,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DeploymentList">
 
       /**
        * Standard list metadata.
@@ -2823,7 +2823,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2831,7 +2831,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DeploymentRollback">
 
       /**
        * The annotations to be updated to a deployment
@@ -3043,7 +3043,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3051,7 +3051,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Scale">
 
       /**
        * Standard object metadata; More info:
@@ -3134,7 +3134,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3142,7 +3142,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StatefulSet">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -3209,7 +3209,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3217,7 +3217,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StatefulSetList">
 
       
       metadata?: pulumi.Input<meta.v1.ListMeta>
@@ -3405,7 +3405,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Data is the serialized representation of the state.
@@ -3418,7 +3418,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ControllerRevision">
 
       /**
        * Standard object's metadata. More info:
@@ -3447,7 +3447,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3455,7 +3455,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ControllerRevisionList">
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -3479,7 +3479,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3487,7 +3487,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DaemonSet">
 
       /**
        * Standard object's metadata. More info:
@@ -3561,7 +3561,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3569,7 +3569,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DaemonSetList">
 
       /**
        * Standard list metadata. More info:
@@ -3718,7 +3718,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3726,7 +3726,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Deployment">
 
       /**
        * Standard object metadata.
@@ -3801,7 +3801,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3809,7 +3809,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DeploymentList">
 
       /**
        * Standard list metadata.
@@ -3961,7 +3961,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3969,7 +3969,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ReplicaSet">
 
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
@@ -4045,7 +4045,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4053,7 +4053,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ReplicaSetList">
 
       /**
        * Standard list metadata. More info:
@@ -4218,7 +4218,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4226,7 +4226,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Scale">
 
       /**
        * Standard object metadata; More info:
@@ -4309,7 +4309,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4317,7 +4317,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StatefulSet">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -4384,7 +4384,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"apps/v1beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4392,7 +4392,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StatefulSetList">
 
       
       metadata?: pulumi.Input<meta.v1.ListMeta>
@@ -4569,7 +4569,7 @@ export namespace auditregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"auditregistration.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4577,7 +4577,7 @@ export namespace auditregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"AuditSink">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -4608,7 +4608,7 @@ export namespace auditregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"auditregistration.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4616,7 +4616,7 @@ export namespace auditregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"AuditSinkList">
 
       
       metadata?: pulumi.Input<meta.v1.ListMeta>
@@ -4787,7 +4787,7 @@ export namespace authentication {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authentication.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4795,7 +4795,7 @@ export namespace authentication {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"TokenReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -4911,7 +4911,7 @@ export namespace authentication {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authentication.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4919,7 +4919,7 @@ export namespace authentication {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"TokenReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -5040,7 +5040,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5048,7 +5048,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"LocalSubjectAccessReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -5201,7 +5201,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5209,7 +5209,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"SelfSubjectAccessReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -5265,7 +5265,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5273,7 +5273,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"SelfSubjectRulesReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -5314,7 +5314,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5322,7 +5322,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"SubjectAccessReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -5467,7 +5467,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5475,7 +5475,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"LocalSubjectAccessReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -5628,7 +5628,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5636,7 +5636,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"SelfSubjectAccessReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -5692,7 +5692,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5700,7 +5700,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"SelfSubjectRulesReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -5741,7 +5741,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5749,7 +5749,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"SubjectAccessReview">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -5888,7 +5888,7 @@ export namespace autoscaling {
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"CrossVersionObjectReference">
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -5898,7 +5898,7 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v1">
 
     }
 
@@ -5916,7 +5916,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5924,7 +5924,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"HorizontalPodAutoscaler">
 
       /**
        * Standard object metadata. More info:
@@ -5964,7 +5964,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5972,7 +5972,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"HorizontalPodAutoscalerList">
 
       /**
        * Standard list metadata.
@@ -6059,7 +6059,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6067,7 +6067,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Scale">
 
       /**
        * Standard object metadata; More info:
@@ -6138,7 +6138,7 @@ export namespace autoscaling {
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"CrossVersionObjectReference">
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -6148,7 +6148,7 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v2beta1">
 
     }
 
@@ -6227,7 +6227,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v2beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6235,7 +6235,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"HorizontalPodAutoscaler">
 
       /**
        * metadata is the standard object metadata. More info:
@@ -6308,7 +6308,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v2beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6316,7 +6316,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"HorizontalPodAutoscalerList">
 
       /**
        * metadata is the standard list metadata.
@@ -6692,7 +6692,7 @@ export namespace autoscaling {
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"CrossVersionObjectReference">
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -6702,7 +6702,7 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v2beta2">
 
     }
 
@@ -6759,7 +6759,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v2beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6767,7 +6767,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"HorizontalPodAutoscaler">
 
       /**
        * metadata is the standard object metadata. More info:
@@ -6840,7 +6840,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"autoscaling/v2beta2">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6848,7 +6848,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"HorizontalPodAutoscalerList">
 
       /**
        * metadata is the standard list metadata.
@@ -7236,7 +7236,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"batch/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7244,7 +7244,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Job">
 
       /**
        * Standard object's metadata. More info:
@@ -7322,7 +7322,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"batch/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7330,7 +7330,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"JobList">
 
       /**
        * Standard list metadata. More info:
@@ -7471,7 +7471,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"batch/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7479,7 +7479,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"CronJob">
 
       /**
        * Standard object's metadata. More info:
@@ -7520,7 +7520,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"batch/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7528,7 +7528,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"CronJobList">
 
       /**
        * Standard list metadata. More info:
@@ -7640,7 +7640,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"batch/v2alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7648,7 +7648,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"CronJob">
 
       /**
        * Standard object's metadata. More info:
@@ -7689,7 +7689,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"batch/v2alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7697,7 +7697,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"CronJobList">
 
       /**
        * Standard list metadata. More info:
@@ -7812,7 +7812,7 @@ export namespace certificates {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"certificates.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7820,7 +7820,7 @@ export namespace certificates {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"CertificateSigningRequest">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -7877,7 +7877,7 @@ export namespace certificates {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"certificates.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7885,7 +7885,7 @@ export namespace certificates {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"CertificateSigningRequestList">
 
       
       metadata?: pulumi.Input<meta.v1.ListMeta>
@@ -7968,7 +7968,7 @@ export namespace coordination {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"coordination.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7976,7 +7976,7 @@ export namespace coordination {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Lease">
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -8010,7 +8010,7 @@ export namespace coordination {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"coordination.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8018,7 +8018,7 @@ export namespace coordination {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"LeaseList">
 
       /**
        * Standard list metadata. More info:
@@ -8181,7 +8181,7 @@ export namespace core {
        * disk per storage account  Managed: azure managed data disk (only in managed availability
        * set). defaults to shared
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"AzureDiskVolumeSource">
 
       /**
        * Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
@@ -8260,7 +8260,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8268,7 +8268,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Binding">
 
       /**
        * Standard object's metadata. More info:
@@ -8564,7 +8564,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * List of component conditions observed
@@ -8577,7 +8577,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ComponentStatus">
 
       /**
        * Standard object's metadata. More info:
@@ -8606,7 +8606,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8614,7 +8614,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ComponentStatusList">
 
       /**
        * Standard list metadata. More info:
@@ -8638,7 +8638,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-',
@@ -8662,7 +8662,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ConfigMap">
 
       /**
        * Standard object's metadata. More info:
@@ -8735,7 +8735,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8743,7 +8743,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ConfigMapList">
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -9441,7 +9441,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -9449,7 +9449,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Endpoints">
 
       /**
        * Standard object's metadata. More info:
@@ -9488,7 +9488,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -9496,7 +9496,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"EndpointsList">
 
       /**
        * Standard list metadata. More info:
@@ -9614,7 +9614,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * The number of times this event has occurred.
@@ -9637,7 +9637,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Event">
 
       /**
        * The time at which the most recent occurrence of this event was recorded.
@@ -9706,7 +9706,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -9714,7 +9714,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"EventList">
 
       /**
        * Standard list metadata. More info:
@@ -10356,7 +10356,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10364,7 +10364,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"LimitRange">
 
       /**
        * Standard object's metadata. More info:
@@ -10440,7 +10440,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10448,7 +10448,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"LimitRangeList">
 
       /**
        * Standard list metadata. More info:
@@ -10577,7 +10577,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10585,7 +10585,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Namespace">
 
       /**
        * Standard object's metadata. More info:
@@ -10627,7 +10627,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10635,7 +10635,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"NamespaceList">
 
       /**
        * Standard list metadata. More info:
@@ -10686,7 +10686,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10694,7 +10694,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Node">
 
       /**
        * Standard object's metadata. More info:
@@ -10895,7 +10895,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10903,7 +10903,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"NodeList">
 
       /**
        * Standard list metadata. More info:
@@ -11160,7 +11160,7 @@ export namespace core {
       /**
        * Version of the schema the FieldPath is written in terms of, defaults to "v1".
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"core/v1">
 
     }
 
@@ -11175,7 +11175,7 @@ export namespace core {
       /**
        * API version of the referent.
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"core/v1">
 
       /**
        * If referring to a piece of an object instead of an entire object, this string should
@@ -11192,7 +11192,7 @@ export namespace core {
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ObjectReference">
 
       /**
        * Name of the referent. More info:
@@ -11235,7 +11235,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -11243,7 +11243,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PersistentVolume">
 
       /**
        * Standard object's metadata. More info:
@@ -11281,7 +11281,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -11289,7 +11289,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PersistentVolumeClaim">
 
       /**
        * Standard object's metadata. More info:
@@ -11367,7 +11367,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -11375,7 +11375,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PersistentVolumeClaimList">
 
       /**
        * Standard list metadata. More info:
@@ -11508,7 +11508,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -11516,7 +11516,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PersistentVolumeList">
 
       /**
        * Standard list metadata. More info:
@@ -11774,7 +11774,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -11782,7 +11782,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Pod">
 
       /**
        * Standard object's metadata. More info:
@@ -11992,7 +11992,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -12000,7 +12000,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodList">
 
       /**
        * Standard list metadata. More info:
@@ -12416,7 +12416,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -12424,7 +12424,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodTemplate">
 
       /**
        * Standard object's metadata. More info:
@@ -12459,7 +12459,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -12467,7 +12467,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodTemplateList">
 
       /**
        * Standard list metadata. More info:
@@ -12780,7 +12780,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -12788,7 +12788,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ReplicationController">
 
       /**
        * If the Labels of a ReplicationController are empty, they are defaulted to be the same as
@@ -12865,7 +12865,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -12873,7 +12873,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ReplicationControllerList">
 
       /**
        * Standard list metadata. More info:
@@ -12997,7 +12997,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -13005,7 +13005,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ResourceQuota">
 
       /**
        * Standard object's metadata. More info:
@@ -13047,7 +13047,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -13055,7 +13055,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ResourceQuotaList">
 
       /**
        * Standard list metadata. More info:
@@ -13336,7 +13336,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_'
@@ -13352,7 +13352,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Secret">
 
       /**
        * Standard object's metadata. More info:
@@ -13438,7 +13438,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -13446,7 +13446,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"SecretList">
 
       /**
        * Standard list metadata. More info:
@@ -13635,7 +13635,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -13643,7 +13643,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Service">
 
       /**
        * Standard object's metadata. More info:
@@ -13681,7 +13681,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * AutomountServiceAccountToken indicates whether pods running as this service account should
@@ -13704,7 +13704,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ServiceAccount">
 
       /**
        * Standard object's metadata. More info:
@@ -13740,7 +13740,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -13748,7 +13748,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ServiceAccountList">
 
       /**
        * Standard list metadata. More info:
@@ -13807,7 +13807,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -13815,7 +13815,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ServiceList">
 
       /**
        * Standard list metadata. More info:
@@ -14240,7 +14240,7 @@ export namespace core {
       /**
        * Kind is the type of resource being referenced
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"TypedLocalObjectReference">
 
       /**
        * Name is the name of resource being referenced
@@ -14593,7 +14593,7 @@ export namespace events {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"events.k8s.io/v1beta1">
 
       /**
        * Deprecated field assuring backward compatibility with core.v1 Event type
@@ -14621,7 +14621,7 @@ export namespace events {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Event">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -14691,7 +14691,7 @@ export namespace events {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"events.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -14699,7 +14699,7 @@ export namespace events {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"EventList">
 
       /**
        * Standard list metadata. More info:
@@ -14790,7 +14790,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -14798,7 +14798,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DaemonSet">
 
       /**
        * Standard object's metadata. More info:
@@ -14872,7 +14872,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -14880,7 +14880,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DaemonSetList">
 
       /**
        * Standard list metadata. More info:
@@ -15033,7 +15033,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15041,7 +15041,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Deployment">
 
       /**
        * Standard object metadata.
@@ -15116,7 +15116,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15124,7 +15124,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DeploymentList">
 
       /**
        * Standard list metadata.
@@ -15157,7 +15157,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15165,7 +15165,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DeploymentRollback">
 
       /**
        * The annotations to be updated to a deployment
@@ -15439,7 +15439,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15447,7 +15447,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Ingress">
 
       /**
        * Standard object's metadata. More info:
@@ -15505,7 +15505,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15513,7 +15513,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"IngressList">
 
       /**
        * Standard object's metadata. More info:
@@ -15627,7 +15627,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15635,7 +15635,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"NetworkPolicy">
 
       /**
        * Standard object's metadata. More info:
@@ -15724,7 +15724,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15732,7 +15732,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"NetworkPolicyList">
 
       /**
        * Standard list metadata. More info:
@@ -15863,7 +15863,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15871,7 +15871,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodSecurityPolicy">
 
       /**
        * Standard object's metadata. More info:
@@ -15906,7 +15906,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15914,7 +15914,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodSecurityPolicyList">
 
       /**
        * Standard list metadata. More info:
@@ -16089,7 +16089,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16097,7 +16097,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ReplicaSet">
 
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
@@ -16173,7 +16173,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16181,7 +16181,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ReplicaSetList">
 
       /**
        * Standard list metadata. More info:
@@ -16401,7 +16401,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"extensions/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16409,7 +16409,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Scale">
 
       /**
        * Standard object metadata; More info:
@@ -16523,7 +16523,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16531,7 +16531,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"APIGroup">
 
       /**
        * preferredVersion is the version preferred by the API server, which probably is the storage
@@ -16571,7 +16571,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16579,7 +16579,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"APIGroupList">
 
     }
 
@@ -16594,7 +16594,7 @@ export namespace meta {
       /**
        * kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"APIResource">
 
       /**
        * name is the plural name of the resource.
@@ -16666,7 +16666,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16674,7 +16674,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"APIResourceList">
 
     }
 
@@ -16709,7 +16709,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16717,7 +16717,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"APIVersions">
 
     }
 
@@ -16735,7 +16735,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * When present, indicates that modifications should not be persisted. An invalid or
@@ -16758,7 +16758,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"DeleteOptions">
 
       /**
        * Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should
@@ -17096,13 +17096,13 @@ export namespace meta {
       /**
        * API version of the referent.
        */
-      apiVersion: pulumi.Input<string>
+      apiVersion: pulumi.Input<"meta/v1">
 
       /**
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"OwnerReference">
 
       /**
        * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -17175,7 +17175,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"v1">
 
       /**
        * Suggested HTTP return code for this status, 0 if not set.
@@ -17195,7 +17195,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Status">
 
       /**
        * A human-readable description of the status of this operation.
@@ -17282,7 +17282,7 @@ export namespace meta {
        * operations may differ from the requested resource Kind. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StatusDetails">
 
       /**
        * The name attribute of the resource associated with the status StatusReason (when there is a
@@ -17361,7 +17361,7 @@ export namespace networking {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"networking.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17369,7 +17369,7 @@ export namespace networking {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"NetworkPolicy">
 
       /**
        * Standard object's metadata. More info:
@@ -17455,7 +17455,7 @@ export namespace networking {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"networking.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17463,7 +17463,7 @@ export namespace networking {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"NetworkPolicyList">
 
       /**
        * Standard list metadata. More info:
@@ -17722,7 +17722,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"policy/v1beta1">
 
       /**
        * DeleteOptions may be provided
@@ -17735,7 +17735,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Eviction">
 
       /**
        * ObjectMeta describes the pod that is being evicted.
@@ -17812,7 +17812,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"policy/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17820,7 +17820,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodDisruptionBudget">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -17854,7 +17854,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"policy/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17862,7 +17862,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodDisruptionBudgetList">
 
       
       metadata?: pulumi.Input<meta.v1.ListMeta>
@@ -17960,7 +17960,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"policy/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17968,7 +17968,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodSecurityPolicy">
 
       /**
        * Standard object's metadata. More info:
@@ -18002,7 +18002,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"policy/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18010,7 +18010,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodSecurityPolicyList">
 
       /**
        * Standard list metadata. More info:
@@ -18292,7 +18292,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18300,7 +18300,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRole">
 
       /**
        * Standard object's metadata.
@@ -18330,7 +18330,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18338,7 +18338,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRoleBinding">
 
       /**
        * Standard object's metadata.
@@ -18371,7 +18371,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18379,7 +18379,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRoleBindingList">
 
       /**
        * Standard object's metadata.
@@ -18407,7 +18407,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18415,7 +18415,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRoleList">
 
       /**
        * Standard object's metadata.
@@ -18486,7 +18486,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18494,7 +18494,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Role">
 
       /**
        * Standard object's metadata.
@@ -18526,7 +18526,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18534,7 +18534,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"RoleBinding">
 
       /**
        * Standard object's metadata.
@@ -18567,7 +18567,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18575,7 +18575,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"RoleBindingList">
 
       /**
        * Standard object's metadata.
@@ -18603,7 +18603,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18611,7 +18611,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"RoleList">
 
       /**
        * Standard object's metadata.
@@ -18636,7 +18636,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"RoleRef">
 
       /**
        * Name is the name of resource being referenced
@@ -18657,7 +18657,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"Subject">
 
       /**
        * Name of the object being referenced.
@@ -18719,7 +18719,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18727,7 +18727,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRole">
 
       /**
        * Standard object's metadata.
@@ -18757,7 +18757,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18765,7 +18765,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRoleBinding">
 
       /**
        * Standard object's metadata.
@@ -18798,7 +18798,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18806,7 +18806,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRoleBindingList">
 
       /**
        * Standard object's metadata.
@@ -18834,7 +18834,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18842,7 +18842,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRoleList">
 
       /**
        * Standard object's metadata.
@@ -18914,7 +18914,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18922,7 +18922,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Role">
 
       /**
        * Standard object's metadata.
@@ -18954,7 +18954,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18962,7 +18962,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"RoleBinding">
 
       /**
        * Standard object's metadata.
@@ -18995,7 +18995,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19003,7 +19003,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"RoleBindingList">
 
       /**
        * Standard object's metadata.
@@ -19031,7 +19031,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19039,7 +19039,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"RoleList">
 
       /**
        * Standard object's metadata.
@@ -19064,7 +19064,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"RoleRef">
 
       /**
        * Name is the name of resource being referenced
@@ -19085,7 +19085,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"Subject">
 
       /**
        * Name of the object being referenced.
@@ -19097,7 +19097,7 @@ export namespace rbac {
        * ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and
        * Group subjects.
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac/v1alpha1">
 
       /**
        * Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or
@@ -19151,7 +19151,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19159,7 +19159,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRole">
 
       /**
        * Standard object's metadata.
@@ -19189,7 +19189,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19197,7 +19197,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRoleBinding">
 
       /**
        * Standard object's metadata.
@@ -19230,7 +19230,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19238,7 +19238,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRoleBindingList">
 
       /**
        * Standard object's metadata.
@@ -19266,7 +19266,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19274,7 +19274,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"ClusterRoleList">
 
       /**
        * Standard object's metadata.
@@ -19346,7 +19346,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19354,7 +19354,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"Role">
 
       /**
        * Standard object's metadata.
@@ -19386,7 +19386,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19394,7 +19394,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"RoleBinding">
 
       /**
        * Standard object's metadata.
@@ -19427,7 +19427,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19435,7 +19435,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"RoleBindingList">
 
       /**
        * Standard object's metadata.
@@ -19463,7 +19463,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19471,7 +19471,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"RoleList">
 
       /**
        * Standard object's metadata.
@@ -19496,7 +19496,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"RoleRef">
 
       /**
        * Name is the name of resource being referenced
@@ -19517,7 +19517,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      kind: pulumi.Input<string>
+      kind: pulumi.Input<"Subject">
 
       /**
        * Name of the object being referenced.
@@ -19562,7 +19562,7 @@ export namespace scheduling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"scheduling.k8s.io/v1alpha1">
 
       /**
        * description is an arbitrary string that usually provides guidelines on when this priority
@@ -19585,7 +19585,7 @@ export namespace scheduling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PriorityClass">
 
       /**
        * Standard object's metadata. More info:
@@ -19614,7 +19614,7 @@ export namespace scheduling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"scheduling.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19622,7 +19622,7 @@ export namespace scheduling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PriorityClassList">
 
       /**
        * Standard list metadata More info:
@@ -19656,7 +19656,7 @@ export namespace scheduling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"scheduling.k8s.io/v1beta1">
 
       /**
        * description is an arbitrary string that usually provides guidelines on when this priority
@@ -19679,7 +19679,7 @@ export namespace scheduling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PriorityClass">
 
       /**
        * Standard object's metadata. More info:
@@ -19708,7 +19708,7 @@ export namespace scheduling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"scheduling.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19716,7 +19716,7 @@ export namespace scheduling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PriorityClassList">
 
       /**
        * Standard list metadata More info:
@@ -19746,7 +19746,7 @@ export namespace settings {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"settings.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19754,7 +19754,7 @@ export namespace settings {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodPreset">
 
       
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
@@ -19783,7 +19783,7 @@ export namespace settings {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"settings.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19791,7 +19791,7 @@ export namespace settings {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"PodPresetList">
 
       /**
        * Standard list metadata. More info:
@@ -19875,7 +19875,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19883,7 +19883,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StorageClass">
 
       /**
        * Standard object's metadata. More info:
@@ -19938,7 +19938,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19946,7 +19946,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StorageClassList">
 
       /**
        * Standard list metadata More info:
@@ -19979,7 +19979,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19987,7 +19987,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"VolumeAttachment">
 
       /**
        * Standard object metadata. More info:
@@ -20022,7 +20022,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -20030,7 +20030,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"VolumeAttachmentList">
 
       /**
        * Standard list metadata More info:
@@ -20153,7 +20153,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -20161,7 +20161,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"VolumeAttachment">
 
       /**
        * Standard object metadata. More info:
@@ -20196,7 +20196,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1alpha1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -20204,7 +20204,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"VolumeAttachmentList">
 
       /**
        * Standard list metadata More info:
@@ -20340,7 +20340,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -20348,7 +20348,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StorageClass">
 
       /**
        * Standard object's metadata. More info:
@@ -20403,7 +20403,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -20411,7 +20411,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"StorageClassList">
 
       /**
        * Standard list metadata More info:
@@ -20444,7 +20444,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -20452,7 +20452,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"VolumeAttachment">
 
       /**
        * Standard object metadata. More info:
@@ -20487,7 +20487,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<string>
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -20495,7 +20495,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<string>
+      kind?: pulumi.Input<"VolumeAttachmentList">
 
       /**
        * Standard list metadata More info:

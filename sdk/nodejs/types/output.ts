@@ -35,7 +35,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "admissionregistration.k8s.io/v1alpha1"
 
       /**
        * Initializers is a list of resources and their default initializers Order-sensitive. When
@@ -51,7 +51,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "InitializerConfiguration"
 
       /**
        * Standard object metadata; More info:
@@ -71,7 +71,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "admissionregistration.k8s.io/v1alpha1"
 
       /**
        * List of InitializerConfiguration.
@@ -84,7 +84,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "InitializerConfigurationList"
 
       /**
        * Standard list metadata. More info:
@@ -141,7 +141,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "admissionregistration.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -149,7 +149,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "MutatingWebhookConfiguration"
 
       /**
        * Standard object metadata; More info:
@@ -174,7 +174,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "admissionregistration.k8s.io/v1beta1"
 
       /**
        * List of MutatingWebhookConfiguration.
@@ -187,7 +187,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "MutatingWebhookConfigurationList"
 
       /**
        * Standard list metadata. More info:
@@ -268,7 +268,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "admissionregistration.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -276,7 +276,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ValidatingWebhookConfiguration"
 
       /**
        * Standard object metadata; More info:
@@ -301,7 +301,7 @@ export namespace admissionregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "admissionregistration.k8s.io/v1beta1"
 
       /**
        * List of ValidatingWebhookConfiguration.
@@ -314,7 +314,7 @@ export namespace admissionregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ValidatingWebhookConfigurationList"
 
       /**
        * Standard list metadata. More info:
@@ -538,7 +538,7 @@ export namespace apiextensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apiextensions.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -546,7 +546,7 @@ export namespace apiextensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "CustomResourceDefinition"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -604,7 +604,7 @@ export namespace apiextensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apiextensions.k8s.io/v1beta1"
 
       /**
        * Items individual CustomResourceDefinitions
@@ -617,7 +617,7 @@ export namespace apiextensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "CustomResourceDefinitionList"
 
       
       readonly metadata: meta.v1.ListMeta
@@ -636,7 +636,7 @@ export namespace apiextensions {
       /**
        * Kind is the serialized kind of the resource.  It is normally CamelCase and singular.
        */
-      readonly kind: string
+      readonly kind: "CustomResourceDefinitionNames"
 
       /**
        * ListKind is the serialized kind of the list for this resource.  Defaults to <kind>List.
@@ -1078,7 +1078,7 @@ export namespace apiregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apiregistration.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1086,7 +1086,7 @@ export namespace apiregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "APIService"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -1142,7 +1142,7 @@ export namespace apiregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apiregistration.k8s.io/v1"
 
       
       readonly items: apiregistration.v1.APIService[]
@@ -1153,7 +1153,7 @@ export namespace apiregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "APIServiceList"
 
       
       readonly metadata: meta.v1.ListMeta
@@ -1263,7 +1263,7 @@ export namespace apiregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apiregistration.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1271,7 +1271,7 @@ export namespace apiregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "APIService"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -1327,7 +1327,7 @@ export namespace apiregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apiregistration.k8s.io/v1beta1"
 
       
       readonly items: apiregistration.v1beta1.APIService[]
@@ -1338,7 +1338,7 @@ export namespace apiregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "APIServiceList"
 
       
       readonly metadata: meta.v1.ListMeta
@@ -1458,7 +1458,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       /**
        * Data is the serialized representation of the state.
@@ -1471,7 +1471,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ControllerRevision"
 
       /**
        * Standard object's metadata. More info:
@@ -1496,7 +1496,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       /**
        * Items is the list of ControllerRevisions
@@ -1509,7 +1509,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ControllerRevisionList"
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -1528,7 +1528,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1536,7 +1536,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DaemonSet"
 
       /**
        * Standard object's metadata. More info:
@@ -1600,7 +1600,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       /**
        * A list of daemon sets.
@@ -1613,7 +1613,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DaemonSetList"
 
       /**
        * Standard list metadata. More info:
@@ -1753,7 +1753,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1761,7 +1761,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Deployment"
 
       /**
        * Standard object metadata.
@@ -1826,7 +1826,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       /**
        * Items is the list of Deployments.
@@ -1839,7 +1839,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DeploymentList"
 
       /**
        * Standard list metadata.
@@ -1982,7 +1982,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -1990,7 +1990,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ReplicaSet"
 
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
@@ -2055,7 +2055,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       /**
        * List of ReplicaSets. More info:
@@ -2069,7 +2069,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ReplicaSetList"
 
       /**
        * Standard list metadata. More info:
@@ -2229,7 +2229,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2237,7 +2237,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StatefulSet"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -2296,7 +2296,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1"
 
       
       readonly items: apps.v1.StatefulSet[]
@@ -2307,7 +2307,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StatefulSetList"
 
       
       readonly metadata: meta.v1.ListMeta
@@ -2483,7 +2483,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta1"
 
       /**
        * Data is the serialized representation of the state.
@@ -2496,7 +2496,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ControllerRevision"
 
       /**
        * Standard object's metadata. More info:
@@ -2521,7 +2521,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta1"
 
       /**
        * Items is the list of ControllerRevisions
@@ -2534,7 +2534,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ControllerRevisionList"
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -2555,7 +2555,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2563,7 +2563,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Deployment"
 
       /**
        * Standard object metadata.
@@ -2628,7 +2628,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta1"
 
       /**
        * Items is the list of Deployments.
@@ -2641,7 +2641,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DeploymentList"
 
       /**
        * Standard list metadata.
@@ -2660,7 +2660,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2668,7 +2668,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DeploymentRollback"
 
       /**
        * Required: This must match the Name of a deployment.
@@ -2880,7 +2880,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2888,7 +2888,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Scale"
 
       /**
        * Standard object metadata; More info:
@@ -2965,7 +2965,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2973,7 +2973,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StatefulSet"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -3032,7 +3032,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta1"
 
       
       readonly items: apps.v1beta1.StatefulSet[]
@@ -3043,7 +3043,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StatefulSetList"
 
       
       readonly metadata: meta.v1.ListMeta
@@ -3219,7 +3219,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * Data is the serialized representation of the state.
@@ -3232,7 +3232,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ControllerRevision"
 
       /**
        * Standard object's metadata. More info:
@@ -3257,7 +3257,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * Items is the list of ControllerRevisions
@@ -3270,7 +3270,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ControllerRevisionList"
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -3290,7 +3290,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3298,7 +3298,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DaemonSet"
 
       /**
        * Standard object's metadata. More info:
@@ -3362,7 +3362,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * A list of daemon sets.
@@ -3375,7 +3375,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DaemonSetList"
 
       /**
        * Standard list metadata. More info:
@@ -3517,7 +3517,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3525,7 +3525,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Deployment"
 
       /**
        * Standard object metadata.
@@ -3590,7 +3590,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * Items is the list of Deployments.
@@ -3603,7 +3603,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DeploymentList"
 
       /**
        * Standard list metadata.
@@ -3748,7 +3748,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3756,7 +3756,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ReplicaSet"
 
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
@@ -3821,7 +3821,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * List of ReplicaSets. More info:
@@ -3835,7 +3835,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ReplicaSetList"
 
       /**
        * Standard list metadata. More info:
@@ -3991,7 +3991,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3999,7 +3999,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Scale"
 
       /**
        * Standard object metadata; More info:
@@ -4076,7 +4076,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4084,7 +4084,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StatefulSet"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -4143,7 +4143,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "apps/v1beta2"
 
       
       readonly items: apps.v1beta2.StatefulSet[]
@@ -4154,7 +4154,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StatefulSetList"
 
       
       readonly metadata: meta.v1.ListMeta
@@ -4324,7 +4324,7 @@ export namespace auditregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "auditregistration.k8s.io/v1alpha1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4332,7 +4332,7 @@ export namespace auditregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "AuditSink"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -4354,7 +4354,7 @@ export namespace auditregistration {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "auditregistration.k8s.io/v1alpha1"
 
       /**
        * List of audit configurations.
@@ -4367,7 +4367,7 @@ export namespace auditregistration {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "AuditSinkList"
 
       
       readonly metadata: meta.v1.ListMeta
@@ -4523,7 +4523,7 @@ export namespace authentication {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authentication.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4531,7 +4531,7 @@ export namespace authentication {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "TokenReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -4640,7 +4640,7 @@ export namespace authentication {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authentication.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4648,7 +4648,7 @@ export namespace authentication {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "TokenReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -4761,7 +4761,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authorization.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4769,7 +4769,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "LocalSubjectAccessReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -4915,7 +4915,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authorization.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4923,7 +4923,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "SelfSubjectAccessReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -4974,7 +4974,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authorization.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4982,7 +4982,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "SelfSubjectRulesReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -5018,7 +5018,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authorization.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5026,7 +5026,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "SubjectAccessReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -5163,7 +5163,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authorization.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5171,7 +5171,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "LocalSubjectAccessReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -5317,7 +5317,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authorization.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5325,7 +5325,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "SelfSubjectAccessReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -5376,7 +5376,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authorization.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5384,7 +5384,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "SelfSubjectRulesReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -5420,7 +5420,7 @@ export namespace authorization {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "authorization.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5428,7 +5428,7 @@ export namespace authorization {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "SubjectAccessReview"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -5564,13 +5564,13 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v1"
 
       /**
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      readonly kind: string
+      readonly kind: "CrossVersionObjectReference"
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -5589,7 +5589,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5597,7 +5597,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "HorizontalPodAutoscaler"
 
       /**
        * Standard object metadata. More info:
@@ -5628,7 +5628,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v1"
 
       /**
        * list of horizontal pod autoscaler objects.
@@ -5641,7 +5641,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "HorizontalPodAutoscalerList"
 
       /**
        * Standard list metadata.
@@ -5722,7 +5722,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5730,7 +5730,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Scale"
 
       /**
        * Standard object metadata; More info:
@@ -5794,13 +5794,13 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v2beta1"
 
       /**
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      readonly kind: string
+      readonly kind: "CrossVersionObjectReference"
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -5878,7 +5878,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v2beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5886,7 +5886,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "HorizontalPodAutoscaler"
 
       /**
        * metadata is the standard object metadata. More info:
@@ -5949,7 +5949,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v2beta1"
 
       /**
        * items is the list of horizontal pod autoscaler objects.
@@ -5962,7 +5962,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "HorizontalPodAutoscalerList"
 
       /**
        * metadata is the standard list metadata.
@@ -6323,13 +6323,13 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v2beta2"
 
       /**
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      readonly kind: string
+      readonly kind: "CrossVersionObjectReference"
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -6385,7 +6385,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v2beta2"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6393,7 +6393,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "HorizontalPodAutoscaler"
 
       /**
        * metadata is the standard object metadata. More info:
@@ -6456,7 +6456,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "autoscaling/v2beta2"
 
       /**
        * items is the list of horizontal pod autoscaler objects.
@@ -6469,7 +6469,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "HorizontalPodAutoscalerList"
 
       /**
        * metadata is the standard list metadata.
@@ -6840,7 +6840,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "batch/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6848,7 +6848,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Job"
 
       /**
        * Standard object's metadata. More info:
@@ -6916,7 +6916,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "batch/v1"
 
       /**
        * items is the list of Jobs.
@@ -6929,7 +6929,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "JobList"
 
       /**
        * Standard list metadata. More info:
@@ -7064,7 +7064,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "batch/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7072,7 +7072,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "CronJob"
 
       /**
        * Standard object's metadata. More info:
@@ -7104,7 +7104,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "batch/v1beta1"
 
       /**
        * items is the list of CronJobs.
@@ -7117,7 +7117,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "CronJobList"
 
       /**
        * Standard list metadata. More info:
@@ -7222,7 +7222,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "batch/v2alpha1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7230,7 +7230,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "CronJob"
 
       /**
        * Standard object's metadata. More info:
@@ -7262,7 +7262,7 @@ export namespace batch {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "batch/v2alpha1"
 
       /**
        * items is the list of CronJobs.
@@ -7275,7 +7275,7 @@ export namespace batch {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "CronJobList"
 
       /**
        * Standard list metadata. More info:
@@ -7383,7 +7383,7 @@ export namespace certificates {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "certificates.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7391,7 +7391,7 @@ export namespace certificates {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "CertificateSigningRequest"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -7440,7 +7440,7 @@ export namespace certificates {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "certificates.k8s.io/v1beta1"
 
       
       readonly items: certificates.v1beta1.CertificateSigningRequest[]
@@ -7451,7 +7451,7 @@ export namespace certificates {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "CertificateSigningRequestList"
 
       
       readonly metadata: meta.v1.ListMeta
@@ -7528,7 +7528,7 @@ export namespace coordination {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "coordination.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7536,7 +7536,7 @@ export namespace coordination {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Lease"
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -7561,7 +7561,7 @@ export namespace coordination {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "coordination.k8s.io/v1beta1"
 
       /**
        * Items is a list of schema objects.
@@ -7574,7 +7574,7 @@ export namespace coordination {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "LeaseList"
 
       /**
        * Standard list metadata. More info:
@@ -7729,7 +7729,7 @@ export namespace core {
        * disk per storage account  Managed: azure managed data disk (only in managed availability
        * set). defaults to shared
        */
-      readonly kind: string
+      readonly kind: "AzureDiskVolumeSource"
 
       /**
        * Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
@@ -7800,7 +7800,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -7808,7 +7808,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Binding"
 
       /**
        * Standard object's metadata. More info:
@@ -8097,7 +8097,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of component conditions observed
@@ -8110,7 +8110,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ComponentStatus"
 
       /**
        * Standard object's metadata. More info:
@@ -8130,7 +8130,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of ComponentStatus objects.
@@ -8143,7 +8143,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ComponentStatusList"
 
       /**
        * Standard list metadata. More info:
@@ -8163,7 +8163,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-',
@@ -8187,7 +8187,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ConfigMap"
 
       /**
        * Standard object's metadata. More info:
@@ -8249,7 +8249,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Items is the list of ConfigMaps.
@@ -8262,7 +8262,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ConfigMapList"
 
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -8937,7 +8937,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -8945,7 +8945,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Endpoints"
 
       /**
        * Standard object's metadata. More info:
@@ -8975,7 +8975,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of endpoints.
@@ -8988,7 +8988,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "EndpointsList"
 
       /**
        * Standard list metadata. More info:
@@ -9088,7 +9088,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * The number of times this event has occurred.
@@ -9116,7 +9116,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Event"
 
       /**
        * The time at which the most recent occurrence of this event was recorded.
@@ -9182,7 +9182,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of events
@@ -9195,7 +9195,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "EventList"
 
       /**
        * Standard list metadata. More info:
@@ -9813,7 +9813,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -9821,7 +9821,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "LimitRange"
 
       /**
        * Standard object's metadata. More info:
@@ -9886,7 +9886,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Items is a list of LimitRange objects. More info:
@@ -9900,7 +9900,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "LimitRangeList"
 
       /**
        * Standard list metadata. More info:
@@ -10019,7 +10019,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10027,7 +10027,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Namespace"
 
       /**
        * Standard object's metadata. More info:
@@ -10059,7 +10059,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Items is the list of Namespace objects in the list. More info:
@@ -10073,7 +10073,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "NamespaceList"
 
       /**
        * Standard list metadata. More info:
@@ -10118,7 +10118,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10126,7 +10126,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Node"
 
       /**
        * Standard object's metadata. More info:
@@ -10312,7 +10312,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of nodes
@@ -10325,7 +10325,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "NodeList"
 
       /**
        * Standard list metadata. More info:
@@ -10567,7 +10567,7 @@ export namespace core {
       /**
        * Version of the schema the FieldPath is written in terms of, defaults to "v1".
        */
-      readonly apiVersion: string
+      readonly apiVersion: "core/v1"
 
       /**
        * Path of the field to select in the specified API version.
@@ -10583,7 +10583,7 @@ export namespace core {
       /**
        * API version of the referent.
        */
-      readonly apiVersion: string
+      readonly apiVersion: "core/v1"
 
       /**
        * If referring to a piece of an object instead of an entire object, this string should
@@ -10600,7 +10600,7 @@ export namespace core {
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ObjectReference"
 
       /**
        * Name of the referent. More info:
@@ -10639,7 +10639,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10647,7 +10647,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PersistentVolume"
 
       /**
        * Standard object's metadata. More info:
@@ -10681,7 +10681,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10689,7 +10689,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PersistentVolumeClaim"
 
       /**
        * Standard object's metadata. More info:
@@ -10756,7 +10756,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * A list of persistent volume claims. More info:
@@ -10770,7 +10770,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PersistentVolumeClaimList"
 
       /**
        * Standard list metadata. More info:
@@ -10890,7 +10890,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of persistent volumes. More info:
@@ -10904,7 +10904,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PersistentVolumeList"
 
       /**
        * Standard list metadata. More info:
@@ -11155,7 +11155,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -11163,7 +11163,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Pod"
 
       /**
        * Standard object's metadata. More info:
@@ -11358,7 +11358,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of pods. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md
@@ -11371,7 +11371,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodList"
 
       /**
        * Standard list metadata. More info:
@@ -11779,7 +11779,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -11787,7 +11787,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodTemplate"
 
       /**
        * Standard object's metadata. More info:
@@ -11813,7 +11813,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of pod templates
@@ -11826,7 +11826,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodTemplateList"
 
       /**
        * Standard list metadata. More info:
@@ -12127,7 +12127,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -12135,7 +12135,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ReplicationController"
 
       /**
        * If the Labels of a ReplicationController are empty, they are defaulted to be the same as
@@ -12201,7 +12201,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of replication controllers. More info:
@@ -12215,7 +12215,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ReplicationControllerList"
 
       /**
        * Standard list metadata. More info:
@@ -12332,7 +12332,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -12340,7 +12340,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ResourceQuota"
 
       /**
        * Standard object's metadata. More info:
@@ -12372,7 +12372,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Items is a list of ResourceQuota objects. More info:
@@ -12386,7 +12386,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ResourceQuotaList"
 
       /**
        * Standard list metadata. More info:
@@ -12655,7 +12655,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_'
@@ -12671,7 +12671,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Secret"
 
       /**
        * Standard object's metadata. More info:
@@ -12745,7 +12745,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Items is a list of secret objects. More info:
@@ -12759,7 +12759,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "SecretList"
 
       /**
        * Standard list metadata. More info:
@@ -12940,7 +12940,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -12948,7 +12948,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Service"
 
       /**
        * Standard object's metadata. More info:
@@ -12982,7 +12982,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * AutomountServiceAccountToken indicates whether pods running as this service account should
@@ -13005,7 +13005,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ServiceAccount"
 
       /**
        * Standard object's metadata. More info:
@@ -13031,7 +13031,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of ServiceAccounts. More info:
@@ -13045,7 +13045,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ServiceAccountList"
 
       /**
        * Standard list metadata. More info:
@@ -13094,7 +13094,7 @@ export namespace core {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * List of services
@@ -13107,7 +13107,7 @@ export namespace core {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ServiceList"
 
       /**
        * Standard list metadata. More info:
@@ -13523,7 +13523,7 @@ export namespace core {
       /**
        * Kind is the type of resource being referenced
        */
-      readonly kind: string
+      readonly kind: "TypedLocalObjectReference"
 
       /**
        * Name is the name of resource being referenced
@@ -13856,7 +13856,7 @@ export namespace events {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "events.k8s.io/v1beta1"
 
       /**
        * Deprecated field assuring backward compatibility with core.v1 Event type
@@ -13889,7 +13889,7 @@ export namespace events {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Event"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -13950,7 +13950,7 @@ export namespace events {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "events.k8s.io/v1beta1"
 
       /**
        * Items is a list of schema objects.
@@ -13963,7 +13963,7 @@ export namespace events {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "EventList"
 
       /**
        * Standard list metadata. More info:
@@ -14047,7 +14047,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -14055,7 +14055,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DaemonSet"
 
       /**
        * Standard object's metadata. More info:
@@ -14119,7 +14119,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * A list of daemon sets.
@@ -14132,7 +14132,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DaemonSetList"
 
       /**
        * Standard list metadata. More info:
@@ -14278,7 +14278,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -14286,7 +14286,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Deployment"
 
       /**
        * Standard object metadata.
@@ -14351,7 +14351,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Items is the list of Deployments.
@@ -14364,7 +14364,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DeploymentList"
 
       /**
        * Standard list metadata.
@@ -14383,7 +14383,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -14391,7 +14391,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DeploymentRollback"
 
       /**
        * Required: This must match the Name of a deployment.
@@ -14662,7 +14662,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -14670,7 +14670,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Ingress"
 
       /**
        * Standard object's metadata. More info:
@@ -14718,7 +14718,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Items is the list of Ingress.
@@ -14731,7 +14731,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "IngressList"
 
       /**
        * Standard object's metadata. More info:
@@ -14837,7 +14837,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -14845,7 +14845,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "NetworkPolicy"
 
       /**
        * Standard object's metadata. More info:
@@ -14923,7 +14923,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Items is a list of schema objects.
@@ -14936,7 +14936,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "NetworkPolicyList"
 
       /**
        * Standard list metadata. More info:
@@ -15060,7 +15060,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15068,7 +15068,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodSecurityPolicy"
 
       /**
        * Standard object's metadata. More info:
@@ -15094,7 +15094,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * items is a list of schema objects.
@@ -15107,7 +15107,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodSecurityPolicyList"
 
       /**
        * Standard list metadata. More info:
@@ -15277,7 +15277,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15285,7 +15285,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ReplicaSet"
 
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
@@ -15350,7 +15350,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * List of ReplicaSets. More info:
@@ -15364,7 +15364,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ReplicaSetList"
 
       /**
        * Standard list metadata. More info:
@@ -15572,7 +15572,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "extensions/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15580,7 +15580,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Scale"
 
       /**
        * Standard object metadata; More info:
@@ -15677,7 +15677,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15685,7 +15685,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "APIGroup"
 
       /**
        * name is the name of the group.
@@ -15726,7 +15726,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * groups is a list of APIGroup.
@@ -15739,7 +15739,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "APIGroupList"
 
     }
 
@@ -15761,7 +15761,7 @@ export namespace meta {
       /**
        * kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')
        */
-      readonly kind: string
+      readonly kind: "APIResource"
 
       /**
        * name is the plural name of the resource.
@@ -15811,7 +15811,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * groupVersion is the group and version this APIResourceList is for.
@@ -15824,7 +15824,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "APIResourceList"
 
       /**
        * resources contains the name of the resources and if they are namespaced.
@@ -15844,7 +15844,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15852,7 +15852,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "APIVersions"
 
       /**
        * a map of client CIDR to server address that is serving this group. This is to help clients
@@ -15882,7 +15882,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * When present, indicates that modifications should not be persisted. An invalid or
@@ -15905,7 +15905,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "DeleteOptions"
 
       /**
        * Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should
@@ -16232,7 +16232,7 @@ export namespace meta {
       /**
        * API version of the referent.
        */
-      readonly apiVersion: string
+      readonly apiVersion: "meta/v1"
 
       /**
        * If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be
@@ -16251,7 +16251,7 @@ export namespace meta {
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "OwnerReference"
 
       /**
        * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -16305,7 +16305,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "v1"
 
       /**
        * Suggested HTTP return code for this status, 0 if not set.
@@ -16325,7 +16325,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Status"
 
       /**
        * A human-readable description of the status of this operation.
@@ -16407,7 +16407,7 @@ export namespace meta {
        * operations may differ from the requested resource Kind. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StatusDetails"
 
       /**
        * The name attribute of the resource associated with the status StatusReason (when there is a
@@ -16483,7 +16483,7 @@ export namespace networking {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "networking.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16491,7 +16491,7 @@ export namespace networking {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "NetworkPolicy"
 
       /**
        * Standard object's metadata. More info:
@@ -16566,7 +16566,7 @@ export namespace networking {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "networking.k8s.io/v1"
 
       /**
        * Items is a list of schema objects.
@@ -16579,7 +16579,7 @@ export namespace networking {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "NetworkPolicyList"
 
       /**
        * Standard list metadata. More info:
@@ -16827,7 +16827,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "policy/v1beta1"
 
       /**
        * DeleteOptions may be provided
@@ -16840,7 +16840,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Eviction"
 
       /**
        * ObjectMeta describes the pod that is being evicted.
@@ -16910,7 +16910,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "policy/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16918,7 +16918,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodDisruptionBudget"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -16945,7 +16945,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "policy/v1beta1"
 
       
       readonly items: policy.v1beta1.PodDisruptionBudget[]
@@ -16956,7 +16956,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodDisruptionBudgetList"
 
       
       readonly metadata: meta.v1.ListMeta
@@ -17048,7 +17048,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "policy/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17056,7 +17056,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodSecurityPolicy"
 
       /**
        * Standard object's metadata. More info:
@@ -17081,7 +17081,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "policy/v1beta1"
 
       /**
        * items is a list of schema objects.
@@ -17094,7 +17094,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodSecurityPolicyList"
 
       /**
        * Standard list metadata. More info:
@@ -17361,7 +17361,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17369,7 +17369,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRole"
 
       /**
        * Standard object's metadata.
@@ -17394,7 +17394,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17402,7 +17402,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRoleBinding"
 
       /**
        * Standard object's metadata.
@@ -17432,7 +17432,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1"
 
       /**
        * Items is a list of ClusterRoleBindings
@@ -17445,7 +17445,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRoleBindingList"
 
       /**
        * Standard object's metadata.
@@ -17464,7 +17464,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1"
 
       /**
        * Items is a list of ClusterRoles
@@ -17477,7 +17477,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRoleList"
 
       /**
        * Standard object's metadata.
@@ -17538,7 +17538,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17546,7 +17546,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Role"
 
       /**
        * Standard object's metadata.
@@ -17573,7 +17573,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17581,7 +17581,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "RoleBinding"
 
       /**
        * Standard object's metadata.
@@ -17611,7 +17611,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1"
 
       /**
        * Items is a list of RoleBindings
@@ -17624,7 +17624,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "RoleBindingList"
 
       /**
        * Standard object's metadata.
@@ -17643,7 +17643,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1"
 
       /**
        * Items is a list of Roles
@@ -17656,7 +17656,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "RoleList"
 
       /**
        * Standard object's metadata.
@@ -17677,7 +17677,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      readonly kind: string
+      readonly kind: "RoleRef"
 
       /**
        * Name is the name of resource being referenced
@@ -17703,7 +17703,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      readonly kind: string
+      readonly kind: "Subject"
 
       /**
        * Name of the object being referenced.
@@ -17752,7 +17752,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1alpha1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17760,7 +17760,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRole"
 
       /**
        * Standard object's metadata.
@@ -17785,7 +17785,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1alpha1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17793,7 +17793,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRoleBinding"
 
       /**
        * Standard object's metadata.
@@ -17823,7 +17823,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1alpha1"
 
       /**
        * Items is a list of ClusterRoleBindings
@@ -17836,7 +17836,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRoleBindingList"
 
       /**
        * Standard object's metadata.
@@ -17855,7 +17855,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1alpha1"
 
       /**
        * Items is a list of ClusterRoles
@@ -17868,7 +17868,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRoleList"
 
       /**
        * Standard object's metadata.
@@ -17930,7 +17930,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1alpha1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17938,7 +17938,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Role"
 
       /**
        * Standard object's metadata.
@@ -17965,7 +17965,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1alpha1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -17973,7 +17973,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "RoleBinding"
 
       /**
        * Standard object's metadata.
@@ -18003,7 +18003,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1alpha1"
 
       /**
        * Items is a list of RoleBindings
@@ -18016,7 +18016,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "RoleBindingList"
 
       /**
        * Standard object's metadata.
@@ -18035,7 +18035,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1alpha1"
 
       /**
        * Items is a list of Roles
@@ -18048,7 +18048,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "RoleList"
 
       /**
        * Standard object's metadata.
@@ -18069,7 +18069,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      readonly kind: string
+      readonly kind: "RoleRef"
 
       /**
        * Name is the name of resource being referenced
@@ -18089,14 +18089,14 @@ export namespace rbac {
        * ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and
        * Group subjects.
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac/v1alpha1"
 
       /**
        * Kind of object being referenced. Values defined by this API group are "User", "Group", and
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      readonly kind: string
+      readonly kind: "Subject"
 
       /**
        * Name of the object being referenced.
@@ -18145,7 +18145,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18153,7 +18153,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRole"
 
       /**
        * Standard object's metadata.
@@ -18178,7 +18178,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18186,7 +18186,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRoleBinding"
 
       /**
        * Standard object's metadata.
@@ -18216,7 +18216,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1beta1"
 
       /**
        * Items is a list of ClusterRoleBindings
@@ -18229,7 +18229,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRoleBindingList"
 
       /**
        * Standard object's metadata.
@@ -18248,7 +18248,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1beta1"
 
       /**
        * Items is a list of ClusterRoles
@@ -18261,7 +18261,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "ClusterRoleList"
 
       /**
        * Standard object's metadata.
@@ -18323,7 +18323,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18331,7 +18331,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "Role"
 
       /**
        * Standard object's metadata.
@@ -18358,7 +18358,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18366,7 +18366,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "RoleBinding"
 
       /**
        * Standard object's metadata.
@@ -18396,7 +18396,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1beta1"
 
       /**
        * Items is a list of RoleBindings
@@ -18409,7 +18409,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "RoleBindingList"
 
       /**
        * Standard object's metadata.
@@ -18428,7 +18428,7 @@ export namespace rbac {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "rbac.authorization.k8s.io/v1beta1"
 
       /**
        * Items is a list of Roles
@@ -18441,7 +18441,7 @@ export namespace rbac {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "RoleList"
 
       /**
        * Standard object's metadata.
@@ -18462,7 +18462,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      readonly kind: string
+      readonly kind: "RoleRef"
 
       /**
        * Name is the name of resource being referenced
@@ -18488,7 +18488,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      readonly kind: string
+      readonly kind: "Subject"
 
       /**
        * Name of the object being referenced.
@@ -18520,7 +18520,7 @@ export namespace scheduling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "scheduling.k8s.io/v1alpha1"
 
       /**
        * description is an arbitrary string that usually provides guidelines on when this priority
@@ -18543,7 +18543,7 @@ export namespace scheduling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PriorityClass"
 
       /**
        * Standard object's metadata. More info:
@@ -18569,7 +18569,7 @@ export namespace scheduling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "scheduling.k8s.io/v1alpha1"
 
       /**
        * items is the list of PriorityClasses
@@ -18582,7 +18582,7 @@ export namespace scheduling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PriorityClassList"
 
       /**
        * Standard list metadata More info:
@@ -18606,7 +18606,7 @@ export namespace scheduling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "scheduling.k8s.io/v1beta1"
 
       /**
        * description is an arbitrary string that usually provides guidelines on when this priority
@@ -18629,7 +18629,7 @@ export namespace scheduling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PriorityClass"
 
       /**
        * Standard object's metadata. More info:
@@ -18655,7 +18655,7 @@ export namespace scheduling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "scheduling.k8s.io/v1beta1"
 
       /**
        * items is the list of PriorityClasses
@@ -18668,7 +18668,7 @@ export namespace scheduling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PriorityClassList"
 
       /**
        * Standard list metadata More info:
@@ -18694,7 +18694,7 @@ export namespace settings {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "settings.k8s.io/v1alpha1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18702,7 +18702,7 @@ export namespace settings {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodPreset"
 
       
       readonly metadata: meta.v1.ObjectMeta
@@ -18722,7 +18722,7 @@ export namespace settings {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "settings.k8s.io/v1alpha1"
 
       /**
        * Items is a list of schema objects.
@@ -18735,7 +18735,7 @@ export namespace settings {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "PodPresetList"
 
       /**
        * Standard list metadata. More info:
@@ -18809,7 +18809,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18817,7 +18817,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StorageClass"
 
       /**
        * Standard object's metadata. More info:
@@ -18868,7 +18868,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1"
 
       /**
        * Items is the list of StorageClasses
@@ -18881,7 +18881,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StorageClassList"
 
       /**
        * Standard list metadata More info:
@@ -18904,7 +18904,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -18912,7 +18912,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "VolumeAttachment"
 
       /**
        * Standard object metadata. More info:
@@ -18944,7 +18944,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1"
 
       /**
        * Items is the list of VolumeAttachments
@@ -18957,7 +18957,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "VolumeAttachmentList"
 
       /**
        * Standard list metadata More info:
@@ -19066,7 +19066,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1alpha1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19074,7 +19074,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "VolumeAttachment"
 
       /**
        * Standard object metadata. More info:
@@ -19106,7 +19106,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1alpha1"
 
       /**
        * Items is the list of VolumeAttachments
@@ -19119,7 +19119,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "VolumeAttachmentList"
 
       /**
        * Standard list metadata More info:
@@ -19242,7 +19242,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19250,7 +19250,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StorageClass"
 
       /**
        * Standard object's metadata. More info:
@@ -19301,7 +19301,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1beta1"
 
       /**
        * Items is the list of StorageClasses
@@ -19314,7 +19314,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "StorageClassList"
 
       /**
        * Standard list metadata More info:
@@ -19337,7 +19337,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1beta1"
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -19345,7 +19345,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "VolumeAttachment"
 
       /**
        * Standard object metadata. More info:
@@ -19377,7 +19377,7 @@ export namespace storage {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: string
+      readonly apiVersion: "storage.k8s.io/v1beta1"
 
       /**
        * Items is the list of VolumeAttachments
@@ -19390,7 +19390,7 @@ export namespace storage {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: string
+      readonly kind: "VolumeAttachmentList"
 
       /**
        * Standard list metadata More info:
