@@ -1002,10 +1002,10 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewSpec>;
         public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", name: string, property: "status"): pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewStatus>;
         public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", namespace: string, name: string, property: "status"): pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewStatus>;
-        public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", name: string, property: "api_version"): pulumi.Output<"autoscaling/v1">;
-        public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", namespace: string, name: string, property: "api_version"): pulumi.Output<"autoscaling/v1">;
-        public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", name: string, property: "kind"): pulumi.Output<"CrossVersionObjectReference">;
-        public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", namespace: string, name: string, property: "kind"): pulumi.Output<"CrossVersionObjectReference">;
+        public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v1/CrossVersionObjectReference", namespace: string, name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", name: string, property: "api_version"): pulumi.Output<"autoscaling/v1">;
@@ -1036,10 +1036,10 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "autoscaling/v1/Scale", namespace: string, name: string, property: "spec"): pulumi.Output<outputApi.autoscaling.v1.ScaleSpec>;
         public getResourceProperty(groupVersionKind: "autoscaling/v1/Scale", name: string, property: "status"): pulumi.Output<outputApi.autoscaling.v1.ScaleStatus>;
         public getResourceProperty(groupVersionKind: "autoscaling/v1/Scale", namespace: string, name: string, property: "status"): pulumi.Output<outputApi.autoscaling.v1.ScaleStatus>;
-        public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", name: string, property: "api_version"): pulumi.Output<"autoscaling/v2beta1">;
-        public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", namespace: string, name: string, property: "api_version"): pulumi.Output<"autoscaling/v2beta1">;
-        public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", name: string, property: "kind"): pulumi.Output<"CrossVersionObjectReference">;
-        public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", namespace: string, name: string, property: "kind"): pulumi.Output<"CrossVersionObjectReference">;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/CrossVersionObjectReference", namespace: string, name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscaler", name: string, property: "api_version"): pulumi.Output<"autoscaling/v2beta1">;
@@ -1060,10 +1060,10 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscalerList", namespace: string, name: string, property: "kind"): pulumi.Output<"HorizontalPodAutoscalerList">;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscalerList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta1/HorizontalPodAutoscalerList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
-        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", name: string, property: "api_version"): pulumi.Output<"autoscaling/v2beta2">;
-        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", namespace: string, name: string, property: "api_version"): pulumi.Output<"autoscaling/v2beta2">;
-        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", name: string, property: "kind"): pulumi.Output<"CrossVersionObjectReference">;
-        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", namespace: string, name: string, property: "kind"): pulumi.Output<"CrossVersionObjectReference">;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/CrossVersionObjectReference", namespace: string, name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "autoscaling/v2beta2/HorizontalPodAutoscaler", name: string, property: "api_version"): pulumi.Output<"autoscaling/v2beta2">;
@@ -1324,12 +1324,12 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "v1/NodeList", namespace: string, name: string, property: "kind"): pulumi.Output<"NodeList">;
         public getResourceProperty(groupVersionKind: "v1/NodeList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "v1/NodeList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
-        public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", name: string, property: "api_version"): pulumi.Output<"core/v1">;
-        public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", namespace: string, name: string, property: "api_version"): pulumi.Output<"core/v1">;
+        public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", name: string, property: "field_path"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", namespace: string, name: string, property: "field_path"): pulumi.Output<string>;
-        public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", name: string, property: "kind"): pulumi.Output<"ObjectReference">;
-        public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", namespace: string, name: string, property: "kind"): pulumi.Output<"ObjectReference">;
+        public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", namespace: string, name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "core/v1/ObjectReference", name: string, property: "namespace"): pulumi.Output<string>;
@@ -1716,14 +1716,14 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "v1/DeleteOptions", namespace: string, name: string, property: "preconditions"): pulumi.Output<outputApi.meta.v1.Preconditions>;
         public getResourceProperty(groupVersionKind: "v1/DeleteOptions", name: string, property: "propagation_policy"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "v1/DeleteOptions", namespace: string, name: string, property: "propagation_policy"): pulumi.Output<string>;
-        public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", name: string, property: "api_version"): pulumi.Output<"meta/v1">;
-        public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", namespace: string, name: string, property: "api_version"): pulumi.Output<"meta/v1">;
+        public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", name: string, property: "block_owner_deletion"): pulumi.Output<boolean>;
         public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", namespace: string, name: string, property: "block_owner_deletion"): pulumi.Output<boolean>;
         public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", name: string, property: "controller"): pulumi.Output<boolean>;
         public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", namespace: string, name: string, property: "controller"): pulumi.Output<boolean>;
-        public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", name: string, property: "kind"): pulumi.Output<"OwnerReference">;
-        public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", namespace: string, name: string, property: "kind"): pulumi.Output<"OwnerReference">;
+        public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", namespace: string, name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "meta/v1/OwnerReference", name: string, property: "uid"): pulumi.Output<string>;
@@ -1942,10 +1942,10 @@ export namespace yaml {
         public getResourceProperty(groupVersionKind: "rbac.authorization.k8s.io/v1alpha1/RoleList", namespace: string, name: string, property: "kind"): pulumi.Output<"RoleList">;
         public getResourceProperty(groupVersionKind: "rbac.authorization.k8s.io/v1alpha1/RoleList", name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "rbac.authorization.k8s.io/v1alpha1/RoleList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputApi.meta.v1.ListMeta>;
-        public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", name: string, property: "api_version"): pulumi.Output<"rbac/v1alpha1">;
-        public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", namespace: string, name: string, property: "api_version"): pulumi.Output<"rbac/v1alpha1">;
-        public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", name: string, property: "kind"): pulumi.Output<"Subject">;
-        public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", namespace: string, name: string, property: "kind"): pulumi.Output<"Subject">;
+        public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", namespace: string, name: string, property: "api_version"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", name: string, property: "kind"): pulumi.Output<string>;
+        public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", namespace: string, name: string, property: "kind"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", namespace: string, name: string, property: "name"): pulumi.Output<string>;
         public getResourceProperty(groupVersionKind: "rbac/v1alpha1/Subject", name: string, property: "namespace"): pulumi.Output<string>;
@@ -7409,13 +7409,13 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      public readonly apiVersion: pulumi.Output<"autoscaling/v1">;
+      public readonly apiVersion: pulumi.Output<string>;
 
       /**
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      public readonly kind: pulumi.Output<"CrossVersionObjectReference">;
+      public readonly kind: pulumi.Output<string>;
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -7692,13 +7692,13 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      public readonly apiVersion: pulumi.Output<"autoscaling/v2beta1">;
+      public readonly apiVersion: pulumi.Output<string>;
 
       /**
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      public readonly kind: pulumi.Output<"CrossVersionObjectReference">;
+      public readonly kind: pulumi.Output<string>;
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -7899,13 +7899,13 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      public readonly apiVersion: pulumi.Output<"autoscaling/v2beta2">;
+      public readonly apiVersion: pulumi.Output<string>;
 
       /**
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      public readonly kind: pulumi.Output<"CrossVersionObjectReference">;
+      public readonly kind: pulumi.Output<string>;
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -10004,7 +10004,7 @@ export namespace core {
       /**
        * API version of the referent.
        */
-      public readonly apiVersion: pulumi.Output<"core/v1">;
+      public readonly apiVersion: pulumi.Output<string>;
 
       /**
        * If referring to a piece of an object instead of an entire object, this string should
@@ -10021,7 +10021,7 @@ export namespace core {
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"ObjectReference">;
+      public readonly kind: pulumi.Output<string>;
 
       /**
        * Name of the referent. More info:
@@ -13096,7 +13096,7 @@ export namespace meta {
       /**
        * API version of the referent.
        */
-      public readonly apiVersion: pulumi.Output<"meta/v1">;
+      public readonly apiVersion: pulumi.Output<string>;
 
       /**
        * If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be
@@ -13115,7 +13115,7 @@ export namespace meta {
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"OwnerReference">;
+      public readonly kind: pulumi.Output<string>;
 
       /**
        * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -14925,14 +14925,14 @@ export namespace rbac {
        * ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and
        * Group subjects.
        */
-      public readonly apiVersion: pulumi.Output<"rbac/v1alpha1">;
+      public readonly apiVersion: pulumi.Output<string>;
 
       /**
        * Kind of object being referenced. Values defined by this API group are "User", "Group", and
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      public readonly kind: pulumi.Output<"Subject">;
+      public readonly kind: pulumi.Output<string>;
 
       /**
        * Name of the object being referenced.

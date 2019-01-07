@@ -636,7 +636,7 @@ export namespace apiextensions {
       /**
        * Kind is the serialized kind of the resource.  It is normally CamelCase and singular.
        */
-      readonly kind: "CustomResourceDefinitionNames"
+      readonly kind: string
 
       /**
        * ListKind is the serialized kind of the list for this resource.  Defaults to <kind>List.
@@ -5564,13 +5564,13 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      readonly apiVersion: "autoscaling/v1"
+      readonly apiVersion: string
 
       /**
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      readonly kind: "CrossVersionObjectReference"
+      readonly kind: string
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -5794,13 +5794,13 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      readonly apiVersion: "autoscaling/v2beta1"
+      readonly apiVersion: string
 
       /**
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      readonly kind: "CrossVersionObjectReference"
+      readonly kind: string
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -6323,13 +6323,13 @@ export namespace autoscaling {
       /**
        * API version of the referent
        */
-      readonly apiVersion: "autoscaling/v2beta2"
+      readonly apiVersion: string
 
       /**
        * Kind of the referent; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
        */
-      readonly kind: "CrossVersionObjectReference"
+      readonly kind: string
 
       /**
        * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -7729,7 +7729,7 @@ export namespace core {
        * disk per storage account  Managed: azure managed data disk (only in managed availability
        * set). defaults to shared
        */
-      readonly kind: "AzureDiskVolumeSource"
+      readonly kind: string
 
       /**
        * Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
@@ -10567,7 +10567,7 @@ export namespace core {
       /**
        * Version of the schema the FieldPath is written in terms of, defaults to "v1".
        */
-      readonly apiVersion: "core/v1"
+      readonly apiVersion: string
 
       /**
        * Path of the field to select in the specified API version.
@@ -10583,7 +10583,7 @@ export namespace core {
       /**
        * API version of the referent.
        */
-      readonly apiVersion: "core/v1"
+      readonly apiVersion: string
 
       /**
        * If referring to a piece of an object instead of an entire object, this string should
@@ -10600,7 +10600,7 @@ export namespace core {
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "ObjectReference"
+      readonly kind: string
 
       /**
        * Name of the referent. More info:
@@ -13523,7 +13523,7 @@ export namespace core {
       /**
        * Kind is the type of resource being referenced
        */
-      readonly kind: "TypedLocalObjectReference"
+      readonly kind: string
 
       /**
        * Name is the name of resource being referenced
@@ -15761,7 +15761,7 @@ export namespace meta {
       /**
        * kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')
        */
-      readonly kind: "APIResource"
+      readonly kind: string
 
       /**
        * name is the plural name of the resource.
@@ -16232,7 +16232,7 @@ export namespace meta {
       /**
        * API version of the referent.
        */
-      readonly apiVersion: "meta/v1"
+      readonly apiVersion: string
 
       /**
        * If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be
@@ -16251,7 +16251,7 @@ export namespace meta {
        * Kind of the referent. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "OwnerReference"
+      readonly kind: string
 
       /**
        * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
@@ -16407,7 +16407,7 @@ export namespace meta {
        * operations may differ from the requested resource Kind. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "StatusDetails"
+      readonly kind: string
 
       /**
        * The name attribute of the resource associated with the status StatusReason (when there is a
@@ -17677,7 +17677,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      readonly kind: "RoleRef"
+      readonly kind: string
 
       /**
        * Name is the name of resource being referenced
@@ -17703,7 +17703,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      readonly kind: "Subject"
+      readonly kind: string
 
       /**
        * Name of the object being referenced.
@@ -18069,7 +18069,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      readonly kind: "RoleRef"
+      readonly kind: string
 
       /**
        * Name is the name of resource being referenced
@@ -18089,14 +18089,14 @@ export namespace rbac {
        * ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and
        * Group subjects.
        */
-      readonly apiVersion: "rbac/v1alpha1"
+      readonly apiVersion: string
 
       /**
        * Kind of object being referenced. Values defined by this API group are "User", "Group", and
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      readonly kind: "Subject"
+      readonly kind: string
 
       /**
        * Name of the object being referenced.
@@ -18462,7 +18462,7 @@ export namespace rbac {
       /**
        * Kind is the type of resource being referenced
        */
-      readonly kind: "RoleRef"
+      readonly kind: string
 
       /**
        * Name is the name of resource being referenced
@@ -18488,7 +18488,7 @@ export namespace rbac {
        * "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer
        * should report an error.
        */
-      readonly kind: "Subject"
+      readonly kind: string
 
       /**
        * Name of the object being referenced.

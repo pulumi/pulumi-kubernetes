@@ -424,8 +424,10 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 			// `admissionregistration.k8s.io/v1alpha1` instead of `admissionregistration/v1alpha1`).
 			defaultGroupVersion := d.gvk.Group
 			var fqGroupVersion string
-			if gvks, gvkExists :=
-				d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
+			gvks, gvkExists :=
+				d.data["x-kubernetes-group-version-kind"].([]interface{})
+			isTopLevel := gvkExists && len(gvks) > 0
+			if isTopLevel {
 				gvk := gvks[0].(map[string]interface{})
 				group := gvk["group"].(string)
 				version := gvk["version"].(string)
@@ -476,10 +478,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					switch propName {
 					case "apiVersion":
 						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
-						t = fmt.Sprintf(`"%s"`, defaultGroupVersion)
+						if isTopLevel {
+							t = fmt.Sprintf(`"%s"`, defaultGroupVersion)
+						}
 					case "kind":
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
-						t = fmt.Sprintf(`"%s"`, d.gvk.Kind)
+						if isTopLevel {
+							t = fmt.Sprintf(`"%s"`, d.gvk.Kind)
+						}
 					}
 
 					return &Property{
