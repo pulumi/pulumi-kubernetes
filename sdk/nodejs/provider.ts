@@ -3363,7 +3363,7 @@ export namespace apiextensions {
      * CustomResourceGetOptions uniquely identifies a Kubernetes CustomResource, primarily for use
      * in supplied to `apiextensions.CustomResource#get`.
      */
-    export interface CustomResourceGetOptions {
+    export interface CustomResourceGetOptions extends pulumi.CustomResourceOptions {
         /**
          * apiVersion is the API version of the apiExtensions.CustomResource we wish to select,
          * as specified by the CustomResourceDefinition that defines it on the API server.
@@ -3423,7 +3423,11 @@ export namespace apiextensions {
        * @param opts Uniquely specifies a CustomResource to select.
        */
       public static get(name: string, opts: CustomResourceGetOptions): CustomResource {
-          return new CustomResource(name, {apiVersion: opts.apiVersion, kind: opts.kind}, { id: opts.id });
+          // NOTE: `selectOpts` will be type `pulumi.CustomResource`. If we add a field that does
+          // not satisfy that interface, it will cause a compilation error in `...selectOpts` in
+          // the constructor call below.
+          const {apiVersion, kind, id, ...selectOpts} = opts;
+          return new CustomResource(name, {apiVersion: apiVersion, kind: kind}, { ...selectOpts, id: id });
       }
 
       public getInputs(): CustomResourceArgs { return this.__inputs; }
@@ -3538,9 +3542,10 @@ export namespace admissionregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): InitializerConfiguration {
-          return new InitializerConfiguration(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): InitializerConfiguration {
+          return new InitializerConfiguration(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfiguration { return this.__inputs; }
@@ -3606,9 +3611,10 @@ export namespace admissionregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): InitializerConfigurationList {
-          return new InitializerConfigurationList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): InitializerConfigurationList {
+          return new InitializerConfigurationList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfigurationList { return this.__inputs; }
@@ -3678,9 +3684,10 @@ export namespace admissionregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): MutatingWebhookConfiguration {
-          return new MutatingWebhookConfiguration(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): MutatingWebhookConfiguration {
+          return new MutatingWebhookConfiguration(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration { return this.__inputs; }
@@ -3746,9 +3753,10 @@ export namespace admissionregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): MutatingWebhookConfigurationList {
-          return new MutatingWebhookConfigurationList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): MutatingWebhookConfigurationList {
+          return new MutatingWebhookConfigurationList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList { return this.__inputs; }
@@ -3815,9 +3823,10 @@ export namespace admissionregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ValidatingWebhookConfiguration {
-          return new ValidatingWebhookConfiguration(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ValidatingWebhookConfiguration {
+          return new ValidatingWebhookConfiguration(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration { return this.__inputs; }
@@ -3883,9 +3892,10 @@ export namespace admissionregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ValidatingWebhookConfigurationList {
-          return new ValidatingWebhookConfigurationList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ValidatingWebhookConfigurationList {
+          return new ValidatingWebhookConfigurationList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList { return this.__inputs; }
@@ -3960,9 +3970,10 @@ export namespace apiextensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CustomResourceDefinition {
-          return new CustomResourceDefinition(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CustomResourceDefinition {
+          return new CustomResourceDefinition(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinition { return this.__inputs; }
@@ -4026,9 +4037,10 @@ export namespace apiextensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CustomResourceDefinitionList {
-          return new CustomResourceDefinitionList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CustomResourceDefinitionList {
+          return new CustomResourceDefinitionList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinitionList { return this.__inputs; }
@@ -4102,9 +4114,10 @@ export namespace apiregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIService {
-          return new APIService(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): APIService {
+          return new APIService(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apiregistration.v1.APIService { return this.__inputs; }
@@ -4166,9 +4179,10 @@ export namespace apiregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIServiceList {
-          return new APIServiceList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): APIServiceList {
+          return new APIServiceList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apiregistration.v1.APIServiceList { return this.__inputs; }
@@ -4239,9 +4253,10 @@ export namespace apiregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIService {
-          return new APIService(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): APIService {
+          return new APIService(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apiregistration.v1beta1.APIService { return this.__inputs; }
@@ -4303,9 +4318,10 @@ export namespace apiregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIServiceList {
-          return new APIServiceList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): APIServiceList {
+          return new APIServiceList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apiregistration.v1beta1.APIServiceList { return this.__inputs; }
@@ -4389,9 +4405,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevision {
-          return new ControllerRevision(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ControllerRevision {
+          return new ControllerRevision(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.ControllerRevision { return this.__inputs; }
@@ -4457,9 +4474,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevisionList {
-          return new ControllerRevisionList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ControllerRevisionList {
+          return new ControllerRevisionList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.ControllerRevisionList { return this.__inputs; }
@@ -4533,9 +4551,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSet {
-          return new DaemonSet(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DaemonSet {
+          return new DaemonSet(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.DaemonSet { return this.__inputs; }
@@ -4602,9 +4621,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSetList {
-          return new DaemonSetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DaemonSetList {
+          return new DaemonSetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.DaemonSetList { return this.__inputs; }
@@ -4674,9 +4694,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Deployment {
-          return new Deployment(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Deployment {
+          return new Deployment(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.Deployment { return this.__inputs; }
@@ -4742,9 +4763,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentList {
-          return new DeploymentList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DeploymentList {
+          return new DeploymentList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.DeploymentList { return this.__inputs; }
@@ -4819,9 +4841,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSet {
-          return new ReplicaSet(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicaSet {
+          return new ReplicaSet(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.ReplicaSet { return this.__inputs; }
@@ -4889,9 +4912,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSetList {
-          return new ReplicaSetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicaSetList {
+          return new ReplicaSetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.ReplicaSetList { return this.__inputs; }
@@ -4964,9 +4988,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSet {
-          return new StatefulSet(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSet {
+          return new StatefulSet(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.StatefulSet { return this.__inputs; }
@@ -5028,9 +5053,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSetList {
-          return new StatefulSetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSetList {
+          return new StatefulSetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1.StatefulSetList { return this.__inputs; }
@@ -5113,9 +5139,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevision {
-          return new ControllerRevision(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ControllerRevision {
+          return new ControllerRevision(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.ControllerRevision { return this.__inputs; }
@@ -5181,9 +5208,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevisionList {
-          return new ControllerRevisionList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ControllerRevisionList {
+          return new ControllerRevisionList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.ControllerRevisionList { return this.__inputs; }
@@ -5255,9 +5283,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Deployment {
-          return new Deployment(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Deployment {
+          return new Deployment(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.Deployment { return this.__inputs; }
@@ -5323,9 +5352,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentList {
-          return new DeploymentList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DeploymentList {
+          return new DeploymentList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.DeploymentList { return this.__inputs; }
@@ -5395,9 +5425,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentRollback {
-          return new DeploymentRollback(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DeploymentRollback {
+          return new DeploymentRollback(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.DeploymentRollback { return this.__inputs; }
@@ -5472,9 +5503,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Scale {
-          return new Scale(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Scale {
+          return new Scale(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.Scale { return this.__inputs; }
@@ -5550,9 +5582,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSet {
-          return new StatefulSet(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSet {
+          return new StatefulSet(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.StatefulSet { return this.__inputs; }
@@ -5614,9 +5647,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSetList {
-          return new StatefulSetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSetList {
+          return new StatefulSetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta1.StatefulSetList { return this.__inputs; }
@@ -5699,9 +5733,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevision {
-          return new ControllerRevision(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ControllerRevision {
+          return new ControllerRevision(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.ControllerRevision { return this.__inputs; }
@@ -5767,9 +5802,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ControllerRevisionList {
-          return new ControllerRevisionList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ControllerRevisionList {
+          return new ControllerRevisionList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.ControllerRevisionList { return this.__inputs; }
@@ -5844,9 +5880,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSet {
-          return new DaemonSet(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DaemonSet {
+          return new DaemonSet(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.DaemonSet { return this.__inputs; }
@@ -5913,9 +5950,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSetList {
-          return new DaemonSetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DaemonSetList {
+          return new DaemonSetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.DaemonSetList { return this.__inputs; }
@@ -5987,9 +6025,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Deployment {
-          return new Deployment(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Deployment {
+          return new Deployment(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.Deployment { return this.__inputs; }
@@ -6055,9 +6094,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentList {
-          return new DeploymentList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DeploymentList {
+          return new DeploymentList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.DeploymentList { return this.__inputs; }
@@ -6134,9 +6174,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSet {
-          return new ReplicaSet(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicaSet {
+          return new ReplicaSet(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.ReplicaSet { return this.__inputs; }
@@ -6204,9 +6245,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSetList {
-          return new ReplicaSetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicaSetList {
+          return new ReplicaSetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.ReplicaSetList { return this.__inputs; }
@@ -6280,9 +6322,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Scale {
-          return new Scale(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Scale {
+          return new Scale(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.Scale { return this.__inputs; }
@@ -6358,9 +6401,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSet {
-          return new StatefulSet(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSet {
+          return new StatefulSet(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.StatefulSet { return this.__inputs; }
@@ -6422,9 +6466,10 @@ export namespace apps {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StatefulSetList {
-          return new StatefulSetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSetList {
+          return new StatefulSetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.apps.v1beta2.StatefulSetList { return this.__inputs; }
@@ -6493,9 +6538,10 @@ export namespace auditregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): AuditSink {
-          return new AuditSink(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): AuditSink {
+          return new AuditSink(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.auditregistration.v1alpha1.AuditSink { return this.__inputs; }
@@ -6558,9 +6604,10 @@ export namespace auditregistration {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): AuditSinkList {
-          return new AuditSinkList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): AuditSinkList {
+          return new AuditSinkList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.auditregistration.v1alpha1.AuditSinkList { return this.__inputs; }
@@ -6635,9 +6682,10 @@ export namespace authentication {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): TokenReview {
-          return new TokenReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): TokenReview {
+          return new TokenReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authentication.v1.TokenReview { return this.__inputs; }
@@ -6710,9 +6758,10 @@ export namespace authentication {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): TokenReview {
-          return new TokenReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): TokenReview {
+          return new TokenReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authentication.v1beta1.TokenReview { return this.__inputs; }
@@ -6790,9 +6839,10 @@ export namespace authorization {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): LocalSubjectAccessReview {
-          return new LocalSubjectAccessReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): LocalSubjectAccessReview {
+          return new LocalSubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authorization.v1.LocalSubjectAccessReview { return this.__inputs; }
@@ -6863,9 +6913,10 @@ export namespace authorization {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): SelfSubjectAccessReview {
-          return new SelfSubjectAccessReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): SelfSubjectAccessReview {
+          return new SelfSubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authorization.v1.SelfSubjectAccessReview { return this.__inputs; }
@@ -6941,9 +6992,10 @@ export namespace authorization {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): SelfSubjectRulesReview {
-          return new SelfSubjectRulesReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): SelfSubjectRulesReview {
+          return new SelfSubjectRulesReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authorization.v1.SelfSubjectRulesReview { return this.__inputs; }
@@ -7012,9 +7064,10 @@ export namespace authorization {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): SubjectAccessReview {
-          return new SubjectAccessReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): SubjectAccessReview {
+          return new SubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authorization.v1.SubjectAccessReview { return this.__inputs; }
@@ -7089,9 +7142,10 @@ export namespace authorization {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): LocalSubjectAccessReview {
-          return new LocalSubjectAccessReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): LocalSubjectAccessReview {
+          return new LocalSubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authorization.v1beta1.LocalSubjectAccessReview { return this.__inputs; }
@@ -7162,9 +7216,10 @@ export namespace authorization {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): SelfSubjectAccessReview {
-          return new SelfSubjectAccessReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): SelfSubjectAccessReview {
+          return new SelfSubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authorization.v1beta1.SelfSubjectAccessReview { return this.__inputs; }
@@ -7240,9 +7295,10 @@ export namespace authorization {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): SelfSubjectRulesReview {
-          return new SelfSubjectRulesReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): SelfSubjectRulesReview {
+          return new SelfSubjectRulesReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authorization.v1beta1.SelfSubjectRulesReview { return this.__inputs; }
@@ -7311,9 +7367,10 @@ export namespace authorization {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): SubjectAccessReview {
-          return new SubjectAccessReview(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): SubjectAccessReview {
+          return new SubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.authorization.v1beta1.SubjectAccessReview { return this.__inputs; }
@@ -7376,9 +7433,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CrossVersionObjectReference {
-          return new CrossVersionObjectReference(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CrossVersionObjectReference {
+          return new CrossVersionObjectReference(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v1.CrossVersionObjectReference { return this.__inputs; }
@@ -7449,9 +7507,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscaler {
-          return new HorizontalPodAutoscaler(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): HorizontalPodAutoscaler {
+          return new HorizontalPodAutoscaler(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscaler { return this.__inputs; }
@@ -7517,9 +7576,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscalerList {
-          return new HorizontalPodAutoscalerList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): HorizontalPodAutoscalerList {
+          return new HorizontalPodAutoscalerList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscalerList { return this.__inputs; }
@@ -7593,9 +7653,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Scale {
-          return new Scale(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Scale {
+          return new Scale(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v1.Scale { return this.__inputs; }
@@ -7655,9 +7716,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CrossVersionObjectReference {
-          return new CrossVersionObjectReference(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CrossVersionObjectReference {
+          return new CrossVersionObjectReference(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v2beta1.CrossVersionObjectReference { return this.__inputs; }
@@ -7730,9 +7792,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscaler {
-          return new HorizontalPodAutoscaler(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): HorizontalPodAutoscaler {
+          return new HorizontalPodAutoscaler(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler { return this.__inputs; }
@@ -7798,9 +7861,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscalerList {
-          return new HorizontalPodAutoscalerList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): HorizontalPodAutoscalerList {
+          return new HorizontalPodAutoscalerList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList { return this.__inputs; }
@@ -7859,9 +7923,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CrossVersionObjectReference {
-          return new CrossVersionObjectReference(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CrossVersionObjectReference {
+          return new CrossVersionObjectReference(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v2beta2.CrossVersionObjectReference { return this.__inputs; }
@@ -7934,9 +7999,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscaler {
-          return new HorizontalPodAutoscaler(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): HorizontalPodAutoscaler {
+          return new HorizontalPodAutoscaler(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler { return this.__inputs; }
@@ -8002,9 +8068,10 @@ export namespace autoscaling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): HorizontalPodAutoscalerList {
-          return new HorizontalPodAutoscalerList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): HorizontalPodAutoscalerList {
+          return new HorizontalPodAutoscalerList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList { return this.__inputs; }
@@ -8083,9 +8150,10 @@ export namespace batch {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Job {
-          return new Job(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Job {
+          return new Job(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.batch.v1.Job { return this.__inputs; }
@@ -8152,9 +8220,10 @@ export namespace batch {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): JobList {
-          return new JobList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): JobList {
+          return new JobList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.batch.v1.JobList { return this.__inputs; }
@@ -8230,9 +8299,10 @@ export namespace batch {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CronJob {
-          return new CronJob(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CronJob {
+          return new CronJob(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.batch.v1beta1.CronJob { return this.__inputs; }
@@ -8299,9 +8369,10 @@ export namespace batch {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CronJobList {
-          return new CronJobList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CronJobList {
+          return new CronJobList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.batch.v1beta1.CronJobList { return this.__inputs; }
@@ -8377,9 +8448,10 @@ export namespace batch {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CronJob {
-          return new CronJob(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CronJob {
+          return new CronJob(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.batch.v2alpha1.CronJob { return this.__inputs; }
@@ -8446,9 +8518,10 @@ export namespace batch {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CronJobList {
-          return new CronJobList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CronJobList {
+          return new CronJobList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.batch.v2alpha1.CronJobList { return this.__inputs; }
@@ -8522,9 +8595,10 @@ export namespace certificates {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CertificateSigningRequest {
-          return new CertificateSigningRequest(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CertificateSigningRequest {
+          return new CertificateSigningRequest(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequest { return this.__inputs; }
@@ -8584,9 +8658,10 @@ export namespace certificates {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): CertificateSigningRequestList {
-          return new CertificateSigningRequestList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CertificateSigningRequestList {
+          return new CertificateSigningRequestList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequestList { return this.__inputs; }
@@ -8658,9 +8733,10 @@ export namespace coordination {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Lease {
-          return new Lease(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Lease {
+          return new Lease(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.coordination.v1beta1.Lease { return this.__inputs; }
@@ -8726,9 +8802,10 @@ export namespace coordination {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): LeaseList {
-          return new LeaseList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): LeaseList {
+          return new LeaseList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.coordination.v1beta1.LeaseList { return this.__inputs; }
@@ -8801,9 +8878,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Binding {
-          return new Binding(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Binding {
+          return new Binding(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.Binding { return this.__inputs; }
@@ -8869,9 +8947,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ComponentStatus {
-          return new ComponentStatus(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ComponentStatus {
+          return new ComponentStatus(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ComponentStatus { return this.__inputs; }
@@ -8937,9 +9016,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ComponentStatusList {
-          return new ComponentStatusList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ComponentStatusList {
+          return new ComponentStatusList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ComponentStatusList { return this.__inputs; }
@@ -9016,9 +9096,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ConfigMap {
-          return new ConfigMap(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ConfigMap {
+          return new ConfigMap(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ConfigMap { return this.__inputs; }
@@ -9084,9 +9165,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ConfigMapList {
-          return new ConfigMapList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ConfigMapList {
+          return new ConfigMapList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ConfigMapList { return this.__inputs; }
@@ -9168,9 +9250,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Endpoints {
-          return new Endpoints(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Endpoints {
+          return new Endpoints(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.Endpoints { return this.__inputs; }
@@ -9236,9 +9319,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): EndpointsList {
-          return new EndpointsList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): EndpointsList {
+          return new EndpointsList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.EndpointsList { return this.__inputs; }
@@ -9370,9 +9454,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Event {
-          return new Event(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Event {
+          return new Event(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.Event { return this.__inputs; }
@@ -9451,9 +9536,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): EventList {
-          return new EventList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): EventList {
+          return new EventList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.EventList { return this.__inputs; }
@@ -9520,9 +9606,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): LimitRange {
-          return new LimitRange(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): LimitRange {
+          return new LimitRange(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.LimitRange { return this.__inputs; }
@@ -9589,9 +9676,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): LimitRangeList {
-          return new LimitRangeList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): LimitRangeList {
+          return new LimitRangeList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.LimitRangeList { return this.__inputs; }
@@ -9664,9 +9752,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Namespace {
-          return new Namespace(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Namespace {
+          return new Namespace(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.Namespace { return this.__inputs; }
@@ -9734,9 +9823,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): NamespaceList {
-          return new NamespaceList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): NamespaceList {
+          return new NamespaceList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.NamespaceList { return this.__inputs; }
@@ -9810,9 +9900,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Node {
-          return new Node(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Node {
+          return new Node(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.Node { return this.__inputs; }
@@ -9879,9 +9970,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): NodeList {
-          return new NodeList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): NodeList {
+          return new NodeList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.NodeList { return this.__inputs; }
@@ -9966,9 +10058,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ObjectReference {
-          return new ObjectReference(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ObjectReference {
+          return new ObjectReference(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ObjectReference { return this.__inputs; }
@@ -10047,9 +10140,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PersistentVolume {
-          return new PersistentVolume(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PersistentVolume {
+          return new PersistentVolume(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.PersistentVolume { return this.__inputs; }
@@ -10124,9 +10218,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PersistentVolumeClaim {
-          return new PersistentVolumeClaim(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PersistentVolumeClaim {
+          return new PersistentVolumeClaim(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.PersistentVolumeClaim { return this.__inputs; }
@@ -10194,9 +10289,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PersistentVolumeClaimList {
-          return new PersistentVolumeClaimList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PersistentVolumeClaimList {
+          return new PersistentVolumeClaimList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.PersistentVolumeClaimList { return this.__inputs; }
@@ -10263,9 +10359,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PersistentVolumeList {
-          return new PersistentVolumeList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PersistentVolumeList {
+          return new PersistentVolumeList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.PersistentVolumeList { return this.__inputs; }
@@ -10340,9 +10437,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Pod {
-          return new Pod(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Pod {
+          return new Pod(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.Pod { return this.__inputs; }
@@ -10409,9 +10507,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodList {
-          return new PodList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodList {
+          return new PodList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.PodList { return this.__inputs; }
@@ -10478,9 +10577,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodTemplate {
-          return new PodTemplate(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodTemplate {
+          return new PodTemplate(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.PodTemplate { return this.__inputs; }
@@ -10546,9 +10646,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodTemplateList {
-          return new PodTemplateList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodTemplateList {
+          return new PodTemplateList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.PodTemplateList { return this.__inputs; }
@@ -10623,9 +10724,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicationController {
-          return new ReplicationController(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicationController {
+          return new ReplicationController(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ReplicationController { return this.__inputs; }
@@ -10693,9 +10795,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicationControllerList {
-          return new ReplicationControllerList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicationControllerList {
+          return new ReplicationControllerList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ReplicationControllerList { return this.__inputs; }
@@ -10768,9 +10871,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ResourceQuota {
-          return new ResourceQuota(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ResourceQuota {
+          return new ResourceQuota(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ResourceQuota { return this.__inputs; }
@@ -10838,9 +10942,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ResourceQuotaList {
-          return new ResourceQuotaList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ResourceQuotaList {
+          return new ResourceQuotaList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ResourceQuotaList { return this.__inputs; }
@@ -10922,9 +11027,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Secret {
-          return new Secret(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Secret {
+          return new Secret(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.Secret { return this.__inputs; }
@@ -10993,9 +11099,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): SecretList {
-          return new SecretList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): SecretList {
+          return new SecretList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.SecretList { return this.__inputs; }
@@ -11070,9 +11177,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Service {
-          return new Service(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Service {
+          return new Service(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.Service { return this.__inputs; }
@@ -11157,9 +11265,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ServiceAccount {
-          return new ServiceAccount(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ServiceAccount {
+          return new ServiceAccount(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ServiceAccount { return this.__inputs; }
@@ -11228,9 +11337,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ServiceAccountList {
-          return new ServiceAccountList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ServiceAccountList {
+          return new ServiceAccountList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ServiceAccountList { return this.__inputs; }
@@ -11296,9 +11406,10 @@ export namespace core {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ServiceList {
-          return new ServiceList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ServiceList {
+          return new ServiceList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.core.v1.ServiceList { return this.__inputs; }
@@ -11437,9 +11548,10 @@ export namespace events {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Event {
-          return new Event(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Event {
+          return new Event(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.events.v1beta1.Event { return this.__inputs; }
@@ -11518,9 +11630,10 @@ export namespace events {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): EventList {
-          return new EventList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): EventList {
+          return new EventList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.events.v1beta1.EventList { return this.__inputs; }
@@ -11601,9 +11714,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSet {
-          return new DaemonSet(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DaemonSet {
+          return new DaemonSet(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.DaemonSet { return this.__inputs; }
@@ -11670,9 +11784,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DaemonSetList {
-          return new DaemonSetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DaemonSetList {
+          return new DaemonSetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.DaemonSetList { return this.__inputs; }
@@ -11744,9 +11859,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Deployment {
-          return new Deployment(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Deployment {
+          return new Deployment(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.Deployment { return this.__inputs; }
@@ -11812,9 +11928,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentList {
-          return new DeploymentList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DeploymentList {
+          return new DeploymentList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.DeploymentList { return this.__inputs; }
@@ -11884,9 +12001,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DeploymentRollback {
-          return new DeploymentRollback(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DeploymentRollback {
+          return new DeploymentRollback(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.DeploymentRollback { return this.__inputs; }
@@ -11962,9 +12080,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Ingress {
-          return new Ingress(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Ingress {
+          return new Ingress(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.Ingress { return this.__inputs; }
@@ -12031,9 +12150,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): IngressList {
-          return new IngressList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): IngressList {
+          return new IngressList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.IngressList { return this.__inputs; }
@@ -12101,9 +12221,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): NetworkPolicy {
-          return new NetworkPolicy(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): NetworkPolicy {
+          return new NetworkPolicy(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.NetworkPolicy { return this.__inputs; }
@@ -12170,9 +12291,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): NetworkPolicyList {
-          return new NetworkPolicyList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): NetworkPolicyList {
+          return new NetworkPolicyList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.NetworkPolicyList { return this.__inputs; }
@@ -12240,9 +12362,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodSecurityPolicy {
-          return new PodSecurityPolicy(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodSecurityPolicy {
+          return new PodSecurityPolicy(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicy { return this.__inputs; }
@@ -12309,9 +12432,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodSecurityPolicyList {
-          return new PodSecurityPolicyList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodSecurityPolicyList {
+          return new PodSecurityPolicyList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicyList { return this.__inputs; }
@@ -12388,9 +12512,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSet {
-          return new ReplicaSet(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicaSet {
+          return new ReplicaSet(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.ReplicaSet { return this.__inputs; }
@@ -12458,9 +12583,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ReplicaSetList {
-          return new ReplicaSetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ReplicaSetList {
+          return new ReplicaSetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.ReplicaSetList { return this.__inputs; }
@@ -12534,9 +12660,10 @@ export namespace extensions {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Scale {
-          return new Scale(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Scale {
+          return new Scale(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.extensions.v1beta1.Scale { return this.__inputs; }
@@ -12625,9 +12752,10 @@ export namespace meta {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIGroup {
-          return new APIGroup(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): APIGroup {
+          return new APIGroup(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.meta.v1.APIGroup { return this.__inputs; }
@@ -12689,9 +12817,10 @@ export namespace meta {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIGroupList {
-          return new APIGroupList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): APIGroupList {
+          return new APIGroupList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.meta.v1.APIGroupList { return this.__inputs; }
@@ -12756,9 +12885,10 @@ export namespace meta {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIResourceList {
-          return new APIResourceList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): APIResourceList {
+          return new APIResourceList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.meta.v1.APIResourceList { return this.__inputs; }
@@ -12830,9 +12960,10 @@ export namespace meta {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): APIVersions {
-          return new APIVersions(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): APIVersions {
+          return new APIVersions(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.meta.v1.APIVersions { return this.__inputs; }
@@ -12926,9 +13057,10 @@ export namespace meta {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): DeleteOptions {
-          return new DeleteOptions(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DeleteOptions {
+          return new DeleteOptions(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.meta.v1.DeleteOptions { return this.__inputs; }
@@ -13006,9 +13138,10 @@ export namespace meta {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): OwnerReference {
-          return new OwnerReference(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): OwnerReference {
+          return new OwnerReference(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.meta.v1.OwnerReference { return this.__inputs; }
@@ -13101,9 +13234,10 @@ export namespace meta {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Status {
-          return new Status(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Status {
+          return new Status(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.meta.v1.Status { return this.__inputs; }
@@ -13179,9 +13313,10 @@ export namespace networking {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): NetworkPolicy {
-          return new NetworkPolicy(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): NetworkPolicy {
+          return new NetworkPolicy(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.networking.v1.NetworkPolicy { return this.__inputs; }
@@ -13247,9 +13382,10 @@ export namespace networking {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): NetworkPolicyList {
-          return new NetworkPolicyList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): NetworkPolicyList {
+          return new NetworkPolicyList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.networking.v1.NetworkPolicyList { return this.__inputs; }
@@ -13322,9 +13458,10 @@ export namespace policy {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Eviction {
-          return new Eviction(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Eviction {
+          return new Eviction(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.policy.v1beta1.Eviction { return this.__inputs; }
@@ -13393,9 +13530,10 @@ export namespace policy {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodDisruptionBudget {
-          return new PodDisruptionBudget(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodDisruptionBudget {
+          return new PodDisruptionBudget(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudget { return this.__inputs; }
@@ -13457,9 +13595,10 @@ export namespace policy {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodDisruptionBudgetList {
-          return new PodDisruptionBudgetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodDisruptionBudgetList {
+          return new PodDisruptionBudgetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudgetList { return this.__inputs; }
@@ -13526,9 +13665,10 @@ export namespace policy {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodSecurityPolicy {
-          return new PodSecurityPolicy(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodSecurityPolicy {
+          return new PodSecurityPolicy(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.policy.v1beta1.PodSecurityPolicy { return this.__inputs; }
@@ -13594,9 +13734,10 @@ export namespace policy {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodSecurityPolicyList {
-          return new PodSecurityPolicyList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodSecurityPolicyList {
+          return new PodSecurityPolicyList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.policy.v1beta1.PodSecurityPolicyList { return this.__inputs; }
@@ -13675,9 +13816,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRole {
-          return new ClusterRole(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRole {
+          return new ClusterRole(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.ClusterRole { return this.__inputs; }
@@ -13750,9 +13892,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBinding {
-          return new ClusterRoleBinding(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRoleBinding {
+          return new ClusterRoleBinding(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.ClusterRoleBinding { return this.__inputs; }
@@ -13818,9 +13961,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBindingList {
-          return new ClusterRoleBindingList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRoleBindingList {
+          return new ClusterRoleBindingList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.ClusterRoleBindingList { return this.__inputs; }
@@ -13885,9 +14029,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleList {
-          return new ClusterRoleList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRoleList {
+          return new ClusterRoleList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.ClusterRoleList { return this.__inputs; }
@@ -13953,9 +14098,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Role {
-          return new Role(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Role {
+          return new Role(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.Role { return this.__inputs; }
@@ -14029,9 +14175,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBinding {
-          return new RoleBinding(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleBinding {
+          return new RoleBinding(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.RoleBinding { return this.__inputs; }
@@ -14097,9 +14244,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBindingList {
-          return new RoleBindingList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleBindingList {
+          return new RoleBindingList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.RoleBindingList { return this.__inputs; }
@@ -14164,9 +14312,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleList {
-          return new RoleList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleList {
+          return new RoleList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1.RoleList { return this.__inputs; }
@@ -14242,9 +14391,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRole {
-          return new ClusterRole(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRole {
+          return new ClusterRole(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRole { return this.__inputs; }
@@ -14317,9 +14467,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBinding {
-          return new ClusterRoleBinding(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRoleBinding {
+          return new ClusterRoleBinding(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBinding { return this.__inputs; }
@@ -14385,9 +14536,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBindingList {
-          return new ClusterRoleBindingList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRoleBindingList {
+          return new ClusterRoleBindingList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBindingList { return this.__inputs; }
@@ -14452,9 +14604,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleList {
-          return new ClusterRoleList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRoleList {
+          return new ClusterRoleList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleList { return this.__inputs; }
@@ -14520,9 +14673,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Role {
-          return new Role(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Role {
+          return new Role(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.Role { return this.__inputs; }
@@ -14596,9 +14750,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBinding {
-          return new RoleBinding(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleBinding {
+          return new RoleBinding(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.RoleBinding { return this.__inputs; }
@@ -14664,9 +14819,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBindingList {
-          return new RoleBindingList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleBindingList {
+          return new RoleBindingList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.RoleBindingList { return this.__inputs; }
@@ -14731,9 +14887,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleList {
-          return new RoleList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleList {
+          return new RoleList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.RoleList { return this.__inputs; }
@@ -14799,9 +14956,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Subject {
-          return new Subject(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Subject {
+          return new Subject(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1alpha1.Subject { return this.__inputs; }
@@ -14877,9 +15035,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRole {
-          return new ClusterRole(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRole {
+          return new ClusterRole(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.ClusterRole { return this.__inputs; }
@@ -14952,9 +15111,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBinding {
-          return new ClusterRoleBinding(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRoleBinding {
+          return new ClusterRoleBinding(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBinding { return this.__inputs; }
@@ -15020,9 +15180,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleBindingList {
-          return new ClusterRoleBindingList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRoleBindingList {
+          return new ClusterRoleBindingList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBindingList { return this.__inputs; }
@@ -15087,9 +15248,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): ClusterRoleList {
-          return new ClusterRoleList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ClusterRoleList {
+          return new ClusterRoleList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleList { return this.__inputs; }
@@ -15155,9 +15317,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): Role {
-          return new Role(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Role {
+          return new Role(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.Role { return this.__inputs; }
@@ -15231,9 +15394,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBinding {
-          return new RoleBinding(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleBinding {
+          return new RoleBinding(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.RoleBinding { return this.__inputs; }
@@ -15299,9 +15463,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleBindingList {
-          return new RoleBindingList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleBindingList {
+          return new RoleBindingList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.RoleBindingList { return this.__inputs; }
@@ -15366,9 +15531,10 @@ export namespace rbac {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): RoleList {
-          return new RoleList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RoleList {
+          return new RoleList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.rbac.v1beta1.RoleList { return this.__inputs; }
@@ -15457,9 +15623,10 @@ export namespace scheduling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PriorityClass {
-          return new PriorityClass(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PriorityClass {
+          return new PriorityClass(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.scheduling.v1alpha1.PriorityClass { return this.__inputs; }
@@ -15527,9 +15694,10 @@ export namespace scheduling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PriorityClassList {
-          return new PriorityClassList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PriorityClassList {
+          return new PriorityClassList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.scheduling.v1alpha1.PriorityClassList { return this.__inputs; }
@@ -15615,9 +15783,10 @@ export namespace scheduling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PriorityClass {
-          return new PriorityClass(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PriorityClass {
+          return new PriorityClass(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.scheduling.v1beta1.PriorityClass { return this.__inputs; }
@@ -15685,9 +15854,10 @@ export namespace scheduling {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PriorityClassList {
-          return new PriorityClassList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PriorityClassList {
+          return new PriorityClassList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.scheduling.v1beta1.PriorityClassList { return this.__inputs; }
@@ -15754,9 +15924,10 @@ export namespace settings {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodPreset {
-          return new PodPreset(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodPreset {
+          return new PodPreset(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.settings.v1alpha1.PodPreset { return this.__inputs; }
@@ -15822,9 +15993,10 @@ export namespace settings {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): PodPresetList {
-          return new PodPresetList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PodPresetList {
+          return new PodPresetList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.settings.v1alpha1.PodPresetList { return this.__inputs; }
@@ -15939,9 +16111,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StorageClass {
-          return new StorageClass(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StorageClass {
+          return new StorageClass(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1.StorageClass { return this.__inputs; }
@@ -16013,9 +16186,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StorageClassList {
-          return new StorageClassList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StorageClassList {
+          return new StorageClassList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1.StorageClassList { return this.__inputs; }
@@ -16091,9 +16265,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachment {
-          return new VolumeAttachment(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): VolumeAttachment {
+          return new VolumeAttachment(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1.VolumeAttachment { return this.__inputs; }
@@ -16160,9 +16335,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachmentList {
-          return new VolumeAttachmentList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): VolumeAttachmentList {
+          return new VolumeAttachmentList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1.VolumeAttachmentList { return this.__inputs; }
@@ -16241,9 +16417,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachment {
-          return new VolumeAttachment(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): VolumeAttachment {
+          return new VolumeAttachment(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1alpha1.VolumeAttachment { return this.__inputs; }
@@ -16310,9 +16487,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachmentList {
-          return new VolumeAttachmentList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): VolumeAttachmentList {
+          return new VolumeAttachmentList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1alpha1.VolumeAttachmentList { return this.__inputs; }
@@ -16424,9 +16602,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StorageClass {
-          return new StorageClass(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StorageClass {
+          return new StorageClass(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1beta1.StorageClass { return this.__inputs; }
@@ -16498,9 +16677,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): StorageClassList {
-          return new StorageClassList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StorageClassList {
+          return new StorageClassList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1beta1.StorageClassList { return this.__inputs; }
@@ -16576,9 +16756,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachment {
-          return new VolumeAttachment(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): VolumeAttachment {
+          return new VolumeAttachment(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1beta1.VolumeAttachment { return this.__inputs; }
@@ -16645,9 +16826,10 @@ export namespace storage {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): VolumeAttachmentList {
-          return new VolumeAttachmentList(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): VolumeAttachmentList {
+          return new VolumeAttachmentList(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.storage.v1beta1.VolumeAttachmentList { return this.__inputs; }

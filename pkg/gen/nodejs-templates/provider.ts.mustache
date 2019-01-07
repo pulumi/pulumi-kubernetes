@@ -347,7 +347,7 @@ export namespace apiextensions {
      * CustomResourceGetOptions uniquely identifies a Kubernetes CustomResource, primarily for use
      * in supplied to `apiextensions.CustomResource#get`.
      */
-    export interface CustomResourceGetOptions {
+    export interface CustomResourceGetOptions extends pulumi.CustomResourceOptions {
         /**
          * apiVersion is the API version of the apiExtensions.CustomResource we wish to select,
          * as specified by the CustomResourceDefinition that defines it on the API server.
@@ -407,7 +407,11 @@ export namespace apiextensions {
        * @param opts Uniquely specifies a CustomResource to select.
        */
       public static get(name: string, opts: CustomResourceGetOptions): CustomResource {
-          return new CustomResource(name, {apiVersion: opts.apiVersion, kind: opts.kind}, { id: opts.id });
+          // NOTE: `selectOpts` will be type `pulumi.CustomResource`. If we add a field that does
+          // not satisfy that interface, it will cause a compilation error in `...selectOpts` in
+          // the constructor call below.
+          const {apiVersion, kind, id, ...selectOpts} = opts;
+          return new CustomResource(name, {apiVersion: apiVersion, kind: kind}, { ...selectOpts, id: id });
       }
 
       public getInputs(): CustomResourceArgs { return this.__inputs; }
@@ -498,9 +502,10 @@ export namespace {{Group}} {
        * @param name _Unique_ name used to register this resource with Pulumi.
        * @param id An ID for the Kubernetes resource to retrive. Takes the form
        *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>): {{Kind}} {
-          return new {{Kind}}(name, undefined, { id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): {{Kind}} {
+          return new {{Kind}}(name, undefined, { ...opts, id: id });
       }
 
       public getInputs(): inputApi.{{Group}}.{{Version}}.{{Kind}} { return this.__inputs; }
