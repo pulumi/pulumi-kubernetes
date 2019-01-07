@@ -2660,7 +2660,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "apps/v1beta1"
+      readonly apiVersion: string
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2668,7 +2668,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "DeploymentRollback"
+      readonly kind: string
 
       /**
        * Required: This must match the Name of a deployment.
@@ -2880,7 +2880,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "apps/v1beta1"
+      readonly apiVersion: string
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2888,7 +2888,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "Scale"
+      readonly kind: string
 
       /**
        * Standard object metadata; More info:
@@ -3991,7 +3991,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "apps/v1beta2"
+      readonly apiVersion: string
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3999,7 +3999,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "Scale"
+      readonly kind: string
 
       /**
        * Standard object metadata; More info:
@@ -5722,7 +5722,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "autoscaling/v1"
+      readonly apiVersion: string
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -5730,7 +5730,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "Scale"
+      readonly kind: string
 
       /**
        * Standard object metadata; More info:
@@ -14383,7 +14383,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "extensions/v1beta1"
+      readonly apiVersion: string
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -14391,7 +14391,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "DeploymentRollback"
+      readonly kind: string
 
       /**
        * Required: This must match the Name of a deployment.
@@ -15572,7 +15572,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "extensions/v1beta1"
+      readonly apiVersion: string
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15580,7 +15580,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "Scale"
+      readonly kind: string
 
       /**
        * Standard object metadata; More info:
@@ -15677,7 +15677,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "v1"
+      readonly apiVersion: string
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15685,7 +15685,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "APIGroup"
+      readonly kind: string
 
       /**
        * name is the name of the group.
@@ -15726,7 +15726,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "v1"
+      readonly apiVersion: string
 
       /**
        * groups is a list of APIGroup.
@@ -15739,7 +15739,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "APIGroupList"
+      readonly kind: string
 
     }
 
@@ -15811,7 +15811,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "v1"
+      readonly apiVersion: string
 
       /**
        * groupVersion is the group and version this APIResourceList is for.
@@ -15824,7 +15824,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "APIResourceList"
+      readonly kind: string
 
       /**
        * resources contains the name of the resources and if they are namespaced.
@@ -15844,7 +15844,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "v1"
+      readonly apiVersion: string
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15852,7 +15852,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "APIVersions"
+      readonly kind: string
 
       /**
        * a map of client CIDR to server address that is serving this group. This is to help clients
@@ -15882,7 +15882,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "v1"
+      readonly apiVersion: string
 
       /**
        * When present, indicates that modifications should not be persisted. An invalid or
@@ -15905,7 +15905,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "DeleteOptions"
+      readonly kind: string
 
       /**
        * Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should
@@ -16827,7 +16827,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      readonly apiVersion: "policy/v1beta1"
+      readonly apiVersion: string
 
       /**
        * DeleteOptions may be provided
@@ -16840,7 +16840,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      readonly kind: "Eviction"
+      readonly kind: string
 
       /**
        * ObjectMeta describes the pod that is being evicted.

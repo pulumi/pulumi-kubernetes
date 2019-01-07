@@ -7,7 +7,5 @@ from .ControllerRevision import *
 from .ControllerRevisionList import *
 from .Deployment import *
 from .DeploymentList import *
-from .DeploymentRollback import *
-from .Scale import *
 from .StatefulSet import *
 from .StatefulSetList import *

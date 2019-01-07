@@ -7,7 +7,6 @@ from .DaemonSet import *
 from .DaemonSetList import *
 from .Deployment import *
 from .DeploymentList import *
-from .DeploymentRollback import *
 from .Ingress import *
 from .IngressList import *
 from .NetworkPolicy import *
@@ -16,4 +15,3 @@ from .PodSecurityPolicy import *
 from .PodSecurityPolicyList import *
 from .ReplicaSet import *
 from .ReplicaSetList import *
-from .Scale import *

@@ -18,7 +18,6 @@ from .Namespace import *
 from .NamespaceList import *
 from .Node import *
 from .NodeList import *
-from .ObjectReference import *
 from .PersistentVolume import *
 from .PersistentVolumeClaim import *
 from .PersistentVolumeClaimList import *

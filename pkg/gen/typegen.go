@@ -345,6 +345,41 @@ func makeType(prop map[string]interface{}, opts groupOpts) string {
 	}
 }
 
+func isTopLevel(d *definition) bool {
+	gvks, gvkExists :=
+		d.data["x-kubernetes-group-version-kind"].([]interface{})
+	hasGVK := gvkExists && len(gvks) > 0
+	if !hasGVK {
+		return false
+	}
+
+	// Return `false` for the handful of top-level imperative resource types that can't be managed
+	// by Pulumi.
+	switch fmt.Sprintf("%s/%s", d.gvk.GroupVersion().String(), d.gvk.Kind) {
+	case "policy/v1beta1/Eviction", "v1/Status", "apps/v1beta1/Scale", "apps/v1beta2/Scale",
+		"autoscaling/v1/Scale", "extensions/v1beta1/Scale":
+		return false
+	}
+
+	properties, hasProperties := d.data["properties"].(map[string]interface{})
+	if !hasProperties {
+		return false
+	}
+
+	meta, hasMetadata := properties["metadata"].(map[string]interface{})
+	if !hasMetadata {
+		return false
+	}
+
+	ref, hasRef := meta["$ref"]
+	if !hasRef {
+		return false
+	}
+
+	return ref == "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" ||
+		ref == "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+}
+
 // --------------------------------------------------------------------------
 
 // Core grouping logic.
@@ -424,10 +459,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 			// `admissionregistration.k8s.io/v1alpha1` instead of `admissionregistration/v1alpha1`).
 			defaultGroupVersion := d.gvk.Group
 			var fqGroupVersion string
-			gvks, gvkExists :=
-				d.data["x-kubernetes-group-version-kind"].([]interface{})
-			isTopLevel := gvkExists && len(gvks) > 0
-			if isTopLevel {
+			isTopLevel := isTopLevel(d)
+			if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
 				gvk := gvks[0].(map[string]interface{})
 				group := gvk["group"].(string)
 				version := gvk["version"].(string)
@@ -527,14 +560,13 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				return linq.From([]*KindConfig{})
 			}
 
-			props := d.data["properties"].(map[string]interface{})
-			_, kindExists := props["kind"]
-			_, apiVersionExists := props["apiVersion"]
-			if opts.generatorType == provider && (!kindExists || !apiVersionExists) {
+			if opts.generatorType == provider && (!isTopLevel) {
 				return linq.From([]*KindConfig{})
 			}
 
 			var typeGuard string
+			props := d.data["properties"].(map[string]interface{})
+			_, apiVersionExists := props["apiVersion"]
 			if apiVersionExists {
 				typeGuard = fmt.Sprintf(`
     export function is%s(o: any): o is %s {
