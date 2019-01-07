@@ -11,4 +11,3 @@ from .Role import *
 from .RoleBinding import *
 from .RoleBindingList import *
 from .RoleList import *
-from .Subject import *

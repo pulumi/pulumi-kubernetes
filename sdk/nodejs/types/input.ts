@@ -2823,7 +2823,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"apps/v1beta1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -2831,7 +2831,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"DeploymentRollback">
+      kind?: pulumi.Input<string>
 
       /**
        * The annotations to be updated to a deployment
@@ -3043,7 +3043,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"apps/v1beta1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3051,7 +3051,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"Scale">
+      kind?: pulumi.Input<string>
 
       /**
        * Standard object metadata; More info:
@@ -4218,7 +4218,7 @@ export namespace apps {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"apps/v1beta2">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4226,7 +4226,7 @@ export namespace apps {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"Scale">
+      kind?: pulumi.Input<string>
 
       /**
        * Standard object metadata; More info:
@@ -6059,7 +6059,7 @@ export namespace autoscaling {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"autoscaling/v1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -6067,7 +6067,7 @@ export namespace autoscaling {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"Scale">
+      kind?: pulumi.Input<string>
 
       /**
        * Standard object metadata; More info:
@@ -15157,7 +15157,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"extensions/v1beta1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -15165,7 +15165,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"DeploymentRollback">
+      kind?: pulumi.Input<string>
 
       /**
        * The annotations to be updated to a deployment
@@ -16401,7 +16401,7 @@ export namespace extensions {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"extensions/v1beta1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16409,7 +16409,7 @@ export namespace extensions {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"Scale">
+      kind?: pulumi.Input<string>
 
       /**
        * Standard object metadata; More info:
@@ -16523,7 +16523,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"v1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16531,7 +16531,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"APIGroup">
+      kind?: pulumi.Input<string>
 
       /**
        * preferredVersion is the version preferred by the API server, which probably is the storage
@@ -16571,7 +16571,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"v1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16579,7 +16579,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"APIGroupList">
+      kind?: pulumi.Input<string>
 
     }
 
@@ -16666,7 +16666,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"v1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16674,7 +16674,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"APIResourceList">
+      kind?: pulumi.Input<string>
 
     }
 
@@ -16709,7 +16709,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"v1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -16717,7 +16717,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"APIVersions">
+      kind?: pulumi.Input<string>
 
     }
 
@@ -16735,7 +16735,7 @@ export namespace meta {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"v1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * When present, indicates that modifications should not be persisted. An invalid or
@@ -16758,7 +16758,7 @@ export namespace meta {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"DeleteOptions">
+      kind?: pulumi.Input<string>
 
       /**
        * Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should
@@ -17722,7 +17722,7 @@ export namespace policy {
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      apiVersion?: pulumi.Input<"policy/v1beta1">
+      apiVersion?: pulumi.Input<string>
 
       /**
        * DeleteOptions may be provided
@@ -17735,7 +17735,7 @@ export namespace policy {
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      kind?: pulumi.Input<"Eviction">
+      kind?: pulumi.Input<string>
 
       /**
        * ObjectMeta describes the pod that is being evicted.

@@ -11,6 +11,5 @@ from .Deployment import *
 from .DeploymentList import *
 from .ReplicaSet import *
 from .ReplicaSetList import *
-from .Scale import *
 from .StatefulSet import *
 from .StatefulSetList import *
