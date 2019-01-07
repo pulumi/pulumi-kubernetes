@@ -460,15 +460,6 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					propName := kv.Key.(string)
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
 
-					// Create a default value for the field.
-					defaultValue := fmt.Sprintf("args && args.%s || undefined", propName)
-					switch propName {
-					case "apiVersion":
-						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
-					case "kind":
-						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
-					}
-
 					var prefix string
 					var t string
 					switch opts.language {
@@ -478,6 +469,17 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					case python:
 						prefix = "        "
 						// Python currently does not emit types for use.
+					}
+
+					// Create a default value for the field.
+					defaultValue := fmt.Sprintf("args && args.%s || undefined", propName)
+					switch propName {
+					case "apiVersion":
+						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
+						t = fmt.Sprintf(`"%s"`, defaultGroupVersion)
+					case "kind":
+						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
+						t = fmt.Sprintf(`"%s"`, d.gvk.Kind)
 					}
 
 					return &Property{
