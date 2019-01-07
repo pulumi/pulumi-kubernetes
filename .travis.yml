@@ -6,18 +6,24 @@ sudo: true # give us 7.5GB and >2 bursted cores.
 git:
     depth: false
 before_install:
-    - openssl aes-256-cbc -K $encrypted_095ae97b50fd_key -iv $encrypted_095ae97b50fd_iv
-      -in credentials.tar.gz.enc -out credentials.tar.gz -d
-    - tar -xzf credentials.tar.gz
-
-    # Install and log into gcloud so that we can access the GKE CI cluster.
-    - if [ ! -d ${HOME}/google-cloud-sdk ]; then
-        curl https://sdk.cloud.google.com > gcloud-install.sh;
-        chmod a+x ./gcloud-install.sh;
-        ./gcloud-install.sh --disable-prompts;
+    - export IS_EXTERNAL_PR=""
+    - if [ "$TRAVIS_SECURE_ENV_VARS" = "false" ]; then
+          IS_EXTERNAL_PR="true";
       fi
-    - gcloud auth activate-service-account --key-file client-secret.json
-    - export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/client-secret.json"
+
+    - if [ ! -d ${HOME}/google-cloud-sdk ]; then
+          # Install and log into gcloud so that we can access the GKE CI cluster.
+          curl https://sdk.cloud.google.com > gcloud-install.sh;
+      fi
+
+    # - if [ "$IS_EXTERNAL_PR" = "true" ]; then
+    #       openssl aes-256-cbc -K $encrypted_095ae97b50fd_key -iv $encrypted_095ae97b50fd_iv
+    #         -in credentials.tar.gz.enc -out credentials.tar.gz -d;
+    #       tar -xzf credentials.tar.gz;
+
+    #       gcloud auth activate-service-account --key-file client-secret.json;
+    #       export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/client-secret.json";
+    #   fi
 
     # Put kubeconfig file in the usual place. The test harness picks this up and refers to it as
     # $KUBERNETES_CONTEXT.

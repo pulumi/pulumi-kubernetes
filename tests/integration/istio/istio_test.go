@@ -15,9 +15,12 @@ import (
 )
 
 func TestIstio(t *testing.T) {
+	isExternalPr := os.Getenv("IS_EXTERNAL_PR") == "true"
 	kubectx := os.Getenv("KUBERNETES_CONTEXT")
 
-	if kubectx == "" {
+	if isExternalPr {
+		t.Skipf("Skipping test because external PRs do not have access to secrets")
+	} else if kubectx == "" {
 		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
 	}
 
