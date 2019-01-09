@@ -26,3 +26,6 @@ __all__ = [
     "settings",
     "storage",
 ]
+
+# Expose the provider directly.
+from .provider import Provider
