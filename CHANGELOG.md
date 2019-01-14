@@ -1,9 +1,28 @@
-## 0.18.1 (Unreleased)
+## 0.19.1 (Unreleased)
+
+## 0.19.0 (Released January 15, 2019)
+
+### Major changes
 
 -   Implement incremental status updates for `StatefulSet`
     (https://github.com/pulumi/pulumi-kubernetes/pull/307)
 -   Allow the `@pulumi/kubernetes` YAML API to understand arbitrary URLs
     (https://github.com/pulumi/pulumi-kubernetes/pull/328)
+-   Add support for `.get` on CustomResources
+    (https://github.com/pulumi/pulumi-kubernetes/pull/329)
+-   Add support for `.get` for first-class providers
+    (https://github.com/pulumi/pulumi-kubernetes/pull/340)
+
+### Improvements
+
+-   Fix Ingress await logic for ExternalName Services
+    (https://github.com/pulumi/pulumi-kubernetes/pull/320)
+-   Fix replacement logic for Job
+    (https://github.com/pulumi/pulumi-kubernetes/pull/324 and https://github.com/pulumi/pulumi-kubernetes/pull/324)
+-   Fix Cluster/RoleBinding replace semantics
+    (https://github.com/pulumi/pulumi-kubernetes/pull/337)
+-   Improve typing for `apiVersion` and `kind`
+    (https://github.com/pulumi/pulumi-kubernetes/pull/341)
 
 ## 0.18.0 (Released December 4, 2018)
 
