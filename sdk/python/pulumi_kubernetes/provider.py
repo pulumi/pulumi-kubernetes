@@ -30,9 +30,3 @@ class Provider(pulumi.ProviderResource):
             "namespace": namespace,
         }
         super(Provider, self).__init__("kubernetes", __name__, __props__, __opts__)
-
-    def translate_output_property(self, prop: str) -> str:
-        return tables._CASING_FORWARD_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop: str) -> str:
-        return tables._CASING_BACKWARD_TABLE.get(prop) or prop
