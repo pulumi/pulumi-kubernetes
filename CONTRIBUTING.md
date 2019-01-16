@@ -5,6 +5,34 @@ Do you want to hack on Pulumi?  Awesome!  We are so happy to have you.
 Please refer to the [main Pulumi repo](https://github.com/pulumi/pulumi/)'s [CONTRIBUTING.md file](
 https://github.com/pulumi/pulumi/blob/master/CONTRIBUTING.md) for details on how to do so.
 
+## Building Source
+
+### Install Environment Pre-Requisites
+
+1. Python: `python-setuptools`, `pip`, `pandoc`
+1. Go: [dep](https://github.com/golang/dep), [golangci-lint](https://github.com/golangci/golangci-lint)
+1. JS: `npm`, `yarn`
+
+### Building Source
+
+1. Restore vendor dependencies:
+
+    ```
+    $ make ensure
+    ```
+
+1. Build, install, and link the package
+
+    ```
+    $ make build && make install
+    ```
+
+    After `make` has completed, from your app directory link `@pulumi/kubernetes`:
+
+    ```
+    $ yarn link @pulumi/kubernetes
+    ```
+
 ## Running Integration Tests
 
 The examples and integration tests in this repository will create and destroy real Kubernetes objects while running. Before running these tests,
