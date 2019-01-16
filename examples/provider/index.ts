@@ -1,6 +1,5 @@
 // Copyright 2016-2018, Pulumi Corporation.  All rights reserved.
 
-import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 import * as fs from "fs";
 import * as os from "os";
@@ -20,7 +19,7 @@ const nginxcontainer = new k8s.core.v1.Pod("nginx", {
         containers: [{
             image: "nginx:1.7.9",
             name: "nginx",
-            ports: [{ containerPort: 80 }],
+            ports: [{containerPort: 80}],
         }],
     },
-}, { provider: myk8s });
+}, {provider: myk8s});

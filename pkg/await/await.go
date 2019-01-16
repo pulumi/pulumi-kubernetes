@@ -19,18 +19,16 @@ import (
 	"fmt"
 
 	"github.com/golang/glog"
-	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/resource"
-	"github.com/pulumi/pulumi/pkg/resource/provider"
+	pulumiprovider "github.com/pulumi/pulumi/pkg/resource/provider"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
 )
 
@@ -46,13 +44,44 @@ import (
 
 // --------------------------------------------------------------------------
 
+type ProviderConfig struct {
+	Context context.Context
+	Host    *pulumiprovider.HostClient
+	URN     resource.URN
+
+	ClientSet *clients.DynamicClientSet
+}
+
+type CreateConfig struct {
+	ProviderConfig
+	Inputs    *unstructured.Unstructured
+	Namespace string
+}
+
+type ReadConfig struct {
+	ProviderConfig
+	Inputs    *unstructured.Unstructured
+	Namespace string
+	Name      string
+}
+
+type UpdateConfig struct {
+	ProviderConfig
+	Previous  *unstructured.Unstructured
+	Inputs    *unstructured.Unstructured
+	Namespace string
+}
+
+type DeleteConfig struct {
+	ProviderConfig
+	Inputs *unstructured.Unstructured
+	Name   string
+}
+
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
-func Creation(
-	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
-	disco discovery.ServerResourcesInterface, urn resource.URN, inputs *unstructured.Unstructured,
-) (*unstructured.Unstructured, error) {
+func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// Issue create request. We retry the create REST request on failure, so that we can tolerate
 	// some amount of misordering (e.g., creating a `Pod` before the `Namespace` it goes in;
 	// creating a custom resource before the CRD is registered; etc.), which is common among Helm
@@ -63,8 +92,9 @@ func Creation(
 	//
 	// nolint
 	// https://github.com/kubernetes/kubernetes/blob/54889d581a35acf940d52a8a384cccaa0b597ddc/pkg/kubectl/cmd/apply/apply.go#L94
+
 	var outputs *unstructured.Unstructured
-	var clientForResource dynamic.ResourceInterface
+	var client dynamic.ResourceInterface
 	err := sleepingRetry(
 		func(i uint) error {
 			// Recreate the client for resource, in case the client's cache of the server API was
@@ -72,17 +102,22 @@ func Creation(
 			// this allows CRs that we tried (and failed) to create before to re-try with the new
 			// server API, at which point they should hopefully succeed.
 			var err error
-			if clientForResource == nil {
-				clientForResource, err = client.FromResource(pool, disco, inputs)
+			if client == nil {
+				client, err = c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Namespace)
 				if err != nil {
 					return err
 				}
 			}
-			outputs, err = clientForResource.Create(inputs)
+
+			outputs, err = client.Create(c.Inputs, metav1.CreateOptions{})
 			if err != nil {
-				_ = host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf("Retry #%d; creation failed: %v", i, err))
+				_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
+					"Retry #%d; creation failed: %v", i, err))
+				return err
 			}
+
 			return err
+
 		}).
 		WithMaxRetries(5).
 		WithBackoffFactor(2).
@@ -90,23 +125,22 @@ func Creation(
 	if err != nil {
 		return nil, err
 	}
-	_ = clearStatus(ctx, host, urn)
+	_ = clearStatus(c.Context, c.Host, c.URN)
 
 	// Wait until create resolves as success or error. Note that the conditional is set up to log
 	// only if we don't have an entry for the resource type; in the event that we do, but the await
 	// logic is blank, simply do nothing instead of logging.
-	id := fmt.Sprintf("%s/%s", inputs.GetAPIVersion(), inputs.GetKind())
+	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitCreation != nil {
 			conf := createAwaitConfig{
-				host:              host,
-				ctx:               ctx,
-				pool:              pool,
-				disco:             disco,
-				clientForResource: clientForResource,
-				urn:               urn,
-				currentInputs:     inputs,
-				currentOutputs:    outputs,
+				host:      c.Host,
+				ctx:       c.Context,
+				urn:       c.URN,
+				clientSet: c.ClientSet,
+				// TODO(lblackstone): maybe pass create output into input here?
+				currentInputs:  c.Inputs,
+				currentOutputs: outputs,
 			}
 			waitErr := awaiter.awaitCreation(conf)
 			if waitErr != nil {
@@ -115,45 +149,39 @@ func Creation(
 		}
 	} else {
 		glog.V(1).Infof(
-			"No initialization logic found for object of type '%s'; defaulting to assuming initialization successful", id)
+			"No initialization logic found for object of type %q; assuming initialization successful", id)
 	}
 
-	return clientForResource.Get(inputs.GetName(), metav1.GetOptions{})
+	return client.Get(outputs.GetName(), metav1.GetOptions{})
 }
 
 // Read checks a resource, returning the object if it was created and initialized successfully.
-func Read(
-	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
-	disco discovery.ServerResourcesInterface, urn resource.URN, gvk schema.GroupVersionKind,
-	namespace, name string, inputs *unstructured.Unstructured,
-) (*unstructured.Unstructured, error) {
-	// Retrieve live version of last submitted version of object.
-	clientForResource, err := client.FromGVK(pool, disco, gvk, namespace)
+func Read(c ReadConfig) (*unstructured.Unstructured, error) {
+	client, err := c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Namespace)
 	if err != nil {
 		return nil, err
 	}
 
-	outputs, err := clientForResource.Get(name, metav1.GetOptions{})
+	// Retrieve live version of the object from k8s.
+	outputs, err := client.Get(c.Name, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
-	} else if inputs == nil || len(inputs.Object) == 0 {
+	} else if c.Inputs == nil || len(c.Inputs.Object) == 0 {
 		// No inputs means that we do not manage the resource, i.e., it's a call to
 		// `CustomResource#get`. Simply return the object.
 		return outputs, nil
 	}
 
-	id := fmt.Sprintf("%s/%s", gvk.GroupVersion(), gvk.Kind)
+	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitRead != nil {
 			conf := createAwaitConfig{
-				host:              host,
-				ctx:               ctx,
-				pool:              pool,
-				disco:             disco,
-				clientForResource: clientForResource,
-				urn:               urn,
-				currentInputs:     inputs,
-				currentOutputs:    outputs,
+				host:           c.Host,
+				ctx:            c.Context,
+				urn:            c.URN,
+				clientSet:      c.ClientSet,
+				currentInputs:  c.Inputs,
+				currentOutputs: outputs,
 			}
 			waitErr := awaiter.awaitRead(conf)
 			if waitErr != nil {
@@ -163,11 +191,11 @@ func Read(
 	}
 
 	glog.V(1).Infof(
-		"No read logic found for object of type '%s'; falling back to retrieving object", id)
+		"No read logic found for object of type %q; falling back to retrieving object", id)
 
 	// Get the "live" version of the last submitted object. This is necessary because the server
 	// may have populated some fields automatically, updated status fields, and so on.
-	return clientForResource.Get(name, metav1.GetOptions{})
+	return client.Get(c.Name, metav1.GetOptions{})
 }
 
 // Update takes `lastSubmitted` (the last version of a Kubernetes API object submitted to the API
@@ -184,11 +212,7 @@ func Read(
 // https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-json-merge-patch-to-update-a-deployment
 // [2]:
 // https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
-func Update(
-	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
-	disco discovery.CachedDiscoveryInterface, urn resource.URN,
-	lastSubmitted, currentSubmitted *unstructured.Unstructured,
-) (*unstructured.Unstructured, error) {
+func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	//
 	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle and you should proceed to
 	// change them only if you understand them deeply.
@@ -229,29 +253,29 @@ func Update(
 	// - [ ] Support server-side apply, when it comes out.
 	//
 
-	// Retrieve live version of last submitted version of object.
-	clientForResource, err := client.FromResource(pool, disco, lastSubmitted)
+	client, err := c.ClientSet.ResourceClient(c.Previous.GroupVersionKind(), c.Namespace)
 	if err != nil {
 		return nil, err
 	}
 
 	// Get the "live" version of the last submitted object. This is necessary because the server may
 	// have populated some fields automatically, updated status fields, and so on.
-	liveOldObj, err := clientForResource.Get(lastSubmitted.GetName(), metav1.GetOptions{})
+	liveOldObj, err := client.Get(c.Previous.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
 
 	// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
 	patch, patchType, err := openapi.PatchForResourceUpdate(
-		disco, lastSubmitted, currentSubmitted, liveOldObj)
+		c.ClientSet.DiscoveryClientCached, c.Previous, c.Inputs, liveOldObj)
 	if err != nil {
 		return nil, err
 	}
 
-	// Issue patch request. NOTE: We can use the same client because if the `kind` changes, this
-	// will cause a replace (i.e., destroy and create).
-	currentOutputs, err := clientForResource.Patch(currentSubmitted.GetName(), patchType, patch)
+	// Issue patch request.
+	// NOTE: We can use the same client because if the `kind` changes, this will cause
+	//		 a replace (i.e., destroy and create).
+	currentOutputs, err := client.Patch(c.Inputs.GetName(), patchType, patch, metav1.UpdateOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -259,21 +283,19 @@ func Update(
 	// Wait until patch resolves as success or error. Note that the conditional is set up to log only
 	// if we don't have an entry for the resource type; in the event that we do, but the await logic
 	// is blank, simply do nothing instead of logging.
-	id := fmt.Sprintf("%s/%s", currentSubmitted.GetAPIVersion(), currentSubmitted.GetKind())
+	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
 		if awaiter.awaitUpdate != nil {
 			conf := updateAwaitConfig{
 				createAwaitConfig: createAwaitConfig{
-					host:              host,
-					ctx:               ctx,
-					pool:              pool,
-					disco:             disco,
-					clientForResource: clientForResource,
-					urn:               urn,
-					currentInputs:     currentSubmitted,
-					currentOutputs:    currentOutputs,
+					host:           c.Host,
+					ctx:            c.Context,
+					urn:            c.URN,
+					clientSet:      c.ClientSet,
+					currentInputs:  c.Inputs,
+					currentOutputs: currentOutputs,
 				},
-				lastInputs:  lastSubmitted,
+				lastInputs:  c.Previous,
 				lastOutputs: liveOldObj,
 			}
 			waitErr := awaiter.awaitUpdate(conf)
@@ -282,25 +304,21 @@ func Update(
 			}
 		}
 	} else {
-		glog.V(1).Infof("No initialization logic found for object of type '%s'; defaulting to assuming initialization successful", id)
+		glog.V(1).Infof("No initialization logic found for object of type %q; assuming initialization successful", id)
 	}
 
-	gvk := currentSubmitted.GroupVersionKind()
+	gvk := c.Inputs.GroupVersionKind()
 	glog.V(3).Infof("Resource %s/%s/%s  '%s.%s' patched and updated", gvk.Group, gvk.Version,
-		gvk.Kind, currentSubmitted.GetNamespace(), currentSubmitted.GetName())
+		gvk.Kind, c.Inputs.GetNamespace(), c.Inputs.GetName())
 
 	// Return new, updated version of object.
-	return clientForResource.Get(currentSubmitted.GetName(), metav1.GetOptions{})
+	return client.Get(c.Inputs.GetName(), metav1.GetOptions{})
 }
 
 // Deletion (as the usage, `await.Deletion`, implies) will block until one of the following is true:
 // (1) the Kubernetes resource is reported to be deleted; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being deleted.
-func Deletion(
-	ctx context.Context, host *provider.HostClient, pool dynamic.ClientPool,
-	disco discovery.DiscoveryInterface, urn resource.URN, gvk schema.GroupVersionKind, namespace,
-	name string,
-) error {
+func Deletion(c DeleteConfig) error {
 	// nilIfGVKDeleted takes an error and returns nil if `errors.IsNotFound`; otherwise, it returns
 	// the error argument unchanged.
 	//
@@ -319,10 +337,16 @@ func Deletion(
 		return err
 	}
 
-	// Make delete options based on the version of the client.
-	version, err := client.FetchVersion(disco)
-	if err != nil {
-		version = client.DefaultVersion()
+	// Attempt to retrieve k8s server version. Use default version in case this fails.
+	var version ServerVersion
+	if sv, err := c.ClientSet.DiscoveryClientCached.ServerVersion(); err == nil {
+		if v, err := parseVersion(sv); err == nil {
+			version = v
+		} else {
+			version = DefaultVersion()
+		}
+	} else {
+		version = DefaultVersion()
 	}
 
 	// Manually set delete propagation for Kubernetes versions < 1.6 to avoid bugs.
@@ -349,25 +373,25 @@ func Deletion(
 	}
 
 	// Obtain client for the resource being deleted.
-	clientForResource, err := client.FromGVK(pool, disco, gvk, namespace)
+	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
 
 	timeoutSeconds := int64(300)
 	listOpts := metav1.ListOptions{
-		FieldSelector:  fields.OneTermEqualSelector("metadata.name", name).String(),
+		FieldSelector:  fields.OneTermEqualSelector("metadata.name", c.Name).String(),
 		TimeoutSeconds: &timeoutSeconds,
 	}
 
 	// Set up a watcher for the selected resource.
-	watcher, err := clientForResource.Watch(listOpts)
+	watcher, err := client.Watch(listOpts)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
 
 	// Issue deletion request.
-	err = clientForResource.Delete(name, &deleteOpts)
+	err = client.Delete(c.Name, &deleteOpts)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
@@ -376,32 +400,34 @@ func Deletion(
 	// if we don't have an entry for the resource type; in the event that we do, but the await logic
 	// is blank, simply do nothing instead of logging.
 	var waitErr error
-	id := fmt.Sprintf("%s/%s", gvk.GroupVersion().String(), gvk.Kind)
+	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
-		waitErr = awaiter.awaitDeletion(ctx, clientForResource, name)
+		waitErr = awaiter.awaitDeletion(c.Context, client, c.Name)
 	} else {
 		for {
 			select {
 			case event, ok := <-watcher.ResultChan():
 				if !ok {
-					if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
-						_ = clearStatus(ctx, host, urn)
+					if deleted, obj := checkIfResourceDeleted(c.Name, client); deleted {
+						_ = clearStatus(c.Context, c.Host, c.URN)
 						return nil
 					} else {
 						return &timeoutError{
-							object:    obj,
-							subErrors: []string{fmt.Sprintf("Timed out waiting for deletion of %s '%s'", id, name)},
+							object: obj,
+							subErrors: []string{
+								fmt.Sprintf("Timed out waiting for deletion of %s %q", id, c.Name),
+							},
 						}
 					}
 				}
 
 				switch event.Type {
 				case watch.Deleted:
-					_ = clearStatus(ctx, host, urn)
+					_ = clearStatus(c.Context, c.Host, c.URN)
 					return nil
 				case watch.Error:
-					if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
-						_ = clearStatus(ctx, host, urn)
+					if deleted, obj := checkIfResourceDeleted(c.Name, client); deleted {
+						_ = clearStatus(c.Context, c.Host, c.URN)
 						return nil
 					} else {
 						return &initializationError{
@@ -410,11 +436,11 @@ func Deletion(
 						}
 					}
 				}
-			case <-ctx.Done(): // Handle user cancellation during watch for deletion.
+			case <-c.Context.Done(): // Handle user cancellation during watch for deletion.
 				watcher.Stop()
-				glog.V(3).Infof("Received error deleting object '%s': %#v", id, err)
-				if deleted, obj := checkIfResourceDeleted(name, clientForResource); deleted {
-					_ = clearStatus(ctx, host, urn)
+				glog.V(3).Infof("Received error deleting object %q: %#v", id, err)
+				if deleted, obj := checkIfResourceDeleted(c.Name, client); deleted {
+					_ = clearStatus(c.Context, c.Host, c.URN)
 					return nil
 				} else {
 					return &cancellationError{
@@ -440,6 +466,6 @@ func checkIfResourceDeleted(name string, client dynamic.ResourceInterface) (bool
 }
 
 // clearStatus will clear the `Info` column of the CLI of all statuses and messages.
-func clearStatus(context context.Context, host *provider.HostClient, urn resource.URN) error {
+func clearStatus(context context.Context, host *pulumiprovider.HostClient, urn resource.URN) error {
 	return host.LogStatus(context, diag.Info, urn, "")
 }

@@ -54,7 +54,7 @@ func ForObject(
 			obj, err := clientForResource.Get(name, metav1.GetOptions{})
 			if err != nil {
 				// Log the error.
-				glog.V(3).Infof("Received error polling for '%s': %#v", name, err)
+				glog.V(3).Infof("Received error polling for %q: %#v", name, err)
 				return nil, err
 			}
 			return obj, nil

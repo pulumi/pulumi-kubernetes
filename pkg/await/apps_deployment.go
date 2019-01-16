@@ -8,13 +8,12 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 )
@@ -137,15 +136,15 @@ func (dia *deploymentInitAwaiter) Await() error {
 	//      corresponding ReplicaSet), and therefore there is no rollout to mark as "Progressing".
 	//
 
-	replicaSetClient, podClient, pvcClient, err := dia.makeClients()
+	deploymentClient, replicaSetClient, podClient, pvcClient, err := dia.makeClients()
 	if err != nil {
 		return err
 	}
 
 	// Create Deployment watcher.
-	deploymentWatcher, err := dia.config.clientForResource.Watch(metav1.ListOptions{})
+	deploymentWatcher, err := deploymentClient.Watch(metav1.ListOptions{})
 	if err != nil {
-		return errors.Wrapf(err, "Could not set up watch for Deployment object %q",
+		return errors.Wrapf(err, "could not set up watch for Deployment object %q",
 			dia.config.currentInputs.GetName())
 	}
 	defer deploymentWatcher.Stop()
@@ -185,13 +184,13 @@ func (dia *deploymentInitAwaiter) Await() error {
 
 func (dia *deploymentInitAwaiter) Read() error {
 	// Get clients needed to retrieve live versions of relevant Deployments, ReplicaSets, and Pods.
-	replicaSetClient, podClient, pvcClient, err := dia.makeClients()
+	deploymentClient, replicaSetClient, podClient, pvcClient, err := dia.makeClients()
 	if err != nil {
 		return err
 	}
 
 	// Get live versions of Deployment, ReplicaSets, and Pods.
-	deployment, err := dia.config.clientForResource.Get(dia.config.currentInputs.GetName(),
+	deployment, err := deploymentClient.Get(dia.config.currentInputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
@@ -226,8 +225,7 @@ func (dia *deploymentInitAwaiter) Read() error {
 		pvcList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	return dia.read(deployment, rsList.(*unstructured.UnstructuredList),
-		podList.(*unstructured.UnstructuredList), pvcList.(*unstructured.UnstructuredList))
+	return dia.read(deployment, rsList, podList, pvcList)
 }
 
 func (dia *deploymentInitAwaiter) read(
@@ -650,13 +648,13 @@ func (dia *deploymentInitAwaiter) aggregatePodErrors() ([]string, []string) {
 		}
 	}
 
-	scheduleErrors := []string{}
+	scheduleErrors := make([]string, 0)
 	for message, count := range scheduleErrorCounts {
 		message = fmt.Sprintf("%d Pods failed to schedule because: %s", count, message)
 		scheduleErrors = append(scheduleErrors, message)
 	}
 
-	containerErrors := []string{}
+	containerErrors := make([]string, 0)
 	for message, count := range containerErrorCounts {
 		message = fmt.Sprintf("%d Pods failed to run because: %s", count, message)
 		containerErrors = append(containerErrors, message)
@@ -670,7 +668,7 @@ func (dia *deploymentInitAwaiter) getFailedPersistentValueClaims() []string {
 		return nil
 	}
 
-	failed := []string{}
+	failed := make([]string, 0)
 	for _, pvc := range dia.pvcs {
 		phase, _ := openapi.Pluck(pvc.Object, "status", "phase")
 		if phase != statusBound {
@@ -681,7 +679,7 @@ func (dia *deploymentInitAwaiter) getFailedPersistentValueClaims() []string {
 }
 
 func (dia *deploymentInitAwaiter) errorMessages() []string {
-	messages := []string{}
+	messages := make([]string, 0)
 	for _, message := range dia.deploymentErrors {
 		messages = append(messages, message)
 	}
@@ -725,43 +723,36 @@ func (dia *deploymentInitAwaiter) errorMessages() []string {
 }
 
 func (dia *deploymentInitAwaiter) makeClients() (
-	replicaSetClient, podClient, pvcClient dynamic.ResourceInterface, err error,
+	deploymentClient, replicaSetClient, podClient, pvcClient dynamic.ResourceInterface, err error,
 ) {
-	replicaSetClient, err = client.FromGVK(dia.config.pool, dia.config.disco,
-		schema.GroupVersionKind{
-			Group:   "extensions",
-			Version: "v1beta1",
-			Kind:    "ReplicaSet",
-		}, dia.config.currentInputs.GetNamespace())
+	deploymentClient, err = clients.ResourceClient(
+		clients.Deployment, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch ReplicaSets associated with Deployment %q",
+		err = errors.Wrapf(err, "Could not make client to watch Deployment %q",
 			dia.config.currentInputs.GetName())
+		return
+	}
+	replicaSetClient, err = clients.ResourceClient(
+		clients.ReplicaSet, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+	if err != nil {
+		err = errors.Wrapf(err, "Could not make client to watch ReplicaSets associated with Deployment %q",
+			dia.config.currentInputs.GetName())
+		return
+	}
+	podClient, err = clients.ResourceClient(
+		clients.Pod, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+	if err != nil {
+		err = errors.Wrapf(err, "Could not make client to watch Pods associated with Deployment %q",
+			dia.config.currentInputs.GetName())
+		return
+	}
+	pvcClient, err = clients.ResourceClient(
+		clients.PersistentVolumeClaim, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+	if err != nil {
+		err = errors.Wrapf(err, "Could not make client to watch PVCs associated with Deployment %q",
+			dia.config.currentInputs.GetName())
+		return
 	}
 
-	podClient, err = client.FromGVK(dia.config.pool, dia.config.disco,
-		schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    "Pod",
-		}, dia.config.currentInputs.GetNamespace())
-	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Pods associated with Deployment %q",
-			dia.config.currentInputs.GetName())
-	}
-
-	pvcClient, err = client.FromGVK(dia.config.pool, dia.config.disco,
-		schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    "PersistentVolumeClaim",
-		}, dia.config.currentInputs.GetNamespace())
-	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch PersistentVolumeClaims associated with Deployment %q",
-			dia.config.currentInputs.GetName())
-	}
-
-	return replicaSetClient, podClient, pvcClient, nil
+	return
 }

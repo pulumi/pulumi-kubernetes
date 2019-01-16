@@ -23,16 +23,16 @@ import (
 
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
-	structpb "github.com/golang/protobuf/ptypes/struct"
+	"github.com/golang/protobuf/ptypes/struct"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
-	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/plugin"
 	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"github.com/pulumi/pulumi/pkg/util/contract"
 	"github.com/pulumi/pulumi/pkg/util/rpcutil/rpcerror"
-	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
+	"github.com/pulumi/pulumi/sdk/proto/go"
 	"github.com/yudai/gojsondiff"
 	"google.golang.org/grpc/codes"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -40,8 +40,6 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
-	"k8s.io/client-go/discovery"
-	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 )
@@ -66,7 +64,7 @@ type cancellationContext struct {
 }
 
 func makeCancellationContext() *cancellationContext {
-	var ctx, cancel = context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancel(context.Background())
 	return &cancellationContext{
 		context: ctx,
 		cancel:  cancel,
@@ -80,12 +78,12 @@ type kubeOpts struct {
 type kubeProvider struct {
 	host           *provider.HostClient
 	canceler       *cancellationContext
-	client         discovery.CachedDiscoveryInterface
-	pool           dynamic.ClientPool
 	name           string
 	version        string
 	providerPrefix string
 	opts           kubeOpts
+
+	clientSet *clients.DynamicClientSet
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -144,28 +142,17 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
 	}
 
-	// Configure the discovery client.
 	conf, err := kubeconfig.ClientConfig()
 	if err != nil {
-		return nil, fmt.Errorf("Unable to read kubectl config: %v", err)
+		return nil, fmt.Errorf("unable to read kubectl config: %v", err)
 	}
 
-	disco, err := discovery.NewDiscoveryClientForConfig(conf)
+	cs, err := clients.NewDynamicClientSet(conf)
 	if err != nil {
 		return nil, err
 	}
+	k.clientSet = cs
 
-	// Cache the discovery information (OpenAPI schema, etc.) so we don't have to retrieve it for
-	// every request.
-	discoCache := client.NewMemcachedDiscoveryClient(disco)
-	mapper := discovery.NewDeferredDiscoveryRESTMapper(discoCache, dynamic.VersionInterfaces)
-	pathresolver := dynamic.LegacyAPIPathResolverFunc
-
-	// Create client pool, reusing one client per API group (e.g., one each for core, extensions,
-	// apps, etc.)
-	pool := dynamic.NewClientPool(conf, mapper, pathresolver)
-
-	k.client, k.pool = discoCache, pool
 	return &pbempty.Empty{}, nil
 }
 
@@ -199,7 +186,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			return true
 		}
 		gv := gvk.GroupVersion()
-		rls, err := k.client.ServerResourcesForGroupVersion(gv.String())
+		rls, err := k.clientSet.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
 		if err != nil {
 			if !errors.IsNotFound(err) {
 				glog.V(3).Infof("ServerResourcesForGroupVersion(%q) returned unexpected error %v", gv, err)
@@ -244,7 +231,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	for k := range newInputs.GetAnnotations() {
 		if strings.HasPrefix(k, annotationInternalPrefix) {
 			failures = append(failures, &pulumirpc.CheckFailure{
-				Reason: fmt.Sprintf("annotation '%s' uses illegal prefix `pulumi.com/internal`", k),
+				Reason: fmt.Sprintf("annotation %q uses illegal prefix `pulumi.com/internal`", k),
 			})
 		}
 	}
@@ -273,7 +260,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// does not know how to deal with the placeholder values for computed values.
 	if !hasComputedValue(newInputs) {
 		// Get OpenAPI schema for the GVK.
-		err = openapi.ValidateAgainstSchema(k.client, newInputs)
+		err = openapi.ValidateAgainstSchema(k.clientSet.DiscoveryClientCached, newInputs)
 		// Validate the object according to the OpenAPI schema.
 		if err != nil {
 			resourceNotFound := errors.IsNotFound(err) ||
@@ -281,7 +268,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			k8sAPIUnreachable := strings.Contains(err.Error(), "connection refused")
 			if resourceNotFound && gvkExists(gvk) {
 				failures = append(failures, &pulumirpc.CheckFailure{
-					Reason: fmt.Sprintf(" Found API Group, but it did not contain a schema for '%s'", gvk),
+					Reason: fmt.Sprintf(" Found API Group, but it did not contain a schema for %q", gvk),
 				})
 			} else if k8sAPIUnreachable {
 				k8sURL := ""
@@ -297,7 +284,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 				// If the schema doesn't exist, it could still be a CRD (which may not have a
 				// schema). Thus, if we are directed to check resources even if they have unknown
 				// types, we fail here.
-				return nil, fmt.Errorf("Unable to fetch schema: %v", err)
+				return nil, fmt.Errorf("unable to fetch schema: %v", err)
 			}
 		}
 	}
@@ -378,7 +365,7 @@ func (k *kubeProvider) Diff(
 	// that object MUST have the same name.
 	deleteBeforeReplace :=
 		// 1. We know resource must be replaced.
-		(len(replaces) > 0 &&
+		len(replaces) > 0 &&
 			// 2. Object is NOT autonamed (i.e., user manually named it, and therefore we can't
 			// auto-generate the name).
 			!isAutonamed(newInputs) &&
@@ -386,7 +373,7 @@ func (k *kubeProvider) Diff(
 			newInputs.GetName() == oldInputs.GetName() &&
 			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the
 			// object in a new namespace and then deleting the old one).
-			canonicalNamespace(newInputs.GetNamespace()) == canonicalNamespace(oldInputs.GetNamespace()))
+			canonicalNamespace(newInputs.GetNamespace()) == canonicalNamespace(oldInputs.GetNamespace())
 
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
@@ -398,7 +385,7 @@ func (k *kubeProvider) Diff(
 
 // Create allocates a new instance of the provided resource and returns its unique ID afterwards.
 // (The input ID must be blank.)  If this call fails, the resource must not have been created (i.e.,
-// it is "transacational").
+// it is "transactional").
 func (k *kubeProvider) Create(
 	ctx context.Context, req *pulumirpc.CreateRequest,
 ) (*pulumirpc.CreateResponse, error) {
@@ -418,7 +405,7 @@ func (k *kubeProvider) Create(
 	label := fmt.Sprintf("%s.Create(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
-	// Obtain client from pool for the resource we're creating.
+	// Parse inputs
 	newResInputs, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.properties", label), KeepUnknowns: true, SkipNulls: true,
 	})
@@ -427,8 +414,18 @@ func (k *kubeProvider) Create(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
-	initialized, awaitErr := await.Creation(k.canceler.context, k.host, k.pool, k.client,
-		resource.URN(req.GetUrn()), newInputs)
+	config := await.CreateConfig{
+		ProviderConfig: await.ProviderConfig{
+			Context:   k.canceler.context,
+			Host:      k.host,
+			URN:       resource.URN(req.GetUrn()),
+			ClientSet: k.clientSet,
+		},
+		Inputs:    newInputs,
+		Namespace: canonicalNamespace(newInputs.GetNamespace()),
+	}
+
+	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
 		initErr, isInitErr := awaitErr.(await.InitializationError)
 		if !isInitErr {
@@ -451,18 +448,19 @@ func (k *kubeProvider) Create(
 	if awaitErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		return nil, initializationError(client.FqObjName(initialized), awaitErr, inputsAndComputed)
+		return nil, initializationError(FqObjName(initialized), awaitErr, inputsAndComputed)
 	}
 
 	// Invalidate the client cache if this was a CRD. This will require subsequent CR creations to
 	// refresh the cache, at which point the CRD definition will be present, so that it doesn't fail
 	// with an `errors.IsNotFound`.
-	if isCRD(newInputs) {
-		k.client.Invalidate()
+	if clients.IsCRD(newInputs) {
+		k.clientSet.DiscoveryClientCached.Invalidate()
+		k.clientSet.RESTMapper.Reset()
 	}
 
 	return &pulumirpc.CreateResponse{
-		Id: client.FqObjName(initialized), Properties: inputsAndComputed,
+		Id: FqObjName(initialized), Properties: inputsAndComputed,
 	}, nil
 }
 
@@ -497,17 +495,25 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		return nil, err
 	}
 	// Ignore old state; we'll get it from Kubernetes later.
-	oldInputs, _ := parseCheckpointObject(oldState)
+	oldInputs, newInputs := parseCheckpointObject(oldState)
 
-	gvk, err := k.gvkFromURN(urn)
-	if err != nil {
-		return nil, err
+	if oldInputs.GroupVersionKind().Empty() {
+		oldInputs.SetGroupVersionKind(newInputs.GroupVersionKind())
 	}
-	gvk.Group = schemaGroupName(gvk.Group)
 
-	namespace, name := client.ParseFqName(req.GetId())
-	liveObj, readErr := await.Read(k.canceler.context, k.host, k.pool, k.client,
-		resource.URN(req.GetUrn()), gvk, canonicalNamespace(namespace), name, oldInputs)
+	ns, name := ParseFqName(req.GetId())
+	config := await.ReadConfig{
+		ProviderConfig: await.ProviderConfig{
+			Context:   k.canceler.context,
+			Host:      k.host,
+			URN:       resource.URN(req.GetUrn()),
+			ClientSet: k.clientSet,
+		},
+		Inputs:    oldInputs,
+		Namespace: canonicalNamespace(ns),
+		Name:      name,
+	}
+	liveObj, readErr := await.Read(config)
 	if readErr != nil {
 		glog.V(3).Infof("%v", readErr)
 
@@ -533,7 +539,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		// initialize.
 	}
 
-	id := client.FqObjName(liveObj)
+	// TODO(lblackstone): not sure why this is needed
+	id := FqObjName(liveObj)
 	if reqID := req.GetId(); len(reqID) > 0 {
 		id = reqID
 	}
@@ -626,8 +633,7 @@ func (k *kubeProvider) Update(
 	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
 	glog.V(9).Infof("%s executing", label)
 
-	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
-	// validation routines.
+	// Obtain old properties, create a Kubernetes `unstructured.Unstructured`.
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
 	})
@@ -637,8 +643,7 @@ func (k *kubeProvider) Update(
 	// Ignore old state; we'll get it from Kubernetes later.
 	oldInputs, _ := parseCheckpointObject(oldState)
 
-	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
-	// validation routines.
+	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
 	})
@@ -647,9 +652,20 @@ func (k *kubeProvider) Update(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
+	ns, _ := ParseFqName(req.GetId())
+	config := await.UpdateConfig{
+		ProviderConfig: await.ProviderConfig{
+			Context:   k.canceler.context,
+			Host:      k.host,
+			URN:       resource.URN(req.GetUrn()),
+			ClientSet: k.clientSet,
+		},
+		Previous:  oldInputs,
+		Inputs:    newInputs,
+		Namespace: canonicalNamespace(ns),
+	}
 	// Apply update.
-	initialized, awaitErr := await.Update(k.canceler.context, k.host, k.pool, k.client,
-		resource.URN(req.GetUrn()), oldInputs, newInputs)
+	initialized, awaitErr := await.Update(config)
 	if awaitErr != nil {
 		var getErr error
 		initialized, getErr = k.readLiveObject(newInputs)
@@ -673,7 +689,7 @@ func (k *kubeProvider) Update(
 	if awaitErr != nil {
 		// Resource was updated/created but failed to initialize. Return live version of object so it
 		// can be checkpointed.
-		return nil, initializationError(client.FqObjName(initialized), awaitErr, inputsAndComputed)
+		return nil, initializationError(FqObjName(initialized), awaitErr, inputsAndComputed)
 	}
 
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
@@ -690,15 +706,28 @@ func (k *kubeProvider) Delete(
 
 	// TODO(hausdorff): Propagate other options, like grace period through flags.
 
-	gvk, err := k.gvkFromURN(resource.URN(req.GetUrn()))
+	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
+	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
+	})
 	if err != nil {
 		return nil, err
 	}
-	gvk.Group = schemaGroupName(gvk.Group)
+	_, current := parseCheckpointObject(oldState)
 
-	namespace, name := client.ParseFqName(req.GetId())
+	_, name := ParseFqName(req.GetId())
+	config := await.DeleteConfig{
+		ProviderConfig: await.ProviderConfig{
+			Context:   k.canceler.context,
+			Host:      k.host,
+			URN:       resource.URN(req.GetUrn()),
+			ClientSet: k.clientSet,
+		},
+		Inputs: current,
+		Name:   name,
+	}
 
-	err = await.Deletion(k.canceler.context, k.host, k.pool, k.client, urn, gvk, namespace, name)
+	err = await.Deletion(config)
 	if err != nil {
 		return nil, err
 	}
@@ -736,7 +765,7 @@ func (k *kubeProvider) label() string {
 func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, error) {
 	// Strip prefix.
 	s := string(urn.Type())
-	contract.Assertf(strings.HasPrefix(s, k.providerPrefix), "Kubernetes GVK is: '%s'", string(urn))
+	contract.Assertf(strings.HasPrefix(s, k.providerPrefix), "Kubernetes GVK is: %q", string(urn))
 	s = s[len(k.providerPrefix):]
 
 	// Emit GVK.
@@ -744,10 +773,10 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, er
 	gv := strings.Split(gvk[0], "/")
 	if len(gvk) < 2 {
 		return schema.GroupVersionKind{},
-			fmt.Errorf("GVK must have both an apiVersion and a Kind: '%s'", s)
+			fmt.Errorf("GVK must have both an apiVersion and a Kind: %q", s)
 	} else if len(gv) != 2 {
 		return schema.GroupVersionKind{},
-			fmt.Errorf("apiVersion does not have both a group and a version: '%s'", s)
+			fmt.Errorf("apiVersion does not have both a group and a version: %q", s)
 	}
 
 	return schema.GroupVersionKind{
@@ -757,27 +786,15 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, er
 	}, nil
 }
 
-func (k *kubeProvider) readLiveObject(
-	obj *unstructured.Unstructured,
-) (*unstructured.Unstructured, error) {
-	// Retrieve live version of last submitted version of object.
-	clientForResource, err := client.FromResource(k.pool, k.client, obj)
+func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	rc, err := k.clientSet.ResourceClientForObject(obj)
 	if err != nil {
 		return nil, err
 	}
 
 	// Get the "live" version of the last submitted object. This is necessary because the server may
 	// have populated some fields automatically, updated status fields, and so on.
-	return clientForResource.Get(obj.GetName(), metav1.GetOptions{})
-}
-
-func schemaGroupName(group string) string {
-	switch group {
-	case "core":
-		return ""
-	default:
-		return group
-	}
+	return rc.Get(obj.GetName(), metav1.GetOptions{})
 }
 
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
@@ -831,10 +848,4 @@ func canonicalNamespace(ns string) string {
 		return "default"
 	}
 	return ns
-}
-
-// isCRD returns true if a Kubernetes resource is a CRD.
-func isCRD(obj *unstructured.Unstructured) bool {
-	return obj.GetKind() == "CustomResourceDefinition" &&
-		strings.HasPrefix(obj.GetAPIVersion(), "apiextensions.k8s.io/")
 }

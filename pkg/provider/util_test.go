@@ -98,3 +98,24 @@ func TestHasComputedValue(t *testing.T) {
 		assert.Equal(t, test.hasComputedValue, hasComputedValue(test.obj), test.name)
 	}
 }
+
+func TestFqName(t *testing.T) {
+	obj := &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "tests/v1alpha1",
+			"kind":       "Test",
+			"metadata": map[string]interface{}{
+				"name": "myname",
+			},
+		},
+	}
+
+	if n := FqName(obj.GetNamespace(), obj.GetName()); n != "myname" {
+		t.Errorf("Got %q for %v", n, obj)
+	}
+
+	obj.SetNamespace("mynamespace")
+	if n := FqName(obj.GetNamespace(), obj.GetName()); n != "mynamespace/myname" {
+		t.Errorf("Got %q for %v", n, obj)
+	}
+}

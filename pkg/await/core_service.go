@@ -6,15 +6,15 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/client-go/dynamic"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ type serviceInitAwaiter struct {
 }
 
 func makeServiceInitAwaiter(c createAwaitConfig) *serviceInitAwaiter {
-	specType, _ := openapi.Pluck(c.currentInputs.Object, "spec", "type")
+	specType, _ := openapi.Pluck(c.currentOutputs.Object, "spec", "type")
 	var t string
 	if specTypeString, isString := specType.(string); isString {
 		t = specTypeString
@@ -109,8 +109,13 @@ func (sia *serviceInitAwaiter) Await() error {
 	//   4. External IP address is allocated (if we're type `LoadBalancer`).
 	//
 
+	serviceClient, endpointsClient, err := sia.makeClients()
+	if err != nil {
+		return err
+	}
+
 	// Create service watcher.
-	serviceWatcher, err := sia.config.clientForResource.Watch(metav1.ListOptions{})
+	serviceWatcher, err := serviceClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err, "Could set up watch for Service object '%s'",
 			sia.config.currentInputs.GetName())
@@ -118,22 +123,10 @@ func (sia *serviceInitAwaiter) Await() error {
 	defer serviceWatcher.Stop()
 
 	// Create endpoint watcher.
-	endpointClient, err := client.FromGVK(sia.config.pool, sia.config.disco, schema.GroupVersionKind{
-		Group:   "",
-		Version: "v1",
-		Kind:    "Endpoints",
-	}, sia.config.currentInputs.GetNamespace())
+	endpointWatcher, err := endpointsClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
-			"Could not make client to watch Endpoint object associated with Service '%s'",
-			sia.config.currentInputs.GetName())
-	}
-
-	glog.V(3).Infof("Service Endpoint client namespace: %q", sia.config.currentInputs.GetNamespace())
-	endpointWatcher, err := endpointClient.Watch(metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Endpoint objects associated with Service '%s'",
+			"Could not create watcher for Endpoint objects associated with Service %q",
 			sia.config.currentInputs.GetName())
 	}
 	defer endpointWatcher.Stop()
@@ -142,8 +135,13 @@ func (sia *serviceInitAwaiter) Await() error {
 }
 
 func (sia *serviceInitAwaiter) Read() error {
+	serviceClient, endpointsClient, err := sia.makeClients()
+	if err != nil {
+		return err
+	}
+
 	// Get live versions of Service and Endpoints.
-	service, err := sia.config.clientForResource.Get(sia.config.currentInputs.GetName(),
+	service, err := serviceClient.Get(sia.config.currentOutputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
@@ -158,25 +156,14 @@ func (sia *serviceInitAwaiter) Read() error {
 	//
 
 	// Create endpoint watcher.
-	endpointClient, err := client.FromGVK(sia.config.pool, sia.config.disco, schema.GroupVersionKind{
-		Group:   "",
-		Version: "v1",
-		Kind:    "Endpoints",
-	}, sia.config.currentInputs.GetNamespace())
+	endpointList, err := endpointsClient.List(metav1.ListOptions{})
 	if err != nil {
-		return errors.Wrapf(err,
-			"Could not make client to list Endpoint object associated with Service '%s'",
-			sia.config.currentInputs.GetName())
-	}
-
-	endpointList, err := endpointClient.List(metav1.ListOptions{})
-	if err != nil {
-		glog.V(3).Infof("Error retrieving ReplicaSet list for Service '%s': %v",
+		glog.V(3).Infof("Error retrieving ReplicaSet list for Service %q: %v",
 			service.GetName(), err)
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	return sia.read(service, endpointList.(*unstructured.UnstructuredList))
+	return sia.read(service, endpointList)
 }
 
 func (sia *serviceInitAwaiter) read(
@@ -193,7 +180,7 @@ func (sia *serviceInitAwaiter) read(
 		return nil
 	})
 	if err != nil {
-		glog.V(3).Infof("Error iterating over ReplicaSet list for Deployment '%s': %v",
+		glog.V(3).Infof("Error iterating over ReplicaSet list for Deployment %q: %v",
 			service.GetName(), err)
 	}
 
@@ -253,11 +240,11 @@ func (sia *serviceInitAwaiter) await(
 }
 
 func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
-	inputServiceName := sia.config.currentInputs.GetName()
+	inputServiceName := sia.config.currentOutputs.GetName()
 
 	service, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Service watch received unknown object type '%s'",
+		glog.V(3).Infof("Service watch received unknown object type %q",
 			reflect.TypeOf(service))
 		return
 	}
@@ -282,7 +269,7 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 		lbIngress, _ := openapi.Pluck(service.Object, "status", "loadBalancer", "ingress")
 		status, _ := openapi.Pluck(service.Object, "status")
 
-		glog.V(3).Infof("Received status for service '%s': %#v", inputServiceName, status)
+		glog.V(3).Infof("Received status for service %q: %#v", inputServiceName, status)
 		ing, isSlice := lbIngress.([]interface{})
 
 		// Update status of service object so that we can check success.
@@ -297,12 +284,12 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 }
 
 func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh chan<- struct{}) {
-	inputServiceName := sia.config.currentInputs.GetName()
+	inputServiceName := sia.config.currentOutputs.GetName()
 
 	// Get endpoint object.
 	endpoint, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Endpoint watch received unknown object type '%s'",
+		glog.V(3).Infof("Endpoint watch received unknown object type %q",
 			reflect.TypeOf(endpoint))
 		return
 	}
@@ -387,4 +374,25 @@ func (sia *serviceInitAwaiter) checkAndLogStatus() bool {
 	}
 
 	return success
+}
+
+func (sia *serviceInitAwaiter) makeClients() (
+	serviceClient, endpointClient dynamic.ResourceInterface, err error,
+) {
+	serviceClient, err = clients.ResourceClient(
+		clients.Service, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
+	if err != nil {
+		return nil, nil, errors.Wrapf(err,
+			"Could not make client to watch Service %q",
+			sia.config.currentOutputs.GetName())
+	}
+	endpointClient, err = clients.ResourceClient(
+		clients.Endpoints, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
+	if err != nil {
+		return nil, nil, errors.Wrapf(err,
+			"Could not make client to watch Endpoints associated with Service %q",
+			sia.config.currentOutputs.GetName())
+	}
+
+	return serviceClient, endpointClient, nil
 }

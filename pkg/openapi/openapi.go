@@ -63,7 +63,7 @@ func ValidateAgainstSchema(
 	gvk := obj.GroupVersionKind()
 	resSchema := resources.LookupResource(gvk)
 	if resSchema == nil {
-		return fmt.Errorf("Cluster does not support resource type '%s'", gvk.String())
+		return fmt.Errorf("cluster does not support resource type '%s'", gvk.String())
 	}
 
 	// TODO(hausdorff): Come back and make sure that `ValidateBytes` actually reports a list of
@@ -77,9 +77,8 @@ func ValidateAgainstSchema(
 // PatchForResourceUpdate introspects on the OpenAPI spec exposed by some client, and attempts to
 // generate a strategic merge patch for use in a resource update. If there is no specification of
 // how to generate a strategic merge patch, we fall back to JSON merge patch.
-func PatchForResourceUpdate(
-	client discovery.OpenAPISchemaInterface,
-	lastSubmitted, currentSubmitted, liveOldObj *unstructured.Unstructured,
+func PatchForResourceUpdate(client discovery.CachedDiscoveryInterface, lastSubmitted, currentSubmitted,
+	liveOldObj *unstructured.Unstructured,
 ) ([]byte, types.PatchType, error) {
 	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
 	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
@@ -208,10 +207,10 @@ func jsonMergePatch(
 func getResourceSchemasForClient(
 	client discovery.OpenAPISchemaInterface,
 ) (openapi.Resources, error) {
-	schema, err := client.OpenAPISchema()
+	document, err := client.OpenAPISchema()
 	if err != nil {
 		return nil, err
 	}
 
-	return openapi.NewOpenAPIData(schema)
+	return openapi.NewOpenAPIData(document)
 }

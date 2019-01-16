@@ -21,15 +21,13 @@ import (
 	"time"
 
 	"github.com/golang/glog"
-	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/watcher"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
 )
 
@@ -43,23 +41,12 @@ const (
 // live number of Pods reaches the minimum liveness threshold. `pool` and `disco` are provided
 // typically from a client pool so that polling is reasonably efficient.
 type createAwaitConfig struct {
-	host              *provider.HostClient
-	ctx               context.Context
-	pool              dynamic.ClientPool
-	disco             discovery.ServerResourcesInterface
-	clientForResource dynamic.ResourceInterface
-	urn               resource.URN
-	currentInputs     *unstructured.Unstructured
-	currentOutputs    *unstructured.Unstructured
-}
-
-// nolint
-func (cac *createAwaitConfig) eventClient() (dynamic.ResourceInterface, error) {
-	return client.FromGVK(cac.pool, cac.disco, schema.GroupVersionKind{
-		Group:   "",
-		Version: "v1",
-		Kind:    "Event",
-	}, cac.currentInputs.GetNamespace())
+	host           *provider.HostClient
+	ctx            context.Context
+	urn            resource.URN
+	clientSet      *clients.DynamicClientSet
+	currentInputs  *unstructured.Unstructured
+	currentOutputs *unstructured.Unstructured
 }
 
 func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
@@ -276,7 +263,7 @@ func untilAppsDeploymentDeleted(
 		specReplicas, _ := deploymentSpecReplicas(d)
 
 		return watcher.RetryableError(
-			fmt.Errorf("Deployment '%s' still exists (%d / %d replicas exist)", name,
+			fmt.Errorf("deployment %q still exists (%d / %d replicas exist)", name,
 				currReplicas, specReplicas))
 	}
 
@@ -359,7 +346,7 @@ func untilCoreV1NamespaceDeleted(
 			return nil
 		}
 
-		return watcher.RetryableError(fmt.Errorf("Namespace %q still exists (%v)", name, statusPhase))
+		return watcher.RetryableError(fmt.Errorf("namespace %q still exists (%v)", name, statusPhase))
 	}
 
 	return watcher.ForObject(ctx, clientForResource, name).
@@ -384,7 +371,11 @@ func untilCoreV1PersistentVolumeInitialized(c createAwaitConfig) error {
 		return statusPhase == statusAvailable || statusPhase == statusBound
 	}
 
-	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
+	client, err := c.clientSet.ResourceClient(c.currentInputs.GroupVersionKind(), c.currentInputs.GetNamespace())
+	if err != nil {
+		return err
+	}
+	return watcher.ForObject(c.ctx, client, c.currentInputs.GetName()).
 		WatchUntil(pvAvailableOrBound, 5*time.Minute)
 }
 
@@ -401,7 +392,11 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 		return statusPhase == statusBound
 	}
 
-	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
+	client, err := c.clientSet.ResourceClient(c.currentInputs.GroupVersionKind(), c.currentInputs.GetNamespace())
+	if err != nil {
+		return err
+	}
+	return watcher.ForObject(c.ctx, client, c.currentInputs.GetName()).
 		WatchUntil(pvcBound, 5*time.Minute)
 }
 
@@ -411,6 +406,7 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
+// TODO(lblackstone): unify the function signatures across awaiters
 func untilCoreV1PodDeleted(
 	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
 ) error {
@@ -423,7 +419,7 @@ func untilCoreV1PodDeleted(
 
 		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
 		glog.V(3).Infof("Current state of pod %q: %#v", name, statusPhase)
-		e := fmt.Errorf("Pod %q still exists (%v)", name, statusPhase)
+		e := fmt.Errorf("pod %q still exists (%v)", name, statusPhase)
 		return watcher.RetryableError(e)
 	}
 
@@ -452,14 +448,14 @@ func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
 	glog.V(3).Infof("Waiting for replication controller %q to schedule '%v' replicas",
 		name, replicas)
 
+	client, err := c.clientSet.ResourceClient(c.currentInputs.GroupVersionKind(), c.currentInputs.GetNamespace())
+	if err != nil {
+		return err
+	}
 	// 10 mins should be sufficient for scheduling ~10k replicas
-	err := watcher.ForObject(c.ctx, c.clientForResource, name).
+	err = watcher.ForObject(c.ctx, client, name).
 		WatchUntil(
-			waitForDesiredReplicasFunc(
-				c.clientForResource,
-				name,
-				replicationControllerSpecReplicas,
-				availableReplicas),
+			waitForDesiredReplicasFunc(replicationControllerSpecReplicas, availableReplicas),
 			10*time.Minute)
 	if err != nil {
 		return err
@@ -542,7 +538,11 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
+	client, err := c.clientSet.ResourceClient(c.currentInputs.GroupVersionKind(), c.currentInputs.GetNamespace())
+	if err != nil {
+		return err
+	}
+	return watcher.ForObject(c.ctx, client, c.currentInputs.GetName()).
 		WatchUntil(rqInitialized, 1*time.Minute)
 }
 
@@ -567,7 +567,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 	// secrets array (i.e., in addition to the secrets specified by the user).
 	//
 
-	specSecrets, _ := openapi.Pluck(c.currentInputs.Object, "secrets")
+	specSecrets, _ := openapi.Pluck(c.currentOutputs.Object, "secrets")
 	var numSpecSecrets int
 	if specSecretsArr, isArr := specSecrets.([]interface{}); isArr {
 		numSpecSecrets = len(specSecretsArr)
@@ -587,7 +587,11 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 		return false
 	}
 
-	return watcher.ForObject(c.ctx, c.clientForResource, c.currentInputs.GetName()).
+	client, err := c.clientSet.ResourceClient(c.currentOutputs.GroupVersionKind(), c.currentOutputs.GetNamespace())
+	if err != nil {
+		return err
+	}
+	return watcher.ForObject(c.ctx, client, c.currentOutputs.GetName()).
 		WatchUntil(defaultSecretAllocated, 5*time.Minute)
 }
 
@@ -601,8 +605,6 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 // it until the desired replicas are the same as the current replicas. The user provides two
 // functions to obtain the replicas spec and status fields, as well as a client to access them.
 func waitForDesiredReplicasFunc(
-	clientForResource dynamic.ResourceInterface,
-	name string,
 	getReplicasSpec func(*unstructured.Unstructured) (interface{}, bool),
 	getReplicasStatus func(*unstructured.Unstructured) (interface{}, bool),
 ) watcher.Predicate {

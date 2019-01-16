@@ -1,10 +1,10 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2019, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package client
+package await
 
 import (
 	"testing"
 
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/version"
 )
 
@@ -104,26 +103,5 @@ func TestVersionCompare(t *testing.T) {
 		if res != test.result {
 			t.Errorf("%d.%d => Expected %d, got %d", test.major, test.minor, test.result, res)
 		}
-	}
-}
-
-func TestFqName(t *testing.T) {
-	obj := &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "tests/v1alpha1",
-			"kind":       "Test",
-			"metadata": map[string]interface{}{
-				"name": "myname",
-			},
-		},
-	}
-
-	if n := FqName(obj.GetNamespace(), obj.GetName()); n != "myname" {
-		t.Errorf("Got %q for %v", n, obj)
-	}
-
-	obj.SetNamespace("mynamespace")
-	if n := FqName(obj.GetNamespace(), obj.GetName()); n != "mynamespace/myname" {
-		t.Errorf("Got %q for %v", n, obj)
 	}
 }
