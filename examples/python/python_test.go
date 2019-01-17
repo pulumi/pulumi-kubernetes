@@ -141,3 +141,20 @@ func TestGuestbook(t *testing.T) {
 	})
 	integration.ProgramTest(t, &options)
 }
+
+// Smoke test for first-class Kubernetes providers.
+func TestProvider(t *testing.T) {
+	kubectx := os.Getenv("KUBERNETES_CONTEXT")
+	if kubectx == "" {
+		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
+	}
+
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join(cwd, "provider"),
+	})
+	integration.ProgramTest(t, &options)
+}
