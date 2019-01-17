@@ -23,16 +23,16 @@ import (
 func TestParseVersion(t *testing.T) {
 	tests := []struct {
 		input    version.Info
-		expected ServerVersion
+		expected serverVersion
 		error    bool
 	}{
 		{
 			input:    version.Info{Major: "1", Minor: "6"},
-			expected: ServerVersion{Major: 1, Minor: 6},
+			expected: serverVersion{Major: 1, Minor: 6},
 		},
 		{
 			input:    version.Info{Major: "1", Minor: "70"},
-			expected: ServerVersion{Major: 1, Minor: 70},
+			expected: serverVersion{Major: 1, Minor: 70},
 		},
 		{
 			input: version.Info{Major: "1", Minor: "6x"},
@@ -40,27 +40,27 @@ func TestParseVersion(t *testing.T) {
 		},
 		{
 			input:    version.Info{Major: "1", Minor: "8+"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "", Minor: "", GitVersion: "v1.8.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "1", Minor: "", GitVersion: "v1.8.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "", Minor: "8", GitVersion: "v1.8.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "", Minor: "", GitVersion: "v1.8.8-test.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "1", Minor: "8", GitVersion: "v1.9.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input: version.Info{Major: "", Minor: "", GitVersion: "v1.a"},
@@ -87,7 +87,7 @@ func TestParseVersion(t *testing.T) {
 }
 
 func TestVersionCompare(t *testing.T) {
-	v := ServerVersion{Major: 2, Minor: 3}
+	v := serverVersion{Major: 2, Minor: 3}
 	tests := []struct {
 		major, minor, result int
 	}{

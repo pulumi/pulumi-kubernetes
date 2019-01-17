@@ -274,7 +274,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 
 	// Issue patch request.
 	// NOTE: We can use the same client because if the `kind` changes, this will cause
-	//		 a replace (i.e., destroy and create).
+    //       a replace (i.e., destroy and create).
 	currentOutputs, err := client.Patch(c.Inputs.GetName(), patchType, patch, metav1.UpdateOptions{})
 	if err != nil {
 		return nil, err
@@ -338,15 +338,15 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	// Attempt to retrieve k8s server version. Use default version in case this fails.
-	var version ServerVersion
+	var version serverVersion
 	if sv, err := c.ClientSet.DiscoveryClientCached.ServerVersion(); err == nil {
 		if v, err := parseVersion(sv); err == nil {
 			version = v
 		} else {
-			version = DefaultVersion()
+			version = defaultVersion()
 		}
 	} else {
-		version = DefaultVersion()
+		version = defaultVersion()
 	}
 
 	// Manually set delete propagation for Kubernetes versions < 1.6 to avoid bugs.

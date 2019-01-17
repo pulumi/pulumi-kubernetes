@@ -69,244 +69,10 @@ const (
 	ValidatingWebhookConfiguration Kind = "ValidatingWebhookConfiguration"
 )
 
-func namespacedKind(k Kind) bool {
-	switch k {
-	case APIService, CertificateSigningRequest, ClusterRole, ClusterRoleBinding, CustomResourceDefinition,
-		MutatingWebhookConfiguration, Namespace, PersistentVolume, PodSecurityPolicy, PriorityClass,
-		StorageClass, ValidatingWebhookConfiguration:
-		return false
-	}
-
-	return true
-}
-
 func ResourceClient(kind Kind, namespace string, client *DynamicClientSet) (dynamic.ResourceInterface, error) {
-	var gvk schema.GroupVersionKind
-	switch kind {
-	case APIService:
-		gvk = schema.GroupVersionKind{
-			Group:   "apiregistration.k8s.io",
-			Version: "v1",
-			Kind:    string(APIService),
-		}
-	case CertificateSigningRequest:
-		gvk = schema.GroupVersionKind{
-			Group:   "certificates.k8s.io",
-			Version: "v1beta1",
-			Kind:    string(CertificateSigningRequest),
-		}
-	case ClusterRole:
-		gvk = schema.GroupVersionKind{
-			Group:   "rbac.authorization.k8s.io",
-			Version: "v1",
-			Kind:    string(ClusterRole),
-		}
-	case ClusterRoleBinding:
-		gvk = schema.GroupVersionKind{
-			Group:   "rbac.authorization.k8s.io",
-			Version: "v1",
-			Kind:    string(ClusterRoleBinding),
-		}
-	case ConfigMap:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(ConfigMap),
-		}
-	case ControllerRevision:
-		gvk = schema.GroupVersionKind{
-			Group:   "apps",
-			Version: "v1",
-			Kind:    string(ControllerRevision),
-		}
-	case CronJob:
-		gvk = schema.GroupVersionKind{
-			Group:   "batch",
-			Version: "v1beta1",
-			Kind:    string(CronJob),
-		}
-	case CustomResourceDefinition:
-		gvk = schema.GroupVersionKind{
-			Group:   "apiextensions.k8s.io",
-			Version: "v1beta1",
-			Kind:    string(CustomResourceDefinition),
-		}
-	case Deployment:
-		gvk = schema.GroupVersionKind{
-			Group:   "apps",
-			Version: "v1",
-			Kind:    string(Deployment),
-		}
-	case DaemonSet:
-		gvk = schema.GroupVersionKind{
-			Group:   "apps",
-			Version: "v1",
-			Kind:    string(DaemonSet),
-		}
-	case Endpoints:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(Endpoints),
-		}
-	case Event:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(Event),
-		}
-	case HorizontalPodAutoscaler:
-		gvk = schema.GroupVersionKind{
-			Group:   "autoscaling",
-			Version: "v1",
-			Kind:    string(HorizontalPodAutoscaler),
-		}
-	case Ingress:
-		gvk = schema.GroupVersionKind{
-			Group:   "extensions",
-			Version: "v1beta1",
-			Kind:    string(Ingress),
-		}
-	case Job:
-		gvk = schema.GroupVersionKind{
-			Group:   "batch",
-			Version: "v1",
-			Kind:    string(Job),
-		}
-	case LimitRange:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(LimitRange),
-		}
-	case MutatingWebhookConfiguration:
-		gvk = schema.GroupVersionKind{
-			Group:   "admissionregistration.k8s.io",
-			Version: "v1beta1",
-			Kind:    string(MutatingWebhookConfiguration),
-		}
-	case Namespace:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(Namespace),
-		}
-	case NetworkPolicy:
-		gvk = schema.GroupVersionKind{
-			Group:   "networking.k8s.io",
-			Version: "v1",
-			Kind:    string(NetworkPolicy),
-		}
-	case PersistentVolume:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(PersistentVolume),
-		}
-	case PersistentVolumeClaim:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(PersistentVolumeClaim),
-		}
-	case Pod:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(Pod),
-		}
-	case PodDisruptionBudget:
-		gvk = schema.GroupVersionKind{
-			Group:   "policy",
-			Version: "v1beta1",
-			Kind:    string(PodDisruptionBudget),
-		}
-	case PodSecurityPolicy:
-		gvk = schema.GroupVersionKind{
-			Group:   "extensions",
-			Version: "v1beta1",
-			Kind:    string(PodSecurityPolicy),
-		}
-	case PodTemplate:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(PodTemplate),
-		}
-	case PriorityClass:
-		gvk = schema.GroupVersionKind{
-			Group:   "scheduling.k8s.io",
-			Version: "v1beta1",
-			Kind:    string(PriorityClass),
-		}
-	case ReplicaSet:
-		gvk = schema.GroupVersionKind{
-			Group:   "apps",
-			Version: "v1",
-			Kind:    string(ReplicaSet),
-		}
-	case ReplicationController:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(ReplicationController),
-		}
-	case ResourceQuota:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(ResourceQuota),
-		}
-	case Role:
-		gvk = schema.GroupVersionKind{
-			Group:   "rbac.authorization.k8s.io",
-			Version: "v1",
-			Kind:    string(Role),
-		}
-	case RoleBinding:
-		gvk = schema.GroupVersionKind{
-			Group:   "rbac.authorization.k8s.io",
-			Version: "v1",
-			Kind:    string(RoleBinding),
-		}
-	case Secret:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(Secret),
-		}
-	case Service:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(Service),
-		}
-	case ServiceAccount:
-		gvk = schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    string(ServiceAccount),
-		}
-	case StatefulSet:
-		gvk = schema.GroupVersionKind{
-			Group:   "apps",
-			Version: "v1",
-			Kind:    string(StatefulSet),
-		}
-	case StorageClass:
-		gvk = schema.GroupVersionKind{
-			Group:   "storage.k8s.io",
-			Version: "v1",
-			Kind:    string(StorageClass),
-		}
-	case ValidatingWebhookConfiguration:
-		gvk = schema.GroupVersionKind{
-			Group:   "admissionregistration.k8s.io",
-			Version: "v1beta1",
-			Kind:    string(ValidatingWebhookConfiguration),
-		}
-	default:
-		return nil, fmt.Errorf("invalid kind for client: %s", kind)
+	gvk, err := client.gvkForKind(kind)
+	if err != nil {
+		return nil, err
 	}
 
 	c, err := client.ResourceClient(gvk, namespace)
@@ -363,7 +129,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	}
 
 	// For namespaced Kinds, create a namespaced client. If no namespace is provided, use the "default" namespace.
-	if namespacedKind(Kind(gvk.Kind)) {
+	if dcs.namespaced(gvk) {
 		return dcs.GenericClient.Resource(m.Resource).Namespace(namespaceOrDefault(namespace)), nil
 	}
 
@@ -373,6 +139,55 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 
 func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructured) (dynamic.ResourceInterface, error) {
 	return dcs.ResourceClient(obj.GroupVersionKind(), obj.GetNamespace())
+}
+
+func (dcs *DynamicClientSet) gvkForKind(kind Kind) (gvk schema.GroupVersionKind, err error) {
+	resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
+	if err != nil {
+		return
+	}
+
+	for _, gvResources := range resources {
+		for _, resource := range gvResources.APIResources {
+			if resource.Kind == string(kind) {
+				gv := parseGVString(gvResources.GroupVersion)
+				gvk.Group, gvk.Version, gvk.Kind = gv.Group, gv.Version, resource.Kind
+				return
+			}
+		}
+	}
+
+	err = fmt.Errorf("failed to find gvk for Kind: %q", kind)
+	return
+}
+
+func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) bool {
+	resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
+	if err != nil {
+		// Default to true
+		return true
+	}
+
+	for _, gvResources := range resources {
+		if gvResources.GroupVersion == gvk.GroupVersion().String() {
+			for _, resource := range gvResources.APIResources {
+				if resource.Kind == gvk.Kind {
+					return resource.Namespaced
+				}
+			}
+		}
+	}
+
+	// Default to true
+	return true
+}
+
+func parseGVString(gv string) schema.GroupVersion {
+	split := strings.Split(gv, "/")
+	if len(split) == 1 {
+		return schema.GroupVersion{Version: split[0]}
+	}
+	return schema.GroupVersion{Group: split[0], Version: split[1]}
 }
 
 // namespaceOrDefault returns `ns` or the the default namespace `"default"` if `ns` is empty.

@@ -240,7 +240,7 @@ func (sia *serviceInitAwaiter) await(
 }
 
 func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
-	inputServiceName := sia.config.currentOutputs.GetName()
+	inputServiceName := sia.config.currentInputs.GetName()
 
 	service, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {

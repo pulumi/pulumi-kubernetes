@@ -567,7 +567,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 	// secrets array (i.e., in addition to the secrets specified by the user).
 	//
 
-	specSecrets, _ := openapi.Pluck(c.currentOutputs.Object, "secrets")
+	specSecrets, _ := openapi.Pluck(c.currentInputs.Object, "secrets")
 	var numSpecSecrets int
 	if specSecretsArr, isArr := specSecrets.([]interface{}); isArr {
 		numSpecSecrets = len(specSecretsArr)
