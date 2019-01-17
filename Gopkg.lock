@@ -104,12 +104,6 @@
   revision = "3a771d992973f24aa725d07868b467d1ddfceafb"
 
 [[projects]]
-  name = "github.com/bgentry/speakeasy"
-  packages = ["."]
-  revision = "4aabc24848ce5fd31929f7d1e4ea74d3709c14cd"
-  version = "v0.1.0"
-
-[[projects]]
   name = "github.com/blang/semver"
   packages = ["."]
   revision = "2ee87856327ba09384cabd113bc6b5d174e9ec0f"
@@ -641,7 +635,7 @@
     "pkg/workspace",
     "sdk/proto/go"
   ]
-  revision = "466f92dfb13e7d7c14be85acc8e7ce954f4edd21"
+  revision = "3cf81c0b4ccdd64fbc07cc8ec7cf5fbb74cd7194"
 
 [[projects]]
   branch = "master"
