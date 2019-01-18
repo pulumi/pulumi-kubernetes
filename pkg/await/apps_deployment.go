@@ -615,7 +615,23 @@ func (dia *deploymentInitAwaiter) processPersistentVolumeClaimsEvent(event watch
 		delete(dia.pvcs, uid)
 		return
 	}
-	dia.pvcs[uid] = pvc
+
+	// Check any PersistentVolumeClaims that the Deployments Volumes may have
+	// by name against the PersistentVolumeClaim in the event
+	volumes, _ := openapi.Pluck(dia.deployment.Object, "spec", "template", "spec", "volumes")
+	vols, _ := volumes.([]interface{})
+	for _, vol := range vols {
+		v := vol.(map[string]interface{})
+		if deployPVC, exists := v["persistentVolumeClaim"]; exists {
+			p := deployPVC.(map[string]interface{})
+			claimName := p["claimName"].(string)
+
+			if claimName == pvc.GetName() {
+				dia.pvcs[uid] = pvc
+			}
+		}
+	}
+
 	dia.checkPersistentVolumeClaimStatus()
 }
 
