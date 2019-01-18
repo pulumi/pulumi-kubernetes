@@ -127,14 +127,9 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 		dcs.RESTMapper.Reset()
 
 		err := retry.SleepingRetry(
-			func(i uint) error {
-				var err error
+			func(i uint) (err error) {
 				m, err = dcs.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
-				if err != nil {
-					return fmt.Errorf("failed to map GVK: %#v", err)
-				}
-
-				return nil
+				return
 			}).
 			WithMaxRetries(5).
 			WithBackoffFactor(2).
@@ -195,7 +190,7 @@ func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, erro
 		return true, nil
 	}
 
-	resources, err := dcs.getServerResources()
+	resources, err := dcs.getServerResources(gvk.GroupVersion())
 	if err != nil {
 		return false, err
 	}
@@ -213,17 +208,25 @@ func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, erro
 	return true, fmt.Errorf("failed to discover namespace info for %s", gvk)
 }
 
-func (dcs *DynamicClientSet) getServerResources() ([]*v1.APIResourceList, error) {
+func (dcs *DynamicClientSet) getServerResources(gvs ...schema.GroupVersion) ([]*v1.APIResourceList, error) {
 	var resources []*v1.APIResourceList
 	err := retry.SleepingRetry(
-		func(i uint) error {
-			var err error
-			resources, err = dcs.DiscoveryClientCached.ServerPreferredResources()
-			if err != nil || len(resources) == 0 {
-				return fmt.Errorf("failed to retrieve server resources: %#v", err)
+		func(i uint) (err error) {
+			if len(gvs) > 0 {
+				var resource *v1.APIResourceList
+				for _, gv := range gvs {
+					resource, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
+					if err != nil {
+						return
+					}
+
+					resources = append(resources, resource)
+				}
+			} else {
+				resources, err = dcs.DiscoveryClientCached.ServerPreferredResources()
 			}
 
-			return nil
+			return
 		}).
 		WithMaxRetries(5).
 		WithBackoffFactor(2).
