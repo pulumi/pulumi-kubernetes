@@ -16,9 +16,6 @@ package retry
 
 import (
 	"time"
-
-	"k8s.io/apimachinery/pkg/api/errors"
-	"k8s.io/apimachinery/pkg/api/meta"
 )
 
 type retrier struct {
@@ -51,16 +48,23 @@ func (r *retrier) WithBackoffFactor(t uint) *retrier {
 	return r
 }
 
-func (r *retrier) Do() error {
+func (r *retrier) Do(allowedErrFuncs ...func(error) bool) error {
 	var err error
 	for r.tries <= r.maxRetries {
 		err = r.try(r.tries)
 		r.tries++
-		if errors.IsNotFound(err) || meta.IsNoMatchError(err) {
-			r.sleep(r.waitTime)
-		} else {
+
+		shouldRetry := false
+		for _, errFunc := range allowedErrFuncs {
+			if errFunc(err) {
+			    shouldRetry = true
+				break
+			}
+		}
+		if !shouldRetry {
 			break
 		}
+		r.sleep(r.waitTime)
 		r.waitTime = r.waitTime * time.Duration(r.backOffFactor)
 	}
 	return err

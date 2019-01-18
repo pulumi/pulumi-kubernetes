@@ -26,6 +26,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/resource"
 	pulumiprovider "github.com/pulumi/pulumi/pkg/resource/provider"
 	"k8s.io/apimachinery/pkg/api/errors"
+	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
@@ -122,7 +123,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		}).
 		WithMaxRetries(5).
 		WithBackoffFactor(2).
-		Do()
+		Do(errors.IsNotFound, meta.IsNoMatchError)
 	if err != nil {
 		return nil, err
 	}

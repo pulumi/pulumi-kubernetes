@@ -168,12 +168,17 @@ func (dcs *DynamicClientSet) gvkForKind(kind Kind) (gvk schema.GroupVersionKind,
 }
 
 func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, error) {
-	// Handle known non-namespaced Kinds.
+	// Handle known Kinds.
 	switch Kind(gvk.Kind) {
 	case APIService, CertificateSigningRequest, ClusterRole, ClusterRoleBinding, CustomResourceDefinition,
 		MutatingWebhookConfiguration, Namespace, PersistentVolume, PodSecurityPolicy, PriorityClass,
 		StorageClass, ValidatingWebhookConfiguration:
 		return false, nil
+	case ControllerRevision, ConfigMap, CronJob, DaemonSet, Deployment, Endpoints, HorizontalPodAutoscaler,
+		Ingress, Job, LimitRange, NetworkPolicy, PersistentVolumeClaim, Pod, PodDisruptionBudget, PodTemplate,
+		ReplicaSet, ReplicationController, ResourceQuota, Role, RoleBinding, Secret, Service, ServiceAccount,
+		StatefulSet:
+		return true, nil
 	}
 
 	resources, err := dcs.getServerResources()
@@ -191,28 +196,36 @@ func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, erro
 		}
 	}
 
-	return false, fmt.Errorf("failed to discover namespace info for %s", gvk)
+	return true, fmt.Errorf("failed to discover namespace info for %s", gvk)
 }
 
 func (dcs *DynamicClientSet) getServerResources() ([]*v1.APIResourceList, error) {
 	var resources []*v1.APIResourceList
 	err := retry.SleepingRetry(
 		func(i uint) error {
-			resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
+			var err error
+			resources, err = dcs.DiscoveryClientCached.ServerPreferredResources()
 			if err != nil || len(resources) == 0 {
-				return fmt.Errorf("failed to retrieve server resources")
+				return fmt.Errorf("failed to retrieve server resources: %#v", err)
 			}
 
 			return nil
 		}).
 		WithMaxRetries(5).
 		WithBackoffFactor(2).
-		Do()
+		Do(discovery.IsGroupDiscoveryFailedError, isServerCacheError)
 	if err != nil {
 		return nil, err
 	}
 
 	return resources, nil
+}
+
+func isServerCacheError(err error) bool {
+	if err == cacheddiscovery.ErrCacheEmpty || err == cacheddiscovery.ErrCacheNotFound {
+		return true
+	}
+	return false
 }
 
 func parseGVString(gv string) schema.GroupVersion {

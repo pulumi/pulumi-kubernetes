@@ -86,7 +86,7 @@ func Test_Retrier(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		err := test.retrier.Do()
+		err := test.retrier.Do(errors.IsNotFound)
 		assert.Equal(t, test.err, err, test.description)
 		assert.Equal(t, test.tries, test.retrier.tries)
 		assert.Equal(t, test.finalWaitTime, test.retrier.waitTime)
