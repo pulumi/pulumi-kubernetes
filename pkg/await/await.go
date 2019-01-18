@@ -151,7 +151,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			"No initialization logic found for object of type %q; assuming initialization successful", id)
 	}
 
-	return client.Get(outputs.GetName(), metav1.GetOptions{})
+	return client.Get(c.Inputs.GetName(), metav1.GetOptions{})
 }
 
 // Read checks a resource, returning the object if it was created and initialized successfully.
