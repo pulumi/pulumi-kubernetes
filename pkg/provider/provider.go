@@ -500,6 +500,11 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if oldInputs.GroupVersionKind().Empty() {
 		oldInputs.SetGroupVersionKind(newInputs.GroupVersionKind())
 	}
+	if oldInputs.GetNamespace() == "" || oldInputs.GetName() == "" {
+		ns, name := ParseFqName(req.GetId())
+		oldInputs.SetNamespace(ns)
+		oldInputs.SetName(name)
+	}
 
 	ns, name := ParseFqName(req.GetId())
 	config := await.ReadConfig{
