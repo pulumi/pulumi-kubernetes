@@ -126,6 +126,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 		dcs.DiscoveryClientCached.Invalidate()
 		dcs.RESTMapper.Reset()
 
+		// TODO(lblackstone): Ensure that retry behavior is predictable.
 		err := retry.SleepingRetry(
 			func(i uint) (err error) {
 				m, err = dcs.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
@@ -165,7 +166,11 @@ func (dcs *DynamicClientSet) gvkForKind(kind Kind) (gvk schema.GroupVersionKind,
 	for _, gvResources := range resources {
 		for _, resource := range gvResources.APIResources {
 			if resource.Kind == string(kind) {
-				gv := parseGVString(gvResources.GroupVersion)
+			    var gv schema.GroupVersion
+				gv, err = schema.ParseGroupVersion(gvResources.GroupVersion)
+				if err != nil {
+					return
+				}
 				gvk.Group, gvk.Version, gvk.Kind = gv.Group, gv.Version, resource.Kind
 				return
 			}
@@ -178,6 +183,10 @@ func (dcs *DynamicClientSet) gvkForKind(kind Kind) (gvk schema.GroupVersionKind,
 
 func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, error) {
 	// Handle known Kinds.
+	// Note: THe cached discovery client does not transparently handle cache refreshes,
+	// meaning that clients will get an error if they query during a cache refresh. To
+	// mitigate this problem for now, handle known kinds without resorting to a lookup.
+	// TODO(lblackstone): It would be cleaner to add the required retry logic around the cache.
 	switch Kind(gvk.Kind) {
 	case APIService, CertificateSigningRequest, ClusterRole, ClusterRoleBinding, CustomResourceDefinition,
 		MutatingWebhookConfiguration, Namespace, PersistentVolume, PodSecurityPolicy, PriorityClass,
@@ -210,6 +219,7 @@ func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, erro
 
 func (dcs *DynamicClientSet) getServerResources(gvs ...schema.GroupVersion) ([]*v1.APIResourceList, error) {
 	var resources []*v1.APIResourceList
+	// TODO(lblackstone): Ensure that retry behavior is predictable.
 	err := retry.SleepingRetry(
 		func(i uint) (err error) {
 			if len(gvs) > 0 {
@@ -243,14 +253,6 @@ func isServerCacheError(err error) bool {
 		return true
 	}
 	return false
-}
-
-func parseGVString(gv string) schema.GroupVersion {
-	split := strings.Split(gv, "/")
-	if len(split) == 1 {
-		return schema.GroupVersion{Version: split[0]}
-	}
-	return schema.GroupVersion{Group: split[0], Version: split[1]}
 }
 
 // namespaceOrDefault returns `ns` or the the default namespace `"default"` if `ns` is empty.
