@@ -19,6 +19,7 @@ import (
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/retry"
+	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -124,7 +125,20 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 		// This can occur if a CRD is being registered from another resource.
 		dcs.DiscoveryClientCached.Invalidate()
 		dcs.RESTMapper.Reset()
-		m, err = dcs.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
+
+		err := retry.SleepingRetry(
+			func(i uint) error {
+				var err error
+				m, err = dcs.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
+				if err != nil {
+					return fmt.Errorf("failed to map GVK: %#v", err)
+				}
+
+				return nil
+			}).
+			WithMaxRetries(5).
+			WithBackoffFactor(2).
+			Do(meta.IsNoMatchError)
 		if err != nil {
 			return nil, err
 		}
