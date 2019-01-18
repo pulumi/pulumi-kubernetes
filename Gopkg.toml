@@ -40,6 +40,13 @@ required = ["k8s.io/kubernetes/pkg/kubectl/cmd/util"]
   name = "github.com/aws/aws-sdk-go"
   version = "1.13.12"
 
+# vendor/k8s.io/client-go/plugin/pkg/client/auth/azure/azure.go:247:4: cannot use json.Number(expiresIn) (type json.Number) as type string in field value
+# vendor/k8s.io/client-go/plugin/pkg/client/auth/azure/azure.go:248:4: cannot use json.Number(expiresOn) (type json.Number) as type string in field value
+# vendor/k8s.io/client-go/plugin/pkg/client/auth/azure/azure.go:249:4: cannot use json.Number(expiresOn) (type json.Number) as type string in field value
+[[override]]
+  name = "github.com/Azure/go-autorest"
+  version = "v11.1.0"
+
 #
 # Third party packages
 #
@@ -64,3 +71,8 @@ required = ["k8s.io/kubernetes/pkg/kubectl/cmd/util"]
   name = "github.com/spf13/pflag"
   version = "1.0.2"
 
+# vendor/github.com/census-instrumentation/opencensus-proto/gen-go/agent/trace/v1/trace_service.pb.go:296:21: c.cc.NewStream undefined (type *grpc.ClientConn has no field or method NewStream)
+# vendor/github.com/census-instrumentation/opencensus-proto/gen-go/agent/trace/v1/trace_service.pb.go:327:21: c.cc.NewStream undefined (type *grpc.ClientConn has no field or method NewStream)
+[[override]]
+  name = "google.golang.org/grpc"
+  version = "1.18.0"
