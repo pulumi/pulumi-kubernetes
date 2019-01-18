@@ -251,6 +251,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		assignNameIfAutonamable(newInputs, urn.Name())
 	}
 
+	// Ensure that a namespace is set. Use "default" if none specified.
+	newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
+
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
 		return nil, err
