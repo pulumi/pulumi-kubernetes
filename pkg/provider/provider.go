@@ -413,6 +413,7 @@ func (k *kubeProvider) Create(
 		return nil, err
 	}
 	newInputs := propMapToUnstructured(newResInputs)
+	newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
 
 	config := await.CreateConfig{
 		ProviderConfig: await.ProviderConfig{
@@ -421,8 +422,7 @@ func (k *kubeProvider) Create(
 			URN:       resource.URN(req.GetUrn()),
 			ClientSet: k.clientSet,
 		},
-		Inputs:    newInputs,
-		Namespace: canonicalNamespace(newInputs.GetNamespace()),
+		Inputs: newInputs,
 	}
 
 	initialized, awaitErr := await.Creation(config)
@@ -494,19 +494,22 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if err != nil {
 		return nil, err
 	}
-	// Ignore old state; we'll get it from Kubernetes later.
+
 	oldInputs, newInputs := parseCheckpointObject(oldState)
 
 	if oldInputs.GroupVersionKind().Empty() {
 		oldInputs.SetGroupVersionKind(newInputs.GroupVersionKind())
 	}
-	if oldInputs.GetNamespace() == "" || oldInputs.GetName() == "" {
-		ns, name := ParseFqName(req.GetId())
+
+	ns, name := ParseFqName(req.GetId())
+	ns = canonicalNamespace(ns)
+	if oldInputs.GetNamespace() == "" {
 		oldInputs.SetNamespace(ns)
+	}
+	if oldInputs.GetName() == "" {
 		oldInputs.SetName(name)
 	}
 
-	ns, name := ParseFqName(req.GetId())
 	config := await.ReadConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:   k.canceler.context,
@@ -514,9 +517,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			URN:       resource.URN(req.GetUrn()),
 			ClientSet: k.clientSet,
 		},
-		Inputs:    oldInputs,
-		Namespace: canonicalNamespace(ns),
-		Name:      name,
+		Inputs: oldInputs,
+		Name:   name,
 	}
 	liveObj, readErr := await.Read(config)
 	if readErr != nil {
@@ -656,8 +658,8 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 	newInputs := propMapToUnstructured(newResInputs)
+	newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
 
-	ns, _ := ParseFqName(req.GetId())
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:   k.canceler.context,
@@ -665,9 +667,8 @@ func (k *kubeProvider) Update(
 			URN:       resource.URN(req.GetUrn()),
 			ClientSet: k.clientSet,
 		},
-		Previous:  oldInputs,
-		Inputs:    newInputs,
-		Namespace: canonicalNamespace(ns),
+		Previous: oldInputs,
+		Inputs:   newInputs,
 	}
 	// Apply update.
 	initialized, awaitErr := await.Update(config)

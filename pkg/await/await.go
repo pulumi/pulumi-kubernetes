@@ -57,13 +57,11 @@ type ProviderConfig struct {
 type CreateConfig struct {
 	ProviderConfig
 	Inputs    *unstructured.Unstructured
-	Namespace string
 }
 
 type ReadConfig struct {
 	ProviderConfig
 	Inputs    *unstructured.Unstructured
-	Namespace string
 	Name      string
 }
 
@@ -71,7 +69,6 @@ type UpdateConfig struct {
 	ProviderConfig
 	Previous  *unstructured.Unstructured
 	Inputs    *unstructured.Unstructured
-	Namespace string
 }
 
 type DeleteConfig struct {
@@ -105,7 +102,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			// server API, at which point they should hopefully succeed.
 			var err error
 			if client == nil {
-				client, err = c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Namespace)
+				client, err = c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
 				if err != nil {
 					return err
 				}
@@ -159,7 +156,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 // Read checks a resource, returning the object if it was created and initialized successfully.
 func Read(c ReadConfig) (*unstructured.Unstructured, error) {
-	client, err := c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Namespace)
+	client, err := c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +252,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// - [ ] Support server-side apply, when it comes out.
 	//
 
-	client, err := c.ClientSet.ResourceClient(c.Previous.GroupVersionKind(), c.Namespace)
+	client, err := c.ClientSet.ResourceClient(c.Previous.GroupVersionKind(), c.Previous.GetNamespace())
 	if err != nil {
 		return nil, err
 	}
