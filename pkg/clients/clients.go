@@ -18,6 +18,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/pulumi/pulumi-kubernetes/pkg/retry"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
@@ -129,7 +131,11 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	}
 
 	// For namespaced Kinds, create a namespaced client. If no namespace is provided, use the "default" namespace.
-	if dcs.namespaced(gvk) {
+	namespaced, err := dcs.namespaced(gvk)
+	if err != nil {
+		return nil, err
+	}
+	if namespaced {
 		return dcs.GenericClient.Resource(m.Resource).Namespace(namespaceOrDefault(namespace)), nil
 	}
 
@@ -142,7 +148,7 @@ func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructu
 }
 
 func (dcs *DynamicClientSet) gvkForKind(kind Kind) (gvk schema.GroupVersionKind, err error) {
-	resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
+	resources, err := dcs.getServerResources()
 	if err != nil {
 		return
 	}
@@ -161,25 +167,52 @@ func (dcs *DynamicClientSet) gvkForKind(kind Kind) (gvk schema.GroupVersionKind,
 	return
 }
 
-func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) bool {
-	resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
+func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, error) {
+	// Handle known non-namespaced Kinds.
+	switch Kind(gvk.Kind) {
+	case APIService, CertificateSigningRequest, ClusterRole, ClusterRoleBinding, CustomResourceDefinition,
+		MutatingWebhookConfiguration, Namespace, PersistentVolume, PodSecurityPolicy, PriorityClass,
+		StorageClass, ValidatingWebhookConfiguration:
+		return false, nil
+	}
+
+	resources, err := dcs.getServerResources()
 	if err != nil {
-		// Default to true
-		return true
+		return false, err
 	}
 
 	for _, gvResources := range resources {
 		if gvResources.GroupVersion == gvk.GroupVersion().String() {
 			for _, resource := range gvResources.APIResources {
 				if resource.Kind == gvk.Kind {
-					return resource.Namespaced
+					return resource.Namespaced, nil
 				}
 			}
 		}
 	}
 
-	// Default to true
-	return true
+	return false, fmt.Errorf("failed to discover namespace info for %s", gvk)
+}
+
+func (dcs *DynamicClientSet) getServerResources() ([]*v1.APIResourceList, error) {
+	var resources []*v1.APIResourceList
+	err := retry.SleepingRetry(
+		func(i uint) error {
+			resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
+			if err != nil || len(resources) == 0 {
+				return fmt.Errorf("failed to retrieve server resources")
+			}
+
+			return nil
+		}).
+		WithMaxRetries(5).
+		WithBackoffFactor(2).
+		Do()
+	if err != nil {
+		return nil, err
+	}
+
+	return resources, nil
 }
 
 func parseGVString(gv string) schema.GroupVersion {

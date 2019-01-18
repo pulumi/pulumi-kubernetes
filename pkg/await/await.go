@@ -21,6 +21,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/pkg/retry"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/resource"
 	pulumiprovider "github.com/pulumi/pulumi/pkg/resource/provider"
@@ -95,7 +96,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 	var outputs *unstructured.Unstructured
 	var client dynamic.ResourceInterface
-	err := sleepingRetry(
+	err := retry.SleepingRetry(
 		func(i uint) error {
 			// Recreate the client for resource, in case the client's cache of the server API was
 			// invalidated. For example, when a CRD is created, it will invalidate the client cache;
@@ -274,7 +275,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 
 	// Issue patch request.
 	// NOTE: We can use the same client because if the `kind` changes, this will cause
-    //       a replace (i.e., destroy and create).
+	//       a replace (i.e., destroy and create).
 	currentOutputs, err := client.Patch(c.Inputs.GetName(), patchType, patch, metav1.UpdateOptions{})
 	if err != nil {
 		return nil, err

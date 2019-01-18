@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package await
+package retry
 
 import (
 	"time"
@@ -30,7 +30,7 @@ type retrier struct {
 	backOffFactor uint
 }
 
-func sleepingRetry(try func(uint) error) *retrier {
+func SleepingRetry(try func(uint) error) *retrier {
 	return &retrier{
 		try:           try,
 		sleep:         time.Sleep,
