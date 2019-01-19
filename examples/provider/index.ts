@@ -1,6 +1,5 @@
 // Copyright 2016-2018, Pulumi Corporation.  All rights reserved.
 
-import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 import * as fs from "fs";
 import * as os from "os";

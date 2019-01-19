@@ -1,10 +1,10 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2019, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package client
+package await
 
 import (
 	"fmt"
@@ -23,20 +23,19 @@ import (
 	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 	"k8s.io/apimachinery/pkg/version"
-	"k8s.io/client-go/discovery"
 )
 
 // Format v0.0.0(-master+$Format:%h$)
-var gitVersionRe = regexp.MustCompile("v([0-9])+.([0-9])+.[0-9]+.*")
+var gitVersionRe = regexp.MustCompile(`v([0-9])+.([0-9])+.[0-9]+.*`)
 
-// ServerVersion captures k8s major.minor version in a parsed form
-type ServerVersion struct {
+// serverVersion captures k8s major.minor version in a parsed form
+type serverVersion struct {
 	Major int
 	Minor int
 }
 
 // DefaultVersion takes a wild guess (v1.9) at the version of a Kubernetes cluster.
-func DefaultVersion() ServerVersion {
+func defaultVersion() serverVersion {
 	cmdutil.Diag().Warningf(
 		diag.Message("", "Cluster failed to report its version number; falling back to 1.9"), false)
 
@@ -49,29 +48,29 @@ func DefaultVersion() ServerVersion {
 	//
 	// [1]: https://github.com/kubernetes/minikube/issues/2505
 	//
-	return ServerVersion{Major: 1, Minor: 9}
+	return serverVersion{Major: 1, Minor: 9}
 }
 
-func parseGitVersion(gitVersion string) (ServerVersion, error) {
+func parseGitVersion(gitVersion string) (serverVersion, error) {
 	parsedVersion := gitVersionRe.FindStringSubmatch(gitVersion)
 	if len(parsedVersion) != 3 {
-		return ServerVersion{}, fmt.Errorf("Unable to parse git version %s", gitVersion)
+		return serverVersion{}, fmt.Errorf("unable to parse git version %q", gitVersion)
 	}
-	var ret ServerVersion
+	var ret serverVersion
 	var err error
 	ret.Major, err = strconv.Atoi(parsedVersion[1])
 	if err != nil {
-		return ServerVersion{}, err
+		return serverVersion{}, err
 	}
 	ret.Minor, err = strconv.Atoi(parsedVersion[2])
 	if err != nil {
-		return ServerVersion{}, err
+		return serverVersion{}, err
 	}
 	return ret, nil
 }
 
 // parseVersion parses version.Info into a serverVersion struct
-func parseVersion(v *version.Info) (ret ServerVersion, err error) {
+func parseVersion(v *version.Info) (ret serverVersion, err error) {
 	ret.Major, err = strconv.Atoi(v.Major)
 	if err != nil {
 		return parseGitVersion(v.GitVersion)
@@ -89,7 +88,7 @@ func parseVersion(v *version.Info) (ret ServerVersion, err error) {
 }
 
 // Compare returns -1/0/+1 iff v is less than / equal / greater than major.minor
-func (v ServerVersion) Compare(major, minor int) int {
+func (v serverVersion) Compare(major, minor int) int {
 	a := v.Major
 	b := major
 
@@ -109,15 +108,32 @@ func (v ServerVersion) Compare(major, minor int) int {
 	return res
 }
 
-func (v ServerVersion) String() string {
+func (v serverVersion) String() string {
 	return fmt.Sprintf("%d.%d", v.Major, v.Minor)
 }
 
-// FetchVersion fetches version information from discovery client, and parses
-func FetchVersion(v discovery.ServerVersionInterface) (ret ServerVersion, err error) {
-	version, err := v.ServerVersion()
-	if err != nil {
-		return ServerVersion{}, err
+// canonicalizeDeploymentAPIVersion unifies the various pre-release apiVerion values for a
+// Deployment into "apps/v1".
+func canonicalizeDeploymentAPIVersion(ver string) string {
+	switch ver {
+	case "extensions/v1beta1", "apps/v1beta1", "apps/v1beta2", "apps/v1":
+		// Canonicalize all of these to "apps/v1".
+		return "apps/v1"
+	default:
+		// If the input version was not a version we understand, just return it as-is.
+		return ver
 	}
-	return parseVersion(version)
+}
+
+// canonicalizeStatefulSetAPIVersion unifies the various pre-release apiVersion values for a
+// StatefulSet into "apps/v1".
+func canonicalizeStatefulSetAPIVersion(ver string) string {
+	switch ver {
+	case "apps/v1beta1", "apps/v1beta2", "apps/v1":
+		// Canonicalize all of these to "apps/v1".
+		return "apps/v1"
+	default:
+		// If the input version was not a version we understand, just return it as-is.
+		return ver
+	}
 }

@@ -8,16 +8,16 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"k8s.io/api/extensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/client-go/dynamic"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -87,23 +87,19 @@ func (iia *ingressInitAwaiter) Await() error {
 	//   3.  Ingress entry exists for .status.loadBalancer.ingress.
 	//
 
+	ingressClient, endpointsClient, servicesClient, err := iia.makeClients()
+	if err != nil {
+		return err
+	}
+
 	// Create ingress watcher.
-	ingressWatcher, err := iia.config.clientForResource.Watch(metav1.ListOptions{})
+	ingressWatcher, err := ingressClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err, "Could not set up watch for Ingress object %q",
 			iia.config.currentInputs.GetName())
 	}
 	defer ingressWatcher.Stop()
 
-	endpointsClient, err := client.FromGVK(iia.config.pool, iia.config.disco, schema.GroupVersionKind{
-		Group:   "",
-		Version: "v1",
-		Kind:    "Endpoints",
-	}, iia.config.currentInputs.GetNamespace())
-	if err != nil {
-		glog.V(3).Infof("Failed to initialize Endpoints client: %v", err)
-		return err
-	}
 	endpointWatcher, err := endpointsClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
@@ -112,15 +108,6 @@ func (iia *ingressInitAwaiter) Await() error {
 	}
 	defer endpointWatcher.Stop()
 
-	servicesClient, err := client.FromGVK(iia.config.pool, iia.config.disco, schema.GroupVersionKind{
-		Group:   "",
-		Version: "v1",
-		Kind:    "Service",
-	}, iia.config.currentInputs.GetNamespace())
-	if err != nil {
-		glog.V(3).Infof("Failed to initialize Services client: %v", err)
-		return err
-	}
 	serviceWatcher, err := servicesClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err,
@@ -132,8 +119,13 @@ func (iia *ingressInitAwaiter) Await() error {
 }
 
 func (iia *ingressInitAwaiter) Read() error {
+	ingressClient, endpointsClient, servicesClient, err := iia.makeClients()
+	if err != nil {
+		return err
+	}
+
 	// Get live versions of Ingress.
-	ingress, err := iia.config.clientForResource.Get(iia.config.currentInputs.GetName(), metav1.GetOptions{})
+	ingress, err := ingressClient.Get(iia.config.currentInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the deployment as having been deleted.
@@ -141,37 +133,19 @@ func (iia *ingressInitAwaiter) Read() error {
 	}
 
 	// Get live version of Endpoints.
-	endpointsClient, err := client.FromGVK(iia.config.pool, iia.config.disco, schema.GroupVersionKind{
-		Group:   "",
-		Version: "v1",
-		Kind:    "Endpoints",
-	}, iia.config.currentInputs.GetNamespace())
-	if err != nil {
-		glog.V(3).Infof("Failed to initialize Endpoints client: %v", err)
-		return err
-	}
 	endpointList, err := endpointsClient.List(metav1.ListOptions{})
 	if err != nil {
 		glog.V(3).Infof("Failed to list endpoints needed for Ingress awaiter: %v", err)
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	servicesClient, err := client.FromGVK(iia.config.pool, iia.config.disco, schema.GroupVersionKind{
-		Group:   "",
-		Version: "v1",
-		Kind:    "Service",
-	}, iia.config.currentInputs.GetNamespace())
-	if err != nil {
-		glog.V(3).Infof("Failed to initialize Services client: %v", err)
-		return err
-	}
 	serviceList, err := servicesClient.List(metav1.ListOptions{})
 	if err != nil {
 		glog.V(3).Infof("Failed to list services needed for Ingress awaiter: %v", err)
 		serviceList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	return iia.read(ingress, endpointList.(*unstructured.UnstructuredList), serviceList.(*unstructured.UnstructuredList))
+	return iia.read(ingress, endpointList, serviceList)
 }
 
 func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
@@ -405,4 +379,32 @@ func (iia *ingressInitAwaiter) checkAndLogStatus() bool {
 	}
 
 	return success
+}
+
+func (iia *ingressInitAwaiter) makeClients() (
+	ingressClient, endpointsClient, servicesClient dynamic.ResourceInterface, err error,
+) {
+	ingressClient, err = clients.ResourceClient(
+		clients.Ingress, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
+	if err != nil {
+		return nil, nil, nil, errors.Wrapf(err,
+			"Could not make client to watch Ingress %q",
+			iia.config.currentInputs.GetName())
+	}
+	endpointsClient, err = clients.ResourceClient(
+		clients.Endpoints, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
+	if err != nil {
+		return nil, nil, nil, errors.Wrapf(err,
+			"Could not make client to watch Endpoints associated with Ingress %q",
+			iia.config.currentInputs.GetName())
+	}
+	servicesClient, err = clients.ResourceClient(
+		clients.Service, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
+	if err != nil {
+		return nil, nil, nil, errors.Wrapf(err,
+			"Could not make client to watch Services associated with Ingress %q",
+			iia.config.currentInputs.GetName())
+	}
+
+	return
 }

@@ -7,13 +7,12 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 )
@@ -130,18 +129,18 @@ func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
 //   2. The value of `.status.updateRevision` matches `.status.currentRevision`.
 func (sia *statefulsetInitAwaiter) Await() error {
 
-	podClient, err := sia.makeClients()
+	statefulSetClient, podClient, err := sia.makeClients()
 	if err != nil {
 		return err
 	}
 
 	// Create Deployment watcher.
-	statefulsetWatcher, err := sia.config.clientForResource.Watch(metav1.ListOptions{})
+	statefulSetWatcher, err := statefulSetClient.Watch(metav1.ListOptions{})
 	if err != nil {
 		return errors.Wrapf(err, "Could not set up watch for StatefulSet object %q",
 			sia.config.currentInputs.GetName())
 	}
-	defer statefulsetWatcher.Stop()
+	defer statefulSetWatcher.Stop()
 
 	// Create Pod watcher.
 	podWatcher, err := podClient.Watch(metav1.ListOptions{})
@@ -155,18 +154,18 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	period := time.NewTicker(10 * time.Second)
 	defer period.Stop()
 
-	return sia.await(statefulsetWatcher, podWatcher, time.After(5*time.Minute), period.C)
+	return sia.await(statefulSetWatcher, podWatcher, time.After(5*time.Minute), period.C)
 }
 
 func (sia *statefulsetInitAwaiter) Read() error {
 	// Get clients needed to retrieve live versions of relevant Deployments, ReplicaSets, and Pods.
-	podClient, err := sia.makeClients()
+	statefulSetClient, podClient, err := sia.makeClients()
 	if err != nil {
 		return err
 	}
 
 	// Get live versions of StatefulSet and Pods.
-	statefulset, err := sia.config.clientForResource.Get(sia.config.currentInputs.GetName(),
+	statefulset, err := statefulSetClient.Get(sia.config.currentInputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
@@ -187,7 +186,7 @@ func (sia *statefulsetInitAwaiter) Read() error {
 		podList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	return sia.read(statefulset, podList.(*unstructured.UnstructuredList))
+	return sia.read(statefulset, podList)
 }
 
 // read is a helper companion to `Read` designed to make it easy to test this module.
@@ -449,19 +448,22 @@ func (sia *statefulsetInitAwaiter) errorMessages() []string {
 }
 
 func (sia *statefulsetInitAwaiter) makeClients() (
-	podClient dynamic.ResourceInterface, err error,
+	statefulSetClient, podClient dynamic.ResourceInterface, err error,
 ) {
-	podClient, err = client.FromGVK(sia.config.pool, sia.config.disco,
-		schema.GroupVersionKind{
-			Group:   "",
-			Version: "v1",
-			Kind:    "Pod",
-		}, sia.config.currentInputs.GetNamespace())
+	statefulSetClient, err = clients.ResourceClient(
+		clients.StatefulSet, sia.config.currentInputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
-		return nil, errors.Wrapf(err,
+		return nil, nil, errors.Wrapf(err,
+			"Could not make client to watch StatefulSet %q",
+			sia.config.currentInputs.GetName())
+	}
+	podClient, err = clients.ResourceClient(
+		clients.Pod, sia.config.currentInputs.GetNamespace(), sia.config.clientSet)
+	if err != nil {
+		return nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Pods associated with StatefulSet %q",
 			sia.config.currentInputs.GetName())
 	}
 
-	return podClient, nil
+	return statefulSetClient, podClient, nil
 }

@@ -9,7 +9,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
@@ -48,31 +47,40 @@ type mockResourceInterface struct{}
 
 var _ dynamic.ResourceInterface = (*mockResourceInterface)(nil)
 
-func (mri *mockResourceInterface) List(opts metav1.ListOptions) (runtime.Object, error) {
-	panic("List not implemented")
+func (mri *mockResourceInterface) Create(
+	obj *unstructured.Unstructured, options metav1.CreateOptions, subresources ...string,
+) (*unstructured.Unstructured, error) {
+	panic("Create not implemented")
 }
-func (mri *mockResourceInterface) Get(
-	name string, opts metav1.GetOptions) (*unstructured.Unstructured, error) {
-	return &unstructured.Unstructured{Object: map[string]interface{}{}}, nil
+func (mri *mockResourceInterface) Update(
+	obj *unstructured.Unstructured, options metav1.UpdateOptions, subresources ...string,
+) (*unstructured.Unstructured, error) {
+	panic("Update not implemented")
 }
-func (mri *mockResourceInterface) Delete(name string, opts *metav1.DeleteOptions) error {
+func (mri *mockResourceInterface) UpdateStatus(
+	obj *unstructured.Unstructured, options metav1.UpdateOptions) (*unstructured.Unstructured, error) {
+	panic("UpdateStatus not implemented")
+}
+func (mri *mockResourceInterface) Delete(name string, options *metav1.DeleteOptions, subresources ...string) error {
 	panic("Delete not implemented")
 }
 func (mri *mockResourceInterface) DeleteCollection(
 	deleteOptions *metav1.DeleteOptions, listOptions metav1.ListOptions) error {
 	panic("DeleteCollection not implemented")
 }
-func (mri *mockResourceInterface) Create(
-	obj *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	panic("Create not implemented")
+func (mri *mockResourceInterface) Get(
+	name string, options metav1.GetOptions, subresources ...string,
+) (*unstructured.Unstructured, error) {
+	return &unstructured.Unstructured{Object: map[string]interface{}{}}, nil
 }
-func (mri *mockResourceInterface) Update(obj *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	panic("Update not implemented")
+func (mri *mockResourceInterface) List(opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
+	panic("List not implemented")
 }
 func (mri *mockResourceInterface) Watch(opts metav1.ListOptions) (watch.Interface, error) {
 	panic("Watch not implemented")
 }
 func (mri *mockResourceInterface) Patch(
-	name string, pt types.PatchType, data []byte) (*unstructured.Unstructured, error) {
+	name string, pt types.PatchType, data []byte, options metav1.UpdateOptions, subresources ...string,
+) (*unstructured.Unstructured, error) {
 	panic("Patch not implemented")
 }
