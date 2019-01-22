@@ -8,6 +8,7 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -120,7 +121,7 @@ func (pc *podChecker) check(pod *unstructured.Unstructured) {
 	}
 	status, isMap := rawStatus.(map[string]interface{})
 	if !isMap {
-		glog.V(3).Infof("Pod watch received unexpected status type '%s'",
+		glog.V(3).Infof("Pod watch received unexpected status type %q",
 			reflect.TypeOf(rawStatus))
 		return
 
@@ -136,7 +137,7 @@ func (pc *podChecker) check(pod *unstructured.Unstructured) {
 	case "Succeeded":
 		pc.podSuccess = true
 	default:
-		glog.V(3).Infof("Pod '%s' has unknown status phase '%s'",
+		glog.V(3).Infof("Pod %q has unknown status phase %q",
 			pod.GetName(), phase)
 	}
 }
@@ -154,7 +155,7 @@ func (pc *podChecker) checkPod(pod *unstructured.Unstructured, status map[string
 	for _, rawCondition := range conditions {
 		condition, isMap := rawCondition.(map[string]interface{})
 		if !isMap {
-			glog.V(3).Infof("Pod '%s' has condition of unknown type: '%s'", pod.GetName(),
+			glog.V(3).Infof("Pod %q has condition of unknown type: %q", pod.GetName(),
 				reflect.TypeOf(rawCondition))
 			continue
 		}
@@ -344,9 +345,16 @@ func (pia *podInitAwaiter) Await() error {
 	// We succeed when `.status.phase` is set to "Running".
 	//
 
-	podWatcher, err := pia.config.clientForResource.Watch(metav1.ListOptions{})
+	podClient, err := clients.ResourceClient(
+		clients.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
 	if err != nil {
-		return errors.Wrapf(err, "Couldn't set up watch for Pod object '%s'",
+		return errors.Wrapf(err,
+			"Could not make client to watch Pod %q",
+			pia.config.currentInputs.GetName())
+	}
+	podWatcher, err := podClient.Watch(metav1.ListOptions{})
+	if err != nil {
+		return errors.Wrapf(err, "Couldn't set up watch for Pod object %q",
 			pia.config.currentInputs.GetName())
 	}
 	defer podWatcher.Stop()
@@ -355,9 +363,15 @@ func (pia *podInitAwaiter) Await() error {
 }
 
 func (pia *podInitAwaiter) Read() error {
+	podClient, err := clients.ResourceClient(
+		clients.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
+	if err != nil {
+		return errors.Wrapf(err,
+			"Could not make client to get Pod %q",
+			pia.config.currentInputs.GetName())
+	}
 	// Get live version of Pod.
-	pod, err := pia.config.clientForResource.Get(pia.config.currentInputs.GetName(),
-		metav1.GetOptions{})
+	pod, err := podClient.Get(pia.config.currentInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the Pod as having been deleted.
@@ -394,8 +408,7 @@ func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time
 
 		// Else, wait for updates.
 		select {
-		// TODO: If Pod is added and not making progress on initialization after
-		// ~30 seconds, report that.
+		// TODO: If Pod is added and not making progress on initialization after ~30 seconds, report that.
 		case <-pia.config.ctx.Done():
 			return &cancellationError{
 				object:    pia.pod,
@@ -415,7 +428,7 @@ func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time
 func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	pod, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		glog.V(3).Infof("Pod watch received unknown object type '%s'",
+		glog.V(3).Infof("Pod watch received unknown object type %q",
 			reflect.TypeOf(pod))
 		return
 	}

@@ -619,6 +619,60 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 	}
 }
 
+func Test_Apps_Deployment_Without_PersistentVolumeClaims(t *testing.T) {
+	tests := []struct {
+		description   string
+		do            func(deployments, replicaSets, pods, pvcs chan watch.Event, timeout chan time.Time)
+		expectedError error
+	}{
+		{
+			description: "[Revision 1] Deployment should always succeed when any non-referenced PersistentVolumeClaims in the namespace are not in the 'Bound' phase",
+			do: func(deployments, replicaSets, pods, pvcs chan watch.Event, timeout chan time.Time) {
+				// User submits a Deployment, and a PVC to the same namespace,
+				// with no PV's available.
+				//
+				// The Deployment specifically does not reference the PVC in
+				// its spec. Therefore, the Deployment should succeed no
+				// matter what phase the PVC is in as it does not have to wait on it.
+				pvcs <- watchAddedEvent(
+					persistentVolumeClaimInput(inputNamespace, pvcInputName))
+				pvcs <- watchAddedEvent(
+					persistentVolumeClaimPending(inputNamespace, pvcInputName))
+				deployments <- watchAddedEvent(
+					deploymentAdded(inputNamespace, deploymentInputName, revision1))
+				deployments <- watchAddedEvent(
+					deploymentProgressing(inputNamespace, deploymentInputName, revision1))
+				deployments <- watchAddedEvent(
+					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+	}
+
+	for _, test := range tests {
+		awaiter := makeDeploymentInitAwaiter(
+			updateAwaitConfig{
+				createAwaitConfig: mockAwaitConfig(deploymentInput(inputNamespace, deploymentInputName)),
+			})
+		deployments := make(chan watch.Event)
+		replicaSets := make(chan watch.Event)
+		pods := make(chan watch.Event)
+		pvcs := make(chan watch.Event)
+
+		timeout := make(chan time.Time)
+		period := make(chan time.Time)
+		go test.do(deployments, replicaSets, pods, pvcs, timeout)
+
+		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
+			&chanWatcher{results: pods}, &chanWatcher{results: pvcs}, timeout, period)
+		assert.Equal(t, test.expectedError, err, test.description)
+	}
+}
+
 type setLastInputs func(obj *unstructured.Unstructured)
 
 func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
@@ -1925,6 +1979,36 @@ func persistentVolumeClaimInput(namespace, name string) *unstructured.Unstructur
             }
         },
         "storageClassName": "standard"
+    }
+}`, namespace, name))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func persistentVolumeClaimPending(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "PersistentVolumeClaim",
+    "apiVersion": "v1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s"
+    },
+    "spec": {
+        "accessModes": [
+            "ReadWriteOnce"
+        ],
+        "dataSource": null,
+        "resources": {
+            "requests": {
+                "storage": "1Gi"
+            }
+        },
+        "storageClassName": "standard"
+    },
+    "status": {
+        "phase": "Pending"
     }
 }`, namespace, name))
 	if err != nil {

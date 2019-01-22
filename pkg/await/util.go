@@ -20,7 +20,7 @@ import (
 	"sort"
 
 	"github.com/golang/glog"
-	v1 "k8s.io/api/core/v1"
+	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -97,7 +97,7 @@ func getLastWarningsForObject(
 		return nil, err
 	}
 
-	items := out.(*unstructured.UnstructuredList).Items
+	items := out.Items
 	var events []v1.Event
 	for _, item := range items {
 		// Round trip conversion from `Unstructured` to `v1.Event`. There doesn't seem to be a good way

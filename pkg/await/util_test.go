@@ -9,12 +9,10 @@ import (
 
 func mockAwaitConfig(inputs *unstructured.Unstructured) createAwaitConfig {
 	return createAwaitConfig{
-		ctx:               context.Background(),
-		pool:              nil,
-		disco:             nil,
-		clientForResource: nil,
-		currentInputs:     inputs,
-		currentOutputs:    inputs,
+		ctx: context.Background(),
+		//TODO: complete this mock if needed
+		currentInputs:  inputs,
+		currentOutputs: inputs,
 	}
 }
 
@@ -25,7 +23,7 @@ func decodeUnstructured(text string) (*unstructured.Unstructured, error) {
 	}
 	unst, isUnstructured := obj.(*unstructured.Unstructured)
 	if !isUnstructured {
-		return nil, fmt.Errorf("Could not decode object as *unstructured.Unstructured: %v", unst)
+		return nil, fmt.Errorf("could not decode object as *unstructured.Unstructured: %v", unst)
 	}
 	return unst, nil
 }

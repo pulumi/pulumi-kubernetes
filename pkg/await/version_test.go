@@ -1,10 +1,10 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2019, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,28 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package client
+package await
 
 import (
 	"testing"
 
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/version"
 )
 
 func TestParseVersion(t *testing.T) {
 	tests := []struct {
 		input    version.Info
-		expected ServerVersion
+		expected serverVersion
 		error    bool
 	}{
 		{
 			input:    version.Info{Major: "1", Minor: "6"},
-			expected: ServerVersion{Major: 1, Minor: 6},
+			expected: serverVersion{Major: 1, Minor: 6},
 		},
 		{
 			input:    version.Info{Major: "1", Minor: "70"},
-			expected: ServerVersion{Major: 1, Minor: 70},
+			expected: serverVersion{Major: 1, Minor: 70},
 		},
 		{
 			input: version.Info{Major: "1", Minor: "6x"},
@@ -41,27 +40,27 @@ func TestParseVersion(t *testing.T) {
 		},
 		{
 			input:    version.Info{Major: "1", Minor: "8+"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "", Minor: "", GitVersion: "v1.8.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "1", Minor: "", GitVersion: "v1.8.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "", Minor: "8", GitVersion: "v1.8.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "", Minor: "", GitVersion: "v1.8.8-test.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input:    version.Info{Major: "1", Minor: "8", GitVersion: "v1.9.0"},
-			expected: ServerVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
 			input: version.Info{Major: "", Minor: "", GitVersion: "v1.a"},
@@ -88,7 +87,7 @@ func TestParseVersion(t *testing.T) {
 }
 
 func TestVersionCompare(t *testing.T) {
-	v := ServerVersion{Major: 2, Minor: 3}
+	v := serverVersion{Major: 2, Minor: 3}
 	tests := []struct {
 		major, minor, result int
 	}{
@@ -104,26 +103,5 @@ func TestVersionCompare(t *testing.T) {
 		if res != test.result {
 			t.Errorf("%d.%d => Expected %d, got %d", test.major, test.minor, test.result, res)
 		}
-	}
-}
-
-func TestFqName(t *testing.T) {
-	obj := &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "tests/v1alpha1",
-			"kind":       "Test",
-			"metadata": map[string]interface{}{
-				"name": "myname",
-			},
-		},
-	}
-
-	if n := FqName(obj.GetNamespace(), obj.GetName()); n != "myname" {
-		t.Errorf("Got %q for %v", n, obj)
-	}
-
-	obj.SetNamespace("mynamespace")
-	if n := FqName(obj.GetNamespace(), obj.GetName()); n != "mynamespace/myname" {
-		t.Errorf("Got %q for %v", n, obj)
 	}
 }

@@ -3,10 +3,10 @@
 import * as k8s from "@pulumi/kubernetes";
 
 //
-// `get`s the Kubernetes Dashboard, which is deployed by default in minikube.
+// `get`s the Kubernetes API service.
 //
 
-k8s.core.v1.Service.get("kube-dashboard", "kubernetes");
+k8s.core.v1.Service.get("kube-api", "default/kubernetes");
 
 //
 // Create a CustomResourceDefinition, a CustomResource, and then `.get` it.
@@ -37,9 +37,3 @@ new k8s.apiextensions.CustomResource(
     },
     { dependsOn: ct }
 );
-
-const ctObj = k8s.apiextensions.CustomResource.get("my-new-cron-object-get", {
-    apiVersion: "stable.example.com/v1",
-    kind: "CronTab",
-    id: "my-new-cron-object"
-});
