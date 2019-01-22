@@ -607,7 +607,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:20b5c8dffb27e2783120f9943d06daceacea3f9c04b48ae39c8385c63064542c"
+  digest = "1:dd5fedd94eee1284aba9142a04d690a47fd13368441e52f121ba4d6c8188ee09"
   name = "github.com/pulumi/pulumi"
   packages = [
     "pkg/apitype",
@@ -650,7 +650,7 @@
     "sdk/proto/go",
   ]
   pruneopts = "UT"
-  revision = "3cf81c0b4ccdd64fbc07cc8ec7cf5fbb74cd7194"
+  revision = "5cfd44c73a6d05f0ac0247159dd2cc9bf2858f8d"
 
 [[projects]]
   branch = "master"
