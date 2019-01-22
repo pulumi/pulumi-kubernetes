@@ -27,6 +27,7 @@ import (
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
 )
 
@@ -147,6 +148,29 @@ func getLastWarningsForObject(
 	}
 
 	return warnings, nil
+}
+
+// --------------------------------------------------------------------------
+
+// Version helpers.
+
+// --------------------------------------------------------------------------
+
+// ServerVersion attempts to retrieve the server version from k8s.
+// Returns the configured default version in case this fails.
+func ServerVersion(cdi discovery.CachedDiscoveryInterface) serverVersion {
+	var version serverVersion
+	if sv, err := cdi.ServerVersion(); err == nil {
+		if v, err := parseVersion(sv); err == nil {
+			version = v
+		} else {
+			version = defaultVersion()
+		}
+	} else {
+		version = defaultVersion()
+	}
+
+	return version
 }
 
 // --------------------------------------------------------------------------
