@@ -340,12 +340,12 @@ func Deletion(c DeleteConfig) error {
 
 	// Manually set delete propagation for Kubernetes versions < 1.6 to avoid bugs.
 	deleteOpts := metav1.DeleteOptions{}
-	if version.Compare(1, 6) < 0 {
+	if version.Compare(1, 6, 0) < 0 {
 		// 1.5.x option.
 		boolFalse := false
 		// nolint
 		deleteOpts.OrphanDependents = &boolFalse
-	} else if version.Compare(1, 7) < 0 {
+	} else if version.Compare(1, 7, 0) < 0 {
 		// 1.6.x option. Background delete propagation is broken in k8s v1.6.
 		fg := metav1.DeletePropagationForeground
 		deleteOpts.PropagationPolicy = &fg

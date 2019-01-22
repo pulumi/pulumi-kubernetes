@@ -56,11 +56,15 @@ func TestParseVersion(t *testing.T) {
 		},
 		{
 			input:    version.Info{Major: "", Minor: "", GitVersion: "v1.8.8-test.0"},
-			expected: serverVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 8, Patch: 8},
 		},
 		{
 			input:    version.Info{Major: "1", Minor: "8", GitVersion: "v1.9.0"},
-			expected: serverVersion{Major: 1, Minor: 8},
+			expected: serverVersion{Major: 1, Minor: 9},
+		},
+		{
+			input:    version.Info{Major: "1", Minor: "9", GitVersion: "v1.9.1"},
+			expected: serverVersion{Major: 1, Minor: 9, Patch: 1},
 		},
 		{
 			input: version.Info{Major: "", Minor: "", GitVersion: "v1.a"},
@@ -81,27 +85,31 @@ func TestParseVersion(t *testing.T) {
 			continue
 		}
 		if v != test.expected {
-			t.Errorf("Expected %v, got %v", test.expected, v)
+			t.Errorf("Expected %#v, got %#v", test.expected, v)
 		}
 	}
 }
 
 func TestVersionCompare(t *testing.T) {
-	v := serverVersion{Major: 2, Minor: 3}
+	v := serverVersion{Major: 2, Minor: 3, Patch: 0}
 	tests := []struct {
-		major, minor, result int
+		major, minor, patch, result int
 	}{
 		{major: 1, minor: 0, result: 1},
 		{major: 2, minor: 0, result: 1},
 		{major: 2, minor: 2, result: 1},
+		{major: 2, minor: 2, result: 1},
+		{major: 2, minor: 2, patch: 2, result: 1},
 		{major: 2, minor: 3, result: 0},
+		{major: 2, minor: 3, patch: 0, result: 0},
 		{major: 2, minor: 4, result: -1},
 		{major: 3, minor: 0, result: -1},
+		{major: 2, minor: 3, patch: 1, result: -1},
 	}
 	for _, test := range tests {
-		res := v.Compare(test.major, test.minor)
+		res := v.Compare(test.major, test.minor, test.patch)
 		if res != test.result {
-			t.Errorf("%d.%d => Expected %d, got %d", test.major, test.minor, test.result, res)
+			t.Errorf("%d.%d.%d => Expected %d, got %d", test.major, test.minor, test.patch, test.result, res)
 		}
 	}
 }
