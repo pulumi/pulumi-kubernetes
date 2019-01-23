@@ -17,9 +17,8 @@ package clients
 import (
 	"fmt"
 	"strings"
+	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/pkg/retry"
-	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -118,7 +117,8 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 	}, nil
 }
 
-func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespace string) (dynamic.ResourceInterface, error) {
+func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespace string,
+) (dynamic.ResourceInterface, error) {
 	m, err := dcs.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
 	if err != nil {
 		// If the REST mapping failed, try refreshing the cache and remapping before giving up.
@@ -126,15 +126,9 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 		dcs.DiscoveryClientCached.Invalidate()
 		dcs.RESTMapper.Reset()
 
-		// TODO(lblackstone): Ensure that retry behavior is predictable.
-		err := retry.SleepingRetry(
-			func(i uint) (err error) {
-				m, err = dcs.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
-				return
-			}).
-			WithMaxRetries(5).
-			WithBackoffFactor(2).
-			Do(meta.IsNoMatchError)
+		time.Sleep(2 * time.Second)
+
+		m, err = dcs.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
 		if err != nil {
 			return nil, err
 		}
@@ -145,28 +139,31 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	if err != nil {
 		return nil, err
 	}
+
 	if namespaced {
 		return dcs.GenericClient.Resource(m.Resource).Namespace(namespaceOrDefault(namespace)), nil
+	} else {
+		return dcs.GenericClient.Resource(m.Resource), nil
 	}
-
-	// Return a non-namespaced client for all other Kinds.
-	return dcs.GenericClient.Resource(m.Resource), nil
 }
 
-func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructured) (dynamic.ResourceInterface, error) {
+func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructured,
+) (dynamic.ResourceInterface, error) {
 	return dcs.ResourceClient(obj.GroupVersionKind(), obj.GetNamespace())
 }
 
 func (dcs *DynamicClientSet) gvkForKind(kind Kind) (gvk schema.GroupVersionKind, err error) {
 	resources, err := dcs.getServerResources()
-	if err != nil {
+	if err != nil && len(resources) == 0 {
+		// Only return an error here if no resources were returned. Otherwise, process the partial list
+		// and return an error if no match is found.
 		return
 	}
 
 	for _, gvResources := range resources {
 		for _, resource := range gvResources.APIResources {
 			if resource.Kind == string(kind) {
-			    var gv schema.GroupVersion
+				var gv schema.GroupVersion
 				gv, err = schema.ParseGroupVersion(gvResources.GroupVersion)
 				if err != nil {
 					return
@@ -200,7 +197,9 @@ func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, erro
 	}
 
 	resources, err := dcs.getServerResources(gvk.GroupVersion())
-	if err != nil {
+	if err != nil && len(resources) == 0 {
+		// Only return an error here if no resources were returned. Otherwise, process the partial list
+		// and return an error if no match is found.
 		return false, err
 	}
 
@@ -217,35 +216,54 @@ func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, erro
 	return true, fmt.Errorf("failed to discover namespace info for %s", gvk)
 }
 
-func (dcs *DynamicClientSet) getServerResources(gvs ...schema.GroupVersion) ([]*v1.APIResourceList, error) {
-	var resources []*v1.APIResourceList
-	// TODO(lblackstone): Ensure that retry behavior is predictable.
-	err := retry.SleepingRetry(
-		func(i uint) (err error) {
-			if len(gvs) > 0 {
-				var resource *v1.APIResourceList
-				for _, gv := range gvs {
-					resource, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
-					if err != nil {
-						return
-					}
+func (dcs *DynamicClientSet) getServerResources(gvs ...schema.GroupVersion,
+) (resourceLists []*v1.APIResourceList, err error) {
 
-					resources = append(resources, resource)
+	if len(gvs) > 0 {
+		var resourceList *v1.APIResourceList
+		for _, gv := range gvs {
+			resourceList, err = dcs.getServerResourcesForGV(gv)
+			if err != nil {
+				if discovery.IsGroupDiscoveryFailedError(err) {
+					// Ignore Group Discovery Failed errors. This type of error may cause
+					// later resource introspection to fail, but the error will be handled at that point.
+					err = nil
+				} else {
+					return
 				}
-			} else {
-				resources, err = dcs.DiscoveryClientCached.ServerPreferredResources()
 			}
 
-			return
-		}).
-		WithMaxRetries(5).
-		WithBackoffFactor(2).
-		Do(discovery.IsGroupDiscoveryFailedError, isServerCacheError)
-	if err != nil {
-		return nil, err
+			resourceLists = append(resourceLists, resourceList)
+		}
+	} else {
+		resourceLists, err = dcs.DiscoveryClientCached.ServerPreferredResources()
+		if err != nil {
+			if discovery.IsGroupDiscoveryFailedError(err) {
+				// Ignore Group Discovery Failed errors. This type of error may cause
+				// later resource introspection to fail, but the error will be handled at that point.
+				err = nil
+			} else {
+				return
+			}
+		}
 	}
 
-	return resources, nil
+	return
+}
+
+func (dcs *DynamicClientSet) getServerResourcesForGV(gv schema.GroupVersion,
+) (resourceList *v1.APIResourceList, err error) {
+	resourceList, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
+
+	if err != nil && isServerCacheError(err) {
+		dcs.DiscoveryClientCached.Invalidate()
+		dcs.RESTMapper.Reset()
+		time.Sleep(2 * time.Second)
+
+		resourceList, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
+	}
+
+	return
 }
 
 func isServerCacheError(err error) bool {
