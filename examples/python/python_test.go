@@ -31,6 +31,7 @@ import (
 )
 
 var baseOptions = &integration.ProgramTestOptions{
+	Verbose: true,
 	Dependencies: []string{
 		filepath.Join("..", "..", "sdk", "python", "bin"),
 	},
