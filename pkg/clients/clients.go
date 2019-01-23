@@ -17,7 +17,6 @@ package clients
 import (
 	"fmt"
 	"strings"
-	"time"
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -123,10 +122,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	if err != nil {
 		// If the REST mapping failed, try refreshing the cache and remapping before giving up.
 		// This can occur if a CRD is being registered from another resource.
-		dcs.DiscoveryClientCached.Invalidate()
 		dcs.RESTMapper.Reset()
-
-		time.Sleep(2 * time.Second)
 
 		m, err = dcs.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
 		if err != nil {
@@ -256,9 +252,7 @@ func (dcs *DynamicClientSet) getServerResourcesForGV(gv schema.GroupVersion,
 	resourceList, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
 
 	if err != nil && isServerCacheError(err) {
-		dcs.DiscoveryClientCached.Invalidate()
 		dcs.RESTMapper.Reset()
-		time.Sleep(2 * time.Second)
 
 		resourceList, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
 	}
