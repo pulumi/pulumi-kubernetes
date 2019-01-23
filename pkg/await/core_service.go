@@ -372,33 +372,32 @@ func (sia *serviceInitAwaiter) emptyHeadlessOrExternalName() bool {
 }
 
 // hasHeadlessServicePortBug checks whether the current `Service` is affected by a bug [1][2]
-// that prevents endpoints from being populated when ports are not specified for a headless Service.
+// that prevents endpoints from being populated when ports are not specified for a headless
+// or external name Service.
 //
 // [1]: https://github.com/kubernetes/dns/issues/174
 // [2]: https://github.com/kubernetes/kubernetes/commit/1c0137252465574519baf99252df8d75048f1304
 func (sia *serviceInitAwaiter) hasHeadlessServicePortBug() bool {
-	isBuggy := false
-
 	// This bug only affects headless or external name Services.
-	if !sia.isHeadlessService() || sia.isExternalNameService() {
-		return isBuggy
+	if !sia.isHeadlessService() && !sia.isExternalNameService() {
+		return false
 	}
 
 	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
-	portsI, _ := openapi.Pluck(sia.service.Object, "spec", "ports")
-	ports, _ := portsI.([]map[string]interface{})
-	hasPorts := len(ports) > 0
-
 	// k8s versions < 1.12.1 have the bug.
 	if version.Compare(1, 12, 1) < 0 {
+		portsI, _ := openapi.Pluck(sia.service.Object, "spec", "ports")
+		ports, _ := portsI.([]map[string]interface{})
+		hasPorts := len(ports) > 0
+
 		// The bug affects Services with no specified ports.
 		if !hasPorts {
-			isBuggy = true
+			return true
 		}
 	}
 
-	return isBuggy
+	return false
 }
 
 // waitForPods determines whether to wait for Pods to be ready before marking the Service ready.
