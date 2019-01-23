@@ -225,7 +225,7 @@ func (dcs *DynamicClientSet) getServerResources(gvs ...schema.GroupVersion,
 					// later resource introspection to fail, but the error will be handled at that point.
 					err = nil
 				} else {
-					return
+					return nil, err
 				}
 			}
 
@@ -239,7 +239,7 @@ func (dcs *DynamicClientSet) getServerResources(gvs ...schema.GroupVersion,
 				// later resource introspection to fail, but the error will be handled at that point.
 				err = nil
 			} else {
-				return
+				return nil, err
 			}
 		}
 	}
