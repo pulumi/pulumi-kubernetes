@@ -385,8 +385,8 @@ func (sia *serviceInitAwaiter) hasHeadlessServicePortBug() bool {
 
 	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
-	// k8s versions < 1.12.1 have the bug.
-	if version.Compare(1, 12, 1) < 0 {
+	// k8s versions < 1.12.0 have the bug.
+	if version.Compare(1, 12, 0) < 0 {
 		portsI, _ := openapi.Pluck(sia.service.Object, "spec", "ports")
 		ports, _ := portsI.([]map[string]interface{})
 		hasPorts := len(ports) > 0
