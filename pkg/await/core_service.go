@@ -400,8 +400,8 @@ func (sia *serviceInitAwaiter) hasHeadlessServicePortBug() bool {
 	return false
 }
 
-// waitForPods determines whether to wait for Pods to be ready before marking the Service ready.
-func (sia *serviceInitAwaiter) waitForPods() bool {
+// shouldWaitForPods determines whether to wait for Pods to be ready before marking the Service ready.
+func (sia *serviceInitAwaiter) shouldWaitForPods() bool {
 	// For these special cases, skip the wait for Pod logic.
 	if sia.emptyHeadlessOrExternalName() || sia.hasHeadlessServicePortBug() {
 		sia.endpointsReady = true
@@ -412,7 +412,7 @@ func (sia *serviceInitAwaiter) waitForPods() bool {
 }
 
 func (sia *serviceInitAwaiter) checkAndLogStatus() bool {
-	if !sia.waitForPods() {
+	if !sia.shouldWaitForPods() {
 		return sia.serviceReady
 	}
 
