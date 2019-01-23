@@ -736,9 +736,27 @@ func (k *kubeProvider) Delete(
 		Name:   name,
 	}
 
-	err = await.Deletion(config)
-	if err != nil {
-		return nil, err
+	awaitErr := await.Deletion(config)
+	if awaitErr != nil {
+		initErr, isInitErr := awaitErr.(await.InitializationError)
+		if !isInitErr {
+			// Object deletion failed.
+			return nil, awaitErr
+		}
+
+		lastKnownState := initErr.Object()
+
+		inputsAndComputed, err := plugin.MarshalProperties(
+			checkpointObject(current, lastKnownState), plugin.MarshalOptions{
+				Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		// Resource delete was issued, but failed to complete. Return live version of object so it can be
+		// checkpointed.
+		return nil, initializationError(FqObjName(lastKnownState), awaitErr, inputsAndComputed)
 	}
 
 	return &pbempty.Empty{}, nil
