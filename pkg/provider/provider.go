@@ -451,7 +451,7 @@ func (k *kubeProvider) Create(
 	if awaitErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		return nil, initializationError(FqObjName(initialized), awaitErr, inputsAndComputed)
+		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed)
 	}
 
 	// Invalidate the client cache if this was a CRD. This will require subsequent CR creations to
@@ -567,8 +567,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if readErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		glog.V(3).Infof("%v", initializationError(id, readErr, inputsAndComputed))
-		return nil, initializationError(id, readErr, inputsAndComputed)
+		glog.V(3).Infof("%v", partialError(id, readErr, inputsAndComputed))
+		return nil, partialError(id, readErr, inputsAndComputed)
 	}
 
 	return &pulumirpc.ReadResponse{Id: id, Properties: inputsAndComputed}, nil
@@ -698,7 +698,7 @@ func (k *kubeProvider) Update(
 	if awaitErr != nil {
 		// Resource was updated/created but failed to initialize. Return live version of object so it
 		// can be checkpointed.
-		return nil, initializationError(FqObjName(initialized), awaitErr, inputsAndComputed)
+		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed)
 	}
 
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
@@ -756,7 +756,7 @@ func (k *kubeProvider) Delete(
 
 		// Resource delete was issued, but failed to complete. Return live version of object so it can be
 		// checkpointed.
-		return nil, initializationError(FqObjName(lastKnownState), awaitErr, inputsAndComputed)
+		return nil, partialError(FqObjName(lastKnownState), awaitErr, inputsAndComputed)
 	}
 
 	return &pbempty.Empty{}, nil
@@ -855,7 +855,9 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 	return
 }
 
-func initializationError(id string, err error, inputsAndComputed *structpb.Struct) error {
+// partialError creates an error for resources that did not complete an operation in progress.
+// The last known state of the object is included in the error so that it can be checkpointed.
+func partialError(id string, err error, inputsAndComputed *structpb.Struct) error {
 	reasons := []string{err.Error()}
 	if aggregate, isAggregate := err.(await.AggregatedError); isAggregate {
 		reasons = append(reasons, aggregate.SubErrors()...)
