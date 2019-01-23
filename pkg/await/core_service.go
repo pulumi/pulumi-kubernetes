@@ -275,7 +275,7 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 		// Update status of service object so that we can check success.
 		sia.serviceReady = isSlice && len(ing) > 0
 
-		glog.V(3).Infof("Waiting for service '%q' to assign IP/hostname for a load balancer",
+		glog.V(3).Infof("Waiting for service %q to assign IP/hostname for a load balancer",
 			inputServiceName)
 	} else {
 		// If it's not type `LoadBalancer`, report success.
@@ -345,6 +345,17 @@ func (sia *serviceInitAwaiter) errorMessages() []string {
 	return messages
 }
 
+// isHeadlessService checks if the Service has a defined .spec.clusterIP
+func (sia *serviceInitAwaiter) isHeadlessService() bool {
+	clusterIP, _ := openapi.Pluck(sia.service.Object, "spec", "clusterIP")
+	return clusterIP == v1.ClusterIPNone
+}
+
+// isExternalNameService checks if the Service type is "ExternalName"
+func (sia *serviceInitAwaiter) isExternalNameService() bool {
+	return sia.serviceType == string(v1.ServiceTypeExternalName)
+}
+
 // emptyHeadlessOrExternalName checks whether the current `Service` is either an "empty" headless
 // `Service`[1] (i.e., it targets 0 `Pod`s) or a `Service` with `.spec.type: ExternalName` (which
 // also targets 0 `Pod`s). This is useful to know when deciding whether to wait for a `Service` to
@@ -352,17 +363,57 @@ func (sia *serviceInitAwaiter) errorMessages() []string {
 //
 // [1]: https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
 func (sia *serviceInitAwaiter) emptyHeadlessOrExternalName() bool {
-	clusterIP, _ := openapi.Pluck(sia.service.Object, "spec", "clusterIP")
 	selectorI, _ := openapi.Pluck(sia.service.Object, "spec", "selector")
 	selector, _ := selectorI.(map[string]interface{})
 
-	headlessEmpty := len(selector) == 0 && clusterIP == v1.ClusterIPNone
-	return headlessEmpty || sia.serviceType == string(v1.ServiceTypeExternalName)
+	headlessEmpty := len(selector) == 0 && sia.isHeadlessService()
+	return headlessEmpty || sia.isExternalNameService()
 
 }
 
+// hasHeadlessServicePortBug checks whether the current `Service` is affected by a bug [1][2]
+// that prevents endpoints from being populated when ports are not specified for a headless Service.
+//
+// [1]: https://github.com/kubernetes/dns/issues/174
+// [2]: https://github.com/kubernetes/kubernetes/commit/1c0137252465574519baf99252df8d75048f1304
+func (sia *serviceInitAwaiter) hasHeadlessServicePortBug() bool {
+	isBuggy := false
+
+	// This bug only affects headless or external name Services.
+	if !sia.isHeadlessService() || sia.isExternalNameService() {
+		return isBuggy
+	}
+
+	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
+
+	portsI, _ := openapi.Pluck(sia.service.Object, "spec", "ports")
+	ports, _ := portsI.([]map[string]interface{})
+	hasPorts := len(ports) > 0
+
+	// k8s versions < 1.12.1 have the bug.
+	if version.Compare(1, 12, 1) < 0 {
+		// The bug affects Services with no specified ports.
+		if !hasPorts {
+			isBuggy = true
+		}
+	}
+
+	return isBuggy
+}
+
+// waitForPods determines whether to wait for Pods to be ready before marking the Service ready.
+func (sia *serviceInitAwaiter) waitForPods() bool {
+	// For these special cases, skip the wait for Pod logic.
+	if sia.emptyHeadlessOrExternalName() || sia.hasHeadlessServicePortBug() {
+		sia.endpointsReady = true
+		return false
+	}
+
+	return true
+}
+
 func (sia *serviceInitAwaiter) checkAndLogStatus() bool {
-	if sia.emptyHeadlessOrExternalName() {
+	if !sia.waitForPods() {
 		return sia.serviceReady
 	}
 
