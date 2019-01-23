@@ -26,7 +26,7 @@ import (
 )
 
 // Format v0.0.0(-master+$Format:%h$)
-var gitVersionRe = regexp.MustCompile(`v([0-9])+.([0-9])+.([0-9])+.*`)
+var gitVersionRe = regexp.MustCompile(`v([0-9]+).([0-9]+).([0-9]+).*`)
 
 // serverVersion captures k8s major.minor version in a parsed form
 type serverVersion struct {

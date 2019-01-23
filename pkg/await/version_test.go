@@ -67,6 +67,10 @@ func TestParseVersion(t *testing.T) {
 			expected: serverVersion{Major: 1, Minor: 9, Patch: 1},
 		},
 		{
+			input:    version.Info{Major: "1", Minor: "13", GitVersion: "v1.13.0"},
+			expected: serverVersion{Major: 1, Minor: 13, Patch: 0},
+		},
+		{
 			input: version.Info{Major: "", Minor: "", GitVersion: "v1.a"},
 			error: true,
 		},
