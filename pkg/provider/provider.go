@@ -430,14 +430,14 @@ func (k *kubeProvider) Create(
 
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
-		initErr, isInitErr := awaitErr.(await.InitializationError)
-		if !isInitErr {
+		partialErr, isPartialErr := awaitErr.(await.PartialError)
+		if !isPartialErr {
 			// Object creation failed.
 			return nil, awaitErr
 		}
 
 		// Resource was created, but failed to become fully initialized.
-		initialized = initErr.Object()
+		initialized = partialErr.Object()
 	}
 
 	inputsAndComputed, err := plugin.MarshalProperties(
@@ -533,13 +533,12 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			return &pulumirpc.ReadResponse{Id: "", Properties: nil}, nil
 		}
 
-		if initErr, ok := readErr.(await.InitializationError); ok {
-			glog.V(3).Infof("is init err")
-			liveObj = initErr.Object()
+		if partialErr, ok := readErr.(await.PartialError); ok {
+			liveObj = partialErr.Object()
 		}
 
 		// If `liveObj == nil` at this point, it means we've encountered an error that is neither a
-		// 404, nor an `await.InitializationError`. For example, the master could be unreachable. We
+		// 404, nor an `await.PartialError`. For example, the master could be unreachable. We
 		// should fail in this case.
 		if liveObj == nil {
 			return nil, readErr
@@ -738,13 +737,13 @@ func (k *kubeProvider) Delete(
 
 	awaitErr := await.Deletion(config)
 	if awaitErr != nil {
-		initErr, isInitErr := awaitErr.(await.InitializationError)
-		if !isInitErr {
+		partialErr, isPartialErr := awaitErr.(await.PartialError)
+		if !isPartialErr {
 			// Object deletion failed.
 			return nil, awaitErr
 		}
 
-		lastKnownState := initErr.Object()
+		lastKnownState := partialErr.Object()
 
 		inputsAndComputed, err := plugin.MarshalProperties(
 			checkpointObject(current, lastKnownState), plugin.MarshalOptions{

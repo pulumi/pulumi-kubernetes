@@ -11,9 +11,8 @@ type AggregatedError interface {
 	SubErrors() []string
 }
 
-// InitializationError represents an object that was successfully created, but which failed to be
-// initialized.
-type InitializationError interface {
+// PartialError represents an object that failed to complete its current operation.
+type PartialError interface {
 	Object() *unstructured.Unstructured
 }
 
@@ -25,7 +24,7 @@ type cancellationError struct {
 
 var _ error = (*cancellationError)(nil)
 var _ AggregatedError = (*cancellationError)(nil)
-var _ InitializationError = (*cancellationError)(nil)
+var _ PartialError = (*cancellationError)(nil)
 
 func (ce *cancellationError) Error() string {
 	return fmt.Sprintf("Resource operation was cancelled for '%s'", ce.object.GetName())
@@ -48,7 +47,7 @@ type timeoutError struct {
 
 var _ error = (*timeoutError)(nil)
 var _ AggregatedError = (*timeoutError)(nil)
-var _ InitializationError = (*timeoutError)(nil)
+var _ PartialError = (*timeoutError)(nil)
 
 func (te *timeoutError) Error() string {
 	return fmt.Sprintf("Timeout occurred for '%s'", te.object.GetName())
@@ -71,7 +70,7 @@ type initializationError struct {
 
 var _ error = (*initializationError)(nil)
 var _ AggregatedError = (*initializationError)(nil)
-var _ InitializationError = (*initializationError)(nil)
+var _ PartialError = (*initializationError)(nil)
 
 func (ie *initializationError) Error() string {
 	return fmt.Sprintf("Resource '%s' was created but failed to initialize", ie.object.GetName())
