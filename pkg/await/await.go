@@ -56,19 +56,19 @@ type ProviderConfig struct {
 
 type CreateConfig struct {
 	ProviderConfig
-	Inputs    *unstructured.Unstructured
+	Inputs *unstructured.Unstructured
 }
 
 type ReadConfig struct {
 	ProviderConfig
-	Inputs    *unstructured.Unstructured
-	Name      string
+	Inputs *unstructured.Unstructured
+	Name   string
 }
 
 type UpdateConfig struct {
 	ProviderConfig
-	Previous  *unstructured.Unstructured
-	Inputs    *unstructured.Unstructured
+	Previous *unstructured.Unstructured
+	Inputs   *unstructured.Unstructured
 }
 
 type DeleteConfig struct {

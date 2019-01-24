@@ -458,7 +458,6 @@ func (k *kubeProvider) Create(
 	// refresh the cache, at which point the CRD definition will be present, so that it doesn't fail
 	// with an `errors.IsNotFound`.
 	if clients.IsCRD(newInputs) {
-		k.clientSet.DiscoveryClientCached.Invalidate()
 		k.clientSet.RESTMapper.Reset()
 	}
 
