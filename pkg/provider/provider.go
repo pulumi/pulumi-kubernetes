@@ -739,7 +739,7 @@ func (k *kubeProvider) Delete(
 	if awaitErr != nil {
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
-			// Object deletion failed.
+			// There was an error executing the delete operation. The resource is still present and tracked.
 			return nil, awaitErr
 		}
 
