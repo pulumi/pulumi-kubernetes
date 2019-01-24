@@ -194,11 +194,16 @@ func (dcs *DynamicClientSet) getServerResourcesForGV(gv schema.GroupVersion,
 ) (*v1.APIResourceList, error) {
 	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
 
-	if err != nil && isServerCacheError(err) {
-		dcs.RESTMapper.Reset()
+	if err != nil {
+		// Refresh cache and retry once in case of a cache miss.
+		if isServerCacheError(err) {
+			dcs.RESTMapper.Reset()
 
-		resourceList, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
-		if err != nil {
+			resourceList, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
+			if err != nil {
+				return nil, err
+			}
+		} else { // Any other errors are not recoverable.
 			return nil, err
 		}
 	}
