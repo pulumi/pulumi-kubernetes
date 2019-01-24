@@ -131,7 +131,9 @@ func (sia *serviceInitAwaiter) Await() error {
 	}
 	defer endpointWatcher.Stop()
 
-	return sia.await(serviceWatcher, endpointWatcher, time.After(10*time.Minute), make(chan struct{}))
+	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
+
+	return sia.await(serviceWatcher, endpointWatcher, time.After(10*time.Minute), make(chan struct{}), version)
 }
 
 func (sia *serviceInitAwaiter) Read() error {
@@ -163,11 +165,13 @@ func (sia *serviceInitAwaiter) Read() error {
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	return sia.read(service, endpointList)
+	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
+
+	return sia.read(service, endpointList, version)
 }
 
-func (sia *serviceInitAwaiter) read(
-	service *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
+func (sia *serviceInitAwaiter) read(service *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
+	version serverVersion,
 ) error {
 	sia.processServiceEvent(watchAddedEvent(service))
 
@@ -186,7 +190,7 @@ func (sia *serviceInitAwaiter) read(
 
 	sia.endpointsSettled = true
 
-	if sia.checkAndLogStatus() {
+	if sia.checkAndLogStatus(version) {
 		return nil
 	}
 
@@ -199,13 +203,13 @@ func (sia *serviceInitAwaiter) read(
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (sia *serviceInitAwaiter) await(
 	serviceWatcher, endpointWatcher watch.Interface, timeout <-chan time.Time,
-	settled chan struct{},
+	settled chan struct{}, version serverVersion,
 ) error {
 	sia.config.logStatus(diag.Info, "[1/3] Finding Pods to direct traffic to")
 
 	for {
 		// Check whether we've succeeded.
-		if sia.checkAndLogStatus() {
+		if sia.checkAndLogStatus(version) {
 			return nil
 		}
 
@@ -377,13 +381,11 @@ func (sia *serviceInitAwaiter) emptyHeadlessOrExternalName() bool {
 //
 // [1]: https://github.com/kubernetes/dns/issues/174
 // [2]: https://github.com/kubernetes/kubernetes/commit/1c0137252465574519baf99252df8d75048f1304
-func (sia *serviceInitAwaiter) hasHeadlessServicePortBug() bool {
+func (sia *serviceInitAwaiter) hasHeadlessServicePortBug(version serverVersion) bool {
 	// This bug only affects headless or external name Services.
 	if !sia.isHeadlessService() && !sia.isExternalNameService() {
 		return false
 	}
-
-	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
 	// k8s versions < 1.12.0 have the bug.
 	if version.Compare(1, 12, 0) < 0 {
@@ -401,9 +403,9 @@ func (sia *serviceInitAwaiter) hasHeadlessServicePortBug() bool {
 }
 
 // shouldWaitForPods determines whether to wait for Pods to be ready before marking the Service ready.
-func (sia *serviceInitAwaiter) shouldWaitForPods() bool {
+func (sia *serviceInitAwaiter) shouldWaitForPods(version serverVersion) bool {
 	// For these special cases, skip the wait for Pod logic.
-	if sia.emptyHeadlessOrExternalName() || sia.hasHeadlessServicePortBug() {
+	if sia.emptyHeadlessOrExternalName() || sia.hasHeadlessServicePortBug(version) {
 		sia.endpointsReady = true
 		return false
 	}
@@ -411,8 +413,8 @@ func (sia *serviceInitAwaiter) shouldWaitForPods() bool {
 	return true
 }
 
-func (sia *serviceInitAwaiter) checkAndLogStatus() bool {
-	if !sia.shouldWaitForPods() {
+func (sia *serviceInitAwaiter) checkAndLogStatus(version serverVersion) bool {
+	if !sia.shouldWaitForPods(version) {
 		return sia.serviceReady
 	}
 

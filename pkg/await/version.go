@@ -28,11 +28,9 @@ import (
 // Format v0.0.0(-master+$Format:%h$)
 var gitVersionRe = regexp.MustCompile(`v([0-9]+).([0-9]+).([0-9]+).*`)
 
-// serverVersion captures k8s major.minor version in a parsed form
+// serverVersion captures k8s major.minor.patch version in a parsed form
 type serverVersion struct {
-	Major int
-	Minor int
-	Patch int
+	Major, Minor, Patch int
 }
 
 // DefaultVersion takes a wild guess (v1.9) at the version of a Kubernetes cluster.
@@ -90,7 +88,6 @@ func parseVersion(v *version.Info) (ret serverVersion, err error) {
 		if err != nil {
 			return serverVersion{}, fmt.Errorf("unable to parse server version: %#v", v)
 		}
-
 	}
 
 	return
