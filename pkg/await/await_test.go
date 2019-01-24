@@ -22,8 +22,8 @@ func Test_Watcher_Interface_Cancel(t *testing.T) {
 	err := watcher.ForObject(cancelCtx, &mockResourceInterface{}, "").
 		WatchUntil(func(_ *unstructured.Unstructured) bool { return false }, 1*time.Minute)
 
-	_, isInitErr := err.(InitializationError)
-	assert.True(t, isInitErr, "Cancelled watcher should emit `await.InitializationError`")
+	_, isPartialErr := err.(PartialError)
+	assert.True(t, isPartialErr, "Cancelled watcher should emit `await.PartialError`")
 	assert.Equal(t, "Resource operation was cancelled for ''", err.Error())
 }
 
@@ -32,8 +32,8 @@ func Test_Watcher_Interface_Timeout(t *testing.T) {
 	err := watcher.ForObject(context.Background(), &mockResourceInterface{}, "").
 		WatchUntil(func(_ *unstructured.Unstructured) bool { return false }, 1*time.Second)
 
-	_, isInitErr := err.(InitializationError)
-	assert.True(t, isInitErr, "Timed out watcher should emit `await.InitializationError`")
+	_, isPartialErr := err.(PartialError)
+	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
 	assert.Equal(t, "Timeout occurred polling for ''", err.Error())
 }
 

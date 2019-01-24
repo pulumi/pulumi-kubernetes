@@ -430,14 +430,14 @@ func (k *kubeProvider) Create(
 
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
-		initErr, isInitErr := awaitErr.(await.InitializationError)
-		if !isInitErr {
+		partialErr, isPartialErr := awaitErr.(await.PartialError)
+		if !isPartialErr {
 			// Object creation failed.
 			return nil, awaitErr
 		}
 
 		// Resource was created, but failed to become fully initialized.
-		initialized = initErr.Object()
+		initialized = partialErr.Object()
 	}
 
 	inputsAndComputed, err := plugin.MarshalProperties(
@@ -451,7 +451,7 @@ func (k *kubeProvider) Create(
 	if awaitErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		return nil, initializationError(FqObjName(initialized), awaitErr, inputsAndComputed)
+		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed)
 	}
 
 	// Invalidate the client cache if this was a CRD. This will require subsequent CR creations to
@@ -532,13 +532,12 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			return &pulumirpc.ReadResponse{Id: "", Properties: nil}, nil
 		}
 
-		if initErr, ok := readErr.(await.InitializationError); ok {
-			glog.V(3).Infof("is init err")
-			liveObj = initErr.Object()
+		if partialErr, ok := readErr.(await.PartialError); ok {
+			liveObj = partialErr.Object()
 		}
 
 		// If `liveObj == nil` at this point, it means we've encountered an error that is neither a
-		// 404, nor an `await.InitializationError`. For example, the master could be unreachable. We
+		// 404, nor an `await.PartialError`. For example, the master could be unreachable. We
 		// should fail in this case.
 		if liveObj == nil {
 			return nil, readErr
@@ -566,8 +565,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if readErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		glog.V(3).Infof("%v", initializationError(id, readErr, inputsAndComputed))
-		return nil, initializationError(id, readErr, inputsAndComputed)
+		glog.V(3).Infof("%v", partialError(id, readErr, inputsAndComputed))
+		return nil, partialError(id, readErr, inputsAndComputed)
 	}
 
 	return &pulumirpc.ReadResponse{Id: id, Properties: inputsAndComputed}, nil
@@ -697,7 +696,7 @@ func (k *kubeProvider) Update(
 	if awaitErr != nil {
 		// Resource was updated/created but failed to initialize. Return live version of object so it
 		// can be checkpointed.
-		return nil, initializationError(FqObjName(initialized), awaitErr, inputsAndComputed)
+		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed)
 	}
 
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
@@ -735,9 +734,27 @@ func (k *kubeProvider) Delete(
 		Name:   name,
 	}
 
-	err = await.Deletion(config)
-	if err != nil {
-		return nil, err
+	awaitErr := await.Deletion(config)
+	if awaitErr != nil {
+		partialErr, isPartialErr := awaitErr.(await.PartialError)
+		if !isPartialErr {
+			// There was an error executing the delete operation. The resource is still present and tracked.
+			return nil, awaitErr
+		}
+
+		lastKnownState := partialErr.Object()
+
+		inputsAndComputed, err := plugin.MarshalProperties(
+			checkpointObject(current, lastKnownState), plugin.MarshalOptions{
+				Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		// Resource delete was issued, but failed to complete. Return live version of object so it can be
+		// checkpointed.
+		return nil, partialError(FqObjName(lastKnownState), awaitErr, inputsAndComputed)
 	}
 
 	return &pbempty.Empty{}, nil
@@ -836,7 +853,9 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 	return
 }
 
-func initializationError(id string, err error, inputsAndComputed *structpb.Struct) error {
+// partialError creates an error for resources that did not complete an operation in progress.
+// The last known state of the object is included in the error so that it can be checkpointed.
+func partialError(id string, err error, inputsAndComputed *structpb.Struct) error {
 	reasons := []string{err.Error()}
 	if aggregate, isAggregate := err.(await.AggregatedError); isAggregate {
 		reasons = append(reasons, aggregate.SubErrors()...)
