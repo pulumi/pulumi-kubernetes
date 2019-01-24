@@ -98,7 +98,7 @@ func TestParseVersion(t *testing.T) {
 func TestVersionCompare(t *testing.T) {
 	v := serverVersion{Major: 2, Minor: 3}
 	tests := []struct {
-		major, minor, patch, result int
+		major, minor, result int
 	}{
 		{major: 1, minor: 0, result: 1},
 		{major: 2, minor: 0, result: 1},
