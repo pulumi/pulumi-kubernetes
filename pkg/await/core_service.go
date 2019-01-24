@@ -170,7 +170,8 @@ func (sia *serviceInitAwaiter) Read() error {
 	return sia.read(service, endpointList, version)
 }
 
-func (sia *serviceInitAwaiter) read(service *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
+func (sia *serviceInitAwaiter) read(
+	service *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
 	version serverVersion,
 ) error {
 	sia.processServiceEvent(watchAddedEvent(service))
@@ -387,7 +388,7 @@ func (sia *serviceInitAwaiter) hasHeadlessServicePortBug(version serverVersion) 
 		return false
 	}
 
-	// k8s versions < 1.12.0 have the bug.
+	// k8s versions < 1.12 have the bug.
 	if version.Compare(1, 12) < 0 {
 		portsI, _ := openapi.Pluck(sia.service.Object, "spec", "ports")
 		ports, _ := portsI.([]map[string]interface{})

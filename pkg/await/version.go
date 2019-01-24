@@ -33,7 +33,7 @@ type serverVersion struct {
 	Major, Minor int
 }
 
-// Compare returns -1/0/+1 iff v is less than / equal / greater than major.minor.patch
+// Compare returns -1/0/+1 iff v is less than / equal / greater than major.minor
 func (v serverVersion) Compare(major, minor int) int {
 	a := v.Major
 	b := major

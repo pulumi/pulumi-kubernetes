@@ -15,6 +15,7 @@
 package await
 
 import (
+	"reflect"
 	"testing"
 
 	"k8s.io/apimachinery/pkg/version"
@@ -112,5 +113,50 @@ func TestVersionCompare(t *testing.T) {
 		if res != test.result {
 			t.Errorf("%d.%d => Expected %d, got %d", test.major, test.minor, test.result, res)
 		}
+	}
+}
+
+func Test_parseGitVersion(t *testing.T) {
+	type args struct {
+		versionString string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    gitVersion
+		wantErr bool
+	}{
+		{
+			name: "Valid",
+			args: args{"v1.13.1"},
+			want: gitVersion{1, 13, 1},
+		},
+		{
+			name: "Valid + suffix",
+			args: args{"v1.8.8-test.0"},
+			want: gitVersion{1, 8, 8},
+		},
+		{
+			name:    "Missing v",
+			args:    args{"1.13.0"},
+			wantErr: true,
+		},
+		{
+			name:    "Missing patch",
+			args:    args{"1.13"},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := parseGitVersion(tt.args.versionString)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("parseGitVersion() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("parseGitVersion() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
