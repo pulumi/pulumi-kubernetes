@@ -76,7 +76,7 @@ func ResourceClient(kind Kind, namespace string, client *DynamicClientSet) (dyna
 		return nil, err
 	}
 
-	c, err := client.ResourceClient(gvk, namespace)
+	c, err := client.ResourceClient(*gvk, namespace)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get client: %v", err)
 	}
@@ -148,12 +148,15 @@ func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructu
 	return dcs.ResourceClient(obj.GroupVersionKind(), obj.GetNamespace())
 }
 
-func (dcs *DynamicClientSet) gvkForKind(kind Kind) (gvk schema.GroupVersionKind, err error) {
-	resources, err := dcs.getServerResources()
-	if err != nil && len(resources) == 0 {
-		// Only return an error here if no resources were returned. Otherwise, process the partial list
-		// and return an error if no match is found.
-		return
+func (dcs *DynamicClientSet) gvkForKind(kind Kind) (*schema.GroupVersionKind, error) {
+	resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
+	if err != nil {
+		if discovery.IsGroupDiscoveryFailedError(err) {
+			// Ignore Group Discovery Failed errors. This type of error may cause
+			// later resource introspection to fail, but the error will be handled at that point.
+		} else {
+			return nil, err
+		}
 	}
 
 	for _, gvResources := range resources {
@@ -162,102 +165,45 @@ func (dcs *DynamicClientSet) gvkForKind(kind Kind) (gvk schema.GroupVersionKind,
 				var gv schema.GroupVersion
 				gv, err = schema.ParseGroupVersion(gvResources.GroupVersion)
 				if err != nil {
-					return
+					return nil, err
 				}
-				gvk.Group, gvk.Version, gvk.Kind = gv.Group, gv.Version, resource.Kind
-				return
+				return &schema.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: resource.Kind}, nil
 			}
 		}
 	}
 
-	err = fmt.Errorf("failed to find gvk for Kind: %q", kind)
-	return
+	return nil, fmt.Errorf("failed to find gvk for Kind: %q", kind)
 }
 
 func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, error) {
-	// Handle known Kinds.
-	// Note: THe cached discovery client does not transparently handle cache refreshes,
-	// meaning that clients will get an error if they query during a cache refresh. To
-	// mitigate this problem for now, handle known kinds without resorting to a lookup.
-	// TODO(lblackstone): It would be cleaner to add the required retry logic around the cache.
-	switch Kind(gvk.Kind) {
-	case APIService, CertificateSigningRequest, ClusterRole, ClusterRoleBinding, CustomResourceDefinition,
-		MutatingWebhookConfiguration, Namespace, PersistentVolume, PodSecurityPolicy, PriorityClass,
-		StorageClass, ValidatingWebhookConfiguration:
-		return false, nil
-	case ControllerRevision, ConfigMap, CronJob, DaemonSet, Deployment, Endpoints, HorizontalPodAutoscaler,
-		Ingress, Job, LimitRange, NetworkPolicy, PersistentVolumeClaim, Pod, PodDisruptionBudget, PodTemplate,
-		ReplicaSet, ReplicationController, ResourceQuota, Role, RoleBinding, Secret, Service, ServiceAccount,
-		StatefulSet:
-		return true, nil
-	}
-
-	resources, err := dcs.getServerResources(gvk.GroupVersion())
-	if err != nil && len(resources) == 0 {
-		// Only return an error here if no resources were returned. Otherwise, process the partial list
-		// and return an error if no match is found.
+	resourceList, err := dcs.getServerResourcesForGV(gvk.GroupVersion())
+	if err != nil {
 		return false, err
 	}
 
-	for _, gvResources := range resources {
-		if gvResources.GroupVersion == gvk.GroupVersion().String() {
-			for _, resource := range gvResources.APIResources {
-				if resource.Kind == gvk.Kind {
-					return resource.Namespaced, nil
-				}
-			}
+	for _, resource := range resourceList.APIResources {
+		if resource.Kind == gvk.Kind {
+			return resource.Namespaced, nil
 		}
 	}
 
 	return true, fmt.Errorf("failed to discover namespace info for %s", gvk)
 }
 
-func (dcs *DynamicClientSet) getServerResources(gvs ...schema.GroupVersion,
-) (resourceLists []*v1.APIResourceList, err error) {
-
-	if len(gvs) > 0 {
-		var resourceList *v1.APIResourceList
-		for _, gv := range gvs {
-			resourceList, err = dcs.getServerResourcesForGV(gv)
-			if err != nil {
-				if discovery.IsGroupDiscoveryFailedError(err) {
-					// Ignore Group Discovery Failed errors. This type of error may cause
-					// later resource introspection to fail, but the error will be handled at that point.
-					err = nil
-				} else {
-					return nil, err
-				}
-			}
-
-			resourceLists = append(resourceLists, resourceList)
-		}
-	} else {
-		resourceLists, err = dcs.DiscoveryClientCached.ServerPreferredResources()
-		if err != nil {
-			if discovery.IsGroupDiscoveryFailedError(err) {
-				// Ignore Group Discovery Failed errors. This type of error may cause
-				// later resource introspection to fail, but the error will be handled at that point.
-				err = nil
-			} else {
-				return nil, err
-			}
-		}
-	}
-
-	return
-}
-
 func (dcs *DynamicClientSet) getServerResourcesForGV(gv schema.GroupVersion,
-) (resourceList *v1.APIResourceList, err error) {
-	resourceList, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
+) (*v1.APIResourceList, error) {
+	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
 
 	if err != nil && isServerCacheError(err) {
 		dcs.RESTMapper.Reset()
 
 		resourceList, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return
+	return resourceList, nil
 }
 
 func isServerCacheError(err error) bool {
