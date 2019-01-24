@@ -28,9 +28,43 @@ import (
 // Format v0.0.0(-master+$Format:%h$)
 var gitVersionRe = regexp.MustCompile(`v([0-9]+).([0-9]+).([0-9]+).*`)
 
-// serverVersion captures k8s major.minor.patch version in a parsed form
+// serverVersion captures k8s major.minor version in a parsed form
 type serverVersion struct {
+	Major, Minor int
+}
+
+// Compare returns -1/0/+1 iff v is less than / equal / greater than major.minor.patch
+func (v serverVersion) Compare(major, minor int) int {
+	a := v.Major
+	b := major
+
+	if a == b {
+		a = v.Minor
+		b = minor
+	}
+
+	var res int
+	if a > b {
+		res = 1
+	} else if a == b {
+		res = 0
+	} else {
+		res = -1
+	}
+	return res
+}
+
+func (v serverVersion) String() string {
+	return fmt.Sprintf("%d.%d", v.Major, v.Minor)
+}
+
+// gitVersion captures k8s major.minor.patch version in a parsed form
+type gitVersion struct {
 	Major, Minor, Patch int
+}
+
+func (gv gitVersion) String() string {
+	return fmt.Sprintf("%d.%d.%d", gv.Major, gv.Minor, gv.Patch)
 }
 
 // DefaultVersion takes a wild guess (v1.9) at the version of a Kubernetes cluster.
@@ -50,77 +84,58 @@ func defaultVersion() serverVersion {
 	return serverVersion{Major: 1, Minor: 9}
 }
 
-func parseGitVersion(gitVersion string) (serverVersion, error) {
-	parsedVersion := gitVersionRe.FindStringSubmatch(gitVersion)
+func parseGitVersion(versionString string) (gitVersion, error) {
+	parsedVersion := gitVersionRe.FindStringSubmatch(versionString)
 	if len(parsedVersion) != 4 {
-		return serverVersion{}, fmt.Errorf("unable to parse git version %q", gitVersion)
+		err := fmt.Errorf("unable to parse git version %q", versionString)
+		return gitVersion{}, err
 	}
-	var ret serverVersion
+
+	var gv gitVersion
 	var err error
-	ret.Major, err = strconv.Atoi(parsedVersion[1])
+	gv.Major, err = strconv.Atoi(parsedVersion[1])
 	if err != nil {
-		return serverVersion{}, err
+		return gitVersion{}, err
 	}
-	ret.Minor, err = strconv.Atoi(parsedVersion[2])
+	gv.Minor, err = strconv.Atoi(parsedVersion[2])
 	if err != nil {
-		return serverVersion{}, err
+		return gitVersion{}, err
 	}
-	ret.Patch, err = strconv.Atoi(parsedVersion[3])
+	gv.Patch, err = strconv.Atoi(parsedVersion[3])
 	if err != nil {
-		return serverVersion{}, err
+		return gitVersion{}, err
 	}
-	return ret, nil
+
+	return gv, nil
 }
 
 // parseVersion parses version.Info into a serverVersion struct
-func parseVersion(v *version.Info) (ret serverVersion, err error) {
-	ret, err = parseGitVersion(v.GitVersion)
+func parseVersion(v *version.Info) (serverVersion, error) {
+	fallbackToGitVersion := false
+
+	major, err := strconv.Atoi(v.Major)
 	if err != nil {
-		ret.Major, err = strconv.Atoi(v.Major)
+		fallbackToGitVersion = true
+	}
+
+	// trim "+" in minor version (happened on GKE)
+	v.Minor = strings.TrimSuffix(v.Minor, "+")
+
+	minor, err := strconv.Atoi(v.Minor)
+	if err != nil {
+		fallbackToGitVersion = true
+	}
+
+	if fallbackToGitVersion {
+		gv, err := parseGitVersion(v.GitVersion)
 		if err != nil {
-			return serverVersion{}, fmt.Errorf("unable to parse server version: %#v", v)
+			return serverVersion{}, err
 		}
 
-		// trim "+" in minor version (happened on GKE)
-		v.Minor = strings.TrimSuffix(v.Minor, "+")
-
-		ret.Minor, err = strconv.Atoi(v.Minor)
-		if err != nil {
-			return serverVersion{}, fmt.Errorf("unable to parse server version: %#v", v)
-		}
+		return serverVersion{Major: gv.Major, Minor: gv.Minor}, nil
 	}
 
-	return
-}
-
-// Compare returns -1/0/+1 iff v is less than / equal / greater than major.minor.patch
-func (v serverVersion) Compare(major, minor, patch int) int {
-	a := v.Major
-	b := major
-
-	if a == b {
-		a = v.Minor
-		b = minor
-	}
-
-	if a == b {
-		a = v.Patch
-		b = patch
-	}
-
-	var res int
-	if a > b {
-		res = 1
-	} else if a == b {
-		res = 0
-	} else {
-		res = -1
-	}
-	return res
-}
-
-func (v serverVersion) String() string {
-	return fmt.Sprintf("%d.%d.%d", v.Major, v.Minor, v.Patch)
+	return serverVersion{Major: major, Minor: minor}, nil
 }
 
 // canonicalizeDeploymentAPIVersion unifies the various pre-release apiVerion values for a

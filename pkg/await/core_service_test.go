@@ -190,7 +190,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed if non-empty headless service doesn't target any Pods before k8s 1.12",
 			serviceInput: headlessNonemptyServiceInput,
-			version:      serverVersion{1, 11, 0},
+			version:      serverVersion{1, 11},
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 
@@ -201,7 +201,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should fail if non-empty headless service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
-			version:      serverVersion{1, 12, 0},
+			version:      serverVersion{1, 12},
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 
@@ -279,13 +279,13 @@ func Test_Core_Service_Read(t *testing.T) {
 			description:  "Read succeed if headless non-empty Service doesn't target any Pods before k8s 1.12",
 			serviceInput: headlessNonemptyServiceInput,
 			service:      headlessNonemptyServiceInput,
-			version:      serverVersion{1, 11, 0},
+			version:      serverVersion{1, 11},
 		},
 		{
 			description:  "Read fail if headless non-empty Service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
 			service:      headlessNonemptyServiceInput,
-			version:      serverVersion{1, 12, 0},
+			version:      serverVersion{1, 12},
 			expectedSubErrors: []string{
 				"Service does not target any Pods. Selected Pods may not be ready, or " +
 					"field '.spec.selector' may not match labels on any Pods"},
