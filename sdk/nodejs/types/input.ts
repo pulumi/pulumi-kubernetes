@@ -4,143 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 
 export namespace admissionregistration {
-  export namespace v1alpha1 {
-    /**
-     * Initializer describes the name and the failure policy of an initializer, and what resources
-     * it applies to.
-     */
-    export interface Initializer {
-      /**
-       * Name is the identifier of the initializer. It will be added to the object that needs to be
-       * initialized. Name should be fully qualified, e.g., alwayspullimages.kubernetes.io, where
-       * "alwayspullimages" is the name of the webhook, and kubernetes.io is the name of the
-       * organization. Required
-       */
-      name: pulumi.Input<string>
-
-      /**
-       * Rules describes what resources/subresources the initializer cares about. The initializer
-       * cares about an operation if it matches _any_ Rule. Rule.Resources must not include
-       * subresources.
-       */
-      rules?: pulumi.Input<pulumi.Input<admissionregistration.v1alpha1.Rule>[]>
-
-    }
-
-
-    /**
-     * InitializerConfiguration describes the configuration of initializers.
-     */
-    export interface InitializerConfiguration {
-      /**
-       * APIVersion defines the versioned schema of this representation of an object. Servers should
-       * convert recognized schemas to the latest internal value, and may reject unrecognized
-       * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-       */
-      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1alpha1">
-
-      /**
-       * Initializers is a list of resources and their default initializers Order-sensitive. When
-       * merging multiple InitializerConfigurations, we sort the initializers from different
-       * InitializerConfigurations by the name of the InitializerConfigurations; the order of the
-       * initializers from the same InitializerConfiguration is preserved.
-       */
-      initializers?: pulumi.Input<pulumi.Input<admissionregistration.v1alpha1.Initializer>[]>
-
-      /**
-       * Kind is a string value representing the REST resource this object represents. Servers may
-       * infer this from the endpoint the client submits requests to. Cannot be updated. In
-       * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      kind?: pulumi.Input<"InitializerConfiguration">
-
-      /**
-       * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-       */
-      metadata?: pulumi.Input<meta.v1.ObjectMeta>
-
-    }
-
-    export function isInitializerConfiguration(o: any): o is InitializerConfiguration {
-      return o.apiVersion == "admissionregistration.k8s.io/v1alpha1" && o.kind == "InitializerConfiguration";
-    }
-
-    /**
-     * InitializerConfigurationList is a list of InitializerConfiguration.
-     */
-    export interface InitializerConfigurationList {
-      /**
-       * List of InitializerConfiguration.
-       */
-      items: pulumi.Input<pulumi.Input<admissionregistration.v1alpha1.InitializerConfiguration>[]>
-
-      /**
-       * APIVersion defines the versioned schema of this representation of an object. Servers should
-       * convert recognized schemas to the latest internal value, and may reject unrecognized
-       * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-       */
-      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1alpha1">
-
-      /**
-       * Kind is a string value representing the REST resource this object represents. Servers may
-       * infer this from the endpoint the client submits requests to. Cannot be updated. In
-       * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      kind?: pulumi.Input<"InitializerConfigurationList">
-
-      /**
-       * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      metadata?: pulumi.Input<meta.v1.ListMeta>
-
-    }
-
-    export function isInitializerConfigurationList(o: any): o is InitializerConfigurationList {
-      return o.apiVersion == "admissionregistration.k8s.io/v1alpha1" && o.kind == "InitializerConfigurationList";
-    }
-
-    /**
-     * Rule is a tuple of APIGroups, APIVersion, and Resources.It is recommended to make sure that
-     * all the tuple expansions are valid.
-     */
-    export interface Rule {
-      /**
-       * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present,
-       * the length of the slice must be one. Required.
-       */
-      apiGroups?: pulumi.Input<pulumi.Input<string>[]>
-
-      /**
-       * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is
-       * present, the length of the slice must be one. Required.
-       */
-      apiVersions?: pulumi.Input<pulumi.Input<string>[]>
-
-      /**
-       * Resources is a list of resources this rule applies to.
-       * 
-       * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all
-       * resources, but not subresources. 'pods/*' means all subresources of pods. '*&#8205;/scale'
-       * means all scale subresources. '*&#8205;/*' means all resources and their subresources.
-       * 
-       * If wildcard is present, the validation rule will ensure resources do not overlap with each
-       * other.
-       * 
-       * Depending on the enclosing object, subresources might not be allowed. Required.
-       */
-      resources?: pulumi.Input<pulumi.Input<string>[]>
-
-    }
-
-
-  }
-
   export namespace v1beta1 {
     /**
      * MutatingWebhookConfiguration describes the configuration of and admission webhook that accept
@@ -7957,6 +7820,116 @@ export namespace certificates {
 }
 
 export namespace coordination {
+  export namespace v1 {
+    /**
+     * Lease defines a lease concept.
+     */
+    export interface Lease {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"coordination.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"Lease">
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Specification of the Lease. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      spec?: pulumi.Input<coordination.v1.LeaseSpec>
+
+    }
+
+    export function isLease(o: any): o is Lease {
+      return o.apiVersion == "coordination.k8s.io/v1" && o.kind == "Lease";
+    }
+
+    /**
+     * LeaseList is a list of Lease objects.
+     */
+    export interface LeaseList {
+      /**
+       * Items is a list of schema objects.
+       */
+      items: pulumi.Input<pulumi.Input<coordination.v1.Lease>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"coordination.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"LeaseList">
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isLeaseList(o: any): o is LeaseList {
+      return o.apiVersion == "coordination.k8s.io/v1" && o.kind == "LeaseList";
+    }
+
+    /**
+     * LeaseSpec is a specification of a Lease.
+     */
+    export interface LeaseSpec {
+      /**
+       * acquireTime is a time when the current lease was acquired.
+       */
+      acquireTime?: pulumi.Input<string>
+
+      /**
+       * holderIdentity contains the identity of the holder of a current lease.
+       */
+      holderIdentity?: pulumi.Input<string>
+
+      /**
+       * leaseDurationSeconds is a duration that candidates for a lease need to wait to force
+       * acquire it. This is measure against time of last observed RenewTime.
+       */
+      leaseDurationSeconds?: pulumi.Input<number>
+
+      /**
+       * leaseTransitions is the number of transitions of a lease between holders.
+       */
+      leaseTransitions?: pulumi.Input<number>
+
+      /**
+       * renewTime is a time when the current holder of a lease has last updated the lease.
+       */
+      renewTime?: pulumi.Input<string>
+
+    }
+
+
+  }
+
   export namespace v1beta1 {
     /**
      * Lease defines a lease concept.
@@ -16637,6 +16610,15 @@ export namespace meta {
       shortNames?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
+       * The hash value of the storage version, the version this resource is converted to when
+       * written to the data store. Value must be treated as opaque by clients. Only equality
+       * comparison on the value is valid. This is an alpha feature and may change or be removed in
+       * the future. The field is populated by the apiserver only if the StorageVersionHash feature
+       * gate is enabled. This field will remain optional even if it graduates.
+       */
+      storageVersionHash?: pulumi.Input<string>
+
+      /**
        * version is the preferred version of the resource.  Empty implies the version of the
        * containing resource list For subresources, this may have a different value, for example: v1
        * (while inside a v1beta1 version of the core resource's group)".
@@ -17020,6 +17002,8 @@ export namespace meta {
        * When an object is created, the system will populate this list with the current set of
        * initializers. Only privileged users may set or modify this list. Once it is empty, it may
        * not be modified further by any user.
+       * 
+       * DEPRECATED - initializers are an alpha field and will be removed in v1.15.
        */
       initializers?: pulumi.Input<meta.v1.Initializers>
 
@@ -20119,8 +20103,8 @@ export namespace storage {
      */
     export interface VolumeError {
       /**
-       * String detailing the error encountered during Attach or Detach operation. This string maybe
-       * logged, so it should not contain sensitive information.
+       * String detailing the error encountered during Attach or Detach operation. This string may
+       * be logged, so it should not contain sensitive information.
        */
       message?: pulumi.Input<string>
 
@@ -20584,8 +20568,8 @@ export namespace storage {
      */
     export interface VolumeError {
       /**
-       * String detailing the error encountered during Attach or Detach operation. This string maybe
-       * logged, so it should not contain sensitive information.
+       * String detailing the error encountered during Attach or Detach operation. This string may
+       * be logged, so it should not contain sensitive information.
        */
       message?: pulumi.Input<string>
 
