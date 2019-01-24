@@ -152,8 +152,10 @@ func (dcs *DynamicClientSet) gvkForKind(kind Kind) (*schema.GroupVersionKind, er
 	resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
 	if err != nil {
 		if discovery.IsGroupDiscoveryFailedError(err) {
-			// Ignore Group Discovery Failed errors. This type of error may cause
-			// later resource introspection to fail, but the error will be handled at that point.
+			// The ServerPreferredResources method will return a best-effort list of resources,
+			// and will also return a GroupDiscoveryFailed error with a list of any resources
+			// that failed discovery. We will ignore this type of error and process the partial
+			// list of resources.
 		} else {
 			return nil, err
 		}
