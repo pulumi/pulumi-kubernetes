@@ -15,6 +15,7 @@ func Test_Core_Service(t *testing.T) {
 		description   string
 		serviceInput  func(namespace, name string) *unstructured.Unstructured
 		do            func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time)
+		version       serverVersion
 		expectedError error
 	}{
 		{
@@ -187,8 +188,20 @@ func Test_Core_Service(t *testing.T) {
 			},
 		},
 		{
+			description:  "Should succeed if non-empty headless service doesn't target any Pods before k8s 1.12",
+			serviceInput: headlessNonemptyServiceInput,
+			version:      serverVersion{1, 11},
+			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
+
+				// Finally, time out.
+				timeout <- time.Now()
+			},
+		},
+		{
 			description:  "Should fail if non-empty headless service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
+			version:      serverVersion{1, 12},
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 
@@ -214,7 +227,7 @@ func Test_Core_Service(t *testing.T) {
 		go test.do(services, endpoints, settled, timeout)
 
 		err := awaiter.await(&chanWatcher{results: services}, &chanWatcher{results: endpoints},
-			timeout, settled)
+			timeout, settled, test.version)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -225,6 +238,7 @@ func Test_Core_Service_Read(t *testing.T) {
 		serviceInput      func(namespace, name string) *unstructured.Unstructured
 		service           func(namespace, name string) *unstructured.Unstructured
 		endpoint          func(namespace, name string) *unstructured.Unstructured
+		version           serverVersion
 		expectedSubErrors []string
 	}{
 		{
@@ -262,9 +276,16 @@ func Test_Core_Service_Read(t *testing.T) {
 			service:      headlessEmptyServiceInput,
 		},
 		{
+			description:  "Read succeed if headless non-empty Service doesn't target any Pods before k8s 1.12",
+			serviceInput: headlessNonemptyServiceInput,
+			service:      headlessNonemptyServiceInput,
+			version:      serverVersion{1, 11},
+		},
+		{
 			description:  "Read fail if headless non-empty Service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
 			service:      headlessNonemptyServiceInput,
+			version:      serverVersion{1, 12},
 			expectedSubErrors: []string{
 				"Service does not target any Pods. Selected Pods may not be ready, or " +
 					"field '.spec.selector' may not match labels on any Pods"},
@@ -278,9 +299,9 @@ func Test_Core_Service_Read(t *testing.T) {
 		var err error
 		if test.endpoint != nil {
 			endpoint := test.endpoint("default", "foo-4setj4y6")
-			err = awaiter.read(service, unstructuredList(*endpoint))
+			err = awaiter.read(service, unstructuredList(*endpoint), test.version)
 		} else {
-			err = awaiter.read(service, unstructuredList())
+			err = awaiter.read(service, unstructuredList(), test.version)
 		}
 		if test.expectedSubErrors != nil {
 			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)

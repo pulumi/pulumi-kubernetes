@@ -15,6 +15,7 @@
 package await
 
 import (
+	"reflect"
 	"testing"
 
 	"k8s.io/apimachinery/pkg/version"
@@ -63,6 +64,14 @@ func TestParseVersion(t *testing.T) {
 			expected: serverVersion{Major: 1, Minor: 8},
 		},
 		{
+			input:    version.Info{Major: "1", Minor: "9", GitVersion: "v1.9.1"},
+			expected: serverVersion{Major: 1, Minor: 9},
+		},
+		{
+			input:    version.Info{Major: "1", Minor: "13", GitVersion: "v1.13.0"},
+			expected: serverVersion{Major: 1, Minor: 13},
+		},
+		{
 			input: version.Info{Major: "", Minor: "", GitVersion: "v1.a"},
 			error: true,
 		},
@@ -81,7 +90,7 @@ func TestParseVersion(t *testing.T) {
 			continue
 		}
 		if v != test.expected {
-			t.Errorf("Expected %v, got %v", test.expected, v)
+			t.Errorf("Expected %#v, got %#v", test.expected, v)
 		}
 	}
 }
@@ -94,6 +103,7 @@ func TestVersionCompare(t *testing.T) {
 		{major: 1, minor: 0, result: 1},
 		{major: 2, minor: 0, result: 1},
 		{major: 2, minor: 2, result: 1},
+		{major: 2, minor: 2, result: 1},
 		{major: 2, minor: 3, result: 0},
 		{major: 2, minor: 4, result: -1},
 		{major: 3, minor: 0, result: -1},
@@ -103,5 +113,50 @@ func TestVersionCompare(t *testing.T) {
 		if res != test.result {
 			t.Errorf("%d.%d => Expected %d, got %d", test.major, test.minor, test.result, res)
 		}
+	}
+}
+
+func Test_parseGitVersion(t *testing.T) {
+	type args struct {
+		versionString string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    gitVersion
+		wantErr bool
+	}{
+		{
+			name: "Valid",
+			args: args{"v1.13.1"},
+			want: gitVersion{1, 13, 1},
+		},
+		{
+			name: "Valid + suffix",
+			args: args{"v1.8.8-test.0"},
+			want: gitVersion{1, 8, 8},
+		},
+		{
+			name:    "Missing v",
+			args:    args{"1.13.0"},
+			wantErr: true,
+		},
+		{
+			name:    "Missing patch",
+			args:    args{"1.13"},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := parseGitVersion(tt.args.versionString)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("parseGitVersion() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("parseGitVersion() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

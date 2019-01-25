@@ -336,17 +336,7 @@ func Deletion(c DeleteConfig) error {
 		return err
 	}
 
-	// Attempt to retrieve k8s server version. Use default version in case this fails.
-	var version serverVersion
-	if sv, err := c.ClientSet.DiscoveryClientCached.ServerVersion(); err == nil {
-		if v, err := parseVersion(sv); err == nil {
-			version = v
-		} else {
-			version = defaultVersion()
-		}
-	} else {
-		version = defaultVersion()
-	}
+	version := ServerVersion(c.ClientSet.DiscoveryClientCached)
 
 	// Manually set delete propagation for Kubernetes versions < 1.6 to avoid bugs.
 	deleteOpts := metav1.DeleteOptions{}
