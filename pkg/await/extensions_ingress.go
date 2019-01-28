@@ -314,14 +314,35 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
 			}
 
 			if !iia.knownEndpointObjects.Has(path.Backend.ServiceName) {
-				iia.config.logStatus(diag.Error,
-					fmt.Sprintf("No matching service found for ingress rule: %q", path.Path))
+				iia.config.logStatus(diag.Error, fmt.Sprintf("No matching service found for ingress rule: %s",
+					expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
+
 				return false
 			}
 		}
 	}
 
 	return true
+}
+
+// expectedIngressPath is a helper to print a useful error message.
+func expectedIngressPath(host, path, serviceName string) string {
+	rulePath := path
+	if host != "" {
+		rulePath = host + path
+	}
+
+	// It is valid for a user not to specify either a host or path [1]. In this case, any traffic not
+	// matching another rule is routed to the specified Service for this rule. Print <default> to make
+	// this expectation clear to users.
+	//
+	// [1] https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#httpingresspath-v1beta1-extensions
+	if rulePath == "" {
+		rulePath = "<default>"
+	}
+
+	// [host][path] -> serviceName
+	return fmt.Sprintf("%q -> %q", rulePath, serviceName)
 }
 
 func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh chan<- struct{}) {
