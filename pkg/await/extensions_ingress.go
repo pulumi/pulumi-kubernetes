@@ -314,7 +314,7 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
 			}
 
 			if !iia.knownEndpointObjects.Has(path.Backend.ServiceName) {
-				iia.config.logStatus(diag.Error, fmt.Sprintf("No matching service found for ingress rule: %s",
+				iia.config.logStatus(diag.Info, fmt.Sprintf("No matching service found for ingress rule: %s",
 					expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
 
 				return false
