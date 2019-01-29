@@ -79,6 +79,20 @@ func Test_Extensions_Ingress(t *testing.T) {
 						"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service"}},
 		},
 		{
+			description:  "Should succeed for Ingress with an unspecified path.",
+			ingressInput: ingressInput,
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				// API server passes initialized ingress back.
+				ingresses <- watchAddedEvent(initializedIngressUnspecifiedPath("default", "foo", "foo-4setj4y6"))
+				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
+
+				settled <- struct{}{}
+
+				// Finally, time out.
+				timeout <- time.Now()
+			},
+		},
+		{
 			description:  "Should fail if Ingress is not allocated an IP address",
 			ingressInput: ingressInput,
 			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
@@ -278,4 +292,69 @@ func initializedIngress(namespace, name, targetService string) *unstructured.Uns
 		panic(err)
 	}
 	return obj
+}
+
+func initializedIngressUnspecifiedPath(namespace, name, targetService string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "Ingress",
+    "metadata": {
+        "name": "%s",
+        "namespace": "%s"
+    },
+    "spec": {
+        "rules": [
+            {
+                "http": {
+                    "paths": [
+                        {
+                            "backend": {
+                                "serviceName": "%s",
+                                "servicePort": 80
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "status": {
+        "loadBalancer": {
+            "ingress": [
+                {
+                    "hostname": "localhost"
+                }
+            ]
+        }
+    }
+}`, name, namespace, targetService))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func Test_fqIngressPath(t *testing.T) {
+	type args struct {
+		host        string
+		path        string
+		serviceName string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{name: "host + path", args: args{host: "foo", path: "/bar", serviceName: "baz"}, want: `"foo/bar" -> "baz"`},
+		{name: "host only", args: args{host: "foo", serviceName: "baz"}, want: `"foo" -> "baz"`},
+		{name: "path only", args: args{path: "/bar", serviceName: "baz"}, want: `"/bar" -> "baz"`},
+		{name: "empty", args: args{serviceName: "baz"}, want: `"<default>" -> "baz"`},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := expectedIngressPath(tt.args.host, tt.args.path, tt.args.serviceName); got != tt.want {
+				t.Errorf("expectedIngressPath() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
