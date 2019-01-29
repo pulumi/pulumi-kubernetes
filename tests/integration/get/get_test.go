@@ -1,4 +1,16 @@
-// Copyright 2016-2018, Pulumi Corporation.  All rights reserved.
+// Copyright 2016-2019, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package ints
 
@@ -28,21 +40,21 @@ func TestGet(t *testing.T) {
 		ExpectRefreshChanges: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 6, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
-			stackRes := stackInfo.Deployment.Resources[4]
+			stackRes := stackInfo.Deployment.Resources[5]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-			provRes := stackInfo.Deployment.Resources[3]
+			provRes := stackInfo.Deployment.Resources[4]
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			//
 			// Assert we can use .get to retrieve the kube-api Service.
 			//
 
-			service := stackInfo.Deployment.Resources[1]
+			service := stackInfo.Deployment.Resources[2]
 			assert.Equal(t, "kube-api", string(service.URN.Name()))
 			step1Name, _ := openapi.Pluck(service.Outputs, "metadata", "name")
 			assert.Equal(t, "kubernetes", step1Name.(string))
@@ -54,7 +66,7 @@ func TestGet(t *testing.T) {
 			crd := stackInfo.Deployment.Resources[0]
 			assert.Equal(t, "crontab", string(crd.URN.Name()))
 
-			ct1 := stackInfo.Deployment.Resources[2]
+			ct1 := stackInfo.Deployment.Resources[3]
 			assert.Equal(t, "my-new-cron-object", string(ct1.URN.Name()))
 
 
@@ -65,21 +77,21 @@ func TestGet(t *testing.T) {
             	Additive: true,
             	ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[2]
+					stackRes := stackInfo.Deployment.Resources[3]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-					provRes := stackInfo.Deployment.Resources[1]
+					provRes := stackInfo.Deployment.Resources[2]
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
 					// Assert we can use .get to retrieve CRDs.
 					//
 
-					ct2 := stackInfo.Deployment.Resources[0]
+					ct2 := stackInfo.Deployment.Resources[1]
 					assert.Equal(t, "my-new-cron-object-get", string(ct2.URN.Name()))
 				},
 			},
