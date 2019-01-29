@@ -32,21 +32,21 @@ func TestAutonaming(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
-			stackRes := stackInfo.Deployment.Resources[2]
+			stackRes := stackInfo.Deployment.Resources[3]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-			provRes := stackInfo.Deployment.Resources[1]
+			provRes := stackInfo.Deployment.Resources[2]
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			//
 			// Assert Pod is successfully given a unique name by Pulumi.
 			//
 
-			pod := stackInfo.Deployment.Resources[0]
+			pod := stackInfo.Deployment.Resources[1]
 			assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
 			step1Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 			assert.True(t, strings.HasPrefix(step1Name.(string), "autonaming-test-"))
@@ -60,21 +60,21 @@ func TestAutonaming(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[2]
+					stackRes := stackInfo.Deployment.Resources[3]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-					provRes := stackInfo.Deployment.Resources[1]
+					provRes := stackInfo.Deployment.Resources[2]
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
 					// Assert Pod was replaced, i.e., destroyed and re-created, with allocating a new name.
 					//
 
-					pod := stackInfo.Deployment.Resources[0]
+					pod := stackInfo.Deployment.Resources[1]
 					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
 					step2Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.True(t, strings.HasPrefix(step2Name.(string), "autonaming-test-"))
@@ -91,21 +91,21 @@ func TestAutonaming(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[2]
+					stackRes := stackInfo.Deployment.Resources[3]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-					provRes := stackInfo.Deployment.Resources[1]
+					provRes := stackInfo.Deployment.Resources[2]
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
 					// Assert Pod was NOT replaced, and has the same name, previously allocated by Pulumi.
 					//
 
-					pod := stackInfo.Deployment.Resources[0]
+					pod := stackInfo.Deployment.Resources[1]
 					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
 					step3Name, _ = openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.True(t, strings.HasPrefix(step3Name.(string), "autonaming-test-"))
@@ -121,14 +121,14 @@ func TestAutonaming(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[2]
+					stackRes := stackInfo.Deployment.Resources[3]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-					provRes := stackInfo.Deployment.Resources[1]
+					provRes := stackInfo.Deployment.Resources[2]
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
@@ -136,7 +136,7 @@ func TestAutonaming(t *testing.T) {
 					// allocate a name on its own.
 					//
 
-					pod := stackInfo.Deployment.Resources[0]
+					pod := stackInfo.Deployment.Resources[1]
 					assert.Equal(t, "autonaming-test", string(pod.URN.Name()))
 					name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.Equal(t, "autonaming-test", name.(string))
