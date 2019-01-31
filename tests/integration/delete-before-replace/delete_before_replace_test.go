@@ -1,4 +1,16 @@
-// Copyright 2016-2018, Pulumi Corporation.  All rights reserved.
+// Copyright 2016-2019, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package ints
 
@@ -27,21 +39,21 @@ func TestPod(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
-			stackRes := stackInfo.Deployment.Resources[2]
+			stackRes := stackInfo.Deployment.Resources[3]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-			provRes := stackInfo.Deployment.Resources[1]
+			provRes := stackInfo.Deployment.Resources[2]
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			//
 			// Assert pod is successfully created.
 			//
 
-			pod := stackInfo.Deployment.Resources[0]
+			pod := stackInfo.Deployment.Resources[1]
 			name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
 			assert.Equal(t, name.(string), "pod-test")
 
@@ -75,14 +87,14 @@ func TestPod(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[2]
+					stackRes := stackInfo.Deployment.Resources[3]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-					provRes := stackInfo.Deployment.Resources[1]
+					provRes := stackInfo.Deployment.Resources[2]
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
@@ -94,7 +106,7 @@ func TestPod(t *testing.T) {
 					// with the same name.
 					//
 
-					pod := stackInfo.Deployment.Resources[0]
+					pod := stackInfo.Deployment.Resources[1]
 					name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
 					assert.Equal(t, name.(string), "pod-test")
 
@@ -121,57 +133,6 @@ func TestPod(t *testing.T) {
 					assert.Equal(t, "nginx", containerName)
 					image := containerStatus["image"]
 					assert.Equal(t, "nginx:1.15-alpine", image)
-				},
-			},
-			{
-				Dir:      "step3",
-				Additive: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
-
-					tests.SortResourcesByURN(stackInfo)
-
-					stackRes := stackInfo.Deployment.Resources[2]
-					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-
-					provRes := stackInfo.Deployment.Resources[1]
-					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
-
-					//
-					// Assert new Pod is deleted before being replaced with the new Pod, running
-					// nginx:1.13-alpine, EVEN WHEN we change the namespace from "" -> "default". This
-					// captures the case that we need to delete-before-replace if we're deploying to the same
-					// namespace, as measured by canonical name, rather than literal string equality.
-					//
-
-					pod := stackInfo.Deployment.Resources[0]
-					name, _ := openapi.Pluck(pod.Outputs, "metadata", "name")
-					assert.Equal(t, name.(string), "pod-test")
-
-					// Not autonamed.
-					_, autonamed := openapi.Pluck(pod.Outputs, "metadata", "annotations", "pulumi.com/autonamed")
-					assert.False(t, autonamed)
-
-					// Status is "Running"
-					phase, _ := openapi.Pluck(pod.Outputs, "status", "phase")
-					assert.Equal(t, "Running", phase)
-
-					// Status "Ready" is "True".
-					conditions, _ := openapi.Pluck(pod.Outputs, "status", "conditions")
-					ready := conditions.([]interface{})[1].(map[string]interface{})
-					readyType := ready["type"]
-					assert.Equal(t, "Ready", readyType)
-					readyStatus := ready["status"]
-					assert.Equal(t, "True", readyStatus)
-
-					// Container is called "nginx" and uses image "nginx:1.13-alpine".
-					containerStatuses, _ := openapi.Pluck(pod.Outputs, "status", "containerStatuses")
-					containerStatus := containerStatuses.([]interface{})[0].(map[string]interface{})
-					containerName := containerStatus["name"]
-					assert.Equal(t, "nginx", containerName)
-					image := containerStatus["image"]
-					assert.Equal(t, "nginx:1.13-alpine", image)
 				},
 			},
 		},
