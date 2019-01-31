@@ -334,7 +334,7 @@ func initializedIngressUnspecifiedPath(namespace, name, targetService string) *u
 	return obj
 }
 
-func Test_fqIngressPath(t *testing.T) {
+func Test_expectedIngressPath(t *testing.T) {
 	type args struct {
 		host        string
 		path        string
@@ -348,7 +348,7 @@ func Test_fqIngressPath(t *testing.T) {
 		{name: "host + path", args: args{host: "foo", path: "/bar", serviceName: "baz"}, want: `"foo/bar" -> "baz"`},
 		{name: "host only", args: args{host: "foo", serviceName: "baz"}, want: `"foo" -> "baz"`},
 		{name: "path only", args: args{path: "/bar", serviceName: "baz"}, want: `"/bar" -> "baz"`},
-		{name: "empty", args: args{serviceName: "baz"}, want: `"<default>" -> "baz"`},
+		{name: "empty", args: args{serviceName: "baz"}, want: `"" (default path) -> "baz"`},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
