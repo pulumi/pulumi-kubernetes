@@ -41,7 +41,7 @@ func PythonClient(
 
 	// Generate casing tables from property names.
 	// { properties: [ {name: fooBar, casedName: foo_bar}, ]}
-	properties := allCamelCasePropertyNames(definitions, pythonProvider())
+	properties := allMultiCasePropertyNames(definitions, pythonProvider())
 	cases := map[string][]map[string]string{"properties": make([]map[string]string, 0)}
 	for _, name := range properties {
 		cases["properties"] = append(cases["properties"],

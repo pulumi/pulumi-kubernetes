@@ -16,7 +16,6 @@ package gen
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	linq "github.com/ahmetb/go-linq"
@@ -419,7 +418,7 @@ func nodeJSProvider() groupOpts { return groupOpts{generatorType: provider, lang
 
 func pythonProvider() groupOpts { return groupOpts{generatorType: provider, language: python} }
 
-func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
+func allMultiCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
 	// Map definition JSON object -> `definition` with metadata.
 	definitions := make([]*definition, 0)
 	linq.From(definitionsJSON).
@@ -439,13 +438,11 @@ func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts grou
 		ToSlice(&definitions)
 
 	properties := sets.String{}
-	// Only select camel-cased property names
-	re := regexp.MustCompile(`[a-z]+[A-Z]`)
 	for _, d := range definitions {
 		if pmap, exists := d.data["properties"]; exists {
 			ps := pmap.(map[string]interface{})
 			for p := range ps {
-				if re.MatchString(p) {
+				if strings.ToLower(p) != p {
 					properties.Insert(p)
 				}
 			}
