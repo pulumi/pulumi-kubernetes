@@ -333,16 +333,18 @@ func expectedIngressPath(host, path, serviceName string) string {
 	}
 
 	// It is valid for a user not to specify either a host or path [1]. In this case, any traffic not
-	// matching another rule is routed to the specified Service for this rule. Print <default> to make
-	// this expectation clear to users.
+	// matching another rule is routed to the specified Service for this rule. Print
+	// `"" (default path)` to make this expectation clear to users.
 	//
 	// [1] https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#httpingresspath-v1beta1-extensions
 	if rulePath == "" {
-		rulePath = "<default>"
+		rulePath = `"" (default path)`
+	} else {
+		rulePath = fmt.Sprintf("%q", rulePath)
 	}
 
 	// [host][path] -> serviceName
-	return fmt.Sprintf("%q -> %q", rulePath, serviceName)
+	return fmt.Sprintf("%s -> %q", rulePath, serviceName)
 }
 
 func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh chan<- struct{}) {
