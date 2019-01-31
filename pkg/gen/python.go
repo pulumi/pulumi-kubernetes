@@ -35,6 +35,7 @@ func PythonClient(
 	groupInit func(group, initPy string) error,
 	versionInit func(group, version, initPy string) error,
 	kindFile func(group, version, kind, kindPy string) error,
+	casingFile func(casingPy string) error,
 ) error {
 	definitions := swagger["definitions"].(map[string]interface{})
 
@@ -51,8 +52,10 @@ func PythonClient(
 	if err != nil {
 		return err
 	}
-	// TODO: write casingPy to disk
-	fmt.Print(casingPy)
+	err = casingFile(casingPy)
+	if err != nil {
+		return err
+	}
 
 	groupsSlice := createGroups(definitions, pythonProvider())
 
