@@ -20,12 +20,12 @@ import * as random from "@pulumi/random"
 // To allow parallel test runs, generate a namespace name with a random suffix.
 //
 
-let randomSuffix = new random.RandomString("random-suffix", {
+const randomSuffix = new random.RandomString("random-suffix", {
     length: 6,
     special: false,
     upper: false
 });
-let nsName = pulumi.concat(`test-namespace-`, randomSuffix.result);
+const nsName = pulumi.concat(`test-namespace-`, randomSuffix.result);
 
 //
 // Tests that if we force a `Pod` to be created before the `Namespace` it is supposed to exist in,
@@ -46,7 +46,10 @@ new k8s.core.v1.Pod("nginx", {
             }
         ]
     }
-});
+  },
+  {
+      dependsOn: randomSuffix
+  });
 
 new k8s.core.v1.Namespace("test", {
     metadata: {
