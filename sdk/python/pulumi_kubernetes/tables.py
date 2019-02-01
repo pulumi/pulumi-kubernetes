@@ -1,7 +1,4 @@
 _CASING_FORWARD_TABLE = {
-    "JSONPath": "json_path",
-    "Port": "port",
-    "Raw": "raw",
     "acceptedNames": "accepted_names",
     "accessModes": "access_modes",
     "acquireTime": "acquire_time",
@@ -393,9 +390,6 @@ _CASING_FORWARD_TABLE = {
     "workingDir": "working_dir",
 }
 _CASING_BACKWARD_TABLE = {
-    "json_path": "JSONPath",
-    "port": "Port",
-    "raw": "Raw",
     "accepted_names": "acceptedNames",
     "access_modes": "accessModes",
     "acquire_time": "acquireTime",
