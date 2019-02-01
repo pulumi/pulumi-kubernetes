@@ -8,7 +8,7 @@ import * as inputApi from "./types/input";
 import * as outputApi from "./types/output";
 import * as jsyaml from "js-yaml";
 import * as glob from "glob";
-import * as got from "got";
+import fetch from "node-fetch";
 
 export namespace yaml {
     export interface ConfigGroupOpts {
@@ -197,10 +197,10 @@ export namespace yaml {
     export class ConfigFile extends CollectionComponentResource {
         constructor(name: string, config?: ConfigFileOpts, opts?: pulumi.ComponentResourceOptions) {
             super("kubernetes:yaml:ConfigFile", name, config, opts);
-            const fileId = config && config.file || name
+            const fileId = config && config.file || name;
             let text: Promise<string>;
             if (fileId.startsWith("http://") || fileId.startsWith("https://")) {
-                text = got(fileId).then(r => r.body)
+                text = fetch(fileId).then(r => r.text())
             } else {
                 text = Promise.resolve(fs.readFileSync(fileId).toString());
             }

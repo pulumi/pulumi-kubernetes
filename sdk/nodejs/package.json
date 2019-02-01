@@ -23,8 +23,8 @@
         "@types/glob": "^5.0.35",
         "mocha": "^5.2.0",
         "@types/mocha": "^5.2.5",
-        "got": "^9.5.0",
-        "@types/got": "^9.2.2"
+        "node-fetch": "^2.3.0",
+        "@types/node-fetch": "^2.1.4"
     },
     "devDependencies": {
         "typescript": "^2.6.2",
