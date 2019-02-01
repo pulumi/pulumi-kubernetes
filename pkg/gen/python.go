@@ -35,8 +35,27 @@ func PythonClient(
 	groupInit func(group, initPy string) error,
 	versionInit func(group, version, initPy string) error,
 	kindFile func(group, version, kind, kindPy string) error,
+	casingFile func(casingPy string) error,
 ) error {
 	definitions := swagger["definitions"].(map[string]interface{})
+
+	// Generate casing tables from property names.
+	// { properties: [ {name: fooBar, casedName: foo_bar}, ]}
+	properties := allCamelCasePropertyNames(definitions, pythonProvider())
+	cases := map[string][]map[string]string{"properties": make([]map[string]string, 0)}
+	for _, name := range properties {
+		cases["properties"] = append(cases["properties"],
+			map[string]string{"name": name, "casedName": pyName(name)})
+	}
+	casingPy, err := mustache.RenderFile(
+		fmt.Sprintf("%s/casing.py.mustache", templateDir), cases)
+	if err != nil {
+		return err
+	}
+	err = casingFile(casingPy)
+	if err != nil {
+		return err
+	}
 
 	groupsSlice := createGroups(definitions, pythonProvider())
 

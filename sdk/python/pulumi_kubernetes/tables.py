@@ -101,6 +101,8 @@ _CASING_FORWARD_TABLE = {
     "downwardAPI": "downward_api",
     "dryRun": "dry_run",
     "emptyDir": "empty_dir",
+    "enableServiceLinks": "enable_service_links",
+    "endpointsNamespace": "endpoints_namespace",
     "envFrom": "env_from",
     "evaluationError": "evaluation_error",
     "eventTime": "event_time",
@@ -384,6 +386,7 @@ _CASING_FORWARD_TABLE = {
     "volumesAttached": "volumes_attached",
     "volumesInUse": "volumes_in_use",
     "vsphereVolume": "vsphere_volume",
+    "webhookClientConfig": "webhook_client_config",
     "workingDir": "working_dir",
 }
 _CASING_BACKWARD_TABLE = {
@@ -489,6 +492,8 @@ _CASING_BACKWARD_TABLE = {
     "downward_api": "downwardAPI",
     "dry_run": "dryRun",
     "empty_dir": "emptyDir",
+    "enable_service_links": "enableServiceLinks",
+    "endpoints_namespace": "endpointsNamespace",
     "env_from": "envFrom",
     "evaluation_error": "evaluationError",
     "event_time": "eventTime",
@@ -772,5 +777,6 @@ _CASING_BACKWARD_TABLE = {
     "volumes_attached": "volumesAttached",
     "volumes_in_use": "volumesInUse",
     "vsphere_volume": "vsphereVolume",
+    "webhook_client_config": "webhookClientConfig",
     "working_dir": "workingDir",
 }
