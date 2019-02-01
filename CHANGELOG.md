@@ -1,4 +1,24 @@
-## 0.19.1 (Unreleased)
+## 0.20.1 (Unreleased)
+
+## 0.20.0 (Released February 1, 2019)
+
+### Major changes
+
+-   Add support for first-class Python providers (https://github.com/pulumi/pulumi-kubernetes/pull/350)
+-   Upgrade to client-go 0.10.0 (https://github.com/pulumi/pulumi-kubernetes/pull/348)
+
+### Improvements
+
+-   Consider PVC events in Deployment await logic (https://github.com/pulumi/pulumi-kubernetes/pull/355)
+-   Improve info message for Ingress with default path (https://github.com/pulumi/pulumi-kubernetes/pull/388)
+-   Autogenerate Python casing table from OpenAPI spec (https://github.com/pulumi/pulumi-kubernetes/pull/387)
+
+### Bug fixes
+
+-   Use `node-fetch` rather than `got` to support Node 6 (https://github.com/pulumi/pulumi-kubernetes/pull/390)
+-   Prevent orphaned resources on cancellation during delete (https://github.com/pulumi/pulumi-kubernetes/pull/368)
+-   Handle buggy case for headless Service with no port (https://github.com/pulumi/pulumi-kubernetes/pull/366)
+
 
 ## 0.19.0 (Released January 15, 2019)
 
