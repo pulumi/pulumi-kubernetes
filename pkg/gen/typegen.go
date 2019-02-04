@@ -276,7 +276,13 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
 		if tstr == "array" {
-			return fmt.Sprintf("%s[]", makeTypescriptType(prop["items"].(map[string]interface{}), opts))
+			elemType := makeTypescriptType(prop["items"].(map[string]interface{}), opts)
+			switch opts.generatorType {
+			case outputsAPI, provider:
+				return fmt.Sprintf("%s[]", elemType)
+			case inputsAPI:
+				return fmt.Sprintf("pulumi.Input<%s>[]", elemType)
+			}
 		} else if tstr == "integer" {
 			return "number"
 		} else if tstr == object {
