@@ -1,5 +1,11 @@
 ## 0.20.2 (Unreleased)
 
+### Major changes
+
+### Improvements
+
+-   Clean up docstrings for Helm package (https://github.com/pulumi/pulumi-kubernetes/pull/396)
+
 ### Bug fixes
 
 -   Use modified copy of memcache client (https://github.com/pulumi/pulumi-kubernetes/pull/414)
