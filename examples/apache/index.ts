@@ -19,7 +19,7 @@ const namespace = new k8s.core.v1.Namespace("test");
 const appLabels = {app: "apache"};
 const defaults = {
   name: "apache",
-  namespace: namespace.metadata.apply(metadata => metadata.namespace),
+  namespace: namespace.metadata.apply(metadata => metadata.name),
   labels: appLabels,
   serviceSelector: appLabels,
   // ref: https://hub.docker.com/r/bitnami/apache/tags/
