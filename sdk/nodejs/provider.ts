@@ -3652,7 +3652,7 @@ export namespace apiextensions {
        */
       public readonly kind: pulumi.Output<"CustomResourceDefinition">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -3729,7 +3729,7 @@ export namespace apiextensions {
        */
       public readonly kind: pulumi.Output<"CustomResourceDefinitionList">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
@@ -3796,7 +3796,7 @@ export namespace apiregistration {
        */
       public readonly kind: pulumi.Output<"APIService">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -3860,7 +3860,7 @@ export namespace apiregistration {
        */
       public readonly apiVersion: pulumi.Output<"apiregistration.k8s.io/v1">;
 
-
+      
       public readonly items: pulumi.Output<outputApi.apiregistration.v1.APIService[]>;
 
       /**
@@ -3871,7 +3871,7 @@ export namespace apiregistration {
        */
       public readonly kind: pulumi.Output<"APIServiceList">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
@@ -3935,7 +3935,7 @@ export namespace apiregistration {
        */
       public readonly kind: pulumi.Output<"APIService">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -3999,7 +3999,7 @@ export namespace apiregistration {
        */
       public readonly apiVersion: pulumi.Output<"apiregistration.k8s.io/v1beta1">;
 
-
+      
       public readonly items: pulumi.Output<outputApi.apiregistration.v1beta1.APIService[]>;
 
       /**
@@ -4010,7 +4010,7 @@ export namespace apiregistration {
        */
       public readonly kind: pulumi.Output<"APIServiceList">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
@@ -4669,7 +4669,7 @@ export namespace apps {
        */
       public readonly kind: pulumi.Output<"StatefulSet">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -4734,7 +4734,7 @@ export namespace apps {
        */
       public readonly apiVersion: pulumi.Output<"apps/v1">;
 
-
+      
       public readonly items: pulumi.Output<outputApi.apps.v1.StatefulSet[]>;
 
       /**
@@ -4745,7 +4745,7 @@ export namespace apps {
        */
       public readonly kind: pulumi.Output<"StatefulSetList">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
@@ -5111,7 +5111,7 @@ export namespace apps {
        */
       public readonly kind: pulumi.Output<"StatefulSet">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -5176,7 +5176,7 @@ export namespace apps {
        */
       public readonly apiVersion: pulumi.Output<"apps/v1beta1">;
 
-
+      
       public readonly items: pulumi.Output<outputApi.apps.v1beta1.StatefulSet[]>;
 
       /**
@@ -5187,7 +5187,7 @@ export namespace apps {
        */
       public readonly kind: pulumi.Output<"StatefulSetList">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
@@ -5852,7 +5852,7 @@ export namespace apps {
        */
       public readonly kind: pulumi.Output<"StatefulSet">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -5917,7 +5917,7 @@ export namespace apps {
        */
       public readonly apiVersion: pulumi.Output<"apps/v1beta2">;
 
-
+      
       public readonly items: pulumi.Output<outputApi.apps.v1beta2.StatefulSet[]>;
 
       /**
@@ -5928,7 +5928,7 @@ export namespace apps {
        */
       public readonly kind: pulumi.Output<"StatefulSetList">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
@@ -5995,7 +5995,7 @@ export namespace auditregistration {
        */
       public readonly kind: pulumi.Output<"AuditSink">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6066,7 +6066,7 @@ export namespace auditregistration {
        */
       public readonly kind: pulumi.Output<"AuditSinkList">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
@@ -6134,7 +6134,7 @@ export namespace authentication {
        */
       public readonly kind: pulumi.Output<"TokenReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6210,7 +6210,7 @@ export namespace authentication {
        */
       public readonly kind: pulumi.Output<"TokenReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6290,7 +6290,7 @@ export namespace authorization {
        */
       public readonly kind: pulumi.Output<"LocalSubjectAccessReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6365,7 +6365,7 @@ export namespace authorization {
        */
       public readonly kind: pulumi.Output<"SelfSubjectAccessReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6444,7 +6444,7 @@ export namespace authorization {
        */
       public readonly kind: pulumi.Output<"SelfSubjectRulesReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6516,7 +6516,7 @@ export namespace authorization {
        */
       public readonly kind: pulumi.Output<"SubjectAccessReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6593,7 +6593,7 @@ export namespace authorization {
        */
       public readonly kind: pulumi.Output<"LocalSubjectAccessReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6668,7 +6668,7 @@ export namespace authorization {
        */
       public readonly kind: pulumi.Output<"SelfSubjectAccessReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6747,7 +6747,7 @@ export namespace authorization {
        */
       public readonly kind: pulumi.Output<"SelfSubjectRulesReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -6819,7 +6819,7 @@ export namespace authorization {
        */
       public readonly kind: pulumi.Output<"SubjectAccessReview">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -7795,7 +7795,7 @@ export namespace certificates {
        */
       public readonly kind: pulumi.Output<"CertificateSigningRequest">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -7847,7 +7847,7 @@ export namespace certificates {
       }
     }
 
-
+    
     export class CertificateSigningRequestList extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
@@ -7857,7 +7857,7 @@ export namespace certificates {
        */
       public readonly apiVersion: pulumi.Output<"certificates.k8s.io/v1beta1">;
 
-
+      
       public readonly items: pulumi.Output<outputApi.certificates.v1beta1.CertificateSigningRequest[]>;
 
       /**
@@ -7868,7 +7868,7 @@ export namespace certificates {
        */
       public readonly kind: pulumi.Output<"CertificateSigningRequestList">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
@@ -10623,7 +10623,7 @@ export namespace events {
        */
       public readonly kind: pulumi.Output<"Event">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -11944,7 +11944,7 @@ export namespace policy {
        */
       public readonly kind: pulumi.Output<"PodDisruptionBudget">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
@@ -12008,7 +12008,7 @@ export namespace policy {
        */
       public readonly apiVersion: pulumi.Output<"policy/v1beta1">;
 
-
+      
       public readonly items: pulumi.Output<outputApi.policy.v1beta1.PodDisruptionBudget[]>;
 
       /**
@@ -12019,7 +12019,7 @@ export namespace policy {
        */
       public readonly kind: pulumi.Output<"PodDisruptionBudgetList">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
 
@@ -14276,10 +14276,10 @@ export namespace settings {
        */
       public readonly kind: pulumi.Output<"PodPreset">;
 
-
+      
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
-
+      
       public readonly spec: pulumi.Output<outputApi.settings.v1alpha1.PodPresetSpec>;
 
 
@@ -14398,7 +14398,7 @@ export namespace storage {
     /**
      * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
      * be dynamically provisioned.
-     *
+     * 
      * StorageClasses are non-namespaced; the name of the storage class according to etcd is in
      * ObjectMeta.Name.
      */
@@ -14585,7 +14585,7 @@ export namespace storage {
     /**
      * VolumeAttachment captures the intent to attach or detach the specified volume to/from the
      * specified node.
-     *
+     * 
      * VolumeAttachment objects are non-namespaced.
      */
     export class VolumeAttachment extends pulumi.CustomResource {
@@ -14737,7 +14737,7 @@ export namespace storage {
     /**
      * VolumeAttachment captures the intent to attach or detach the specified volume to/from the
      * specified node.
-     *
+     * 
      * VolumeAttachment objects are non-namespaced.
      */
     export class VolumeAttachment extends pulumi.CustomResource {
@@ -14889,7 +14889,7 @@ export namespace storage {
     /**
      * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
      * be dynamically provisioned.
-     *
+     * 
      * StorageClasses are non-namespaced; the name of the storage class according to etcd is in
      * ObjectMeta.Name.
      */
@@ -15076,7 +15076,7 @@ export namespace storage {
     /**
      * VolumeAttachment captures the intent to attach or detach the specified volume to/from the
      * specified node.
-     *
+     * 
      * VolumeAttachment objects are non-namespaced.
      */
     export class VolumeAttachment extends pulumi.CustomResource {
