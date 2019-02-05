@@ -251,9 +251,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		assignNameIfAutonamable(newInputs, urn.Name())
 	}
 
-	// Ensure that a namespace is set. Use "default" if none specified.
-	newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
-
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
 		return nil, err
@@ -416,7 +413,6 @@ func (k *kubeProvider) Create(
 		return nil, err
 	}
 	newInputs := propMapToUnstructured(newResInputs)
-	newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
 
 	config := await.CreateConfig{
 		ProviderConfig: await.ProviderConfig{
@@ -503,11 +499,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		oldInputs.SetGroupVersionKind(newInputs.GroupVersionKind())
 	}
 
-	ns, name := ParseFqName(req.GetId())
-	ns = canonicalNamespace(ns)
-	if oldInputs.GetNamespace() == "" {
-		oldInputs.SetNamespace(ns)
-	}
+	_, name := ParseFqName(req.GetId())
 	if oldInputs.GetName() == "" {
 		oldInputs.SetName(name)
 	}
@@ -659,7 +651,6 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 	newInputs := propMapToUnstructured(newResInputs)
-	newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
 
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
