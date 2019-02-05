@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@pulumi/pulumi": "dev",
-    "@pulumi/random": "^0.3.0"
+    "@pulumi/random": "dev"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
