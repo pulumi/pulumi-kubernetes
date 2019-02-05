@@ -2,8 +2,8 @@
     "name": "steps",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "dev",
-        "@pulumi/random": "^0.3.0"
+        "@pulumi/pulumi": "feature-proxyOutput",
+        "@pulumi/random": "feature-proxyOutput"
     },
     "devDependencies": {
         "typescript": "^2.5.3"
