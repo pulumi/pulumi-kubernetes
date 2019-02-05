@@ -5,9 +5,11 @@
         "typescript": "^2.5.3"
     },
     "dependencies": {
-        "@pulumi/pulumi": "^0.15.0",
-        "@pulumi/random": "^0.3.0",
-        "@pulumi/gcp": "latest",
-        "@pulumi/kubernetes": "^0.17.4"
+        "@pulumi/pulumi": "dev",
+        "@pulumi/random": "dev",
+        "@pulumi/gcp": "dev"
+    },
+    "peerDependencies": {
+        "@pulumi/kubernetes": "latest"
     }
 }

@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "dependencies": {
         "@pulumi/pulumi": "dev",
-        "@pulumi/random": "^0.3.0"
+        "@pulumi/random": "dev"
     },
     "devDependencies": {
         "typescript": "^2.5.3"
