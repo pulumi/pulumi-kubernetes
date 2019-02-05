@@ -1,0 +1,3 @@
+name: namespace-tests
+description: Tests whether Pulumi successfully updates namespace resources.
+runtime: nodejs
