@@ -27,5 +27,4 @@ const nginx = new k8s.helm.v2.Chart("simple-nginx-local", {
 });
 
 // Export the (cluster-private) IP address of the Guestbook frontend.
-export const frontendClusterIp = nginx.getResourceProperty("v1/Service", "simple-nginx-local-nginx", "spec")
-    .apply(spec => spec.clusterIP);
+export const frontendClusterIp = nginx.getResourceProperty("v1/Service", "simple-nginx-local-nginx", "spec").clusterIP;

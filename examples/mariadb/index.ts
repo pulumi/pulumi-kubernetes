@@ -81,7 +81,7 @@ export function makeConfigMap(appConfig: AppConfig): k8s.core.v1.ConfigMap {
             labels: labels
         },
         data: {
-            "my.cnf": pulumi.output(appConfig.mariaConfig).apply(config => config.cnf)
+            "my.cnf": pulumi.output(appConfig.mariaConfig).cnf,
         }
     });
 }
@@ -139,7 +139,7 @@ namespace deployment {
             name: "MARIADB_ROOT_PASSWORD",
             valueFrom: {
                 secretKeyRef: {
-                    name: passwordSecret.metadata.apply(m => m.name),
+                    name: passwordSecret.metadata.name,
                     key: "mariadb-root-password"
                 }
             }
@@ -148,7 +148,7 @@ namespace deployment {
             name: "MARIADB_PASSWORD",
             valueFrom: {
                 secretKeyRef: {
-                    name: passwordSecret.metadata.apply(m => m.name),
+                    name: passwordSecret.metadata.name,
                     key: "mariadb-password"
                 }
             }
@@ -186,9 +186,7 @@ namespace deployment {
                           image: pulumi
                               .output(appConfig.metrics)
                               .apply(m => `${m.image}:${m.imageTag}`),
-                          imagePullPolicy: pulumi
-                              .output(appConfig.metrics)
-                              .apply(m => m.imagePullPolicy),
+                          imagePullPolicy: pulumi.output(appConfig.metrics).imagePullPolicy,
                           env: [
                               {
                                   name: "MARIADB_ROOT_PASSWORD",
@@ -227,7 +225,7 @@ namespace deployment {
                               initialDelaySeconds: 5,
                               timeoutSeconds: 1
                           },
-                          resources: pulumi.output(appConfig).apply(ac => ac.metrics.resources)
+                          resources: pulumi.output(appConfig).metrics.resources,
                       }
                   ];
 
@@ -256,15 +254,11 @@ namespace deployment {
                                     ...secure(passwordSecret),
                                     {
                                         name: "MARIADB_USER",
-                                        value: pulumi
-                                            .output(appConfig)
-                                            .apply(ac => ac.mariaConfig.user)
+                                        value: pulumi.output(appConfig).mariaConfig.user,
                                     },
                                     {
                                         name: "MARIADB_DATABASE",
-                                        value: pulumi
-                                            .output(appConfig)
-                                            .apply(ac => ac.mariaConfig.db)
+                                        value: pulumi.output(appConfig).mariaConfig.db,
                                     }
                                 ],
                                 ports: [
@@ -302,7 +296,7 @@ namespace deployment {
                             {
                                 name: "config",
                                 configMap: {
-                                    name: configMap.metadata.apply(m => m.name)
+                                    name: configMap.metadata.name,
                                 }
                             }
                         ]
@@ -320,5 +314,5 @@ namespace deployment {
 const cm = makeConfigMap(appConfig);
 const s = makeSecret(appConfig);
 const pvc = makePersistentVolumeClaim(appConfig);
-const d = deployment.makePersistent(appConfig, s, pvc.metadata.apply(m => m.name), cm);
+const d = deployment.makePersistent(appConfig, s, pvc.metadata.name, cm);
 const svc = makeService(appConfig);

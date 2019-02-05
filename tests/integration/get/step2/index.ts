@@ -16,7 +16,7 @@ import * as k8s from "@pulumi/kubernetes";
 
 const namespace = new k8s.core.v1.Namespace("test-namespace");
 
-const idNamespace = namespace.metadata.apply(ns => ns.name);
+const idNamespace = namespace.metadata.name;
 
 k8s.apiextensions.CustomResource.get("my-new-cron-object-get", {
     apiVersion: "stable.example.com/v1",

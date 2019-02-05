@@ -23,7 +23,7 @@ export const namespace = new k8s.core.v1.Namespace("test-namespace");
 
 const pod = new k8s.core.v1.Pod("autonaming-test", {
   metadata: {
-    namespace: namespace.metadata.apply(ns => ns.name),
+    namespace: namespace.metadata.name,
     name: "autonaming-test",
     labels: {app: "autonaming-test"},
   },
