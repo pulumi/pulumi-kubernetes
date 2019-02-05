@@ -7,7 +7,9 @@
     "dependencies": {
         "@pulumi/pulumi": "feature-proxyOutput",
         "@pulumi/random": "feature-proxyOutput",
-        "@pulumi/gcp": "latest",
-        "@pulumi/kubernetes": "^0.17.4"
+        "@pulumi/gcp": "feature-proxyOutput"
+    },
+    "peerDependencies": {
+        "@pulumi/kubernetes": "latest"
     }
 }
