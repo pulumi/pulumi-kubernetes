@@ -21,22 +21,22 @@ function shuffle<T>(a: T[]): T[] {
 
 describe("helmSort", () => {
     it("is the identity function for the empty array", () => {
-        assert.deepEqual([].sort(helmSort), []);
+        assert.deepStrictEqual([].sort(helmSort), []);
     });
 
     it("is the identity function for single-element array", () => {
-        assert.deepEqual(makeKinds(["Namespace"]).sort(helmSort), makeKinds(["Namespace"]));
+        assert.deepStrictEqual(makeKinds(["Namespace"]).sort(helmSort), makeKinds(["Namespace"]));
     });
 
     it("correctly sorts duplicates", () => {
-        assert.deepEqual(
+        assert.deepStrictEqual(
             makeKinds(["Namespace", "LimitRange", "Namespace"]).sort(helmSort),
             makeKinds(["Namespace", "Namespace", "LimitRange"])
         );
     });
 
     it("puts unknown kinds last", () => {
-        assert.deepEqual(
+        assert.deepStrictEqual(
             makeKinds(["UNKNOWN KIND", "LimitRange", "Namespace"]).sort(helmSort),
             makeKinds(["Namespace", "LimitRange", "UNKNOWN KIND"])
         );
@@ -105,7 +105,7 @@ describe("helmSort", () => {
             "UNKNOWN_KIND"
         ]);
 
-        assert.notDeepEqual(shuffled, sorted);
-        assert.deepEqual(shuffled.sort(helmSort), sorted);
+        assert.notDeepStrictEqual(shuffled, sorted);
+        assert.deepStrictEqual(shuffled.sort(helmSort), sorted);
     });
 });
