@@ -348,6 +348,10 @@ func (k *kubeProvider) Diff(
 		return nil, err
 	}
 
+	// Explicitly set the "default" namespace if unset so that the diff ignores it.
+	oldInputs.SetNamespace(canonicalNamespace(oldInputs.GetNamespace()))
+	newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
+
 	// Decide whether to replace the resource.
 	replaces, err := forceNewProperties(oldInputs.Object, newInputs.Object, gvk)
 	if err != nil {
@@ -373,7 +377,7 @@ func (k *kubeProvider) Diff(
 			newInputs.GetName() == oldInputs.GetName() &&
 			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the
 			// object in a new namespace and then deleting the old one).
-			canonicalNamespace(newInputs.GetNamespace()) == canonicalNamespace(oldInputs.GetNamespace())
+			newInputs.GetNamespace() == oldInputs.GetNamespace()
 
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,

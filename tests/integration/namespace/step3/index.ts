@@ -15,17 +15,26 @@
 import * as k8s from "@pulumi/kubernetes";
 
 ///
-/// Create a test namespace with no specified metadata.
+/// No change to the Namespace.
 ///
 
-new k8s.core.v1.Namespace("test");
+new k8s.core.v1.Namespace("test", {
+    metadata: {
+        labels: {
+            hello: "world"
+        }
+    }
+});
 
 ///
-/// Create a test Pod with no metadata specified. This will be created in the "default" namespace,
-/// but the object registered with Pulumi to create will not have the .metadata.namespace field set.
+/// Update the Pod to explicitly set the "default" namespace to test that "" -> "default" does not
+/// require an update.
 ///
 
 new k8s.core.v1.Pod("no-metadata-pod", {
+    metadata: {
+        namespace: "default"
+    },
     spec: {
         containers: [
             {
@@ -38,13 +47,11 @@ new k8s.core.v1.Pod("no-metadata-pod", {
 });
 
 ///
-/// Create a test Pod with the "default" namespace explicitly set.
+/// Update the Pod to remove the explicit "default" namespace to test that "default" -> "" does not
+/// require an update.
 ///
 
 new k8s.core.v1.Pod("default-ns-pod", {
-    metadata: {
-        namespace: "default"
-    },
     spec: {
         containers: [
             {

@@ -25,3 +25,38 @@ new k8s.core.v1.Namespace("test", {
         }
     }
 });
+
+///
+/// No change to this Pod.
+///
+
+new k8s.core.v1.Pod("no-metadata-pod", {
+    spec: {
+        containers: [
+            {
+                name: "nginx",
+                image: "nginx:1.7.9",
+                ports: [{containerPort: 80}]
+            }
+        ]
+    }
+});
+
+///
+/// No change to this Pod.
+///
+
+new k8s.core.v1.Pod("default-ns-pod", {
+    metadata: {
+        namespace: "default"
+    },
+    spec: {
+        containers: [
+            {
+                name: "nginx",
+                image: "nginx:1.7.9",
+                ports: [{containerPort: 80}]
+            }
+        ]
+    }
+});

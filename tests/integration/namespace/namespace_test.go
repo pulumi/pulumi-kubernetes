@@ -16,6 +16,7 @@ package ints
 
 import (
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
@@ -36,25 +37,44 @@ func TestNamespace(t *testing.T) {
 		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
 	}
 
+	var nmPodName, defaultPodName string
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "step1",
 		Dependencies: []string{"@pulumi/kubernetes"},
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
-			stackRes := stackInfo.Deployment.Resources[2]
+			stackRes := stackInfo.Deployment.Resources[4]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-			provRes := stackInfo.Deployment.Resources[1]
+			provRes := stackInfo.Deployment.Resources[3]
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			// Assert the Namespace was created
 			namespace := stackInfo.Deployment.Resources[0]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
+
+			// Assert the "no metadata" Pod was created in the "default" namespace.
+			nmPod := stackInfo.Deployment.Resources[2]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), nmPod.URN.Type())
+			nmPodNamespace, _ := openapi.Pluck(nmPod.Outputs, "metadata", "namespace")
+			assert.Equal(t, nmPodNamespace.(string), "default")
+			nmPodNameRaw, _ := openapi.Pluck(nmPod.Outputs, "metadata", "name")
+			nmPodName = nmPodNameRaw.(string)
+			assert.True(t, strings.HasPrefix(nmPodName, "no-metadata-pod"))
+
+			// Assert the "explicit default namespace" Pod was created in the "default" namespace.
+			defaultPod := stackInfo.Deployment.Resources[1]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), defaultPod.URN.Type())
+			defaultPodNamespace, _ := openapi.Pluck(defaultPod.Outputs, "metadata", "namespace")
+			assert.Equal(t, defaultPodNamespace.(string), "default")
+			defaultPodNameRaw, _ := openapi.Pluck(defaultPod.Outputs, "metadata", "name")
+			defaultPodName = defaultPodNameRaw.(string)
+			assert.True(t, strings.HasPrefix(defaultPodName, "default-ns-pod"))
 		},
 		EditDirs: []integration.EditDir{
 			{
@@ -62,21 +82,59 @@ func TestNamespace(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[2]
+					stackRes := stackInfo.Deployment.Resources[4]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-					provRes := stackInfo.Deployment.Resources[1]
+					provRes := stackInfo.Deployment.Resources[3]
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					// Assert that the Namespace was updated with the expected label.
 					namespace := stackInfo.Deployment.Resources[0]
+					assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
 					namespaceLabels, _ := openapi.Pluck(namespace.Outputs, "metadata", "labels")
 					assert.Equal(t, map[string]interface{}{"hello": "world"},
 						namespaceLabels.(map[string]interface{}))
+				},
+			},
+			{
+				Dir:      "step3",
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
+
+					tests.SortResourcesByURN(stackInfo)
+
+					stackRes := stackInfo.Deployment.Resources[4]
+					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+					provRes := stackInfo.Deployment.Resources[3]
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+					namespace := stackInfo.Deployment.Resources[0]
+					assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
+
+					// Assert the "no metadata" Pod has not changed.
+					nmPod := stackInfo.Deployment.Resources[2]
+					assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), nmPod.URN.Type())
+					nmPodNamespace, _ := openapi.Pluck(nmPod.Outputs, "metadata", "namespace")
+					assert.Equal(t, nmPodNamespace.(string), "default")
+					nmPodNameRaw, _ := openapi.Pluck(nmPod.Outputs, "metadata", "name")
+					assert.True(t, strings.HasPrefix(nmPodNameRaw.(string), "no-metadata-pod"))
+					assert.Equal(t, nmPodNameRaw.(string), nmPodName)
+
+					// Assert the "explicit default namespace" has not changed.
+					defaultPod := stackInfo.Deployment.Resources[1]
+					assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), defaultPod.URN.Type())
+					defaultPodNamespace, _ := openapi.Pluck(defaultPod.Outputs, "metadata", "namespace")
+					assert.Equal(t, defaultPodNamespace.(string), "default")
+					defaultPodNameRaw, _ := openapi.Pluck(defaultPod.Outputs, "metadata", "name")
+					assert.True(t, strings.HasPrefix(defaultPodNameRaw.(string), "default-ns-pod"))
+					assert.Equal(t, defaultPodNameRaw.(string), defaultPodName)
 				},
 			},
 		},
