@@ -1,4 +1,11 @@
-## 0.20.1 (Unreleased)
+## 0.20.2 (Unreleased)
+
+## 0.20.1 (Released February 6, 2019)
+
+### Bug fixes
+
+-   Fix namespace handling regression (https://github.com/pulumi/pulumi-kubernetes/pull/403)
+-   Nest Input<T> inside arrays (https://github.com/pulumi/pulumi-kubernetes/pull/395)
 
 ## 0.20.0 (Released February 1, 2019)
 
