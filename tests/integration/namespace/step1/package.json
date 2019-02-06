@@ -1,0 +1,14 @@
+{
+    "name": "steps",
+    "version": "0.1.0",
+    "dependencies": {
+        "@pulumi/pulumi": "dev",
+        "@pulumi/random": "dev"
+    },
+    "devDependencies": {
+        "typescript": "^2.5.3"
+    },
+    "peerDependencies": {
+        "@pulumi/kubernetes": "latest"
+    }
+}
