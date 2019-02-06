@@ -48,7 +48,7 @@ func TestExamples(t *testing.T) {
 					t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 				) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 9, len(stackInfo.Deployment.Resources))
 
 					sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
 						ri := stackInfo.Deployment.Resources[i]
@@ -88,8 +88,12 @@ func TestExamples(t *testing.T) {
 					status, _ = openapi.Pluck(redisSlaveDepl.Outputs, "status", "readyReplicas")
 					assert.Equal(t, float64(1), status)
 
+					// Verify test namespace.
+					namespace := stackInfo.Deployment.Resources[3]
+					assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
+
 					// Verify frontend service.
-					frontentService := stackInfo.Deployment.Resources[3]
+					frontentService := stackInfo.Deployment.Resources[4]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), frontentService.URN.Type())
 					name, _ = openapi.Pluck(frontentService.Outputs, "metadata", "name")
 					assert.Equal(t, "frontend", name)
@@ -97,7 +101,7 @@ func TestExamples(t *testing.T) {
 					assert.True(t, len(status.(string)) > 1)
 
 					// Verify redis-master service.
-					redisMasterService := stackInfo.Deployment.Resources[4]
+					redisMasterService := stackInfo.Deployment.Resources[5]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisMasterService.URN.Type())
 					name, _ = openapi.Pluck(redisMasterService.Outputs, "metadata", "name")
 					assert.Equal(t, "redis-master", name)
@@ -105,7 +109,7 @@ func TestExamples(t *testing.T) {
 					assert.True(t, len(status.(string)) > 1)
 
 					// Verify redis-slave service.
-					redisSlaveService := stackInfo.Deployment.Resources[5]
+					redisSlaveService := stackInfo.Deployment.Resources[6]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisSlaveService.URN.Type())
 					name, _ = openapi.Pluck(redisSlaveService.Outputs, "metadata", "name")
 					assert.Equal(t, "redis-slave", name)
@@ -113,11 +117,11 @@ func TestExamples(t *testing.T) {
 					assert.True(t, len(status.(string)) > 1)
 
 					// Verify the provider resource.
-					provRes := stackInfo.Deployment.Resources[6]
+					provRes := stackInfo.Deployment.Resources[7]
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					// Verify root resource.
-					stackRes := stackInfo.Deployment.Resources[7]
+					stackRes := stackInfo.Deployment.Resources[8]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 				},
 			}),

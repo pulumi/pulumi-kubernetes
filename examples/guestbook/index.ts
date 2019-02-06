@@ -1,12 +1,28 @@
-// Copyright 2016-2018, Pulumi Corporation.  All rights reserved.
+// Copyright 2016-2019, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import * as k8s from "@pulumi/kubernetes";
+
+const ns = new k8s.core.v1.Namespace("test");
+const namespace = ns.metadata.apply(metadata => metadata.name);
 
 // REDIS MASTER
 
 let redisMasterLabels = { app: "redis", tier: "backend", role: "master"};
 let redisMasterService = new k8s.core.v1.Service("redis-master", {
     metadata: {
+        namespace: namespace,
         name: "redis-master",
         labels: redisMasterLabels,
     },
@@ -18,6 +34,7 @@ let redisMasterService = new k8s.core.v1.Service("redis-master", {
 
 let redisMasterDeployment = new k8s.apps.v1.Deployment("redis-master", {
     metadata: {
+        namespace: namespace,
         name: "redis-master",
     },
     spec: {
@@ -52,6 +69,7 @@ let redisMasterDeployment = new k8s.apps.v1.Deployment("redis-master", {
 let redisSlaveLabels = { app: "redis", tier: "backend", role: "slave" };
 let redisSlaveService = new k8s.core.v1.Service("redis-slave", {
     metadata: {
+        namespace: namespace,
         name: "redis-slave",
         labels: redisSlaveLabels,
     },
@@ -63,6 +81,7 @@ let redisSlaveService = new k8s.core.v1.Service("redis-slave", {
 
 let redisSlaveDeployment = new k8s.apps.v1.Deployment("redis-slave", {
     metadata: {
+        namespace: namespace,
         name: "redis-slave",
     },
     spec: {
@@ -105,6 +124,7 @@ let redisSlaveDeployment = new k8s.apps.v1.Deployment("redis-slave", {
 let frontendLabels = { app: "guestbook", tier: "frontend" };
 let frontendService = new k8s.core.v1.Service("frontend", {
     metadata: {
+        namespace: namespace,
         name: "frontend",
         labels: frontendLabels,
     },
@@ -119,6 +139,7 @@ let frontendService = new k8s.core.v1.Service("frontend", {
 
 let frontendDeployment = new k8s.apps.v1.Deployment("frontend", {
     metadata: {
+        namespace: namespace,
         name: "frontend",
     },
     spec: {
