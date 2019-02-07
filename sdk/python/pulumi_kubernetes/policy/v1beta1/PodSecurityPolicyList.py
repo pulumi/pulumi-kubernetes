@@ -19,7 +19,7 @@ class PodSecurityPolicyList(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'policy/v1beta1'
         __props__['kind'] = 'PodSecurityPolicyList'
-        if not items:
+        if items is None:
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata

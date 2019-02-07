@@ -20,7 +20,7 @@ class PriorityClass(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'scheduling.k8s.io/v1beta1'
         __props__['kind'] = 'PriorityClass'
-        if not value:
+        if value is None:
             raise TypeError('Missing required property value')
         __props__['value'] = value
         __props__['description'] = description

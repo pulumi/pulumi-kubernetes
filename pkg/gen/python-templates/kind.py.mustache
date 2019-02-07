@@ -18,8 +18,8 @@ class {{Kind}}(pulumi.CustomResource):
         __props__['apiVersion'] = '{{RawAPIVersion}}'
         __props__['kind'] = '{{Kind}}'
         {{#RequiredProperties}}
-        if not {{Name}}:
-            raise TypeError('Missing required property {{Name}}')
+        if {{LanguageName}} is None:
+            raise TypeError('Missing required property {{LanguageName}}')
         __props__['{{Name}}'] = {{LanguageName}}
         {{/RequiredProperties}}
         {{#OptionalProperties}}

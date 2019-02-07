@@ -20,8 +20,8 @@ class ClusterRoleBinding(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1alpha1'
         __props__['kind'] = 'ClusterRoleBinding'
-        if not roleRef:
-            raise TypeError('Missing required property roleRef')
+        if role_ref is None:
+            raise TypeError('Missing required property role_ref')
         __props__['roleRef'] = role_ref
         __props__['metadata'] = metadata
         __props__['subjects'] = subjects

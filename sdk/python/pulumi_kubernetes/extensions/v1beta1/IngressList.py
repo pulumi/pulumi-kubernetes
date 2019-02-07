@@ -19,7 +19,7 @@ class IngressList(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'extensions/v1beta1'
         __props__['kind'] = 'IngressList'
-        if not items:
+        if items is None:
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata

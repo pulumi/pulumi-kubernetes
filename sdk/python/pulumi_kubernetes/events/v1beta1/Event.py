@@ -20,8 +20,8 @@ class Event(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'events.k8s.io/v1beta1'
         __props__['kind'] = 'Event'
-        if not eventTime:
-            raise TypeError('Missing required property eventTime')
+        if event_time is None:
+            raise TypeError('Missing required property event_time')
         __props__['eventTime'] = event_time
         __props__['action'] = action
         __props__['deprecatedCount'] = deprecated_count

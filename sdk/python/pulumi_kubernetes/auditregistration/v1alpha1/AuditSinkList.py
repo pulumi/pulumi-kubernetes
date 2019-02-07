@@ -19,7 +19,7 @@ class AuditSinkList(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'auditregistration.k8s.io/v1alpha1'
         __props__['kind'] = 'AuditSinkList'
-        if not items:
+        if items is None:
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata
