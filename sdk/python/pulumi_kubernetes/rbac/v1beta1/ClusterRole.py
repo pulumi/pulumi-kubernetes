@@ -20,7 +20,7 @@ class ClusterRole(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1beta1'
         __props__['kind'] = 'ClusterRole'
-        if not rules:
+        if rules is None:
             raise TypeError('Missing required property rules')
         __props__['rules'] = rules
         __props__['aggregationRule'] = aggregation_rule

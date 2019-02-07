@@ -19,7 +19,7 @@ class VolumeAttachmentList(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'storage.k8s.io/v1'
         __props__['kind'] = 'VolumeAttachmentList'
-        if not items:
+        if items is None:
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata

@@ -28,7 +28,7 @@ class ControllerRevision(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'apps/v1beta1'
         __props__['kind'] = 'ControllerRevision'
-        if not revision:
+        if revision is None:
             raise TypeError('Missing required property revision')
         __props__['revision'] = revision
         __props__['data'] = data

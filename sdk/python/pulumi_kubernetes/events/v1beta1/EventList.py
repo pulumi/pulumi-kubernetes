@@ -19,7 +19,7 @@ class EventList(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'events.k8s.io/v1beta1'
         __props__['kind'] = 'EventList'
-        if not items:
+        if items is None:
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata

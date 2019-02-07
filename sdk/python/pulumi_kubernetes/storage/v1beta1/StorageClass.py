@@ -23,7 +23,7 @@ class StorageClass(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'storage.k8s.io/v1beta1'
         __props__['kind'] = 'StorageClass'
-        if not provisioner:
+        if provisioner is None:
             raise TypeError('Missing required property provisioner')
         __props__['provisioner'] = provisioner
         __props__['allowVolumeExpansion'] = allow_volume_expansion

@@ -19,7 +19,7 @@ class ReplicationControllerList(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'v1'
         __props__['kind'] = 'ReplicationControllerList'
-        if not items:
+        if items is None:
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata

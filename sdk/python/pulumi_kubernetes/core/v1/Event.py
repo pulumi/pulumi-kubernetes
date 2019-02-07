@@ -19,10 +19,10 @@ class Event(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'v1'
         __props__['kind'] = 'Event'
-        if not involvedObject:
-            raise TypeError('Missing required property involvedObject')
+        if involved_object is None:
+            raise TypeError('Missing required property involved_object')
         __props__['involvedObject'] = involved_object
-        if not metadata:
+        if metadata is None:
             raise TypeError('Missing required property metadata')
         __props__['metadata'] = metadata
         __props__['action'] = action

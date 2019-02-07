@@ -19,7 +19,7 @@ class DaemonSetList(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'apps/v1beta2'
         __props__['kind'] = 'DaemonSetList'
-        if not items:
+        if items is None:
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata
