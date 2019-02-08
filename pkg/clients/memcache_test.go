@@ -91,7 +91,7 @@ func TestClient(t *testing.T) {
 	if c.Fresh() {
 		t.Errorf("Expected not fresh.")
 	}
-	g, err := c.ServerGroups()
+	_, err := c.ServerGroups()
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
@@ -103,7 +103,7 @@ func TestClient(t *testing.T) {
 		t.Errorf("Expected not fresh.")
 	}
 
-	g, err = c.ServerGroups()
+	g, err := c.ServerGroups()
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
