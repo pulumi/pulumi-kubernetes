@@ -18,11 +18,9 @@ import (
 	"fmt"
 	"strings"
 
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
-	cacheddiscovery "k8s.io/client-go/discovery/cached"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/restmapper"
@@ -98,9 +96,7 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 
 	// Cache the discovery information (OpenAPI schema, etc.) so we don't have to retrieve it for
 	// every request.
-	discoCacheClient := cacheddiscovery.NewMemCacheClient(disco)
-	discoCacheClient.Invalidate()
-
+	discoCacheClient := NewMemCacheClient(disco)
 	mapper := restmapper.NewDeferredDiscoveryRESTMapper(discoCacheClient)
 
 	// Create dynamic resource client
@@ -178,7 +174,7 @@ func (dcs *DynamicClientSet) gvkForKind(kind Kind) (*schema.GroupVersionKind, er
 }
 
 func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, error) {
-	resourceList, err := dcs.getServerResourcesForGV(gvk.GroupVersion())
+	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
 	if err != nil {
 		return false, err
 	}
@@ -190,34 +186,6 @@ func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, erro
 	}
 
 	return true, fmt.Errorf("failed to discover namespace info for %s", gvk)
-}
-
-func (dcs *DynamicClientSet) getServerResourcesForGV(gv schema.GroupVersion,
-) (*v1.APIResourceList, error) {
-	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
-
-	if err != nil {
-		// Refresh cache and retry once in case of a cache miss.
-		if isServerCacheError(err) {
-			dcs.RESTMapper.Reset()
-
-			resourceList, err = dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv.String())
-			if err != nil {
-				return nil, err
-			}
-		} else { // Any other errors are not recoverable.
-			return nil, err
-		}
-	}
-
-	return resourceList, nil
-}
-
-func isServerCacheError(err error) bool {
-	if err == cacheddiscovery.ErrCacheEmpty || err == cacheddiscovery.ErrCacheNotFound {
-		return true
-	}
-	return false
 }
 
 // namespaceOrDefault returns `ns` or the the default namespace `"default"` if `ns` is empty.

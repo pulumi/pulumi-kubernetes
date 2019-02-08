@@ -1206,11 +1206,11 @@
   revision = "5702a69c455d3a129efbc2e86f8de61eb1af25a5"
 
 [[projects]]
-  digest = "1:091ada87ef938eb5bcbfa6e7894c7410e101132ed08db292d05193f96b99ee50"
+  digest = "1:b9f7bd5e364748dbab4889ca541cb8b68db4bb42034dfc80adcb4e8ef09bf686"
   name = "k8s.io/client-go"
   packages = [
     "discovery",
-    "discovery/cached",
+    "discovery/fake",
     "dynamic",
     "kubernetes",
     "kubernetes/scheme",
@@ -1267,6 +1267,7 @@
     "scale/scheme/autoscalingv1",
     "scale/scheme/extensionsint",
     "scale/scheme/extensionsv1beta1",
+    "testing",
     "third_party/forked/golang/template",
     "tools/auth",
     "tools/clientcmd",
@@ -1353,6 +1354,7 @@
     "github.com/golang/glog",
     "github.com/golang/protobuf/ptypes/empty",
     "github.com/golang/protobuf/ptypes/struct",
+    "github.com/googleapis/gnostic/OpenAPIv2",
     "github.com/jinzhu/copier",
     "github.com/mitchellh/go-wordwrap",
     "github.com/pkg/errors",
@@ -1387,7 +1389,7 @@
     "k8s.io/apimachinery/pkg/version",
     "k8s.io/apimachinery/pkg/watch",
     "k8s.io/client-go/discovery",
-    "k8s.io/client-go/discovery/cached",
+    "k8s.io/client-go/discovery/fake",
     "k8s.io/client-go/dynamic",
     "k8s.io/client-go/plugin/pkg/client/auth",
     "k8s.io/client-go/rest",
