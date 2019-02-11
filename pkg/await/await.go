@@ -19,6 +19,7 @@ import (
 	"fmt"
 
 	"github.com/golang/glog"
+	"github.com/pulumi/pulumi-kubernetes/pkg/annotations"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/retry"
@@ -131,19 +132,22 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// logic is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
-		if awaiter.awaitCreation != nil {
-			conf := createAwaitConfig{
-				host:      c.Host,
-				ctx:       c.Context,
-				urn:       c.URN,
-				clientSet: c.ClientSet,
-				// TODO(lblackstone): maybe pass create output into input here?
-				currentInputs:  c.Inputs,
-				currentOutputs: outputs,
-			}
-			waitErr := awaiter.awaitCreation(conf)
-			if waitErr != nil {
-				return nil, waitErr
+		if annotations.SkipAwaitLogic(c.Inputs) {
+			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
+		} else {
+			if awaiter.awaitCreation != nil {
+				conf := createAwaitConfig{
+					host:           c.Host,
+					ctx:            c.Context,
+					urn:            c.URN,
+					clientSet:      c.ClientSet,
+					currentInputs:  c.Inputs,
+					currentOutputs: outputs,
+				}
+				waitErr := awaiter.awaitCreation(conf)
+				if waitErr != nil {
+					return nil, waitErr
+				}
 			}
 		}
 	} else {
@@ -173,18 +177,22 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 
 	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
-		if awaiter.awaitRead != nil {
-			conf := createAwaitConfig{
-				host:           c.Host,
-				ctx:            c.Context,
-				urn:            c.URN,
-				clientSet:      c.ClientSet,
-				currentInputs:  c.Inputs,
-				currentOutputs: outputs,
-			}
-			waitErr := awaiter.awaitRead(conf)
-			if waitErr != nil {
-				return nil, waitErr
+		if annotations.SkipAwaitLogic(c.Inputs) {
+			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
+		} else {
+			if awaiter.awaitRead != nil {
+				conf := createAwaitConfig{
+					host:           c.Host,
+					ctx:            c.Context,
+					urn:            c.URN,
+					clientSet:      c.ClientSet,
+					currentInputs:  c.Inputs,
+					currentOutputs: outputs,
+				}
+				waitErr := awaiter.awaitRead(conf)
+				if waitErr != nil {
+					return nil, waitErr
+				}
 			}
 		}
 	}
@@ -284,22 +292,26 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
-		if awaiter.awaitUpdate != nil {
-			conf := updateAwaitConfig{
-				createAwaitConfig: createAwaitConfig{
-					host:           c.Host,
-					ctx:            c.Context,
-					urn:            c.URN,
-					clientSet:      c.ClientSet,
-					currentInputs:  c.Inputs,
-					currentOutputs: currentOutputs,
-				},
-				lastInputs:  c.Previous,
-				lastOutputs: liveOldObj,
-			}
-			waitErr := awaiter.awaitUpdate(conf)
-			if waitErr != nil {
-				return nil, waitErr
+		if annotations.SkipAwaitLogic(c.Inputs) {
+			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
+		} else {
+			if awaiter.awaitUpdate != nil {
+				conf := updateAwaitConfig{
+					createAwaitConfig: createAwaitConfig{
+						host:           c.Host,
+						ctx:            c.Context,
+						urn:            c.URN,
+						clientSet:      c.ClientSet,
+						currentInputs:  c.Inputs,
+						currentOutputs: currentOutputs,
+					},
+					lastInputs:  c.Previous,
+					lastOutputs: liveOldObj,
+				}
+				waitErr := awaiter.awaitUpdate(conf)
+				if waitErr != nil {
+					return nil, waitErr
+				}
 			}
 		}
 	} else {
@@ -391,7 +403,11 @@ func Deletion(c DeleteConfig) error {
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
-		waitErr = awaiter.awaitDeletion(c.Context, client, c.Name)
+		if annotations.SkipAwaitLogic(c.Inputs) {
+			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
+		} else {
+			waitErr = awaiter.awaitDeletion(c.Context, client, c.Name)
+		}
 	} else {
 		for {
 			select {
