@@ -20,6 +20,7 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/retry"
 	"github.com/pulumi/pulumi/pkg/diag"
@@ -107,6 +108,9 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					return err
 				}
 			}
+
+			// Set a "managed-by: pulumi" label on all created k8s resources.
+			metadata.SetManagedByLabel(c.Inputs)
 
 			outputs, err = client.Create(c.Inputs, metav1.CreateOptions{})
 			if err != nil {
