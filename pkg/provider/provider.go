@@ -24,6 +24,7 @@ import (
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	"github.com/golang/protobuf/ptypes/struct"
+	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
@@ -227,11 +228,11 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	var failures []*pulumirpc.CheckFailure
 
-	// If annotations with the prefix `pulumi.com/` exist, report that as error.
+	// If annotations with a reserved internal prefix exist, report that as error.
 	for k := range newInputs.GetAnnotations() {
-		if strings.HasPrefix(k, annotationInternalPrefix) {
+		if metadata.IsInternalAnnotation(k) {
 			failures = append(failures, &pulumirpc.CheckFailure{
-				Reason: fmt.Sprintf("annotation %q uses illegal prefix `pulumi.com/internal`", k),
+				Reason: fmt.Sprintf("invalid use of reserved internal annotation %q", k),
 			})
 		}
 	}
@@ -246,9 +247,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		// NOTE: If old inputs exist, they have a name, either provided by the user or filled in with a
 		// previous run of `Check`.
 		contract.Assert(oldInputs.GetName() != "")
-		adoptOldNameIfUnnamed(newInputs, oldInputs)
+		metadata.AdoptOldNameIfUnnamed(newInputs, oldInputs)
 	} else {
-		assignNameIfAutonamable(newInputs, urn.Name())
+		metadata.AssignNameIfAutonamable(newInputs, urn.Name())
 	}
 
 	gvk, err := k.gvkFromURN(urn)
@@ -372,7 +373,7 @@ func (k *kubeProvider) Diff(
 		len(replaces) > 0 &&
 			// 2. Object is NOT autonamed (i.e., user manually named it, and therefore we can't
 			// auto-generate the name).
-			!isAutonamed(newInputs) &&
+			!metadata.IsAutonamed(newInputs) &&
 			// 3. The new, user-specified name is the same as the old name.
 			newInputs.GetName() == oldInputs.GetName() &&
 			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the
