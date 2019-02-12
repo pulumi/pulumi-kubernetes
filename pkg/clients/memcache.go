@@ -26,7 +26,6 @@ limitations under the License.
 package clients
 
 import (
-	"errors"
 	"fmt"
 	"net"
 	"net/url"
@@ -39,6 +38,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/version"
 	"k8s.io/client-go/discovery"
+	"k8s.io/client-go/discovery/cached"
 	restclient "k8s.io/client-go/rest"
 )
 
@@ -60,11 +60,6 @@ type memCacheClient struct {
 	groupList              *metav1.APIGroupList
 	cacheValid             bool
 }
-
-// Error Constants
-var (
-	ErrCacheNotFound = errors.New("not found")
-)
 
 var _ discovery.CachedDiscoveryInterface = &memCacheClient{}
 
@@ -110,7 +105,7 @@ func (d *memCacheClient) ServerResourcesForGroupVersion(groupVersion string) (*m
 	}
 	cachedVal, ok := d.groupToServerResources[groupVersion]
 	if !ok {
-		return nil, ErrCacheNotFound
+		return nil, cached.ErrCacheNotFound
 	}
 
 	if cachedVal.err != nil && isTransientError(cachedVal.err) {

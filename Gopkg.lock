@@ -1206,10 +1206,11 @@
   revision = "5702a69c455d3a129efbc2e86f8de61eb1af25a5"
 
 [[projects]]
-  digest = "1:b9f7bd5e364748dbab4889ca541cb8b68db4bb42034dfc80adcb4e8ef09bf686"
+  digest = "1:4b463ac43d1ae25d891fec3e9f9383e0b635230b53d51ecca01fbe9e0b064ebc"
   name = "k8s.io/client-go"
   packages = [
     "discovery",
+    "discovery/cached",
     "discovery/fake",
     "dynamic",
     "kubernetes",
@@ -1389,6 +1390,7 @@
     "k8s.io/apimachinery/pkg/version",
     "k8s.io/apimachinery/pkg/watch",
     "k8s.io/client-go/discovery",
+    "k8s.io/client-go/discovery/cached",
     "k8s.io/client-go/discovery/fake",
     "k8s.io/client-go/dynamic",
     "k8s.io/client-go/plugin/pkg/client/auth",
