@@ -19,7 +19,7 @@ import (
 	"fmt"
 
 	"github.com/golang/glog"
-	"github.com/pulumi/pulumi-kubernetes/pkg/annotations"
+	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/retry"
@@ -132,7 +132,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// logic is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
-		if annotations.SkipAwaitLogic(c.Inputs) {
+		if metadata.SkipAwaitLogic(c.Inputs) {
 			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			if awaiter.awaitCreation != nil {
@@ -177,7 +177,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 
 	id := fmt.Sprintf("%s/%s", outputs.GetAPIVersion(), outputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
-		if annotations.SkipAwaitLogic(c.Inputs) {
+		if metadata.SkipAwaitLogic(c.Inputs) {
 			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			if awaiter.awaitRead != nil {
@@ -292,7 +292,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// is blank, simply do nothing instead of logging.
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists {
-		if annotations.SkipAwaitLogic(c.Inputs) {
+		if metadata.SkipAwaitLogic(c.Inputs) {
 			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			if awaiter.awaitUpdate != nil {
@@ -403,7 +403,7 @@ func Deletion(c DeleteConfig) error {
 	var waitErr error
 	id := fmt.Sprintf("%s/%s", c.Inputs.GetAPIVersion(), c.Inputs.GetKind())
 	if awaiter, exists := awaiters[id]; exists && awaiter.awaitDeletion != nil {
-		if annotations.SkipAwaitLogic(c.Inputs) {
+		if metadata.SkipAwaitLogic(c.Inputs) {
 			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			waitErr = awaiter.awaitDeletion(c.Context, client, c.Name)

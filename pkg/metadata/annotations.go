@@ -12,18 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package annotations
+package metadata
 
 import (
+	"strings"
+
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-const AnnotationTrue = "true"
-const AnnotationFalse = "false"
-const AnnotationPrefix = "pulumi.com/"
-const AnnotationInternalPrefix = AnnotationPrefix + "internal/"
-const AnnotationInternalAutonamed = AnnotationInternalPrefix + "autonamed"
-const AnnotationSkipAwait = AnnotationPrefix + "skipAwait"
+const (
+	AnnotationTrue  = "true"
+	AnnotationFalse = "false"
+
+	AnnotationPrefix = "pulumi.com/"
+
+	AnnotationAutonamed = AnnotationPrefix + "autonamed"
+	AnnotationSkipAwait = AnnotationPrefix + "skipAwait"
+)
+
+// Annotations for internal Pulumi use only.
+var internalAnnotationPrefixes = []string{AnnotationAutonamed}
+
+func IsInternalAnnotation(key string) bool {
+	for _, annotationPrefix := range internalAnnotationPrefixes {
+		if strings.HasPrefix(key, annotationPrefix) {
+			return true
+		}
+	}
+
+	return false
+}
 
 func SetAnnotation(obj *unstructured.Unstructured, key, value string) {
 	annotations := obj.GetAnnotations()

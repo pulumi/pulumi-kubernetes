@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package annotations
+package metadata
 
 import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"

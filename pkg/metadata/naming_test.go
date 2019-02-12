@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package annotations
+package metadata
 
 import (
 	"strings"
@@ -47,7 +47,7 @@ func TestAdoptName(t *testing.T) {
 				"name": "old1",
 				// NOTE: annotations needs to be a `map[string]interface{}` rather than `map[string]string`
 				// or the k8s utility functions fail.
-				"annotations": map[string]interface{}{AnnotationInternalAutonamed: "true"},
+				"annotations": map[string]interface{}{AnnotationAutonamed: "true"},
 			}},
 	}
 	new1 := &unstructured.Unstructured{

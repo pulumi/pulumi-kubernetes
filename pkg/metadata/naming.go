@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package annotations
+package metadata
 
 import (
 	"fmt"
@@ -32,7 +32,7 @@ func AssignNameIfAutonamable(obj *unstructured.Unstructured, base tokens.QName) 
 	contract.Assert(base != "")
 	if obj.GetName() == "" {
 		obj.SetName(fmt.Sprintf("%s-%s", base, randString(8)))
-		SetAnnotationTrue(obj, AnnotationInternalAutonamed)
+		SetAnnotationTrue(obj, AnnotationAutonamed)
 	}
 }
 
@@ -43,13 +43,13 @@ func AdoptOldNameIfUnnamed(newObj, oldObj *unstructured.Unstructured) {
 	if newObj.GetName() == "" {
 		newObj.SetName(oldObj.GetName())
 		if IsAutonamed(oldObj) {
-			SetAnnotationTrue(newObj, AnnotationInternalAutonamed)
+			SetAnnotationTrue(newObj, AnnotationAutonamed)
 		}
 	}
 }
 
 func IsAutonamed(obj *unstructured.Unstructured) bool {
-	return IsAnnotationTrue(obj, AnnotationInternalAutonamed)
+	return IsAnnotationTrue(obj, AnnotationAutonamed)
 }
 
 func randString(n int) string {
