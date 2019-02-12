@@ -1,4 +1,4 @@
-# Copyright 2016-2018, Pulumi Corporation.
+# Copyright 2016-2019, Pulumi Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,9 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import pulumi
-from pulumi_kubernetes.core.v1 import Service
 from pulumi_kubernetes.apps.v1 import Deployment
+from pulumi_kubernetes.core.v1 import Service, Namespace
+
+namespace = Namespace("test")
 
 redis_leader_labels = {
     "app": "redis",
@@ -21,7 +22,11 @@ redis_leader_labels = {
     "role": "master"
 }
 
-redis_leader_deployment = Deployment("redis-leader",
+redis_leader_deployment = Deployment(
+    "redis-leader",
+    metadata={
+        "namespace": namespace
+    },
     spec={
         "selector": {
             "match_labels": redis_leader_labels,
@@ -49,8 +54,10 @@ redis_leader_deployment = Deployment("redis-leader",
         },
     })
 
-redis_leader_service = Service("redis-leader",
+redis_leader_service = Service(
+    "redis-leader",
     metadata={
+        "namespace": namespace,
         "labels": redis_leader_labels
     },
     spec={
@@ -67,7 +74,11 @@ redis_follower_labels = {
     "role": "slave"
 }
 
-redis_follower_deployment = Deployment("redis-follower",
+redis_follower_deployment = Deployment(
+    "redis-follower",
+    metadata={
+        "namespace": namespace
+    },
     spec={
         "selector": {
             "match_labels": redis_follower_labels
@@ -103,8 +114,10 @@ redis_follower_deployment = Deployment("redis-follower",
         },
     })
 
-redis_follower_service = Service("redis-follower",
+redis_follower_service = Service(
+    "redis-follower",
     metadata={
+        "namespace": namespace,
         "labels": redis_follower_labels
     },
     spec={
@@ -120,8 +133,10 @@ frontend_labels = {
     "app": "guestbook",
     "tier": "frontend"
 }
-frontend_service = Service("frontend",
+frontend_service = Service(
+    "frontend",
     metadata={
+        "namespace": namespace,
         "labels": frontend_labels
     },
     spec={
@@ -134,7 +149,11 @@ frontend_service = Service("frontend",
         "selector": frontend_labels,
     })
 
-frontend_deployment = Deployment("frontend",
+frontend_deployment = Deployment(
+    "frontend",
+    metadata={
+        "namespace": namespace,
+    },
     spec={
         "selector": {
             "match_labels": frontend_labels,

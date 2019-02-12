@@ -67,7 +67,7 @@ func TestGuestbook(t *testing.T) {
 		Dir: filepath.Join(cwd, "guestbook"),
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 9, len(stackInfo.Deployment.Resources))
 
 			sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
 				ri := stackInfo.Deployment.Resources[i]
@@ -107,8 +107,14 @@ func TestGuestbook(t *testing.T) {
 			status, _ = openapi.Pluck(redisLeaderDepl.Outputs, "status", "readyReplicas")
 			assert.Equal(t, float64(1), status)
 
+			// Verify test namespace.
+			namespace := stackInfo.Deployment.Resources[3]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
+			name, _ = openapi.Pluck(namespace.Outputs, "metadata", "name")
+			assert.True(t, strings.HasPrefix(name.(string), "test"), fmt.Sprintf("%s %s", name, "test"))
+
 			// Verify frontend service.
-			frontendService := stackInfo.Deployment.Resources[3]
+			frontendService := stackInfo.Deployment.Resources[4]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), frontendService.URN.Type())
 			name, _ = openapi.Pluck(frontendService.Outputs, "metadata", "name")
 			assert.True(t, strings.HasPrefix(name.(string), "frontend"), fmt.Sprintf("%s %s", name, "frontend"))
@@ -116,7 +122,7 @@ func TestGuestbook(t *testing.T) {
 			assert.True(t, len(status.(string)) > 1)
 
 			// Verify redis-follower service.
-			redisFollowerService := stackInfo.Deployment.Resources[4]
+			redisFollowerService := stackInfo.Deployment.Resources[5]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisFollowerService.URN.Type())
 			name, _ = openapi.Pluck(redisFollowerService.Outputs, "metadata", "name")
 			assert.True(t, strings.HasPrefix(name.(string), "redis-follower"), fmt.Sprintf("%s %s", name, "redis-slave"))
@@ -124,7 +130,7 @@ func TestGuestbook(t *testing.T) {
 			assert.True(t, len(status.(string)) > 1)
 
 			// Verify redis-leader service.
-			redisLeaderService := stackInfo.Deployment.Resources[5]
+			redisLeaderService := stackInfo.Deployment.Resources[6]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisLeaderService.URN.Type())
 			name, _ = openapi.Pluck(redisLeaderService.Outputs, "metadata", "name")
 			assert.True(t, strings.HasPrefix(name.(string), "redis-leader"), fmt.Sprintf("%s %s", name, "redis-master"))
@@ -132,11 +138,11 @@ func TestGuestbook(t *testing.T) {
 			assert.True(t, len(status.(string)) > 1)
 
 			// Verify the provider resource.
-			provRes := stackInfo.Deployment.Resources[6]
+			provRes := stackInfo.Deployment.Resources[7]
 			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 			// Verify root resource.
-			stackRes := stackInfo.Deployment.Resources[7]
+			stackRes := stackInfo.Deployment.Resources[8]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 		},
 	})
