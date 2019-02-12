@@ -1024,7 +1024,9 @@ export namespace apiregistration {
       return o.apiVersion == "apiregistration.k8s.io/v1" && o.kind == "APIService";
     }
 
-    
+    /**
+     * APIServiceCondition describes the state of an APIService at a particular point
+     */
     export interface APIServiceCondition {
       /**
        * Status is the status of the condition. Can be True, False, Unknown.
@@ -1221,7 +1223,9 @@ export namespace apiregistration {
       return o.apiVersion == "apiregistration.k8s.io/v1beta1" && o.kind == "APIService";
     }
 
-    
+    /**
+     * APIServiceCondition describes the state of an APIService at a particular point
+     */
     export interface APIServiceCondition {
       /**
        * Status is the status of the condition. Can be True, False, Unknown.
@@ -12619,6 +12623,12 @@ export namespace core {
       readOnly?: pulumi.Input<boolean>
 
       /**
+       * Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned
+       * Quobyte volumes, value is set by the plugin
+       */
+      tenant?: pulumi.Input<string>
+
+      /**
        * User to map volume access to Defaults to serivceaccount user
        */
       user?: pulumi.Input<string>
@@ -16905,6 +16915,46 @@ export namespace meta {
 
 
     /**
+     * ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that
+     * the fieldset applies to.
+     */
+    export interface ManagedFieldsEntry {
+      /**
+       * APIVersion defines the version of this resource that this field set applies to. The format
+       * is "group/version" just like the top-level APIVersion field. It is necessary to track the
+       * version of a field set because it cannot be automatically converted.
+       */
+      apiVersion?: pulumi.Input<string>
+
+      /**
+       * Fields identifies a set of fields.
+       */
+      fields?: pulumi.Input<object>
+
+      /**
+       * Manager is an identifier of the workflow managing these fields.
+       */
+      manager?: pulumi.Input<string>
+
+      /**
+       * Operation is the type of operation which lead to this ManagedFieldsEntry being created. The
+       * only valid values for this field are 'Apply' and 'Update'.
+       */
+      operation?: pulumi.Input<string>
+
+      /**
+       * Time is timestamp of when these fields were set. It should always be empty if Operation is
+       * 'Apply'
+       */
+      time?: pulumi.Input<string>
+
+    }
+
+    export function isManagedFieldsEntry(o: any): o is ManagedFieldsEntry {
+      return o.apiVersion == "meta/v1" && o.kind == "ManagedFieldsEntry";
+    }
+
+    /**
      * ObjectMeta is metadata that all persisted resources must have, which includes all objects
      * users must create.
      */
@@ -17013,6 +17063,17 @@ export namespace meta {
        * http://kubernetes.io/docs/user-guide/labels
        */
       labels?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
+
+      /**
+       * ManagedFields maps workflow-id and version to the set of fields that are managed by that
+       * workflow. This is mostly for internal housekeeping, and users typically shouldn't need to
+       * set or understand this field. A workflow can be the user's name, a controller's name, or
+       * the name of a specific apply path like "ci-cd". The set of fields is always in the version
+       * that the workflow used when modifying the object.
+       * 
+       * This field is alpha and can be changed or removed without notice.
+       */
+      managedFields?: pulumi.Input<pulumi.Input<meta.v1.ManagedFieldsEntry>[]>
 
       /**
        * Name must be unique within a namespace. Is required when creating resources, although some
@@ -18260,11 +18321,6 @@ export namespace rbac {
      */
     export interface ClusterRole {
       /**
-       * Rules holds all the PolicyRules for this ClusterRole
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1.PolicyRule>[]>
-
-      /**
        * AggregationRule is an optional field that describes how to build the Rules for this
        * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
        * changes to Rules will be stomped by the controller.
@@ -18291,6 +18347,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this ClusterRole
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1.PolicyRule>[]>
 
     }
 
@@ -18461,11 +18522,6 @@ export namespace rbac {
      */
     export interface Role {
       /**
-       * Rules holds all the PolicyRules for this Role
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1.PolicyRule>[]>
-
-      /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
@@ -18485,6 +18541,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this Role
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1.PolicyRule>[]>
 
     }
 
@@ -18687,11 +18748,6 @@ export namespace rbac {
      */
     export interface ClusterRole {
       /**
-       * Rules holds all the PolicyRules for this ClusterRole
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1alpha1.PolicyRule>[]>
-
-      /**
        * AggregationRule is an optional field that describes how to build the Rules for this
        * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
        * changes to Rules will be stomped by the controller.
@@ -18718,6 +18774,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this ClusterRole
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1alpha1.PolicyRule>[]>
 
     }
 
@@ -18889,11 +18950,6 @@ export namespace rbac {
      */
     export interface Role {
       /**
-       * Rules holds all the PolicyRules for this Role
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1alpha1.PolicyRule>[]>
-
-      /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
@@ -18913,6 +18969,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this Role
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1alpha1.PolicyRule>[]>
 
     }
 
@@ -19119,11 +19180,6 @@ export namespace rbac {
      */
     export interface ClusterRole {
       /**
-       * Rules holds all the PolicyRules for this ClusterRole
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1beta1.PolicyRule>[]>
-
-      /**
        * AggregationRule is an optional field that describes how to build the Rules for this
        * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
        * changes to Rules will be stomped by the controller.
@@ -19150,6 +19206,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this ClusterRole
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1beta1.PolicyRule>[]>
 
     }
 
@@ -19321,11 +19382,6 @@ export namespace rbac {
      */
     export interface Role {
       /**
-       * Rules holds all the PolicyRules for this Role
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1beta1.PolicyRule>[]>
-
-      /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
@@ -19345,6 +19401,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this Role
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1beta1.PolicyRule>[]>
 
     }
 

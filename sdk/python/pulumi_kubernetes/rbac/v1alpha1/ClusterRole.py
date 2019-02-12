@@ -24,11 +24,9 @@ class ClusterRole(pulumi.CustomResource):
 
         __props__['apiVersion'] = 'rbac.authorization.k8s.io/v1alpha1'
         __props__['kind'] = 'ClusterRole'
-        if rules is None:
-            raise TypeError('Missing required property rules')
-        __props__['rules'] = rules
         __props__['aggregationRule'] = aggregation_rule
         __props__['metadata'] = metadata
+        __props__['rules'] = rules
 
         super(ClusterRole, self).__init__(
             "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole",

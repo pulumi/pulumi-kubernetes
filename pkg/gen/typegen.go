@@ -310,6 +310,7 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 		apiextensionsV1beta1          = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
 		quantity                      = "io.k8s.apimachinery.pkg.api.resource.Quantity"
 		intOrString                   = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+		v1Fields                      = "io.k8s.apimachinery.pkg.apis.meta.v1.Fields"
 		v1Time                        = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
 		v1MicroTime                   = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
 		v1beta1JSONSchemaPropsOrBool  = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
@@ -323,6 +324,8 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 		return stringT
 	case intOrString:
 		return "number | string"
+	case v1Fields:
+		return object
 	case v1Time, v1MicroTime:
 		// TODO: Automatically deserialized with `DateConstructor`.
 		return stringT
