@@ -1,13 +1,32 @@
-## 0.20.2 (Unreleased)
+## 0.20.3 (Unreleased)
 
 ### Major changes
 
+-   None
+
 ### Improvements
 
+-   None
+
+### Bug fixes
+
+-   None
+
+## 0.20.2 (Released February 12, 2019)
+
+### Major changes
+
+-   None
+
+### Improvements
+
+-   Allow awaiters to be skipped by setting an annotation (https://github.com/pulumi/pulumi-kubernetes/pull/417)
+-   Set managed-by: pulumi label on all created resources (https://github.com/pulumi/pulumi-kubernetes/pull/418)
 -   Clean up docstrings for Helm package (https://github.com/pulumi/pulumi-kubernetes/pull/396)
 
 ### Bug fixes
 
+-   Fix an issue with variable casing (https://github.com/pulumi/pulumi-kubernetes/pull/412)
 -   Use modified copy of memcache client (https://github.com/pulumi/pulumi-kubernetes/pull/414)
 
 ## 0.20.1 (Released February 6, 2019)
