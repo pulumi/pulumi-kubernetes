@@ -1,5 +1,9 @@
 ## 0.20.2 (Unreleased)
 
+### Bug fixes
+
+-   Use modified copy of memcache client (https://github.com/pulumi/pulumi-kubernetes/pull/414)
+
 ## 0.20.1 (Released February 6, 2019)
 
 ### Bug fixes
