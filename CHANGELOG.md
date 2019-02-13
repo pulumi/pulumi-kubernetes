@@ -12,7 +12,7 @@
 
 -   None
 
-## 0.20.2 (Released February 12, 2019)
+## 0.20.2 (Released February 13, 2019)
 
 ### Major changes
 
@@ -23,6 +23,7 @@
 -   Allow awaiters to be skipped by setting an annotation (https://github.com/pulumi/pulumi-kubernetes/pull/417)
 -   Set managed-by: pulumi label on all created resources (https://github.com/pulumi/pulumi-kubernetes/pull/418)
 -   Clean up docstrings for Helm package (https://github.com/pulumi/pulumi-kubernetes/pull/396)
+-   Support explicit `deleteBeforeReplace` (https://github.com/pulumi/pulumi/pull/2415)
 
 ### Bug fixes
 
