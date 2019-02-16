@@ -24,7 +24,8 @@
         "mocha": "^5.2.0",
         "@types/mocha": "^5.2.5",
         "node-fetch": "^2.3.0",
-        "@types/node-fetch": "^2.1.4"
+        "@types/node-fetch": "^2.1.4",
+        "rxjs": "6.4.0"
     },
     "devDependencies": {
         "typescript": "^2.6.2",

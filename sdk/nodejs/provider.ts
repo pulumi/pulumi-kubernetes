@@ -9,6 +9,8 @@ import * as outputApi from "./types/output";
 import * as jsyaml from "js-yaml";
 import * as glob from "glob";
 import fetch from "node-fetch";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
 export namespace yaml {
     export interface ConfigGroupOpts {
@@ -3116,7 +3118,7 @@ export namespace apiextensions {
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<inputApi.meta.v1.ObjectMeta>;
 
       /**
        * Get the state of an existing `CustomResource`, as identified by `id`.
@@ -3257,6 +3259,17 @@ export namespace admissionregistration {
       public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfiguration { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1alpha1.InitializerConfiguration;
 
+      public static list(): rxjs.Observable<outputApi.admissionregistration.v1alpha1.InitializerConfiguration> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.admissionregistration.v1alpha1.isInitializerConfiguration)
+        );
+      }
+
       /**
       * Create a admissionregistration.v1alpha1.InitializerConfiguration resource with the given unique name, arguments, and options.
       *
@@ -3325,6 +3338,17 @@ export namespace admissionregistration {
 
       public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfigurationList { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList;
+
+      public static list(): rxjs.Observable<outputApi.admissionregistration.v1alpha1.InitializerConfigurationList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.admissionregistration.v1alpha1.isInitializerConfigurationList)
+        );
+      }
 
       /**
       * Create a admissionregistration.v1alpha1.InitializerConfigurationList resource with the given unique name, arguments, and options.
@@ -3399,6 +3423,17 @@ export namespace admissionregistration {
       public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration;
 
+      public static list(): rxjs.Observable<outputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.admissionregistration.v1beta1.isMutatingWebhookConfiguration)
+        );
+      }
+
       /**
       * Create a admissionregistration.v1beta1.MutatingWebhookConfiguration resource with the given unique name, arguments, and options.
       *
@@ -3467,6 +3502,17 @@ export namespace admissionregistration {
 
       public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList;
+
+      public static list(): rxjs.Observable<outputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.admissionregistration.v1beta1.isMutatingWebhookConfigurationList)
+        );
+      }
 
       /**
       * Create a admissionregistration.v1beta1.MutatingWebhookConfigurationList resource with the given unique name, arguments, and options.
@@ -3538,6 +3584,17 @@ export namespace admissionregistration {
       public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration;
 
+      public static list(): rxjs.Observable<outputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.admissionregistration.v1beta1.isValidatingWebhookConfiguration)
+        );
+      }
+
       /**
       * Create a admissionregistration.v1beta1.ValidatingWebhookConfiguration resource with the given unique name, arguments, and options.
       *
@@ -3606,6 +3663,17 @@ export namespace admissionregistration {
 
       public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList;
+
+      public static list(): rxjs.Observable<outputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.admissionregistration.v1beta1.isValidatingWebhookConfigurationList)
+        );
+      }
 
       /**
       * Create a admissionregistration.v1beta1.ValidatingWebhookConfigurationList resource with the given unique name, arguments, and options.
@@ -3685,6 +3753,17 @@ export namespace apiextensions {
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinition { return this.__inputs; }
       private readonly __inputs: inputApi.apiextensions.v1beta1.CustomResourceDefinition;
 
+      public static list(): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinition> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apiextensions.v1beta1.isCustomResourceDefinition)
+        );
+      }
+
       /**
       * Create a apiextensions.v1beta1.CustomResourceDefinition resource with the given unique name, arguments, and options.
       *
@@ -3751,6 +3830,17 @@ export namespace apiextensions {
 
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinitionList { return this.__inputs; }
       private readonly __inputs: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList;
+
+      public static list(): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinitionList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apiextensions.v1beta1.isCustomResourceDefinitionList)
+        );
+      }
 
       /**
       * Create a apiextensions.v1beta1.CustomResourceDefinitionList resource with the given unique name, arguments, and options.
@@ -3829,6 +3919,17 @@ export namespace apiregistration {
       public getInputs(): inputApi.apiregistration.v1.APIService { return this.__inputs; }
       private readonly __inputs: inputApi.apiregistration.v1.APIService;
 
+      public static list(): rxjs.Observable<outputApi.apiregistration.v1.APIService> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apiregistration.v1.isAPIService)
+        );
+      }
+
       /**
       * Create a apiregistration.v1.APIService resource with the given unique name, arguments, and options.
       *
@@ -3893,6 +3994,17 @@ export namespace apiregistration {
 
       public getInputs(): inputApi.apiregistration.v1.APIServiceList { return this.__inputs; }
       private readonly __inputs: inputApi.apiregistration.v1.APIServiceList;
+
+      public static list(): rxjs.Observable<outputApi.apiregistration.v1.APIServiceList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apiregistration.v1.isAPIServiceList)
+        );
+      }
 
       /**
       * Create a apiregistration.v1.APIServiceList resource with the given unique name, arguments, and options.
@@ -3968,6 +4080,17 @@ export namespace apiregistration {
       public getInputs(): inputApi.apiregistration.v1beta1.APIService { return this.__inputs; }
       private readonly __inputs: inputApi.apiregistration.v1beta1.APIService;
 
+      public static list(): rxjs.Observable<outputApi.apiregistration.v1beta1.APIService> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apiregistration.v1beta1.isAPIService)
+        );
+      }
+
       /**
       * Create a apiregistration.v1beta1.APIService resource with the given unique name, arguments, and options.
       *
@@ -4032,6 +4155,17 @@ export namespace apiregistration {
 
       public getInputs(): inputApi.apiregistration.v1beta1.APIServiceList { return this.__inputs; }
       private readonly __inputs: inputApi.apiregistration.v1beta1.APIServiceList;
+
+      public static list(): rxjs.Observable<outputApi.apiregistration.v1beta1.APIServiceList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apiregistration.v1beta1.isAPIServiceList)
+        );
+      }
 
       /**
       * Create a apiregistration.v1beta1.APIServiceList resource with the given unique name, arguments, and options.
@@ -4120,6 +4254,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.ControllerRevision { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.ControllerRevision;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1.ControllerRevision> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isControllerRevision)
+        );
+      }
+
       /**
       * Create a apps.v1.ControllerRevision resource with the given unique name, arguments, and options.
       *
@@ -4188,6 +4333,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1.ControllerRevisionList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.ControllerRevisionList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1.ControllerRevisionList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isControllerRevisionList)
+        );
+      }
 
       /**
       * Create a apps.v1.ControllerRevisionList resource with the given unique name, arguments, and options.
@@ -4266,6 +4422,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.DaemonSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.DaemonSet;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1.DaemonSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isDaemonSet)
+        );
+      }
+
       /**
       * Create a apps.v1.DaemonSet resource with the given unique name, arguments, and options.
       *
@@ -4335,6 +4502,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1.DaemonSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.DaemonSetList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1.DaemonSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isDaemonSetList)
+        );
+      }
 
       /**
       * Create a apps.v1.DaemonSetList resource with the given unique name, arguments, and options.
@@ -4409,6 +4587,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.Deployment { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.Deployment;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1.Deployment> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isDeployment)
+        );
+      }
+
       /**
       * Create a apps.v1.Deployment resource with the given unique name, arguments, and options.
       *
@@ -4477,6 +4666,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1.DeploymentList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.DeploymentList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1.DeploymentList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isDeploymentList)
+        );
+      }
 
       /**
       * Create a apps.v1.DeploymentList resource with the given unique name, arguments, and options.
@@ -4556,6 +4756,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.ReplicaSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.ReplicaSet;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1.ReplicaSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isReplicaSet)
+        );
+      }
+
       /**
       * Create a apps.v1.ReplicaSet resource with the given unique name, arguments, and options.
       *
@@ -4626,6 +4837,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1.ReplicaSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.ReplicaSetList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1.ReplicaSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isReplicaSetList)
+        );
+      }
 
       /**
       * Create a apps.v1.ReplicaSetList resource with the given unique name, arguments, and options.
@@ -4703,6 +4925,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.StatefulSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.StatefulSet;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1.StatefulSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isStatefulSet)
+        );
+      }
+
       /**
       * Create a apps.v1.StatefulSet resource with the given unique name, arguments, and options.
       *
@@ -4767,6 +5000,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1.StatefulSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.StatefulSetList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1.StatefulSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isStatefulSetList)
+        );
+      }
 
       /**
       * Create a apps.v1.StatefulSetList resource with the given unique name, arguments, and options.
@@ -4854,6 +5098,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta1.ControllerRevision { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.ControllerRevision;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1beta1.ControllerRevision> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta1.isControllerRevision)
+        );
+      }
+
       /**
       * Create a apps.v1beta1.ControllerRevision resource with the given unique name, arguments, and options.
       *
@@ -4922,6 +5177,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1beta1.ControllerRevisionList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.ControllerRevisionList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1beta1.ControllerRevisionList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta1.isControllerRevisionList)
+        );
+      }
 
       /**
       * Create a apps.v1beta1.ControllerRevisionList resource with the given unique name, arguments, and options.
@@ -4998,6 +5264,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta1.Deployment { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.Deployment;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1beta1.Deployment> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta1.isDeployment)
+        );
+      }
+
       /**
       * Create a apps.v1beta1.Deployment resource with the given unique name, arguments, and options.
       *
@@ -5066,6 +5343,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1beta1.DeploymentList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.DeploymentList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1beta1.DeploymentList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta1.isDeploymentList)
+        );
+      }
 
       /**
       * Create a apps.v1beta1.DeploymentList resource with the given unique name, arguments, and options.
@@ -5145,6 +5433,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta1.StatefulSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.StatefulSet;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1beta1.StatefulSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta1.isStatefulSet)
+        );
+      }
+
       /**
       * Create a apps.v1beta1.StatefulSet resource with the given unique name, arguments, and options.
       *
@@ -5209,6 +5508,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1beta1.StatefulSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.StatefulSetList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1beta1.StatefulSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta1.isStatefulSetList)
+        );
+      }
 
       /**
       * Create a apps.v1beta1.StatefulSetList resource with the given unique name, arguments, and options.
@@ -5296,6 +5606,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.ControllerRevision { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.ControllerRevision;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.ControllerRevision> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isControllerRevision)
+        );
+      }
+
       /**
       * Create a apps.v1beta2.ControllerRevision resource with the given unique name, arguments, and options.
       *
@@ -5364,6 +5685,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1beta2.ControllerRevisionList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.ControllerRevisionList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.ControllerRevisionList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isControllerRevisionList)
+        );
+      }
 
       /**
       * Create a apps.v1beta2.ControllerRevisionList resource with the given unique name, arguments, and options.
@@ -5443,6 +5775,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.DaemonSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.DaemonSet;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.DaemonSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isDaemonSet)
+        );
+      }
+
       /**
       * Create a apps.v1beta2.DaemonSet resource with the given unique name, arguments, and options.
       *
@@ -5512,6 +5855,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1beta2.DaemonSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.DaemonSetList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.DaemonSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isDaemonSetList)
+        );
+      }
 
       /**
       * Create a apps.v1beta2.DaemonSetList resource with the given unique name, arguments, and options.
@@ -5588,6 +5942,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.Deployment { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.Deployment;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.Deployment> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isDeployment)
+        );
+      }
+
       /**
       * Create a apps.v1beta2.Deployment resource with the given unique name, arguments, and options.
       *
@@ -5656,6 +6021,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1beta2.DeploymentList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.DeploymentList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.DeploymentList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isDeploymentList)
+        );
+      }
 
       /**
       * Create a apps.v1beta2.DeploymentList resource with the given unique name, arguments, and options.
@@ -5737,6 +6113,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.ReplicaSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.ReplicaSet;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.ReplicaSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isReplicaSet)
+        );
+      }
+
       /**
       * Create a apps.v1beta2.ReplicaSet resource with the given unique name, arguments, and options.
       *
@@ -5807,6 +6194,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1beta2.ReplicaSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.ReplicaSetList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.ReplicaSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isReplicaSetList)
+        );
+      }
 
       /**
       * Create a apps.v1beta2.ReplicaSetList resource with the given unique name, arguments, and options.
@@ -5886,6 +6284,17 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.StatefulSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.StatefulSet;
 
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.StatefulSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isStatefulSet)
+        );
+      }
+
       /**
       * Create a apps.v1beta2.StatefulSet resource with the given unique name, arguments, and options.
       *
@@ -5950,6 +6359,17 @@ export namespace apps {
 
       public getInputs(): inputApi.apps.v1beta2.StatefulSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.StatefulSetList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.StatefulSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isStatefulSetList)
+        );
+      }
 
       /**
       * Create a apps.v1beta2.StatefulSetList resource with the given unique name, arguments, and options.
@@ -6023,6 +6443,17 @@ export namespace auditregistration {
       public getInputs(): inputApi.auditregistration.v1alpha1.AuditSink { return this.__inputs; }
       private readonly __inputs: inputApi.auditregistration.v1alpha1.AuditSink;
 
+      public static list(): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSink> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.auditregistration.v1alpha1.isAuditSink)
+        );
+      }
+
       /**
       * Create a auditregistration.v1alpha1.AuditSink resource with the given unique name, arguments, and options.
       *
@@ -6088,6 +6519,17 @@ export namespace auditregistration {
 
       public getInputs(): inputApi.auditregistration.v1alpha1.AuditSinkList { return this.__inputs; }
       private readonly __inputs: inputApi.auditregistration.v1alpha1.AuditSinkList;
+
+      public static list(): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSinkList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.auditregistration.v1alpha1.isAuditSinkList)
+        );
+      }
 
       /**
       * Create a auditregistration.v1alpha1.AuditSinkList resource with the given unique name, arguments, and options.
@@ -6167,6 +6609,17 @@ export namespace authentication {
       public getInputs(): inputApi.authentication.v1.TokenReview { return this.__inputs; }
       private readonly __inputs: inputApi.authentication.v1.TokenReview;
 
+      public static list(): rxjs.Observable<outputApi.authentication.v1.TokenReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authentication.v1.isTokenReview)
+        );
+      }
+
       /**
       * Create a authentication.v1.TokenReview resource with the given unique name, arguments, and options.
       *
@@ -6242,6 +6695,17 @@ export namespace authentication {
 
       public getInputs(): inputApi.authentication.v1beta1.TokenReview { return this.__inputs; }
       private readonly __inputs: inputApi.authentication.v1beta1.TokenReview;
+
+      public static list(): rxjs.Observable<outputApi.authentication.v1beta1.TokenReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authentication.v1beta1.isTokenReview)
+        );
+      }
 
       /**
       * Create a authentication.v1beta1.TokenReview resource with the given unique name, arguments, and options.
@@ -6324,6 +6788,17 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1.LocalSubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1.LocalSubjectAccessReview;
 
+      public static list(): rxjs.Observable<outputApi.authorization.v1.LocalSubjectAccessReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authorization.v1.isLocalSubjectAccessReview)
+        );
+      }
+
       /**
       * Create a authorization.v1.LocalSubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -6397,6 +6872,17 @@ export namespace authorization {
 
       public getInputs(): inputApi.authorization.v1.SelfSubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1.SelfSubjectAccessReview;
+
+      public static list(): rxjs.Observable<outputApi.authorization.v1.SelfSubjectAccessReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authorization.v1.isSelfSubjectAccessReview)
+        );
+      }
 
       /**
       * Create a authorization.v1.SelfSubjectAccessReview resource with the given unique name, arguments, and options.
@@ -6477,6 +6963,17 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1.SelfSubjectRulesReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1.SelfSubjectRulesReview;
 
+      public static list(): rxjs.Observable<outputApi.authorization.v1.SelfSubjectRulesReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authorization.v1.isSelfSubjectRulesReview)
+        );
+      }
+
       /**
       * Create a authorization.v1.SelfSubjectRulesReview resource with the given unique name, arguments, and options.
       *
@@ -6548,6 +7045,17 @@ export namespace authorization {
 
       public getInputs(): inputApi.authorization.v1.SubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1.SubjectAccessReview;
+
+      public static list(): rxjs.Observable<outputApi.authorization.v1.SubjectAccessReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authorization.v1.isSubjectAccessReview)
+        );
+      }
 
       /**
       * Create a authorization.v1.SubjectAccessReview resource with the given unique name, arguments, and options.
@@ -6627,6 +7135,17 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1beta1.LocalSubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1beta1.LocalSubjectAccessReview;
 
+      public static list(): rxjs.Observable<outputApi.authorization.v1beta1.LocalSubjectAccessReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authorization.v1beta1.isLocalSubjectAccessReview)
+        );
+      }
+
       /**
       * Create a authorization.v1beta1.LocalSubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -6700,6 +7219,17 @@ export namespace authorization {
 
       public getInputs(): inputApi.authorization.v1beta1.SelfSubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1beta1.SelfSubjectAccessReview;
+
+      public static list(): rxjs.Observable<outputApi.authorization.v1beta1.SelfSubjectAccessReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authorization.v1beta1.isSelfSubjectAccessReview)
+        );
+      }
 
       /**
       * Create a authorization.v1beta1.SelfSubjectAccessReview resource with the given unique name, arguments, and options.
@@ -6780,6 +7310,17 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1beta1.SelfSubjectRulesReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1beta1.SelfSubjectRulesReview;
 
+      public static list(): rxjs.Observable<outputApi.authorization.v1beta1.SelfSubjectRulesReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authorization.v1beta1.isSelfSubjectRulesReview)
+        );
+      }
+
       /**
       * Create a authorization.v1beta1.SelfSubjectRulesReview resource with the given unique name, arguments, and options.
       *
@@ -6851,6 +7392,17 @@ export namespace authorization {
 
       public getInputs(): inputApi.authorization.v1beta1.SubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1beta1.SubjectAccessReview;
+
+      public static list(): rxjs.Observable<outputApi.authorization.v1beta1.SubjectAccessReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authorization.v1beta1.isSubjectAccessReview)
+        );
+      }
 
       /**
       * Create a authorization.v1beta1.SubjectAccessReview resource with the given unique name, arguments, and options.
@@ -6934,6 +7486,17 @@ export namespace autoscaling {
       public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscaler { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v1.HorizontalPodAutoscaler;
 
+      public static list(): rxjs.Observable<outputApi.autoscaling.v1.HorizontalPodAutoscaler> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.autoscaling.v1.isHorizontalPodAutoscaler)
+        );
+      }
+
       /**
       * Create a autoscaling.v1.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
       *
@@ -7002,6 +7565,17 @@ export namespace autoscaling {
 
       public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscalerList { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v1.HorizontalPodAutoscalerList;
+
+      public static list(): rxjs.Observable<outputApi.autoscaling.v1.HorizontalPodAutoscalerList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.autoscaling.v1.isHorizontalPodAutoscalerList)
+        );
+      }
 
       /**
       * Create a autoscaling.v1.HorizontalPodAutoscalerList resource with the given unique name, arguments, and options.
@@ -7083,6 +7657,17 @@ export namespace autoscaling {
       public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler;
 
+      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta1.HorizontalPodAutoscaler> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.autoscaling.v2beta1.isHorizontalPodAutoscaler)
+        );
+      }
+
       /**
       * Create a autoscaling.v2beta1.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
       *
@@ -7151,6 +7736,17 @@ export namespace autoscaling {
 
       public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList;
+
+      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.autoscaling.v2beta1.isHorizontalPodAutoscalerList)
+        );
+      }
 
       /**
       * Create a autoscaling.v2beta1.HorizontalPodAutoscalerList resource with the given unique name, arguments, and options.
@@ -7232,6 +7828,17 @@ export namespace autoscaling {
       public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler;
 
+      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscaler> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.autoscaling.v2beta2.isHorizontalPodAutoscaler)
+        );
+      }
+
       /**
       * Create a autoscaling.v2beta2.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
       *
@@ -7300,6 +7907,17 @@ export namespace autoscaling {
 
       public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList;
+
+      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.autoscaling.v2beta2.isHorizontalPodAutoscalerList)
+        );
+      }
 
       /**
       * Create a autoscaling.v2beta2.HorizontalPodAutoscalerList resource with the given unique name, arguments, and options.
@@ -7383,6 +8001,17 @@ export namespace batch {
       public getInputs(): inputApi.batch.v1.Job { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v1.Job;
 
+      public static list(): rxjs.Observable<outputApi.batch.v1.Job> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.batch.v1.isJob)
+        );
+      }
+
       /**
       * Create a batch.v1.Job resource with the given unique name, arguments, and options.
       *
@@ -7452,6 +8081,17 @@ export namespace batch {
 
       public getInputs(): inputApi.batch.v1.JobList { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v1.JobList;
+
+      public static list(): rxjs.Observable<outputApi.batch.v1.JobList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.batch.v1.isJobList)
+        );
+      }
 
       /**
       * Create a batch.v1.JobList resource with the given unique name, arguments, and options.
@@ -7532,6 +8172,17 @@ export namespace batch {
       public getInputs(): inputApi.batch.v1beta1.CronJob { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v1beta1.CronJob;
 
+      public static list(): rxjs.Observable<outputApi.batch.v1beta1.CronJob> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.batch.v1beta1.isCronJob)
+        );
+      }
+
       /**
       * Create a batch.v1beta1.CronJob resource with the given unique name, arguments, and options.
       *
@@ -7601,6 +8252,17 @@ export namespace batch {
 
       public getInputs(): inputApi.batch.v1beta1.CronJobList { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v1beta1.CronJobList;
+
+      public static list(): rxjs.Observable<outputApi.batch.v1beta1.CronJobList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.batch.v1beta1.isCronJobList)
+        );
+      }
 
       /**
       * Create a batch.v1beta1.CronJobList resource with the given unique name, arguments, and options.
@@ -7681,6 +8343,17 @@ export namespace batch {
       public getInputs(): inputApi.batch.v2alpha1.CronJob { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v2alpha1.CronJob;
 
+      public static list(): rxjs.Observable<outputApi.batch.v2alpha1.CronJob> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.batch.v2alpha1.isCronJob)
+        );
+      }
+
       /**
       * Create a batch.v2alpha1.CronJob resource with the given unique name, arguments, and options.
       *
@@ -7750,6 +8423,17 @@ export namespace batch {
 
       public getInputs(): inputApi.batch.v2alpha1.CronJobList { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v2alpha1.CronJobList;
+
+      public static list(): rxjs.Observable<outputApi.batch.v2alpha1.CronJobList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.batch.v2alpha1.isCronJobList)
+        );
+      }
 
       /**
       * Create a batch.v2alpha1.CronJobList resource with the given unique name, arguments, and options.
@@ -7828,6 +8512,17 @@ export namespace certificates {
       public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequest { return this.__inputs; }
       private readonly __inputs: inputApi.certificates.v1beta1.CertificateSigningRequest;
 
+      public static list(): rxjs.Observable<outputApi.certificates.v1beta1.CertificateSigningRequest> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.certificates.v1beta1.isCertificateSigningRequest)
+        );
+      }
+
       /**
       * Create a certificates.v1beta1.CertificateSigningRequest resource with the given unique name, arguments, and options.
       *
@@ -7890,6 +8585,17 @@ export namespace certificates {
 
       public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequestList { return this.__inputs; }
       private readonly __inputs: inputApi.certificates.v1beta1.CertificateSigningRequestList;
+
+      public static list(): rxjs.Observable<outputApi.certificates.v1beta1.CertificateSigningRequestList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.certificates.v1beta1.isCertificateSigningRequestList)
+        );
+      }
 
       /**
       * Create a certificates.v1beta1.CertificateSigningRequestList resource with the given unique name, arguments, and options.
@@ -7966,6 +8672,17 @@ export namespace coordination {
       public getInputs(): inputApi.coordination.v1beta1.Lease { return this.__inputs; }
       private readonly __inputs: inputApi.coordination.v1beta1.Lease;
 
+      public static list(): rxjs.Observable<outputApi.coordination.v1beta1.Lease> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.coordination.v1beta1.isLease)
+        );
+      }
+
       /**
       * Create a coordination.v1beta1.Lease resource with the given unique name, arguments, and options.
       *
@@ -8034,6 +8751,17 @@ export namespace coordination {
 
       public getInputs(): inputApi.coordination.v1beta1.LeaseList { return this.__inputs; }
       private readonly __inputs: inputApi.coordination.v1beta1.LeaseList;
+
+      public static list(): rxjs.Observable<outputApi.coordination.v1beta1.LeaseList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.coordination.v1beta1.isLeaseList)
+        );
+      }
 
       /**
       * Create a coordination.v1beta1.LeaseList resource with the given unique name, arguments, and options.
@@ -8111,6 +8839,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Binding { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Binding;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.Binding> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isBinding)
+        );
+      }
+
       /**
       * Create a core.v1.Binding resource with the given unique name, arguments, and options.
       *
@@ -8180,6 +8919,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ComponentStatus { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ComponentStatus;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.ComponentStatus> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isComponentStatus)
+        );
+      }
+
       /**
       * Create a core.v1.ComponentStatus resource with the given unique name, arguments, and options.
       *
@@ -8248,6 +8998,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.ComponentStatusList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ComponentStatusList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.ComponentStatusList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isComponentStatusList)
+        );
+      }
 
       /**
       * Create a core.v1.ComponentStatusList resource with the given unique name, arguments, and options.
@@ -8329,6 +9090,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ConfigMap { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ConfigMap;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.ConfigMap> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isConfigMap)
+        );
+      }
+
       /**
       * Create a core.v1.ConfigMap resource with the given unique name, arguments, and options.
       *
@@ -8397,6 +9169,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.ConfigMapList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ConfigMapList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.ConfigMapList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isConfigMapList)
+        );
+      }
 
       /**
       * Create a core.v1.ConfigMapList resource with the given unique name, arguments, and options.
@@ -8483,6 +9266,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Endpoints { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Endpoints;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.Endpoints> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isEndpoints)
+        );
+      }
+
       /**
       * Create a core.v1.Endpoints resource with the given unique name, arguments, and options.
       *
@@ -8551,6 +9345,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.EndpointsList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.EndpointsList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.EndpointsList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isEndpointsList)
+        );
+      }
 
       /**
       * Create a core.v1.EndpointsList resource with the given unique name, arguments, and options.
@@ -8687,6 +9492,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Event { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Event;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.Event> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isEvent)
+        );
+      }
+
       /**
       * Create a core.v1.Event resource with the given unique name, arguments, and options.
       *
@@ -8769,6 +9585,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.EventList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.EventList;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.EventList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isEventList)
+        );
+      }
+
       /**
       * Create a core.v1.EventList resource with the given unique name, arguments, and options.
       *
@@ -8839,6 +9666,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.LimitRange { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.LimitRange;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.LimitRange> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isLimitRange)
+        );
+      }
+
       /**
       * Create a core.v1.LimitRange resource with the given unique name, arguments, and options.
       *
@@ -8908,6 +9746,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.LimitRangeList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.LimitRangeList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.LimitRangeList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isLimitRangeList)
+        );
+      }
 
       /**
       * Create a core.v1.LimitRangeList resource with the given unique name, arguments, and options.
@@ -8985,6 +9834,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Namespace { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Namespace;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.Namespace> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isNamespace)
+        );
+      }
+
       /**
       * Create a core.v1.Namespace resource with the given unique name, arguments, and options.
       *
@@ -9055,6 +9915,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.NamespaceList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.NamespaceList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.NamespaceList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isNamespaceList)
+        );
+      }
 
       /**
       * Create a core.v1.NamespaceList resource with the given unique name, arguments, and options.
@@ -9133,6 +10004,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Node { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Node;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.Node> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isNode)
+        );
+      }
+
       /**
       * Create a core.v1.Node resource with the given unique name, arguments, and options.
       *
@@ -9202,6 +10084,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.NodeList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.NodeList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.NodeList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isNodeList)
+        );
+      }
 
       /**
       * Create a core.v1.NodeList resource with the given unique name, arguments, and options.
@@ -9282,6 +10175,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PersistentVolume { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolume;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolume> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPersistentVolume)
+        );
+      }
+
       /**
       * Create a core.v1.PersistentVolume resource with the given unique name, arguments, and options.
       *
@@ -9360,6 +10264,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PersistentVolumeClaim { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolumeClaim;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolumeClaim> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPersistentVolumeClaim)
+        );
+      }
+
       /**
       * Create a core.v1.PersistentVolumeClaim resource with the given unique name, arguments, and options.
       *
@@ -9431,6 +10346,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PersistentVolumeClaimList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolumeClaimList;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolumeClaimList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPersistentVolumeClaimList)
+        );
+      }
+
       /**
       * Create a core.v1.PersistentVolumeClaimList resource with the given unique name, arguments, and options.
       *
@@ -9500,6 +10426,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.PersistentVolumeList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolumeList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolumeList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPersistentVolumeList)
+        );
+      }
 
       /**
       * Create a core.v1.PersistentVolumeList resource with the given unique name, arguments, and options.
@@ -9579,6 +10516,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Pod { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Pod;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.Pod> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPod)
+        );
+      }
+
       /**
       * Create a core.v1.Pod resource with the given unique name, arguments, and options.
       *
@@ -9648,6 +10596,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.PodList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PodList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.PodList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPodList)
+        );
+      }
 
       /**
       * Create a core.v1.PodList resource with the given unique name, arguments, and options.
@@ -9719,6 +10678,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PodTemplate { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PodTemplate;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.PodTemplate> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPodTemplate)
+        );
+      }
+
       /**
       * Create a core.v1.PodTemplate resource with the given unique name, arguments, and options.
       *
@@ -9787,6 +10757,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.PodTemplateList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PodTemplateList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.PodTemplateList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPodTemplateList)
+        );
+      }
 
       /**
       * Create a core.v1.PodTemplateList resource with the given unique name, arguments, and options.
@@ -9866,6 +10847,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ReplicationController { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ReplicationController;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.ReplicationController> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isReplicationController)
+        );
+      }
+
       /**
       * Create a core.v1.ReplicationController resource with the given unique name, arguments, and options.
       *
@@ -9936,6 +10928,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.ReplicationControllerList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ReplicationControllerList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.ReplicationControllerList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isReplicationControllerList)
+        );
+      }
 
       /**
       * Create a core.v1.ReplicationControllerList resource with the given unique name, arguments, and options.
@@ -10013,6 +11016,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ResourceQuota { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ResourceQuota;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.ResourceQuota> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isResourceQuota)
+        );
+      }
+
       /**
       * Create a core.v1.ResourceQuota resource with the given unique name, arguments, and options.
       *
@@ -10083,6 +11097,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.ResourceQuotaList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ResourceQuotaList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.ResourceQuotaList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isResourceQuotaList)
+        );
+      }
 
       /**
       * Create a core.v1.ResourceQuotaList resource with the given unique name, arguments, and options.
@@ -10169,6 +11194,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Secret { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Secret;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.Secret> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isSecret)
+        );
+      }
+
       /**
       * Create a core.v1.Secret resource with the given unique name, arguments, and options.
       *
@@ -10240,6 +11276,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.SecretList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.SecretList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.SecretList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isSecretList)
+        );
+      }
 
       /**
       * Create a core.v1.SecretList resource with the given unique name, arguments, and options.
@@ -10318,6 +11365,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.Service { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Service;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.Service> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isService)
+        );
+      }
 
       /**
       * Create a core.v1.Service resource with the given unique name, arguments, and options.
@@ -10407,6 +11465,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ServiceAccount { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ServiceAccount;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.ServiceAccount> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isServiceAccount)
+        );
+      }
+
       /**
       * Create a core.v1.ServiceAccount resource with the given unique name, arguments, and options.
       *
@@ -10479,6 +11548,17 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ServiceAccountList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ServiceAccountList;
 
+      public static list(): rxjs.Observable<outputApi.core.v1.ServiceAccountList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isServiceAccountList)
+        );
+      }
+
       /**
       * Create a core.v1.ServiceAccountList resource with the given unique name, arguments, and options.
       *
@@ -10547,6 +11627,17 @@ export namespace core {
 
       public getInputs(): inputApi.core.v1.ServiceList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ServiceList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.ServiceList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isServiceList)
+        );
+      }
 
       /**
       * Create a core.v1.ServiceList resource with the given unique name, arguments, and options.
@@ -10690,6 +11781,17 @@ export namespace events {
       public getInputs(): inputApi.events.v1beta1.Event { return this.__inputs; }
       private readonly __inputs: inputApi.events.v1beta1.Event;
 
+      public static list(): rxjs.Observable<outputApi.events.v1beta1.Event> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.events.v1beta1.isEvent)
+        );
+      }
+
       /**
       * Create a events.v1beta1.Event resource with the given unique name, arguments, and options.
       *
@@ -10771,6 +11873,17 @@ export namespace events {
 
       public getInputs(): inputApi.events.v1beta1.EventList { return this.__inputs; }
       private readonly __inputs: inputApi.events.v1beta1.EventList;
+
+      public static list(): rxjs.Observable<outputApi.events.v1beta1.EventList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.events.v1beta1.isEventList)
+        );
+      }
 
       /**
       * Create a events.v1beta1.EventList resource with the given unique name, arguments, and options.
@@ -10856,6 +11969,17 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.DaemonSet { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.DaemonSet;
 
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.DaemonSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isDaemonSet)
+        );
+      }
+
       /**
       * Create a extensions.v1beta1.DaemonSet resource with the given unique name, arguments, and options.
       *
@@ -10925,6 +12049,17 @@ export namespace extensions {
 
       public getInputs(): inputApi.extensions.v1beta1.DaemonSetList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.DaemonSetList;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.DaemonSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isDaemonSetList)
+        );
+      }
 
       /**
       * Create a extensions.v1beta1.DaemonSetList resource with the given unique name, arguments, and options.
@@ -11001,6 +12136,17 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.Deployment { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.Deployment;
 
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.Deployment> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isDeployment)
+        );
+      }
+
       /**
       * Create a extensions.v1beta1.Deployment resource with the given unique name, arguments, and options.
       *
@@ -11069,6 +12215,17 @@ export namespace extensions {
 
       public getInputs(): inputApi.extensions.v1beta1.DeploymentList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.DeploymentList;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.DeploymentList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isDeploymentList)
+        );
+      }
 
       /**
       * Create a extensions.v1beta1.DeploymentList resource with the given unique name, arguments, and options.
@@ -11148,6 +12305,17 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.Ingress { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.Ingress;
 
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.Ingress> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isIngress)
+        );
+      }
+
       /**
       * Create a extensions.v1beta1.Ingress resource with the given unique name, arguments, and options.
       *
@@ -11217,6 +12385,17 @@ export namespace extensions {
 
       public getInputs(): inputApi.extensions.v1beta1.IngressList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.IngressList;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.IngressList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isIngressList)
+        );
+      }
 
       /**
       * Create a extensions.v1beta1.IngressList resource with the given unique name, arguments, and options.
@@ -11289,6 +12468,17 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.NetworkPolicy { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.NetworkPolicy;
 
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.NetworkPolicy> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isNetworkPolicy)
+        );
+      }
+
       /**
       * Create a extensions.v1beta1.NetworkPolicy resource with the given unique name, arguments, and options.
       *
@@ -11358,6 +12548,17 @@ export namespace extensions {
 
       public getInputs(): inputApi.extensions.v1beta1.NetworkPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.NetworkPolicyList;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.NetworkPolicyList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isNetworkPolicyList)
+        );
+      }
 
       /**
       * Create a extensions.v1beta1.NetworkPolicyList resource with the given unique name, arguments, and options.
@@ -11430,6 +12631,17 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicy { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.PodSecurityPolicy;
 
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.PodSecurityPolicy> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isPodSecurityPolicy)
+        );
+      }
+
       /**
       * Create a extensions.v1beta1.PodSecurityPolicy resource with the given unique name, arguments, and options.
       *
@@ -11499,6 +12711,17 @@ export namespace extensions {
 
       public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.PodSecurityPolicyList;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.PodSecurityPolicyList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isPodSecurityPolicyList)
+        );
+      }
 
       /**
       * Create a extensions.v1beta1.PodSecurityPolicyList resource with the given unique name, arguments, and options.
@@ -11580,6 +12803,17 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.ReplicaSet { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.ReplicaSet;
 
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.ReplicaSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isReplicaSet)
+        );
+      }
+
       /**
       * Create a extensions.v1beta1.ReplicaSet resource with the given unique name, arguments, and options.
       *
@@ -11650,6 +12884,17 @@ export namespace extensions {
 
       public getInputs(): inputApi.extensions.v1beta1.ReplicaSetList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.ReplicaSetList;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.ReplicaSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isReplicaSetList)
+        );
+      }
 
       /**
       * Create a extensions.v1beta1.ReplicaSetList resource with the given unique name, arguments, and options.
@@ -11751,6 +12996,17 @@ export namespace meta {
       public getInputs(): inputApi.meta.v1.Status { return this.__inputs; }
       private readonly __inputs: inputApi.meta.v1.Status;
 
+      public static list(): rxjs.Observable<outputApi.meta.v1.Status> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.meta.v1.isStatus)
+        );
+      }
+
       /**
       * Create a meta.v1.Status resource with the given unique name, arguments, and options.
       *
@@ -11830,6 +13086,17 @@ export namespace networking {
       public getInputs(): inputApi.networking.v1.NetworkPolicy { return this.__inputs; }
       private readonly __inputs: inputApi.networking.v1.NetworkPolicy;
 
+      public static list(): rxjs.Observable<outputApi.networking.v1.NetworkPolicy> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.networking.v1.isNetworkPolicy)
+        );
+      }
+
       /**
       * Create a networking.v1.NetworkPolicy resource with the given unique name, arguments, and options.
       *
@@ -11898,6 +13165,17 @@ export namespace networking {
 
       public getInputs(): inputApi.networking.v1.NetworkPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.networking.v1.NetworkPolicyList;
+
+      public static list(): rxjs.Observable<outputApi.networking.v1.NetworkPolicyList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.networking.v1.isNetworkPolicyList)
+        );
+      }
 
       /**
       * Create a networking.v1.NetworkPolicyList resource with the given unique name, arguments, and options.
@@ -11977,6 +13255,17 @@ export namespace policy {
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudget { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodDisruptionBudget;
 
+      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudget> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.policy.v1beta1.isPodDisruptionBudget)
+        );
+      }
+
       /**
       * Create a policy.v1beta1.PodDisruptionBudget resource with the given unique name, arguments, and options.
       *
@@ -12041,6 +13330,17 @@ export namespace policy {
 
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudgetList { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodDisruptionBudgetList;
+
+      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudgetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.policy.v1beta1.isPodDisruptionBudgetList)
+        );
+      }
 
       /**
       * Create a policy.v1beta1.PodDisruptionBudgetList resource with the given unique name, arguments, and options.
@@ -12112,6 +13412,17 @@ export namespace policy {
       public getInputs(): inputApi.policy.v1beta1.PodSecurityPolicy { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodSecurityPolicy;
 
+      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodSecurityPolicy> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.policy.v1beta1.isPodSecurityPolicy)
+        );
+      }
+
       /**
       * Create a policy.v1beta1.PodSecurityPolicy resource with the given unique name, arguments, and options.
       *
@@ -12180,6 +13491,17 @@ export namespace policy {
 
       public getInputs(): inputApi.policy.v1beta1.PodSecurityPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodSecurityPolicyList;
+
+      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodSecurityPolicyList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.policy.v1beta1.isPodSecurityPolicyList)
+        );
+      }
 
       /**
       * Create a policy.v1beta1.PodSecurityPolicyList resource with the given unique name, arguments, and options.
@@ -12263,6 +13585,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.ClusterRole { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.ClusterRole;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1.ClusterRole> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1.isClusterRole)
+        );
+      }
+
       /**
       * Create a rbac.v1.ClusterRole resource with the given unique name, arguments, and options.
       *
@@ -12339,6 +13672,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.ClusterRoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.ClusterRoleBinding;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1.ClusterRoleBinding> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1.isClusterRoleBinding)
+        );
+      }
+
       /**
       * Create a rbac.v1.ClusterRoleBinding resource with the given unique name, arguments, and options.
       *
@@ -12408,6 +13752,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.ClusterRoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.ClusterRoleBindingList;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1.ClusterRoleBindingList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1.isClusterRoleBindingList)
+        );
+      }
+
       /**
       * Create a rbac.v1.ClusterRoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -12475,6 +13830,17 @@ export namespace rbac {
 
       public getInputs(): inputApi.rbac.v1.ClusterRoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.ClusterRoleList;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1.ClusterRoleList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1.isClusterRoleList)
+        );
+      }
 
       /**
       * Create a rbac.v1.ClusterRoleList resource with the given unique name, arguments, and options.
@@ -12544,6 +13910,17 @@ export namespace rbac {
 
       public getInputs(): inputApi.rbac.v1.Role { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.Role;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1.Role> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1.isRole)
+        );
+      }
 
       /**
       * Create a rbac.v1.Role resource with the given unique name, arguments, and options.
@@ -12622,6 +13999,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.RoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.RoleBinding;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1.RoleBinding> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1.isRoleBinding)
+        );
+      }
+
       /**
       * Create a rbac.v1.RoleBinding resource with the given unique name, arguments, and options.
       *
@@ -12691,6 +14079,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.RoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.RoleBindingList;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1.RoleBindingList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1.isRoleBindingList)
+        );
+      }
+
       /**
       * Create a rbac.v1.RoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -12758,6 +14157,17 @@ export namespace rbac {
 
       public getInputs(): inputApi.rbac.v1.RoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.RoleList;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1.RoleList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1.isRoleList)
+        );
+      }
 
       /**
       * Create a rbac.v1.RoleList resource with the given unique name, arguments, and options.
@@ -12838,6 +14248,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRole { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRole;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRole> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1alpha1.isClusterRole)
+        );
+      }
+
       /**
       * Create a rbac.v1alpha1.ClusterRole resource with the given unique name, arguments, and options.
       *
@@ -12914,6 +14335,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRoleBinding;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleBinding> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1alpha1.isClusterRoleBinding)
+        );
+      }
+
       /**
       * Create a rbac.v1alpha1.ClusterRoleBinding resource with the given unique name, arguments, and options.
       *
@@ -12983,6 +14415,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRoleBindingList;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleBindingList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1alpha1.isClusterRoleBindingList)
+        );
+      }
+
       /**
       * Create a rbac.v1alpha1.ClusterRoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -13050,6 +14493,17 @@ export namespace rbac {
 
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRoleList;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1alpha1.isClusterRoleList)
+        );
+      }
 
       /**
       * Create a rbac.v1alpha1.ClusterRoleList resource with the given unique name, arguments, and options.
@@ -13119,6 +14573,17 @@ export namespace rbac {
 
       public getInputs(): inputApi.rbac.v1alpha1.Role { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.Role;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.Role> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1alpha1.isRole)
+        );
+      }
 
       /**
       * Create a rbac.v1alpha1.Role resource with the given unique name, arguments, and options.
@@ -13197,6 +14662,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.RoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.RoleBinding;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.RoleBinding> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1alpha1.isRoleBinding)
+        );
+      }
+
       /**
       * Create a rbac.v1alpha1.RoleBinding resource with the given unique name, arguments, and options.
       *
@@ -13266,6 +14742,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.RoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.RoleBindingList;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.RoleBindingList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1alpha1.isRoleBindingList)
+        );
+      }
+
       /**
       * Create a rbac.v1alpha1.RoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -13333,6 +14820,17 @@ export namespace rbac {
 
       public getInputs(): inputApi.rbac.v1alpha1.RoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.RoleList;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.RoleList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1alpha1.isRoleList)
+        );
+      }
 
       /**
       * Create a rbac.v1alpha1.RoleList resource with the given unique name, arguments, and options.
@@ -13413,6 +14911,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.ClusterRole { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.ClusterRole;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRole> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1beta1.isClusterRole)
+        );
+      }
+
       /**
       * Create a rbac.v1beta1.ClusterRole resource with the given unique name, arguments, and options.
       *
@@ -13489,6 +14998,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleBinding;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleBinding> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1beta1.isClusterRoleBinding)
+        );
+      }
+
       /**
       * Create a rbac.v1beta1.ClusterRoleBinding resource with the given unique name, arguments, and options.
       *
@@ -13558,6 +15078,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleBindingList;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleBindingList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1beta1.isClusterRoleBindingList)
+        );
+      }
+
       /**
       * Create a rbac.v1beta1.ClusterRoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -13625,6 +15156,17 @@ export namespace rbac {
 
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleList;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1beta1.isClusterRoleList)
+        );
+      }
 
       /**
       * Create a rbac.v1beta1.ClusterRoleList resource with the given unique name, arguments, and options.
@@ -13694,6 +15236,17 @@ export namespace rbac {
 
       public getInputs(): inputApi.rbac.v1beta1.Role { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.Role;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.Role> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1beta1.isRole)
+        );
+      }
 
       /**
       * Create a rbac.v1beta1.Role resource with the given unique name, arguments, and options.
@@ -13772,6 +15325,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.RoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.RoleBinding;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.RoleBinding> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1beta1.isRoleBinding)
+        );
+      }
+
       /**
       * Create a rbac.v1beta1.RoleBinding resource with the given unique name, arguments, and options.
       *
@@ -13841,6 +15405,17 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.RoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.RoleBindingList;
 
+      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.RoleBindingList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1beta1.isRoleBindingList)
+        );
+      }
+
       /**
       * Create a rbac.v1beta1.RoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -13908,6 +15483,17 @@ export namespace rbac {
 
       public getInputs(): inputApi.rbac.v1beta1.RoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.RoleList;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.RoleList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1beta1.isRoleList)
+        );
+      }
 
       /**
       * Create a rbac.v1beta1.RoleList resource with the given unique name, arguments, and options.
@@ -14001,6 +15587,17 @@ export namespace scheduling {
       public getInputs(): inputApi.scheduling.v1alpha1.PriorityClass { return this.__inputs; }
       private readonly __inputs: inputApi.scheduling.v1alpha1.PriorityClass;
 
+      public static list(): rxjs.Observable<outputApi.scheduling.v1alpha1.PriorityClass> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.scheduling.v1alpha1.isPriorityClass)
+        );
+      }
+
       /**
       * Create a scheduling.v1alpha1.PriorityClass resource with the given unique name, arguments, and options.
       *
@@ -14071,6 +15668,17 @@ export namespace scheduling {
 
       public getInputs(): inputApi.scheduling.v1alpha1.PriorityClassList { return this.__inputs; }
       private readonly __inputs: inputApi.scheduling.v1alpha1.PriorityClassList;
+
+      public static list(): rxjs.Observable<outputApi.scheduling.v1alpha1.PriorityClassList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.scheduling.v1alpha1.isPriorityClassList)
+        );
+      }
 
       /**
       * Create a scheduling.v1alpha1.PriorityClassList resource with the given unique name, arguments, and options.
@@ -14161,6 +15769,17 @@ export namespace scheduling {
       public getInputs(): inputApi.scheduling.v1beta1.PriorityClass { return this.__inputs; }
       private readonly __inputs: inputApi.scheduling.v1beta1.PriorityClass;
 
+      public static list(): rxjs.Observable<outputApi.scheduling.v1beta1.PriorityClass> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.scheduling.v1beta1.isPriorityClass)
+        );
+      }
+
       /**
       * Create a scheduling.v1beta1.PriorityClass resource with the given unique name, arguments, and options.
       *
@@ -14232,6 +15851,17 @@ export namespace scheduling {
       public getInputs(): inputApi.scheduling.v1beta1.PriorityClassList { return this.__inputs; }
       private readonly __inputs: inputApi.scheduling.v1beta1.PriorityClassList;
 
+      public static list(): rxjs.Observable<outputApi.scheduling.v1beta1.PriorityClassList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.scheduling.v1beta1.isPriorityClassList)
+        );
+      }
+
       /**
       * Create a scheduling.v1beta1.PriorityClassList resource with the given unique name, arguments, and options.
       *
@@ -14302,6 +15932,17 @@ export namespace settings {
       public getInputs(): inputApi.settings.v1alpha1.PodPreset { return this.__inputs; }
       private readonly __inputs: inputApi.settings.v1alpha1.PodPreset;
 
+      public static list(): rxjs.Observable<outputApi.settings.v1alpha1.PodPreset> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.settings.v1alpha1.isPodPreset)
+        );
+      }
+
       /**
       * Create a settings.v1alpha1.PodPreset resource with the given unique name, arguments, and options.
       *
@@ -14370,6 +16011,17 @@ export namespace settings {
 
       public getInputs(): inputApi.settings.v1alpha1.PodPresetList { return this.__inputs; }
       private readonly __inputs: inputApi.settings.v1alpha1.PodPresetList;
+
+      public static list(): rxjs.Observable<outputApi.settings.v1alpha1.PodPresetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.settings.v1alpha1.isPodPresetList)
+        );
+      }
 
       /**
       * Create a settings.v1alpha1.PodPresetList resource with the given unique name, arguments, and options.
@@ -14489,6 +16141,17 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1.StorageClass { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1.StorageClass;
 
+      public static list(): rxjs.Observable<outputApi.storage.v1.StorageClass> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1.isStorageClass)
+        );
+      }
+
       /**
       * Create a storage.v1.StorageClass resource with the given unique name, arguments, and options.
       *
@@ -14563,6 +16226,17 @@ export namespace storage {
 
       public getInputs(): inputApi.storage.v1.StorageClassList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1.StorageClassList;
+
+      public static list(): rxjs.Observable<outputApi.storage.v1.StorageClassList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1.isStorageClassList)
+        );
+      }
 
       /**
       * Create a storage.v1.StorageClassList resource with the given unique name, arguments, and options.
@@ -14643,6 +16317,17 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1.VolumeAttachment { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1.VolumeAttachment;
 
+      public static list(): rxjs.Observable<outputApi.storage.v1.VolumeAttachment> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1.isVolumeAttachment)
+        );
+      }
+
       /**
       * Create a storage.v1.VolumeAttachment resource with the given unique name, arguments, and options.
       *
@@ -14712,6 +16397,17 @@ export namespace storage {
 
       public getInputs(): inputApi.storage.v1.VolumeAttachmentList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1.VolumeAttachmentList;
+
+      public static list(): rxjs.Observable<outputApi.storage.v1.VolumeAttachmentList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1.isVolumeAttachmentList)
+        );
+      }
 
       /**
       * Create a storage.v1.VolumeAttachmentList resource with the given unique name, arguments, and options.
@@ -14795,6 +16491,17 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1alpha1.VolumeAttachment { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1alpha1.VolumeAttachment;
 
+      public static list(): rxjs.Observable<outputApi.storage.v1alpha1.VolumeAttachment> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1alpha1.isVolumeAttachment)
+        );
+      }
+
       /**
       * Create a storage.v1alpha1.VolumeAttachment resource with the given unique name, arguments, and options.
       *
@@ -14864,6 +16571,17 @@ export namespace storage {
 
       public getInputs(): inputApi.storage.v1alpha1.VolumeAttachmentList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1alpha1.VolumeAttachmentList;
+
+      public static list(): rxjs.Observable<outputApi.storage.v1alpha1.VolumeAttachmentList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1alpha1.isVolumeAttachmentList)
+        );
+      }
 
       /**
       * Create a storage.v1alpha1.VolumeAttachmentList resource with the given unique name, arguments, and options.
@@ -14980,6 +16698,17 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1beta1.StorageClass { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1beta1.StorageClass;
 
+      public static list(): rxjs.Observable<outputApi.storage.v1beta1.StorageClass> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1beta1.isStorageClass)
+        );
+      }
+
       /**
       * Create a storage.v1beta1.StorageClass resource with the given unique name, arguments, and options.
       *
@@ -15054,6 +16783,17 @@ export namespace storage {
 
       public getInputs(): inputApi.storage.v1beta1.StorageClassList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1beta1.StorageClassList;
+
+      public static list(): rxjs.Observable<outputApi.storage.v1beta1.StorageClassList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1beta1.isStorageClassList)
+        );
+      }
 
       /**
       * Create a storage.v1beta1.StorageClassList resource with the given unique name, arguments, and options.
@@ -15134,6 +16874,17 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1beta1.VolumeAttachment { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1beta1.VolumeAttachment;
 
+      public static list(): rxjs.Observable<outputApi.storage.v1beta1.VolumeAttachment> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1beta1.isVolumeAttachment)
+        );
+      }
+
       /**
       * Create a storage.v1beta1.VolumeAttachment resource with the given unique name, arguments, and options.
       *
@@ -15203,6 +16954,17 @@ export namespace storage {
 
       public getInputs(): inputApi.storage.v1beta1.VolumeAttachmentList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1beta1.VolumeAttachmentList;
+
+      public static list(): rxjs.Observable<outputApi.storage.v1beta1.VolumeAttachmentList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1beta1.isVolumeAttachmentList)
+        );
+      }
 
       /**
       * Create a storage.v1beta1.VolumeAttachmentList resource with the given unique name, arguments, and options.

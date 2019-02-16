@@ -9,6 +9,8 @@ import * as outputApi from "./types/output";
 import * as jsyaml from "js-yaml";
 import * as glob from "glob";
 import fetch from "node-fetch";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
 export namespace yaml {
     export interface ConfigGroupOpts {
@@ -394,7 +396,7 @@ export namespace apiextensions {
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<inputApi.meta.v1.ObjectMeta>;
 
       /**
        * Get the state of an existing `CustomResource`, as identified by `id`.
@@ -510,6 +512,17 @@ export namespace {{Group}} {
 
       public getInputs(): inputApi.{{Group}}.{{Version}}.{{Kind}} { return this.__inputs; }
       private readonly __inputs: inputApi.{{Group}}.{{Version}}.{{Kind}};
+
+      public static list(): rxjs.Observable<outputApi.{{Group}}.{{Version}}.{{Kind}}> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.{{Group}}.{{Version}}.is{{Kind}})
+        );
+      }
 
       /**
       * Create a {{Group}}.{{Version}}.{{Kind}} resource with the given unique name, arguments, and options.
