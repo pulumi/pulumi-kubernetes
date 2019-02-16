@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
@@ -63,6 +65,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.apps.v1.ReplicaSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.ReplicaSet;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1.ReplicaSet> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1.isReplicaSet)
+        );
+      }
 
       /**
        * Create a apps.v1.ReplicaSet resource with the given unique name, arguments, and options.

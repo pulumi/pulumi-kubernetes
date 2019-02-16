@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * SelfSubjectAccessReview checks whether or the current user can perform an action.  Not
@@ -58,6 +60,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.authorization.v1.SelfSubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1.SelfSubjectAccessReview;
+
+      public static list(): rxjs.Observable<outputApi.authorization.v1.SelfSubjectAccessReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authorization.v1.isSelfSubjectAccessReview)
+        );
+      }
 
       /**
        * Create a authorization.v1.SelfSubjectAccessReview resource with the given unique name, arguments, and options.

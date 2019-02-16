@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * PodPreset is a policy resource that defines additional runtime requirements for a Pod.
@@ -49,6 +51,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.settings.v1alpha1.PodPreset { return this.__inputs; }
       private readonly __inputs: inputApi.settings.v1alpha1.PodPreset;
+
+      public static list(): rxjs.Observable<outputApi.settings.v1alpha1.PodPreset> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.settings.v1alpha1.isPodPreset)
+        );
+      }
 
       /**
        * Create a settings.v1alpha1.PodPreset resource with the given unique name, arguments, and options.

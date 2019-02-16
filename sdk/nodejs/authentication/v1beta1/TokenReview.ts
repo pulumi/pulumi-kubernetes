@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may
@@ -57,6 +59,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.authentication.v1beta1.TokenReview { return this.__inputs; }
       private readonly __inputs: inputApi.authentication.v1beta1.TokenReview;
+
+      public static list(): rxjs.Observable<outputApi.authentication.v1beta1.TokenReview> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.authentication.v1beta1.isTokenReview)
+        );
+      }
 
       /**
        * Create a authentication.v1beta1.TokenReview resource with the given unique name, arguments, and options.

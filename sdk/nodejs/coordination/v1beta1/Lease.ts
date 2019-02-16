@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * Lease defines a lease concept.
@@ -54,6 +56,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.coordination.v1beta1.Lease { return this.__inputs; }
       private readonly __inputs: inputApi.coordination.v1beta1.Lease;
+
+      public static list(): rxjs.Observable<outputApi.coordination.v1beta1.Lease> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.coordination.v1beta1.isLease)
+        );
+      }
 
       /**
        * Create a coordination.v1beta1.Lease resource with the given unique name, arguments, and options.

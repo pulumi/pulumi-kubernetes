@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * ReplicationControllerList is a collection of replication controllers.
@@ -55,6 +57,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.core.v1.ReplicationControllerList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ReplicationControllerList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.ReplicationControllerList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isReplicationControllerList)
+        );
+      }
 
       /**
        * Create a core.v1.ReplicationControllerList resource with the given unique name, arguments, and options.

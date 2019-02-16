@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral
@@ -72,6 +74,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.core.v1.ServiceAccount { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ServiceAccount;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.ServiceAccount> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isServiceAccount)
+        );
+      }
 
       /**
        * Create a core.v1.ServiceAccount resource with the given unique name, arguments, and options.

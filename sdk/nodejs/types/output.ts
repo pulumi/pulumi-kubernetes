@@ -25,6 +25,7 @@ export namespace admissionregistration {
 
     }
 
+
     /**
      * InitializerConfiguration describes the configuration of initializers.
      */
@@ -61,6 +62,10 @@ export namespace admissionregistration {
 
     }
 
+    export function isInitializerConfiguration(o: any): o is InitializerConfiguration {
+      return o.apiVersion == "admissionregistration.k8s.io/v1alpha1" && o.kind == "InitializerConfiguration";
+    }
+
     /**
      * InitializerConfigurationList is a list of InitializerConfiguration.
      */
@@ -92,6 +97,10 @@ export namespace admissionregistration {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isInitializerConfigurationList(o: any): o is InitializerConfigurationList {
+      return o.apiVersion == "admissionregistration.k8s.io/v1alpha1" && o.kind == "InitializerConfigurationList";
     }
 
     /**
@@ -126,6 +135,7 @@ export namespace admissionregistration {
       readonly resources: string[]
 
     }
+
 
   }
 
@@ -164,6 +174,10 @@ export namespace admissionregistration {
 
     }
 
+    export function isMutatingWebhookConfiguration(o: any): o is MutatingWebhookConfiguration {
+      return o.apiVersion == "admissionregistration.k8s.io/v1beta1" && o.kind == "MutatingWebhookConfiguration";
+    }
+
     /**
      * MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
      */
@@ -195,6 +209,10 @@ export namespace admissionregistration {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isMutatingWebhookConfigurationList(o: any): o is MutatingWebhookConfigurationList {
+      return o.apiVersion == "admissionregistration.k8s.io/v1beta1" && o.kind == "MutatingWebhookConfigurationList";
     }
 
     /**
@@ -236,6 +254,7 @@ export namespace admissionregistration {
 
     }
 
+
     /**
      * ServiceReference holds a reference to Service.legacy.k8s.io
      */
@@ -256,6 +275,7 @@ export namespace admissionregistration {
       readonly path: string
 
     }
+
 
     /**
      * ValidatingWebhookConfiguration describes the configuration of and admission webhook that
@@ -291,6 +311,10 @@ export namespace admissionregistration {
 
     }
 
+    export function isValidatingWebhookConfiguration(o: any): o is ValidatingWebhookConfiguration {
+      return o.apiVersion == "admissionregistration.k8s.io/v1beta1" && o.kind == "ValidatingWebhookConfiguration";
+    }
+
     /**
      * ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
      */
@@ -322,6 +346,10 @@ export namespace admissionregistration {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isValidatingWebhookConfigurationList(o: any): o is ValidatingWebhookConfigurationList {
+      return o.apiVersion == "admissionregistration.k8s.io/v1beta1" && o.kind == "ValidatingWebhookConfigurationList";
     }
 
     /**
@@ -410,6 +438,7 @@ export namespace admissionregistration {
 
     }
 
+
     /**
      * WebhookClientConfig contains the information to make a TLS connection with the webhook
      */
@@ -455,6 +484,7 @@ export namespace admissionregistration {
       readonly url: string
 
     }
+
 
   }
 
@@ -506,6 +536,7 @@ export namespace apiextensions {
 
     }
 
+
     /**
      * CustomResourceConversion describes how to convert different versions of a CR.
      */
@@ -526,6 +557,7 @@ export namespace apiextensions {
       readonly webhookClientConfig: apiextensions.v1beta1.WebhookClientConfig
 
     }
+
 
     /**
      * CustomResourceDefinition represents a resource that should be exposed on the API server.  Its
@@ -563,6 +595,10 @@ export namespace apiextensions {
 
     }
 
+    export function isCustomResourceDefinition(o: any): o is CustomResourceDefinition {
+      return o.apiVersion == "apiextensions.k8s.io/v1beta1" && o.kind == "CustomResourceDefinition";
+    }
+
     /**
      * CustomResourceDefinitionCondition contains details for the current condition of this pod.
      */
@@ -594,6 +630,7 @@ export namespace apiextensions {
 
     }
 
+
     /**
      * CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
      */
@@ -622,6 +659,10 @@ export namespace apiextensions {
       
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isCustomResourceDefinitionList(o: any): o is CustomResourceDefinitionList {
+      return o.apiVersion == "apiextensions.k8s.io/v1beta1" && o.kind == "CustomResourceDefinitionList";
     }
 
     /**
@@ -661,6 +702,7 @@ export namespace apiextensions {
       readonly singular: string
 
     }
+
 
     /**
      * CustomResourceDefinitionSpec describes how a user wants their resource to appear
@@ -732,6 +774,7 @@ export namespace apiextensions {
 
     }
 
+
     /**
      * CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
      */
@@ -757,6 +800,7 @@ export namespace apiextensions {
       readonly storedVersions: string[]
 
     }
+
 
     /**
      * CustomResourceDefinitionVersion describes a version for CRD.
@@ -809,6 +853,7 @@ export namespace apiextensions {
 
     }
 
+
     /**
      * CustomResourceSubresourceScale defines how to serve the scale subresource for
      * CustomResources.
@@ -841,6 +886,7 @@ export namespace apiextensions {
 
     }
 
+
     /**
      * CustomResourceSubresources defines the status and scale subresources for CustomResources.
      */
@@ -857,6 +903,7 @@ export namespace apiextensions {
 
     }
 
+
     /**
      * CustomResourceValidation is a list of validation methods for CustomResources.
      */
@@ -867,6 +914,7 @@ export namespace apiextensions {
       readonly openAPIV3Schema: apiextensions.v1beta1.JSONSchemaProps
 
     }
+
 
     /**
      * ExternalDocumentation allows referencing an external resource for extended documentation.
@@ -879,6 +927,7 @@ export namespace apiextensions {
       readonly url: string
 
     }
+
 
     /**
      * JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
@@ -994,6 +1043,7 @@ export namespace apiextensions {
 
     }
 
+
     /**
      * ServiceReference holds a reference to Service.legacy.k8s.io
      */
@@ -1014,6 +1064,7 @@ export namespace apiextensions {
       readonly path: string
 
     }
+
 
     /**
      * WebhookClientConfig contains the information to make a TLS connection with the webhook. It
@@ -1062,6 +1113,7 @@ export namespace apiextensions {
 
     }
 
+
   }
 
 }
@@ -1103,6 +1155,10 @@ export namespace apiregistration {
 
     }
 
+    export function isAPIService(o: any): o is APIService {
+      return o.apiVersion == "apiregistration.k8s.io/v1" && o.kind == "APIService";
+    }
+
     
     export interface APIServiceCondition {
       /**
@@ -1132,6 +1188,7 @@ export namespace apiregistration {
 
     }
 
+
     /**
      * APIServiceList is a list of APIService objects.
      */
@@ -1158,6 +1215,10 @@ export namespace apiregistration {
       
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isAPIServiceList(o: any): o is APIServiceList {
+      return o.apiVersion == "apiregistration.k8s.io/v1" && o.kind == "APIServiceList";
     }
 
     /**
@@ -1223,6 +1284,7 @@ export namespace apiregistration {
 
     }
 
+
     /**
      * APIServiceStatus contains derived information about an API server
      */
@@ -1233,6 +1295,7 @@ export namespace apiregistration {
       readonly conditions: apiregistration.v1.APIServiceCondition[]
 
     }
+
 
     /**
      * ServiceReference holds a reference to Service.legacy.k8s.io
@@ -1249,6 +1312,7 @@ export namespace apiregistration {
       readonly namespace: string
 
     }
+
 
   }
 
@@ -1288,6 +1352,10 @@ export namespace apiregistration {
 
     }
 
+    export function isAPIService(o: any): o is APIService {
+      return o.apiVersion == "apiregistration.k8s.io/v1beta1" && o.kind == "APIService";
+    }
+
     
     export interface APIServiceCondition {
       /**
@@ -1317,6 +1385,7 @@ export namespace apiregistration {
 
     }
 
+
     /**
      * APIServiceList is a list of APIService objects.
      */
@@ -1343,6 +1412,10 @@ export namespace apiregistration {
       
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isAPIServiceList(o: any): o is APIServiceList {
+      return o.apiVersion == "apiregistration.k8s.io/v1beta1" && o.kind == "APIServiceList";
     }
 
     /**
@@ -1408,6 +1481,7 @@ export namespace apiregistration {
 
     }
 
+
     /**
      * APIServiceStatus contains derived information about an API server
      */
@@ -1418,6 +1492,7 @@ export namespace apiregistration {
       readonly conditions: apiregistration.v1beta1.APIServiceCondition[]
 
     }
+
 
     /**
      * ServiceReference holds a reference to Service.legacy.k8s.io
@@ -1434,6 +1509,7 @@ export namespace apiregistration {
       readonly namespace: string
 
     }
+
 
   }
 
@@ -1486,6 +1562,10 @@ export namespace apps {
 
     }
 
+    export function isControllerRevision(o: any): o is ControllerRevision {
+      return o.apiVersion == "apps/v1" && o.kind == "ControllerRevision";
+    }
+
     /**
      * ControllerRevisionList is a resource containing a list of ControllerRevision objects.
      */
@@ -1516,6 +1596,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isControllerRevisionList(o: any): o is ControllerRevisionList {
+      return o.apiVersion == "apps/v1" && o.kind == "ControllerRevisionList";
     }
 
     /**
@@ -1559,6 +1643,10 @@ export namespace apps {
 
     }
 
+    export function isDaemonSet(o: any): o is DaemonSet {
+      return o.apiVersion == "apps/v1" && o.kind == "DaemonSet";
+    }
+
     /**
      * DaemonSetCondition describes the state of a DaemonSet at a certain point.
      */
@@ -1589,6 +1677,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
     /**
      * DaemonSetList is a collection of daemon sets.
@@ -1621,6 +1710,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isDaemonSetList(o: any): o is DaemonSetList {
+      return o.apiVersion == "apps/v1" && o.kind == "DaemonSetList";
     }
 
     /**
@@ -1661,6 +1754,7 @@ export namespace apps {
       readonly updateStrategy: apps.v1.DaemonSetUpdateStrategy
 
     }
+
 
     /**
      * DaemonSetStatus represents the current status of a daemon set.
@@ -1727,6 +1821,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
      */
@@ -1742,6 +1837,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
     /**
      * Deployment enables declarative updates for Pods and ReplicaSets.
@@ -1780,6 +1876,10 @@ export namespace apps {
 
     }
 
+    export function isDeployment(o: any): o is Deployment {
+      return o.apiVersion == "apps/v1" && o.kind == "Deployment";
+    }
+
     /**
      * DeploymentCondition describes the state of a deployment at a certain point.
      */
@@ -1816,6 +1916,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DeploymentList is a list of Deployments.
      */
@@ -1846,6 +1947,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isDeploymentList(o: any): o is DeploymentList {
+      return o.apiVersion == "apps/v1" && o.kind == "DeploymentList";
     }
 
     /**
@@ -1903,6 +2008,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DeploymentStatus is the most recently observed status of the Deployment.
      */
@@ -1956,6 +2062,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DeploymentStrategy describes how to replace existing pods with new ones.
      */
@@ -1971,6 +2078,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
     /**
      * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
@@ -2014,6 +2122,10 @@ export namespace apps {
 
     }
 
+    export function isReplicaSet(o: any): o is ReplicaSet {
+      return o.apiVersion == "apps/v1" && o.kind == "ReplicaSet";
+    }
+
     /**
      * ReplicaSetCondition describes the state of a replica set at a certain point.
      */
@@ -2044,6 +2156,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
     /**
      * ReplicaSetList is a collection of ReplicaSets.
@@ -2077,6 +2190,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isReplicaSetList(o: any): o is ReplicaSetList {
+      return o.apiVersion == "apps/v1" && o.kind == "ReplicaSetList";
     }
 
     /**
@@ -2113,6 +2230,7 @@ export namespace apps {
       readonly template: core.v1.PodTemplateSpec
 
     }
+
 
     /**
      * ReplicaSetStatus represents the current status of a ReplicaSet.
@@ -2152,6 +2270,7 @@ export namespace apps {
 
     }
 
+
     /**
      * Spec to control the desired behavior of daemon set rolling update.
      */
@@ -2171,6 +2290,7 @@ export namespace apps {
       readonly maxUnavailable: number | string
 
     }
+
 
     /**
      * Spec to control the desired behavior of rolling update.
@@ -2202,6 +2322,7 @@ export namespace apps {
 
     }
 
+
     /**
      * RollingUpdateStatefulSetStrategy is used to communicate parameter for
      * RollingUpdateStatefulSetStrategyType.
@@ -2214,6 +2335,7 @@ export namespace apps {
       readonly partition: number
 
     }
+
 
     /**
      * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
@@ -2255,6 +2377,10 @@ export namespace apps {
 
     }
 
+    export function isStatefulSet(o: any): o is StatefulSet {
+      return o.apiVersion == "apps/v1" && o.kind == "StatefulSet";
+    }
+
     /**
      * StatefulSetCondition describes the state of a statefulset at a certain point.
      */
@@ -2286,6 +2412,7 @@ export namespace apps {
 
     }
 
+
     /**
      * StatefulSetList is a collection of StatefulSets.
      */
@@ -2312,6 +2439,10 @@ export namespace apps {
       
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isStatefulSetList(o: any): o is StatefulSetList {
+      return o.apiVersion == "apps/v1" && o.kind == "StatefulSetList";
     }
 
     /**
@@ -2382,6 +2513,7 @@ export namespace apps {
 
     }
 
+
     /**
      * StatefulSetStatus represents the current state of a StatefulSet.
      */
@@ -2442,6 +2574,7 @@ export namespace apps {
 
     }
 
+
     /**
      * StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to
      * perform updates. It includes any additional parameters necessary to perform the update for
@@ -2460,6 +2593,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
   }
 
@@ -2511,6 +2645,10 @@ export namespace apps {
 
     }
 
+    export function isControllerRevision(o: any): o is ControllerRevision {
+      return o.apiVersion == "apps/v1beta1" && o.kind == "ControllerRevision";
+    }
+
     /**
      * ControllerRevisionList is a resource containing a list of ControllerRevision objects.
      */
@@ -2541,6 +2679,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isControllerRevisionList(o: any): o is ControllerRevisionList {
+      return o.apiVersion == "apps/v1beta1" && o.kind == "ControllerRevisionList";
     }
 
     /**
@@ -2582,6 +2724,10 @@ export namespace apps {
 
     }
 
+    export function isDeployment(o: any): o is Deployment {
+      return o.apiVersion == "apps/v1beta1" && o.kind == "Deployment";
+    }
+
     /**
      * DeploymentCondition describes the state of a deployment at a certain point.
      */
@@ -2618,6 +2764,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DeploymentList is a list of Deployments.
      */
@@ -2648,6 +2795,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isDeploymentList(o: any): o is DeploymentList {
+      return o.apiVersion == "apps/v1beta1" && o.kind == "DeploymentList";
     }
 
     /**
@@ -2685,6 +2836,10 @@ export namespace apps {
        */
       readonly updatedAnnotations: {[key: string]: string}
 
+    }
+
+    export function isDeploymentRollback(o: any): o is DeploymentRollback {
+      return o.apiVersion == "apps/v1beta1" && o.kind == "DeploymentRollback";
     }
 
     /**
@@ -2748,6 +2903,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DeploymentStatus is the most recently observed status of the Deployment.
      */
@@ -2801,6 +2957,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DeploymentStrategy describes how to replace existing pods with new ones.
      */
@@ -2817,6 +2974,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DEPRECATED.
      */
@@ -2827,6 +2985,7 @@ export namespace apps {
       readonly revision: number
 
     }
+
 
     /**
      * Spec to control the desired behavior of rolling update.
@@ -2858,6 +3017,7 @@ export namespace apps {
 
     }
 
+
     /**
      * RollingUpdateStatefulSetStrategy is used to communicate parameter for
      * RollingUpdateStatefulSetStrategyType.
@@ -2869,6 +3029,7 @@ export namespace apps {
       readonly partition: number
 
     }
+
 
     /**
      * Scale represents a scaling request for a resource.
@@ -2911,6 +3072,10 @@ export namespace apps {
 
     }
 
+    export function isScale(o: any): o is Scale {
+      return o.apiVersion == "apps/v1beta1" && o.kind == "Scale";
+    }
+
     /**
      * ScaleSpec describes the attributes of a scale subresource
      */
@@ -2921,6 +3086,7 @@ export namespace apps {
       readonly replicas: number
 
     }
+
 
     /**
      * ScaleStatus represents the current status of a scale subresource.
@@ -2948,6 +3114,7 @@ export namespace apps {
       readonly targetSelector: string
 
     }
+
 
     /**
      * DEPRECATED - This group version of StatefulSet is deprecated by apps/v1beta2/StatefulSet. See
@@ -2991,6 +3158,10 @@ export namespace apps {
 
     }
 
+    export function isStatefulSet(o: any): o is StatefulSet {
+      return o.apiVersion == "apps/v1beta1" && o.kind == "StatefulSet";
+    }
+
     /**
      * StatefulSetCondition describes the state of a statefulset at a certain point.
      */
@@ -3022,6 +3193,7 @@ export namespace apps {
 
     }
 
+
     /**
      * StatefulSetList is a collection of StatefulSets.
      */
@@ -3048,6 +3220,10 @@ export namespace apps {
       
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isStatefulSetList(o: any): o is StatefulSetList {
+      return o.apiVersion == "apps/v1beta1" && o.kind == "StatefulSetList";
     }
 
     /**
@@ -3118,6 +3294,7 @@ export namespace apps {
 
     }
 
+
     /**
      * StatefulSetStatus represents the current state of a StatefulSet.
      */
@@ -3178,6 +3355,7 @@ export namespace apps {
 
     }
 
+
     /**
      * StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to
      * perform updates. It includes any additional parameters necessary to perform the update for
@@ -3196,6 +3374,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
   }
 
@@ -3247,6 +3426,10 @@ export namespace apps {
 
     }
 
+    export function isControllerRevision(o: any): o is ControllerRevision {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "ControllerRevision";
+    }
+
     /**
      * ControllerRevisionList is a resource containing a list of ControllerRevision objects.
      */
@@ -3277,6 +3460,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isControllerRevisionList(o: any): o is ControllerRevisionList {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "ControllerRevisionList";
     }
 
     /**
@@ -3321,6 +3508,10 @@ export namespace apps {
 
     }
 
+    export function isDaemonSet(o: any): o is DaemonSet {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "DaemonSet";
+    }
+
     /**
      * DaemonSetCondition describes the state of a DaemonSet at a certain point.
      */
@@ -3351,6 +3542,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
     /**
      * DaemonSetList is a collection of daemon sets.
@@ -3383,6 +3575,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isDaemonSetList(o: any): o is DaemonSetList {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "DaemonSetList";
     }
 
     /**
@@ -3423,6 +3619,7 @@ export namespace apps {
       readonly updateStrategy: apps.v1beta2.DaemonSetUpdateStrategy
 
     }
+
 
     /**
      * DaemonSetStatus represents the current status of a daemon set.
@@ -3489,6 +3686,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
      */
@@ -3504,6 +3702,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
     /**
      * DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the
@@ -3544,6 +3743,10 @@ export namespace apps {
 
     }
 
+    export function isDeployment(o: any): o is Deployment {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "Deployment";
+    }
+
     /**
      * DeploymentCondition describes the state of a deployment at a certain point.
      */
@@ -3580,6 +3783,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DeploymentList is a list of Deployments.
      */
@@ -3610,6 +3814,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isDeploymentList(o: any): o is DeploymentList {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "DeploymentList";
     }
 
     /**
@@ -3667,6 +3875,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DeploymentStatus is the most recently observed status of the Deployment.
      */
@@ -3720,6 +3929,7 @@ export namespace apps {
 
     }
 
+
     /**
      * DeploymentStrategy describes how to replace existing pods with new ones.
      */
@@ -3735,6 +3945,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
     /**
      * DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the
@@ -3780,6 +3991,10 @@ export namespace apps {
 
     }
 
+    export function isReplicaSet(o: any): o is ReplicaSet {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "ReplicaSet";
+    }
+
     /**
      * ReplicaSetCondition describes the state of a replica set at a certain point.
      */
@@ -3810,6 +4025,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
     /**
      * ReplicaSetList is a collection of ReplicaSets.
@@ -3843,6 +4059,10 @@ export namespace apps {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isReplicaSetList(o: any): o is ReplicaSetList {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "ReplicaSetList";
     }
 
     /**
@@ -3879,6 +4099,7 @@ export namespace apps {
       readonly template: core.v1.PodTemplateSpec
 
     }
+
 
     /**
      * ReplicaSetStatus represents the current status of a ReplicaSet.
@@ -3918,6 +4139,7 @@ export namespace apps {
 
     }
 
+
     /**
      * Spec to control the desired behavior of daemon set rolling update.
      */
@@ -3937,6 +4159,7 @@ export namespace apps {
       readonly maxUnavailable: number | string
 
     }
+
 
     /**
      * Spec to control the desired behavior of rolling update.
@@ -3968,6 +4191,7 @@ export namespace apps {
 
     }
 
+
     /**
      * RollingUpdateStatefulSetStrategy is used to communicate parameter for
      * RollingUpdateStatefulSetStrategyType.
@@ -3980,6 +4204,7 @@ export namespace apps {
       readonly partition: number
 
     }
+
 
     /**
      * Scale represents a scaling request for a resource.
@@ -4022,6 +4247,10 @@ export namespace apps {
 
     }
 
+    export function isScale(o: any): o is Scale {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "Scale";
+    }
+
     /**
      * ScaleSpec describes the attributes of a scale subresource
      */
@@ -4032,6 +4261,7 @@ export namespace apps {
       readonly replicas: number
 
     }
+
 
     /**
      * ScaleStatus represents the current status of a scale subresource.
@@ -4059,6 +4289,7 @@ export namespace apps {
       readonly targetSelector: string
 
     }
+
 
     /**
      * DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the
@@ -4102,6 +4333,10 @@ export namespace apps {
 
     }
 
+    export function isStatefulSet(o: any): o is StatefulSet {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "StatefulSet";
+    }
+
     /**
      * StatefulSetCondition describes the state of a statefulset at a certain point.
      */
@@ -4133,6 +4368,7 @@ export namespace apps {
 
     }
 
+
     /**
      * StatefulSetList is a collection of StatefulSets.
      */
@@ -4159,6 +4395,10 @@ export namespace apps {
       
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isStatefulSetList(o: any): o is StatefulSetList {
+      return o.apiVersion == "apps/v1beta2" && o.kind == "StatefulSetList";
     }
 
     /**
@@ -4229,6 +4469,7 @@ export namespace apps {
 
     }
 
+
     /**
      * StatefulSetStatus represents the current state of a StatefulSet.
      */
@@ -4289,6 +4530,7 @@ export namespace apps {
 
     }
 
+
     /**
      * StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to
      * perform updates. It includes any additional parameters necessary to perform the update for
@@ -4307,6 +4549,7 @@ export namespace apps {
       readonly type: string
 
     }
+
 
   }
 
@@ -4344,6 +4587,10 @@ export namespace auditregistration {
 
     }
 
+    export function isAuditSink(o: any): o is AuditSink {
+      return o.apiVersion == "auditregistration.k8s.io/v1alpha1" && o.kind == "AuditSink";
+    }
+
     /**
      * AuditSinkList is a list of AuditSink items.
      */
@@ -4374,6 +4621,10 @@ export namespace auditregistration {
 
     }
 
+    export function isAuditSinkList(o: any): o is AuditSinkList {
+      return o.apiVersion == "auditregistration.k8s.io/v1alpha1" && o.kind == "AuditSinkList";
+    }
+
     /**
      * AuditSinkSpec holds the spec for the audit sink
      */
@@ -4389,6 +4640,7 @@ export namespace auditregistration {
       readonly webhook: auditregistration.v1alpha1.Webhook
 
     }
+
 
     /**
      * Policy defines the configuration of how audit events are logged
@@ -4406,6 +4658,7 @@ export namespace auditregistration {
       readonly stages: string[]
 
     }
+
 
     /**
      * ServiceReference holds a reference to Service.legacy.k8s.io
@@ -4428,6 +4681,7 @@ export namespace auditregistration {
 
     }
 
+
     /**
      * Webhook holds the configuration of the webhook
      */
@@ -4443,6 +4697,7 @@ export namespace auditregistration {
       readonly throttle: auditregistration.v1alpha1.WebhookThrottleConfig
 
     }
+
 
     /**
      * WebhookClientConfig contains the information to make a connection with the webhook
@@ -4490,6 +4745,7 @@ export namespace auditregistration {
 
     }
 
+
     /**
      * WebhookThrottleConfig holds the configuration for throttling events
      */
@@ -4505,6 +4761,7 @@ export namespace auditregistration {
       readonly qps: number
 
     }
+
 
   }
 
@@ -4548,6 +4805,10 @@ export namespace authentication {
 
     }
 
+    export function isTokenReview(o: any): o is TokenReview {
+      return o.apiVersion == "authentication.k8s.io/v1" && o.kind == "TokenReview";
+    }
+
     /**
      * TokenReviewSpec is a description of the token authentication request.
      */
@@ -4566,6 +4827,7 @@ export namespace authentication {
       readonly token: string
 
     }
+
 
     /**
      * TokenReviewStatus is the result of the token authentication request.
@@ -4599,6 +4861,7 @@ export namespace authentication {
 
     }
 
+
     /**
      * UserInfo holds the information about the user needed to implement the user.Info interface.
      */
@@ -4625,6 +4888,7 @@ export namespace authentication {
       readonly username: string
 
     }
+
 
   }
 
@@ -4665,6 +4929,10 @@ export namespace authentication {
 
     }
 
+    export function isTokenReview(o: any): o is TokenReview {
+      return o.apiVersion == "authentication.k8s.io/v1beta1" && o.kind == "TokenReview";
+    }
+
     /**
      * TokenReviewSpec is a description of the token authentication request.
      */
@@ -4683,6 +4951,7 @@ export namespace authentication {
       readonly token: string
 
     }
+
 
     /**
      * TokenReviewStatus is the result of the token authentication request.
@@ -4716,6 +4985,7 @@ export namespace authentication {
 
     }
 
+
     /**
      * UserInfo holds the information about the user needed to implement the user.Info interface.
      */
@@ -4742,6 +5012,7 @@ export namespace authentication {
       readonly username: string
 
     }
+
 
   }
 
@@ -4787,6 +5058,10 @@ export namespace authorization {
 
     }
 
+    export function isLocalSubjectAccessReview(o: any): o is LocalSubjectAccessReview {
+      return o.apiVersion == "authorization.k8s.io/v1" && o.kind == "LocalSubjectAccessReview";
+    }
+
     /**
      * NonResourceAttributes includes the authorization attributes available for non-resource
      * requests to the Authorizer interface
@@ -4803,6 +5078,7 @@ export namespace authorization {
       readonly verb: string
 
     }
+
 
     /**
      * NonResourceRule holds information that describes a rule for the non-resource
@@ -4821,6 +5097,7 @@ export namespace authorization {
       readonly verbs: string[]
 
     }
+
 
     /**
      * ResourceAttributes includes the authorization attributes available for resource requests to
@@ -4869,6 +5146,7 @@ export namespace authorization {
 
     }
 
+
     /**
      * ResourceRule is the list of actions the subject is allowed to perform on resources. The list
      * ordering isn't significant, may contain duplicates, and possibly be incomplete.
@@ -4902,6 +5180,7 @@ export namespace authorization {
       readonly verbs: string[]
 
     }
+
 
     /**
      * SelfSubjectAccessReview checks whether or the current user can perform an action.  Not
@@ -4940,6 +5219,10 @@ export namespace authorization {
 
     }
 
+    export function isSelfSubjectAccessReview(o: any): o is SelfSubjectAccessReview {
+      return o.apiVersion == "authorization.k8s.io/v1" && o.kind == "SelfSubjectAccessReview";
+    }
+
     /**
      * SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of
      * ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
@@ -4956,6 +5239,7 @@ export namespace authorization {
       readonly resourceAttributes: authorization.v1.ResourceAttributes
 
     }
+
 
     /**
      * SelfSubjectRulesReview enumerates the set of actions the current user can perform within a
@@ -4999,6 +5283,10 @@ export namespace authorization {
 
     }
 
+    export function isSelfSubjectRulesReview(o: any): o is SelfSubjectRulesReview {
+      return o.apiVersion == "authorization.k8s.io/v1" && o.kind == "SelfSubjectRulesReview";
+    }
+
     
     export interface SelfSubjectRulesReviewSpec {
       /**
@@ -5007,6 +5295,7 @@ export namespace authorization {
       readonly namespace: string
 
     }
+
 
     /**
      * SubjectAccessReview checks whether or not a user or group can perform an action.
@@ -5041,6 +5330,10 @@ export namespace authorization {
        */
       readonly status: authorization.v1.SubjectAccessReviewStatus
 
+    }
+
+    export function isSubjectAccessReview(o: any): o is SubjectAccessReview {
+      return o.apiVersion == "authorization.k8s.io/v1" && o.kind == "SubjectAccessReview";
     }
 
     /**
@@ -5082,6 +5375,7 @@ export namespace authorization {
 
     }
 
+
     /**
      * SubjectAccessReviewStatus
      */
@@ -5112,6 +5406,7 @@ export namespace authorization {
       readonly reason: string
 
     }
+
 
     /**
      * SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete
@@ -5147,6 +5442,7 @@ export namespace authorization {
       readonly resourceRules: authorization.v1.ResourceRule[]
 
     }
+
 
   }
 
@@ -5189,6 +5485,10 @@ export namespace authorization {
 
     }
 
+    export function isLocalSubjectAccessReview(o: any): o is LocalSubjectAccessReview {
+      return o.apiVersion == "authorization.k8s.io/v1beta1" && o.kind == "LocalSubjectAccessReview";
+    }
+
     /**
      * NonResourceAttributes includes the authorization attributes available for non-resource
      * requests to the Authorizer interface
@@ -5205,6 +5505,7 @@ export namespace authorization {
       readonly verb: string
 
     }
+
 
     /**
      * NonResourceRule holds information that describes a rule for the non-resource
@@ -5223,6 +5524,7 @@ export namespace authorization {
       readonly verbs: string[]
 
     }
+
 
     /**
      * ResourceAttributes includes the authorization attributes available for resource requests to
@@ -5271,6 +5573,7 @@ export namespace authorization {
 
     }
 
+
     /**
      * ResourceRule is the list of actions the subject is allowed to perform on resources. The list
      * ordering isn't significant, may contain duplicates, and possibly be incomplete.
@@ -5304,6 +5607,7 @@ export namespace authorization {
       readonly verbs: string[]
 
     }
+
 
     /**
      * SelfSubjectAccessReview checks whether or the current user can perform an action.  Not
@@ -5342,6 +5646,10 @@ export namespace authorization {
 
     }
 
+    export function isSelfSubjectAccessReview(o: any): o is SelfSubjectAccessReview {
+      return o.apiVersion == "authorization.k8s.io/v1beta1" && o.kind == "SelfSubjectAccessReview";
+    }
+
     /**
      * SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of
      * ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
@@ -5358,6 +5666,7 @@ export namespace authorization {
       readonly resourceAttributes: authorization.v1beta1.ResourceAttributes
 
     }
+
 
     /**
      * SelfSubjectRulesReview enumerates the set of actions the current user can perform within a
@@ -5401,6 +5710,10 @@ export namespace authorization {
 
     }
 
+    export function isSelfSubjectRulesReview(o: any): o is SelfSubjectRulesReview {
+      return o.apiVersion == "authorization.k8s.io/v1beta1" && o.kind == "SelfSubjectRulesReview";
+    }
+
     
     export interface SelfSubjectRulesReviewSpec {
       /**
@@ -5409,6 +5722,7 @@ export namespace authorization {
       readonly namespace: string
 
     }
+
 
     /**
      * SubjectAccessReview checks whether or not a user or group can perform an action.
@@ -5443,6 +5757,10 @@ export namespace authorization {
        */
       readonly status: authorization.v1beta1.SubjectAccessReviewStatus
 
+    }
+
+    export function isSubjectAccessReview(o: any): o is SubjectAccessReview {
+      return o.apiVersion == "authorization.k8s.io/v1beta1" && o.kind == "SubjectAccessReview";
     }
 
     /**
@@ -5484,6 +5802,7 @@ export namespace authorization {
 
     }
 
+
     /**
      * SubjectAccessReviewStatus
      */
@@ -5514,6 +5833,7 @@ export namespace authorization {
       readonly reason: string
 
     }
+
 
     /**
      * SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete
@@ -5550,6 +5870,7 @@ export namespace authorization {
 
     }
 
+
   }
 
 }
@@ -5577,6 +5898,10 @@ export namespace autoscaling {
        */
       readonly name: string
 
+    }
+
+    export function isCrossVersionObjectReference(o: any): o is CrossVersionObjectReference {
+      return o.apiVersion == "autoscaling/v1" && o.kind == "CrossVersionObjectReference";
     }
 
     /**
@@ -5618,6 +5943,10 @@ export namespace autoscaling {
 
     }
 
+    export function isHorizontalPodAutoscaler(o: any): o is HorizontalPodAutoscaler {
+      return o.apiVersion == "autoscaling/v1" && o.kind == "HorizontalPodAutoscaler";
+    }
+
     /**
      * list of horizontal pod autoscaler objects.
      */
@@ -5650,6 +5979,10 @@ export namespace autoscaling {
 
     }
 
+    export function isHorizontalPodAutoscalerList(o: any): o is HorizontalPodAutoscalerList {
+      return o.apiVersion == "autoscaling/v1" && o.kind == "HorizontalPodAutoscalerList";
+    }
+
     /**
      * specification of a horizontal pod autoscaler.
      */
@@ -5678,6 +6011,7 @@ export namespace autoscaling {
       readonly targetCPUUtilizationPercentage: number
 
     }
+
 
     /**
      * current status of a horizontal pod autoscaler
@@ -5711,6 +6045,7 @@ export namespace autoscaling {
       readonly observedGeneration: number
 
     }
+
 
     /**
      * Scale represents a scaling request for a resource.
@@ -5753,6 +6088,10 @@ export namespace autoscaling {
 
     }
 
+    export function isScale(o: any): o is Scale {
+      return o.apiVersion == "autoscaling/v1" && o.kind == "Scale";
+    }
+
     /**
      * ScaleSpec describes the attributes of a scale subresource.
      */
@@ -5763,6 +6102,7 @@ export namespace autoscaling {
       readonly replicas: number
 
     }
+
 
     /**
      * ScaleStatus represents the current status of a scale subresource.
@@ -5782,6 +6122,7 @@ export namespace autoscaling {
       readonly selector: string
 
     }
+
 
   }
 
@@ -5807,6 +6148,10 @@ export namespace autoscaling {
        */
       readonly name: string
 
+    }
+
+    export function isCrossVersionObjectReference(o: any): o is CrossVersionObjectReference {
+      return o.apiVersion == "autoscaling/v2beta1" && o.kind == "CrossVersionObjectReference";
     }
 
     /**
@@ -5839,6 +6184,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * ExternalMetricStatus indicates the current value of a global metric not associated with any
      * Kubernetes object.
@@ -5865,6 +6211,7 @@ export namespace autoscaling {
       readonly metricSelector: meta.v1.LabelSelector
 
     }
+
 
     /**
      * HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
@@ -5907,6 +6254,10 @@ export namespace autoscaling {
 
     }
 
+    export function isHorizontalPodAutoscaler(o: any): o is HorizontalPodAutoscaler {
+      return o.apiVersion == "autoscaling/v2beta1" && o.kind == "HorizontalPodAutoscaler";
+    }
+
     /**
      * HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a
      * certain point.
@@ -5939,6 +6290,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.
      */
@@ -5969,6 +6321,10 @@ export namespace autoscaling {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isHorizontalPodAutoscalerList(o: any): o is HorizontalPodAutoscalerList {
+      return o.apiVersion == "autoscaling/v2beta1" && o.kind == "HorizontalPodAutoscalerList";
     }
 
     /**
@@ -6005,6 +6361,7 @@ export namespace autoscaling {
       readonly scaleTargetRef: autoscaling.v2beta1.CrossVersionObjectReference
 
     }
+
 
     /**
      * HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
@@ -6045,6 +6402,7 @@ export namespace autoscaling {
       readonly observedGeneration: number
 
     }
+
 
     /**
      * MetricSpec specifies how to scale based on a single metric (only `type` and one other
@@ -6088,6 +6446,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * MetricStatus describes the last-read state of a single metric.
      */
@@ -6129,6 +6488,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for
      * example, hits-per-second on an Ingress object).
@@ -6163,6 +6523,7 @@ export namespace autoscaling {
       readonly targetValue: string
 
     }
+
 
     /**
      * ObjectMetricStatus indicates the current value of a metric describing a kubernetes object
@@ -6200,6 +6561,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * PodsMetricSource indicates how to scale on a metric describing each pod in the current scale
      * target (for example, transactions-processed-per-second). The values will be averaged together
@@ -6226,6 +6588,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * PodsMetricStatus indicates the current value of a metric describing each pod in the current
      * scale target (for example, transactions-processed-per-second).
@@ -6251,6 +6614,7 @@ export namespace autoscaling {
       readonly selector: meta.v1.LabelSelector
 
     }
+
 
     /**
      * ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as
@@ -6282,6 +6646,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as
      * specified in requests and limits, describing each pod in the current scale target (e.g. CPU
@@ -6312,6 +6677,7 @@ export namespace autoscaling {
 
     }
 
+
   }
 
   export namespace v2beta2 {
@@ -6338,6 +6704,10 @@ export namespace autoscaling {
 
     }
 
+    export function isCrossVersionObjectReference(o: any): o is CrossVersionObjectReference {
+      return o.apiVersion == "autoscaling/v2beta2" && o.kind == "CrossVersionObjectReference";
+    }
+
     /**
      * ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes
      * object (for example length of queue in cloud messaging service, or QPS from loadbalancer
@@ -6356,6 +6726,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * ExternalMetricStatus indicates the current value of a global metric not associated with any
      * Kubernetes object.
@@ -6372,6 +6743,7 @@ export namespace autoscaling {
       readonly metric: autoscaling.v2beta2.MetricIdentifier
 
     }
+
 
     /**
      * HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
@@ -6414,6 +6786,10 @@ export namespace autoscaling {
 
     }
 
+    export function isHorizontalPodAutoscaler(o: any): o is HorizontalPodAutoscaler {
+      return o.apiVersion == "autoscaling/v2beta2" && o.kind == "HorizontalPodAutoscaler";
+    }
+
     /**
      * HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a
      * certain point.
@@ -6446,6 +6822,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
      */
@@ -6476,6 +6853,10 @@ export namespace autoscaling {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isHorizontalPodAutoscalerList(o: any): o is HorizontalPodAutoscalerList {
+      return o.apiVersion == "autoscaling/v2beta2" && o.kind == "HorizontalPodAutoscalerList";
     }
 
     /**
@@ -6513,6 +6894,7 @@ export namespace autoscaling {
       readonly scaleTargetRef: autoscaling.v2beta2.CrossVersionObjectReference
 
     }
+
 
     /**
      * HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
@@ -6554,6 +6936,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * MetricIdentifier defines the name and optionally selector for a metric
      */
@@ -6571,6 +6954,7 @@ export namespace autoscaling {
       readonly selector: meta.v1.LabelSelector
 
     }
+
 
     /**
      * MetricSpec specifies how to scale based on a single metric (only `type` and one other
@@ -6614,6 +6998,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * MetricStatus describes the last-read state of a single metric.
      */
@@ -6655,6 +7040,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * MetricTarget defines the target value, average value, or average utilization of a specific
      * metric
@@ -6685,6 +7071,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * MetricValueStatus holds the current value for a metric
      */
@@ -6709,6 +7096,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for
      * example, hits-per-second on an Ingress object).
@@ -6728,6 +7116,7 @@ export namespace autoscaling {
       readonly target: autoscaling.v2beta2.MetricTarget
 
     }
+
 
     /**
      * ObjectMetricStatus indicates the current value of a metric describing a kubernetes object
@@ -6749,6 +7138,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * PodsMetricSource indicates how to scale on a metric describing each pod in the current scale
      * target (for example, transactions-processed-per-second). The values will be averaged together
@@ -6767,6 +7157,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * PodsMetricStatus indicates the current value of a metric describing each pod in the current
      * scale target (for example, transactions-processed-per-second).
@@ -6783,6 +7174,7 @@ export namespace autoscaling {
       readonly metric: autoscaling.v2beta2.MetricIdentifier
 
     }
+
 
     /**
      * ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as
@@ -6805,6 +7197,7 @@ export namespace autoscaling {
 
     }
 
+
     /**
      * ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as
      * specified in requests and limits, describing each pod in the current scale target (e.g. CPU
@@ -6823,6 +7216,7 @@ export namespace autoscaling {
       readonly name: string
 
     }
+
 
   }
 
@@ -6870,6 +7264,10 @@ export namespace batch {
 
     }
 
+    export function isJob(o: any): o is Job {
+      return o.apiVersion == "batch/v1" && o.kind == "Job";
+    }
+
     /**
      * JobCondition describes current state of a job.
      */
@@ -6906,6 +7304,7 @@ export namespace batch {
 
     }
 
+
     /**
      * JobList is a collection of jobs.
      */
@@ -6937,6 +7336,10 @@ export namespace batch {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isJobList(o: any): o is JobList {
+      return o.apiVersion == "batch/v1" && o.kind == "JobList";
     }
 
     /**
@@ -7010,6 +7413,7 @@ export namespace batch {
 
     }
 
+
     /**
      * JobStatus represents the current state of a Job.
      */
@@ -7050,6 +7454,7 @@ export namespace batch {
       readonly succeeded: number
 
     }
+
 
   }
 
@@ -7094,6 +7499,10 @@ export namespace batch {
 
     }
 
+    export function isCronJob(o: any): o is CronJob {
+      return o.apiVersion == "batch/v1beta1" && o.kind == "CronJob";
+    }
+
     /**
      * CronJobList is a collection of cron jobs.
      */
@@ -7125,6 +7534,10 @@ export namespace batch {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isCronJobList(o: any): o is CronJobList {
+      return o.apiVersion == "batch/v1beta1" && o.kind == "CronJobList";
     }
 
     /**
@@ -7175,6 +7588,7 @@ export namespace batch {
 
     }
 
+
     /**
      * CronJobStatus represents the current state of a cron job.
      */
@@ -7190,6 +7604,7 @@ export namespace batch {
       readonly lastScheduleTime: string
 
     }
+
 
     /**
      * JobTemplateSpec describes the data a Job should have when created from a template
@@ -7208,6 +7623,7 @@ export namespace batch {
       readonly spec: batch.v1.JobSpec
 
     }
+
 
   }
 
@@ -7252,6 +7668,10 @@ export namespace batch {
 
     }
 
+    export function isCronJob(o: any): o is CronJob {
+      return o.apiVersion == "batch/v2alpha1" && o.kind == "CronJob";
+    }
+
     /**
      * CronJobList is a collection of cron jobs.
      */
@@ -7283,6 +7703,10 @@ export namespace batch {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isCronJobList(o: any): o is CronJobList {
+      return o.apiVersion == "batch/v2alpha1" && o.kind == "CronJobList";
     }
 
     /**
@@ -7333,6 +7757,7 @@ export namespace batch {
 
     }
 
+
     /**
      * CronJobStatus represents the current state of a cron job.
      */
@@ -7348,6 +7773,7 @@ export namespace batch {
       readonly lastScheduleTime: string
 
     }
+
 
     /**
      * JobTemplateSpec describes the data a Job should have when created from a template
@@ -7366,6 +7792,7 @@ export namespace batch {
       readonly spec: batch.v1.JobSpec
 
     }
+
 
   }
 
@@ -7408,6 +7835,10 @@ export namespace certificates {
 
     }
 
+    export function isCertificateSigningRequest(o: any): o is CertificateSigningRequest {
+      return o.apiVersion == "certificates.k8s.io/v1beta1" && o.kind == "CertificateSigningRequest";
+    }
+
     
     export interface CertificateSigningRequestCondition {
       /**
@@ -7431,6 +7862,7 @@ export namespace certificates {
       readonly type: string
 
     }
+
 
     
     export interface CertificateSigningRequestList {
@@ -7456,6 +7888,10 @@ export namespace certificates {
       
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isCertificateSigningRequestList(o: any): o is CertificateSigningRequestList {
+      return o.apiVersion == "certificates.k8s.io/v1beta1" && o.kind == "CertificateSigningRequestList";
     }
 
     /**
@@ -7498,6 +7934,7 @@ export namespace certificates {
 
     }
 
+
     
     export interface CertificateSigningRequestStatus {
       /**
@@ -7511,6 +7948,7 @@ export namespace certificates {
       readonly conditions: certificates.v1beta1.CertificateSigningRequestCondition[]
 
     }
+
 
   }
 
@@ -7551,6 +7989,10 @@ export namespace coordination {
 
     }
 
+    export function isLease(o: any): o is Lease {
+      return o.apiVersion == "coordination.k8s.io/v1beta1" && o.kind == "Lease";
+    }
+
     /**
      * LeaseList is a list of Lease objects.
      */
@@ -7584,6 +8026,10 @@ export namespace coordination {
 
     }
 
+    export function isLeaseList(o: any): o is LeaseList {
+      return o.apiVersion == "coordination.k8s.io/v1beta1" && o.kind == "LeaseList";
+    }
+
     /**
      * LeaseSpec is a specification of a Lease.
      */
@@ -7615,6 +8061,7 @@ export namespace coordination {
       readonly renewTime: string
 
     }
+
 
   }
 
@@ -7660,6 +8107,7 @@ export namespace core {
 
     }
 
+
     /**
      * Affinity is a group of affinity scheduling rules.
      */
@@ -7683,6 +8131,7 @@ export namespace core {
 
     }
 
+
     /**
      * AttachedVolume describes a volume attached to a node
      */
@@ -7698,6 +8147,7 @@ export namespace core {
       readonly name: string
 
     }
+
 
     /**
      * AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
@@ -7739,6 +8189,7 @@ export namespace core {
 
     }
 
+
     /**
      * AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
      */
@@ -7767,6 +8218,7 @@ export namespace core {
 
     }
 
+
     /**
      * AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
      */
@@ -7788,6 +8240,7 @@ export namespace core {
       readonly shareName: string
 
     }
+
 
     /**
      * Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
@@ -7821,6 +8274,10 @@ export namespace core {
        */
       readonly target: core.v1.ObjectReference
 
+    }
+
+    export function isBinding(o: any): o is Binding {
+      return o.apiVersion == "v1" && o.kind == "Binding";
     }
 
     /**
@@ -7881,6 +8338,7 @@ export namespace core {
 
     }
 
+
     /**
      * Adds and removes POSIX capabilities from running containers.
      */
@@ -7896,6 +8354,7 @@ export namespace core {
       readonly drop: string[]
 
     }
+
 
     /**
      * Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not
@@ -7940,6 +8399,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not
      * support ownership management or SELinux relabeling.
@@ -7983,6 +8443,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting
      * to a container. The volume must also be in the same region as the kubelet. Cinder volumes
@@ -8014,6 +8475,7 @@ export namespace core {
       readonly volumeID: string
 
     }
+
 
     /**
      * Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting
@@ -8047,6 +8509,7 @@ export namespace core {
 
     }
 
+
     /**
      * ClientIPConfig represents the configurations of Client IP based session affinity.
      */
@@ -8059,6 +8522,7 @@ export namespace core {
       readonly timeoutSeconds: number
 
     }
+
 
     /**
      * Information about the condition of a component.
@@ -8086,6 +8550,7 @@ export namespace core {
       readonly type: string
 
     }
+
 
     /**
      * ComponentStatus (and ComponentStatusList) holds the cluster validation info.
@@ -8120,6 +8585,10 @@ export namespace core {
 
     }
 
+    export function isComponentStatus(o: any): o is ComponentStatus {
+      return o.apiVersion == "v1" && o.kind == "ComponentStatus";
+    }
+
     /**
      * Status of all the conditions for the component as a list of ComponentStatus objects.
      */
@@ -8151,6 +8620,10 @@ export namespace core {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isComponentStatusList(o: any): o is ComponentStatusList {
+      return o.apiVersion == "v1" && o.kind == "ComponentStatusList";
     }
 
     /**
@@ -8197,6 +8670,10 @@ export namespace core {
 
     }
 
+    export function isConfigMap(o: any): o is ConfigMap {
+      return o.apiVersion == "v1" && o.kind == "ConfigMap";
+    }
+
     /**
      * ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
      * 
@@ -8216,6 +8693,7 @@ export namespace core {
       readonly optional: boolean
 
     }
+
 
     /**
      * Selects a key from a ConfigMap.
@@ -8238,6 +8716,7 @@ export namespace core {
       readonly optional: boolean
 
     }
+
 
     /**
      * ConfigMapList is a resource containing a list of ConfigMap objects.
@@ -8269,6 +8748,10 @@ export namespace core {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isConfigMapList(o: any): o is ConfigMapList {
+      return o.apiVersion == "v1" && o.kind == "ConfigMapList";
     }
 
     /**
@@ -8307,6 +8790,7 @@ export namespace core {
 
     }
 
+
     /**
      * Adapts a ConfigMap into a projected volume.
      * 
@@ -8338,6 +8822,7 @@ export namespace core {
       readonly optional: boolean
 
     }
+
 
     /**
      * Adapts a ConfigMap into a volume.
@@ -8378,6 +8863,7 @@ export namespace core {
       readonly optional: boolean
 
     }
+
 
     /**
      * A single application container that you want to run within a pod.
@@ -8542,6 +9028,7 @@ export namespace core {
 
     }
 
+
     /**
      * Describe a container image
      */
@@ -8558,6 +9045,7 @@ export namespace core {
       readonly sizeBytes: number
 
     }
+
 
     /**
      * ContainerPort represents a network port in a single container.
@@ -8594,6 +9082,7 @@ export namespace core {
 
     }
 
+
     /**
      * ContainerState holds a possible state of container. Only one of its members may be specified.
      * If none of them is specified, the default one is ContainerStateWaiting.
@@ -8616,6 +9105,7 @@ export namespace core {
 
     }
 
+
     /**
      * ContainerStateRunning is a running state of a container.
      */
@@ -8626,6 +9116,7 @@ export namespace core {
       readonly startedAt: string
 
     }
+
 
     /**
      * ContainerStateTerminated is a terminated state of a container.
@@ -8668,6 +9159,7 @@ export namespace core {
 
     }
 
+
     /**
      * ContainerStateWaiting is a waiting state of a container.
      */
@@ -8683,6 +9175,7 @@ export namespace core {
       readonly reason: string
 
     }
+
 
     /**
      * ContainerStatus contains details for the current status of this container.
@@ -8735,6 +9228,7 @@ export namespace core {
 
     }
 
+
     /**
      * DaemonEndpoint contains information about a single Daemon endpoint.
      */
@@ -8745,6 +9239,7 @@ export namespace core {
       readonly Port: number
 
     }
+
 
     /**
      * Represents downward API info for projecting into a projected volume. Note that this is
@@ -8757,6 +9252,7 @@ export namespace core {
       readonly items: core.v1.DownwardAPIVolumeFile[]
 
     }
+
 
     /**
      * DownwardAPIVolumeFile represents information to create the file containing the pod field
@@ -8790,6 +9286,7 @@ export namespace core {
 
     }
 
+
     /**
      * DownwardAPIVolumeSource represents a volume containing downward API info. Downward API
      * volumes support ownership management and SELinux relabeling.
@@ -8809,6 +9306,7 @@ export namespace core {
       readonly items: core.v1.DownwardAPIVolumeFile[]
 
     }
+
 
     /**
      * Represents an empty directory for a pod. Empty directory volumes support ownership management
@@ -8832,6 +9330,7 @@ export namespace core {
       readonly sizeLimit: string
 
     }
+
 
     /**
      * EndpointAddress is a tuple that describes single IP address.
@@ -8862,6 +9361,7 @@ export namespace core {
 
     }
 
+
     /**
      * EndpointPort is a tuple that describes a single port.
      */
@@ -8883,6 +9383,7 @@ export namespace core {
       readonly protocol: string
 
     }
+
 
     /**
      * EndpointSubset is a group of addresses with a common set of ports. The expanded set of
@@ -8915,6 +9416,7 @@ export namespace core {
       readonly ports: core.v1.EndpointPort[]
 
     }
+
 
     /**
      * Endpoints is a collection of endpoints that implement the actual service. Example:
@@ -8965,6 +9467,10 @@ export namespace core {
 
     }
 
+    export function isEndpoints(o: any): o is Endpoints {
+      return o.apiVersion == "v1" && o.kind == "Endpoints";
+    }
+
     /**
      * EndpointsList is a list of endpoints.
      */
@@ -8998,6 +9504,10 @@ export namespace core {
 
     }
 
+    export function isEndpointsList(o: any): o is EndpointsList {
+      return o.apiVersion == "v1" && o.kind == "EndpointsList";
+    }
+
     /**
      * EnvFromSource represents the source of a set of ConfigMaps
      */
@@ -9018,6 +9528,7 @@ export namespace core {
       readonly secretRef: core.v1.SecretEnvSource
 
     }
+
 
     /**
      * EnvVar represents an environment variable present in a Container.
@@ -9043,6 +9554,7 @@ export namespace core {
       readonly valueFrom: core.v1.EnvVarSource
 
     }
+
 
     /**
      * EnvVarSource represents a source for the value of an EnvVar.
@@ -9072,6 +9584,7 @@ export namespace core {
       readonly secretKeyRef: core.v1.SecretKeySelector
 
     }
+
 
     /**
      * Event is a report of an event somewhere in the cluster.
@@ -9172,6 +9685,10 @@ export namespace core {
 
     }
 
+    export function isEvent(o: any): o is Event {
+      return o.apiVersion == "v1" && o.kind == "Event";
+    }
+
     /**
      * EventList is a list of events.
      */
@@ -9205,6 +9722,10 @@ export namespace core {
 
     }
 
+    export function isEventList(o: any): o is EventList {
+      return o.apiVersion == "v1" && o.kind == "EventList";
+    }
+
     /**
      * EventSeries contain information on series of events, i.e. thing that was/is happening
      * continuously for some time.
@@ -9227,6 +9748,7 @@ export namespace core {
 
     }
 
+
     /**
      * EventSource contains information for an event.
      */
@@ -9243,6 +9765,7 @@ export namespace core {
 
     }
 
+
     /**
      * ExecAction describes a "run in container" action.
      */
@@ -9257,6 +9780,7 @@ export namespace core {
       readonly command: string[]
 
     }
+
 
     /**
      * Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write
@@ -9292,6 +9816,7 @@ export namespace core {
       readonly wwids: string[]
 
     }
+
 
     /**
      * FlexPersistentVolumeSource represents a generic persistent volume resource that is
@@ -9329,6 +9854,7 @@ export namespace core {
 
     }
 
+
     /**
      * FlexVolume represents a generic volume resource that is provisioned/attached using an exec
      * based plugin.
@@ -9365,6 +9891,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and
      * datasetUUID should be set. Flocker volumes do not support ownership management or SELinux
@@ -9383,6 +9910,7 @@ export namespace core {
       readonly datasetUUID: string
 
     }
+
 
     /**
      * Represents a Persistent Disk resource in Google Compute Engine.
@@ -9422,6 +9950,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents a volume that is populated with the contents of a git repository. Git repo volumes
      * do not support ownership management. Git repo volumes support SELinux relabeling.
@@ -9449,6 +9978,7 @@ export namespace core {
       readonly revision: string
 
     }
+
 
     /**
      * Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not
@@ -9483,6 +10013,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not
      * support ownership management or SELinux relabeling.
@@ -9508,6 +10039,7 @@ export namespace core {
       readonly readOnly: boolean
 
     }
+
 
     /**
      * HTTPGetAction describes an action based on HTTP Get requests.
@@ -9542,6 +10074,7 @@ export namespace core {
 
     }
 
+
     /**
      * HTTPHeader describes a custom header to be used in HTTP probes
      */
@@ -9557,6 +10090,7 @@ export namespace core {
       readonly value: string
 
     }
+
 
     /**
      * Handler defines a specific action that should be taken
@@ -9579,6 +10113,7 @@ export namespace core {
 
     }
 
+
     /**
      * HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the
      * pod's hosts file.
@@ -9595,6 +10130,7 @@ export namespace core {
       readonly ip: string
 
     }
+
 
     /**
      * Represents a host path mapped into a pod. Host path volumes do not support ownership
@@ -9614,6 +10150,7 @@ export namespace core {
       readonly type: string
 
     }
+
 
     /**
      * ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as
@@ -9684,6 +10221,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes
      * support ownership management and SELinux relabeling.
@@ -9753,6 +10291,7 @@ export namespace core {
 
     }
 
+
     /**
      * Maps a string key to a path within a volume.
      */
@@ -9776,6 +10315,7 @@ export namespace core {
       readonly path: string
 
     }
+
 
     /**
      * Lifecycle describes actions that the management system should take in response to container
@@ -9802,6 +10342,7 @@ export namespace core {
       readonly preStop: core.v1.Handler
 
     }
+
 
     /**
      * LimitRange sets resource usage limits for each kind of resource in a Namespace.
@@ -9835,6 +10376,10 @@ export namespace core {
        */
       readonly spec: core.v1.LimitRangeSpec
 
+    }
+
+    export function isLimitRange(o: any): o is LimitRange {
+      return o.apiVersion == "v1" && o.kind == "LimitRange";
     }
 
     /**
@@ -9876,6 +10421,7 @@ export namespace core {
 
     }
 
+
     /**
      * LimitRangeList is a list of LimitRange items.
      */
@@ -9910,6 +10456,10 @@ export namespace core {
 
     }
 
+    export function isLimitRangeList(o: any): o is LimitRangeList {
+      return o.apiVersion == "v1" && o.kind == "LimitRangeList";
+    }
+
     /**
      * LimitRangeSpec defines a min/max usage limit for resources that match on kind.
      */
@@ -9920,6 +10470,7 @@ export namespace core {
       readonly limits: core.v1.LimitRangeItem[]
 
     }
+
 
     /**
      * LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended
@@ -9940,6 +10491,7 @@ export namespace core {
 
     }
 
+
     /**
      * LoadBalancerStatus represents the status of a load-balancer.
      */
@@ -9951,6 +10503,7 @@ export namespace core {
       readonly ingress: core.v1.LoadBalancerIngress[]
 
     }
+
 
     /**
      * LocalObjectReference contains enough information to let you locate the referenced object
@@ -9964,6 +10517,7 @@ export namespace core {
       readonly name: string
 
     }
+
 
     /**
      * Local represents directly-attached storage with node affinity (Beta feature)
@@ -9983,6 +10537,7 @@ export namespace core {
       readonly path: string
 
     }
+
 
     /**
      * Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support
@@ -10008,6 +10563,7 @@ export namespace core {
       readonly server: string
 
     }
+
 
     /**
      * Namespace provides a scope for Names. Use of multiple namespaces is optional.
@@ -10049,6 +10605,10 @@ export namespace core {
 
     }
 
+    export function isNamespace(o: any): o is Namespace {
+      return o.apiVersion == "v1" && o.kind == "Namespace";
+    }
+
     /**
      * NamespaceList is a list of Namespaces.
      */
@@ -10083,6 +10643,10 @@ export namespace core {
 
     }
 
+    export function isNamespaceList(o: any): o is NamespaceList {
+      return o.apiVersion == "v1" && o.kind == "NamespaceList";
+    }
+
     /**
      * NamespaceSpec describes the attributes on a Namespace.
      */
@@ -10095,6 +10659,7 @@ export namespace core {
 
     }
 
+
     /**
      * NamespaceStatus is information about the current status of a Namespace.
      */
@@ -10106,6 +10671,7 @@ export namespace core {
       readonly phase: string
 
     }
+
 
     /**
      * Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache
@@ -10148,6 +10714,10 @@ export namespace core {
 
     }
 
+    export function isNode(o: any): o is Node {
+      return o.apiVersion == "v1" && o.kind == "Node";
+    }
+
     /**
      * NodeAddress contains information for the node's address.
      */
@@ -10163,6 +10733,7 @@ export namespace core {
       readonly type: string
 
     }
+
 
     /**
      * Node affinity is a group of node affinity scheduling rules.
@@ -10188,6 +10759,7 @@ export namespace core {
       readonly requiredDuringSchedulingIgnoredDuringExecution: core.v1.NodeSelector
 
     }
+
 
     /**
      * NodeCondition contains condition information for a node.
@@ -10225,6 +10797,7 @@ export namespace core {
 
     }
 
+
     /**
      * NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding
      * metadata) must be non-nil.
@@ -10236,6 +10809,7 @@ export namespace core {
       readonly configMap: core.v1.ConfigMapNodeConfigSource
 
     }
+
 
     /**
      * NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
@@ -10291,6 +10865,7 @@ export namespace core {
 
     }
 
+
     /**
      * NodeDaemonEndpoints lists ports opened by daemons running on the Node.
      */
@@ -10301,6 +10876,7 @@ export namespace core {
       readonly kubeletEndpoint: core.v1.DaemonEndpoint
 
     }
+
 
     /**
      * NodeList is the whole list of all Nodes which have been registered with master.
@@ -10335,6 +10911,10 @@ export namespace core {
 
     }
 
+    export function isNodeList(o: any): o is NodeList {
+      return o.apiVersion == "v1" && o.kind == "NodeList";
+    }
+
     /**
      * A node selector represents the union of the results of one or more label queries over a set
      * of nodes; that is, it represents the OR of the selectors represented by the node selector
@@ -10347,6 +10927,7 @@ export namespace core {
       readonly nodeSelectorTerms: core.v1.NodeSelectorTerm[]
 
     }
+
 
     /**
      * A node selector requirement is a selector that contains values, a key, and an operator that
@@ -10374,6 +10955,7 @@ export namespace core {
 
     }
 
+
     /**
      * A null or empty node selector term matches no objects. The requirements of them are ANDed.
      * The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
@@ -10390,6 +10972,7 @@ export namespace core {
       readonly matchFields: core.v1.NodeSelectorRequirement[]
 
     }
+
 
     /**
      * NodeSpec describes the attributes that a node is created with.
@@ -10430,6 +11013,7 @@ export namespace core {
       readonly unschedulable: boolean
 
     }
+
 
     /**
      * NodeStatus is information about the current status of a node.
@@ -10499,6 +11083,7 @@ export namespace core {
 
     }
 
+
     /**
      * NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
      */
@@ -10560,6 +11145,7 @@ export namespace core {
 
     }
 
+
     /**
      * ObjectFieldSelector selects an APIVersioned field of an object.
      */
@@ -10574,6 +11160,10 @@ export namespace core {
        */
       readonly fieldPath: string
 
+    }
+
+    export function isObjectFieldSelector(o: any): o is ObjectFieldSelector {
+      return o.apiVersion == "core/v1" && o.kind == "ObjectFieldSelector";
     }
 
     /**
@@ -10628,6 +11218,10 @@ export namespace core {
 
     }
 
+    export function isObjectReference(o: any): o is ObjectReference {
+      return o.apiVersion == "core/v1" && o.kind == "ObjectReference";
+    }
+
     /**
      * PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous
      * to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
@@ -10671,6 +11265,10 @@ export namespace core {
 
     }
 
+    export function isPersistentVolume(o: any): o is PersistentVolume {
+      return o.apiVersion == "v1" && o.kind == "PersistentVolume";
+    }
+
     /**
      * PersistentVolumeClaim is a user's request for and claim to a persistent volume
      */
@@ -10712,6 +11310,10 @@ export namespace core {
 
     }
 
+    export function isPersistentVolumeClaim(o: any): o is PersistentVolumeClaim {
+      return o.apiVersion == "v1" && o.kind == "PersistentVolumeClaim";
+    }
+
     /**
      * PersistentVolumeClaimCondition contails details about state of pvc
      */
@@ -10746,6 +11348,7 @@ export namespace core {
 
     }
 
+
     /**
      * PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
      */
@@ -10778,6 +11381,10 @@ export namespace core {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isPersistentVolumeClaimList(o: any): o is PersistentVolumeClaimList {
+      return o.apiVersion == "v1" && o.kind == "PersistentVolumeClaimList";
     }
 
     /**
@@ -10831,6 +11438,7 @@ export namespace core {
 
     }
 
+
     /**
      * PersistentVolumeClaimStatus is the current status of a persistent volume claim.
      */
@@ -10859,6 +11467,7 @@ export namespace core {
 
     }
 
+
     /**
      * PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This
      * volume finds the bound PV and mounts that volume for the pod. A
@@ -10879,6 +11488,7 @@ export namespace core {
       readonly readOnly: boolean
 
     }
+
 
     /**
      * PersistentVolumeList is a list of PersistentVolume items.
@@ -10912,6 +11522,10 @@ export namespace core {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isPersistentVolumeList(o: any): o is PersistentVolumeList {
+      return o.apiVersion == "v1" && o.kind == "PersistentVolumeList";
     }
 
     /**
@@ -11104,6 +11718,7 @@ export namespace core {
 
     }
 
+
     /**
      * PersistentVolumeStatus is the current status of a persistent volume.
      */
@@ -11127,6 +11742,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents a Photon Controller persistent disk resource.
      */
@@ -11143,6 +11759,7 @@ export namespace core {
       readonly pdID: string
 
     }
+
 
     /**
      * Pod is a collection of containers that can run on a host. This resource is created by clients
@@ -11186,6 +11803,10 @@ export namespace core {
 
     }
 
+    export function isPod(o: any): o is Pod {
+      return o.apiVersion == "v1" && o.kind == "Pod";
+    }
+
     /**
      * Pod affinity is a group of inter pod affinity scheduling rules.
      */
@@ -11213,6 +11834,7 @@ export namespace core {
       readonly requiredDuringSchedulingIgnoredDuringExecution: core.v1.PodAffinityTerm[]
 
     }
+
 
     /**
      * Defines a set of pods (namely those matching the labelSelector relative to the given
@@ -11242,6 +11864,7 @@ export namespace core {
 
     }
 
+
     /**
      * Pod anti affinity is a group of inter pod anti affinity scheduling rules.
      */
@@ -11269,6 +11892,7 @@ export namespace core {
       readonly requiredDuringSchedulingIgnoredDuringExecution: core.v1.PodAffinityTerm[]
 
     }
+
 
     /**
      * PodCondition contains details for the current condition of this pod.
@@ -11308,6 +11932,7 @@ export namespace core {
 
     }
 
+
     /**
      * PodDNSConfig defines the DNS parameters of a pod in addition to those generated from
      * DNSPolicy.
@@ -11334,6 +11959,7 @@ export namespace core {
 
     }
 
+
     /**
      * PodDNSConfigOption defines DNS resolver options of a pod.
      */
@@ -11347,6 +11973,7 @@ export namespace core {
       readonly value: string
 
     }
+
 
     /**
      * PodList is a list of Pods.
@@ -11381,6 +12008,10 @@ export namespace core {
 
     }
 
+    export function isPodList(o: any): o is PodList {
+      return o.apiVersion == "v1" && o.kind == "PodList";
+    }
+
     /**
      * PodReadinessGate contains the reference to a pod condition
      */
@@ -11391,6 +12022,7 @@ export namespace core {
       readonly conditionType: string
 
     }
+
 
     /**
      * PodSecurityContext holds pod-level security attributes and common container settings. Some
@@ -11454,6 +12086,7 @@ export namespace core {
       readonly sysctls: core.v1.Sysctl[]
 
     }
+
 
     /**
      * PodSpec is a description of a pod.
@@ -11675,6 +12308,7 @@ export namespace core {
 
     }
 
+
     /**
      * PodStatus represents information about the status of a pod. Status may trail the actual state
      * of a system, especially if the node that hosts the pod cannot contact the control plane.
@@ -11769,6 +12403,7 @@ export namespace core {
 
     }
 
+
     /**
      * PodTemplate describes a template for creating copies of a predefined pod.
      */
@@ -11801,6 +12436,10 @@ export namespace core {
        */
       readonly template: core.v1.PodTemplateSpec
 
+    }
+
+    export function isPodTemplate(o: any): o is PodTemplate {
+      return o.apiVersion == "v1" && o.kind == "PodTemplate";
     }
 
     /**
@@ -11836,6 +12475,10 @@ export namespace core {
 
     }
 
+    export function isPodTemplateList(o: any): o is PodTemplateList {
+      return o.apiVersion == "v1" && o.kind == "PodTemplateList";
+    }
+
     /**
      * PodTemplateSpec describes the data a pod should have when created from a template
      */
@@ -11853,6 +12496,7 @@ export namespace core {
       readonly spec: core.v1.PodSpec
 
     }
+
 
     /**
      * PortworxVolumeSource represents a Portworx volume resource.
@@ -11877,6 +12521,7 @@ export namespace core {
 
     }
 
+
     /**
      * An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a
      * no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
@@ -11893,6 +12538,7 @@ export namespace core {
       readonly weight: number
 
     }
+
 
     /**
      * Probe describes a health check to be performed against a container to determine whether it is
@@ -11947,6 +12593,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents a projected volume source
      */
@@ -11965,6 +12612,7 @@ export namespace core {
       readonly sources: core.v1.VolumeProjection[]
 
     }
+
 
     /**
      * Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support
@@ -12000,6 +12648,7 @@ export namespace core {
       readonly volume: string
 
     }
+
 
     /**
      * Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support
@@ -12059,6 +12708,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support
      * ownership management and SELinux relabeling.
@@ -12117,6 +12767,7 @@ export namespace core {
 
     }
 
+
     /**
      * ReplicationController represents the configuration of a replication controller.
      */
@@ -12159,6 +12810,10 @@ export namespace core {
 
     }
 
+    export function isReplicationController(o: any): o is ReplicationController {
+      return o.apiVersion == "v1" && o.kind == "ReplicationController";
+    }
+
     /**
      * ReplicationControllerCondition describes the state of a replication controller at a certain
      * point.
@@ -12190,6 +12845,7 @@ export namespace core {
       readonly type: string
 
     }
+
 
     /**
      * ReplicationControllerList is a collection of replication controllers.
@@ -12223,6 +12879,10 @@ export namespace core {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isReplicationControllerList(o: any): o is ReplicationControllerList {
+      return o.apiVersion == "v1" && o.kind == "ReplicationControllerList";
     }
 
     /**
@@ -12260,6 +12920,7 @@ export namespace core {
       readonly template: core.v1.PodTemplateSpec
 
     }
+
 
     /**
      * ReplicationControllerStatus represents the current status of a replication controller.
@@ -12301,6 +12962,7 @@ export namespace core {
 
     }
 
+
     /**
      * ResourceFieldSelector represents container resources (cpu, memory) and their output format
      */
@@ -12321,6 +12983,7 @@ export namespace core {
       readonly resource: string
 
     }
+
 
     /**
      * ResourceQuota sets aggregate quota restrictions enforced per namespace
@@ -12362,6 +13025,10 @@ export namespace core {
 
     }
 
+    export function isResourceQuota(o: any): o is ResourceQuota {
+      return o.apiVersion == "v1" && o.kind == "ResourceQuota";
+    }
+
     /**
      * ResourceQuotaList is a list of ResourceQuota items.
      */
@@ -12396,6 +13063,10 @@ export namespace core {
 
     }
 
+    export function isResourceQuotaList(o: any): o is ResourceQuotaList {
+      return o.apiVersion == "v1" && o.kind == "ResourceQuotaList";
+    }
+
     /**
      * ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
      */
@@ -12422,6 +13093,7 @@ export namespace core {
 
     }
 
+
     /**
      * ResourceQuotaStatus defines the enforced hard limits and observed use.
      */
@@ -12438,6 +13110,7 @@ export namespace core {
       readonly used: object
 
     }
+
 
     /**
      * ResourceRequirements describes the compute resource requirements.
@@ -12458,6 +13131,7 @@ export namespace core {
       readonly requests: object
 
     }
+
 
     /**
      * SELinuxOptions are the labels to be applied to the container
@@ -12484,6 +13158,7 @@ export namespace core {
       readonly user: string
 
     }
+
 
     /**
      * ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
@@ -12546,6 +13221,7 @@ export namespace core {
 
     }
 
+
     /**
      * ScaleIOVolumeSource represents a persistent ScaleIO volume
      */
@@ -12607,6 +13283,7 @@ export namespace core {
 
     }
 
+
     /**
      * A scope selector represents the AND of the selectors represented by the scoped-resource
      * selector requirements.
@@ -12618,6 +13295,7 @@ export namespace core {
       readonly matchExpressions: core.v1.ScopedResourceSelectorRequirement[]
 
     }
+
 
     /**
      * A scoped-resource selector requirement is a selector that contains values, a scope name, and
@@ -12643,6 +13321,7 @@ export namespace core {
       readonly values: string[]
 
     }
+
 
     /**
      * Secret holds secret data of a certain type. The total bytes of the values in the Data field
@@ -12693,6 +13372,10 @@ export namespace core {
 
     }
 
+    export function isSecret(o: any): o is Secret {
+      return o.apiVersion == "v1" && o.kind == "Secret";
+    }
+
     /**
      * SecretEnvSource selects a Secret to populate the environment variables with.
      * 
@@ -12712,6 +13395,7 @@ export namespace core {
       readonly optional: boolean
 
     }
+
 
     /**
      * SecretKeySelector selects a key of a Secret.
@@ -12734,6 +13418,7 @@ export namespace core {
       readonly optional: boolean
 
     }
+
 
     /**
      * SecretList is a list of Secret.
@@ -12769,6 +13454,10 @@ export namespace core {
 
     }
 
+    export function isSecretList(o: any): o is SecretList {
+      return o.apiVersion == "v1" && o.kind == "SecretList";
+    }
+
     /**
      * Adapts a secret into a projected volume.
      * 
@@ -12800,6 +13489,7 @@ export namespace core {
 
     }
 
+
     /**
      * SecretReference represents a Secret Reference. It has enough information to retrieve secret
      * in any namespace
@@ -12816,6 +13506,7 @@ export namespace core {
       readonly namespace: string
 
     }
+
 
     /**
      * Adapts a Secret into a volume.
@@ -12855,6 +13546,7 @@ export namespace core {
       readonly secretName: string
 
     }
+
 
     /**
      * SecurityContext holds security configuration that will be applied to a container. Some fields
@@ -12928,6 +13620,7 @@ export namespace core {
 
     }
 
+
     /**
      * Service is a named abstraction of software service (for example, mysql) consisting of local
      * port (for example 3306) that the proxy listens on, and the selector that determines which
@@ -12968,6 +13661,10 @@ export namespace core {
        */
       readonly status: core.v1.ServiceStatus
 
+    }
+
+    export function isService(o: any): o is Service {
+      return o.apiVersion == "v1" && o.kind == "Service";
     }
 
     /**
@@ -13021,6 +13718,10 @@ export namespace core {
 
     }
 
+    export function isServiceAccount(o: any): o is ServiceAccount {
+      return o.apiVersion == "v1" && o.kind == "ServiceAccount";
+    }
+
     /**
      * ServiceAccountList is a list of ServiceAccount objects
      */
@@ -13055,6 +13756,10 @@ export namespace core {
 
     }
 
+    export function isServiceAccountList(o: any): o is ServiceAccountList {
+      return o.apiVersion == "v1" && o.kind == "ServiceAccountList";
+    }
+
     /**
      * ServiceAccountTokenProjection represents a projected service account token volume. This
      * projection can be used to insert a service account token into the pods runtime filesystem for
@@ -13083,6 +13788,7 @@ export namespace core {
       readonly path: string
 
     }
+
 
     /**
      * ServiceList holds a list of services.
@@ -13115,6 +13821,10 @@ export namespace core {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isServiceList(o: any): o is ServiceList {
+      return o.apiVersion == "v1" && o.kind == "ServiceList";
     }
 
     /**
@@ -13158,6 +13868,7 @@ export namespace core {
       readonly targetPort: number | string
 
     }
+
 
     /**
      * ServiceSpec describes the attributes that a user creates on a service.
@@ -13274,6 +13985,7 @@ export namespace core {
 
     }
 
+
     /**
      * ServiceStatus represents the current status of a service.
      */
@@ -13285,6 +13997,7 @@ export namespace core {
 
     }
 
+
     /**
      * SessionAffinityConfig represents the configurations of session affinity.
      */
@@ -13295,6 +14008,7 @@ export namespace core {
       readonly clientIP: core.v1.ClientIPConfig
 
     }
+
 
     /**
      * Represents a StorageOS persistent volume resource.
@@ -13335,6 +14049,7 @@ export namespace core {
 
     }
 
+
     /**
      * Represents a StorageOS persistent volume resource.
      */
@@ -13374,6 +14089,7 @@ export namespace core {
 
     }
 
+
     /**
      * Sysctl defines a kernel parameter to be set
      */
@@ -13389,6 +14105,7 @@ export namespace core {
       readonly value: string
 
     }
+
 
     /**
      * TCPSocketAction describes an action based on opening a socket
@@ -13406,6 +14123,7 @@ export namespace core {
       readonly port: number | string
 
     }
+
 
     /**
      * The node this Taint is attached to has the "effect" on any pod that does not tolerate the
@@ -13435,6 +14153,7 @@ export namespace core {
       readonly value: string
 
     }
+
 
     /**
      * The pod this Toleration is attached to tolerates any taint that matches the triple
@@ -13477,6 +14196,7 @@ export namespace core {
 
     }
 
+
     /**
      * A topology selector requirement is a selector that matches given label. This is an alpha
      * feature and may change in the future.
@@ -13495,6 +14215,7 @@ export namespace core {
 
     }
 
+
     /**
      * A topology selector term represents the result of label queries. A null or empty topology
      * selector term matches no objects. The requirements of them are ANDed. It provides a subset of
@@ -13507,6 +14228,7 @@ export namespace core {
       readonly matchLabelExpressions: core.v1.TopologySelectorLabelRequirement[]
 
     }
+
 
     /**
      * TypedLocalObjectReference contains enough information to let you locate the typed referenced
@@ -13531,6 +14253,7 @@ export namespace core {
       readonly name: string
 
     }
+
 
     /**
      * Volume represents a named volume in a pod that may be accessed by any container in the pod.
@@ -13703,6 +14426,7 @@ export namespace core {
 
     }
 
+
     /**
      * volumeDevice describes a mapping of a raw block device within a container.
      */
@@ -13718,6 +14442,7 @@ export namespace core {
       readonly name: string
 
     }
+
 
     /**
      * VolumeMount describes a mounting of a Volume within a container.
@@ -13752,6 +14477,7 @@ export namespace core {
 
     }
 
+
     /**
      * VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed
      * from.
@@ -13763,6 +14489,7 @@ export namespace core {
       readonly required: core.v1.NodeSelector
 
     }
+
 
     /**
      * Projection that may be projected along with other supported volume types
@@ -13789,6 +14516,7 @@ export namespace core {
       readonly serviceAccountToken: core.v1.ServiceAccountTokenProjection
 
     }
+
 
     /**
      * Represents a vSphere volume resource.
@@ -13817,6 +14545,7 @@ export namespace core {
 
     }
 
+
     /**
      * The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find
      * the most preferred node(s)
@@ -13833,6 +14562,7 @@ export namespace core {
       readonly weight: number
 
     }
+
 
   }
 
@@ -13940,6 +14670,10 @@ export namespace events {
 
     }
 
+    export function isEvent(o: any): o is Event {
+      return o.apiVersion == "events.k8s.io/v1beta1" && o.kind == "Event";
+    }
+
     /**
      * EventList is a list of Event objects.
      */
@@ -13973,6 +14707,10 @@ export namespace events {
 
     }
 
+    export function isEventList(o: any): o is EventList {
+      return o.apiVersion == "events.k8s.io/v1beta1" && o.kind == "EventList";
+    }
+
     /**
      * EventSeries contain information on series of events, i.e. thing that was/is happening
      * continuously for some time.
@@ -13995,6 +14733,7 @@ export namespace events {
 
     }
 
+
   }
 
 }
@@ -14012,6 +14751,7 @@ export namespace extensions {
       readonly driver: string
 
     }
+
 
     /**
      * AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods
@@ -14035,6 +14775,7 @@ export namespace extensions {
       readonly readOnly: boolean
 
     }
+
 
     /**
      * DEPRECATED - This group version of DaemonSet is deprecated by apps/v1beta2/DaemonSet. See the
@@ -14078,6 +14819,10 @@ export namespace extensions {
 
     }
 
+    export function isDaemonSet(o: any): o is DaemonSet {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "DaemonSet";
+    }
+
     /**
      * DaemonSetCondition describes the state of a DaemonSet at a certain point.
      */
@@ -14108,6 +14853,7 @@ export namespace extensions {
       readonly type: string
 
     }
+
 
     /**
      * DaemonSetList is a collection of daemon sets.
@@ -14140,6 +14886,10 @@ export namespace extensions {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isDaemonSetList(o: any): o is DaemonSetList {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "DaemonSetList";
     }
 
     /**
@@ -14186,6 +14936,7 @@ export namespace extensions {
       readonly updateStrategy: extensions.v1beta1.DaemonSetUpdateStrategy
 
     }
+
 
     /**
      * DaemonSetStatus represents the current status of a daemon set.
@@ -14252,6 +15003,7 @@ export namespace extensions {
 
     }
 
+
     
     export interface DaemonSetUpdateStrategy {
       /**
@@ -14265,6 +15017,7 @@ export namespace extensions {
       readonly type: string
 
     }
+
 
     /**
      * DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See
@@ -14305,6 +15058,10 @@ export namespace extensions {
 
     }
 
+    export function isDeployment(o: any): o is Deployment {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "Deployment";
+    }
+
     /**
      * DeploymentCondition describes the state of a deployment at a certain point.
      */
@@ -14341,6 +15098,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * DeploymentList is a list of Deployments.
      */
@@ -14371,6 +15129,10 @@ export namespace extensions {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isDeploymentList(o: any): o is DeploymentList {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "DeploymentList";
     }
 
     /**
@@ -14408,6 +15170,10 @@ export namespace extensions {
        */
       readonly updatedAnnotations: {[key: string]: string}
 
+    }
+
+    export function isDeploymentRollback(o: any): o is DeploymentRollback {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "DeploymentRollback";
     }
 
     /**
@@ -14473,6 +15239,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * DeploymentStatus is the most recently observed status of the Deployment.
      */
@@ -14526,6 +15293,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * DeploymentStrategy describes how to replace existing pods with new ones.
      */
@@ -14541,6 +15309,7 @@ export namespace extensions {
       readonly type: string
 
     }
+
 
     /**
      * FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
@@ -14559,6 +15328,7 @@ export namespace extensions {
       readonly rule: string
 
     }
+
 
     /**
      * HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
@@ -14581,6 +15351,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example:
      * http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC
@@ -14594,6 +15365,7 @@ export namespace extensions {
       readonly paths: extensions.v1beta1.HTTPIngressPath[]
 
     }
+
 
     /**
      * HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.
@@ -14613,6 +15385,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy
      * API Group instead.
@@ -14629,6 +15402,7 @@ export namespace extensions {
       readonly min: number
 
     }
+
 
     /**
      * DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock.
@@ -14649,6 +15423,7 @@ export namespace extensions {
       readonly except: string[]
 
     }
+
 
     /**
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints
@@ -14692,6 +15467,10 @@ export namespace extensions {
 
     }
 
+    export function isIngress(o: any): o is Ingress {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "Ingress";
+    }
+
     /**
      * IngressBackend describes all endpoints for a given service and port.
      */
@@ -14707,6 +15486,7 @@ export namespace extensions {
       readonly servicePort: number | string
 
     }
+
 
     /**
      * IngressList is a collection of Ingress.
@@ -14741,6 +15521,10 @@ export namespace extensions {
 
     }
 
+    export function isIngressList(o: any): o is IngressList {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "IngressList";
+    }
+
     /**
      * IngressRule represents the rules mapping the paths under a specified host to the related
      * backend services. Incoming requests are first evaluated for a host match, then routed to the
@@ -14765,6 +15549,7 @@ export namespace extensions {
       readonly http: extensions.v1beta1.HTTPIngressRuleValue
 
     }
+
 
     /**
      * IngressSpec describes the Ingress the user wishes to exist.
@@ -14793,6 +15578,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * IngressStatus describe the current state of the Ingress.
      */
@@ -14803,6 +15589,7 @@ export namespace extensions {
       readonly loadBalancer: core.v1.LoadBalancerStatus
 
     }
+
 
     /**
      * IngressTLS describes the transport layer security associated with an Ingress.
@@ -14824,6 +15611,7 @@ export namespace extensions {
       readonly secretName: string
 
     }
+
 
     /**
      * DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by
@@ -14860,6 +15648,10 @@ export namespace extensions {
 
     }
 
+    export function isNetworkPolicy(o: any): o is NetworkPolicy {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "NetworkPolicy";
+    }
+
     /**
      * DEPRECATED 1.9 - This group version of NetworkPolicyEgressRule is deprecated by
      * networking/v1/NetworkPolicyEgressRule. NetworkPolicyEgressRule describes a particular set of
@@ -14886,6 +15678,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by
      * networking/v1/NetworkPolicyIngressRule. This NetworkPolicyIngressRule matches traffic if and
@@ -14911,6 +15704,7 @@ export namespace extensions {
       readonly ports: extensions.v1beta1.NetworkPolicyPort[]
 
     }
+
 
     /**
      * DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by
@@ -14946,6 +15740,10 @@ export namespace extensions {
 
     }
 
+    export function isNetworkPolicyList(o: any): o is NetworkPolicyList {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "NetworkPolicyList";
+    }
+
     /**
      * DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by
      * networking/v1/NetworkPolicyPeer.
@@ -14979,6 +15777,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by
      * networking/v1/NetworkPolicyPort.
@@ -14998,6 +15797,7 @@ export namespace extensions {
       readonly protocol: string
 
     }
+
 
     /**
      * DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by
@@ -15048,6 +15848,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * PodSecurityPolicy governs the ability to make requests that affect the Security Context that
      * will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API
@@ -15083,6 +15884,10 @@ export namespace extensions {
 
     }
 
+    export function isPodSecurityPolicy(o: any): o is PodSecurityPolicy {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "PodSecurityPolicy";
+    }
+
     /**
      * PodSecurityPolicyList is a list of PodSecurityPolicy objects. Deprecated: use
      * PodSecurityPolicyList from policy API Group instead.
@@ -15115,6 +15920,10 @@ export namespace extensions {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isPodSecurityPolicyList(o: any): o is PodSecurityPolicyList {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "PodSecurityPolicyList";
     }
 
     /**
@@ -15265,6 +16074,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1beta2/ReplicaSet. See
      * the release notes for more information. ReplicaSet ensures that a specified number of pod
@@ -15309,6 +16119,10 @@ export namespace extensions {
 
     }
 
+    export function isReplicaSet(o: any): o is ReplicaSet {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "ReplicaSet";
+    }
+
     /**
      * ReplicaSetCondition describes the state of a replica set at a certain point.
      */
@@ -15339,6 +16153,7 @@ export namespace extensions {
       readonly type: string
 
     }
+
 
     /**
      * ReplicaSetList is a collection of ReplicaSets.
@@ -15372,6 +16187,10 @@ export namespace extensions {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isReplicaSetList(o: any): o is ReplicaSetList {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "ReplicaSetList";
     }
 
     /**
@@ -15408,6 +16227,7 @@ export namespace extensions {
       readonly template: core.v1.PodTemplateSpec
 
     }
+
 
     /**
      * ReplicaSetStatus represents the current status of a ReplicaSet.
@@ -15447,6 +16267,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * DEPRECATED.
      */
@@ -15457,6 +16278,7 @@ export namespace extensions {
       readonly revision: number
 
     }
+
 
     /**
      * Spec to control the desired behavior of daemon set rolling update.
@@ -15477,6 +16299,7 @@ export namespace extensions {
       readonly maxUnavailable: number | string
 
     }
+
 
     /**
      * Spec to control the desired behavior of rolling update.
@@ -15508,6 +16331,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * RunAsGroupStrategyOptions defines the strategy type and any options used to create the
      * strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
@@ -15525,6 +16349,7 @@ export namespace extensions {
       readonly rule: string
 
     }
+
 
     /**
      * RunAsUserStrategyOptions defines the strategy type and any options used to create the
@@ -15544,6 +16369,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
      * Deprecated: use SELinuxStrategyOptions from policy API Group instead.
@@ -15561,6 +16387,7 @@ export namespace extensions {
       readonly seLinuxOptions: core.v1.SELinuxOptions
 
     }
+
 
     /**
      * represents a scaling request for a resource.
@@ -15603,6 +16430,10 @@ export namespace extensions {
 
     }
 
+    export function isScale(o: any): o is Scale {
+      return o.apiVersion == "extensions/v1beta1" && o.kind == "Scale";
+    }
+
     /**
      * describes the attributes of a scale subresource
      */
@@ -15613,6 +16444,7 @@ export namespace extensions {
       readonly replicas: number
 
     }
+
 
     /**
      * represents the current status of a scale subresource.
@@ -15641,6 +16473,7 @@ export namespace extensions {
 
     }
 
+
     /**
      * SupplementalGroupsStrategyOptions defines the strategy type and options used to create the
      * strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
@@ -15660,6 +16493,7 @@ export namespace extensions {
       readonly rule: string
 
     }
+
 
   }
 
@@ -15716,6 +16550,10 @@ export namespace meta {
 
     }
 
+    export function isAPIGroup(o: any): o is APIGroup {
+      return o.apiVersion == "v1" && o.kind == "APIGroup";
+    }
+
     /**
      * APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
      */
@@ -15741,6 +16579,10 @@ export namespace meta {
        */
       readonly kind: string
 
+    }
+
+    export function isAPIGroupList(o: any): o is APIGroupList {
+      return o.apiVersion == "v1" && o.kind == "APIGroupList";
     }
 
     /**
@@ -15800,6 +16642,7 @@ export namespace meta {
 
     }
 
+
     /**
      * APIResourceList is a list of APIResource, it is used to expose the name of the resources
      * supported in a specific group and version, and if the resource is namespaced.
@@ -15831,6 +16674,10 @@ export namespace meta {
        */
       readonly resources: meta.v1.APIResource[]
 
+    }
+
+    export function isAPIResourceList(o: any): o is APIResourceList {
+      return o.apiVersion == "v1" && o.kind == "APIResourceList";
     }
 
     /**
@@ -15870,6 +16717,10 @@ export namespace meta {
        */
       readonly versions: string[]
 
+    }
+
+    export function isAPIVersions(o: any): o is APIVersions {
+      return o.apiVersion == "v1" && o.kind == "APIVersions";
     }
 
     /**
@@ -15933,6 +16784,10 @@ export namespace meta {
 
     }
 
+    export function isDeleteOptions(o: any): o is DeleteOptions {
+      return o.apiVersion == "v1" && o.kind == "DeleteOptions";
+    }
+
     /**
      * GroupVersion contains the "group/version" and "version" string of a version. It is made a
      * struct to keep extensibility.
@@ -15951,6 +16806,7 @@ export namespace meta {
 
     }
 
+
     /**
      * Initializer is information about an initializer that has not yet completed.
      */
@@ -15961,6 +16817,7 @@ export namespace meta {
       readonly name: string
 
     }
+
 
     /**
      * Initializers tracks the progress of initialization.
@@ -15982,6 +16839,7 @@ export namespace meta {
 
     }
 
+
     /**
      * A label selector is a label query over a set of resources. The result of matchLabels and
      * matchExpressions are ANDed. An empty label selector matches all objects. A null label
@@ -16001,6 +16859,7 @@ export namespace meta {
       readonly matchLabels: {[key: string]: string}
 
     }
+
 
     /**
      * A label selector requirement is a selector that contains values, a key, and an operator that
@@ -16026,6 +16885,7 @@ export namespace meta {
       readonly values: string[]
 
     }
+
 
     /**
      * ListMeta describes metadata that synthetic resources must have, including lists and various
@@ -16057,6 +16917,7 @@ export namespace meta {
       readonly selfLink: string
 
     }
+
 
     /**
      * ObjectMeta is metadata that all persisted resources must have, which includes all objects
@@ -16223,6 +17084,7 @@ export namespace meta {
 
     }
 
+
     /**
      * OwnerReference contains enough information to let you identify an owning object. An owning
      * object must be in the same namespace as the dependent, or be cluster-scoped, so there is no
@@ -16265,6 +17127,10 @@ export namespace meta {
 
     }
 
+    export function isOwnerReference(o: any): o is OwnerReference {
+      return o.apiVersion == "meta/v1" && o.kind == "OwnerReference";
+    }
+
     /**
      * Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
      */
@@ -16275,6 +17141,7 @@ export namespace meta {
       readonly uid: string
 
     }
+
 
     /**
      * ServerAddressByClientCIDR helps the client to determine the server address that they should
@@ -16294,6 +17161,7 @@ export namespace meta {
       readonly serverAddress: string
 
     }
+
 
     /**
      * Status is a return value for calls that don't return other objects.
@@ -16353,6 +17221,10 @@ export namespace meta {
 
     }
 
+    export function isStatus(o: any): o is Status {
+      return o.apiVersion == "v1" && o.kind == "Status";
+    }
+
     /**
      * StatusCause provides more information about an api.Status failure, including cases when
      * multiple errors are encountered.
@@ -16383,6 +17255,7 @@ export namespace meta {
       readonly reason: string
 
     }
+
 
     /**
      * StatusDetails is a set of additional properties that MAY be set by the server to provide
@@ -16430,6 +17303,7 @@ export namespace meta {
 
     }
 
+
     /**
      * Event represents a single event to a watched resource.
      */
@@ -16447,6 +17321,7 @@ export namespace meta {
       readonly type: string
 
     }
+
 
   }
 
@@ -16472,6 +17347,7 @@ export namespace networking {
       readonly except: string[]
 
     }
+
 
     /**
      * NetworkPolicy describes what network traffic is allowed for a set of Pods
@@ -16506,6 +17382,10 @@ export namespace networking {
 
     }
 
+    export function isNetworkPolicy(o: any): o is NetworkPolicy {
+      return o.apiVersion == "networking.k8s.io/v1" && o.kind == "NetworkPolicy";
+    }
+
     /**
      * NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods
      * matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This
@@ -16531,6 +17411,7 @@ export namespace networking {
 
     }
 
+
     /**
      * NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods
      * matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
@@ -16555,6 +17436,7 @@ export namespace networking {
       readonly ports: networking.v1.NetworkPolicyPort[]
 
     }
+
 
     /**
      * NetworkPolicyList is a list of NetworkPolicy objects.
@@ -16587,6 +17469,10 @@ export namespace networking {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isNetworkPolicyList(o: any): o is NetworkPolicyList {
+      return o.apiVersion == "networking.k8s.io/v1" && o.kind == "NetworkPolicyList";
     }
 
     /**
@@ -16622,6 +17508,7 @@ export namespace networking {
 
     }
 
+
     /**
      * NetworkPolicyPort describes a port to allow traffic on
      */
@@ -16639,6 +17526,7 @@ export namespace networking {
       readonly protocol: string
 
     }
+
 
     /**
      * NetworkPolicySpec provides the specification of a NetworkPolicy
@@ -16687,6 +17575,7 @@ export namespace networking {
       readonly policyTypes: string[]
 
     }
+
 
   }
 
@@ -16740,6 +17629,7 @@ export namespace pkg {
 
     }
 
+
   }
 
   export namespace version {
@@ -16776,6 +17666,7 @@ export namespace pkg {
 
     }
 
+
   }
 
 }
@@ -16792,6 +17683,7 @@ export namespace policy {
       readonly driver: string
 
     }
+
 
     /**
      * AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods
@@ -16814,6 +17706,7 @@ export namespace policy {
       readonly readOnly: boolean
 
     }
+
 
     /**
      * Eviction evicts a pod from its node subject to certain policies and safety constraints. This
@@ -16849,6 +17742,10 @@ export namespace policy {
 
     }
 
+    export function isEviction(o: any): o is Eviction {
+      return o.apiVersion == "policy/v1beta1" && o.kind == "Eviction";
+    }
+
     /**
      * FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
      */
@@ -16865,6 +17762,7 @@ export namespace policy {
       readonly rule: string
 
     }
+
 
     /**
      * HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.
@@ -16883,6 +17781,7 @@ export namespace policy {
 
     }
 
+
     /**
      * IDRange provides a min/max of an allowed range of IDs.
      */
@@ -16898,6 +17797,7 @@ export namespace policy {
       readonly min: number
 
     }
+
 
     /**
      * PodDisruptionBudget is an object to define the max disruption that can be caused to a
@@ -16935,6 +17835,10 @@ export namespace policy {
 
     }
 
+    export function isPodDisruptionBudget(o: any): o is PodDisruptionBudget {
+      return o.apiVersion == "policy/v1beta1" && o.kind == "PodDisruptionBudget";
+    }
+
     /**
      * PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
      */
@@ -16963,6 +17867,10 @@ export namespace policy {
 
     }
 
+    export function isPodDisruptionBudgetList(o: any): o is PodDisruptionBudgetList {
+      return o.apiVersion == "policy/v1beta1" && o.kind == "PodDisruptionBudgetList";
+    }
+
     /**
      * PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
      */
@@ -16988,6 +17896,7 @@ export namespace policy {
       readonly selector: meta.v1.LabelSelector
 
     }
+
 
     /**
      * PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget.
@@ -17037,6 +17946,7 @@ export namespace policy {
 
     }
 
+
     /**
      * PodSecurityPolicy governs the ability to make requests that affect the Security Context that
      * will be applied to a pod and container.
@@ -17071,6 +17981,10 @@ export namespace policy {
 
     }
 
+    export function isPodSecurityPolicy(o: any): o is PodSecurityPolicy {
+      return o.apiVersion == "policy/v1beta1" && o.kind == "PodSecurityPolicy";
+    }
+
     /**
      * PodSecurityPolicyList is a list of PodSecurityPolicy objects.
      */
@@ -17102,6 +18016,10 @@ export namespace policy {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isPodSecurityPolicyList(o: any): o is PodSecurityPolicyList {
+      return o.apiVersion == "policy/v1beta1" && o.kind == "PodSecurityPolicyList";
     }
 
     /**
@@ -17251,6 +18169,7 @@ export namespace policy {
 
     }
 
+
     /**
      * RunAsGroupStrategyOptions defines the strategy type and any options used to create the
      * strategy.
@@ -17268,6 +18187,7 @@ export namespace policy {
       readonly rule: string
 
     }
+
 
     /**
      * RunAsUserStrategyOptions defines the strategy type and any options used to create the
@@ -17287,6 +18207,7 @@ export namespace policy {
 
     }
 
+
     /**
      * SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
      */
@@ -17303,6 +18224,7 @@ export namespace policy {
       readonly seLinuxOptions: core.v1.SELinuxOptions
 
     }
+
 
     /**
      * SupplementalGroupsStrategyOptions defines the strategy type and options used to create the
@@ -17324,6 +18246,7 @@ export namespace policy {
 
     }
 
+
   }
 
 }
@@ -17342,6 +18265,7 @@ export namespace rbac {
       readonly clusterRoleSelectors: meta.v1.LabelSelector[]
 
     }
+
 
     /**
      * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
@@ -17383,6 +18307,10 @@ export namespace rbac {
 
     }
 
+    export function isClusterRole(o: any): o is ClusterRole {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1" && o.kind == "ClusterRole";
+    }
+
     /**
      * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
      * ClusterRole in the global namespace, and adds who information via Subject.
@@ -17422,6 +18350,10 @@ export namespace rbac {
 
     }
 
+    export function isClusterRoleBinding(o: any): o is ClusterRoleBinding {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1" && o.kind == "ClusterRoleBinding";
+    }
+
     /**
      * ClusterRoleBindingList is a collection of ClusterRoleBindings
      */
@@ -17454,6 +18386,10 @@ export namespace rbac {
 
     }
 
+    export function isClusterRoleBindingList(o: any): o is ClusterRoleBindingList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1" && o.kind == "ClusterRoleBindingList";
+    }
+
     /**
      * ClusterRoleList is a collection of ClusterRoles
      */
@@ -17484,6 +18420,10 @@ export namespace rbac {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isClusterRoleList(o: any): o is ClusterRoleList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1" && o.kind == "ClusterRoleList";
     }
 
     /**
@@ -17527,6 +18467,7 @@ export namespace rbac {
 
     }
 
+
     /**
      * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
      * RoleBinding.
@@ -17558,6 +18499,10 @@ export namespace rbac {
        */
       readonly rules: rbac.v1.PolicyRule[]
 
+    }
+
+    export function isRole(o: any): o is Role {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1" && o.kind == "Role";
     }
 
     /**
@@ -17601,6 +18546,10 @@ export namespace rbac {
 
     }
 
+    export function isRoleBinding(o: any): o is RoleBinding {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1" && o.kind == "RoleBinding";
+    }
+
     /**
      * RoleBindingList is a collection of RoleBindings
      */
@@ -17631,6 +18580,10 @@ export namespace rbac {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isRoleBindingList(o: any): o is RoleBindingList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1" && o.kind == "RoleBindingList";
     }
 
     /**
@@ -17665,6 +18618,10 @@ export namespace rbac {
 
     }
 
+    export function isRoleList(o: any): o is RoleList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1" && o.kind == "RoleList";
+    }
+
     /**
      * RoleRef contains information that points to the role being used
      */
@@ -17685,6 +18642,7 @@ export namespace rbac {
       readonly name: string
 
     }
+
 
     /**
      * Subject contains a reference to the object or user identities a role binding applies to.
@@ -17718,6 +18676,7 @@ export namespace rbac {
 
     }
 
+
   }
 
   export namespace v1alpha1 {
@@ -17733,6 +18692,7 @@ export namespace rbac {
       readonly clusterRoleSelectors: meta.v1.LabelSelector[]
 
     }
+
 
     /**
      * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
@@ -17774,6 +18734,10 @@ export namespace rbac {
 
     }
 
+    export function isClusterRole(o: any): o is ClusterRole {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1alpha1" && o.kind == "ClusterRole";
+    }
+
     /**
      * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
      * ClusterRole in the global namespace, and adds who information via Subject.
@@ -17813,6 +18777,10 @@ export namespace rbac {
 
     }
 
+    export function isClusterRoleBinding(o: any): o is ClusterRoleBinding {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1alpha1" && o.kind == "ClusterRoleBinding";
+    }
+
     /**
      * ClusterRoleBindingList is a collection of ClusterRoleBindings
      */
@@ -17845,6 +18813,10 @@ export namespace rbac {
 
     }
 
+    export function isClusterRoleBindingList(o: any): o is ClusterRoleBindingList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1alpha1" && o.kind == "ClusterRoleBindingList";
+    }
+
     /**
      * ClusterRoleList is a collection of ClusterRoles
      */
@@ -17875,6 +18847,10 @@ export namespace rbac {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isClusterRoleList(o: any): o is ClusterRoleList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1alpha1" && o.kind == "ClusterRoleList";
     }
 
     /**
@@ -17919,6 +18895,7 @@ export namespace rbac {
 
     }
 
+
     /**
      * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
      * RoleBinding.
@@ -17950,6 +18927,10 @@ export namespace rbac {
        */
       readonly rules: rbac.v1alpha1.PolicyRule[]
 
+    }
+
+    export function isRole(o: any): o is Role {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1alpha1" && o.kind == "Role";
     }
 
     /**
@@ -17993,6 +18974,10 @@ export namespace rbac {
 
     }
 
+    export function isRoleBinding(o: any): o is RoleBinding {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1alpha1" && o.kind == "RoleBinding";
+    }
+
     /**
      * RoleBindingList is a collection of RoleBindings
      */
@@ -18023,6 +19008,10 @@ export namespace rbac {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isRoleBindingList(o: any): o is RoleBindingList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1alpha1" && o.kind == "RoleBindingList";
     }
 
     /**
@@ -18057,6 +19046,10 @@ export namespace rbac {
 
     }
 
+    export function isRoleList(o: any): o is RoleList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1alpha1" && o.kind == "RoleList";
+    }
+
     /**
      * RoleRef contains information that points to the role being used
      */
@@ -18077,6 +19070,7 @@ export namespace rbac {
       readonly name: string
 
     }
+
 
     /**
      * Subject contains a reference to the object or user identities a role binding applies to.
@@ -18111,6 +19105,10 @@ export namespace rbac {
 
     }
 
+    export function isSubject(o: any): o is Subject {
+      return o.apiVersion == "rbac/v1alpha1" && o.kind == "Subject";
+    }
+
   }
 
   export namespace v1beta1 {
@@ -18126,6 +19124,7 @@ export namespace rbac {
       readonly clusterRoleSelectors: meta.v1.LabelSelector[]
 
     }
+
 
     /**
      * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
@@ -18167,6 +19166,10 @@ export namespace rbac {
 
     }
 
+    export function isClusterRole(o: any): o is ClusterRole {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1beta1" && o.kind == "ClusterRole";
+    }
+
     /**
      * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
      * ClusterRole in the global namespace, and adds who information via Subject.
@@ -18206,6 +19209,10 @@ export namespace rbac {
 
     }
 
+    export function isClusterRoleBinding(o: any): o is ClusterRoleBinding {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1beta1" && o.kind == "ClusterRoleBinding";
+    }
+
     /**
      * ClusterRoleBindingList is a collection of ClusterRoleBindings
      */
@@ -18238,6 +19245,10 @@ export namespace rbac {
 
     }
 
+    export function isClusterRoleBindingList(o: any): o is ClusterRoleBindingList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1beta1" && o.kind == "ClusterRoleBindingList";
+    }
+
     /**
      * ClusterRoleList is a collection of ClusterRoles
      */
@@ -18268,6 +19279,10 @@ export namespace rbac {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isClusterRoleList(o: any): o is ClusterRoleList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1beta1" && o.kind == "ClusterRoleList";
     }
 
     /**
@@ -18312,6 +19327,7 @@ export namespace rbac {
 
     }
 
+
     /**
      * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
      * RoleBinding.
@@ -18343,6 +19359,10 @@ export namespace rbac {
        */
       readonly rules: rbac.v1beta1.PolicyRule[]
 
+    }
+
+    export function isRole(o: any): o is Role {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1beta1" && o.kind == "Role";
     }
 
     /**
@@ -18386,6 +19406,10 @@ export namespace rbac {
 
     }
 
+    export function isRoleBinding(o: any): o is RoleBinding {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1beta1" && o.kind == "RoleBinding";
+    }
+
     /**
      * RoleBindingList is a collection of RoleBindings
      */
@@ -18416,6 +19440,10 @@ export namespace rbac {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isRoleBindingList(o: any): o is RoleBindingList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1beta1" && o.kind == "RoleBindingList";
     }
 
     /**
@@ -18450,6 +19478,10 @@ export namespace rbac {
 
     }
 
+    export function isRoleList(o: any): o is RoleList {
+      return o.apiVersion == "rbac.authorization.k8s.io/v1beta1" && o.kind == "RoleList";
+    }
+
     /**
      * RoleRef contains information that points to the role being used
      */
@@ -18470,6 +19502,7 @@ export namespace rbac {
       readonly name: string
 
     }
+
 
     /**
      * Subject contains a reference to the object or user identities a role binding applies to.
@@ -18502,6 +19535,7 @@ export namespace rbac {
       readonly namespace: string
 
     }
+
 
   }
 
@@ -18559,6 +19593,10 @@ export namespace scheduling {
 
     }
 
+    export function isPriorityClass(o: any): o is PriorityClass {
+      return o.apiVersion == "scheduling.k8s.io/v1alpha1" && o.kind == "PriorityClass";
+    }
+
     /**
      * PriorityClassList is a collection of priority classes.
      */
@@ -18590,6 +19628,10 @@ export namespace scheduling {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isPriorityClassList(o: any): o is PriorityClassList {
+      return o.apiVersion == "scheduling.k8s.io/v1alpha1" && o.kind == "PriorityClassList";
     }
 
   }
@@ -18645,6 +19687,10 @@ export namespace scheduling {
 
     }
 
+    export function isPriorityClass(o: any): o is PriorityClass {
+      return o.apiVersion == "scheduling.k8s.io/v1beta1" && o.kind == "PriorityClass";
+    }
+
     /**
      * PriorityClassList is a collection of priority classes.
      */
@@ -18676,6 +19722,10 @@ export namespace scheduling {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isPriorityClassList(o: any): o is PriorityClassList {
+      return o.apiVersion == "scheduling.k8s.io/v1beta1" && o.kind == "PriorityClassList";
     }
 
   }
@@ -18712,6 +19762,10 @@ export namespace settings {
 
     }
 
+    export function isPodPreset(o: any): o is PodPreset {
+      return o.apiVersion == "settings.k8s.io/v1alpha1" && o.kind == "PodPreset";
+    }
+
     /**
      * PodPresetList is a list of PodPreset objects.
      */
@@ -18745,6 +19799,10 @@ export namespace settings {
 
     }
 
+    export function isPodPresetList(o: any): o is PodPresetList {
+      return o.apiVersion == "settings.k8s.io/v1alpha1" && o.kind == "PodPresetList";
+    }
+
     /**
      * PodPresetSpec is a description of a pod preset.
      */
@@ -18775,6 +19833,7 @@ export namespace settings {
       readonly volumes: core.v1.Volume[]
 
     }
+
 
   }
 
@@ -18858,6 +19917,10 @@ export namespace storage {
 
     }
 
+    export function isStorageClass(o: any): o is StorageClass {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "StorageClass";
+    }
+
     /**
      * StorageClassList is a collection of storage classes.
      */
@@ -18889,6 +19952,10 @@ export namespace storage {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isStorageClassList(o: any): o is StorageClassList {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "StorageClassList";
     }
 
     /**
@@ -18934,6 +20001,10 @@ export namespace storage {
 
     }
 
+    export function isVolumeAttachment(o: any): o is VolumeAttachment {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "VolumeAttachment";
+    }
+
     /**
      * VolumeAttachmentList is a collection of VolumeAttachment objects.
      */
@@ -18967,6 +20038,10 @@ export namespace storage {
 
     }
 
+    export function isVolumeAttachmentList(o: any): o is VolumeAttachmentList {
+      return o.apiVersion == "storage.k8s.io/v1" && o.kind == "VolumeAttachmentList";
+    }
+
     /**
      * VolumeAttachmentSource represents a volume that should be attached. Right now only
      * PersistenVolumes can be attached via external attacher, in future we may allow also inline
@@ -18979,6 +20054,7 @@ export namespace storage {
       readonly persistentVolumeName: string
 
     }
+
 
     /**
      * VolumeAttachmentSpec is the specification of a VolumeAttachment request.
@@ -19001,6 +20077,7 @@ export namespace storage {
       readonly source: storage.v1.VolumeAttachmentSource
 
     }
+
 
     /**
      * VolumeAttachmentStatus is the status of a VolumeAttachment request.
@@ -19033,6 +20110,7 @@ export namespace storage {
 
     }
 
+
     /**
      * VolumeError captures an error encountered during a volume operation.
      */
@@ -19049,6 +20127,7 @@ export namespace storage {
       readonly time: string
 
     }
+
 
   }
 
@@ -19096,6 +20175,10 @@ export namespace storage {
 
     }
 
+    export function isVolumeAttachment(o: any): o is VolumeAttachment {
+      return o.apiVersion == "storage.k8s.io/v1alpha1" && o.kind == "VolumeAttachment";
+    }
+
     /**
      * VolumeAttachmentList is a collection of VolumeAttachment objects.
      */
@@ -19129,6 +20212,10 @@ export namespace storage {
 
     }
 
+    export function isVolumeAttachmentList(o: any): o is VolumeAttachmentList {
+      return o.apiVersion == "storage.k8s.io/v1alpha1" && o.kind == "VolumeAttachmentList";
+    }
+
     /**
      * VolumeAttachmentSource represents a volume that should be attached. Right now only
      * PersistenVolumes can be attached via external attacher, in future we may allow also inline
@@ -19141,6 +20228,7 @@ export namespace storage {
       readonly persistentVolumeName: string
 
     }
+
 
     /**
      * VolumeAttachmentSpec is the specification of a VolumeAttachment request.
@@ -19163,6 +20251,7 @@ export namespace storage {
       readonly source: storage.v1alpha1.VolumeAttachmentSource
 
     }
+
 
     /**
      * VolumeAttachmentStatus is the status of a VolumeAttachment request.
@@ -19195,6 +20284,7 @@ export namespace storage {
 
     }
 
+
     /**
      * VolumeError captures an error encountered during a volume operation.
      */
@@ -19211,6 +20301,7 @@ export namespace storage {
       readonly time: string
 
     }
+
 
   }
 
@@ -19291,6 +20382,10 @@ export namespace storage {
 
     }
 
+    export function isStorageClass(o: any): o is StorageClass {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "StorageClass";
+    }
+
     /**
      * StorageClassList is a collection of storage classes.
      */
@@ -19322,6 +20417,10 @@ export namespace storage {
        */
       readonly metadata: meta.v1.ListMeta
 
+    }
+
+    export function isStorageClassList(o: any): o is StorageClassList {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "StorageClassList";
     }
 
     /**
@@ -19367,6 +20466,10 @@ export namespace storage {
 
     }
 
+    export function isVolumeAttachment(o: any): o is VolumeAttachment {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "VolumeAttachment";
+    }
+
     /**
      * VolumeAttachmentList is a collection of VolumeAttachment objects.
      */
@@ -19400,6 +20503,10 @@ export namespace storage {
 
     }
 
+    export function isVolumeAttachmentList(o: any): o is VolumeAttachmentList {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "VolumeAttachmentList";
+    }
+
     /**
      * VolumeAttachmentSource represents a volume that should be attached. Right now only
      * PersistenVolumes can be attached via external attacher, in future we may allow also inline
@@ -19412,6 +20519,7 @@ export namespace storage {
       readonly persistentVolumeName: string
 
     }
+
 
     /**
      * VolumeAttachmentSpec is the specification of a VolumeAttachment request.
@@ -19434,6 +20542,7 @@ export namespace storage {
       readonly source: storage.v1beta1.VolumeAttachmentSource
 
     }
+
 
     /**
      * VolumeAttachmentStatus is the status of a VolumeAttachment request.
@@ -19466,6 +20575,7 @@ export namespace storage {
 
     }
 
+
     /**
      * VolumeError captures an error encountered during a volume operation.
      */
@@ -19482,6 +20592,7 @@ export namespace storage {
       readonly time: string
 
     }
+
 
   }
 

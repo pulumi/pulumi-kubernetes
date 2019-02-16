@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * VolumeAttachmentList is a collection of VolumeAttachment objects.
@@ -54,6 +56,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.storage.v1alpha1.VolumeAttachmentList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1alpha1.VolumeAttachmentList;
+
+      public static list(): rxjs.Observable<outputApi.storage.v1alpha1.VolumeAttachmentList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.storage.v1alpha1.isVolumeAttachmentList)
+        );
+      }
 
       /**
        * Create a storage.v1alpha1.VolumeAttachmentList resource with the given unique name, arguments, and options.

@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See
@@ -60,6 +62,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.extensions.v1beta1.Deployment { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.Deployment;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.Deployment> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isDeployment)
+        );
+      }
 
       /**
        * Create a extensions.v1beta1.Deployment resource with the given unique name, arguments, and options.

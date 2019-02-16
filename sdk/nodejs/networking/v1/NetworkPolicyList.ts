@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * NetworkPolicyList is a list of NetworkPolicy objects.
@@ -54,6 +56,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.networking.v1.NetworkPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.networking.v1.NetworkPolicyList;
+
+      public static list(): rxjs.Observable<outputApi.networking.v1.NetworkPolicyList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.networking.v1.isNetworkPolicyList)
+        );
+      }
 
       /**
        * Create a networking.v1.NetworkPolicyList resource with the given unique name, arguments, and options.

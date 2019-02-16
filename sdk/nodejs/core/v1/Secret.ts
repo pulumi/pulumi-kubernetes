@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * Secret holds secret data of a certain type. The total bytes of the values in the Data field
@@ -70,6 +72,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.core.v1.Secret { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Secret;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.Secret> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isSecret)
+        );
+      }
 
       /**
        * Create a core.v1.Secret resource with the given unique name, arguments, and options.

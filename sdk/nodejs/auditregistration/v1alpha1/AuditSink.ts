@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * AuditSink represents a cluster level audit sink
@@ -51,6 +53,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.auditregistration.v1alpha1.AuditSink { return this.__inputs; }
       private readonly __inputs: inputApi.auditregistration.v1alpha1.AuditSink;
+
+      public static list(): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSink> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.auditregistration.v1alpha1.isAuditSink)
+        );
+      }
 
       /**
        * Create a auditregistration.v1alpha1.AuditSink resource with the given unique name, arguments, and options.

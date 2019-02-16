@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
@@ -60,6 +62,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.rbac.v1.ClusterRoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.ClusterRoleBinding;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1.ClusterRoleBinding> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1.isClusterRoleBinding)
+        );
+      }
 
       /**
        * Create a rbac.v1.ClusterRoleBinding resource with the given unique name, arguments, and options.

@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
@@ -51,6 +53,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinitionList { return this.__inputs; }
       private readonly __inputs: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList;
+
+      public static list(): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinitionList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apiextensions.v1beta1.isCustomResourceDefinitionList)
+        );
+      }
 
       /**
        * Create a apiextensions.v1beta1.CustomResourceDefinitionList resource with the given unique name, arguments, and options.

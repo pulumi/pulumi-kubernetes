@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * ReplicaSetList is a collection of ReplicaSets.
@@ -55,6 +57,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.apps.v1beta2.ReplicaSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.ReplicaSetList;
+
+      public static list(): rxjs.Observable<outputApi.apps.v1beta2.ReplicaSetList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.apps.v1beta2.isReplicaSetList)
+        );
+      }
 
       /**
        * Create a apps.v1beta2.ReplicaSetList resource with the given unique name, arguments, and options.

@@ -22,7 +22,8 @@
         "glob": "^7.1.2",
         "@types/glob": "^5.0.35",
         "node-fetch": "^2.3.0",
-        "@types/node-fetch": "^2.1.4"
+        "@types/node-fetch": "^2.1.4",
+        "rxjs": "6.4.0"
     },
     "devDependencies": {
         "mocha": "^5.2.0",

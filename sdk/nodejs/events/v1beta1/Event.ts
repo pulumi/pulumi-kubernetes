@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * Event is a report of an event somewhere in the cluster. It generally denotes some state
@@ -121,6 +123,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.events.v1beta1.Event { return this.__inputs; }
       private readonly __inputs: inputApi.events.v1beta1.Event;
+
+      public static list(): rxjs.Observable<outputApi.events.v1beta1.Event> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.events.v1beta1.isEvent)
+        );
+      }
 
       /**
        * Create a events.v1beta1.Event resource with the given unique name, arguments, and options.

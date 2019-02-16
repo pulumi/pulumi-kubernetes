@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints
@@ -63,6 +65,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.extensions.v1beta1.Ingress { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.Ingress;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.Ingress> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isIngress)
+        );
+      }
 
       /**
        * Create a extensions.v1beta1.Ingress resource with the given unique name, arguments, and options.

@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * PodDisruptionBudget is an object to define the max disruption that can be caused to a
@@ -57,6 +59,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudget { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodDisruptionBudget;
+
+      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudget> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.policy.v1beta1.isPodDisruptionBudget)
+        );
+      }
 
       /**
        * Create a policy.v1beta1.PodDisruptionBudget resource with the given unique name, arguments, and options.

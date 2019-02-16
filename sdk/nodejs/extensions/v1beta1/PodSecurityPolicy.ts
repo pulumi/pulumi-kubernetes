@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * PodSecurityPolicy governs the ability to make requests that affect the Security Context that
@@ -56,6 +58,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicy { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.PodSecurityPolicy;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.PodSecurityPolicy> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isPodSecurityPolicy)
+        );
+      }
 
       /**
        * Create a extensions.v1beta1.PodSecurityPolicy resource with the given unique name, arguments, and options.

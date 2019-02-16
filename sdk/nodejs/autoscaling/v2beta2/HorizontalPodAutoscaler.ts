@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
@@ -62,6 +64,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler;
+
+      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscaler> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.autoscaling.v2beta2.isHorizontalPodAutoscaler)
+        );
+      }
 
       /**
        * Create a autoscaling.v2beta2.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.

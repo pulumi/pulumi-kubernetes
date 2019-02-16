@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * CronJob represents the configuration of a single cron job.
@@ -61,6 +63,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.batch.v1beta1.CronJob { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v1beta1.CronJob;
+
+      public static list(): rxjs.Observable<outputApi.batch.v1beta1.CronJob> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.batch.v1beta1.isCronJob)
+        );
+      }
 
       /**
        * Create a batch.v1beta1.CronJob resource with the given unique name, arguments, and options.

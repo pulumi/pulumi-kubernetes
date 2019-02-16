@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * Endpoints is a collection of endpoints that implement the actual service. Example:
@@ -70,6 +72,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.core.v1.Endpoints { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Endpoints;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.Endpoints> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isEndpoints)
+        );
+      }
 
       /**
        * Create a core.v1.Endpoints resource with the given unique name, arguments, and options.

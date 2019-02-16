@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
@@ -54,6 +56,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.rbac.v1beta1.Role { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.Role;
+
+      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.Role> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.rbac.v1beta1.isRole)
+        );
+      }
 
       /**
        * Create a rbac.v1beta1.Role resource with the given unique name, arguments, and options.

@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * DeploymentList is a list of Deployments.
@@ -53,6 +55,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.extensions.v1beta1.DeploymentList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.DeploymentList;
+
+      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.DeploymentList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.extensions.v1beta1.isDeploymentList)
+        );
+      }
 
       /**
        * Create a extensions.v1beta1.DeploymentList resource with the given unique name, arguments, and options.

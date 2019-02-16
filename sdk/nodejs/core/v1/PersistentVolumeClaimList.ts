@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
@@ -55,6 +57,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.core.v1.PersistentVolumeClaimList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolumeClaimList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolumeClaimList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPersistentVolumeClaimList)
+        );
+      }
 
       /**
        * Create a core.v1.PersistentVolumeClaimList resource with the given unique name, arguments, and options.

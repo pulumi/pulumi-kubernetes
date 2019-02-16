@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import * as rxjs from "rxjs";
+import * as operators from "rxjs/operators"
 
     /**
      * PersistentVolumeList is a list of PersistentVolume items.
@@ -55,6 +57,17 @@ import * as outputApi from "../../types/output";
 
       public getInputs(): inputApi.core.v1.PersistentVolumeList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolumeList;
+
+      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolumeList> {
+        return rxjs.from(
+          pulumi.runtime
+            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
+            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
+        ).pipe(
+          operators.mergeAll(),
+          operators.filter(outputApi.core.v1.isPersistentVolumeList)
+        );
+      }
 
       /**
        * Create a core.v1.PersistentVolumeList resource with the given unique name, arguments, and options.
