@@ -3289,7 +3289,7 @@ export namespace apps {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -3325,7 +3325,8 @@ export namespace apps {
       kind?: pulumi.Input<"ControllerRevisionList">
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -3358,20 +3359,20 @@ export namespace apps {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * The desired behavior of this daemon set. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<apps.v1beta2.DaemonSetSpec>
 
       /**
        * The current status of this daemon set. This data may be out of date by some window of time.
        * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<apps.v1beta2.DaemonSetStatus>
 
@@ -3440,7 +3441,7 @@ export namespace apps {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -3841,20 +3842,20 @@ export namespace apps {
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
        * that the ReplicaSet manages. Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<apps.v1beta2.ReplicaSetSpec>
 
       /**
        * Status is the most recently observed status of the ReplicaSet. This data may be out of date
        * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<apps.v1beta2.ReplicaSetStatus>
 
@@ -3924,7 +3925,7 @@ export namespace apps {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -4097,19 +4098,19 @@ export namespace apps {
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * defines the behavior of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       spec?: pulumi.Input<apps.v1beta2.ScaleSpec>
 
       /**
        * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        * Read-only.
        */
       status?: pulumi.Input<apps.v1beta2.ScaleStatus>
@@ -12203,7 +12204,7 @@ export namespace core {
        * If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when
        * all its containers are ready AND all conditions specified in the readiness gates have
        * status equal to "True" More info:
-       * https://github.com/kubernetes/community/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md
+       * https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
        */
       readinessGates?: pulumi.Input<pulumi.Input<core.v1.PodReadinessGate>[]>
 
@@ -12219,8 +12220,8 @@ export namespace core {
        * used to run this pod.  If no RuntimeClass resource matches the named class, the pod will
        * not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit
        * class with an empty definition that uses the default runtime handler. More info:
-       * https://github.com/kubernetes/community/blob/master/keps/sig-node/0014-runtime-class.md
-       * This is an alpha feature and may change in the future.
+       * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is an alpha feature and
+       * may change in the future.
        */
       runtimeClassName?: pulumi.Input<string>
 
@@ -13965,7 +13966,7 @@ export namespace core {
        * builds on ClusterIP and allocates a port on every node which routes to the clusterIP.
        * "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in
        * the current cloud) which routes to the clusterIP. More info:
-       * https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types
+       * https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
        */
       type?: pulumi.Input<string>
 
@@ -14786,20 +14787,20 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * The desired behavior of this daemon set. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<extensions.v1beta1.DaemonSetSpec>
 
       /**
        * The current status of this daemon set. This data may be out of date by some window of time.
        * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<extensions.v1beta1.DaemonSetStatus>
 
@@ -14868,7 +14869,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -15435,19 +15436,19 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec is the desired state of the Ingress. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<extensions.v1beta1.IngressSpec>
 
       /**
        * Status is the current state of the Ingress. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<extensions.v1beta1.IngressStatus>
 
@@ -15501,7 +15502,7 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -15623,7 +15624,7 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -15720,7 +15721,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -15820,15 +15821,15 @@ export namespace extensions {
       ingress?: pulumi.Input<pulumi.Input<extensions.v1beta1.NetworkPolicyIngressRule>[]>
 
       /**
-       * List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or
-       * Ingress,Egress. If this field is not specified, it will default based on the existence of
-       * Ingress or Egress rules; policies that contain an Egress section are assumed to affect
-       * Egress, and all policies (whether or not they contain an Ingress section) are assumed to
-       * affect Ingress. If you want to write an egress-only policy, you must explicitly specify
-       * policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no
-       * egress is allowed, you must specify a policyTypes value that include "Egress" (since such a
-       * policy would not include an Egress section and would otherwise default to just [ "Ingress"
-       * ]). This field is beta-level in 1.8
+       * List of rule types that the NetworkPolicy relates to. Valid options are "Ingress",
+       * "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the
+       * existence of Ingress or Egress rules; policies that contain an Egress section are assumed
+       * to affect Egress, and all policies (whether or not they contain an Ingress section) are
+       * assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly
+       * specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies
+       * that no egress is allowed, you must specify a policyTypes value that include "Egress"
+       * (since such a policy would not include an Egress section and would otherwise default to
+       * just [ "Ingress" ]). This field is beta-level in 1.8
        */
       policyTypes?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -15859,7 +15860,7 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -15902,7 +15903,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -16086,20 +16087,20 @@ export namespace extensions {
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
        * that the ReplicaSet manages. Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<extensions.v1beta1.ReplicaSetSpec>
 
       /**
        * Status is the most recently observed status of the ReplicaSet. This data may be out of date
        * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<extensions.v1beta1.ReplicaSetStatus>
 
@@ -16169,7 +16170,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -16397,19 +16398,19 @@ export namespace extensions {
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * defines the behavior of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       spec?: pulumi.Input<extensions.v1beta1.ScaleSpec>
 
       /**
        * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        * Read-only.
        */
       status?: pulumi.Input<extensions.v1beta1.ScaleStatus>
@@ -17419,7 +17420,7 @@ export namespace networking {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -17513,7 +17514,7 @@ export namespace networking {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -17610,15 +17611,15 @@ export namespace networking {
       ingress?: pulumi.Input<pulumi.Input<networking.v1.NetworkPolicyIngressRule>[]>
 
       /**
-       * List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or
-       * Ingress,Egress. If this field is not specified, it will default based on the existence of
-       * Ingress or Egress rules; policies that contain an Egress section are assumed to affect
-       * Egress, and all policies (whether or not they contain an Ingress section) are assumed to
-       * affect Ingress. If you want to write an egress-only policy, you must explicitly specify
-       * policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no
-       * egress is allowed, you must specify a policyTypes value that include "Egress" (since such a
-       * policy would not include an Egress section and would otherwise default to just [ "Ingress"
-       * ]). This field is beta-level in 1.8
+       * List of rule types that the NetworkPolicy relates to. Valid options are "Ingress",
+       * "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the
+       * existence of Ingress or Egress rules; policies that contain an Egress section are assumed
+       * to affect Egress, and all policies (whether or not they contain an Ingress section) are
+       * assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly
+       * specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies
+       * that no egress is allowed, you must specify a policyTypes value that include "Egress"
+       * (since such a policy would not include an Egress section and would otherwise default to
+       * just [ "Ingress" ]). This field is beta-level in 1.8
        */
       policyTypes?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -19729,7 +19730,7 @@ export namespace scheduling {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -19766,7 +19767,7 @@ export namespace scheduling {
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -19841,7 +19842,7 @@ export namespace settings {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
