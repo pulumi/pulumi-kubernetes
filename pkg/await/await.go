@@ -109,9 +109,6 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			// Set a "managed-by: pulumi" label on all created k8s resources.
-			metadata.SetManagedByLabel(c.Inputs)
-
 			outputs, err = client.Create(c.Inputs, metav1.CreateOptions{})
 			if err != nil {
 				_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
