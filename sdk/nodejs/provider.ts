@@ -3246,7 +3246,7 @@ export namespace admissionregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3315,7 +3315,7 @@ export namespace admissionregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3388,7 +3388,7 @@ export namespace admissionregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3457,7 +3457,7 @@ export namespace admissionregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3527,7 +3527,7 @@ export namespace admissionregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3596,7 +3596,7 @@ export namespace admissionregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3674,7 +3674,7 @@ export namespace apiextensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3741,7 +3741,7 @@ export namespace apiextensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3818,7 +3818,7 @@ export namespace apiregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3883,7 +3883,7 @@ export namespace apiregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -3957,7 +3957,7 @@ export namespace apiregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4022,7 +4022,7 @@ export namespace apiregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4109,7 +4109,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4178,7 +4178,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4255,7 +4255,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4325,7 +4325,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4398,7 +4398,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4467,7 +4467,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4545,7 +4545,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4616,7 +4616,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4692,7 +4692,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4757,7 +4757,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4843,7 +4843,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4912,7 +4912,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -4987,7 +4987,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5056,7 +5056,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5134,7 +5134,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5199,7 +5199,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5285,7 +5285,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5354,7 +5354,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5432,7 +5432,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5502,7 +5502,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5577,7 +5577,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5646,7 +5646,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5726,7 +5726,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5797,7 +5797,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5875,7 +5875,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -5940,7 +5940,7 @@ export namespace apps {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6012,7 +6012,7 @@ export namespace auditregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6078,7 +6078,7 @@ export namespace auditregistration {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6156,7 +6156,7 @@ export namespace authentication {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6232,7 +6232,7 @@ export namespace authentication {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6313,7 +6313,7 @@ export namespace authorization {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6387,7 +6387,7 @@ export namespace authorization {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6466,7 +6466,7 @@ export namespace authorization {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6538,7 +6538,7 @@ export namespace authorization {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6616,7 +6616,7 @@ export namespace authorization {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6690,7 +6690,7 @@ export namespace authorization {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6769,7 +6769,7 @@ export namespace authorization {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6841,7 +6841,7 @@ export namespace authorization {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6923,7 +6923,7 @@ export namespace autoscaling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -6992,7 +6992,7 @@ export namespace autoscaling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7072,7 +7072,7 @@ export namespace autoscaling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7141,7 +7141,7 @@ export namespace autoscaling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7221,7 +7221,7 @@ export namespace autoscaling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7290,7 +7290,7 @@ export namespace autoscaling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7372,7 +7372,7 @@ export namespace batch {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7442,7 +7442,7 @@ export namespace batch {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7521,7 +7521,7 @@ export namespace batch {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7591,7 +7591,7 @@ export namespace batch {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7670,7 +7670,7 @@ export namespace batch {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7740,7 +7740,7 @@ export namespace batch {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7817,7 +7817,7 @@ export namespace certificates {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7880,7 +7880,7 @@ export namespace certificates {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -7955,7 +7955,7 @@ export namespace coordination {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8024,7 +8024,7 @@ export namespace coordination {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8100,7 +8100,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8169,7 +8169,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8238,7 +8238,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8318,7 +8318,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8387,7 +8387,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8472,7 +8472,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8541,7 +8541,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8676,7 +8676,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8758,7 +8758,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8828,7 +8828,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8898,7 +8898,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -8974,7 +8974,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9045,7 +9045,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9122,7 +9122,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9192,7 +9192,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9271,7 +9271,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9349,7 +9349,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9420,7 +9420,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9490,7 +9490,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9568,7 +9568,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9638,7 +9638,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9708,7 +9708,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9777,7 +9777,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9855,7 +9855,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -9926,7 +9926,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10002,7 +10002,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10073,7 +10073,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10158,7 +10158,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10230,7 +10230,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10308,7 +10308,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10396,7 +10396,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10468,7 +10468,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10537,7 +10537,7 @@ export namespace core {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10679,7 +10679,7 @@ export namespace events {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10761,7 +10761,7 @@ export namespace events {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10845,7 +10845,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10915,7 +10915,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -10990,7 +10990,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11059,7 +11059,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11137,7 +11137,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11207,7 +11207,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11278,7 +11278,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11348,7 +11348,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11419,7 +11419,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11489,7 +11489,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11569,7 +11569,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11640,7 +11640,7 @@ export namespace extensions {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11740,7 +11740,7 @@ export namespace meta {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11819,7 +11819,7 @@ export namespace networking {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11888,7 +11888,7 @@ export namespace networking {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -11966,7 +11966,7 @@ export namespace policy {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12031,7 +12031,7 @@ export namespace policy {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12101,7 +12101,7 @@ export namespace policy {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12170,7 +12170,7 @@ export namespace policy {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12252,7 +12252,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12328,7 +12328,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12397,7 +12397,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12465,7 +12465,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12534,7 +12534,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12611,7 +12611,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12680,7 +12680,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12748,7 +12748,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12827,7 +12827,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12903,7 +12903,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -12972,7 +12972,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13040,7 +13040,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13109,7 +13109,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13186,7 +13186,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13255,7 +13255,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13323,7 +13323,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13402,7 +13402,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13478,7 +13478,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13547,7 +13547,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13615,7 +13615,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13684,7 +13684,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13761,7 +13761,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13830,7 +13830,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13898,7 +13898,7 @@ export namespace rbac {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -13990,7 +13990,7 @@ export namespace scheduling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14061,7 +14061,7 @@ export namespace scheduling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14150,7 +14150,7 @@ export namespace scheduling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14221,7 +14221,7 @@ export namespace scheduling {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14291,7 +14291,7 @@ export namespace settings {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14360,7 +14360,7 @@ export namespace settings {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14478,7 +14478,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14553,7 +14553,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14632,7 +14632,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14702,7 +14702,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14784,7 +14784,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14854,7 +14854,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -14969,7 +14969,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -15044,7 +15044,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -15123,7 +15123,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
@@ -15193,7 +15193,7 @@ export namespace storage {
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrive. Takes the form
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
