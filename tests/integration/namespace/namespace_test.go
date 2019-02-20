@@ -96,8 +96,7 @@ func TestNamespace(t *testing.T) {
 					namespace := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
 					namespaceLabels, _ := openapi.Pluck(namespace.Outputs, "metadata", "labels")
-					assert.Equal(t, map[string]interface{}{"hello": "world"},
-						namespaceLabels.(map[string]interface{}))
+					assert.True(t, namespaceLabels.(map[string]interface{})["hello"] == "world")
 				},
 			},
 			{

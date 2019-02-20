@@ -252,6 +252,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		metadata.AssignNameIfAutonamable(newInputs, urn.Name())
 	}
 
+	// Set a "managed-by: pulumi" label on all created k8s resources.
+	metadata.SetManagedByLabel(newInputs)
+
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
 		return nil, err
