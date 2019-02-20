@@ -10,6 +10,7 @@
 
 ### Bug fixes
 
+-   Move mocha dependencies to devDependencies (https://github.com/pulumi/pulumi-kubernetes/pull/441)
 -   Include managed-by label in diff preview (https://github.com/pulumi/pulumi-kubernetes/pull/431)
 
 ## 0.20.2 (Released February 13, 2019)
