@@ -10,7 +10,7 @@
 
 ### Bug fixes
 
--   Move mocha dependencies to devDependencies #441
+-   Move mocha dependencies to devDependencies (https://github.com/pulumi/pulumi-kubernetes/pull/441)
 
 ## 0.20.2 (Released February 13, 2019)
 
