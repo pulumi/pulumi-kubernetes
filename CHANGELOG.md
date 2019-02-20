@@ -10,7 +10,7 @@
 
 ### Bug fixes
 
--   None
+-   Move mocha dependencies to devDependencies #441
 
 ## 0.20.2 (Released February 13, 2019)
 
