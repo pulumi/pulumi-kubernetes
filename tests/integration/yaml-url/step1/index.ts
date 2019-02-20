@@ -29,6 +29,6 @@ function addNamespace(o: any) {
 
 // Create resources from standard Kubernetes guestbook YAML example in the test namespace.
 new k8s.yaml.ConfigFile("guestbook", {
-  file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/examples/yaml-guestbook/yaml/guestbook.yaml",
+  file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml/guestbook.yaml",
   transformations: [addNamespace]
 });
