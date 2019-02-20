@@ -1,36 +1,36 @@
 {
-  "name": "@pulumi/kubernetes",
-  "version": "${VERSION}",
-  "description": "A Pulumi package for creating and managing Kubernetes resources.",
-  "license": "Apache-2.0",
-  "keywords": [
-    "pulumi",
-    "kubernetes"
-  ],
-  "homepage": "https://pulumi.io",
-  "repository": "https://github.com/pulumi/pulumi-kubernetes",
-  "scripts": {
-    "build": "tsc"
-  },
-  "dependencies": {
-    "@pulumi/pulumi": "^0.16.14",
-    "@types/js-yaml": "^3.11.2",
-    "@types/glob": "^5.0.35",
-    "@types/node-fetch": "^2.1.4",
-    "@types/tmp": "^0.0.33",
-    "glob": "^7.1.2",
-    "js-yaml": "^3.12.0",
-    "node-fetch": "^2.3.0",
-    "shell-quote": "^1.6.1",
-    "tmp": "^0.0.33"
-  },
-  "devDependencies": {
-    "@types/mocha": "^5.2.5",
-    "@types/shell-quote": "^1.6.0",
-    "mocha": "^5.2.0",
-    "typescript": "^2.6.2"
-  },
-  "pulumi": {
-    "resource": true
-  }
+    "name": "@pulumi/kubernetes",
+    "version": "${VERSION}",
+    "description": "A Pulumi package for creating and managing Kubernetes resources.",
+    "license": "Apache-2.0",
+    "keywords": [
+        "pulumi",
+        "kubernetes"
+    ],
+    "homepage": "https://pulumi.io",
+    "repository": "https://github.com/pulumi/pulumi-kubernetes",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^0.16.14",
+        "@types/js-yaml": "^3.11.2",
+        "js-yaml": "^3.12.0",
+        "shell-quote": "^1.6.1",
+        "tmp": "^0.0.33",
+        "@types/tmp": "^0.0.33",
+        "glob": "^7.1.2",
+        "@types/glob": "^5.0.35",
+        "mocha": "^5.2.0",
+        "@types/mocha": "^5.2.5",
+        "node-fetch": "^2.3.0",
+        "@types/node-fetch": "^2.1.4"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.2",
+        "@types/shell-quote": "^1.6.0"
+    },
+    "pulumi": {
+        "resource": true
+    }
 }
