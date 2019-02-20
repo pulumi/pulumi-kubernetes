@@ -1,4 +1,18 @@
-## 0.20.3 (Unreleased)
+## 0.20.4 (Unreleased)
+
+### Major changes
+
+-   None
+
+### Improvements
+
+-   None
+
+### Bug fixes
+
+-   None
+
+## 0.20.3 (February 20, 2019)
 
 ### Major changes
 
