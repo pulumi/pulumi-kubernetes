@@ -3259,15 +3259,11 @@ export namespace admissionregistration {
       public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfiguration { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1alpha1.InitializerConfiguration;
 
-      public static list(): rxjs.Observable<outputApi.admissionregistration.v1alpha1.InitializerConfiguration> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.admissionregistration.v1alpha1.isInitializerConfiguration)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.admissionregistration.v1alpha1.InitializerConfiguration> {
+        return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfiguration",});
       }
 
       /**
@@ -3339,15 +3335,11 @@ export namespace admissionregistration {
       public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfigurationList { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList;
 
-      public static list(): rxjs.Observable<outputApi.admissionregistration.v1alpha1.InitializerConfigurationList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.admissionregistration.v1alpha1.isInitializerConfigurationList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.admissionregistration.v1alpha1.InitializerConfigurationList> {
+        return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfigurationList",});
       }
 
       /**
@@ -3423,15 +3415,11 @@ export namespace admissionregistration {
       public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration;
 
-      public static list(): rxjs.Observable<outputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.admissionregistration.v1beta1.isMutatingWebhookConfiguration)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration> {
+        return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration",});
       }
 
       /**
@@ -3503,15 +3491,11 @@ export namespace admissionregistration {
       public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList;
 
-      public static list(): rxjs.Observable<outputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.admissionregistration.v1beta1.isMutatingWebhookConfigurationList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList> {
+        return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList",});
       }
 
       /**
@@ -3584,15 +3568,11 @@ export namespace admissionregistration {
       public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration;
 
-      public static list(): rxjs.Observable<outputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.admissionregistration.v1beta1.isValidatingWebhookConfiguration)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.admissionregistration.v1beta1.ValidatingWebhookConfiguration> {
+        return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration",});
       }
 
       /**
@@ -3664,15 +3644,11 @@ export namespace admissionregistration {
       public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList;
 
-      public static list(): rxjs.Observable<outputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.admissionregistration.v1beta1.isValidatingWebhookConfigurationList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList> {
+        return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList",});
       }
 
       /**
@@ -3753,15 +3729,11 @@ export namespace apiextensions {
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinition { return this.__inputs; }
       private readonly __inputs: inputApi.apiextensions.v1beta1.CustomResourceDefinition;
 
-      public static list(): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinition> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apiextensions.v1beta1.isCustomResourceDefinition)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinition> {
+        return ctx.list({...args, type: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition",});
       }
 
       /**
@@ -3831,15 +3803,11 @@ export namespace apiextensions {
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinitionList { return this.__inputs; }
       private readonly __inputs: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList;
 
-      public static list(): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinitionList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apiextensions.v1beta1.isCustomResourceDefinitionList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinitionList> {
+        return ctx.list({...args, type: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList",});
       }
 
       /**
@@ -3919,15 +3887,11 @@ export namespace apiregistration {
       public getInputs(): inputApi.apiregistration.v1.APIService { return this.__inputs; }
       private readonly __inputs: inputApi.apiregistration.v1.APIService;
 
-      public static list(): rxjs.Observable<outputApi.apiregistration.v1.APIService> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apiregistration.v1.isAPIService)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apiregistration.v1.APIService> {
+        return ctx.list({...args, type: "kubernetes:apiregistration/v1:APIService",});
       }
 
       /**
@@ -3995,15 +3959,11 @@ export namespace apiregistration {
       public getInputs(): inputApi.apiregistration.v1.APIServiceList { return this.__inputs; }
       private readonly __inputs: inputApi.apiregistration.v1.APIServiceList;
 
-      public static list(): rxjs.Observable<outputApi.apiregistration.v1.APIServiceList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apiregistration.v1.isAPIServiceList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apiregistration.v1.APIServiceList> {
+        return ctx.list({...args, type: "kubernetes:apiregistration/v1:APIServiceList",});
       }
 
       /**
@@ -4080,15 +4040,11 @@ export namespace apiregistration {
       public getInputs(): inputApi.apiregistration.v1beta1.APIService { return this.__inputs; }
       private readonly __inputs: inputApi.apiregistration.v1beta1.APIService;
 
-      public static list(): rxjs.Observable<outputApi.apiregistration.v1beta1.APIService> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apiregistration.v1beta1.isAPIService)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apiregistration.v1beta1.APIService> {
+        return ctx.list({...args, type: "kubernetes:apiregistration/v1beta1:APIService",});
       }
 
       /**
@@ -4156,15 +4112,11 @@ export namespace apiregistration {
       public getInputs(): inputApi.apiregistration.v1beta1.APIServiceList { return this.__inputs; }
       private readonly __inputs: inputApi.apiregistration.v1beta1.APIServiceList;
 
-      public static list(): rxjs.Observable<outputApi.apiregistration.v1beta1.APIServiceList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apiregistration.v1beta1.isAPIServiceList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apiregistration.v1beta1.APIServiceList> {
+        return ctx.list({...args, type: "kubernetes:apiregistration/v1beta1:APIServiceList",});
       }
 
       /**
@@ -4254,15 +4206,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.ControllerRevision { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.ControllerRevision;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.ControllerRevision> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isControllerRevision)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.ControllerRevision> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:ControllerRevision",});
       }
 
       /**
@@ -4334,15 +4282,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.ControllerRevisionList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.ControllerRevisionList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.ControllerRevisionList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isControllerRevisionList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.ControllerRevisionList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:ControllerRevisionList",});
       }
 
       /**
@@ -4422,15 +4366,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.DaemonSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.DaemonSet;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.DaemonSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isDaemonSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.DaemonSet> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:DaemonSet",});
       }
 
       /**
@@ -4503,15 +4443,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.DaemonSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.DaemonSetList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.DaemonSetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isDaemonSetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.DaemonSetList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:DaemonSetList",});
       }
 
       /**
@@ -4587,15 +4523,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.Deployment { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.Deployment;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.Deployment> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isDeployment)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.Deployment> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:Deployment",});
       }
 
       /**
@@ -4667,15 +4599,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.DeploymentList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.DeploymentList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.DeploymentList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isDeploymentList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.DeploymentList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:DeploymentList",});
       }
 
       /**
@@ -4756,15 +4684,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.ReplicaSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.ReplicaSet;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.ReplicaSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isReplicaSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.ReplicaSet> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:ReplicaSet",});
       }
 
       /**
@@ -4838,15 +4762,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.ReplicaSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.ReplicaSetList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.ReplicaSetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isReplicaSetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.ReplicaSetList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:ReplicaSetList",});
       }
 
       /**
@@ -4925,15 +4845,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.StatefulSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.StatefulSet;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.StatefulSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isStatefulSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.StatefulSet> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:StatefulSet",});
       }
 
       /**
@@ -5001,15 +4917,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1.StatefulSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1.StatefulSetList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1.StatefulSetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1.isStatefulSetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1.StatefulSetList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1:StatefulSetList",});
       }
 
       /**
@@ -5098,15 +5010,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta1.ControllerRevision { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.ControllerRevision;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta1.ControllerRevision> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta1.isControllerRevision)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta1.ControllerRevision> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta1:ControllerRevision",});
       }
 
       /**
@@ -5178,15 +5086,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta1.ControllerRevisionList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.ControllerRevisionList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta1.ControllerRevisionList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta1.isControllerRevisionList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta1.ControllerRevisionList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta1:ControllerRevisionList",});
       }
 
       /**
@@ -5264,15 +5168,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta1.Deployment { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.Deployment;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta1.Deployment> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta1.isDeployment)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta1.Deployment> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta1:Deployment",});
       }
 
       /**
@@ -5344,15 +5244,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta1.DeploymentList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.DeploymentList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta1.DeploymentList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta1.isDeploymentList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta1.DeploymentList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta1:DeploymentList",});
       }
 
       /**
@@ -5433,15 +5329,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta1.StatefulSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.StatefulSet;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta1.StatefulSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta1.isStatefulSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta1.StatefulSet> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta1:StatefulSet",});
       }
 
       /**
@@ -5509,15 +5401,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta1.StatefulSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta1.StatefulSetList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta1.StatefulSetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta1.isStatefulSetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta1.StatefulSetList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta1:StatefulSetList",});
       }
 
       /**
@@ -5606,15 +5494,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.ControllerRevision { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.ControllerRevision;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.ControllerRevision> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isControllerRevision)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.ControllerRevision> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:ControllerRevision",});
       }
 
       /**
@@ -5686,15 +5570,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.ControllerRevisionList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.ControllerRevisionList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.ControllerRevisionList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isControllerRevisionList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.ControllerRevisionList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:ControllerRevisionList",});
       }
 
       /**
@@ -5775,15 +5655,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.DaemonSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.DaemonSet;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.DaemonSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isDaemonSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.DaemonSet> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:DaemonSet",});
       }
 
       /**
@@ -5856,15 +5732,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.DaemonSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.DaemonSetList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.DaemonSetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isDaemonSetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.DaemonSetList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:DaemonSetList",});
       }
 
       /**
@@ -5942,15 +5814,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.Deployment { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.Deployment;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.Deployment> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isDeployment)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.Deployment> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:Deployment",});
       }
 
       /**
@@ -6022,15 +5890,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.DeploymentList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.DeploymentList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.DeploymentList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isDeploymentList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.DeploymentList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:DeploymentList",});
       }
 
       /**
@@ -6113,15 +5977,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.ReplicaSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.ReplicaSet;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.ReplicaSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isReplicaSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.ReplicaSet> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:ReplicaSet",});
       }
 
       /**
@@ -6195,15 +6055,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.ReplicaSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.ReplicaSetList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.ReplicaSetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isReplicaSetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.ReplicaSetList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:ReplicaSetList",});
       }
 
       /**
@@ -6284,15 +6140,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.StatefulSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.StatefulSet;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.StatefulSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isStatefulSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.StatefulSet> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:StatefulSet",});
       }
 
       /**
@@ -6360,15 +6212,11 @@ export namespace apps {
       public getInputs(): inputApi.apps.v1beta2.StatefulSetList { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.StatefulSetList;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.StatefulSetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isStatefulSetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.StatefulSetList> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:StatefulSetList",});
       }
 
       /**
@@ -6443,15 +6291,11 @@ export namespace auditregistration {
       public getInputs(): inputApi.auditregistration.v1alpha1.AuditSink { return this.__inputs; }
       private readonly __inputs: inputApi.auditregistration.v1alpha1.AuditSink;
 
-      public static list(): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSink> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.auditregistration.v1alpha1.isAuditSink)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSink> {
+        return ctx.list({...args, type: "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink",});
       }
 
       /**
@@ -6520,15 +6364,11 @@ export namespace auditregistration {
       public getInputs(): inputApi.auditregistration.v1alpha1.AuditSinkList { return this.__inputs; }
       private readonly __inputs: inputApi.auditregistration.v1alpha1.AuditSinkList;
 
-      public static list(): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSinkList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.auditregistration.v1alpha1.isAuditSinkList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSinkList> {
+        return ctx.list({...args, type: "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList",});
       }
 
       /**
@@ -6609,15 +6449,11 @@ export namespace authentication {
       public getInputs(): inputApi.authentication.v1.TokenReview { return this.__inputs; }
       private readonly __inputs: inputApi.authentication.v1.TokenReview;
 
-      public static list(): rxjs.Observable<outputApi.authentication.v1.TokenReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authentication.v1.isTokenReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authentication.v1.TokenReview> {
+        return ctx.list({...args, type: "kubernetes:authentication.k8s.io/v1:TokenReview",});
       }
 
       /**
@@ -6696,15 +6532,11 @@ export namespace authentication {
       public getInputs(): inputApi.authentication.v1beta1.TokenReview { return this.__inputs; }
       private readonly __inputs: inputApi.authentication.v1beta1.TokenReview;
 
-      public static list(): rxjs.Observable<outputApi.authentication.v1beta1.TokenReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authentication.v1beta1.isTokenReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authentication.v1beta1.TokenReview> {
+        return ctx.list({...args, type: "kubernetes:authentication.k8s.io/v1beta1:TokenReview",});
       }
 
       /**
@@ -6788,15 +6620,11 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1.LocalSubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1.LocalSubjectAccessReview;
 
-      public static list(): rxjs.Observable<outputApi.authorization.v1.LocalSubjectAccessReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authorization.v1.isLocalSubjectAccessReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authorization.v1.LocalSubjectAccessReview> {
+        return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview",});
       }
 
       /**
@@ -6873,15 +6701,11 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1.SelfSubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1.SelfSubjectAccessReview;
 
-      public static list(): rxjs.Observable<outputApi.authorization.v1.SelfSubjectAccessReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authorization.v1.isSelfSubjectAccessReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authorization.v1.SelfSubjectAccessReview> {
+        return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview",});
       }
 
       /**
@@ -6963,15 +6787,11 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1.SelfSubjectRulesReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1.SelfSubjectRulesReview;
 
-      public static list(): rxjs.Observable<outputApi.authorization.v1.SelfSubjectRulesReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authorization.v1.isSelfSubjectRulesReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authorization.v1.SelfSubjectRulesReview> {
+        return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview",});
       }
 
       /**
@@ -7046,15 +6866,11 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1.SubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1.SubjectAccessReview;
 
-      public static list(): rxjs.Observable<outputApi.authorization.v1.SubjectAccessReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authorization.v1.isSubjectAccessReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authorization.v1.SubjectAccessReview> {
+        return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1:SubjectAccessReview",});
       }
 
       /**
@@ -7135,15 +6951,11 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1beta1.LocalSubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1beta1.LocalSubjectAccessReview;
 
-      public static list(): rxjs.Observable<outputApi.authorization.v1beta1.LocalSubjectAccessReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authorization.v1beta1.isLocalSubjectAccessReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authorization.v1beta1.LocalSubjectAccessReview> {
+        return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview",});
       }
 
       /**
@@ -7220,15 +7032,11 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1beta1.SelfSubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1beta1.SelfSubjectAccessReview;
 
-      public static list(): rxjs.Observable<outputApi.authorization.v1beta1.SelfSubjectAccessReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authorization.v1beta1.isSelfSubjectAccessReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authorization.v1beta1.SelfSubjectAccessReview> {
+        return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview",});
       }
 
       /**
@@ -7310,15 +7118,11 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1beta1.SelfSubjectRulesReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1beta1.SelfSubjectRulesReview;
 
-      public static list(): rxjs.Observable<outputApi.authorization.v1beta1.SelfSubjectRulesReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authorization.v1beta1.isSelfSubjectRulesReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authorization.v1beta1.SelfSubjectRulesReview> {
+        return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview",});
       }
 
       /**
@@ -7393,15 +7197,11 @@ export namespace authorization {
       public getInputs(): inputApi.authorization.v1beta1.SubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1beta1.SubjectAccessReview;
 
-      public static list(): rxjs.Observable<outputApi.authorization.v1beta1.SubjectAccessReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authorization.v1beta1.isSubjectAccessReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authorization.v1beta1.SubjectAccessReview> {
+        return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview",});
       }
 
       /**
@@ -7486,15 +7286,11 @@ export namespace autoscaling {
       public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscaler { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v1.HorizontalPodAutoscaler;
 
-      public static list(): rxjs.Observable<outputApi.autoscaling.v1.HorizontalPodAutoscaler> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.autoscaling.v1.isHorizontalPodAutoscaler)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.autoscaling.v1.HorizontalPodAutoscaler> {
+        return ctx.list({...args, type: "kubernetes:autoscaling/v1:HorizontalPodAutoscaler",});
       }
 
       /**
@@ -7566,15 +7362,11 @@ export namespace autoscaling {
       public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscalerList { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v1.HorizontalPodAutoscalerList;
 
-      public static list(): rxjs.Observable<outputApi.autoscaling.v1.HorizontalPodAutoscalerList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.autoscaling.v1.isHorizontalPodAutoscalerList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.autoscaling.v1.HorizontalPodAutoscalerList> {
+        return ctx.list({...args, type: "kubernetes:autoscaling/v1:HorizontalPodAutoscalerList",});
       }
 
       /**
@@ -7657,15 +7449,11 @@ export namespace autoscaling {
       public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler;
 
-      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta1.HorizontalPodAutoscaler> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.autoscaling.v2beta1.isHorizontalPodAutoscaler)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.autoscaling.v2beta1.HorizontalPodAutoscaler> {
+        return ctx.list({...args, type: "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler",});
       }
 
       /**
@@ -7737,15 +7525,11 @@ export namespace autoscaling {
       public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList;
 
-      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.autoscaling.v2beta1.isHorizontalPodAutoscalerList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList> {
+        return ctx.list({...args, type: "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerList",});
       }
 
       /**
@@ -7828,15 +7612,11 @@ export namespace autoscaling {
       public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler;
 
-      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscaler> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.autoscaling.v2beta2.isHorizontalPodAutoscaler)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscaler> {
+        return ctx.list({...args, type: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler",});
       }
 
       /**
@@ -7908,15 +7688,11 @@ export namespace autoscaling {
       public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList;
 
-      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.autoscaling.v2beta2.isHorizontalPodAutoscalerList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList> {
+        return ctx.list({...args, type: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerList",});
       }
 
       /**
@@ -8001,15 +7777,11 @@ export namespace batch {
       public getInputs(): inputApi.batch.v1.Job { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v1.Job;
 
-      public static list(): rxjs.Observable<outputApi.batch.v1.Job> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.batch.v1.isJob)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.batch.v1.Job> {
+        return ctx.list({...args, type: "kubernetes:batch/v1:Job",});
       }
 
       /**
@@ -8082,15 +7854,11 @@ export namespace batch {
       public getInputs(): inputApi.batch.v1.JobList { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v1.JobList;
 
-      public static list(): rxjs.Observable<outputApi.batch.v1.JobList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.batch.v1.isJobList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.batch.v1.JobList> {
+        return ctx.list({...args, type: "kubernetes:batch/v1:JobList",});
       }
 
       /**
@@ -8172,15 +7940,11 @@ export namespace batch {
       public getInputs(): inputApi.batch.v1beta1.CronJob { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v1beta1.CronJob;
 
-      public static list(): rxjs.Observable<outputApi.batch.v1beta1.CronJob> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.batch.v1beta1.isCronJob)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.batch.v1beta1.CronJob> {
+        return ctx.list({...args, type: "kubernetes:batch/v1beta1:CronJob",});
       }
 
       /**
@@ -8253,15 +8017,11 @@ export namespace batch {
       public getInputs(): inputApi.batch.v1beta1.CronJobList { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v1beta1.CronJobList;
 
-      public static list(): rxjs.Observable<outputApi.batch.v1beta1.CronJobList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.batch.v1beta1.isCronJobList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.batch.v1beta1.CronJobList> {
+        return ctx.list({...args, type: "kubernetes:batch/v1beta1:CronJobList",});
       }
 
       /**
@@ -8343,15 +8103,11 @@ export namespace batch {
       public getInputs(): inputApi.batch.v2alpha1.CronJob { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v2alpha1.CronJob;
 
-      public static list(): rxjs.Observable<outputApi.batch.v2alpha1.CronJob> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.batch.v2alpha1.isCronJob)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.batch.v2alpha1.CronJob> {
+        return ctx.list({...args, type: "kubernetes:batch/v2alpha1:CronJob",});
       }
 
       /**
@@ -8424,15 +8180,11 @@ export namespace batch {
       public getInputs(): inputApi.batch.v2alpha1.CronJobList { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v2alpha1.CronJobList;
 
-      public static list(): rxjs.Observable<outputApi.batch.v2alpha1.CronJobList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.batch.v2alpha1.isCronJobList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.batch.v2alpha1.CronJobList> {
+        return ctx.list({...args, type: "kubernetes:batch/v2alpha1:CronJobList",});
       }
 
       /**
@@ -8512,15 +8264,11 @@ export namespace certificates {
       public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequest { return this.__inputs; }
       private readonly __inputs: inputApi.certificates.v1beta1.CertificateSigningRequest;
 
-      public static list(): rxjs.Observable<outputApi.certificates.v1beta1.CertificateSigningRequest> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.certificates.v1beta1.isCertificateSigningRequest)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.certificates.v1beta1.CertificateSigningRequest> {
+        return ctx.list({...args, type: "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest",});
       }
 
       /**
@@ -8586,15 +8334,11 @@ export namespace certificates {
       public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequestList { return this.__inputs; }
       private readonly __inputs: inputApi.certificates.v1beta1.CertificateSigningRequestList;
 
-      public static list(): rxjs.Observable<outputApi.certificates.v1beta1.CertificateSigningRequestList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.certificates.v1beta1.isCertificateSigningRequestList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.certificates.v1beta1.CertificateSigningRequestList> {
+        return ctx.list({...args, type: "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList",});
       }
 
       /**
@@ -8672,15 +8416,11 @@ export namespace coordination {
       public getInputs(): inputApi.coordination.v1beta1.Lease { return this.__inputs; }
       private readonly __inputs: inputApi.coordination.v1beta1.Lease;
 
-      public static list(): rxjs.Observable<outputApi.coordination.v1beta1.Lease> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.coordination.v1beta1.isLease)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.coordination.v1beta1.Lease> {
+        return ctx.list({...args, type: "kubernetes:coordination.k8s.io/v1beta1:Lease",});
       }
 
       /**
@@ -8752,15 +8492,11 @@ export namespace coordination {
       public getInputs(): inputApi.coordination.v1beta1.LeaseList { return this.__inputs; }
       private readonly __inputs: inputApi.coordination.v1beta1.LeaseList;
 
-      public static list(): rxjs.Observable<outputApi.coordination.v1beta1.LeaseList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.coordination.v1beta1.isLeaseList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.coordination.v1beta1.LeaseList> {
+        return ctx.list({...args, type: "kubernetes:coordination.k8s.io/v1beta1:LeaseList",});
       }
 
       /**
@@ -8839,15 +8575,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Binding { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Binding;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.Binding> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isBinding)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.Binding> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Binding",});
       }
 
       /**
@@ -8919,15 +8651,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ComponentStatus { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ComponentStatus;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ComponentStatus> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isComponentStatus)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ComponentStatus> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ComponentStatus",});
       }
 
       /**
@@ -8999,15 +8727,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ComponentStatusList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ComponentStatusList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ComponentStatusList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isComponentStatusList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ComponentStatusList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ComponentStatusList",});
       }
 
       /**
@@ -9090,15 +8814,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ConfigMap { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ConfigMap;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ConfigMap> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isConfigMap)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ConfigMap> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ConfigMap",});
       }
 
       /**
@@ -9170,15 +8890,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ConfigMapList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ConfigMapList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ConfigMapList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isConfigMapList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ConfigMapList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ConfigMapList",});
       }
 
       /**
@@ -9266,15 +8982,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Endpoints { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Endpoints;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.Endpoints> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isEndpoints)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.Endpoints> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Endpoints",});
       }
 
       /**
@@ -9346,15 +9058,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.EndpointsList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.EndpointsList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.EndpointsList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isEndpointsList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.EndpointsList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:EndpointsList",});
       }
 
       /**
@@ -9492,15 +9200,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Event { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Event;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.Event> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isEvent)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.Event> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Event",});
       }
 
       /**
@@ -9585,15 +9289,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.EventList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.EventList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.EventList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isEventList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.EventList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:EventList",});
       }
 
       /**
@@ -9666,15 +9366,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.LimitRange { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.LimitRange;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.LimitRange> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isLimitRange)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.LimitRange> {
+        return ctx.list({...args, type: "kubernetes:core/v1:LimitRange",});
       }
 
       /**
@@ -9747,15 +9443,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.LimitRangeList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.LimitRangeList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.LimitRangeList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isLimitRangeList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.LimitRangeList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:LimitRangeList",});
       }
 
       /**
@@ -9834,15 +9526,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Namespace { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Namespace;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.Namespace> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isNamespace)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.Namespace> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Namespace",});
       }
 
       /**
@@ -9916,15 +9604,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.NamespaceList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.NamespaceList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.NamespaceList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isNamespaceList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.NamespaceList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:NamespaceList",});
       }
 
       /**
@@ -10004,15 +9688,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Node { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Node;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.Node> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isNode)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.Node> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Node",});
       }
 
       /**
@@ -10085,15 +9765,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.NodeList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.NodeList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.NodeList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isNodeList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.NodeList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:NodeList",});
       }
 
       /**
@@ -10175,15 +9851,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PersistentVolume { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolume;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolume> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isPersistentVolume)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.PersistentVolume> {
+        return ctx.list({...args, type: "kubernetes:core/v1:PersistentVolume",});
       }
 
       /**
@@ -10264,15 +9936,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PersistentVolumeClaim { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolumeClaim;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolumeClaim> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isPersistentVolumeClaim)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.PersistentVolumeClaim> {
+        return ctx.list({...args, type: "kubernetes:core/v1:PersistentVolumeClaim",});
       }
 
       /**
@@ -10346,15 +10014,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PersistentVolumeClaimList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolumeClaimList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolumeClaimList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isPersistentVolumeClaimList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.PersistentVolumeClaimList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:PersistentVolumeClaimList",});
       }
 
       /**
@@ -10427,15 +10091,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PersistentVolumeList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PersistentVolumeList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.PersistentVolumeList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isPersistentVolumeList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.PersistentVolumeList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:PersistentVolumeList",});
       }
 
       /**
@@ -10516,15 +10176,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Pod { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Pod;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.Pod> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isPod)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.Pod> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Pod",});
       }
 
       /**
@@ -10597,15 +10253,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PodList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PodList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.PodList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isPodList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.PodList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:PodList",});
       }
 
       /**
@@ -10678,15 +10330,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PodTemplate { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PodTemplate;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.PodTemplate> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isPodTemplate)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.PodTemplate> {
+        return ctx.list({...args, type: "kubernetes:core/v1:PodTemplate",});
       }
 
       /**
@@ -10758,15 +10406,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.PodTemplateList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.PodTemplateList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.PodTemplateList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isPodTemplateList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.PodTemplateList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:PodTemplateList",});
       }
 
       /**
@@ -10847,15 +10491,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ReplicationController { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ReplicationController;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ReplicationController> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isReplicationController)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ReplicationController> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ReplicationController",});
       }
 
       /**
@@ -10929,15 +10569,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ReplicationControllerList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ReplicationControllerList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ReplicationControllerList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isReplicationControllerList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ReplicationControllerList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ReplicationControllerList",});
       }
 
       /**
@@ -11016,15 +10652,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ResourceQuota { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ResourceQuota;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ResourceQuota> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isResourceQuota)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ResourceQuota> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ResourceQuota",});
       }
 
       /**
@@ -11098,15 +10730,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ResourceQuotaList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ResourceQuotaList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ResourceQuotaList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isResourceQuotaList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ResourceQuotaList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ResourceQuotaList",});
       }
 
       /**
@@ -11194,15 +10822,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Secret { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Secret;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.Secret> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isSecret)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.Secret> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Secret",});
       }
 
       /**
@@ -11277,15 +10901,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.SecretList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.SecretList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.SecretList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isSecretList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.SecretList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:SecretList",});
       }
 
       /**
@@ -11366,15 +10986,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.Service { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.Service;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.Service> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isService)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.Service> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Service",});
       }
 
       /**
@@ -11465,15 +11081,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ServiceAccount { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ServiceAccount;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ServiceAccount> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isServiceAccount)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ServiceAccount> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ServiceAccount",});
       }
 
       /**
@@ -11548,15 +11160,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ServiceAccountList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ServiceAccountList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ServiceAccountList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isServiceAccountList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ServiceAccountList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ServiceAccountList",});
       }
 
       /**
@@ -11628,15 +11236,11 @@ export namespace core {
       public getInputs(): inputApi.core.v1.ServiceList { return this.__inputs; }
       private readonly __inputs: inputApi.core.v1.ServiceList;
 
-      public static list(): rxjs.Observable<outputApi.core.v1.ServiceList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.core.v1.isServiceList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.core.v1.ServiceList> {
+        return ctx.list({...args, type: "kubernetes:core/v1:ServiceList",});
       }
 
       /**
@@ -11781,15 +11385,11 @@ export namespace events {
       public getInputs(): inputApi.events.v1beta1.Event { return this.__inputs; }
       private readonly __inputs: inputApi.events.v1beta1.Event;
 
-      public static list(): rxjs.Observable<outputApi.events.v1beta1.Event> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.events.v1beta1.isEvent)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.events.v1beta1.Event> {
+        return ctx.list({...args, type: "kubernetes:events.k8s.io/v1beta1:Event",});
       }
 
       /**
@@ -11874,15 +11474,11 @@ export namespace events {
       public getInputs(): inputApi.events.v1beta1.EventList { return this.__inputs; }
       private readonly __inputs: inputApi.events.v1beta1.EventList;
 
-      public static list(): rxjs.Observable<outputApi.events.v1beta1.EventList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.events.v1beta1.isEventList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.events.v1beta1.EventList> {
+        return ctx.list({...args, type: "kubernetes:events.k8s.io/v1beta1:EventList",});
       }
 
       /**
@@ -11969,15 +11565,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.DaemonSet { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.DaemonSet;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.DaemonSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isDaemonSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.DaemonSet> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:DaemonSet",});
       }
 
       /**
@@ -12050,15 +11642,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.DaemonSetList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.DaemonSetList;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.DaemonSetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isDaemonSetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.DaemonSetList> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:DaemonSetList",});
       }
 
       /**
@@ -12136,15 +11724,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.Deployment { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.Deployment;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.Deployment> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isDeployment)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.Deployment> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:Deployment",});
       }
 
       /**
@@ -12216,15 +11800,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.DeploymentList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.DeploymentList;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.DeploymentList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isDeploymentList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.DeploymentList> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:DeploymentList",});
       }
 
       /**
@@ -12305,15 +11885,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.Ingress { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.Ingress;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.Ingress> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isIngress)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.Ingress> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:Ingress",});
       }
 
       /**
@@ -12386,15 +11962,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.IngressList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.IngressList;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.IngressList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isIngressList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.IngressList> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:IngressList",});
       }
 
       /**
@@ -12468,15 +12040,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.NetworkPolicy { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.NetworkPolicy;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.NetworkPolicy> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isNetworkPolicy)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.NetworkPolicy> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:NetworkPolicy",});
       }
 
       /**
@@ -12549,15 +12117,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.NetworkPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.NetworkPolicyList;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.NetworkPolicyList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isNetworkPolicyList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.NetworkPolicyList> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:NetworkPolicyList",});
       }
 
       /**
@@ -12631,15 +12195,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicy { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.PodSecurityPolicy;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.PodSecurityPolicy> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isPodSecurityPolicy)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.PodSecurityPolicy> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:PodSecurityPolicy",});
       }
 
       /**
@@ -12712,15 +12272,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.PodSecurityPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.PodSecurityPolicyList;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.PodSecurityPolicyList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isPodSecurityPolicyList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.PodSecurityPolicyList> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:PodSecurityPolicyList",});
       }
 
       /**
@@ -12803,15 +12359,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.ReplicaSet { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.ReplicaSet;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.ReplicaSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isReplicaSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.ReplicaSet> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:ReplicaSet",});
       }
 
       /**
@@ -12885,15 +12437,11 @@ export namespace extensions {
       public getInputs(): inputApi.extensions.v1beta1.ReplicaSetList { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.ReplicaSetList;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.ReplicaSetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isReplicaSetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.ReplicaSetList> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:ReplicaSetList",});
       }
 
       /**
@@ -12996,15 +12544,11 @@ export namespace meta {
       public getInputs(): inputApi.meta.v1.Status { return this.__inputs; }
       private readonly __inputs: inputApi.meta.v1.Status;
 
-      public static list(): rxjs.Observable<outputApi.meta.v1.Status> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.meta.v1.isStatus)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.meta.v1.Status> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Status",});
       }
 
       /**
@@ -13086,15 +12630,11 @@ export namespace networking {
       public getInputs(): inputApi.networking.v1.NetworkPolicy { return this.__inputs; }
       private readonly __inputs: inputApi.networking.v1.NetworkPolicy;
 
-      public static list(): rxjs.Observable<outputApi.networking.v1.NetworkPolicy> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.networking.v1.isNetworkPolicy)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.networking.v1.NetworkPolicy> {
+        return ctx.list({...args, type: "kubernetes:networking.k8s.io/v1:NetworkPolicy",});
       }
 
       /**
@@ -13166,15 +12706,11 @@ export namespace networking {
       public getInputs(): inputApi.networking.v1.NetworkPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.networking.v1.NetworkPolicyList;
 
-      public static list(): rxjs.Observable<outputApi.networking.v1.NetworkPolicyList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.networking.v1.isNetworkPolicyList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.networking.v1.NetworkPolicyList> {
+        return ctx.list({...args, type: "kubernetes:networking.k8s.io/v1:NetworkPolicyList",});
       }
 
       /**
@@ -13255,15 +12791,11 @@ export namespace policy {
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudget { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodDisruptionBudget;
 
-      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudget> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.policy.v1beta1.isPodDisruptionBudget)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudget> {
+        return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodDisruptionBudget",});
       }
 
       /**
@@ -13331,15 +12863,11 @@ export namespace policy {
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudgetList { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodDisruptionBudgetList;
 
-      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudgetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.policy.v1beta1.isPodDisruptionBudgetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudgetList> {
+        return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodDisruptionBudgetList",});
       }
 
       /**
@@ -13412,15 +12940,11 @@ export namespace policy {
       public getInputs(): inputApi.policy.v1beta1.PodSecurityPolicy { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodSecurityPolicy;
 
-      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodSecurityPolicy> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.policy.v1beta1.isPodSecurityPolicy)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.policy.v1beta1.PodSecurityPolicy> {
+        return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodSecurityPolicy",});
       }
 
       /**
@@ -13492,15 +13016,11 @@ export namespace policy {
       public getInputs(): inputApi.policy.v1beta1.PodSecurityPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodSecurityPolicyList;
 
-      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodSecurityPolicyList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.policy.v1beta1.isPodSecurityPolicyList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.policy.v1beta1.PodSecurityPolicyList> {
+        return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodSecurityPolicyList",});
       }
 
       /**
@@ -13585,15 +13105,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.ClusterRole { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.ClusterRole;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1.ClusterRole> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1.isClusterRole)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1.ClusterRole> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRole",});
       }
 
       /**
@@ -13672,15 +13188,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.ClusterRoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.ClusterRoleBinding;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1.ClusterRoleBinding> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1.isClusterRoleBinding)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1.ClusterRoleBinding> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",});
       }
 
       /**
@@ -13752,15 +13264,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.ClusterRoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.ClusterRoleBindingList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1.ClusterRoleBindingList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1.isClusterRoleBindingList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1.ClusterRoleBindingList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingList",});
       }
 
       /**
@@ -13831,15 +13339,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.ClusterRoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.ClusterRoleList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1.ClusterRoleList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1.isClusterRoleList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1.ClusterRoleList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleList",});
       }
 
       /**
@@ -13911,15 +13415,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.Role { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.Role;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1.Role> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1.isRole)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1.Role> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:Role",});
       }
 
       /**
@@ -13999,15 +13499,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.RoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.RoleBinding;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1.RoleBinding> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1.isRoleBinding)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1.RoleBinding> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:RoleBinding",});
       }
 
       /**
@@ -14079,15 +13575,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.RoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.RoleBindingList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1.RoleBindingList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1.isRoleBindingList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1.RoleBindingList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList",});
       }
 
       /**
@@ -14158,15 +13650,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1.RoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1.RoleList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1.RoleList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1.isRoleList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1.RoleList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:RoleList",});
       }
 
       /**
@@ -14248,15 +13736,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRole { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRole;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRole> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1alpha1.isClusterRole)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRole> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole",});
       }
 
       /**
@@ -14335,15 +13819,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRoleBinding;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleBinding> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1alpha1.isClusterRoleBinding)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleBinding> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding",});
       }
 
       /**
@@ -14415,15 +13895,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRoleBindingList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleBindingList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1alpha1.isClusterRoleBindingList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleBindingList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList",});
       }
 
       /**
@@ -14494,15 +13970,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.ClusterRoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.ClusterRoleList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1alpha1.isClusterRoleList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleList",});
       }
 
       /**
@@ -14574,15 +14046,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.Role { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.Role;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.Role> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1alpha1.isRole)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1alpha1.Role> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:Role",});
       }
 
       /**
@@ -14662,15 +14130,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.RoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.RoleBinding;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.RoleBinding> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1alpha1.isRoleBinding)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1alpha1.RoleBinding> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding",});
       }
 
       /**
@@ -14742,15 +14206,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.RoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.RoleBindingList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.RoleBindingList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1alpha1.isRoleBindingList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1alpha1.RoleBindingList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList",});
       }
 
       /**
@@ -14821,15 +14281,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1alpha1.RoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1alpha1.RoleList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1alpha1.RoleList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1alpha1.isRoleList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1alpha1.RoleList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList",});
       }
 
       /**
@@ -14911,15 +14367,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.ClusterRole { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.ClusterRole;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRole> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1beta1.isClusterRole)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRole> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole",});
       }
 
       /**
@@ -14998,15 +14450,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleBinding;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleBinding> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1beta1.isClusterRoleBinding)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleBinding> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding",});
       }
 
       /**
@@ -15078,15 +14526,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleBindingList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleBindingList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1beta1.isClusterRoleBindingList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleBindingList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList",});
       }
 
       /**
@@ -15157,15 +14601,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.ClusterRoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1beta1.isClusterRoleList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList",});
       }
 
       /**
@@ -15237,15 +14677,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.Role { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.Role;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.Role> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1beta1.isRole)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1beta1.Role> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:Role",});
       }
 
       /**
@@ -15325,15 +14761,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.RoleBinding { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.RoleBinding;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.RoleBinding> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1beta1.isRoleBinding)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1beta1.RoleBinding> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding",});
       }
 
       /**
@@ -15405,15 +14837,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.RoleBindingList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.RoleBindingList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.RoleBindingList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1beta1.isRoleBindingList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1beta1.RoleBindingList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList",});
       }
 
       /**
@@ -15484,15 +14912,11 @@ export namespace rbac {
       public getInputs(): inputApi.rbac.v1beta1.RoleList { return this.__inputs; }
       private readonly __inputs: inputApi.rbac.v1beta1.RoleList;
 
-      public static list(): rxjs.Observable<outputApi.rbac.v1beta1.RoleList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.rbac.v1beta1.isRoleList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.rbac.v1beta1.RoleList> {
+        return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList",});
       }
 
       /**
@@ -15587,15 +15011,11 @@ export namespace scheduling {
       public getInputs(): inputApi.scheduling.v1alpha1.PriorityClass { return this.__inputs; }
       private readonly __inputs: inputApi.scheduling.v1alpha1.PriorityClass;
 
-      public static list(): rxjs.Observable<outputApi.scheduling.v1alpha1.PriorityClass> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.scheduling.v1alpha1.isPriorityClass)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.scheduling.v1alpha1.PriorityClass> {
+        return ctx.list({...args, type: "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass",});
       }
 
       /**
@@ -15669,15 +15089,11 @@ export namespace scheduling {
       public getInputs(): inputApi.scheduling.v1alpha1.PriorityClassList { return this.__inputs; }
       private readonly __inputs: inputApi.scheduling.v1alpha1.PriorityClassList;
 
-      public static list(): rxjs.Observable<outputApi.scheduling.v1alpha1.PriorityClassList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.scheduling.v1alpha1.isPriorityClassList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.scheduling.v1alpha1.PriorityClassList> {
+        return ctx.list({...args, type: "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList",});
       }
 
       /**
@@ -15769,15 +15185,11 @@ export namespace scheduling {
       public getInputs(): inputApi.scheduling.v1beta1.PriorityClass { return this.__inputs; }
       private readonly __inputs: inputApi.scheduling.v1beta1.PriorityClass;
 
-      public static list(): rxjs.Observable<outputApi.scheduling.v1beta1.PriorityClass> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.scheduling.v1beta1.isPriorityClass)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.scheduling.v1beta1.PriorityClass> {
+        return ctx.list({...args, type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass",});
       }
 
       /**
@@ -15851,15 +15263,11 @@ export namespace scheduling {
       public getInputs(): inputApi.scheduling.v1beta1.PriorityClassList { return this.__inputs; }
       private readonly __inputs: inputApi.scheduling.v1beta1.PriorityClassList;
 
-      public static list(): rxjs.Observable<outputApi.scheduling.v1beta1.PriorityClassList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.scheduling.v1beta1.isPriorityClassList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.scheduling.v1beta1.PriorityClassList> {
+        return ctx.list({...args, type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList",});
       }
 
       /**
@@ -15932,15 +15340,11 @@ export namespace settings {
       public getInputs(): inputApi.settings.v1alpha1.PodPreset { return this.__inputs; }
       private readonly __inputs: inputApi.settings.v1alpha1.PodPreset;
 
-      public static list(): rxjs.Observable<outputApi.settings.v1alpha1.PodPreset> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.settings.v1alpha1.isPodPreset)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.settings.v1alpha1.PodPreset> {
+        return ctx.list({...args, type: "kubernetes:settings.k8s.io/v1alpha1:PodPreset",});
       }
 
       /**
@@ -16012,15 +15416,11 @@ export namespace settings {
       public getInputs(): inputApi.settings.v1alpha1.PodPresetList { return this.__inputs; }
       private readonly __inputs: inputApi.settings.v1alpha1.PodPresetList;
 
-      public static list(): rxjs.Observable<outputApi.settings.v1alpha1.PodPresetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.settings.v1alpha1.isPodPresetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.settings.v1alpha1.PodPresetList> {
+        return ctx.list({...args, type: "kubernetes:settings.k8s.io/v1alpha1:PodPresetList",});
       }
 
       /**
@@ -16141,15 +15541,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1.StorageClass { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1.StorageClass;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1.StorageClass> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1.isStorageClass)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1.StorageClass> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1:StorageClass",});
       }
 
       /**
@@ -16227,15 +15623,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1.StorageClassList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1.StorageClassList;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1.StorageClassList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1.isStorageClassList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1.StorageClassList> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1:StorageClassList",});
       }
 
       /**
@@ -16317,15 +15709,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1.VolumeAttachment { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1.VolumeAttachment;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1.VolumeAttachment> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1.isVolumeAttachment)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1.VolumeAttachment> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1:VolumeAttachment",});
       }
 
       /**
@@ -16398,15 +15786,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1.VolumeAttachmentList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1.VolumeAttachmentList;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1.VolumeAttachmentList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1.isVolumeAttachmentList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1.VolumeAttachmentList> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1:VolumeAttachmentList",});
       }
 
       /**
@@ -16491,15 +15875,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1alpha1.VolumeAttachment { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1alpha1.VolumeAttachment;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1alpha1.VolumeAttachment> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1alpha1.isVolumeAttachment)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1alpha1.VolumeAttachment> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment",});
       }
 
       /**
@@ -16572,15 +15952,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1alpha1.VolumeAttachmentList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1alpha1.VolumeAttachmentList;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1alpha1.VolumeAttachmentList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1alpha1.isVolumeAttachmentList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1alpha1.VolumeAttachmentList> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList",});
       }
 
       /**
@@ -16698,15 +16074,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1beta1.StorageClass { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1beta1.StorageClass;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1beta1.StorageClass> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1beta1.isStorageClass)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1beta1.StorageClass> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1beta1:StorageClass",});
       }
 
       /**
@@ -16784,15 +16156,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1beta1.StorageClassList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1beta1.StorageClassList;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1beta1.StorageClassList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1beta1.isStorageClassList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1beta1.StorageClassList> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1beta1:StorageClassList",});
       }
 
       /**
@@ -16874,15 +16242,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1beta1.VolumeAttachment { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1beta1.VolumeAttachment;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1beta1.VolumeAttachment> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1beta1.isVolumeAttachment)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1beta1.VolumeAttachment> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment",});
       }
 
       /**
@@ -16955,15 +16319,11 @@ export namespace storage {
       public getInputs(): inputApi.storage.v1beta1.VolumeAttachmentList { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1beta1.VolumeAttachmentList;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1beta1.VolumeAttachmentList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1beta1.isVolumeAttachmentList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1beta1.VolumeAttachmentList> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList",});
       }
 
       /**

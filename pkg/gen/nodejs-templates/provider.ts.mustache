@@ -513,15 +513,11 @@ export namespace {{Group}} {
       public getInputs(): inputApi.{{Group}}.{{Version}}.{{Kind}} { return this.__inputs; }
       private readonly __inputs: inputApi.{{Group}}.{{Version}}.{{Kind}};
 
-      public static list(): rxjs.Observable<outputApi.{{Group}}.{{Version}}.{{Kind}}> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.{{Group}}.{{Version}}.is{{Kind}})
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.{{Group}}.{{Version}}.{{Kind}}> {
+        return ctx.list({...args, type: "kubernetes:{{URNAPIVersion}}:{{Kind}}",});
       }
 
       /**
