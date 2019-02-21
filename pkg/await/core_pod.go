@@ -9,6 +9,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -346,7 +347,7 @@ func (pia *podInitAwaiter) Await() error {
 	//
 
 	podClient, err := clients.ResourceClient(
-		clients.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
+		kinds.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not make client to watch Pod %q",
@@ -364,7 +365,7 @@ func (pia *podInitAwaiter) Await() error {
 
 func (pia *podInitAwaiter) Read() error {
 	podClient, err := clients.ResourceClient(
-		clients.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
+		kinds.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not make client to get Pod %q",

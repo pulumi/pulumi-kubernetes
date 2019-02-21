@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
@@ -26,49 +27,7 @@ import (
 	"k8s.io/client-go/restmapper"
 )
 
-type Kind string
-
-const (
-	APIService                     Kind = "APIService"
-	CertificateSigningRequest      Kind = "CertificateSigningRequest"
-	ClusterRole                    Kind = "ClusterRole"
-	ClusterRoleBinding             Kind = "ClusterRoleBinding"
-	ControllerRevision             Kind = "ControllerRevision"
-	CustomResourceDefinition       Kind = "CustomResourceDefinition"
-	ConfigMap                      Kind = "ConfigMap"
-	CronJob                        Kind = "CronJob"
-	DaemonSet                      Kind = "DaemonSet"
-	Deployment                     Kind = "Deployment"
-	Endpoints                      Kind = "Endpoints"
-	Event                          Kind = "Event"
-	HorizontalPodAutoscaler        Kind = "HorizontalPodAutoscaler"
-	Ingress                        Kind = "Ingress"
-	Job                            Kind = "Job"
-	LimitRange                     Kind = "LimitRange"
-	MutatingWebhookConfiguration   Kind = "MutatingWebhookConfiguration"
-	Namespace                      Kind = "Namespace"
-	NetworkPolicy                  Kind = "NetworkPolicy"
-	PersistentVolume               Kind = "PersistentVolume"
-	PersistentVolumeClaim          Kind = "PersistentVolumeClaim"
-	Pod                            Kind = "Pod"
-	PodDisruptionBudget            Kind = "PodDisruptionBudget"
-	PodSecurityPolicy              Kind = "PodSecurityPolicy"
-	PodTemplate                    Kind = "PodTemplate"
-	PriorityClass                  Kind = "PriorityClass"
-	ReplicaSet                     Kind = "ReplicaSet"
-	ReplicationController          Kind = "ReplicationController"
-	ResourceQuota                  Kind = "ResourceQuota"
-	Role                           Kind = "Role"
-	RoleBinding                    Kind = "RoleBinding"
-	Secret                         Kind = "Secret"
-	Service                        Kind = "Service"
-	ServiceAccount                 Kind = "ServiceAccount"
-	StatefulSet                    Kind = "StatefulSet"
-	StorageClass                   Kind = "StorageClass"
-	ValidatingWebhookConfiguration Kind = "ValidatingWebhookConfiguration"
-)
-
-func ResourceClient(kind Kind, namespace string, client *DynamicClientSet) (dynamic.ResourceInterface, error) {
+func ResourceClient(kind kinds.Kind, namespace string, client *DynamicClientSet) (dynamic.ResourceInterface, error) {
 	gvk, err := client.gvkForKind(kind)
 	if err != nil {
 		return nil, err
@@ -144,7 +103,7 @@ func (dcs *DynamicClientSet) ResourceClientForObject(obj *unstructured.Unstructu
 	return dcs.ResourceClient(obj.GroupVersionKind(), obj.GetNamespace())
 }
 
-func (dcs *DynamicClientSet) gvkForKind(kind Kind) (*schema.GroupVersionKind, error) {
+func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKind, error) {
 	resources, err := dcs.DiscoveryClientCached.ServerPreferredResources()
 	if err != nil {
 		if discovery.IsGroupDiscoveryFailedError(err) {
@@ -198,6 +157,6 @@ func namespaceOrDefault(ns string) string {
 
 // IsCRD returns true if a Kubernetes resource is a CRD.
 func IsCRD(obj *unstructured.Unstructured) bool {
-	return obj.GetKind() == string(CustomResourceDefinition) &&
+	return obj.GetKind() == string(kinds.CustomResourceDefinition) &&
 		strings.HasPrefix(obj.GetAPIVersion(), "apiextensions.k8s.io/")
 }

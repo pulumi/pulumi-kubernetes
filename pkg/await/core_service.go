@@ -7,6 +7,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"k8s.io/api/core/v1"
@@ -433,14 +434,14 @@ func (sia *serviceInitAwaiter) makeClients() (
 	serviceClient, endpointClient dynamic.ResourceInterface, err error,
 ) {
 	serviceClient, err = clients.ResourceClient(
-		clients.Service, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
+		kinds.Service, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Service %q",
 			sia.config.currentOutputs.GetName())
 	}
 	endpointClient, err = clients.ResourceClient(
-		clients.Endpoints, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
+		kinds.Endpoints, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Endpoints associated with Service %q",
