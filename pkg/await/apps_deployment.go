@@ -9,6 +9,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -742,28 +743,28 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	deploymentClient, replicaSetClient, podClient, pvcClient dynamic.ResourceInterface, err error,
 ) {
 	deploymentClient, err = clients.ResourceClient(
-		clients.Deployment, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+		kinds.Deployment, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch Deployment %q",
 			dia.config.currentInputs.GetName())
 		return
 	}
 	replicaSetClient, err = clients.ResourceClient(
-		clients.ReplicaSet, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+		kinds.ReplicaSet, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch ReplicaSets associated with Deployment %q",
 			dia.config.currentInputs.GetName())
 		return
 	}
 	podClient, err = clients.ResourceClient(
-		clients.Pod, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+		kinds.Pod, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch Pods associated with Deployment %q",
 			dia.config.currentInputs.GetName())
 		return
 	}
 	pvcClient, err = clients.ResourceClient(
-		clients.PersistentVolumeClaim, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
+		kinds.PersistentVolumeClaim, dia.config.currentInputs.GetNamespace(), dia.config.clientSet)
 	if err != nil {
 		err = errors.Wrapf(err, "Could not make client to watch PVCs associated with Deployment %q",
 			dia.config.currentInputs.GetName())

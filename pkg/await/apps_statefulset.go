@@ -8,6 +8,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -451,14 +452,14 @@ func (sia *statefulsetInitAwaiter) makeClients() (
 	statefulSetClient, podClient dynamic.ResourceInterface, err error,
 ) {
 	statefulSetClient, err = clients.ResourceClient(
-		clients.StatefulSet, sia.config.currentInputs.GetNamespace(), sia.config.clientSet)
+		kinds.StatefulSet, sia.config.currentInputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
 			"Could not make client to watch StatefulSet %q",
 			sia.config.currentInputs.GetName())
 	}
 	podClient, err = clients.ResourceClient(
-		clients.Pod, sia.config.currentInputs.GetNamespace(), sia.config.clientSet)
+		kinds.Pod, sia.config.currentInputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Pods associated with StatefulSet %q",

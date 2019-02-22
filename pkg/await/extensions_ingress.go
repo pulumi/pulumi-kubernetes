@@ -9,6 +9,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"k8s.io/api/extensions/v1beta1"
@@ -408,21 +409,21 @@ func (iia *ingressInitAwaiter) makeClients() (
 	ingressClient, endpointsClient, servicesClient dynamic.ResourceInterface, err error,
 ) {
 	ingressClient, err = clients.ResourceClient(
-		clients.Ingress, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
+		kinds.Ingress, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Ingress %q",
 			iia.config.currentInputs.GetName())
 	}
 	endpointsClient, err = clients.ResourceClient(
-		clients.Endpoints, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
+		kinds.Endpoints, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Endpoints associated with Ingress %q",
 			iia.config.currentInputs.GetName())
 	}
 	servicesClient, err = clients.ResourceClient(
-		clients.Service, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
+		kinds.Service, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Services associated with Ingress %q",
