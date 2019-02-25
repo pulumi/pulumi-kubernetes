@@ -1374,6 +1374,7 @@
     "github.com/stretchr/testify/assert",
     "github.com/yudai/gojsondiff",
     "google.golang.org/grpc/codes",
+    "k8s.io/api/apps/v1",
     "k8s.io/api/core/v1",
     "k8s.io/api/extensions/v1beta1",
     "k8s.io/apimachinery/pkg/api/errors",
