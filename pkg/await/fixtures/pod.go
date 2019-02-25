@@ -20,38 +20,43 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-func PodBasic() *corev1.Pod {
-	return &corev1.Pod{
-		TypeMeta: v1.TypeMeta{
-			APIVersion: "v1",
-			Kind:       "Pod",
-		},
-		ObjectMeta: v1.ObjectMeta{
-			Name: "foo",
-		},
-		Spec: corev1.PodSpec{
-			Containers: []corev1.Container{
-				{
-					Name:  "foo",
-					Image: "nginx",
+type podBasic struct {
+	Object       *corev1.Pod
+	Unstructured *unstructured.Unstructured
+}
+
+func PodBasic() *podBasic {
+	return &podBasic{
+		&corev1.Pod{
+			TypeMeta: v1.TypeMeta{
+				APIVersion: "v1",
+				Kind:       "Pod",
+			},
+			ObjectMeta: v1.ObjectMeta{
+				Name: "foo",
+			},
+			Spec: corev1.PodSpec{
+				Containers: []corev1.Container{
+					{
+						Name:  "foo",
+						Image: "nginx",
+					},
 				},
 			},
 		},
-	}
-}
 
-func PodBasic_Uns() *unstructured.Unstructured {
-	return &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "v1",
-			"kind":       "Pod",
-			"metadata": map[string]interface{}{
-				"name": "foo"},
-			"spec": map[string]interface{}{
-				"containers": []interface{}{
-					map[string]interface{}{
-						"name":  "foo",
-						"image": "nginx"}},
+		&unstructured.Unstructured{
+			Object: map[string]interface{}{
+				"apiVersion": "v1",
+				"kind":       "Pod",
+				"metadata": map[string]interface{}{
+					"name": "foo"},
+				"spec": map[string]interface{}{
+					"containers": []interface{}{
+						map[string]interface{}{
+							"name":  "foo",
+							"image": "nginx"}},
+				},
 			},
 		},
 	}

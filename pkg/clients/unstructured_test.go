@@ -25,9 +25,7 @@ import (
 
 func TestFromUnstructured(t *testing.T) {
 	pod := fixtures.PodBasic()
-	unsPod := fixtures.PodBasic_Uns()
 	deployment := fixtures.DeploymentBasic()
-	unsDeployment := fixtures.DeploymentBasic_Uns()
 
 	type args struct {
 		obj *unstructured.Unstructured
@@ -38,8 +36,9 @@ func TestFromUnstructured(t *testing.T) {
 		want    v1.Object
 		wantErr bool
 	}{
-		{"valid-pod", args{obj: unsPod}, v1.Object(pod), false},
-		{"valid-deployment", args{obj: unsDeployment}, v1.Object(deployment), false},
+		{"valid-pod", args{obj: pod.Unstructured}, v1.Object(pod.Object), false},
+		{"valid-deployment", args{obj: deployment.Unstructured},
+			v1.Object(deployment.Object), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
