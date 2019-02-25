@@ -10,6 +10,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -180,7 +181,8 @@ func (dia *deploymentInitAwaiter) Await() error {
 	period := time.NewTicker(10 * time.Second)
 	defer period.Stop()
 
-	return dia.await(deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher, time.After(5*time.Minute), period.C)
+	timeout := time.Duration(metadata.TimeoutSeconds(dia.config.currentInputs, 5*60)) * time.Second
+	return dia.await(deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher, time.After(timeout), period.C)
 }
 
 func (dia *deploymentInitAwaiter) Read() error {

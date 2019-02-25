@@ -10,6 +10,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"k8s.io/api/extensions/v1beta1"
@@ -116,7 +117,8 @@ func (iia *ingressInitAwaiter) Await() error {
 			iia.config.currentInputs.GetName())
 	}
 
-	return iia.await(ingressWatcher, serviceWatcher, endpointWatcher, make(chan struct{}), time.After(10*time.Minute))
+	timeout := time.Duration(metadata.TimeoutSeconds(iia.config.currentInputs, 10*60)) * time.Second
+	return iia.await(ingressWatcher, serviceWatcher, endpointWatcher, make(chan struct{}), time.After(timeout))
 }
 
 func (iia *ingressInitAwaiter) Read() error {

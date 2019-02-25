@@ -8,6 +8,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	"k8s.io/api/core/v1"
@@ -134,7 +135,8 @@ func (sia *serviceInitAwaiter) Await() error {
 
 	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
-	return sia.await(serviceWatcher, endpointWatcher, time.After(10*time.Minute), make(chan struct{}), version)
+	timeout := time.Duration(metadata.TimeoutSeconds(sia.config.currentInputs, 10*60)) * time.Second
+	return sia.await(serviceWatcher, endpointWatcher, time.After(timeout), make(chan struct{}), version)
 }
 
 func (sia *serviceInitAwaiter) Read() error {

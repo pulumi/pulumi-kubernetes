@@ -10,6 +10,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -360,7 +361,8 @@ func (pia *podInitAwaiter) Await() error {
 	}
 	defer podWatcher.Stop()
 
-	return pia.await(podWatcher, time.After(5*time.Minute))
+	timeout := time.Duration(metadata.TimeoutSeconds(pia.config.currentInputs, 5*60)) * time.Second
+	return pia.await(podWatcher, time.After(timeout))
 }
 
 func (pia *podInitAwaiter) Read() error {
