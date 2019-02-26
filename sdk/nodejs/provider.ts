@@ -40,7 +40,7 @@ export namespace yaml {
     }
 
     export interface ConfigOpts {
-        /** JavaScript objects represeting Kubernetes resources. */
+        /** JavaScript objects representing Kubernetes resources. */
         objs: any[];
 
         /**
