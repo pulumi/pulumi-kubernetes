@@ -7,15 +7,12 @@ import pulumi.runtime
 from ... import tables
 
 
-class Ingress(pulumi.CustomResource):
+class PriorityClass(pulumi.CustomResource):
     """
-    Ingress is a collection of rules that allow inbound connections to reach the endpoints defined
-    by a backend. An Ingress can be configured to give services externally-reachable urls, load
-    balance traffic, terminate SSL, offer name based virtual hosting etc. DEPRECATED - This group
-    version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress. See the release notes for
-    more information.
+    PriorityClass defines mapping from a priority class name to the priority integer value. The
+    value can be any valid integer.
     """
-    def __init__(self, __name__, __opts__=None, metadata=None, spec=None, status=None):
+    def __init__(self, __name__, __opts__=None, description=None, global_default=None, metadata=None, value=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -25,14 +22,17 @@ class Ingress(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'extensions/v1beta1'
-        __props__['kind'] = 'Ingress'
+        __props__['apiVersion'] = 'scheduling.k8s.io/v1'
+        __props__['kind'] = 'PriorityClass'
+        if value is None:
+            raise TypeError('Missing required property value')
+        __props__['value'] = value
+        __props__['description'] = description
+        __props__['globalDefault'] = global_default
         __props__['metadata'] = metadata
-        __props__['spec'] = spec
-        __props__['status'] = status
 
-        super(Ingress, self).__init__(
-            "kubernetes:extensions/v1beta1:Ingress",
+        super(PriorityClass, self).__init__(
+            "kubernetes:scheduling.k8s.io/v1:PriorityClass",
             __name__,
             __props__,
             __opts__)

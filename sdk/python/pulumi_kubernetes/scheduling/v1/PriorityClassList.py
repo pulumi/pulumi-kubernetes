@@ -7,9 +7,9 @@ import pulumi.runtime
 from ... import tables
 
 
-class InitializerConfigurationList(pulumi.CustomResource):
+class PriorityClassList(pulumi.CustomResource):
     """
-    InitializerConfigurationList is a list of InitializerConfiguration.
+    PriorityClassList is a collection of priority classes.
     """
     def __init__(self, __name__, __opts__=None, items=None, metadata=None):
         if not __name__:
@@ -21,15 +21,15 @@ class InitializerConfigurationList(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'admissionregistration.k8s.io/v1alpha1'
-        __props__['kind'] = 'InitializerConfigurationList'
+        __props__['apiVersion'] = 'scheduling.k8s.io/v1'
+        __props__['kind'] = 'PriorityClassList'
         if items is None:
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata
 
-        super(InitializerConfigurationList, self).__init__(
-            "kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfigurationList",
+        super(PriorityClassList, self).__init__(
+            "kubernetes:scheduling.k8s.io/v1:PriorityClassList",
             __name__,
             __props__,
             __opts__)

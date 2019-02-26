@@ -7,15 +7,11 @@ import pulumi.runtime
 from ... import tables
 
 
-class Ingress(pulumi.CustomResource):
+class IngressList(pulumi.CustomResource):
     """
-    Ingress is a collection of rules that allow inbound connections to reach the endpoints defined
-    by a backend. An Ingress can be configured to give services externally-reachable urls, load
-    balance traffic, terminate SSL, offer name based virtual hosting etc. DEPRECATED - This group
-    version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress. See the release notes for
-    more information.
+    IngressList is a collection of Ingress.
     """
-    def __init__(self, __name__, __opts__=None, metadata=None, spec=None, status=None):
+    def __init__(self, __name__, __opts__=None, items=None, metadata=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -25,14 +21,15 @@ class Ingress(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'extensions/v1beta1'
-        __props__['kind'] = 'Ingress'
+        __props__['apiVersion'] = 'networking.k8s.io/v1beta1'
+        __props__['kind'] = 'IngressList'
+        if items is None:
+            raise TypeError('Missing required property items')
+        __props__['items'] = items
         __props__['metadata'] = metadata
-        __props__['spec'] = spec
-        __props__['status'] = status
 
-        super(Ingress, self).__init__(
-            "kubernetes:extensions/v1beta1:Ingress",
+        super(IngressList, self).__init__(
+            "kubernetes:networking.k8s.io/v1beta1:IngressList",
             __name__,
             __props__,
             __opts__)

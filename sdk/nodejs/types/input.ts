@@ -2868,7 +2868,7 @@ export namespace apps {
        * immediately when the rolling update starts, such that the total number of old and new pods
        * do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be
        * scaled up further, ensuring that total number of pods running at any time during the update
-       * is atmost 130% of desired pods.
+       * is at most 130% of desired pods.
        */
       maxSurge?: pulumi.Input<number | string>
 
@@ -4043,7 +4043,7 @@ export namespace apps {
        * immediately when the rolling update starts, such that the total number of old and new pods
        * do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be
        * scaled up further, ensuring that total number of pods running at any time during the update
-       * is atmost 130% of desired pods.
+       * is at most 130% of desired pods.
        */
       maxSurge?: pulumi.Input<number | string>
 
@@ -10313,10 +10313,14 @@ export namespace core {
       postStart?: pulumi.Input<core.v1.Handler>
 
       /**
-       * PreStop is called immediately before a container is terminated. The container is terminated
-       * after the handler completes. The reason for termination is passed to the handler.
-       * Regardless of the outcome of the handler, the container is eventually terminated. Other
-       * management of the container blocks until the hook completes. More info:
+       * PreStop is called immediately before a container is terminated due to an API request or
+       * management event such as liveness probe failure, preemption, resource contention, etc. The
+       * handler is not called if the container crashes or exits. The reason for termination is
+       * passed to the handler. The Pod's termination grace period countdown begins before the
+       * PreStop hooked is executed. Regardless of the outcome of the handler, the container will
+       * eventually terminate within the Pod's termination grace period. Other management of the
+       * container blocks until the hook completes or until the termination grace period is reached.
+       * More info:
        * https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
        */
       preStop?: pulumi.Input<core.v1.Handler>
@@ -14462,6 +14466,14 @@ export namespace core {
        */
       subPath?: pulumi.Input<string>
 
+      /**
+       * Expanded path within the volume from which the container's volume should be mounted.
+       * Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded
+       * using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath
+       * are mutually exclusive. This field is alpha in 1.14.
+       */
+      subPathExpr?: pulumi.Input<string>
+
     }
 
 
@@ -15415,7 +15427,9 @@ export namespace extensions {
     /**
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints
      * defined by a backend. An Ingress can be configured to give services externally-reachable
-     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. DEPRECATED -
+     * This group version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress. See the
+     * release notes for more information.
      */
     export interface Ingress {
       /**
@@ -16300,7 +16314,7 @@ export namespace extensions {
        * scaled up immediately when the rolling update starts, such that the total number of old and
        * new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be
        * scaled up further, ensuring that total number of pods running at any time during the update
-       * is atmost 130% of desired pods.
+       * is at most 130% of desired pods.
        */
       maxSurge?: pulumi.Input<number | string>
 
@@ -17622,6 +17636,234 @@ export namespace networking {
        * just [ "Ingress" ]). This field is beta-level in 1.8
        */
       policyTypes?: pulumi.Input<pulumi.Input<string>[]>
+
+    }
+
+
+  }
+
+  export namespace v1beta1 {
+    /**
+     * HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
+     * forwarded to the backend.
+     */
+    export interface HTTPIngressPath {
+      /**
+       * Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+       */
+      backend: pulumi.Input<networking.v1beta1.IngressBackend>
+
+      /**
+       * Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the
+       * egrep/unix syntax, not the perl syntax) matched against the path of an incoming request.
+       * Currently it can contain characters disallowed from the conventional "path" part of a URL
+       * as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a
+       * catch all sending traffic to the backend.
+       */
+      path?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example:
+     * http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC
+     * 3986, this resource will be used to match against everything after the last '/' and before
+     * the first '?' or '#'.
+     */
+    export interface HTTPIngressRuleValue {
+      /**
+       * A collection of paths that map requests to backends.
+       */
+      paths: pulumi.Input<pulumi.Input<networking.v1beta1.HTTPIngressPath>[]>
+
+    }
+
+
+    /**
+     * Ingress is a collection of rules that allow inbound connections to reach the endpoints
+     * defined by a backend. An Ingress can be configured to give services externally-reachable
+     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+     */
+    export interface Ingress {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"networking.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"Ingress">
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Spec is the desired state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      spec?: pulumi.Input<networking.v1beta1.IngressSpec>
+
+      /**
+       * Status is the current state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      status?: pulumi.Input<networking.v1beta1.IngressStatus>
+
+    }
+
+    export function isIngress(o: any): o is Ingress {
+      return o.apiVersion == "networking.k8s.io/v1beta1" && o.kind == "Ingress";
+    }
+
+    /**
+     * IngressBackend describes all endpoints for a given service and port.
+     */
+    export interface IngressBackend {
+      /**
+       * Specifies the name of the referenced service.
+       */
+      serviceName: pulumi.Input<string>
+
+      /**
+       * Specifies the port of the referenced service.
+       */
+      servicePort: pulumi.Input<number | string>
+
+    }
+
+
+    /**
+     * IngressList is a collection of Ingress.
+     */
+    export interface IngressList {
+      /**
+       * Items is the list of Ingress.
+       */
+      items: pulumi.Input<pulumi.Input<networking.v1beta1.Ingress>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"networking.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"IngressList">
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isIngressList(o: any): o is IngressList {
+      return o.apiVersion == "networking.k8s.io/v1beta1" && o.kind == "IngressList";
+    }
+
+    /**
+     * IngressRule represents the rules mapping the paths under a specified host to the related
+     * backend services. Incoming requests are first evaluated for a host match, then routed to the
+     * backend associated with the matching IngressRuleValue.
+     */
+    export interface IngressRule {
+      /**
+       * Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the
+       * following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not
+       * allowed. Currently an IngressRuleValue can only apply to the
+       * 	  IP in the Spec of the parent Ingress.
+       * 2. The `:` delimiter is not respected because ports are not allowed.
+       * 	  Currently the port of an Ingress is implicitly :80 for http and
+       * 	  :443 for https.
+       * Both these may change in the future. Incoming requests are matched against the host before
+       * the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on
+       * the specified IngressRuleValue.
+       */
+      host?: pulumi.Input<string>
+
+      
+      http?: pulumi.Input<networking.v1beta1.HTTPIngressRuleValue>
+
+    }
+
+
+    /**
+     * IngressSpec describes the Ingress the user wishes to exist.
+     */
+    export interface IngressSpec {
+      /**
+       * A default backend capable of servicing requests that don't match any rule. At least one of
+       * 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer
+       * controller or defaulting logic to specify a global default.
+       */
+      backend?: pulumi.Input<networking.v1beta1.IngressBackend>
+
+      /**
+       * A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all
+       * traffic is sent to the default backend.
+       */
+      rules?: pulumi.Input<pulumi.Input<networking.v1beta1.IngressRule>[]>
+
+      /**
+       * TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple
+       * members of this list specify different hosts, they will be multiplexed on the same port
+       * according to the hostname specified through the SNI TLS extension, if the ingress
+       * controller fulfilling the ingress supports SNI.
+       */
+      tls?: pulumi.Input<pulumi.Input<networking.v1beta1.IngressTLS>[]>
+
+    }
+
+
+    /**
+     * IngressStatus describe the current state of the Ingress.
+     */
+    export interface IngressStatus {
+      /**
+       * LoadBalancer contains the current status of the load-balancer.
+       */
+      loadBalancer?: pulumi.Input<core.v1.LoadBalancerStatus>
+
+    }
+
+
+    /**
+     * IngressTLS describes the transport layer security associated with an Ingress.
+     */
+    export interface IngressTLS {
+      /**
+       * Hosts are a list of hosts included in the TLS certificate. The values in this list must
+       * match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the
+       * loadbalancer controller fulfilling this Ingress, if left unspecified.
+       */
+      hosts?: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left
+       * optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener
+       * conflicts with the "Host" header field used by an IngressRule, the SNI host is used for
+       * termination and value of the Host header is used for routing.
+       */
+      secretName?: pulumi.Input<string>
 
     }
 
@@ -19591,10 +19833,105 @@ export namespace rbac {
 }
 
 export namespace scheduling {
-  export namespace v1alpha1 {
+  export namespace v1 {
     /**
      * PriorityClass defines mapping from a priority class name to the priority integer value. The
      * value can be any valid integer.
+     */
+    export interface PriorityClass {
+      /**
+       * The value of this priority class. This is the actual priority that pods receive when they
+       * have the name of this class in their pod spec.
+       */
+      value: pulumi.Input<number>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"scheduling.k8s.io/v1">
+
+      /**
+       * description is an arbitrary string that usually provides guidelines on when this priority
+       * class should be used.
+       */
+      description?: pulumi.Input<string>
+
+      /**
+       * globalDefault specifies whether this PriorityClass should be considered as the default
+       * priority for pods that do not have any priority class. Only one PriorityClass can be marked
+       * as `globalDefault`. However, if more than one PriorityClasses exists with their
+       * `globalDefault` field set to true, the smallest value of such global default
+       * PriorityClasses will be used as the default priority.
+       */
+      globalDefault?: pulumi.Input<boolean>
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"PriorityClass">
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isPriorityClass(o: any): o is PriorityClass {
+      return o.apiVersion == "scheduling.k8s.io/v1" && o.kind == "PriorityClass";
+    }
+
+    /**
+     * PriorityClassList is a collection of priority classes.
+     */
+    export interface PriorityClassList {
+      /**
+       * items is the list of PriorityClasses
+       */
+      items: pulumi.Input<pulumi.Input<scheduling.v1.PriorityClass>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"scheduling.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"PriorityClassList">
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isPriorityClassList(o: any): o is PriorityClassList {
+      return o.apiVersion == "scheduling.k8s.io/v1" && o.kind == "PriorityClassList";
+    }
+
+  }
+
+  export namespace v1alpha1 {
+    /**
+     * DEPRECATED - This group version of PriorityClass is deprecated by
+     * scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
+     * to the priority integer value. The value can be any valid integer.
      */
     export interface PriorityClass {
       /**
@@ -19687,8 +20024,9 @@ export namespace scheduling {
 
   export namespace v1beta1 {
     /**
-     * PriorityClass defines mapping from a priority class name to the priority integer value. The
-     * value can be any valid integer.
+     * DEPRECATED - This group version of PriorityClass is deprecated by
+     * scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
+     * to the priority integer value. The value can be any valid integer.
      */
     export interface PriorityClass {
       /**
