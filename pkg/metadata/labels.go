@@ -18,15 +18,24 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
+// SetLabel sets the specified key/value pair as a label on the provided Unstructured object.
 func SetLabel(obj *unstructured.Unstructured, key, value string) {
-	labels := obj.GetLabels()
-	if labels == nil {
-		labels = map[string]string{}
+	// Note: Cannot use obj.GetLabels() here because it doesn't properly handle computed values from preview.
+	metadataRaw := obj.Object["metadata"]
+	metadata := metadataRaw.(map[string]interface{})
+	labelsRaw, ok := metadata["labels"]
+	var labels map[string]interface{}
+	if !ok {
+		labels = make(map[string]interface{})
+	} else {
+		labels = labelsRaw.(map[string]interface{})
 	}
 	labels[key] = value
-	obj.SetLabels(labels)
+
+	metadata["labels"] = labels
 }
 
+// SetManagedByLabel sets the `app.kubernetes.io/managed-by` label to `pulumi`.
 func SetManagedByLabel(obj *unstructured.Unstructured) {
 	SetLabel(obj, "app.kubernetes.io/managed-by", "pulumi")
 }

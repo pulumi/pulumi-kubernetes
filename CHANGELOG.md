@@ -10,7 +10,7 @@
 
 ### Bug fixes
 
--   None
+-   Properly handle computed values in labels and annotations (https://github.com/pulumi/pulumi-kubernetes/pull/461)
 
 ## 0.20.3 (February 20, 2019)
 
