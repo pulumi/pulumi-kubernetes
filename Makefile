@@ -71,10 +71,10 @@ install::
 
 test_fast::
 	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests
-	PATH=$(PULUMI_BIN):$(PATH) $(GO) test -short -v -count=1 -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
+	$(GO_TEST_FAST) $(TESTABLE_PKGS)
 
 test_all::
-	PATH=$(PULUMI_BIN):$(PATH) $(GO) test -v -count=1 -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
+	$(GO_TEST) $(TESTABLE_PKGS)
 
 .PHONY: publish_tgz
 publish_tgz:
