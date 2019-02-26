@@ -520,6 +520,13 @@ export namespace {{Group}} {
         return ctx.list({...args, type: "kubernetes:{{URNAPIVersion}}:{{Kind}}",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:{{URNAPIVersion}}:{{Kind}}",
+        });
+      }
+
       /**
       * Create a {{Group}}.{{Version}}.{{Kind}} resource with the given unique name, arguments, and options.
       *

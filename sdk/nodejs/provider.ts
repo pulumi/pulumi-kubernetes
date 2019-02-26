@@ -3266,6 +3266,13 @@ export namespace admissionregistration {
         return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfiguration",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfiguration",
+        });
+      }
+
       /**
       * Create a admissionregistration.v1alpha1.InitializerConfiguration resource with the given unique name, arguments, and options.
       *
@@ -3340,6 +3347,13 @@ export namespace admissionregistration {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.admissionregistration.v1alpha1.InitializerConfigurationList> {
         return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfigurationList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfigurationList",
+        });
       }
 
       /**
@@ -3422,6 +3436,13 @@ export namespace admissionregistration {
         return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration",
+        });
+      }
+
       /**
       * Create a admissionregistration.v1beta1.MutatingWebhookConfiguration resource with the given unique name, arguments, and options.
       *
@@ -3496,6 +3517,13 @@ export namespace admissionregistration {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.admissionregistration.v1beta1.MutatingWebhookConfigurationList> {
         return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList",
+        });
       }
 
       /**
@@ -3575,6 +3603,13 @@ export namespace admissionregistration {
         return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration",
+        });
+      }
+
       /**
       * Create a admissionregistration.v1beta1.ValidatingWebhookConfiguration resource with the given unique name, arguments, and options.
       *
@@ -3649,6 +3684,13 @@ export namespace admissionregistration {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList> {
         return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList",
+        });
       }
 
       /**
@@ -3736,6 +3778,13 @@ export namespace apiextensions {
         return ctx.list({...args, type: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition",
+        });
+      }
+
       /**
       * Create a apiextensions.v1beta1.CustomResourceDefinition resource with the given unique name, arguments, and options.
       *
@@ -3808,6 +3857,13 @@ export namespace apiextensions {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinitionList> {
         return ctx.list({...args, type: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList",
+        });
       }
 
       /**
@@ -3894,6 +3950,13 @@ export namespace apiregistration {
         return ctx.list({...args, type: "kubernetes:apiregistration/v1:APIService",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apiregistration/v1:APIService",
+        });
+      }
+
       /**
       * Create a apiregistration.v1.APIService resource with the given unique name, arguments, and options.
       *
@@ -3964,6 +4027,13 @@ export namespace apiregistration {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apiregistration.v1.APIServiceList> {
         return ctx.list({...args, type: "kubernetes:apiregistration/v1:APIServiceList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apiregistration/v1:APIServiceList",
+        });
       }
 
       /**
@@ -4047,6 +4117,13 @@ export namespace apiregistration {
         return ctx.list({...args, type: "kubernetes:apiregistration/v1beta1:APIService",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apiregistration/v1beta1:APIService",
+        });
+      }
+
       /**
       * Create a apiregistration.v1beta1.APIService resource with the given unique name, arguments, and options.
       *
@@ -4117,6 +4194,13 @@ export namespace apiregistration {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apiregistration.v1beta1.APIServiceList> {
         return ctx.list({...args, type: "kubernetes:apiregistration/v1beta1:APIServiceList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apiregistration/v1beta1:APIServiceList",
+        });
       }
 
       /**
@@ -4213,6 +4297,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1:ControllerRevision",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:ControllerRevision",
+        });
+      }
+
       /**
       * Create a apps.v1.ControllerRevision resource with the given unique name, arguments, and options.
       *
@@ -4287,6 +4378,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1.ControllerRevisionList> {
         return ctx.list({...args, type: "kubernetes:apps/v1:ControllerRevisionList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:ControllerRevisionList",
+        });
       }
 
       /**
@@ -4373,6 +4471,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1:DaemonSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:DaemonSet",
+        });
+      }
+
       /**
       * Create a apps.v1.DaemonSet resource with the given unique name, arguments, and options.
       *
@@ -4448,6 +4553,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1.DaemonSetList> {
         return ctx.list({...args, type: "kubernetes:apps/v1:DaemonSetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:DaemonSetList",
+        });
       }
 
       /**
@@ -4530,6 +4642,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1:Deployment",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:Deployment",
+        });
+      }
+
       /**
       * Create a apps.v1.Deployment resource with the given unique name, arguments, and options.
       *
@@ -4604,6 +4723,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1.DeploymentList> {
         return ctx.list({...args, type: "kubernetes:apps/v1:DeploymentList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:DeploymentList",
+        });
       }
 
       /**
@@ -4691,6 +4817,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1:ReplicaSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:ReplicaSet",
+        });
+      }
+
       /**
       * Create a apps.v1.ReplicaSet resource with the given unique name, arguments, and options.
       *
@@ -4767,6 +4900,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1.ReplicaSetList> {
         return ctx.list({...args, type: "kubernetes:apps/v1:ReplicaSetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:ReplicaSetList",
+        });
       }
 
       /**
@@ -4852,6 +4992,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1:StatefulSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:StatefulSet",
+        });
+      }
+
       /**
       * Create a apps.v1.StatefulSet resource with the given unique name, arguments, and options.
       *
@@ -4922,6 +5069,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1.StatefulSetList> {
         return ctx.list({...args, type: "kubernetes:apps/v1:StatefulSetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:StatefulSetList",
+        });
       }
 
       /**
@@ -5017,6 +5171,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1beta1:ControllerRevision",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta1:ControllerRevision",
+        });
+      }
+
       /**
       * Create a apps.v1beta1.ControllerRevision resource with the given unique name, arguments, and options.
       *
@@ -5091,6 +5252,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1beta1.ControllerRevisionList> {
         return ctx.list({...args, type: "kubernetes:apps/v1beta1:ControllerRevisionList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta1:ControllerRevisionList",
+        });
       }
 
       /**
@@ -5175,6 +5343,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1beta1:Deployment",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta1:Deployment",
+        });
+      }
+
       /**
       * Create a apps.v1beta1.Deployment resource with the given unique name, arguments, and options.
       *
@@ -5249,6 +5424,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1beta1.DeploymentList> {
         return ctx.list({...args, type: "kubernetes:apps/v1beta1:DeploymentList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta1:DeploymentList",
+        });
       }
 
       /**
@@ -5336,6 +5518,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1beta1:StatefulSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta1:StatefulSet",
+        });
+      }
+
       /**
       * Create a apps.v1beta1.StatefulSet resource with the given unique name, arguments, and options.
       *
@@ -5406,6 +5595,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1beta1.StatefulSetList> {
         return ctx.list({...args, type: "kubernetes:apps/v1beta1:StatefulSetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta1:StatefulSetList",
+        });
       }
 
       /**
@@ -5501,6 +5697,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:ControllerRevision",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:ControllerRevision",
+        });
+      }
+
       /**
       * Create a apps.v1beta2.ControllerRevision resource with the given unique name, arguments, and options.
       *
@@ -5575,6 +5778,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1beta2.ControllerRevisionList> {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:ControllerRevisionList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:ControllerRevisionList",
+        });
       }
 
       /**
@@ -5662,6 +5872,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:DaemonSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:DaemonSet",
+        });
+      }
+
       /**
       * Create a apps.v1beta2.DaemonSet resource with the given unique name, arguments, and options.
       *
@@ -5737,6 +5954,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1beta2.DaemonSetList> {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:DaemonSetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:DaemonSetList",
+        });
       }
 
       /**
@@ -5821,6 +6045,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:Deployment",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:Deployment",
+        });
+      }
+
       /**
       * Create a apps.v1beta2.Deployment resource with the given unique name, arguments, and options.
       *
@@ -5895,6 +6126,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1beta2.DeploymentList> {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:DeploymentList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:DeploymentList",
+        });
       }
 
       /**
@@ -5984,6 +6222,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:ReplicaSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:ReplicaSet",
+        });
+      }
+
       /**
       * Create a apps.v1beta2.ReplicaSet resource with the given unique name, arguments, and options.
       *
@@ -6060,6 +6305,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1beta2.ReplicaSetList> {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:ReplicaSetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:ReplicaSetList",
+        });
       }
 
       /**
@@ -6147,6 +6399,13 @@ export namespace apps {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:StatefulSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:StatefulSet",
+        });
+      }
+
       /**
       * Create a apps.v1beta2.StatefulSet resource with the given unique name, arguments, and options.
       *
@@ -6217,6 +6476,13 @@ export namespace apps {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.apps.v1beta2.StatefulSetList> {
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:StatefulSetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:StatefulSetList",
+        });
       }
 
       /**
@@ -6298,6 +6564,13 @@ export namespace auditregistration {
         return ctx.list({...args, type: "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink",
+        });
+      }
+
       /**
       * Create a auditregistration.v1alpha1.AuditSink resource with the given unique name, arguments, and options.
       *
@@ -6369,6 +6642,13 @@ export namespace auditregistration {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSinkList> {
         return ctx.list({...args, type: "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList",
+        });
       }
 
       /**
@@ -6456,6 +6736,13 @@ export namespace authentication {
         return ctx.list({...args, type: "kubernetes:authentication.k8s.io/v1:TokenReview",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authentication.k8s.io/v1:TokenReview",
+        });
+      }
+
       /**
       * Create a authentication.v1.TokenReview resource with the given unique name, arguments, and options.
       *
@@ -6537,6 +6824,13 @@ export namespace authentication {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.authentication.v1beta1.TokenReview> {
         return ctx.list({...args, type: "kubernetes:authentication.k8s.io/v1beta1:TokenReview",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authentication.k8s.io/v1beta1:TokenReview",
+        });
       }
 
       /**
@@ -6627,6 +6921,13 @@ export namespace authorization {
         return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview",
+        });
+      }
+
       /**
       * Create a authorization.v1.LocalSubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -6706,6 +7007,13 @@ export namespace authorization {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.authorization.v1.SelfSubjectAccessReview> {
         return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview",
+        });
       }
 
       /**
@@ -6794,6 +7102,13 @@ export namespace authorization {
         return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview",
+        });
+      }
+
       /**
       * Create a authorization.v1.SelfSubjectRulesReview resource with the given unique name, arguments, and options.
       *
@@ -6871,6 +7186,13 @@ export namespace authorization {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.authorization.v1.SubjectAccessReview> {
         return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1:SubjectAccessReview",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authorization.k8s.io/v1:SubjectAccessReview",
+        });
       }
 
       /**
@@ -6958,6 +7280,13 @@ export namespace authorization {
         return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview",
+        });
+      }
+
       /**
       * Create a authorization.v1beta1.LocalSubjectAccessReview resource with the given unique name, arguments, and options.
       *
@@ -7037,6 +7366,13 @@ export namespace authorization {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.authorization.v1beta1.SelfSubjectAccessReview> {
         return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview",
+        });
       }
 
       /**
@@ -7125,6 +7461,13 @@ export namespace authorization {
         return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview",
+        });
+      }
+
       /**
       * Create a authorization.v1beta1.SelfSubjectRulesReview resource with the given unique name, arguments, and options.
       *
@@ -7202,6 +7545,13 @@ export namespace authorization {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.authorization.v1beta1.SubjectAccessReview> {
         return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview",
+        });
       }
 
       /**
@@ -7293,6 +7643,13 @@ export namespace autoscaling {
         return ctx.list({...args, type: "kubernetes:autoscaling/v1:HorizontalPodAutoscaler",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:autoscaling/v1:HorizontalPodAutoscaler",
+        });
+      }
+
       /**
       * Create a autoscaling.v1.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
       *
@@ -7367,6 +7724,13 @@ export namespace autoscaling {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.autoscaling.v1.HorizontalPodAutoscalerList> {
         return ctx.list({...args, type: "kubernetes:autoscaling/v1:HorizontalPodAutoscalerList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:autoscaling/v1:HorizontalPodAutoscalerList",
+        });
       }
 
       /**
@@ -7456,6 +7820,13 @@ export namespace autoscaling {
         return ctx.list({...args, type: "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler",
+        });
+      }
+
       /**
       * Create a autoscaling.v2beta1.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
       *
@@ -7530,6 +7901,13 @@ export namespace autoscaling {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList> {
         return ctx.list({...args, type: "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerList",
+        });
       }
 
       /**
@@ -7619,6 +7997,13 @@ export namespace autoscaling {
         return ctx.list({...args, type: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler",
+        });
+      }
+
       /**
       * Create a autoscaling.v2beta2.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
       *
@@ -7693,6 +8078,13 @@ export namespace autoscaling {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscalerList> {
         return ctx.list({...args, type: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerList",
+        });
       }
 
       /**
@@ -7784,6 +8176,13 @@ export namespace batch {
         return ctx.list({...args, type: "kubernetes:batch/v1:Job",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:batch/v1:Job",
+        });
+      }
+
       /**
       * Create a batch.v1.Job resource with the given unique name, arguments, and options.
       *
@@ -7859,6 +8258,13 @@ export namespace batch {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.batch.v1.JobList> {
         return ctx.list({...args, type: "kubernetes:batch/v1:JobList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:batch/v1:JobList",
+        });
       }
 
       /**
@@ -7947,6 +8353,13 @@ export namespace batch {
         return ctx.list({...args, type: "kubernetes:batch/v1beta1:CronJob",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:batch/v1beta1:CronJob",
+        });
+      }
+
       /**
       * Create a batch.v1beta1.CronJob resource with the given unique name, arguments, and options.
       *
@@ -8022,6 +8435,13 @@ export namespace batch {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.batch.v1beta1.CronJobList> {
         return ctx.list({...args, type: "kubernetes:batch/v1beta1:CronJobList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:batch/v1beta1:CronJobList",
+        });
       }
 
       /**
@@ -8110,6 +8530,13 @@ export namespace batch {
         return ctx.list({...args, type: "kubernetes:batch/v2alpha1:CronJob",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:batch/v2alpha1:CronJob",
+        });
+      }
+
       /**
       * Create a batch.v2alpha1.CronJob resource with the given unique name, arguments, and options.
       *
@@ -8185,6 +8612,13 @@ export namespace batch {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.batch.v2alpha1.CronJobList> {
         return ctx.list({...args, type: "kubernetes:batch/v2alpha1:CronJobList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:batch/v2alpha1:CronJobList",
+        });
       }
 
       /**
@@ -8271,6 +8705,13 @@ export namespace certificates {
         return ctx.list({...args, type: "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest",
+        });
+      }
+
       /**
       * Create a certificates.v1beta1.CertificateSigningRequest resource with the given unique name, arguments, and options.
       *
@@ -8339,6 +8780,13 @@ export namespace certificates {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.certificates.v1beta1.CertificateSigningRequestList> {
         return ctx.list({...args, type: "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList",
+        });
       }
 
       /**
@@ -8423,6 +8871,13 @@ export namespace coordination {
         return ctx.list({...args, type: "kubernetes:coordination.k8s.io/v1beta1:Lease",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:coordination.k8s.io/v1beta1:Lease",
+        });
+      }
+
       /**
       * Create a coordination.v1beta1.Lease resource with the given unique name, arguments, and options.
       *
@@ -8497,6 +8952,13 @@ export namespace coordination {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.coordination.v1beta1.LeaseList> {
         return ctx.list({...args, type: "kubernetes:coordination.k8s.io/v1beta1:LeaseList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:coordination.k8s.io/v1beta1:LeaseList",
+        });
       }
 
       /**
@@ -8582,6 +9044,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:Binding",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Binding",
+        });
+      }
+
       /**
       * Create a core.v1.Binding resource with the given unique name, arguments, and options.
       *
@@ -8658,6 +9127,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:ComponentStatus",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ComponentStatus",
+        });
+      }
+
       /**
       * Create a core.v1.ComponentStatus resource with the given unique name, arguments, and options.
       *
@@ -8732,6 +9208,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.ComponentStatusList> {
         return ctx.list({...args, type: "kubernetes:core/v1:ComponentStatusList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ComponentStatusList",
+        });
       }
 
       /**
@@ -8821,6 +9304,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:ConfigMap",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ConfigMap",
+        });
+      }
+
       /**
       * Create a core.v1.ConfigMap resource with the given unique name, arguments, and options.
       *
@@ -8895,6 +9385,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.ConfigMapList> {
         return ctx.list({...args, type: "kubernetes:core/v1:ConfigMapList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ConfigMapList",
+        });
       }
 
       /**
@@ -8989,6 +9486,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:Endpoints",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Endpoints",
+        });
+      }
+
       /**
       * Create a core.v1.Endpoints resource with the given unique name, arguments, and options.
       *
@@ -9063,6 +9567,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.EndpointsList> {
         return ctx.list({...args, type: "kubernetes:core/v1:EndpointsList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:EndpointsList",
+        });
       }
 
       /**
@@ -9207,6 +9718,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:Event",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Event",
+        });
+      }
+
       /**
       * Create a core.v1.Event resource with the given unique name, arguments, and options.
       *
@@ -9296,6 +9814,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:EventList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:EventList",
+        });
+      }
+
       /**
       * Create a core.v1.EventList resource with the given unique name, arguments, and options.
       *
@@ -9373,6 +9898,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:LimitRange",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:LimitRange",
+        });
+      }
+
       /**
       * Create a core.v1.LimitRange resource with the given unique name, arguments, and options.
       *
@@ -9448,6 +9980,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.LimitRangeList> {
         return ctx.list({...args, type: "kubernetes:core/v1:LimitRangeList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:LimitRangeList",
+        });
       }
 
       /**
@@ -9533,6 +10072,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:Namespace",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Namespace",
+        });
+      }
+
       /**
       * Create a core.v1.Namespace resource with the given unique name, arguments, and options.
       *
@@ -9609,6 +10155,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.NamespaceList> {
         return ctx.list({...args, type: "kubernetes:core/v1:NamespaceList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:NamespaceList",
+        });
       }
 
       /**
@@ -9695,6 +10248,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:Node",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Node",
+        });
+      }
+
       /**
       * Create a core.v1.Node resource with the given unique name, arguments, and options.
       *
@@ -9770,6 +10330,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.NodeList> {
         return ctx.list({...args, type: "kubernetes:core/v1:NodeList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:NodeList",
+        });
       }
 
       /**
@@ -9858,6 +10425,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:PersistentVolume",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:PersistentVolume",
+        });
+      }
+
       /**
       * Create a core.v1.PersistentVolume resource with the given unique name, arguments, and options.
       *
@@ -9943,6 +10517,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:PersistentVolumeClaim",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:PersistentVolumeClaim",
+        });
+      }
+
       /**
       * Create a core.v1.PersistentVolumeClaim resource with the given unique name, arguments, and options.
       *
@@ -10021,6 +10602,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:PersistentVolumeClaimList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:PersistentVolumeClaimList",
+        });
+      }
+
       /**
       * Create a core.v1.PersistentVolumeClaimList resource with the given unique name, arguments, and options.
       *
@@ -10096,6 +10684,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.PersistentVolumeList> {
         return ctx.list({...args, type: "kubernetes:core/v1:PersistentVolumeList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:PersistentVolumeList",
+        });
       }
 
       /**
@@ -10183,6 +10778,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:Pod",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Pod",
+        });
+      }
+
       /**
       * Create a core.v1.Pod resource with the given unique name, arguments, and options.
       *
@@ -10258,6 +10860,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.PodList> {
         return ctx.list({...args, type: "kubernetes:core/v1:PodList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:PodList",
+        });
       }
 
       /**
@@ -10337,6 +10946,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:PodTemplate",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:PodTemplate",
+        });
+      }
+
       /**
       * Create a core.v1.PodTemplate resource with the given unique name, arguments, and options.
       *
@@ -10411,6 +11027,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.PodTemplateList> {
         return ctx.list({...args, type: "kubernetes:core/v1:PodTemplateList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:PodTemplateList",
+        });
       }
 
       /**
@@ -10498,6 +11121,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:ReplicationController",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ReplicationController",
+        });
+      }
+
       /**
       * Create a core.v1.ReplicationController resource with the given unique name, arguments, and options.
       *
@@ -10574,6 +11204,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.ReplicationControllerList> {
         return ctx.list({...args, type: "kubernetes:core/v1:ReplicationControllerList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ReplicationControllerList",
+        });
       }
 
       /**
@@ -10659,6 +11296,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:ResourceQuota",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ResourceQuota",
+        });
+      }
+
       /**
       * Create a core.v1.ResourceQuota resource with the given unique name, arguments, and options.
       *
@@ -10735,6 +11379,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.ResourceQuotaList> {
         return ctx.list({...args, type: "kubernetes:core/v1:ResourceQuotaList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ResourceQuotaList",
+        });
       }
 
       /**
@@ -10829,6 +11480,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:Secret",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Secret",
+        });
+      }
+
       /**
       * Create a core.v1.Secret resource with the given unique name, arguments, and options.
       *
@@ -10906,6 +11564,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.SecretList> {
         return ctx.list({...args, type: "kubernetes:core/v1:SecretList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:SecretList",
+        });
       }
 
       /**
@@ -10991,6 +11656,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.Service> {
         return ctx.list({...args, type: "kubernetes:core/v1:Service",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Service",
+        });
       }
 
       /**
@@ -11088,6 +11760,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:ServiceAccount",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ServiceAccount",
+        });
+      }
+
       /**
       * Create a core.v1.ServiceAccount resource with the given unique name, arguments, and options.
       *
@@ -11167,6 +11846,13 @@ export namespace core {
         return ctx.list({...args, type: "kubernetes:core/v1:ServiceAccountList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ServiceAccountList",
+        });
+      }
+
       /**
       * Create a core.v1.ServiceAccountList resource with the given unique name, arguments, and options.
       *
@@ -11241,6 +11927,13 @@ export namespace core {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.core.v1.ServiceList> {
         return ctx.list({...args, type: "kubernetes:core/v1:ServiceList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:ServiceList",
+        });
       }
 
       /**
@@ -11392,6 +12085,13 @@ export namespace events {
         return ctx.list({...args, type: "kubernetes:events.k8s.io/v1beta1:Event",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:events.k8s.io/v1beta1:Event",
+        });
+      }
+
       /**
       * Create a events.v1beta1.Event resource with the given unique name, arguments, and options.
       *
@@ -11479,6 +12179,13 @@ export namespace events {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.events.v1beta1.EventList> {
         return ctx.list({...args, type: "kubernetes:events.k8s.io/v1beta1:EventList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:events.k8s.io/v1beta1:EventList",
+        });
       }
 
       /**
@@ -11572,6 +12279,13 @@ export namespace extensions {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:DaemonSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:DaemonSet",
+        });
+      }
+
       /**
       * Create a extensions.v1beta1.DaemonSet resource with the given unique name, arguments, and options.
       *
@@ -11647,6 +12361,13 @@ export namespace extensions {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.extensions.v1beta1.DaemonSetList> {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:DaemonSetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:DaemonSetList",
+        });
       }
 
       /**
@@ -11731,6 +12452,13 @@ export namespace extensions {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:Deployment",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:Deployment",
+        });
+      }
+
       /**
       * Create a extensions.v1beta1.Deployment resource with the given unique name, arguments, and options.
       *
@@ -11805,6 +12533,13 @@ export namespace extensions {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.extensions.v1beta1.DeploymentList> {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:DeploymentList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:DeploymentList",
+        });
       }
 
       /**
@@ -11892,6 +12627,13 @@ export namespace extensions {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:Ingress",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:Ingress",
+        });
+      }
+
       /**
       * Create a extensions.v1beta1.Ingress resource with the given unique name, arguments, and options.
       *
@@ -11967,6 +12709,13 @@ export namespace extensions {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.extensions.v1beta1.IngressList> {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:IngressList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:IngressList",
+        });
       }
 
       /**
@@ -12047,6 +12796,13 @@ export namespace extensions {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:NetworkPolicy",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:NetworkPolicy",
+        });
+      }
+
       /**
       * Create a extensions.v1beta1.NetworkPolicy resource with the given unique name, arguments, and options.
       *
@@ -12122,6 +12878,13 @@ export namespace extensions {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.extensions.v1beta1.NetworkPolicyList> {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:NetworkPolicyList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:NetworkPolicyList",
+        });
       }
 
       /**
@@ -12202,6 +12965,13 @@ export namespace extensions {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:PodSecurityPolicy",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:PodSecurityPolicy",
+        });
+      }
+
       /**
       * Create a extensions.v1beta1.PodSecurityPolicy resource with the given unique name, arguments, and options.
       *
@@ -12277,6 +13047,13 @@ export namespace extensions {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.extensions.v1beta1.PodSecurityPolicyList> {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:PodSecurityPolicyList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:PodSecurityPolicyList",
+        });
       }
 
       /**
@@ -12366,6 +13143,13 @@ export namespace extensions {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:ReplicaSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:ReplicaSet",
+        });
+      }
+
       /**
       * Create a extensions.v1beta1.ReplicaSet resource with the given unique name, arguments, and options.
       *
@@ -12442,6 +13226,13 @@ export namespace extensions {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.extensions.v1beta1.ReplicaSetList> {
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:ReplicaSetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:ReplicaSetList",
+        });
       }
 
       /**
@@ -12551,6 +13342,13 @@ export namespace meta {
         return ctx.list({...args, type: "kubernetes:core/v1:Status",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Status",
+        });
+      }
+
       /**
       * Create a meta.v1.Status resource with the given unique name, arguments, and options.
       *
@@ -12637,6 +13435,13 @@ export namespace networking {
         return ctx.list({...args, type: "kubernetes:networking.k8s.io/v1:NetworkPolicy",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:networking.k8s.io/v1:NetworkPolicy",
+        });
+      }
+
       /**
       * Create a networking.v1.NetworkPolicy resource with the given unique name, arguments, and options.
       *
@@ -12711,6 +13516,13 @@ export namespace networking {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.networking.v1.NetworkPolicyList> {
         return ctx.list({...args, type: "kubernetes:networking.k8s.io/v1:NetworkPolicyList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:networking.k8s.io/v1:NetworkPolicyList",
+        });
       }
 
       /**
@@ -12798,6 +13610,13 @@ export namespace policy {
         return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodDisruptionBudget",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:policy/v1beta1:PodDisruptionBudget",
+        });
+      }
+
       /**
       * Create a policy.v1beta1.PodDisruptionBudget resource with the given unique name, arguments, and options.
       *
@@ -12868,6 +13687,13 @@ export namespace policy {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudgetList> {
         return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodDisruptionBudgetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:policy/v1beta1:PodDisruptionBudgetList",
+        });
       }
 
       /**
@@ -12947,6 +13773,13 @@ export namespace policy {
         return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodSecurityPolicy",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:policy/v1beta1:PodSecurityPolicy",
+        });
+      }
+
       /**
       * Create a policy.v1beta1.PodSecurityPolicy resource with the given unique name, arguments, and options.
       *
@@ -13021,6 +13854,13 @@ export namespace policy {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.policy.v1beta1.PodSecurityPolicyList> {
         return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodSecurityPolicyList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:policy/v1beta1:PodSecurityPolicyList",
+        });
       }
 
       /**
@@ -13112,6 +13952,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRole",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRole",
+        });
+      }
+
       /**
       * Create a rbac.v1.ClusterRole resource with the given unique name, arguments, and options.
       *
@@ -13195,6 +14042,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBinding",
+        });
+      }
+
       /**
       * Create a rbac.v1.ClusterRoleBinding resource with the given unique name, arguments, and options.
       *
@@ -13269,6 +14123,13 @@ export namespace rbac {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.rbac.v1.ClusterRoleBindingList> {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingList",
+        });
       }
 
       /**
@@ -13346,6 +14207,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleList",
+        });
+      }
+
       /**
       * Create a rbac.v1.ClusterRoleList resource with the given unique name, arguments, and options.
       *
@@ -13420,6 +14288,13 @@ export namespace rbac {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.rbac.v1.Role> {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:Role",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1:Role",
+        });
       }
 
       /**
@@ -13506,6 +14381,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:RoleBinding",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1:RoleBinding",
+        });
+      }
+
       /**
       * Create a rbac.v1.RoleBinding resource with the given unique name, arguments, and options.
       *
@@ -13582,6 +14464,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1:RoleBindingList",
+        });
+      }
+
       /**
       * Create a rbac.v1.RoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -13655,6 +14544,13 @@ export namespace rbac {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.rbac.v1.RoleList> {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:RoleList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1:RoleList",
+        });
       }
 
       /**
@@ -13743,6 +14639,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole",
+        });
+      }
+
       /**
       * Create a rbac.v1alpha1.ClusterRole resource with the given unique name, arguments, and options.
       *
@@ -13826,6 +14729,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding",
+        });
+      }
+
       /**
       * Create a rbac.v1alpha1.ClusterRoleBinding resource with the given unique name, arguments, and options.
       *
@@ -13900,6 +14810,13 @@ export namespace rbac {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.rbac.v1alpha1.ClusterRoleBindingList> {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList",
+        });
       }
 
       /**
@@ -13977,6 +14894,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleList",
+        });
+      }
+
       /**
       * Create a rbac.v1alpha1.ClusterRoleList resource with the given unique name, arguments, and options.
       *
@@ -14051,6 +14975,13 @@ export namespace rbac {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.rbac.v1alpha1.Role> {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:Role",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1alpha1:Role",
+        });
       }
 
       /**
@@ -14137,6 +15068,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding",
+        });
+      }
+
       /**
       * Create a rbac.v1alpha1.RoleBinding resource with the given unique name, arguments, and options.
       *
@@ -14213,6 +15151,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList",
+        });
+      }
+
       /**
       * Create a rbac.v1alpha1.RoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -14286,6 +15231,13 @@ export namespace rbac {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.rbac.v1alpha1.RoleList> {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList",
+        });
       }
 
       /**
@@ -14374,6 +15326,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole",
+        });
+      }
+
       /**
       * Create a rbac.v1beta1.ClusterRole resource with the given unique name, arguments, and options.
       *
@@ -14457,6 +15416,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding",
+        });
+      }
+
       /**
       * Create a rbac.v1beta1.ClusterRoleBinding resource with the given unique name, arguments, and options.
       *
@@ -14531,6 +15497,13 @@ export namespace rbac {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.rbac.v1beta1.ClusterRoleBindingList> {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList",
+        });
       }
 
       /**
@@ -14608,6 +15581,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList",
+        });
+      }
+
       /**
       * Create a rbac.v1beta1.ClusterRoleList resource with the given unique name, arguments, and options.
       *
@@ -14682,6 +15662,13 @@ export namespace rbac {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.rbac.v1beta1.Role> {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:Role",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1beta1:Role",
+        });
       }
 
       /**
@@ -14768,6 +15755,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding",
+        });
+      }
+
       /**
       * Create a rbac.v1beta1.RoleBinding resource with the given unique name, arguments, and options.
       *
@@ -14844,6 +15838,13 @@ export namespace rbac {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList",
+        });
+      }
+
       /**
       * Create a rbac.v1beta1.RoleBindingList resource with the given unique name, arguments, and options.
       *
@@ -14917,6 +15918,13 @@ export namespace rbac {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.rbac.v1beta1.RoleList> {
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList",
+        });
       }
 
       /**
@@ -15018,6 +16026,13 @@ export namespace scheduling {
         return ctx.list({...args, type: "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass",
+        });
+      }
+
       /**
       * Create a scheduling.v1alpha1.PriorityClass resource with the given unique name, arguments, and options.
       *
@@ -15094,6 +16109,13 @@ export namespace scheduling {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.scheduling.v1alpha1.PriorityClassList> {
         return ctx.list({...args, type: "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList",
+        });
       }
 
       /**
@@ -15192,6 +16214,13 @@ export namespace scheduling {
         return ctx.list({...args, type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass",
+        });
+      }
+
       /**
       * Create a scheduling.v1beta1.PriorityClass resource with the given unique name, arguments, and options.
       *
@@ -15268,6 +16297,13 @@ export namespace scheduling {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.scheduling.v1beta1.PriorityClassList> {
         return ctx.list({...args, type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList",
+        });
       }
 
       /**
@@ -15347,6 +16383,13 @@ export namespace settings {
         return ctx.list({...args, type: "kubernetes:settings.k8s.io/v1alpha1:PodPreset",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:settings.k8s.io/v1alpha1:PodPreset",
+        });
+      }
+
       /**
       * Create a settings.v1alpha1.PodPreset resource with the given unique name, arguments, and options.
       *
@@ -15421,6 +16464,13 @@ export namespace settings {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.settings.v1alpha1.PodPresetList> {
         return ctx.list({...args, type: "kubernetes:settings.k8s.io/v1alpha1:PodPresetList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:settings.k8s.io/v1alpha1:PodPresetList",
+        });
       }
 
       /**
@@ -15548,6 +16598,13 @@ export namespace storage {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1:StorageClass",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1:StorageClass",
+        });
+      }
+
       /**
       * Create a storage.v1.StorageClass resource with the given unique name, arguments, and options.
       *
@@ -15628,6 +16685,13 @@ export namespace storage {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.storage.v1.StorageClassList> {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1:StorageClassList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1:StorageClassList",
+        });
       }
 
       /**
@@ -15716,6 +16780,13 @@ export namespace storage {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1:VolumeAttachment",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1:VolumeAttachment",
+        });
+      }
+
       /**
       * Create a storage.v1.VolumeAttachment resource with the given unique name, arguments, and options.
       *
@@ -15791,6 +16862,13 @@ export namespace storage {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.storage.v1.VolumeAttachmentList> {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1:VolumeAttachmentList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1:VolumeAttachmentList",
+        });
       }
 
       /**
@@ -15882,6 +16960,13 @@ export namespace storage {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment",
+        });
+      }
+
       /**
       * Create a storage.v1alpha1.VolumeAttachment resource with the given unique name, arguments, and options.
       *
@@ -15957,6 +17042,13 @@ export namespace storage {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.storage.v1alpha1.VolumeAttachmentList> {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList",
+        });
       }
 
       /**
@@ -16081,6 +17173,13 @@ export namespace storage {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1beta1:StorageClass",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1beta1:StorageClass",
+        });
+      }
+
       /**
       * Create a storage.v1beta1.StorageClass resource with the given unique name, arguments, and options.
       *
@@ -16161,6 +17260,13 @@ export namespace storage {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.storage.v1beta1.StorageClassList> {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1beta1:StorageClassList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1beta1:StorageClassList",
+        });
       }
 
       /**
@@ -16249,6 +17355,13 @@ export namespace storage {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment",
+        });
+      }
+
       /**
       * Create a storage.v1beta1.VolumeAttachment resource with the given unique name, arguments, and options.
       *
@@ -16324,6 +17437,13 @@ export namespace storage {
         args?: pulumi.query.ListArgs,
       ): rxjs.Observable<outputApi.storage.v1beta1.VolumeAttachmentList> {
         return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList",});
+      }
+
+      public static addAdmissionPolicy(policy: pulumi.policy.Policy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList",
+        });
       }
 
       /**
