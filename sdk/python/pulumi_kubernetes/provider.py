@@ -1,6 +1,7 @@
 import pulumi
 from . import tables
 
+
 class Provider(pulumi.ProviderResource):
     """
     The provider type for the kubernetes package.

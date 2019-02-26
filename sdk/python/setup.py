@@ -1,15 +1,19 @@
+from subprocess import check_call
+
 from setuptools import setup, find_packages
 from setuptools.command.install import install
-from subprocess import check_call
+
 
 class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         check_call(['pulumi', 'plugin', 'install', 'resource', 'kubernetes', '${PLUGIN_VERSION}'])
 
+
 def readme():
     with open('README.rst') as f:
         return f.read()
+
 
 setup(name='pulumi_kubernetes',
       version='${VERSION}',
