@@ -11,20 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import pulumi
-from pulumi_kubernetes.core.v1 import Pod, Namespace
+from pulumi_kubernetes.yaml import ConfigFile
 
-namespace = Namespace("foo", metadata={"name": "foo"})
-
-pod = Pod(
-    "smoke-test",
-    metadata={
-        "namespace": namespace,
-    },
-    spec={
-        "containers": [
-            {"name": "nginx", "image": "nginx"},
-        ]
-    })
-
-pulumi.export("ip", pod.status["pod_ip"])
+cf = ConfigFile(
+    "yaml-test",
+    "manifest.yaml",
+)
