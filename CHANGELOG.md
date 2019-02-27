@@ -6,7 +6,7 @@
 
 ### Improvements
 
--   None
+-   Allow the default timeout for awaiters to be overridden (https://github.com/pulumi/pulumi-kubernetes/pull/457)
 
 ### Bug fixes
 

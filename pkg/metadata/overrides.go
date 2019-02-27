@@ -15,9 +15,25 @@
 package metadata
 
 import (
+	"strconv"
+
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
+// SkipAwaitLogic returns true if the `pulumi.com/skipAwait` annotation is "true", false otherwise.
 func SkipAwaitLogic(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationSkipAwait)
+}
+
+// TimeoutSeconds returns the int value of the `pulumi.com/timeoutSeconds` annotation, or the defaultSeconds value
+// if the annotation is unset/invalid.
+func TimeoutSeconds(obj *unstructured.Unstructured, defaultSeconds int) int {
+	if s := GetAnnotationValue(obj, AnnotationTimeoutSeconds); s != "" {
+		val, err := strconv.Atoi(s)
+		if err == nil {
+			return val
+		}
+	}
+
+	return defaultSeconds
 }

@@ -49,3 +49,34 @@ func TestSkipAwaitLogic(t *testing.T) {
 		})
 	}
 }
+
+func TestTimeoutSeconds(t *testing.T) {
+	resource := &unstructured.Unstructured{}
+
+	annotatedResource15 := &unstructured.Unstructured{}
+	annotatedResource15.SetAnnotations(map[string]string{AnnotationTimeoutSeconds: "15"})
+
+	annotatedResourceInvalid := &unstructured.Unstructured{}
+	annotatedResourceInvalid.SetAnnotations(map[string]string{AnnotationTimeoutSeconds: "foo"})
+
+	type args struct {
+		obj            *unstructured.Unstructured
+		defaultSeconds int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{"Timeout annotation unset", args{obj: resource, defaultSeconds: 300}, 300},
+		{"Timeout annotation set", args{obj: annotatedResource15, defaultSeconds: 300}, 15},
+		{"Timeout annotation invalid", args{obj: annotatedResourceInvalid, defaultSeconds: 300}, 300},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := TimeoutSeconds(tt.args.obj, tt.args.defaultSeconds); got != tt.want {
+				t.Errorf("TimeoutSeconds() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
