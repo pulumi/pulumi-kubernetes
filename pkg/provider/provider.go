@@ -24,9 +24,9 @@ import (
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	"github.com/golang/protobuf/ptypes/struct"
-	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/plugin"
@@ -338,7 +338,7 @@ func (k *kubeProvider) Diff(
 	}
 	oldInputs, _ := parseCheckpointObject(oldState)
 
-	// Get new resouce inputs. The user is submitting these as an update.
+	// Get new resource inputs. The user is submitting these as an update.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
 	})

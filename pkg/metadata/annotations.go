@@ -47,12 +47,19 @@ func IsInternalAnnotation(key string) bool {
 
 // SetAnnotation sets the specified key, value annotation on the provided Unstructured object.
 func SetAnnotation(obj *unstructured.Unstructured, key, value string) {
-	annotations := obj.GetAnnotations()
-	if annotations == nil {
-		annotations = map[string]string{}
+	// Note: Cannot use obj.GetAnnotations() here because it doesn't properly handle computed values from preview.
+	metadataRaw := obj.Object["metadata"]
+	metadata := metadataRaw.(map[string]interface{})
+	annotationsRaw, ok := metadata["annotations"]
+	var annotations map[string]interface{}
+	if !ok {
+		annotations = make(map[string]interface{})
+	} else {
+		annotations = annotationsRaw.(map[string]interface{})
 	}
 	annotations[key] = value
-	obj.SetAnnotations(annotations)
+
+	metadata["annotations"] = annotations
 }
 
 // SetAnnotationTrue sets the specified annotation key to "true" on the provided Unstructured object.
