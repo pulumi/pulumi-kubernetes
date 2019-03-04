@@ -156,6 +156,25 @@ export namespace v2 {
                     const yamlStream = execSync(
                         `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
                     ).toString();
+
+                    // FIX[pulumi/pulumi-kubernetes#342]: `helm template` does not respect the
+                    // `--namespace` flag. Hence, if `namespace` is set in the options, we simply
+                    // add it to every resource in the template. This is legal because all
+                    // top-level resources allow the namespace to be specified, though of course
+                    // they may not respect it.
+                    const addNsTransform = cfg.namespace
+                        ? [
+                            function addNamespace(o: any) {
+                                if (o !== undefined) {
+                                    if (o.metadata !== undefined) {
+                                        o.metadata.namespace = cfg.namespace;
+                                    } else {
+                                        o.metadata = {namespace: cfg.namespace}
+                                    }
+                                }
+                            }
+                        ]
+                        : [];
                     return this.parseTemplate(yamlStream, cfg.transformations, configDeps);
                 } catch (e) {
                     // Shed stack trace, only emit the error.
