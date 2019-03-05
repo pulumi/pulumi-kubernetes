@@ -36,15 +36,13 @@ func AssignNameIfAutonamable(obj *unstructured.Unstructured, base tokens.QName) 
 	}
 }
 
-// AdoptOldNameIfUnnamed checks if `newObj` has a name, and if not, "adopts" the name of `oldObj`
+// AdoptOldAutonameIfUnnamed checks if `newObj` has a name, and if not, "adopts" the name of `oldObj`
 // instead. If `oldObj` was autonamed, then we mark `newObj` as autonamed, too.
-func AdoptOldNameIfUnnamed(newObj, oldObj *unstructured.Unstructured) {
+func AdoptOldAutonameIfUnnamed(newObj, oldObj *unstructured.Unstructured) {
 	contract.Assert(oldObj.GetName() != "")
-	if newObj.GetName() == "" {
+	if newObj.GetName() == "" && IsAutonamed(oldObj) {
 		newObj.SetName(oldObj.GetName())
-		if IsAutonamed(oldObj) {
-			SetAnnotationTrue(newObj, AnnotationAutonamed)
-		}
+		SetAnnotationTrue(newObj, AnnotationAutonamed)
 	}
 }
 

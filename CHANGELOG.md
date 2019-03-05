@@ -251,7 +251,8 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 
 ### Improvements
 
--   None
+- The Kubernetes provider now supports the internal features necessary for the Pulumi engine to detect diffs between
+  the actual and desired state of a resource after a `pulumi refresh` (https://github.com/pulumi/pulumi-kubernetes/pull/477)
 
 ### Bug fixes
 

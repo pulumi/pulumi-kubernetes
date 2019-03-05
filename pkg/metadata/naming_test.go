@@ -48,12 +48,13 @@ func TestAdoptName(t *testing.T) {
 				// NOTE: annotations needs to be a `map[string]interface{}` rather than `map[string]string`
 				// or the k8s utility functions fail.
 				"annotations": map[string]interface{}{AnnotationAutonamed: "true"},
-			}},
+			},
+		},
 	}
 	new1 := &unstructured.Unstructured{
 		Object: map[string]interface{}{"metadata": map[string]interface{}{"name": "new1"}},
 	}
-	AdoptOldNameIfUnnamed(new1, old1)
+	AdoptOldAutonameIfUnnamed(new1, old1)
 	assert.Equal(t, "old1", old1.GetName())
 	assert.True(t, IsAutonamed(old1))
 	assert.Equal(t, "new1", new1.GetName())
@@ -63,7 +64,22 @@ func TestAdoptName(t *testing.T) {
 	new2 := &unstructured.Unstructured{
 		Object: map[string]interface{}{},
 	}
-	AdoptOldNameIfUnnamed(new2, old1)
+	AdoptOldAutonameIfUnnamed(new2, old1)
 	assert.Equal(t, "old1", new2.GetName())
 	assert.True(t, IsAutonamed(new2))
+
+	// old2 is not autonamed, so new3 DOES NOT adopt old2's name.
+	new3 := &unstructured.Unstructured{
+		Object: map[string]interface{}{},
+	}
+	old2 := &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"metadata": map[string]interface{}{
+				"name": "old1",
+			},
+		},
+	}
+	AdoptOldAutonameIfUnnamed(new3, old2)
+	assert.Equal(t, "", new3.GetName())
+	assert.False(t, IsAutonamed(new3))
 }

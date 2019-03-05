@@ -60,8 +60,8 @@ import (
 // --------------------------------------------------------------------------
 
 const (
-	gvkDelimiter         = ":"
 	invokeKubectlReplace = "kubernetes:kubernetes:kubectlReplace"
+	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 )
 
 type cancellationContext struct {
@@ -86,7 +86,7 @@ type kubeProvider struct {
 	canceler         *cancellationContext
 	name             string
 	version          string
-	providerPrefix   string
+	providerPackage  string
 	opts             kubeOpts
 	defaultNamespace string
 
@@ -99,11 +99,11 @@ func makeKubeProvider(
 	host *provider.HostClient, name, version string,
 ) (pulumirpc.ResourceProviderServer, error) {
 	return &kubeProvider{
-		host:           host,
-		canceler:       makeCancellationContext(),
-		name:           name,
-		version:        version,
-		providerPrefix: name + gvkDelimiter,
+		host:            host,
+		canceler:        makeCancellationContext(),
+		name:            name,
+		version:         version,
+		providerPackage: name,
 	}, nil
 }
 
@@ -392,7 +392,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		// NOTE: If old inputs exist, they have a name, either provided by the user or filled in with a
 		// previous run of `Check`.
 		contract.Assert(oldInputs.GetName() != "")
-		metadata.AdoptOldNameIfUnnamed(newInputs, oldInputs)
+		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs)
 	} else {
 		metadata.AssignNameIfAutonamable(newInputs, urn.Name())
 	}
@@ -542,6 +542,19 @@ func (k *kubeProvider) Diff(
 		oldInputs.SetGroupVersionKind(gvk)
 	}
 
+	// We do not expose the "last applied config" field to the user via `Check`, so we want to ignore any diffs in the
+	// same. We achieve that by simply copying this field from the old state.
+	if oldAnnotations := oldLiveState.GetAnnotations(); oldAnnotations != nil {
+		if lastAppliedConfig, ok := oldAnnotations[lastAppliedConfigKey]; ok {
+			annotations := newInputs.GetAnnotations()
+			if annotations == nil {
+				annotations = make(map[string]string)
+			}
+			annotations[lastAppliedConfigKey] = lastAppliedConfig
+			newInputs.SetAnnotations(annotations)
+		}
+	}
+
 	patch, _, err := openapi.PatchForResourceUpdate(
 		k.clientSet.DiscoveryClientCached, oldInputs, newInputs, oldLiveState)
 	if err != nil {
@@ -623,6 +636,11 @@ func (k *kubeProvider) Create(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
+	annotatedInputs, err := withLastAppliedConfig(newInputs)
+	if err != nil {
+		return nil, err
+	}
+
 	config := await.CreateConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:     k.canceler.context,
@@ -631,7 +649,7 @@ func (k *kubeProvider) Create(
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
 		},
-		Inputs: newInputs,
+		Inputs: annotatedInputs,
 	}
 
 	initialized, awaitErr := await.Creation(config)
@@ -665,7 +683,7 @@ func (k *kubeProvider) Create(
 	if awaitErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed)
+		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed, nil)
 	}
 
 	// Invalidate the client cache if this was a CRD. This will require subsequent CR creations to
@@ -714,15 +732,26 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	oldInputs, newInputs := parseCheckpointObject(oldState)
 
 	if oldInputs.GroupVersionKind().Empty() {
-		oldInputs.SetGroupVersionKind(newInputs.GroupVersionKind())
+		if newInputs.GroupVersionKind().Empty() {
+			gvk, err := k.gvkFromURN(urn)
+			if err != nil {
+				return nil, err
+			}
+			oldInputs.SetGroupVersionKind(gvk)
+		} else {
+			oldInputs.SetGroupVersionKind(newInputs.GroupVersionKind())
+		}
 	}
 
-	_, name := ParseFqName(req.GetId())
+	namespace, name := ParseFqName(req.GetId())
 	if name == "" {
 		return nil, fmt.Errorf("failed to parse resource name from request ID: %s", req.GetId())
 	}
 	if oldInputs.GetName() == "" {
 		oldInputs.SetName(name)
+	}
+	if oldInputs.GetNamespace() == "" {
+		oldInputs.SetNamespace(namespace)
 	}
 
 	config := await.ReadConfig{
@@ -768,6 +797,9 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		// initialize.
 	}
 
+	// Attempt to parse the inputs for this object. If parsing was unsuccessful, retain the old inputs.
+	liveInputs := parseLiveInputs(liveObj, oldInputs)
+
 	// TODO(lblackstone): not sure why this is needed
 	id := FqObjName(liveObj)
 	if reqID := req.GetId(); len(reqID) > 0 {
@@ -775,9 +807,17 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	}
 
 	// Return a new "checkpoint object".
-	inputsAndComputed, err := plugin.MarshalProperties(
-		checkpointObject(oldInputs, liveObj), plugin.MarshalOptions{
-			Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
+	state, err := plugin.MarshalProperties(
+		checkpointObject(liveInputs, liveObj), plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.state", label), KeepUnknowns: true, SkipNulls: true,
+		})
+	if err != nil {
+		return nil, err
+	}
+
+	inputs, err := plugin.MarshalProperties(
+		resource.NewPropertyMapFromMap(liveInputs.Object), plugin.MarshalOptions{
+			Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true,
 		})
 	if err != nil {
 		return nil, err
@@ -786,11 +826,11 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if readErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		glog.V(3).Infof("%v", partialError(id, readErr, inputsAndComputed))
-		return nil, partialError(id, readErr, inputsAndComputed)
+		glog.V(3).Infof("%v", partialError(id, readErr, state, inputs))
+		return nil, partialError(id, readErr, state, inputs)
 	}
 
-	return &pulumirpc.ReadResponse{Id: id, Properties: inputsAndComputed}, nil
+	return &pulumirpc.ReadResponse{Id: id, Properties: state, Inputs: inputs}, nil
 }
 
 // Update updates an existing resource with new values. Currently this client supports the
@@ -881,6 +921,11 @@ func (k *kubeProvider) Update(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
+	annotatedInputs, err := withLastAppliedConfig(newInputs)
+	if err != nil {
+		return nil, err
+	}
+
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:     k.canceler.context,
@@ -890,7 +935,7 @@ func (k *kubeProvider) Update(
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
 		},
 		Previous: oldInputs,
-		Inputs:   newInputs,
+		Inputs:   annotatedInputs,
 	}
 	// Apply update.
 	initialized, awaitErr := await.Update(config)
@@ -926,7 +971,7 @@ func (k *kubeProvider) Update(
 	if awaitErr != nil {
 		// Resource was updated/created but failed to initialize. Return live version of object so it
 		// can be checkpointed.
-		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed)
+		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed, nil)
 	}
 
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
@@ -991,7 +1036,7 @@ func (k *kubeProvider) Delete(
 
 		// Resource delete was issued, but failed to complete. Return live version of object so it can be
 		// checkpointed.
-		return nil, partialError(FqObjName(lastKnownState), awaitErr, inputsAndComputed)
+		return nil, partialError(FqObjName(lastKnownState), awaitErr, inputsAndComputed, nil)
 	}
 
 	return &pbempty.Empty{}, nil
@@ -1025,27 +1070,24 @@ func (k *kubeProvider) label() string {
 }
 
 func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, error) {
-	// Strip prefix.
-	s := string(urn.Type())
-	contract.Assertf(strings.HasPrefix(s, k.providerPrefix),
-		"Expected prefix: %q, Kubernetes GVK is: %q", k.providerPrefix, string(urn))
-	s = s[len(k.providerPrefix):]
+	contract.Assertf(string(urn.Type().Package()) == k.providerPackage, "Kubernetes GVK is: %q", string(urn))
 
 	// Emit GVK.
-	gvk := strings.Split(s, gvkDelimiter)
-	gv := strings.Split(gvk[0], "/")
-	if len(gvk) < 2 {
+	kind := string(urn.Type().Name())
+	gv := strings.Split(string(urn.Type().Module().Name()), "/")
+	if len(gv) != 2 {
 		return schema.GroupVersionKind{},
-			fmt.Errorf("GVK must have both an apiVersion and a Kind: %q", s)
-	} else if len(gv) != 2 {
-		return schema.GroupVersionKind{},
-			fmt.Errorf("apiVersion does not have both a group and a version: %q", s)
+			fmt.Errorf("apiVersion does not have both a group and a version: %q", urn.Type().Module().Name())
+	}
+	group, version := gv[0], gv[1]
+	if group == "core" {
+		group = ""
 	}
 
 	return schema.GroupVersionKind{
-		Group:   gv[0],
-		Version: gv[1],
-		Kind:    gvk[1],
+		Group:   group,
+		Version: version,
+		Kind:    kind,
 	}, nil
 }
 
@@ -1062,6 +1104,26 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 	return &unstructured.Unstructured{Object: pm.Mappable()}
+}
+
+func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	// Serialize the inputs and add the last-applied-configuration annotation.
+	marshaled, err := config.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+
+	// Deep copy the config before returning.
+	config = config.DeepCopy()
+
+	annotations := config.GetAnnotations()
+	if annotations == nil {
+		annotations = make(map[string]string)
+	}
+
+	annotations[lastAppliedConfigKey] = string(marshaled)
+	config.SetAnnotations(annotations)
+	return config, nil
 }
 
 func checkpointObject(inputs, live *unstructured.Unstructured) resource.PropertyMap {
@@ -1101,15 +1163,16 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 
 // partialError creates an error for resources that did not complete an operation in progress.
 // The last known state of the object is included in the error so that it can be checkpointed.
-func partialError(id string, err error, inputsAndComputed *structpb.Struct) error {
+func partialError(id string, err error, state *structpb.Struct, inputs *structpb.Struct) error {
 	reasons := []string{err.Error()}
 	if aggregate, isAggregate := err.(await.AggregatedError); isAggregate {
 		reasons = append(reasons, aggregate.SubErrors()...)
 	}
 	detail := pulumirpc.ErrorResourceInitFailed{
 		Id:         id,
-		Properties: inputsAndComputed,
+		Properties: state,
 		Reasons:    reasons,
+		Inputs:     inputs,
 	}
 	return rpcerror.WithDetails(rpcerror.New(codes.Unknown, err.Error()), &detail)
 }
@@ -1125,3 +1188,46 @@ func canonicalNamespace(ns string) string {
 
 // deleteResponse causes the resource to be deleted from the state.
 var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
+
+// parseLastAppliedConfig attempts to find and parse an annotation that records the last applied configuration for the
+// given live object state.
+func parseLastAppliedConfig(live *unstructured.Unstructured) *unstructured.Unstructured {
+	// If `kubectl.kubernetes.io/last-applied-configuration` metadata anotation is present, parse it into a real object
+	// and use it as the current set of live inputs. Otherwise, return nil.
+	annotations := live.GetAnnotations()
+	if annotations == nil {
+		return nil
+	}
+	lastAppliedConfig, ok := annotations[lastAppliedConfigKey]
+	if !ok {
+		return nil
+	}
+
+	liveInputs := &unstructured.Unstructured{}
+	if err := liveInputs.UnmarshalJSON([]byte(lastAppliedConfig)); err != nil {
+		return nil
+	}
+	return liveInputs
+}
+
+// parseLiveInputs attempts to parse the provider inputs that produced the given live object out of the object's state.
+// This is used by Read.
+func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.Unstructured {
+	// First try to find and parse a `kubectl.kubernetes.io/last-applied-configuration` metadata anotation. If that
+	// succeeds, we are done.
+	if inputs := parseLastAppliedConfig(live); inputs != nil {
+		return inputs
+	}
+
+	// If no such annotation was present--or if parsing failed--either retain the old inputs if they exist, or
+	// attempt to propagate the live object's GVK, any Pulumi-generated autoname and its annotation, and return
+	// the result.
+	if oldInputs != nil && len(oldInputs.Object) > 0 {
+		return oldInputs
+	}
+
+	inputs := &unstructured.Unstructured{Object: map[string]interface{}{}}
+	inputs.SetGroupVersionKind(live.GroupVersionKind())
+	metadata.AdoptOldAutonameIfUnnamed(inputs, live)
+	return inputs
+}
