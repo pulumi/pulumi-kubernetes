@@ -21,5 +21,5 @@ const idNamespace = namespace.metadata.apply(ns => ns.name);
 k8s.apiextensions.CustomResource.get("my-new-cron-object-get", {
     apiVersion: "stable.example.com/v1",
     kind: "CronTab",
-    id: `${idNamespace}/my-new-cron-object`,
+    id: idNamespace.apply(ns => `${ns}/my-new-cron-object`),
 });
