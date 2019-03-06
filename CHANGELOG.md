@@ -1,5 +1,17 @@
 ## 0.21.1 (Unreleased)
 
+### Major changes
+
+-   None
+
+### Improvements
+
+-   None
+
+### Bug fixes
+
+-   Check for unexpected RPC ID and return an error (https://github.com/pulumi/pulumi-kubernetes/pull/475)
+
 ## 0.21.0 (Released March 6, 2019)
 
 ### Important
