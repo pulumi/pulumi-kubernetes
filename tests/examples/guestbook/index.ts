@@ -15,7 +15,7 @@
 import * as k8s from "@pulumi/kubernetes";
 
 const ns = new k8s.core.v1.Namespace("test");
-const namespace = ns.metadata.apply(metadata => metadata.name);
+const namespace = ns.metadata.name;
 
 // REDIS MASTER
 

@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 const namespace = new k8s.core.v1.Namespace("test-namespace");
 
-const idNamespace = namespace.metadata.apply(ns => ns.name);
+const idNamespace = namespace.metadata.name;
 
 k8s.apiextensions.CustomResource.get("my-new-cron-object-get", {
     apiVersion: "stable.example.com/v1",
     kind: "CronTab",
-    id: idNamespace.apply(ns => `${ns}/my-new-cron-object`),
+    id: pulumi.interpolate `${idNamespace}/my-new-cron-object`,
 });

@@ -163,7 +163,7 @@ export namespace yaml {
                 id = `${namespaceOrName}/${name}`;
             }
 
-            return this.resources.apply(resources => resources[`${groupVersionKind}::${id}`]);
+            return this.resources[`${groupVersionKind}::${id}`];
         }
     }
 

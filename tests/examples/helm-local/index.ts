@@ -15,7 +15,7 @@
 import * as k8s from "@pulumi/kubernetes";
 
 const namespace = new k8s.core.v1.Namespace("test");
-const namespaceName = namespace.metadata.apply(metadata => metadata.name);
+const namespaceName = namespace.metadata.name;
 
 const nginx = new k8s.helm.v2.Chart("simple-nginx-local", {
     // Represents chart `stable/nginx-lego@v0.3.1`.
@@ -53,4 +53,4 @@ const nginx = new k8s.helm.v2.Chart("simple-nginx-local", {
 // Export the (cluster-private) IP address of the Guestbook frontend.
 // const frontendServiceSpec = pulumi.all([namespaceName, nginx]).apply(([nsName, nginx]) =>
 //     nginx.getResourceProperty("v1/Service", nsName, "simple-nginx-local-nginx", "spec"));
-// export const frontendServiceIP = frontendServiceSpec.apply(spec => spec.clusterIP);
+// export const frontendServiceIP = frontendServiceSpec.clusterIP;
