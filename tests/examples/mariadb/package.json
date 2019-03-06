@@ -2,12 +2,12 @@
   "name": "mariadb",
   "version": "0.1.0",
   "dependencies": {
-    "@pulumi/pulumi": "feature-seventeen",
-    "@pulumi/random": "feature-seventeen"
+    "@pulumi/pulumi": "^0.17.0",
+    "@pulumi/random": "^0.17.0"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
-    "typescript": "^2.5.3"
+    "typescript": "^3.0.0"
   },
   "peerDependencies": {
     "@pulumi/kubernetes": "latest"

@@ -2,12 +2,12 @@
     "name": "test-ci-istio",
     "devDependencies": {
         "@types/node": "latest",
-        "typescript": "^2.5.3"
+        "typescript": "^3.0.0"
     },
     "dependencies": {
-        "@pulumi/pulumi": "feature-seventeen",
-        "@pulumi/random": "feature-seventeen",
-        "@pulumi/gcp": "feature-seventeen"
+        "@pulumi/pulumi": "^0.17.0",
+        "@pulumi/random": "^0.17.0",
+        "@pulumi/gcp": "^0.17.0"
     },
     "peerDependencies": {
         "@pulumi/kubernetes": "latest"
