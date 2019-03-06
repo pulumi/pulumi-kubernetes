@@ -2,8 +2,8 @@
     "name": "steps",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "^0.17.1",
-        "@pulumi/random": "^0.5.0"
+        "@pulumi/pulumi": "dev",
+        "@pulumi/random": "dev"
     },
     "devDependencies": {
         "typescript": "^3.0.0"
