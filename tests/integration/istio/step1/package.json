@@ -6,7 +6,7 @@
     },
     "dependencies": {
         "@pulumi/pulumi": "^0.17.1",
-        "@pulumi/random": "^0.17.0",
+        "@pulumi/random": "^0.5.0",
         "@pulumi/gcp": "^0.17.0"
     },
     "peerDependencies": {
