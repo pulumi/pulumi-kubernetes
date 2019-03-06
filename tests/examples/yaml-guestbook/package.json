@@ -2,7 +2,7 @@
   "name": "guestbook",
   "version": "0.1.0",
   "dependencies": {
-    "@pulumi/pulumi": "^0.17.1"
+    "@pulumi/pulumi": "dev"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
