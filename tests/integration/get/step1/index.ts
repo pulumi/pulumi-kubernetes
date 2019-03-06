@@ -47,7 +47,7 @@ new k8s.apiextensions.CustomResource(
         apiVersion: "stable.example.com/v1",
         kind: "CronTab",
       metadata: {
-        namespace: namespace.metadata.apply(ns => ns.name),
+        namespace: namespace.metadata.name,
         name: "my-new-cron-object",
       },
         spec: { cronSpec: "* * * * */5", image: "my-awesome-cron-image" }

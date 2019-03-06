@@ -32,7 +32,7 @@ export const istio = new k8s.helm.v2.Chart(
     appName,
     {
         chart: "istio",
-        namespace: namespace.metadata.apply(m => m.name),
+        namespace: namespace.metadata.name,
         version: "1.0.1",
         fetchOpts: { repo: "https://istio.io/charts/" },
         // for all options check https://github.com/istio/istio/tree/master/install/kubernetes/helm/istio

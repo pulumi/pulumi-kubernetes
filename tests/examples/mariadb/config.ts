@@ -51,7 +51,7 @@ export interface AppConfig {
 export const appConfig: AppConfig = {
     namespace:
         config.get("namespace") ||
-        new k8s.core.v1.Namespace("mariadb-ns").metadata.apply(metadata => metadata.name),
+        new k8s.core.v1.Namespace("mariadb-ns").metadata.name,
     appName: config.get("appName") || "mariadb-app",
 
     metricsEnabled: config.getBoolean("metricsEnabled") || true,

@@ -20,9 +20,9 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 function addNamespace(o: any) {
   if (o !== undefined) {
     if (o.metadata !== undefined) {
-      o.metadata.namespace = namespace.metadata.apply(ns => ns.name);
+      o.metadata.namespace = namespace.metadata.name;
     } else {
-      o.metadata = {namespace: namespace.metadata.apply(ns => ns.name)}
+      o.metadata = {namespace: namespace.metadata.name}
     }
   }
 }
