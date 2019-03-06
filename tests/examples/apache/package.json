@@ -2,7 +2,7 @@
   "name": "apache",
   "version": "0.1.0",
   "dependencies": {
-    "@pulumi/pulumi": "^0.17.0"
+    "@pulumi/pulumi": "^0.17.1"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
