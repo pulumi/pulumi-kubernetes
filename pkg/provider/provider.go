@@ -508,6 +508,9 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	}
 
 	_, name := ParseFqName(req.GetId())
+	if name == "" {
+		return nil, fmt.Errorf("failed to parse resource name from request ID: %s", req.GetId())
+	}
 	if oldInputs.GetName() == "" {
 		oldInputs.SetName(name)
 	}
