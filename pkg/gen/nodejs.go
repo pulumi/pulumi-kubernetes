@@ -27,10 +27,19 @@ import (
 
 // --------------------------------------------------------------------------
 
+type GroupTS struct {
+	Versions map[string]*VersionTS
+	Index    string
+}
+
+type VersionTS struct {
+	Kinds map[string]string
+	Index string
+}
+
 // NodeJSClient will generate a Pulumi Kubernetes provider client SDK for nodejs.
-func NodeJSClient(
-	swagger map[string]interface{}, templateDir string,
-) (inputsts, outputsts, providerts, helmts, packagejson string, err error) {
+func NodeJSClient(swagger map[string]interface{}, templateDir string,
+) (inputsts, outputsts, providerts, helmts, indexts, packagejson string, groupsts map[string]*GroupTS, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
 	groupsSlice := createGroups(definitions, nodeJSInputs())
@@ -39,7 +48,7 @@ func NodeJSClient(
 			"Groups": groupsSlice,
 		})
 	if err != nil {
-		return "", "", "", "", "", err
+		return
 	}
 
 	groupsSlice = createGroups(definitions, nodeJSOutputs())
@@ -48,16 +57,64 @@ func NodeJSClient(
 			"Groups": groupsSlice,
 		})
 	if err != nil {
-		return "", "", "", "", "", err
+		return
 	}
 
 	groupsSlice = createGroups(definitions, nodeJSProvider())
+	groupsts = make(map[string]*GroupTS)
+	for _, group := range groupsSlice {
+		groupTS := &GroupTS{}
+		for _, version := range group.Versions() {
+			if groupTS.Versions == nil {
+				groupTS.Versions = make(map[string]*VersionTS)
+			}
+			versionTS := &VersionTS{}
+			for _, kind := range version.Kinds() {
+				if versionTS.Kinds == nil {
+					versionTS.Kinds = make(map[string]string)
+				}
+				kindts, err := mustache.RenderFile(fmt.Sprintf("%s/kind.ts.mustache", templateDir),
+					map[string]interface{}{
+						"Comment":    kind.Comment(),
+						"Group":      group.Group(),
+						"Kind":       kind.Kind(),
+						"Properties": kind.Properties(),
+						"Version":    version.Version(),
+					})
+				if err != nil {
+					return "", "", "", "", "", "", nil, err
+				}
+				versionTS.Kinds[kind.Kind()] = kindts
+			}
+
+			kindIndexTS, err := mustache.RenderFile(fmt.Sprintf("%s/kindIndex.ts.mustache", templateDir),
+				map[string]interface{}{
+					"Kinds": version.Kinds(),
+				})
+			if err != nil {
+				return "", "", "", "", "", "", nil, err
+			}
+			versionTS.Index = kindIndexTS
+			groupTS.Versions[version.Version()] = versionTS
+		}
+
+		versionIndexTS, err := mustache.RenderFile(fmt.Sprintf("%s/versionIndex.ts.mustache", templateDir),
+			map[string]interface{}{
+				"Versions": group.Versions(),
+			})
+		if err != nil {
+			return "", "", "", "", "", "", nil, err
+		}
+		groupTS.Index = versionIndexTS
+		groupsts[group.Group()] = groupTS
+	}
+
 	providerts, err = mustache.RenderFile(fmt.Sprintf("%s/provider.ts.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,
 		})
 	if err != nil {
-		return "", "", "", "", "", err
+		return
 	}
 
 	helmts, err = mustache.RenderFile(fmt.Sprintf("%s/helm.ts.mustache", templateDir),
@@ -65,7 +122,7 @@ func NodeJSClient(
 			"Groups": groupsSlice,
 		})
 	if err != nil {
-		return "", "", "", "", "", err
+		return
 	}
 
 	packagejson, err = mustache.RenderFile(fmt.Sprintf("%s/package.json.mustache", templateDir),
@@ -73,8 +130,16 @@ func NodeJSClient(
 			"ProviderVersion": providerVersion.Version,
 		})
 	if err != nil {
-		return "", "", "", "", "", err
+		return
 	}
 
-	return inputsts, outputsts, providerts, helmts, packagejson, nil
+	indexts, err = mustache.RenderFile(fmt.Sprintf("%s/providerIndex.ts.mustache", templateDir),
+		map[string]interface{}{
+			"Groups": groupsSlice,
+		})
+	if err != nil {
+		return
+	}
+
+	return inputsts, outputsts, providerts, helmts, indexts, packagejson, groupsts, nil
 }

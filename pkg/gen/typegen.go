@@ -542,7 +542,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					var t string
 					switch opts.language {
 					case typescript:
-						prefix = "      "
+						prefix = "  "
 						t = makeType(prop, opts)
 					case python:
 						prefix = "        "
@@ -617,12 +617,19 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
+			var prefix string
+			switch opts.language {
+			case typescript:
+				prefix = ""
+			case python:
+				prefix = "    "
+			}
 			return linq.From([]*KindConfig{
 				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:            fmtComment(d.data["description"], "    ", opts),
+					comment:            fmtComment(d.data["description"], prefix, opts),
 					properties:         properties,
 					requiredProperties: requiredProperties,
 					optionalProperties: optionalProperties,

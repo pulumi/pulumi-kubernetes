@@ -56,7 +56,8 @@ func main() {
 }
 
 func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) {
-	inputAPIts, ouputAPIts, providerts, helmts, packagejson, err := gen.NodeJSClient(data, templateDir)
+	inputAPIts, ouputAPIts, providerts, helmts, indexts, packagejson, groupsts, err := gen.NodeJSClient(
+		data, templateDir)
 	if err != nil {
 		panic(err)
 	}
@@ -87,7 +88,45 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 		panic(err)
 	}
 
+	for groupName, group := range groupsts {
+		groupDir := fmt.Sprintf("%s/%s", outdir, groupName)
+		err = os.MkdirAll(groupDir, 0700)
+		if err != nil {
+			panic(err)
+		}
+
+		for versionName, version := range group.Versions {
+			versionDir := fmt.Sprintf("%s/%s", groupDir, versionName)
+			err = os.MkdirAll(versionDir, 0700)
+			if err != nil {
+				panic(err)
+			}
+
+			for kindName, kind := range version.Kinds {
+				err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", versionDir, kindName), []byte(kind), 0777)
+				if err != nil {
+					panic(err)
+				}
+			}
+
+			err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", versionDir, "index"), []byte(version.Index), 0777)
+			if err != nil {
+				panic(err)
+			}
+		}
+
+		err = ioutil.WriteFile(fmt.Sprintf("%s/%s.ts", groupDir, "index"), []byte(group.Index), 0777)
+		if err != nil {
+			panic(err)
+		}
+	}
+
 	err = ioutil.WriteFile(fmt.Sprintf("%s/helm.ts", outdir), []byte(helmts), 0777)
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile(fmt.Sprintf("%s/index.ts", outdir), []byte(indexts), 0777)
 	if err != nil {
 		panic(err)
 	}
