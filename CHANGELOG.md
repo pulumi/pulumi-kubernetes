@@ -6,12 +6,11 @@
 
 ### Improvements
 
--   None
+-   Split up nodejs SDK into multiple files (https://github.com/pulumi/pulumi-kubernetes/pull/480)
 
 ### Bug fixes
 
 -   Check for unexpected RPC ID and return an error (https://github.com/pulumi/pulumi-kubernetes/pull/475)
-
 -   Fix an issue where the Python `pulumi_kubernetes` package was depending on an older `pulumi` package.
 
 ## 0.21.0 (Released March 6, 2019)
