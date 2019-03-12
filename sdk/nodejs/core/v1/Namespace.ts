@@ -5,76 +5,78 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
-/**
- * Namespace provides a scope for Names. Use of multiple namespaces is optional.
- */
-export class Namespace extends pulumi.CustomResource {
-  /**
-   * APIVersion defines the versioned schema of this representation of an object. Servers should
-   * convert recognized schemas to the latest internal value, and may reject unrecognized values.
-   * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-   */
-  public readonly apiVersion: pulumi.Output<"v1">;
+    /**
+     * Namespace provides a scope for Names. Use of multiple namespaces is optional.
+     */
+    export class Namespace extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<"v1">;
 
-  /**
-   * Kind is a string value representing the REST resource this object represents. Servers may infer
-   * this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-   * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-   */
-  public readonly kind: pulumi.Output<"Namespace">;
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<"Namespace">;
 
-  /**
-   * Standard object&#39;s metadata. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-   */
-  public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      /**
+       * Standard object&#39;s metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
-  /**
-   * Spec defines the behavior of the Namespace. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-   */
-  public readonly spec: pulumi.Output<outputApi.core.v1.NamespaceSpec>;
+      /**
+       * Spec defines the behavior of the Namespace. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      public readonly spec: pulumi.Output<outputApi.core.v1.NamespaceSpec>;
 
-  /**
-   * Status describes the current status of a Namespace. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-   */
-  public readonly status: pulumi.Output<outputApi.core.v1.NamespaceStatus>;
+      /**
+       * Status describes the current status of a Namespace. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      public readonly status: pulumi.Output<outputApi.core.v1.NamespaceStatus>;
 
-  /**
-   * Get the state of an existing `Namespace` resource, as identified by `id`.
-   * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
-   * Kubernetes convention) the ID becomes default/<name>.
-   *
-   * Pulumi will keep track of this resource using `name` as the Pulumi ID.
-   *
-   * @param name _Unique_ name used to register this resource with Pulumi.
-   * @param id An ID for the Kubernetes resource to retrieve. Takes the form
-   *  <namespace>/<name> or <name>.
-   * @param opts Uniquely specifies a CustomResource to select.
-   */
-  public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Namespace {
-      return new Namespace(name, undefined, { ...opts, id: id });
-  }
+      /**
+       * Get the state of an existing `Namespace` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
+       *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Namespace {
+          return new Namespace(name, undefined, { ...opts, id: id });
+      }
 
-  public getInputs(): inputApi.core.v1.Namespace { return this.__inputs; }
-  private readonly __inputs: inputApi.core.v1.Namespace;
+      public getInputs(): inputApi.core.v1.Namespace { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Namespace;
 
-  /**
-   * Create a core.v1.Namespace resource with the given unique name, arguments, and options.
-   *
-   * @param name The _unique_ name of the resource.
-   * @param args The arguments to use to populate this resource's properties.
-   * @param opts A bag of options that control this resource's behavior.
-   */
-  constructor(name: string, args?: inputApi.core.v1.Namespace, opts?: pulumi.CustomResourceOptions) {
-      let inputs: pulumi.Inputs = {};
-      inputs["apiVersion"] = "v1";
-      inputs["kind"] = "Namespace";
-      inputs["metadata"] = args && args.metadata || undefined;
-      inputs["spec"] = args && args.spec || undefined;
-      inputs["status"] = args && args.status || undefined;
-      super("kubernetes:core/v1:Namespace", name, inputs, opts);
-      this.__inputs = <any>args;
-  }
-}
+      /**
+       * Create a core.v1.Namespace resource with the given unique name, arguments, and options.
+       *
+       * @param name The _unique_ name of the resource.
+       * @param args The arguments to use to populate this resource's properties.
+       * @param opts A bag of options that control this resource's behavior.
+       */
+      constructor(name: string, args?: inputApi.core.v1.Namespace, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "Namespace";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["spec"] = args && args.spec || undefined;
+          inputs["status"] = args && args.status || undefined;
+          super("kubernetes:core/v1:Namespace", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }

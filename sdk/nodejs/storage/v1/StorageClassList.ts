@@ -5,68 +5,70 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
-/**
- * StorageClassList is a collection of storage classes.
- */
-export class StorageClassList extends pulumi.CustomResource {
-  /**
-   * APIVersion defines the versioned schema of this representation of an object. Servers should
-   * convert recognized schemas to the latest internal value, and may reject unrecognized values.
-   * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-   */
-  public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1">;
+    /**
+     * StorageClassList is a collection of storage classes.
+     */
+    export class StorageClassList extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1">;
 
-  /**
-   * Items is the list of StorageClasses
-   */
-  public readonly items: pulumi.Output<outputApi.storage.v1.StorageClass[]>;
+      /**
+       * Items is the list of StorageClasses
+       */
+      public readonly items: pulumi.Output<outputApi.storage.v1.StorageClass[]>;
 
-  /**
-   * Kind is a string value representing the REST resource this object represents. Servers may infer
-   * this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-   * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-   */
-  public readonly kind: pulumi.Output<"StorageClassList">;
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<"StorageClassList">;
 
-  /**
-   * Standard list metadata More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-   */
-  public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
-  /**
-   * Get the state of an existing `StorageClassList` resource, as identified by `id`.
-   * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
-   * Kubernetes convention) the ID becomes default/<name>.
-   *
-   * Pulumi will keep track of this resource using `name` as the Pulumi ID.
-   *
-   * @param name _Unique_ name used to register this resource with Pulumi.
-   * @param id An ID for the Kubernetes resource to retrieve. Takes the form
-   *  <namespace>/<name> or <name>.
-   * @param opts Uniquely specifies a CustomResource to select.
-   */
-  public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StorageClassList {
-      return new StorageClassList(name, undefined, { ...opts, id: id });
-  }
+      /**
+       * Get the state of an existing `StorageClassList` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
+       *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StorageClassList {
+          return new StorageClassList(name, undefined, { ...opts, id: id });
+      }
 
-  public getInputs(): inputApi.storage.v1.StorageClassList { return this.__inputs; }
-  private readonly __inputs: inputApi.storage.v1.StorageClassList;
+      public getInputs(): inputApi.storage.v1.StorageClassList { return this.__inputs; }
+      private readonly __inputs: inputApi.storage.v1.StorageClassList;
 
-  /**
-   * Create a storage.v1.StorageClassList resource with the given unique name, arguments, and options.
-   *
-   * @param name The _unique_ name of the resource.
-   * @param args The arguments to use to populate this resource's properties.
-   * @param opts A bag of options that control this resource's behavior.
-   */
-  constructor(name: string, args?: inputApi.storage.v1.StorageClassList, opts?: pulumi.CustomResourceOptions) {
-      let inputs: pulumi.Inputs = {};
-      inputs["apiVersion"] = "storage.k8s.io/v1";
-      inputs["items"] = args && args.items || undefined;
-      inputs["kind"] = "StorageClassList";
-      inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes:storage.k8s.io/v1:StorageClassList", name, inputs, opts);
-      this.__inputs = <any>args;
-  }
-}
+      /**
+       * Create a storage.v1.StorageClassList resource with the given unique name, arguments, and options.
+       *
+       * @param name The _unique_ name of the resource.
+       * @param args The arguments to use to populate this resource's properties.
+       * @param opts A bag of options that control this resource's behavior.
+       */
+      constructor(name: string, args?: inputApi.storage.v1.StorageClassList, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "storage.k8s.io/v1";
+          inputs["items"] = args && args.items || undefined;
+          inputs["kind"] = "StorageClassList";
+          inputs["metadata"] = args && args.metadata || undefined;
+          super("kubernetes:storage.k8s.io/v1:StorageClassList", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }

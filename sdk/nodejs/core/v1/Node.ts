@@ -5,77 +5,79 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
-/**
- * Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e.
- * in etcd).
- */
-export class Node extends pulumi.CustomResource {
-  /**
-   * APIVersion defines the versioned schema of this representation of an object. Servers should
-   * convert recognized schemas to the latest internal value, and may reject unrecognized values.
-   * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-   */
-  public readonly apiVersion: pulumi.Output<"v1">;
+    /**
+     * Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache
+     * (i.e. in etcd).
+     */
+    export class Node extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<"v1">;
 
-  /**
-   * Kind is a string value representing the REST resource this object represents. Servers may infer
-   * this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-   * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-   */
-  public readonly kind: pulumi.Output<"Node">;
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<"Node">;
 
-  /**
-   * Standard object&#39;s metadata. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-   */
-  public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      /**
+       * Standard object&#39;s metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
-  /**
-   * Spec defines the behavior of a node.
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-   */
-  public readonly spec: pulumi.Output<outputApi.core.v1.NodeSpec>;
+      /**
+       * Spec defines the behavior of a node.
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      public readonly spec: pulumi.Output<outputApi.core.v1.NodeSpec>;
 
-  /**
-   * Most recently observed status of the node. Populated by the system. Read-only. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-   */
-  public readonly status: pulumi.Output<outputApi.core.v1.NodeStatus>;
+      /**
+       * Most recently observed status of the node. Populated by the system. Read-only. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      public readonly status: pulumi.Output<outputApi.core.v1.NodeStatus>;
 
-  /**
-   * Get the state of an existing `Node` resource, as identified by `id`.
-   * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
-   * Kubernetes convention) the ID becomes default/<name>.
-   *
-   * Pulumi will keep track of this resource using `name` as the Pulumi ID.
-   *
-   * @param name _Unique_ name used to register this resource with Pulumi.
-   * @param id An ID for the Kubernetes resource to retrieve. Takes the form
-   *  <namespace>/<name> or <name>.
-   * @param opts Uniquely specifies a CustomResource to select.
-   */
-  public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Node {
-      return new Node(name, undefined, { ...opts, id: id });
-  }
+      /**
+       * Get the state of an existing `Node` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
+       *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Node {
+          return new Node(name, undefined, { ...opts, id: id });
+      }
 
-  public getInputs(): inputApi.core.v1.Node { return this.__inputs; }
-  private readonly __inputs: inputApi.core.v1.Node;
+      public getInputs(): inputApi.core.v1.Node { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.Node;
 
-  /**
-   * Create a core.v1.Node resource with the given unique name, arguments, and options.
-   *
-   * @param name The _unique_ name of the resource.
-   * @param args The arguments to use to populate this resource's properties.
-   * @param opts A bag of options that control this resource's behavior.
-   */
-  constructor(name: string, args?: inputApi.core.v1.Node, opts?: pulumi.CustomResourceOptions) {
-      let inputs: pulumi.Inputs = {};
-      inputs["apiVersion"] = "v1";
-      inputs["kind"] = "Node";
-      inputs["metadata"] = args && args.metadata || undefined;
-      inputs["spec"] = args && args.spec || undefined;
-      inputs["status"] = args && args.status || undefined;
-      super("kubernetes:core/v1:Node", name, inputs, opts);
-      this.__inputs = <any>args;
-  }
-}
+      /**
+       * Create a core.v1.Node resource with the given unique name, arguments, and options.
+       *
+       * @param name The _unique_ name of the resource.
+       * @param args The arguments to use to populate this resource's properties.
+       * @param opts A bag of options that control this resource's behavior.
+       */
+      constructor(name: string, args?: inputApi.core.v1.Node, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "v1";
+          inputs["kind"] = "Node";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["spec"] = args && args.spec || undefined;
+          inputs["status"] = args && args.status || undefined;
+          super("kubernetes:core/v1:Node", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }

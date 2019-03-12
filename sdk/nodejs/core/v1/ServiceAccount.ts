@@ -5,87 +5,90 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
-/**
- * ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems,
- * for an identity * a principal that can be authenticated and authorized * a set of secrets
- */
-export class ServiceAccount extends pulumi.CustomResource {
-  /**
-   * APIVersion defines the versioned schema of this representation of an object. Servers should
-   * convert recognized schemas to the latest internal value, and may reject unrecognized values.
-   * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-   */
-  public readonly apiVersion: pulumi.Output<"v1">;
+    /**
+     * ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral
+     * systems, for an identity * a principal that can be authenticated and authorized * a set of
+     * secrets
+     */
+    export class ServiceAccount extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<"v1">;
 
-  /**
-   * AutomountServiceAccountToken indicates whether pods running as this service account should have
-   * an API token automatically mounted. Can be overridden at the pod level.
-   */
-  public readonly automountServiceAccountToken: pulumi.Output<boolean>;
+      /**
+       * AutomountServiceAccountToken indicates whether pods running as this service account should
+       * have an API token automatically mounted. Can be overridden at the pod level.
+       */
+      public readonly automountServiceAccountToken: pulumi.Output<boolean>;
 
-  /**
-   * ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling
-   * any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from
-   * Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by
-   * the kubelet. More info:
-   * https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
-   */
-  public readonly imagePullSecrets: pulumi.Output<outputApi.core.v1.LocalObjectReference[]>;
+      /**
+       * ImagePullSecrets is a list of references to secrets in the same namespace to use for
+       * pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are
+       * distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are
+       * only accessed by the kubelet. More info:
+       * https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+       */
+      public readonly imagePullSecrets: pulumi.Output<outputApi.core.v1.LocalObjectReference[]>;
 
-  /**
-   * Kind is a string value representing the REST resource this object represents. Servers may infer
-   * this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-   * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-   */
-  public readonly kind: pulumi.Output<"ServiceAccount">;
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<"ServiceAccount">;
 
-  /**
-   * Standard object&#39;s metadata. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-   */
-  public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      /**
+       * Standard object&#39;s metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
-  /**
-   * Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount.
-   * More info: https://kubernetes.io/docs/concepts/configuration/secret
-   */
-  public readonly secrets: pulumi.Output<outputApi.core.v1.ObjectReference[]>;
+      /**
+       * Secrets is the list of secrets allowed to be used by pods running using this
+       * ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+       */
+      public readonly secrets: pulumi.Output<outputApi.core.v1.ObjectReference[]>;
 
-  /**
-   * Get the state of an existing `ServiceAccount` resource, as identified by `id`.
-   * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
-   * Kubernetes convention) the ID becomes default/<name>.
-   *
-   * Pulumi will keep track of this resource using `name` as the Pulumi ID.
-   *
-   * @param name _Unique_ name used to register this resource with Pulumi.
-   * @param id An ID for the Kubernetes resource to retrieve. Takes the form
-   *  <namespace>/<name> or <name>.
-   * @param opts Uniquely specifies a CustomResource to select.
-   */
-  public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ServiceAccount {
-      return new ServiceAccount(name, undefined, { ...opts, id: id });
-  }
+      /**
+       * Get the state of an existing `ServiceAccount` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
+       *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): ServiceAccount {
+          return new ServiceAccount(name, undefined, { ...opts, id: id });
+      }
 
-  public getInputs(): inputApi.core.v1.ServiceAccount { return this.__inputs; }
-  private readonly __inputs: inputApi.core.v1.ServiceAccount;
+      public getInputs(): inputApi.core.v1.ServiceAccount { return this.__inputs; }
+      private readonly __inputs: inputApi.core.v1.ServiceAccount;
 
-  /**
-   * Create a core.v1.ServiceAccount resource with the given unique name, arguments, and options.
-   *
-   * @param name The _unique_ name of the resource.
-   * @param args The arguments to use to populate this resource's properties.
-   * @param opts A bag of options that control this resource's behavior.
-   */
-  constructor(name: string, args?: inputApi.core.v1.ServiceAccount, opts?: pulumi.CustomResourceOptions) {
-      let inputs: pulumi.Inputs = {};
-      inputs["apiVersion"] = "v1";
-      inputs["automountServiceAccountToken"] = args && args.automountServiceAccountToken || undefined;
-      inputs["imagePullSecrets"] = args && args.imagePullSecrets || undefined;
-      inputs["kind"] = "ServiceAccount";
-      inputs["metadata"] = args && args.metadata || undefined;
-      inputs["secrets"] = args && args.secrets || undefined;
-      super("kubernetes:core/v1:ServiceAccount", name, inputs, opts);
-      this.__inputs = <any>args;
-  }
-}
+      /**
+       * Create a core.v1.ServiceAccount resource with the given unique name, arguments, and options.
+       *
+       * @param name The _unique_ name of the resource.
+       * @param args The arguments to use to populate this resource's properties.
+       * @param opts A bag of options that control this resource's behavior.
+       */
+      constructor(name: string, args?: inputApi.core.v1.ServiceAccount, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "v1";
+          inputs["automountServiceAccountToken"] = args && args.automountServiceAccountToken || undefined;
+          inputs["imagePullSecrets"] = args && args.imagePullSecrets || undefined;
+          inputs["kind"] = "ServiceAccount";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["secrets"] = args && args.secrets || undefined;
+          super("kubernetes:core/v1:ServiceAccount", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }

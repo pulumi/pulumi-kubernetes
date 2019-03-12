@@ -5,97 +5,99 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
-/**
- * Status is a return value for calls that don&#39;t return other objects.
- */
-export class Status extends pulumi.CustomResource {
-  /**
-   * APIVersion defines the versioned schema of this representation of an object. Servers should
-   * convert recognized schemas to the latest internal value, and may reject unrecognized values.
-   * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-   */
-  public readonly apiVersion: pulumi.Output<"v1">;
+    /**
+     * Status is a return value for calls that don&#39;t return other objects.
+     */
+    export class Status extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<"v1">;
 
-  /**
-   * Suggested HTTP return code for this status, 0 if not set.
-   */
-  public readonly code: pulumi.Output<number>;
+      /**
+       * Suggested HTTP return code for this status, 0 if not set.
+       */
+      public readonly code: pulumi.Output<number>;
 
-  /**
-   * Extended data associated with the reason.  Each reason may define its own extended details.
-   * This field is optional and the data returned is not guaranteed to conform to any schema except
-   * that defined by the reason type.
-   */
-  public readonly details: pulumi.Output<outputApi.meta.v1.StatusDetails>;
+      /**
+       * Extended data associated with the reason.  Each reason may define its own extended details.
+       * This field is optional and the data returned is not guaranteed to conform to any schema
+       * except that defined by the reason type.
+       */
+      public readonly details: pulumi.Output<outputApi.meta.v1.StatusDetails>;
 
-  /**
-   * Kind is a string value representing the REST resource this object represents. Servers may infer
-   * this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-   * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-   */
-  public readonly kind: pulumi.Output<"Status">;
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<"Status">;
 
-  /**
-   * A human-readable description of the status of this operation.
-   */
-  public readonly message: pulumi.Output<string>;
+      /**
+       * A human-readable description of the status of this operation.
+       */
+      public readonly message: pulumi.Output<string>;
 
-  /**
-   * Standard list metadata. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-   */
-  public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
-  /**
-   * A machine-readable description of why this operation is in the &#34;Failure&#34; status. If this value
-   * is empty there is no information available. A Reason clarifies an HTTP status code but does not
-   * override it.
-   */
-  public readonly reason: pulumi.Output<string>;
+      /**
+       * A machine-readable description of why this operation is in the &#34;Failure&#34; status. If this
+       * value is empty there is no information available. A Reason clarifies an HTTP status code
+       * but does not override it.
+       */
+      public readonly reason: pulumi.Output<string>;
 
-  /**
-   * Status of the operation. One of: &#34;Success&#34; or &#34;Failure&#34;. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
-   */
-  public readonly status: pulumi.Output<string>;
+      /**
+       * Status of the operation. One of: &#34;Success&#34; or &#34;Failure&#34;. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      public readonly status: pulumi.Output<string>;
 
-  /**
-   * Get the state of an existing `Status` resource, as identified by `id`.
-   * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
-   * Kubernetes convention) the ID becomes default/<name>.
-   *
-   * Pulumi will keep track of this resource using `name` as the Pulumi ID.
-   *
-   * @param name _Unique_ name used to register this resource with Pulumi.
-   * @param id An ID for the Kubernetes resource to retrieve. Takes the form
-   *  <namespace>/<name> or <name>.
-   * @param opts Uniquely specifies a CustomResource to select.
-   */
-  public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Status {
-      return new Status(name, undefined, { ...opts, id: id });
-  }
+      /**
+       * Get the state of an existing `Status` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
+       *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Status {
+          return new Status(name, undefined, { ...opts, id: id });
+      }
 
-  public getInputs(): inputApi.meta.v1.Status { return this.__inputs; }
-  private readonly __inputs: inputApi.meta.v1.Status;
+      public getInputs(): inputApi.meta.v1.Status { return this.__inputs; }
+      private readonly __inputs: inputApi.meta.v1.Status;
 
-  /**
-   * Create a meta.v1.Status resource with the given unique name, arguments, and options.
-   *
-   * @param name The _unique_ name of the resource.
-   * @param args The arguments to use to populate this resource's properties.
-   * @param opts A bag of options that control this resource's behavior.
-   */
-  constructor(name: string, args?: inputApi.meta.v1.Status, opts?: pulumi.CustomResourceOptions) {
-      let inputs: pulumi.Inputs = {};
-      inputs["apiVersion"] = "v1";
-      inputs["code"] = args && args.code || undefined;
-      inputs["details"] = args && args.details || undefined;
-      inputs["kind"] = "Status";
-      inputs["message"] = args && args.message || undefined;
-      inputs["metadata"] = args && args.metadata || undefined;
-      inputs["reason"] = args && args.reason || undefined;
-      inputs["status"] = args && args.status || undefined;
-      super("kubernetes:core/v1:Status", name, inputs, opts);
-      this.__inputs = <any>args;
-  }
-}
+      /**
+       * Create a meta.v1.Status resource with the given unique name, arguments, and options.
+       *
+       * @param name The _unique_ name of the resource.
+       * @param args The arguments to use to populate this resource's properties.
+       * @param opts A bag of options that control this resource's behavior.
+       */
+      constructor(name: string, args?: inputApi.meta.v1.Status, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "v1";
+          inputs["code"] = args && args.code || undefined;
+          inputs["details"] = args && args.details || undefined;
+          inputs["kind"] = "Status";
+          inputs["message"] = args && args.message || undefined;
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["reason"] = args && args.reason || undefined;
+          inputs["status"] = args && args.status || undefined;
+          super("kubernetes:core/v1:Status", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }

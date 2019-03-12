@@ -5,75 +5,77 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
-/**
- * configuration of a horizontal pod autoscaler.
- */
-export class HorizontalPodAutoscaler extends pulumi.CustomResource {
-  /**
-   * APIVersion defines the versioned schema of this representation of an object. Servers should
-   * convert recognized schemas to the latest internal value, and may reject unrecognized values.
-   * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-   */
-  public readonly apiVersion: pulumi.Output<"autoscaling/v1">;
+    /**
+     * configuration of a horizontal pod autoscaler.
+     */
+    export class HorizontalPodAutoscaler extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<"autoscaling/v1">;
 
-  /**
-   * Kind is a string value representing the REST resource this object represents. Servers may infer
-   * this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-   * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-   */
-  public readonly kind: pulumi.Output<"HorizontalPodAutoscaler">;
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<"HorizontalPodAutoscaler">;
 
-  /**
-   * Standard object metadata. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-   */
-  public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      /**
+       * Standard object metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
-  /**
-   * behaviour of autoscaler. More info:
-   * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
-   */
-  public readonly spec: pulumi.Output<outputApi.autoscaling.v1.HorizontalPodAutoscalerSpec>;
+      /**
+       * behaviour of autoscaler. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       */
+      public readonly spec: pulumi.Output<outputApi.autoscaling.v1.HorizontalPodAutoscalerSpec>;
 
-  /**
-   * current information about the autoscaler.
-   */
-  public readonly status: pulumi.Output<outputApi.autoscaling.v1.HorizontalPodAutoscalerStatus>;
+      /**
+       * current information about the autoscaler.
+       */
+      public readonly status: pulumi.Output<outputApi.autoscaling.v1.HorizontalPodAutoscalerStatus>;
 
-  /**
-   * Get the state of an existing `HorizontalPodAutoscaler` resource, as identified by `id`.
-   * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
-   * Kubernetes convention) the ID becomes default/<name>.
-   *
-   * Pulumi will keep track of this resource using `name` as the Pulumi ID.
-   *
-   * @param name _Unique_ name used to register this resource with Pulumi.
-   * @param id An ID for the Kubernetes resource to retrieve. Takes the form
-   *  <namespace>/<name> or <name>.
-   * @param opts Uniquely specifies a CustomResource to select.
-   */
-  public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): HorizontalPodAutoscaler {
-      return new HorizontalPodAutoscaler(name, undefined, { ...opts, id: id });
-  }
+      /**
+       * Get the state of an existing `HorizontalPodAutoscaler` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
+       *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): HorizontalPodAutoscaler {
+          return new HorizontalPodAutoscaler(name, undefined, { ...opts, id: id });
+      }
 
-  public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscaler { return this.__inputs; }
-  private readonly __inputs: inputApi.autoscaling.v1.HorizontalPodAutoscaler;
+      public getInputs(): inputApi.autoscaling.v1.HorizontalPodAutoscaler { return this.__inputs; }
+      private readonly __inputs: inputApi.autoscaling.v1.HorizontalPodAutoscaler;
 
-  /**
-   * Create a autoscaling.v1.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
-   *
-   * @param name The _unique_ name of the resource.
-   * @param args The arguments to use to populate this resource's properties.
-   * @param opts A bag of options that control this resource's behavior.
-   */
-  constructor(name: string, args?: inputApi.autoscaling.v1.HorizontalPodAutoscaler, opts?: pulumi.CustomResourceOptions) {
-      let inputs: pulumi.Inputs = {};
-      inputs["apiVersion"] = "autoscaling/v1";
-      inputs["kind"] = "HorizontalPodAutoscaler";
-      inputs["metadata"] = args && args.metadata || undefined;
-      inputs["spec"] = args && args.spec || undefined;
-      inputs["status"] = args && args.status || undefined;
-      super("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", name, inputs, opts);
-      this.__inputs = <any>args;
-  }
-}
+      /**
+       * Create a autoscaling.v1.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
+       *
+       * @param name The _unique_ name of the resource.
+       * @param args The arguments to use to populate this resource's properties.
+       * @param opts A bag of options that control this resource's behavior.
+       */
+      constructor(name: string, args?: inputApi.autoscaling.v1.HorizontalPodAutoscaler, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "autoscaling/v1";
+          inputs["kind"] = "HorizontalPodAutoscaler";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["spec"] = args && args.spec || undefined;
+          inputs["status"] = args && args.status || undefined;
+          super("kubernetes:autoscaling/v1:HorizontalPodAutoscaler", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }

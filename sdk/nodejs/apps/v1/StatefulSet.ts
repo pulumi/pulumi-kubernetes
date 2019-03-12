@@ -5,76 +5,78 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
-/**
- * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
- *  - Network: A single stable DNS and hostname.
- *  - Storage: As many VolumeClaims as requested.
- * The StatefulSet guarantees that a given network identity will always map to the same storage
- * identity.
- */
-export class StatefulSet extends pulumi.CustomResource {
-  /**
-   * APIVersion defines the versioned schema of this representation of an object. Servers should
-   * convert recognized schemas to the latest internal value, and may reject unrecognized values.
-   * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-   */
-  public readonly apiVersion: pulumi.Output<"apps/v1">;
+    /**
+     * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+     *  - Network: A single stable DNS and hostname.
+     *  - Storage: As many VolumeClaims as requested.
+     * The StatefulSet guarantees that a given network identity will always map to the same storage
+     * identity.
+     */
+    export class StatefulSet extends pulumi.CustomResource {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      public readonly apiVersion: pulumi.Output<"apps/v1">;
 
-  /**
-   * Kind is a string value representing the REST resource this object represents. Servers may infer
-   * this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-   * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-   */
-  public readonly kind: pulumi.Output<"StatefulSet">;
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      public readonly kind: pulumi.Output<"StatefulSet">;
 
-  
-  public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
-  /**
-   * Spec defines the desired identities of pods in this set.
-   */
-  public readonly spec: pulumi.Output<outputApi.apps.v1.StatefulSetSpec>;
+      /**
+       * Spec defines the desired identities of pods in this set.
+       */
+      public readonly spec: pulumi.Output<outputApi.apps.v1.StatefulSetSpec>;
 
-  /**
-   * Status is the current status of Pods in this StatefulSet. This data may be out of date by some
-   * window of time.
-   */
-  public readonly status: pulumi.Output<outputApi.apps.v1.StatefulSetStatus>;
+      /**
+       * Status is the current status of Pods in this StatefulSet. This data may be out of date by
+       * some window of time.
+       */
+      public readonly status: pulumi.Output<outputApi.apps.v1.StatefulSetStatus>;
 
-  /**
-   * Get the state of an existing `StatefulSet` resource, as identified by `id`.
-   * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
-   * Kubernetes convention) the ID becomes default/<name>.
-   *
-   * Pulumi will keep track of this resource using `name` as the Pulumi ID.
-   *
-   * @param name _Unique_ name used to register this resource with Pulumi.
-   * @param id An ID for the Kubernetes resource to retrieve. Takes the form
-   *  <namespace>/<name> or <name>.
-   * @param opts Uniquely specifies a CustomResource to select.
-   */
-  public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSet {
-      return new StatefulSet(name, undefined, { ...opts, id: id });
-  }
+      /**
+       * Get the state of an existing `StatefulSet` resource, as identified by `id`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
+       *
+       * Pulumi will keep track of this resource using `name` as the Pulumi ID.
+       *
+       * @param name _Unique_ name used to register this resource with Pulumi.
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
+       *  <namespace>/<name> or <name>.
+       * @param opts Uniquely specifies a CustomResource to select.
+       */
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): StatefulSet {
+          return new StatefulSet(name, undefined, { ...opts, id: id });
+      }
 
-  public getInputs(): inputApi.apps.v1.StatefulSet { return this.__inputs; }
-  private readonly __inputs: inputApi.apps.v1.StatefulSet;
+      public getInputs(): inputApi.apps.v1.StatefulSet { return this.__inputs; }
+      private readonly __inputs: inputApi.apps.v1.StatefulSet;
 
-  /**
-   * Create a apps.v1.StatefulSet resource with the given unique name, arguments, and options.
-   *
-   * @param name The _unique_ name of the resource.
-   * @param args The arguments to use to populate this resource's properties.
-   * @param opts A bag of options that control this resource's behavior.
-   */
-  constructor(name: string, args?: inputApi.apps.v1.StatefulSet, opts?: pulumi.CustomResourceOptions) {
-      let inputs: pulumi.Inputs = {};
-      inputs["apiVersion"] = "apps/v1";
-      inputs["kind"] = "StatefulSet";
-      inputs["metadata"] = args && args.metadata || undefined;
-      inputs["spec"] = args && args.spec || undefined;
-      inputs["status"] = args && args.status || undefined;
-      super("kubernetes:apps/v1:StatefulSet", name, inputs, opts);
-      this.__inputs = <any>args;
-  }
-}
+      /**
+       * Create a apps.v1.StatefulSet resource with the given unique name, arguments, and options.
+       *
+       * @param name The _unique_ name of the resource.
+       * @param args The arguments to use to populate this resource's properties.
+       * @param opts A bag of options that control this resource's behavior.
+       */
+      constructor(name: string, args?: inputApi.apps.v1.StatefulSet, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "apps/v1";
+          inputs["kind"] = "StatefulSet";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["spec"] = args && args.spec || undefined;
+          inputs["status"] = args && args.status || undefined;
+          super("kubernetes:apps/v1:StatefulSet", name, inputs, opts);
+          this.__inputs = <any>args;
+      }
+    }
