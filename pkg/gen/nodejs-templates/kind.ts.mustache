@@ -5,10 +5,10 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
-    {{Comment}}
+    {{{Comment}}}
     export class {{Kind}} extends pulumi.CustomResource {
       {{#Properties}}
-      {{Comment}}
+      {{{Comment}}}
       public readonly {{Name}}: pulumi.Output<{{{PropType}}}>;
 
       {{/Properties}}

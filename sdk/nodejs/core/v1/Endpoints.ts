@@ -7,15 +7,15 @@ import * as outputApi from "../../types/output";
 
     /**
      * Endpoints is a collection of endpoints that implement the actual service. Example:
-     *   Name: &#34;mysvc&#34;,
+     *   Name: "mysvc",
      *   Subsets: [
      *     {
-     *       Addresses: [{&#34;ip&#34;: &#34;10.10.1.1&#34;}, {&#34;ip&#34;: &#34;10.10.2.2&#34;}],
-     *       Ports: [{&#34;name&#34;: &#34;a&#34;, &#34;port&#34;: 8675}, {&#34;name&#34;: &#34;b&#34;, &#34;port&#34;: 309}]
+     *       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+     *       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
      *     },
      *     {
-     *       Addresses: [{&#34;ip&#34;: &#34;10.10.3.3&#34;}],
-     *       Ports: [{&#34;name&#34;: &#34;a&#34;, &#34;port&#34;: 93}, {&#34;name&#34;: &#34;b&#34;, &#34;port&#34;: 76}]
+     *       Addresses: [{"ip": "10.10.3.3"}],
+     *       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
      *     },
      *  ]
      */
@@ -37,7 +37,7 @@ import * as outputApi from "../../types/output";
       public readonly kind: pulumi.Output<"Endpoints">;
 
       /**
-       * Standard object&#39;s metadata. More info:
+       * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;

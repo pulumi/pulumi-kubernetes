@@ -28,7 +28,7 @@ import * as outputApi from "../../types/output";
       public readonly kind: pulumi.Output<"Ingress">;
 
       /**
-       * Standard object&#39;s metadata. More info:
+       * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;

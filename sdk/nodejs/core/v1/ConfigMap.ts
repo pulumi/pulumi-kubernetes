@@ -18,8 +18,8 @@ import * as outputApi from "../../types/output";
       public readonly apiVersion: pulumi.Output<"v1">;
 
       /**
-       * BinaryData contains the binary data. Each key must consist of alphanumeric characters, &#39;-&#39;,
-       * &#39;_&#39; or &#39;.&#39;. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys
+       * BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-',
+       * '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys
        * stored in BinaryData must not overlap with the ones in the Data field, this is enforced
        * during validation process. Using this field will require 1.10+ apiserver and kubelet.
        */
@@ -27,7 +27,7 @@ import * as outputApi from "../../types/output";
 
       /**
        * Data contains the configuration data. Each key must consist of alphanumeric characters,
-       * &#39;-&#39;, &#39;_&#39; or &#39;.&#39;. Values with non-UTF-8 byte sequences must use the BinaryData field. The
+       * '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The
        * keys stored in Data must not overlap with the keys in the BinaryData field, this is
        * enforced during validation process.
        */
@@ -42,7 +42,7 @@ import * as outputApi from "../../types/output";
       public readonly kind: pulumi.Output<"ConfigMap">;
 
       /**
-       * Standard object&#39;s metadata. More info:
+       * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;

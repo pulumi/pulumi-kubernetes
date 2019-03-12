@@ -61,14 +61,14 @@ import * as outputApi from "../../types/output";
       public readonly message: pulumi.Output<string>;
 
       /**
-       * Standard object&#39;s metadata. More info:
+       * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * This should be a short, machine understandable string that gives the reason for the
-       * transition into the object&#39;s current status.
+       * transition into the object's current status.
        */
       public readonly reason: pulumi.Output<string>;
 
@@ -88,7 +88,7 @@ import * as outputApi from "../../types/output";
       public readonly reportingInstance: pulumi.Output<string>;
 
       /**
-       * Data about the Event series this event represents or nil if it&#39;s a singleton Event.
+       * Data about the Event series this event represents or nil if it's a singleton Event.
        */
       public readonly series: pulumi.Output<outputApi.core.v1.EventSeries>;
 

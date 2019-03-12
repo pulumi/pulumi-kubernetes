@@ -71,7 +71,7 @@ import * as outputApi from "../../types/output";
       public readonly reason: pulumi.Output<string>;
 
       /**
-       * The object this Event is about. In most cases it&#39;s an Object reporting controller
+       * The object this Event is about. In most cases it's an Object reporting controller
        * implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted
        * because it acts on some changes in a ReplicaSet object.
        */
@@ -94,7 +94,7 @@ import * as outputApi from "../../types/output";
       public readonly reportingInstance: pulumi.Output<string>;
 
       /**
-       * Data about the Event series this event represents or nil if it&#39;s a singleton Event.
+       * Data about the Event series this event represents or nil if it's a singleton Event.
        */
       public readonly series: pulumi.Output<outputApi.events.v1beta1.EventSeries>;
 

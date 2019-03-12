@@ -6,7 +6,7 @@ import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
     /**
-     * PersistentVolumeClaim is a user&#39;s request for and claim to a persistent volume
+     * PersistentVolumeClaim is a user's request for and claim to a persistent volume
      */
     export class PersistentVolumeClaim extends pulumi.CustomResource {
       /**
@@ -26,7 +26,7 @@ import * as outputApi from "../../types/output";
       public readonly kind: pulumi.Output<"PersistentVolumeClaim">;
 
       /**
-       * Standard object&#39;s metadata. More info:
+       * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;

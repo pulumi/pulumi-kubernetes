@@ -19,8 +19,8 @@ import * as outputApi from "../../types/output";
       public readonly apiVersion: pulumi.Output<"v1">;
 
       /**
-       * Data contains the secret data. Each key must consist of alphanumeric characters, &#39;-&#39;, &#39;_&#39;
-       * or &#39;.&#39;. The serialized form of the secret data is a base64 encoded string, representing the
+       * Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_'
+       * or '.'. The serialized form of the secret data is a base64 encoded string, representing the
        * arbitrary (possibly non-string) data value here. Described in
        * https://tools.ietf.org/html/rfc4648#section-4
        */
@@ -35,7 +35,7 @@ import * as outputApi from "../../types/output";
       public readonly kind: pulumi.Output<"Secret">;
 
       /**
-       * Standard object&#39;s metadata. More info:
+       * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;

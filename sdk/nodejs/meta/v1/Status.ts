@@ -6,7 +6,7 @@ import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
     /**
-     * Status is a return value for calls that don&#39;t return other objects.
+     * Status is a return value for calls that don't return other objects.
      */
     export class Status extends pulumi.CustomResource {
       /**
@@ -49,14 +49,14 @@ import * as outputApi from "../../types/output";
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
       /**
-       * A machine-readable description of why this operation is in the &#34;Failure&#34; status. If this
+       * A machine-readable description of why this operation is in the "Failure" status. If this
        * value is empty there is no information available. A Reason clarifies an HTTP status code
        * but does not override it.
        */
       public readonly reason: pulumi.Output<string>;
 
       /**
-       * Status of the operation. One of: &#34;Success&#34; or &#34;Failure&#34;. More info:
+       * Status of the operation. One of: "Success" or "Failure". More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
       public readonly status: pulumi.Output<string>;

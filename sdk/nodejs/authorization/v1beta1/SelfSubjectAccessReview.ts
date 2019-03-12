@@ -7,7 +7,7 @@ import * as outputApi from "../../types/output";
 
     /**
      * SelfSubjectAccessReview checks whether or the current user can perform an action.  Not
-     * filling in a spec.namespace means &#34;in all namespaces&#34;.  Self is a special case, because users
+     * filling in a spec.namespace means "in all namespaces".  Self is a special case, because users
      * should always be able to check whether they can perform an action
      */
     export class SelfSubjectAccessReview extends pulumi.CustomResource {

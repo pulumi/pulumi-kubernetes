@@ -34,7 +34,7 @@ import * as outputApi from "../../types/output";
       public readonly kind: pulumi.Output<"ClusterRole">;
 
       /**
-       * Standard object&#39;s metadata.
+       * Standard object's metadata.
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 

@@ -43,14 +43,14 @@ import * as outputApi from "../../types/output";
       public readonly kind: pulumi.Output<"StorageClass">;
 
       /**
-       * Standard object&#39;s metadata. More info:
+       * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
        * Dynamically provisioned PersistentVolumes of this storage class are created with these
-       * mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one
+       * mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one
        * is invalid.
        */
       public readonly mountOptions: pulumi.Output<string[]>;

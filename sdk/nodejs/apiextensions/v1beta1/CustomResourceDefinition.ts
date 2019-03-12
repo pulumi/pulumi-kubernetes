@@ -7,7 +7,7 @@ import * as outputApi from "../../types/output";
 
     /**
      * CustomResourceDefinition represents a resource that should be exposed on the API server.  Its
-     * name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;.
+     * name MUST be in the format <.spec.name>.<.spec.group>.
      */
     export class CustomResourceDefinition extends pulumi.CustomResource {
       /**
