@@ -67,7 +67,7 @@ export class ReplicationControllerList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "ReplicationControllerList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::ReplicationControllerList", name, inputs, opts);
+      super("kubernetes:core/v1:ReplicationControllerList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

@@ -67,7 +67,7 @@ export class Binding extends pulumi.CustomResource {
       inputs["kind"] = "Binding";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["target"] = args && args.target || undefined;
-      super("kubernetes::Binding", name, inputs, opts);
+      super("kubernetes:core/v1:Binding", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

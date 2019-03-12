@@ -66,7 +66,7 @@ export class ComponentStatus extends pulumi.CustomResource {
       inputs["conditions"] = args && args.conditions || undefined;
       inputs["kind"] = "ComponentStatus";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::ComponentStatus", name, inputs, opts);
+      super("kubernetes:core/v1:ComponentStatus", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

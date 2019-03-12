@@ -75,7 +75,7 @@ export class RoleBinding extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["roleRef"] = args && args.roleRef || undefined;
       inputs["subjects"] = args && args.subjects || undefined;
-      super("kubernetes::RoleBinding", name, inputs, opts);
+      super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

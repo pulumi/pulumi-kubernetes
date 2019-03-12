@@ -61,7 +61,7 @@ export class StatefulSetList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "StatefulSetList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::StatefulSetList", name, inputs, opts);
+      super("kubernetes:apps/v1beta1:StatefulSetList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

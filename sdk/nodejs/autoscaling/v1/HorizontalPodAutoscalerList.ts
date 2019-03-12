@@ -65,7 +65,7 @@ export class HorizontalPodAutoscalerList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "HorizontalPodAutoscalerList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::HorizontalPodAutoscalerList", name, inputs, opts);
+      super("kubernetes:autoscaling/v1:HorizontalPodAutoscalerList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

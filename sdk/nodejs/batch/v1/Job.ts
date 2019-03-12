@@ -74,7 +74,7 @@ export class Job extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::Job", name, inputs, opts);
+      super("kubernetes:batch/v1:Job", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

@@ -85,7 +85,7 @@ export class PriorityClass extends pulumi.CustomResource {
       inputs["kind"] = "PriorityClass";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["value"] = args && args.value || undefined;
-      super("kubernetes::PriorityClass", name, inputs, opts);
+      super("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

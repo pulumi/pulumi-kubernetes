@@ -65,7 +65,7 @@ export class RoleBindingList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "RoleBindingList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::RoleBindingList", name, inputs, opts);
+      super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

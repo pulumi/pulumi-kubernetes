@@ -79,7 +79,7 @@ export class ControllerRevision extends pulumi.CustomResource {
       inputs["kind"] = "ControllerRevision";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["revision"] = args && args.revision || undefined;
-      super("kubernetes::ControllerRevision", name, inputs, opts);
+      super("kubernetes:apps/v1:ControllerRevision", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

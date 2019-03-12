@@ -65,7 +65,7 @@ export class ClusterRoleList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "ClusterRoleList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::ClusterRoleList", name, inputs, opts);
+      super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

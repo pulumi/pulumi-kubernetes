@@ -792,7 +792,8 @@ func (k *kubeProvider) label() string {
 func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, error) {
 	// Strip prefix.
 	s := string(urn.Type())
-	contract.Assertf(strings.HasPrefix(s, k.providerPrefix), "Kubernetes GVK is: %q", string(urn))
+	contract.Assertf(strings.HasPrefix(s, k.providerPrefix),
+		"Expected prefix: %q, Kubernetes GVK is: %q", k.providerPrefix, string(urn))
 	s = s[len(k.providerPrefix):]
 
 	// Emit GVK.

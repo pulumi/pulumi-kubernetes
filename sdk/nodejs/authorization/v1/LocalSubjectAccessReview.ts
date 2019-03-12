@@ -72,7 +72,7 @@ export class LocalSubjectAccessReview extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::LocalSubjectAccessReview", name, inputs, opts);
+      super("kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

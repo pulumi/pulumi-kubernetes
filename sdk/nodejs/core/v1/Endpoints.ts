@@ -82,7 +82,7 @@ export class Endpoints extends pulumi.CustomResource {
       inputs["kind"] = "Endpoints";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["subsets"] = args && args.subsets || undefined;
-      super("kubernetes::Endpoints", name, inputs, opts);
+      super("kubernetes:core/v1:Endpoints", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

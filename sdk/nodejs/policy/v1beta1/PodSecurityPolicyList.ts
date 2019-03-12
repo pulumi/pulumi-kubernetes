@@ -66,7 +66,7 @@ export class PodSecurityPolicyList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "PodSecurityPolicyList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::PodSecurityPolicyList", name, inputs, opts);
+      super("kubernetes:policy/v1beta1:PodSecurityPolicyList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

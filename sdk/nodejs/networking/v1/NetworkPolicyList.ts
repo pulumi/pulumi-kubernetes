@@ -66,7 +66,7 @@ export class NetworkPolicyList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "NetworkPolicyList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::NetworkPolicyList", name, inputs, opts);
+      super("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

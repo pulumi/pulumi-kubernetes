@@ -67,7 +67,7 @@ export class LimitRange extends pulumi.CustomResource {
       inputs["kind"] = "LimitRange";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
-      super("kubernetes::LimitRange", name, inputs, opts);
+      super("kubernetes:core/v1:LimitRange", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

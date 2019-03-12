@@ -67,7 +67,7 @@ export class ServiceAccountList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "ServiceAccountList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::ServiceAccountList", name, inputs, opts);
+      super("kubernetes:core/v1:ServiceAccountList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

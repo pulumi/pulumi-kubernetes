@@ -67,7 +67,7 @@ export class ResourceQuotaList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "ResourceQuotaList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::ResourceQuotaList", name, inputs, opts);
+      super("kubernetes:core/v1:ResourceQuotaList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

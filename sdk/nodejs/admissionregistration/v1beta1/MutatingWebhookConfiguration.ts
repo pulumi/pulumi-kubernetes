@@ -67,7 +67,7 @@ export class MutatingWebhookConfiguration extends pulumi.CustomResource {
       inputs["kind"] = "MutatingWebhookConfiguration";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["webhooks"] = args && args.webhooks || undefined;
-      super("kubernetes::MutatingWebhookConfiguration", name, inputs, opts);
+      super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

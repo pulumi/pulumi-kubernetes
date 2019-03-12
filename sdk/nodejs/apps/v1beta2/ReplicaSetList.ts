@@ -67,7 +67,7 @@ export class ReplicaSetList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "ReplicaSetList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::ReplicaSetList", name, inputs, opts);
+      super("kubernetes:apps/v1beta2:ReplicaSetList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

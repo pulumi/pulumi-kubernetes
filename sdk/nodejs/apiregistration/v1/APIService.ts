@@ -69,7 +69,7 @@ export class APIService extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::APIService", name, inputs, opts);
+      super("kubernetes:apiregistration/v1:APIService", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

@@ -66,7 +66,7 @@ export class IngressList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "IngressList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::IngressList", name, inputs, opts);
+      super("kubernetes:extensions/v1beta1:IngressList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

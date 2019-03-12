@@ -63,7 +63,7 @@ export class AuditSinkList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "AuditSinkList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::AuditSinkList", name, inputs, opts);
+      super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

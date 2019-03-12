@@ -67,7 +67,7 @@ export class NamespaceList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "NamespaceList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::NamespaceList", name, inputs, opts);
+      super("kubernetes:core/v1:NamespaceList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

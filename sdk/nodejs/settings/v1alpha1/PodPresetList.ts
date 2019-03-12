@@ -66,7 +66,7 @@ export class PodPresetList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "PodPresetList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::PodPresetList", name, inputs, opts);
+      super("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

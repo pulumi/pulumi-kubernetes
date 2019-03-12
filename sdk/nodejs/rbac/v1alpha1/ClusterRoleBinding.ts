@@ -73,7 +73,7 @@ export class ClusterRoleBinding extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["roleRef"] = args && args.roleRef || undefined;
       inputs["subjects"] = args && args.subjects || undefined;
-      super("kubernetes::ClusterRoleBinding", name, inputs, opts);
+      super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

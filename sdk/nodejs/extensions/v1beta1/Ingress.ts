@@ -76,7 +76,7 @@ export class Ingress extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::Ingress", name, inputs, opts);
+      super("kubernetes:extensions/v1beta1:Ingress", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

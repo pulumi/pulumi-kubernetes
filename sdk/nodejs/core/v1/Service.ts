@@ -76,7 +76,7 @@ export class Service extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::Service", name, inputs, opts);
+      super("kubernetes:core/v1:Service", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

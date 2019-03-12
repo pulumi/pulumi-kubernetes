@@ -67,7 +67,7 @@ export class SecretList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "SecretList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::SecretList", name, inputs, opts);
+      super("kubernetes:core/v1:SecretList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

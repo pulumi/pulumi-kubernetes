@@ -66,7 +66,7 @@ export class StorageClassList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "StorageClassList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::StorageClassList", name, inputs, opts);
+      super("kubernetes:storage.k8s.io/v1:StorageClassList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

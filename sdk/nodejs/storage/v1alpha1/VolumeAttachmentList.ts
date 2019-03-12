@@ -66,7 +66,7 @@ export class VolumeAttachmentList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "VolumeAttachmentList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::VolumeAttachmentList", name, inputs, opts);
+      super("kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

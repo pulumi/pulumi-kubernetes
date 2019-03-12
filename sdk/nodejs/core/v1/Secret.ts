@@ -84,7 +84,7 @@ export class Secret extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["stringData"] = args && args.stringData || undefined;
       inputs["type"] = args && args.type || undefined;
-      super("kubernetes::Secret", name, inputs, opts);
+      super("kubernetes:core/v1:Secret", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

@@ -115,7 +115,7 @@ export class StorageClass extends pulumi.CustomResource {
       inputs["provisioner"] = args && args.provisioner || undefined;
       inputs["reclaimPolicy"] = args && args.reclaimPolicy || undefined;
       inputs["volumeBindingMode"] = args && args.volumeBindingMode || undefined;
-      super("kubernetes::StorageClass", name, inputs, opts);
+      super("kubernetes:storage.k8s.io/v1beta1:StorageClass", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

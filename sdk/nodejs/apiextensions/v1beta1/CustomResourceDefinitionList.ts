@@ -63,7 +63,7 @@ export class CustomResourceDefinitionList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "CustomResourceDefinitionList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::CustomResourceDefinitionList", name, inputs, opts);
+      super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

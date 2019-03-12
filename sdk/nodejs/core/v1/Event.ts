@@ -145,7 +145,7 @@ export class Event extends pulumi.CustomResource {
       inputs["series"] = args && args.series || undefined;
       inputs["source"] = args && args.source || undefined;
       inputs["type"] = args && args.type || undefined;
-      super("kubernetes::Event", name, inputs, opts);
+      super("kubernetes:core/v1:Event", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

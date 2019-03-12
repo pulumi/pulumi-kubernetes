@@ -76,7 +76,7 @@ export class DaemonSet extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::DaemonSet", name, inputs, opts);
+      super("kubernetes:apps/v1beta2:DaemonSet", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

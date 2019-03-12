@@ -67,7 +67,7 @@ export class PersistentVolumeList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "PersistentVolumeList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::PersistentVolumeList", name, inputs, opts);
+      super("kubernetes:core/v1:PersistentVolumeList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

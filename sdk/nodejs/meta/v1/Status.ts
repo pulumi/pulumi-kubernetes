@@ -95,7 +95,7 @@ export class Status extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["reason"] = args && args.reason || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::Status", name, inputs, opts);
+      super("kubernetes:core/v1:Status", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

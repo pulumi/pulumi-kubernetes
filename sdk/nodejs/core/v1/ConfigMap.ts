@@ -78,7 +78,7 @@ export class ConfigMap extends pulumi.CustomResource {
       inputs["data"] = args && args.data || undefined;
       inputs["kind"] = "ConfigMap";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::ConfigMap", name, inputs, opts);
+      super("kubernetes:core/v1:ConfigMap", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

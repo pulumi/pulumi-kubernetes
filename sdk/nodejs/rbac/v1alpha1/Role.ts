@@ -66,7 +66,7 @@ export class Role extends pulumi.CustomResource {
       inputs["kind"] = "Role";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["rules"] = args && args.rules || undefined;
-      super("kubernetes::Role", name, inputs, opts);
+      super("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

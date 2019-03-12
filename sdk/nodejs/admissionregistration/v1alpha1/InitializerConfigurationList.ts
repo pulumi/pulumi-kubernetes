@@ -66,7 +66,7 @@ export class InitializerConfigurationList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "InitializerConfigurationList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::InitializerConfigurationList", name, inputs, opts);
+      super("kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfigurationList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

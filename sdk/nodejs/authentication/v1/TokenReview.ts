@@ -70,7 +70,7 @@ export class TokenReview extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::TokenReview", name, inputs, opts);
+      super("kubernetes:authentication.k8s.io/v1:TokenReview", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

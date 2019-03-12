@@ -75,7 +75,7 @@ export class Node extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::Node", name, inputs, opts);
+      super("kubernetes:core/v1:Node", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

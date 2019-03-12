@@ -67,7 +67,7 @@ export class ValidatingWebhookConfiguration extends pulumi.CustomResource {
       inputs["kind"] = "ValidatingWebhookConfiguration";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["webhooks"] = args && args.webhooks || undefined;
-      super("kubernetes::ValidatingWebhookConfiguration", name, inputs, opts);
+      super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

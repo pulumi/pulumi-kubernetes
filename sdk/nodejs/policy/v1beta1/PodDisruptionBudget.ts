@@ -70,7 +70,7 @@ export class PodDisruptionBudget extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::PodDisruptionBudget", name, inputs, opts);
+      super("kubernetes:policy/v1beta1:PodDisruptionBudget", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

@@ -66,7 +66,7 @@ export class EventList extends pulumi.CustomResource {
       inputs["items"] = args && args.items || undefined;
       inputs["kind"] = "EventList";
       inputs["metadata"] = args && args.metadata || undefined;
-      super("kubernetes::EventList", name, inputs, opts);
+      super("kubernetes:events.k8s.io/v1beta1:EventList", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

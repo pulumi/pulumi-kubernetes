@@ -75,11 +75,12 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 				}
 				kindts, err := mustache.RenderFile(fmt.Sprintf("%s/kind.ts.mustache", templateDir),
 					map[string]interface{}{
-						"Comment":    kind.Comment(),
-						"Group":      group.Group(),
-						"Kind":       kind.Kind(),
-						"Properties": kind.Properties(),
-						"Version":    version.Version(),
+						"Comment":       kind.Comment(),
+						"Group":         group.Group(),
+						"Kind":          kind.Kind(),
+						"Properties":    kind.Properties(),
+						"URNAPIVersion": kind.URNAPIVersion(),
+						"Version":       version.Version(),
 					})
 				if err != nil {
 					return "", "", "", "", "", "", nil, err
@@ -104,6 +105,10 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 			})
 		if err != nil {
 			return "", "", "", "", "", "", nil, err
+		}
+
+		if group.Group() == "apiextensions" {
+			versionIndexTS += fmt.Sprint(`export * from "./CustomResource"`)
 		}
 		groupTS.Index = versionIndexTS
 		groupsts[group.Group()] = groupTS

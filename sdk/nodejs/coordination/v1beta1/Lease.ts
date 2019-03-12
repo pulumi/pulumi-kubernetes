@@ -66,7 +66,7 @@ export class Lease extends pulumi.CustomResource {
       inputs["kind"] = "Lease";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
-      super("kubernetes::Lease", name, inputs, opts);
+      super("kubernetes:coordination.k8s.io/v1beta1:Lease", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

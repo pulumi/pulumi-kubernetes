@@ -67,7 +67,7 @@ export class PodTemplate extends pulumi.CustomResource {
       inputs["kind"] = "PodTemplate";
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["template"] = args && args.template || undefined;
-      super("kubernetes::PodTemplate", name, inputs, opts);
+      super("kubernetes:core/v1:PodTemplate", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

@@ -71,7 +71,7 @@ export class SelfSubjectAccessReview extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::SelfSubjectAccessReview", name, inputs, opts);
+      super("kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

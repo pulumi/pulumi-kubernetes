@@ -69,7 +69,7 @@ export class SubjectAccessReview extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::SubjectAccessReview", name, inputs, opts);
+      super("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }

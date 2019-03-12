@@ -74,7 +74,7 @@ export class CronJob extends pulumi.CustomResource {
       inputs["metadata"] = args && args.metadata || undefined;
       inputs["spec"] = args && args.spec || undefined;
       inputs["status"] = args && args.status || undefined;
-      super("kubernetes::CronJob", name, inputs, opts);
+      super("kubernetes:batch/v2alpha1:CronJob", name, inputs, opts);
       this.__inputs = <any>args;
   }
 }
