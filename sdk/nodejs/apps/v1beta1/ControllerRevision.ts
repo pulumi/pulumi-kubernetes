@@ -78,6 +78,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:apps/v1beta1:ControllerRevision",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta1:ControllerRevision",
+        });
+      }
+
       /**
        * Create a apps.v1beta1.ControllerRevision resource with the given unique name, arguments, and options.
        *

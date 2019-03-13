@@ -72,6 +72,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding",
+        });
+      }
+
       /**
        * Create a rbac.v1alpha1.RoleBinding resource with the given unique name, arguments, and options.
        *

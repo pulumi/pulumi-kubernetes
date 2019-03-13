@@ -64,6 +64,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:apps/v1beta2:DaemonSetList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1beta2:DaemonSetList",
+        });
+      }
+
       /**
        * Create a apps.v1beta2.DaemonSetList resource with the given unique name, arguments, and options.
        *

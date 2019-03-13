@@ -64,6 +64,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:batch/v1:JobList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:batch/v1:JobList",
+        });
+      }
+
       /**
        * Create a batch.v1.JobList resource with the given unique name, arguments, and options.
        *

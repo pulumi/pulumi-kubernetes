@@ -63,6 +63,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:rbac.authorization.k8s.io/v1:RoleList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:rbac.authorization.k8s.io/v1:RoleList",
+        });
+      }
+
       /**
        * Create a rbac.v1.RoleList resource with the given unique name, arguments, and options.
        *

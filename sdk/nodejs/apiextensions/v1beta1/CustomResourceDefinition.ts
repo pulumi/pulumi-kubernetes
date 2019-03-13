@@ -67,6 +67,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition",
+        });
+      }
+
       /**
        * Create a apiextensions.v1beta1.CustomResourceDefinition resource with the given unique name, arguments, and options.
        *

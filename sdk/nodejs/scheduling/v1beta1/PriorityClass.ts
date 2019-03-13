@@ -81,6 +81,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass",
+        });
+      }
+
       /**
        * Create a scheduling.v1beta1.PriorityClass resource with the given unique name, arguments, and options.
        *

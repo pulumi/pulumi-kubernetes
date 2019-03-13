@@ -72,6 +72,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler",
+        });
+      }
+
       /**
        * Create a autoscaling.v2beta2.HorizontalPodAutoscaler resource with the given unique name, arguments, and options.
        *

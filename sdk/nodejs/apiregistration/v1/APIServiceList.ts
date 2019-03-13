@@ -59,6 +59,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:apiregistration/v1:APIServiceList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apiregistration/v1:APIServiceList",
+        });
+      }
+
       /**
        * Create a apiregistration.v1.APIServiceList resource with the given unique name, arguments, and options.
        *

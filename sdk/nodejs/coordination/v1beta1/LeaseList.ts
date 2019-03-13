@@ -64,6 +64,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:coordination.k8s.io/v1beta1:LeaseList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:coordination.k8s.io/v1beta1:LeaseList",
+        });
+      }
+
       /**
        * Create a coordination.v1beta1.LeaseList resource with the given unique name, arguments, and options.
        *

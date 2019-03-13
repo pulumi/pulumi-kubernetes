@@ -59,6 +59,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodDisruptionBudgetList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:policy/v1beta1:PodDisruptionBudgetList",
+        });
+      }
+
       /**
        * Create a policy.v1beta1.PodDisruptionBudgetList resource with the given unique name, arguments, and options.
        *

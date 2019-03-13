@@ -64,6 +64,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:batch/v2alpha1:CronJobList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:batch/v2alpha1:CronJobList",
+        });
+      }
+
       /**
        * Create a batch.v2alpha1.CronJobList resource with the given unique name, arguments, and options.
        *

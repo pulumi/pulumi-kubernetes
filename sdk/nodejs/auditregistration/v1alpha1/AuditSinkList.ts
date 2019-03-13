@@ -61,6 +61,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList",
+        });
+      }
+
       /**
        * Create a auditregistration.v1alpha1.AuditSinkList resource with the given unique name, arguments, and options.
        *

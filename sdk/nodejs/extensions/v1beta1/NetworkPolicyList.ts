@@ -65,6 +65,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:NetworkPolicyList",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:NetworkPolicyList",
+        });
+      }
+
       /**
        * Create a extensions.v1beta1.NetworkPolicyList resource with the given unique name, arguments, and options.
        *

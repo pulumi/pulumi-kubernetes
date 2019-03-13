@@ -71,6 +71,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:apps/v1:StatefulSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:apps/v1:StatefulSet",
+        });
+      }
+
       /**
        * Create a apps.v1.StatefulSet resource with the given unique name, arguments, and options.
        *

@@ -130,6 +130,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:core/v1:Event",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:core/v1:Event",
+        });
+      }
+
       /**
        * Create a core.v1.Event resource with the given unique name, arguments, and options.
        *

@@ -68,6 +68,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview",
+        });
+      }
+
       /**
        * Create a authorization.v1beta1.SelfSubjectAccessReview resource with the given unique name, arguments, and options.
        *

@@ -75,6 +75,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:extensions/v1beta1:ReplicaSet",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:extensions/v1beta1:ReplicaSet",
+        });
+      }
+
       /**
        * Create a extensions.v1beta1.ReplicaSet resource with the given unique name, arguments, and options.
        *

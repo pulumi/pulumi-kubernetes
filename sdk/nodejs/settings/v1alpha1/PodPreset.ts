@@ -59,6 +59,13 @@ import * as operators from "rxjs/operators"
         return ctx.list({...args, type: "kubernetes:settings.k8s.io/v1alpha1:PodPreset",});
       }
 
+      public static addAdmissionPolicy(policy: pulumi.policy.AdmissionPolicy): void {
+        pulumi.runtime.addAdmissionPolicy({
+          ...policy,
+          pulumiType: "kubernetes:settings.k8s.io/v1alpha1:PodPreset",
+        });
+      }
+
       /**
        * Create a settings.v1alpha1.PodPreset resource with the given unique name, arguments, and options.
        *
