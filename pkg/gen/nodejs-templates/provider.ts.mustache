@@ -7,7 +7,6 @@ import * as glob from "glob";
 import * as jsyaml from "js-yaml";
 import fetch from "node-fetch";
 import * as k8s from "./index";
-import * as inputApi from "./types/input";
 import * as outputApi from "./types/output";
 
 export namespace yaml {
@@ -18,7 +17,7 @@ export namespace yaml {
         /** YAML text containing Kubernetes resource definitions. */
         yaml?: string[] | string;
 
-        /** JavaScript objects represeting Kubernetes resources. */
+        /** JavaScript objects representing Kubernetes resources. */
         objs?: any[] | any;
 
         /**
@@ -205,22 +204,22 @@ export namespace yaml {
                 text = Promise.resolve(fs.readFileSync(fileId).toString());
             }
 
-            this.resources = pulumi.output(text).apply(t => parseYamlDocument({
+            this.resources = pulumi.output(text.then(t => parseYamlDocument({
                 objs: jsyaml.safeLoadAll(t),
                 transformations: config && config.transformations || []
-            }, {parent: this}));
+            }, {parent: this})));
         }
     }
 
     function parseYamlDocument(
         config: ConfigOpts, opts?: pulumi.CustomResourceOptions,
-    ):  {[key: string]: pulumi.CustomResource} {
-        let resources: {[key: string]: pulumi.CustomResource} = {};
+    ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
+        let resources: pulumi.Output<{[key: string]: pulumi.CustomResource}> = pulumi.Output.create({});
 
         for (const obj of config.objs) {
             const fileObjects = parseYamlObject(obj, config.transformations, opts);
             for (const fileObject of fileObjects) {
-                resources[fileObject.name] = fileObject.resource;
+                fileObject.apply((obj) => (resources[obj.name] = fileObject.resource));
             }
         }
 
@@ -229,7 +228,7 @@ export namespace yaml {
 
     function parseYamlObject(
         obj: any, transformations?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
-    ): {name: string, resource: pulumi.CustomResource}[] {
+    ): pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] {
         if (obj == null || Object.keys(obj).length == 0) {
             return [];
         }
@@ -281,28 +280,28 @@ export namespace yaml {
         }
 
         const meta = obj["metadata"];
-        let id: string = meta["name"];
+        let id: pulumi.Output<string> = meta["name"];
         const namespace = meta["namespace"] || undefined;
         if (namespace !== undefined) {
-            id = `${namespace}/${id}`;
+            id = pulumi.concat(namespace, "/", id);
         }
         switch (`${apiVersion}/${kind}`) {
             {{#Groups}}
             {{#Versions}}
             {{#KindsAndAliases}}
             case "{{RawAPIVersion}}/{{Kind}}":
-                return [{
+                return [id.apply(id => ({
                     name: `{{RawAPIVersion}}/{{Kind}}::${id}`,
                     resource: new k8s.{{Group}}.{{Version}}.{{Kind}}(id, obj, opts),
-                }];
+                }))];
             {{/KindsAndAliases}}
             {{/Versions}}
             {{/Groups}}
             default:
-                return [{
+                return [id.apply((id: string) => ({
                     name: `${apiVersion}/${kind}::${id}`,
                     resource: new k8s.apiextensions.CustomResource(id, obj, opts),
-                }];
+                }))];
         }
     }
 }
