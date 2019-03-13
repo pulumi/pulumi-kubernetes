@@ -2193,7 +2193,7 @@ export namespace yaml {
         }
 
         const meta = obj["metadata"];
-        let id: pulumi.Output<string> = meta["name"];
+        let id: pulumi.Output<string> = pulumi.Output.create<string>(meta["name"]);
         const namespace = meta["namespace"] || undefined;
         if (namespace !== undefined) {
             id = pulumi.concat(namespace, "/", id);
