@@ -31,7 +31,8 @@ import * as outputApi from "../../types/output";
       public readonly kind: pulumi.Output<"ControllerRevisionList">;
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 

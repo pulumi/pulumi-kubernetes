@@ -6,21 +6,21 @@ import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
     /**
-     * InitializerConfigurationList is a list of InitializerConfiguration.
+     * PriorityClassList is a collection of priority classes.
      */
-    export class InitializerConfigurationList extends pulumi.CustomResource {
+    export class PriorityClassList extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+      public readonly apiVersion: pulumi.Output<"scheduling.k8s.io/v1">;
 
       /**
-       * List of InitializerConfiguration.
+       * items is the list of PriorityClasses
        */
-      public readonly items: pulumi.Output<outputApi.admissionregistration.v1alpha1.InitializerConfiguration[]>;
+      public readonly items: pulumi.Output<outputApi.scheduling.v1.PriorityClass[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -28,16 +28,16 @@ import * as outputApi from "../../types/output";
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"InitializerConfigurationList">;
+      public readonly kind: pulumi.Output<"PriorityClassList">;
 
       /**
-       * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
       /**
-       * Get the state of an existing `InitializerConfigurationList` resource, as identified by `id`.
+       * Get the state of an existing `PriorityClassList` resource, as identified by `id`.
        * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
        * Kubernetes convention) the ID becomes default/<name>.
        *
@@ -48,27 +48,27 @@ import * as outputApi from "../../types/output";
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): InitializerConfigurationList {
-          return new InitializerConfigurationList(name, undefined, { ...opts, id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): PriorityClassList {
+          return new PriorityClassList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfigurationList { return this.__inputs; }
-      private readonly __inputs: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList;
+      public getInputs(): inputApi.scheduling.v1.PriorityClassList { return this.__inputs; }
+      private readonly __inputs: inputApi.scheduling.v1.PriorityClassList;
 
       /**
-       * Create a admissionregistration.v1alpha1.InitializerConfigurationList resource with the given unique name, arguments, and options.
+       * Create a scheduling.v1.PriorityClassList resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputApi.scheduling.v1.PriorityClassList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "admissionregistration.k8s.io/v1alpha1";
+          inputs["apiVersion"] = "scheduling.k8s.io/v1";
           inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "InitializerConfigurationList";
+          inputs["kind"] = "PriorityClassList";
           inputs["metadata"] = args && args.metadata || undefined;
-          super("kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfigurationList", name, inputs, opts);
+          super("kubernetes:scheduling.k8s.io/v1:PriorityClassList", name, inputs, opts);
           this.__inputs = <any>args;
       }
     }

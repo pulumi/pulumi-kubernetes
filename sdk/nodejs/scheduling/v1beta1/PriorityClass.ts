@@ -6,8 +6,9 @@ import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
     /**
-     * PriorityClass defines mapping from a priority class name to the priority integer value. The
-     * value can be any valid integer.
+     * DEPRECATED - This group version of PriorityClass is deprecated by
+     * scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
+     * to the priority integer value. The value can be any valid integer.
      */
     export class PriorityClass extends pulumi.CustomResource {
       /**
@@ -43,7 +44,7 @@ import * as outputApi from "../../types/output";
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 

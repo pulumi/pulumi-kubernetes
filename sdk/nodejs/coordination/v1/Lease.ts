@@ -6,22 +6,16 @@ import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
     /**
-     * DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by
-     * networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
+     * Lease defines a lease concept.
      */
-    export class NetworkPolicyList extends pulumi.CustomResource {
+    export class Lease extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"extensions/v1beta1">;
-
-      /**
-       * Items is a list of schema objects.
-       */
-      public readonly items: pulumi.Output<outputApi.extensions.v1beta1.NetworkPolicy[]>;
+      public readonly apiVersion: pulumi.Output<"coordination.k8s.io/v1">;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -29,16 +23,21 @@ import * as outputApi from "../../types/output";
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"NetworkPolicyList">;
+      public readonly kind: pulumi.Output<"Lease">;
 
       /**
-       * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
-       * Get the state of an existing `NetworkPolicyList` resource, as identified by `id`.
+       * Specification of the Lease. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      public readonly spec: pulumi.Output<outputApi.coordination.v1.LeaseSpec>;
+
+      /**
+       * Get the state of an existing `Lease` resource, as identified by `id`.
        * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
        * Kubernetes convention) the ID becomes default/<name>.
        *
@@ -49,27 +48,27 @@ import * as outputApi from "../../types/output";
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): NetworkPolicyList {
-          return new NetworkPolicyList(name, undefined, { ...opts, id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Lease {
+          return new Lease(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.extensions.v1beta1.NetworkPolicyList { return this.__inputs; }
-      private readonly __inputs: inputApi.extensions.v1beta1.NetworkPolicyList;
+      public getInputs(): inputApi.coordination.v1.Lease { return this.__inputs; }
+      private readonly __inputs: inputApi.coordination.v1.Lease;
 
       /**
-       * Create a extensions.v1beta1.NetworkPolicyList resource with the given unique name, arguments, and options.
+       * Create a coordination.v1.Lease resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.NetworkPolicyList, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputApi.coordination.v1.Lease, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "NetworkPolicyList";
+          inputs["apiVersion"] = "coordination.k8s.io/v1";
+          inputs["kind"] = "Lease";
           inputs["metadata"] = args && args.metadata || undefined;
-          super("kubernetes:extensions/v1beta1:NetworkPolicyList", name, inputs, opts);
+          inputs["spec"] = args && args.spec || undefined;
+          super("kubernetes:coordination.k8s.io/v1:Lease", name, inputs, opts);
           this.__inputs = <any>args;
       }
     }

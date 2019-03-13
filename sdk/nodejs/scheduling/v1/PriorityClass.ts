@@ -6,9 +6,8 @@ import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
     /**
-     * DEPRECATED - This group version of PriorityClass is deprecated by
-     * scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
-     * to the priority integer value. The value can be any valid integer.
+     * PriorityClass defines mapping from a priority class name to the priority integer value. The
+     * value can be any valid integer.
      */
     export class PriorityClass extends pulumi.CustomResource {
       /**
@@ -17,7 +16,7 @@ import * as outputApi from "../../types/output";
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"scheduling.k8s.io/v1alpha1">;
+      public readonly apiVersion: pulumi.Output<"scheduling.k8s.io/v1">;
 
       /**
        * description is an arbitrary string that usually provides guidelines on when this priority
@@ -70,25 +69,25 @@ import * as outputApi from "../../types/output";
           return new PriorityClass(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.scheduling.v1alpha1.PriorityClass { return this.__inputs; }
-      private readonly __inputs: inputApi.scheduling.v1alpha1.PriorityClass;
+      public getInputs(): inputApi.scheduling.v1.PriorityClass { return this.__inputs; }
+      private readonly __inputs: inputApi.scheduling.v1.PriorityClass;
 
       /**
-       * Create a scheduling.v1alpha1.PriorityClass resource with the given unique name, arguments, and options.
+       * Create a scheduling.v1.PriorityClass resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.scheduling.v1alpha1.PriorityClass, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputApi.scheduling.v1.PriorityClass, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "scheduling.k8s.io/v1alpha1";
+          inputs["apiVersion"] = "scheduling.k8s.io/v1";
           inputs["description"] = args && args.description || undefined;
           inputs["globalDefault"] = args && args.globalDefault || undefined;
           inputs["kind"] = "PriorityClass";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["value"] = args && args.value || undefined;
-          super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass", name, inputs, opts);
+          super("kubernetes:scheduling.k8s.io/v1:PriorityClass", name, inputs, opts);
           this.__inputs = <any>args;
       }
     }

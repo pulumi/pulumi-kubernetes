@@ -6,17 +6,18 @@ import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
 
     /**
-     * DEPRECATED - This group version of DaemonSet is deprecated by apps/v1beta2/DaemonSet. See the
-     * release notes for more information. DaemonSet represents the configuration of a daemon set.
+     * Ingress is a collection of rules that allow inbound connections to reach the endpoints
+     * defined by a backend. An Ingress can be configured to give services externally-reachable
+     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
      */
-    export class DaemonSet extends pulumi.CustomResource {
+    export class Ingress extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"extensions/v1beta1">;
+      public readonly apiVersion: pulumi.Output<"networking.k8s.io/v1beta1">;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -24,29 +25,28 @@ import * as outputApi from "../../types/output";
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"DaemonSet">;
+      public readonly kind: pulumi.Output<"Ingress">;
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
-       * The desired behavior of this daemon set. More info:
-       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       * Spec is the desired state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.DaemonSetSpec>;
+      public readonly spec: pulumi.Output<outputApi.networking.v1beta1.IngressSpec>;
 
       /**
-       * The current status of this daemon set. This data may be out of date by some window of time.
-       * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+       * Status is the current state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<outputApi.extensions.v1beta1.DaemonSetStatus>;
+      public readonly status: pulumi.Output<outputApi.networking.v1beta1.IngressStatus>;
 
       /**
-       * Get the state of an existing `DaemonSet` resource, as identified by `id`.
+       * Get the state of an existing `Ingress` resource, as identified by `id`.
        * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
        * Kubernetes convention) the ID becomes default/<name>.
        *
@@ -57,28 +57,28 @@ import * as outputApi from "../../types/output";
        *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): DaemonSet {
-          return new DaemonSet(name, undefined, { ...opts, id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Ingress {
+          return new Ingress(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.extensions.v1beta1.DaemonSet { return this.__inputs; }
-      private readonly __inputs: inputApi.extensions.v1beta1.DaemonSet;
+      public getInputs(): inputApi.networking.v1beta1.Ingress { return this.__inputs; }
+      private readonly __inputs: inputApi.networking.v1beta1.Ingress;
 
       /**
-       * Create a extensions.v1beta1.DaemonSet resource with the given unique name, arguments, and options.
+       * Create a networking.v1beta1.Ingress resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.DaemonSet, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputApi.networking.v1beta1.Ingress, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["kind"] = "DaemonSet";
+          inputs["apiVersion"] = "networking.k8s.io/v1beta1";
+          inputs["kind"] = "Ingress";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
-          super("kubernetes:extensions/v1beta1:DaemonSet", name, inputs, opts);
+          super("kubernetes:networking.k8s.io/v1beta1:Ingress", name, inputs, opts);
           this.__inputs = <any>args;
       }
     }
