@@ -20,6 +20,7 @@ __all__ = [
     "extensions",
     "meta",
     "networking",
+    "node",
     "policy",
     "rbac",
     "scheduling",

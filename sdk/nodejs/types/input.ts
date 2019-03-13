@@ -117,6 +117,15 @@ export namespace admissionregistration {
        */
       resources?: pulumi.Input<pulumi.Input<string>[]>
 
+      /**
+       * scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*"
+       * "Cluster" means that only cluster-scoped resources will match this rule. Namespace API
+       * objects are cluster-scoped. "Namespaced" means that only namespaced resources will match
+       * this rule. "*" means that there are no scope restrictions. Subresources match the scope of
+       * their parent resource. Default is "*".
+       */
+      scope?: pulumi.Input<string>
+
     }
 
 
@@ -234,6 +243,16 @@ export namespace admissionregistration {
       name: pulumi.Input<string>
 
       /**
+       * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
+       * Webhook expects. API server will try to use first version in the list which it supports. If
+       * none of the versions specified in this list supported by API server, validation will fail
+       * for this object. If a persisted webhook configuration specifies allowed versions and does
+       * not include any versions known to the API Server, calls to the webhook will fail and be
+       * subject to the failure policy. Default to `['v1beta1']`.
+       */
+      admissionReviewVersions?: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
        * FailurePolicy defines how unrecognized errors from the admission endpoint are handled -
        * allowed values are Ignore or Fail. Defaults to Ignore.
        */
@@ -300,6 +319,13 @@ export namespace admissionregistration {
        * Unknown.
        */
       sideEffects?: pulumi.Input<string>
+
+      /**
+       * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the
+       * webhook call will be ignored or the API call will fail based on the failure policy. The
+       * timeout value must be between 1 and 30 seconds. Default to 30 seconds.
+       */
+      timeoutSeconds?: pulumi.Input<number>
 
     }
 
@@ -413,6 +439,16 @@ export namespace apiextensions {
        * needed for this option.
        */
       strategy: pulumi.Input<string>
+
+      /**
+       * ConversionReviewVersions is an ordered list of preferred `ConversionReview` versions the
+       * Webhook expects. API server will try to use first version in the list which it supports. If
+       * none of the versions specified in this list supported by API server, conversion will fail
+       * for this object. If a persisted Webhook configuration specifies allowed versions and does
+       * not include any versions known to the API Server, calls to the webhook will fail. Default
+       * to `['v1beta1']`.
+       */
+      conversionReviewVersions?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
        * `webhookClientConfig` is the instructions for how to call the webhook if strategy is
@@ -881,6 +917,9 @@ export namespace apiextensions {
 
       
       not?: pulumi.Input<apiextensions.v1beta1.JSONSchemaProps>
+
+      
+      nullable?: pulumi.Input<boolean>
 
       
       oneOf?: pulumi.Input<pulumi.Input<apiextensions.v1beta1.JSONSchemaProps>[]>
@@ -8320,6 +8359,44 @@ export namespace core {
 
 
     /**
+     * Represents a source location of a volume to mount, managed by an external CSI driver
+     */
+    export interface CSIVolumeSource {
+      /**
+       * Driver is the name of the CSI driver that handles this volume. Consult with your admin for
+       * the correct name as registered in the cluster.
+       */
+      driver: pulumi.Input<string>
+
+      /**
+       * Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is
+       * passed to the associated CSI driver which will determine the default filesystem to apply.
+       */
+      fsType?: pulumi.Input<string>
+
+      /**
+       * NodePublishSecretRef is a reference to the secret object containing sensitive information
+       * to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume
+       * calls. This field is optional, and  may be empty if no secret is required. If the secret
+       * object contains more than one secret, all secret references are passed.
+       */
+      nodePublishSecretRef?: pulumi.Input<core.v1.LocalObjectReference>
+
+      /**
+       * Specifies a read-only configuration for the volume. Defaults to false (read/write).
+       */
+      readOnly?: pulumi.Input<boolean>
+
+      /**
+       * VolumeAttributes stores driver-specific properties that are passed to the CSI driver.
+       * Consult your driver's documentation for supported values.
+       */
+      volumeAttributes?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
+
+    }
+
+
+    /**
      * Adds and removes POSIX capabilities from running containers.
      */
     export interface Capabilities {
@@ -11565,7 +11642,7 @@ export namespace core {
       claimRef?: pulumi.Input<core.v1.ObjectReference>
 
       /**
-       * CSI represents storage that handled by an external CSI driver (Beta feature).
+       * CSI represents storage that is handled by an external CSI driver (Beta feature).
        */
       csi?: pulumi.Input<core.v1.CSIPersistentVolumeSource>
 
@@ -14290,6 +14367,12 @@ export namespace core {
       configMap?: pulumi.Input<core.v1.ConfigMapVolumeSource>
 
       /**
+       * CSI (Container Storage Interface) represents storage that is handled by an external CSI
+       * driver (Alpha feature).
+       */
+      csi?: pulumi.Input<core.v1.CSIVolumeSource>
+
+      /**
        * DownwardAPI represents downward API about the pod that should populate this volume
        */
       downwardAPI?: pulumi.Input<core.v1.DownwardAPIVolumeSource>
@@ -14739,6 +14822,18 @@ export namespace events {
 
 export namespace extensions {
   export namespace v1beta1 {
+    /**
+     * AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+     */
+    export interface AllowedCSIDriver {
+      /**
+       * Name is the registered name of the CSI driver
+       */
+      name: pulumi.Input<string>
+
+    }
+
+
     /**
      * AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use
      * AllowedFlexVolume from policy API Group instead.
@@ -15958,6 +16053,13 @@ export namespace extensions {
        * unspecified, defaults to true.
        */
       allowPrivilegeEscalation?: pulumi.Input<boolean>
+
+      /**
+       * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be
+       * embedded within a pod spec. An empty value means no CSI drivers can run inline within a pod
+       * spec.
+       */
+      allowedCSIDrivers?: pulumi.Input<pulumi.Input<extensions.v1beta1.AllowedCSIDriver>[]>
 
       /**
        * allowedCapabilities is a list of capabilities that can be requested to add to the
@@ -17872,6 +17974,199 @@ export namespace networking {
 
 }
 
+export namespace node {
+  export namespace v1alpha1 {
+    /**
+     * RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass
+     * is used to determine which container runtime is used to run all containers in a pod.
+     * RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and
+     * referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName
+     * reference before running the pod.  For more details, see
+     * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+     */
+    export interface RuntimeClass {
+      /**
+       * Specification of the RuntimeClass More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      spec: pulumi.Input<node.v1alpha1.RuntimeClassSpec>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"node.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"RuntimeClass">
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isRuntimeClass(o: any): o is RuntimeClass {
+      return o.apiVersion == "node.k8s.io/v1alpha1" && o.kind == "RuntimeClass";
+    }
+
+    /**
+     * RuntimeClassList is a list of RuntimeClass objects.
+     */
+    export interface RuntimeClassList {
+      /**
+       * Items is a list of schema objects.
+       */
+      items: pulumi.Input<pulumi.Input<node.v1alpha1.RuntimeClass>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"node.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"RuntimeClassList">
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isRuntimeClassList(o: any): o is RuntimeClassList {
+      return o.apiVersion == "node.k8s.io/v1alpha1" && o.kind == "RuntimeClassList";
+    }
+
+    /**
+     * RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are
+     * required to describe the RuntimeClass to the Container Runtime Interface (CRI)
+     * implementation, as well as any other components that need to understand how the pod will be
+     * run. The RuntimeClassSpec is immutable.
+     */
+    export interface RuntimeClassSpec {
+      /**
+       * RuntimeHandler specifies the underlying runtime and configuration that the CRI
+       * implementation will use to handle pods of this class. The possible values are specific to
+       * the node & CRI configuration.  It is assumed that all handlers are available on every node,
+       * and handlers of the same name are equivalent on every node. For example, a handler called
+       * "runc" might specify that the runc OCI runtime (using native Linux containers) will be used
+       * to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123)
+       * requirements and is immutable.
+       */
+      runtimeHandler: pulumi.Input<string>
+
+    }
+
+
+  }
+
+  export namespace v1beta1 {
+    /**
+     * RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass
+     * is used to determine which container runtime is used to run all containers in a pod.
+     * RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and
+     * referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName
+     * reference before running the pod.  For more details, see
+     * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+     */
+    export interface RuntimeClass {
+      /**
+       * Handler specifies the underlying runtime and configuration that the CRI implementation will
+       * use to handle pods of this class. The possible values are specific to the node & CRI
+       * configuration.  It is assumed that all handlers are available on every node, and handlers
+       * of the same name are equivalent on every node. For example, a handler called "runc" might
+       * specify that the runc OCI runtime (using native Linux containers) will be used to run the
+       * containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and
+       * is immutable.
+       */
+      handler: pulumi.Input<string>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"node.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"RuntimeClass">
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isRuntimeClass(o: any): o is RuntimeClass {
+      return o.apiVersion == "node.k8s.io/v1beta1" && o.kind == "RuntimeClass";
+    }
+
+    /**
+     * RuntimeClassList is a list of RuntimeClass objects.
+     */
+    export interface RuntimeClassList {
+      /**
+       * Items is a list of schema objects.
+       */
+      items: pulumi.Input<pulumi.Input<node.v1beta1.RuntimeClass>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"node.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"RuntimeClassList">
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isRuntimeClassList(o: any): o is RuntimeClassList {
+      return o.apiVersion == "node.k8s.io/v1beta1" && o.kind == "RuntimeClassList";
+    }
+
+  }
+
+}
+
 export namespace pkg {
   export namespace runtime {
     /**
@@ -17964,6 +18259,18 @@ export namespace pkg {
 
 export namespace policy {
   export namespace v1beta1 {
+    /**
+     * AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+     */
+    export interface AllowedCSIDriver {
+      /**
+       * Name is the registered name of the CSI driver
+       */
+      name: pulumi.Input<string>
+
+    }
+
+
     /**
      * AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
      */
@@ -18343,6 +18650,13 @@ export namespace policy {
        * unspecified, defaults to true.
        */
       allowPrivilegeEscalation?: pulumi.Input<boolean>
+
+      /**
+       * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be
+       * embedded within a pod spec. An empty value means no CSI drivers can run inline within a pod
+       * spec.
+       */
+      allowedCSIDrivers?: pulumi.Input<pulumi.Input<policy.v1beta1.AllowedCSIDriver>[]>
 
       /**
        * allowedCapabilities is a list of capabilities that can be requested to add to the
@@ -20693,6 +21007,250 @@ export namespace storage {
   }
 
   export namespace v1beta1 {
+    /**
+     * CSIDriver captures information about a Container Storage Interface (CSI) volume driver
+     * deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly.
+     * Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI
+     * driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach
+     * detach controller uses this object to determine whether attach is required. Kubelet uses this
+     * object to determine whether pod information needs to be passed on mount. CSIDriver objects
+     * are non-namespaced.
+     */
+    export interface CSIDriver {
+      /**
+       * Specification of the CSI Driver.
+       */
+      spec: pulumi.Input<storage.v1beta1.CSIDriverSpec>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSIDriver">
+
+      /**
+       * Standard object metadata. metadata.Name indicates the name of the CSI driver that this
+       * object refers to; it MUST be the same name returned by the CSI GetPluginName() call for
+       * that driver. The driver name must be 63 characters or less, beginning and ending with an
+       * alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between.
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isCSIDriver(o: any): o is CSIDriver {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "CSIDriver";
+    }
+
+    /**
+     * CSIDriverList is a collection of CSIDriver objects.
+     */
+    export interface CSIDriverList {
+      /**
+       * items is the list of CSIDriver
+       */
+      items: pulumi.Input<pulumi.Input<storage.v1beta1.CSIDriver>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSIDriverList">
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isCSIDriverList(o: any): o is CSIDriverList {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "CSIDriverList";
+    }
+
+    /**
+     * CSIDriverSpec is the specification of a CSIDriver.
+     */
+    export interface CSIDriverSpec {
+      /**
+       * attachRequired indicates this CSI volume driver requires an attach operation (because it
+       * implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach
+       * controller should call the attach volume interface which checks the volumeattachment status
+       * and waits until the volume is attached before proceeding to mounting. The CSI
+       * external-attacher coordinates with CSI volume driver and updates the volumeattachment
+       * status when the attach operation is complete. If the CSIDriverRegistry feature gate is
+       * enabled and the value is specified to false, the attach operation will be skipped.
+       * Otherwise the attach operation will be called.
+       */
+      attachRequired?: pulumi.Input<boolean>
+
+      /**
+       * If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod
+       * information (like podName, podUID, etc.) during mount operations. If set to false, pod
+       * information will not be passed on mount. Default is false. The CSI driver specifies
+       * podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as
+       * VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for
+       * parsing and validating the information passed in as VolumeContext. The following
+       * VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the
+       * prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name
+       * "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid":
+       * string(pod.UID)
+       */
+      podInfoOnMount?: pulumi.Input<boolean>
+
+    }
+
+
+    /**
+     * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
+     * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
+     * container, the kubelet will automatically populate the CSINode object for the CSI driver as
+     * part of kubelet plugin registration. CSINode has the same name as a node. If the object is
+     * missing, it means either there are no CSI Drivers available on the node, or the Kubelet
+     * version is low enough that it doesn't create this object. CSINode has an OwnerReference that
+     * points to the corresponding node object.
+     */
+    export interface CSINode {
+      /**
+       * spec is the specification of CSINode
+       */
+      spec: pulumi.Input<storage.v1beta1.CSINodeSpec>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSINode">
+
+      /**
+       * metadata.name must be the Kubernetes node name.
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isCSINode(o: any): o is CSINode {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "CSINode";
+    }
+
+    /**
+     * CSINodeDriver holds information about the specification of one CSI driver installed on a node
+     */
+    export interface CSINodeDriver {
+      /**
+       * This is the name of the CSI driver that this object refers to. This MUST be the same name
+       * returned by the CSI GetPluginName() call for that driver.
+       */
+      name: pulumi.Input<string>
+
+      /**
+       * nodeID of the node from the driver point of view. This field enables Kubernetes to
+       * communicate with storage systems that do not share the same nomenclature for nodes. For
+       * example, Kubernetes may refer to a given node as "node1", but the storage system may refer
+       * to the same node as "nodeA". When Kubernetes issues a command to the storage system to
+       * attach a volume to a specific node, it can use this field to refer to the node name using
+       * the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field
+       * is required.
+       */
+      nodeID: pulumi.Input<string>
+
+      /**
+       * topologyKeys is the list of keys supported by the driver. When a driver is initialized on a
+       * cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone",
+       * "company.com/region"). When a driver is initialized on a node, it provides the same
+       * topology keys along with values. Kubelet will expose these topology keys as labels on its
+       * own node object. When Kubernetes does topology aware provisioning, it can use this list to
+       * determine which labels it should retrieve from the node object and pass back to the driver.
+       * It is possible for different nodes to use different topology keys. This can be empty if
+       * driver does not support topology.
+       */
+      topologyKeys?: pulumi.Input<pulumi.Input<string>[]>
+
+    }
+
+
+    /**
+     * CSINodeList is a collection of CSINode objects.
+     */
+    export interface CSINodeList {
+      /**
+       * items is the list of CSINode
+       */
+      items: pulumi.Input<pulumi.Input<storage.v1beta1.CSINode>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSINodeList">
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isCSINodeList(o: any): o is CSINodeList {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "CSINodeList";
+    }
+
+    /**
+     * CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+     */
+    export interface CSINodeSpec {
+      /**
+       * drivers is a list of information of all CSI Drivers existing on a node. If all drivers in
+       * the list are uninstalled, this can become empty.
+       */
+      drivers: pulumi.Input<pulumi.Input<storage.v1beta1.CSINodeDriver>[]>
+
+    }
+
+
     /**
      * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
      * be dynamically provisioned.

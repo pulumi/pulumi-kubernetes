@@ -22,6 +22,7 @@ import * as events from "./events/index";
 import * as extensions from "./extensions/index";
 import * as meta from "./meta/index";
 import * as networking from "./networking/index";
+import * as node from "./node/index";
 import * as policy from "./policy/index";
 import * as rbac from "./rbac/index";
 import * as scheduling from "./scheduling/index";
@@ -29,5 +30,5 @@ import * as settings from "./settings/index";
 import * as storage from "./storage/index";
 
 // Export sub-modules
-export { admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, events, extensions, meta, networking, policy, rbac, scheduling, settings, storage,  };
+export { admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, events, extensions, meta, networking, node, policy, rbac, scheduling, settings, storage,  };
 
