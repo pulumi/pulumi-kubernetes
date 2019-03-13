@@ -82,15 +82,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.meta.v1.Status { return this.__inputs; }
       private readonly __inputs: inputApi.meta.v1.Status;
 
-      public static list(): rxjs.Observable<outputApi.meta.v1.Status> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.meta.v1.isStatus)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.meta.v1.Status> {
+        return ctx.list({...args, type: "kubernetes:core/v1:Status",});
       }
 
       /**

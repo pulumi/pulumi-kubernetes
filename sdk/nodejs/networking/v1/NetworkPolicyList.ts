@@ -57,15 +57,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.networking.v1.NetworkPolicyList { return this.__inputs; }
       private readonly __inputs: inputApi.networking.v1.NetworkPolicyList;
 
-      public static list(): rxjs.Observable<outputApi.networking.v1.NetworkPolicyList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.networking.v1.isNetworkPolicyList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.networking.v1.NetworkPolicyList> {
+        return ctx.list({...args, type: "kubernetes:networking.k8s.io/v1:NetworkPolicyList",});
       }
 
       /**

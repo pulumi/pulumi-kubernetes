@@ -68,15 +68,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.extensions.v1beta1.ReplicaSet { return this.__inputs; }
       private readonly __inputs: inputApi.extensions.v1beta1.ReplicaSet;
 
-      public static list(): rxjs.Observable<outputApi.extensions.v1beta1.ReplicaSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.extensions.v1beta1.isReplicaSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.extensions.v1beta1.ReplicaSet> {
+        return ctx.list({...args, type: "kubernetes:extensions/v1beta1:ReplicaSet",});
       }
 
       /**

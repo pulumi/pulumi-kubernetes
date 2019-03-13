@@ -57,15 +57,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.events.v1beta1.EventList { return this.__inputs; }
       private readonly __inputs: inputApi.events.v1beta1.EventList;
 
-      public static list(): rxjs.Observable<outputApi.events.v1beta1.EventList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.events.v1beta1.isEventList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.events.v1beta1.EventList> {
+        return ctx.list({...args, type: "kubernetes:events.k8s.io/v1beta1:EventList",});
       }
 
       /**

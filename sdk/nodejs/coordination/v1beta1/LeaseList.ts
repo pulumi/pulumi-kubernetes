@@ -57,15 +57,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.coordination.v1beta1.LeaseList { return this.__inputs; }
       private readonly __inputs: inputApi.coordination.v1beta1.LeaseList;
 
-      public static list(): rxjs.Observable<outputApi.coordination.v1beta1.LeaseList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.coordination.v1beta1.isLeaseList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.coordination.v1beta1.LeaseList> {
+        return ctx.list({...args, type: "kubernetes:coordination.k8s.io/v1beta1:LeaseList",});
       }
 
       /**

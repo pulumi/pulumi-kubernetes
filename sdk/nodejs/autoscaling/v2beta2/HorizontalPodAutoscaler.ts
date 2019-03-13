@@ -65,15 +65,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler { return this.__inputs; }
       private readonly __inputs: inputApi.autoscaling.v2beta2.HorizontalPodAutoscaler;
 
-      public static list(): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscaler> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.autoscaling.v2beta2.isHorizontalPodAutoscaler)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.autoscaling.v2beta2.HorizontalPodAutoscaler> {
+        return ctx.list({...args, type: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler",});
       }
 
       /**

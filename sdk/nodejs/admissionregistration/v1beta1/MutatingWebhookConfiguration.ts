@@ -58,15 +58,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration;
 
-      public static list(): rxjs.Observable<outputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.admissionregistration.v1beta1.isMutatingWebhookConfiguration)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration> {
+        return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration",});
       }
 
       /**

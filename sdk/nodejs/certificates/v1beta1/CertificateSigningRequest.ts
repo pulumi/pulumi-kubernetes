@@ -59,15 +59,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequest { return this.__inputs; }
       private readonly __inputs: inputApi.certificates.v1beta1.CertificateSigningRequest;
 
-      public static list(): rxjs.Observable<outputApi.certificates.v1beta1.CertificateSigningRequest> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.certificates.v1beta1.isCertificateSigningRequest)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.certificates.v1beta1.CertificateSigningRequest> {
+        return ctx.list({...args, type: "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest",});
       }
 
       /**

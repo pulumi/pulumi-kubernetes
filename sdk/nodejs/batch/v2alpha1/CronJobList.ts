@@ -57,15 +57,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.batch.v2alpha1.CronJobList { return this.__inputs; }
       private readonly __inputs: inputApi.batch.v2alpha1.CronJobList;
 
-      public static list(): rxjs.Observable<outputApi.batch.v2alpha1.CronJobList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.batch.v2alpha1.isCronJobList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.batch.v2alpha1.CronJobList> {
+        return ctx.list({...args, type: "kubernetes:batch/v2alpha1:CronJobList",});
       }
 
       /**

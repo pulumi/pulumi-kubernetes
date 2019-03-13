@@ -66,15 +66,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.apps.v1beta2.StatefulSet { return this.__inputs; }
       private readonly __inputs: inputApi.apps.v1beta2.StatefulSet;
 
-      public static list(): rxjs.Observable<outputApi.apps.v1beta2.StatefulSet> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apps.v1beta2.isStatefulSet)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apps.v1beta2.StatefulSet> {
+        return ctx.list({...args, type: "kubernetes:apps/v1beta2:StatefulSet",});
       }
 
       /**

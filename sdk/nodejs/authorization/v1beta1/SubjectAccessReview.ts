@@ -59,15 +59,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.authorization.v1beta1.SubjectAccessReview { return this.__inputs; }
       private readonly __inputs: inputApi.authorization.v1beta1.SubjectAccessReview;
 
-      public static list(): rxjs.Observable<outputApi.authorization.v1beta1.SubjectAccessReview> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.authorization.v1beta1.isSubjectAccessReview)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.authorization.v1beta1.SubjectAccessReview> {
+        return ctx.list({...args, type: "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview",});
       }
 
       /**

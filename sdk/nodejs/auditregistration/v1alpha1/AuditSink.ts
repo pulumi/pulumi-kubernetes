@@ -54,15 +54,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.auditregistration.v1alpha1.AuditSink { return this.__inputs; }
       private readonly __inputs: inputApi.auditregistration.v1alpha1.AuditSink;
 
-      public static list(): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSink> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.auditregistration.v1alpha1.isAuditSink)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.auditregistration.v1alpha1.AuditSink> {
+        return ctx.list({...args, type: "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink",});
       }
 
       /**

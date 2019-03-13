@@ -54,15 +54,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinitionList { return this.__inputs; }
       private readonly __inputs: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList;
 
-      public static list(): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinitionList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apiextensions.v1beta1.isCustomResourceDefinitionList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apiextensions.v1beta1.CustomResourceDefinitionList> {
+        return ctx.list({...args, type: "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList",});
       }
 
       /**

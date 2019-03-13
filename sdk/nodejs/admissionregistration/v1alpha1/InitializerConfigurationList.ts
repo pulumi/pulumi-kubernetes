@@ -57,15 +57,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.admissionregistration.v1alpha1.InitializerConfigurationList { return this.__inputs; }
       private readonly __inputs: inputApi.admissionregistration.v1alpha1.InitializerConfigurationList;
 
-      public static list(): rxjs.Observable<outputApi.admissionregistration.v1alpha1.InitializerConfigurationList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.admissionregistration.v1alpha1.isInitializerConfigurationList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.admissionregistration.v1alpha1.InitializerConfigurationList> {
+        return ctx.list({...args, type: "kubernetes:admissionregistration.k8s.io/v1alpha1:InitializerConfigurationList",});
       }
 
       /**

@@ -100,15 +100,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.storage.v1beta1.StorageClass { return this.__inputs; }
       private readonly __inputs: inputApi.storage.v1beta1.StorageClass;
 
-      public static list(): rxjs.Observable<outputApi.storage.v1beta1.StorageClass> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.storage.v1beta1.isStorageClass)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.storage.v1beta1.StorageClass> {
+        return ctx.list({...args, type: "kubernetes:storage.k8s.io/v1beta1:StorageClass",});
       }
 
       /**

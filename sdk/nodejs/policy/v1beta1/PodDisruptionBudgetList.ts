@@ -52,15 +52,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudgetList { return this.__inputs; }
       private readonly __inputs: inputApi.policy.v1beta1.PodDisruptionBudgetList;
 
-      public static list(): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudgetList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.policy.v1beta1.isPodDisruptionBudgetList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.policy.v1beta1.PodDisruptionBudgetList> {
+        return ctx.list({...args, type: "kubernetes:policy/v1beta1:PodDisruptionBudgetList",});
       }
 
       /**

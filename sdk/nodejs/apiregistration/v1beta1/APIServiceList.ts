@@ -52,15 +52,11 @@ import * as operators from "rxjs/operators"
       public getInputs(): inputApi.apiregistration.v1beta1.APIServiceList { return this.__inputs; }
       private readonly __inputs: inputApi.apiregistration.v1beta1.APIServiceList;
 
-      public static list(): rxjs.Observable<outputApi.apiregistration.v1beta1.APIServiceList> {
-        return rxjs.from(
-          pulumi.runtime
-            .invoke("pulumi:pulumi:readStackResourceOutputs", { stackName: pulumi.runtime.getStack() })
-            .then(o => Object.keys(o.outputs).map(k => o.outputs[k]))
-        ).pipe(
-          operators.mergeAll(),
-          operators.filter(outputApi.apiregistration.v1beta1.isAPIServiceList)
-        );
+      public static list(
+        ctx: pulumi.query.ListContext,
+        args?: pulumi.query.ListArgs,
+      ): rxjs.Observable<outputApi.apiregistration.v1beta1.APIServiceList> {
+        return ctx.list({...args, type: "kubernetes:apiregistration/v1beta1:APIServiceList",});
       }
 
       /**
