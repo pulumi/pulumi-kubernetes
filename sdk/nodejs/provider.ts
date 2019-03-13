@@ -2063,7 +2063,7 @@ export namespace yaml {
         for (const obj of config.objs) {
             const fileObjects = parseYamlObject(obj, config.transformations, opts);
             for (const fileObject of fileObjects) {
-                fileObject.apply((obj) => (resources[obj.name] = fileObject.resource));
+                fileObject.apply(obj => (resources[obj.name] = fileObject.resource));
             }
         }
 
@@ -3020,7 +3020,7 @@ export namespace yaml {
                     resource: new k8s.storage.v1beta1.VolumeAttachmentList(id, obj, opts),
                 }))];
             default:
-                return [id.apply((id: string) => ({
+                return [id.apply(id => ({
                     name: `${apiVersion}/${kind}::${id}`,
                     resource: new k8s.apiextensions.CustomResource(id, obj, opts),
                 }))];
