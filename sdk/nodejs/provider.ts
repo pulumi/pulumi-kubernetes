@@ -7,7 +7,6 @@ import * as glob from "glob";
 import * as jsyaml from "js-yaml";
 import fetch from "node-fetch";
 import * as k8s from "./index";
-import * as inputApi from "./types/input";
 import * as outputApi from "./types/output";
 
 export namespace yaml {
@@ -18,7 +17,7 @@ export namespace yaml {
         /** YAML text containing Kubernetes resource definitions. */
         yaml?: string[] | string;
 
-        /** JavaScript objects represeting Kubernetes resources. */
+        /** JavaScript objects representing Kubernetes resources. */
         objs?: any[] | any;
 
         /**
@@ -2007,7 +2006,7 @@ export namespace yaml {
                 id = `${namespaceOrName}/${name}`;
             }
 
-            return this.resources[`${groupVersionKind}::${id}`];
+            return this.resources.apply(r => r[`${groupVersionKind}::${id}`]);
         }
     }
 
@@ -2049,31 +2048,38 @@ export namespace yaml {
                 text = Promise.resolve(fs.readFileSync(fileId).toString());
             }
 
-            this.resources = pulumi.output(text).apply(t => parseYamlDocument({
+            this.resources = pulumi.output(text.then(t => parseYamlDocument({
                 objs: jsyaml.safeLoadAll(t),
                 transformations: config && config.transformations || []
-            }, {parent: this}));
+            }, {parent: this})));
         }
     }
 
     function parseYamlDocument(
         config: ConfigOpts, opts?: pulumi.CustomResourceOptions,
-    ):  {[key: string]: pulumi.CustomResource} {
-        let resources: {[key: string]: pulumi.CustomResource} = {};
+    ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
+        const objs: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] = [];
 
         for (const obj of config.objs) {
-            const fileObjects = parseYamlObject(obj, config.transformations, opts);
+            const fileObjects: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] =
+                parseYamlObject(obj, config.transformations, opts);
             for (const fileObject of fileObjects) {
-                resources[fileObject.name] = fileObject.resource;
+                objs.push(fileObject);
             }
         }
+        return pulumi.all(objs).apply(xs => {
+            let resources: {[key: string]: pulumi.CustomResource} = {};
+            for (const x of xs) {
+                resources[x.name] = x.resource
+            }
 
-        return resources;
+            return resources;
+        });
     }
 
     function parseYamlObject(
         obj: any, transformations?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
-    ): {name: string, resource: pulumi.CustomResource}[] {
+    ): pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] {
         if (obj == null || Object.keys(obj).length == 0) {
             return [];
         }
@@ -2194,837 +2200,837 @@ export namespace yaml {
         }
 
         const meta = obj["metadata"];
-        let id: string = meta["name"];
+        let id: pulumi.Output<any> = pulumi.output(meta["name"]);
         const namespace = meta["namespace"] || undefined;
         if (namespace !== undefined) {
-            id = `${namespace}/${id}`;
+            id = pulumi.concat(namespace, "/", id);
         }
         switch (`${apiVersion}/${kind}`) {
             case "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration":
-                return [{
+                return [id.apply(id => ({
                     name: `admissionregistration.k8s.io/v1alpha1/InitializerConfiguration::${id}`,
                     resource: new k8s.admissionregistration.v1alpha1.InitializerConfiguration(id, obj, opts),
-                }];
+                }))];
             case "admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList":
-                return [{
+                return [id.apply(id => ({
                     name: `admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList::${id}`,
                     resource: new k8s.admissionregistration.v1alpha1.InitializerConfigurationList(id, obj, opts),
-                }];
+                }))];
             case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
-                return [{
+                return [id.apply(id => ({
                     name: `admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration::${id}`,
                     resource: new k8s.admissionregistration.v1beta1.MutatingWebhookConfiguration(id, obj, opts),
-                }];
+                }))];
             case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
-                return [{
+                return [id.apply(id => ({
                     name: `admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList::${id}`,
                     resource: new k8s.admissionregistration.v1beta1.MutatingWebhookConfigurationList(id, obj, opts),
-                }];
+                }))];
             case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
-                return [{
+                return [id.apply(id => ({
                     name: `admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration::${id}`,
                     resource: new k8s.admissionregistration.v1beta1.ValidatingWebhookConfiguration(id, obj, opts),
-                }];
+                }))];
             case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
-                return [{
+                return [id.apply(id => ({
                     name: `admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList::${id}`,
                     resource: new k8s.admissionregistration.v1beta1.ValidatingWebhookConfigurationList(id, obj, opts),
-                }];
+                }))];
             case "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
-                return [{
+                return [id.apply(id => ({
                     name: `apiextensions.k8s.io/v1beta1/CustomResourceDefinition::${id}`,
                     resource: new k8s.apiextensions.v1beta1.CustomResourceDefinition(id, obj, opts),
-                }];
+                }))];
             case "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
-                return [{
+                return [id.apply(id => ({
                     name: `apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList::${id}`,
                     resource: new k8s.apiextensions.v1beta1.CustomResourceDefinitionList(id, obj, opts),
-                }];
+                }))];
             case "apiregistration.k8s.io/v1/APIService":
-                return [{
+                return [id.apply(id => ({
                     name: `apiregistration.k8s.io/v1/APIService::${id}`,
                     resource: new k8s.apiregistration.v1.APIService(id, obj, opts),
-                }];
+                }))];
             case "apiregistration/v1/APIService":
-                return [{
+                return [id.apply(id => ({
                     name: `apiregistration/v1/APIService::${id}`,
                     resource: new k8s.apiregistration.v1.APIService(id, obj, opts),
-                }];
+                }))];
             case "apiregistration.k8s.io/v1/APIServiceList":
-                return [{
+                return [id.apply(id => ({
                     name: `apiregistration.k8s.io/v1/APIServiceList::${id}`,
                     resource: new k8s.apiregistration.v1.APIServiceList(id, obj, opts),
-                }];
+                }))];
             case "apiregistration/v1/APIServiceList":
-                return [{
+                return [id.apply(id => ({
                     name: `apiregistration/v1/APIServiceList::${id}`,
                     resource: new k8s.apiregistration.v1.APIServiceList(id, obj, opts),
-                }];
+                }))];
             case "apiregistration.k8s.io/v1beta1/APIService":
-                return [{
+                return [id.apply(id => ({
                     name: `apiregistration.k8s.io/v1beta1/APIService::${id}`,
                     resource: new k8s.apiregistration.v1beta1.APIService(id, obj, opts),
-                }];
+                }))];
             case "apiregistration/v1beta1/APIService":
-                return [{
+                return [id.apply(id => ({
                     name: `apiregistration/v1beta1/APIService::${id}`,
                     resource: new k8s.apiregistration.v1beta1.APIService(id, obj, opts),
-                }];
+                }))];
             case "apiregistration.k8s.io/v1beta1/APIServiceList":
-                return [{
+                return [id.apply(id => ({
                     name: `apiregistration.k8s.io/v1beta1/APIServiceList::${id}`,
                     resource: new k8s.apiregistration.v1beta1.APIServiceList(id, obj, opts),
-                }];
+                }))];
             case "apiregistration/v1beta1/APIServiceList":
-                return [{
+                return [id.apply(id => ({
                     name: `apiregistration/v1beta1/APIServiceList::${id}`,
                     resource: new k8s.apiregistration.v1beta1.APIServiceList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/ControllerRevision":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/ControllerRevision::${id}`,
                     resource: new k8s.apps.v1.ControllerRevision(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/ControllerRevisionList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/ControllerRevisionList::${id}`,
                     resource: new k8s.apps.v1.ControllerRevisionList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/DaemonSet":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/DaemonSet::${id}`,
                     resource: new k8s.apps.v1.DaemonSet(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/DaemonSetList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/DaemonSetList::${id}`,
                     resource: new k8s.apps.v1.DaemonSetList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/Deployment":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/Deployment::${id}`,
                     resource: new k8s.apps.v1.Deployment(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/DeploymentList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/DeploymentList::${id}`,
                     resource: new k8s.apps.v1.DeploymentList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/ReplicaSet":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/ReplicaSet::${id}`,
                     resource: new k8s.apps.v1.ReplicaSet(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/ReplicaSetList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/ReplicaSetList::${id}`,
                     resource: new k8s.apps.v1.ReplicaSetList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/StatefulSet":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/StatefulSet::${id}`,
                     resource: new k8s.apps.v1.StatefulSet(id, obj, opts),
-                }];
+                }))];
             case "apps/v1/StatefulSetList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1/StatefulSetList::${id}`,
                     resource: new k8s.apps.v1.StatefulSetList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta1/ControllerRevision":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta1/ControllerRevision::${id}`,
                     resource: new k8s.apps.v1beta1.ControllerRevision(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta1/ControllerRevisionList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta1/ControllerRevisionList::${id}`,
                     resource: new k8s.apps.v1beta1.ControllerRevisionList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta1/Deployment":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta1/Deployment::${id}`,
                     resource: new k8s.apps.v1beta1.Deployment(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta1/DeploymentList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta1/DeploymentList::${id}`,
                     resource: new k8s.apps.v1beta1.DeploymentList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta1/StatefulSet":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta1/StatefulSet::${id}`,
                     resource: new k8s.apps.v1beta1.StatefulSet(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta1/StatefulSetList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta1/StatefulSetList::${id}`,
                     resource: new k8s.apps.v1beta1.StatefulSetList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/ControllerRevision":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/ControllerRevision::${id}`,
                     resource: new k8s.apps.v1beta2.ControllerRevision(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/ControllerRevisionList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/ControllerRevisionList::${id}`,
                     resource: new k8s.apps.v1beta2.ControllerRevisionList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/DaemonSet":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/DaemonSet::${id}`,
                     resource: new k8s.apps.v1beta2.DaemonSet(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/DaemonSetList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/DaemonSetList::${id}`,
                     resource: new k8s.apps.v1beta2.DaemonSetList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/Deployment":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/Deployment::${id}`,
                     resource: new k8s.apps.v1beta2.Deployment(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/DeploymentList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/DeploymentList::${id}`,
                     resource: new k8s.apps.v1beta2.DeploymentList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/ReplicaSet":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/ReplicaSet::${id}`,
                     resource: new k8s.apps.v1beta2.ReplicaSet(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/ReplicaSetList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/ReplicaSetList::${id}`,
                     resource: new k8s.apps.v1beta2.ReplicaSetList(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/StatefulSet":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/StatefulSet::${id}`,
                     resource: new k8s.apps.v1beta2.StatefulSet(id, obj, opts),
-                }];
+                }))];
             case "apps/v1beta2/StatefulSetList":
-                return [{
+                return [id.apply(id => ({
                     name: `apps/v1beta2/StatefulSetList::${id}`,
                     resource: new k8s.apps.v1beta2.StatefulSetList(id, obj, opts),
-                }];
+                }))];
             case "auditregistration.k8s.io/v1alpha1/AuditSink":
-                return [{
+                return [id.apply(id => ({
                     name: `auditregistration.k8s.io/v1alpha1/AuditSink::${id}`,
                     resource: new k8s.auditregistration.v1alpha1.AuditSink(id, obj, opts),
-                }];
+                }))];
             case "auditregistration.k8s.io/v1alpha1/AuditSinkList":
-                return [{
+                return [id.apply(id => ({
                     name: `auditregistration.k8s.io/v1alpha1/AuditSinkList::${id}`,
                     resource: new k8s.auditregistration.v1alpha1.AuditSinkList(id, obj, opts),
-                }];
+                }))];
             case "authentication.k8s.io/v1/TokenReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authentication.k8s.io/v1/TokenReview::${id}`,
                     resource: new k8s.authentication.v1.TokenReview(id, obj, opts),
-                }];
+                }))];
             case "authentication.k8s.io/v1beta1/TokenReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authentication.k8s.io/v1beta1/TokenReview::${id}`,
                     resource: new k8s.authentication.v1beta1.TokenReview(id, obj, opts),
-                }];
+                }))];
             case "authorization.k8s.io/v1/LocalSubjectAccessReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authorization.k8s.io/v1/LocalSubjectAccessReview::${id}`,
                     resource: new k8s.authorization.v1.LocalSubjectAccessReview(id, obj, opts),
-                }];
+                }))];
             case "authorization.k8s.io/v1/SelfSubjectAccessReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authorization.k8s.io/v1/SelfSubjectAccessReview::${id}`,
                     resource: new k8s.authorization.v1.SelfSubjectAccessReview(id, obj, opts),
-                }];
+                }))];
             case "authorization.k8s.io/v1/SelfSubjectRulesReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authorization.k8s.io/v1/SelfSubjectRulesReview::${id}`,
                     resource: new k8s.authorization.v1.SelfSubjectRulesReview(id, obj, opts),
-                }];
+                }))];
             case "authorization.k8s.io/v1/SubjectAccessReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authorization.k8s.io/v1/SubjectAccessReview::${id}`,
                     resource: new k8s.authorization.v1.SubjectAccessReview(id, obj, opts),
-                }];
+                }))];
             case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authorization.k8s.io/v1beta1/LocalSubjectAccessReview::${id}`,
                     resource: new k8s.authorization.v1beta1.LocalSubjectAccessReview(id, obj, opts),
-                }];
+                }))];
             case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authorization.k8s.io/v1beta1/SelfSubjectAccessReview::${id}`,
                     resource: new k8s.authorization.v1beta1.SelfSubjectAccessReview(id, obj, opts),
-                }];
+                }))];
             case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authorization.k8s.io/v1beta1/SelfSubjectRulesReview::${id}`,
                     resource: new k8s.authorization.v1beta1.SelfSubjectRulesReview(id, obj, opts),
-                }];
+                }))];
             case "authorization.k8s.io/v1beta1/SubjectAccessReview":
-                return [{
+                return [id.apply(id => ({
                     name: `authorization.k8s.io/v1beta1/SubjectAccessReview::${id}`,
                     resource: new k8s.authorization.v1beta1.SubjectAccessReview(id, obj, opts),
-                }];
+                }))];
             case "autoscaling/v1/HorizontalPodAutoscaler":
-                return [{
+                return [id.apply(id => ({
                     name: `autoscaling/v1/HorizontalPodAutoscaler::${id}`,
                     resource: new k8s.autoscaling.v1.HorizontalPodAutoscaler(id, obj, opts),
-                }];
+                }))];
             case "autoscaling/v1/HorizontalPodAutoscalerList":
-                return [{
+                return [id.apply(id => ({
                     name: `autoscaling/v1/HorizontalPodAutoscalerList::${id}`,
                     resource: new k8s.autoscaling.v1.HorizontalPodAutoscalerList(id, obj, opts),
-                }];
+                }))];
             case "autoscaling/v2beta1/HorizontalPodAutoscaler":
-                return [{
+                return [id.apply(id => ({
                     name: `autoscaling/v2beta1/HorizontalPodAutoscaler::${id}`,
                     resource: new k8s.autoscaling.v2beta1.HorizontalPodAutoscaler(id, obj, opts),
-                }];
+                }))];
             case "autoscaling/v2beta1/HorizontalPodAutoscalerList":
-                return [{
+                return [id.apply(id => ({
                     name: `autoscaling/v2beta1/HorizontalPodAutoscalerList::${id}`,
                     resource: new k8s.autoscaling.v2beta1.HorizontalPodAutoscalerList(id, obj, opts),
-                }];
+                }))];
             case "autoscaling/v2beta2/HorizontalPodAutoscaler":
-                return [{
+                return [id.apply(id => ({
                     name: `autoscaling/v2beta2/HorizontalPodAutoscaler::${id}`,
                     resource: new k8s.autoscaling.v2beta2.HorizontalPodAutoscaler(id, obj, opts),
-                }];
+                }))];
             case "autoscaling/v2beta2/HorizontalPodAutoscalerList":
-                return [{
+                return [id.apply(id => ({
                     name: `autoscaling/v2beta2/HorizontalPodAutoscalerList::${id}`,
                     resource: new k8s.autoscaling.v2beta2.HorizontalPodAutoscalerList(id, obj, opts),
-                }];
+                }))];
             case "batch/v1/Job":
-                return [{
+                return [id.apply(id => ({
                     name: `batch/v1/Job::${id}`,
                     resource: new k8s.batch.v1.Job(id, obj, opts),
-                }];
+                }))];
             case "batch/v1/JobList":
-                return [{
+                return [id.apply(id => ({
                     name: `batch/v1/JobList::${id}`,
                     resource: new k8s.batch.v1.JobList(id, obj, opts),
-                }];
+                }))];
             case "batch/v1beta1/CronJob":
-                return [{
+                return [id.apply(id => ({
                     name: `batch/v1beta1/CronJob::${id}`,
                     resource: new k8s.batch.v1beta1.CronJob(id, obj, opts),
-                }];
+                }))];
             case "batch/v1beta1/CronJobList":
-                return [{
+                return [id.apply(id => ({
                     name: `batch/v1beta1/CronJobList::${id}`,
                     resource: new k8s.batch.v1beta1.CronJobList(id, obj, opts),
-                }];
+                }))];
             case "batch/v2alpha1/CronJob":
-                return [{
+                return [id.apply(id => ({
                     name: `batch/v2alpha1/CronJob::${id}`,
                     resource: new k8s.batch.v2alpha1.CronJob(id, obj, opts),
-                }];
+                }))];
             case "batch/v2alpha1/CronJobList":
-                return [{
+                return [id.apply(id => ({
                     name: `batch/v2alpha1/CronJobList::${id}`,
                     resource: new k8s.batch.v2alpha1.CronJobList(id, obj, opts),
-                }];
+                }))];
             case "certificates.k8s.io/v1beta1/CertificateSigningRequest":
-                return [{
+                return [id.apply(id => ({
                     name: `certificates.k8s.io/v1beta1/CertificateSigningRequest::${id}`,
                     resource: new k8s.certificates.v1beta1.CertificateSigningRequest(id, obj, opts),
-                }];
+                }))];
             case "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
-                return [{
+                return [id.apply(id => ({
                     name: `certificates.k8s.io/v1beta1/CertificateSigningRequestList::${id}`,
                     resource: new k8s.certificates.v1beta1.CertificateSigningRequestList(id, obj, opts),
-                }];
+                }))];
             case "coordination.k8s.io/v1beta1/Lease":
-                return [{
+                return [id.apply(id => ({
                     name: `coordination.k8s.io/v1beta1/Lease::${id}`,
                     resource: new k8s.coordination.v1beta1.Lease(id, obj, opts),
-                }];
+                }))];
             case "coordination.k8s.io/v1beta1/LeaseList":
-                return [{
+                return [id.apply(id => ({
                     name: `coordination.k8s.io/v1beta1/LeaseList::${id}`,
                     resource: new k8s.coordination.v1beta1.LeaseList(id, obj, opts),
-                }];
+                }))];
             case "v1/Binding":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/Binding::${id}`,
                     resource: new k8s.core.v1.Binding(id, obj, opts),
-                }];
+                }))];
             case "v1/ComponentStatus":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ComponentStatus::${id}`,
                     resource: new k8s.core.v1.ComponentStatus(id, obj, opts),
-                }];
+                }))];
             case "v1/ComponentStatusList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ComponentStatusList::${id}`,
                     resource: new k8s.core.v1.ComponentStatusList(id, obj, opts),
-                }];
+                }))];
             case "v1/ConfigMap":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ConfigMap::${id}`,
                     resource: new k8s.core.v1.ConfigMap(id, obj, opts),
-                }];
+                }))];
             case "v1/ConfigMapList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ConfigMapList::${id}`,
                     resource: new k8s.core.v1.ConfigMapList(id, obj, opts),
-                }];
+                }))];
             case "v1/Endpoints":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/Endpoints::${id}`,
                     resource: new k8s.core.v1.Endpoints(id, obj, opts),
-                }];
+                }))];
             case "v1/EndpointsList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/EndpointsList::${id}`,
                     resource: new k8s.core.v1.EndpointsList(id, obj, opts),
-                }];
+                }))];
             case "v1/Event":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/Event::${id}`,
                     resource: new k8s.core.v1.Event(id, obj, opts),
-                }];
+                }))];
             case "v1/EventList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/EventList::${id}`,
                     resource: new k8s.core.v1.EventList(id, obj, opts),
-                }];
+                }))];
             case "v1/LimitRange":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/LimitRange::${id}`,
                     resource: new k8s.core.v1.LimitRange(id, obj, opts),
-                }];
+                }))];
             case "v1/LimitRangeList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/LimitRangeList::${id}`,
                     resource: new k8s.core.v1.LimitRangeList(id, obj, opts),
-                }];
+                }))];
             case "v1/Namespace":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/Namespace::${id}`,
                     resource: new k8s.core.v1.Namespace(id, obj, opts),
-                }];
+                }))];
             case "v1/NamespaceList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/NamespaceList::${id}`,
                     resource: new k8s.core.v1.NamespaceList(id, obj, opts),
-                }];
+                }))];
             case "v1/Node":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/Node::${id}`,
                     resource: new k8s.core.v1.Node(id, obj, opts),
-                }];
+                }))];
             case "v1/NodeList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/NodeList::${id}`,
                     resource: new k8s.core.v1.NodeList(id, obj, opts),
-                }];
+                }))];
             case "v1/PersistentVolume":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/PersistentVolume::${id}`,
                     resource: new k8s.core.v1.PersistentVolume(id, obj, opts),
-                }];
+                }))];
             case "v1/PersistentVolumeClaim":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/PersistentVolumeClaim::${id}`,
                     resource: new k8s.core.v1.PersistentVolumeClaim(id, obj, opts),
-                }];
+                }))];
             case "v1/PersistentVolumeClaimList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/PersistentVolumeClaimList::${id}`,
                     resource: new k8s.core.v1.PersistentVolumeClaimList(id, obj, opts),
-                }];
+                }))];
             case "v1/PersistentVolumeList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/PersistentVolumeList::${id}`,
                     resource: new k8s.core.v1.PersistentVolumeList(id, obj, opts),
-                }];
+                }))];
             case "v1/Pod":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/Pod::${id}`,
                     resource: new k8s.core.v1.Pod(id, obj, opts),
-                }];
+                }))];
             case "v1/PodList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/PodList::${id}`,
                     resource: new k8s.core.v1.PodList(id, obj, opts),
-                }];
+                }))];
             case "v1/PodTemplate":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/PodTemplate::${id}`,
                     resource: new k8s.core.v1.PodTemplate(id, obj, opts),
-                }];
+                }))];
             case "v1/PodTemplateList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/PodTemplateList::${id}`,
                     resource: new k8s.core.v1.PodTemplateList(id, obj, opts),
-                }];
+                }))];
             case "v1/ReplicationController":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ReplicationController::${id}`,
                     resource: new k8s.core.v1.ReplicationController(id, obj, opts),
-                }];
+                }))];
             case "v1/ReplicationControllerList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ReplicationControllerList::${id}`,
                     resource: new k8s.core.v1.ReplicationControllerList(id, obj, opts),
-                }];
+                }))];
             case "v1/ResourceQuota":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ResourceQuota::${id}`,
                     resource: new k8s.core.v1.ResourceQuota(id, obj, opts),
-                }];
+                }))];
             case "v1/ResourceQuotaList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ResourceQuotaList::${id}`,
                     resource: new k8s.core.v1.ResourceQuotaList(id, obj, opts),
-                }];
+                }))];
             case "v1/Secret":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/Secret::${id}`,
                     resource: new k8s.core.v1.Secret(id, obj, opts),
-                }];
+                }))];
             case "v1/SecretList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/SecretList::${id}`,
                     resource: new k8s.core.v1.SecretList(id, obj, opts),
-                }];
+                }))];
             case "v1/Service":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/Service::${id}`,
                     resource: new k8s.core.v1.Service(id, obj, opts),
-                }];
+                }))];
             case "v1/ServiceAccount":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ServiceAccount::${id}`,
                     resource: new k8s.core.v1.ServiceAccount(id, obj, opts),
-                }];
+                }))];
             case "v1/ServiceAccountList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ServiceAccountList::${id}`,
                     resource: new k8s.core.v1.ServiceAccountList(id, obj, opts),
-                }];
+                }))];
             case "v1/ServiceList":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/ServiceList::${id}`,
                     resource: new k8s.core.v1.ServiceList(id, obj, opts),
-                }];
+                }))];
             case "events.k8s.io/v1beta1/Event":
-                return [{
+                return [id.apply(id => ({
                     name: `events.k8s.io/v1beta1/Event::${id}`,
                     resource: new k8s.events.v1beta1.Event(id, obj, opts),
-                }];
+                }))];
             case "events.k8s.io/v1beta1/EventList":
-                return [{
+                return [id.apply(id => ({
                     name: `events.k8s.io/v1beta1/EventList::${id}`,
                     resource: new k8s.events.v1beta1.EventList(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/DaemonSet":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/DaemonSet::${id}`,
                     resource: new k8s.extensions.v1beta1.DaemonSet(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/DaemonSetList":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/DaemonSetList::${id}`,
                     resource: new k8s.extensions.v1beta1.DaemonSetList(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/Deployment":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/Deployment::${id}`,
                     resource: new k8s.extensions.v1beta1.Deployment(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/DeploymentList":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/DeploymentList::${id}`,
                     resource: new k8s.extensions.v1beta1.DeploymentList(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/Ingress":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/Ingress::${id}`,
                     resource: new k8s.extensions.v1beta1.Ingress(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/IngressList":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/IngressList::${id}`,
                     resource: new k8s.extensions.v1beta1.IngressList(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/NetworkPolicy":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/NetworkPolicy::${id}`,
                     resource: new k8s.extensions.v1beta1.NetworkPolicy(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/NetworkPolicyList":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/NetworkPolicyList::${id}`,
                     resource: new k8s.extensions.v1beta1.NetworkPolicyList(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/PodSecurityPolicy":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/PodSecurityPolicy::${id}`,
                     resource: new k8s.extensions.v1beta1.PodSecurityPolicy(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/PodSecurityPolicyList":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/PodSecurityPolicyList::${id}`,
                     resource: new k8s.extensions.v1beta1.PodSecurityPolicyList(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/ReplicaSet":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/ReplicaSet::${id}`,
                     resource: new k8s.extensions.v1beta1.ReplicaSet(id, obj, opts),
-                }];
+                }))];
             case "extensions/v1beta1/ReplicaSetList":
-                return [{
+                return [id.apply(id => ({
                     name: `extensions/v1beta1/ReplicaSetList::${id}`,
                     resource: new k8s.extensions.v1beta1.ReplicaSetList(id, obj, opts),
-                }];
+                }))];
             case "v1/Status":
-                return [{
+                return [id.apply(id => ({
                     name: `v1/Status::${id}`,
                     resource: new k8s.meta.v1.Status(id, obj, opts),
-                }];
+                }))];
             case "networking.k8s.io/v1/NetworkPolicy":
-                return [{
+                return [id.apply(id => ({
                     name: `networking.k8s.io/v1/NetworkPolicy::${id}`,
                     resource: new k8s.networking.v1.NetworkPolicy(id, obj, opts),
-                }];
+                }))];
             case "networking.k8s.io/v1/NetworkPolicyList":
-                return [{
+                return [id.apply(id => ({
                     name: `networking.k8s.io/v1/NetworkPolicyList::${id}`,
                     resource: new k8s.networking.v1.NetworkPolicyList(id, obj, opts),
-                }];
+                }))];
             case "policy/v1beta1/PodDisruptionBudget":
-                return [{
+                return [id.apply(id => ({
                     name: `policy/v1beta1/PodDisruptionBudget::${id}`,
                     resource: new k8s.policy.v1beta1.PodDisruptionBudget(id, obj, opts),
-                }];
+                }))];
             case "policy/v1beta1/PodDisruptionBudgetList":
-                return [{
+                return [id.apply(id => ({
                     name: `policy/v1beta1/PodDisruptionBudgetList::${id}`,
                     resource: new k8s.policy.v1beta1.PodDisruptionBudgetList(id, obj, opts),
-                }];
+                }))];
             case "policy/v1beta1/PodSecurityPolicy":
-                return [{
+                return [id.apply(id => ({
                     name: `policy/v1beta1/PodSecurityPolicy::${id}`,
                     resource: new k8s.policy.v1beta1.PodSecurityPolicy(id, obj, opts),
-                }];
+                }))];
             case "policy/v1beta1/PodSecurityPolicyList":
-                return [{
+                return [id.apply(id => ({
                     name: `policy/v1beta1/PodSecurityPolicyList::${id}`,
                     resource: new k8s.policy.v1beta1.PodSecurityPolicyList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1/ClusterRole":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1/ClusterRole::${id}`,
                     resource: new k8s.rbac.v1.ClusterRole(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1/ClusterRoleBinding::${id}`,
                     resource: new k8s.rbac.v1.ClusterRoleBinding(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1/ClusterRoleBindingList::${id}`,
                     resource: new k8s.rbac.v1.ClusterRoleBindingList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1/ClusterRoleList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1/ClusterRoleList::${id}`,
                     resource: new k8s.rbac.v1.ClusterRoleList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1/Role":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1/Role::${id}`,
                     resource: new k8s.rbac.v1.Role(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1/RoleBinding":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1/RoleBinding::${id}`,
                     resource: new k8s.rbac.v1.RoleBinding(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1/RoleBindingList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1/RoleBindingList::${id}`,
                     resource: new k8s.rbac.v1.RoleBindingList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1/RoleList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1/RoleList::${id}`,
                     resource: new k8s.rbac.v1.RoleList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1alpha1/ClusterRole::${id}`,
                     resource: new k8s.rbac.v1alpha1.ClusterRole(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding::${id}`,
                     resource: new k8s.rbac.v1alpha1.ClusterRoleBinding(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList::${id}`,
                     resource: new k8s.rbac.v1alpha1.ClusterRoleBindingList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1alpha1/ClusterRoleList::${id}`,
                     resource: new k8s.rbac.v1alpha1.ClusterRoleList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1alpha1/Role":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1alpha1/Role::${id}`,
                     resource: new k8s.rbac.v1alpha1.Role(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1alpha1/RoleBinding::${id}`,
                     resource: new k8s.rbac.v1alpha1.RoleBinding(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1alpha1/RoleBindingList::${id}`,
                     resource: new k8s.rbac.v1alpha1.RoleBindingList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1alpha1/RoleList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1alpha1/RoleList::${id}`,
                     resource: new k8s.rbac.v1alpha1.RoleList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1beta1/ClusterRole":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1beta1/ClusterRole::${id}`,
                     resource: new k8s.rbac.v1beta1.ClusterRole(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding::${id}`,
                     resource: new k8s.rbac.v1beta1.ClusterRoleBinding(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList::${id}`,
                     resource: new k8s.rbac.v1beta1.ClusterRoleBindingList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1beta1/ClusterRoleList::${id}`,
                     resource: new k8s.rbac.v1beta1.ClusterRoleList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1beta1/Role":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1beta1/Role::${id}`,
                     resource: new k8s.rbac.v1beta1.Role(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1beta1/RoleBinding":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1beta1/RoleBinding::${id}`,
                     resource: new k8s.rbac.v1beta1.RoleBinding(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1beta1/RoleBindingList::${id}`,
                     resource: new k8s.rbac.v1beta1.RoleBindingList(id, obj, opts),
-                }];
+                }))];
             case "rbac.authorization.k8s.io/v1beta1/RoleList":
-                return [{
+                return [id.apply(id => ({
                     name: `rbac.authorization.k8s.io/v1beta1/RoleList::${id}`,
                     resource: new k8s.rbac.v1beta1.RoleList(id, obj, opts),
-                }];
+                }))];
             case "scheduling.k8s.io/v1alpha1/PriorityClass":
-                return [{
+                return [id.apply(id => ({
                     name: `scheduling.k8s.io/v1alpha1/PriorityClass::${id}`,
                     resource: new k8s.scheduling.v1alpha1.PriorityClass(id, obj, opts),
-                }];
+                }))];
             case "scheduling.k8s.io/v1alpha1/PriorityClassList":
-                return [{
+                return [id.apply(id => ({
                     name: `scheduling.k8s.io/v1alpha1/PriorityClassList::${id}`,
                     resource: new k8s.scheduling.v1alpha1.PriorityClassList(id, obj, opts),
-                }];
+                }))];
             case "scheduling.k8s.io/v1beta1/PriorityClass":
-                return [{
+                return [id.apply(id => ({
                     name: `scheduling.k8s.io/v1beta1/PriorityClass::${id}`,
                     resource: new k8s.scheduling.v1beta1.PriorityClass(id, obj, opts),
-                }];
+                }))];
             case "scheduling.k8s.io/v1beta1/PriorityClassList":
-                return [{
+                return [id.apply(id => ({
                     name: `scheduling.k8s.io/v1beta1/PriorityClassList::${id}`,
                     resource: new k8s.scheduling.v1beta1.PriorityClassList(id, obj, opts),
-                }];
+                }))];
             case "settings.k8s.io/v1alpha1/PodPreset":
-                return [{
+                return [id.apply(id => ({
                     name: `settings.k8s.io/v1alpha1/PodPreset::${id}`,
                     resource: new k8s.settings.v1alpha1.PodPreset(id, obj, opts),
-                }];
+                }))];
             case "settings.k8s.io/v1alpha1/PodPresetList":
-                return [{
+                return [id.apply(id => ({
                     name: `settings.k8s.io/v1alpha1/PodPresetList::${id}`,
                     resource: new k8s.settings.v1alpha1.PodPresetList(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1/StorageClass":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1/StorageClass::${id}`,
                     resource: new k8s.storage.v1.StorageClass(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1/StorageClassList":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1/StorageClassList::${id}`,
                     resource: new k8s.storage.v1.StorageClassList(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1/VolumeAttachment":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1/VolumeAttachment::${id}`,
                     resource: new k8s.storage.v1.VolumeAttachment(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1/VolumeAttachmentList":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1/VolumeAttachmentList::${id}`,
                     resource: new k8s.storage.v1.VolumeAttachmentList(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1alpha1/VolumeAttachment":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1alpha1/VolumeAttachment::${id}`,
                     resource: new k8s.storage.v1alpha1.VolumeAttachment(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1alpha1/VolumeAttachmentList":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1alpha1/VolumeAttachmentList::${id}`,
                     resource: new k8s.storage.v1alpha1.VolumeAttachmentList(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1beta1/StorageClass":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1beta1/StorageClass::${id}`,
                     resource: new k8s.storage.v1beta1.StorageClass(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1beta1/StorageClassList":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1beta1/StorageClassList::${id}`,
                     resource: new k8s.storage.v1beta1.StorageClassList(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1beta1/VolumeAttachment":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1beta1/VolumeAttachment::${id}`,
                     resource: new k8s.storage.v1beta1.VolumeAttachment(id, obj, opts),
-                }];
+                }))];
             case "storage.k8s.io/v1beta1/VolumeAttachmentList":
-                return [{
+                return [id.apply(id => ({
                     name: `storage.k8s.io/v1beta1/VolumeAttachmentList::${id}`,
                     resource: new k8s.storage.v1beta1.VolumeAttachmentList(id, obj, opts),
-                }];
+                }))];
             default:
-                return [{
+                return [id.apply(id => ({
                     name: `${apiVersion}/${kind}::${id}`,
                     resource: new k8s.apiextensions.CustomResource(id, obj, opts),
-                }];
+                }))];
         }
     }
 }

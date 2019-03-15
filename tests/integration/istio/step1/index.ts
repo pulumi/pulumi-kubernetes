@@ -29,13 +29,13 @@ new k8s.yaml.ConfigFile(
 );
 
 export const port = istio
-    .getResourceProperty("v1/Service", "istio-system/istio-ingressgateway", "spec")
+    .getResourceProperty("v1/Service","istio-system", "istio-ingressgateway", "spec")
     .apply(p => p.ports.filter(p => p.name == "http2"));
 
 export const frontendIp = pulumi
     .all([
-        istio.getResourceProperty("v1/Service", "istio-system/istio-ingressgateway", "status"),
-        istio.getResourceProperty("v1/Service", "istio-system/istio-ingressgateway", "spec")
+        istio.getResourceProperty("v1/Service", "istio-system", "istio-ingressgateway", "status"),
+        istio.getResourceProperty("v1/Service", "istio-system", "istio-ingressgateway", "spec")
     ])
     .apply(([status, spec]) => {
         const port = spec.ports.filter(p => p.name == "http2")[0].port;
