@@ -2006,7 +2006,7 @@ export namespace yaml {
                 id = `${namespaceOrName}/${name}`;
             }
 
-            return this.resources[`${groupVersionKind}::${id}`];
+            return this.resources.apply(r => r[`${groupVersionKind}::${id}`]);
         }
     }
 
@@ -2058,16 +2058,23 @@ export namespace yaml {
     function parseYamlDocument(
         config: ConfigOpts, opts?: pulumi.CustomResourceOptions,
     ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
-        let resources: pulumi.Output<{[key: string]: pulumi.CustomResource}> = pulumi.Output.create({});
+        const objs: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] = [];
 
         for (const obj of config.objs) {
-            const fileObjects = parseYamlObject(obj, config.transformations, opts);
+            const fileObjects: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] =
+                parseYamlObject(obj, config.transformations, opts);
             for (const fileObject of fileObjects) {
-                fileObject.apply(obj => (resources[obj.name] = fileObject.resource));
+                objs.push(fileObject);
             }
         }
+        return pulumi.all(objs).apply(xs => {
+            let resources: {[key: string]: pulumi.CustomResource} = {};
+            for (const x of xs) {
+                resources[x.name] = x.resource
+            }
 
-        return resources;
+            return resources;
+        });
     }
 
     function parseYamlObject(
@@ -2193,7 +2200,7 @@ export namespace yaml {
         }
 
         const meta = obj["metadata"];
-        let id: pulumi.Output<string> = pulumi.Output.create<string>(meta["name"]);
+        let id: pulumi.Output<any> = pulumi.output(meta["name"]);
         const namespace = meta["namespace"] || undefined;
         if (namespace !== undefined) {
             id = pulumi.concat(namespace, "/", id);
