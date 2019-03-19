@@ -17301,6 +17301,11 @@ export namespace meta {
      */
     export interface Preconditions {
       /**
+       * Specifies the target ResourceVersion
+       */
+      resourceVersion?: pulumi.Input<string>
+
+      /**
        * Specifies the target UID.
        */
       uid?: pulumi.Input<string>

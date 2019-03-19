@@ -16428,6 +16428,11 @@ export namespace meta {
      */
     export interface Preconditions {
       /**
+       * Specifies the target ResourceVersion
+       */
+      readonly resourceVersion: string
+
+      /**
        * Specifies the target UID.
        */
       readonly uid: string
