@@ -12135,7 +12135,8 @@ export namespace core {
 
       /**
        * EnableServiceLinks indicates whether information about services should be injected into
-       * pod's environment variables, matching the syntax of Docker links.
+       * pod's environment variables, matching the syntax of Docker links. Optional: Defaults to
+       * true.
        */
       enableServiceLinks?: pulumi.Input<boolean>
 
