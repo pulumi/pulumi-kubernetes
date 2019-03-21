@@ -400,6 +400,14 @@
   revision = "0e7658f8ee99ee5aa683e2a032b8880091b7a055"
 
 [[projects]]
+  digest = "1:9172cf08abcedf7821d0d8eb71ffbd8d4f450dd5088107bcef9d9fee77d20395"
+  name = "github.com/grpc/grpc-go"
+  packages = ["status"]
+  pruneopts = "UT"
+  revision = "3507fb8e1a5ad030303c106fef3a47c9fdad16ad"
+  version = "v1.19.1"
+
+[[projects]]
   branch = "master"
   digest = "1:07671f8997086ed115824d1974507d2b147d1e0463675ea5dbf3be89b1c2c563"
   name = "github.com/hashicorp/errwrap"
@@ -607,7 +615,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:ed60070ca606e7691355266c8e844b850cc395242c84895f7b1fed3c1b14e8b9"
+  digest = "1:4c7af15b34e9d96840b1668268d7d14b7129c936f33995d4dd0ef3d19a024f45"
   name = "github.com/pulumi/pulumi"
   packages = [
     "pkg/apitype",
@@ -624,6 +632,7 @@
     "pkg/resource/config",
     "pkg/resource/deploy",
     "pkg/resource/deploy/providers",
+    "pkg/resource/edit",
     "pkg/resource/graph",
     "pkg/resource/plugin",
     "pkg/resource/provider",
@@ -650,7 +659,7 @@
     "sdk/proto/go",
   ]
   pruneopts = "UT"
-  revision = "b245fd7595f2fcfb8f9e8c7ddc22d558f0029671"
+  revision = "4abdc88c2e63f95f08fcf6c28219a4e61312c95a"
 
 [[projects]]
   branch = "master"
@@ -868,9 +877,12 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:75515eedc0dc2cb0b40372008b616fa2841d831c63eedd403285ff286c593295"
+  digest = "1:04a5b0e4138f98eef79ce12a955a420ee358e9f787044cc3a553ac3c3ade997e"
   name = "golang.org/x/sync"
-  packages = ["semaphore"]
+  packages = [
+    "errgroup",
+    "semaphore",
+  ]
   pruneopts = "UT"
   revision = "37e7f081c4d4c64e13b10787722085407fe5d15f"
 
@@ -1356,6 +1368,7 @@
     "github.com/golang/protobuf/ptypes/empty",
     "github.com/golang/protobuf/ptypes/struct",
     "github.com/googleapis/gnostic/OpenAPIv2",
+    "github.com/grpc/grpc-go/status",
     "github.com/jinzhu/copier",
     "github.com/mitchellh/go-wordwrap",
     "github.com/pkg/errors",

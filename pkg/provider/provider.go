@@ -21,6 +21,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/grpc/grpc-go/status"
+
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	"github.com/golang/protobuf/ptypes/struct"
@@ -99,6 +101,16 @@ func makeKubeProvider(
 		version:        version,
 		providerPrefix: name + gvkDelimiter,
 	}, nil
+}
+
+// CheckConfig validates the configuration for this provider.
+func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "CheckConfig is not yet implemented")
+}
+
+// DiffConfig diffs the configuration for this provider.
+func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "DiffConfig is not yet implemented")
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.
