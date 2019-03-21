@@ -1,9 +1,21 @@
-import { execSync } from "child_process";
+// Copyright 2016-2019, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import * as k8s from "@pulumi/kubernetes";
+import { k8sProvider } from "./cluster";
 
 import * as config from "./config";
-import { k8sProvider } from "./cluster";
 
 const appName = "istio";
 const namespace = new k8s.core.v1.Namespace(
@@ -28,15 +40,28 @@ const adminBinding = new k8s.rbac.v1.ClusterRoleBinding(
     { provider: k8sProvider }
 );
 
+export const istio_init = new k8s.helm.v2.Chart(
+    `${appName}-init`,
+    {
+        chart: "istio-init",
+        namespace: namespace.metadata.name,
+        version: "1.1.0",
+        fetchOpts: { repo: "https://gcsweb.istio.io/gcs/istio-release/releases/1.1.0/charts/" },
+        // for all options check https://github.com/istio/istio/tree/master/install/kubernetes/helm/istio
+        values: { kiali: { enabled: true } }
+    },
+    { dependsOn: [namespace, adminBinding], providers: { kubernetes: k8sProvider } }
+);
+
 export const istio = new k8s.helm.v2.Chart(
     appName,
     {
         chart: "istio",
         namespace: namespace.metadata.name,
-        version: "1.0.1",
-        fetchOpts: { repo: "https://istio.io/charts/" },
+        version: "1.1.0",
+        fetchOpts: { repo: "https://gcsweb.istio.io/gcs/istio-release/releases/1.1.0/charts/" },
         // for all options check https://github.com/istio/istio/tree/master/install/kubernetes/helm/istio
         values: { kiali: { enabled: true } }
     },
-    { dependsOn: [namespace, adminBinding], providers: { kubernetes: k8sProvider } }
+    { dependsOn: [namespace, adminBinding, istio_init], providers: { kubernetes: k8sProvider } }
 );
