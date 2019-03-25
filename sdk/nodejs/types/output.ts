@@ -2,133 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 export namespace admissionregistration {
-  export namespace v1alpha1 {
-    /**
-     * Initializer describes the name and the failure policy of an initializer, and what resources
-     * it applies to.
-     */
-    export interface Initializer {
-      /**
-       * Name is the identifier of the initializer. It will be added to the object that needs to be
-       * initialized. Name should be fully qualified, e.g., alwayspullimages.kubernetes.io, where
-       * "alwayspullimages" is the name of the webhook, and kubernetes.io is the name of the
-       * organization. Required
-       */
-      readonly name: string
-
-      /**
-       * Rules describes what resources/subresources the initializer cares about. The initializer
-       * cares about an operation if it matches _any_ Rule. Rule.Resources must not include
-       * subresources.
-       */
-      readonly rules: admissionregistration.v1alpha1.Rule[]
-
-    }
-
-    /**
-     * InitializerConfiguration describes the configuration of initializers.
-     */
-    export interface InitializerConfiguration {
-      /**
-       * APIVersion defines the versioned schema of this representation of an object. Servers should
-       * convert recognized schemas to the latest internal value, and may reject unrecognized
-       * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-       */
-      readonly apiVersion: "admissionregistration.k8s.io/v1alpha1"
-
-      /**
-       * Initializers is a list of resources and their default initializers Order-sensitive. When
-       * merging multiple InitializerConfigurations, we sort the initializers from different
-       * InitializerConfigurations by the name of the InitializerConfigurations; the order of the
-       * initializers from the same InitializerConfiguration is preserved.
-       */
-      readonly initializers: admissionregistration.v1alpha1.Initializer[]
-
-      /**
-       * Kind is a string value representing the REST resource this object represents. Servers may
-       * infer this from the endpoint the client submits requests to. Cannot be updated. In
-       * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      readonly kind: "InitializerConfiguration"
-
-      /**
-       * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-       */
-      readonly metadata: meta.v1.ObjectMeta
-
-    }
-
-    /**
-     * InitializerConfigurationList is a list of InitializerConfiguration.
-     */
-    export interface InitializerConfigurationList {
-      /**
-       * APIVersion defines the versioned schema of this representation of an object. Servers should
-       * convert recognized schemas to the latest internal value, and may reject unrecognized
-       * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-       */
-      readonly apiVersion: "admissionregistration.k8s.io/v1alpha1"
-
-      /**
-       * List of InitializerConfiguration.
-       */
-      readonly items: admissionregistration.v1alpha1.InitializerConfiguration[]
-
-      /**
-       * Kind is a string value representing the REST resource this object represents. Servers may
-       * infer this from the endpoint the client submits requests to. Cannot be updated. In
-       * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      readonly kind: "InitializerConfigurationList"
-
-      /**
-       * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      readonly metadata: meta.v1.ListMeta
-
-    }
-
-    /**
-     * Rule is a tuple of APIGroups, APIVersion, and Resources.It is recommended to make sure that
-     * all the tuple expansions are valid.
-     */
-    export interface Rule {
-      /**
-       * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present,
-       * the length of the slice must be one. Required.
-       */
-      readonly apiGroups: string[]
-
-      /**
-       * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is
-       * present, the length of the slice must be one. Required.
-       */
-      readonly apiVersions: string[]
-
-      /**
-       * Resources is a list of resources this rule applies to.
-       * 
-       * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all
-       * resources, but not subresources. 'pods/*' means all subresources of pods. '*&#8205;/scale'
-       * means all scale subresources. '*&#8205;/*' means all resources and their subresources.
-       * 
-       * If wildcard is present, the validation rule will ensure resources do not overlap with each
-       * other.
-       * 
-       * Depending on the enclosing object, subresources might not be allowed. Required.
-       */
-      readonly resources: string[]
-
-    }
-
-  }
-
   export namespace v1beta1 {
     /**
      * MutatingWebhookConfiguration describes the configuration of and admission webhook that accept
@@ -234,6 +107,15 @@ export namespace admissionregistration {
        */
       readonly resources: string[]
 
+      /**
+       * scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*"
+       * "Cluster" means that only cluster-scoped resources will match this rule. Namespace API
+       * objects are cluster-scoped. "Namespaced" means that only namespaced resources will match
+       * this rule. "*" means that there are no scope restrictions. Subresources match the scope of
+       * their parent resource. Default is "*".
+       */
+      readonly scope: string
+
     }
 
     /**
@@ -329,6 +211,16 @@ export namespace admissionregistration {
      */
     export interface Webhook {
       /**
+       * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
+       * Webhook expects. API server will try to use first version in the list which it supports. If
+       * none of the versions specified in this list supported by API server, validation will fail
+       * for this object. If a persisted webhook configuration specifies allowed versions and does
+       * not include any versions known to the API Server, calls to the webhook will fail and be
+       * subject to the failure policy. Default to `['v1beta1']`.
+       */
+      readonly admissionReviewVersions: string[]
+
+      /**
        * ClientConfig defines how to communicate with the hook. Required
        */
       readonly clientConfig: admissionregistration.v1beta1.WebhookClientConfig
@@ -407,6 +299,13 @@ export namespace admissionregistration {
        * Unknown.
        */
       readonly sideEffects: string
+
+      /**
+       * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the
+       * webhook call will be ignored or the API call will fail based on the failure policy. The
+       * timeout value must be between 1 and 30 seconds. Default to 30 seconds.
+       */
+      readonly timeoutSeconds: number
 
     }
 
@@ -510,6 +409,16 @@ export namespace apiextensions {
      * CustomResourceConversion describes how to convert different versions of a CR.
      */
     export interface CustomResourceConversion {
+      /**
+       * ConversionReviewVersions is an ordered list of preferred `ConversionReview` versions the
+       * Webhook expects. API server will try to use first version in the list which it supports. If
+       * none of the versions specified in this list supported by API server, conversion will fail
+       * for this object. If a persisted Webhook configuration specifies allowed versions and does
+       * not include any versions known to the API Server, calls to the webhook will fail. Default
+       * to `['v1beta1']`.
+       */
+      readonly conversionReviewVersions: string[]
+
       /**
        * `strategy` specifies the conversion strategy. Allowed values are: - `None`: The converter
        * only change the apiVersion and would not touch any other field in the CR. - `Webhook`: API
@@ -969,6 +878,9 @@ export namespace apiextensions {
       readonly not: apiextensions.v1beta1.JSONSchemaProps
 
       
+      readonly nullable: boolean
+
+      
       readonly oneOf: apiextensions.v1beta1.JSONSchemaProps[]
 
       
@@ -1103,7 +1015,9 @@ export namespace apiregistration {
 
     }
 
-    
+    /**
+     * APIServiceCondition describes the state of an APIService at a particular point
+     */
     export interface APIServiceCondition {
       /**
        * Last time the condition transitioned from one status to another.
@@ -1288,7 +1202,9 @@ export namespace apiregistration {
 
     }
 
-    
+    /**
+     * APIServiceCondition describes the state of an APIService at a particular point
+     */
     export interface APIServiceCondition {
       /**
        * Last time the condition transitioned from one status to another.
@@ -2840,7 +2756,7 @@ export namespace apps {
        * immediately when the rolling update starts, such that the total number of old and new pods
        * do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be
        * scaled up further, ensuring that total number of pods running at any time during the update
-       * is atmost 130% of desired pods.
+       * is at most 130% of desired pods.
        */
       readonly maxSurge: number | string
 
@@ -3236,7 +3152,7 @@ export namespace apps {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
@@ -3273,7 +3189,8 @@ export namespace apps {
       readonly kind: "ControllerRevisionList"
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -3302,20 +3219,20 @@ export namespace apps {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
       /**
        * The desired behavior of this daemon set. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly spec: apps.v1beta2.DaemonSetSpec
 
       /**
        * The current status of this daemon set. This data may be out of date by some window of time.
        * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly status: apps.v1beta2.DaemonSetStatus
 
@@ -3379,7 +3296,7 @@ export namespace apps {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -3761,20 +3678,20 @@ export namespace apps {
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
        * that the ReplicaSet manages. Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly spec: apps.v1beta2.ReplicaSetSpec
 
       /**
        * Status is the most recently observed status of the ReplicaSet. This data may be out of date
        * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly status: apps.v1beta2.ReplicaSetStatus
 
@@ -3839,7 +3756,7 @@ export namespace apps {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -3950,7 +3867,7 @@ export namespace apps {
        * immediately when the rolling update starts, such that the total number of old and new pods
        * do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be
        * scaled up further, ensuring that total number of pods running at any time during the update
-       * is atmost 130% of desired pods.
+       * is at most 130% of desired pods.
        */
       readonly maxSurge: number | string
 
@@ -4003,19 +3920,19 @@ export namespace apps {
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       readonly metadata: meta.v1.ObjectMeta
 
       /**
        * defines the behavior of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       readonly spec: apps.v1beta2.ScaleSpec
 
       /**
        * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        * Read-only.
        */
       readonly status: apps.v1beta2.ScaleStatus
@@ -7517,6 +7434,107 @@ export namespace certificates {
 }
 
 export namespace coordination {
+  export namespace v1 {
+    /**
+     * Lease defines a lease concept.
+     */
+    export interface Lease {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "coordination.k8s.io/v1"
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "Lease"
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * Specification of the Lease. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      readonly spec: coordination.v1.LeaseSpec
+
+    }
+
+    /**
+     * LeaseList is a list of Lease objects.
+     */
+    export interface LeaseList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "coordination.k8s.io/v1"
+
+      /**
+       * Items is a list of schema objects.
+       */
+      readonly items: coordination.v1.Lease[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "LeaseList"
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * LeaseSpec is a specification of a Lease.
+     */
+    export interface LeaseSpec {
+      /**
+       * acquireTime is a time when the current lease was acquired.
+       */
+      readonly acquireTime: string
+
+      /**
+       * holderIdentity contains the identity of the holder of a current lease.
+       */
+      readonly holderIdentity: string
+
+      /**
+       * leaseDurationSeconds is a duration that candidates for a lease need to wait to force
+       * acquire it. This is measure against time of last observed RenewTime.
+       */
+      readonly leaseDurationSeconds: number
+
+      /**
+       * leaseTransitions is the number of transitions of a lease between holders.
+       */
+      readonly leaseTransitions: number
+
+      /**
+       * renewTime is a time when the current holder of a lease has last updated the lease.
+       */
+      readonly renewTime: string
+
+    }
+
+  }
+
   export namespace v1beta1 {
     /**
      * Lease defines a lease concept.
@@ -7878,6 +7896,43 @@ export namespace core {
        * to refer to the volume on all subsequent calls. Required.
        */
       readonly volumeHandle: string
+
+    }
+
+    /**
+     * Represents a source location of a volume to mount, managed by an external CSI driver
+     */
+    export interface CSIVolumeSource {
+      /**
+       * Driver is the name of the CSI driver that handles this volume. Consult with your admin for
+       * the correct name as registered in the cluster.
+       */
+      readonly driver: string
+
+      /**
+       * Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is
+       * passed to the associated CSI driver which will determine the default filesystem to apply.
+       */
+      readonly fsType: string
+
+      /**
+       * NodePublishSecretRef is a reference to the secret object containing sensitive information
+       * to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume
+       * calls. This field is optional, and  may be empty if no secret is required. If the secret
+       * object contains more than one secret, all secret references are passed.
+       */
+      readonly nodePublishSecretRef: core.v1.LocalObjectReference
+
+      /**
+       * Specifies a read-only configuration for the volume. Defaults to false (read/write).
+       */
+      readonly readOnly: boolean
+
+      /**
+       * VolumeAttributes stores driver-specific properties that are passed to the CSI driver.
+       * Consult your driver's documentation for supported values.
+       */
+      readonly volumeAttributes: {[key: string]: string}
 
     }
 
@@ -9793,10 +9848,14 @@ export namespace core {
       readonly postStart: core.v1.Handler
 
       /**
-       * PreStop is called immediately before a container is terminated. The container is terminated
-       * after the handler completes. The reason for termination is passed to the handler.
-       * Regardless of the outcome of the handler, the container is eventually terminated. Other
-       * management of the container blocks until the hook completes. More info:
+       * PreStop is called immediately before a container is terminated due to an API request or
+       * management event such as liveness probe failure, preemption, resource contention, etc. The
+       * handler is not called if the container crashes or exits. The reason for termination is
+       * passed to the handler. The Pod's termination grace period countdown begins before the
+       * PreStop hooked is executed. Regardless of the outcome of the handler, the container will
+       * eventually terminate within the Pod's termination grace period. Other management of the
+       * container blocks until the hook completes or until the termination grace period is reached.
+       * More info:
        * https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
        */
       readonly preStop: core.v1.Handler
@@ -10967,7 +11026,7 @@ export namespace core {
       readonly claimRef: core.v1.ObjectReference
 
       /**
-       * CSI represents storage that handled by an external CSI driver (Beta feature).
+       * CSI represents storage that is handled by an external CSI driver (Beta feature).
        */
       readonly csi: core.v1.CSIPersistentVolumeSource
 
@@ -11591,7 +11650,7 @@ export namespace core {
        * If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when
        * all its containers are ready AND all conditions specified in the readiness gates have
        * status equal to "True" More info:
-       * https://github.com/kubernetes/community/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md
+       * https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
        */
       readonly readinessGates: core.v1.PodReadinessGate[]
 
@@ -11607,8 +11666,8 @@ export namespace core {
        * used to run this pod.  If no RuntimeClass resource matches the named class, the pod will
        * not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit
        * class with an empty definition that uses the default runtime handler. More info:
-       * https://github.com/kubernetes/community/blob/master/keps/sig-node/0014-runtime-class.md
-       * This is an alpha feature and may change in the future.
+       * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is an alpha feature and
+       * may change in the future.
        */
       readonly runtimeClassName: string
 
@@ -11989,6 +12048,12 @@ export namespace core {
        * registry for volumes
        */
       readonly registry: string
+
+      /**
+       * Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned
+       * Quobyte volumes, value is set by the plugin
+       */
+      readonly tenant: string
 
       /**
        * User to map volume access to Defaults to serivceaccount user
@@ -13269,7 +13334,7 @@ export namespace core {
        * builds on ClusterIP and allocates a port on every node which routes to the clusterIP.
        * "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in
        * the current cloud) which routes to the clusterIP. More info:
-       * https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types
+       * https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
        */
       readonly type: string
 
@@ -13571,6 +13636,12 @@ export namespace core {
       readonly configMap: core.v1.ConfigMapVolumeSource
 
       /**
+       * CSI (Container Storage Interface) represents storage that is handled by an external CSI
+       * driver (Alpha feature).
+       */
+      readonly csi: core.v1.CSIVolumeSource
+
+      /**
        * DownwardAPI represents downward API about the pod that should populate this volume
        */
       readonly downwardAPI: core.v1.DownwardAPIVolumeSource
@@ -13750,6 +13821,14 @@ export namespace core {
        * (volume's root).
        */
       readonly subPath: string
+
+      /**
+       * Expanded path within the volume from which the container's volume should be mounted.
+       * Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded
+       * using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath
+       * are mutually exclusive. This field is alpha in 1.14.
+       */
+      readonly subPathExpr: string
 
     }
 
@@ -14003,6 +14082,17 @@ export namespace events {
 export namespace extensions {
   export namespace v1beta1 {
     /**
+     * AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+     */
+    export interface AllowedCSIDriver {
+      /**
+       * Name is the registered name of the CSI driver
+       */
+      readonly name: string
+
+    }
+
+    /**
      * AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use
      * AllowedFlexVolume from policy API Group instead.
      */
@@ -14060,20 +14150,20 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
       /**
        * The desired behavior of this daemon set. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly spec: extensions.v1beta1.DaemonSetSpec
 
       /**
        * The current status of this daemon set. This data may be out of date by some window of time.
        * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly status: extensions.v1beta1.DaemonSetStatus
 
@@ -14137,7 +14227,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -14654,7 +14744,9 @@ export namespace extensions {
     /**
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints
      * defined by a backend. An Ingress can be configured to give services externally-reachable
-     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. DEPRECATED -
+     * This group version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress. See the
+     * release notes for more information.
      */
     export interface Ingress {
       /**
@@ -14675,19 +14767,19 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
       /**
        * Spec is the desired state of the Ingress. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly spec: extensions.v1beta1.IngressSpec
 
       /**
        * Status is the current state of the Ingress. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly status: extensions.v1beta1.IngressStatus
 
@@ -14736,7 +14828,7 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -14850,7 +14942,7 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
@@ -14941,7 +15033,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -15035,15 +15127,15 @@ export namespace extensions {
       readonly podSelector: meta.v1.LabelSelector
 
       /**
-       * List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or
-       * Ingress,Egress. If this field is not specified, it will default based on the existence of
-       * Ingress or Egress rules; policies that contain an Egress section are assumed to affect
-       * Egress, and all policies (whether or not they contain an Ingress section) are assumed to
-       * affect Ingress. If you want to write an egress-only policy, you must explicitly specify
-       * policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no
-       * egress is allowed, you must specify a policyTypes value that include "Egress" (since such a
-       * policy would not include an Egress section and would otherwise default to just [ "Ingress"
-       * ]). This field is beta-level in 1.8
+       * List of rule types that the NetworkPolicy relates to. Valid options are "Ingress",
+       * "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the
+       * existence of Ingress or Egress rules; policies that contain an Egress section are assumed
+       * to affect Egress, and all policies (whether or not they contain an Ingress section) are
+       * assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly
+       * specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies
+       * that no egress is allowed, you must specify a policyTypes value that include "Egress"
+       * (since such a policy would not include an Egress section and would otherwise default to
+       * just [ "Ingress" ]). This field is beta-level in 1.8
        */
       readonly policyTypes: string[]
 
@@ -15073,7 +15165,7 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
@@ -15112,7 +15204,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -15128,6 +15220,13 @@ export namespace extensions {
        * unspecified, defaults to true.
        */
       readonly allowPrivilegeEscalation: boolean
+
+      /**
+       * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be
+       * embedded within a pod spec. An empty value means no CSI drivers can run inline within a pod
+       * spec.
+       */
+      readonly allowedCSIDrivers: extensions.v1beta1.AllowedCSIDriver[]
 
       /**
        * allowedCapabilities is a list of capabilities that can be requested to add to the
@@ -15291,20 +15390,20 @@ export namespace extensions {
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
        * that the ReplicaSet manages. Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly spec: extensions.v1beta1.ReplicaSetSpec
 
       /**
        * Status is the most recently observed status of the ReplicaSet. This data may be out of date
        * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       readonly status: extensions.v1beta1.ReplicaSetStatus
 
@@ -15369,7 +15468,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -15491,7 +15590,7 @@ export namespace extensions {
        * scaled up immediately when the rolling update starts, such that the total number of old and
        * new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be
        * scaled up further, ensuring that total number of pods running at any time during the update
-       * is atmost 130% of desired pods.
+       * is at most 130% of desired pods.
        */
       readonly maxSurge: number | string
 
@@ -15585,19 +15684,19 @@ export namespace extensions {
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       readonly metadata: meta.v1.ObjectMeta
 
       /**
        * defines the behavior of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       readonly spec: extensions.v1beta1.ScaleSpec
 
       /**
        * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        * Read-only.
        */
       readonly status: extensions.v1beta1.ScaleStatus
@@ -15785,6 +15884,15 @@ export namespace meta {
        * item and both singular and plural are allowed from the kubectl CLI interface.
        */
       readonly singularName: string
+
+      /**
+       * The hash value of the storage version, the version this resource is converted to when
+       * written to the data store. Value must be treated as opaque by clients. Only equality
+       * comparison on the value is valid. This is an alpha feature and may change or be removed in
+       * the future. The field is populated by the apiserver only if the StorageVersionHash feature
+       * gate is enabled. This field will remain optional even if it graduates.
+       */
+      readonly storageVersionHash: string
 
       /**
        * verbs is a list of supported kube verbs (this includes get, list, watch, create, update,
@@ -16060,6 +16168,42 @@ export namespace meta {
     }
 
     /**
+     * ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that
+     * the fieldset applies to.
+     */
+    export interface ManagedFieldsEntry {
+      /**
+       * APIVersion defines the version of this resource that this field set applies to. The format
+       * is "group/version" just like the top-level APIVersion field. It is necessary to track the
+       * version of a field set because it cannot be automatically converted.
+       */
+      readonly apiVersion: string
+
+      /**
+       * Fields identifies a set of fields.
+       */
+      readonly fields: object
+
+      /**
+       * Manager is an identifier of the workflow managing these fields.
+       */
+      readonly manager: string
+
+      /**
+       * Operation is the type of operation which lead to this ManagedFieldsEntry being created. The
+       * only valid values for this field are 'Apply' and 'Update'.
+       */
+      readonly operation: string
+
+      /**
+       * Time is timestamp of when these fields were set. It should always be empty if Operation is
+       * 'Apply'
+       */
+      readonly time: string
+
+    }
+
+    /**
      * ObjectMeta is metadata that all persisted resources must have, which includes all objects
      * users must create.
      */
@@ -16157,6 +16301,8 @@ export namespace meta {
        * When an object is created, the system will populate this list with the current set of
        * initializers. Only privileged users may set or modify this list. Once it is empty, it may
        * not be modified further by any user.
+       * 
+       * DEPRECATED - initializers are an alpha field and will be removed in v1.15.
        */
       readonly initializers: meta.v1.Initializers
 
@@ -16166,6 +16312,17 @@ export namespace meta {
        * http://kubernetes.io/docs/user-guide/labels
        */
       readonly labels: {[key: string]: string}
+
+      /**
+       * ManagedFields maps workflow-id and version to the set of fields that are managed by that
+       * workflow. This is mostly for internal housekeeping, and users typically shouldn't need to
+       * set or understand this field. A workflow can be the user's name, a controller's name, or
+       * the name of a specific apply path like "ci-cd". The set of fields is always in the version
+       * that the workflow used when modifying the object.
+       * 
+       * This field is alpha and can be changed or removed without notice.
+       */
+      readonly managedFields: meta.v1.ManagedFieldsEntry[]
 
       /**
        * Name must be unique within a namespace. Is required when creating resources, although some
@@ -16270,6 +16427,11 @@ export namespace meta {
      * Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
      */
     export interface Preconditions {
+      /**
+       * Specifies the target ResourceVersion
+       */
+      readonly resourceVersion: string
+
       /**
        * Specifies the target UID.
        */
@@ -16496,7 +16658,7 @@ export namespace networking {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
@@ -16584,7 +16746,7 @@ export namespace networking {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -16675,17 +16837,406 @@ export namespace networking {
       readonly podSelector: meta.v1.LabelSelector
 
       /**
-       * List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or
-       * Ingress,Egress. If this field is not specified, it will default based on the existence of
-       * Ingress or Egress rules; policies that contain an Egress section are assumed to affect
-       * Egress, and all policies (whether or not they contain an Ingress section) are assumed to
-       * affect Ingress. If you want to write an egress-only policy, you must explicitly specify
-       * policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no
-       * egress is allowed, you must specify a policyTypes value that include "Egress" (since such a
-       * policy would not include an Egress section and would otherwise default to just [ "Ingress"
-       * ]). This field is beta-level in 1.8
+       * List of rule types that the NetworkPolicy relates to. Valid options are "Ingress",
+       * "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the
+       * existence of Ingress or Egress rules; policies that contain an Egress section are assumed
+       * to affect Egress, and all policies (whether or not they contain an Ingress section) are
+       * assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly
+       * specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies
+       * that no egress is allowed, you must specify a policyTypes value that include "Egress"
+       * (since such a policy would not include an Egress section and would otherwise default to
+       * just [ "Ingress" ]). This field is beta-level in 1.8
        */
       readonly policyTypes: string[]
+
+    }
+
+  }
+
+  export namespace v1beta1 {
+    /**
+     * HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
+     * forwarded to the backend.
+     */
+    export interface HTTPIngressPath {
+      /**
+       * Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+       */
+      readonly backend: networking.v1beta1.IngressBackend
+
+      /**
+       * Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the
+       * egrep/unix syntax, not the perl syntax) matched against the path of an incoming request.
+       * Currently it can contain characters disallowed from the conventional "path" part of a URL
+       * as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a
+       * catch all sending traffic to the backend.
+       */
+      readonly path: string
+
+    }
+
+    /**
+     * HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example:
+     * http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC
+     * 3986, this resource will be used to match against everything after the last '/' and before
+     * the first '?' or '#'.
+     */
+    export interface HTTPIngressRuleValue {
+      /**
+       * A collection of paths that map requests to backends.
+       */
+      readonly paths: networking.v1beta1.HTTPIngressPath[]
+
+    }
+
+    /**
+     * Ingress is a collection of rules that allow inbound connections to reach the endpoints
+     * defined by a backend. An Ingress can be configured to give services externally-reachable
+     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+     */
+    export interface Ingress {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "networking.k8s.io/v1beta1"
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "Ingress"
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * Spec is the desired state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      readonly spec: networking.v1beta1.IngressSpec
+
+      /**
+       * Status is the current state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      readonly status: networking.v1beta1.IngressStatus
+
+    }
+
+    /**
+     * IngressBackend describes all endpoints for a given service and port.
+     */
+    export interface IngressBackend {
+      /**
+       * Specifies the name of the referenced service.
+       */
+      readonly serviceName: string
+
+      /**
+       * Specifies the port of the referenced service.
+       */
+      readonly servicePort: number | string
+
+    }
+
+    /**
+     * IngressList is a collection of Ingress.
+     */
+    export interface IngressList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "networking.k8s.io/v1beta1"
+
+      /**
+       * Items is the list of Ingress.
+       */
+      readonly items: networking.v1beta1.Ingress[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "IngressList"
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * IngressRule represents the rules mapping the paths under a specified host to the related
+     * backend services. Incoming requests are first evaluated for a host match, then routed to the
+     * backend associated with the matching IngressRuleValue.
+     */
+    export interface IngressRule {
+      /**
+       * Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the
+       * following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not
+       * allowed. Currently an IngressRuleValue can only apply to the
+       * 	  IP in the Spec of the parent Ingress.
+       * 2. The `:` delimiter is not respected because ports are not allowed.
+       * 	  Currently the port of an Ingress is implicitly :80 for http and
+       * 	  :443 for https.
+       * Both these may change in the future. Incoming requests are matched against the host before
+       * the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on
+       * the specified IngressRuleValue.
+       */
+      readonly host: string
+
+      
+      readonly http: networking.v1beta1.HTTPIngressRuleValue
+
+    }
+
+    /**
+     * IngressSpec describes the Ingress the user wishes to exist.
+     */
+    export interface IngressSpec {
+      /**
+       * A default backend capable of servicing requests that don't match any rule. At least one of
+       * 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer
+       * controller or defaulting logic to specify a global default.
+       */
+      readonly backend: networking.v1beta1.IngressBackend
+
+      /**
+       * A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all
+       * traffic is sent to the default backend.
+       */
+      readonly rules: networking.v1beta1.IngressRule[]
+
+      /**
+       * TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple
+       * members of this list specify different hosts, they will be multiplexed on the same port
+       * according to the hostname specified through the SNI TLS extension, if the ingress
+       * controller fulfilling the ingress supports SNI.
+       */
+      readonly tls: networking.v1beta1.IngressTLS[]
+
+    }
+
+    /**
+     * IngressStatus describe the current state of the Ingress.
+     */
+    export interface IngressStatus {
+      /**
+       * LoadBalancer contains the current status of the load-balancer.
+       */
+      readonly loadBalancer: core.v1.LoadBalancerStatus
+
+    }
+
+    /**
+     * IngressTLS describes the transport layer security associated with an Ingress.
+     */
+    export interface IngressTLS {
+      /**
+       * Hosts are a list of hosts included in the TLS certificate. The values in this list must
+       * match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the
+       * loadbalancer controller fulfilling this Ingress, if left unspecified.
+       */
+      readonly hosts: string[]
+
+      /**
+       * SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left
+       * optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener
+       * conflicts with the "Host" header field used by an IngressRule, the SNI host is used for
+       * termination and value of the Host header is used for routing.
+       */
+      readonly secretName: string
+
+    }
+
+  }
+
+}
+
+export namespace node {
+  export namespace v1alpha1 {
+    /**
+     * RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass
+     * is used to determine which container runtime is used to run all containers in a pod.
+     * RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and
+     * referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName
+     * reference before running the pod.  For more details, see
+     * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+     */
+    export interface RuntimeClass {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "node.k8s.io/v1alpha1"
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "RuntimeClass"
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * Specification of the RuntimeClass More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      readonly spec: node.v1alpha1.RuntimeClassSpec
+
+    }
+
+    /**
+     * RuntimeClassList is a list of RuntimeClass objects.
+     */
+    export interface RuntimeClassList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "node.k8s.io/v1alpha1"
+
+      /**
+       * Items is a list of schema objects.
+       */
+      readonly items: node.v1alpha1.RuntimeClass[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "RuntimeClassList"
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are
+     * required to describe the RuntimeClass to the Container Runtime Interface (CRI)
+     * implementation, as well as any other components that need to understand how the pod will be
+     * run. The RuntimeClassSpec is immutable.
+     */
+    export interface RuntimeClassSpec {
+      /**
+       * RuntimeHandler specifies the underlying runtime and configuration that the CRI
+       * implementation will use to handle pods of this class. The possible values are specific to
+       * the node & CRI configuration.  It is assumed that all handlers are available on every node,
+       * and handlers of the same name are equivalent on every node. For example, a handler called
+       * "runc" might specify that the runc OCI runtime (using native Linux containers) will be used
+       * to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123)
+       * requirements and is immutable.
+       */
+      readonly runtimeHandler: string
+
+    }
+
+  }
+
+  export namespace v1beta1 {
+    /**
+     * RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass
+     * is used to determine which container runtime is used to run all containers in a pod.
+     * RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and
+     * referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName
+     * reference before running the pod.  For more details, see
+     * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+     */
+    export interface RuntimeClass {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "node.k8s.io/v1beta1"
+
+      /**
+       * Handler specifies the underlying runtime and configuration that the CRI implementation will
+       * use to handle pods of this class. The possible values are specific to the node & CRI
+       * configuration.  It is assumed that all handlers are available on every node, and handlers
+       * of the same name are equivalent on every node. For example, a handler called "runc" might
+       * specify that the runc OCI runtime (using native Linux containers) will be used to run the
+       * containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and
+       * is immutable.
+       */
+      readonly handler: string
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "RuntimeClass"
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+    }
+
+    /**
+     * RuntimeClassList is a list of RuntimeClass objects.
+     */
+    export interface RuntimeClassList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "node.k8s.io/v1beta1"
+
+      /**
+       * Items is a list of schema objects.
+       */
+      readonly items: node.v1beta1.RuntimeClass[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "RuntimeClassList"
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
 
     }
 
@@ -16783,6 +17334,17 @@ export namespace pkg {
 
 export namespace policy {
   export namespace v1beta1 {
+    /**
+     * AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+     */
+    export interface AllowedCSIDriver {
+      /**
+       * Name is the registered name of the CSI driver
+       */
+      readonly name: string
+
+    }
+
     /**
      * AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
      */
@@ -17114,6 +17676,13 @@ export namespace policy {
        * unspecified, defaults to true.
        */
       readonly allowPrivilegeEscalation: boolean
+
+      /**
+       * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be
+       * embedded within a pod spec. An empty value means no CSI drivers can run inline within a pod
+       * spec.
+       */
+      readonly allowedCSIDrivers: policy.v1beta1.AllowedCSIDriver[]
 
       /**
        * allowedCapabilities is a list of capabilities that can be requested to add to the
@@ -18509,10 +19078,97 @@ export namespace rbac {
 }
 
 export namespace scheduling {
-  export namespace v1alpha1 {
+  export namespace v1 {
     /**
      * PriorityClass defines mapping from a priority class name to the priority integer value. The
      * value can be any valid integer.
+     */
+    export interface PriorityClass {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "scheduling.k8s.io/v1"
+
+      /**
+       * description is an arbitrary string that usually provides guidelines on when this priority
+       * class should be used.
+       */
+      readonly description: string
+
+      /**
+       * globalDefault specifies whether this PriorityClass should be considered as the default
+       * priority for pods that do not have any priority class. Only one PriorityClass can be marked
+       * as `globalDefault`. However, if more than one PriorityClasses exists with their
+       * `globalDefault` field set to true, the smallest value of such global default
+       * PriorityClasses will be used as the default priority.
+       */
+      readonly globalDefault: boolean
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "PriorityClass"
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * The value of this priority class. This is the actual priority that pods receive when they
+       * have the name of this class in their pod spec.
+       */
+      readonly value: number
+
+    }
+
+    /**
+     * PriorityClassList is a collection of priority classes.
+     */
+    export interface PriorityClassList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "scheduling.k8s.io/v1"
+
+      /**
+       * items is the list of PriorityClasses
+       */
+      readonly items: scheduling.v1.PriorityClass[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "PriorityClassList"
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+  }
+
+  export namespace v1alpha1 {
+    /**
+     * DEPRECATED - This group version of PriorityClass is deprecated by
+     * scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
+     * to the priority integer value. The value can be any valid integer.
      */
     export interface PriorityClass {
       /**
@@ -18597,8 +19253,9 @@ export namespace scheduling {
 
   export namespace v1beta1 {
     /**
-     * PriorityClass defines mapping from a priority class name to the priority integer value. The
-     * value can be any valid integer.
+     * DEPRECATED - This group version of PriorityClass is deprecated by
+     * scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
+     * to the priority integer value. The value can be any valid integer.
      */
     export interface PriorityClass {
       /**
@@ -18634,7 +19291,7 @@ export namespace scheduling {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
 
@@ -18673,7 +19330,7 @@ export namespace scheduling {
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -18740,7 +19397,7 @@ export namespace settings {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ListMeta
 
@@ -19039,8 +19696,8 @@ export namespace storage {
      */
     export interface VolumeError {
       /**
-       * String detailing the error encountered during Attach or Detach operation. This string maybe
-       * logged, so it should not contain sensitive information.
+       * String detailing the error encountered during Attach or Detach operation. This string may
+       * be logged, so it should not contain sensitive information.
        */
       readonly message: string
 
@@ -19216,6 +19873,231 @@ export namespace storage {
   }
 
   export namespace v1beta1 {
+    /**
+     * CSIDriver captures information about a Container Storage Interface (CSI) volume driver
+     * deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly.
+     * Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI
+     * driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach
+     * detach controller uses this object to determine whether attach is required. Kubelet uses this
+     * object to determine whether pod information needs to be passed on mount. CSIDriver objects
+     * are non-namespaced.
+     */
+    export interface CSIDriver {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "storage.k8s.io/v1beta1"
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "CSIDriver"
+
+      /**
+       * Standard object metadata. metadata.Name indicates the name of the CSI driver that this
+       * object refers to; it MUST be the same name returned by the CSI GetPluginName() call for
+       * that driver. The driver name must be 63 characters or less, beginning and ending with an
+       * alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between.
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * Specification of the CSI Driver.
+       */
+      readonly spec: storage.v1beta1.CSIDriverSpec
+
+    }
+
+    /**
+     * CSIDriverList is a collection of CSIDriver objects.
+     */
+    export interface CSIDriverList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "storage.k8s.io/v1beta1"
+
+      /**
+       * items is the list of CSIDriver
+       */
+      readonly items: storage.v1beta1.CSIDriver[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "CSIDriverList"
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * CSIDriverSpec is the specification of a CSIDriver.
+     */
+    export interface CSIDriverSpec {
+      /**
+       * attachRequired indicates this CSI volume driver requires an attach operation (because it
+       * implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach
+       * controller should call the attach volume interface which checks the volumeattachment status
+       * and waits until the volume is attached before proceeding to mounting. The CSI
+       * external-attacher coordinates with CSI volume driver and updates the volumeattachment
+       * status when the attach operation is complete. If the CSIDriverRegistry feature gate is
+       * enabled and the value is specified to false, the attach operation will be skipped.
+       * Otherwise the attach operation will be called.
+       */
+      readonly attachRequired: boolean
+
+      /**
+       * If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod
+       * information (like podName, podUID, etc.) during mount operations. If set to false, pod
+       * information will not be passed on mount. Default is false. The CSI driver specifies
+       * podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as
+       * VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for
+       * parsing and validating the information passed in as VolumeContext. The following
+       * VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the
+       * prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name
+       * "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid":
+       * string(pod.UID)
+       */
+      readonly podInfoOnMount: boolean
+
+    }
+
+    /**
+     * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
+     * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
+     * container, the kubelet will automatically populate the CSINode object for the CSI driver as
+     * part of kubelet plugin registration. CSINode has the same name as a node. If the object is
+     * missing, it means either there are no CSI Drivers available on the node, or the Kubelet
+     * version is low enough that it doesn't create this object. CSINode has an OwnerReference that
+     * points to the corresponding node object.
+     */
+    export interface CSINode {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "storage.k8s.io/v1beta1"
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "CSINode"
+
+      /**
+       * metadata.name must be the Kubernetes node name.
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * spec is the specification of CSINode
+       */
+      readonly spec: storage.v1beta1.CSINodeSpec
+
+    }
+
+    /**
+     * CSINodeDriver holds information about the specification of one CSI driver installed on a node
+     */
+    export interface CSINodeDriver {
+      /**
+       * This is the name of the CSI driver that this object refers to. This MUST be the same name
+       * returned by the CSI GetPluginName() call for that driver.
+       */
+      readonly name: string
+
+      /**
+       * nodeID of the node from the driver point of view. This field enables Kubernetes to
+       * communicate with storage systems that do not share the same nomenclature for nodes. For
+       * example, Kubernetes may refer to a given node as "node1", but the storage system may refer
+       * to the same node as "nodeA". When Kubernetes issues a command to the storage system to
+       * attach a volume to a specific node, it can use this field to refer to the node name using
+       * the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field
+       * is required.
+       */
+      readonly nodeID: string
+
+      /**
+       * topologyKeys is the list of keys supported by the driver. When a driver is initialized on a
+       * cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone",
+       * "company.com/region"). When a driver is initialized on a node, it provides the same
+       * topology keys along with values. Kubelet will expose these topology keys as labels on its
+       * own node object. When Kubernetes does topology aware provisioning, it can use this list to
+       * determine which labels it should retrieve from the node object and pass back to the driver.
+       * It is possible for different nodes to use different topology keys. This can be empty if
+       * driver does not support topology.
+       */
+      readonly topologyKeys: string[]
+
+    }
+
+    /**
+     * CSINodeList is a collection of CSINode objects.
+     */
+    export interface CSINodeList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "storage.k8s.io/v1beta1"
+
+      /**
+       * items is the list of CSINode
+       */
+      readonly items: storage.v1beta1.CSINode[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "CSINodeList"
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+     */
+    export interface CSINodeSpec {
+      /**
+       * drivers is a list of information of all CSI Drivers existing on a node. If all drivers in
+       * the list are uninstalled, this can become empty.
+       */
+      readonly drivers: storage.v1beta1.CSINodeDriver[]
+
+    }
+
     /**
      * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
      * be dynamically provisioned.
@@ -19472,8 +20354,8 @@ export namespace storage {
      */
     export interface VolumeError {
       /**
-       * String detailing the error encountered during Attach or Detach operation. This string maybe
-       * logged, so it should not contain sensitive information.
+       * String detailing the error encountered during Attach or Detach operation. This string may
+       * be logged, so it should not contain sensitive information.
        */
       readonly message: string
 

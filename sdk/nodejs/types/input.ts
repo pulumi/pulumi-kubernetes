@@ -4,143 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 
 export namespace admissionregistration {
-  export namespace v1alpha1 {
-    /**
-     * Initializer describes the name and the failure policy of an initializer, and what resources
-     * it applies to.
-     */
-    export interface Initializer {
-      /**
-       * Name is the identifier of the initializer. It will be added to the object that needs to be
-       * initialized. Name should be fully qualified, e.g., alwayspullimages.kubernetes.io, where
-       * "alwayspullimages" is the name of the webhook, and kubernetes.io is the name of the
-       * organization. Required
-       */
-      name: pulumi.Input<string>
-
-      /**
-       * Rules describes what resources/subresources the initializer cares about. The initializer
-       * cares about an operation if it matches _any_ Rule. Rule.Resources must not include
-       * subresources.
-       */
-      rules?: pulumi.Input<pulumi.Input<admissionregistration.v1alpha1.Rule>[]>
-
-    }
-
-
-    /**
-     * InitializerConfiguration describes the configuration of initializers.
-     */
-    export interface InitializerConfiguration {
-      /**
-       * APIVersion defines the versioned schema of this representation of an object. Servers should
-       * convert recognized schemas to the latest internal value, and may reject unrecognized
-       * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-       */
-      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1alpha1">
-
-      /**
-       * Initializers is a list of resources and their default initializers Order-sensitive. When
-       * merging multiple InitializerConfigurations, we sort the initializers from different
-       * InitializerConfigurations by the name of the InitializerConfigurations; the order of the
-       * initializers from the same InitializerConfiguration is preserved.
-       */
-      initializers?: pulumi.Input<pulumi.Input<admissionregistration.v1alpha1.Initializer>[]>
-
-      /**
-       * Kind is a string value representing the REST resource this object represents. Servers may
-       * infer this from the endpoint the client submits requests to. Cannot be updated. In
-       * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      kind?: pulumi.Input<"InitializerConfiguration">
-
-      /**
-       * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-       */
-      metadata?: pulumi.Input<meta.v1.ObjectMeta>
-
-    }
-
-    export function isInitializerConfiguration(o: any): o is InitializerConfiguration {
-      return o.apiVersion == "admissionregistration.k8s.io/v1alpha1" && o.kind == "InitializerConfiguration";
-    }
-
-    /**
-     * InitializerConfigurationList is a list of InitializerConfiguration.
-     */
-    export interface InitializerConfigurationList {
-      /**
-       * List of InitializerConfiguration.
-       */
-      items: pulumi.Input<pulumi.Input<admissionregistration.v1alpha1.InitializerConfiguration>[]>
-
-      /**
-       * APIVersion defines the versioned schema of this representation of an object. Servers should
-       * convert recognized schemas to the latest internal value, and may reject unrecognized
-       * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-       */
-      apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1alpha1">
-
-      /**
-       * Kind is a string value representing the REST resource this object represents. Servers may
-       * infer this from the endpoint the client submits requests to. Cannot be updated. In
-       * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      kind?: pulumi.Input<"InitializerConfigurationList">
-
-      /**
-       * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      metadata?: pulumi.Input<meta.v1.ListMeta>
-
-    }
-
-    export function isInitializerConfigurationList(o: any): o is InitializerConfigurationList {
-      return o.apiVersion == "admissionregistration.k8s.io/v1alpha1" && o.kind == "InitializerConfigurationList";
-    }
-
-    /**
-     * Rule is a tuple of APIGroups, APIVersion, and Resources.It is recommended to make sure that
-     * all the tuple expansions are valid.
-     */
-    export interface Rule {
-      /**
-       * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present,
-       * the length of the slice must be one. Required.
-       */
-      apiGroups?: pulumi.Input<pulumi.Input<string>[]>
-
-      /**
-       * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is
-       * present, the length of the slice must be one. Required.
-       */
-      apiVersions?: pulumi.Input<pulumi.Input<string>[]>
-
-      /**
-       * Resources is a list of resources this rule applies to.
-       * 
-       * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all
-       * resources, but not subresources. 'pods/*' means all subresources of pods. '*&#8205;/scale'
-       * means all scale subresources. '*&#8205;/*' means all resources and their subresources.
-       * 
-       * If wildcard is present, the validation rule will ensure resources do not overlap with each
-       * other.
-       * 
-       * Depending on the enclosing object, subresources might not be allowed. Required.
-       */
-      resources?: pulumi.Input<pulumi.Input<string>[]>
-
-    }
-
-
-  }
-
   export namespace v1beta1 {
     /**
      * MutatingWebhookConfiguration describes the configuration of and admission webhook that accept
@@ -253,6 +116,15 @@ export namespace admissionregistration {
        * Depending on the enclosing object, subresources might not be allowed. Required.
        */
       resources?: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*"
+       * "Cluster" means that only cluster-scoped resources will match this rule. Namespace API
+       * objects are cluster-scoped. "Namespaced" means that only namespaced resources will match
+       * this rule. "*" means that there are no scope restrictions. Subresources match the scope of
+       * their parent resource. Default is "*".
+       */
+      scope?: pulumi.Input<string>
 
     }
 
@@ -371,6 +243,16 @@ export namespace admissionregistration {
       name: pulumi.Input<string>
 
       /**
+       * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
+       * Webhook expects. API server will try to use first version in the list which it supports. If
+       * none of the versions specified in this list supported by API server, validation will fail
+       * for this object. If a persisted webhook configuration specifies allowed versions and does
+       * not include any versions known to the API Server, calls to the webhook will fail and be
+       * subject to the failure policy. Default to `['v1beta1']`.
+       */
+      admissionReviewVersions?: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
        * FailurePolicy defines how unrecognized errors from the admission endpoint are handled -
        * allowed values are Ignore or Fail. Defaults to Ignore.
        */
@@ -437,6 +319,13 @@ export namespace admissionregistration {
        * Unknown.
        */
       sideEffects?: pulumi.Input<string>
+
+      /**
+       * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the
+       * webhook call will be ignored or the API call will fail based on the failure policy. The
+       * timeout value must be between 1 and 30 seconds. Default to 30 seconds.
+       */
+      timeoutSeconds?: pulumi.Input<number>
 
     }
 
@@ -550,6 +439,16 @@ export namespace apiextensions {
        * needed for this option.
        */
       strategy: pulumi.Input<string>
+
+      /**
+       * ConversionReviewVersions is an ordered list of preferred `ConversionReview` versions the
+       * Webhook expects. API server will try to use first version in the list which it supports. If
+       * none of the versions specified in this list supported by API server, conversion will fail
+       * for this object. If a persisted Webhook configuration specifies allowed versions and does
+       * not include any versions known to the API Server, calls to the webhook will fail. Default
+       * to `['v1beta1']`.
+       */
+      conversionReviewVersions?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
        * `webhookClientConfig` is the instructions for how to call the webhook if strategy is
@@ -1020,6 +919,9 @@ export namespace apiextensions {
       not?: pulumi.Input<apiextensions.v1beta1.JSONSchemaProps>
 
       
+      nullable?: pulumi.Input<boolean>
+
+      
       oneOf?: pulumi.Input<pulumi.Input<apiextensions.v1beta1.JSONSchemaProps>[]>
 
       
@@ -1161,7 +1063,9 @@ export namespace apiregistration {
       return o.apiVersion == "apiregistration.k8s.io/v1" && o.kind == "APIService";
     }
 
-    
+    /**
+     * APIServiceCondition describes the state of an APIService at a particular point
+     */
     export interface APIServiceCondition {
       /**
        * Status is the status of the condition. Can be True, False, Unknown.
@@ -1358,7 +1262,9 @@ export namespace apiregistration {
       return o.apiVersion == "apiregistration.k8s.io/v1beta1" && o.kind == "APIService";
     }
 
-    
+    /**
+     * APIServiceCondition describes the state of an APIService at a particular point
+     */
     export interface APIServiceCondition {
       /**
        * Status is the status of the condition. Can be True, False, Unknown.
@@ -3001,7 +2907,7 @@ export namespace apps {
        * immediately when the rolling update starts, such that the total number of old and new pods
        * do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be
        * scaled up further, ensuring that total number of pods running at any time during the update
-       * is atmost 130% of desired pods.
+       * is at most 130% of desired pods.
        */
       maxSurge?: pulumi.Input<number | string>
 
@@ -3422,7 +3328,7 @@ export namespace apps {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -3458,7 +3364,8 @@ export namespace apps {
       kind?: pulumi.Input<"ControllerRevisionList">
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -3491,20 +3398,20 @@ export namespace apps {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * The desired behavior of this daemon set. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<apps.v1beta2.DaemonSetSpec>
 
       /**
        * The current status of this daemon set. This data may be out of date by some window of time.
        * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<apps.v1beta2.DaemonSetStatus>
 
@@ -3573,7 +3480,7 @@ export namespace apps {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -3974,20 +3881,20 @@ export namespace apps {
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
        * that the ReplicaSet manages. Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<apps.v1beta2.ReplicaSetSpec>
 
       /**
        * Status is the most recently observed status of the ReplicaSet. This data may be out of date
        * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<apps.v1beta2.ReplicaSetStatus>
 
@@ -4057,7 +3964,7 @@ export namespace apps {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -4175,7 +4082,7 @@ export namespace apps {
        * immediately when the rolling update starts, such that the total number of old and new pods
        * do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be
        * scaled up further, ensuring that total number of pods running at any time during the update
-       * is atmost 130% of desired pods.
+       * is at most 130% of desired pods.
        */
       maxSurge?: pulumi.Input<number | string>
 
@@ -4230,19 +4137,19 @@ export namespace apps {
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * defines the behavior of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       spec?: pulumi.Input<apps.v1beta2.ScaleSpec>
 
       /**
        * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        * Read-only.
        */
       status?: pulumi.Input<apps.v1beta2.ScaleStatus>
@@ -7957,6 +7864,116 @@ export namespace certificates {
 }
 
 export namespace coordination {
+  export namespace v1 {
+    /**
+     * Lease defines a lease concept.
+     */
+    export interface Lease {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"coordination.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"Lease">
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Specification of the Lease. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      spec?: pulumi.Input<coordination.v1.LeaseSpec>
+
+    }
+
+    export function isLease(o: any): o is Lease {
+      return o.apiVersion == "coordination.k8s.io/v1" && o.kind == "Lease";
+    }
+
+    /**
+     * LeaseList is a list of Lease objects.
+     */
+    export interface LeaseList {
+      /**
+       * Items is a list of schema objects.
+       */
+      items: pulumi.Input<pulumi.Input<coordination.v1.Lease>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"coordination.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"LeaseList">
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isLeaseList(o: any): o is LeaseList {
+      return o.apiVersion == "coordination.k8s.io/v1" && o.kind == "LeaseList";
+    }
+
+    /**
+     * LeaseSpec is a specification of a Lease.
+     */
+    export interface LeaseSpec {
+      /**
+       * acquireTime is a time when the current lease was acquired.
+       */
+      acquireTime?: pulumi.Input<string>
+
+      /**
+       * holderIdentity contains the identity of the holder of a current lease.
+       */
+      holderIdentity?: pulumi.Input<string>
+
+      /**
+       * leaseDurationSeconds is a duration that candidates for a lease need to wait to force
+       * acquire it. This is measure against time of last observed RenewTime.
+       */
+      leaseDurationSeconds?: pulumi.Input<number>
+
+      /**
+       * leaseTransitions is the number of transitions of a lease between holders.
+       */
+      leaseTransitions?: pulumi.Input<number>
+
+      /**
+       * renewTime is a time when the current holder of a lease has last updated the lease.
+       */
+      renewTime?: pulumi.Input<string>
+
+    }
+
+
+  }
+
   export namespace v1beta1 {
     /**
      * Lease defines a lease concept.
@@ -8335,6 +8352,44 @@ export namespace core {
 
       /**
        * Attributes of the volume to publish.
+       */
+      volumeAttributes?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
+
+    }
+
+
+    /**
+     * Represents a source location of a volume to mount, managed by an external CSI driver
+     */
+    export interface CSIVolumeSource {
+      /**
+       * Driver is the name of the CSI driver that handles this volume. Consult with your admin for
+       * the correct name as registered in the cluster.
+       */
+      driver: pulumi.Input<string>
+
+      /**
+       * Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is
+       * passed to the associated CSI driver which will determine the default filesystem to apply.
+       */
+      fsType?: pulumi.Input<string>
+
+      /**
+       * NodePublishSecretRef is a reference to the secret object containing sensitive information
+       * to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume
+       * calls. This field is optional, and  may be empty if no secret is required. If the secret
+       * object contains more than one secret, all secret references are passed.
+       */
+      nodePublishSecretRef?: pulumi.Input<core.v1.LocalObjectReference>
+
+      /**
+       * Specifies a read-only configuration for the volume. Defaults to false (read/write).
+       */
+      readOnly?: pulumi.Input<boolean>
+
+      /**
+       * VolumeAttributes stores driver-specific properties that are passed to the CSI driver.
+       * Consult your driver's documentation for supported values.
        */
       volumeAttributes?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
 
@@ -10335,10 +10390,14 @@ export namespace core {
       postStart?: pulumi.Input<core.v1.Handler>
 
       /**
-       * PreStop is called immediately before a container is terminated. The container is terminated
-       * after the handler completes. The reason for termination is passed to the handler.
-       * Regardless of the outcome of the handler, the container is eventually terminated. Other
-       * management of the container blocks until the hook completes. More info:
+       * PreStop is called immediately before a container is terminated due to an API request or
+       * management event such as liveness probe failure, preemption, resource contention, etc. The
+       * handler is not called if the container crashes or exits. The reason for termination is
+       * passed to the handler. The Pod's termination grace period countdown begins before the
+       * PreStop hooked is executed. Regardless of the outcome of the handler, the container will
+       * eventually terminate within the Pod's termination grace period. Other management of the
+       * container blocks until the hook completes or until the termination grace period is reached.
+       * More info:
        * https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
        */
       preStop?: pulumi.Input<core.v1.Handler>
@@ -11583,7 +11642,7 @@ export namespace core {
       claimRef?: pulumi.Input<core.v1.ObjectReference>
 
       /**
-       * CSI represents storage that handled by an external CSI driver (Beta feature).
+       * CSI represents storage that is handled by an external CSI driver (Beta feature).
        */
       csi?: pulumi.Input<core.v1.CSIPersistentVolumeSource>
 
@@ -12226,7 +12285,7 @@ export namespace core {
        * If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when
        * all its containers are ready AND all conditions specified in the readiness gates have
        * status equal to "True" More info:
-       * https://github.com/kubernetes/community/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md
+       * https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
        */
       readinessGates?: pulumi.Input<pulumi.Input<core.v1.PodReadinessGate>[]>
 
@@ -12242,8 +12301,8 @@ export namespace core {
        * used to run this pod.  If no RuntimeClass resource matches the named class, the pod will
        * not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit
        * class with an empty definition that uses the default runtime handler. More info:
-       * https://github.com/kubernetes/community/blob/master/keps/sig-node/0014-runtime-class.md
-       * This is an alpha feature and may change in the future.
+       * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is an alpha feature and
+       * may change in the future.
        */
       runtimeClassName?: pulumi.Input<string>
 
@@ -12644,6 +12703,12 @@ export namespace core {
        * Defaults to false.
        */
       readOnly?: pulumi.Input<boolean>
+
+      /**
+       * Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned
+       * Quobyte volumes, value is set by the plugin
+       */
+      tenant?: pulumi.Input<string>
 
       /**
        * User to map volume access to Defaults to serivceaccount user
@@ -13982,7 +14047,7 @@ export namespace core {
        * builds on ClusterIP and allocates a port on every node which routes to the clusterIP.
        * "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in
        * the current cloud) which routes to the clusterIP. More info:
-       * https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types
+       * https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
        */
       type?: pulumi.Input<string>
 
@@ -14302,6 +14367,12 @@ export namespace core {
       configMap?: pulumi.Input<core.v1.ConfigMapVolumeSource>
 
       /**
+       * CSI (Container Storage Interface) represents storage that is handled by an external CSI
+       * driver (Alpha feature).
+       */
+      csi?: pulumi.Input<core.v1.CSIVolumeSource>
+
+      /**
        * DownwardAPI represents downward API about the pod that should populate this volume
        */
       downwardAPI?: pulumi.Input<core.v1.DownwardAPIVolumeSource>
@@ -14477,6 +14548,14 @@ export namespace core {
        * (volume's root).
        */
       subPath?: pulumi.Input<string>
+
+      /**
+       * Expanded path within the volume from which the container's volume should be mounted.
+       * Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded
+       * using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath
+       * are mutually exclusive. This field is alpha in 1.14.
+       */
+      subPathExpr?: pulumi.Input<string>
 
     }
 
@@ -14744,6 +14823,18 @@ export namespace events {
 export namespace extensions {
   export namespace v1beta1 {
     /**
+     * AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+     */
+    export interface AllowedCSIDriver {
+      /**
+       * Name is the registered name of the CSI driver
+       */
+      name: pulumi.Input<string>
+
+    }
+
+
+    /**
      * AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use
      * AllowedFlexVolume from policy API Group instead.
      */
@@ -14803,20 +14894,20 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * The desired behavior of this daemon set. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<extensions.v1beta1.DaemonSetSpec>
 
       /**
        * The current status of this daemon set. This data may be out of date by some window of time.
        * Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<extensions.v1beta1.DaemonSetStatus>
 
@@ -14885,7 +14976,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -15431,7 +15522,9 @@ export namespace extensions {
     /**
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints
      * defined by a backend. An Ingress can be configured to give services externally-reachable
-     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. DEPRECATED -
+     * This group version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress. See the
+     * release notes for more information.
      */
     export interface Ingress {
       /**
@@ -15452,19 +15545,19 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec is the desired state of the Ingress. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<extensions.v1beta1.IngressSpec>
 
       /**
        * Status is the current state of the Ingress. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<extensions.v1beta1.IngressStatus>
 
@@ -15518,7 +15611,7 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -15640,7 +15733,7 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -15737,7 +15830,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -15837,15 +15930,15 @@ export namespace extensions {
       ingress?: pulumi.Input<pulumi.Input<extensions.v1beta1.NetworkPolicyIngressRule>[]>
 
       /**
-       * List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or
-       * Ingress,Egress. If this field is not specified, it will default based on the existence of
-       * Ingress or Egress rules; policies that contain an Egress section are assumed to affect
-       * Egress, and all policies (whether or not they contain an Ingress section) are assumed to
-       * affect Ingress. If you want to write an egress-only policy, you must explicitly specify
-       * policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no
-       * egress is allowed, you must specify a policyTypes value that include "Egress" (since such a
-       * policy would not include an Egress section and would otherwise default to just [ "Ingress"
-       * ]). This field is beta-level in 1.8
+       * List of rule types that the NetworkPolicy relates to. Valid options are "Ingress",
+       * "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the
+       * existence of Ingress or Egress rules; policies that contain an Egress section are assumed
+       * to affect Egress, and all policies (whether or not they contain an Ingress section) are
+       * assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly
+       * specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies
+       * that no egress is allowed, you must specify a policyTypes value that include "Egress"
+       * (since such a policy would not include an Egress section and would otherwise default to
+       * just [ "Ingress" ]). This field is beta-level in 1.8
        */
       policyTypes?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -15876,7 +15969,7 @@ export namespace extensions {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -15919,7 +16012,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -15960,6 +16053,13 @@ export namespace extensions {
        * unspecified, defaults to true.
        */
       allowPrivilegeEscalation?: pulumi.Input<boolean>
+
+      /**
+       * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be
+       * embedded within a pod spec. An empty value means no CSI drivers can run inline within a pod
+       * spec.
+       */
+      allowedCSIDrivers?: pulumi.Input<pulumi.Input<extensions.v1beta1.AllowedCSIDriver>[]>
 
       /**
        * allowedCapabilities is a list of capabilities that can be requested to add to the
@@ -16103,20 +16203,20 @@ export namespace extensions {
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
        * that the ReplicaSet manages. Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<extensions.v1beta1.ReplicaSetSpec>
 
       /**
        * Status is the most recently observed status of the ReplicaSet. This data may be out of date
        * by some window of time. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       status?: pulumi.Input<extensions.v1beta1.ReplicaSetStatus>
 
@@ -16186,7 +16286,7 @@ export namespace extensions {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -16316,7 +16416,7 @@ export namespace extensions {
        * scaled up immediately when the rolling update starts, such that the total number of old and
        * new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be
        * scaled up further, ensuring that total number of pods running at any time during the update
-       * is atmost 130% of desired pods.
+       * is at most 130% of desired pods.
        */
       maxSurge?: pulumi.Input<number | string>
 
@@ -16414,19 +16514,19 @@ export namespace extensions {
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * defines the behavior of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       spec?: pulumi.Input<extensions.v1beta1.ScaleSpec>
 
       /**
        * current status of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        * Read-only.
        */
       status?: pulumi.Input<extensions.v1beta1.ScaleStatus>
@@ -16635,6 +16735,15 @@ export namespace meta {
        * shortNames is a list of suggested short names of the resource.
        */
       shortNames?: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * The hash value of the storage version, the version this resource is converted to when
+       * written to the data store. Value must be treated as opaque by clients. Only equality
+       * comparison on the value is valid. This is an alpha feature and may change or be removed in
+       * the future. The field is populated by the apiserver only if the StorageVersionHash feature
+       * gate is enabled. This field will remain optional even if it graduates.
+       */
+      storageVersionHash?: pulumi.Input<string>
 
       /**
        * version is the preferred version of the resource.  Empty implies the version of the
@@ -16923,6 +17032,46 @@ export namespace meta {
 
 
     /**
+     * ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that
+     * the fieldset applies to.
+     */
+    export interface ManagedFieldsEntry {
+      /**
+       * APIVersion defines the version of this resource that this field set applies to. The format
+       * is "group/version" just like the top-level APIVersion field. It is necessary to track the
+       * version of a field set because it cannot be automatically converted.
+       */
+      apiVersion?: pulumi.Input<string>
+
+      /**
+       * Fields identifies a set of fields.
+       */
+      fields?: pulumi.Input<object>
+
+      /**
+       * Manager is an identifier of the workflow managing these fields.
+       */
+      manager?: pulumi.Input<string>
+
+      /**
+       * Operation is the type of operation which lead to this ManagedFieldsEntry being created. The
+       * only valid values for this field are 'Apply' and 'Update'.
+       */
+      operation?: pulumi.Input<string>
+
+      /**
+       * Time is timestamp of when these fields were set. It should always be empty if Operation is
+       * 'Apply'
+       */
+      time?: pulumi.Input<string>
+
+    }
+
+    export function isManagedFieldsEntry(o: any): o is ManagedFieldsEntry {
+      return o.apiVersion == "meta/v1" && o.kind == "ManagedFieldsEntry";
+    }
+
+    /**
      * ObjectMeta is metadata that all persisted resources must have, which includes all objects
      * users must create.
      */
@@ -17020,6 +17169,8 @@ export namespace meta {
        * When an object is created, the system will populate this list with the current set of
        * initializers. Only privileged users may set or modify this list. Once it is empty, it may
        * not be modified further by any user.
+       * 
+       * DEPRECATED - initializers are an alpha field and will be removed in v1.15.
        */
       initializers?: pulumi.Input<meta.v1.Initializers>
 
@@ -17029,6 +17180,17 @@ export namespace meta {
        * http://kubernetes.io/docs/user-guide/labels
        */
       labels?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
+
+      /**
+       * ManagedFields maps workflow-id and version to the set of fields that are managed by that
+       * workflow. This is mostly for internal housekeeping, and users typically shouldn't need to
+       * set or understand this field. A workflow can be the user's name, a controller's name, or
+       * the name of a specific apply path like "ci-cd". The set of fields is always in the version
+       * that the workflow used when modifying the object.
+       * 
+       * This field is alpha and can be changed or removed without notice.
+       */
+      managedFields?: pulumi.Input<pulumi.Input<meta.v1.ManagedFieldsEntry>[]>
 
       /**
        * Name must be unique within a namespace. Is required when creating resources, although some
@@ -17138,6 +17300,11 @@ export namespace meta {
      * Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
      */
     export interface Preconditions {
+      /**
+       * Specifies the target ResourceVersion
+       */
+      resourceVersion?: pulumi.Input<string>
+
       /**
        * Specifies the target UID.
        */
@@ -17374,7 +17541,7 @@ export namespace networking {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -17468,7 +17635,7 @@ export namespace networking {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -17565,20 +17732,441 @@ export namespace networking {
       ingress?: pulumi.Input<pulumi.Input<networking.v1.NetworkPolicyIngressRule>[]>
 
       /**
-       * List of rule types that the NetworkPolicy relates to. Valid options are Ingress, Egress, or
-       * Ingress,Egress. If this field is not specified, it will default based on the existence of
-       * Ingress or Egress rules; policies that contain an Egress section are assumed to affect
-       * Egress, and all policies (whether or not they contain an Ingress section) are assumed to
-       * affect Ingress. If you want to write an egress-only policy, you must explicitly specify
-       * policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no
-       * egress is allowed, you must specify a policyTypes value that include "Egress" (since such a
-       * policy would not include an Egress section and would otherwise default to just [ "Ingress"
-       * ]). This field is beta-level in 1.8
+       * List of rule types that the NetworkPolicy relates to. Valid options are "Ingress",
+       * "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the
+       * existence of Ingress or Egress rules; policies that contain an Egress section are assumed
+       * to affect Egress, and all policies (whether or not they contain an Ingress section) are
+       * assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly
+       * specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies
+       * that no egress is allowed, you must specify a policyTypes value that include "Egress"
+       * (since such a policy would not include an Egress section and would otherwise default to
+       * just [ "Ingress" ]). This field is beta-level in 1.8
        */
       policyTypes?: pulumi.Input<pulumi.Input<string>[]>
 
     }
 
+
+  }
+
+  export namespace v1beta1 {
+    /**
+     * HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
+     * forwarded to the backend.
+     */
+    export interface HTTPIngressPath {
+      /**
+       * Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+       */
+      backend: pulumi.Input<networking.v1beta1.IngressBackend>
+
+      /**
+       * Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the
+       * egrep/unix syntax, not the perl syntax) matched against the path of an incoming request.
+       * Currently it can contain characters disallowed from the conventional "path" part of a URL
+       * as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a
+       * catch all sending traffic to the backend.
+       */
+      path?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example:
+     * http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC
+     * 3986, this resource will be used to match against everything after the last '/' and before
+     * the first '?' or '#'.
+     */
+    export interface HTTPIngressRuleValue {
+      /**
+       * A collection of paths that map requests to backends.
+       */
+      paths: pulumi.Input<pulumi.Input<networking.v1beta1.HTTPIngressPath>[]>
+
+    }
+
+
+    /**
+     * Ingress is a collection of rules that allow inbound connections to reach the endpoints
+     * defined by a backend. An Ingress can be configured to give services externally-reachable
+     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
+     */
+    export interface Ingress {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"networking.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"Ingress">
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Spec is the desired state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      spec?: pulumi.Input<networking.v1beta1.IngressSpec>
+
+      /**
+       * Status is the current state of the Ingress. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      status?: pulumi.Input<networking.v1beta1.IngressStatus>
+
+    }
+
+    export function isIngress(o: any): o is Ingress {
+      return o.apiVersion == "networking.k8s.io/v1beta1" && o.kind == "Ingress";
+    }
+
+    /**
+     * IngressBackend describes all endpoints for a given service and port.
+     */
+    export interface IngressBackend {
+      /**
+       * Specifies the name of the referenced service.
+       */
+      serviceName: pulumi.Input<string>
+
+      /**
+       * Specifies the port of the referenced service.
+       */
+      servicePort: pulumi.Input<number | string>
+
+    }
+
+
+    /**
+     * IngressList is a collection of Ingress.
+     */
+    export interface IngressList {
+      /**
+       * Items is the list of Ingress.
+       */
+      items: pulumi.Input<pulumi.Input<networking.v1beta1.Ingress>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"networking.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"IngressList">
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isIngressList(o: any): o is IngressList {
+      return o.apiVersion == "networking.k8s.io/v1beta1" && o.kind == "IngressList";
+    }
+
+    /**
+     * IngressRule represents the rules mapping the paths under a specified host to the related
+     * backend services. Incoming requests are first evaluated for a host match, then routed to the
+     * backend associated with the matching IngressRuleValue.
+     */
+    export interface IngressRule {
+      /**
+       * Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the
+       * following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not
+       * allowed. Currently an IngressRuleValue can only apply to the
+       * 	  IP in the Spec of the parent Ingress.
+       * 2. The `:` delimiter is not respected because ports are not allowed.
+       * 	  Currently the port of an Ingress is implicitly :80 for http and
+       * 	  :443 for https.
+       * Both these may change in the future. Incoming requests are matched against the host before
+       * the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on
+       * the specified IngressRuleValue.
+       */
+      host?: pulumi.Input<string>
+
+      
+      http?: pulumi.Input<networking.v1beta1.HTTPIngressRuleValue>
+
+    }
+
+
+    /**
+     * IngressSpec describes the Ingress the user wishes to exist.
+     */
+    export interface IngressSpec {
+      /**
+       * A default backend capable of servicing requests that don't match any rule. At least one of
+       * 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer
+       * controller or defaulting logic to specify a global default.
+       */
+      backend?: pulumi.Input<networking.v1beta1.IngressBackend>
+
+      /**
+       * A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all
+       * traffic is sent to the default backend.
+       */
+      rules?: pulumi.Input<pulumi.Input<networking.v1beta1.IngressRule>[]>
+
+      /**
+       * TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple
+       * members of this list specify different hosts, they will be multiplexed on the same port
+       * according to the hostname specified through the SNI TLS extension, if the ingress
+       * controller fulfilling the ingress supports SNI.
+       */
+      tls?: pulumi.Input<pulumi.Input<networking.v1beta1.IngressTLS>[]>
+
+    }
+
+
+    /**
+     * IngressStatus describe the current state of the Ingress.
+     */
+    export interface IngressStatus {
+      /**
+       * LoadBalancer contains the current status of the load-balancer.
+       */
+      loadBalancer?: pulumi.Input<core.v1.LoadBalancerStatus>
+
+    }
+
+
+    /**
+     * IngressTLS describes the transport layer security associated with an Ingress.
+     */
+    export interface IngressTLS {
+      /**
+       * Hosts are a list of hosts included in the TLS certificate. The values in this list must
+       * match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the
+       * loadbalancer controller fulfilling this Ingress, if left unspecified.
+       */
+      hosts?: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left
+       * optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener
+       * conflicts with the "Host" header field used by an IngressRule, the SNI host is used for
+       * termination and value of the Host header is used for routing.
+       */
+      secretName?: pulumi.Input<string>
+
+    }
+
+
+  }
+
+}
+
+export namespace node {
+  export namespace v1alpha1 {
+    /**
+     * RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass
+     * is used to determine which container runtime is used to run all containers in a pod.
+     * RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and
+     * referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName
+     * reference before running the pod.  For more details, see
+     * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+     */
+    export interface RuntimeClass {
+      /**
+       * Specification of the RuntimeClass More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       */
+      spec: pulumi.Input<node.v1alpha1.RuntimeClassSpec>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"node.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"RuntimeClass">
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isRuntimeClass(o: any): o is RuntimeClass {
+      return o.apiVersion == "node.k8s.io/v1alpha1" && o.kind == "RuntimeClass";
+    }
+
+    /**
+     * RuntimeClassList is a list of RuntimeClass objects.
+     */
+    export interface RuntimeClassList {
+      /**
+       * Items is a list of schema objects.
+       */
+      items: pulumi.Input<pulumi.Input<node.v1alpha1.RuntimeClass>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"node.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"RuntimeClassList">
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isRuntimeClassList(o: any): o is RuntimeClassList {
+      return o.apiVersion == "node.k8s.io/v1alpha1" && o.kind == "RuntimeClassList";
+    }
+
+    /**
+     * RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are
+     * required to describe the RuntimeClass to the Container Runtime Interface (CRI)
+     * implementation, as well as any other components that need to understand how the pod will be
+     * run. The RuntimeClassSpec is immutable.
+     */
+    export interface RuntimeClassSpec {
+      /**
+       * RuntimeHandler specifies the underlying runtime and configuration that the CRI
+       * implementation will use to handle pods of this class. The possible values are specific to
+       * the node & CRI configuration.  It is assumed that all handlers are available on every node,
+       * and handlers of the same name are equivalent on every node. For example, a handler called
+       * "runc" might specify that the runc OCI runtime (using native Linux containers) will be used
+       * to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123)
+       * requirements and is immutable.
+       */
+      runtimeHandler: pulumi.Input<string>
+
+    }
+
+
+  }
+
+  export namespace v1beta1 {
+    /**
+     * RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass
+     * is used to determine which container runtime is used to run all containers in a pod.
+     * RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and
+     * referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName
+     * reference before running the pod.  For more details, see
+     * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+     */
+    export interface RuntimeClass {
+      /**
+       * Handler specifies the underlying runtime and configuration that the CRI implementation will
+       * use to handle pods of this class. The possible values are specific to the node & CRI
+       * configuration.  It is assumed that all handlers are available on every node, and handlers
+       * of the same name are equivalent on every node. For example, a handler called "runc" might
+       * specify that the runc OCI runtime (using native Linux containers) will be used to run the
+       * containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and
+       * is immutable.
+       */
+      handler: pulumi.Input<string>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"node.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"RuntimeClass">
+
+      /**
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isRuntimeClass(o: any): o is RuntimeClass {
+      return o.apiVersion == "node.k8s.io/v1beta1" && o.kind == "RuntimeClass";
+    }
+
+    /**
+     * RuntimeClassList is a list of RuntimeClass objects.
+     */
+    export interface RuntimeClassList {
+      /**
+       * Items is a list of schema objects.
+       */
+      items: pulumi.Input<pulumi.Input<node.v1beta1.RuntimeClass>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"node.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"RuntimeClassList">
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isRuntimeClassList(o: any): o is RuntimeClassList {
+      return o.apiVersion == "node.k8s.io/v1beta1" && o.kind == "RuntimeClassList";
+    }
 
   }
 
@@ -17676,6 +18264,18 @@ export namespace pkg {
 
 export namespace policy {
   export namespace v1beta1 {
+    /**
+     * AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+     */
+    export interface AllowedCSIDriver {
+      /**
+       * Name is the registered name of the CSI driver
+       */
+      name: pulumi.Input<string>
+
+    }
+
+
     /**
      * AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
      */
@@ -18057,6 +18657,13 @@ export namespace policy {
       allowPrivilegeEscalation?: pulumi.Input<boolean>
 
       /**
+       * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be
+       * embedded within a pod spec. An empty value means no CSI drivers can run inline within a pod
+       * spec.
+       */
+      allowedCSIDrivers?: pulumi.Input<pulumi.Input<policy.v1beta1.AllowedCSIDriver>[]>
+
+      /**
        * allowedCapabilities is a list of capabilities that can be requested to add to the
        * container. Capabilities in this field may be added at the pod author's discretion. You must
        * not list a capability in both allowedCapabilities and requiredDropCapabilities.
@@ -18276,11 +18883,6 @@ export namespace rbac {
      */
     export interface ClusterRole {
       /**
-       * Rules holds all the PolicyRules for this ClusterRole
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1.PolicyRule>[]>
-
-      /**
        * AggregationRule is an optional field that describes how to build the Rules for this
        * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
        * changes to Rules will be stomped by the controller.
@@ -18307,6 +18909,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this ClusterRole
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1.PolicyRule>[]>
 
     }
 
@@ -18477,11 +19084,6 @@ export namespace rbac {
      */
     export interface Role {
       /**
-       * Rules holds all the PolicyRules for this Role
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1.PolicyRule>[]>
-
-      /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
@@ -18501,6 +19103,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this Role
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1.PolicyRule>[]>
 
     }
 
@@ -18703,11 +19310,6 @@ export namespace rbac {
      */
     export interface ClusterRole {
       /**
-       * Rules holds all the PolicyRules for this ClusterRole
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1alpha1.PolicyRule>[]>
-
-      /**
        * AggregationRule is an optional field that describes how to build the Rules for this
        * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
        * changes to Rules will be stomped by the controller.
@@ -18734,6 +19336,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this ClusterRole
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1alpha1.PolicyRule>[]>
 
     }
 
@@ -18905,11 +19512,6 @@ export namespace rbac {
      */
     export interface Role {
       /**
-       * Rules holds all the PolicyRules for this Role
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1alpha1.PolicyRule>[]>
-
-      /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
@@ -18929,6 +19531,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this Role
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1alpha1.PolicyRule>[]>
 
     }
 
@@ -19135,11 +19742,6 @@ export namespace rbac {
      */
     export interface ClusterRole {
       /**
-       * Rules holds all the PolicyRules for this ClusterRole
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1beta1.PolicyRule>[]>
-
-      /**
        * AggregationRule is an optional field that describes how to build the Rules for this
        * ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
        * changes to Rules will be stomped by the controller.
@@ -19166,6 +19768,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this ClusterRole
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1beta1.PolicyRule>[]>
 
     }
 
@@ -19337,11 +19944,6 @@ export namespace rbac {
      */
     export interface Role {
       /**
-       * Rules holds all the PolicyRules for this Role
-       */
-      rules: pulumi.Input<pulumi.Input<rbac.v1beta1.PolicyRule>[]>
-
-      /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
@@ -19361,6 +19963,11 @@ export namespace rbac {
        * Standard object's metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * Rules holds all the PolicyRules for this Role
+       */
+      rules?: pulumi.Input<pulumi.Input<rbac.v1beta1.PolicyRule>[]>
 
     }
 
@@ -19545,10 +20152,105 @@ export namespace rbac {
 }
 
 export namespace scheduling {
-  export namespace v1alpha1 {
+  export namespace v1 {
     /**
      * PriorityClass defines mapping from a priority class name to the priority integer value. The
      * value can be any valid integer.
+     */
+    export interface PriorityClass {
+      /**
+       * The value of this priority class. This is the actual priority that pods receive when they
+       * have the name of this class in their pod spec.
+       */
+      value: pulumi.Input<number>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"scheduling.k8s.io/v1">
+
+      /**
+       * description is an arbitrary string that usually provides guidelines on when this priority
+       * class should be used.
+       */
+      description?: pulumi.Input<string>
+
+      /**
+       * globalDefault specifies whether this PriorityClass should be considered as the default
+       * priority for pods that do not have any priority class. Only one PriorityClass can be marked
+       * as `globalDefault`. However, if more than one PriorityClasses exists with their
+       * `globalDefault` field set to true, the smallest value of such global default
+       * PriorityClasses will be used as the default priority.
+       */
+      globalDefault?: pulumi.Input<boolean>
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"PriorityClass">
+
+      /**
+       * Standard object's metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isPriorityClass(o: any): o is PriorityClass {
+      return o.apiVersion == "scheduling.k8s.io/v1" && o.kind == "PriorityClass";
+    }
+
+    /**
+     * PriorityClassList is a collection of priority classes.
+     */
+    export interface PriorityClassList {
+      /**
+       * items is the list of PriorityClasses
+       */
+      items: pulumi.Input<pulumi.Input<scheduling.v1.PriorityClass>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"scheduling.k8s.io/v1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"PriorityClassList">
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isPriorityClassList(o: any): o is PriorityClassList {
+      return o.apiVersion == "scheduling.k8s.io/v1" && o.kind == "PriorityClassList";
+    }
+
+  }
+
+  export namespace v1alpha1 {
+    /**
+     * DEPRECATED - This group version of PriorityClass is deprecated by
+     * scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
+     * to the priority integer value. The value can be any valid integer.
      */
     export interface PriorityClass {
       /**
@@ -19641,8 +20343,9 @@ export namespace scheduling {
 
   export namespace v1beta1 {
     /**
-     * PriorityClass defines mapping from a priority class name to the priority integer value. The
-     * value can be any valid integer.
+     * DEPRECATED - This group version of PriorityClass is deprecated by
+     * scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name
+     * to the priority integer value. The value can be any valid integer.
      */
     export interface PriorityClass {
       /**
@@ -19684,7 +20387,7 @@ export namespace scheduling {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -19721,7 +20424,7 @@ export namespace scheduling {
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -19796,7 +20499,7 @@ export namespace settings {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -20119,8 +20822,8 @@ export namespace storage {
      */
     export interface VolumeError {
       /**
-       * String detailing the error encountered during Attach or Detach operation. This string maybe
-       * logged, so it should not contain sensitive information.
+       * String detailing the error encountered during Attach or Detach operation. This string may
+       * be logged, so it should not contain sensitive information.
        */
       message?: pulumi.Input<string>
 
@@ -20309,6 +21012,250 @@ export namespace storage {
   }
 
   export namespace v1beta1 {
+    /**
+     * CSIDriver captures information about a Container Storage Interface (CSI) volume driver
+     * deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly.
+     * Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI
+     * driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach
+     * detach controller uses this object to determine whether attach is required. Kubelet uses this
+     * object to determine whether pod information needs to be passed on mount. CSIDriver objects
+     * are non-namespaced.
+     */
+    export interface CSIDriver {
+      /**
+       * Specification of the CSI Driver.
+       */
+      spec: pulumi.Input<storage.v1beta1.CSIDriverSpec>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSIDriver">
+
+      /**
+       * Standard object metadata. metadata.Name indicates the name of the CSI driver that this
+       * object refers to; it MUST be the same name returned by the CSI GetPluginName() call for
+       * that driver. The driver name must be 63 characters or less, beginning and ending with an
+       * alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between.
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isCSIDriver(o: any): o is CSIDriver {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "CSIDriver";
+    }
+
+    /**
+     * CSIDriverList is a collection of CSIDriver objects.
+     */
+    export interface CSIDriverList {
+      /**
+       * items is the list of CSIDriver
+       */
+      items: pulumi.Input<pulumi.Input<storage.v1beta1.CSIDriver>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSIDriverList">
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isCSIDriverList(o: any): o is CSIDriverList {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "CSIDriverList";
+    }
+
+    /**
+     * CSIDriverSpec is the specification of a CSIDriver.
+     */
+    export interface CSIDriverSpec {
+      /**
+       * attachRequired indicates this CSI volume driver requires an attach operation (because it
+       * implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach
+       * controller should call the attach volume interface which checks the volumeattachment status
+       * and waits until the volume is attached before proceeding to mounting. The CSI
+       * external-attacher coordinates with CSI volume driver and updates the volumeattachment
+       * status when the attach operation is complete. If the CSIDriverRegistry feature gate is
+       * enabled and the value is specified to false, the attach operation will be skipped.
+       * Otherwise the attach operation will be called.
+       */
+      attachRequired?: pulumi.Input<boolean>
+
+      /**
+       * If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod
+       * information (like podName, podUID, etc.) during mount operations. If set to false, pod
+       * information will not be passed on mount. Default is false. The CSI driver specifies
+       * podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as
+       * VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for
+       * parsing and validating the information passed in as VolumeContext. The following
+       * VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the
+       * prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name
+       * "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid":
+       * string(pod.UID)
+       */
+      podInfoOnMount?: pulumi.Input<boolean>
+
+    }
+
+
+    /**
+     * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
+     * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
+     * container, the kubelet will automatically populate the CSINode object for the CSI driver as
+     * part of kubelet plugin registration. CSINode has the same name as a node. If the object is
+     * missing, it means either there are no CSI Drivers available on the node, or the Kubelet
+     * version is low enough that it doesn't create this object. CSINode has an OwnerReference that
+     * points to the corresponding node object.
+     */
+    export interface CSINode {
+      /**
+       * spec is the specification of CSINode
+       */
+      spec: pulumi.Input<storage.v1beta1.CSINodeSpec>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSINode">
+
+      /**
+       * metadata.name must be the Kubernetes node name.
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+    }
+
+    export function isCSINode(o: any): o is CSINode {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "CSINode";
+    }
+
+    /**
+     * CSINodeDriver holds information about the specification of one CSI driver installed on a node
+     */
+    export interface CSINodeDriver {
+      /**
+       * This is the name of the CSI driver that this object refers to. This MUST be the same name
+       * returned by the CSI GetPluginName() call for that driver.
+       */
+      name: pulumi.Input<string>
+
+      /**
+       * nodeID of the node from the driver point of view. This field enables Kubernetes to
+       * communicate with storage systems that do not share the same nomenclature for nodes. For
+       * example, Kubernetes may refer to a given node as "node1", but the storage system may refer
+       * to the same node as "nodeA". When Kubernetes issues a command to the storage system to
+       * attach a volume to a specific node, it can use this field to refer to the node name using
+       * the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field
+       * is required.
+       */
+      nodeID: pulumi.Input<string>
+
+      /**
+       * topologyKeys is the list of keys supported by the driver. When a driver is initialized on a
+       * cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone",
+       * "company.com/region"). When a driver is initialized on a node, it provides the same
+       * topology keys along with values. Kubelet will expose these topology keys as labels on its
+       * own node object. When Kubernetes does topology aware provisioning, it can use this list to
+       * determine which labels it should retrieve from the node object and pass back to the driver.
+       * It is possible for different nodes to use different topology keys. This can be empty if
+       * driver does not support topology.
+       */
+      topologyKeys?: pulumi.Input<pulumi.Input<string>[]>
+
+    }
+
+
+    /**
+     * CSINodeList is a collection of CSINode objects.
+     */
+    export interface CSINodeList {
+      /**
+       * items is the list of CSINode
+       */
+      items: pulumi.Input<pulumi.Input<storage.v1beta1.CSINode>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"CSINodeList">
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isCSINodeList(o: any): o is CSINodeList {
+      return o.apiVersion == "storage.k8s.io/v1beta1" && o.kind == "CSINodeList";
+    }
+
+    /**
+     * CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+     */
+    export interface CSINodeSpec {
+      /**
+       * drivers is a list of information of all CSI Drivers existing on a node. If all drivers in
+       * the list are uninstalled, this can become empty.
+       */
+      drivers: pulumi.Input<pulumi.Input<storage.v1beta1.CSINodeDriver>[]>
+
+    }
+
+
     /**
      * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
      * be dynamically provisioned.
@@ -20584,8 +21531,8 @@ export namespace storage {
      */
     export interface VolumeError {
       /**
-       * String detailing the error encountered during Attach or Detach operation. This string maybe
-       * logged, so it should not contain sensitive information.
+       * String detailing the error encountered during Attach or Detach operation. This string may
+       * be logged, so it should not contain sensitive information.
        */
       message?: pulumi.Input<string>
 

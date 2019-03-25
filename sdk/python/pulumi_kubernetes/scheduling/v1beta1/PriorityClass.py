@@ -9,8 +9,9 @@ from ... import tables
 
 class PriorityClass(pulumi.CustomResource):
     """
-    PriorityClass defines mapping from a priority class name to the priority integer value. The
-    value can be any valid integer.
+    DEPRECATED - This group version of PriorityClass is deprecated by
+    scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to
+    the priority integer value. The value can be any valid integer.
     """
     def __init__(self, __name__, __opts__=None, description=None, global_default=None, metadata=None, value=None):
         if not __name__:

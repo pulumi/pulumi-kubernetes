@@ -33,7 +33,7 @@ import * as outputApi from "../../types/output";
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
 
