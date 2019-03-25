@@ -14,7 +14,7 @@
 import pulumi
 from pulumi_kubernetes.core.v1 import Pod, Namespace
 
-namespace = Namespace("foo", metadata={"name": "foo"})
+namespace = Namespace("ns")
 
 pod = Pod(
     "smoke-test",

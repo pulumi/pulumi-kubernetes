@@ -13,6 +13,8 @@
 # limitations under the License.
 from pulumi_kubernetes.yaml import ConfigFile
 
+# TODO(levi): Use autonamed Namespace to avoid collisions in CI. Requires YAML transformation support.
+
 cf = ConfigFile(
     "yaml-test",
     "manifest.yaml",

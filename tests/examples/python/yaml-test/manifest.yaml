@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: foo
+  name: yaml-test
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  namespace: foo
+  namespace: yaml-test
   name: foo
 spec:
   containers:
@@ -19,7 +19,7 @@ items:
   - apiVersion: v1
     kind: Pod
     metadata:
-      namespace: foo
+      namespace: yaml-test
       name: bar
     spec:
       containers:
@@ -28,7 +28,7 @@ items:
   - apiVersion: v1
     kind: Pod
     metadata:
-      namespace: foo
+      namespace: yaml-test
       name: baz
     spec:
       containers:
