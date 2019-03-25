@@ -2,7 +2,21 @@
 
 ### Major changes
 
+-   Add basic YAML support to Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/499)
+
+### Improvements
+
 -   None
+
+### Bug fixes
+
+-   None
+
+## 0.22.0 (March 25, 2019)
+
+### Major changes
+
+-   Add support for Kubernetes v1.14.0 (https://github.com/pulumi/pulumi-kubernetes/pull/371)
 
 ### Improvements
 
