@@ -8,7 +8,6 @@ from typing import Optional
 import pulumi.runtime
 import requests
 import yaml
-from pulumi_kubernetes.admissionregistration.v1alpha1 import *
 from pulumi_kubernetes.admissionregistration.v1beta1 import *
 from pulumi_kubernetes.apiextensions.v1beta1 import *
 from pulumi_kubernetes.apiregistration.v1 import *
@@ -28,16 +27,21 @@ from pulumi_kubernetes.batch.v1 import *
 from pulumi_kubernetes.batch.v1beta1 import *
 from pulumi_kubernetes.batch.v2alpha1 import *
 from pulumi_kubernetes.certificates.v1beta1 import *
+from pulumi_kubernetes.coordination.v1 import *
 from pulumi_kubernetes.coordination.v1beta1 import *
 from pulumi_kubernetes.core.v1 import *
 from pulumi_kubernetes.events.v1beta1 import *
 from pulumi_kubernetes.extensions.v1beta1 import *
 from pulumi_kubernetes.meta.v1 import *
 from pulumi_kubernetes.networking.v1 import *
+from pulumi_kubernetes.networking.v1beta1 import *
+from pulumi_kubernetes.node.v1alpha1 import *
+from pulumi_kubernetes.node.v1beta1 import *
 from pulumi_kubernetes.policy.v1beta1 import *
 from pulumi_kubernetes.rbac.v1 import *
 from pulumi_kubernetes.rbac.v1alpha1 import *
 from pulumi_kubernetes.rbac.v1beta1 import *
+from pulumi_kubernetes.scheduling.v1 import *
 from pulumi_kubernetes.scheduling.v1alpha1 import *
 from pulumi_kubernetes.scheduling.v1beta1 import *
 from pulumi_kubernetes.settings.v1alpha1 import *
@@ -150,12 +154,6 @@ def parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None):
         identifier = "{}/{}".format(metadata["namespace"], metadata["name"])
 
     gvk = f"{api_version}/{kind}"
-    if gvk == "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration":
-        return [(f"admissionregistration.k8s.io/v1alpha1/InitializerConfiguration:{identifier}",
-                 InitializerConfiguration(identifier, opts, metadata, spec))]
-    if gvk == "admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList":
-        return [(f"admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList:{identifier}",
-                 InitializerConfigurationList(identifier, opts, metadata, spec))]
     if gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
         return [(f"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration:{identifier}",
                  MutatingWebhookConfiguration(identifier, opts, metadata, spec))]
@@ -342,6 +340,12 @@ def parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None):
     if gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
         return [(f"certificates.k8s.io/v1beta1/CertificateSigningRequestList:{identifier}",
                  CertificateSigningRequestList(identifier, opts, metadata, spec))]
+    if gvk == "coordination.k8s.io/v1/Lease":
+        return [(f"coordination.k8s.io/v1/Lease:{identifier}",
+                 Lease(identifier, opts, metadata, spec))]
+    if gvk == "coordination.k8s.io/v1/LeaseList":
+        return [(f"coordination.k8s.io/v1/LeaseList:{identifier}",
+                 LeaseList(identifier, opts, metadata, spec))]
     if gvk == "coordination.k8s.io/v1beta1/Lease":
         return [(f"coordination.k8s.io/v1beta1/Lease:{identifier}",
                  Lease(identifier, opts, metadata, spec))]
@@ -498,6 +502,24 @@ def parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None):
     if gvk == "networking.k8s.io/v1/NetworkPolicyList":
         return [(f"networking.k8s.io/v1/NetworkPolicyList:{identifier}",
                  NetworkPolicyList(identifier, opts, metadata, spec))]
+    if gvk == "networking.k8s.io/v1beta1/Ingress":
+        return [(f"networking.k8s.io/v1beta1/Ingress:{identifier}",
+                 Ingress(identifier, opts, metadata, spec))]
+    if gvk == "networking.k8s.io/v1beta1/IngressList":
+        return [(f"networking.k8s.io/v1beta1/IngressList:{identifier}",
+                 IngressList(identifier, opts, metadata, spec))]
+    if gvk == "node.k8s.io/v1alpha1/RuntimeClass":
+        return [(f"node.k8s.io/v1alpha1/RuntimeClass:{identifier}",
+                 RuntimeClass(identifier, opts, metadata, spec))]
+    if gvk == "node.k8s.io/v1alpha1/RuntimeClassList":
+        return [(f"node.k8s.io/v1alpha1/RuntimeClassList:{identifier}",
+                 RuntimeClassList(identifier, opts, metadata, spec))]
+    if gvk == "node.k8s.io/v1beta1/RuntimeClass":
+        return [(f"node.k8s.io/v1beta1/RuntimeClass:{identifier}",
+                 RuntimeClass(identifier, opts, metadata, spec))]
+    if gvk == "node.k8s.io/v1beta1/RuntimeClassList":
+        return [(f"node.k8s.io/v1beta1/RuntimeClassList:{identifier}",
+                 RuntimeClassList(identifier, opts, metadata, spec))]
     if gvk == "policy/v1beta1/PodDisruptionBudget":
         return [(f"policy/v1beta1/PodDisruptionBudget:{identifier}",
                  PodDisruptionBudget(identifier, opts, metadata, spec))]
@@ -582,6 +604,12 @@ def parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None):
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleList":
         return [(f"rbac.authorization.k8s.io/v1beta1/RoleList:{identifier}",
                  RoleList(identifier, opts, metadata, spec))]
+    if gvk == "scheduling.k8s.io/v1/PriorityClass":
+        return [(f"scheduling.k8s.io/v1/PriorityClass:{identifier}",
+                 PriorityClass(identifier, opts, metadata, spec))]
+    if gvk == "scheduling.k8s.io/v1/PriorityClassList":
+        return [(f"scheduling.k8s.io/v1/PriorityClassList:{identifier}",
+                 PriorityClassList(identifier, opts, metadata, spec))]
     if gvk == "scheduling.k8s.io/v1alpha1/PriorityClass":
         return [(f"scheduling.k8s.io/v1alpha1/PriorityClass:{identifier}",
                  PriorityClass(identifier, opts, metadata, spec))]
@@ -618,6 +646,18 @@ def parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None):
     if gvk == "storage.k8s.io/v1alpha1/VolumeAttachmentList":
         return [(f"storage.k8s.io/v1alpha1/VolumeAttachmentList:{identifier}",
                  VolumeAttachmentList(identifier, opts, metadata, spec))]
+    if gvk == "storage.k8s.io/v1beta1/CSIDriver":
+        return [(f"storage.k8s.io/v1beta1/CSIDriver:{identifier}",
+                 CSIDriver(identifier, opts, metadata, spec))]
+    if gvk == "storage.k8s.io/v1beta1/CSIDriverList":
+        return [(f"storage.k8s.io/v1beta1/CSIDriverList:{identifier}",
+                 CSIDriverList(identifier, opts, metadata, spec))]
+    if gvk == "storage.k8s.io/v1beta1/CSINode":
+        return [(f"storage.k8s.io/v1beta1/CSINode:{identifier}",
+                 CSINode(identifier, opts, metadata, spec))]
+    if gvk == "storage.k8s.io/v1beta1/CSINodeList":
+        return [(f"storage.k8s.io/v1beta1/CSINodeList:{identifier}",
+                 CSINodeList(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1beta1/StorageClass":
         return [(f"storage.k8s.io/v1beta1/StorageClass:{identifier}",
                  StorageClass(identifier, opts, metadata, spec))]
