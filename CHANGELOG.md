@@ -26,20 +26,6 @@
 
 -   None
 
-## 0.22.0 (March 25, 2019)
-
-### Major changes
-
--   Add support for Kubernetes v1.14.0 (https://github.com/pulumi/pulumi-kubernetes/pull/371)
-
-### Improvements
-
--   None
-
-### Bug fixes
-
--   None
-
 ## 0.21.1 (March 18, 2019)
 
 ### Major changes
