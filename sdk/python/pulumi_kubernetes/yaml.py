@@ -5,7 +5,6 @@ import json
 from copy import deepcopy
 from typing import Optional
 
-import pulumi
 import pulumi.runtime
 import requests
 import yaml
@@ -53,39 +52,41 @@ class ConfigFile(pulumi.ComponentResource):
     """
     ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file. If `config.name`
     is not specified, `ConfigFile` assumes the argument `name` is the filename.
+
+    :param str name: A name for a resource.
+    :param str file_id: Path or a URL that uniquely identifies a file.
+    :param ResourceOptions opts: A bag of optional settings that control a resource's behavior.
     """
 
-    def __init__(self, __name__: str, file_id: str, __opts__: Optional[pulumi.ResourceOptions] = None):
-        if not __name__:
+    def __init__(self, name: str, file_id: str, opts: Optional[pulumi.ResourceOptions] = None):
+        if not name:
             raise TypeError('Missing resource name argument (for URN creation)')
-        if not isinstance(__name__, str):
+        if not isinstance(name, str):
             raise TypeError('Expected resource name to be a string')
-        if __opts__ and not isinstance(__opts__, pulumi.ResourceOptions):
+        if opts and not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
 
         __props__ = dict()
 
         super(ConfigFile, self).__init__(
             "kubernetes:yaml:ConfigFile",
-            __name__,
+            name,
             __props__,
-            __opts__)
+            opts)
 
-        text: str = ""
         if file_id.startswith('http://') or file_id.startswith('https://'):
             text = read_url(file_id)
         else:
             text = read_file(file_id)
 
         # TODO: transformation support
-        opts = None
-        if __opts__ is not None:
-            opts = deepcopy(__opts__)
-            opts.parent = self
+        if opts is not None:
+            _opts = deepcopy(opts)
+            _opts.parent = self
         else:
-            opts = pulumi.ResourceOptions(parent=self)
+            _opts = pulumi.ResourceOptions(parent=self)
 
-        self.register_outputs(parse_yaml_document(yaml.safe_load_all(text), opts))
+        self.register_outputs(parse_yaml_document(yaml.safe_load_all(text), _opts))
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
@@ -108,18 +109,18 @@ def read_file(path: str) -> str:
     return data
 
 
-def parse_yaml_document(objects, __opts__: Optional[pulumi.ResourceOptions] = None):
+def parse_yaml_document(objects, opts: Optional[pulumi.ResourceOptions] = None):
     resources = {}
     for obj in objects:
         # TODO: transformation support
-        file_objects = parse_yaml_object(obj, __opts__)
-        for file_object in file_objects:
-            resources[file_object[0]] = file_object[1]
+        file_objects = parse_yaml_object(obj, opts)
+        for key, value in file_objects:
+            resources[key] = value
 
     return resources
 
 
-def parse_yaml_object(obj, __opts__: Optional[pulumi.ResourceOptions] = None):
+def parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None):
     if not obj:
         return []
 
@@ -135,17 +136,15 @@ def parse_yaml_object(obj, __opts__: Optional[pulumi.ResourceOptions] = None):
         objs = []
         if "items" in obj:
             for item in obj["items"]:
-                objs = objs + parse_yaml_object(item, __opts__)
+                objs = objs + parse_yaml_object(item, opts)
         return objs
 
-    if ("metadata" not in obj) or ("name" not in obj["metadata"]):
+    if "metadata" not in obj or "name" not in obj["metadata"]:
         raise Exception("YAML object does not have a .metadata.name: {}/{} {}".format(
             api_version, kind, json.dumps(obj)))
 
     metadata = obj["metadata"]
-    spec = None
-    if "spec" in obj:
-        spec = obj["spec"]
+    spec = obj.get("spec")
     identifier = metadata["name"]
     if "namespace" in metadata:
         identifier = "{}/{}".format(metadata["namespace"], metadata["name"])
@@ -153,482 +152,482 @@ def parse_yaml_object(obj, __opts__: Optional[pulumi.ResourceOptions] = None):
     gvk = f"{api_version}/{kind}"
     if gvk == "admissionregistration.k8s.io/v1alpha1/InitializerConfiguration":
         return [(f"admissionregistration.k8s.io/v1alpha1/InitializerConfiguration:{identifier}",
-                 InitializerConfiguration(identifier, __opts__, metadata, spec))]
+                 InitializerConfiguration(identifier, opts, metadata, spec))]
     if gvk == "admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList":
         return [(f"admissionregistration.k8s.io/v1alpha1/InitializerConfigurationList:{identifier}",
-                 InitializerConfigurationList(identifier, __opts__, metadata, spec))]
+                 InitializerConfigurationList(identifier, opts, metadata, spec))]
     if gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
         return [(f"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration:{identifier}",
-                 MutatingWebhookConfiguration(identifier, __opts__, metadata, spec))]
+                 MutatingWebhookConfiguration(identifier, opts, metadata, spec))]
     if gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
         return [(f"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList:{identifier}",
-                 MutatingWebhookConfigurationList(identifier, __opts__, metadata, spec))]
+                 MutatingWebhookConfigurationList(identifier, opts, metadata, spec))]
     if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
         return [(f"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration:{identifier}",
-                 ValidatingWebhookConfiguration(identifier, __opts__, metadata, spec))]
+                 ValidatingWebhookConfiguration(identifier, opts, metadata, spec))]
     if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
         return [(f"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList:{identifier}",
-                 ValidatingWebhookConfigurationList(identifier, __opts__, metadata, spec))]
+                 ValidatingWebhookConfigurationList(identifier, opts, metadata, spec))]
     if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
         return [(f"apiextensions.k8s.io/v1beta1/CustomResourceDefinition:{identifier}",
-                 CustomResourceDefinition(identifier, __opts__, metadata, spec))]
+                 CustomResourceDefinition(identifier, opts, metadata, spec))]
     if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
         return [(f"apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList:{identifier}",
-                 CustomResourceDefinitionList(identifier, __opts__, metadata, spec))]
+                 CustomResourceDefinitionList(identifier, opts, metadata, spec))]
     if gvk == "apiregistration.k8s.io/v1/APIService":
         return [(f"apiregistration.k8s.io/v1/APIService:{identifier}",
-                 APIService(identifier, __opts__, metadata, spec))]
+                 APIService(identifier, opts, metadata, spec))]
     if gvk == "apiregistration.k8s.io/v1/APIServiceList":
         return [(f"apiregistration.k8s.io/v1/APIServiceList:{identifier}",
-                 APIServiceList(identifier, __opts__, metadata, spec))]
+                 APIServiceList(identifier, opts, metadata, spec))]
     if gvk == "apiregistration.k8s.io/v1beta1/APIService":
         return [(f"apiregistration.k8s.io/v1beta1/APIService:{identifier}",
-                 APIService(identifier, __opts__, metadata, spec))]
+                 APIService(identifier, opts, metadata, spec))]
     if gvk == "apiregistration.k8s.io/v1beta1/APIServiceList":
         return [(f"apiregistration.k8s.io/v1beta1/APIServiceList:{identifier}",
-                 APIServiceList(identifier, __opts__, metadata, spec))]
+                 APIServiceList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/ControllerRevision":
         return [(f"apps/v1/ControllerRevision:{identifier}",
-                 ControllerRevision(identifier, __opts__, metadata, spec))]
+                 ControllerRevision(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/ControllerRevisionList":
         return [(f"apps/v1/ControllerRevisionList:{identifier}",
-                 ControllerRevisionList(identifier, __opts__, metadata, spec))]
+                 ControllerRevisionList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/DaemonSet":
         return [(f"apps/v1/DaemonSet:{identifier}",
-                 DaemonSet(identifier, __opts__, metadata, spec))]
+                 DaemonSet(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/DaemonSetList":
         return [(f"apps/v1/DaemonSetList:{identifier}",
-                 DaemonSetList(identifier, __opts__, metadata, spec))]
+                 DaemonSetList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/Deployment":
         return [(f"apps/v1/Deployment:{identifier}",
-                 Deployment(identifier, __opts__, metadata, spec))]
+                 Deployment(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/DeploymentList":
         return [(f"apps/v1/DeploymentList:{identifier}",
-                 DeploymentList(identifier, __opts__, metadata, spec))]
+                 DeploymentList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/ReplicaSet":
         return [(f"apps/v1/ReplicaSet:{identifier}",
-                 ReplicaSet(identifier, __opts__, metadata, spec))]
+                 ReplicaSet(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/ReplicaSetList":
         return [(f"apps/v1/ReplicaSetList:{identifier}",
-                 ReplicaSetList(identifier, __opts__, metadata, spec))]
+                 ReplicaSetList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/StatefulSet":
         return [(f"apps/v1/StatefulSet:{identifier}",
-                 StatefulSet(identifier, __opts__, metadata, spec))]
+                 StatefulSet(identifier, opts, metadata, spec))]
     if gvk == "apps/v1/StatefulSetList":
         return [(f"apps/v1/StatefulSetList:{identifier}",
-                 StatefulSetList(identifier, __opts__, metadata, spec))]
+                 StatefulSetList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta1/ControllerRevision":
         return [(f"apps/v1beta1/ControllerRevision:{identifier}",
-                 ControllerRevision(identifier, __opts__, metadata, spec))]
+                 ControllerRevision(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta1/ControllerRevisionList":
         return [(f"apps/v1beta1/ControllerRevisionList:{identifier}",
-                 ControllerRevisionList(identifier, __opts__, metadata, spec))]
+                 ControllerRevisionList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta1/Deployment":
         return [(f"apps/v1beta1/Deployment:{identifier}",
-                 Deployment(identifier, __opts__, metadata, spec))]
+                 Deployment(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta1/DeploymentList":
         return [(f"apps/v1beta1/DeploymentList:{identifier}",
-                 DeploymentList(identifier, __opts__, metadata, spec))]
+                 DeploymentList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta1/StatefulSet":
         return [(f"apps/v1beta1/StatefulSet:{identifier}",
-                 StatefulSet(identifier, __opts__, metadata, spec))]
+                 StatefulSet(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta1/StatefulSetList":
         return [(f"apps/v1beta1/StatefulSetList:{identifier}",
-                 StatefulSetList(identifier, __opts__, metadata, spec))]
+                 StatefulSetList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/ControllerRevision":
         return [(f"apps/v1beta2/ControllerRevision:{identifier}",
-                 ControllerRevision(identifier, __opts__, metadata, spec))]
+                 ControllerRevision(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/ControllerRevisionList":
         return [(f"apps/v1beta2/ControllerRevisionList:{identifier}",
-                 ControllerRevisionList(identifier, __opts__, metadata, spec))]
+                 ControllerRevisionList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/DaemonSet":
         return [(f"apps/v1beta2/DaemonSet:{identifier}",
-                 DaemonSet(identifier, __opts__, metadata, spec))]
+                 DaemonSet(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/DaemonSetList":
         return [(f"apps/v1beta2/DaemonSetList:{identifier}",
-                 DaemonSetList(identifier, __opts__, metadata, spec))]
+                 DaemonSetList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/Deployment":
         return [(f"apps/v1beta2/Deployment:{identifier}",
-                 Deployment(identifier, __opts__, metadata, spec))]
+                 Deployment(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/DeploymentList":
         return [(f"apps/v1beta2/DeploymentList:{identifier}",
-                 DeploymentList(identifier, __opts__, metadata, spec))]
+                 DeploymentList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/ReplicaSet":
         return [(f"apps/v1beta2/ReplicaSet:{identifier}",
-                 ReplicaSet(identifier, __opts__, metadata, spec))]
+                 ReplicaSet(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/ReplicaSetList":
         return [(f"apps/v1beta2/ReplicaSetList:{identifier}",
-                 ReplicaSetList(identifier, __opts__, metadata, spec))]
+                 ReplicaSetList(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/StatefulSet":
         return [(f"apps/v1beta2/StatefulSet:{identifier}",
-                 StatefulSet(identifier, __opts__, metadata, spec))]
+                 StatefulSet(identifier, opts, metadata, spec))]
     if gvk == "apps/v1beta2/StatefulSetList":
         return [(f"apps/v1beta2/StatefulSetList:{identifier}",
-                 StatefulSetList(identifier, __opts__, metadata, spec))]
+                 StatefulSetList(identifier, opts, metadata, spec))]
     if gvk == "auditregistration.k8s.io/v1alpha1/AuditSink":
         return [(f"auditregistration.k8s.io/v1alpha1/AuditSink:{identifier}",
-                 AuditSink(identifier, __opts__, metadata, spec))]
+                 AuditSink(identifier, opts, metadata, spec))]
     if gvk == "auditregistration.k8s.io/v1alpha1/AuditSinkList":
         return [(f"auditregistration.k8s.io/v1alpha1/AuditSinkList:{identifier}",
-                 AuditSinkList(identifier, __opts__, metadata, spec))]
+                 AuditSinkList(identifier, opts, metadata, spec))]
     if gvk == "authentication.k8s.io/v1/TokenReview":
         return [(f"authentication.k8s.io/v1/TokenReview:{identifier}",
-                 TokenReview(identifier, __opts__, metadata, spec))]
+                 TokenReview(identifier, opts, metadata, spec))]
     if gvk == "authentication.k8s.io/v1beta1/TokenReview":
         return [(f"authentication.k8s.io/v1beta1/TokenReview:{identifier}",
-                 TokenReview(identifier, __opts__, metadata, spec))]
+                 TokenReview(identifier, opts, metadata, spec))]
     if gvk == "authorization.k8s.io/v1/LocalSubjectAccessReview":
         return [(f"authorization.k8s.io/v1/LocalSubjectAccessReview:{identifier}",
-                 LocalSubjectAccessReview(identifier, __opts__, metadata, spec))]
+                 LocalSubjectAccessReview(identifier, opts, metadata, spec))]
     if gvk == "authorization.k8s.io/v1/SelfSubjectAccessReview":
         return [(f"authorization.k8s.io/v1/SelfSubjectAccessReview:{identifier}",
-                 SelfSubjectAccessReview(identifier, __opts__, metadata, spec))]
+                 SelfSubjectAccessReview(identifier, opts, metadata, spec))]
     if gvk == "authorization.k8s.io/v1/SelfSubjectRulesReview":
         return [(f"authorization.k8s.io/v1/SelfSubjectRulesReview:{identifier}",
-                 SelfSubjectRulesReview(identifier, __opts__, metadata, spec))]
+                 SelfSubjectRulesReview(identifier, opts, metadata, spec))]
     if gvk == "authorization.k8s.io/v1/SubjectAccessReview":
         return [(f"authorization.k8s.io/v1/SubjectAccessReview:{identifier}",
-                 SubjectAccessReview(identifier, __opts__, metadata, spec))]
+                 SubjectAccessReview(identifier, opts, metadata, spec))]
     if gvk == "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
         return [(f"authorization.k8s.io/v1beta1/LocalSubjectAccessReview:{identifier}",
-                 LocalSubjectAccessReview(identifier, __opts__, metadata, spec))]
+                 LocalSubjectAccessReview(identifier, opts, metadata, spec))]
     if gvk == "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
         return [(f"authorization.k8s.io/v1beta1/SelfSubjectAccessReview:{identifier}",
-                 SelfSubjectAccessReview(identifier, __opts__, metadata, spec))]
+                 SelfSubjectAccessReview(identifier, opts, metadata, spec))]
     if gvk == "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
         return [(f"authorization.k8s.io/v1beta1/SelfSubjectRulesReview:{identifier}",
-                 SelfSubjectRulesReview(identifier, __opts__, metadata, spec))]
+                 SelfSubjectRulesReview(identifier, opts, metadata, spec))]
     if gvk == "authorization.k8s.io/v1beta1/SubjectAccessReview":
         return [(f"authorization.k8s.io/v1beta1/SubjectAccessReview:{identifier}",
-                 SubjectAccessReview(identifier, __opts__, metadata, spec))]
+                 SubjectAccessReview(identifier, opts, metadata, spec))]
     if gvk == "autoscaling/v1/HorizontalPodAutoscaler":
         return [(f"autoscaling/v1/HorizontalPodAutoscaler:{identifier}",
-                 HorizontalPodAutoscaler(identifier, __opts__, metadata, spec))]
+                 HorizontalPodAutoscaler(identifier, opts, metadata, spec))]
     if gvk == "autoscaling/v1/HorizontalPodAutoscalerList":
         return [(f"autoscaling/v1/HorizontalPodAutoscalerList:{identifier}",
-                 HorizontalPodAutoscalerList(identifier, __opts__, metadata, spec))]
+                 HorizontalPodAutoscalerList(identifier, opts, metadata, spec))]
     if gvk == "autoscaling/v2beta1/HorizontalPodAutoscaler":
         return [(f"autoscaling/v2beta1/HorizontalPodAutoscaler:{identifier}",
-                 HorizontalPodAutoscaler(identifier, __opts__, metadata, spec))]
+                 HorizontalPodAutoscaler(identifier, opts, metadata, spec))]
     if gvk == "autoscaling/v2beta1/HorizontalPodAutoscalerList":
         return [(f"autoscaling/v2beta1/HorizontalPodAutoscalerList:{identifier}",
-                 HorizontalPodAutoscalerList(identifier, __opts__, metadata, spec))]
+                 HorizontalPodAutoscalerList(identifier, opts, metadata, spec))]
     if gvk == "autoscaling/v2beta2/HorizontalPodAutoscaler":
         return [(f"autoscaling/v2beta2/HorizontalPodAutoscaler:{identifier}",
-                 HorizontalPodAutoscaler(identifier, __opts__, metadata, spec))]
+                 HorizontalPodAutoscaler(identifier, opts, metadata, spec))]
     if gvk == "autoscaling/v2beta2/HorizontalPodAutoscalerList":
         return [(f"autoscaling/v2beta2/HorizontalPodAutoscalerList:{identifier}",
-                 HorizontalPodAutoscalerList(identifier, __opts__, metadata, spec))]
+                 HorizontalPodAutoscalerList(identifier, opts, metadata, spec))]
     if gvk == "batch/v1/Job":
         return [(f"batch/v1/Job:{identifier}",
-                 Job(identifier, __opts__, metadata, spec))]
+                 Job(identifier, opts, metadata, spec))]
     if gvk == "batch/v1/JobList":
         return [(f"batch/v1/JobList:{identifier}",
-                 JobList(identifier, __opts__, metadata, spec))]
+                 JobList(identifier, opts, metadata, spec))]
     if gvk == "batch/v1beta1/CronJob":
         return [(f"batch/v1beta1/CronJob:{identifier}",
-                 CronJob(identifier, __opts__, metadata, spec))]
+                 CronJob(identifier, opts, metadata, spec))]
     if gvk == "batch/v1beta1/CronJobList":
         return [(f"batch/v1beta1/CronJobList:{identifier}",
-                 CronJobList(identifier, __opts__, metadata, spec))]
+                 CronJobList(identifier, opts, metadata, spec))]
     if gvk == "batch/v2alpha1/CronJob":
         return [(f"batch/v2alpha1/CronJob:{identifier}",
-                 CronJob(identifier, __opts__, metadata, spec))]
+                 CronJob(identifier, opts, metadata, spec))]
     if gvk == "batch/v2alpha1/CronJobList":
         return [(f"batch/v2alpha1/CronJobList:{identifier}",
-                 CronJobList(identifier, __opts__, metadata, spec))]
+                 CronJobList(identifier, opts, metadata, spec))]
     if gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequest":
         return [(f"certificates.k8s.io/v1beta1/CertificateSigningRequest:{identifier}",
-                 CertificateSigningRequest(identifier, __opts__, metadata, spec))]
+                 CertificateSigningRequest(identifier, opts, metadata, spec))]
     if gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
         return [(f"certificates.k8s.io/v1beta1/CertificateSigningRequestList:{identifier}",
-                 CertificateSigningRequestList(identifier, __opts__, metadata, spec))]
+                 CertificateSigningRequestList(identifier, opts, metadata, spec))]
     if gvk == "coordination.k8s.io/v1beta1/Lease":
         return [(f"coordination.k8s.io/v1beta1/Lease:{identifier}",
-                 Lease(identifier, __opts__, metadata, spec))]
+                 Lease(identifier, opts, metadata, spec))]
     if gvk == "coordination.k8s.io/v1beta1/LeaseList":
         return [(f"coordination.k8s.io/v1beta1/LeaseList:{identifier}",
-                 LeaseList(identifier, __opts__, metadata, spec))]
+                 LeaseList(identifier, opts, metadata, spec))]
     if gvk == "v1/Binding":
         return [(f"v1/Binding:{identifier}",
-                 Binding(identifier, __opts__, metadata, spec))]
+                 Binding(identifier, opts, metadata, spec))]
     if gvk == "v1/ComponentStatus":
         return [(f"v1/ComponentStatus:{identifier}",
-                 ComponentStatus(identifier, __opts__, metadata, spec))]
+                 ComponentStatus(identifier, opts, metadata, spec))]
     if gvk == "v1/ComponentStatusList":
         return [(f"v1/ComponentStatusList:{identifier}",
-                 ComponentStatusList(identifier, __opts__, metadata, spec))]
+                 ComponentStatusList(identifier, opts, metadata, spec))]
     if gvk == "v1/ConfigMap":
         return [(f"v1/ConfigMap:{identifier}",
-                 ConfigMap(identifier, __opts__, metadata, spec))]
+                 ConfigMap(identifier, opts, metadata, spec))]
     if gvk == "v1/ConfigMapList":
         return [(f"v1/ConfigMapList:{identifier}",
-                 ConfigMapList(identifier, __opts__, metadata, spec))]
+                 ConfigMapList(identifier, opts, metadata, spec))]
     if gvk == "v1/Endpoints":
         return [(f"v1/Endpoints:{identifier}",
-                 Endpoints(identifier, __opts__, metadata, spec))]
+                 Endpoints(identifier, opts, metadata, spec))]
     if gvk == "v1/EndpointsList":
         return [(f"v1/EndpointsList:{identifier}",
-                 EndpointsList(identifier, __opts__, metadata, spec))]
+                 EndpointsList(identifier, opts, metadata, spec))]
     if gvk == "v1/Event":
         return [(f"v1/Event:{identifier}",
-                 Event(identifier, __opts__, metadata, spec))]
+                 Event(identifier, opts, metadata, spec))]
     if gvk == "v1/EventList":
         return [(f"v1/EventList:{identifier}",
-                 EventList(identifier, __opts__, metadata, spec))]
+                 EventList(identifier, opts, metadata, spec))]
     if gvk == "v1/LimitRange":
         return [(f"v1/LimitRange:{identifier}",
-                 LimitRange(identifier, __opts__, metadata, spec))]
+                 LimitRange(identifier, opts, metadata, spec))]
     if gvk == "v1/LimitRangeList":
         return [(f"v1/LimitRangeList:{identifier}",
-                 LimitRangeList(identifier, __opts__, metadata, spec))]
+                 LimitRangeList(identifier, opts, metadata, spec))]
     if gvk == "v1/Namespace":
         return [(f"v1/Namespace:{identifier}",
-                 Namespace(identifier, __opts__, metadata, spec))]
+                 Namespace(identifier, opts, metadata, spec))]
     if gvk == "v1/NamespaceList":
         return [(f"v1/NamespaceList:{identifier}",
-                 NamespaceList(identifier, __opts__, metadata, spec))]
+                 NamespaceList(identifier, opts, metadata, spec))]
     if gvk == "v1/Node":
         return [(f"v1/Node:{identifier}",
-                 Node(identifier, __opts__, metadata, spec))]
+                 Node(identifier, opts, metadata, spec))]
     if gvk == "v1/NodeList":
         return [(f"v1/NodeList:{identifier}",
-                 NodeList(identifier, __opts__, metadata, spec))]
+                 NodeList(identifier, opts, metadata, spec))]
     if gvk == "v1/PersistentVolume":
         return [(f"v1/PersistentVolume:{identifier}",
-                 PersistentVolume(identifier, __opts__, metadata, spec))]
+                 PersistentVolume(identifier, opts, metadata, spec))]
     if gvk == "v1/PersistentVolumeClaim":
         return [(f"v1/PersistentVolumeClaim:{identifier}",
-                 PersistentVolumeClaim(identifier, __opts__, metadata, spec))]
+                 PersistentVolumeClaim(identifier, opts, metadata, spec))]
     if gvk == "v1/PersistentVolumeClaimList":
         return [(f"v1/PersistentVolumeClaimList:{identifier}",
-                 PersistentVolumeClaimList(identifier, __opts__, metadata, spec))]
+                 PersistentVolumeClaimList(identifier, opts, metadata, spec))]
     if gvk == "v1/PersistentVolumeList":
         return [(f"v1/PersistentVolumeList:{identifier}",
-                 PersistentVolumeList(identifier, __opts__, metadata, spec))]
+                 PersistentVolumeList(identifier, opts, metadata, spec))]
     if gvk == "v1/Pod":
         return [(f"v1/Pod:{identifier}",
-                 Pod(identifier, __opts__, metadata, spec))]
+                 Pod(identifier, opts, metadata, spec))]
     if gvk == "v1/PodList":
         return [(f"v1/PodList:{identifier}",
-                 PodList(identifier, __opts__, metadata, spec))]
+                 PodList(identifier, opts, metadata, spec))]
     if gvk == "v1/PodTemplate":
         return [(f"v1/PodTemplate:{identifier}",
-                 PodTemplate(identifier, __opts__, metadata, spec))]
+                 PodTemplate(identifier, opts, metadata, spec))]
     if gvk == "v1/PodTemplateList":
         return [(f"v1/PodTemplateList:{identifier}",
-                 PodTemplateList(identifier, __opts__, metadata, spec))]
+                 PodTemplateList(identifier, opts, metadata, spec))]
     if gvk == "v1/ReplicationController":
         return [(f"v1/ReplicationController:{identifier}",
-                 ReplicationController(identifier, __opts__, metadata, spec))]
+                 ReplicationController(identifier, opts, metadata, spec))]
     if gvk == "v1/ReplicationControllerList":
         return [(f"v1/ReplicationControllerList:{identifier}",
-                 ReplicationControllerList(identifier, __opts__, metadata, spec))]
+                 ReplicationControllerList(identifier, opts, metadata, spec))]
     if gvk == "v1/ResourceQuota":
         return [(f"v1/ResourceQuota:{identifier}",
-                 ResourceQuota(identifier, __opts__, metadata, spec))]
+                 ResourceQuota(identifier, opts, metadata, spec))]
     if gvk == "v1/ResourceQuotaList":
         return [(f"v1/ResourceQuotaList:{identifier}",
-                 ResourceQuotaList(identifier, __opts__, metadata, spec))]
+                 ResourceQuotaList(identifier, opts, metadata, spec))]
     if gvk == "v1/Secret":
         return [(f"v1/Secret:{identifier}",
-                 Secret(identifier, __opts__, metadata, spec))]
+                 Secret(identifier, opts, metadata, spec))]
     if gvk == "v1/SecretList":
         return [(f"v1/SecretList:{identifier}",
-                 SecretList(identifier, __opts__, metadata, spec))]
+                 SecretList(identifier, opts, metadata, spec))]
     if gvk == "v1/Service":
         return [(f"v1/Service:{identifier}",
-                 Service(identifier, __opts__, metadata, spec))]
+                 Service(identifier, opts, metadata, spec))]
     if gvk == "v1/ServiceAccount":
         return [(f"v1/ServiceAccount:{identifier}",
-                 ServiceAccount(identifier, __opts__, metadata, spec))]
+                 ServiceAccount(identifier, opts, metadata, spec))]
     if gvk == "v1/ServiceAccountList":
         return [(f"v1/ServiceAccountList:{identifier}",
-                 ServiceAccountList(identifier, __opts__, metadata, spec))]
+                 ServiceAccountList(identifier, opts, metadata, spec))]
     if gvk == "v1/ServiceList":
         return [(f"v1/ServiceList:{identifier}",
-                 ServiceList(identifier, __opts__, metadata, spec))]
+                 ServiceList(identifier, opts, metadata, spec))]
     if gvk == "events.k8s.io/v1beta1/Event":
         return [(f"events.k8s.io/v1beta1/Event:{identifier}",
-                 Event(identifier, __opts__, metadata, spec))]
+                 Event(identifier, opts, metadata, spec))]
     if gvk == "events.k8s.io/v1beta1/EventList":
         return [(f"events.k8s.io/v1beta1/EventList:{identifier}",
-                 EventList(identifier, __opts__, metadata, spec))]
+                 EventList(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/DaemonSet":
         return [(f"extensions/v1beta1/DaemonSet:{identifier}",
-                 DaemonSet(identifier, __opts__, metadata, spec))]
+                 DaemonSet(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/DaemonSetList":
         return [(f"extensions/v1beta1/DaemonSetList:{identifier}",
-                 DaemonSetList(identifier, __opts__, metadata, spec))]
+                 DaemonSetList(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/Deployment":
         return [(f"extensions/v1beta1/Deployment:{identifier}",
-                 Deployment(identifier, __opts__, metadata, spec))]
+                 Deployment(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/DeploymentList":
         return [(f"extensions/v1beta1/DeploymentList:{identifier}",
-                 DeploymentList(identifier, __opts__, metadata, spec))]
+                 DeploymentList(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/Ingress":
         return [(f"extensions/v1beta1/Ingress:{identifier}",
-                 Ingress(identifier, __opts__, metadata, spec))]
+                 Ingress(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/IngressList":
         return [(f"extensions/v1beta1/IngressList:{identifier}",
-                 IngressList(identifier, __opts__, metadata, spec))]
+                 IngressList(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/NetworkPolicy":
         return [(f"extensions/v1beta1/NetworkPolicy:{identifier}",
-                 NetworkPolicy(identifier, __opts__, metadata, spec))]
+                 NetworkPolicy(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/NetworkPolicyList":
         return [(f"extensions/v1beta1/NetworkPolicyList:{identifier}",
-                 NetworkPolicyList(identifier, __opts__, metadata, spec))]
+                 NetworkPolicyList(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/PodSecurityPolicy":
         return [(f"extensions/v1beta1/PodSecurityPolicy:{identifier}",
-                 PodSecurityPolicy(identifier, __opts__, metadata, spec))]
+                 PodSecurityPolicy(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/PodSecurityPolicyList":
         return [(f"extensions/v1beta1/PodSecurityPolicyList:{identifier}",
-                 PodSecurityPolicyList(identifier, __opts__, metadata, spec))]
+                 PodSecurityPolicyList(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/ReplicaSet":
         return [(f"extensions/v1beta1/ReplicaSet:{identifier}",
-                 ReplicaSet(identifier, __opts__, metadata, spec))]
+                 ReplicaSet(identifier, opts, metadata, spec))]
     if gvk == "extensions/v1beta1/ReplicaSetList":
         return [(f"extensions/v1beta1/ReplicaSetList:{identifier}",
-                 ReplicaSetList(identifier, __opts__, metadata, spec))]
+                 ReplicaSetList(identifier, opts, metadata, spec))]
     if gvk == "v1/Status":
         return [(f"v1/Status:{identifier}",
-                 Status(identifier, __opts__, metadata, spec))]
+                 Status(identifier, opts, metadata, spec))]
     if gvk == "networking.k8s.io/v1/NetworkPolicy":
         return [(f"networking.k8s.io/v1/NetworkPolicy:{identifier}",
-                 NetworkPolicy(identifier, __opts__, metadata, spec))]
+                 NetworkPolicy(identifier, opts, metadata, spec))]
     if gvk == "networking.k8s.io/v1/NetworkPolicyList":
         return [(f"networking.k8s.io/v1/NetworkPolicyList:{identifier}",
-                 NetworkPolicyList(identifier, __opts__, metadata, spec))]
+                 NetworkPolicyList(identifier, opts, metadata, spec))]
     if gvk == "policy/v1beta1/PodDisruptionBudget":
         return [(f"policy/v1beta1/PodDisruptionBudget:{identifier}",
-                 PodDisruptionBudget(identifier, __opts__, metadata, spec))]
+                 PodDisruptionBudget(identifier, opts, metadata, spec))]
     if gvk == "policy/v1beta1/PodDisruptionBudgetList":
         return [(f"policy/v1beta1/PodDisruptionBudgetList:{identifier}",
-                 PodDisruptionBudgetList(identifier, __opts__, metadata, spec))]
+                 PodDisruptionBudgetList(identifier, opts, metadata, spec))]
     if gvk == "policy/v1beta1/PodSecurityPolicy":
         return [(f"policy/v1beta1/PodSecurityPolicy:{identifier}",
-                 PodSecurityPolicy(identifier, __opts__, metadata, spec))]
+                 PodSecurityPolicy(identifier, opts, metadata, spec))]
     if gvk == "policy/v1beta1/PodSecurityPolicyList":
         return [(f"policy/v1beta1/PodSecurityPolicyList:{identifier}",
-                 PodSecurityPolicyList(identifier, __opts__, metadata, spec))]
+                 PodSecurityPolicyList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRole":
         return [(f"rbac.authorization.k8s.io/v1/ClusterRole:{identifier}",
-                 ClusterRole(identifier, __opts__, metadata, spec))]
+                 ClusterRole(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
         return [(f"rbac.authorization.k8s.io/v1/ClusterRoleBinding:{identifier}",
-                 ClusterRoleBinding(identifier, __opts__, metadata, spec))]
+                 ClusterRoleBinding(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
         return [(f"rbac.authorization.k8s.io/v1/ClusterRoleBindingList:{identifier}",
-                 ClusterRoleBindingList(identifier, __opts__, metadata, spec))]
+                 ClusterRoleBindingList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRoleList":
         return [(f"rbac.authorization.k8s.io/v1/ClusterRoleList:{identifier}",
-                 ClusterRoleList(identifier, __opts__, metadata, spec))]
+                 ClusterRoleList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1/Role":
         return [(f"rbac.authorization.k8s.io/v1/Role:{identifier}",
-                 Role(identifier, __opts__, metadata, spec))]
+                 Role(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1/RoleBinding":
         return [(f"rbac.authorization.k8s.io/v1/RoleBinding:{identifier}",
-                 RoleBinding(identifier, __opts__, metadata, spec))]
+                 RoleBinding(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1/RoleBindingList":
         return [(f"rbac.authorization.k8s.io/v1/RoleBindingList:{identifier}",
-                 RoleBindingList(identifier, __opts__, metadata, spec))]
+                 RoleBindingList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1/RoleList":
         return [(f"rbac.authorization.k8s.io/v1/RoleList:{identifier}",
-                 RoleList(identifier, __opts__, metadata, spec))]
+                 RoleList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
         return [(f"rbac.authorization.k8s.io/v1alpha1/ClusterRole:{identifier}",
-                 ClusterRole(identifier, __opts__, metadata, spec))]
+                 ClusterRole(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
         return [(f"rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding:{identifier}",
-                 ClusterRoleBinding(identifier, __opts__, metadata, spec))]
+                 ClusterRoleBinding(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
         return [(f"rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList:{identifier}",
-                 ClusterRoleBindingList(identifier, __opts__, metadata, spec))]
+                 ClusterRoleBindingList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
         return [(f"rbac.authorization.k8s.io/v1alpha1/ClusterRoleList:{identifier}",
-                 ClusterRoleList(identifier, __opts__, metadata, spec))]
+                 ClusterRoleList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/Role":
         return [(f"rbac.authorization.k8s.io/v1alpha1/Role:{identifier}",
-                 Role(identifier, __opts__, metadata, spec))]
+                 Role(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
         return [(f"rbac.authorization.k8s.io/v1alpha1/RoleBinding:{identifier}",
-                 RoleBinding(identifier, __opts__, metadata, spec))]
+                 RoleBinding(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
         return [(f"rbac.authorization.k8s.io/v1alpha1/RoleBindingList:{identifier}",
-                 RoleBindingList(identifier, __opts__, metadata, spec))]
+                 RoleBindingList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/RoleList":
         return [(f"rbac.authorization.k8s.io/v1alpha1/RoleList:{identifier}",
-                 RoleList(identifier, __opts__, metadata, spec))]
+                 RoleList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRole":
         return [(f"rbac.authorization.k8s.io/v1beta1/ClusterRole:{identifier}",
-                 ClusterRole(identifier, __opts__, metadata, spec))]
+                 ClusterRole(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
         return [(f"rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding:{identifier}",
-                 ClusterRoleBinding(identifier, __opts__, metadata, spec))]
+                 ClusterRoleBinding(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
         return [(f"rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList:{identifier}",
-                 ClusterRoleBindingList(identifier, __opts__, metadata, spec))]
+                 ClusterRoleBindingList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
         return [(f"rbac.authorization.k8s.io/v1beta1/ClusterRoleList:{identifier}",
-                 ClusterRoleList(identifier, __opts__, metadata, spec))]
+                 ClusterRoleList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/Role":
         return [(f"rbac.authorization.k8s.io/v1beta1/Role:{identifier}",
-                 Role(identifier, __opts__, metadata, spec))]
+                 Role(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleBinding":
         return [(f"rbac.authorization.k8s.io/v1beta1/RoleBinding:{identifier}",
-                 RoleBinding(identifier, __opts__, metadata, spec))]
+                 RoleBinding(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
         return [(f"rbac.authorization.k8s.io/v1beta1/RoleBindingList:{identifier}",
-                 RoleBindingList(identifier, __opts__, metadata, spec))]
+                 RoleBindingList(identifier, opts, metadata, spec))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleList":
         return [(f"rbac.authorization.k8s.io/v1beta1/RoleList:{identifier}",
-                 RoleList(identifier, __opts__, metadata, spec))]
+                 RoleList(identifier, opts, metadata, spec))]
     if gvk == "scheduling.k8s.io/v1alpha1/PriorityClass":
         return [(f"scheduling.k8s.io/v1alpha1/PriorityClass:{identifier}",
-                 PriorityClass(identifier, __opts__, metadata, spec))]
+                 PriorityClass(identifier, opts, metadata, spec))]
     if gvk == "scheduling.k8s.io/v1alpha1/PriorityClassList":
         return [(f"scheduling.k8s.io/v1alpha1/PriorityClassList:{identifier}",
-                 PriorityClassList(identifier, __opts__, metadata, spec))]
+                 PriorityClassList(identifier, opts, metadata, spec))]
     if gvk == "scheduling.k8s.io/v1beta1/PriorityClass":
         return [(f"scheduling.k8s.io/v1beta1/PriorityClass:{identifier}",
-                 PriorityClass(identifier, __opts__, metadata, spec))]
+                 PriorityClass(identifier, opts, metadata, spec))]
     if gvk == "scheduling.k8s.io/v1beta1/PriorityClassList":
         return [(f"scheduling.k8s.io/v1beta1/PriorityClassList:{identifier}",
-                 PriorityClassList(identifier, __opts__, metadata, spec))]
+                 PriorityClassList(identifier, opts, metadata, spec))]
     if gvk == "settings.k8s.io/v1alpha1/PodPreset":
         return [(f"settings.k8s.io/v1alpha1/PodPreset:{identifier}",
-                 PodPreset(identifier, __opts__, metadata, spec))]
+                 PodPreset(identifier, opts, metadata, spec))]
     if gvk == "settings.k8s.io/v1alpha1/PodPresetList":
         return [(f"settings.k8s.io/v1alpha1/PodPresetList:{identifier}",
-                 PodPresetList(identifier, __opts__, metadata, spec))]
+                 PodPresetList(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1/StorageClass":
         return [(f"storage.k8s.io/v1/StorageClass:{identifier}",
-                 StorageClass(identifier, __opts__, metadata, spec))]
+                 StorageClass(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1/StorageClassList":
         return [(f"storage.k8s.io/v1/StorageClassList:{identifier}",
-                 StorageClassList(identifier, __opts__, metadata, spec))]
+                 StorageClassList(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1/VolumeAttachment":
         return [(f"storage.k8s.io/v1/VolumeAttachment:{identifier}",
-                 VolumeAttachment(identifier, __opts__, metadata, spec))]
+                 VolumeAttachment(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1/VolumeAttachmentList":
         return [(f"storage.k8s.io/v1/VolumeAttachmentList:{identifier}",
-                 VolumeAttachmentList(identifier, __opts__, metadata, spec))]
+                 VolumeAttachmentList(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1alpha1/VolumeAttachment":
         return [(f"storage.k8s.io/v1alpha1/VolumeAttachment:{identifier}",
-                 VolumeAttachment(identifier, __opts__, metadata, spec))]
+                 VolumeAttachment(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1alpha1/VolumeAttachmentList":
         return [(f"storage.k8s.io/v1alpha1/VolumeAttachmentList:{identifier}",
-                 VolumeAttachmentList(identifier, __opts__, metadata, spec))]
+                 VolumeAttachmentList(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1beta1/StorageClass":
         return [(f"storage.k8s.io/v1beta1/StorageClass:{identifier}",
-                 StorageClass(identifier, __opts__, metadata, spec))]
+                 StorageClass(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1beta1/StorageClassList":
         return [(f"storage.k8s.io/v1beta1/StorageClassList:{identifier}",
-                 StorageClassList(identifier, __opts__, metadata, spec))]
+                 StorageClassList(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1beta1/VolumeAttachment":
         return [(f"storage.k8s.io/v1beta1/VolumeAttachment:{identifier}",
-                 VolumeAttachment(identifier, __opts__, metadata, spec))]
+                 VolumeAttachment(identifier, opts, metadata, spec))]
     if gvk == "storage.k8s.io/v1beta1/VolumeAttachmentList":
         return [(f"storage.k8s.io/v1beta1/VolumeAttachmentList:{identifier}",
-                 VolumeAttachmentList(identifier, __opts__, metadata, spec))]
+                 VolumeAttachmentList(identifier, opts, metadata, spec))]
     raise Exception(f"Unsupported gvk: {gvk}")

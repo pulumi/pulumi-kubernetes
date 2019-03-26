@@ -5,7 +5,6 @@ import json
 from copy import deepcopy
 from typing import Optional
 
-import pulumi
 import pulumi.runtime
 import requests
 import yaml
@@ -22,39 +21,41 @@ class ConfigFile(pulumi.ComponentResource):
     """
     ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file. If `config.name`
     is not specified, `ConfigFile` assumes the argument `name` is the filename.
+
+    :param str name: A name for a resource.
+    :param str file_id: Path or a URL that uniquely identifies a file.
+    :param ResourceOptions opts: A bag of optional settings that control a resource's behavior.
     """
 
-    def __init__(self, __name__: str, file_id: str, __opts__: Optional[pulumi.ResourceOptions] = None):
-        if not __name__:
+    def __init__(self, name: str, file_id: str, opts: Optional[pulumi.ResourceOptions] = None):
+        if not name:
             raise TypeError('Missing resource name argument (for URN creation)')
-        if not isinstance(__name__, str):
+        if not isinstance(name, str):
             raise TypeError('Expected resource name to be a string')
-        if __opts__ and not isinstance(__opts__, pulumi.ResourceOptions):
+        if opts and not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
 
         __props__ = dict()
 
         super(ConfigFile, self).__init__(
             "kubernetes:yaml:ConfigFile",
-            __name__,
+            name,
             __props__,
-            __opts__)
+            opts)
 
-        text: str = ""
         if file_id.startswith('http://') or file_id.startswith('https://'):
             text = read_url(file_id)
         else:
             text = read_file(file_id)
 
         # TODO: transformation support
-        opts = None
-        if __opts__ is not None:
-            opts = deepcopy(__opts__)
-            opts.parent = self
+        if opts is not None:
+            _opts = deepcopy(opts)
+            _opts.parent = self
         else:
-            opts = pulumi.ResourceOptions(parent=self)
+            _opts = pulumi.ResourceOptions(parent=self)
 
-        self.register_outputs(parse_yaml_document(yaml.safe_load_all(text), opts))
+        self.register_outputs(parse_yaml_document(yaml.safe_load_all(text), _opts))
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
@@ -77,18 +78,18 @@ def read_file(path: str) -> str:
     return data
 
 
-def parse_yaml_document(objects, __opts__: Optional[pulumi.ResourceOptions] = None):
+def parse_yaml_document(objects, opts: Optional[pulumi.ResourceOptions] = None):
     resources = {}
     for obj in objects:
         # TODO: transformation support
-        file_objects = parse_yaml_object(obj, __opts__)
-        for file_object in file_objects:
-            resources[file_object[0]] = file_object[1]
+        file_objects = parse_yaml_object(obj, opts)
+        for key, value in file_objects:
+            resources[key] = value
 
     return resources
 
 
-def parse_yaml_object(obj, __opts__: Optional[pulumi.ResourceOptions] = None):
+def parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None):
     if not obj:
         return []
 
@@ -104,17 +105,15 @@ def parse_yaml_object(obj, __opts__: Optional[pulumi.ResourceOptions] = None):
         objs = []
         if "items" in obj:
             for item in obj["items"]:
-                objs = objs + parse_yaml_object(item, __opts__)
+                objs = objs + parse_yaml_object(item, opts)
         return objs
 
-    if ("metadata" not in obj) or ("name" not in obj["metadata"]):
+    if "metadata" not in obj or "name" not in obj["metadata"]:
         raise Exception("YAML object does not have a .metadata.name: {}/{} {}".format(
             api_version, kind, json.dumps(obj)))
 
     metadata = obj["metadata"]
-    spec = None
-    if "spec" in obj:
-        spec = obj["spec"]
+    spec = obj.get("spec")
     identifier = metadata["name"]
     if "namespace" in metadata:
         identifier = "{}/{}".format(metadata["namespace"], metadata["name"])
@@ -125,7 +124,7 @@ def parse_yaml_object(obj, __opts__: Optional[pulumi.ResourceOptions] = None):
 {{#Kinds}}
     if gvk == "{{RawAPIVersion}}/{{Kind}}":
         return [(f"{{RawAPIVersion}}/{{Kind}}:{identifier}",
-                 {{Kind}}(identifier, __opts__, metadata, spec))]
+                 {{Kind}}(identifier, opts, metadata, spec))]
 {{/Kinds}}
 {{/Versions}}
 {{/Groups}}
