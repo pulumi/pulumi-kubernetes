@@ -9,6 +9,7 @@
 ### Major changes
 
 -   Add basic YAML support to Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/499)
+-   Add transforms to YAML support for Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/500)
 
 ### Improvements
 
