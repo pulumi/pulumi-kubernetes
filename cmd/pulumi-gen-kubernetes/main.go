@@ -140,41 +140,37 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 }
 
 func writePythonClient(data map[string]interface{}, outdir, templateDir string) {
-	err := gen.PythonClient(
-		data,
-		templateDir,
-		func(initPy string) error {
-			return ioutil.WriteFile(
-				fmt.Sprintf("%s/pulumi_kubernetes/__init__.py", outdir), []byte(initPy), 0777)
-		},
-		func(group, initPy string) error {
-			path := fmt.Sprintf("%s/pulumi_kubernetes/%s", outdir, group)
+	err := gen.PythonClient(data, templateDir, func(initPy string) error {
+		return ioutil.WriteFile(
+			fmt.Sprintf("%s/pulumi_kubernetes/__init__.py", outdir), []byte(initPy), 0777)
+	}, func(group, initPy string) error {
+		path := fmt.Sprintf("%s/pulumi_kubernetes/%s", outdir, group)
 
-			err := os.MkdirAll(path, 0700)
-			if err != nil {
-				return err
-			}
+		err := os.MkdirAll(path, 0700)
+		if err != nil {
+			return err
+		}
 
-			return ioutil.WriteFile(fmt.Sprintf("%s/__init__.py", path), []byte(initPy), 0777)
-		},
-		func(group, version, initPy string) error {
-			path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s", outdir, group, version)
+		return ioutil.WriteFile(fmt.Sprintf("%s/__init__.py", path), []byte(initPy), 0777)
+	}, func(group, version, initPy string) error {
+		path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s", outdir, group, version)
 
-			err := os.MkdirAll(path, 0700)
-			if err != nil {
-				return err
-			}
+		err := os.MkdirAll(path, 0700)
+		if err != nil {
+			return err
+		}
 
-			return ioutil.WriteFile(fmt.Sprintf("%s/__init__.py", path), []byte(initPy), 0777)
-		},
-		func(group, version, kind, kindPy string) error {
-			path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s/%s.py", outdir, group, version, kind)
-			return ioutil.WriteFile(path, []byte(kindPy), 0777)
-		},
-		func(casingPy string) error {
-			return ioutil.WriteFile(
-				fmt.Sprintf("%s/pulumi_kubernetes/tables.py", outdir), []byte(casingPy), 0777)
-		})
+		return ioutil.WriteFile(fmt.Sprintf("%s/__init__.py", path), []byte(initPy), 0777)
+	}, func(group, version, kind, kindPy string) error {
+		path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s/%s.py", outdir, group, version, kind)
+		return ioutil.WriteFile(path, []byte(kindPy), 0777)
+	}, func(casingPy string) error {
+		return ioutil.WriteFile(
+			fmt.Sprintf("%s/pulumi_kubernetes/tables.py", outdir), []byte(casingPy), 0777)
+	}, func(yamlPy string) error {
+		return ioutil.WriteFile(
+			fmt.Sprintf("%s/pulumi_kubernetes/yaml.py", outdir), []byte(yamlPy), 0777)
+	})
 	if err != nil {
 		panic(err)
 	}

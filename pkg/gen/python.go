@@ -30,12 +30,14 @@ import (
 
 // PythonClient will generate a Pulumi Kubernetes provider client SDK for nodejs.
 func PythonClient(
-	swagger map[string]interface{}, templateDir string,
+	swagger map[string]interface{},
+	templateDir string,
 	rootInit func(initPy string) error,
 	groupInit func(group, initPy string) error,
 	versionInit func(group, version, initPy string) error,
 	kindFile func(group, version, kind, kindPy string) error,
 	casingFile func(casingPy string) error,
+	yamlFile func(yamlPy string) error,
 ) error {
 	definitions := swagger["definitions"].(map[string]interface{})
 
@@ -58,6 +60,19 @@ func PythonClient(
 	}
 
 	groupsSlice := createGroups(definitions, pythonProvider())
+
+	yamlPy, err := mustache.RenderFile(
+		fmt.Sprintf("%s/yaml.py.mustache", templateDir),
+		map[string]interface{}{
+			"Groups": groupsSlice,
+		})
+	if err != nil {
+		return err
+	}
+	err = yamlFile(yamlPy)
+	if err != nil {
+		return err
+	}
 
 	rootInitPy, err := mustache.RenderFile(
 		fmt.Sprintf("%s/root__init__.py.mustache", templateDir),

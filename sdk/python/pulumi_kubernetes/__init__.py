@@ -30,3 +30,5 @@ __all__ = [
 
 # Expose the provider directly.
 from .provider import Provider
+
+from .yaml import ConfigFile
