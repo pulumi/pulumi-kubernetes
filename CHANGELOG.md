@@ -1,5 +1,11 @@
 ## 0.22.1 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.14.x
+- v1.13.x
+- v1.12.x
+
 ### Major changes
 
 -   Add basic YAML support to Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/499)
@@ -14,6 +20,12 @@
 
 ## 0.22.0 (March 25, 2019)
 
+### Supported Kubernetes versions
+
+- v1.14.x
+- v1.13.x
+- v1.12.x
+
 ### Major changes
 
 -   Add support for Kubernetes v1.14.0 (https://github.com/pulumi/pulumi-kubernetes/pull/371)
@@ -27,6 +39,12 @@
 -   None
 
 ## 0.21.1 (March 18, 2019)
+
+### Supported Kubernetes versions
+
+- v1.13.x
+- v1.12.x
+- v1.11.x
 
 ### Major changes
 
@@ -44,6 +62,12 @@
 
 ## 0.21.0 (Released March 6, 2019)
 
+### Supported Kubernetes versions
+
+- v1.13.x
+- v1.12.x
+- v1.11.x
+
 ### Important
 
 Updating to v0.17.0 version of `@pulumi/pulumi`.  This is an update that will not play nicely
@@ -54,6 +78,12 @@ See https://github.com/pulumi/pulumi/commit/7f5e089f043a70c02f7e03600d6404ff0e27
 As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Recent version of `pulumi` will now detect, and warn, if different versions of `@pulumi/pulumi` are loaded into the same application.  If you encounter this warning, it is recommended you move to versions of the `@pulumi/...` packages that are compatible.  i.e. keep everything on 0.16.x until you are ready to move everything to 0.17.x.
 
 ## 0.20.4 (March 1, 2019)
+
+### Supported Kubernetes versions
+
+- v1.13.x
+- v1.12.x
+- v1.11.x
 
 ### Major changes
 
@@ -69,6 +99,12 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 
 ## 0.20.3 (February 20, 2019)
 
+### Supported Kubernetes versions
+
+- v1.13.x
+- v1.12.x
+- v1.11.x
+
 ### Major changes
 
 -   None
@@ -83,6 +119,12 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 -   Include managed-by label in diff preview (https://github.com/pulumi/pulumi-kubernetes/pull/431)
 
 ## 0.20.2 (Released February 13, 2019)
+
+### Supported Kubernetes versions
+
+- v1.13.x
+- v1.12.x
+- v1.11.x
 
 ### Major changes
 
@@ -102,12 +144,24 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 
 ## 0.20.1 (Released February 6, 2019)
 
+### Supported Kubernetes versions
+
+- v1.13.x
+- v1.12.x
+- v1.11.x
+
 ### Bug fixes
 
 -   Fix namespace handling regression (https://github.com/pulumi/pulumi-kubernetes/pull/403)
 -   Nest Input<T> inside arrays (https://github.com/pulumi/pulumi-kubernetes/pull/395)
 
 ## 0.20.0 (Released February 1, 2019)
+
+### Supported Kubernetes versions
+
+- v1.13.x
+- v1.12.x
+- v1.11.x
 
 ### Major changes
 
@@ -128,6 +182,12 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 
 
 ## 0.19.0 (Released January 15, 2019)
+
+### Supported Kubernetes versions
+
+- v1.13.x
+- v1.12.x
+- v1.11.x
 
 ### Major changes
 
@@ -152,6 +212,12 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
     (https://github.com/pulumi/pulumi-kubernetes/pull/341)
 
 ## 0.18.0 (Released December 4, 2018)
+
+### Supported Kubernetes versions
+
+- v1.13.x
+- v1.12.x
+- v1.11.x
 
 ### Major changes
 
