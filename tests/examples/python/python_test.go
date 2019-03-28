@@ -64,7 +64,8 @@ func TestYaml(t *testing.T) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join(cwd, "yaml-test"),
+		Dir:                  filepath.Join(cwd, "yaml-test"),
+		ExpectRefreshChanges: true,
 	})
 	integration.ProgramTest(t, &options)
 }
