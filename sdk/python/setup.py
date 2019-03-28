@@ -32,6 +32,6 @@ setup(name='pulumi_kubernetes',
       install_requires=[
           'pulumi>=0.17.1,<0.18.0',
           'requests>=2.21.0,<2.22.0',
-          'pyyaml>=3.13,<3.14',
+          'pyyaml>=4.2b1,<4.3',
       ],
       zip_safe=False)
