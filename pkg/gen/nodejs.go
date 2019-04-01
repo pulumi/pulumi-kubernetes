@@ -39,7 +39,7 @@ type VersionTS struct {
 
 // NodeJSClient will generate a Pulumi Kubernetes provider client SDK for nodejs.
 func NodeJSClient(swagger map[string]interface{}, templateDir string,
-) (inputsts, outputsts, providerts, helmts, indexts, packagejson string, groupsts map[string]*GroupTS, err error) {
+) (inputsts, outputsts, providerts, indexts, packagejson string, groupsts map[string]*GroupTS, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
 	groupsSlice := createGroups(definitions, nodeJSInputs())
@@ -83,7 +83,7 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 						"Version":       version.Version(),
 					})
 				if err != nil {
-					return "", "", "", "", "", "", nil, err
+					return "", "", "", "", "", nil, err
 				}
 				versionTS.Kinds[kind.Kind()] = kindts
 			}
@@ -93,7 +93,7 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 					"Kinds": version.Kinds(),
 				})
 			if err != nil {
-				return "", "", "", "", "", "", nil, err
+				return "", "", "", "", "", nil, err
 			}
 			versionTS.Index = kindIndexTS
 			groupTS.Versions[version.Version()] = versionTS
@@ -104,7 +104,7 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 				"Versions": group.Versions(),
 			})
 		if err != nil {
-			return "", "", "", "", "", "", nil, err
+			return "", "", "", "", "", nil, err
 		}
 
 		if group.Group() == "apiextensions" {
@@ -115,14 +115,6 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 	}
 
 	providerts, err = mustache.RenderFile(fmt.Sprintf("%s/provider.ts.mustache", templateDir),
-		map[string]interface{}{
-			"Groups": groupsSlice,
-		})
-	if err != nil {
-		return
-	}
-
-	helmts, err = mustache.RenderFile(fmt.Sprintf("%s/helm.ts.mustache", templateDir),
 		map[string]interface{}{
 			"Groups": groupsSlice,
 		})
@@ -146,5 +138,5 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 		return
 	}
 
-	return inputsts, outputsts, providerts, helmts, indexts, packagejson, groupsts, nil
+	return inputsts, outputsts, providerts, indexts, packagejson, groupsts, nil
 }
