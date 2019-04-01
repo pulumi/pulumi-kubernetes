@@ -1,13 +1,13 @@
+import * as pulumi from "@pulumi/pulumi";
 import { execSync } from "child_process";
 import * as fs from "fs";
 import * as jsyaml from "js-yaml";
-
-import * as k8s from "../../index";
-import * as pulumi from "@pulumi/pulumi";
+import * as nodepath from "path";
 import * as shell from "shell-quote";
 import * as tmp from "tmp";
 import * as path from "../../path";
-import * as nodepath from "path";
+
+import * as yaml from "../../yaml/index";
 
 interface BaseChartOpts {
     /**
@@ -82,7 +82,7 @@ function isLocalChartOpts(o: any): o is LocalChartOpts {
  * engine delivers the these calls asynchronously, they could arrive "somewhat" out of order.
  * This should not affect many Helm charts.
  */
-export class Chart extends k8s.yaml.CollectionComponentResource {
+export class Chart extends yaml.CollectionComponentResource {
     /**
      * Create an instance of the specified Helm chart.
      * @param releaseName Name of the Chart (e.g., nginx-ingress).
@@ -180,7 +180,7 @@ export class Chart extends k8s.yaml.CollectionComponentResource {
             .map(yaml => jsyaml.safeLoad(yaml, {json: true}))
             .filter(a => a != null && "kind" in a)
             .sort(helmSort);
-        return k8s.yaml.parse(
+        return yaml.parse(
             {
                 yaml: objs.map(o => jsyaml.safeDump(o)),
                 transformations: transformations || []

@@ -39,7 +39,7 @@ type VersionTS struct {
 
 // NodeJSClient will generate a Pulumi Kubernetes provider client SDK for nodejs.
 func NodeJSClient(swagger map[string]interface{}, templateDir string,
-) (inputsts, outputsts, providerts, indexts, packagejson string, groupsts map[string]*GroupTS, err error) {
+) (inputsts, outputsts, indexts, yamlts, packagejson string, groupsts map[string]*GroupTS, err error) {
 	definitions := swagger["definitions"].(map[string]interface{})
 
 	groupsSlice := createGroups(definitions, nodeJSInputs())
@@ -114,14 +114,6 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 		groupsts[group.Group()] = groupTS
 	}
 
-	providerts, err = mustache.RenderFile(fmt.Sprintf("%s/provider.ts.mustache", templateDir),
-		map[string]interface{}{
-			"Groups": groupsSlice,
-		})
-	if err != nil {
-		return
-	}
-
 	packagejson, err = mustache.RenderFile(fmt.Sprintf("%s/package.json.mustache", templateDir),
 		map[string]interface{}{
 			"ProviderVersion": providerVersion.Version,
@@ -138,5 +130,13 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 		return
 	}
 
-	return inputsts, outputsts, providerts, indexts, packagejson, groupsts, nil
+	yamlts, err = mustache.RenderFile(fmt.Sprintf("%s/yaml.ts.mustache", templateDir),
+		map[string]interface{}{
+			"Groups": groupsSlice,
+		})
+	if err != nil {
+		return
+	}
+
+	return inputsts, outputsts, indexts, yamlts, packagejson, groupsts, nil
 }
