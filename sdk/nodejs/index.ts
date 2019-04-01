@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 export * from "./provider";
-import * as helm from "./helm";
+import * as helm from "./helm/index";
 export { helm };
 
 // Import groups

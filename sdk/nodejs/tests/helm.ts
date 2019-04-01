@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import * as helm from "../helm";
+import * as helm from "../helm/index";
 const helmSort = helm.v2.helmSort;
 
 function makeKinds(kinds: string[]): { kind: string }[] {

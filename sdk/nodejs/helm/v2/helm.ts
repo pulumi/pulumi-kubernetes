@@ -5,14 +5,13 @@ import { execSync } from "child_process";
 import * as fs from "fs";
 import * as jsyaml from "js-yaml";
 
-import * as k8s from "./index";
+import * as k8s from "../../index";
 import * as pulumi from "@pulumi/pulumi";
 import * as shell from "shell-quote";
 import * as tmp from "tmp";
-import * as path from "./path";
+import * as path from "../../path";
 import * as nodepath from "path";
 
-export namespace v2 {
     interface BaseChartOpts {
         /**
          * The optional namespace to install chart resources into.
@@ -199,7 +198,7 @@ export namespace v2 {
     // that must be created first, are.
     //
     // [1]: https://github.com/helm/helm/blob/094b97ab5d7e2f6eda6d0ab0f2ede9cf578c003c/pkg/tiller/kind_sorter.go
-    /** @internal */ export function helmSort(a: { kind: string }, b: { kind: string }): number {
+    /** @ignore */ export function helmSort(a: { kind: string }, b: { kind: string }): number {
         const installOrder = [
             "Namespace",
             "ResourceQuota",
@@ -251,7 +250,6 @@ export namespace v2 {
 
         return ordering[aKind] - ordering[bKind];
     }
-}
 
 /**
  * Additional options to customize the fetching of the Helm chart.

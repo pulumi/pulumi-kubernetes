@@ -121,7 +121,7 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 		}
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/helm.ts", outdir), []byte(helmts), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/helm/v2/helm.ts", outdir), []byte(helmts), 0777)
 	if err != nil {
 		panic(err)
 	}
