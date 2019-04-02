@@ -79,12 +79,13 @@ type kubeOpts struct {
 }
 
 type kubeProvider struct {
-	host           *provider.HostClient
-	canceler       *cancellationContext
-	name           string
-	version        string
-	providerPrefix string
-	opts           kubeOpts
+	host              *provider.HostClient
+	canceler          *cancellationContext
+	name              string
+	version           string
+	providerPrefix    string
+	opts              kubeOpts
+	overrideNamespace string
 
 	clientSet *clients.DynamicClientSet
 }
@@ -136,6 +137,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			Namespace: vars["kubernetes:config:namespace"],
 		},
 		CurrentContext: vars["kubernetes:config:context"],
+	}
+
+	if overrides.Context.Namespace != "" {
+		k.overrideNamespace = overrides.Context.Namespace
 	}
 
 	var kubeconfig clientcmd.ClientConfig
@@ -270,6 +275,17 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
 		return nil, err
+	}
+
+	if k.overrideNamespace != "" {
+		namespacedKind, err := k.clientSet.NamespacedKind(gvk)
+		if err != nil {
+			return nil, err
+		}
+
+		if namespacedKind {
+			newInputs.SetNamespace(k.overrideNamespace)
+		}
 	}
 
 	// HACK: Do not validate against OpenAPI spec if there is a computed value. The OpenAPI spec
