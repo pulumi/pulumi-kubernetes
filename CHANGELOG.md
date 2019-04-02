@@ -6,7 +6,7 @@
 
 ### Improvements
 
--   None
+-   Move helm module into a directory (https://github.com/pulumi/pulumi-kubernetes/pull/512)
 
 ### Bug fixes
 
