@@ -66,6 +66,74 @@ func TestYaml(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(cwd, "yaml-test"),
 		ExpectRefreshChanges: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
+
+			sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
+				ri := stackInfo.Deployment.Resources[i]
+				rj := stackInfo.Deployment.Resources[j]
+				riname, _ := openapi.Pluck(ri.Outputs, "metadata", "name")
+				rinamespace, _ := openapi.Pluck(ri.Outputs, "metadata", "namespace")
+				rjname, _ := openapi.Pluck(rj.Outputs, "metadata", "name")
+				rjnamespace, _ := openapi.Pluck(rj.Outputs, "metadata", "namespace")
+				return fmt.Sprintf("%s/%s/%s", ri.URN.Type(), rinamespace, riname) <
+					fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
+			})
+
+			var name interface{}
+			var ns interface{}
+			var namespaceName string
+
+			// Verify CRD.
+			crd := stackInfo.Deployment.Resources[0]
+			assert.Equal(t, tokens.Type("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition"),
+				crd.URN.Type())
+			name, _ = openapi.Pluck(crd.Outputs, "metadata", "name")
+			assert.True(t, strings.HasPrefix(name.(string), "crontabs.stable.example.com"))
+
+			// Verify namespace.
+			namespace := stackInfo.Deployment.Resources[1]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
+			name, _ = openapi.Pluck(namespace.Outputs, "metadata", "name")
+			namespaceName = name.(string)
+			assert.True(t, strings.HasPrefix(namespaceName, "ns"), fmt.Sprintf("%s %s", name, "ns"))
+
+			// Verify Pod "bar".
+			podBar := stackInfo.Deployment.Resources[2]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), podBar.URN.Type())
+			name, _ = openapi.Pluck(podBar.Outputs, "metadata", "name")
+			assert.True(t, strings.Contains(name.(string), "bar"), fmt.Sprintf("%s %s", name, "bar"))
+			ns, _ = openapi.Pluck(podBar.Outputs, "metadata", "namespace")
+			assert.Equal(t, ns, namespaceName)
+
+			// Verify Pod "baz".
+			podBaz := stackInfo.Deployment.Resources[3]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), podBaz.URN.Type())
+			name, _ = openapi.Pluck(podBaz.Outputs, "metadata", "name")
+			assert.True(t, strings.Contains(name.(string), "baz"), fmt.Sprintf("%s %s", name, "baz"))
+			ns, _ = openapi.Pluck(podBaz.Outputs, "metadata", "namespace")
+			assert.Equal(t, ns, namespaceName)
+
+			// Verify Pod "baz".
+			podFoo := stackInfo.Deployment.Resources[4]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Pod"), podFoo.URN.Type())
+			name, _ = openapi.Pluck(podFoo.Outputs, "metadata", "name")
+			assert.True(t, strings.Contains(name.(string), "foo"), fmt.Sprintf("%s %s", name, "foo"))
+			ns, _ = openapi.Pluck(podFoo.Outputs, "metadata", "namespace")
+			assert.Equal(t, ns, namespaceName)
+
+			// Note: Skipping validation for the guestbook app in this test since it's no different from the
+			// first ConfigFile.
+
+			// Verify the provider resource.
+			provRes := stackInfo.Deployment.Resources[13]
+			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+			// Verify root resource.
+			stackRes := stackInfo.Deployment.Resources[14]
+			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+		},
 	})
 	integration.ProgramTest(t, &options)
 }
