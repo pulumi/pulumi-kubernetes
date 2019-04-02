@@ -48,7 +48,7 @@ import * as outputApi from "../types/output";
         transformations?: ((o: any) => void)[];
     }
 
-    export function parse(
+    /** @ignore */ export function parse(
         config: ConfigGroupOpts, opts?: pulumi.CustomResourceOptions
     ): pulumi.Output<{[key: string]: pulumi.CustomResource}> {
         let resources = pulumi.output<{[key: string]: pulumi.CustomResource}>({});
@@ -210,7 +210,7 @@ import * as outputApi from "../types/output";
         }
     }
 
-    function parseYamlDocument(
+    /** @ignore */ function parseYamlDocument(
         config: ConfigOpts, opts?: pulumi.CustomResourceOptions,
     ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
         const objs: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] = [];
@@ -232,7 +232,7 @@ import * as outputApi from "../types/output";
         });
     }
 
-    function parseYamlObject(
+    /** @ignore */ function parseYamlObject(
         obj: any, transformations?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
     ): pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] {
         if (obj == null || Object.keys(obj).length == 0) {
