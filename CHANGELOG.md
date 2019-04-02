@@ -14,6 +14,7 @@
 ### Improvements
 
 -   Move helm module into a directory (https://github.com/pulumi/pulumi-kubernetes/pull/512)
+-   Move yaml module into a directory (https://github.com/pulumi/pulumi-kubernetes/pull/513)
 
 ### Bug fixes
 
