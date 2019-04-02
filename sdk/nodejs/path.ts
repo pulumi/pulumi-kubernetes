@@ -1,6 +1,6 @@
 import * as shell from "shell-quote";
 
-export function quotePath(path: string): string {
+/** @ignore */ export function quotePath(path: string): string {
     if (process.platform === "win32") {
         return quoteWindowsPath(path);
     } else {
@@ -8,7 +8,7 @@ export function quotePath(path: string): string {
     }
 }
 
-export function quoteWindowsPath(path: string): string {
+/** @ignore */ export function quoteWindowsPath(path: string): string {
     // Unescape paths for Windows. Taken directly from[1], an unmerged, but LGTM'd PR to the
     // official library.
     //
