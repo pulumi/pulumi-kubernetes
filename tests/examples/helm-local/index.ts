@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import * as k8s from "@pulumi/kubernetes";
+import * as pulumi from "@pulumi/pulumi";
 
 const namespace = new k8s.core.v1.Namespace("test");
 const namespaceName = namespace.metadata.name;
@@ -49,8 +50,7 @@ const nginx = new k8s.helm.v2.Chart("simple-nginx-local", {
     ]
 });
 
-// TODO(levi): Uncomment this once https://github.com/pulumi/pulumi-kubernetes/issues/419 is fixed.
 // Export the (cluster-private) IP address of the Guestbook frontend.
-// const frontendServiceSpec = pulumi.all([namespaceName, nginx]).apply(([nsName, nginx]) =>
-//     nginx.getResourceProperty("v1/Service", nsName, "simple-nginx-local-nginx", "spec"));
-// export const frontendServiceIP = frontendServiceSpec.clusterIP;
+const frontendServiceSpec = pulumi.all([namespaceName, nginx]).apply(([nsName, nginx]) =>
+    nginx.getResourceProperty("v1/Service", nsName, "simple-nginx-local-nginx", "spec"));
+export const frontendServiceIP = frontendServiceSpec.clusterIP;
