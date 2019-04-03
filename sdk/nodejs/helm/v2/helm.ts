@@ -166,6 +166,29 @@ export class Chart extends yaml.CollectionComponentResource {
                 const yamlStream = execSync(
                     `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
                 ).toString();
+
+                // FIX[pulumi/pulumi-kubernetes#217]: `helm template` does not respect the
+                // `--namespace` flag. Hence, if `namespace` is set in the options, we simply
+                // add it to every resource in the template. The provider will automatically
+                // strip the namespace from any non-namespaceable resource Kind.
+                const addNsTransform = cfg.namespace
+                    ? [
+                        function addNamespace(o: any) {
+                            if (o !== undefined) {
+                                if (o.metadata !== undefined) {
+                                    o.metadata.namespace = cfg.namespace;
+                                } else {
+                                    o.metadata = {namespace: cfg.namespace}
+                                }
+                            }
+                        }
+                    ]
+                    : [];
+                if (cfg.transformations !== undefined) {
+                    cfg.transformations = cfg.transformations.concat(...addNsTransform);
+                } else if (addNsTransform.length != 0) {
+                    cfg.transformations = addNsTransform;
+                }
                 return this.parseTemplate(yamlStream, cfg.transformations, configDeps);
             } catch (e) {
                 // Shed stack trace, only emit the error.

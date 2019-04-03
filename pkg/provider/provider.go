@@ -277,15 +277,19 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
-	if k.overrideNamespace != "" {
-		namespacedKind, err := k.clientSet.NamespacedKind(gvk)
-		if err != nil {
-			return nil, err
-		}
+	namespacedKind, err := k.clientSet.NamespacedKind(gvk)
+	if err != nil {
+		return nil, err
+	}
 
-		if namespacedKind {
-			newInputs.SetNamespace(k.overrideNamespace)
-		}
+	// If a provider namespace override is set, apply that namespace to the input.
+	if namespacedKind && k.overrideNamespace != "" {
+		newInputs.SetNamespace(k.overrideNamespace)
+	}
+
+	// Clear erroneous namespace for non-namespaced Kinds.
+	if !namespacedKind && newInputs.GetNamespace() != "" {
+		newInputs.SetNamespace("")
 	}
 
 	// HACK: Do not validate against OpenAPI spec if there is a computed value. The OpenAPI spec

@@ -16,6 +16,7 @@
 -   Move helm module into a directory (https://github.com/pulumi/pulumi-kubernetes/pull/512)
 -   Move yaml module into a directory (https://github.com/pulumi/pulumi-kubernetes/pull/513)
 -   Put all resources in specified provider namespace (https://github.com/pulumi/pulumi-kubernetes/pull/506)
+-   Make helm charts respect namespace parameter (https://github.com/pulumi/pulumi-kubernetes/pull/517)
 
 ### Bug fixes
 
