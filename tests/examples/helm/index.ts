@@ -52,11 +52,10 @@ const nginx = new k8s.helm.v2.Chart("simple-nginx", {
     ]
 });
 
-// TODO(levi): Uncomment this once https://github.com/pulumi/pulumi-kubernetes/issues/419 is fixed.
 // Export the (cluster-private) IP address of the Guestbook frontend.
-// const frontendServiceSpec = pulumi.all([namespaceName, nginx]).apply(([nsName, nginx]) =>
-//     nginx.getResourceProperty("v1/Service", nsName, "simple-nginx-nginx-lego", "spec"));
-// export const frontendServiceIP = frontendServiceSpec.clusterIP;
+const frontendServiceSpec = pulumi.all([namespaceName, nginx]).apply(([nsName, nginx]) =>
+    nginx.getResourceProperty("v1/Service", nsName, "simple-nginx-nginx-lego", "spec"));
+export const frontendServiceIP = frontendServiceSpec.clusterIP;
 
 // Test a variety of other inputs on a chart that creates no resources.
 const empty1 = new k8s.helm.v2.Chart("empty1", {
