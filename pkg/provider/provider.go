@@ -21,6 +21,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/pulumi/pulumi-kubernetes/pkg/retry"
+
 	"github.com/grpc/grpc-go/status"
 
 	"github.com/golang/glog"
@@ -277,7 +279,26 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
-	namespacedKind, err := k.clientSet.NamespacedKind(gvk)
+	var namespacedKind bool
+	err = retry.SleepingRetry(
+		func(i uint) error {
+			// Recreate the client for resource, in case the client's cache of the server API was
+			// invalidated. For example, when a CRD is created, it will invalidate the client cache;
+			// this allows CRs that we tried (and failed) to create before to re-try with the new
+			// server API, at which point they should hopefully succeed.
+			var err error
+			namespacedKind, err = k.clientSet.NamespacedKind(gvk)
+			if err != nil && clients.IsGVNotFoundError(err) {
+				// If the GV was not found, try refreshing the cache.
+				// This can occur if a CRD is being registered from another resource.
+				k.clientSet.RESTMapper.Reset()
+			}
+
+			return err
+		}).
+		WithMaxRetries(5).
+		WithBackoffFactor(2).
+		Do(clients.IsGVNotFoundError)
 	if err != nil {
 		return nil, err
 	}

@@ -53,6 +53,11 @@ export const istio_init = new k8s.helm.v2.Chart(
     { dependsOn: [namespace, adminBinding], providers: { kubernetes: k8sProvider } }
 );
 
+// HACK: Have to depend on a resource from the istio_init chart rather than the Chart itself for
+// dependsOn to work properly.
+const crdJob = istio_init.getResource(
+    "batch/v1/Job", "istio-system", "istio-init-crd-10");
+
 export const istio = new k8s.helm.v2.Chart(
     appName,
     {
@@ -63,5 +68,5 @@ export const istio = new k8s.helm.v2.Chart(
         // for all options check https://github.com/istio/istio/tree/master/install/kubernetes/helm/istio
         values: { kiali: { enabled: true } }
     },
-    { dependsOn: [namespace, adminBinding, istio_init], providers: { kubernetes: k8sProvider } }
+    { dependsOn: [namespace, adminBinding, crdJob], providers: { kubernetes: k8sProvider } }
 );

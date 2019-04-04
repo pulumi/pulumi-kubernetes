@@ -140,7 +140,7 @@ func (dcs *DynamicClientSet) NamespacedKind(gvk schema.GroupVersionKind) (bool, 
 
 	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv)
 	if err != nil {
-		return false, fmt.Errorf("failed to find server resources for GV: %q - %v", gv, err)
+		return false, &GVNotFoundError{gv, err}
 	}
 
 	for _, resource := range resourceList.APIResources {
@@ -150,6 +150,20 @@ func (dcs *DynamicClientSet) NamespacedKind(gvk schema.GroupVersionKind) (bool, 
 	}
 
 	return true, fmt.Errorf("failed to discover namespace info for %s", gvk)
+}
+
+type GVNotFoundError struct {
+	gv  string
+	err error
+}
+
+func (e *GVNotFoundError) Error() string {
+	return fmt.Sprintf("failed to find server resources for GV: %q - %v", e.gv, e.err)
+}
+
+func IsGVNotFoundError(err error) bool {
+    _, ok := err.(*GVNotFoundError)
+    return ok
 }
 
 // namespaceOrDefault returns `ns` or the the default namespace `"default"` if `ns` is empty.

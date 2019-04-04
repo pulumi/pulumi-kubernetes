@@ -54,6 +54,9 @@ func (r *retrier) Do(allowedErrFuncs ...func(error) bool) error {
 		err = r.try(r.tries)
 		r.tries++
 
+		if err == nil {
+			break
+		}
 		shouldRetry := false
 		for _, errFunc := range allowedErrFuncs {
 			if errFunc(err) {
