@@ -86,7 +86,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	}
 
 	// For namespaced Kinds, create a namespaced client. If no namespace is provided, use the "default" namespace.
-	namespaced, err := dcs.NamespacedKind(gvk)
+	namespaced, err := dcs.namespaced(gvk)
 	if err != nil {
 		return nil, err
 	}
@@ -132,15 +132,10 @@ func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKi
 	return nil, fmt.Errorf("failed to find gvk for Kind: %q", kind)
 }
 
-func (dcs *DynamicClientSet) NamespacedKind(gvk schema.GroupVersionKind) (bool, error) {
-	gv := gvk.GroupVersion().String()
-	if strings.Contains(gv, "core/v1") {
-		gv = "v1"
-	}
-
-	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv)
+func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, error) {
+	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
 	if err != nil {
-		return false, fmt.Errorf("failed to find server resources for GV: %q - %v", gv, err)
+		return false, err
 	}
 
 	for _, resource := range resourceList.APIResources {
