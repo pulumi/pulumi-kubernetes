@@ -884,7 +884,7 @@ func Test_Core_Deployment_Read(t *testing.T) {
 func deploymentInput(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -925,7 +925,7 @@ func deploymentInput(namespace, name string) *unstructured.Unstructured {
 func deploymentAdded(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -973,7 +973,7 @@ func deploymentAdded(namespace, name, revision string) *unstructured.Unstructure
 func deploymentProgressing(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1031,7 +1031,7 @@ func deploymentProgressing(namespace, name, revision string) *unstructured.Unstr
 
 func deploymentNotProgressing(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
         "generation": 3,
@@ -1104,7 +1104,7 @@ func deploymentNotProgressing(namespace, name, revision string) *unstructured.Un
 
 func deploymentProgressingInvalidContainer(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
         "generation": 4,
@@ -1180,7 +1180,7 @@ func deploymentProgressingInvalidContainer(namespace, name, revision string) *un
 func deploymentProgressingUnavailable(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1254,7 +1254,7 @@ func deploymentProgressingUnavailable(namespace, name, revision string) *unstruc
 func deploymentRevision1Created(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1320,7 +1320,7 @@ func deploymentRevision1Created(namespace, name string) *unstructured.Unstructur
 func deploymentRevision2Created(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1384,7 +1384,7 @@ func deploymentRevision2Created(namespace, name string) *unstructured.Unstructur
 func deploymentRolloutComplete(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1456,7 +1456,7 @@ func deploymentRolloutComplete(namespace, name, revision string) *unstructured.U
 func deploymentUpdated(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1528,7 +1528,7 @@ func deploymentUpdated(namespace, name, revision string) *unstructured.Unstructu
 func deploymentUpdatedReplicaSetProgressing(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1600,7 +1600,7 @@ func deploymentUpdatedReplicaSetProgressing(namespace, name, revision string) *u
 func deploymentUpdatedReplicaSetProgressed(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1677,7 +1677,7 @@ func deploymentUpdatedReplicaSetProgressed(namespace, name, revision string) *un
 func deploymentWithPVCAdded(namespace, name, revision, pvcName string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1739,7 +1739,7 @@ func deploymentWithPVCAdded(namespace, name, revision, pvcName string) *unstruct
 func deploymentWithPVCProgressing(namespace, name, revision, pvcName string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -1811,7 +1811,7 @@ func deploymentWithPVCProgressing(namespace, name, revision, pvcName string) *un
 
 func deploymentWithPVCNotProgressing(namespace, name, revision, pvcName string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
         "generation": 3,
@@ -1899,7 +1899,7 @@ func deploymentWithPVCNotProgressing(namespace, name, revision, pvcName string) 
 func deploymentWithPVCInput(namespace, name, pvcName string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
@@ -2025,7 +2025,7 @@ func persistentVolumeClaimPending(namespace, name string) *unstructured.Unstruct
 
 func regressionDeploymentScaled3Input() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
         "name": "frontend-ur1fwk62",
@@ -2054,7 +2054,7 @@ func regressionDeploymentScaled3Input() *unstructured.Unstructured {
 
 func regressionDeploymentScaled3() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
         "annotations": {
@@ -2069,7 +2069,7 @@ func regressionDeploymentScaled3() *unstructured.Unstructured {
         "name": "frontend-ur1fwk62",
         "namespace": "default",
         "resourceVersion": "917821",
-        "selfLink": "/apis/extensions/v1beta1/namespaces/default/deployments/frontend-ur1fwk62",
+        "selfLink": "/apis/apps/v1/namespaces/default/deployments/frontend-ur1fwk62",
         "uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
     },
     "spec": {
@@ -2166,7 +2166,7 @@ func regressionDeploymentScaled3() *unstructured.Unstructured {
 
 func regressionDeploymentScaled5() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
         "annotations": {
@@ -2181,7 +2181,7 @@ func regressionDeploymentScaled5() *unstructured.Unstructured {
         "name": "frontend-ur1fwk62",
         "namespace": "default",
         "resourceVersion": "918077",
-        "selfLink": "/apis/extensions/v1beta1/namespaces/default/deployments/frontend-ur1fwk62",
+        "selfLink": "/apis/apps/v1/namespaces/default/deployments/frontend-ur1fwk62",
         "uid": "e0a51d3c-a58c-11e8-8cb4-080027bd9056"
     },
     "spec": {
@@ -2278,7 +2278,7 @@ func regressionDeploymentScaled5() *unstructured.Unstructured {
 
 func regressionReplicaSetScaled3() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "ReplicaSet",
     "metadata": {
         "annotations": {
@@ -2297,7 +2297,7 @@ func regressionReplicaSetScaled3() *unstructured.Unstructured {
         "namespace": "default",
         "ownerReferences": [
             {
-                "apiVersion": "extensions/v1beta1",
+                "apiVersion": "apps/v1",
                 "blockOwnerDeletion": true,
                 "controller": true,
                 "kind": "Deployment",
@@ -2306,7 +2306,7 @@ func regressionReplicaSetScaled3() *unstructured.Unstructured {
             }
         ],
         "resourceVersion": "924664",
-        "selfLink": "/apis/extensions/v1beta1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468",
+        "selfLink": "/apis/apps/v1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468",
         "uid": "ef9a880f-a599-11e8-8cb4-080027bd9056"
     },
     "spec": {
@@ -2377,7 +2377,7 @@ func regressionReplicaSetScaled3() *unstructured.Unstructured {
 
 func regressionReplicaSetScaled5() *unstructured.Unstructured {
 	obj, err := decodeUnstructured(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "ReplicaSet",
     "metadata": {
         "annotations": {
@@ -2396,7 +2396,7 @@ func regressionReplicaSetScaled5() *unstructured.Unstructured {
         "namespace": "default",
         "ownerReferences": [
             {
-                "apiVersion": "extensions/v1beta1",
+                "apiVersion": "apps/v1",
                 "blockOwnerDeletion": true,
                 "controller": true,
                 "kind": "Deployment",
@@ -2405,7 +2405,7 @@ func regressionReplicaSetScaled5() *unstructured.Unstructured {
             }
         ],
         "resourceVersion": "918076",
-        "selfLink": "/apis/extensions/v1beta1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468",
+        "selfLink": "/apis/apps/v1/namespaces/default/replicasets/frontend-ur1fwk62-777d669468",
         "uid": "e0a588b0-a58c-11e8-8cb4-080027bd9056"
     },
     "spec": {
@@ -2483,7 +2483,7 @@ func regressionReplicaSetScaled5() *unstructured.Unstructured {
 func availableReplicaSet(namespace, name, deploymentName, revision string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "ReplicaSet",
     "metadata": {
         "annotations": {
@@ -2504,7 +2504,7 @@ func availableReplicaSet(namespace, name, deploymentName, revision string) *unst
         "name": "%s",
         "ownerReferences": [
             {
-                "apiVersion": "extensions/v1beta1",
+                "apiVersion": "apps/v1",
                 "blockOwnerDeletion": true,
                 "controller": true,
                 "kind": "Deployment",
@@ -2581,7 +2581,7 @@ func availableReplicaSet(namespace, name, deploymentName, revision string) *unst
 func availableReplicaSetWithPVC(namespace, name, deploymentName, revision, pvcName string) *unstructured.Unstructured {
 	// nolint
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "kind": "ReplicaSet",
     "metadata": {
         "annotations": {
@@ -2602,7 +2602,7 @@ func availableReplicaSetWithPVC(namespace, name, deploymentName, revision, pvcNa
         "name": "%s",
         "ownerReferences": [
             {
-                "apiVersion": "extensions/v1beta1",
+                "apiVersion": "apps/v1",
                 "blockOwnerDeletion": true,
                 "controller": true,
                 "kind": "Deployment",
@@ -2700,7 +2700,7 @@ func deployedReadyPod(namespace, name, replicaSetName string) *unstructured.Unst
         "name": "%s",
         "ownerReferences": [
             {
-                "apiVersion": "extensions/v1beta1",
+                "apiVersion": "apps/v1",
                 "blockOwnerDeletion": true,
                 "controller": true,
                 "kind": "ReplicaSet",
@@ -2826,7 +2826,7 @@ func deployedFailedPod(namespace, name, replicaSetName string) *unstructured.Uns
         "name": "%s",
         "ownerReferences": [
             {
-                "apiVersion": "extensions/v1beta1",
+                "apiVersion": "apps/v1",
                 "blockOwnerDeletion": true,
                 "controller": true,
                 "kind": "ReplicaSet",
