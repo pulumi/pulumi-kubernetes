@@ -18,7 +18,7 @@
 
 ### Bug fixes
 
--   None
+-   Fix Deployment await logic for old API schema (https://github.com/pulumi/pulumi-kubernetes/pull/523)
 
 ## 0.22.0 (March 25, 2019)
 

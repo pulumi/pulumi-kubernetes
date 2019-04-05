@@ -401,6 +401,9 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 		return
 	}
 
+	// extensions/v1beta1 does not include the "Progressing" status for rollouts.
+	progressingStatusUnavailable := dia.deployment.GetAPIVersion() == "extensions/v1beta1"
+
 	// Success occurs when the ReplicaSet of the `currentGeneration` is marked as available, and
 	// when the deployment is available.
 	for _, rawCondition := range conditions {
@@ -409,7 +412,10 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 			continue
 		}
 
-		if condition["type"] == "Progressing" {
+		if progressingStatusUnavailable {
+			// Since we can't tell for sure from this version of the API, mark as available.
+			dia.replicaSetAvailable = true
+		} else if condition["type"] == "Progressing" {
 			isProgressing := condition["status"] == trueStatus
 			if !isProgressing {
 				rawReason, hasReason := condition["reason"]
@@ -511,8 +517,20 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	if !specReplicasExists {
 		specReplicas = 1
 	}
-	rawReadyReplicas, readyReplicasExists := openapi.Pluck(rs.Object, "status", "readyReplicas")
-	readyReplicas, _ := rawReadyReplicas.(int64)
+
+	var rawReadyReplicas interface{}
+	var readyReplicas int64
+	var readyReplicasExists bool
+	// extensions/v1beta1/ReplicaSet does not include the "readyReplicas" status for rollouts,
+	// so use the Deployment "readyReplicas" status instead.
+	statusUnavailable := dia.deployment.GetAPIVersion() == "extensions/v1beta1"
+	if statusUnavailable {
+		rawReadyReplicas, readyReplicasExists = openapi.Pluck(dia.deployment.Object, "status", "readyReplicas")
+		readyReplicas, _ = rawReadyReplicas.(int64)
+	} else {
+		rawReadyReplicas, readyReplicasExists = openapi.Pluck(rs.Object, "status", "readyReplicas")
+		readyReplicas, _ = rawReadyReplicas.(int64)
+	}
 
 	glog.V(3).Infof("ReplicaSet %q requests '%v' replicas, but has '%v' ready",
 		rs.GetName(), specReplicas, readyReplicas)
