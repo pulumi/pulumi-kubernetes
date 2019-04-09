@@ -54,6 +54,9 @@ var forceNew = groups{
 	// for compatibility purposes.
 	"core": core,
 	"":     core,
+	"policy": versions{
+		"v1beta1": kinds{"PodDisruptionBudget": podDisruptionBudget},
+	},
 	"rbac.authorization.k8s.io": versions{
 		"v1alpha1": kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
 		"v1beta1":  kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
@@ -112,6 +115,10 @@ var deployment = properties{
 var job = properties{
 	".spec.selector",
 	".spec.template",
+}
+
+var podDisruptionBudget = properties{
+	".spec",
 }
 
 var roleBinding = properties{
