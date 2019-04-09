@@ -18,11 +18,11 @@ class Provider(pulumi.ProviderResource):
 
         :param str __name__: The unique name of the resource.
         :param pulumi.ResourceOptions __opts__: An optional bag of options that controls this resource's behavior.
-        :param str cluster: If present, the name of the kubeconfig cluster to use.
-        :param str context: If present, the name of the kubeconfig context to use.
-        :param str kubeconfig: The contents of a kubeconfig file. If this is set, this config will be used instead
+        :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
+        :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
+        :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file. If this is set, this config will be used instead
                                of $KUBECONFIG.
-        :param str namespace: If present, the namespace scope to use.
+        :param pulumi.Input[str] namespace: If present, the namespace scope to use.
         """
         __props__ = {
             "cluster": cluster,
