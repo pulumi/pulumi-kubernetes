@@ -18,6 +18,7 @@
 
 ### Bug fixes
 
+-   Fix Deployment await logic for old API schema (https://github.com/pulumi/pulumi-kubernetes/pull/523)
 -   Replace PodDisruptionBudget if spec changes (https://github.com/pulumi/pulumi-kubernetes/pull/527)
 
 ## 0.22.0 (March 25, 2019)
