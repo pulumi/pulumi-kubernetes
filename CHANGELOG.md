@@ -1,4 +1,24 @@
-## 0.22.1 (Unreleased)
+## 0.22.2 (Unreleased)
+
+### Supported Kubernetes versions
+
+- v1.14.x
+- v1.13.x
+- v1.12.x
+
+### Major changes
+
+-   None
+
+### Improvements
+
+-   None
+
+### Bug fixes
+
+-   None
+
+## 0.22.1 (April 9, 2019)
 
 ### Supported Kubernetes versions
 
