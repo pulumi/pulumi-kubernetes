@@ -21,11 +21,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/grpc/grpc-go/status"
-
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	"github.com/golang/protobuf/ptypes/struct"
+	"github.com/grpc/grpc-go/status"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
@@ -39,6 +38,7 @@ import (
 	"github.com/yudai/gojsondiff"
 	"google.golang.org/grpc/codes"
 	"k8s.io/apimachinery/pkg/api/errors"
+	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -446,6 +446,14 @@ func (k *kubeProvider) Create(
 
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
+		if meta.IsNoMatchError(awaitErr) {
+			// If it's a "no match" error, this is probably a CustomResource with no corresponding
+			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
+			// print a more useful error message in this case.
+			return nil, fmt.Errorf(
+				"the apiVersion for this resource is not registered with the Kubernetes API server. "+
+					"Verify that any required CRDs have been created: %s", awaitErr)
+		}
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// Object creation failed.
@@ -540,6 +548,13 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	liveObj, readErr := await.Read(config)
 	if readErr != nil {
 		glog.V(3).Infof("%v", readErr)
+
+		if meta.IsNoMatchError(readErr) {
+			// If it's a "no match" error, this is probably a CustomResource with no corresponding
+			// CustomResourceDefinition. This usually happens if the CRD was deleted, and it's safe
+			// to consider the CR to be deleted as well in this case.
+			return &pulumirpc.ReadResponse{Id: "", Properties: nil}, nil
+		}
 
 		statusErr, ok := readErr.(*errors.StatusError)
 		if ok && statusErr.ErrStatus.Code == 404 {
@@ -750,6 +765,12 @@ func (k *kubeProvider) Delete(
 
 	awaitErr := await.Deletion(config)
 	if awaitErr != nil {
+		if meta.IsNoMatchError(awaitErr) {
+			// If it's a "no match" error, this is probably a CustomResource with no corresponding
+			// CustomResourceDefinition. This usually happens if the CRD was deleted, and it's safe
+			// to consider the CR to be deleted as well in this case.
+			return &pbempty.Empty{}, nil
+		}
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// There was an error executing the delete operation. The resource is still present and tracked.
