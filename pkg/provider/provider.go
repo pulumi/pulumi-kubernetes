@@ -703,6 +703,15 @@ func (k *kubeProvider) Update(
 	// Apply update.
 	initialized, awaitErr := await.Update(config)
 	if awaitErr != nil {
+		if meta.IsNoMatchError(awaitErr) {
+			// If it's a "no match" error, this is probably a CustomResource with no corresponding
+			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
+			// print a more useful error message in this case.
+			return nil, fmt.Errorf(
+				"the apiVersion for this resource is not registered with the Kubernetes API server. "+
+					"Verify that any required CRDs have been created: %s", awaitErr)
+		}
+
 		var getErr error
 		initialized, getErr = k.readLiveObject(newInputs)
 		if getErr != nil {
