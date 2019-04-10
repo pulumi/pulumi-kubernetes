@@ -19,6 +19,8 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 //
 // Delete the CustomResourceDefinition. On the next refresh, the CustomResource will be
 // automatically deleted from the state rather than returning a "kind not found" error.
+// This is a contrived example for testing, and it doesn't make any sense to delete a
+// CRD while leaving related CRs.
 //
 
 new k8s.apiextensions.CustomResource(

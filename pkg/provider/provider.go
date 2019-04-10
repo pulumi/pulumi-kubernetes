@@ -553,13 +553,13 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			// If it's a "no match" error, this is probably a CustomResource with no corresponding
 			// CustomResourceDefinition. This usually happens if the CRD was deleted, and it's safe
 			// to consider the CR to be deleted as well in this case.
-			return &pulumirpc.ReadResponse{Id: "", Properties: nil}, nil
+			return deleteResponse, nil
 		}
 
 		statusErr, ok := readErr.(*errors.StatusError)
 		if ok && statusErr.ErrStatus.Code == 404 {
 			// If it's a 404 error, this resource was probably deleted.
-			return &pulumirpc.ReadResponse{Id: "", Properties: nil}, nil
+			return deleteResponse, nil
 		}
 
 		if partialErr, ok := readErr.(await.PartialError); ok {
@@ -921,3 +921,6 @@ func canonicalNamespace(ns string) string {
 	}
 	return ns
 }
+
+// deleteResponse causes the resource to be deleted from the state.
+var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
