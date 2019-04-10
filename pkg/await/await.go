@@ -118,7 +118,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				return err
 			}
 
-			return nil
+			// TODO(levi): return nil here to be more explicit (early returns on any error)
+			return err
 
 		}).
 		WithMaxRetries(5).
