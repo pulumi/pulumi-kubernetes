@@ -1,10 +1,37 @@
-## 0.22.2 (Unreleased)
+## 0.22.3 (Unreleased)
 
 ### Supported Kubernetes versions
 
 - v1.14.x
 - v1.13.x
 - v1.12.x
+
+### Major changes
+
+-   None
+
+### Improvements
+
+-   None
+
+### Bug fixes
+
+-   None
+
+## 0.22.2 (April 11, 2019)
+
+### Supported Kubernetes versions
+
+- v1.14.x
+- v1.13.x
+- v1.12.x
+
+### Important
+
+This release improves handling for CustomResources (CRs) and CustomResourceDefinitions (CRDs).
+CRs without a matching CRD will now be considered deleted during `pulumi refresh`, and `pulumi destroy`
+will not fail to delete a CR if the related CRD is missing.
+See https://github.com/pulumi/pulumi-kubernetes/pull/530 for details.
 
 ### Major changes
 
