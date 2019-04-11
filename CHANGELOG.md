@@ -12,7 +12,8 @@
 
 ### Improvements
 
--   None
+-   Allow `apiextensions.CustomResource` to take a `CustomResourceDefinition` as
+    an argument, instead of only the strings `apiVersion` and `kind`.
 
 ### Bug fixes
 

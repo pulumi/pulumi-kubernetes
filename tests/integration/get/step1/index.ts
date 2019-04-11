@@ -36,9 +36,9 @@ const ct = new k8s.apiextensions.v1beta1.CustomResourceDefinition("crontab", {
             plural: "crontabs",
             singular: "crontab",
             kind: "CronTab",
-            shortNames: ["ct"]
-        }
-    }
+            shortNames: ["ct"],
+        },
+    },
 });
 
 new k8s.apiextensions.CustomResource(
@@ -46,11 +46,24 @@ new k8s.apiextensions.CustomResource(
     {
         apiVersion: "stable.example.com/v1",
         kind: "CronTab",
-      metadata: {
-        namespace: namespace.metadata.name,
-        name: "my-new-cron-object",
-      },
-        spec: { cronSpec: "* * * * */5", image: "my-awesome-cron-image" }
+        metadata: {
+            namespace: namespace.metadata.name,
+            name: "my-new-cron-object",
+        },
+        spec: { cronSpec: "* * * * */5", image: "my-awesome-cron-image" },
     },
-    { dependsOn: ct }
+    { dependsOn: ct },
+);
+
+new k8s.apiextensions.CustomResource(
+    "my-new-cron-object-2",
+    {
+        definition: ct,
+        metadata: {
+            namespace: namespace.metadata.name,
+            name: "my-new-cron-object",
+        },
+        spec: { cronSpec: "* * * * */5", image: "my-awesome-cron-image" },
+    },
+    { dependsOn: ct },
 );

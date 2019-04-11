@@ -12,9 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import * as pulumi from "@pulumi/pulumi"
+import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../types/input";
 import * as outputApi from "../types/output";
+
+import * as v1beta1 from "./v1beta1";
 
 /**
  * CustomResourceArgs represents a resource definition we'd use to create an instance of a
@@ -26,30 +28,44 @@ import * as outputApi from "../types/output";
  * NOTE: This type is fairly loose, since other than `apiVersion` and `kind`, there are no
  * fields required across all CRDs.
  */
-export interface CustomResourceArgs {
-    /**
-     * APIVersion defines the versioned schema of this representation of an object. Servers should
-     * convert recognized schemas to the latest internal value, and may reject unrecognized
-     * values. More info:
-     * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-     */
-    apiVersion: pulumi.Input<string>;
+export type CustomResourceArgs =
+    | {
+          /**
+           * APIVersion defines the versioned schema of this representation of an object. Servers should
+           * convert recognized schemas to the latest internal value, and may reject unrecognized
+           * values. More info:
+           * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+           */
+          apiVersion: pulumi.Input<string>;
 
-    /**
-     * Kind is a string value representing the REST resource this object represents. Servers may
-     * infer this from the endpoint the client submits requests to. Cannot be updated. In
-     * CamelCase. More info:
-     * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-     */
-    kind: pulumi.Input<string>;
+          /**
+           * Kind is a string value representing the REST resource this object represents. Servers may
+           * infer this from the endpoint the client submits requests to. Cannot be updated. In
+           * CamelCase. More info:
+           * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+           */
+          kind: pulumi.Input<string>;
 
-    /**
-     * Standard object metadata; More info:
-     * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-     */
-    metadata?: pulumi.Input<inputApi.meta.v1.ObjectMeta>;
-    [othersFields: string]: pulumi.Input<any>;
-}
+          /**
+           * Standard object metadata; More info:
+           * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+           */
+          metadata?: pulumi.Input<inputApi.meta.v1.ObjectMeta>;
+          [othersFields: string]: pulumi.Input<any>;
+      }
+    | {
+          /**
+           * The CustomResourceDefinition we'd like to make an instance of.
+           */
+          definition: v1beta1.CustomResourceDefinition;
+
+          /**
+           * Standard object metadata; More info:
+           * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+           */
+          metadata?: pulumi.Input<inputApi.meta.v1.ObjectMeta>;
+          [othersFields: string]: pulumi.Input<any>;
+      };
 
 /**
  * CustomResourceGetOptions uniquely identifies a Kubernetes CustomResource, primarily for use
@@ -66,7 +82,7 @@ export interface CustomResourceGetOptions extends pulumi.CustomResourceOptions {
      * kind is the kind of the apiextensions.CustomResource we wish to select, as specified by
      * the CustomResourceDefinition that defines it on the API server.
      */
-    kind: pulumi.Input<string>
+    kind: pulumi.Input<string>;
 
     /**
      * An ID for the Kubernetes resource to retrive. Takes the form <namespace>/<name> or
@@ -118,11 +134,17 @@ export class CustomResource extends pulumi.CustomResource {
         // NOTE: `selectOpts` will be type `pulumi.CustomResource`. If we add a field that does
         // not satisfy that interface, it will cause a compilation error in `...selectOpts` in
         // the constructor call below.
-        const {apiVersion, kind, id, ...selectOpts} = opts;
-        return new CustomResource(name, {apiVersion: apiVersion, kind: kind}, { ...selectOpts, id: id });
+        const { apiVersion, kind, id, ...selectOpts } = opts;
+        return new CustomResource(
+            name,
+            { apiVersion: apiVersion, kind: kind },
+            { ...selectOpts, id: id },
+        );
     }
 
-    public getInputs(): CustomResourceArgs { return this.__inputs; }
+    public getInputs(): CustomResourceArgs {
+        return this.__inputs;
+    }
     private readonly __inputs: CustomResourceArgs;
 
     /**
@@ -133,6 +155,14 @@ export class CustomResource extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args: CustomResourceArgs, opts?: pulumi.CustomResourceOptions) {
+        if ("definition" in args) {
+            const defn: v1beta1.CustomResourceDefinition = args.definition;
+            delete args.definition;
+            // Side-effect: registers the CRD as a dependency.
+            args.apiVersion = defn.apiVersion;
+            args.kind = defn.kind;
+        }
+
         let inputs: pulumi.Inputs = {};
         for (const key of Object.keys(args)) {
             inputs[key] = (args as any)[key];
