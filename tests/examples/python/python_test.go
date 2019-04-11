@@ -90,7 +90,7 @@ func TestYaml(t *testing.T) {
 			assert.Equal(t, tokens.Type("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition"),
 				crd.URN.Type())
 			name, _ = openapi.Pluck(crd.Outputs, "metadata", "name")
-			assert.True(t, strings.HasPrefix(name.(string), "foo.bar.example.com"))
+			assert.True(t, strings.HasPrefix(name.(string), "foos.bar.example.com"))
 
 			// Verify namespace.
 			namespace := stackInfo.Deployment.Resources[1]
