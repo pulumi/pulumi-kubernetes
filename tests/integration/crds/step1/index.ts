@@ -20,30 +20,30 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 // Create a CustomResourceDefinition and a CustomResource.
 //
 
-new k8s.apiextensions.v1beta1.CustomResourceDefinition("crontab", {
-    metadata: { name: "crontabs.stable.example.com" },
+new k8s.apiextensions.v1beta1.CustomResourceDefinition("foobar", {
+    metadata: { name: "foobars.stable.example.com" },
     spec: {
         group: "stable.example.com",
         version: "v1",
         scope: "Namespaced",
         names: {
-            plural: "crontabs",
-            singular: "crontab",
-            kind: "CronTab",
-            shortNames: ["ct"]
+            plural: "foobars",
+            singular: "foobar",
+            kind: "FooBar",
+            shortNames: ["fb"]
         }
     }
 });
 
 new k8s.apiextensions.CustomResource(
-    "my-new-cron-object",
+    "my-new-foobar-object",
     {
         apiVersion: "stable.example.com/v1",
-        kind: "CronTab",
+        kind: "FooBar",
       metadata: {
         namespace: namespace.metadata.name,
-        name: "my-new-cron-object",
+        name: "my-new-foobar-object",
       },
-        spec: { cronSpec: "* * * * */5", image: "my-awesome-cron-image" }
+        spec: { foo: "such amaze", bar: "wow" }
     },
 );

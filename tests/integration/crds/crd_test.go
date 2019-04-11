@@ -59,8 +59,8 @@ func TestCRDs(t *testing.T) {
 			// Assert that CRD and CR exist
 			//
 
-			assert.Equal(t, "crontab", string(crd.URN.Name()))
-			assert.Equal(t, "my-new-cron-object", string(ct1.URN.Name()))
+			assert.Equal(t, "foobar", string(crd.URN.Name()))
+			assert.Equal(t, "my-new-foobar-object", string(ct1.URN.Name()))
 		},
 		EditDirs: []integration.EditDir{
 			{
