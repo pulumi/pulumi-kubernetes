@@ -12,7 +12,7 @@
 
 ### Improvements
 
--   None
+-   Improve error handling for "no match found" errors (https://github.com/pulumi/pulumi-kubernetes/pull/530)
 
 ### Bug fixes
 

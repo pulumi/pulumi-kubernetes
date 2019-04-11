@@ -105,6 +105,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			if client == nil {
 				client, err = c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
 				if err != nil {
+					_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
+						"Retry #%d; creation failed: %v", i, err))
 					return err
 				}
 			}
@@ -116,6 +118,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				return err
 			}
 
+			// TODO(levi): return nil here to be more explicit (early returns on any error)
 			return err
 
 		}).
