@@ -24,14 +24,14 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 //
 
 new k8s.apiextensions.CustomResource(
-    "my-new-cron-object",
+    "my-new-foobar-object",
     {
         apiVersion: "stable.example.com/v1",
-        kind: "CronTab",
-      metadata: {
-        namespace: namespace.metadata.name,
-        name: "my-new-cron-object",
-      },
-        spec: { cronSpec: "* * * * */6", image: "my-awesome-cron-image" }
+        kind: "FooBar",
+        metadata: {
+            namespace: namespace.metadata.name,
+            name: "my-new-foobar-object",
+        },
+        spec: { foo: "such amaze" }
     },
 );
