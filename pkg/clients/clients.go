@@ -140,7 +140,7 @@ func (dcs *DynamicClientSet) NamespacedKind(gvk schema.GroupVersionKind) (bool, 
 
 	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv)
 	if err != nil {
-		return false, err
+		return false, &NoNamespaceInfoErr{gvk}
 	}
 
 	for _, resource := range resourceList.APIResources {
