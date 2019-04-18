@@ -368,7 +368,7 @@ export function fetch(chart: string, opts?: ResolvedFetchOpts) {
         if (opts.destination !== undefined) { flags.push(`--destination ${path.quotePath(opts.destination)}`); }
         if (opts.keyring !== undefined)     { flags.push(`--keyring ${path.quotePath(opts.keyring)}`);         }
         if (opts.password !== undefined)    { flags.push(`--password ${shell.quote([opts.password])}`);       }
-        if (opts.repo !== undefined)        { flags.push(`--repo ${shell.quote([opts.repo])}`);               }
+        if (opts.repo !== undefined)        { flags.push(`--repo ${path.quotePath(opts.repo)}`);               }
         if (opts.untardir !== undefined)    { flags.push(`--untardir ${path.quotePath(opts.untardir)}`);       }
         if (opts.username !== undefined)    { flags.push(`--username ${shell.quote([opts.username])}`);       }
         if (opts.home !== undefined)        { flags.push(`--home ${path.quotePath(opts.home)}`);               }
