@@ -303,8 +303,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		// Validate the object according to the OpenAPI schema.
 		if err != nil {
 			resourceNotFound := errors.IsNotFound(err) ||
-				strings.Contains(err.Error(), "is not supported by the server") ||
-				strings.Contains(err.Error(), "does not support resource type")
+				strings.Contains(err.Error(), "is not supported by the server")
 			k8sAPIUnreachable := strings.Contains(err.Error(), "connection refused")
 			if resourceNotFound && gvkExists(gvk) {
 				failures = append(failures, &pulumirpc.CheckFailure{
