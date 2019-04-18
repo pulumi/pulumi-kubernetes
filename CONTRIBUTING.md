@@ -10,7 +10,7 @@ https://github.com/pulumi/pulumi/blob/master/CONTRIBUTING.md) for details on how
 ### Install Environment Pre-Requisites
 
 1. Python: `python-setuptools`, `pip`, `pandoc`
-1. Go: [dep](https://github.com/golang/dep), [golangci-lint](https://github.com/golangci/golangci-lint)
+1. Go: [golangci-lint](https://github.com/golangci/golangci-lint)
 1. JS: `npm`, `yarn`
 
 ### Building Source
