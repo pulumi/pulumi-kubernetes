@@ -20,7 +20,6 @@ import * as nodepath from "path";
 import * as shell from "shell-quote";
 import * as tmp from "tmp";
 import * as path from "../../path";
-
 import * as yaml from "../../yaml/index";
 
 interface BaseChartOpts {
@@ -361,20 +360,20 @@ export function fetch(chart: string, opts?: ResolvedFetchOpts) {
         // For arguments that are not paths to files, it is sufficent to use shell.quote to quote the arguments.
         // However, for arguments that are actual paths to files we use path.quotePath (note that path here is
         // not the node path builtin module). This ensures proper escaping of paths on Windows.
-        if (opts.version !== undefined)     { flags.push(`--version ${shell.quote([opts.version])}`);         }
+        if (opts.version !== undefined)     { flags.push(`--version ${shell.quote([opts.version])}`);    }
         if (opts.caFile !== undefined)      { flags.push(`--ca-file ${path.quotePath(opts.caFile)}`);          }
         if (opts.certFile !== undefined)    { flags.push(`--cert-file ${path.quotePath(opts.certFile)}`);      }
         if (opts.keyFile !== undefined)     { flags.push(`--key-file ${path.quotePath(opts.keyFile)}`);        }
         if (opts.destination !== undefined) { flags.push(`--destination ${path.quotePath(opts.destination)}`); }
         if (opts.keyring !== undefined)     { flags.push(`--keyring ${path.quotePath(opts.keyring)}`);         }
-        if (opts.password !== undefined)    { flags.push(`--password ${shell.quote([opts.password])}`);       }
-        if (opts.repo !== undefined)        { flags.push(`--repo ${shell.quote([opts.repo])}`);               }
+        if (opts.password !== undefined)    { flags.push(`--password ${shell.quote([opts.password])}`);  }
+        if (opts.repo !== undefined)        { flags.push(`--repo ${path.quotePath(opts.repo)}`);               }
         if (opts.untardir !== undefined)    { flags.push(`--untardir ${path.quotePath(opts.untardir)}`);       }
-        if (opts.username !== undefined)    { flags.push(`--username ${shell.quote([opts.username])}`);       }
+        if (opts.username !== undefined)    { flags.push(`--username ${shell.quote([opts.username])}`);  }
         if (opts.home !== undefined)        { flags.push(`--home ${path.quotePath(opts.home)}`);               }
-        if (opts.devel === true)            { flags.push(`--devel`);                                          }
-        if (opts.prov === true)             { flags.push(`--prov`);                                           }
-        if (opts.verify === true)           { flags.push(`--verify`);                                         }
+        if (opts.devel === true)            { flags.push(`--devel`);                                           }
+        if (opts.prov === true)             { flags.push(`--prov`);                                            }
+        if (opts.verify === true)           { flags.push(`--verify`);                                          }
     }
     execSync(`helm fetch ${shell.quote([chart])} ${flags.join(" ")}`);
 }

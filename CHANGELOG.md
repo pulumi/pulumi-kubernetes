@@ -16,7 +16,7 @@
 
 ### Bug fixes
 
--   None
+-   Fix Helm repo quoting for Windows (https://github.com/pulumi/pulumi-kubernetes/pull/540)
 
 ## 0.22.2 (April 11, 2019)
 
