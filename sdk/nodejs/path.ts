@@ -15,5 +15,6 @@ import * as shell from "shell-quote";
     // [1]: https://github.com/substack/node-shell-quote/pull/34
 
     path = String(path).replace(/([A-z]:)?([#!"$&'()*,:;<=>?@\[\\\]^`{|}])/g, "$1\\$2");
+    path = path.replace(/\\:/g, ":");
     return path.replace(/\\\\/g, "\\");
 }
