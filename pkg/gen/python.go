@@ -16,6 +16,7 @@ package gen
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 	"unicode"
 
@@ -34,6 +35,7 @@ func PythonClient(
 	templateDir string,
 	rootInit func(initPy string) error,
 	groupInit func(group, initPy string) error,
+	customResource func(crPy string) error,
 	versionInit func(group, version, initPy string) error,
 	kindFile func(group, version, kind, kindPy string) error,
 	casingFile func(casingPy string) error,
@@ -93,6 +95,21 @@ func PythonClient(
 			fmt.Sprintf("%s/group__init__.py.mustache", templateDir), group)
 		if err != nil {
 			return err
+		}
+		if group.Group() == "apiextensions" {
+			groupInitPy += fmt.Sprint(`
+from .CustomResource import *
+`)
+
+			crBytes, err := ioutil.ReadFile(fmt.Sprintf("%s/CustomResource.py", templateDir))
+			if err != nil {
+				return err
+			}
+
+			err = customResource(string(crBytes))
+			if err != nil {
+				return err
+			}
 		}
 
 		err = groupInit(group.Group(), groupInitPy)
