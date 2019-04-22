@@ -277,8 +277,11 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
+	// If an override namespace is set on the provider for this resource, check if the resource has Namespaced
+	// or Global scope. For namespaced resources, set the namespace to the override value, ignoring any value
+	// currently set on the resource. Global-scope resources are unaffected by the override.
 	if k.overrideNamespace != "" {
-		namespacedKind, err := k.clientSet.NamespacedKind(gvk)
+		namespacedKind, err := k.clientSet.IsNamespacedKind(gvk)
 		if err != nil {
 			if clients.IsNoNamespaceInfoErr(err) {
 				// This is probably a CustomResource without a registered CustomResourceDefinition.
@@ -387,7 +390,7 @@ func (k *kubeProvider) Diff(
 		return nil, err
 	}
 
-	namespacedKind, err := k.clientSet.NamespacedKind(gvk)
+	namespacedKind, err := k.clientSet.IsNamespacedKind(gvk)
 	if err != nil {
 		return nil, err
 	}
