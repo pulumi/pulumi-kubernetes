@@ -82,7 +82,7 @@ See https://github.com/pulumi/pulumi-kubernetes/pull/530 for details.
 
 ### Improvements
 
--   None
+-   Add CustomResource to Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/543)
 
 ### Bug fixes
 
