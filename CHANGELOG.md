@@ -12,7 +12,7 @@
 
 ### Improvements
 
--   None
+-   Put all resources in specified provider namespace (https://github.com/pulumi/pulumi-kubernetes/pull/538)
 
 ### Bug fixes
 

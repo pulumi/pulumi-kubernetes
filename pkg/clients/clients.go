@@ -86,7 +86,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	}
 
 	// For namespaced Kinds, create a namespaced client. If no namespace is provided, use the "default" namespace.
-	namespaced, err := dcs.namespaced(gvk)
+	namespaced, err := dcs.IsNamespacedKind(gvk)
 	if err != nil {
 		return nil, err
 	}
@@ -132,10 +132,15 @@ func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKi
 	return nil, fmt.Errorf("failed to find gvk for Kind: %q", kind)
 }
 
-func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, error) {
-	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gvk.GroupVersion().String())
+func (dcs *DynamicClientSet) IsNamespacedKind(gvk schema.GroupVersionKind) (bool, error) {
+	gv := gvk.GroupVersion().String()
+	if strings.Contains(gv, "core/v1") {
+		gv = "v1"
+	}
+
+	resourceList, err := dcs.DiscoveryClientCached.ServerResourcesForGroupVersion(gv)
 	if err != nil {
-		return false, err
+		return false, &NoNamespaceInfoErr{gvk}
 	}
 
 	for _, resource := range resourceList.APIResources {
@@ -144,7 +149,27 @@ func (dcs *DynamicClientSet) namespaced(gvk schema.GroupVersionKind) (bool, erro
 		}
 	}
 
-	return true, fmt.Errorf("failed to discover namespace info for %s", gvk)
+	return false, &NoNamespaceInfoErr{gvk}
+}
+
+type NoNamespaceInfoErr struct {
+	gvk schema.GroupVersionKind
+}
+
+func (e *NoNamespaceInfoErr) Error() string {
+	return fmt.Sprintf("failed to determine if the following GVK is namespaced: %s", e.gvk)
+}
+
+func IsNoNamespaceInfoErr(err error) bool {
+	if err == nil {
+		return false
+	}
+	switch err.(type) {
+	case *NoNamespaceInfoErr:
+		return true
+	default:
+		return false
+	}
 }
 
 // namespaceOrDefault returns `ns` or the the default namespace `"default"` if `ns` is empty.
