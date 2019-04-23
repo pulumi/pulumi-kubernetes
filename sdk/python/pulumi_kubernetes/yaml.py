@@ -3,6 +3,7 @@
 
 import json
 from copy import deepcopy
+from typing import Callable, Dict, List, Optional
 
 import pulumi.runtime
 import requests
@@ -47,7 +48,7 @@ from pulumi_kubernetes.settings.v1alpha1 import *
 from pulumi_kubernetes.storage.v1 import *
 from pulumi_kubernetes.storage.v1alpha1 import *
 from pulumi_kubernetes.storage.v1beta1 import *
-from typing import Callable, Dict, List, Optional
+from pulumi_kubernetes.apiextensions import CustomResource
 
 from . import tables
 
@@ -861,4 +862,7 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/VolumeAttachmentList:{x}",
                        VolumeAttachmentList(x, opts, metadata, spec)))]
-    raise Exception(f"Unsupported gvk: {gvk}")
+    return [identifier.apply(
+        lambda x: (f"{gvk}:{x}",
+                   CustomResource(x, opts, api_version, kind, metadata, spec)))]
+
