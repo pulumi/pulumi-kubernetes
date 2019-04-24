@@ -3,6 +3,7 @@
 
 import json
 from copy import deepcopy
+from typing import Callable, Dict, List, Optional
 
 import pulumi.runtime
 import requests
@@ -12,7 +13,7 @@ import yaml
 from pulumi_kubernetes.{{Group}}.{{Version}} import *
 {{/Versions}}
 {{/Groups}}
-from typing import Callable, Dict, List, Optional
+from pulumi_kubernetes.apiextensions import CustomResource
 
 from . import tables
 
@@ -148,4 +149,7 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
 {{/Kinds}}
 {{/Versions}}
 {{/Groups}}
-    raise Exception(f"Unsupported gvk: {gvk}")
+    return [identifier.apply(
+        lambda x: (f"{gvk}:{x}",
+                   CustomResource(x, opts, api_version, kind, metadata, spec)))]
+

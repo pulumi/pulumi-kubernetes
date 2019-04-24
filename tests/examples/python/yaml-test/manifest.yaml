@@ -42,3 +42,11 @@ spec:
     plural: foos
     singular: foo
     kind: Foo
+---
+apiVersion: bar.example.com/v1
+kind: Foo
+metadata:
+  name: foobar
+spec:
+  foo: "such amaze"
+  bar: "wow"

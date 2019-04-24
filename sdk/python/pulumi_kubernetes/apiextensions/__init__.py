@@ -6,3 +6,5 @@
 __all__ = [
     "v1beta1",
 ]
+
+from .CustomResource import *
