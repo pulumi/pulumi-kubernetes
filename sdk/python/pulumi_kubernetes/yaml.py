@@ -61,8 +61,8 @@ class ConfigFile(pulumi.ComponentResource):
     :param str name: A name for a resource.
     :param str file_id: Path or a URL that uniquely identifies a file.
     :param Optional[ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-    :param List[Callable] transformations: A set of transformations to apply to Kubernetes resource definitions
-           before registering with engine.
+    :param Optional[List[Callable]] transformations: A set of transformations to apply to Kubernetes
+           resource definitions before registering with engine.
     """
 
     def __init__(self, name: str, file_id: str, opts: Optional[pulumi.ResourceOptions] = None,
@@ -155,6 +155,10 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
     api_version = obj["apiVersion"]
     kind = obj["kind"]
 
+    # Don't pass these items as kwargs to the resource classes.
+    del obj['apiVersion']
+    del obj['kind']
+
     if kind.endswith("List"):
         objs = []
         if "items" in obj:
@@ -165,6 +169,12 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
     if "metadata" not in obj or "name" not in obj["metadata"]:
         raise Exception("YAML object does not have a .metadata.name: {}/{} {}".format(
             api_version, kind, json.dumps(obj)))
+
+    # Convert obj keys to Python casing
+    for key in obj:
+        new_key = tables._CASING_FORWARD_TABLE.get(key) or key
+        if new_key != key:
+            obj[new_key] = obj.pop(key)
 
     metadata = obj["metadata"]
     spec = obj.get("spec")
@@ -177,691 +187,691 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
     if gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration:{x}",
-                       MutatingWebhookConfiguration(x, opts, metadata, spec)))]
+                       MutatingWebhookConfiguration(x, opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList:{x}",
-                       MutatingWebhookConfigurationList(x, opts, metadata, spec)))]
+                       MutatingWebhookConfigurationList(x, opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration:{x}",
-                       ValidatingWebhookConfiguration(x, opts, metadata, spec)))]
+                       ValidatingWebhookConfiguration(x, opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList:{x}",
-                       ValidatingWebhookConfigurationList(x, opts, metadata, spec)))]
+                       ValidatingWebhookConfigurationList(x, opts, **obj)))]
     if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
         return [identifier.apply(
             lambda x: (f"apiextensions.k8s.io/v1beta1/CustomResourceDefinition:{x}",
-                       CustomResourceDefinition(x, opts, metadata, spec)))]
+                       CustomResourceDefinition(x, opts, **obj)))]
     if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
         return [identifier.apply(
             lambda x: (f"apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList:{x}",
-                       CustomResourceDefinitionList(x, opts, metadata, spec)))]
+                       CustomResourceDefinitionList(x, opts, **obj)))]
     if gvk == "apiregistration.k8s.io/v1/APIService":
         return [identifier.apply(
             lambda x: (f"apiregistration.k8s.io/v1/APIService:{x}",
-                       APIService(x, opts, metadata, spec)))]
+                       APIService(x, opts, **obj)))]
     if gvk == "apiregistration.k8s.io/v1/APIServiceList":
         return [identifier.apply(
             lambda x: (f"apiregistration.k8s.io/v1/APIServiceList:{x}",
-                       APIServiceList(x, opts, metadata, spec)))]
+                       APIServiceList(x, opts, **obj)))]
     if gvk == "apiregistration.k8s.io/v1beta1/APIService":
         return [identifier.apply(
             lambda x: (f"apiregistration.k8s.io/v1beta1/APIService:{x}",
-                       APIService(x, opts, metadata, spec)))]
+                       APIService(x, opts, **obj)))]
     if gvk == "apiregistration.k8s.io/v1beta1/APIServiceList":
         return [identifier.apply(
             lambda x: (f"apiregistration.k8s.io/v1beta1/APIServiceList:{x}",
-                       APIServiceList(x, opts, metadata, spec)))]
+                       APIServiceList(x, opts, **obj)))]
     if gvk == "apps/v1/ControllerRevision":
         return [identifier.apply(
             lambda x: (f"apps/v1/ControllerRevision:{x}",
-                       ControllerRevision(x, opts, metadata, spec)))]
+                       ControllerRevision(x, opts, **obj)))]
     if gvk == "apps/v1/ControllerRevisionList":
         return [identifier.apply(
             lambda x: (f"apps/v1/ControllerRevisionList:{x}",
-                       ControllerRevisionList(x, opts, metadata, spec)))]
+                       ControllerRevisionList(x, opts, **obj)))]
     if gvk == "apps/v1/DaemonSet":
         return [identifier.apply(
             lambda x: (f"apps/v1/DaemonSet:{x}",
-                       DaemonSet(x, opts, metadata, spec)))]
+                       DaemonSet(x, opts, **obj)))]
     if gvk == "apps/v1/DaemonSetList":
         return [identifier.apply(
             lambda x: (f"apps/v1/DaemonSetList:{x}",
-                       DaemonSetList(x, opts, metadata, spec)))]
+                       DaemonSetList(x, opts, **obj)))]
     if gvk == "apps/v1/Deployment":
         return [identifier.apply(
             lambda x: (f"apps/v1/Deployment:{x}",
-                       Deployment(x, opts, metadata, spec)))]
+                       Deployment(x, opts, **obj)))]
     if gvk == "apps/v1/DeploymentList":
         return [identifier.apply(
             lambda x: (f"apps/v1/DeploymentList:{x}",
-                       DeploymentList(x, opts, metadata, spec)))]
+                       DeploymentList(x, opts, **obj)))]
     if gvk == "apps/v1/ReplicaSet":
         return [identifier.apply(
             lambda x: (f"apps/v1/ReplicaSet:{x}",
-                       ReplicaSet(x, opts, metadata, spec)))]
+                       ReplicaSet(x, opts, **obj)))]
     if gvk == "apps/v1/ReplicaSetList":
         return [identifier.apply(
             lambda x: (f"apps/v1/ReplicaSetList:{x}",
-                       ReplicaSetList(x, opts, metadata, spec)))]
+                       ReplicaSetList(x, opts, **obj)))]
     if gvk == "apps/v1/StatefulSet":
         return [identifier.apply(
             lambda x: (f"apps/v1/StatefulSet:{x}",
-                       StatefulSet(x, opts, metadata, spec)))]
+                       StatefulSet(x, opts, **obj)))]
     if gvk == "apps/v1/StatefulSetList":
         return [identifier.apply(
             lambda x: (f"apps/v1/StatefulSetList:{x}",
-                       StatefulSetList(x, opts, metadata, spec)))]
+                       StatefulSetList(x, opts, **obj)))]
     if gvk == "apps/v1beta1/ControllerRevision":
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/ControllerRevision:{x}",
-                       ControllerRevision(x, opts, metadata, spec)))]
+                       ControllerRevision(x, opts, **obj)))]
     if gvk == "apps/v1beta1/ControllerRevisionList":
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/ControllerRevisionList:{x}",
-                       ControllerRevisionList(x, opts, metadata, spec)))]
+                       ControllerRevisionList(x, opts, **obj)))]
     if gvk == "apps/v1beta1/Deployment":
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/Deployment:{x}",
-                       Deployment(x, opts, metadata, spec)))]
+                       Deployment(x, opts, **obj)))]
     if gvk == "apps/v1beta1/DeploymentList":
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/DeploymentList:{x}",
-                       DeploymentList(x, opts, metadata, spec)))]
+                       DeploymentList(x, opts, **obj)))]
     if gvk == "apps/v1beta1/StatefulSet":
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/StatefulSet:{x}",
-                       StatefulSet(x, opts, metadata, spec)))]
+                       StatefulSet(x, opts, **obj)))]
     if gvk == "apps/v1beta1/StatefulSetList":
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/StatefulSetList:{x}",
-                       StatefulSetList(x, opts, metadata, spec)))]
+                       StatefulSetList(x, opts, **obj)))]
     if gvk == "apps/v1beta2/ControllerRevision":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/ControllerRevision:{x}",
-                       ControllerRevision(x, opts, metadata, spec)))]
+                       ControllerRevision(x, opts, **obj)))]
     if gvk == "apps/v1beta2/ControllerRevisionList":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/ControllerRevisionList:{x}",
-                       ControllerRevisionList(x, opts, metadata, spec)))]
+                       ControllerRevisionList(x, opts, **obj)))]
     if gvk == "apps/v1beta2/DaemonSet":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/DaemonSet:{x}",
-                       DaemonSet(x, opts, metadata, spec)))]
+                       DaemonSet(x, opts, **obj)))]
     if gvk == "apps/v1beta2/DaemonSetList":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/DaemonSetList:{x}",
-                       DaemonSetList(x, opts, metadata, spec)))]
+                       DaemonSetList(x, opts, **obj)))]
     if gvk == "apps/v1beta2/Deployment":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/Deployment:{x}",
-                       Deployment(x, opts, metadata, spec)))]
+                       Deployment(x, opts, **obj)))]
     if gvk == "apps/v1beta2/DeploymentList":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/DeploymentList:{x}",
-                       DeploymentList(x, opts, metadata, spec)))]
+                       DeploymentList(x, opts, **obj)))]
     if gvk == "apps/v1beta2/ReplicaSet":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/ReplicaSet:{x}",
-                       ReplicaSet(x, opts, metadata, spec)))]
+                       ReplicaSet(x, opts, **obj)))]
     if gvk == "apps/v1beta2/ReplicaSetList":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/ReplicaSetList:{x}",
-                       ReplicaSetList(x, opts, metadata, spec)))]
+                       ReplicaSetList(x, opts, **obj)))]
     if gvk == "apps/v1beta2/StatefulSet":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/StatefulSet:{x}",
-                       StatefulSet(x, opts, metadata, spec)))]
+                       StatefulSet(x, opts, **obj)))]
     if gvk == "apps/v1beta2/StatefulSetList":
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/StatefulSetList:{x}",
-                       StatefulSetList(x, opts, metadata, spec)))]
+                       StatefulSetList(x, opts, **obj)))]
     if gvk == "auditregistration.k8s.io/v1alpha1/AuditSink":
         return [identifier.apply(
             lambda x: (f"auditregistration.k8s.io/v1alpha1/AuditSink:{x}",
-                       AuditSink(x, opts, metadata, spec)))]
+                       AuditSink(x, opts, **obj)))]
     if gvk == "auditregistration.k8s.io/v1alpha1/AuditSinkList":
         return [identifier.apply(
             lambda x: (f"auditregistration.k8s.io/v1alpha1/AuditSinkList:{x}",
-                       AuditSinkList(x, opts, metadata, spec)))]
+                       AuditSinkList(x, opts, **obj)))]
     if gvk == "authentication.k8s.io/v1/TokenReview":
         return [identifier.apply(
             lambda x: (f"authentication.k8s.io/v1/TokenReview:{x}",
-                       TokenReview(x, opts, metadata, spec)))]
+                       TokenReview(x, opts, **obj)))]
     if gvk == "authentication.k8s.io/v1beta1/TokenReview":
         return [identifier.apply(
             lambda x: (f"authentication.k8s.io/v1beta1/TokenReview:{x}",
-                       TokenReview(x, opts, metadata, spec)))]
+                       TokenReview(x, opts, **obj)))]
     if gvk == "authorization.k8s.io/v1/LocalSubjectAccessReview":
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1/LocalSubjectAccessReview:{x}",
-                       LocalSubjectAccessReview(x, opts, metadata, spec)))]
+                       LocalSubjectAccessReview(x, opts, **obj)))]
     if gvk == "authorization.k8s.io/v1/SelfSubjectAccessReview":
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1/SelfSubjectAccessReview:{x}",
-                       SelfSubjectAccessReview(x, opts, metadata, spec)))]
+                       SelfSubjectAccessReview(x, opts, **obj)))]
     if gvk == "authorization.k8s.io/v1/SelfSubjectRulesReview":
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1/SelfSubjectRulesReview:{x}",
-                       SelfSubjectRulesReview(x, opts, metadata, spec)))]
+                       SelfSubjectRulesReview(x, opts, **obj)))]
     if gvk == "authorization.k8s.io/v1/SubjectAccessReview":
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1/SubjectAccessReview:{x}",
-                       SubjectAccessReview(x, opts, metadata, spec)))]
+                       SubjectAccessReview(x, opts, **obj)))]
     if gvk == "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1beta1/LocalSubjectAccessReview:{x}",
-                       LocalSubjectAccessReview(x, opts, metadata, spec)))]
+                       LocalSubjectAccessReview(x, opts, **obj)))]
     if gvk == "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1beta1/SelfSubjectAccessReview:{x}",
-                       SelfSubjectAccessReview(x, opts, metadata, spec)))]
+                       SelfSubjectAccessReview(x, opts, **obj)))]
     if gvk == "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1beta1/SelfSubjectRulesReview:{x}",
-                       SelfSubjectRulesReview(x, opts, metadata, spec)))]
+                       SelfSubjectRulesReview(x, opts, **obj)))]
     if gvk == "authorization.k8s.io/v1beta1/SubjectAccessReview":
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1beta1/SubjectAccessReview:{x}",
-                       SubjectAccessReview(x, opts, metadata, spec)))]
+                       SubjectAccessReview(x, opts, **obj)))]
     if gvk == "autoscaling/v1/HorizontalPodAutoscaler":
         return [identifier.apply(
             lambda x: (f"autoscaling/v1/HorizontalPodAutoscaler:{x}",
-                       HorizontalPodAutoscaler(x, opts, metadata, spec)))]
+                       HorizontalPodAutoscaler(x, opts, **obj)))]
     if gvk == "autoscaling/v1/HorizontalPodAutoscalerList":
         return [identifier.apply(
             lambda x: (f"autoscaling/v1/HorizontalPodAutoscalerList:{x}",
-                       HorizontalPodAutoscalerList(x, opts, metadata, spec)))]
+                       HorizontalPodAutoscalerList(x, opts, **obj)))]
     if gvk == "autoscaling/v2beta1/HorizontalPodAutoscaler":
         return [identifier.apply(
             lambda x: (f"autoscaling/v2beta1/HorizontalPodAutoscaler:{x}",
-                       HorizontalPodAutoscaler(x, opts, metadata, spec)))]
+                       HorizontalPodAutoscaler(x, opts, **obj)))]
     if gvk == "autoscaling/v2beta1/HorizontalPodAutoscalerList":
         return [identifier.apply(
             lambda x: (f"autoscaling/v2beta1/HorizontalPodAutoscalerList:{x}",
-                       HorizontalPodAutoscalerList(x, opts, metadata, spec)))]
+                       HorizontalPodAutoscalerList(x, opts, **obj)))]
     if gvk == "autoscaling/v2beta2/HorizontalPodAutoscaler":
         return [identifier.apply(
             lambda x: (f"autoscaling/v2beta2/HorizontalPodAutoscaler:{x}",
-                       HorizontalPodAutoscaler(x, opts, metadata, spec)))]
+                       HorizontalPodAutoscaler(x, opts, **obj)))]
     if gvk == "autoscaling/v2beta2/HorizontalPodAutoscalerList":
         return [identifier.apply(
             lambda x: (f"autoscaling/v2beta2/HorizontalPodAutoscalerList:{x}",
-                       HorizontalPodAutoscalerList(x, opts, metadata, spec)))]
+                       HorizontalPodAutoscalerList(x, opts, **obj)))]
     if gvk == "batch/v1/Job":
         return [identifier.apply(
             lambda x: (f"batch/v1/Job:{x}",
-                       Job(x, opts, metadata, spec)))]
+                       Job(x, opts, **obj)))]
     if gvk == "batch/v1/JobList":
         return [identifier.apply(
             lambda x: (f"batch/v1/JobList:{x}",
-                       JobList(x, opts, metadata, spec)))]
+                       JobList(x, opts, **obj)))]
     if gvk == "batch/v1beta1/CronJob":
         return [identifier.apply(
             lambda x: (f"batch/v1beta1/CronJob:{x}",
-                       CronJob(x, opts, metadata, spec)))]
+                       CronJob(x, opts, **obj)))]
     if gvk == "batch/v1beta1/CronJobList":
         return [identifier.apply(
             lambda x: (f"batch/v1beta1/CronJobList:{x}",
-                       CronJobList(x, opts, metadata, spec)))]
+                       CronJobList(x, opts, **obj)))]
     if gvk == "batch/v2alpha1/CronJob":
         return [identifier.apply(
             lambda x: (f"batch/v2alpha1/CronJob:{x}",
-                       CronJob(x, opts, metadata, spec)))]
+                       CronJob(x, opts, **obj)))]
     if gvk == "batch/v2alpha1/CronJobList":
         return [identifier.apply(
             lambda x: (f"batch/v2alpha1/CronJobList:{x}",
-                       CronJobList(x, opts, metadata, spec)))]
+                       CronJobList(x, opts, **obj)))]
     if gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequest":
         return [identifier.apply(
             lambda x: (f"certificates.k8s.io/v1beta1/CertificateSigningRequest:{x}",
-                       CertificateSigningRequest(x, opts, metadata, spec)))]
+                       CertificateSigningRequest(x, opts, **obj)))]
     if gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
         return [identifier.apply(
             lambda x: (f"certificates.k8s.io/v1beta1/CertificateSigningRequestList:{x}",
-                       CertificateSigningRequestList(x, opts, metadata, spec)))]
+                       CertificateSigningRequestList(x, opts, **obj)))]
     if gvk == "coordination.k8s.io/v1/Lease":
         return [identifier.apply(
             lambda x: (f"coordination.k8s.io/v1/Lease:{x}",
-                       Lease(x, opts, metadata, spec)))]
+                       Lease(x, opts, **obj)))]
     if gvk == "coordination.k8s.io/v1/LeaseList":
         return [identifier.apply(
             lambda x: (f"coordination.k8s.io/v1/LeaseList:{x}",
-                       LeaseList(x, opts, metadata, spec)))]
+                       LeaseList(x, opts, **obj)))]
     if gvk == "coordination.k8s.io/v1beta1/Lease":
         return [identifier.apply(
             lambda x: (f"coordination.k8s.io/v1beta1/Lease:{x}",
-                       Lease(x, opts, metadata, spec)))]
+                       Lease(x, opts, **obj)))]
     if gvk == "coordination.k8s.io/v1beta1/LeaseList":
         return [identifier.apply(
             lambda x: (f"coordination.k8s.io/v1beta1/LeaseList:{x}",
-                       LeaseList(x, opts, metadata, spec)))]
+                       LeaseList(x, opts, **obj)))]
     if gvk == "v1/Binding":
         return [identifier.apply(
             lambda x: (f"v1/Binding:{x}",
-                       Binding(x, opts, metadata, spec)))]
+                       Binding(x, opts, **obj)))]
     if gvk == "v1/ComponentStatus":
         return [identifier.apply(
             lambda x: (f"v1/ComponentStatus:{x}",
-                       ComponentStatus(x, opts, metadata, spec)))]
+                       ComponentStatus(x, opts, **obj)))]
     if gvk == "v1/ComponentStatusList":
         return [identifier.apply(
             lambda x: (f"v1/ComponentStatusList:{x}",
-                       ComponentStatusList(x, opts, metadata, spec)))]
+                       ComponentStatusList(x, opts, **obj)))]
     if gvk == "v1/ConfigMap":
         return [identifier.apply(
             lambda x: (f"v1/ConfigMap:{x}",
-                       ConfigMap(x, opts, metadata, spec)))]
+                       ConfigMap(x, opts, **obj)))]
     if gvk == "v1/ConfigMapList":
         return [identifier.apply(
             lambda x: (f"v1/ConfigMapList:{x}",
-                       ConfigMapList(x, opts, metadata, spec)))]
+                       ConfigMapList(x, opts, **obj)))]
     if gvk == "v1/Endpoints":
         return [identifier.apply(
             lambda x: (f"v1/Endpoints:{x}",
-                       Endpoints(x, opts, metadata, spec)))]
+                       Endpoints(x, opts, **obj)))]
     if gvk == "v1/EndpointsList":
         return [identifier.apply(
             lambda x: (f"v1/EndpointsList:{x}",
-                       EndpointsList(x, opts, metadata, spec)))]
+                       EndpointsList(x, opts, **obj)))]
     if gvk == "v1/Event":
         return [identifier.apply(
             lambda x: (f"v1/Event:{x}",
-                       Event(x, opts, metadata, spec)))]
+                       Event(x, opts, **obj)))]
     if gvk == "v1/EventList":
         return [identifier.apply(
             lambda x: (f"v1/EventList:{x}",
-                       EventList(x, opts, metadata, spec)))]
+                       EventList(x, opts, **obj)))]
     if gvk == "v1/LimitRange":
         return [identifier.apply(
             lambda x: (f"v1/LimitRange:{x}",
-                       LimitRange(x, opts, metadata, spec)))]
+                       LimitRange(x, opts, **obj)))]
     if gvk == "v1/LimitRangeList":
         return [identifier.apply(
             lambda x: (f"v1/LimitRangeList:{x}",
-                       LimitRangeList(x, opts, metadata, spec)))]
+                       LimitRangeList(x, opts, **obj)))]
     if gvk == "v1/Namespace":
         return [identifier.apply(
             lambda x: (f"v1/Namespace:{x}",
-                       Namespace(x, opts, metadata, spec)))]
+                       Namespace(x, opts, **obj)))]
     if gvk == "v1/NamespaceList":
         return [identifier.apply(
             lambda x: (f"v1/NamespaceList:{x}",
-                       NamespaceList(x, opts, metadata, spec)))]
+                       NamespaceList(x, opts, **obj)))]
     if gvk == "v1/Node":
         return [identifier.apply(
             lambda x: (f"v1/Node:{x}",
-                       Node(x, opts, metadata, spec)))]
+                       Node(x, opts, **obj)))]
     if gvk == "v1/NodeList":
         return [identifier.apply(
             lambda x: (f"v1/NodeList:{x}",
-                       NodeList(x, opts, metadata, spec)))]
+                       NodeList(x, opts, **obj)))]
     if gvk == "v1/PersistentVolume":
         return [identifier.apply(
             lambda x: (f"v1/PersistentVolume:{x}",
-                       PersistentVolume(x, opts, metadata, spec)))]
+                       PersistentVolume(x, opts, **obj)))]
     if gvk == "v1/PersistentVolumeClaim":
         return [identifier.apply(
             lambda x: (f"v1/PersistentVolumeClaim:{x}",
-                       PersistentVolumeClaim(x, opts, metadata, spec)))]
+                       PersistentVolumeClaim(x, opts, **obj)))]
     if gvk == "v1/PersistentVolumeClaimList":
         return [identifier.apply(
             lambda x: (f"v1/PersistentVolumeClaimList:{x}",
-                       PersistentVolumeClaimList(x, opts, metadata, spec)))]
+                       PersistentVolumeClaimList(x, opts, **obj)))]
     if gvk == "v1/PersistentVolumeList":
         return [identifier.apply(
             lambda x: (f"v1/PersistentVolumeList:{x}",
-                       PersistentVolumeList(x, opts, metadata, spec)))]
+                       PersistentVolumeList(x, opts, **obj)))]
     if gvk == "v1/Pod":
         return [identifier.apply(
             lambda x: (f"v1/Pod:{x}",
-                       Pod(x, opts, metadata, spec)))]
+                       Pod(x, opts, **obj)))]
     if gvk == "v1/PodList":
         return [identifier.apply(
             lambda x: (f"v1/PodList:{x}",
-                       PodList(x, opts, metadata, spec)))]
+                       PodList(x, opts, **obj)))]
     if gvk == "v1/PodTemplate":
         return [identifier.apply(
             lambda x: (f"v1/PodTemplate:{x}",
-                       PodTemplate(x, opts, metadata, spec)))]
+                       PodTemplate(x, opts, **obj)))]
     if gvk == "v1/PodTemplateList":
         return [identifier.apply(
             lambda x: (f"v1/PodTemplateList:{x}",
-                       PodTemplateList(x, opts, metadata, spec)))]
+                       PodTemplateList(x, opts, **obj)))]
     if gvk == "v1/ReplicationController":
         return [identifier.apply(
             lambda x: (f"v1/ReplicationController:{x}",
-                       ReplicationController(x, opts, metadata, spec)))]
+                       ReplicationController(x, opts, **obj)))]
     if gvk == "v1/ReplicationControllerList":
         return [identifier.apply(
             lambda x: (f"v1/ReplicationControllerList:{x}",
-                       ReplicationControllerList(x, opts, metadata, spec)))]
+                       ReplicationControllerList(x, opts, **obj)))]
     if gvk == "v1/ResourceQuota":
         return [identifier.apply(
             lambda x: (f"v1/ResourceQuota:{x}",
-                       ResourceQuota(x, opts, metadata, spec)))]
+                       ResourceQuota(x, opts, **obj)))]
     if gvk == "v1/ResourceQuotaList":
         return [identifier.apply(
             lambda x: (f"v1/ResourceQuotaList:{x}",
-                       ResourceQuotaList(x, opts, metadata, spec)))]
+                       ResourceQuotaList(x, opts, **obj)))]
     if gvk == "v1/Secret":
         return [identifier.apply(
             lambda x: (f"v1/Secret:{x}",
-                       Secret(x, opts, metadata, spec)))]
+                       Secret(x, opts, **obj)))]
     if gvk == "v1/SecretList":
         return [identifier.apply(
             lambda x: (f"v1/SecretList:{x}",
-                       SecretList(x, opts, metadata, spec)))]
+                       SecretList(x, opts, **obj)))]
     if gvk == "v1/Service":
         return [identifier.apply(
             lambda x: (f"v1/Service:{x}",
-                       Service(x, opts, metadata, spec)))]
+                       Service(x, opts, **obj)))]
     if gvk == "v1/ServiceAccount":
         return [identifier.apply(
             lambda x: (f"v1/ServiceAccount:{x}",
-                       ServiceAccount(x, opts, metadata, spec)))]
+                       ServiceAccount(x, opts, **obj)))]
     if gvk == "v1/ServiceAccountList":
         return [identifier.apply(
             lambda x: (f"v1/ServiceAccountList:{x}",
-                       ServiceAccountList(x, opts, metadata, spec)))]
+                       ServiceAccountList(x, opts, **obj)))]
     if gvk == "v1/ServiceList":
         return [identifier.apply(
             lambda x: (f"v1/ServiceList:{x}",
-                       ServiceList(x, opts, metadata, spec)))]
+                       ServiceList(x, opts, **obj)))]
     if gvk == "events.k8s.io/v1beta1/Event":
         return [identifier.apply(
             lambda x: (f"events.k8s.io/v1beta1/Event:{x}",
-                       Event(x, opts, metadata, spec)))]
+                       Event(x, opts, **obj)))]
     if gvk == "events.k8s.io/v1beta1/EventList":
         return [identifier.apply(
             lambda x: (f"events.k8s.io/v1beta1/EventList:{x}",
-                       EventList(x, opts, metadata, spec)))]
+                       EventList(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/DaemonSet":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/DaemonSet:{x}",
-                       DaemonSet(x, opts, metadata, spec)))]
+                       DaemonSet(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/DaemonSetList":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/DaemonSetList:{x}",
-                       DaemonSetList(x, opts, metadata, spec)))]
+                       DaemonSetList(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/Deployment":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/Deployment:{x}",
-                       Deployment(x, opts, metadata, spec)))]
+                       Deployment(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/DeploymentList":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/DeploymentList:{x}",
-                       DeploymentList(x, opts, metadata, spec)))]
+                       DeploymentList(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/Ingress":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/Ingress:{x}",
-                       Ingress(x, opts, metadata, spec)))]
+                       Ingress(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/IngressList":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/IngressList:{x}",
-                       IngressList(x, opts, metadata, spec)))]
+                       IngressList(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/NetworkPolicy":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/NetworkPolicy:{x}",
-                       NetworkPolicy(x, opts, metadata, spec)))]
+                       NetworkPolicy(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/NetworkPolicyList":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/NetworkPolicyList:{x}",
-                       NetworkPolicyList(x, opts, metadata, spec)))]
+                       NetworkPolicyList(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/PodSecurityPolicy":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/PodSecurityPolicy:{x}",
-                       PodSecurityPolicy(x, opts, metadata, spec)))]
+                       PodSecurityPolicy(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/PodSecurityPolicyList":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/PodSecurityPolicyList:{x}",
-                       PodSecurityPolicyList(x, opts, metadata, spec)))]
+                       PodSecurityPolicyList(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/ReplicaSet":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/ReplicaSet:{x}",
-                       ReplicaSet(x, opts, metadata, spec)))]
+                       ReplicaSet(x, opts, **obj)))]
     if gvk == "extensions/v1beta1/ReplicaSetList":
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/ReplicaSetList:{x}",
-                       ReplicaSetList(x, opts, metadata, spec)))]
+                       ReplicaSetList(x, opts, **obj)))]
     if gvk == "v1/Status":
         return [identifier.apply(
             lambda x: (f"v1/Status:{x}",
-                       Status(x, opts, metadata, spec)))]
+                       Status(x, opts, **obj)))]
     if gvk == "networking.k8s.io/v1/NetworkPolicy":
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1/NetworkPolicy:{x}",
-                       NetworkPolicy(x, opts, metadata, spec)))]
+                       NetworkPolicy(x, opts, **obj)))]
     if gvk == "networking.k8s.io/v1/NetworkPolicyList":
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1/NetworkPolicyList:{x}",
-                       NetworkPolicyList(x, opts, metadata, spec)))]
+                       NetworkPolicyList(x, opts, **obj)))]
     if gvk == "networking.k8s.io/v1beta1/Ingress":
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1beta1/Ingress:{x}",
-                       Ingress(x, opts, metadata, spec)))]
+                       Ingress(x, opts, **obj)))]
     if gvk == "networking.k8s.io/v1beta1/IngressList":
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1beta1/IngressList:{x}",
-                       IngressList(x, opts, metadata, spec)))]
+                       IngressList(x, opts, **obj)))]
     if gvk == "node.k8s.io/v1alpha1/RuntimeClass":
         return [identifier.apply(
             lambda x: (f"node.k8s.io/v1alpha1/RuntimeClass:{x}",
-                       RuntimeClass(x, opts, metadata, spec)))]
+                       RuntimeClass(x, opts, **obj)))]
     if gvk == "node.k8s.io/v1alpha1/RuntimeClassList":
         return [identifier.apply(
             lambda x: (f"node.k8s.io/v1alpha1/RuntimeClassList:{x}",
-                       RuntimeClassList(x, opts, metadata, spec)))]
+                       RuntimeClassList(x, opts, **obj)))]
     if gvk == "node.k8s.io/v1beta1/RuntimeClass":
         return [identifier.apply(
             lambda x: (f"node.k8s.io/v1beta1/RuntimeClass:{x}",
-                       RuntimeClass(x, opts, metadata, spec)))]
+                       RuntimeClass(x, opts, **obj)))]
     if gvk == "node.k8s.io/v1beta1/RuntimeClassList":
         return [identifier.apply(
             lambda x: (f"node.k8s.io/v1beta1/RuntimeClassList:{x}",
-                       RuntimeClassList(x, opts, metadata, spec)))]
+                       RuntimeClassList(x, opts, **obj)))]
     if gvk == "policy/v1beta1/PodDisruptionBudget":
         return [identifier.apply(
             lambda x: (f"policy/v1beta1/PodDisruptionBudget:{x}",
-                       PodDisruptionBudget(x, opts, metadata, spec)))]
+                       PodDisruptionBudget(x, opts, **obj)))]
     if gvk == "policy/v1beta1/PodDisruptionBudgetList":
         return [identifier.apply(
             lambda x: (f"policy/v1beta1/PodDisruptionBudgetList:{x}",
-                       PodDisruptionBudgetList(x, opts, metadata, spec)))]
+                       PodDisruptionBudgetList(x, opts, **obj)))]
     if gvk == "policy/v1beta1/PodSecurityPolicy":
         return [identifier.apply(
             lambda x: (f"policy/v1beta1/PodSecurityPolicy:{x}",
-                       PodSecurityPolicy(x, opts, metadata, spec)))]
+                       PodSecurityPolicy(x, opts, **obj)))]
     if gvk == "policy/v1beta1/PodSecurityPolicyList":
         return [identifier.apply(
             lambda x: (f"policy/v1beta1/PodSecurityPolicyList:{x}",
-                       PodSecurityPolicyList(x, opts, metadata, spec)))]
+                       PodSecurityPolicyList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRole":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/ClusterRole:{x}",
-                       ClusterRole(x, opts, metadata, spec)))]
+                       ClusterRole(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/ClusterRoleBinding:{x}",
-                       ClusterRoleBinding(x, opts, metadata, spec)))]
+                       ClusterRoleBinding(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/ClusterRoleBindingList:{x}",
-                       ClusterRoleBindingList(x, opts, metadata, spec)))]
+                       ClusterRoleBindingList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRoleList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/ClusterRoleList:{x}",
-                       ClusterRoleList(x, opts, metadata, spec)))]
+                       ClusterRoleList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/Role":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/Role:{x}",
-                       Role(x, opts, metadata, spec)))]
+                       Role(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/RoleBinding":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/RoleBinding:{x}",
-                       RoleBinding(x, opts, metadata, spec)))]
+                       RoleBinding(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/RoleBindingList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/RoleBindingList:{x}",
-                       RoleBindingList(x, opts, metadata, spec)))]
+                       RoleBindingList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/RoleList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/RoleList:{x}",
-                       RoleList(x, opts, metadata, spec)))]
+                       RoleList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/ClusterRole:{x}",
-                       ClusterRole(x, opts, metadata, spec)))]
+                       ClusterRole(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding:{x}",
-                       ClusterRoleBinding(x, opts, metadata, spec)))]
+                       ClusterRoleBinding(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList:{x}",
-                       ClusterRoleBindingList(x, opts, metadata, spec)))]
+                       ClusterRoleBindingList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/ClusterRoleList:{x}",
-                       ClusterRoleList(x, opts, metadata, spec)))]
+                       ClusterRoleList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/Role":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/Role:{x}",
-                       Role(x, opts, metadata, spec)))]
+                       Role(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/RoleBinding:{x}",
-                       RoleBinding(x, opts, metadata, spec)))]
+                       RoleBinding(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/RoleBindingList:{x}",
-                       RoleBindingList(x, opts, metadata, spec)))]
+                       RoleBindingList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/RoleList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/RoleList:{x}",
-                       RoleList(x, opts, metadata, spec)))]
+                       RoleList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRole":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/ClusterRole:{x}",
-                       ClusterRole(x, opts, metadata, spec)))]
+                       ClusterRole(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding:{x}",
-                       ClusterRoleBinding(x, opts, metadata, spec)))]
+                       ClusterRoleBinding(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList:{x}",
-                       ClusterRoleBindingList(x, opts, metadata, spec)))]
+                       ClusterRoleBindingList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/ClusterRoleList:{x}",
-                       ClusterRoleList(x, opts, metadata, spec)))]
+                       ClusterRoleList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/Role":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/Role:{x}",
-                       Role(x, opts, metadata, spec)))]
+                       Role(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleBinding":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/RoleBinding:{x}",
-                       RoleBinding(x, opts, metadata, spec)))]
+                       RoleBinding(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/RoleBindingList:{x}",
-                       RoleBindingList(x, opts, metadata, spec)))]
+                       RoleBindingList(x, opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleList":
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/RoleList:{x}",
-                       RoleList(x, opts, metadata, spec)))]
+                       RoleList(x, opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1/PriorityClass":
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1/PriorityClass:{x}",
-                       PriorityClass(x, opts, metadata, spec)))]
+                       PriorityClass(x, opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1/PriorityClassList":
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1/PriorityClassList:{x}",
-                       PriorityClassList(x, opts, metadata, spec)))]
+                       PriorityClassList(x, opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1alpha1/PriorityClass":
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1alpha1/PriorityClass:{x}",
-                       PriorityClass(x, opts, metadata, spec)))]
+                       PriorityClass(x, opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1alpha1/PriorityClassList":
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1alpha1/PriorityClassList:{x}",
-                       PriorityClassList(x, opts, metadata, spec)))]
+                       PriorityClassList(x, opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1beta1/PriorityClass":
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1beta1/PriorityClass:{x}",
-                       PriorityClass(x, opts, metadata, spec)))]
+                       PriorityClass(x, opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1beta1/PriorityClassList":
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1beta1/PriorityClassList:{x}",
-                       PriorityClassList(x, opts, metadata, spec)))]
+                       PriorityClassList(x, opts, **obj)))]
     if gvk == "settings.k8s.io/v1alpha1/PodPreset":
         return [identifier.apply(
             lambda x: (f"settings.k8s.io/v1alpha1/PodPreset:{x}",
-                       PodPreset(x, opts, metadata, spec)))]
+                       PodPreset(x, opts, **obj)))]
     if gvk == "settings.k8s.io/v1alpha1/PodPresetList":
         return [identifier.apply(
             lambda x: (f"settings.k8s.io/v1alpha1/PodPresetList:{x}",
-                       PodPresetList(x, opts, metadata, spec)))]
+                       PodPresetList(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1/StorageClass":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1/StorageClass:{x}",
-                       StorageClass(x, opts, metadata, spec)))]
+                       StorageClass(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1/StorageClassList":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1/StorageClassList:{x}",
-                       StorageClassList(x, opts, metadata, spec)))]
+                       StorageClassList(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1/VolumeAttachment":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1/VolumeAttachment:{x}",
-                       VolumeAttachment(x, opts, metadata, spec)))]
+                       VolumeAttachment(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1/VolumeAttachmentList":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1/VolumeAttachmentList:{x}",
-                       VolumeAttachmentList(x, opts, metadata, spec)))]
+                       VolumeAttachmentList(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1alpha1/VolumeAttachment":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1alpha1/VolumeAttachment:{x}",
-                       VolumeAttachment(x, opts, metadata, spec)))]
+                       VolumeAttachment(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1alpha1/VolumeAttachmentList":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1alpha1/VolumeAttachmentList:{x}",
-                       VolumeAttachmentList(x, opts, metadata, spec)))]
+                       VolumeAttachmentList(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/CSIDriver":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/CSIDriver:{x}",
-                       CSIDriver(x, opts, metadata, spec)))]
+                       CSIDriver(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/CSIDriverList":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/CSIDriverList:{x}",
-                       CSIDriverList(x, opts, metadata, spec)))]
+                       CSIDriverList(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/CSINode":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/CSINode:{x}",
-                       CSINode(x, opts, metadata, spec)))]
+                       CSINode(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/CSINodeList":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/CSINodeList:{x}",
-                       CSINodeList(x, opts, metadata, spec)))]
+                       CSINodeList(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/StorageClass":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/StorageClass:{x}",
-                       StorageClass(x, opts, metadata, spec)))]
+                       StorageClass(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/StorageClassList":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/StorageClassList:{x}",
-                       StorageClassList(x, opts, metadata, spec)))]
+                       StorageClassList(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/VolumeAttachment":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/VolumeAttachment:{x}",
-                       VolumeAttachment(x, opts, metadata, spec)))]
+                       VolumeAttachment(x, opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/VolumeAttachmentList":
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/VolumeAttachmentList:{x}",
-                       VolumeAttachmentList(x, opts, metadata, spec)))]
+                       VolumeAttachmentList(x, opts, **obj)))]
     return [identifier.apply(
         lambda x: (f"{gvk}:{x}",
                    CustomResource(x, opts, api_version, kind, metadata, spec)))]

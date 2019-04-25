@@ -26,8 +26,8 @@ class ConfigFile(pulumi.ComponentResource):
     :param str name: A name for a resource.
     :param str file_id: Path or a URL that uniquely identifies a file.
     :param Optional[ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-    :param List[Callable] transformations: A set of transformations to apply to Kubernetes resource definitions
-           before registering with engine.
+    :param Optional[List[Callable]] transformations: A set of transformations to apply to Kubernetes
+           resource definitions before registering with engine.
     """
 
     def __init__(self, name: str, file_id: str, opts: Optional[pulumi.ResourceOptions] = None,
@@ -120,6 +120,10 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
     api_version = obj["apiVersion"]
     kind = obj["kind"]
 
+    # Don't pass these items as kwargs to the resource classes.
+    del obj['apiVersion']
+    del obj['kind']
+
     if kind.endswith("List"):
         objs = []
         if "items" in obj:
@@ -130,6 +134,12 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
     if "metadata" not in obj or "name" not in obj["metadata"]:
         raise Exception("YAML object does not have a .metadata.name: {}/{} {}".format(
             api_version, kind, json.dumps(obj)))
+
+    # Convert obj keys to Python casing
+    for key in obj:
+        new_key = tables._CASING_FORWARD_TABLE.get(key) or key
+        if new_key != key:
+            obj[new_key] = obj.pop(key)
 
     metadata = obj["metadata"]
     spec = obj.get("spec")
@@ -145,7 +155,7 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
     if gvk == "{{RawAPIVersion}}/{{Kind}}":
         return [identifier.apply(
             lambda x: (f"{{RawAPIVersion}}/{{Kind}}:{x}",
-                       {{Kind}}(x, opts, metadata, spec)))]
+                       {{Kind}}(x, opts, **obj)))]
 {{/Kinds}}
 {{/Versions}}
 {{/Groups}}
