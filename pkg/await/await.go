@@ -285,7 +285,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// Issue patch request.
 	// NOTE: We can use the same client because if the `kind` changes, this will cause
 	// a replace (i.e., destroy and create).
-	currentOutputs, err := client.Patch(c.Inputs.GetName(), patchType, patch, metav1.UpdateOptions{})
+	currentOutputs, err := client.Patch(c.Inputs.GetName(), patchType, patch, metav1.PatchOptions{})
 	if err != nil {
 		return nil, err
 	}
