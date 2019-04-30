@@ -1,4 +1,6 @@
-## 0.22.3 (Unreleased)
+## 0.23.1 (Unreleased)
+
+## 0.23.0 (April 30, 2019)
 
 ### Supported Kubernetes versions
 
@@ -6,11 +8,18 @@
 - v1.13.x
 - v1.12.x
 
+### Important
+
+This release fixes a longstanding issue with the provider namespace flag. Previously, this
+flag was erroneously ignored, but will now cause any resources using this provider to be
+created in the specified namespace. **This may cause resources to be recreated!** Unset the
+namespace parameter to avoid this behavior. Also note that this parameter takes precedence
+over any namespace defined on the underlying resource.
+
+The Python SDK now supports YAML manifests and Helm charts, including `CustomResourceDefinitions`
+and `CustomResources`!
+
 ### Major changes
-
--   None
-
-### Improvements
 
 -   Put all resources in specified provider namespace (https://github.com/pulumi/pulumi-kubernetes/pull/538)
 -   Add Helm support to Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/544)
