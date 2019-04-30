@@ -382,11 +382,6 @@ class Chart(pulumi.ComponentResource):
     unlike a "normal" Pulumi program, updating a ConfigMap does not trigger a cascading update
     among Deployments that reference it.
 
-    NOTE: `Chart` will attempt to sort the resources in the same way that Helm does, to ensure
-    that (e.g.) namespaces are created before things that are in them. But, because the Pulumi
-    engine delivers the these calls asynchronously, they could arrive "somewhat" out of order.
-    This should not affect many Helm charts.
-
     :param str release_name: Name of the Chart (e.g., nginx-ingress).
     :param Union[ChartOpts, LocalChartOpts] config: Configuration options for the Chart.
     :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
