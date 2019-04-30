@@ -26,6 +26,9 @@ __all__ = [
     "scheduling",
     "settings",
     "storage",
+    "helm",
+    "provider",
+    "yaml",
 ]
 
 # Expose the provider directly.
