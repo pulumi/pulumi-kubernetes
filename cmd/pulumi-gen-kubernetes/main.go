@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/gen"
 )
@@ -135,55 +136,61 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 }
 
 func writePythonClient(data map[string]interface{}, outdir, templateDir string) {
+	sdkDir := filepath.Join(outdir, "pulumi_kubernetes")
+
 	err := gen.PythonClient(data, templateDir,
 		func(initPy string) error {
-			return ioutil.WriteFile(
-				fmt.Sprintf("%s/pulumi_kubernetes/__init__.py", outdir), []byte(initPy), 0777)
+			return ioutil.WriteFile(filepath.Join(sdkDir, "__init__.py"), []byte(initPy), 0777)
 		},
 		func(group, initPy string) error {
-			path := fmt.Sprintf("%s/pulumi_kubernetes/%s", outdir, group)
+			destDir := filepath.Join(sdkDir, group)
 
-			err := os.MkdirAll(path, 0700)
+			err := os.MkdirAll(destDir, 0700)
 			if err != nil {
 				return err
 			}
 
-			return ioutil.WriteFile(fmt.Sprintf("%s/__init__.py", path), []byte(initPy), 0777)
+			return ioutil.WriteFile(filepath.Join(destDir, "__init__.py"), []byte(initPy), 0777)
 		},
 		func(crBytes string) error {
-			path := fmt.Sprintf("%s/pulumi_kubernetes/apiextensions", outdir)
+			destDir := filepath.Join(sdkDir, "apiextensions")
 
-			err := os.MkdirAll(path, 0700)
+			err := os.MkdirAll(destDir, 0700)
 			if err != nil {
 				return err
 			}
 
 			return ioutil.WriteFile(
-				fmt.Sprintf("%s/pulumi_kubernetes/apiextensions/CustomResource.py", outdir),
+				filepath.Join(destDir, "CustomResource.py"),
 				[]byte(crBytes), 0777)
 		},
 		func(group, version, initPy string) error {
-			path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s", outdir, group, version)
+			destDir := filepath.Join(sdkDir, group, version)
 
-			err := os.MkdirAll(path, 0700)
+			err := os.MkdirAll(destDir, 0700)
 			if err != nil {
 				return err
 			}
 
-			return ioutil.WriteFile(fmt.Sprintf("%s/__init__.py", path), []byte(initPy), 0777)
+			return ioutil.WriteFile(filepath.Join(destDir, "__init__.py"), []byte(initPy), 0777)
 		},
 		func(group, version, kind, kindPy string) error {
-			path := fmt.Sprintf("%s/pulumi_kubernetes/%s/%s/%s.py", outdir, group, version, kind)
-			return ioutil.WriteFile(path, []byte(kindPy), 0777)
+			destDir := filepath.Join(sdkDir, group, version, fmt.Sprintf("%s.py", kind))
+			return ioutil.WriteFile(destDir, []byte(kindPy), 0777)
 		},
 		func(casingPy string) error {
-			return ioutil.WriteFile(
-				fmt.Sprintf("%s/pulumi_kubernetes/tables.py", outdir), []byte(casingPy), 0777)
+			destDir := filepath.Join(sdkDir, "tables.py")
+			return ioutil.WriteFile(destDir, []byte(casingPy), 0777)
 		},
 		func(yamlPy string) error {
-			return ioutil.WriteFile(
-				fmt.Sprintf("%s/pulumi_kubernetes/yaml.py", outdir), []byte(yamlPy), 0777)
+			destDir := filepath.Join(sdkDir, "yaml.py")
+			return ioutil.WriteFile(destDir, []byte(yamlPy), 0777)
 		})
+	if err != nil {
+		panic(err)
+	}
+
+	err = CopyDir(filepath.Join(templateDir, "helm"), filepath.Join(sdkDir, "helm"))
 	if err != nil {
 		panic(err)
 	}

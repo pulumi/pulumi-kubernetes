@@ -13,6 +13,7 @@
 ### Improvements
 
 -   Put all resources in specified provider namespace (https://github.com/pulumi/pulumi-kubernetes/pull/538)
+-   Add Helm support to Python SDK (https://github.com/pulumi/pulumi-kubernetes/pull/544)
 
 ### Bug fixes
 
