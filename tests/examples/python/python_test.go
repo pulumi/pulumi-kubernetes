@@ -21,13 +21,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/testing/integration"
 	"github.com/pulumi/pulumi/pkg/tokens"
+	"github.com/stretchr/testify/assert"
 )
 
 var baseOptions = &integration.ProgramTestOptions{
@@ -253,6 +252,22 @@ func TestProvider(t *testing.T) {
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir: filepath.Join(cwd, "provider"),
+	})
+	integration.ProgramTest(t, &options)
+}
+
+func TestHelm(t *testing.T) {
+	kubectx := os.Getenv("KUBERNETES_CONTEXT")
+	if kubectx == "" {
+		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
+	}
+
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join(cwd, "helm"),
 	})
 	integration.ProgramTest(t, &options)
 }
