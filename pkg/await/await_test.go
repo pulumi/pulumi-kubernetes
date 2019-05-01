@@ -80,7 +80,7 @@ func (mri *mockResourceInterface) Watch(opts metav1.ListOptions) (watch.Interfac
 	panic("Watch not implemented")
 }
 func (mri *mockResourceInterface) Patch(
-	name string, pt types.PatchType, data []byte, options metav1.UpdateOptions, subresources ...string,
+	name string, pt types.PatchType, data []byte, options metav1.PatchOptions, subresources ...string,
 ) (*unstructured.Unstructured, error) {
 	panic("Patch not implemented")
 }

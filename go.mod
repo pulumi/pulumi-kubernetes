@@ -27,12 +27,13 @@ require (
 	github.com/yudai/gojsondiff v1.0.0
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	google.golang.org/grpc v1.20.1
-	k8s.io/api v0.0.0-20181204000039-89a74a8d264d
-	k8s.io/apimachinery v0.0.0-20181127025237-2b1284ed4c93
-	k8s.io/client-go v10.0.0+incompatible
+	k8s.io/api v0.0.0-20190313235455-40a48860b5ab
+	k8s.io/apimachinery v0.0.0-20190313205120-d7deff9243b1
+	k8s.io/client-go v11.0.0+incompatible
 	k8s.io/klog v0.3.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20190418160015-6b3d3b2d5666
 	k8s.io/kubernetes v1.14.1
+	k8s.io/utils v0.0.0-20190308190857-21c4ce38f2a7 // indirect
 	sigs.k8s.io/kustomize v1.0.11 // indirect
 	sigs.k8s.io/yaml v1.1.0 // indirect
 )

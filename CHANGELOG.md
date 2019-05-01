@@ -1,5 +1,23 @@
 ## 0.23.1 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.14.x
+- v1.13.x
+- v1.12.x
+
+### Major changes
+
+-   None
+
+### Improvements
+
+-   Update to use client-go v11.0.0 (https://github.com/pulumi/pulumi-kubernetes/pull/549)
+
+### Bug fixes
+
+-   None
+
 ## 0.23.0 (April 30, 2019)
 
 ### Supported Kubernetes versions
