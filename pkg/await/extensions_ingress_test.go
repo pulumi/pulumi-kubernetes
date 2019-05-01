@@ -127,7 +127,9 @@ func Test_Extensions_Ingress(t *testing.T) {
 		timeout := make(chan time.Time)
 		go test.do(ingresses, services, endpoints, settled, timeout)
 
-		err := awaiter.await(&chanWatcher{results: ingresses}, &chanWatcher{results: services}, &chanWatcher{results: endpoints}, settled, timeout)
+		err := awaiter.await(
+			&chanWatcher{results: ingresses}, &chanWatcher{results: services}, &chanWatcher{results: endpoints},
+			settled, timeout)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }

@@ -153,11 +153,11 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	}
 	defer podWatcher.Stop()
 
-	period := time.NewTicker(10 * time.Second)
-	defer period.Stop()
+	aggregateErrorTicker := time.NewTicker(10 * time.Second)
+	defer aggregateErrorTicker.Stop()
 
 	timeout := time.Duration(metadata.TimeoutSeconds(sia.config.currentInputs, 5*60)) * time.Second
-	return sia.await(statefulSetWatcher, podWatcher, time.After(timeout), period.C)
+	return sia.await(statefulSetWatcher, podWatcher, time.After(timeout), aggregateErrorTicker.C)
 }
 
 func (sia *statefulsetInitAwaiter) Read() error {
@@ -219,7 +219,8 @@ func (sia *statefulsetInitAwaiter) read(
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (sia *statefulsetInitAwaiter) await(
-	statefulsetWatcher, podWatcher watch.Interface, timeout, period <-chan time.Time,
+	statefulsetWatcher, podWatcher watch.Interface,
+	timeout, aggregateErrorTicker <-chan time.Time,
 ) error {
 	for {
 		if sia.checkAndLogStatus() {
@@ -238,7 +239,7 @@ func (sia *statefulsetInitAwaiter) await(
 				object:    sia.statefulset,
 				subErrors: sia.errorMessages(),
 			}
-		case <-period:
+		case <-aggregateErrorTicker:
 			scheduleErrors, containerErrors := sia.aggregatePodErrors()
 			for _, message := range scheduleErrors {
 				sia.config.logStatus(diag.Warning, message)
@@ -275,7 +276,8 @@ func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
 			sia.config.logStatus(diag.Info, fmt.Sprintf("[1/3] Waiting for StatefulSet update to roll out (%d/%d Pods ready)",
 				sia.currentReplicas, sia.targetReplicas))
 		case !sia.revisionReady:
-			sia.config.logStatus(diag.Info, "[2/3] Waiting for StatefulSet to update .status.currentRevision")
+			sia.config.logStatus(diag.Info,
+				"[2/3] Waiting for StatefulSet to update .status.currentRevision")
 		}
 	}
 

@@ -22,6 +22,7 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/watcher"
 	"github.com/pulumi/pulumi/pkg/diag"
@@ -44,15 +45,14 @@ type createAwaitConfig struct {
 	host           *provider.HostClient
 	ctx            context.Context
 	urn            resource.URN
+	logger         *logging.DedupLogger
 	clientSet      *clients.DynamicClientSet
 	currentInputs  *unstructured.Unstructured
 	currentOutputs *unstructured.Unstructured
 }
 
 func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
-	if cac.host != nil {
-		_ = cac.host.LogStatus(cac.ctx, sev, cac.urn, message)
-	}
+	cac.logger.LogMessage(sev, message)
 }
 
 // updateAwaitConfig specifies on which conditions we are to consider a resource "fully updated",

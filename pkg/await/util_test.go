@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -13,6 +14,7 @@ func mockAwaitConfig(inputs *unstructured.Unstructured) createAwaitConfig {
 		//TODO: complete this mock if needed
 		currentInputs:  inputs,
 		currentOutputs: inputs,
+		logger:         logging.NewLogger(context.Background(), nil, ""),
 	}
 }
 

@@ -557,8 +557,9 @@ func Test_Apps_Deployment(t *testing.T) {
 		period := make(chan time.Time)
 		go test.do(deployments, replicaSets, pods, timeout)
 
-		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
-			&chanWatcher{results: pods}, &chanWatcher{}, timeout, period)
+		err := awaiter.await(
+			&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets}, &chanWatcher{results: pods},
+			&chanWatcher{}, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
