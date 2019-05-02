@@ -16,7 +16,7 @@
 
 ### Bug fixes
 
--   None
+-   Fix namespaceable check for diff (https://github.com/pulumi/pulumi-kubernetes/pull/554)
 
 ## 0.23.0 (April 30, 2019)
 

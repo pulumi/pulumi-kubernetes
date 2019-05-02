@@ -392,7 +392,14 @@ func (k *kubeProvider) Diff(
 
 	namespacedKind, err := k.clientSet.IsNamespacedKind(gvk)
 	if err != nil {
-		return nil, err
+		if clients.IsNoNamespaceInfoErr(err) {
+			// This is probably a CustomResource without a registered CustomResourceDefinition.
+			// Since we can't tell for sure at this point, assume it is namespaced, and correct if
+			// required during the Create step.
+			namespacedKind = true
+		} else {
+			return nil, err
+		}
 	}
 
 	if namespacedKind {
