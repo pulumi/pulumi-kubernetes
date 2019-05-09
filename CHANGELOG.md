@@ -8,6 +8,7 @@
 ### Improvements
 
 -   Enable configuring `ResourceOptions` via `transformations` (https://github.com/pulumi/pulumi-kubernetes/pull/575).
+-   Implement CheckConfig/DiffConfig (https://github.com/pulumi/pulumi-kubernetes/pull/577).
 
 ### Bug fixes
 

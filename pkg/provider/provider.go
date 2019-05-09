@@ -19,12 +19,12 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"reflect"
 	"strings"
 
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	"github.com/grpc/grpc-go/status"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
@@ -109,12 +109,80 @@ func makeKubeProvider(
 
 // CheckConfig validates the configuration for this provider.
 func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "CheckConfig is not yet implemented")
+	// TODO: Check for failures if needed.
+	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
 }
 
 // DiffConfig diffs the configuration for this provider.
 func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "DiffConfig is not yet implemented")
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.DiffConfig(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
+	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.olds", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.news", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	oldConfig, err := parseKubeconfigString(strings.Trim(olds["kubeconfig"].String(), "{}"))
+	if err != nil {
+		return nil, err
+	}
+	newConfig, err := parseKubeconfigString(strings.Trim(news["kubeconfig"].String(), "{}"))
+	if err != nil {
+		return nil, err
+	}
+
+	var diffs []string
+
+	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
+	// changed. k8s clusters do not have a well defined identity, so the best we can do is check
+	// if the server endpoint has changed. This is not a foolproof method; a trivial counterexample
+	// is changing the loadbalancer or DNS entry pointing to the same cluster.
+	//
+	// Given this limitation, we try to strike a reasonable balance by planning a replacement iff
+	// the `clusters` or `current-context` configs in the kubeconfig change. This could still plan
+	// an erroneous replacement, but should work for the majority of cases.
+	//
+	// The alternative of ignoring changes to the kubeconfig is untenable; if the k8s cluster has
+	// changed, any dependent resources must be recreated, and ignoring changes prevents that from
+	// happening.
+	if !reflect.DeepEqual(oldConfig.Clusters, newConfig.Clusters) ||
+		!reflect.DeepEqual(oldConfig.CurrentContext, newConfig.CurrentContext) {
+		diffs = append(diffs, "kubeconfig")
+	}
+
+	if !reflect.DeepEqual(olds["cluster"], news["cluster"]) {
+		diffs = append(diffs, "cluster")
+	}
+
+	if !reflect.DeepEqual(olds["context"], news["context"]) {
+		diffs = append(diffs, "context")
+	}
+
+	if len(diffs) > 0 {
+		return &pulumirpc.DiffResponse{
+			Changes:  pulumirpc.DiffResponse_DIFF_SOME,
+			Diffs:    diffs,
+			Replaces: diffs,
+		}, nil
+	}
+
+	return &pulumirpc.DiffResponse{
+		Changes: pulumirpc.DiffResponse_DIFF_NONE,
+	}, nil
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.
@@ -1027,3 +1095,20 @@ func canonicalNamespace(ns string) string {
 
 // deleteResponse causes the resource to be deleted from the state.
 var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
+
+// parseKubeconfigString takes a raw kubeconfig (YAML or JSON) string and attempts to unmarshal it into
+// a Config struct.
+func parseKubeconfigString(kubeconfig string) (*clientapi.Config, error) {
+	// If the kubeconfig is loaded as a config value by Pulumi,
+	// the string can be `"<nil>"` rather than simply `""`.
+	if len(kubeconfig) == 0 || kubeconfig == "<nil>" {
+		return &clientapi.Config{}, nil
+	}
+
+	config, err := clientcmd.Load([]byte(kubeconfig))
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
+	}
+
+	return config, nil
+}
