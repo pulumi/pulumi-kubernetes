@@ -206,8 +206,10 @@ func (sia *serviceInitAwaiter) read(
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (sia *serviceInitAwaiter) await(
-	serviceWatcher, endpointWatcher watch.Interface, timeout <-chan time.Time,
-	settled chan struct{}, version serverVersion,
+	serviceWatcher, endpointWatcher watch.Interface,
+	timeout <-chan time.Time,
+	settled chan struct{},
+	version serverVersion,
 ) error {
 	sia.config.logStatus(diag.Info, "[1/3] Finding Pods to direct traffic to")
 

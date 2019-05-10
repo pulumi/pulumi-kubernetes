@@ -186,8 +186,11 @@ func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoint
 }
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
-func (iia *ingressInitAwaiter) await(ingressWatcher, serviceWatcher, endpointWatcher watch.Interface,
-	settled chan struct{}, timeout <-chan time.Time) error {
+func (iia *ingressInitAwaiter) await(
+	ingressWatcher, serviceWatcher, endpointWatcher watch.Interface,
+	settled chan struct{},
+	timeout <-chan time.Time,
+) error {
 	iia.config.logStatus(diag.Info, "[1/3] Finding a matching service for each Ingress path")
 
 	for {

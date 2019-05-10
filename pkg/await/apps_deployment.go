@@ -178,11 +178,12 @@ func (dia *deploymentInitAwaiter) Await() error {
 	}
 	defer pvcWatcher.Stop()
 
-	period := time.NewTicker(10 * time.Second)
-	defer period.Stop()
+	aggregateErrorTicker := time.NewTicker(10 * time.Second)
+	defer aggregateErrorTicker.Stop()
 
 	timeout := time.Duration(metadata.TimeoutSeconds(dia.config.currentInputs, 5*60)) * time.Second
-	return dia.await(deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher, time.After(timeout), period.C)
+	return dia.await(
+		deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher, time.After(timeout), aggregateErrorTicker.C)
 }
 
 func (dia *deploymentInitAwaiter) Read() error {
@@ -275,7 +276,8 @@ func (dia *deploymentInitAwaiter) read(
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (dia *deploymentInitAwaiter) await(
-	deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher watch.Interface, timeout, period <-chan time.Time,
+	deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher watch.Interface,
+	timeout, aggregateErrorTicker <-chan time.Time,
 ) error {
 	dia.config.logStatus(diag.Info, "[1/2] Waiting for app ReplicaSet be marked available")
 
@@ -296,7 +298,7 @@ func (dia *deploymentInitAwaiter) await(
 				object:    dia.deployment,
 				subErrors: dia.errorMessages(),
 			}
-		case <-period:
+		case <-aggregateErrorTicker:
 			scheduleErrors, containerErrors := dia.aggregatePodErrors()
 			for _, message := range scheduleErrors {
 				dia.config.logStatus(diag.Warning, message)
@@ -586,7 +588,8 @@ func (dia *deploymentInitAwaiter) checkPersistentVolumeClaimStatus() {
 		// defined, or when all PVCs have a status of 'Bound'
 		if phase != statusBound {
 			allPVCsReady = false
-			message := fmt.Sprintf("PersistentVolumeClaim: [%s] is not ready. status.phase currently at: %s", pvc.GetName(), phase)
+			message := fmt.Sprintf(
+				"PersistentVolumeClaim: [%s] is not ready. status.phase currently at: %s", pvc.GetName(), phase)
 			dia.config.logStatus(diag.Warning, message)
 		}
 	}

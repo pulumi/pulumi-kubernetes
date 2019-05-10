@@ -13,6 +13,7 @@
 ### Improvements
 
 -   Update to use client-go v11.0.0 (https://github.com/pulumi/pulumi-kubernetes/pull/549)
+-   Deduplicate provider logs (https://github.com/pulumi/pulumi-kubernetes/pull/558)
 
 ### Bug fixes
 

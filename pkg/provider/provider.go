@@ -27,6 +27,7 @@ import (
 	"github.com/grpc/grpc-go/status"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/resource"
@@ -480,10 +481,11 @@ func (k *kubeProvider) Create(
 
 	config := await.CreateConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:   k.canceler.context,
-			Host:      k.host,
-			URN:       resource.URN(req.GetUrn()),
-			ClientSet: k.clientSet,
+			Context:     k.canceler.context,
+			Host:        k.host,
+			URN:         urn,
+			ClientSet:   k.clientSet,
+			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
 		},
 		Inputs: newInputs,
 	}
@@ -581,10 +583,11 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	config := await.ReadConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:   k.canceler.context,
-			Host:      k.host,
-			URN:       resource.URN(req.GetUrn()),
-			ClientSet: k.clientSet,
+			Context:     k.canceler.context,
+			Host:        k.host,
+			URN:         urn,
+			ClientSet:   k.clientSet,
+			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
 		},
 		Inputs: oldInputs,
 		Name:   name,
@@ -736,10 +739,11 @@ func (k *kubeProvider) Update(
 
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:   k.canceler.context,
-			Host:      k.host,
-			URN:       resource.URN(req.GetUrn()),
-			ClientSet: k.clientSet,
+			Context:     k.canceler.context,
+			Host:        k.host,
+			URN:         urn,
+			ClientSet:   k.clientSet,
+			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
 		},
 		Previous: oldInputs,
 		Inputs:   newInputs,
@@ -803,14 +807,15 @@ func (k *kubeProvider) Delete(
 		return nil, err
 	}
 	_, current := parseCheckpointObject(oldState)
-
 	_, name := ParseFqName(req.GetId())
+
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:   k.canceler.context,
-			Host:      k.host,
-			URN:       resource.URN(req.GetUrn()),
-			ClientSet: k.clientSet,
+			Context:     k.canceler.context, // TODO: should this just be ctx from the args?
+			Host:        k.host,
+			URN:         urn,
+			ClientSet:   k.clientSet,
+			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
 		},
 		Inputs: current,
 		Name:   name,

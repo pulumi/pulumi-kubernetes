@@ -20,6 +20,7 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/retry"
@@ -52,7 +53,8 @@ type ProviderConfig struct {
 	Host    *pulumiprovider.HostClient
 	URN     resource.URN
 
-	ClientSet *clients.DynamicClientSet
+	ClientSet   *clients.DynamicClientSet
+	DedupLogger *logging.DedupLogger
 }
 
 type CreateConfig struct {
@@ -146,6 +148,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					clientSet:      c.ClientSet,
 					currentInputs:  c.Inputs,
 					currentOutputs: outputs,
+					logger:         c.DedupLogger,
 				}
 				waitErr := awaiter.awaitCreation(conf)
 				if waitErr != nil {
@@ -191,6 +194,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 					clientSet:      c.ClientSet,
 					currentInputs:  c.Inputs,
 					currentOutputs: outputs,
+					logger:         c.DedupLogger,
 				}
 				waitErr := awaiter.awaitRead(conf)
 				if waitErr != nil {
@@ -307,6 +311,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						clientSet:      c.ClientSet,
 						currentInputs:  c.Inputs,
 						currentOutputs: currentOutputs,
+						logger:         c.DedupLogger,
 					},
 					lastInputs:  c.Previous,
 					lastOutputs: liveOldObj,
