@@ -61,3 +61,58 @@ func PodBasic() *podBasic {
 		},
 	}
 }
+
+func PodBase(name, namespace string) *corev1.Pod {
+	return &corev1.Pod{
+		TypeMeta: v1.TypeMeta{
+			APIVersion: "v1",
+			Kind:       "Pod",
+		},
+		ObjectMeta: v1.ObjectMeta{
+			Name:      name,
+			Namespace: namespace,
+		},
+		Spec: corev1.PodSpec{
+			Containers: []corev1.Container{
+				{
+					Name:  "nginx",
+					Image: "nginx:1.15-alpine",
+				},
+			},
+		},
+	}
+}
+
+func PodScheduled(name, namespace string) *corev1.Pod {
+	pod := PodBase(name, namespace)
+	pod.Status = corev1.PodStatus{
+		Phase: corev1.PodPending,
+		Conditions: []corev1.PodCondition{
+			{
+				Type:   corev1.PodScheduled,
+				Status: corev1.ConditionTrue,
+			},
+		},
+		QOSClass: corev1.PodQOSBurstable,
+	}
+
+	return pod
+}
+
+func PodUnscheduled(name, namespace string) *corev1.Pod {
+	pod := PodBase(name, namespace)
+	pod.Status = corev1.PodStatus{
+			Phase: corev1.PodPending,
+			Conditions: []corev1.PodCondition{
+				{
+					Type:    corev1.PodScheduled,
+					Status:  corev1.ConditionFalse,
+					Reason:  "Unschedulable",
+					Message: "No nodes are available that match all of the predicates: Insufficient cpu (3).",
+				},
+			},
+			QOSClass: corev1.PodQOSBurstable,
+		}
+
+	return pod
+}

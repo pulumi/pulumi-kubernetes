@@ -7,8 +7,10 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
@@ -240,13 +242,9 @@ func (sia *statefulsetInitAwaiter) await(
 				subErrors: sia.errorMessages(),
 			}
 		case <-aggregateErrorTicker:
-			scheduleErrors, containerErrors := sia.aggregatePodErrors()
-			for _, message := range scheduleErrors {
-				sia.config.logStatus(diag.Warning, message)
-			}
-
-			for _, message := range containerErrors {
-				sia.config.logStatus(diag.Warning, message)
+			messages := sia.aggregatePodErrors()
+			for _, message := range messages {
+				sia.config.logMessage(message)
 			}
 		case event := <-statefulsetWatcher.ResultChan():
 			sia.processStatefulSetEvent(event)
@@ -392,45 +390,26 @@ func (sia *statefulsetInitAwaiter) processPodEvent(event watch.Event) {
 	sia.pods[podName] = pod
 }
 
-func (sia *statefulsetInitAwaiter) aggregatePodErrors() ([]string, []string) {
-	scheduleErrorCounts := map[string]int{}
-	containerErrorCounts := map[string]int{}
-	for _, pod := range sia.pods {
+func (sia *statefulsetInitAwaiter) aggregatePodErrors() logging.Messages {
+	var messages logging.Messages
+	for _, unstructuredPod := range sia.pods {
 		// Filter down to only Pods owned by the active StatefulSet.
-		if !isOwnedBy(pod, sia.statefulset) {
+		if !isOwnedBy(unstructuredPod, sia.statefulset) {
 			continue
 		}
 
 		// Check the pod for errors.
-		checker := makePodChecker()
-		checker.check(pod)
-
-		for reason, message := range checker.podScheduledErrors {
-			message = fmt.Sprintf("[%s] %s", reason, message)
-			scheduleErrorCounts[message] = scheduleErrorCounts[message] + 1
+		checker := states.NewPodChecker()
+		pod, err := clients.PodFromUnstructured(unstructuredPod)
+		if err != nil {
+			panic(err)
+			glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
+			return nil
 		}
-
-		for reason, messages := range checker.containerErrors {
-			for _, message := range messages {
-				message = fmt.Sprintf("[%s] %s", reason, message)
-				containerErrorCounts[message] = containerErrorCounts[message] + 1
-			}
-		}
+		messages = append(messages, checker.Update(pod).Warnings()...)
 	}
 
-	scheduleErrors := make([]string, 0)
-	for message, count := range scheduleErrorCounts {
-		message = fmt.Sprintf("%d Pods failed to schedule because: %s", count, message)
-		scheduleErrors = append(scheduleErrors, message)
-	}
-
-	containerErrors := make([]string, 0)
-	for message, count := range containerErrorCounts {
-		message = fmt.Sprintf("%d Pods failed to run because: %s", count, message)
-		containerErrors = append(containerErrors, message)
-	}
-
-	return scheduleErrors, containerErrors
+	return messages
 }
 
 func (sia *statefulsetInitAwaiter) errorMessages() []string {
@@ -445,9 +424,10 @@ func (sia *statefulsetInitAwaiter) errorMessages() []string {
 			".status.currentRevision does not match .status.updateRevision")
 	}
 
-	scheduleErrors, containerErrors := sia.aggregatePodErrors()
-	messages = append(messages, scheduleErrors...)
-	messages = append(messages, containerErrors...)
+	errorMessages := sia.aggregatePodErrors()
+	for _, message := range errorMessages {
+		messages = append(messages, message.S)
+	}
 
 	return messages
 }

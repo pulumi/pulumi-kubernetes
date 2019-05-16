@@ -8,6 +8,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
+// TODO: move this
 func mockAwaitConfig(inputs *unstructured.Unstructured) createAwaitConfig {
 	return createAwaitConfig{
 		ctx: context.Background(),
@@ -18,6 +19,7 @@ func mockAwaitConfig(inputs *unstructured.Unstructured) createAwaitConfig {
 	}
 }
 
+// TODO: move this
 func decodeUnstructured(text string) (*unstructured.Unstructured, error) {
 	obj, _, err := unstructured.UnstructuredJSONScheme.Decode([]byte(text), nil, nil)
 	if err != nil {

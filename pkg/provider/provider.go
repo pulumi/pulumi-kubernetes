@@ -694,7 +694,7 @@ func (k *kubeProvider) Create(
 	}
 
 	return &pulumirpc.CreateResponse{
-		Id: FqObjName(initialized), Properties: inputsAndComputed,
+		Id: fqObjName(initialized), Properties: inputsAndComputed,
 	}, nil
 }
 
@@ -801,7 +801,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	liveInputs := parseLiveInputs(liveObj, oldInputs)
 
 	// TODO(lblackstone): not sure why this is needed
-	id := FqObjName(liveObj)
+	id := fqObjName(liveObj)
 	if reqID := req.GetId(); len(reqID) > 0 {
 		id = reqID
 	}
@@ -996,7 +996,7 @@ func (k *kubeProvider) Delete(
 		return nil, err
 	}
 	_, current := parseCheckpointObject(oldState)
-	_, name := ParseFqName(req.GetId())
+	_, name := parseFqName(req.GetId())
 
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{

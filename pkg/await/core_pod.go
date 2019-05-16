@@ -1,18 +1,15 @@
 package await
 
 import (
-	"fmt"
-	"reflect"
-	"strings"
 	"time"
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
-	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
-	"github.com/pulumi/pulumi/pkg/diag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
@@ -88,240 +85,6 @@ import (
 
 // --------------------------------------------------------------------------
 
-// podChecker receives a Pod and will check its validity. Unlike the complex awaiter for v1/Service,
-// we factor this out as a separate piece so that we can aggregate statuses from many pods together
-// for apps/v1/Deployment.
-type podChecker struct {
-	podScheduled       bool
-	podScheduledErrors map[string]string
-	podInitialized     bool
-	podInitErrors      map[string]string
-	podReady           bool
-	podReadyErrors     map[string]string
-	podSuccess         bool
-	containerErrors    map[string][]string
-}
-
-func makePodChecker() *podChecker {
-	return &podChecker{
-		podScheduled:       false,
-		podScheduledErrors: map[string]string{},
-		podInitialized:     false,
-		podInitErrors:      map[string]string{},
-		podReady:           false,
-		podReadyErrors:     map[string]string{},
-		containerErrors:    map[string][]string{},
-	}
-}
-
-func (pc *podChecker) check(pod *unstructured.Unstructured) {
-	// Attempt to get status to check if pod is ready.
-	rawStatus, hasStatus := openapi.Pluck(pod.Object, "status")
-	if !hasStatus {
-		// No status, kubelet has not yet started to initialize Pod. Do nothing.
-		return
-	}
-	status, isMap := rawStatus.(map[string]interface{})
-	if !isMap {
-		glog.V(3).Infof("Pod watch received unexpected status type %q",
-			reflect.TypeOf(rawStatus))
-		return
-
-	}
-
-	// Alway clear all errors so we start fresh.
-	pc.clearErrors()
-
-	// Check if the pod is ready.
-	switch phase := status["phase"]; phase {
-	case "Running", "Pending", "Failed", "Unknown", nil, "":
-		pc.checkPod(pod, status)
-	case "Succeeded":
-		pc.podSuccess = true
-	default:
-		glog.V(3).Infof("Pod %q has unknown status phase %q",
-			pod.GetName(), phase)
-	}
-}
-
-func (pc *podChecker) checkPod(pod *unstructured.Unstructured, status map[string]interface{}) {
-	rawConditions, exists := status["conditions"]
-	conditions, isSlice := rawConditions.([]interface{})
-	if !exists && !isSlice {
-		// Kubelet has not yet started to initialize Pod. Do nothing.
-		return
-	}
-
-	// Check if Pod was scheduled. If it wasn't, there's no sense in continuing, because there won't
-	// be other errors.
-	for _, rawCondition := range conditions {
-		condition, isMap := rawCondition.(map[string]interface{})
-		if !isMap {
-			glog.V(3).Infof("Pod %q has condition of unknown type: %q", pod.GetName(),
-				reflect.TypeOf(rawCondition))
-			continue
-		}
-		if condition["type"] == "Initialized" {
-			pc.podInitialized = condition["status"] == trueStatus
-			if !pc.podInitialized {
-				errorFromCondition(pc.podInitErrors, condition)
-			}
-		}
-		if condition["type"] == "PodScheduled" {
-			pc.podScheduled = condition["status"] == trueStatus
-			if !pc.podScheduled {
-				errorFromCondition(pc.podScheduledErrors, condition)
-			}
-		}
-		if condition["type"] == "Ready" {
-			pc.podReady = condition["status"] == trueStatus
-			if !pc.podReady {
-				errorFromCondition(pc.podReadyErrors, condition)
-			}
-		}
-	}
-
-	// Collect the errors from any containers that are failing.
-	rawContainerStatuses, exists := status["containerStatuses"]
-	containerStatuses, isSlice := rawContainerStatuses.([]interface{})
-	if !exists || !isSlice {
-		return
-	}
-	for _, rawContainerStatus := range containerStatuses {
-		containerStatus, isMap := rawContainerStatus.(map[string]interface{})
-		if !isMap || containerStatus["ready"] == true {
-			continue
-		}
-
-		// Best effort attempt to get name of container. (This should always succeed and if it
-		// doesn't, it's not worth crashing the provider over).
-		rawName := containerStatus["name"]
-		name, _ := rawName.(string)
-
-		// Process container that's waiting.
-		rawWaiting, isWaiting := openapi.Pluck(containerStatus, "state", "waiting")
-		waiting, isMap := rawWaiting.(map[string]interface{})
-		if isWaiting && rawWaiting != nil && isMap {
-			pc.checkWaitingContainer(name, waiting)
-		}
-
-		// Process container that's terminated.
-		rawTerminated, isTerminated := openapi.Pluck(containerStatus, "state", "terminated")
-		terminated, isMap := rawTerminated.(map[string]interface{})
-		if isTerminated && rawTerminated != nil && isMap {
-			pc.checkTerminatedContainer(name, terminated)
-		}
-	}
-
-	// Exhausted our knowledge of possible error states for Pods. Return.
-}
-
-func (pc *podChecker) checkWaitingContainer(name string, waiting map[string]interface{}) {
-	rawReason, hasReason := waiting["reason"]
-	reason, isString := rawReason.(string)
-	if !hasReason || !isString || reason == "" || reason == "ContainerCreating" {
-		return
-	}
-
-	rawMessage, hasMessage := waiting["message"]
-	message, isString := rawMessage.(string)
-	if !hasMessage || !isString {
-		return
-	}
-
-	// Image pull error has a bunch of useless junk at the beginning of the error message. Try to
-	// remove it.
-	imagePullJunk := "rpc error: code = Unknown desc = Error response from daemon: "
-	message = strings.TrimPrefix(message, imagePullJunk)
-
-	pc.containerErrors[reason] = append(pc.containerErrors[reason], message)
-}
-
-func (pc *podChecker) checkTerminatedContainer(name string, terminated map[string]interface{}) {
-	rawReason, hasReason := terminated["reason"]
-	reason, isString := rawReason.(string)
-	if !hasReason || !isString || reason == "" {
-		return
-	}
-
-	rawMessage, hasMessage := terminated["message"]
-	message, isString := rawMessage.(string)
-	if !hasMessage || !isString {
-		message = fmt.Sprintf("Container completed with exit code %d", terminated["exitCode"])
-	}
-
-	pc.containerErrors[reason] = append(pc.containerErrors[reason], message)
-}
-
-func (pc *podChecker) clearErrors() {
-	pc.podScheduledErrors = map[string]string{}
-	pc.containerErrors = map[string][]string{}
-}
-
-func (pc *podChecker) errorMessages() []string {
-	messages := []string{}
-	for reason, message := range pc.podScheduledErrors {
-		messages = append(messages, podSchedulerError(reason, message))
-	}
-
-	for reason, message := range pc.podInitErrors {
-		messages = append(messages, podUninitializedError(reason, message))
-	}
-
-	for reason, message := range pc.podReadyErrors {
-		messages = append(messages, podNotReadyError(reason, message))
-	}
-
-	for reason, errs := range pc.containerErrors {
-		for _, message := range errs {
-			messages = append(messages, containerError(reason, message))
-		}
-	}
-	return messages
-}
-
-func (pia *podInitAwaiter) logErrors() {
-	for reason, message := range pia.podScheduledErrors {
-		pia.config.logStatus(diag.Warning, podSchedulerError(reason, message))
-	}
-
-	for reason, message := range pia.podInitErrors {
-		// Ignore non-useful status messages.
-		if reason == "ContainersNotInitialized" {
-			continue
-		}
-		pia.config.logStatus(diag.Warning, podUninitializedError(reason, message))
-	}
-
-	for reason, message := range pia.podReadyErrors {
-		// Ignore non-useful status messages.
-		if reason == "ContainersNotReady" {
-			continue
-		}
-		pia.config.logStatus(diag.Warning, podNotReadyError(reason, message))
-	}
-
-	for reason, errs := range pia.containerErrors {
-		for _, message := range errs {
-			pia.config.logStatus(diag.Warning, containerError(reason, message))
-		}
-	}
-}
-
-func errorFromCondition(errs map[string]string, condition map[string]interface{}) {
-	rawReason, hasReason := condition["reason"]
-	reason, isString := rawReason.(string)
-	if !hasReason || !isString {
-		return
-	}
-	rawMessage, hasMessage := condition["message"]
-	message, isString := rawMessage.(string)
-	if !hasMessage || !isString {
-		return
-	}
-	errs[reason] = message
-}
-
 // --------------------------------------------------------------------------
 
 // POD AWAITING. Routines for waiting until a Pod has been initialized correctly.
@@ -329,24 +92,45 @@ func errorFromCondition(errs map[string]string, condition map[string]interface{}
 // --------------------------------------------------------------------------
 
 type podInitAwaiter struct {
-	podChecker
-	pod    *unstructured.Unstructured
-	config createAwaitConfig
+	pod      *unstructured.Unstructured
+	config   createAwaitConfig
+	state    *states.StateChecker
+	messages logging.Messages
 }
 
 func makePodInitAwaiter(c createAwaitConfig) *podInitAwaiter {
 	return &podInitAwaiter{
-		config:     c,
-		pod:        c.currentOutputs,
-		podChecker: *makePodChecker(),
+		config: c,
+		pod:    c.currentOutputs,
+		state:  states.NewPodChecker(),
 	}
 }
 
-func (pia *podInitAwaiter) Await() error {
-	//
-	// We succeed when `.status.phase` is set to "Running".
-	//
+func (pia *podInitAwaiter) errorMessages() []string {
+	var messages []string
+	for _, message := range pia.messages.Warnings() {
+		messages = append(messages, message.S)
+	}
+	for _, message := range pia.messages.Errors() {
+		messages = append(messages, message.S)
+	}
 
+	return messages
+}
+
+func awaitPodInit(c createAwaitConfig) error {
+	return makePodInitAwaiter(c).Await()
+}
+
+func awaitPodRead(c createAwaitConfig) error {
+	return makePodInitAwaiter(c).Read()
+}
+
+func awaitPodUpdate(u updateAwaitConfig) error {
+	return makePodInitAwaiter(u.createAwaitConfig).Await()
+}
+
+func (pia *podInitAwaiter) Await() error {
 	podClient, err := clients.ResourceClient(
 		kinds.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
 	if err != nil {
@@ -388,7 +172,7 @@ func (pia *podInitAwaiter) read(pod *unstructured.Unstructured) error {
 	pia.processPodEvent(watchAddedEvent(pod))
 
 	// Check whether we've succeeded.
-	if pia.checkAndLogStatus() {
+	if pia.state.Ready() {
 		return nil
 	}
 
@@ -400,14 +184,10 @@ func (pia *podInitAwaiter) read(pod *unstructured.Unstructured) error {
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time.Time) error {
-	pia.config.logStatus(diag.Info, "[1/2] Pulling container images")
-
 	for {
-		if pia.checkAndLogStatus() {
+		if pia.state.Ready() {
 			return nil
 		}
-
-		pia.logErrors()
 
 		// Else, wait for updates.
 		select {
@@ -429,10 +209,9 @@ func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time
 }
 
 func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
-	pod, isUnstructured := event.Object.(*unstructured.Unstructured)
-	if !isUnstructured {
-		glog.V(3).Infof("Pod watch received unknown object type %q",
-			reflect.TypeOf(pod))
+	pod, err := clients.PodFromUnstructured(event.Object.(*unstructured.Unstructured))
+	if err != nil {
+		glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 		return
 	}
 
@@ -441,41 +220,8 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 		return
 	}
 
-	// Start over, prove that pod is ready.
-	pia.podReady = false
-
-	// Mark the pod as not ready if it's deleted.
-	if event.Type == watch.Deleted {
-		return
+	messages := pia.state.Update(pod)
+	for _, message := range messages {
+		pia.config.logMessage(message)
 	}
-
-	pia.pod = pod
-
-	pia.check(pod)
-}
-
-func (pia *podInitAwaiter) checkAndLogStatus() bool {
-	if pia.podReady {
-		pia.config.logStatus(diag.Info, "✅ Pod reported ready status")
-	} else if pia.podSuccess {
-		pia.config.logStatus(diag.Info, "✅ Pod completed successfully")
-	}
-
-	return pia.podReady || pia.podSuccess
-}
-
-func podSchedulerError(reason, message string) string {
-	return fmt.Sprintf("Pod unscheduled: [%s] %s", reason, message)
-}
-
-func podUninitializedError(reason, message string) string {
-	return fmt.Sprintf("Pod uninitialized: [%s] %s", reason, message)
-}
-
-func podNotReadyError(reason, message string) string {
-	return fmt.Sprintf("Pod not ready: [%s] %s", reason, message)
-}
-
-func containerError(reason, message string) string {
-	return fmt.Sprintf("[%s] %s", reason, message)
 }

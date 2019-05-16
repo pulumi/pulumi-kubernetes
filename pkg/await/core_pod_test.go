@@ -32,7 +32,7 @@ func Test_Core_Pod(t *testing.T) {
 				// API server successfully adds Pod; pod transitions through various error states
 				// until it successfully reaches running state.
 				pods <- watchAddedEvent(podAdded("default", "foo-4setj4y6"))
-				pods <- watchAddedEvent(podScheduled("default", "foo-4setj4y6"))
+				pods <- watchAddedEvent(test_podScheduled("default", "foo-4setj4y6"))
 				pods <- watchAddedEvent(podContainerCreating("default", "foo-4setj4y6"))
 				pods <- watchAddedEvent(podErrImagePull("default", "foo-4setj4y6"))
 				pods <- watchAddedEvent(podImagePullBackoff("default", "foo-4setj4y6"))
@@ -58,13 +58,13 @@ func Test_Core_Pod(t *testing.T) {
 			description: "Should fail if Pod is scheduled but containers aren't created",
 			do: func(pods chan watch.Event, timeout chan time.Time) {
 				// API server passes initialized service and endpoint objects back.
-				pods <- watchAddedEvent(podScheduled("default", "foo-4setj4y6"))
+				pods <- watchAddedEvent(test_podScheduled("default", "foo-4setj4y6"))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				object: podScheduled("default", "foo-4setj4y6"), subErrors: []string{}},
+				object: test_podScheduled("default", "foo-4setj4y6"), subErrors: []string{}},
 		},
 		{
 			description: "Should fail if Pod is unschedulable",
@@ -195,7 +195,7 @@ func Test_Core_Pod_Read(t *testing.T) {
 		},
 		{
 			description:       "Read should fail if Pod scheduled but not running",
-			pod:               podScheduled,
+			pod:               test_podScheduled,
 			expectedSubErrors: []string{},
 		},
 		{
@@ -347,7 +347,7 @@ func podUnschedulable(namespace, name string) *unstructured.Unstructured {
 	return obj
 }
 
-func podScheduled(namespace, name string) *unstructured.Unstructured {
+func test_podScheduled(namespace, name string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "apiVersion": "v1",
     "kind": "Pod",

@@ -19,6 +19,7 @@ import (
 	"testing"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/await/fixtures"
+	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -52,4 +53,32 @@ func TestFromUnstructured(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestPodFromUnstructured(t *testing.T) {
+	type args struct {
+		uns *unstructured.Unstructured
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    *corev1.Pod
+		wantErr bool
+	}{
+		{"valid", args{uns: fixtures.PodBasic_Uns()}, fixtures.PodBasic(), false},
+		{"wrong-type", args{uns: fixtures.DeploymentBasic_Uns()}, nil, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := PodFromUnstructured(tt.args.uns)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("PodFromUnstructured() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("PodFromUnstructured() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 }

@@ -72,7 +72,7 @@ func (l *DedupLogger) GetNewMessages() []Message {
 func (l *DedupLogger) LogNewMessages() {
 	if l.host != nil {
 		for _, msg := range l.GetNewMessages() {
-			_ = l.host.LogStatus(l.ctx, msg.severity, l.urn, msg.s)
+			_ = l.host.LogStatus(l.ctx, msg.Severity, l.urn, msg.S)
 		}
 	}
 }

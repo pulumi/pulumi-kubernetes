@@ -55,6 +55,10 @@ func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
 	cac.logger.LogMessage(sev, message)
 }
 
+func (cac *createAwaitConfig) logMessage(message logging.Message) {
+	cac.logger.LogMessage(message.Severity, message.S)
+}
+
 // updateAwaitConfig specifies on which conditions we are to consider a resource "fully updated",
 // i.e., the spec of the API object has changed and the controllers have reached a steady state. For
 // example, we might consider a `Deployment` "fully updated" only when the previous generation of
@@ -173,9 +177,9 @@ var awaiters = map[string]awaitSpec{
 		awaitCreation: untilCoreV1PersistentVolumeClaimBound,
 	},
 	coreV1Pod: {
-		// NOTE: Because we replace the Pod in most situations, we do not require special logic for
-		// the update path.
-		awaitCreation: func(c createAwaitConfig) error { return makePodInitAwaiter(c).Await() },
+		awaitCreation: awaitPodInit,
+		awaitRead:     awaitPodRead,
+		awaitUpdate:   awaitPodUpdate,
 		awaitDeletion: untilCoreV1PodDeleted,
 	},
 	coreV1ReplicationController: {

@@ -16,6 +16,7 @@ package fixtures
 
 import (
 	appsv1 "k8s.io/api/apps/v1"
+	appsv1beta1 "k8s.io/api/apps/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -58,6 +59,66 @@ func DeploymentBasic() *deploymentBasic {
 					"name": "foo"},
 				"spec": map[string]interface{}{
 					"template": map[string]interface{}{
+						"spec": map[string]interface{}{
+							"containers": []interface{}{
+								map[string]interface{}{
+									"name":  "foo",
+									"image": "nginx"}},
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+type deploymentOld struct {
+	Object       *appsv1beta1.Deployment
+	Unstructured *unstructured.Unstructured
+}
+
+func DeploymentOld() *deploymentOld {
+	return &deploymentOld{
+		&appsv1beta1.Deployment{
+			TypeMeta: metav1.TypeMeta{
+				APIVersion: "apps/v1beta1",
+				Kind:       "Deployment",
+			},
+			ObjectMeta: metav1.ObjectMeta{
+				Name: "foo",
+			},
+			Spec: appsv1beta1.DeploymentSpec{
+				Template: corev1.PodTemplateSpec{
+					Spec: corev1.PodSpec{
+						Containers: []corev1.Container{
+							{
+								Name:  "foo",
+								Image: "nginx",
+							},
+						},
+					},
+				},
+			},
+		},
+
+		&unstructured.Unstructured{
+			Object: map[string]interface{}{
+				"apiVersion": "apps/v1",
+				"kind":       "Deployment",
+				"metadata": map[string]interface{}{
+					"name": "foo"},
+				"spec": map[string]interface{}{
+					"selector": map[string]interface{}{
+						"matchLabels": map[string]interface{}{
+							"app": "nginx",
+						},
+					},
+					"template": map[string]interface{}{
+						"metadata": map[string]interface{}{
+							"labels": map[string]interface{}{
+								"app": "nginx",
+							},
+						},
 						"spec": map[string]interface{}{
 							"containers": []interface{}{
 								map[string]interface{}{
