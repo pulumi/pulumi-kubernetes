@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     {{{Comment}}}
     export class {{Kind}} extends pulumi.CustomResource {
@@ -43,6 +44,14 @@ import * as outputApi from "../../types/output";
           {{#Properties}}
           inputs["{{Name}}"] = {{{DefaultValue}}};
           {{/Properties}}
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:{{URNAPIVersion}}:{{Kind}}", name, inputs, opts);
           this.__inputs = <any>args;
       }
