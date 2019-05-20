@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from .. import tables
+from .. import tables, version
 
 
 class CustomResource(pulumi.CustomResource):
@@ -35,6 +35,11 @@ class CustomResource(pulumi.CustomResource):
             raise TypeError('Missing required property spec')
         __props__['spec'] = spec
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(CustomResource, self).__init__(
             "kubernetes:%s:%s" % (api_version, kind),
