@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class ClusterRole(pulumi.CustomResource):
@@ -27,6 +27,11 @@ class ClusterRole(pulumi.CustomResource):
         __props__['aggregationRule'] = aggregation_rule
         __props__['metadata'] = metadata
         __props__['rules'] = rules
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(ClusterRole, self).__init__(
             "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole",

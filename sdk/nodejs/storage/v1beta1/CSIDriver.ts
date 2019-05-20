@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * CSIDriver captures information about a Container Storage Interface (CSI) volume driver
@@ -77,6 +78,14 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "CSIDriver";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, inputs, opts);
           this.__inputs = <any>args;
       }

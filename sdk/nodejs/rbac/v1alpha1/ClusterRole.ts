@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
@@ -76,6 +77,14 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "ClusterRole";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["rules"] = args && args.rules || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole", name, inputs, opts);
           this.__inputs = <any>args;
       }

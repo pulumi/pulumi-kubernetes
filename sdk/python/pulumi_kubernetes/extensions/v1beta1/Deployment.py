@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class Deployment(pulumi.CustomResource):
@@ -28,6 +28,11 @@ class Deployment(pulumi.CustomResource):
         __props__['metadata'] = metadata
         __props__['spec'] = spec
         __props__['status'] = status
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(Deployment, self).__init__(
             "kubernetes:extensions/v1beta1:Deployment",

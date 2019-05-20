@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * DEPRECATED - This group version of PriorityClass is deprecated by
@@ -88,6 +89,14 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "PriorityClass";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["value"] = args && args.value || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, inputs, opts);
           this.__inputs = <any>args;
       }

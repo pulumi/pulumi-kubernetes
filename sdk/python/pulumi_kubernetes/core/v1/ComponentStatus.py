@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class ComponentStatus(pulumi.CustomResource):
@@ -25,6 +25,11 @@ class ComponentStatus(pulumi.CustomResource):
         __props__['kind'] = 'ComponentStatus'
         __props__['conditions'] = conditions
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(ComponentStatus, self).__init__(
             "kubernetes:core/v1:ComponentStatus",

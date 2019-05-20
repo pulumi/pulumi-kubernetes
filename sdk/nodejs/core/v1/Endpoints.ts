@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * Endpoints is a collection of endpoints that implement the actual service. Example:
@@ -84,6 +85,14 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "Endpoints";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["subsets"] = args && args.subsets || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:core/v1:Endpoints", name, inputs, opts);
           this.__inputs = <any>args;
       }

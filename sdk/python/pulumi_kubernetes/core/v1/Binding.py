@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class Binding(pulumi.CustomResource):
@@ -28,6 +28,11 @@ class Binding(pulumi.CustomResource):
             raise TypeError('Missing required property target')
         __props__['target'] = target
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(Binding, self).__init__(
             "kubernetes:core/v1:Binding",

@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * DEPRECATED - This group version of ControllerRevision is deprecated by
@@ -83,6 +84,14 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "ControllerRevision";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["revision"] = args && args.revision || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:apps/v1beta2:ControllerRevision", name, inputs, opts);
           this.__inputs = <any>args;
       }

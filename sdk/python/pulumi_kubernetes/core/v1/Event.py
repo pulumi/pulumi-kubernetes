@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class Event(pulumi.CustomResource):
@@ -42,6 +42,11 @@ class Event(pulumi.CustomResource):
         __props__['series'] = series
         __props__['source'] = source
         __props__['type'] = type
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(Event, self).__init__(
             "kubernetes:core/v1:Event",

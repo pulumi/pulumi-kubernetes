@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class ServiceAccount(pulumi.CustomResource):
@@ -28,6 +28,11 @@ class ServiceAccount(pulumi.CustomResource):
         __props__['imagePullSecrets'] = image_pull_secrets
         __props__['metadata'] = metadata
         __props__['secrets'] = secrets
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(ServiceAccount, self).__init__(
             "kubernetes:core/v1:ServiceAccount",

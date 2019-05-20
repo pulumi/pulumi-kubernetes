@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class RuntimeClass(pulumi.CustomResource):
@@ -31,6 +31,11 @@ class RuntimeClass(pulumi.CustomResource):
             raise TypeError('Missing required property handler')
         __props__['handler'] = handler
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(RuntimeClass, self).__init__(
             "kubernetes:node.k8s.io/v1beta1:RuntimeClass",

@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class Lease(pulumi.CustomResource):
@@ -25,6 +25,11 @@ class Lease(pulumi.CustomResource):
         __props__['kind'] = 'Lease'
         __props__['metadata'] = metadata
         __props__['spec'] = spec
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(Lease, self).__init__(
             "kubernetes:coordination.k8s.io/v1beta1:Lease",

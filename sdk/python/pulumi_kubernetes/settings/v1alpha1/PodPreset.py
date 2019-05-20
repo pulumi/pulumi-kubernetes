@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class PodPreset(pulumi.CustomResource):
@@ -25,6 +25,11 @@ class PodPreset(pulumi.CustomResource):
         __props__['kind'] = 'PodPreset'
         __props__['metadata'] = metadata
         __props__['spec'] = spec
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(PodPreset, self).__init__(
             "kubernetes:settings.k8s.io/v1alpha1:PodPreset",

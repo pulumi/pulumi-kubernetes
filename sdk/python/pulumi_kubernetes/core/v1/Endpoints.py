@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class Endpoints(pulumi.CustomResource):
@@ -36,6 +36,11 @@ class Endpoints(pulumi.CustomResource):
         __props__['kind'] = 'Endpoints'
         __props__['metadata'] = metadata
         __props__['subsets'] = subsets
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(Endpoints, self).__init__(
             "kubernetes:core/v1:Endpoints",

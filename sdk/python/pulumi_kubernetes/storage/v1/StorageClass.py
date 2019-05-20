@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class StorageClass(pulumi.CustomResource):
@@ -37,6 +37,11 @@ class StorageClass(pulumi.CustomResource):
         __props__['parameters'] = parameters
         __props__['reclaimPolicy'] = reclaim_policy
         __props__['volumeBindingMode'] = volume_binding_mode
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(StorageClass, self).__init__(
             "kubernetes:storage.k8s.io/v1:StorageClass",

@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * AuditSink represents a cluster level audit sink
@@ -65,6 +66,14 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "AuditSink";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, inputs, opts);
           this.__inputs = <any>args;
       }

@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class PodTemplate(pulumi.CustomResource):
@@ -25,6 +25,11 @@ class PodTemplate(pulumi.CustomResource):
         __props__['kind'] = 'PodTemplate'
         __props__['metadata'] = metadata
         __props__['template'] = template
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(PodTemplate, self).__init__(
             "kubernetes:core/v1:PodTemplate",

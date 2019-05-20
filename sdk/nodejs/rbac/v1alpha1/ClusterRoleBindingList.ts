@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * ClusterRoleBindingList is a collection of ClusterRoleBindings
@@ -67,6 +68,14 @@ import * as outputApi from "../../types/output";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "ClusterRoleBindingList";
           inputs["metadata"] = args && args.metadata || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList", name, inputs, opts);
           this.__inputs = <any>args;
       }

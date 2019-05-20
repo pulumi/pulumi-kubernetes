@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class PodSecurityPolicyList(pulumi.CustomResource):
@@ -27,6 +27,11 @@ class PodSecurityPolicyList(pulumi.CustomResource):
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(PodSecurityPolicyList, self).__init__(
             "kubernetes:policy/v1beta1:PodSecurityPolicyList",
