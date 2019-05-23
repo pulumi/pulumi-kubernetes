@@ -1,5 +1,11 @@
 ## 0.23.2 (Unreleased)
 
+### Improvements
+
+- Fix an issue where the provider would panic during preview if and object's
+  `metadata` property ended up being computed from one or more unknown
+  values. (Fixes [#559](https://github.com/pulumi/pulumi-kubernetes/issues/559)).
+
 ## 0.23.1 (May 10, 2019)
 
 ### Supported Kubernetes versions
