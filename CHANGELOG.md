@@ -1,5 +1,17 @@
 ## 0.23.2 (Unreleased)
 
+### Major changes
+
+-   None
+
+### Improvements
+
+-   None
+
+### Bug fixes
+
+-   Fix panics during preview when `metadata` is a computed value (https://github.com/pulumi/pulumi-kubernetes/pull/572)
+
 ## 0.23.1 (May 10, 2019)
 
 ### Supported Kubernetes versions
