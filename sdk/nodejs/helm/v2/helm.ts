@@ -35,7 +35,7 @@ interface BaseChartOpts {
      * Optional array of transformations to apply to resources that will be created by this chart prior to
      * creation. Allows customization of the chart behaviour without directly modifying the chart itself.
      */
-    transformations?: ((o: any) => void)[];
+    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
 }
 
 export interface ChartOpts extends BaseChartOpts {
@@ -179,7 +179,7 @@ export class Chart extends yaml.CollectionComponentResource {
 
     parseTemplate(
         yamlStream: string,
-        transformations: ((o: any) => void)[] | undefined,
+        transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void)[] | undefined,
         dependsOn: pulumi.Resource[]
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
         // NOTE: We must manually split the YAML stream because of js-yaml#456. Perusing the

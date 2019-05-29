@@ -48,6 +48,11 @@ const nginx = new k8s.helm.v2.Chart("simple-nginx", {
             } else {
                 obj.metadata = {namespace: namespaceName}
             }
+        }, 
+        (obj: any, opts: pulumi.CustomResourceOptions) => {
+            if (obj.kind == "Service" && obj.apiVersion == "v1") {
+                opts.additionalSecretOutputs = ["status"];
+            }
         }
     ]
 });
