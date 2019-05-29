@@ -18,28 +18,62 @@ import (
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/resource"
-
+	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-func TestSetLabelMetadataComputed(t *testing.T) {
-	obj := &unstructured.Unstructured{Object: map[string]interface{}{
+func TestSetLabel(t *testing.T) {
+	noLabelObj := &unstructured.Unstructured{Object: map[string]interface{}{
+		"metadata": map[string]interface{}{},
+	}}
+	existingLabelObj := &unstructured.Unstructured{Object: map[string]interface{}{
+		"metadata": map[string]interface{}{
+			"labels": map[string]interface{}{
+				"pulumi": "rocks",
+			},
+		},
+	}}
+	computedMetadataObj := &unstructured.Unstructured{Object: map[string]interface{}{
 		"metadata": resource.Computed{Element: resource.NewObjectProperty(nil)},
 	}}
-
-	// Since metadata is a computed property, we can't really set an annotation of the object, but we should not fail
-	// as the metadata property of an object could be computed during previews.
-	SetLabel(obj, "foo", "bar")
-}
-
-func TestSetLabelMetadataLabelsComputed(t *testing.T) {
-	obj := &unstructured.Unstructured{Object: map[string]interface{}{
+	computedLabelObj := &unstructured.Unstructured{Object: map[string]interface{}{
 		"metadata": map[string]interface{}{
 			"labels": resource.Computed{Element: resource.NewObjectProperty(nil)},
 		},
 	}}
 
-	// Since metadata is a computed property, we can't really set an annotation of the object, but we should not fail
-	// as the metadata property of an object could be computed during previews.
-	SetLabel(obj, "foo", "bar")
+	type args struct {
+		obj         *unstructured.Unstructured
+		key         string
+		value       string
+		expectSet   bool // True if SetLabel is expected to set the label.
+		expectKey   string
+		expectValue string
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{"set-with-no-label", args{
+			obj: noLabelObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
+		{"set-with-existing-labels", args{
+			obj: existingLabelObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
+
+		// Computed fields cannot be set, so SetLabel is a no-op.
+		{"set-with-computed-metadata", args{
+			obj: computedMetadataObj, key: "foo", value: "bar", expectSet: false}},
+		{"set-with-computed-label", args{
+			obj: computedLabelObj, key: "foo", value: "bar", expectSet: false}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			SetLabel(tt.args.obj, tt.args.key, tt.args.value)
+			labels := tt.args.obj.GetLabels()
+			value, ok := labels[tt.args.expectKey]
+			assert.Equal(t, tt.args.expectSet, ok)
+			if ok {
+				assert.Equal(t, tt.args.expectValue, value)
+			}
+		})
+	}
 }

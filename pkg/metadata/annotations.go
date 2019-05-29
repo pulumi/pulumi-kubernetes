@@ -49,8 +49,8 @@ func IsInternalAnnotation(key string) bool {
 // SetAnnotation sets the specified key, value annotation on the provided Unstructured object.
 func SetAnnotation(obj *unstructured.Unstructured, key, value string) {
 	// Note: Cannot use obj.GetAnnotations() here because it doesn't properly handle computed values from preview.
-	// during preview, our strategy for if metdata or annotations end up being computed values, is to just not
-	// apply an annotiation (since there's no way to insert data into the computed object)
+	// During preview, don't set annotations if the metadata or annotation contains a computed value since there's
+	// no way to insert data into the computed object.
 	metadataRaw := obj.Object["metadata"]
 	if isComputedValue(metadataRaw) {
 		return

@@ -18,28 +18,62 @@ import (
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/resource"
-
+	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-func TestSetAnnotationMetadataComputed(t *testing.T) {
-	obj := &unstructured.Unstructured{Object: map[string]interface{}{
+func TestSetAnnotation(t *testing.T) {
+	noAnnotationObj := &unstructured.Unstructured{Object: map[string]interface{}{
+		"metadata": map[string]interface{}{},
+	}}
+	existingAnnotationObj := &unstructured.Unstructured{Object: map[string]interface{}{
+		"metadata": map[string]interface{}{
+			"annotations": map[string]interface{}{
+				"pulumi": "rocks",
+			},
+		},
+	}}
+	computedMetadataObj := &unstructured.Unstructured{Object: map[string]interface{}{
 		"metadata": resource.Computed{Element: resource.NewObjectProperty(nil)},
 	}}
-
-	// Since metadata is a computed property, we can't really set an annotation of the object, but we should not fail
-	// as the metadata property of an object could be computed during previews.
-	SetAnnotation(obj, "foo", "bar")
-}
-
-func TestSetAnnotationMetadataAnnotationsComputed(t *testing.T) {
-	obj := &unstructured.Unstructured{Object: map[string]interface{}{
+	computedAnnotationObj := &unstructured.Unstructured{Object: map[string]interface{}{
 		"metadata": map[string]interface{}{
 			"annotations": resource.Computed{Element: resource.NewObjectProperty(nil)},
 		},
 	}}
 
-	// Since metadata is a computed property, we can't really set an annotation of the object, but we should not fail
-	// as the metadata property of an object could be computed during previews.
-	SetAnnotation(obj, "foo", "bar")
+	type args struct {
+		obj         *unstructured.Unstructured
+		key         string
+		value       string
+		expectSet   bool // True if SetAnnotation is expected to set the annotation.
+		expectKey   string
+		expectValue string
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{"set-with-no-annotation", args{
+			obj: noAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
+		{"set-with-existing-annotations", args{
+			obj: existingAnnotationObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
+
+		// Computed fields cannot be set, so SetAnnotation is a no-op.
+		{"set-with-computed-metadata", args{
+			obj: computedMetadataObj, key: "foo", value: "bar", expectSet: false}},
+		{"set-with-computed-annotation", args{
+			obj: computedAnnotationObj, key: "foo", value: "bar", expectSet: false}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			SetAnnotation(tt.args.obj, tt.args.key, tt.args.value)
+			annotations := tt.args.obj.GetAnnotations()
+			value, ok := annotations[tt.args.expectKey]
+			assert.Equal(t, tt.args.expectSet, ok)
+			if ok {
+				assert.Equal(t, tt.args.expectValue, value)
+			}
+		})
+	}
 }

@@ -21,8 +21,8 @@ import (
 // SetLabel sets the specified key/value pair as a label on the provided Unstructured object.
 func SetLabel(obj *unstructured.Unstructured, key, value string) {
 	// Note: Cannot use obj.GetLabels() here because it doesn't properly handle computed values from preview.
-	// during preview, our strategy for if metdata or annotations end up being computed values, is to just not
-	// apply an annotiation (since there's no way to insert data into the computed object)
+	// During preview, don't set labels if the metadata or label contains a computed value since there's
+	// no way to insert data into the computed object.
 	metadataRaw := obj.Object["metadata"]
 	if isComputedValue(metadataRaw) {
 		return
