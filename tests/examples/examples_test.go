@@ -134,9 +134,9 @@ func TestExamples(t *testing.T) {
 			SkipRefresh: true, // Deployment controller changes object out-of-band.
 			Dir:         path.Join(cwd, "helm"),
 			Verbose:     true,
-			ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
-				for _, res := range stack.Deployment.Resources {
-					// Ensure that all `Services` have `status` marked as a `Secret`
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				// Ensure that all `Services` have `status` marked as a `Secret`
+				for _, res := range stackInfo.Deployment.Resources {
 					if res.Type == tokens.Type("kubernetes:core/v1:Service") {
 						spec, has := res.Outputs["status"]
 						assert.True(t, has)

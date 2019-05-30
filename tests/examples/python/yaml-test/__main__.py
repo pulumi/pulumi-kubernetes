@@ -23,13 +23,18 @@ def add_namespace(obj):
     else:
         obj["metadata"] = {"namespace": ns.metadata["name"]}
 
-    return obj
-
+def secret_status(obj, opts):
+    if obj["kind"] == "Pod" and obj["apiVersion"] == "v1":
+        opts.additional_secret_outputs = ["apiVersion"]
 
 cf_local = ConfigFile(
     "yaml-test",
     "manifest.yaml",
-    transformations=[add_namespace],
+    transformations=[
+        add_namespace, 
+        # TODO[pulumi/pulumi#2782] Testing of secrets blocked on a bug in Python support for secrets.
+        # secret_status,
+    ],
 )
 
 # Create resources from standard Kubernetes guestbook YAML example in the test namespace.
