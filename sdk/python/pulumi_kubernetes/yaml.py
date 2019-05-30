@@ -2,7 +2,8 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import json
-from copy import deepcopy
+from copy import copy, deepcopy
+from inspect import getargspec
 from typing import Callable, Dict, List, Optional
 
 import pulumi.runtime
@@ -144,10 +145,19 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
     if not obj:
         return []
 
+    # Create a copy of opts to pass into potentially mutating transforms that will be applied to this resource.
+    if opts is not None:
+        opts = copy(opts)
+    else:
+        opts = {}
+
     # Allow users to change API objects before any validation.
     if transformations is not None:
         for t in transformations:
-            obj = t(obj)
+            if len(getargspec(t)[0]) == 2:
+                t(obj, opts)
+            else:
+                t(obj)
 
     if "kind" not in obj or "apiVersion" not in obj:
         raise Exception("Kubernetes resources require a kind and apiVersion: {}".format(json.dumps(obj)))

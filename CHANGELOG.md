@@ -2,11 +2,11 @@
 
 ### Major changes
 
--   None
+-   BREAKING: Change the recently added `transformations` callback in Python to match JavaScript API (https://github.com/pulumi/pulumi-kubernetes/pull/575)
 
 ### Improvements
 
--   None
+-   Enable configuring `ResourceOptions` via `transformations` (https://github.com/pulumi/pulumi-kubernetes/pull/575).
 
 ### Bug fixes
 

@@ -23,7 +23,7 @@ import * as outputApi from "../types/output";
          * A set of transformations to apply to Kubernetes resource definitions before registering
          * with engine.
          */
-        transformations?: ((o: any) => void)[];
+        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
     }
 
     export interface ConfigFileOpts {
@@ -34,7 +34,7 @@ import * as outputApi from "../types/output";
          * A set of transformations to apply to Kubernetes resource definitions before registering
          * with engine.
          */
-        transformations?: ((o: any) => void)[];
+        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
     }
 
     export interface ConfigOpts {
@@ -45,7 +45,7 @@ import * as outputApi from "../types/output";
          * A set of transformations to apply to Kubernetes resource definitions before registering
          * with engine.
          */
-        transformations?: ((o: any) => void)[];
+        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
     }
 
     /** @ignore */ export function parse(
@@ -233,15 +233,18 @@ import * as outputApi from "../types/output";
     }
 
     /** @ignore */ function parseYamlObject(
-        obj: any, transformations?: ((o: any) => void)[], opts?: pulumi.CustomResourceOptions,
+        obj: any, transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[], opts?: pulumi.CustomResourceOptions,
     ): pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] {
         if (obj == null || Object.keys(obj).length == 0) {
             return [];
         }
 
-        // Allow users to change API objects before any validation.
+        // Create a copy of opts to pass into potentially mutating transforms that will be applied to this resource.
+        opts = Object.assign({}, opts);
+
+        // Allow users to change API objects before any validation.    
         for (const t of transformations || []) {
-            t(obj);
+            t(obj, opts);
         }
 
         if (!("kind" in obj && "apiVersion" in obj)) {
