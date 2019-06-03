@@ -23,7 +23,7 @@ import (
 
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
-	"github.com/golang/protobuf/ptypes/struct"
+	structpb "github.com/golang/protobuf/ptypes/struct"
 	"github.com/grpc/grpc-go/status"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
@@ -35,7 +35,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"github.com/pulumi/pulumi/pkg/util/contract"
 	"github.com/pulumi/pulumi/pkg/util/rpcutil/rpcerror"
-	"github.com/pulumi/pulumi/sdk/proto/go"
+	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 	"github.com/yudai/gojsondiff"
 	"google.golang.org/grpc/codes"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -929,8 +929,16 @@ func checkpointObject(inputs, live *unstructured.Unstructured) resource.Property
 func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructured.Unstructured) {
 	pm := obj.Mappable()
 
+	//
+	// NOTE: Inputs are now stored in `__inputs` to allow output properties to work. The inputs and
+	// live properties used to be stored next to each other, in an object that looked like {live:
+	// (...), inputs: (...)}, but this broke this resolution. See[1] for more information.
+	//
+	// [1]: https://github.com/pulumi/pulumi-kubernetes/issues/137
+	//
 	inputs, hasInputs := pm["inputs"]
 	liveMap, hasLive := pm["live"]
+
 	if !hasInputs || !hasLive {
 		liveMap = pm
 
