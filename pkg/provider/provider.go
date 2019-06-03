@@ -23,8 +23,9 @@ import (
 
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
-	"github.com/golang/protobuf/ptypes/struct"
+	structpb "github.com/golang/protobuf/ptypes/struct"
 	"github.com/grpc/grpc-go/status"
+	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
@@ -35,7 +36,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/resource/provider"
 	"github.com/pulumi/pulumi/pkg/util/contract"
 	"github.com/pulumi/pulumi/pkg/util/rpcutil/rpcerror"
-	"github.com/pulumi/pulumi/sdk/proto/go"
+	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
 	"github.com/yudai/gojsondiff"
 	"google.golang.org/grpc/codes"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -59,7 +60,8 @@ import (
 // --------------------------------------------------------------------------
 
 const (
-	gvkDelimiter = ":"
+	gvkDelimiter         = ":"
+	invokeKubectlReplace = "kubernetes:kubernetes:kubectlReplace"
 )
 
 type cancellationContext struct {
@@ -176,8 +178,52 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 }
 
 // Invoke dynamically executes a built-in function in the provider.
-func (k *kubeProvider) Invoke(context.Context, *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
-	panic("Invoke not implemented")
+func (k *kubeProvider) Invoke(ctx context.Context,
+	req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
+
+	// Unmarshal arguments.
+	tok := req.GetTok()
+	label := fmt.Sprintf("%s.Invoke(%s)", k.label(), tok)
+	args, err := plugin.UnmarshalProperties(
+		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "failed to unmarshal %v args", tok)
+	}
+
+	// Process Invoke call.
+	switch tok {
+
+	//
+	// NOTE: Purposefully undocumented API. This flavor of `Invoke` will run the equivalent of
+	// `kubectl replace`, and return instantly. This is useful for situations where a cluster (e.g.,
+	// EKS) boots up with some number of default resources which we need to replace.
+	//
+	// We choose not to document this API to discourage use.
+	//
+	case invokeKubectlReplace:
+		config := await.KubectlReplaceConfig{
+			Context:   k.canceler.context, // TODO: should this just be ctx from the args?
+			ClientSet: k.clientSet,
+			Inputs:    propMapToUnstructured(args),
+		}
+
+		obj, err := await.KubectlReplace(config)
+		if err != nil {
+			return nil, err
+		}
+
+		objProps, err := plugin.MarshalProperties(
+			resource.NewPropertyMapFromMap(obj.Object), plugin.MarshalOptions{
+				Label: label, KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.InvokeResponse{Return: objProps}, nil
+	default:
+		return nil, fmt.Errorf("Unknown Invoke type '%s'", tok)
+	}
 }
 
 // Check validates that the given property bag is valid for a resource of the given type and returns
