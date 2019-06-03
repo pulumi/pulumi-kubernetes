@@ -136,6 +136,16 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		return nil, err
 	}
 
+	// We can't tell for sure if a computed value has changed, so we make the conservative choice
+	// and force a replacement.
+	if news["kubeconfig"].IsComputed() {
+		return &pulumirpc.DiffResponse{
+			Changes:  pulumirpc.DiffResponse_DIFF_SOME,
+			Diffs:    []string{"kubeconfig"},
+			Replaces: []string{"kubeconfig"},
+		}, nil
+	}
+
 	oldConfig, err := parseKubeconfigString(strings.Trim(olds["kubeconfig"].String(), "{}"))
 	if err != nil {
 		return nil, err
