@@ -58,6 +58,21 @@ import { getVersion } from "../../version";
           return new CSINode(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1beta1:CSINode";
+
+      /**
+       * Returns true if the given object is an instance of CSINode.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is CSINode {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === CSINode.__pulumiType;
+      }
+
       /**
        * Create a storage.v1beta1.CSINode resource with the given unique name, arguments, and options.
        *
@@ -71,7 +86,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "CSINode";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -79,6 +94,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:storage.k8s.io/v1beta1:CSINode", name, inputs, opts);
+          super(CSINode.__pulumiType, name, inputs, opts);
       }
     }

@@ -64,6 +64,21 @@ import { getVersion } from "../../version";
           return new ReplicaSet(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:extensions/v1beta1:ReplicaSet";
+
+      /**
+       * Returns true if the given object is an instance of ReplicaSet.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is ReplicaSet {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === ReplicaSet.__pulumiType;
+      }
+
       /**
        * Create a extensions.v1beta1.ReplicaSet resource with the given unique name, arguments, and options.
        *
@@ -78,7 +93,7 @@ import { getVersion } from "../../version";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -86,6 +101,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:extensions/v1beta1:ReplicaSet", name, inputs, opts);
+          super(ReplicaSet.__pulumiType, name, inputs, opts);
       }
     }

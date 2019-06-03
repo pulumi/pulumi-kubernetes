@@ -58,6 +58,21 @@ import { getVersion } from "../../version";
           return new LocalSubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview";
+
+      /**
+       * Returns true if the given object is an instance of LocalSubjectAccessReview.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is LocalSubjectAccessReview {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === LocalSubjectAccessReview.__pulumiType;
+      }
+
       /**
        * Create a authorization.v1beta1.LocalSubjectAccessReview resource with the given unique name, arguments, and options.
        *
@@ -72,7 +87,7 @@ import { getVersion } from "../../version";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -80,6 +95,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name, inputs, opts);
+          super(LocalSubjectAccessReview.__pulumiType, name, inputs, opts);
       }
     }

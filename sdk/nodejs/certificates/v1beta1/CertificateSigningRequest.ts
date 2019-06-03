@@ -55,6 +55,21 @@ import { getVersion } from "../../version";
           return new CertificateSigningRequest(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest";
+
+      /**
+       * Returns true if the given object is an instance of CertificateSigningRequest.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is CertificateSigningRequest {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === CertificateSigningRequest.__pulumiType;
+      }
+
       /**
        * Create a certificates.v1beta1.CertificateSigningRequest resource with the given unique name, arguments, and options.
        *
@@ -69,7 +84,7 @@ import { getVersion } from "../../version";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -77,6 +92,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", name, inputs, opts);
+          super(CertificateSigningRequest.__pulumiType, name, inputs, opts);
       }
     }

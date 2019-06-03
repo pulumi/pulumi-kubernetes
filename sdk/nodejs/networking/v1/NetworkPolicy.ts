@@ -53,6 +53,21 @@ import { getVersion } from "../../version";
           return new NetworkPolicy(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:networking.k8s.io/v1:NetworkPolicy";
+
+      /**
+       * Returns true if the given object is an instance of NetworkPolicy.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is NetworkPolicy {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === NetworkPolicy.__pulumiType;
+      }
+
       /**
        * Create a networking.v1.NetworkPolicy resource with the given unique name, arguments, and options.
        *
@@ -66,7 +81,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "NetworkPolicy";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -74,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:networking.k8s.io/v1:NetworkPolicy", name, inputs, opts);
+          super(NetworkPolicy.__pulumiType, name, inputs, opts);
       }
     }

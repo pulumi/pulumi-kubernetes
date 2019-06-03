@@ -53,6 +53,21 @@ import { getVersion } from "../../version";
           return new Lease(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:coordination.k8s.io/v1beta1:Lease";
+
+      /**
+       * Returns true if the given object is an instance of Lease.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is Lease {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === Lease.__pulumiType;
+      }
+
       /**
        * Create a coordination.v1beta1.Lease resource with the given unique name, arguments, and options.
        *
@@ -66,7 +81,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "Lease";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -74,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:coordination.k8s.io/v1beta1:Lease", name, inputs, opts);
+          super(Lease.__pulumiType, name, inputs, opts);
       }
     }

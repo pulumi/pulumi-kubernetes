@@ -56,6 +56,21 @@ import { getVersion } from "../../version";
           return new TokenReview(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:authentication.k8s.io/v1beta1:TokenReview";
+
+      /**
+       * Returns true if the given object is an instance of TokenReview.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is TokenReview {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === TokenReview.__pulumiType;
+      }
+
       /**
        * Create a authentication.v1beta1.TokenReview resource with the given unique name, arguments, and options.
        *
@@ -70,7 +85,7 @@ import { getVersion } from "../../version";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -78,6 +93,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:authentication.k8s.io/v1beta1:TokenReview", name, inputs, opts);
+          super(TokenReview.__pulumiType, name, inputs, opts);
       }
     }

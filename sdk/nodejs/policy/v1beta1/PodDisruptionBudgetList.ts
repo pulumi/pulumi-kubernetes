@@ -48,6 +48,21 @@ import { getVersion } from "../../version";
           return new PodDisruptionBudgetList(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:policy/v1beta1:PodDisruptionBudgetList";
+
+      /**
+       * Returns true if the given object is an instance of PodDisruptionBudgetList.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is PodDisruptionBudgetList {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === PodDisruptionBudgetList.__pulumiType;
+      }
+
       /**
        * Create a policy.v1beta1.PodDisruptionBudgetList resource with the given unique name, arguments, and options.
        *
@@ -61,7 +76,7 @@ import { getVersion } from "../../version";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "PodDisruptionBudgetList";
           inputs["metadata"] = args && args.metadata || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -69,6 +84,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, inputs, opts);
+          super(PodDisruptionBudgetList.__pulumiType, name, inputs, opts);
       }
     }

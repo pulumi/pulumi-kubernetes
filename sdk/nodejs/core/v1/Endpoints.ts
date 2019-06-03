@@ -69,6 +69,21 @@ import { getVersion } from "../../version";
           return new Endpoints(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:core/v1:Endpoints";
+
+      /**
+       * Returns true if the given object is an instance of Endpoints.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is Endpoints {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === Endpoints.__pulumiType;
+      }
+
       /**
        * Create a core.v1.Endpoints resource with the given unique name, arguments, and options.
        *
@@ -82,7 +97,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "Endpoints";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["subsets"] = args && args.subsets || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -90,6 +105,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:core/v1:Endpoints", name, inputs, opts);
+          super(Endpoints.__pulumiType, name, inputs, opts);
       }
     }

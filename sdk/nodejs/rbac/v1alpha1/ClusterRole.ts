@@ -60,6 +60,21 @@ import { getVersion } from "../../version";
           return new ClusterRole(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole";
+
+      /**
+       * Returns true if the given object is an instance of ClusterRole.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is ClusterRole {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === ClusterRole.__pulumiType;
+      }
+
       /**
        * Create a rbac.v1alpha1.ClusterRole resource with the given unique name, arguments, and options.
        *
@@ -74,7 +89,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "ClusterRole";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["rules"] = args && args.rules || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -82,6 +97,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole", name, inputs, opts);
+          super(ClusterRole.__pulumiType, name, inputs, opts);
       }
     }

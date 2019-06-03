@@ -52,6 +52,21 @@ import { getVersion } from "../../version";
           return new DeploymentList(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:apps/v1beta2:DeploymentList";
+
+      /**
+       * Returns true if the given object is an instance of DeploymentList.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is DeploymentList {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === DeploymentList.__pulumiType;
+      }
+
       /**
        * Create a apps.v1beta2.DeploymentList resource with the given unique name, arguments, and options.
        *
@@ -65,7 +80,7 @@ import { getVersion } from "../../version";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "DeploymentList";
           inputs["metadata"] = args && args.metadata || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -73,6 +88,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:apps/v1beta2:DeploymentList", name, inputs, opts);
+          super(DeploymentList.__pulumiType, name, inputs, opts);
       }
     }

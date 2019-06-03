@@ -53,6 +53,21 @@ import { getVersion } from "../../version";
           return new Role(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:rbac.authorization.k8s.io/v1beta1:Role";
+
+      /**
+       * Returns true if the given object is an instance of Role.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is Role {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === Role.__pulumiType;
+      }
+
       /**
        * Create a rbac.v1beta1.Role resource with the given unique name, arguments, and options.
        *
@@ -66,7 +81,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "Role";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["rules"] = args && args.rules || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -74,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:rbac.authorization.k8s.io/v1beta1:Role", name, inputs, opts);
+          super(Role.__pulumiType, name, inputs, opts);
       }
     }

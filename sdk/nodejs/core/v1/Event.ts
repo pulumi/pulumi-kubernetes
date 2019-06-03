@@ -119,6 +119,21 @@ import { getVersion } from "../../version";
           return new Event(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:core/v1:Event";
+
+      /**
+       * Returns true if the given object is an instance of Event.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is Event {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === Event.__pulumiType;
+      }
+
       /**
        * Create a core.v1.Event resource with the given unique name, arguments, and options.
        *
@@ -145,7 +160,7 @@ import { getVersion } from "../../version";
           inputs["series"] = args && args.series || undefined;
           inputs["source"] = args && args.source || undefined;
           inputs["type"] = args && args.type || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -153,6 +168,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:core/v1:Event", name, inputs, opts);
+          super(Event.__pulumiType, name, inputs, opts);
       }
     }

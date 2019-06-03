@@ -96,6 +96,21 @@ import { getVersion } from "../../version";
           return new StorageClass(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1beta1:StorageClass";
+
+      /**
+       * Returns true if the given object is an instance of StorageClass.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is StorageClass {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === StorageClass.__pulumiType;
+      }
+
       /**
        * Create a storage.v1beta1.StorageClass resource with the given unique name, arguments, and options.
        *
@@ -115,7 +130,7 @@ import { getVersion } from "../../version";
           inputs["provisioner"] = args && args.provisioner || undefined;
           inputs["reclaimPolicy"] = args && args.reclaimPolicy || undefined;
           inputs["volumeBindingMode"] = args && args.volumeBindingMode || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -123,6 +138,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:storage.k8s.io/v1beta1:StorageClass", name, inputs, opts);
+          super(StorageClass.__pulumiType, name, inputs, opts);
       }
     }

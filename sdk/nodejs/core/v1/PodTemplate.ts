@@ -54,6 +54,21 @@ import { getVersion } from "../../version";
           return new PodTemplate(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:core/v1:PodTemplate";
+
+      /**
+       * Returns true if the given object is an instance of PodTemplate.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is PodTemplate {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === PodTemplate.__pulumiType;
+      }
+
       /**
        * Create a core.v1.PodTemplate resource with the given unique name, arguments, and options.
        *
@@ -67,7 +82,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "PodTemplate";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["template"] = args && args.template || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -75,6 +90,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:core/v1:PodTemplate", name, inputs, opts);
+          super(PodTemplate.__pulumiType, name, inputs, opts);
       }
     }

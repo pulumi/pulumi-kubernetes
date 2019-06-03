@@ -63,6 +63,21 @@ import { getVersion } from "../../version";
           return new RuntimeClass(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:node.k8s.io/v1beta1:RuntimeClass";
+
+      /**
+       * Returns true if the given object is an instance of RuntimeClass.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is RuntimeClass {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === RuntimeClass.__pulumiType;
+      }
+
       /**
        * Create a node.v1beta1.RuntimeClass resource with the given unique name, arguments, and options.
        *
@@ -76,7 +91,7 @@ import { getVersion } from "../../version";
           inputs["handler"] = args && args.handler || undefined;
           inputs["kind"] = "RuntimeClass";
           inputs["metadata"] = args && args.metadata || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -84,6 +99,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:node.k8s.io/v1beta1:RuntimeClass", name, inputs, opts);
+          super(RuntimeClass.__pulumiType, name, inputs, opts);
       }
     }
