@@ -61,9 +61,6 @@ import * as outputApi from "../../types/output";
           return new SelfSubjectRulesReview(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.authorization.v1beta1.SelfSubjectRulesReview { return this.__inputs; }
-      private readonly __inputs: inputApi.authorization.v1beta1.SelfSubjectRulesReview;
-
       /**
        * Create a authorization.v1beta1.SelfSubjectRulesReview resource with the given unique name, arguments, and options.
        *
@@ -79,6 +76,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

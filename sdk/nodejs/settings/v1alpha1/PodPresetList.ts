@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new PodPresetList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.settings.v1alpha1.PodPresetList { return this.__inputs; }
-      private readonly __inputs: inputApi.settings.v1alpha1.PodPresetList;
-
       /**
        * Create a settings.v1alpha1.PodPresetList resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "PodPresetList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

@@ -53,9 +53,6 @@ import * as outputApi from "../../types/output";
           return new PersistentVolumeList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.core.v1.PersistentVolumeList { return this.__inputs; }
-      private readonly __inputs: inputApi.core.v1.PersistentVolumeList;
-
       /**
        * Create a core.v1.PersistentVolumeList resource with the given unique name, arguments, and options.
        *
@@ -70,6 +67,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "PersistentVolumeList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:core/v1:PersistentVolumeList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

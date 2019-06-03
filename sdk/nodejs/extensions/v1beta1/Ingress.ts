@@ -63,9 +63,6 @@ import * as outputApi from "../../types/output";
           return new Ingress(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.extensions.v1beta1.Ingress { return this.__inputs; }
-      private readonly __inputs: inputApi.extensions.v1beta1.Ingress;
-
       /**
        * Create a extensions.v1beta1.Ingress resource with the given unique name, arguments, and options.
        *
@@ -81,6 +78,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:extensions/v1beta1:Ingress", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

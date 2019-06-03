@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new RuntimeClassList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.node.v1alpha1.RuntimeClassList { return this.__inputs; }
-      private readonly __inputs: inputApi.node.v1alpha1.RuntimeClassList;
-
       /**
        * Create a node.v1alpha1.RuntimeClassList resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "RuntimeClassList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:node.k8s.io/v1alpha1:RuntimeClassList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

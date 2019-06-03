@@ -54,9 +54,6 @@ import * as outputApi from "../../types/output";
           return new SubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.authorization.v1.SubjectAccessReview { return this.__inputs; }
-      private readonly __inputs: inputApi.authorization.v1.SubjectAccessReview;
-
       /**
        * Create a authorization.v1.SubjectAccessReview resource with the given unique name, arguments, and options.
        *
@@ -72,6 +69,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

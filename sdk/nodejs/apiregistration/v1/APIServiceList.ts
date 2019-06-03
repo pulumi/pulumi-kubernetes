@@ -47,9 +47,6 @@ import * as outputApi from "../../types/output";
           return new APIServiceList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.apiregistration.v1.APIServiceList { return this.__inputs; }
-      private readonly __inputs: inputApi.apiregistration.v1.APIServiceList;
-
       /**
        * Create a apiregistration.v1.APIServiceList resource with the given unique name, arguments, and options.
        *
@@ -64,6 +61,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "APIServiceList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:apiregistration/v1:APIServiceList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

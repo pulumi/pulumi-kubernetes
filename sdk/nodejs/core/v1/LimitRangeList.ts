@@ -53,9 +53,6 @@ import * as outputApi from "../../types/output";
           return new LimitRangeList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.core.v1.LimitRangeList { return this.__inputs; }
-      private readonly __inputs: inputApi.core.v1.LimitRangeList;
-
       /**
        * Create a core.v1.LimitRangeList resource with the given unique name, arguments, and options.
        *
@@ -70,6 +67,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "LimitRangeList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:core/v1:LimitRangeList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

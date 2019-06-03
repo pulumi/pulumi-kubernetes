@@ -56,9 +56,6 @@ import * as outputApi from "../../types/output";
           return new Deployment(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.apps.v1.Deployment { return this.__inputs; }
-      private readonly __inputs: inputApi.apps.v1.Deployment;
-
       /**
        * Create a apps.v1.Deployment resource with the given unique name, arguments, and options.
        *
@@ -74,6 +71,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:apps/v1:Deployment", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

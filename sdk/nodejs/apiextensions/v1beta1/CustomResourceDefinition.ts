@@ -55,9 +55,6 @@ import * as outputApi from "../../types/output";
           return new CustomResourceDefinition(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.apiextensions.v1beta1.CustomResourceDefinition { return this.__inputs; }
-      private readonly __inputs: inputApi.apiextensions.v1beta1.CustomResourceDefinition;
-
       /**
        * Create a apiextensions.v1beta1.CustomResourceDefinition resource with the given unique name, arguments, and options.
        *
@@ -73,6 +70,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

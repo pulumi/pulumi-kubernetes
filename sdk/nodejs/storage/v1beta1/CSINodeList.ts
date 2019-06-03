@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new CSINodeList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.storage.v1beta1.CSINodeList { return this.__inputs; }
-      private readonly __inputs: inputApi.storage.v1beta1.CSINodeList;
-
       /**
        * Create a storage.v1beta1.CSINodeList resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "CSINodeList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:storage.k8s.io/v1beta1:CSINodeList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

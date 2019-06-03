@@ -49,9 +49,6 @@ import * as outputApi from "../../types/output";
           return new AuditSink(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.auditregistration.v1alpha1.AuditSink { return this.__inputs; }
-      private readonly __inputs: inputApi.auditregistration.v1alpha1.AuditSink;
-
       /**
        * Create a auditregistration.v1alpha1.AuditSink resource with the given unique name, arguments, and options.
        *
@@ -66,6 +63,5 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

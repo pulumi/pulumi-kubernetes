@@ -60,9 +60,6 @@ import * as outputApi from "../../types/output";
           return new RoleBinding(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.rbac.v1alpha1.RoleBinding { return this.__inputs; }
-      private readonly __inputs: inputApi.rbac.v1alpha1.RoleBinding;
-
       /**
        * Create a rbac.v1alpha1.RoleBinding resource with the given unique name, arguments, and options.
        *
@@ -78,6 +75,5 @@ import * as outputApi from "../../types/output";
           inputs["roleRef"] = args && args.roleRef || undefined;
           inputs["subjects"] = args && args.subjects || undefined;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

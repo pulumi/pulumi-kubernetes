@@ -53,9 +53,6 @@ import * as outputApi from "../../types/output";
           return new ReplicaSetList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.apps.v1beta2.ReplicaSetList { return this.__inputs; }
-      private readonly __inputs: inputApi.apps.v1beta2.ReplicaSetList;
-
       /**
        * Create a apps.v1beta2.ReplicaSetList resource with the given unique name, arguments, and options.
        *
@@ -70,6 +67,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "ReplicaSetList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:apps/v1beta2:ReplicaSetList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

@@ -53,9 +53,6 @@ import * as outputApi from "../../types/output";
           return new PodTemplate(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.core.v1.PodTemplate { return this.__inputs; }
-      private readonly __inputs: inputApi.core.v1.PodTemplate;
-
       /**
        * Create a core.v1.PodTemplate resource with the given unique name, arguments, and options.
        *
@@ -70,6 +67,5 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["template"] = args && args.template || undefined;
           super("kubernetes:core/v1:PodTemplate", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

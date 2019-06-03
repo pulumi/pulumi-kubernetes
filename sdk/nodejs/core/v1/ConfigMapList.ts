@@ -51,9 +51,6 @@ import * as outputApi from "../../types/output";
           return new ConfigMapList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.core.v1.ConfigMapList { return this.__inputs; }
-      private readonly __inputs: inputApi.core.v1.ConfigMapList;
-
       /**
        * Create a core.v1.ConfigMapList resource with the given unique name, arguments, and options.
        *
@@ -68,6 +65,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "ConfigMapList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:core/v1:ConfigMapList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

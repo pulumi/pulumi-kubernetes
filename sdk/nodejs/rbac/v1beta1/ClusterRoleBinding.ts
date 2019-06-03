@@ -58,9 +58,6 @@ import * as outputApi from "../../types/output";
           return new ClusterRoleBinding(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.rbac.v1beta1.ClusterRoleBinding { return this.__inputs; }
-      private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleBinding;
-
       /**
        * Create a rbac.v1beta1.ClusterRoleBinding resource with the given unique name, arguments, and options.
        *
@@ -76,6 +73,5 @@ import * as outputApi from "../../types/output";
           inputs["roleRef"] = args && args.roleRef || undefined;
           inputs["subjects"] = args && args.subjects || undefined;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

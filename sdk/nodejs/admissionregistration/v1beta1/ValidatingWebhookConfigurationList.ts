@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new ValidatingWebhookConfigurationList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList { return this.__inputs; }
-      private readonly __inputs: inputApi.admissionregistration.v1beta1.ValidatingWebhookConfigurationList;
-
       /**
        * Create a admissionregistration.v1beta1.ValidatingWebhookConfigurationList resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "ValidatingWebhookConfigurationList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

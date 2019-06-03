@@ -70,9 +70,6 @@ import * as outputApi from "../../types/output";
           return new PriorityClass(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.scheduling.v1beta1.PriorityClass { return this.__inputs; }
-      private readonly __inputs: inputApi.scheduling.v1beta1.PriorityClass;
-
       /**
        * Create a scheduling.v1beta1.PriorityClass resource with the given unique name, arguments, and options.
        *
@@ -89,6 +86,5 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["value"] = args && args.value || undefined;
           super("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

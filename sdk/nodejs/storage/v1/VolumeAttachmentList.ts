@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new VolumeAttachmentList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.storage.v1.VolumeAttachmentList { return this.__inputs; }
-      private readonly __inputs: inputApi.storage.v1.VolumeAttachmentList;
-
       /**
        * Create a storage.v1.VolumeAttachmentList resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "VolumeAttachmentList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:storage.k8s.io/v1:VolumeAttachmentList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

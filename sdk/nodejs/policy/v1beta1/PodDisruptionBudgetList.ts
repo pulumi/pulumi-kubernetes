@@ -47,9 +47,6 @@ import * as outputApi from "../../types/output";
           return new PodDisruptionBudgetList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.policy.v1beta1.PodDisruptionBudgetList { return this.__inputs; }
-      private readonly __inputs: inputApi.policy.v1beta1.PodDisruptionBudgetList;
-
       /**
        * Create a policy.v1beta1.PodDisruptionBudgetList resource with the given unique name, arguments, and options.
        *
@@ -64,6 +61,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "PodDisruptionBudgetList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:policy/v1beta1:PodDisruptionBudgetList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

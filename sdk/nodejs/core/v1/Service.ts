@@ -61,9 +61,6 @@ import * as outputApi from "../../types/output";
           return new Service(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.core.v1.Service { return this.__inputs; }
-      private readonly __inputs: inputApi.core.v1.Service;
-
       /**
        * Create a core.v1.Service resource with the given unique name, arguments, and options.
        *
@@ -79,6 +76,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:core/v1:Service", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

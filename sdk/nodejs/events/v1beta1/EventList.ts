@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new EventList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.events.v1beta1.EventList { return this.__inputs; }
-      private readonly __inputs: inputApi.events.v1beta1.EventList;
-
       /**
        * Create a events.v1beta1.EventList resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "EventList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:events.k8s.io/v1beta1:EventList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }
