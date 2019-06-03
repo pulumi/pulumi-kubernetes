@@ -3,6 +3,7 @@
 ### Major changes
 
 -   BREAKING: Change the recently added `transformations` callback in Python to match JavaScript API (https://github.com/pulumi/pulumi-kubernetes/pull/575)
+-   BREAKING: Remove `getInputs` from Kubernetes resource implementations.
 
 ### Improvements
 
