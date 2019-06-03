@@ -19,6 +19,7 @@ import (
 	"fmt"
 
 	"github.com/golang/glog"
+	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
@@ -78,6 +79,12 @@ type DeleteConfig struct {
 	ProviderConfig
 	Inputs *unstructured.Unstructured
 	Name   string
+}
+
+type KubectlReplaceConfig struct {
+	Context   context.Context
+	ClientSet *clients.DynamicClientSet
+	Inputs    *unstructured.Unstructured
 }
 
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
@@ -356,31 +363,6 @@ func Deletion(c DeleteConfig) error {
 		return err
 	}
 
-	version := ServerVersion(c.ClientSet.DiscoveryClientCached)
-
-	// Manually set delete propagation for Kubernetes versions < 1.6 to avoid bugs.
-	deleteOpts := metav1.DeleteOptions{}
-	if version.Compare(1, 6) < 0 {
-		// 1.5.x option.
-		boolFalse := false
-		// nolint
-		deleteOpts.OrphanDependents = &boolFalse
-	} else if version.Compare(1, 7) < 0 {
-		// 1.6.x option. Background delete propagation is broken in k8s v1.6.
-		fg := metav1.DeletePropagationForeground
-		deleteOpts.PropagationPolicy = &fg
-	} else {
-		// > 1.7.x. Prior to 1.9.x, the default is to orphan children[1]. Our kubespy experiments
-		// with 1.9.11 show that the controller will actually _still_ mark these resources with the
-		// `orphan` finalizer, although it appears to actually do background delete correctly. We
-		// therefore set it to background manually, just to be safe.
-		//
-		// nolint
-		// [1] https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/#setting-the-cascading-deletion-policy
-		bg := metav1.DeletePropagationBackground
-		deleteOpts.PropagationPolicy = &bg
-	}
-
 	// Obtain client for the resource being deleted.
 	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
 	if err != nil {
@@ -399,8 +381,7 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	// Issue deletion request.
-	err = client.Delete(c.Name, &deleteOpts)
+	err = deleteResource(c.Name, client, ServerVersion(c.ClientSet.DiscoveryClientCached))
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
@@ -465,6 +446,56 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	return waitErr
+}
+
+func deleteResource(name string, client dynamic.ResourceInterface, version serverVersion) error {
+	// Manually set delete propagation for Kubernetes versions < 1.6 to avoid bugs.
+	deleteOpts := metav1.DeleteOptions{}
+	if version.Compare(1, 6) < 0 {
+		// 1.5.x option.
+		boolFalse := false
+		// nolint
+		deleteOpts.OrphanDependents = &boolFalse
+	} else if version.Compare(1, 7) < 0 {
+		// 1.6.x option. Background delete propagation is broken in k8s v1.6.
+		fg := metav1.DeletePropagationForeground
+		deleteOpts.PropagationPolicy = &fg
+	} else {
+		// > 1.7.x. Prior to 1.9.x, the default is to orphan children[1]. Our kubespy experiments
+		// with 1.9.11 show that the controller will actually _still_ mark these resources with the
+		// `orphan` finalizer, although it appears to actually do background delete correctly. We
+		// therefore set it to background manually, just to be safe.
+		//
+		// nolint
+		// [1] https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/#setting-the-cascading-deletion-policy
+		bg := metav1.DeletePropagationBackground
+		deleteOpts.PropagationPolicy = &bg
+	}
+
+	// Issue deletion request.
+	return client.Delete(name, &deleteOpts)
+}
+
+// KubectlReplace performs a `kubectl replace`, returning as soon as `kubectl` would report success
+// (_i.e._, immediately). NOTE: This is the opposite of the other functions in this package -- it
+// does not await the underlying resources to be awaited.
+func KubectlReplace(c KubectlReplaceConfig) (*unstructured.Unstructured, error) {
+	client, err := c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
+	if err != nil {
+		return nil, pkgerrors.Wrap(err, "Could not create Kubernetes client for resource")
+	}
+
+	err = deleteResource(c.Inputs.GetName(), client, ServerVersion(c.ClientSet.DiscoveryClientCached))
+	if err != nil {
+		return nil, pkgerrors.Wrap(err, "Failed to delete Kubernetes resource when replacing")
+	}
+
+	obj, err := client.Create(c.Inputs, metav1.CreateOptions{})
+	if err != nil {
+		return nil, pkgerrors.Wrap(err, "Failed to create resource during replacement")
+	}
+
+	return obj, nil
 }
 
 // checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
