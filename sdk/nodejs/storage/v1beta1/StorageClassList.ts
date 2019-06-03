@@ -53,6 +53,21 @@ import { getVersion } from "../../version";
           return new StorageClassList(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1beta1:StorageClassList";
+
+      /**
+       * Returns true if the given object is an instance of StorageClassList.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is StorageClassList {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === StorageClassList.__pulumiType;
+      }
+
       /**
        * Create a storage.v1beta1.StorageClassList resource with the given unique name, arguments, and options.
        *
@@ -66,7 +81,7 @@ import { getVersion } from "../../version";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "StorageClassList";
           inputs["metadata"] = args && args.metadata || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -74,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:storage.k8s.io/v1beta1:StorageClassList", name, inputs, opts);
+          super(StorageClassList.__pulumiType, name, inputs, opts);
       }
     }

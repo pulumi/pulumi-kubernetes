@@ -70,6 +70,21 @@ import { getVersion } from "../../version";
           return new PriorityClass(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:scheduling.k8s.io/v1:PriorityClass";
+
+      /**
+       * Returns true if the given object is an instance of PriorityClass.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is PriorityClass {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === PriorityClass.__pulumiType;
+      }
+
       /**
        * Create a scheduling.v1.PriorityClass resource with the given unique name, arguments, and options.
        *
@@ -85,7 +100,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "PriorityClass";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["value"] = args && args.value || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -93,6 +108,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:scheduling.k8s.io/v1:PriorityClass", name, inputs, opts);
+          super(PriorityClass.__pulumiType, name, inputs, opts);
       }
     }

@@ -53,6 +53,21 @@ import { getVersion } from "../../version";
           return new CSIDriverList(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1beta1:CSIDriverList";
+
+      /**
+       * Returns true if the given object is an instance of CSIDriverList.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is CSIDriverList {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === CSIDriverList.__pulumiType;
+      }
+
       /**
        * Create a storage.v1beta1.CSIDriverList resource with the given unique name, arguments, and options.
        *
@@ -66,7 +81,7 @@ import { getVersion } from "../../version";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "CSIDriverList";
           inputs["metadata"] = args && args.metadata || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -74,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:storage.k8s.io/v1beta1:CSIDriverList", name, inputs, opts);
+          super(CSIDriverList.__pulumiType, name, inputs, opts);
       }
     }

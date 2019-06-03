@@ -48,6 +48,21 @@ import { getVersion } from "../../version";
           return new PodPreset(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:settings.k8s.io/v1alpha1:PodPreset";
+
+      /**
+       * Returns true if the given object is an instance of PodPreset.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is PodPreset {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === PodPreset.__pulumiType;
+      }
+
       /**
        * Create a settings.v1alpha1.PodPreset resource with the given unique name, arguments, and options.
        *
@@ -61,7 +76,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "PodPreset";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -69,6 +84,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, inputs, opts);
+          super(PodPreset.__pulumiType, name, inputs, opts);
       }
     }

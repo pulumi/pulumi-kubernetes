@@ -29,6 +29,21 @@ import { getVersion } from "../../version";
           return new {{Kind}}(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:{{URNAPIVersion}}:{{Kind}}";
+
+      /**
+       * Returns true if the given object is an instance of {{Kind}}.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is {{Kind}} {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === {{Kind}}.__pulumiType;
+      }
+
       /**
        * Create a {{Group}}.{{Version}}.{{Kind}} resource with the given unique name, arguments, and options.
        *
@@ -41,7 +56,7 @@ import { getVersion } from "../../version";
           {{#Properties}}
           inputs["{{Name}}"] = {{{DefaultValue}}};
           {{/Properties}}
-        
+
           if (!opts) {
               opts = {};
           }
@@ -49,6 +64,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:{{URNAPIVersion}}:{{Kind}}", name, inputs, opts);
+          super({{Kind}}.__pulumiType, name, inputs, opts);
       }
     }

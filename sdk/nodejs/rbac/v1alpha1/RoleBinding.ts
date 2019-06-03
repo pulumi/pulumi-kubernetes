@@ -61,6 +61,21 @@ import { getVersion } from "../../version";
           return new RoleBinding(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding";
+
+      /**
+       * Returns true if the given object is an instance of RoleBinding.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is RoleBinding {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === RoleBinding.__pulumiType;
+      }
+
       /**
        * Create a rbac.v1alpha1.RoleBinding resource with the given unique name, arguments, and options.
        *
@@ -75,7 +90,7 @@ import { getVersion } from "../../version";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["roleRef"] = args && args.roleRef || undefined;
           inputs["subjects"] = args && args.subjects || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -83,6 +98,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", name, inputs, opts);
+          super(RoleBinding.__pulumiType, name, inputs, opts);
       }
     }

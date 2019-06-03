@@ -64,6 +64,21 @@ import { getVersion } from "../../version";
           return new Ingress(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:extensions/v1beta1:Ingress";
+
+      /**
+       * Returns true if the given object is an instance of Ingress.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is Ingress {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === Ingress.__pulumiType;
+      }
+
       /**
        * Create a extensions.v1beta1.Ingress resource with the given unique name, arguments, and options.
        *
@@ -78,7 +93,7 @@ import { getVersion } from "../../version";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -86,6 +101,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:extensions/v1beta1:Ingress", name, inputs, opts);
+          super(Ingress.__pulumiType, name, inputs, opts);
       }
     }

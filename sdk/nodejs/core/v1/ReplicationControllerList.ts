@@ -54,6 +54,21 @@ import { getVersion } from "../../version";
           return new ReplicationControllerList(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:core/v1:ReplicationControllerList";
+
+      /**
+       * Returns true if the given object is an instance of ReplicationControllerList.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is ReplicationControllerList {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === ReplicationControllerList.__pulumiType;
+      }
+
       /**
        * Create a core.v1.ReplicationControllerList resource with the given unique name, arguments, and options.
        *
@@ -67,7 +82,7 @@ import { getVersion } from "../../version";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "ReplicationControllerList";
           inputs["metadata"] = args && args.metadata || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -75,6 +90,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:core/v1:ReplicationControllerList", name, inputs, opts);
+          super(ReplicationControllerList.__pulumiType, name, inputs, opts);
       }
     }

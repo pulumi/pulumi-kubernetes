@@ -67,6 +67,21 @@ import { getVersion } from "../../version";
           return new ControllerRevision(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:apps/v1beta2:ControllerRevision";
+
+      /**
+       * Returns true if the given object is an instance of ControllerRevision.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is ControllerRevision {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === ControllerRevision.__pulumiType;
+      }
+
       /**
        * Create a apps.v1beta2.ControllerRevision resource with the given unique name, arguments, and options.
        *
@@ -81,7 +96,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "ControllerRevision";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["revision"] = args && args.revision || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -89,6 +104,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:apps/v1beta2:ControllerRevision", name, inputs, opts);
+          super(ControllerRevision.__pulumiType, name, inputs, opts);
       }
     }

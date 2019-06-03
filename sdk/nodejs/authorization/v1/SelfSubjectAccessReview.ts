@@ -57,6 +57,21 @@ import { getVersion } from "../../version";
           return new SelfSubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview";
+
+      /**
+       * Returns true if the given object is an instance of SelfSubjectAccessReview.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is SelfSubjectAccessReview {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === SelfSubjectAccessReview.__pulumiType;
+      }
+
       /**
        * Create a authorization.v1.SelfSubjectAccessReview resource with the given unique name, arguments, and options.
        *
@@ -71,7 +86,7 @@ import { getVersion } from "../../version";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -79,6 +94,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview", name, inputs, opts);
+          super(SelfSubjectAccessReview.__pulumiType, name, inputs, opts);
       }
     }

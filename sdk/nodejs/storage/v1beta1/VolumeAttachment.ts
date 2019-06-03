@@ -63,6 +63,21 @@ import { getVersion } from "../../version";
           return new VolumeAttachment(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment";
+
+      /**
+       * Returns true if the given object is an instance of VolumeAttachment.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is VolumeAttachment {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === VolumeAttachment.__pulumiType;
+      }
+
       /**
        * Create a storage.v1beta1.VolumeAttachment resource with the given unique name, arguments, and options.
        *
@@ -77,7 +92,7 @@ import { getVersion } from "../../version";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -85,6 +100,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:storage.k8s.io/v1beta1:VolumeAttachment", name, inputs, opts);
+          super(VolumeAttachment.__pulumiType, name, inputs, opts);
       }
     }

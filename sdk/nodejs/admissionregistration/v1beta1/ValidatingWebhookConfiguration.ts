@@ -54,6 +54,21 @@ import { getVersion } from "../../version";
           return new ValidatingWebhookConfiguration(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration";
+
+      /**
+       * Returns true if the given object is an instance of ValidatingWebhookConfiguration.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is ValidatingWebhookConfiguration {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === ValidatingWebhookConfiguration.__pulumiType;
+      }
+
       /**
        * Create a admissionregistration.v1beta1.ValidatingWebhookConfiguration resource with the given unique name, arguments, and options.
        *
@@ -67,7 +82,7 @@ import { getVersion } from "../../version";
           inputs["kind"] = "ValidatingWebhookConfiguration";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["webhooks"] = args && args.webhooks || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -75,6 +90,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", name, inputs, opts);
+          super(ValidatingWebhookConfiguration.__pulumiType, name, inputs, opts);
       }
     }

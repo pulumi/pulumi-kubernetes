@@ -53,6 +53,21 @@ import { getVersion } from "../../version";
           return new MutatingWebhookConfigurationList(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList";
+
+      /**
+       * Returns true if the given object is an instance of MutatingWebhookConfigurationList.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is MutatingWebhookConfigurationList {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === MutatingWebhookConfigurationList.__pulumiType;
+      }
+
       /**
        * Create a admissionregistration.v1beta1.MutatingWebhookConfigurationList resource with the given unique name, arguments, and options.
        *
@@ -66,7 +81,7 @@ import { getVersion } from "../../version";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "MutatingWebhookConfigurationList";
           inputs["metadata"] = args && args.metadata || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -74,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList", name, inputs, opts);
+          super(MutatingWebhookConfigurationList.__pulumiType, name, inputs, opts);
       }
     }

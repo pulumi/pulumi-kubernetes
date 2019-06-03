@@ -52,6 +52,21 @@ import { getVersion } from "../../version";
           return new ConfigMapList(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:core/v1:ConfigMapList";
+
+      /**
+       * Returns true if the given object is an instance of ConfigMapList.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is ConfigMapList {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === ConfigMapList.__pulumiType;
+      }
+
       /**
        * Create a core.v1.ConfigMapList resource with the given unique name, arguments, and options.
        *
@@ -65,7 +80,7 @@ import { getVersion } from "../../version";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "ConfigMapList";
           inputs["metadata"] = args && args.metadata || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -73,6 +88,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:core/v1:ConfigMapList", name, inputs, opts);
+          super(ConfigMapList.__pulumiType, name, inputs, opts);
       }
     }

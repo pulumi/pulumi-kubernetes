@@ -60,6 +60,21 @@ import { getVersion } from "../../version";
           return new Namespace(name, undefined, { ...opts, id: id });
       }
 
+      /** @internal */
+      private static readonly __pulumiType = "kubernetes:core/v1:Namespace";
+
+      /**
+       * Returns true if the given object is an instance of Namespace.  This is designed to work even
+       * when multiple copies of the Pulumi SDK have been loaded into the same process.
+       */
+      public static isInstance(obj: any): obj is Namespace {
+          if (obj === undefined || obj === null) {
+              return false;
+          }
+
+          return obj["__pulumiType"] === Namespace.__pulumiType;
+      }
+
       /**
        * Create a core.v1.Namespace resource with the given unique name, arguments, and options.
        *
@@ -74,7 +89,7 @@ import { getVersion } from "../../version";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
-        
+
           if (!opts) {
               opts = {};
           }
@@ -82,6 +97,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super("kubernetes:core/v1:Namespace", name, inputs, opts);
+          super(Namespace.__pulumiType, name, inputs, opts);
       }
     }
