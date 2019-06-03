@@ -53,9 +53,6 @@ import * as outputApi from "../../types/output";
           return new SecretList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.core.v1.SecretList { return this.__inputs; }
-      private readonly __inputs: inputApi.core.v1.SecretList;
-
       /**
        * Create a core.v1.SecretList resource with the given unique name, arguments, and options.
        *
@@ -70,6 +67,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "SecretList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:core/v1:SecretList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

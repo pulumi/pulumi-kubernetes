@@ -51,9 +51,6 @@ import * as outputApi from "../../types/output";
           return new HorizontalPodAutoscalerList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList { return this.__inputs; }
-      private readonly __inputs: inputApi.autoscaling.v2beta1.HorizontalPodAutoscalerList;
-
       /**
        * Create a autoscaling.v2beta1.HorizontalPodAutoscalerList resource with the given unique name, arguments, and options.
        *
@@ -68,6 +65,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "HorizontalPodAutoscalerList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

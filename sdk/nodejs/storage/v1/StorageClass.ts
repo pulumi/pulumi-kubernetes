@@ -95,9 +95,6 @@ import * as outputApi from "../../types/output";
           return new StorageClass(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.storage.v1.StorageClass { return this.__inputs; }
-      private readonly __inputs: inputApi.storage.v1.StorageClass;
-
       /**
        * Create a storage.v1.StorageClass resource with the given unique name, arguments, and options.
        *
@@ -118,6 +115,5 @@ import * as outputApi from "../../types/output";
           inputs["reclaimPolicy"] = args && args.reclaimPolicy || undefined;
           inputs["volumeBindingMode"] = args && args.volumeBindingMode || undefined;
           super("kubernetes:storage.k8s.io/v1:StorageClass", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

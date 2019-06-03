@@ -55,9 +55,6 @@ import * as outputApi from "../../types/output";
           return new TokenReview(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.authentication.v1.TokenReview { return this.__inputs; }
-      private readonly __inputs: inputApi.authentication.v1.TokenReview;
-
       /**
        * Create a authentication.v1.TokenReview resource with the given unique name, arguments, and options.
        *
@@ -73,6 +70,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:authentication.k8s.io/v1:TokenReview", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

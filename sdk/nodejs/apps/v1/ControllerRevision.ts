@@ -64,9 +64,6 @@ import * as outputApi from "../../types/output";
           return new ControllerRevision(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.apps.v1.ControllerRevision { return this.__inputs; }
-      private readonly __inputs: inputApi.apps.v1.ControllerRevision;
-
       /**
        * Create a apps.v1.ControllerRevision resource with the given unique name, arguments, and options.
        *
@@ -82,6 +79,5 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["revision"] = args && args.revision || undefined;
           super("kubernetes:apps/v1:ControllerRevision", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

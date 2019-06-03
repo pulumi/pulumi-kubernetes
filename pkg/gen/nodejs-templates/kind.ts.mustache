@@ -28,9 +28,6 @@ import * as outputApi from "../../types/output";
           return new {{Kind}}(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.{{Group}}.{{Version}}.{{Kind}} { return this.__inputs; }
-      private readonly __inputs: inputApi.{{Group}}.{{Version}}.{{Kind}};
-
       /**
        * Create a {{Group}}.{{Version}}.{{Kind}} resource with the given unique name, arguments, and options.
        *
@@ -44,6 +41,5 @@ import * as outputApi from "../../types/output";
           inputs["{{Name}}"] = {{{DefaultValue}}};
           {{/Properties}}
           super("kubernetes:{{URNAPIVersion}}:{{Kind}}", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

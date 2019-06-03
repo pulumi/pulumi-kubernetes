@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new StorageClassList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.storage.v1beta1.StorageClassList { return this.__inputs; }
-      private readonly __inputs: inputApi.storage.v1beta1.StorageClassList;
-
       /**
        * Create a storage.v1beta1.StorageClassList resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "StorageClassList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:storage.k8s.io/v1beta1:StorageClassList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

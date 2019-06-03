@@ -51,9 +51,6 @@ import * as outputApi from "../../types/output";
           return new ClusterRoleList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.rbac.v1beta1.ClusterRoleList { return this.__inputs; }
-      private readonly __inputs: inputApi.rbac.v1beta1.ClusterRoleList;
-
       /**
        * Create a rbac.v1beta1.ClusterRoleList resource with the given unique name, arguments, and options.
        *
@@ -68,6 +65,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "ClusterRoleList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

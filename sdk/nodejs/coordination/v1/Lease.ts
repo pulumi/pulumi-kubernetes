@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new Lease(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.coordination.v1.Lease { return this.__inputs; }
-      private readonly __inputs: inputApi.coordination.v1.Lease;
-
       /**
        * Create a coordination.v1.Lease resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           super("kubernetes:coordination.k8s.io/v1:Lease", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

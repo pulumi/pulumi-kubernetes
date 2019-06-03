@@ -77,9 +77,6 @@ import * as outputApi from "../../types/output";
           return new Status(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.meta.v1.Status { return this.__inputs; }
-      private readonly __inputs: inputApi.meta.v1.Status;
-
       /**
        * Create a meta.v1.Status resource with the given unique name, arguments, and options.
        *
@@ -98,6 +95,5 @@ import * as outputApi from "../../types/output";
           inputs["reason"] = args && args.reason || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:core/v1:Status", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

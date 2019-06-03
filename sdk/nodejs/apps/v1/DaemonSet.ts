@@ -60,9 +60,6 @@ import * as outputApi from "../../types/output";
           return new DaemonSet(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.apps.v1.DaemonSet { return this.__inputs; }
-      private readonly __inputs: inputApi.apps.v1.DaemonSet;
-
       /**
        * Create a apps.v1.DaemonSet resource with the given unique name, arguments, and options.
        *
@@ -78,6 +75,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:apps/v1:DaemonSet", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

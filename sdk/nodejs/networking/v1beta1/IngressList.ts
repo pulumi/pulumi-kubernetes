@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new IngressList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.networking.v1beta1.IngressList { return this.__inputs; }
-      private readonly __inputs: inputApi.networking.v1beta1.IngressList;
-
       /**
        * Create a networking.v1beta1.IngressList resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "IngressList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:networking.k8s.io/v1beta1:IngressList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

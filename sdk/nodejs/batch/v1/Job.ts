@@ -59,9 +59,6 @@ import * as outputApi from "../../types/output";
           return new Job(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.batch.v1.Job { return this.__inputs; }
-      private readonly __inputs: inputApi.batch.v1.Job;
-
       /**
        * Create a batch.v1.Job resource with the given unique name, arguments, and options.
        *
@@ -77,6 +74,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:batch/v1:Job", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

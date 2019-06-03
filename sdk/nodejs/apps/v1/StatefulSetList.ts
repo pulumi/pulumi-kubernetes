@@ -47,9 +47,6 @@ import * as outputApi from "../../types/output";
           return new StatefulSetList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.apps.v1.StatefulSetList { return this.__inputs; }
-      private readonly __inputs: inputApi.apps.v1.StatefulSetList;
-
       /**
        * Create a apps.v1.StatefulSetList resource with the given unique name, arguments, and options.
        *
@@ -64,6 +61,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "StatefulSetList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:apps/v1:StatefulSetList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

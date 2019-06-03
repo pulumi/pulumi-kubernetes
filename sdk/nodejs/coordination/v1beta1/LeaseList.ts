@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new LeaseList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.coordination.v1beta1.LeaseList { return this.__inputs; }
-      private readonly __inputs: inputApi.coordination.v1beta1.LeaseList;
-
       /**
        * Create a coordination.v1beta1.LeaseList resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "LeaseList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:coordination.k8s.io/v1beta1:LeaseList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

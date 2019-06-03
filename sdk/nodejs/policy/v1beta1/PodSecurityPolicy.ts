@@ -53,9 +53,6 @@ import * as outputApi from "../../types/output";
           return new PodSecurityPolicy(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.policy.v1beta1.PodSecurityPolicy { return this.__inputs; }
-      private readonly __inputs: inputApi.policy.v1beta1.PodSecurityPolicy;
-
       /**
        * Create a policy.v1beta1.PodSecurityPolicy resource with the given unique name, arguments, and options.
        *
@@ -70,6 +67,5 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           super("kubernetes:policy/v1beta1:PodSecurityPolicy", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

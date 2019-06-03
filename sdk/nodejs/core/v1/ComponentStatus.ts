@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new ComponentStatus(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.core.v1.ComponentStatus { return this.__inputs; }
-      private readonly __inputs: inputApi.core.v1.ComponentStatus;
-
       /**
        * Create a core.v1.ComponentStatus resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "ComponentStatus";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:core/v1:ComponentStatus", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

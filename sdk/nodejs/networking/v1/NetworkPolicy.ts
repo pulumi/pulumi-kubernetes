@@ -52,9 +52,6 @@ import * as outputApi from "../../types/output";
           return new NetworkPolicy(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.networking.v1.NetworkPolicy { return this.__inputs; }
-      private readonly __inputs: inputApi.networking.v1.NetworkPolicy;
-
       /**
        * Create a networking.v1.NetworkPolicy resource with the given unique name, arguments, and options.
        *
@@ -69,6 +66,5 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           super("kubernetes:networking.k8s.io/v1:NetworkPolicy", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

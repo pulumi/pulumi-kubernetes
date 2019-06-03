@@ -53,9 +53,6 @@ import * as outputApi from "../../types/output";
           return new MutatingWebhookConfiguration(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration { return this.__inputs; }
-      private readonly __inputs: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration;
-
       /**
        * Create a admissionregistration.v1beta1.MutatingWebhookConfiguration resource with the given unique name, arguments, and options.
        *
@@ -70,6 +67,5 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["webhooks"] = args && args.webhooks || undefined;
           super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

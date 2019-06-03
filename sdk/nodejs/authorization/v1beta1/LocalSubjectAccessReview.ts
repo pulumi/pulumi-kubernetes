@@ -57,9 +57,6 @@ import * as outputApi from "../../types/output";
           return new LocalSubjectAccessReview(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.authorization.v1beta1.LocalSubjectAccessReview { return this.__inputs; }
-      private readonly __inputs: inputApi.authorization.v1beta1.LocalSubjectAccessReview;
-
       /**
        * Create a authorization.v1beta1.LocalSubjectAccessReview resource with the given unique name, arguments, and options.
        *
@@ -75,6 +72,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

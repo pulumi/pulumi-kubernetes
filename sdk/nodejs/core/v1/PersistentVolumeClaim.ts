@@ -60,9 +60,6 @@ import * as outputApi from "../../types/output";
           return new PersistentVolumeClaim(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.core.v1.PersistentVolumeClaim { return this.__inputs; }
-      private readonly __inputs: inputApi.core.v1.PersistentVolumeClaim;
-
       /**
        * Create a core.v1.PersistentVolumeClaim resource with the given unique name, arguments, and options.
        *
@@ -78,6 +75,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:core/v1:PersistentVolumeClaim", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

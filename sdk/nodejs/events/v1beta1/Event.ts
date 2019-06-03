@@ -119,9 +119,6 @@ import * as outputApi from "../../types/output";
           return new Event(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.events.v1beta1.Event { return this.__inputs; }
-      private readonly __inputs: inputApi.events.v1beta1.Event;
-
       /**
        * Create a events.v1beta1.Event resource with the given unique name, arguments, and options.
        *
@@ -149,6 +146,5 @@ import * as outputApi from "../../types/output";
           inputs["series"] = args && args.series || undefined;
           inputs["type"] = args && args.type || undefined;
           super("kubernetes:events.k8s.io/v1beta1:Event", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

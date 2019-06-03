@@ -51,9 +51,6 @@ import * as outputApi from "../../types/output";
           return new RoleBindingList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.rbac.v1alpha1.RoleBindingList { return this.__inputs; }
-      private readonly __inputs: inputApi.rbac.v1alpha1.RoleBindingList;
-
       /**
        * Create a rbac.v1alpha1.RoleBindingList resource with the given unique name, arguments, and options.
        *
@@ -68,6 +65,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "RoleBindingList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

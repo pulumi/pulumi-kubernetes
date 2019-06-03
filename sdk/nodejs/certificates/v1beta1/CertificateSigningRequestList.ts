@@ -45,9 +45,6 @@ import * as outputApi from "../../types/output";
           return new CertificateSigningRequestList(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.certificates.v1beta1.CertificateSigningRequestList { return this.__inputs; }
-      private readonly __inputs: inputApi.certificates.v1beta1.CertificateSigningRequestList;
-
       /**
        * Create a certificates.v1beta1.CertificateSigningRequestList resource with the given unique name, arguments, and options.
        *
@@ -62,6 +59,5 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "CertificateSigningRequestList";
           inputs["metadata"] = args && args.metadata || undefined;
           super("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }

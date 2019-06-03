@@ -59,9 +59,6 @@ import * as outputApi from "../../types/output";
           return new CronJob(name, undefined, { ...opts, id: id });
       }
 
-      public getInputs(): inputApi.batch.v1beta1.CronJob { return this.__inputs; }
-      private readonly __inputs: inputApi.batch.v1beta1.CronJob;
-
       /**
        * Create a batch.v1beta1.CronJob resource with the given unique name, arguments, and options.
        *
@@ -77,6 +74,5 @@ import * as outputApi from "../../types/output";
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
           super("kubernetes:batch/v1beta1:CronJob", name, inputs, opts);
-          this.__inputs = <any>args;
       }
     }
