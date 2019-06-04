@@ -109,7 +109,6 @@ func makeKubeProvider(
 
 // CheckConfig validates the configuration for this provider.
 func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
-	// TODO: Check for failures if needed.
 	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
 }
 
@@ -146,47 +145,52 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		}, nil
 	}
 
-	oldConfig, err := parseKubeconfigString(strings.Trim(olds["kubeconfig"].String(), "{}"))
+	var diffs, replaces []string
+
+	oldConfig, err := parseKubeconfigPropertyValue(olds["kubeconfig"])
 	if err != nil {
 		return nil, err
 	}
-	newConfig, err := parseKubeconfigString(strings.Trim(news["kubeconfig"].String(), "{}"))
+	newConfig, err := parseKubeconfigPropertyValue(news["kubeconfig"])
 	if err != nil {
 		return nil, err
 	}
 
-	var diffs []string
+	// Check for differences in provider overrides.
+	if !reflect.DeepEqual(oldConfig, newConfig) {
+		diffs = append(diffs, "kubeconfig")
+	}
+	if olds["context"] != news["context"] {
+		diffs = append(diffs, "context")
+	}
+	if olds["cluster"] != news["cluster"] {
+		diffs = append(diffs, "cluster")
+	}
 
 	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
 	// changed. k8s clusters do not have a well defined identity, so the best we can do is check
-	// if the server endpoint has changed. This is not a foolproof method; a trivial counterexample
-	// is changing the loadbalancer or DNS entry pointing to the same cluster.
+	// if the settings for the active cluster have changed. This is not a foolproof method; a trivial
+	// counterexample is changing the load balancer or DNS entry pointing to the same cluster.
 	//
 	// Given this limitation, we try to strike a reasonable balance by planning a replacement iff
-	// the `clusters` or `current-context` configs in the kubeconfig change. This could still plan
-	// an erroneous replacement, but should work for the majority of cases.
+	// the active cluster in the kubeconfig changes. This could still plan an erroneous replacement,
+	// but should work for the majority of cases.
 	//
 	// The alternative of ignoring changes to the kubeconfig is untenable; if the k8s cluster has
 	// changed, any dependent resources must be recreated, and ignoring changes prevents that from
 	// happening.
-	if !reflect.DeepEqual(oldConfig.Clusters, newConfig.Clusters) ||
-		!reflect.DeepEqual(oldConfig.CurrentContext, newConfig.CurrentContext) {
-		diffs = append(diffs, "kubeconfig")
+	oldActiveCluster := getActiveClusterFromConfig(oldConfig, olds)
+	activeCluster := getActiveClusterFromConfig(newConfig, news)
+	if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
+		replaces = diffs
 	}
+	glog.V(7).Infof("%s: diffs %v / replaces %v\n", label, diffs, replaces)
 
-	if !reflect.DeepEqual(olds["cluster"], news["cluster"]) {
-		diffs = append(diffs, "cluster")
-	}
-
-	if !reflect.DeepEqual(olds["context"], news["context"]) {
-		diffs = append(diffs, "context")
-	}
-
-	if len(diffs) > 0 {
+	if len(diffs) > 0 || len(replaces) > 0 {
 		return &pulumirpc.DiffResponse{
 			Changes:  pulumirpc.DiffResponse_DIFF_SOME,
 			Diffs:    diffs,
-			Replaces: diffs,
+			Replaces: replaces,
 		}, nil
 	}
 
@@ -1105,20 +1109,3 @@ func canonicalNamespace(ns string) string {
 
 // deleteResponse causes the resource to be deleted from the state.
 var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
-
-// parseKubeconfigString takes a raw kubeconfig (YAML or JSON) string and attempts to unmarshal it into
-// a Config struct.
-func parseKubeconfigString(kubeconfig string) (*clientapi.Config, error) {
-	// If the kubeconfig is loaded as a config value by Pulumi,
-	// the string can be `"<nil>"` rather than simply `""`.
-	if len(kubeconfig) == 0 || kubeconfig == "<nil>" {
-		return &clientapi.Config{}, nil
-	}
-
-	config, err := clientcmd.Load([]byte(kubeconfig))
-	if err != nil {
-		return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
-	}
-
-	return config, nil
-}
