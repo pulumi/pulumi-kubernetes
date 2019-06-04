@@ -184,7 +184,7 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
 		replaces = diffs
 	}
-	glog.V(7).Infof("%s: diffs %v / replaces %v\n", label, diffs, replaces)
+	glog.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
 
 	if len(diffs) > 0 || len(replaces) > 0 {
 		return &pulumirpc.DiffResponse{
