@@ -9,6 +9,7 @@
 
 -   Enable configuring `ResourceOptions` via `transformations` (https://github.com/pulumi/pulumi-kubernetes/pull/575).
 -   Changing k8s cluster config now correctly causes dependent resources to be replaced (https://github.com/pulumi/pulumi-kubernetes/pull/577).
+-   Add user-defined type guard `isInstance` to all Kubernetes `CustomResource` implementations (https://github.com/pulumi/pulumi-kubernetes/pull/582).
 
 ### Bug fixes
 
