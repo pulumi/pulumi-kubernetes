@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class HorizontalPodAutoscaler(pulumi.CustomResource):
@@ -28,6 +28,11 @@ class HorizontalPodAutoscaler(pulumi.CustomResource):
         __props__['metadata'] = metadata
         __props__['spec'] = spec
         __props__['status'] = status
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(HorizontalPodAutoscaler, self).__init__(
             "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler",

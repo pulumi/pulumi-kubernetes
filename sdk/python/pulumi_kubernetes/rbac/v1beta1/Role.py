@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class Role(pulumi.CustomResource):
@@ -26,6 +26,11 @@ class Role(pulumi.CustomResource):
         __props__['kind'] = 'Role'
         __props__['metadata'] = metadata
         __props__['rules'] = rules
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(Role, self).__init__(
             "kubernetes:rbac.authorization.k8s.io/v1beta1:Role",

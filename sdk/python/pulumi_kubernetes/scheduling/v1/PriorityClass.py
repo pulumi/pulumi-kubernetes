@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class PriorityClass(pulumi.CustomResource):
@@ -30,6 +30,11 @@ class PriorityClass(pulumi.CustomResource):
         __props__['description'] = description
         __props__['globalDefault'] = global_default
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(PriorityClass, self).__init__(
             "kubernetes:scheduling.k8s.io/v1:PriorityClass",

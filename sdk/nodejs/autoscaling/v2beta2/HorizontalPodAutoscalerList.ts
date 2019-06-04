@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
@@ -64,6 +65,14 @@ import * as outputApi from "../../types/output";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "HorizontalPodAutoscalerList";
           inputs["metadata"] = args && args.metadata || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerList", name, inputs, opts);
       }
     }

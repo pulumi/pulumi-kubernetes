@@ -15,6 +15,7 @@
 import * as pulumi from "@pulumi/pulumi"
 import * as inputApi from "../types/input";
 import * as outputApi from "../types/output";
+import { getVersion } from "../version";
 
 /**
  * CustomResourceArgs represents a resource definition we'd use to create an instance of a
@@ -136,6 +137,13 @@ export class CustomResource extends pulumi.CustomResource {
         let inputs: pulumi.Inputs = {};
         for (const key of Object.keys(args)) {
             inputs[key] = (args as any)[key];
+        }
+
+        if (!opts) {
+            opts = {}
+        }
+        if (!opts.version) {
+            opts.version = getVersion();
         }
         super(`kubernetes:${args.apiVersion}:${args.kind}`, name, inputs, opts);
         this.__inputs = args;

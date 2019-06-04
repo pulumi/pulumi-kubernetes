@@ -30,8 +30,10 @@ setup(name='pulumi_kubernetes',
       license='Apache-2.0',
       packages=find_packages(),
       install_requires=[
-          'pulumi>=0.17.1,<0.18.0',
+          'pulumi>=0.17.8,<0.18.0',
           'requests>=2.21.0,<2.22.0',
           'pyyaml>=4.2b1,<4.3',
+          'semver>=2.8.1',
+          'parver>=0.2.1',
       ],
       zip_safe=False)

@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * StorageClassList is a collection of storage classes.
@@ -65,6 +66,14 @@ import * as outputApi from "../../types/output";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "StorageClassList";
           inputs["metadata"] = args && args.metadata || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:storage.k8s.io/v1:StorageClassList", name, inputs, opts);
       }
     }

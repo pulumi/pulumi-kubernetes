@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * ResourceQuotaList is a list of ResourceQuota items.
@@ -66,6 +67,14 @@ import * as outputApi from "../../types/output";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "ResourceQuotaList";
           inputs["metadata"] = args && args.metadata || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:core/v1:ResourceQuotaList", name, inputs, opts);
       }
     }

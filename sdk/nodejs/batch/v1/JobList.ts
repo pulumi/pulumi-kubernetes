@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * JobList is a collection of jobs.
@@ -65,6 +66,14 @@ import * as outputApi from "../../types/output";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "JobList";
           inputs["metadata"] = args && args.metadata || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:batch/v1:JobList", name, inputs, opts);
       }
     }

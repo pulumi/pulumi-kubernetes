@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * PodDisruptionBudget is an object to define the max disruption that can be caused to a
@@ -69,6 +70,14 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["spec"] = args && args.spec || undefined;
           inputs["status"] = args && args.status || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:policy/v1beta1:PodDisruptionBudget", name, inputs, opts);
       }
     }

@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class MutatingWebhookConfiguration(pulumi.CustomResource):
@@ -26,6 +26,11 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
         __props__['kind'] = 'MutatingWebhookConfiguration'
         __props__['metadata'] = metadata
         __props__['webhooks'] = webhooks
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(MutatingWebhookConfiguration, self).__init__(
             "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration",

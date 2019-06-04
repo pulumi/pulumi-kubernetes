@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class LeaseList(pulumi.CustomResource):
@@ -27,6 +27,11 @@ class LeaseList(pulumi.CustomResource):
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(LeaseList, self).__init__(
             "kubernetes:coordination.k8s.io/v1beta1:LeaseList",

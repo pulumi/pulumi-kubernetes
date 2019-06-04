@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class RoleBinding(pulumi.CustomResource):
@@ -31,6 +31,11 @@ class RoleBinding(pulumi.CustomResource):
         __props__['roleRef'] = role_ref
         __props__['metadata'] = metadata
         __props__['subjects'] = subjects
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(RoleBinding, self).__init__(
             "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding",

@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class ConfigMap(pulumi.CustomResource):
@@ -26,6 +26,11 @@ class ConfigMap(pulumi.CustomResource):
         __props__['binaryData'] = binary_data
         __props__['data'] = data
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(ConfigMap, self).__init__(
             "kubernetes:core/v1:ConfigMap",

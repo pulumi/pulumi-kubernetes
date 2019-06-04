@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * RoleBinding references a role, but does not contain it.  It can reference a Role in the same
@@ -74,6 +75,14 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["roleRef"] = args && args.roleRef || undefined;
           inputs["subjects"] = args && args.subjects || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding", name, inputs, opts);
       }
     }

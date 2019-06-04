@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * ComponentStatus (and ComponentStatusList) holds the cluster validation info.
@@ -65,6 +66,14 @@ import * as outputApi from "../../types/output";
           inputs["conditions"] = args && args.conditions || undefined;
           inputs["kind"] = "ComponentStatus";
           inputs["metadata"] = args && args.metadata || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:core/v1:ComponentStatus", name, inputs, opts);
       }
     }

@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * CSINodeList is a collection of CSINode objects.
@@ -65,6 +66,14 @@ import * as outputApi from "../../types/output";
           inputs["items"] = args && args.items || undefined;
           inputs["kind"] = "CSINodeList";
           inputs["metadata"] = args && args.metadata || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:storage.k8s.io/v1beta1:CSINodeList", name, inputs, opts);
       }
     }

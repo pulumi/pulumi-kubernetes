@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class ControllerRevision(pulumi.CustomResource):
@@ -37,6 +37,11 @@ class ControllerRevision(pulumi.CustomResource):
         __props__['revision'] = revision
         __props__['data'] = data
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(ControllerRevision, self).__init__(
             "kubernetes:apps/v1beta1:ControllerRevision",

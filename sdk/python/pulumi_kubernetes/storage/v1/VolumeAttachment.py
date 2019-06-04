@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class VolumeAttachment(pulumi.CustomResource):
@@ -31,6 +31,11 @@ class VolumeAttachment(pulumi.CustomResource):
         __props__['spec'] = spec
         __props__['metadata'] = metadata
         __props__['status'] = status
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(VolumeAttachment, self).__init__(
             "kubernetes:storage.k8s.io/v1:VolumeAttachment",

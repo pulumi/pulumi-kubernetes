@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class CSIDriver(pulumi.CustomResource):
@@ -33,6 +33,11 @@ class CSIDriver(pulumi.CustomResource):
             raise TypeError('Missing required property spec')
         __props__['spec'] = spec
         __props__['metadata'] = metadata
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(CSIDriver, self).__init__(
             "kubernetes:storage.k8s.io/v1beta1:CSIDriver",

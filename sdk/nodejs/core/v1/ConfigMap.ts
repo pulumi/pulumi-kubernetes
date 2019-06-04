@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * ConfigMap holds configuration data for pods to consume.
@@ -77,6 +78,14 @@ import * as outputApi from "../../types/output";
           inputs["data"] = args && args.data || undefined;
           inputs["kind"] = "ConfigMap";
           inputs["metadata"] = args && args.metadata || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:core/v1:ConfigMap", name, inputs, opts);
       }
     }

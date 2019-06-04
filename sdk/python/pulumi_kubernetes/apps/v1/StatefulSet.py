@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class StatefulSet(pulumi.CustomResource):
@@ -30,6 +30,11 @@ class StatefulSet(pulumi.CustomResource):
         __props__['metadata'] = metadata
         __props__['spec'] = spec
         __props__['status'] = status
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(StatefulSet, self).__init__(
             "kubernetes:apps/v1:StatefulSet",

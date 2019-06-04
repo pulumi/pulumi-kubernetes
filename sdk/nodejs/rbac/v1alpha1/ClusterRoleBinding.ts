@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
@@ -72,6 +73,14 @@ import * as outputApi from "../../types/output";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["roleRef"] = args && args.roleRef || undefined;
           inputs["subjects"] = args && args.subjects || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding", name, inputs, opts);
       }
     }

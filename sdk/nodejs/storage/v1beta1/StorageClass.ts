@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
@@ -114,6 +115,14 @@ import * as outputApi from "../../types/output";
           inputs["provisioner"] = args && args.provisioner || undefined;
           inputs["reclaimPolicy"] = args && args.reclaimPolicy || undefined;
           inputs["volumeBindingMode"] = args && args.volumeBindingMode || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:storage.k8s.io/v1beta1:StorageClass", name, inputs, opts);
       }
     }

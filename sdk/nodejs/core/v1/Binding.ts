@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
@@ -66,6 +67,14 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "Binding";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["target"] = args && args.target || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:core/v1:Binding", name, inputs, opts);
       }
     }

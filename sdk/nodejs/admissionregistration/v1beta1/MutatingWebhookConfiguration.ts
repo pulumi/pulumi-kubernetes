@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * MutatingWebhookConfiguration describes the configuration of and admission webhook that accept
@@ -66,6 +67,14 @@ import * as outputApi from "../../types/output";
           inputs["kind"] = "MutatingWebhookConfiguration";
           inputs["metadata"] = args && args.metadata || undefined;
           inputs["webhooks"] = args && args.webhooks || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, inputs, opts);
       }
     }

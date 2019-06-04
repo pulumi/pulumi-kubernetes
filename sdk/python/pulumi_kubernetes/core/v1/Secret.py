@@ -4,7 +4,7 @@
 import pulumi
 import pulumi.runtime
 
-from ... import tables
+from ... import tables, version
 
 
 class Secret(pulumi.CustomResource):
@@ -28,6 +28,11 @@ class Secret(pulumi.CustomResource):
         __props__['metadata'] = metadata
         __props__['stringData'] = string_data
         __props__['type'] = type
+
+        if __opts__ is None:
+            __opts__ = pulumi.ResourceOptions()
+        if __opts__.version is None:
+            __opts__.version = version.get_version()
 
         super(Secret, self).__init__(
             "kubernetes:core/v1:Secret",

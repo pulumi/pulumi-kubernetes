@@ -4,6 +4,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputApi from "../../types/input";
 import * as outputApi from "../../types/output";
+import { getVersion } from "../../version";
 
     /**
      * Event is a report of an event somewhere in the cluster.
@@ -144,6 +145,14 @@ import * as outputApi from "../../types/output";
           inputs["series"] = args && args.series || undefined;
           inputs["source"] = args && args.source || undefined;
           inputs["type"] = args && args.type || undefined;
+        
+          if (!opts) {
+              opts = {};
+          }
+
+          if (!opts.version) {
+              opts.version = getVersion();
+          }
           super("kubernetes:core/v1:Event", name, inputs, opts);
       }
     }
