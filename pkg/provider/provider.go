@@ -19,12 +19,12 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"reflect"
 	"strings"
 
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	"github.com/grpc/grpc-go/status"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
@@ -109,12 +109,94 @@ func makeKubeProvider(
 
 // CheckConfig validates the configuration for this provider.
 func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "CheckConfig is not yet implemented")
+	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
 }
 
 // DiffConfig diffs the configuration for this provider.
 func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "DiffConfig is not yet implemented")
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("%s.DiffConfig(%s)", k.label(), urn)
+	glog.V(9).Infof("%s executing", label)
+
+	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.olds", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.news", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	// We can't tell for sure if a computed value has changed, so we make the conservative choice
+	// and force a replacement.
+	if news["kubeconfig"].IsComputed() {
+		return &pulumirpc.DiffResponse{
+			Changes:  pulumirpc.DiffResponse_DIFF_SOME,
+			Diffs:    []string{"kubeconfig"},
+			Replaces: []string{"kubeconfig"},
+		}, nil
+	}
+
+	var diffs, replaces []string
+
+	oldConfig, err := parseKubeconfigPropertyValue(olds["kubeconfig"])
+	if err != nil {
+		return nil, err
+	}
+	newConfig, err := parseKubeconfigPropertyValue(news["kubeconfig"])
+	if err != nil {
+		return nil, err
+	}
+
+	// Check for differences in provider overrides.
+	if !reflect.DeepEqual(oldConfig, newConfig) {
+		diffs = append(diffs, "kubeconfig")
+	}
+	if olds["context"] != news["context"] {
+		diffs = append(diffs, "context")
+	}
+	if olds["cluster"] != news["cluster"] {
+		diffs = append(diffs, "cluster")
+	}
+
+	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
+	// changed. k8s clusters do not have a well defined identity, so the best we can do is check
+	// if the settings for the active cluster have changed. This is not a foolproof method; a trivial
+	// counterexample is changing the load balancer or DNS entry pointing to the same cluster.
+	//
+	// Given this limitation, we try to strike a reasonable balance by planning a replacement iff
+	// the active cluster in the kubeconfig changes. This could still plan an erroneous replacement,
+	// but should work for the majority of cases.
+	//
+	// The alternative of ignoring changes to the kubeconfig is untenable; if the k8s cluster has
+	// changed, any dependent resources must be recreated, and ignoring changes prevents that from
+	// happening.
+	oldActiveCluster := getActiveClusterFromConfig(oldConfig, olds)
+	activeCluster := getActiveClusterFromConfig(newConfig, news)
+	if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
+		replaces = diffs
+	}
+	glog.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
+
+	if len(diffs) > 0 || len(replaces) > 0 {
+		return &pulumirpc.DiffResponse{
+			Changes:  pulumirpc.DiffResponse_DIFF_SOME,
+			Diffs:    diffs,
+			Replaces: replaces,
+		}, nil
+	}
+
+	return &pulumirpc.DiffResponse{
+		Changes: pulumirpc.DiffResponse_DIFF_NONE,
+	}, nil
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.
