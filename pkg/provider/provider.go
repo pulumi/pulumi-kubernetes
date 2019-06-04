@@ -200,7 +200,7 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.
-func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pbempty.Empty, error) {
+func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
 	vars := req.GetVariables()
 
 	//
@@ -256,7 +256,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	k.clientSet = cs
 
-	return &pbempty.Empty{}, nil
+	return &pulumirpc.ConfigureResponse{}, nil
 }
 
 // Invoke dynamically executes a built-in function in the provider.
