@@ -82,13 +82,13 @@ type kubeOpts struct {
 }
 
 type kubeProvider struct {
-	host              *provider.HostClient
-	canceler          *cancellationContext
-	name              string
-	version           string
-	providerPrefix    string
-	opts              kubeOpts
-	overrideNamespace string
+	host             *provider.HostClient
+	canceler         *cancellationContext
+	name             string
+	version          string
+	providerPrefix   string
+	opts             kubeOpts
+	defaultNamespace string
 
 	clientSet *clients.DynamicClientSet
 }
@@ -219,13 +219,12 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	overrides := &clientcmd.ConfigOverrides{
 		Context: clientapi.Context{
 			Cluster:   vars["kubernetes:config:cluster"],
-			Namespace: vars["kubernetes:config:namespace"],
 		},
 		CurrentContext: vars["kubernetes:config:context"],
 	}
 
-	if overrides.Context.Namespace != "" {
-		k.overrideNamespace = overrides.Context.Namespace
+	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
+		k.defaultNamespace = defaultNamespace
 	}
 
 	var kubeconfig clientcmd.ClientConfig
@@ -406,10 +405,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
-	// If an override namespace is set on the provider for this resource, check if the resource has Namespaced
-	// or Global scope. For namespaced resources, set the namespace to the override value, ignoring any value
-	// currently set on the resource. Global-scope resources are unaffected by the override.
-	if k.overrideNamespace != "" {
+	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced
+	// or Global scope. For namespaced resources, set the namespace to the default value if unset.
+	if k.defaultNamespace != "" && len(newInputs.GetNamespace()) == 0 {
 		namespacedKind, err := k.clientSet.IsNamespacedKind(gvk)
 		if err != nil {
 			if clients.IsNoNamespaceInfoErr(err) {
@@ -423,7 +421,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 
 		if namespacedKind {
-			newInputs.SetNamespace(k.overrideNamespace)
+			newInputs.SetNamespace(k.defaultNamespace)
 		}
 	}
 

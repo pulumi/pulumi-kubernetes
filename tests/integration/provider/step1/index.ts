@@ -20,16 +20,17 @@ import * as path from "path";
 // Use the existing ~/.kube/config kubeconfig
 const kubeconfig = fs.readFileSync(path.join(os.homedir(), ".kube", "config")).toString();
 
-const ns = new k8s.core.v1.Namespace("ns");
+const ns1 = new k8s.core.v1.Namespace("ns1");
+const ns2 = new k8s.core.v1.Namespace("ns2");
 
 // Create a new provider
 const myk8s = new k8s.Provider("myk8s", {
     kubeconfig: kubeconfig,
-    namespace: ns.metadata.name,
+    namespace: ns1.metadata.name,
 });
 
 // Create a Pod using the custom provider.
-// The namespace should be automatically set by the provider override.
+// The namespace should be automatically set by the provider default.
 new k8s.core.v1.Pod("nginx", {
     spec: {
         containers: [{
@@ -40,10 +41,10 @@ new k8s.core.v1.Pod("nginx", {
     },
 }, { provider: myk8s });
 
-// Create a Pod using the custom provider with a specified namespace.
-// The namespace should be overridden by the provider override.
+// Create a Pod using the custom provider with a specified default namespace.
+// The namespace should not be overridden by the provider default.
 new k8s.core.v1.Pod("namespaced-nginx", {
-    metadata: { namespace: ns.metadata.name },
+    metadata: { namespace: ns2.metadata.name },
     spec: {
         containers: [{
             image: "nginx:1.7.9",
@@ -54,7 +55,7 @@ new k8s.core.v1.Pod("namespaced-nginx", {
 }, { provider: myk8s });
 
 // Create a Namespace using the custom provider
-// The namespace should not be affected by the provider override since it is a non-namespaceable kind.
+// The namespace should not be affected by the provider override since it is a cluster-scoped kind.
 new k8s.core.v1.Namespace("other-ns",
     {},
     { provider: myk8s });

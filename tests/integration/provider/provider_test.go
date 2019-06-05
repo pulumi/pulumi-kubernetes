@@ -41,41 +41,47 @@ func TestProvider(t *testing.T) {
 		Quick:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
-			stackRes := stackInfo.Deployment.Resources[6]
+			stackRes := stackInfo.Deployment.Resources[7]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-			k8sProvider := stackInfo.Deployment.Resources[5]
+			k8sProvider := stackInfo.Deployment.Resources[6]
 			assert.True(t, providers.IsProviderType(k8sProvider.URN.Type()))
 
-			defaultProvider := stackInfo.Deployment.Resources[4]
+			defaultProvider := stackInfo.Deployment.Resources[5]
 			assert.True(t, providers.IsProviderType(defaultProvider.URN.Type()))
 
-			// Assert the provider Namespace was created
-			providerNamespace := stackInfo.Deployment.Resources[0]
-			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), providerNamespace.URN.Type())
-			providerNsName, _ := openapi.Pluck(providerNamespace.Outputs, "metadata", "name")
+			// Assert the provider default Namespace (ns1) was created
+			ns1 := stackInfo.Deployment.Resources[0]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), ns1.URN.Type())
+			providerNsName, _ := openapi.Pluck(ns1.Outputs, "metadata", "name")
 
-			// Assert the other Namespace was created despite the provider override.
-			otherNamespace := stackInfo.Deployment.Resources[1]
+			// Assert the ns2 Namespace was created
+			ns2 := stackInfo.Deployment.Resources[1]
+			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), ns2.URN.Type())
+			ns2Name, _ := openapi.Pluck(ns2.Outputs, "metadata", "name")
+
+			// Assert the other Namespace was created and doesn't use the provider default.
+			otherNamespace := stackInfo.Deployment.Resources[2]
 			assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), otherNamespace.URN.Type())
 			nsName, _ := openapi.Pluck(otherNamespace.Outputs, "metadata", "name")
-			assert.NotEqual(t, nsName, providerNsName)
+			assert.NotEqual(t, nsName.(string), providerNsName.(string))
 
-			// Assert the Pod was created in the provider namespace.
-			pod := stackInfo.Deployment.Resources[3]
+			// Assert the first Pod was created in the provider default namespace.
+			pod := stackInfo.Deployment.Resources[4]
 			assert.Equal(t, "nginx", string(pod.URN.Name()))
 			podNamespace, _ := openapi.Pluck(pod.Outputs, "metadata", "namespace")
-			assert.Equal(t, providerNamespace.ID.String(), podNamespace.(string))
+			assert.Equal(t, providerNsName.(string), podNamespace.(string))
 
-			// Assert the Pod was created in the provider namespace rather than the specified namespace.
-			namespacedPod := stackInfo.Deployment.Resources[2]
+			// Assert the Pod was created in the specified namespace rather than the provider default namespace.
+			namespacedPod := stackInfo.Deployment.Resources[3]
 			assert.Equal(t, "namespaced-nginx", string(namespacedPod.URN.Name()))
 			namespacedPodNamespace, _ := openapi.Pluck(namespacedPod.Outputs, "metadata", "namespace")
-			assert.Equal(t, providerNamespace.ID.String(), namespacedPodNamespace.(string))
+			assert.NotEqual(t, providerNsName.(string), namespacedPodNamespace.(string))
+			assert.Equal(t, ns2Name.(string), namespacedPodNamespace.(string))
 		},
 	})
 }
