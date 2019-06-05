@@ -39,7 +39,8 @@ export interface ProviderArgs {
      */
     readonly kubeconfig?: pulumi.Input<string>;
     /**
-     * If present, the namespace scope to use.
+     * If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
+     * Note: if .metadata.namespace is set on a resource, that value takes precedence over the provider default.
      */
     readonly namespace?: pulumi.Input<string>;
 }
