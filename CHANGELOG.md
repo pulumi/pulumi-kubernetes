@@ -1,5 +1,12 @@
 ## 0.23.2 (Unreleased)
 
+### Important
+
+This release changes the behavior of the provider namespace flag introduced in `0.23.0`.
+Previously, this flag was treated as an override, which ignored namespace values set
+directly on resources. Now, the flag is a default, and will only set the namespace if one
+is not already set. **This may cause resources to be recreated!**
+
 ### Major changes
 
 -   BREAKING: Change the recently added `transformations` callback in Python to match JavaScript API (https://github.com/pulumi/pulumi-kubernetes/pull/575)
