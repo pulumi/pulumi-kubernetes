@@ -1,11 +1,15 @@
-## 0.23.2 (Unreleased)
+## 0.24.1 (Unreleased)
+
+## 0.24.0 (June 5, 2019)
 
 ### Important
 
-This release changes the behavior of the provider namespace flag introduced in `0.23.0`.
-Previously, this flag was treated as an override, which ignored namespace values set
-directly on resources. Now, the flag is a default, and will only set the namespace if one
-is not already set. **This may cause resources to be recreated!**
+BREAKING: This release changes the behavior of the provider `namespace` flag introduced
+in `0.23.0`. Previously, this flag was treated as an override, which ignored namespace
+values set directly on resources. Now, the flag is a default, and will only set the 
+namespace if one is not already set. If you have created resources using a provider
+with the `namespace` flag set, this change may cause these resources to be recreated
+on the next update.
 
 ### Major changes
 
