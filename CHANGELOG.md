@@ -8,7 +8,7 @@
 
 ### Major changes
 
--   None
+-   Add support for Kubernetes v1.15.0 (https://github.com/pulumi/pulumi-kubernetes/pull/557)
 
 ### Improvements
 

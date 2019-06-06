@@ -4,6 +4,161 @@
 export namespace admissionregistration {
   export namespace v1beta1 {
     /**
+     * MutatingWebhook describes an admission webhook and the resources and operations it applies
+     * to.
+     */
+    export interface MutatingWebhook {
+      /**
+       * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
+       * Webhook expects. API server will try to use first version in the list which it supports. If
+       * none of the versions specified in this list supported by API server, validation will fail
+       * for this object. If a persisted webhook configuration specifies allowed versions and does
+       * not include any versions known to the API Server, calls to the webhook will fail and be
+       * subject to the failure policy. Default to `['v1beta1']`.
+       */
+      readonly admissionReviewVersions: string[]
+
+      /**
+       * ClientConfig defines how to communicate with the hook. Required
+       */
+      readonly clientConfig: admissionregistration.v1beta1.WebhookClientConfig
+
+      /**
+       * FailurePolicy defines how unrecognized errors from the admission endpoint are handled -
+       * allowed values are Ignore or Fail. Defaults to Ignore.
+       */
+      readonly failurePolicy: string
+
+      /**
+       * matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values
+       * are "Exact" or "Equivalent".
+       * 
+       * - Exact: match a request only if it exactly matches a specified rule. For example, if
+       * deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules"
+       * only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a
+       * request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
+       * 
+       * - Equivalent: match a request if modifies a resource listed in rules, even via another API
+       * group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1,
+       * and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"],
+       * resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be
+       * converted to apps/v1 and sent to the webhook.
+       * 
+       * Defaults to "Exact"
+       */
+      readonly matchPolicy: string
+
+      /**
+       * The name of the admission webhook. Name should be fully qualified, e.g.,
+       * imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and
+       * kubernetes.io is the name of the organization. Required.
+       */
+      readonly name: string
+
+      /**
+       * NamespaceSelector decides whether to run the webhook on an object based on whether the
+       * namespace for that object matches the selector. If the object itself is a namespace, the
+       * matching is performed on object.metadata.labels. If the object is another cluster scoped
+       * resource, it never skips the webhook.
+       * 
+       * For example, to run the webhook on any objects whose namespace is not associated with
+       * "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+       *   "matchExpressions": [
+       *     {
+       *       "key": "runlevel",
+       *       "operator": "NotIn",
+       *       "values": [
+       *         "0",
+       *         "1"
+       *       ]
+       *     }
+       *   ]
+       * }
+       * 
+       * If instead you want to only run the webhook on any objects whose namespace is associated
+       * with the "environment" of "prod" or "staging"; you will set the selector as follows:
+       * "namespaceSelector": {
+       *   "matchExpressions": [
+       *     {
+       *       "key": "environment",
+       *       "operator": "In",
+       *       "values": [
+       *         "prod",
+       *         "staging"
+       *       ]
+       *     }
+       *   ]
+       * }
+       * 
+       * See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more
+       * examples of label selectors.
+       * 
+       * Default to the empty LabelSelector, which matches everything.
+       */
+      readonly namespaceSelector: meta.v1.LabelSelector
+
+      /**
+       * ObjectSelector decides whether to run the webhook based on if the object has matching
+       * labels. objectSelector is evaluated against both the oldObject and newObject that would be
+       * sent to the webhook, and is considered to match if either object matches the selector. A
+       * null object (oldObject in the case of create, or newObject in the case of delete) or an
+       * object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is
+       * not considered to match. Use the object selector only if the webhook is opt-in, because end
+       * users may skip the admission webhook by setting the labels. Default to the empty
+       * LabelSelector, which matches everything.
+       */
+      readonly objectSelector: meta.v1.LabelSelector
+
+      /**
+       * reinvocationPolicy indicates whether this webhook should be called multiple times as part
+       * of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
+       * 
+       * Never: the webhook will not be called more than once in a single admission evaluation.
+       * 
+       * IfNeeded: the webhook will be called at least one additional time as part of the admission
+       * evaluation if the object being admitted is modified by other admission plugins after the
+       * initial webhook call. Webhooks that specify this option *must* be idempotent, able to
+       * process objects they previously admitted. Note: * the number of additional invocations is
+       * not guaranteed to be exactly one. * if additional invocations result in further
+       * modifications to the object, webhooks are not guaranteed to be invoked again. * webhooks
+       * that use this option may be reordered to minimize the number of additional invocations. *
+       * to validate an object after all mutations are guaranteed complete, use a validating
+       * admission webhook instead.
+       * 
+       * Defaults to "Never".
+       */
+      readonly reinvocationPolicy: string
+
+      /**
+       * Rules describes what operations on what resources/subresources the webhook cares about. The
+       * webhook cares about an operation if it matches _any_ Rule. However, in order to prevent
+       * ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a
+       * state which cannot be recovered from without completely disabling the plugin,
+       * ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission
+       * requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+       */
+      readonly rules: admissionregistration.v1beta1.RuleWithOperations[]
+
+      /**
+       * SideEffects states whether this webhookk has side effects. Acceptable values are: Unknown,
+       * None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system,
+       * since a request may be rejected by a future step in the admission change and the side
+       * effects therefore need to be undone. Requests with the dryRun attribute will be
+       * auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to
+       * Unknown.
+       */
+      readonly sideEffects: string
+
+      /**
+       * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the
+       * webhook call will be ignored or the API call will fail based on the failure policy. The
+       * timeout value must be between 1 and 30 seconds. Default to 30 seconds.
+       */
+      readonly timeoutSeconds: number
+
+    }
+
+    /**
      * MutatingWebhookConfiguration describes the configuration of and admission webhook that accept
      * or reject and may change the object.
      */
@@ -33,7 +188,7 @@ export namespace admissionregistration {
       /**
        * Webhooks is a list of webhooks and the affected resources and operations.
        */
-      readonly webhooks: admissionregistration.v1beta1.Webhook[]
+      readonly webhooks: admissionregistration.v1beta1.MutatingWebhook[]
 
     }
 
@@ -137,79 +292,19 @@ export namespace admissionregistration {
        */
       readonly path: string
 
-    }
-
-    /**
-     * ValidatingWebhookConfiguration describes the configuration of and admission webhook that
-     * accept or reject and object without changing it.
-     */
-    export interface ValidatingWebhookConfiguration {
       /**
-       * APIVersion defines the versioned schema of this representation of an object. Servers should
-       * convert recognized schemas to the latest internal value, and may reject unrecognized
-       * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * If specified, the port on the service that hosting webhook. Default to 443 for backward
+       * compatibility. `port` should be a valid port number (1-65535, inclusive).
        */
-      readonly apiVersion: "admissionregistration.k8s.io/v1beta1"
-
-      /**
-       * Kind is a string value representing the REST resource this object represents. Servers may
-       * infer this from the endpoint the client submits requests to. Cannot be updated. In
-       * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      readonly kind: "ValidatingWebhookConfiguration"
-
-      /**
-       * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
-       */
-      readonly metadata: meta.v1.ObjectMeta
-
-      /**
-       * Webhooks is a list of webhooks and the affected resources and operations.
-       */
-      readonly webhooks: admissionregistration.v1beta1.Webhook[]
+      readonly port: number
 
     }
 
     /**
-     * ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+     * ValidatingWebhook describes an admission webhook and the resources and operations it applies
+     * to.
      */
-    export interface ValidatingWebhookConfigurationList {
-      /**
-       * APIVersion defines the versioned schema of this representation of an object. Servers should
-       * convert recognized schemas to the latest internal value, and may reject unrecognized
-       * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-       */
-      readonly apiVersion: "admissionregistration.k8s.io/v1beta1"
-
-      /**
-       * List of ValidatingWebhookConfiguration.
-       */
-      readonly items: admissionregistration.v1beta1.ValidatingWebhookConfiguration[]
-
-      /**
-       * Kind is a string value representing the REST resource this object represents. Servers may
-       * infer this from the endpoint the client submits requests to. Cannot be updated. In
-       * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      readonly kind: "ValidatingWebhookConfigurationList"
-
-      /**
-       * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-       */
-      readonly metadata: meta.v1.ListMeta
-
-    }
-
-    /**
-     * Webhook describes an admission webhook and the resources and operations it applies to.
-     */
-    export interface Webhook {
+    export interface ValidatingWebhook {
       /**
        * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the
        * Webhook expects. API server will try to use first version in the list which it supports. If
@@ -230,6 +325,25 @@ export namespace admissionregistration {
        * allowed values are Ignore or Fail. Defaults to Ignore.
        */
       readonly failurePolicy: string
+
+      /**
+       * matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values
+       * are "Exact" or "Equivalent".
+       * 
+       * - Exact: match a request only if it exactly matches a specified rule. For example, if
+       * deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules"
+       * only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a
+       * request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
+       * 
+       * - Equivalent: match a request if modifies a resource listed in rules, even via another API
+       * group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1,
+       * and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"],
+       * resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be
+       * converted to apps/v1 and sent to the webhook.
+       * 
+       * Defaults to "Exact"
+       */
+      readonly matchPolicy: string
 
       /**
        * The name of the admission webhook. Name should be fully qualified, e.g.,
@@ -273,12 +387,24 @@ export namespace admissionregistration {
        *   ]
        * }
        * 
-       * See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more
+       * See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more
        * examples of label selectors.
        * 
        * Default to the empty LabelSelector, which matches everything.
        */
       readonly namespaceSelector: meta.v1.LabelSelector
+
+      /**
+       * ObjectSelector decides whether to run the webhook based on if the object has matching
+       * labels. objectSelector is evaluated against both the oldObject and newObject that would be
+       * sent to the webhook, and is considered to match if either object matches the selector. A
+       * null object (oldObject in the case of create, or newObject in the case of delete) or an
+       * object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is
+       * not considered to match. Use the object selector only if the webhook is opt-in, because end
+       * users may skip the admission webhook by setting the labels. Default to the empty
+       * LabelSelector, which matches everything.
+       */
+      readonly objectSelector: meta.v1.LabelSelector
 
       /**
        * Rules describes what operations on what resources/subresources the webhook cares about. The
@@ -310,6 +436,73 @@ export namespace admissionregistration {
     }
 
     /**
+     * ValidatingWebhookConfiguration describes the configuration of and admission webhook that
+     * accept or reject and object without changing it.
+     */
+    export interface ValidatingWebhookConfiguration {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "admissionregistration.k8s.io/v1beta1"
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "ValidatingWebhookConfiguration"
+
+      /**
+       * Standard object metadata; More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * Webhooks is a list of webhooks and the affected resources and operations.
+       */
+      readonly webhooks: admissionregistration.v1beta1.ValidatingWebhook[]
+
+    }
+
+    /**
+     * ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+     */
+    export interface ValidatingWebhookConfigurationList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       */
+      readonly apiVersion: "admissionregistration.k8s.io/v1beta1"
+
+      /**
+       * List of ValidatingWebhookConfiguration.
+       */
+      readonly items: admissionregistration.v1beta1.ValidatingWebhookConfiguration[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly kind: "ValidatingWebhookConfigurationList"
+
+      /**
+       * Standard list metadata. More info:
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
      * WebhookClientConfig contains the information to make a TLS connection with the webhook
      */
     export interface WebhookClientConfig {
@@ -324,8 +517,6 @@ export namespace admissionregistration {
        * specified.
        * 
        * If the webhook is running within the cluster, then you should use `service`.
-       * 
-       * Port 443 will be used if it is open, otherwise it is an error.
        */
       readonly service: admissionregistration.v1beta1.ServiceReference
 
@@ -422,8 +613,8 @@ export namespace apiextensions {
       /**
        * `strategy` specifies the conversion strategy. Allowed values are: - `None`: The converter
        * only change the apiVersion and would not touch any other field in the CR. - `Webhook`: API
-       * Server will call to an external webhook to do the conversion. Additional information is
-       * needed for this option.
+       * Server will call to an external webhook to do the conversion. Additional information
+       *   is needed for this option. This requires spec.preserveUnknownFields to be false.
        */
       readonly strategy: string
 
@@ -497,7 +688,8 @@ export namespace apiextensions {
       readonly status: string
 
       /**
-       * Type is the type of the condition.
+       * Type is the type of the condition. Types include Established, NamesAccepted and
+       * Terminating.
        */
       readonly type: string
 
@@ -596,6 +788,13 @@ export namespace apiextensions {
        * Names are the names used to describe this custom resource
        */
       readonly names: apiextensions.v1beta1.CustomResourceDefinitionNames
+
+      /**
+       * preserveUnknownFields disables pruning of object fields which are not specified in the
+       * OpenAPI schema. apiVersion, kind, metadata and known fields inside metadata are always
+       * preserved. Defaults to true in v1beta and will default to false in v1.
+       */
+      readonly preserveUnknownFields: boolean
 
       /**
        * Scope indicates whether this resource is cluster or namespace scoped.  Default is
@@ -726,9 +925,12 @@ export namespace apiextensions {
       /**
        * LabelSelectorPath defines the JSON path inside of a CustomResource that corresponds to
        * Scale.Status.Selector. Only JSON paths without the array notation are allowed. Must be a
-       * JSON Path under .status. Must be set to work with HPA. If there is no value under the given
-       * path in the CustomResource, the status label selector value in the /scale subresource will
-       * default to the empty string.
+       * JSON Path under .status or .spec. Must be set to work with HPA. The field pointed by this
+       * JSON path must be a string field (not a complex selector struct) which contains a
+       * serialized label selector in string form. More info:
+       * https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource
+       * If there is no value under the given path in the CustomResource, the status label selector
+       * value in the /scale subresource will default to the empty string.
        */
       readonly labelSelectorPath: string
 
@@ -811,7 +1013,11 @@ export namespace apiextensions {
       
       readonly anyOf: apiextensions.v1beta1.JSONSchemaProps[]
 
-      
+      /**
+       * default is a default value for undefined object fields. Defaulting is an alpha feature
+       * under the CustomResourceDefaulting feature gate. Defaulting requires
+       * spec.preserveUnknownFields to be false.
+       */
       readonly default: any
 
       
@@ -904,6 +1110,39 @@ export namespace apiextensions {
       
       readonly uniqueItems: boolean
 
+      /**
+       * x-kubernetes-embedded-resource defines that the value is an embedded Kubernetes
+       * runtime.Object, with TypeMeta and ObjectMeta. The type must be object. It is allowed to
+       * further restrict the embedded object. kind, apiVersion and metadata are validated
+       * automatically. x-kubernetes-preserve-unknown-fields is allowed to be true, but does not
+       * have to be if the object is fully specified (up to kind, apiVersion, metadata).
+       */
+      readonly x_kubernetes_embedded_resource: boolean
+
+      /**
+       * x-kubernetes-int-or-string specifies that this value is either an integer or a string. If
+       * this is true, an empty type is allowed and type as child of anyOf is permitted if following
+       * one of the following patterns:
+       * 
+       * 1) anyOf:
+       *    - type: integer
+       *    - type: string
+       * 2) allOf:
+       *    - anyOf:
+       *      - type: integer
+       *      - type: string
+       *    - ... zero or more
+       */
+      readonly x_kubernetes_int_or_string: boolean
+
+      /**
+       * x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields
+       * which are not specified in the validation schema. This affects fields recursively, but
+       * switches back to normal pruning behaviour if nested properties or additionalProperties are
+       * specified in the schema. This can either be true or undefined. False is forbidden.
+       */
+      readonly x_kubernetes_preserve_unknown_fields: boolean
+
     }
 
     /**
@@ -925,6 +1164,12 @@ export namespace apiextensions {
        */
       readonly path: string
 
+      /**
+       * If specified, the port on the service that hosting webhook. Default to 443 for backward
+       * compatibility. `port` should be a valid port number (1-65535, inclusive).
+       */
+      readonly port: number
+
     }
 
     /**
@@ -943,8 +1188,6 @@ export namespace apiextensions {
        * specified.
        * 
        * If the webhook is running within the cluster, then you should use `service`.
-       * 
-       * Port 443 will be used if it is open, otherwise it is an error.
        */
       readonly service: apiextensions.v1beta1.ServiceReference
 
@@ -1162,6 +1405,12 @@ export namespace apiregistration {
        */
       readonly namespace: string
 
+      /**
+       * If specified, the port on the service that hosting webhook. Default to 443 for backward
+       * compatibility. `port` should be a valid port number (1-65535, inclusive).
+       */
+      readonly port: number
+
     }
 
   }
@@ -1348,6 +1597,12 @@ export namespace apiregistration {
        * Namespace is the namespace of the service
        */
       readonly namespace: string
+
+      /**
+       * If specified, the port on the service that hosting webhook. Default to 443 for backward
+       * compatibility. `port` should be a valid port number (1-65535, inclusive).
+       */
+      readonly port: number
 
     }
 
@@ -4343,6 +4598,12 @@ export namespace auditregistration {
        */
       readonly path: string
 
+      /**
+       * If specified, the port on the service that hosting webhook. Default to 443 for backward
+       * compatibility. `port` should be a valid port number (1-65535, inclusive).
+       */
+      readonly port: number
+
     }
 
     /**
@@ -4376,8 +4637,6 @@ export namespace auditregistration {
        * specified.
        * 
        * If the webhook is running within the cluster, then you should use `service`.
-       * 
-       * Port 443 will be used if it is open, otherwise it is an error.
        */
       readonly service: auditregistration.v1alpha1.ServiceReference
 
@@ -7846,6 +8105,15 @@ export namespace core {
      */
     export interface CSIPersistentVolumeSource {
       /**
+       * ControllerExpandSecretRef is a reference to the secret object containing sensitive
+       * information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This
+       * is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is
+       * optional, and may be empty if no secret is required. If the secret object contains more
+       * than one secret, all secrets are passed.
+       */
+      readonly controllerExpandSecretRef: core.v1.SecretReference
+
+      /**
        * ControllerPublishSecretRef is a reference to the secret object containing sensitive
        * information to pass to the CSI driver to complete the CSI ControllerPublishVolume and
        * ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is
@@ -8288,7 +8556,7 @@ export namespace core {
       readonly name: string
 
       /**
-       * Specify whether the ConfigMap or it's key must be defined
+       * Specify whether the ConfigMap or its key must be defined
        */
       readonly optional: boolean
 
@@ -8388,7 +8656,7 @@ export namespace core {
       readonly name: string
 
       /**
-       * Specify whether the ConfigMap or it's keys must be defined
+       * Specify whether the ConfigMap or its keys must be defined
        */
       readonly optional: boolean
 
@@ -8428,7 +8696,7 @@ export namespace core {
       readonly name: string
 
       /**
-       * Specify whether the ConfigMap or it's keys must be defined
+       * Specify whether the ConfigMap or its keys must be defined
        */
       readonly optional: boolean
 
@@ -9276,7 +9544,7 @@ export namespace core {
       readonly lastObservedTime: string
 
       /**
-       * State of this Series: Ongoing or Finished
+       * State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
        */
       readonly state: string
 
@@ -11512,6 +11780,11 @@ export namespace core {
        */
       readonly sysctls: core.v1.Sysctl[]
 
+      /**
+       * Windows security options.
+       */
+      readonly windowsOptions: core.v1.WindowsSecurityContextOptions
+
     }
 
     /**
@@ -11630,6 +11903,13 @@ export namespace core {
       readonly nodeSelector: {[key: string]: string}
 
       /**
+       * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never,
+       * PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level
+       * and is only honored by servers that enable the NonPreemptingPriority feature.
+       */
+      readonly preemptionPolicy: string
+
+      /**
        * The priority value. Various system components use this field to find the priority of the
        * pod. When Priority Admission Controller is enabled, it prevents users from setting this
        * field. The admission controller populates this field from PriorityClassName. The higher the
@@ -11666,8 +11946,8 @@ export namespace core {
        * used to run this pod.  If no RuntimeClass resource matches the named class, the pod will
        * not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit
        * class with an empty definition that uses the default runtime handler. More info:
-       * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is an alpha feature and
-       * may change in the future.
+       * https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is a beta feature as of
+       * Kubernetes v1.14.
        */
       readonly runtimeClassName: string
 
@@ -12795,7 +13075,7 @@ export namespace core {
       readonly name: string
 
       /**
-       * Specify whether the Secret or it's key must be defined
+       * Specify whether the Secret or its key must be defined
        */
       readonly optional: boolean
 
@@ -12910,7 +13190,7 @@ export namespace core {
       readonly items: core.v1.KeyToPath[]
 
       /**
-       * Specify whether the Secret or it's keys must be defined
+       * Specify whether the Secret or its keys must be defined
        */
       readonly optional: boolean
 
@@ -12991,6 +13271,11 @@ export namespace core {
        * specified in SecurityContext takes precedence.
        */
       readonly seLinuxOptions: core.v1.SELinuxOptions
+
+      /**
+       * Windows security options.
+       */
+      readonly windowsOptions: core.v1.WindowsSecurityContextOptions
 
     }
 
@@ -13826,7 +14111,7 @@ export namespace core {
        * Expanded path within the volume from which the container's volume should be mounted.
        * Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded
        * using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath
-       * are mutually exclusive. This field is alpha in 1.14.
+       * are mutually exclusive. This field is beta in 1.15.
        */
       readonly subPathExpr: string
 
@@ -13911,6 +14196,26 @@ export namespace core {
        * weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
        */
       readonly weight: number
+
+    }
+
+    /**
+     * WindowsSecurityContextOptions contain Windows-specific options and credentials.
+     */
+    export interface WindowsSecurityContextOptions {
+      /**
+       * GMSACredentialSpec is where the GMSA admission webhook
+       * (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA
+       * credential spec named by the GMSACredentialSpecName field. This field is alpha-level and is
+       * only honored by servers that enable the WindowsGMSA feature flag.
+       */
+      readonly gmsaCredentialSpec: string
+
+      /**
+       * GMSACredentialSpecName is the name of the GMSA credential spec to use. This field is
+       * alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+       */
+      readonly gmsaCredentialSpecName: string
 
     }
 
@@ -14069,7 +14374,8 @@ export namespace events {
       readonly lastObservedTime: string
 
       /**
-       * Information whether this series is ongoing or finished.
+       * Information whether this series is ongoing or finished. Deprecated. Planned removal for
+       * 1.18
        */
       readonly state: string
 
@@ -15223,8 +15529,9 @@ export namespace extensions {
 
       /**
        * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be
-       * embedded within a pod spec. An empty value means no CSI drivers can run inline within a pod
-       * spec.
+       * embedded within a pod spec. An empty value indicates that any CSI driver can be used for
+       * inline ephemeral volumes. This is an alpha field, and is only honored if the API server
+       * enables the CSIInlineVolume feature gate.
        */
       readonly allowedCSIDrivers: extensions.v1beta1.AllowedCSIDriver[]
 
@@ -15345,6 +15652,13 @@ export namespace extensions {
        * runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
        */
       readonly runAsUser: extensions.v1beta1.RunAsUserStrategyOptions
+
+      /**
+       * runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If
+       * this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of
+       * this field depends on the RuntimeClass feature gate being enabled.
+       */
+      readonly runtimeClass: extensions.v1beta1.RuntimeClassStrategyOptions
 
       /**
        * seLinux is the strategy that will dictate the allowable labels that may be set.
@@ -15641,6 +15955,26 @@ export namespace extensions {
        * rule is the strategy that will dictate the allowable RunAsUser values that may be set.
        */
       readonly rule: string
+
+    }
+
+    /**
+     * RuntimeClassStrategyOptions define the strategy that will dictate the allowable
+     * RuntimeClasses for a pod.
+     */
+    export interface RuntimeClassStrategyOptions {
+      /**
+       * allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a
+       * pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item
+       * in the list. An empty list requires the RuntimeClassName field to be unset.
+       */
+      readonly allowedRuntimeClassNames: string[]
+
+      /**
+       * defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST
+       * be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
+       */
+      readonly defaultRuntimeClassName: string
 
     }
 
@@ -16151,6 +16485,16 @@ export namespace meta {
        * have received this token from an error message.
        */
       readonly continue: string
+
+      /**
+       * RemainingItemCount is the number of subsequent items in the list which are not included in
+       * this list response. If the list request contained label or field selectors, then the number
+       * of remaining items is unknown and this field will be unset. If the list is complete (either
+       * because it is unpaginated or because this is the last page), then there are no more
+       * remaining items and this field will also be unset.  Servers older than v1.15 do not set
+       * this field.
+       */
+      readonly remainingItemCount: number
 
       /**
        * String that identifies the server's internal version of this object that can be used by
@@ -17679,8 +18023,9 @@ export namespace policy {
 
       /**
        * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be
-       * embedded within a pod spec. An empty value means no CSI drivers can run inline within a pod
-       * spec.
+       * embedded within a pod spec. An empty value indicates that any CSI driver can be used for
+       * inline ephemeral volumes. This is an alpha field, and is only honored if the API server
+       * enables the CSIInlineVolume feature gate.
        */
       readonly allowedCSIDrivers: policy.v1beta1.AllowedCSIDriver[]
 
@@ -17803,6 +18148,13 @@ export namespace policy {
       readonly runAsUser: policy.v1beta1.RunAsUserStrategyOptions
 
       /**
+       * runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If
+       * this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of
+       * this field depends on the RuntimeClass feature gate being enabled.
+       */
+      readonly runtimeClass: policy.v1beta1.RuntimeClassStrategyOptions
+
+      /**
        * seLinux is the strategy that will dictate the allowable labels that may be set.
        */
       readonly seLinux: policy.v1beta1.SELinuxStrategyOptions
@@ -17854,6 +18206,26 @@ export namespace policy {
        * rule is the strategy that will dictate the allowable RunAsUser values that may be set.
        */
       readonly rule: string
+
+    }
+
+    /**
+     * RuntimeClassStrategyOptions define the strategy that will dictate the allowable
+     * RuntimeClasses for a pod.
+     */
+    export interface RuntimeClassStrategyOptions {
+      /**
+       * allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a
+       * pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item
+       * in the list. An empty list requires the RuntimeClassName field to be unset.
+       */
+      readonly allowedRuntimeClassNames: string[]
+
+      /**
+       * defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST
+       * be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
+       */
+      readonly defaultRuntimeClassName: string
 
     }
 
@@ -19122,6 +19494,13 @@ export namespace scheduling {
       readonly metadata: meta.v1.ObjectMeta
 
       /**
+       * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never,
+       * PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level
+       * and is only honored by servers that enable the NonPreemptingPriority feature.
+       */
+      readonly preemptionPolicy: string
+
+      /**
        * The value of this priority class. This is the actual priority that pods receive when they
        * have the name of this class in their pod spec.
        */
@@ -19209,6 +19588,13 @@ export namespace scheduling {
       readonly metadata: meta.v1.ObjectMeta
 
       /**
+       * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never,
+       * PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level
+       * and is only honored by servers that enable the NonPreemptingPriority feature.
+       */
+      readonly preemptionPolicy: string
+
+      /**
        * The value of this priority class. This is the actual priority that pods receive when they
        * have the name of this class in their pod spec.
        */
@@ -19294,6 +19680,13 @@ export namespace scheduling {
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never,
+       * PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level
+       * and is only honored by servers that enable the NonPreemptingPriority feature.
+       */
+      readonly preemptionPolicy: string
 
       /**
        * The value of this priority class. This is the actual priority that pods receive when they
@@ -19632,6 +20025,15 @@ export namespace storage {
      */
     export interface VolumeAttachmentSource {
       /**
+       * inlineVolumeSpec contains all the information necessary to attach a persistent volume
+       * defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration
+       * feature. It contains translated fields from a pod's inline VolumeSource to a
+       * PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled
+       * the CSIMigration feature.
+       */
+      readonly inlineVolumeSpec: core.v1.PersistentVolumeSpec
+
+      /**
        * Name of the persistent volume to attach.
        */
       readonly persistentVolumeName: string
@@ -19793,6 +20195,15 @@ export namespace storage {
      * volumes in pods. Exactly one member can be set.
      */
     export interface VolumeAttachmentSource {
+      /**
+       * inlineVolumeSpec contains all the information necessary to attach a persistent volume
+       * defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration
+       * feature. It contains translated fields from a pod's inline VolumeSource to a
+       * PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled
+       * the CSIMigration feature.
+       */
+      readonly inlineVolumeSpec: core.v1.PersistentVolumeSpec
+
       /**
        * Name of the persistent volume to attach.
        */
@@ -20289,6 +20700,15 @@ export namespace storage {
      * volumes in pods. Exactly one member can be set.
      */
     export interface VolumeAttachmentSource {
+      /**
+       * inlineVolumeSpec contains all the information necessary to attach a persistent volume
+       * defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration
+       * feature. It contains translated fields from a pod's inline VolumeSource to a
+       * PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled
+       * the CSIMigration feature.
+       */
+      readonly inlineVolumeSpec: core.v1.PersistentVolumeSpec
+
       /**
        * Name of the persistent volume to attach.
        */

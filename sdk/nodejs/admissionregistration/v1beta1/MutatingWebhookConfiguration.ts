@@ -36,7 +36,7 @@ import { getVersion } from "../../version";
       /**
        * Webhooks is a list of webhooks and the affected resources and operations.
        */
-      public readonly webhooks: pulumi.Output<outputApi.admissionregistration.v1beta1.Webhook[]>;
+      public readonly webhooks: pulumi.Output<outputApi.admissionregistration.v1beta1.MutatingWebhook[]>;
 
       /**
        * Get the state of an existing `MutatingWebhookConfiguration` resource, as identified by `id`.

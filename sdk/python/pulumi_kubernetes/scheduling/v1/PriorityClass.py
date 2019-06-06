@@ -12,7 +12,7 @@ class PriorityClass(pulumi.CustomResource):
     PriorityClass defines mapping from a priority class name to the priority integer value. The
     value can be any valid integer.
     """
-    def __init__(self, __name__, __opts__=None, description=None, global_default=None, metadata=None, value=None):
+    def __init__(self, __name__, __opts__=None, description=None, global_default=None, metadata=None, preemption_policy=None, value=None):
         if not __name__:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(__name__, str):
@@ -30,6 +30,7 @@ class PriorityClass(pulumi.CustomResource):
         __props__['description'] = description
         __props__['globalDefault'] = global_default
         __props__['metadata'] = metadata
+        __props__['preemptionPolicy'] = preemption_policy
 
         if __opts__ is None:
             __opts__ = pulumi.ResourceOptions()
