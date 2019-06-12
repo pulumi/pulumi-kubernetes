@@ -24,6 +24,12 @@ import * as outputApi from "../types/output";
          * with engine.
          */
         transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+
+        /**
+         * An optional prefix for the auto-generated resource names.
+         * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+         */
+        resourcePrefix?: string;
     }
 
     export interface ConfigFileOpts {
@@ -76,7 +82,15 @@ import * as outputApi from "../types/output";
             }
 
             for (const file of files) {
-                const cf = new ConfigFile(file, {file: file, transformations: config.transformations}, opts);
+                const cf = new ConfigFile(
+                    file,
+                    {
+                        file: file,
+                        transformations: config.transformations,
+                        resourcePrefix: config.resourcePrefix
+                    },
+                    opts
+                );
                 resources = pulumi.all([resources, cf.resources]).apply(([rs, cfrs]) => ({...rs, ...cfrs}));
             }
         }
