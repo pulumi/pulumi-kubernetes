@@ -29,10 +29,19 @@ class ConfigFile(pulumi.ComponentResource):
     :param Optional[ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
     :param Optional[List[Callable]] transformations: A set of transformations to apply to Kubernetes
            resource definitions before registering with engine.
+    :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
+           Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+
     """
 
-    def __init__(self, name: str, file_id: str, opts: Optional[pulumi.ResourceOptions] = None,
-                 transformations: Optional[List[Callable]] = None):
+    def __init__(
+            self,
+            name: str,
+            file_id: str,
+            opts: Optional[pulumi.ResourceOptions] = None,
+            transformations: Optional[List[Callable]] = None,
+            resource_prefix: Optional[str] = None
+    ):
         if not name:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(name, str):
@@ -62,7 +71,7 @@ class ConfigFile(pulumi.ComponentResource):
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        output = _parse_yaml_document(yaml.safe_load_all(text), _opts, transformations)
+        output = _parse_yaml_document(yaml.safe_load_all(text), _opts, transformations, resource_prefix)
         self.register_outputs({"output": output})
 
     def translate_output_property(self, prop: str) -> str:
@@ -90,19 +99,25 @@ def _build_resources_dict(objs: List[pulumi.Output]) -> Dict[pulumi.Output, pulu
     return {key: value for key, value in objs}
 
 
-def _parse_yaml_document(objects, opts: Optional[pulumi.ResourceOptions] = None,
-                         transformations: Optional[List[Callable]] = None) -> pulumi.Output:
+def _parse_yaml_document(
+        objects, opts: Optional[pulumi.ResourceOptions] = None,
+        transformations: Optional[List[Callable]] = None,
+        resource_prefix: Optional[str] = None
+) -> pulumi.Output:
     objs = []
     for obj in objects:
-        file_objects = _parse_yaml_object(obj, opts, transformations)
+        file_objects = _parse_yaml_object(obj, opts, transformations, resource_prefix)
         for file_object in file_objects:
             objs.append(file_object)
 
     return pulumi.Output.all(*objs).apply(_build_resources_dict)
 
 
-def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
-                       transformations: Optional[List[Callable]] = None) -> [pulumi.Output]:
+def _parse_yaml_object(
+        obj, opts: Optional[pulumi.ResourceOptions] = None,
+        transformations: Optional[List[Callable]] = None,
+        resource_prefix: Optional[str] = None
+) -> [pulumi.Output]:
     """
     _parse_yaml_object parses a YAML manifest object, and creates the specified resources.
     """
@@ -138,7 +153,7 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
         objs = []
         if "items" in obj:
             for item in obj["items"]:
-                objs += _parse_yaml_object(item, opts, transformations)
+                objs += _parse_yaml_object(item, opts, transformations, resource_prefix)
         return objs
 
     if "metadata" not in obj or "name" not in obj["metadata"]:
@@ -157,6 +172,9 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
     if "namespace" in metadata:
         identifier = pulumi.Output.from_input(metadata).apply(
             lambda metadata: f"{metadata['namespace']}/{metadata['name']}")
+    if resource_prefix:
+        identifier = pulumi.Output.from_input(identifier).apply(
+            lambda identifier: f"{resource_prefix}-{identifier}")
 
     gvk = f"{api_version}/{kind}"
 {{#Groups}}
@@ -165,11 +183,11 @@ def _parse_yaml_object(obj, opts: Optional[pulumi.ResourceOptions] = None,
     if gvk == "{{RawAPIVersion}}/{{Kind}}":
         return [identifier.apply(
             lambda x: (f"{{RawAPIVersion}}/{{Kind}}:{x}",
-                       {{Kind}}(x, opts, **obj)))]
+                       {{Kind}}(f"{x}", opts, **obj)))]
 {{/Kinds}}
 {{/Versions}}
 {{/Groups}}
     return [identifier.apply(
         lambda x: (f"{gvk}:{x}",
-                   CustomResource(x, opts, api_version, kind, metadata, spec)))]
+                   CustomResource(f"{x}", opts, api_version, kind, metadata, spec)))]
 
