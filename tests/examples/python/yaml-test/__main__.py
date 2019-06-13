@@ -15,23 +15,29 @@ from pulumi_kubernetes.core.v1 import Namespace
 from pulumi_kubernetes.yaml import ConfigFile
 
 ns = Namespace("ns")
+ns2 = Namespace("ns2")
 
 
-def add_namespace(obj):
-    if "metadata" in obj:
-        obj["metadata"]["namespace"] = ns.metadata["name"]
-    else:
-        obj["metadata"] = {"namespace": ns.metadata["name"]}
+def set_namespace(namespace):
+    def f(obj):
+        if "metadata" in obj:
+            obj["metadata"]["namespace"] = namespace.metadata["name"]
+        else:
+            obj["metadata"] = {"namespace": namespace.metadata["name"]}
+
+    return f
+
 
 def secret_status(obj, opts):
     if obj["kind"] == "Pod" and obj["apiVersion"] == "v1":
         opts.additional_secret_outputs = ["apiVersion"]
 
+
 cf_local = ConfigFile(
     "yaml-test",
     "manifest.yaml",
     transformations=[
-        add_namespace, 
+        set_namespace(ns),
         # TODO[pulumi/pulumi#2782] Testing of secrets blocked on a bug in Python support for secrets.
         # secret_status,
     ],
@@ -39,8 +45,15 @@ cf_local = ConfigFile(
 
 # Create resources from standard Kubernetes guestbook YAML example in the test namespace.
 cf_url = ConfigFile(
-    name="guestbook",
+    "guestbook",
     file_id="https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml"
             "/guestbook.yaml",
-    transformations=[add_namespace],
+    transformations=[set_namespace(ns)],
+)
+cf_url2 = ConfigFile(
+    "guestbook2",
+    file_id="https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml"
+            "/guestbook.yaml",
+    transformations=[set_namespace(ns2)],
+    resource_prefix="dup"
 )
