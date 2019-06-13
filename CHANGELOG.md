@@ -1,6 +1,30 @@
 ## 0.24.1 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.14.x
+- v1.13.x
+- v1.12.x
+
+### Major changes
+
+-   None
+
+### Improvements
+
+-   Enable multiple instances of YAML manifests per stack (https://github.com/pulumi/pulumi-kubernetes/pull/594).
+
+### Bug fixes
+
+-   None
+
 ## 0.24.0 (June 5, 2019)
+
+### Supported Kubernetes versions
+
+- v1.14.x
+- v1.13.x
+- v1.12.x
 
 ### Important
 
