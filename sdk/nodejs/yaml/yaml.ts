@@ -105,7 +105,12 @@ import * as outputApi from "../types/output";
 
             for (const text of yamlTexts) {
                 const objs = jsyaml.safeLoadAll(text);
-                const docResources = parseYamlDocument({objs: objs, transformations: config.transformations}, opts);
+                const docResources = parseYamlDocument({
+                        objs: objs,
+                        transformations: config.transformations,
+                        resourcePrefix: config.resourcePrefix
+                    },
+                    opts);
                 resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
             }
         }
@@ -2206,7 +2211,7 @@ import * as outputApi from "../types/output";
             this.resources = pulumi.output(text.then(t => parseYamlDocument({
                 objs: jsyaml.safeLoadAll(t),
                 transformations: config && config.transformations || [],
-                resourcePrefix: config && config.resourcePrefix || ""
+                resourcePrefix: config && config.resourcePrefix || undefined
             }, {parent: this})));
         }
     }
@@ -2374,7 +2379,9 @@ import * as outputApi from "../types/output";
         if (namespace !== undefined) {
             id = pulumi.concat(namespace, "/", id);
         }
-        id = pulumi.concat(resourcePrefix, "-", id);
+        if (resourcePrefix !== undefined) {
+            id = pulumi.concat(resourcePrefix, "-", id);
+        }
         switch (`${apiVersion}/${kind}`) {
             case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
                 return [id.apply(id => ({
