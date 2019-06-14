@@ -229,6 +229,9 @@ import * as outputApi from "../types/output";
             config?: ConfigFileOpts,
             opts?: pulumi.ComponentResourceOptions
         ) {
+            if (config && config.resourcePrefix !== undefined) {
+                name = `${config.resourcePrefix}-${name}`
+            }
             super("kubernetes:yaml:ConfigFile", name, config, opts);
             const fileId = config && config.file || name;
             let text: Promise<string>;

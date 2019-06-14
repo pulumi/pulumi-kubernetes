@@ -36,7 +36,7 @@ new k8s.yaml.ConfigFile("guestbook", {
 
 // Create resources from standard Kubernetes guestbook YAML example in the second test namespace.
 // Disambiguate resource names with a specified prefix.
-new k8s.yaml.ConfigFile("guestbook2", {
+new k8s.yaml.ConfigFile("guestbook", {
   file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml/guestbook.yaml",
   transformations: [
   (obj: any) => {

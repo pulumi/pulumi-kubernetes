@@ -51,6 +51,8 @@ class ConfigFile(pulumi.ComponentResource):
 
         __props__ = dict()
 
+        if resource_prefix:
+            name = f"{resource_prefix}-{name}"
         super(ConfigFile, self).__init__(
             "kubernetes:yaml:ConfigFile",
             name,

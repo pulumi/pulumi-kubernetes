@@ -51,7 +51,7 @@ cf_url = ConfigFile(
     transformations=[set_namespace(ns)],
 )
 cf_url2 = ConfigFile(
-    "guestbook2",
+    "guestbook",
     file_id="https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml"
             "/guestbook.yaml",
     transformations=[set_namespace(ns2)],
