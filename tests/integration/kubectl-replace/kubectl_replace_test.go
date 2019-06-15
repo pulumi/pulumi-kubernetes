@@ -67,14 +67,14 @@ func TestKubectlReplace(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 5, len(stackInfo.Deployment.Resources))
 
 					tests.SortResourcesByURN(stackInfo)
 
-					stackRes := stackInfo.Deployment.Resources[3]
+					stackRes := stackInfo.Deployment.Resources[4]
 					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-					provRes := stackInfo.Deployment.Resources[2]
+					provRes := stackInfo.Deployment.Resources[3]
 					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
 
 					//
