@@ -1,10 +1,10 @@
-## 0.24.1 (Unreleased)
+## 0.25.0 (June 19, 2019)
 
 ### Supported Kubernetes versions
 
+- v1.15.x
 - v1.14.x
 - v1.13.x
-- v1.12.x
 
 ### Major changes
 
