@@ -39,15 +39,15 @@ new k8s.yaml.ConfigFile("guestbook", {
 new k8s.yaml.ConfigFile("guestbook", {
   file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml/guestbook.yaml",
   transformations: [
-  (obj: any) => {
-    if (obj !== undefined) {
-      if (obj.metadata !== undefined) {
-        obj.metadata.namespace = namespace2.metadata.name;
-      } else {
-        obj.metadata = {namespace: namespace2.metadata.name}
+    (obj: any) => {
+      if (obj !== undefined) {
+        if (obj.metadata !== undefined) {
+          obj.metadata.namespace = namespace2.metadata.name;
+        } else {
+          obj.metadata = {namespace: namespace2.metadata.name}
+        }
       }
     }
-  }
-],
+  ],
   resourcePrefix: "dup"
 });

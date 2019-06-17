@@ -36,6 +36,12 @@ interface BaseChartOpts {
      * creation. Allows customization of the chart behaviour without directly modifying the chart itself.
      */
     transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+
+    /**
+     * An optional prefix for the auto-generated resource names.
+     * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+     */
+    resourcePrefix?: string
 }
 
 export interface ChartOpts extends BaseChartOpts {
@@ -107,6 +113,9 @@ export class Chart extends yaml.CollectionComponentResource {
         config: ChartOpts | LocalChartOpts,
         opts?: pulumi.ComponentResourceOptions
     ) {
+        if (config.resourcePrefix !== undefined) {
+            releaseName = `${config.resourcePrefix}-${releaseName}`
+        }
         super("kubernetes:helm.sh/v2:Chart", releaseName, config, opts);
 
         const allConfig = pulumi.output(config);
@@ -180,7 +189,7 @@ export class Chart extends yaml.CollectionComponentResource {
     parseTemplate(
         yamlStream: string,
         transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void)[] | undefined,
-        dependsOn: pulumi.Resource[]
+        dependsOn: pulumi.Resource[],
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
         // NOTE: We must manually split the YAML stream because of js-yaml#456. Perusing the
         // code and the spec, it looks like a YAML stream is delimited by `^---`, though it is
@@ -196,7 +205,7 @@ export class Chart extends yaml.CollectionComponentResource {
         return yaml.parse(
             {
                 yaml: objs.map(o => jsyaml.safeDump(o)),
-                transformations: transformations || []
+                transformations: transformations || [],
             },
             { parent: this, dependsOn: dependsOn }
         );

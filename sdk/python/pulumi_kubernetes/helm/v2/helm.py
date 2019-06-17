@@ -185,6 +185,12 @@ class ChartOpts:
     creation. Allows customization of the chart behaviour without directly modifying the chart itself.
     """
 
+    resource_prefix: Optional[str]
+    """
+    Optional prefix for the auto-generated resource names.
+    Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+    """
+
     repo: Optional[pulumi.Input[str]]
     """
     The repository containing the desired chart.  If not provided, [chart] must be a fully qualified
@@ -206,6 +212,7 @@ class ChartOpts:
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
                  transformations: Optional[List[Callable]] = None,
+                 resource_prefix: Optional[str] = None,
                  repo: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  fetch_opts: Optional[pulumi.Input[FetchOpts]] = None) -> None:
@@ -218,6 +225,8 @@ class ChartOpts:
         :param Optional[List[Callable] transformations: Optional list of transformations to apply to
                resources that will be created by this chart prior to creation. Allows customization of the
                chart behaviour without directly modifying the chart itself.
+        :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
+               Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         :param Optional[pulumi.Input[str]] repo: The repository containing the desired chart.  If not
                provided, [chart] must be a fully qualified chart URL or repo/chartname.
         :param Optional[pulumi.Input[str]] version: The version of the chart to deploy. If not provided,
@@ -229,6 +238,7 @@ class ChartOpts:
         self.namespace = namespace
         self.values = values
         self.transformations = transformations
+        self.resource_prefix = resource_prefix
         self.repo = repo
         self.version = version
         self.fetch_opts = fetch_opts
@@ -260,11 +270,18 @@ class LocalChartOpts:
     creation. Allows customization of the chart behaviour without directly modifying the chart itself.
     """
 
+    resource_prefix: Optional[str]
+    """
+    Optional prefix for the auto-generated resource names.
+    Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+    """
+
     def __init__(self,
                  path: pulumi.Input[str],
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[List[Callable]] = None) -> None:
+                 transformations: Optional[List[Callable]] = None,
+                 resource_prefix: Optional[str] = None) -> None:
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
@@ -273,11 +290,14 @@ class LocalChartOpts:
         :param Optional[List[Callable]] transformations: Optional list of transformations to apply to
                resources that will be created by this chart prior to creation. Allows customization of the
                chart behaviour without directly modifying the chart itself.
+        :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
+               Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         """
         self.path = path
         self.namespace = namespace
         self.values = values
         self.transformations = transformations
+        self.resource_prefix = resource_prefix
 
 
 def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi.ResourceOptions]) -> pulumi.Output:
@@ -401,6 +421,9 @@ class Chart(pulumi.ComponentResource):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
 
         __props__ = dict()
+
+        if config.resource_prefix:
+            release_name = f"{config.resource_prefix}-{release_name}"
 
         super(Chart, self).__init__(
             "kubernetes:helm.sh/v2:Chart",
