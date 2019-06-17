@@ -37,7 +37,7 @@ func TestYAMLURL(t *testing.T) {
 			assert.NotNil(t, stackInfo.Deployment)
 
 			// Assert that we've retrieved the YAML from the URL and provisioned them.
-			assert.Equal(t, 10, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 18, len(stackInfo.Deployment.Resources))
 		},
 	})
 }

@@ -24,6 +24,12 @@ import * as outputApi from "../types/output";
          * with engine.
          */
         transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+
+        /**
+         * An optional prefix for the auto-generated resource names.
+         * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+         */
+        resourcePrefix?: string;
     }
 
     export interface ConfigFileOpts {
@@ -35,6 +41,12 @@ import * as outputApi from "../types/output";
          * with engine.
          */
         transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+
+        /**
+         * An optional prefix for the auto-generated resource names.
+         * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+         */
+        resourcePrefix?: string;
     }
 
     export interface ConfigOpts {
@@ -46,6 +58,12 @@ import * as outputApi from "../types/output";
          * with engine.
          */
         transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+
+        /**
+         * An optional prefix for the auto-generated resource names.
+         * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
+         */
+        resourcePrefix?: string;
     }
 
     /** @ignore */ export function parse(
@@ -64,7 +82,15 @@ import * as outputApi from "../types/output";
             }
 
             for (const file of files) {
-                const cf = new ConfigFile(file, {file: file, transformations: config.transformations}, opts);
+                const cf = new ConfigFile(
+                    file,
+                    {
+                        file: file,
+                        transformations: config.transformations,
+                        resourcePrefix: config.resourcePrefix
+                    },
+                    opts
+                );
                 resources = pulumi.all([resources, cf.resources]).apply(([rs, cfrs]) => ({...rs, ...cfrs}));
             }
         }
@@ -79,7 +105,12 @@ import * as outputApi from "../types/output";
 
             for (const text of yamlTexts) {
                 const objs = jsyaml.safeLoadAll(text);
-                const docResources = parseYamlDocument({objs: objs, transformations: config.transformations}, opts);
+                const docResources = parseYamlDocument({
+                        objs: objs,
+                        transformations: config.transformations,
+                        resourcePrefix: config.resourcePrefix
+                    },
+                    opts);
                 resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));
             }
         }
@@ -2163,7 +2194,14 @@ import * as outputApi from "../types/output";
      * is not specified, `ConfigFile` assumes the argument `name` is the filename.
      */
     export class ConfigFile extends CollectionComponentResource {
-        constructor(name: string, config?: ConfigFileOpts, opts?: pulumi.ComponentResourceOptions) {
+        constructor(
+            name: string,
+            config?: ConfigFileOpts,
+            opts?: pulumi.ComponentResourceOptions
+        ) {
+            if (config && config.resourcePrefix !== undefined) {
+                name = `${config.resourcePrefix}-${name}`
+            }
             super("kubernetes:yaml:ConfigFile", name, config, opts);
             const fileId = config && config.file || name;
             let text: Promise<string>;
@@ -2175,19 +2213,21 @@ import * as outputApi from "../types/output";
 
             this.resources = pulumi.output(text.then(t => parseYamlDocument({
                 objs: jsyaml.safeLoadAll(t),
-                transformations: config && config.transformations || []
+                transformations: config && config.transformations || [],
+                resourcePrefix: config && config.resourcePrefix || undefined
             }, {parent: this})));
         }
     }
 
     /** @ignore */ function parseYamlDocument(
-        config: ConfigOpts, opts?: pulumi.CustomResourceOptions,
+        config: ConfigOpts,
+        opts?: pulumi.CustomResourceOptions,
     ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
         const objs: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] = [];
 
         for (const obj of config.objs) {
             const fileObjects: pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] =
-                parseYamlObject(obj, config.transformations, opts);
+                parseYamlObject(obj, config.transformations, config.resourcePrefix, opts);
             for (const fileObject of fileObjects) {
                 objs.push(fileObject);
             }
@@ -2203,7 +2243,10 @@ import * as outputApi from "../types/output";
     }
 
     /** @ignore */ function parseYamlObject(
-        obj: any, transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[], opts?: pulumi.CustomResourceOptions,
+        obj: any,
+        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[],
+        resourcePrefix?: string,
+        opts?: pulumi.CustomResourceOptions,
     ): pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] {
         if (obj == null || Object.keys(obj).length == 0) {
             return [];
@@ -2324,7 +2367,7 @@ import * as outputApi from "../types/output";
             const objs = [];
             const items = obj["items"] || [];
             for (const item of items) {
-                objs.push(...parseYamlObject(item, transformations, opts));
+                objs.push(...parseYamlObject(item, transformations, resourcePrefix, opts));
             }
             return objs;
         }
@@ -2338,6 +2381,9 @@ import * as outputApi from "../types/output";
         const namespace = meta["namespace"] || undefined;
         if (namespace !== undefined) {
             id = pulumi.concat(namespace, "/", id);
+        }
+        if (resourcePrefix !== undefined) {
+            id = pulumi.concat(resourcePrefix, "-", id);
         }
         switch (`${apiVersion}/${kind}`) {
             case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":

@@ -14,21 +14,40 @@
 
 import * as k8s from "@pulumi/kubernetes";
 
-// Create a test namespace to allow test parallelism.
+// Create two test namespaces to allow test parallelism.
 const namespace = new k8s.core.v1.Namespace("test-namespace");
+const namespace2 = new k8s.core.v1.Namespace("test-namespace2");
 
-function addNamespace(o: any) {
-  if (o !== undefined) {
-    if (o.metadata !== undefined) {
-      o.metadata.namespace = namespace.metadata.name;
-    } else {
-      o.metadata = {namespace: namespace.metadata.name}
-    }
-  }
-}
-
-// Create resources from standard Kubernetes guestbook YAML example in the test namespace.
+// Create resources from standard Kubernetes guestbook YAML example in the first test namespace.
 new k8s.yaml.ConfigFile("guestbook", {
   file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml/guestbook.yaml",
-  transformations: [addNamespace]
+  transformations: [
+    (obj: any) => {
+      if (obj !== undefined) {
+        if (obj.metadata !== undefined) {
+          obj.metadata.namespace = namespace.metadata.name;
+        } else {
+          obj.metadata = {namespace: namespace.metadata.name}
+        }
+      }
+    }
+  ]
+});
+
+// Create resources from standard Kubernetes guestbook YAML example in the second test namespace.
+// Disambiguate resource names with a specified prefix.
+new k8s.yaml.ConfigFile("guestbook", {
+  file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml/guestbook.yaml",
+  transformations: [
+  (obj: any) => {
+    if (obj !== undefined) {
+      if (obj.metadata !== undefined) {
+        obj.metadata.namespace = namespace2.metadata.name;
+      } else {
+        obj.metadata = {namespace: namespace2.metadata.name}
+      }
+    }
+  }
+],
+  resourcePrefix: "dup"
 });
