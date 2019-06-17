@@ -21,7 +21,7 @@ import * as k8s from "@pulumi/kubernetes";
 
 const namespace = new k8s.core.v1.Namespace("test-namespace");
 
-const pod = new k8s.core.v1.Pod("query-test", {
+new k8s.core.v1.Pod("query-test", {
     metadata: {
         namespace: namespace.metadata.name,
     },

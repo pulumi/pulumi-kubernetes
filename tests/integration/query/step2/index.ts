@@ -28,14 +28,14 @@ pulumi.runtime
         // namespace resources.
         //
         if (pods.length !== 1) {
-            throw Error("Expected 1 pod");
+            throw Error("Expected 1 pod, got " + pods.length);
         }
 
         //
         // Test that query is well-typed. `pod[0]` should be a Pod, and the compiler should let us
         // access its fields.
         //
-        if (pods[0].kind === "Pod") {
-            throw Error("Expected Pods to have `.kind == 'Pod'`");
+        if (pods[0].kind !== "Pod") {
+            throw Error("Expected Pods to have `.kind === 'Pod'`, got " + pods[0].kind);
         }
     });
