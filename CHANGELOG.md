@@ -12,7 +12,7 @@
 
 ### Improvements
 
--   Enable multiple instances of Helm charts per stack (https://github.com/pulumi/pulumi-kubernetes/pull/596).
+-   Enable multiple instances of Helm charts per stack (https://github.com/pulumi/pulumi-kubernetes/pull/599).
 -   Enable multiple instances of YAML manifests per stack (https://github.com/pulumi/pulumi-kubernetes/pull/594).
 
 ### Bug fixes
