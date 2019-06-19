@@ -43,17 +43,17 @@ cf_local = ConfigFile(
     ],
 )
 
-# Create resources from standard Kubernetes guestbook YAML example in the test namespace.
+# Create resources from a simple YAML manifest in a test namespace.
 cf_url = ConfigFile(
-    "guestbook",
-    file_id="https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml"
-            "/guestbook.yaml",
+    "deployment",
+    file_id="https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/controllers/"
+            "nginx-deployment.yaml",
     transformations=[set_namespace(ns)],
 )
 cf_url2 = ConfigFile(
-    "guestbook",
-    file_id="https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml"
-            "/guestbook.yaml",
+    "deployment",
+    file_id="https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/controllers/"
+            "nginx-deployment.yaml",
     transformations=[set_namespace(ns2)],
     resource_prefix="dup"
 )
