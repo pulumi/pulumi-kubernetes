@@ -50,6 +50,13 @@ import { getVersion } from "../../version";
       public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
 
       /**
+       * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never,
+       * PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level
+       * and is only honored by servers that enable the NonPreemptingPriority feature.
+       */
+      public readonly preemptionPolicy: pulumi.Output<string>;
+
+      /**
        * The value of this priority class. This is the actual priority that pods receive when they
        * have the name of this class in their pod spec.
        */
@@ -100,6 +107,7 @@ import { getVersion } from "../../version";
           inputs["globalDefault"] = args && args.globalDefault || undefined;
           inputs["kind"] = "PriorityClass";
           inputs["metadata"] = args && args.metadata || undefined;
+          inputs["preemptionPolicy"] = args && args.preemptionPolicy || undefined;
           inputs["value"] = args && args.value || undefined;
 
           if (!opts) {

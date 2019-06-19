@@ -552,6 +552,9 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						// Python currently does not emit types for use.
 					}
 
+					// `-` is invalid in TS variable names, so replace with `_`
+					propName = strings.ReplaceAll(propName, "-", "_")
+
 					// Create a default value for the field.
 					defaultValue := fmt.Sprintf("args && args.%s || undefined", propName)
 					switch propName {
