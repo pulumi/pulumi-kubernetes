@@ -13,4 +13,18 @@
 # limitations under the License.
 from pulumi_kubernetes.helm.v2 import Chart, ChartOpts
 
-Chart("nginx-ingress", ChartOpts("stable/nginx-ingress"))
+
+def make_private(obj):
+    if obj["kind"] == "Service" and obj["apiVersion"] == "v1":
+        if "spec" in obj and "type" in obj["spec"] and obj["spec"]["type"] == "LoadBalancer":
+            obj["spec"]["type"] = "ClusterIP"
+
+
+Chart("nginx-lego", ChartOpts(
+    "stable/nginx-lego", values={"nginx": None, "default": None, "lego": None}, transformations=[make_private]))
+
+# Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
+# can be managed in the same stack.
+Chart("nginx-lego", ChartOpts(
+    "stable/nginx-lego", values={"nginx": None, "default": None, "lego": None}, transformations=[make_private],
+    resource_prefix="dup"))
