@@ -158,17 +158,7 @@ class FetchOpts:
         self.verify = verify
 
 
-class ChartOpts:
-    """
-    ChartOpts is a bag of configuration options for a remote Helm chart.
-    """
-
-    chart: pulumi.Input[str]
-    """
-    The chart to deploy.  If [repo] is provided, this chart name is looked up in the given repository.
-    Otherwise, this chart name must be a fully qualified chart URL or `repo/chartname`.
-    """
-
+class BaseChartOpts:
     namespace: Optional[pulumi.Input[str]]
     """
     Optional namespace to install chart resources into.
@@ -183,6 +173,43 @@ class ChartOpts:
     """
     Optional list of transformations to apply to resources that will be created by this chart prior to
     creation. Allows customization of the chart behaviour without directly modifying the chart itself.
+    """
+
+    resource_prefix: Optional[str]
+    """
+    Optional prefix for the auto-generated resource names.
+    Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+    """
+
+    def __init__(self,
+                 namespace: Optional[pulumi.Input[str]] = None,
+                 values: Optional[pulumi.Inputs] = None,
+                 transformations: Optional[List[Callable]] = None,
+                 resource_prefix: Optional[str] = None) -> None:
+        """
+        :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
+        :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
+        :param Optional[List[Callable]] transformations: Optional list of transformations to apply to
+               resources that will be created by this chart prior to creation. Allows customization of the
+               chart behaviour without directly modifying the chart itself.
+        :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
+               Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+        """
+        self.namespace = namespace
+        self.values = values
+        self.transformations = transformations
+        self.resource_prefix = resource_prefix
+
+
+class ChartOpts(BaseChartOpts):
+    """
+    ChartOpts is a bag of configuration options for a remote Helm chart.
+    """
+
+    chart: pulumi.Input[str]
+    """
+    The chart to deploy.  If [repo] is provided, this chart name is looked up in the given repository.
+    Otherwise, this chart name must be a fully qualified chart URL or `repo/chartname`.
     """
 
     repo: Optional[pulumi.Input[str]]
@@ -206,6 +233,7 @@ class ChartOpts:
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
                  transformations: Optional[List[Callable]] = None,
+                 resource_prefix: Optional[str] = None,
                  repo: Optional[pulumi.Input[str]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  fetch_opts: Optional[pulumi.Input[FetchOpts]] = None) -> None:
@@ -218,6 +246,8 @@ class ChartOpts:
         :param Optional[List[Callable] transformations: Optional list of transformations to apply to
                resources that will be created by this chart prior to creation. Allows customization of the
                chart behaviour without directly modifying the chart itself.
+        :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
+               Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         :param Optional[pulumi.Input[str]] repo: The repository containing the desired chart.  If not
                provided, [chart] must be a fully qualified chart URL or repo/chartname.
         :param Optional[pulumi.Input[str]] version: The version of the chart to deploy. If not provided,
@@ -225,10 +255,8 @@ class ChartOpts:
         :param Optional[pulumi.Input[FetchOpts]] fetch_opts: Additional options to customize the
                fetching of the Helm chart.
         """
+        super(ChartOpts, self).__init__(namespace, values, transformations, resource_prefix)
         self.chart = chart
-        self.namespace = namespace
-        self.values = values
-        self.transformations = transformations
         self.repo = repo
         self.version = version
         self.fetch_opts = fetch_opts
@@ -244,27 +272,12 @@ class LocalChartOpts:
     The path to the chart directory which contains the `Chart.yaml` file.
     """
 
-    namespace: Optional[pulumi.Input[str]]
-    """
-    Optional namespace to install chart resources into.
-    """
-
-    values: Optional[pulumi.Inputs]
-    """
-    Optional overrides for chart values.
-    """
-
-    transformations: Optional[List[Callable]]
-    """
-    Optional list of transformations to apply to resources that will be created by this chart prior to
-    creation. Allows customization of the chart behaviour without directly modifying the chart itself.
-    """
-
     def __init__(self,
                  path: pulumi.Input[str],
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[List[Callable]] = None) -> None:
+                 transformations: Optional[List[Callable]] = None,
+                 resource_prefix: Optional[str] = None) -> None:
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
@@ -273,11 +286,12 @@ class LocalChartOpts:
         :param Optional[List[Callable]] transformations: Optional list of transformations to apply to
                resources that will be created by this chart prior to creation. Allows customization of the
                chart behaviour without directly modifying the chart itself.
+        :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
+               Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         """
+
+        super(LocalChartOpts, self).__init__(namespace, values, transformations, resource_prefix)
         self.path = path
-        self.namespace = namespace
-        self.values = values
-        self.transformations = transformations
 
 
 def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi.ResourceOptions]) -> pulumi.Output:
@@ -401,6 +415,9 @@ class Chart(pulumi.ComponentResource):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
 
         __props__ = dict()
+
+        if config.resource_prefix:
+            release_name = f"{config.resource_prefix}-{release_name}"
 
         super(Chart, self).__init__(
             "kubernetes:helm.sh/v2:Chart",

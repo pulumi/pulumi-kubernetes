@@ -13,4 +13,8 @@
 # limitations under the License.
 from pulumi_kubernetes.helm.v2 import Chart, ChartOpts
 
-Chart("nginx-ingress", ChartOpts("stable/nginx-ingress"))
+Chart("unbound", ChartOpts("stable/unbound"))
+
+# Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
+# can be managed in the same stack.
+Chart("unbound", ChartOpts("stable/unbound", resource_prefix="dup"))
