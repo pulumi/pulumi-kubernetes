@@ -19,9 +19,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-func forceNewProperties(
-	oldObj, newObj map[string]interface{}, gvk schema.GroupVersionKind,
-) ([]string, error) {
+func forceNewProperties(patch map[string]interface{}, gvk schema.GroupVersionKind) ([]string, error) {
 	props := metadataForceNewProperties(".metadata")
 	if group, groupExists := forceNew[gvk.Group]; groupExists {
 		if version, versionExists := group[gvk.Version]; versionExists {
@@ -31,7 +29,7 @@ func forceNewProperties(
 		}
 	}
 
-	return openapi.PropertiesChanged(oldObj, newObj, props)
+	return openapi.PatchPropertiesChanged(patch, props)
 }
 
 type groups map[string]versions
