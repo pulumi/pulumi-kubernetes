@@ -288,7 +288,8 @@ func TestHelm(t *testing.T) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join(cwd, "helm"),
+		Dir:                  filepath.Join(cwd, "helm"),
+		ExpectRefreshChanges: true,
 	})
 	integration.ProgramTest(t, &options)
 }
