@@ -588,6 +588,7 @@ func (k *kubeProvider) Diff(
 		Replaces:            replaces,
 		Stables:             []string{},
 		DeleteBeforeReplace: deleteBeforeReplace,
+		Diffs:               changes,
 	}, nil
 }
 
