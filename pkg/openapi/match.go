@@ -17,7 +17,13 @@ func PropertiesChanged(oldObj, newObj map[string]interface{}, paths []string) ([
 	if err != nil {
 		return nil, err
 	}
+	return PatchPropertiesChanged(patch, paths)
+}
 
+// PatchPropertiesChanged scrapes the given patch object to see if any path specified in `paths` has
+// been changed. Paths are specified as JSONPaths, e.g., `.spec.accessModes` refers to `{spec:
+// {accessModes: {}}}`.
+func PatchPropertiesChanged(patch map[string]interface{}, paths []string) ([]string, error) {
 	j := jsonpath.New("")
 	matches := []string{}
 	for _, path := range paths {

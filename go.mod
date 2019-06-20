@@ -13,6 +13,7 @@ require (
 	github.com/google/gofuzz v1.0.0 // indirect
 	github.com/googleapis/gnostic v0.2.0
 	github.com/gophercloud/gophercloud v0.0.0-20190418141522-bb98932a7b3a // indirect
+	github.com/grpc/grpc-go v0.0.0-00010101000000-000000000000 // indirect
 	github.com/imdario/mergo v0.3.7 // indirect
 	github.com/jinzhu/copier v0.0.0-20180308034124-7e38e58719c3
 	github.com/json-iterator/go v1.1.6 // indirect
@@ -20,7 +21,6 @@ require (
 	github.com/pkg/errors v0.8.1
 	github.com/pulumi/pulumi v0.17.15
 	github.com/stretchr/testify v1.2.2
-	github.com/yudai/gojsondiff v1.0.0
 	google.golang.org/grpc v1.20.1
 	k8s.io/api v0.0.0-20190313235455-40a48860b5ab
 	k8s.io/apimachinery v0.0.0-20190313205120-d7deff9243b1

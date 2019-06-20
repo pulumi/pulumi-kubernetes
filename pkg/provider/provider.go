@@ -16,6 +16,7 @@ package provider
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"os"
@@ -37,7 +38,6 @@ import (
 	"github.com/pulumi/pulumi/pkg/util/contract"
 	"github.com/pulumi/pulumi/pkg/util/rpcutil/rpcerror"
 	pulumirpc "github.com/pulumi/pulumi/sdk/proto/go"
-	"github.com/yudai/gojsondiff"
 	"google.golang.org/grpc/codes"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
@@ -218,7 +218,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	// Compute config overrides.
 	overrides := &clientcmd.ConfigOverrides{
 		Context: clientapi.Context{
-			Cluster:   vars["kubernetes:config:cluster"],
+			Cluster: vars["kubernetes:config:cluster"],
 		},
 		CurrentContext: vars["kubernetes:config:context"],
 	}
@@ -501,7 +501,7 @@ func (k *kubeProvider) Diff(
 	if err != nil {
 		return nil, err
 	}
-	oldInputs, _ := parseCheckpointObject(oldState)
+	oldInputs, oldLiveState := parseCheckpointObject(oldState)
 
 	// Get new resource inputs. The user is submitting these as an update.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
@@ -538,18 +538,35 @@ func (k *kubeProvider) Diff(
 		oldInputs.SetNamespace("")
 		newInputs.SetNamespace("")
 	}
+	if oldInputs.GroupVersionKind().Empty() {
+		oldInputs.SetGroupVersionKind(gvk)
+	}
+
+	patch, _, err := openapi.PatchForResourceUpdate(
+		k.clientSet.DiscoveryClientCached, oldInputs, newInputs, oldLiveState)
+	if err != nil {
+		return nil, err
+	}
+	patchObj := map[string]interface{}{}
+	if err = json.Unmarshal(patch, &patchObj); err != nil {
+		return nil, err
+	}
 
 	// Decide whether to replace the resource.
-	replaces, err := forceNewProperties(oldInputs.Object, newInputs.Object, gvk)
+	replaces, err := forceNewProperties(patchObj, gvk)
 	if err != nil {
 		return nil, err
 	}
 
 	// Pack up PB, ship response back.
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
-	diff := gojsondiff.New().CompareObjects(oldInputs.Object, newInputs.Object)
-	if len(diff.Deltas()) > 0 {
+
+	var changes []string
+	if len(patchObj) != 0 {
 		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+		for k := range patchObj {
+			changes = append(changes, k)
+		}
 	}
 
 	// Delete before replacement if we are forced to replace the old object, and the new version of
@@ -571,6 +588,7 @@ func (k *kubeProvider) Diff(
 		Replaces:            replaces,
 		Stables:             []string{},
 		DeleteBeforeReplace: deleteBeforeReplace,
+		Diffs:               changes,
 	}, nil
 }
 

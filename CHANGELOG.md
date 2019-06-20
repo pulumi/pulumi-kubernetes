@@ -1,3 +1,9 @@
+## 0.25.1 (Unreleased)
+
+### Improvements
+
+-   Unify diff behavior between `Diff` and `Update`. This should result in better detection of state drift as well as behavior that is more consistent with respect to `kubectl`.
+
 ## 0.25.0 (June 19, 2019)
 
 ### Supported Kubernetes versions
