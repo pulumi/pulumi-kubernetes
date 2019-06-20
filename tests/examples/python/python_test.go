@@ -289,7 +289,7 @@ func TestHelm(t *testing.T) {
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(cwd, "helm"),
-		ExpectRefreshChanges: true,
+		ExpectRefreshChanges: true, // PodDisruptionBudget status gets updated by the Deployment.
 	})
 	integration.ProgramTest(t, &options)
 }

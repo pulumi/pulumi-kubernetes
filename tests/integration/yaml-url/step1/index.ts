@@ -18,36 +18,28 @@ import * as k8s from "@pulumi/kubernetes";
 const namespace = new k8s.core.v1.Namespace("test-namespace");
 const namespace2 = new k8s.core.v1.Namespace("test-namespace2");
 
+function configFile(name: string, namespace: string, resourcePrefix?: string): k8s.yaml.ConfigFile {
+    return new k8s.yaml.ConfigFile(name, {
+        file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples" +
+            "/yaml-guestbook/yaml/guestbook.yaml",
+        resourcePrefix: resourcePrefix,
+        transformations: [
+            (obj: any) => {
+                if (obj !== undefined) {
+                    if (obj.metadata !== undefined) {
+                        obj.metadata.namespace = namespace;
+                    } else {
+                        obj.metadata = {namespace: namespace};
+                    }
+                }
+            }
+        ]
+    });
+}
+
 // Create resources from standard Kubernetes guestbook YAML example in the first test namespace.
-new k8s.yaml.ConfigFile("guestbook", {
-  file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml/guestbook.yaml",
-  transformations: [
-    (obj: any) => {
-      if (obj !== undefined) {
-        if (obj.metadata !== undefined) {
-          obj.metadata.namespace = namespace.metadata.name;
-        } else {
-          obj.metadata = {namespace: namespace.metadata.name}
-        }
-      }
-    }
-  ]
-});
+namespace.metadata.name.apply(ns => configFile("guestbook", ns));
 
 // Create resources from standard Kubernetes guestbook YAML example in the second test namespace.
 // Disambiguate resource names with a specified prefix.
-new k8s.yaml.ConfigFile("guestbook", {
-  file: "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/tests/examples/yaml-guestbook/yaml/guestbook.yaml",
-  transformations: [
-    (obj: any) => {
-      if (obj !== undefined) {
-        if (obj.metadata !== undefined) {
-          obj.metadata.namespace = namespace2.metadata.name;
-        } else {
-          obj.metadata = {namespace: namespace2.metadata.name}
-        }
-      }
-    }
-  ],
-  resourcePrefix: "dup"
-});
+namespace2.metadata.name.apply(ns => configFile("guestbook", ns, "dup"));
