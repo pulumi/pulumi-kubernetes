@@ -142,6 +142,7 @@ all:: build install lint test_all
 
 ensure::
 	$(call STEP_MESSAGE)
+	@echo "GO111MODULE=on GOPROXY=$(GOPROXY) go mod tidy"; GO111MODULE=on GOPROXY=$(GOPROXY) go mod tidy
 	@echo "GO111MODULE=on GOPROXY=$(GOPROXY) go mod vendor"; GO111MODULE=on GOPROXY=$(GOPROXY) go mod vendor
 	@if [ -e 'package.json' ]; then echo "yarn install"; yarn install; fi
 
