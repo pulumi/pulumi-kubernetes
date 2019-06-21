@@ -22,6 +22,7 @@ function chart(resourcePrefix?: string): k8s.helm.v2.Chart {
     return new k8s.helm.v2.Chart("nginx-lego", {
         // Represents chart `stable/nginx-lego@v0.3.1`.
         path: "nginx-lego",
+        version: "0.3.1",
         resourcePrefix: resourcePrefix,
         values: {
             // Override for the Chart's `values.yml` file. Use `null` to zero out resource requests so it
@@ -58,7 +59,7 @@ const nginx = chart();
 
 // Export the (cluster-private) IP address of the Guestbook frontend.
 const frontendServiceSpec = pulumi.all([namespaceName, nginx]).apply(([nsName, nginx]) =>
-    nginx.getResourceProperty("v1/Service", nsName, "nginx-lego-nginx", "spec"));
+    nginx.getResourceProperty("v1/Service", nsName, "nginx-lego-nginx-lego", "spec"));
 export const frontendServiceIP = frontendServiceSpec.clusterIP;
 
 // Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
