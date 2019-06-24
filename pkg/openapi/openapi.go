@@ -79,26 +79,26 @@ func ValidateAgainstSchema(
 // how to generate a strategic merge patch, we fall back to JSON merge patch.
 func PatchForResourceUpdate(client discovery.CachedDiscoveryInterface, lastSubmitted, currentSubmitted,
 	liveOldObj *unstructured.Unstructured,
-) ([]byte, types.PatchType, error) {
+) ([]byte, types.PatchType, strategicpatch.LookupPatchMeta, error) {
 	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
 	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
 	if err != nil {
-		return nil, "", err
+		return nil, "", nil, err
 	}
 
 	currentSubmittedJSON, err := currentSubmitted.MarshalJSON()
 	if err != nil {
-		return nil, "", err
+		return nil, "", nil, err
 	}
 
 	liveOldJSON, err := liveOldObj.MarshalJSON()
 	if err != nil {
-		return nil, "", err
+		return nil, "", nil, err
 	}
 
 	resources, err := getResourceSchemasForClient(client)
 	if err != nil {
-		return nil, "", err
+		return nil, "", nil, err
 	}
 
 	// Try to build a three-way "strategic" merge.
@@ -112,7 +112,8 @@ func PatchForResourceUpdate(client discovery.CachedDiscoveryInterface, lastSubmi
 	// Fall back to three-way JSON merge patch.
 	glog.V(1).Infof("Attempting to update '%s' '%s/%s' with JSON merge",
 		gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
-	return jsonMergePatch(lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
+	patch, patchType, err := jsonMergePatch(lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
+	return patch, patchType, nil, err
 }
 
 // Pluck obtains the property identified by the string components in `path`. For example,
@@ -150,34 +151,34 @@ func Pluck(obj map[string]interface{}, path ...string) (interface{}, bool) {
 func strategicMergePatch(
 	gvk schema.GroupVersionKind, resourceSchema proto.Schema,
 	lastSubmittedJSON, currentSubmittedJSON, liveOldJSON []byte,
-) ([]byte, types.PatchType, error) {
+) ([]byte, types.PatchType, strategicpatch.LookupPatchMeta, error) {
 	// Attempt to construct patch from OpenAPI spec data.
-	lookupPatchMeta := strategicpatch.PatchMetaFromOpenAPI{Schema: resourceSchema}
+	lookupPatchMeta := strategicpatch.LookupPatchMeta(strategicpatch.PatchMetaFromOpenAPI{Schema: resourceSchema})
 	patch, err := strategicpatch.CreateThreeWayMergePatch(
 		lastSubmittedJSON, currentSubmittedJSON, liveOldJSON, lookupPatchMeta, true)
 	if err != nil {
-		return nil, "", err
+		return nil, "", nil, err
 	}
 
 	// Fall back to constructing patch from nominal type data.
 	if patch == nil {
 		versionedObject, err := scheme.Scheme.New(gvk)
 		if err != nil {
-			return nil, "", err
+			return nil, "", nil, err
 		}
 
-		lookupPatchMeta, err := strategicpatch.NewPatchMetaFromStruct(versionedObject)
+		lookupPatchMeta, err = strategicpatch.NewPatchMetaFromStruct(versionedObject)
 		if err != nil {
-			return nil, "", err
+			return nil, "", nil, err
 		}
 		patch, err = strategicpatch.CreateThreeWayMergePatch(
 			lastSubmittedJSON, currentSubmittedJSON, liveOldJSON, lookupPatchMeta, true)
 		if err != nil {
-			return nil, "", err
+			return nil, "", nil, err
 		}
 	}
 
-	return patch, types.StrategicMergePatchType, nil
+	return patch, types.StrategicMergePatchType, lookupPatchMeta, nil
 }
 
 // jsonMergePatch allows a Kubernetes resource to be "updated" by creating a three-way JSON merge
