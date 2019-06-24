@@ -80,7 +80,63 @@ func PodBase(name, namespace string) *corev1.Pod {
 				},
 			},
 		},
+		Status: corev1.PodStatus{
+			QOSClass: corev1.PodQOSBurstable,
+		},
 	}
+}
+
+func PodInitialized(name, namespace string) *corev1.Pod {
+	pod := PodBase(name, namespace)
+	pod.Status = corev1.PodStatus{
+		Phase: corev1.PodPending,
+		Conditions: []corev1.PodCondition{
+			{
+				Type:   corev1.PodInitialized,
+				Status: corev1.ConditionTrue,
+			},
+		},
+	}
+
+	return pod
+}
+
+func PodUninitialized(name, namespace string) *corev1.Pod {
+	pod := PodBase(name, namespace)
+	pod.Status = corev1.PodStatus{
+		Phase: corev1.PodPending,
+		Conditions: []corev1.PodCondition{
+			{
+				Type:   corev1.PodInitialized,
+				Status: corev1.ConditionFalse,
+			},
+		},
+	}
+
+	return pod
+}
+
+func PodReady(name, namespace string) *corev1.Pod {
+	pod := PodBase(name, namespace)
+	pod.Status = corev1.PodStatus{
+		Phase: corev1.PodRunning,
+		Conditions: []corev1.PodCondition{
+			{
+				Type:   corev1.PodInitialized,
+				Status: corev1.ConditionTrue,
+			},
+			{
+				Type:   corev1.PodReady,
+				Status: corev1.ConditionTrue,
+			},
+			{
+				Type:   corev1.PodScheduled,
+				Status: corev1.ConditionTrue,
+			},
+		},
+	}
+
+	return pod
 }
 
 func PodScheduled(name, namespace string) *corev1.Pod {
@@ -93,7 +149,6 @@ func PodScheduled(name, namespace string) *corev1.Pod {
 				Status: corev1.ConditionTrue,
 			},
 		},
-		QOSClass: corev1.PodQOSBurstable,
 	}
 
 	return pod
@@ -102,17 +157,16 @@ func PodScheduled(name, namespace string) *corev1.Pod {
 func PodUnscheduled(name, namespace string) *corev1.Pod {
 	pod := PodBase(name, namespace)
 	pod.Status = corev1.PodStatus{
-			Phase: corev1.PodPending,
-			Conditions: []corev1.PodCondition{
-				{
-					Type:    corev1.PodScheduled,
-					Status:  corev1.ConditionFalse,
-					Reason:  "Unschedulable",
-					Message: "No nodes are available that match all of the predicates: Insufficient cpu (3).",
-				},
+		Phase: corev1.PodPending,
+		Conditions: []corev1.PodCondition{
+			{
+				Type:    corev1.PodScheduled,
+				Status:  corev1.ConditionFalse,
+				Reason:  "Unschedulable",
+				Message: "No nodes are available that match all of the predicates: Insufficient cpu (3).",
 			},
-			QOSClass: corev1.PodQOSBurstable,
-		}
+		},
+	}
 
 	return pod
 }

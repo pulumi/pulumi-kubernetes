@@ -28,7 +28,13 @@ type Result struct {
 }
 
 func (r Result) String() string {
-	return fmt.Sprintf("%s -- %s", r.Description, r.Message)
+	s := fmt.Sprintf("[%t] %s", r.Ok, r.Description)
+
+	if !r.Message.Empty() {
+		s = fmt.Sprintf("%s -- %s", s, r.Message)
+	}
+
+	return s
 }
 
 // Condition is a function that checks a state and returns a Result.
