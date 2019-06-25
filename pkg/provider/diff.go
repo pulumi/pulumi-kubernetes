@@ -90,7 +90,39 @@ var core = versions{
 				".spec.volumeName",
 			},
 			labelSelectorForceNewProperties(".spec")...),
-		"Pod": containerForceNewProperties(".spec.containers[*]"),
+		"Pod": append(
+			properties{
+				".spec.affinity",
+				".spec.automountServiceAccountToken",
+				".spec.dnsConfig",
+				".spec.dnsPolicy",
+				".spec.enableServiceLinks",
+				".spec.hostAliases",
+				".spec.hostIPC",
+				".spec.hostNetwork",
+				".spec.hostPID",
+				".spec.hostname",
+				".spec.imagePullSecrets",
+				".spec.imagePullSecrets",
+				".spec.nodeName",
+				".spec.nodeSelector",
+				".spec.overhead",
+				".spec.preemptionPolicy",
+				".spec.priority",
+				".spec.priorityClassName",
+				".spec.readinessGates",
+				".spec.restartPolicy",
+				".spec.runtimeClassName",
+				".spec.schedulerName",
+				".spec.securityContext",
+				".spec.serviceAccount",
+				".spec.serviceAccountName",
+				".spec.shareProcessNamespace",
+				".spec.subdomain",
+				".spec.terminationGracePeriodSeconds",
+				".spec.volumes",
+			},
+			containerForceNewProperties(".spec.containers[*]", ".spec.initContainers[*]")...),
 		"ResourceQuota": properties{
 			".spec.scopes",
 		},
@@ -138,18 +170,33 @@ func metadataForceNewProperties(prefix string) properties {
 	}
 }
 
-func containerForceNewProperties(prefix string) properties {
-	return properties{
-		prefix + ".env",
-		prefix + ".env.value",
-		prefix + ".image",
-		prefix + ".lifecycle",
-		prefix + ".livenessProbe",
-		prefix + ".readinessProbe",
-		prefix + ".securityContext",
-		prefix + ".terminationMessagePath",
-		prefix + ".workingDir",
+func containerForceNewProperties(prefixes ...string) properties {
+	var props properties
+	for _, prefix := range prefixes {
+		props = append(props, properties{
+			prefix + ".args",
+			prefix + ".command",
+			prefix + ".env",
+			prefix + ".env.value",
+			prefix + ".image",
+			prefix + ".imagePullPolicy",
+			prefix + ".lifecycle",
+			prefix + ".livenessProbe",
+			prefix + ".ports",
+			prefix + ".readinessProbe",
+			prefix + ".resources",
+			prefix + ".securityContext",
+			prefix + ".stdin",
+			prefix + ".stdinOnce",
+			prefix + ".terminationMessagePath",
+			prefix + ".terminationMessagePolicy",
+			prefix + ".tty",
+			prefix + ".volumeDevices",
+			prefix + ".volumeMounts",
+			prefix + ".workingDir",
+		}...)
 	}
+	return props
 }
 
 func labelSelectorForceNewProperties(prefix string) properties {
