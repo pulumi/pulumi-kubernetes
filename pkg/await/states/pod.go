@@ -89,18 +89,18 @@ func podReady(obj interface{}) Result {
 	for _, condition := range pod.Status.Conditions {
 		// TODO: check .status.phase == Running?
 		if condition.Type == v1.PodReady {
-			if condition.Status == v1.ConditionTrue {
+			if condition.Status == v1.ConditionTrue && pod.Status.Phase == v1.PodRunning {
 				result.Ok = true
 				return result
 			}
 
-			var errs []string
-			for _, status := range pod.Status.ContainerStatuses {
-				if hasErr, containerErrs := hasContainerStatusErrors(status); hasErr {
-					errs = append(errs, containerErrs...)
-				}
+			// If the Pod has terminated, but has .status.phase set to "Succeeded", consider it Ready.
+			if pod.Status.Phase == v1.PodSucceeded {
+				result.Ok = true
+				return result
 			}
 
+			errs := collectContainerStatusErrors(pod.Status.ContainerStatuses)
 			result.Message = logging.WarningMessage(podError(condition, errs))
 			return result
 		}
@@ -115,6 +115,17 @@ func podReady(obj interface{}) Result {
 
 func toPod(obj interface{}) *v1.Pod {
 	return obj.(*v1.Pod)
+}
+
+func collectContainerStatusErrors(statuses []v1.ContainerStatus) []string {
+	var errs []string
+	for _, status := range statuses {
+		if hasErr, containerErrs := hasContainerStatusErrors(status); hasErr {
+			errs = append(errs, containerErrs...)
+		}
+	}
+
+	return errs
 }
 
 func hasContainerStatusErrors(status v1.ContainerStatus) (bool, []string) {

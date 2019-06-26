@@ -20,6 +20,23 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/await/fixtures"
 )
 
+const (
+	PodAdded                                  = "../recordings/podAdded.json"
+	PodContainerTerminatedError               = "../recordings/podContainerTerminatedError.json"
+	PodContainerTerminatedSuccess             = "../recordings/podContainerTerminatedSuccess.json"
+	PodContainerTerminatedSuccessRestartNever = "../recordings/podContainerTerminatedSuccessRestartNever.json"
+	PodCreateSuccess                          = "../recordings/podCreateSuccess.json"
+	PodImagePullError                         = "../recordings/podImagePullError.json"
+	PodImagePullErrorResolved                 = "../recordings/podImagePullErrorResolved.json"
+	PodScheduled                              = "../recordings/podScheduled.json"
+	PodUnready                                = "../recordings/podUnready.json"
+	PodUnschedulable                          = "../recordings/podUnschedulable.json"
+)
+
+//
+// Test Conditions
+//
+
 func Test_podInitialized(t *testing.T) {
 	type args struct {
 		obj interface{}
@@ -102,6 +119,80 @@ func Test_podScheduled(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := podScheduled(tt.args.obj); got.Ok != tt.want {
 				t.Errorf("podScheduled() = %v, want %v", got.Ok, tt.want)
+			}
+		})
+	}
+}
+
+//
+// Test Pod State Checker using recorded events.
+//
+
+func Test_Pod_Checker(t *testing.T) {
+	tests := []struct {
+		name           string
+		recordingPaths []string
+		// TODO: optional message validator function to check returned messages
+		expectReady bool
+	}{
+		{
+			name:           "Pod added but not ready",
+			recordingPaths: []string{PodAdded},
+			expectReady:    false,
+		},
+		{
+			name:           "Pod scheduled but not ready",
+			recordingPaths: []string{PodScheduled},
+			expectReady:    false,
+		},
+		{
+			name:           "Pod create success",
+			recordingPaths: []string{PodCreateSuccess},
+			expectReady:    true,
+		},
+		{
+			name:           "Pod image pull error",
+			recordingPaths: []string{PodImagePullError},
+			expectReady:    false,
+		},
+		{
+			name:           "Pod create success after image pull failure resolved",
+			recordingPaths: []string{PodImagePullError, PodImagePullErrorResolved},
+			expectReady:    true,
+		},
+		{
+			name:           "Pod unschedulable",
+			recordingPaths: []string{PodUnschedulable},
+			expectReady:    false,
+		},
+		{
+			name:           "Pod unready",
+			recordingPaths: []string{PodUnready},
+			expectReady:    false,
+		},
+		{
+			name:           "Pod container terminated with error",
+			recordingPaths: []string{PodContainerTerminatedError},
+			expectReady:    false,
+		},
+		{
+			name:           "Pod container terminated successfully",
+			recordingPaths: []string{PodContainerTerminatedSuccess},
+			expectReady:    false,
+		},
+		{
+			name:           "Pod container terminated successfully with restartPolicy: Never",
+			recordingPaths: []string{PodContainerTerminatedSuccessRestartNever},
+			expectReady:    true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			checker := NewPodChecker()
+
+			ready, messages := MustCheckIfRecordingsReady(tt.recordingPaths, checker)
+			if ready != tt.expectReady {
+				t.Errorf("Ready() = %t, want %t\nMessages: %s", ready, tt.expectReady, messages)
 			}
 		})
 	}

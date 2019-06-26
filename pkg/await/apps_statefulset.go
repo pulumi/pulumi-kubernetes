@@ -402,7 +402,6 @@ func (sia *statefulsetInitAwaiter) aggregatePodErrors() logging.Messages {
 		checker := states.NewPodChecker()
 		pod, err := clients.PodFromUnstructured(unstructuredPod)
 		if err != nil {
-			panic(err)
 			glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return nil
 		}

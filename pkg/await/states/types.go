@@ -47,7 +47,8 @@ type StateChecker struct {
 	readyMsg   string      // Status message to show if the state is Ready.
 }
 
-// Ready is true if all of the Conditions associated with this checker are true.
+// Ready is true if all of the Conditions associated with this checker are true. Ready will always return false prior
+// to running Update.
 func (s *StateChecker) Ready() bool {
 	return s.ready
 }
