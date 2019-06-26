@@ -553,7 +553,7 @@ func (k *kubeProvider) Diff(
 	}
 
 	// Decide whether to replace the resource.
-	replaces, err := forceNewProperties(patchObj, gvk)
+	replaces, err := forceNewProperties(patchObj, oldLiveState.Object, gvk)
 	if err != nil {
 		return nil, err
 	}
