@@ -251,6 +251,10 @@ As such, we are rev'ing the minor version of the package from 0.16 to 0.17.  Rec
 
 -   None
 
+### Improvements
+
+-   None
+
 ### Bug fixes
 
 -   Move mocha dependencies to devDependencies (https://github.com/pulumi/pulumi-kubernetes/pull/441)
