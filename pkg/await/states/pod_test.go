@@ -47,12 +47,12 @@ func Test_podInitialized(t *testing.T) {
 		want bool
 	}{
 		{
-			"true",
+			"Pod initialized",
 			args{fixtures.PodInitialized("foo", "bar")},
 			true,
 		},
 		{
-			"false",
+			"Pod uninitialized",
 			args{fixtures.PodUninitialized("foo", "bar")},
 			false,
 		},
@@ -76,12 +76,17 @@ func Test_podReady(t *testing.T) {
 		want bool
 	}{
 		{
-			"true",
+			"Pod ready",
 			args{fixtures.PodReady("foo", "bar")},
 			true,
 		},
 		{
-			"false",
+			"Pod succeeded",
+			args{fixtures.PodSucceeded("foo", "bar")},
+			true,
+		},
+		{
+			"Pod unready",
 			args{fixtures.PodBase("foo", "bar")},
 			false,
 		},
@@ -105,12 +110,12 @@ func Test_podScheduled(t *testing.T) {
 		want bool
 	}{
 		{
-			"true",
+			"Pod scheduled",
 			args{fixtures.PodScheduled("foo", "bar")},
 			true,
 		},
 		{
-			"false",
+			"Pod unscheduled",
 			args{fixtures.PodUnscheduled("foo", "bar")},
 			false,
 		},

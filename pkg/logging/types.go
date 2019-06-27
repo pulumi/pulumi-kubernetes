@@ -28,24 +28,30 @@ func (m Message) String() string {
 	return m.S
 }
 
+// Empty returns true if the Message is uninitialized, false otherwise.
 func (m Message) Empty() bool {
 	return len(m.S) == 0 && len(m.Severity) == 0
 }
 
+// StatusMessage creates a Message with Severity set to Info.
 func StatusMessage(msg string) Message {
 	return Message{S: msg, Severity: diag.Info}
 }
 
+// WarningMessage creates a Message with Severity set to Warning.
 func WarningMessage(msg string) Message {
 	return Message{S: msg, Severity: diag.Warning}
 }
 
+// ErrorMessage creates a Message with Severity set to Error.
 func ErrorMessage(msg string) Message {
 	return Message{S: msg, Severity: diag.Error}
 }
 
+// Messages is a slice of Message types.
 type Messages []Message
 
+// Infos returns Messages with Info severity.
 func (m Messages) Infos() Messages {
 	var messages Messages
 	for _, message := range m {
@@ -57,6 +63,7 @@ func (m Messages) Infos() Messages {
 	return messages
 }
 
+// Warnings returns Messages with Warning severity.
 func (m Messages) Warnings() Messages {
 	var messages Messages
 	for _, message := range m {
@@ -68,6 +75,7 @@ func (m Messages) Warnings() Messages {
 	return messages
 }
 
+// Errors returns Messages with Error severity.
 func (m Messages) Errors() Messages {
 	var messages Messages
 	for _, message := range m {
@@ -78,4 +86,3 @@ func (m Messages) Errors() Messages {
 
 	return messages
 }
-

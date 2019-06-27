@@ -139,6 +139,34 @@ func PodReady(name, namespace string) *corev1.Pod {
 	return pod
 }
 
+func PodSucceeded(name, namespace string) *corev1.Pod {
+	pod := PodBase(name, namespace)
+	pod.Spec.RestartPolicy = corev1.RestartPolicyNever
+	pod.Status = corev1.PodStatus{
+		Phase: corev1.PodSucceeded,
+		Conditions: []corev1.PodCondition{
+			{
+				Type:   corev1.PodInitialized,
+				Status: corev1.ConditionTrue,
+			},
+			{
+				Type:   corev1.PodReady,
+				Status: corev1.ConditionFalse,
+			},
+			{
+				Type:   corev1.ContainersReady,
+				Status: corev1.ConditionFalse,
+			},
+			{
+				Type:   corev1.PodScheduled,
+				Status: corev1.ConditionTrue,
+			},
+		},
+	}
+
+	return pod
+}
+
 func PodScheduled(name, namespace string) *corev1.Pod {
 	pod := PodBase(name, namespace)
 	pod.Status = corev1.PodStatus{
