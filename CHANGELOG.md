@@ -1,10 +1,20 @@
 ## 0.25.1 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
 ### Improvements
 
--   Unify diff behavior between `Diff` and `Update`. This should result in better detection of state drift as well as behavior that is more consistent with respect to `kubectl`.
+-   Unify diff behavior between `Diff` and `Update`. This should result in better detection of state drift as
+    well as behavior that is more consistent with respect to `kubectl`. (https://github.com/pulumi/pulumi-kubernetes/pull/604)
 -   The Kubernetes provider now supports the internal features necessary for the Pulumi engine to detect diffs between the actual and desired state of a resource after a `pulumi refresh` (https://github.com/pulumi/pulumi-kubernetes/pull/477).
 -   The Kubernetes provider now sets the `"kubectl.kubernetes.io/last-applied-configuration"` annotation to the last deployed configuration for a resource. This enables better interoperability with `kubectl`.
+### Bug fixes
+
+-   Add more props that force replacement of Pods (https://github.com/pulumi/pulumi-kubernetes/pull/613)
 
 ## 0.25.0 (June 19, 2019)
 
