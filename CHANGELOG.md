@@ -1,4 +1,6 @@
-## 0.25.1 (Unreleased)
+## 0.25.2 (Unreleased)
+
+## 0.25.1 (July 2, 2019)
 
 ### Supported Kubernetes versions
 
@@ -12,6 +14,7 @@
     well as behavior that is more consistent with respect to `kubectl`. (https://github.com/pulumi/pulumi-kubernetes/pull/604)
 -   The Kubernetes provider now supports the internal features necessary for the Pulumi engine to detect diffs between the actual and desired state of a resource after a `pulumi refresh` (https://github.com/pulumi/pulumi-kubernetes/pull/477).
 -   The Kubernetes provider now sets the `"kubectl.kubernetes.io/last-applied-configuration"` annotation to the last deployed configuration for a resource. This enables better interoperability with `kubectl`.
+
 ### Bug fixes
 
 -   Add more props that force replacement of Pods (https://github.com/pulumi/pulumi-kubernetes/pull/613)
