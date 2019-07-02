@@ -87,7 +87,6 @@ func podReady(obj interface{}) Result {
 	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be ready", fqName(pod))}
 
 	for _, condition := range pod.Status.Conditions {
-		// TODO: check .status.phase == Running?
 		if condition.Type == v1.PodReady {
 			if condition.Status == v1.ConditionTrue && pod.Status.Phase == v1.PodRunning {
 				result.Ok = true

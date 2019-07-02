@@ -25,6 +25,7 @@ type podBasic struct {
 	Unstructured *unstructured.Unstructured
 }
 
+// PodBasic returns a corev1.Pod struct and a corresponding Unstructured struct.
 func PodBasic() *podBasic {
 	return &podBasic{
 		&corev1.Pod{
@@ -62,6 +63,7 @@ func PodBasic() *podBasic {
 	}
 }
 
+// PodBase returns Pod struct with basic data initialized.
 func PodBase(name, namespace string) *corev1.Pod {
 	return &corev1.Pod{
 		TypeMeta: v1.TypeMeta{
@@ -86,6 +88,7 @@ func PodBase(name, namespace string) *corev1.Pod {
 	}
 }
 
+// PodInitialized returns a Pod that passes the podInitialized await Condition.
 func PodInitialized(name, namespace string) *corev1.Pod {
 	pod := PodBase(name, namespace)
 	pod.Status = corev1.PodStatus{
@@ -101,6 +104,7 @@ func PodInitialized(name, namespace string) *corev1.Pod {
 	return pod
 }
 
+// PodUninitialized returns a Pod that fails the podInitialized await Condition.
 func PodUninitialized(name, namespace string) *corev1.Pod {
 	pod := PodBase(name, namespace)
 	pod.Status = corev1.PodStatus{
@@ -116,6 +120,7 @@ func PodUninitialized(name, namespace string) *corev1.Pod {
 	return pod
 }
 
+// PodReady returns a Pod that passes the podReady await Condition.
 func PodReady(name, namespace string) *corev1.Pod {
 	pod := PodBase(name, namespace)
 	pod.Status = corev1.PodStatus{
@@ -139,6 +144,9 @@ func PodReady(name, namespace string) *corev1.Pod {
 	return pod
 }
 
+// PodSucceeded returns a Pod that passes the podReady await Condition.
+// Note that this corresponds to a Pod that runs a command and then exits with a 0 return code, so the Ready
+// status condition is False, and the phase is Succeeded.
 func PodSucceeded(name, namespace string) *corev1.Pod {
 	pod := PodBase(name, namespace)
 	pod.Spec.RestartPolicy = corev1.RestartPolicyNever
@@ -167,6 +175,7 @@ func PodSucceeded(name, namespace string) *corev1.Pod {
 	return pod
 }
 
+// PodScheduled returns a Pod that passes the podScheduled await Condition.
 func PodScheduled(name, namespace string) *corev1.Pod {
 	pod := PodBase(name, namespace)
 	pod.Status = corev1.PodStatus{
@@ -182,6 +191,7 @@ func PodScheduled(name, namespace string) *corev1.Pod {
 	return pod
 }
 
+// PodUnscheduled returns a Pod that fails the podScheduled await Condition.
 func PodUnscheduled(name, namespace string) *corev1.Pod {
 	pod := PodBase(name, namespace)
 	pod.Status = corev1.PodStatus{

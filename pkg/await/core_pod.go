@@ -26,8 +26,10 @@ import (
 // In our context (i.e., supporting `apps/v1*/Deployment`) this means our success measurement for
 // Pods essentially boils down to:
 //
-//   * Waiting until `.status.phase` is set to "Running".
-//   * Waiting until `.status.conditions` has a `Ready` condition, with `status` set to "Ready".
+//   * Waiting until the Pod is scheduled (PodScheduled condition is true).
+//   * Waiting until the Pod is initialized (Initialized condition is true).
+//   * Waiting until the Pod is ready (Ready condition is true) and the `.status.phase` is set to "Running".
+//     * Or: Waiting until the Pod succeeded (`.status.phase` set to "Succeeded").
 //
 // But there are subtleties to this, and it's important to understand (1) the weaknesses of the Pod
 // API, and (2) what impact they have on our ability to provide a compelling user experience for
@@ -49,8 +51,7 @@ import (
 //
 // For each of these different controllers, there are different success conditions. For a
 // Deployment, a Pod becomes successfully initialized when `.status.phase` is set to "Running". For
-// a Job, a Pod becomes successful when it successfully completes. Since at this point we only
-// support Deployment, we'll settle for the former as "the success condition" for Pods.
+// a Job, a Pod becomes successful when it successfully completes.
 //
 // The subtlety of this that "Running" actually just means that the Pod has been bound to a node,
 // all containers have been created, and at least one is still "alive" -- a status is set once the
@@ -76,14 +77,6 @@ import (
 //
 // x-refs:
 //   * https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
-
-// ------------------------------------------------------------------------------------------------
-
-// --------------------------------------------------------------------------
-
-// POD CHECKING. Routines for checking whether a Pod has been initialized correctly.
-
-// --------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------
 
@@ -146,7 +139,28 @@ func (pia *podInitAwaiter) Await() error {
 	defer podWatcher.Stop()
 
 	timeout := time.Duration(metadata.TimeoutSeconds(pia.config.currentInputs, 5*60)) * time.Second
-	return pia.await(podWatcher, time.After(timeout))
+	for {
+		if pia.state.Ready() {
+			return nil
+		}
+
+		// Else, wait for updates.
+		select {
+		// TODO: If Pod is added and not making progress on initialization after ~30 seconds, report that.
+		case <-pia.config.ctx.Done():
+			return &cancellationError{
+				object:    pia.pod,
+				subErrors: pia.errorMessages(),
+			}
+		case <-time.After(timeout):
+			return &timeoutError{
+				object:    pia.pod,
+				subErrors: pia.errorMessages(),
+			}
+		case event := <-podWatcher.ResultChan():
+			pia.processPodEvent(event)
+		}
+	}
 }
 
 func (pia *podInitAwaiter) Read() error {
@@ -165,10 +179,6 @@ func (pia *podInitAwaiter) Read() error {
 		return err
 	}
 
-	return pia.read(pod)
-}
-
-func (pia *podInitAwaiter) read(pod *unstructured.Unstructured) error {
 	pia.processPodEvent(watchAddedEvent(pod))
 
 	// Check whether we've succeeded.
@@ -179,32 +189,6 @@ func (pia *podInitAwaiter) read(pod *unstructured.Unstructured) error {
 	return &initializationError{
 		subErrors: pia.errorMessages(),
 		object:    pod,
-	}
-}
-
-// await is a helper companion to `Await` designed to make it easy to test this module.
-func (pia *podInitAwaiter) await(podWatcher watch.Interface, timeout <-chan time.Time) error {
-	for {
-		if pia.state.Ready() {
-			return nil
-		}
-
-		// Else, wait for updates.
-		select {
-		// TODO: If Pod is added and not making progress on initialization after ~30 seconds, report that.
-		case <-pia.config.ctx.Done():
-			return &cancellationError{
-				object:    pia.pod,
-				subErrors: pia.errorMessages(),
-			}
-		case <-timeout:
-			return &timeoutError{
-				object:    pia.pod,
-				subErrors: pia.errorMessages(),
-			}
-		case event := <-podWatcher.ResultChan():
-			pia.processPodEvent(event)
-		}
 	}
 }
 
