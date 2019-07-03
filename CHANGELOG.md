@@ -8,7 +8,7 @@
 
 ### Improvements
 
--   The Kubernetes provider can now communicate detailed information about the difference between a resource's desired and actual state during a Pulumi update.
+-   The Kubernetes provider can now communicate detailed information about the difference between a resource's desired and actual state during a Pulumi update. (https://github.com/pulumi/pulumi-kubernetes/pull/618)
 
 ### Bug fixes
 
