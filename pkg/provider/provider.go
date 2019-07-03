@@ -1268,7 +1268,8 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 }
 
 // convertPatchToDiff converts the given JSON merge patch to a Pulumi detailed diff.
-func convertPatchToDiff(patch, oldLiveState map[string]interface{}, gvk schema.GroupVersionKind) (map[string]*pulumirpc.PropertyDiff, error) {
+func convertPatchToDiff(patch, oldLiveState map[string]interface{}, gvk schema.GroupVersionKind,
+) (map[string]*pulumirpc.PropertyDiff, error) {
 	contract.Require(len(patch) != 0, "len(patch) != 0")
 	contract.Require(oldLiveState != nil, "oldLiveState != nil")
 
