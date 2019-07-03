@@ -8,8 +8,10 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
@@ -299,13 +301,9 @@ func (dia *deploymentInitAwaiter) await(
 				subErrors: dia.errorMessages(),
 			}
 		case <-aggregateErrorTicker:
-			scheduleErrors, containerErrors := dia.aggregatePodErrors()
-			for _, message := range scheduleErrors {
-				dia.config.logStatus(diag.Warning, message)
-			}
-
-			for _, message := range containerErrors {
-				dia.config.logStatus(diag.Warning, message)
+			messages := dia.aggregatePodErrors()
+			for _, message := range messages {
+				dia.config.logMessage(message)
 			}
 		case event := <-deploymentWatcher.ResultChan():
 			dia.processDeploymentEvent(event)
@@ -657,50 +655,30 @@ func (dia *deploymentInitAwaiter) processPersistentVolumeClaimsEvent(event watch
 	dia.checkPersistentVolumeClaimStatus()
 }
 
-func (dia *deploymentInitAwaiter) aggregatePodErrors() ([]string, []string) {
+func (dia *deploymentInitAwaiter) aggregatePodErrors() logging.Messages {
 	rs, exists := dia.replicaSets[dia.currentGeneration]
 	if !exists {
-		return []string{}, []string{}
+		return nil
 	}
 
-	scheduleErrorCounts := map[string]int{}
-	containerErrorCounts := map[string]int{}
-	for _, pod := range dia.pods {
+	var messages logging.Messages
+	for _, unstructuredPod := range dia.pods {
 		// Filter down to only Pods owned by the active ReplicaSet.
-		if !isOwnedBy(pod, rs) {
+		if !isOwnedBy(unstructuredPod, rs) {
 			continue
 		}
 
 		// Check the pod for errors.
-		checker := makePodChecker()
-		checker.check(pod)
-
-		for reason, message := range checker.podScheduledErrors {
-			message = fmt.Sprintf("[%s] %s", reason, message)
-			scheduleErrorCounts[message] = scheduleErrorCounts[message] + 1
+		checker := states.NewPodChecker()
+		pod, err := clients.PodFromUnstructured(unstructuredPod)
+		if err != nil {
+			glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
+			return nil
 		}
-
-		for reason, messages := range checker.containerErrors {
-			for _, message := range messages {
-				message = fmt.Sprintf("[%s] %s", reason, message)
-				containerErrorCounts[message] = containerErrorCounts[message] + 1
-			}
-		}
+		messages = append(messages, checker.Update(pod).Warnings()...)
 	}
 
-	scheduleErrors := make([]string, 0)
-	for message, count := range scheduleErrorCounts {
-		message = fmt.Sprintf("%d Pods failed to schedule because: %s", count, message)
-		scheduleErrors = append(scheduleErrors, message)
-	}
-
-	containerErrors := make([]string, 0)
-	for message, count := range containerErrorCounts {
-		message = fmt.Sprintf("%d Pods failed to run because: %s", count, message)
-		containerErrors = append(containerErrors, message)
-	}
-
-	return scheduleErrors, containerErrors
+	return messages
 }
 
 func (dia *deploymentInitAwaiter) getFailedPersistentValueClaims() []string {
@@ -755,9 +733,10 @@ func (dia *deploymentInitAwaiter) errorMessages() []string {
 		}
 	}
 
-	scheduleErrors, containerErrors := dia.aggregatePodErrors()
-	messages = append(messages, scheduleErrors...)
-	messages = append(messages, containerErrors...)
+	errorMessages := dia.aggregatePodErrors()
+	for _, message := range errorMessages {
+		messages = append(messages, message.S)
+	}
 
 	return messages
 }

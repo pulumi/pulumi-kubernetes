@@ -12,26 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package logging
+package states
 
-// TimeOrderedLogSet stores a temporally-ordered set of log messages.
-type TimeOrderedLogSet struct {
-	exists   map[Message]bool
-	Messages Messages
+import (
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
+// fqName returns the fully qualified name of the object in the form `[namespace]/name`.
+// The namespace is omitted if it is "default" or "".
+func fqName(obj v1.Object) string {
+	ns := obj.GetNamespace()
+	if ns != "" && ns != "default" {
+		return obj.GetNamespace() + "/" + obj.GetName()
+	}
+	return obj.GetName()
 }
 
-// Add appends a message to the time-ordered set.
-func (o *TimeOrderedLogSet) Add(msg Message) {
-	// Ensure memory has been allocated.
-	if o.exists == nil {
-		o.exists = make(map[Message]bool)
-	}
-	if o.Messages == nil {
-		o.Messages = []Message{}
-	}
-
-	if !o.exists[msg] {
-		o.Messages = append(o.Messages, msg)
-		o.exists[msg] = true
-	}
-}

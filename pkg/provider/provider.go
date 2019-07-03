@@ -718,7 +718,7 @@ func (k *kubeProvider) Create(
 	if awaitErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed, nil)
+		return nil, partialError(fqObjName(initialized), awaitErr, inputsAndComputed, nil)
 	}
 
 	// Invalidate the client cache if this was a CRD. This will require subsequent CR creations to
@@ -729,7 +729,7 @@ func (k *kubeProvider) Create(
 	}
 
 	return &pulumirpc.CreateResponse{
-		Id: FqObjName(initialized), Properties: inputsAndComputed,
+		Id: fqObjName(initialized), Properties: inputsAndComputed,
 	}, nil
 }
 
@@ -778,7 +778,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		}
 	}
 
-	namespace, name := ParseFqName(req.GetId())
+	namespace, name := parseFqName(req.GetId())
 	if name == "" {
 		return nil, fmt.Errorf("failed to parse resource name from request ID: %s", req.GetId())
 	}
@@ -836,7 +836,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	liveInputs := parseLiveInputs(liveObj, oldInputs)
 
 	// TODO(lblackstone): not sure why this is needed
-	id := FqObjName(liveObj)
+	id := fqObjName(liveObj)
 	if reqID := req.GetId(); len(reqID) > 0 {
 		id = reqID
 	}
@@ -1006,7 +1006,7 @@ func (k *kubeProvider) Update(
 	if awaitErr != nil {
 		// Resource was updated/created but failed to initialize. Return live version of object so it
 		// can be checkpointed.
-		return nil, partialError(FqObjName(initialized), awaitErr, inputsAndComputed, nil)
+		return nil, partialError(fqObjName(initialized), awaitErr, inputsAndComputed, nil)
 	}
 
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
@@ -1031,7 +1031,7 @@ func (k *kubeProvider) Delete(
 		return nil, err
 	}
 	_, current := parseCheckpointObject(oldState)
-	_, name := ParseFqName(req.GetId())
+	_, name := parseFqName(req.GetId())
 
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
@@ -1071,7 +1071,7 @@ func (k *kubeProvider) Delete(
 
 		// Resource delete was issued, but failed to complete. Return live version of object so it can be
 		// checkpointed.
-		return nil, partialError(FqObjName(lastKnownState), awaitErr, inputsAndComputed, nil)
+		return nil, partialError(fqObjName(lastKnownState), awaitErr, inputsAndComputed, nil)
 	}
 
 	return &pbempty.Empty{}, nil

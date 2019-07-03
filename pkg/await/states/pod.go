@@ -1,0 +1,203 @@
+// Copyright 2016-2019, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package states
+
+import (
+	"fmt"
+	"strings"
+
+	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
+	"k8s.io/api/core/v1"
+)
+
+func NewPodChecker() *StateChecker {
+	return &StateChecker{
+		conditions: []Condition{podScheduled, podInitialized, podReady},
+		readyMsg:   "✅ Pod ready",
+	}
+}
+
+//
+// Conditions
+//
+
+func podScheduled(obj interface{}) Result {
+	pod := toPod(obj)
+	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be scheduled", fqName(pod))}
+
+	for _, condition := range pod.Status.Conditions {
+		if condition.Type == v1.PodScheduled {
+			if condition.Status == v1.ConditionTrue {
+				result.Ok = true
+				return result
+			}
+
+			msg := statusFromCondition(condition)
+			if len(msg) > 0 {
+				result.Message = logging.StatusMessage(msg)
+			}
+
+			return result
+		}
+	}
+
+	return result
+}
+
+func podInitialized(obj interface{}) Result {
+	pod := toPod(obj)
+	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be initialized", fqName(pod))}
+
+	for _, condition := range pod.Status.Conditions {
+		if condition.Type == v1.PodInitialized {
+			if condition.Status == v1.ConditionTrue {
+				result.Ok = true
+				return result
+			}
+
+			var errs []string
+			for _, status := range pod.Status.ContainerStatuses {
+				if ok, containerErrs := hasContainerStatusErrors(status); !ok {
+					errs = append(errs, containerErrs...)
+				}
+			}
+
+			result.Message = logging.WarningMessage(podError(condition, errs))
+			return result
+		}
+	}
+
+	return result
+}
+
+func podReady(obj interface{}) Result {
+	pod := toPod(obj)
+	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be ready", fqName(pod))}
+
+	for _, condition := range pod.Status.Conditions {
+		if condition.Type == v1.PodReady {
+			if condition.Status == v1.ConditionTrue && pod.Status.Phase == v1.PodRunning {
+				result.Ok = true
+				return result
+			}
+
+			// If the Pod has terminated, but has .status.phase set to "Succeeded", consider it Ready.
+			if pod.Status.Phase == v1.PodSucceeded {
+				result.Ok = true
+				return result
+			}
+
+			errs := collectContainerStatusErrors(pod.Status.ContainerStatuses)
+			result.Message = logging.WarningMessage(podError(condition, errs))
+			return result
+		}
+	}
+
+	return result
+}
+
+//
+// Helpers
+//
+
+func toPod(obj interface{}) *v1.Pod {
+	return obj.(*v1.Pod)
+}
+
+func collectContainerStatusErrors(statuses []v1.ContainerStatus) []string {
+	var errs []string
+	for _, status := range statuses {
+		if hasErr, containerErrs := hasContainerStatusErrors(status); hasErr {
+			errs = append(errs, containerErrs...)
+		}
+	}
+
+	return errs
+}
+
+func hasContainerStatusErrors(status v1.ContainerStatus) (bool, []string) {
+	if status.Ready {
+		return false, nil
+	}
+
+	var errs []string
+	if hasErr, err := hasContainerWaitingError(status); hasErr {
+		errs = append(errs, err)
+	}
+	if hasErr, err := hasContainerTerminatedError(status); hasErr {
+		errs = append(errs, err)
+	}
+
+	return len(errs) > 0, errs
+}
+
+func hasContainerWaitingError(status v1.ContainerStatus) (bool, string) {
+	state := status.State.Waiting
+	if state == nil {
+		return false, ""
+	}
+
+	// Return false if the container is creating.
+	if state.Reason == "ContainerCreating" {
+		return false, ""
+	}
+
+	// Image pull error has a bunch of useless junk in the error message. Try to remove it.
+	trimPrefix := "rpc error: code = Unknown desc = Error response from daemon: "
+	trimSuffix := ": manifest unknown"
+	msg := state.Message
+	msg = strings.TrimPrefix(msg, trimPrefix)
+	msg = strings.TrimSuffix(msg, trimSuffix)
+
+	return true, msg
+}
+
+func hasContainerTerminatedError(status v1.ContainerStatus) (bool, string) {
+	state := status.State.Terminated
+	if state == nil {
+		return false, ""
+	}
+
+	// Return false if no reason given.
+	if len(state.Reason) == 0 {
+		return false, ""
+	}
+
+	if len(state.Message) > 0 {
+		return true, state.Message
+	}
+	return true, fmt.Sprintf("Container %q completed with exit code %d", status.Name, state.ExitCode)
+}
+
+func statusFromCondition(condition v1.PodCondition) string {
+	if condition.Reason != "" && condition.Message != "" {
+		return condition.Message
+	}
+
+	return ""
+}
+
+func podError(condition v1.PodCondition, errs []string) string {
+	var errMsg string
+	if len(condition.Reason) > 0 && len(condition.Message) > 0 {
+		errMsg = condition.Message
+	}
+
+	for _, err := range errs {
+		errMsg += fmt.Sprintf(" -- %s", err)
+	}
+
+	return errMsg
+}

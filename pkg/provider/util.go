@@ -41,13 +41,13 @@ func hasComputedValue(obj *unstructured.Unstructured) bool {
 // Names and namespaces.
 // --------------------------------------------------------------------------
 
-// FqObjName returns "namespace.name"
-func FqObjName(o metav1.Object) string {
-	return FqName(o.GetNamespace(), o.GetName())
+// fqObjName returns "namespace.name"
+func fqObjName(o metav1.Object) string {
+	return fqName(o.GetNamespace(), o.GetName())
 }
 
-// ParseFqName will parse a fully-qualified Kubernetes object name.
-func ParseFqName(id string) (namespace, name string) {
+// parseFqName will parse a fully-qualified Kubernetes object name.
+func parseFqName(id string) (namespace, name string) {
 	split := strings.Split(id, "/")
 	if len(split) == 1 {
 		return "", split[0]
@@ -56,8 +56,8 @@ func ParseFqName(id string) (namespace, name string) {
 	return
 }
 
-// FqName returns "namespace/name"
-func FqName(namespace, name string) string {
+// fqName returns "namespace/name"
+func fqName(namespace, name string) string {
 	if namespace == "" {
 		return name
 	}

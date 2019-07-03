@@ -110,12 +110,12 @@ func TestFqName(t *testing.T) {
 		},
 	}
 
-	if n := FqName(obj.GetNamespace(), obj.GetName()); n != "myname" {
+	if n := fqName(obj.GetNamespace(), obj.GetName()); n != "myname" {
 		t.Errorf("Got %q for %v", n, obj)
 	}
 
 	obj.SetNamespace("mynamespace")
-	if n := FqName(obj.GetNamespace(), obj.GetName()); n != "mynamespace/myname" {
+	if n := fqName(obj.GetNamespace(), obj.GetName()); n != "mynamespace/myname" {
 		t.Errorf("Got %q for %v", n, obj)
 	}
 }

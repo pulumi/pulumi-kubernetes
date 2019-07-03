@@ -162,7 +162,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetProgressing(inputNamespace, inputName, targetService),
 				subErrors: []string{
 					"Failed to observe the expected number of ready replicas",
-					"1 Pods failed to run because: [ErrImagePull] manifest for nginx:busted not found",
+					"containers with unready status: [nginx] -- manifest for nginx:busted not found",
 				}},
 		},
 		{
@@ -187,7 +187,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				subErrors: []string{
 					"Failed to observe the expected number of ready replicas",
 					".status.currentRevision does not match .status.updateRevision",
-					"1 Pods failed to run because: [ErrImagePull] manifest for nginx:busted not found",
+					"containers with unready status: [nginx] -- manifest for nginx:busted not found",
 				}},
 		},
 	}

@@ -59,3 +59,16 @@ func FromUnstructured(obj *unstructured.Unstructured) (metav1.Object, error) {
 
 	return output, nil
 }
+
+func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {
+	kind := kinds.Kind(uns.GetKind())
+	if kind != kinds.Pod {
+		return nil, fmt.Errorf("expected Pod, got %s", kind)
+	}
+	obj, err := FromUnstructured(uns)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.(*corev1.Pod), nil
+}

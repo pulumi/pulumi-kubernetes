@@ -1,0 +1,993 @@
+[
+    {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T19:58:58Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "411542",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "ab443c98-9783-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imageID": "",
+          "lastState": {},
+          "name": "nginx",
+          "ready": false,
+          "restartCount": 0,
+          "state": {
+            "waiting": {
+              "message": "Back-off pulling image \"nginx:1.13-invalid\"",
+              "reason": "ImagePullBackOff"
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Pending",
+      "podIP": "10.1.3.227",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T19:58:58Z"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T19:58:58Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "411562",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "ab443c98-9783-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imageID": "",
+          "lastState": {},
+          "name": "nginx",
+          "ready": false,
+          "restartCount": 0,
+          "state": {
+            "waiting": {
+              "message": "rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:1.13-invalid not found: manifest unknown: manifest unknown",
+              "reason": "ErrImagePull"
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Pending",
+      "podIP": "10.1.3.227",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T19:58:58Z"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T19:58:58Z",
+      "deletionGracePeriodSeconds": 30,
+      "deletionTimestamp": "2019-06-25T20:00:00Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "411571",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "ab443c98-9783-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imageID": "",
+          "lastState": {},
+          "name": "nginx",
+          "ready": false,
+          "restartCount": 0,
+          "state": {
+            "waiting": {
+              "message": "rpc error: code = Unknown desc = Error response from daemon: manifest for nginx:1.13-invalid not found: manifest unknown: manifest unknown",
+              "reason": "ErrImagePull"
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Pending",
+      "podIP": "10.1.3.227",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T19:58:58Z"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T19:58:58Z",
+      "deletionGracePeriodSeconds": 30,
+      "deletionTimestamp": "2019-06-25T20:00:00Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "411572",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "ab443c98-9783-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imageID": "",
+          "lastState": {},
+          "name": "nginx",
+          "ready": false,
+          "restartCount": 0,
+          "state": {
+            "terminated": {
+              "exitCode": 0,
+              "finishedAt": null,
+              "startedAt": null
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Pending",
+      "podIP": "10.1.3.227",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T19:58:58Z"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T19:58:58Z",
+      "deletionGracePeriodSeconds": 0,
+      "deletionTimestamp": "2019-06-25T19:59:30Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "411575",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "ab443c98-9783-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:58:58Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "image": "nginx:1.13-invalid",
+          "imageID": "",
+          "lastState": {},
+          "name": "nginx",
+          "ready": false,
+          "restartCount": 0,
+          "state": {
+            "terminated": {
+              "exitCode": 0,
+              "finishedAt": null,
+              "startedAt": null
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Pending",
+      "podIP": "10.1.3.227",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T19:58:58Z"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T19:59:32Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "411577",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "bf876747-9783-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "image": "nginx:1.13-alpine",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "phase": "Pending",
+      "qosClass": "BestEffort"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T19:59:32Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "411578",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "bf876747-9783-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "image": "nginx:1.13-alpine",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:59:32Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "phase": "Pending",
+      "qosClass": "BestEffort"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T19:59:32Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "411580",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "bf876747-9783-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "image": "nginx:1.13-alpine",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:59:32Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:59:32Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:59:32Z",
+          "message": "containers with unready status: [nginx]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:59:32Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "image": "nginx:1.13-alpine",
+          "imageID": "",
+          "lastState": {},
+          "name": "nginx",
+          "ready": false,
+          "restartCount": 0,
+          "state": {
+            "waiting": {
+              "reason": "ContainerCreating"
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Pending",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T19:59:32Z"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "creationTimestamp": "2019-06-25T19:59:32Z",
+      "labels": {
+        "app.kubernetes.io/managed-by": "pulumi"
+      },
+      "name": "foo",
+      "namespace": "default",
+      "resourceVersion": "411586",
+      "selfLink": "/api/v1/namespaces/default/pods/foo",
+      "uid": "bf876747-9783-11e9-a3c5-025000000001"
+    },
+    "spec": {
+      "containers": [
+        {
+          "image": "nginx:1.13-alpine",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "nginx",
+          "resources": {},
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+              "name": "default-token-544qd",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "docker-desktop",
+      "priority": 0,
+      "restartPolicy": "Always",
+      "schedulerName": "default-scheduler",
+      "securityContext": {},
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 30,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "name": "default-token-544qd",
+          "secret": {
+            "defaultMode": 420,
+            "secretName": "default-token-544qd"
+          }
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:59:32Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:59:34Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:59:34Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2019-06-25T19:59:32Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "docker://9e74226c24d914b8bfbe129f8b088ff109a80cbb2a8f27b22c9eafd08c70e3ba",
+          "image": "nginx:1.13-alpine",
+          "imageID": "docker-pullable://nginx@sha256:9d46fd628d54ebe1633ee3cf0fe2acfcc419cfae541c63056530e39cd5620366",
+          "lastState": {},
+          "name": "nginx",
+          "ready": true,
+          "restartCount": 0,
+          "state": {
+            "running": {
+              "startedAt": "2019-06-25T19:59:33Z"
+            }
+          }
+        }
+      ],
+      "hostIP": "192.168.65.3",
+      "phase": "Running",
+      "podIP": "10.1.3.228",
+      "qosClass": "BestEffort",
+      "startTime": "2019-06-25T19:59:32Z"
+    }
+  }
+]
