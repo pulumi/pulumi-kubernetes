@@ -68,7 +68,8 @@ func SetManagedByLabel(obj *unstructured.Unstructured) {
 	SetLabel(obj, "app.kubernetes.io/managed-by", "pulumi")
 }
 
-// HasManagedByLabel returns true if the object has the `app.kubernetes.io/managed-by` label set to `pulumi`.
+// HasManagedByLabel returns true if the object has the `app.kubernetes.io/managed-by` label set to `pulumi`,
+// or is a computed value.
 func HasManagedByLabel(obj *unstructured.Unstructured) bool {
 	val := GetLabel(obj, "app.kubernetes.io/managed-by")
 	if isComputedValue(val) {
