@@ -15,11 +15,10 @@
 package provider
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-func forceNewProperties(patch map[string]interface{}, gvk schema.GroupVersionKind) ([]string, error) {
+func forceNewProperties(gvk schema.GroupVersionKind) []string {
 	props := metadataForceNewProperties(".metadata")
 	if group, groupExists := forceNew[gvk.Group]; groupExists {
 		if version, versionExists := group[gvk.Version]; versionExists {
@@ -28,8 +27,7 @@ func forceNewProperties(patch map[string]interface{}, gvk schema.GroupVersionKin
 			}
 		}
 	}
-
-	return openapi.PatchPropertiesChanged(patch, props)
+	return props
 }
 
 type groups map[string]versions

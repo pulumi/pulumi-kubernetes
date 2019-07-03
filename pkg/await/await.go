@@ -287,7 +287,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	}
 
 	// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
-	patch, patchType, err := openapi.PatchForResourceUpdate(
+	patch, patchType, _, err := openapi.PatchForResourceUpdate(
 		c.ClientSet.DiscoveryClientCached, c.Previous, c.Inputs, liveOldObj)
 	if err != nil {
 		return nil, err

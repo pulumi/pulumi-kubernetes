@@ -18,16 +18,26 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
+const (
+	managedByLabel = "app.kubernetes.io/managed-by"
+)
+
 // SetLabel sets the specified key/value pair as a label on the provided Unstructured object.
 func SetLabel(obj *unstructured.Unstructured, key, value string) {
 	// Note: Cannot use obj.GetLabels() here because it doesn't properly handle computed values from preview.
 	// During preview, don't set labels if the metadata or label contains a computed value since there's
 	// no way to insert data into the computed object.
-	metadataRaw := obj.Object["metadata"]
+	metadataRaw, ok := obj.Object["metadata"]
 	if isComputedValue(metadataRaw) {
 		return
 	}
-	metadata := metadataRaw.(map[string]interface{})
+	var metadata map[string]interface{}
+	if !ok {
+		metadata = map[string]interface{}{}
+		obj.Object["metadata"] = metadata
+	} else {
+		metadata = metadataRaw.(map[string]interface{})
+	}
 	labelsRaw, ok := metadata["labels"]
 	if isComputedValue(labelsRaw) {
 		return
@@ -43,7 +53,32 @@ func SetLabel(obj *unstructured.Unstructured, key, value string) {
 	metadata["labels"] = labels
 }
 
+// GetLabel gets the value of the specified label from the given object.
+func GetLabel(obj *unstructured.Unstructured, key string) interface{} {
+	metadataRaw := obj.Object["metadata"]
+	if isComputedValue(metadataRaw) || metadataRaw == nil {
+		return metadataRaw
+	}
+	metadata := metadataRaw.(map[string]interface{})
+	labelsRaw := metadata["labels"]
+	if isComputedValue(labelsRaw) || labelsRaw == nil {
+		return labelsRaw
+	}
+	return labelsRaw.(map[string]interface{})[key]
+}
+
 // SetManagedByLabel sets the `app.kubernetes.io/managed-by` label to `pulumi`.
 func SetManagedByLabel(obj *unstructured.Unstructured) {
-	SetLabel(obj, "app.kubernetes.io/managed-by", "pulumi")
+	SetLabel(obj, managedByLabel, "pulumi")
+}
+
+// HasManagedByLabel returns true if the object has the `app.kubernetes.io/managed-by` label set to `pulumi`,
+// or is a computed value.
+func HasManagedByLabel(obj *unstructured.Unstructured) bool {
+	val := GetLabel(obj, managedByLabel)
+	if isComputedValue(val) {
+		return true
+	}
+	str, ok := val.(string)
+	return ok && str == "pulumi"
 }

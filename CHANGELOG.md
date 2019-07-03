@@ -1,5 +1,19 @@
 ## 0.25.2 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Improvements
+
+-   The Kubernetes provider can now communicate detailed information about the difference between a resource's desired and actual state during a Pulumi update. (https://github.com/pulumi/pulumi-kubernetes/pull/618)
+
+### Bug fixes
+
+-   None
+
 ## 0.25.1 (July 2, 2019)
 
 ### Supported Kubernetes versions

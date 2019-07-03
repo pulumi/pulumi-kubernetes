@@ -23,6 +23,7 @@ import (
 	"reflect"
 	"strings"
 
+	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
@@ -44,7 +45,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/sets"
+	"k8s.io/apimachinery/pkg/util/strategicpatch"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 )
@@ -393,12 +396,19 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		// previous run of `Check`.
 		contract.Assert(oldInputs.GetName() != "")
 		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs)
+
+		// If this resource does not have a "managed-by: pulumi" label in its inputs, it is likely we are importing
+		// a resource that was created out-of-band. In this case, we do not add the `managed-by` label here, as doing
+		// so would result in a persistent failure to import due to a diff that the user cannot correct.
+		if metadata.HasManagedByLabel(oldInputs) {
+			metadata.SetManagedByLabel(newInputs)
+		}
 	} else {
 		metadata.AssignNameIfAutonamable(newInputs, urn.Name())
-	}
 
-	// Set a "managed-by: pulumi" label on all created k8s resources.
-	metadata.SetManagedByLabel(newInputs)
+		// Set a "managed-by: pulumi" label on all created k8s resources.
+		metadata.SetManagedByLabel(newInputs)
+	}
 
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
@@ -555,30 +565,53 @@ func (k *kubeProvider) Diff(
 		}
 	}
 
-	patch, _, err := openapi.PatchForResourceUpdate(
+	patch, patchType, lookupPatchMeta, err := openapi.PatchForResourceUpdate(
 		k.clientSet.DiscoveryClientCached, oldInputs, newInputs, oldLiveState)
 	if err != nil {
 		return nil, err
+	}
+	// If we have a strategic merge patch, apply it and create a normal merge patch from the new and old state.
+	// This allows downstream logic to deal only with the JSON merge patch format.
+	if patchType == types.StrategicMergePatchType {
+		oldLiveJSON, err := oldLiveState.MarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		newJSON, err := strategicpatch.StrategicMergePatchUsingLookupPatchMeta(oldLiveJSON, patch, lookupPatchMeta)
+		if err != nil {
+			return nil, err
+		}
+		patch, err = jsonpatch.CreateMergePatch(oldLiveJSON, newJSON)
+		if err != nil {
+			return nil, err
+		}
 	}
 	patchObj := map[string]interface{}{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
 		return nil, err
 	}
 
-	// Decide whether to replace the resource.
-	replaces, err := forceNewProperties(patchObj, gvk)
-	if err != nil {
-		return nil, err
-	}
-
 	// Pack up PB, ship response back.
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
 
-	var changes []string
+	var changes, replaces []string
+	var detailedDiff map[string]*pulumirpc.PropertyDiff
 	if len(patchObj) != 0 {
 		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+
 		for k := range patchObj {
 			changes = append(changes, k)
+		}
+
+		if detailedDiff, err = convertPatchToDiff(patchObj, oldLiveState.Object, gvk); err != nil {
+			return nil, err
+		}
+
+		for k, v := range detailedDiff {
+			switch v.Kind {
+			case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
+				replaces = append(replaces, k)
+			}
 		}
 	}
 
@@ -602,6 +635,8 @@ func (k *kubeProvider) Diff(
 		Stables:             []string{},
 		DeleteBeforeReplace: deleteBeforeReplace,
 		Diffs:               changes,
+		DetailedDiff:        detailedDiff,
+		HasDetailedDiff:     true,
 	}, nil
 }
 
@@ -1230,4 +1265,180 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 	inputs.SetGroupVersionKind(live.GroupVersionKind())
 	metadata.AdoptOldAutonameIfUnnamed(inputs, live)
 	return inputs
+}
+
+// convertPatchToDiff converts the given JSON merge patch to a Pulumi detailed diff.
+func convertPatchToDiff(patch, oldLiveState map[string]interface{}, gvk schema.GroupVersionKind,
+) (map[string]*pulumirpc.PropertyDiff, error) {
+	contract.Require(len(patch) != 0, "len(patch) != 0")
+	contract.Require(oldLiveState != nil, "oldLiveState != nil")
+
+	pc := &patchConverter{
+		forceNew: forceNewProperties(gvk),
+		diff:     map[string]*pulumirpc.PropertyDiff{},
+	}
+	err := pc.addPatchMapToDiff(nil, patch, oldLiveState, false)
+	return pc.diff, err
+}
+
+// makePatchSlice recursively processes the given path to create a slice of a POJO value that is appropriately shaped
+// for querying using a JSON path. We use this in addPatchValueToDiff when deciding whether or not a particular
+// property causes a replacement.
+func makePatchSlice(path []interface{}, v interface{}) interface{} {
+	if len(path) == 0 {
+		return v
+	}
+	switch p := path[0].(type) {
+	case string:
+		return map[string]interface{}{
+			p: makePatchSlice(path[1:], v),
+		}
+	case int:
+		return []interface{}{makePatchSlice(path[1:], v)}
+	default:
+		contract.Failf("unexpected element type in path: %T", p)
+		return nil
+	}
+}
+
+// patchConverter carries context for convertPatchToDiff.
+type patchConverter struct {
+	forceNew []string
+	diff     map[string]*pulumirpc.PropertyDiff
+}
+
+// addPatchValueToDiff adds the given patched value to the detailed diff. Either the patched value or the old value
+// must not be nil.
+//
+// The particular difference that is recorded depends on the old and new values:
+// - If the patched value is nil, the property is recorded as deleted
+// - If the old value is nil, the property is recorded as added
+// - If the types of the old and new values differ, the property is recorded as updated
+// - If both values are maps, the maps are recursively compared on a per-property basis and added to the diff
+// - If both values are arrays, the arrays are recursively compared on a per-element basis and added to the diff
+// - If both values are primitives and the values differ, the property is recorded as updated
+// - Otherwise, no diff is recorded.
+//
+// If a difference is present at the given path and the path matches one of the patterns in the database of
+// force-new properties, the diff is amended to indicate that the resource needs to be replaced due to the change in
+// this property.
+func (pc *patchConverter) addPatchValueToDiff(path []interface{}, v, old interface{}, inArray bool) error {
+	contract.Assert(v != nil || old != nil)
+
+	var diffKind pulumirpc.PropertyDiff_Kind
+	inputDiff := false
+	if v == nil {
+		diffKind, inputDiff = pulumirpc.PropertyDiff_DELETE, true
+	} else if old == nil {
+		diffKind = pulumirpc.PropertyDiff_ADD
+	} else {
+		switch v := v.(type) {
+		case map[string]interface{}:
+			if oldMap, ok := old.(map[string]interface{}); ok {
+				return pc.addPatchMapToDiff(path, v, oldMap, inArray)
+			}
+			diffKind = pulumirpc.PropertyDiff_UPDATE
+		case []interface{}:
+			if oldArray, ok := old.([]interface{}); ok {
+				return pc.addPatchArrayToDiff(path, v, oldArray, inArray)
+			}
+			diffKind = pulumirpc.PropertyDiff_UPDATE
+		default:
+			if reflect.DeepEqual(v, old) {
+				// From RFC 7386 (the JSON Merge Patch spec):
+				//
+				//   If the patch is anything other than an object, the result will always be to replace the entire
+				//   target with the entire patch. Also, it is not possible to patch part of a target that is not an
+				//   object, such as to replace just some of the values in an array.
+				//
+				// Because JSON merge patch does not allow array elements to be updated--instead, the array must be
+				// replaced in full--the patch we have is an overestimate of the properties that changed. As such, we
+				// only record updates for values that have in fact changed.
+				return nil
+			}
+			diffKind = pulumirpc.PropertyDiff_UPDATE
+		}
+	}
+
+	// Determine if this change causes a replace.
+	matches, err := openapi.PatchPropertiesChanged(makePatchSlice(path, v).(map[string]interface{}), pc.forceNew)
+	if err != nil {
+		return err
+	}
+	if len(matches) != 0 {
+		switch diffKind {
+		case pulumirpc.PropertyDiff_ADD:
+			diffKind = pulumirpc.PropertyDiff_ADD_REPLACE
+		case pulumirpc.PropertyDiff_DELETE:
+			diffKind = pulumirpc.PropertyDiff_DELETE_REPLACE
+		case pulumirpc.PropertyDiff_UPDATE:
+			diffKind = pulumirpc.PropertyDiff_UPDATE_REPLACE
+		}
+	}
+
+	pathStr := ""
+	for _, v := range path {
+		switch v := v.(type) {
+		case string:
+			if strings.ContainsAny(v, `."[]`) {
+				pathStr = fmt.Sprintf(`%s["%s"]`, pathStr, strings.ReplaceAll(v, `"`, `\"`))
+			} else if pathStr != "" {
+				pathStr = fmt.Sprintf("%s.%s", pathStr, v)
+			} else {
+				pathStr = v
+			}
+		case int:
+			pathStr = fmt.Sprintf("%s[%d]", pathStr, v)
+		}
+	}
+
+	pc.diff[pathStr] = &pulumirpc.PropertyDiff{Kind: diffKind, InputDiff: inputDiff}
+	return nil
+}
+
+// addPatchMapToDiff adds the diffs in the given patched map to the detailed diff.
+//
+// If this map is contained within an array, we do a little bit more work to detect deletes, as they are not recorded
+// in the patch in this case (see the note in addPatchValueToDiff for more details).
+func (pc *patchConverter) addPatchMapToDiff(path []interface{}, m, old map[string]interface{}, inArray bool) error {
+	for k, v := range m {
+		if err := pc.addPatchValueToDiff(append(path, k), v, old[k], inArray); err != nil {
+			return err
+		}
+	}
+	if inArray {
+		for k, v := range old {
+			if _, ok := m[k]; !ok {
+				if err := pc.addPatchValueToDiff(append(path, k), nil, v, inArray); err != nil {
+					return err
+				}
+			}
+		}
+	}
+	return nil
+}
+
+// addPatchArrayToDiff adds the diffs in the given patched array to the detailed diff.
+func (pc *patchConverter) addPatchArrayToDiff(path []interface{}, a []interface{}, old []interface{}, inArray bool) error {
+	var i int
+	for i = 0; i < len(a) && i < len(old); i++ {
+		if err := pc.addPatchValueToDiff(append(path, i), a[i], old[i], true); err != nil {
+			return err
+		}
+	}
+
+	if i < len(a) {
+		for ; i < len(a); i++ {
+			if err := pc.addPatchValueToDiff(append(path, i), a[i], nil, true); err != nil {
+				return err
+			}
+		}
+	} else {
+		for ; i < len(old); i++ {
+			if err := pc.addPatchValueToDiff(append(path, i), nil, old[i], true); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }
