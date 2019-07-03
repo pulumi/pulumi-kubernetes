@@ -106,7 +106,11 @@ func PatchForResourceUpdate(client discovery.CachedDiscoveryInterface, lastSubmi
 	if resSchema := resources.LookupResource(gvk); resSchema != nil {
 		glog.V(1).Infof("Attempting to update '%s' '%s/%s' with strategic merge",
 			gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
-		return strategicMergePatch(gvk, resSchema, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
+		patch, patchType, lookupPatchMeta, err := strategicMergePatch(
+			gvk, resSchema, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
+		if err == nil {
+			return patch, patchType, lookupPatchMeta, err
+		}
 	}
 
 	// Fall back to three-way JSON merge patch.

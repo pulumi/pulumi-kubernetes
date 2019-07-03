@@ -12,6 +12,7 @@
 desired and actual state during a Pulumi update. (https://github.com/pulumi/pulumi-kubernetes/pull/618).
 -   Refactor Pod await logic for easier testing and maintenance (https://github.com/pulumi/pulumi-kubernetes/pull/590).
 -   Update to client-go v12.0.0 (https://github.com/pulumi/pulumi-kubernetes/pull/621).
+-   Fallback to JSON merge if strategic merge fails (https://github.com/pulumi/pulumi-kubernetes/pull/622).
 
 ### Bug fixes
 
