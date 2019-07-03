@@ -5,8 +5,9 @@ go 1.12
 require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/cbroglie/mustache v1.0.1
+	github.com/docker/docker v1.13.1 // indirect
 	github.com/evanphx/json-patch v4.1.0+incompatible
-	github.com/gogo/protobuf v1.2.1 // indirect
+	github.com/gogo/protobuf v1.2.0 // indirect
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.3.1
 	github.com/google/gofuzz v1.0.0 // indirect
@@ -16,8 +17,9 @@ require (
 	github.com/jinzhu/copier v0.0.0-20180308034124-7e38e58719c3
 	github.com/json-iterator/go v1.1.6 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0
+	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/pkg/errors v0.8.1
-	github.com/pulumi/pulumi v0.17.22-0.20190702185104-ebceea93a5da
+	github.com/pulumi/pulumi v0.17.22-0.20190702234832-f11f4f749898
 	github.com/stretchr/testify v1.3.0
 	google.golang.org/grpc v1.20.1
 	gopkg.in/inf.v0 v0.9.1 // indirect
@@ -36,7 +38,3 @@ replace (
 	github.com/golang/glog => github.com/pulumi/glog v0.0.0-20180820174630-7eaa6ffb71e4
 	github.com/grpc/grpc-go => google.golang.org/grpc v1.20.1
 )
-
-replace github.com/pulumi/pulumi => ../pulumi
-
-replace github.com/Sirupsen/logrus v1.4.2 => github.com/sirupsen/logrus v1.4.2
