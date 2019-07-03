@@ -18,6 +18,10 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
+const (
+	managedByLabel = "app.kubernetes.io/managed-by"
+)
+
 // SetLabel sets the specified key/value pair as a label on the provided Unstructured object.
 func SetLabel(obj *unstructured.Unstructured, key, value string) {
 	// Note: Cannot use obj.GetLabels() here because it doesn't properly handle computed values from preview.
@@ -65,13 +69,13 @@ func GetLabel(obj *unstructured.Unstructured, key string) interface{} {
 
 // SetManagedByLabel sets the `app.kubernetes.io/managed-by` label to `pulumi`.
 func SetManagedByLabel(obj *unstructured.Unstructured) {
-	SetLabel(obj, "app.kubernetes.io/managed-by", "pulumi")
+	SetLabel(obj, managedByLabel, "pulumi")
 }
 
 // HasManagedByLabel returns true if the object has the `app.kubernetes.io/managed-by` label set to `pulumi`,
 // or is a computed value.
 func HasManagedByLabel(obj *unstructured.Unstructured) bool {
-	val := GetLabel(obj, "app.kubernetes.io/managed-by")
+	val := GetLabel(obj, managedByLabel)
 	if isComputedValue(val) {
 		return true
 	}
