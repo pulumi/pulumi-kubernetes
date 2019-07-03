@@ -9,6 +9,7 @@
 ### Improvements
 
 -   The Kubernetes provider can now communicate detailed information about the difference between a resource's desired and actual state during a Pulumi update. (https://github.com/pulumi/pulumi-kubernetes/pull/618)
+-   Refactor Pod await logic for easier testing and maintenance (https://github.com/pulumi/pulumi-kubernetes/pull/590).
 
 ### Bug fixes
 
@@ -49,7 +50,6 @@
 
 -   Enable multiple instances of Helm charts per stack (https://github.com/pulumi/pulumi-kubernetes/pull/599).
 -   Enable multiple instances of YAML manifests per stack (https://github.com/pulumi/pulumi-kubernetes/pull/594).
--   Refactor Pod await logic for easier testing and maintenance (https://github.com/pulumi/pulumi-kubernetes/pull/590).
 
 ### Bug fixes
 
