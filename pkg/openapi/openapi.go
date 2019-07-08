@@ -109,7 +109,7 @@ func PatchForResourceUpdate(client discovery.CachedDiscoveryInterface, lastSubmi
 		patch, patchType, lookupPatchMeta, err := strategicMergePatch(
 			gvk, resSchema, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
 		if err == nil {
-			return patch, patchType, lookupPatchMeta, err
+			return patch, patchType, lookupPatchMeta, nil
 		}
 	}
 
