@@ -37,19 +37,15 @@ func podScheduled(obj interface{}) Result {
 	pod := toPod(obj)
 	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be scheduled", fqName(pod))}
 
-	for _, condition := range pod.Status.Conditions {
-		if condition.Type == v1.PodScheduled {
-			if condition.Status == v1.ConditionTrue {
-				result.Ok = true
-				return result
-			}
-
+	if condition, found := filterConditions(pod.Status.Conditions, v1.PodScheduled); found {
+		switch condition.Status {
+		case v1.ConditionTrue:
+			result.Ok = true
+		default:
 			msg := statusFromCondition(condition)
 			if len(msg) > 0 {
 				result.Message = logging.StatusMessage(msg)
 			}
-
-			return result
 		}
 	}
 
@@ -60,22 +56,18 @@ func podInitialized(obj interface{}) Result {
 	pod := toPod(obj)
 	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be initialized", fqName(pod))}
 
-	for _, condition := range pod.Status.Conditions {
-		if condition.Type == v1.PodInitialized {
-			if condition.Status == v1.ConditionTrue {
-				result.Ok = true
-				return result
-			}
-
+	if condition, found := filterConditions(pod.Status.Conditions, v1.PodInitialized); found {
+		switch condition.Status {
+		case v1.ConditionTrue:
+			result.Ok = true
+		default:
 			var errs []string
 			for _, status := range pod.Status.ContainerStatuses {
 				if ok, containerErrs := hasContainerStatusErrors(status); !ok {
 					errs = append(errs, containerErrs...)
 				}
 			}
-
 			result.Message = logging.WarningMessage(podError(condition, errs))
-			return result
 		}
 	}
 
@@ -86,22 +78,18 @@ func podReady(obj interface{}) Result {
 	pod := toPod(obj)
 	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be ready", fqName(pod))}
 
-	for _, condition := range pod.Status.Conditions {
-		if condition.Type == v1.PodReady {
-			if condition.Status == v1.ConditionTrue && pod.Status.Phase == v1.PodRunning {
-				result.Ok = true
-				return result
+	if condition, found := filterConditions(pod.Status.Conditions, v1.PodReady); found {
+		switch condition.Status {
+		case v1.ConditionTrue:
+            result.Ok = true
+		default:
+			switch pod.Status.Phase {
+			case v1.PodSucceeded: // If the Pod has terminated, but .status.phase is "Succeeded", consider it Ready.
+                result.Ok = true
+			default:
+				errs := collectContainerStatusErrors(pod.Status.ContainerStatuses)
+				result.Message = logging.WarningMessage(podError(condition, errs))
 			}
-
-			// If the Pod has terminated, but has .status.phase set to "Succeeded", consider it Ready.
-			if pod.Status.Phase == v1.PodSucceeded {
-				result.Ok = true
-				return result
-			}
-
-			errs := collectContainerStatusErrors(pod.Status.ContainerStatuses)
-			result.Message = logging.WarningMessage(podError(condition, errs))
-			return result
 		}
 	}
 
@@ -184,7 +172,7 @@ func trimImagePullMsg(msg string) string {
 	return msg
 }
 
-func statusFromCondition(condition v1.PodCondition) string {
+func statusFromCondition(condition *v1.PodCondition) string {
 	if condition.Reason != "" && condition.Message != "" {
 		return condition.Message
 	}
@@ -192,7 +180,17 @@ func statusFromCondition(condition v1.PodCondition) string {
 	return ""
 }
 
-func podError(condition v1.PodCondition, errs []string) string {
+func filterConditions(conditions []v1.PodCondition, desired v1.PodConditionType) (*v1.PodCondition, bool) {
+	for _, condition := range conditions {
+		if condition.Type == desired {
+			return &condition, true
+		}
+	}
+
+	return nil, false
+}
+
+func podError(condition *v1.PodCondition, errs []string) string {
 	var errMsg string
 	if len(condition.Reason) > 0 && len(condition.Message) > 0 {
 		errMsg = condition.Message
