@@ -16,7 +16,7 @@ desired and actual state during a Pulumi update. (https://github.com/pulumi/pulu
 
 ### Bug fixes
 
--   None
+-   Fix Helm Chart resource by passing `resourcePrefix` to the yaml template resources (https://github.com/pulumi/pulumi-kubernetes/pull/625).
 
 ## 0.25.1 (July 2, 2019)
 

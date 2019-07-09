@@ -174,7 +174,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 const yamlStream = execSync(
                     `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
                 ).toString();
-                return this.parseTemplate(yamlStream, cfg.transformations, configDeps);
+                return this.parseTemplate(yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps);
             } catch (e) {
                 // Shed stack trace, only emit the error.
                 throw new pulumi.RunError(e.toString());
@@ -189,6 +189,7 @@ export class Chart extends yaml.CollectionComponentResource {
     parseTemplate(
         yamlStream: string,
         transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void)[] | undefined,
+        resourcePrefix: string | undefined,
         dependsOn: pulumi.Resource[],
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
         // NOTE: We must manually split the YAML stream because of js-yaml#456. Perusing the
@@ -204,6 +205,7 @@ export class Chart extends yaml.CollectionComponentResource {
             .sort(helmSort);
         return yaml.parse(
             {
+                resourcePrefix: resourcePrefix,
                 yaml: objs.map(o => jsyaml.safeDump(o)),
                 transformations: transformations || [],
             },
