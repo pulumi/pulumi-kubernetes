@@ -1,5 +1,7 @@
 ## 0.25.2 (Unreleased)
 
+- Fix Helm Chart resource by passing `resourcePrefix` to the yaml template resources.
+
 ### Supported Kubernetes versions
 
 - v1.15.x
