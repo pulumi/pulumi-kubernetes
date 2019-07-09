@@ -45,8 +45,8 @@ func NewLogger(ctx context.Context, host *provider.HostClient, urn resource.URN)
 }
 
 // LogMessage adds a message to the log set and flushes the queue to the host.
-func (l *DedupLogger) LogMessage(severity diag.Severity, s string) {
-	l.EnqueueMessage(severity, s)
+func (l *DedupLogger) LogMessage(msg Message) {
+	l.EnqueueMessage(msg.Severity, msg.S)
 	l.LogNewMessages()
 }
 
