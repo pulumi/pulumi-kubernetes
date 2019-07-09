@@ -157,7 +157,7 @@ func hasContainerWaitingError(status v1.ContainerStatus) (bool, string) {
 	// Image pull error has a bunch of useless junk in the error message. Try to remove it.
 	trimPrefix := "rpc error: code = Unknown desc = Error response from daemon: "
 	trimSuffix := ": manifest unknown"
-	msg := state.Message
+	msg := fmt.Sprintf("[%s] %s", state.Reason, state.Message)
 	msg = strings.TrimPrefix(msg, trimPrefix)
 	msg = strings.TrimSuffix(msg, trimSuffix)
 
