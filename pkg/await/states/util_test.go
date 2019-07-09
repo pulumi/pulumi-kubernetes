@@ -18,6 +18,9 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/pulumi/pulumi-kubernetes/pkg/await/recordings"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -49,3 +52,28 @@ func TestFqName(t *testing.T) {
 		})
 	}
 }
+
+// mustCheckIfRecordingsReady runs the provider StateChecker against the recordings and returns true if the state
+// is Ready, false otherwise. The last set of Update messages is also returned. This function is intended to be
+// used with vetted test data and will panic on error.
+func mustCheckIfRecordingsReady(recordingPaths []string, checker *StateChecker) (bool, logging.Messages) {
+	var messages logging.Messages
+	for _, recordingPath := range recordingPaths {
+		records := recordings.MustLoadWorkflow(recordingPath)
+
+		for _, record := range records {
+			obj, err := clients.FromUnstructured(record)
+			if err != nil {
+				panic(fmt.Sprintf("FromUnstructured failed: %v", err))
+			}
+
+			messages = checker.Update(obj)
+			if checker.Ready() {
+				return true, messages
+			}
+		}
+	}
+
+	return false, messages
+}
+
