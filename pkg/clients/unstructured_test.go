@@ -18,14 +18,109 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/pkg/await/fixtures"
+	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
+type podBasic struct {
+	Object       *corev1.Pod
+	Unstructured *unstructured.Unstructured
+}
+
+// PodBasic returns a corev1.Pod struct and a corresponding Unstructured struct.
+func PodBasic() *podBasic {
+	return &podBasic{
+		&corev1.Pod{
+			TypeMeta: v1.TypeMeta{
+				APIVersion: "v1",
+				Kind:       "Pod",
+			},
+			ObjectMeta: v1.ObjectMeta{
+				Name: "foo",
+			},
+			Spec: corev1.PodSpec{
+				Containers: []corev1.Container{
+					{
+						Name:  "foo",
+						Image: "nginx",
+					},
+				},
+			},
+		},
+
+		&unstructured.Unstructured{
+			Object: map[string]interface{}{
+				"apiVersion": "v1",
+				"kind":       "Pod",
+				"metadata": map[string]interface{}{
+					"name": "foo"},
+				"spec": map[string]interface{}{
+					"containers": []interface{}{
+						map[string]interface{}{
+							"name":  "foo",
+							"image": "nginx"}},
+				},
+			},
+		},
+	}
+}
+
+type deploymentBasic struct {
+	Object       *appsv1.Deployment
+	Unstructured *unstructured.Unstructured
+}
+
+func DeploymentBasic() *deploymentBasic {
+	return &deploymentBasic{
+		&appsv1.Deployment{
+			TypeMeta: metav1.TypeMeta{
+				APIVersion: "apps/v1",
+				Kind:       "Deployment",
+			},
+			ObjectMeta: metav1.ObjectMeta{
+				Name: "foo",
+			},
+			Spec: appsv1.DeploymentSpec{
+				Template: corev1.PodTemplateSpec{
+					Spec: corev1.PodSpec{
+						Containers: []corev1.Container{
+							{
+								Name:  "foo",
+								Image: "nginx",
+							},
+						},
+					},
+				},
+			},
+		},
+
+		&unstructured.Unstructured{
+			Object: map[string]interface{}{
+				"apiVersion": "apps/v1",
+				"kind":       "Deployment",
+				"metadata": map[string]interface{}{
+					"name": "foo"},
+				"spec": map[string]interface{}{
+					"template": map[string]interface{}{
+						"spec": map[string]interface{}{
+							"containers": []interface{}{
+								map[string]interface{}{
+									"name":  "foo",
+									"image": "nginx"}},
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
 func TestFromUnstructured(t *testing.T) {
-	pod := fixtures.PodBasic()
-	deployment := fixtures.DeploymentBasic()
+	pod := PodBasic()
+	deployment := DeploymentBasic()
 
 	type args struct {
 		obj *unstructured.Unstructured

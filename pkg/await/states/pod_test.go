@@ -17,20 +17,25 @@ package states
 import (
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/pkg/await/fixtures"
+	"github.com/pulumi/pulumi-kubernetes/pkg/await/recordings"
+	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	corev1 "k8s.io/api/core/v1"
 )
 
 const (
-	PodAdded                                  = "../recordings/podAdded.json"
-	PodContainerTerminatedError               = "../recordings/podContainerTerminatedError.json"
-	PodContainerTerminatedSuccess             = "../recordings/podContainerTerminatedSuccess.json"
-	PodContainerTerminatedSuccessRestartNever = "../recordings/podContainerTerminatedSuccessRestartNever.json"
-	PodCreateSuccess                          = "../recordings/podCreateSuccess.json"
-	PodImagePullError                         = "../recordings/podImagePullError.json"
-	PodImagePullErrorResolved                 = "../recordings/podImagePullErrorResolved.json"
-	PodScheduled                              = "../recordings/podScheduled.json"
-	PodUnready                                = "../recordings/podUnready.json"
-	PodUnschedulable                          = "../recordings/podUnschedulable.json"
+	podStatePath    = "../recordings/states/pod"
+	podWorkflowPath = "../recordings/workflows/pod"
+
+	added                                  = podWorkflowPath + "/added.json"
+	containerTerminatedError               = podWorkflowPath + "/containerTerminatedError.json"
+	containerTerminatedSuccess             = podWorkflowPath + "/containerTerminatedSuccess.json"
+	containerTerminatedSuccessRestartNever = podWorkflowPath + "/containerTerminatedSuccessRestartNever.json"
+	createSuccess                          = podWorkflowPath + "/createSuccess.json"
+	imagePullError                         = podWorkflowPath + "/imagePullError.json"
+	imagePullErrorResolved                 = podWorkflowPath + "/imagePullErrorResolved.json"
+	scheduled                              = podWorkflowPath + "/scheduled.json"
+	unready                                = podWorkflowPath + "/unready.json"
+	unscheduled                            = podWorkflowPath + "/unscheduled.json"
 )
 
 //
@@ -48,12 +53,12 @@ func Test_podInitialized(t *testing.T) {
 	}{
 		{
 			"Pod initialized",
-			args{fixtures.PodInitialized("foo", "bar")},
+			args{podInitializedState()},
 			true,
 		},
 		{
 			"Pod uninitialized",
-			args{fixtures.PodUninitialized("foo", "bar")},
+			args{podUninitializedState()},
 			false,
 		},
 	}
@@ -77,17 +82,17 @@ func Test_podReady(t *testing.T) {
 	}{
 		{
 			"Pod ready",
-			args{fixtures.PodReady("foo", "bar")},
+			args{podReadyState()},
 			true,
 		},
 		{
 			"Pod succeeded",
-			args{fixtures.PodSucceeded("foo", "bar")},
+			args{podSucceededState()},
 			true,
 		},
 		{
 			"Pod unready",
-			args{fixtures.PodBase("foo", "bar")},
+			args{podInitializedState()},
 			false,
 		},
 	}
@@ -111,12 +116,12 @@ func Test_podScheduled(t *testing.T) {
 	}{
 		{
 			"Pod scheduled",
-			args{fixtures.PodScheduled("foo", "bar")},
+			args{podScheduledState()},
 			true,
 		},
 		{
 			"Pod unscheduled",
-			args{fixtures.PodUnscheduled("foo", "bar")},
+			args{podUnscheduledState()},
 			false,
 		},
 	}
@@ -142,52 +147,52 @@ func Test_Pod_Checker(t *testing.T) {
 	}{
 		{
 			name:           "Pod added but not ready",
-			recordingPaths: []string{PodAdded},
+			recordingPaths: []string{added},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod scheduled but not ready",
-			recordingPaths: []string{PodScheduled},
+			recordingPaths: []string{scheduled},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod create success",
-			recordingPaths: []string{PodCreateSuccess},
+			recordingPaths: []string{createSuccess},
 			expectReady:    true,
 		},
 		{
 			name:           "Pod image pull error",
-			recordingPaths: []string{PodImagePullError},
+			recordingPaths: []string{imagePullError},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod create success after image pull failure resolved",
-			recordingPaths: []string{PodImagePullError, PodImagePullErrorResolved},
+			recordingPaths: []string{imagePullError, imagePullErrorResolved},
 			expectReady:    true,
 		},
 		{
-			name:           "Pod unschedulable",
-			recordingPaths: []string{PodUnschedulable},
+			name:           "Pod unscheduled",
+			recordingPaths: []string{unscheduled},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod unready",
-			recordingPaths: []string{PodUnready},
+			recordingPaths: []string{unready},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod container terminated with error",
-			recordingPaths: []string{PodContainerTerminatedError},
+			recordingPaths: []string{containerTerminatedError},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod container terminated successfully",
-			recordingPaths: []string{PodContainerTerminatedSuccess},
+			recordingPaths: []string{containerTerminatedSuccess},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod container terminated successfully with restartPolicy: Never",
-			recordingPaths: []string{PodContainerTerminatedSuccessRestartNever},
+			recordingPaths: []string{containerTerminatedSuccessRestartNever},
 			expectReady:    true,
 		},
 	}
@@ -195,10 +200,54 @@ func Test_Pod_Checker(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			checker := NewPodChecker()
 
-			ready, messages := MustCheckIfRecordingsReady(tt.recordingPaths, checker)
+			ready, messages := mustCheckIfRecordingsReady(tt.recordingPaths, checker)
 			if ready != tt.expectReady {
 				t.Errorf("Ready() = %t, want %t\nMessages: %s", ready, tt.expectReady, messages)
 			}
 		})
 	}
+}
+
+//
+// Helpers
+//
+
+func mustLoadPodRecording(path string) *corev1.Pod {
+	pod, err := clients.PodFromUnstructured(recordings.MustLoadState(path))
+	if err != nil {
+		panic(err)
+	}
+	return pod
+}
+
+// podInitializedState returns a Pod that passes the podInitialized await Condition.
+func podInitializedState() *corev1.Pod {
+	return mustLoadPodRecording(podStatePath + "/initialized.json")
+}
+
+// podUninitializedState returns a Pod that fails the podInitialized await Condition.
+func podUninitializedState() *corev1.Pod {
+	return mustLoadPodRecording(podStatePath + "/uninitialized.json")
+}
+
+// podReadyState returns a Pod that passes the podReady await Condition.
+func podReadyState() *corev1.Pod {
+	return mustLoadPodRecording(podStatePath + "/ready.json")
+}
+
+// podSucceededState returns a Pod that passes the podReady await Condition.
+// Note that this corresponds to a Pod that runs a command and then exits with a 0 return code, so the Ready
+// status condition is False, and the phase is Succeeded.
+func podSucceededState() *corev1.Pod {
+	return mustLoadPodRecording(podStatePath + "/succeeded.json")
+}
+
+// podScheduledState returns a Pod that passes the podScheduled await Condition.
+func podScheduledState() *corev1.Pod {
+	return mustLoadPodRecording(podStatePath + "/scheduled.json")
+}
+
+// podUnscheduledState returns a Pod that fails the podScheduled await Condition.
+func podUnscheduledState() *corev1.Pod {
+	return mustLoadPodRecording(podStatePath + "/unscheduled.json")
 }

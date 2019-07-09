@@ -16,16 +16,16 @@ package states
 
 import (
 	"fmt"
-	"github.com/pulumi/pulumi-kubernetes/pkg/await/fixtures"
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"testing"
+
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func TestFqName(t *testing.T) {
-	pod := fixtures.PodBasic()
-	podNoNS := pod.Object.DeepCopy()
+	pod := podInitializedState()
+	podNoNS := pod.DeepCopy()
 	podNoNS.Namespace = ""
-	podFooNS := pod.Object.DeepCopy()
+	podFooNS := pod.DeepCopy()
 	podFooNS.Namespace = "foo"
 
 	type args struct {
@@ -36,7 +36,7 @@ func TestFqName(t *testing.T) {
 		args args
 		want string
 	}{
-		{"default-ns", args{d: v1.Object(pod.Object)}, pod.Object.Name},
+		{"default-ns", args{d: v1.Object(pod)}, pod.Name},
 		{"no-ns", args{d: v1.Object(podNoNS)}, podNoNS.Name},
 		{"foo-ns", args{d: v1.Object(podFooNS)},
 			fmt.Sprintf("%s/%s", podFooNS.Namespace, podFooNS.Name)},
