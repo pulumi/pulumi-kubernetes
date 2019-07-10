@@ -3,8 +3,10 @@
 
 export * from "./provider";
 import * as helm from "./helm/index";
+import * as types from "./types/index";
 import * as yaml from "./yaml/index";
-export { helm, yaml };
+
+export { helm, types, yaml };
 
 // Import groups
 {{#Groups}}
