@@ -88,7 +88,10 @@ func (pa *PodAggregator) run() {
 			return
 		}
 		if relatedResource(pa.owner, pod) {
-			pa.messages <- pa.checker.Update(pod).MessagesWithSeverity(diag.Warning, diag.Error)
+			messages := pa.checker.Update(pod).MessagesWithSeverity(diag.Warning, diag.Error)
+			if len(messages) > 0 {
+				pa.messages <- messages
+			}
 		}
 	}
 

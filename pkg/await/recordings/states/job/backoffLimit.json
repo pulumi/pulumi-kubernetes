@@ -1,0 +1,75 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"labels\":{\"app.kubernetes.io/managed-by\":\"pulumi\"},\"name\":\"foo\"},\"spec\":{\"backoffLimit\":1,\"template\":{\"spec\":{\"activeDeadlineSeconds\":10,\"containers\":[{\"command\":[\"perl\",\"-Mbignum=bpi\",\"-wle\",\"print bpi(2000)\"],\"image\":\"perl-fail\",\"name\":\"pi\"}],\"restartPolicy\":\"Never\"}}}}\n"
+    },
+    "creationTimestamp": "2019-09-04T18:19:35Z",
+    "labels": {
+      "app.kubernetes.io/managed-by": "pulumi"
+    },
+    "name": "foo",
+    "namespace": "default",
+    "resourceVersion": "1127282",
+    "selfLink": "/apis/batch/v1/namespaces/default/jobs/foo",
+    "uid": "8c668c31-cf40-11e9-8c3a-025000000001"
+  },
+  "spec": {
+    "backoffLimit": 1,
+    "completions": 1,
+    "parallelism": 1,
+    "selector": {
+      "matchLabels": {
+        "controller-uid": "8c668c31-cf40-11e9-8c3a-025000000001"
+      }
+    },
+    "template": {
+      "metadata": {
+        "creationTimestamp": null,
+        "labels": {
+          "controller-uid": "8c668c31-cf40-11e9-8c3a-025000000001",
+          "job-name": "foo"
+        }
+      },
+      "spec": {
+        "activeDeadlineSeconds": 10,
+        "containers": [
+          {
+            "command": [
+              "perl",
+              "-Mbignum=bpi",
+              "-wle",
+              "print bpi(2000)"
+            ],
+            "image": "perl-fail",
+            "imagePullPolicy": "Always",
+            "name": "pi",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "terminationGracePeriodSeconds": 30
+      }
+    }
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastProbeTime": "2019-09-04T18:19:55Z",
+        "lastTransitionTime": "2019-09-04T18:19:55Z",
+        "message": "Job has reached the specified backoff limit",
+        "reason": "BackoffLimitExceeded",
+        "status": "True",
+        "type": "Failed"
+      }
+    ],
+    "failed": 2,
+    "startTime": "2019-09-04T18:19:35Z"
+  }
+}
