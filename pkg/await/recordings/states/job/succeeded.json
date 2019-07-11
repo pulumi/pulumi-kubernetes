@@ -1,0 +1,73 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"labels\":{\"app.kubernetes.io/managed-by\":\"pulumi\"},\"name\":\"foo\"},\"spec\":{\"backoffLimit\":4,\"template\":{\"spec\":{\"containers\":[{\"command\":[\"perl\",\"-Mbignum=bpi\",\"-wle\",\"print bpi(2000)\"],\"image\":\"perl\",\"name\":\"pi\"}],\"restartPolicy\":\"Never\"}}}}\n"
+    },
+    "creationTimestamp": "2019-07-11T19:30:43Z",
+    "labels": {
+      "app.kubernetes.io/managed-by": "pulumi"
+    },
+    "name": "foo",
+    "namespace": "default",
+    "resourceVersion": "764704",
+    "selfLink": "/apis/batch/v1/namespaces/default/jobs/foo",
+    "uid": "6000eff6-a412-11e9-a3c5-025000000001"
+  },
+  "spec": {
+    "backoffLimit": 4,
+    "completions": 1,
+    "parallelism": 1,
+    "selector": {
+      "matchLabels": {
+        "controller-uid": "6000eff6-a412-11e9-a3c5-025000000001"
+      }
+    },
+    "template": {
+      "metadata": {
+        "creationTimestamp": null,
+        "labels": {
+          "controller-uid": "6000eff6-a412-11e9-a3c5-025000000001",
+          "job-name": "foo"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "command": [
+              "perl",
+              "-Mbignum=bpi",
+              "-wle",
+              "print bpi(2000)"
+            ],
+            "image": "perl",
+            "imagePullPolicy": "Always",
+            "name": "pi",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "terminationGracePeriodSeconds": 30
+      }
+    }
+  },
+  "status": {
+    "completionTime": "2019-07-11T19:30:56Z",
+    "conditions": [
+      {
+        "lastProbeTime": "2019-07-11T19:30:56Z",
+        "lastTransitionTime": "2019-07-11T19:30:56Z",
+        "status": "True",
+        "type": "Complete"
+      }
+    ],
+    "startTime": "2019-07-11T19:30:43Z",
+    "succeeded": 1
+  }
+}

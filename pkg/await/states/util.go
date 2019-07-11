@@ -15,6 +15,8 @@
 package states
 
 import (
+	"fmt"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -26,4 +28,11 @@ func fqName(obj metav1.Object) string {
 		return obj.GetNamespace() + "/" + obj.GetName()
 	}
 	return obj.GetName()
+}
+
+func statePath(kind, name string) string {
+	return fmt.Sprintf("../recordings/states/%s/%s.json", kind, name)
+}
+func workflowPath(kind, name string) string {
+	return fmt.Sprintf("../recordings/workflows/%s/%s.json", kind, name)
 }

@@ -19,6 +19,7 @@ import (
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -26,7 +27,7 @@ import (
 func NewPodChecker() *StateChecker {
 	return &StateChecker{
 		conditions: []Condition{podScheduled, podInitialized, podReady},
-		readyMsg:   "✅ Pod ready",
+		readyMsg:   cmdutil.EmojiOr("✅ Pod ready", "Pod ready"),
 	}
 }
 
@@ -68,7 +69,7 @@ func podInitialized(obj metav1.Object) Result {
 					errs = append(errs, containerErrs...)
 				}
 			}
-			result.Message = logging.WarningMessage(podError(condition, errs))
+			result.Message = logging.WarningMessage(podError(condition, errs, fqName(pod)))
 		}
 	}
 
@@ -82,14 +83,14 @@ func podReady(obj metav1.Object) Result {
 	if condition, found := filterConditions(pod.Status.Conditions, v1.PodReady); found {
 		switch condition.Status {
 		case v1.ConditionTrue:
-            result.Ok = true
+			result.Ok = true
 		default:
 			switch pod.Status.Phase {
 			case v1.PodSucceeded: // If the Pod has terminated, but .status.phase is "Succeeded", consider it Ready.
-                result.Ok = true
+				result.Ok = true
 			default:
 				errs := collectContainerStatusErrors(pod.Status.ContainerStatuses)
-				result.Message = logging.WarningMessage(podError(condition, errs))
+				result.Message = logging.WarningMessage(podError(condition, errs, fqName(pod)))
 			}
 		}
 	}
@@ -191,10 +192,10 @@ func filterConditions(conditions []v1.PodCondition, desired v1.PodConditionType)
 	return nil, false
 }
 
-func podError(condition *v1.PodCondition, errs []string) string {
-	var errMsg string
+func podError(condition *v1.PodCondition, errs []string, name string) string {
+	errMsg := fmt.Sprintf("[Pod %s]: ", name)
 	if len(condition.Reason) > 0 && len(condition.Message) > 0 {
-		errMsg = condition.Message
+		errMsg += condition.Message
 	}
 
 	for _, err := range errs {

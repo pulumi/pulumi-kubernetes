@@ -99,6 +99,10 @@ func (r ResourceId) String() string {
 	return r.Name
 }
 
+func (r ResourceId) GVKString() string {
+	return fmt.Sprintf(`'[%s] %s'`, r.GVK, r.String())
+}
+
 func ResourceIdFromUnstructured(uns *unstructured.Unstructured) ResourceId {
 	return ResourceId{
 		Namespace:  clients.NamespaceOrDefault(uns.GetNamespace()),

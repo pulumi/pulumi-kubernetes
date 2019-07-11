@@ -100,6 +100,7 @@ const (
 	appsV1Beta1StatefulSet                      = "apps/v1beta1/StatefulSet"
 	appsV1Beta2StatefulSet                      = "apps/v1beta2/StatefulSet"
 	autoscalingV1HorizontalPodAutoscaler        = "autoscaling/v1/HorizontalPodAutoscaler"
+	batchV1Job                                  = "batch/v1/Job"
 	coreV1ConfigMap                             = "v1/ConfigMap"
 	coreV1LimitRange                            = "v1/LimitRange"
 	coreV1Namespace                             = "v1/Namespace"
@@ -148,6 +149,19 @@ var deploymentAwaiter = awaitSpec{
 	awaitDeletion: untilAppsDeploymentDeleted,
 }
 
+var jobAwaiter = awaitSpec{
+	awaitCreation: func(c createAwaitConfig) error {
+		return makeJobInitAwaiter(c).Await()
+	},
+	awaitUpdate: func(u updateAwaitConfig) error {
+		return makeJobInitAwaiter(u.createAwaitConfig).Await()
+	},
+	awaitRead: func(c createAwaitConfig) error {
+		return makeJobInitAwaiter(c).Read()
+	},
+	awaitDeletion: untilBatchV1JobDeleted,
+}
+
 var statefulsetAwaiter = awaitSpec{
 	awaitCreation: func(c createAwaitConfig) error {
 		return makeStatefulSetInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Await()
@@ -172,6 +186,7 @@ var awaiters = map[string]awaitSpec{
 	appsV1Beta1StatefulSet:               statefulsetAwaiter,
 	appsV1Beta2StatefulSet:               statefulsetAwaiter,
 	autoscalingV1HorizontalPodAutoscaler: { /* NONE */ },
+	batchV1Job:                           jobAwaiter,
 	coreV1ConfigMap:                      { /* NONE */ },
 	coreV1LimitRange:                     { /* NONE */ },
 	coreV1Namespace: {
@@ -330,6 +345,29 @@ func untilAppsStatefulSetDeleted(config deleteAwaitConfig) error {
 	glog.V(3).Infof("StatefulSet %q deleted", config.currentInputs.GetName())
 
 	return nil
+}
+
+// --------------------------------------------------------------------------
+
+// batch/v1/Job
+
+// --------------------------------------------------------------------------
+
+func untilBatchV1JobDeleted(config deleteAwaitConfig) error {
+	jobMissingOrKilled := func(pod *unstructured.Unstructured, err error) error {
+		if is404(err) {
+			return nil
+		} else if err != nil {
+			return err
+		}
+
+		e := fmt.Errorf("job %q still exists", config.currentInputs.GetName())
+		return watcher.RetryableError(e)
+	}
+
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 300)
+	return watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+		RetryUntil(jobMissingOrKilled, timeout)
 }
 
 // --------------------------------------------------------------------------

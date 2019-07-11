@@ -23,22 +23,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-const (
-	podStatePath    = "../recordings/states/pod"
-	podWorkflowPath = "../recordings/workflows/pod"
-
-	added                                  = podWorkflowPath + "/added.json"
-	containerTerminatedError               = podWorkflowPath + "/containerTerminatedError.json"
-	containerTerminatedSuccess             = podWorkflowPath + "/containerTerminatedSuccess.json"
-	containerTerminatedSuccessRestartNever = podWorkflowPath + "/containerTerminatedSuccessRestartNever.json"
-	createSuccess                          = podWorkflowPath + "/createSuccess.json"
-	imagePullError                         = podWorkflowPath + "/imagePullError.json"
-	imagePullErrorResolved                 = podWorkflowPath + "/imagePullErrorResolved.json"
-	scheduled                              = podWorkflowPath + "/scheduled.json"
-	unready                                = podWorkflowPath + "/unready.json"
-	unscheduled                            = podWorkflowPath + "/unscheduled.json"
-)
-
 //
 // Test Conditions
 //
@@ -140,6 +124,22 @@ func Test_podScheduled(t *testing.T) {
 //
 
 func Test_Pod_Checker(t *testing.T) {
+	workflow := func(name string) string {
+		return workflowPath("pod", name)
+	}
+	const (
+		added                                  = "added"
+		containerTerminatedError               = "containerTerminatedError"
+		containerTerminatedSuccess             = "containerTerminatedSuccess"
+		containerTerminatedSuccessRestartNever = "containerTerminatedSuccessRestartNever"
+		createSuccess                          = "createSuccess"
+		imagePullError                         = "imagePullError"
+		imagePullErrorResolved                 = "imagePullErrorResolved"
+		scheduled                              = "scheduled"
+		unready                                = "unready"
+		unscheduled                            = "unscheduled"
+	)
+
 	tests := []struct {
 		name           string
 		recordingPaths []string
@@ -148,52 +148,52 @@ func Test_Pod_Checker(t *testing.T) {
 	}{
 		{
 			name:           "Pod added but not ready",
-			recordingPaths: []string{added},
+			recordingPaths: []string{workflow(added)},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod scheduled but not ready",
-			recordingPaths: []string{scheduled},
+			recordingPaths: []string{workflow(scheduled)},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod create success",
-			recordingPaths: []string{createSuccess},
+			recordingPaths: []string{workflow(createSuccess)},
 			expectReady:    true,
 		},
 		{
 			name:           "Pod image pull error",
-			recordingPaths: []string{imagePullError},
+			recordingPaths: []string{workflow(imagePullError)},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod create success after image pull failure resolved",
-			recordingPaths: []string{imagePullError, imagePullErrorResolved},
+			recordingPaths: []string{workflow(imagePullError), workflow(imagePullErrorResolved)},
 			expectReady:    true,
 		},
 		{
 			name:           "Pod unscheduled",
-			recordingPaths: []string{unscheduled},
+			recordingPaths: []string{workflow(unscheduled)},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod unready",
-			recordingPaths: []string{unready},
+			recordingPaths: []string{workflow(unready)},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod container terminated with error",
-			recordingPaths: []string{containerTerminatedError},
+			recordingPaths: []string{workflow(containerTerminatedError)},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod container terminated successfully",
-			recordingPaths: []string{containerTerminatedSuccess},
+			recordingPaths: []string{workflow(containerTerminatedSuccess)},
 			expectReady:    false,
 		},
 		{
 			name:           "Pod container terminated successfully with restartPolicy: Never",
-			recordingPaths: []string{containerTerminatedSuccessRestartNever},
+			recordingPaths: []string{workflow(containerTerminatedSuccessRestartNever)},
 			expectReady:    true,
 		},
 	}
@@ -213,6 +213,10 @@ func Test_Pod_Checker(t *testing.T) {
 // Helpers
 //
 
+func podStatePath(name string) string {
+	return statePath("pod", name)
+}
+
 func mustLoadPodRecording(path string) *corev1.Pod {
 	pod, err := clients.PodFromUnstructured(recordings.MustLoadState(path))
 	if err != nil {
@@ -223,32 +227,32 @@ func mustLoadPodRecording(path string) *corev1.Pod {
 
 // podInitializedState returns a Pod that passes the podInitialized await Condition.
 func podInitializedState() *corev1.Pod {
-	return mustLoadPodRecording(podStatePath + "/initialized.json")
+	return mustLoadPodRecording(podStatePath("initialized"))
 }
 
 // podUninitializedState returns a Pod that fails the podInitialized await Condition.
 func podUninitializedState() *corev1.Pod {
-	return mustLoadPodRecording(podStatePath + "/uninitialized.json")
+	return mustLoadPodRecording(podStatePath("uninitialized"))
 }
 
 // podReadyState returns a Pod that passes the podReady await Condition.
 func podReadyState() *corev1.Pod {
-	return mustLoadPodRecording(podStatePath + "/ready.json")
+	return mustLoadPodRecording(podStatePath("ready"))
 }
 
 // podSucceededState returns a Pod that passes the podReady await Condition.
 // Note that this corresponds to a Pod that runs a command and then exits with a 0 return code, so the Ready
 // status condition is False, and the phase is Succeeded.
 func podSucceededState() *corev1.Pod {
-	return mustLoadPodRecording(podStatePath + "/succeeded.json")
+	return mustLoadPodRecording(podStatePath("succeeded"))
 }
 
 // podScheduledState returns a Pod that passes the podScheduled await Condition.
 func podScheduledState() *corev1.Pod {
-	return mustLoadPodRecording(podStatePath + "/scheduled.json")
+	return mustLoadPodRecording(podStatePath("scheduled"))
 }
 
 // podUnscheduledState returns a Pod that fails the podScheduled await Condition.
 func podUnscheduledState() *corev1.Pod {
-	return mustLoadPodRecording(podStatePath + "/unscheduled.json")
+	return mustLoadPodRecording(podStatePath("unscheduled"))
 }

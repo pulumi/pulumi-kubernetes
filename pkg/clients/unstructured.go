@@ -20,6 +20,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	appsv1 "k8s.io/api/apps/v1"
+	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/api/extensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -36,6 +37,8 @@ func FromUnstructured(obj *unstructured.Unstructured) (metav1.Object, error) {
 	switch kinds.Kind(obj.GetKind()) {
 	case kinds.Deployment:
 		output = new(appsv1.Deployment)
+	case kinds.Job:
+		output = new(batchv1.Job)
 	case kinds.Ingress:
 		output = new(v1beta1.Ingress)
 	case kinds.PersistentVolume:
@@ -76,4 +79,22 @@ func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {
 	}
 
 	return obj.(*corev1.Pod), nil
+}
+
+func JobFromUnstructured(uns *unstructured.Unstructured) (*batchv1.Job, error) {
+	const expectedApiVersion = "batch/v1"
+
+	kind := kinds.Kind(uns.GetKind())
+	if kind != kinds.Job {
+		return nil, fmt.Errorf("expected Job, got %s", kind)
+	}
+	if version := uns.GetAPIVersion(); version != expectedApiVersion {
+		return nil, fmt.Errorf(`expected apiVersion = "%s", got %s`, expectedApiVersion, version)
+	}
+	obj, err := FromUnstructured(uns)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.(*batchv1.Job), nil
 }

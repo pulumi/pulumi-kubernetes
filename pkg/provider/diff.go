@@ -141,6 +141,8 @@ var deployment = properties{
 }
 
 var job = properties{
+	".spec.completions",
+	".spec.parallelism",
 	".spec.selector",
 	".spec.template",
 }

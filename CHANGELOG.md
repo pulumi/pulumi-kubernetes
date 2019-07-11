@@ -8,6 +8,7 @@
 
 ### Improvements
 
+-   Add logic to check for Job readiness. (https://github.com/pulumi/pulumi-kubernetes/pull/633).
 -   Automatically mark Secret data and stringData as secret. (https://github.com/pulumi/pulumi-kubernetes/pull/803).
 -   Provide detailed error for removed apiVersions. (https://github.com/pulumi/pulumi-kubernetes/pull/809).
 

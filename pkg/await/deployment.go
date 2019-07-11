@@ -753,7 +753,8 @@ func (dia *deploymentInitAwaiter) aggregatePodErrors() logging.Messages {
 			glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return nil
 		}
-		messages = append(messages, checker.Update(pod).Warnings()...)
+		m := checker.Update(pod)
+		messages = append(messages, m.MessagesWithSeverity(diag.Warning, diag.Error)...)
 	}
 
 	return messages
