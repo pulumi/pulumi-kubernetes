@@ -4,7 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as fs from "fs";
 import * as glob from "glob";
-import * as jsyaml from "js-yaml";
 import fetch from "node-fetch";
 import * as k8s from "../index";
 import * as outputApi from "../types/output";
@@ -66,6 +65,16 @@ import * as outputApi from "../types/output";
         resourcePrefix?: string;
     }
 
+    function yamlLoadAll(text: string): any[] {
+        // NOTE[pulumi-kubernetes#501]: Use `loadAll` with `JSON_SCHEMA` here instead of
+        // `safeLoadAll` because the latter is incompatible with `JSON_SCHEMA`. It is
+        // important to use `JSON_SCHEMA` here because the fields of the Kubernetes core
+        // API types are all tagged with `json:`, and they don't deal very well with things
+        // like dates.
+        const jsyaml = require("js-yaml");
+        return jsyaml.loadAll(text, undefined, {schema: jsyaml.JSON_SCHEMA});
+    }
+
     /** @ignore */ export function parse(
         config: ConfigGroupOpts, opts?: pulumi.CustomResourceOptions
     ): pulumi.Output<{[key: string]: pulumi.CustomResource}> {
@@ -112,9 +121,8 @@ import * as outputApi from "../types/output";
             }
 
             for (const text of yamlTexts) {
-                const objs = jsyaml.safeLoadAll(text);
                 const docResources = parseYamlDocument({
-                        objs: objs,
+                        objs: yamlLoadAll(text),
                         transformations: config.transformations,
                         resourcePrefix: config.resourcePrefix
                     },
@@ -2234,7 +2242,7 @@ import * as outputApi from "../types/output";
             this.resources = pulumi.output(text.then(t => {
                 try {
                     return parseYamlDocument({
-                        objs: jsyaml.safeLoadAll(t),
+                        objs: yamlLoadAll(t),
                         transformations: config && config.transformations || [],
                         resourcePrefix: config && config.resourcePrefix || undefined
                     }, {parent: this})
