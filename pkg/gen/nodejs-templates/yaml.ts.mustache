@@ -255,11 +255,17 @@ import * as outputApi from "../types/output";
                 text = Promise.resolve(fs.readFileSync(fileId).toString());
             }
 
-            this.resources = pulumi.output(text.then(t => parseYamlDocument({
-                objs: jsyaml.safeLoadAll(t),
-                transformations: config && config.transformations || [],
-                resourcePrefix: config && config.resourcePrefix || undefined
-            }, {parent: this})));
+            this.resources = pulumi.output(text.then(t => {
+                try {
+                    return parseYamlDocument({
+                        objs: jsyaml.safeLoadAll(t),
+                        transformations: config && config.transformations || [],
+                        resourcePrefix: config && config.resourcePrefix || undefined
+                    }, {parent: this})
+                } catch (e) {
+                    throw Error(`Error fetching YAML file '${fileId}': ${e}`);
+                }
+            }));
         }
     }
 
