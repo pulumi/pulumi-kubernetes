@@ -74,10 +74,18 @@ import * as outputApi from "../types/output";
         if (config.files !== undefined) {
             let files: string[] = [];
             if (typeof config.files === 'string') {
-                files = glob.sync(config.files);
+                if (isUrl(config.files)) {
+                    files = [config.files];
+                } else {
+                    files = glob.sync(config.files);
+                }
             } else {
                 for (const file of config.files) {
-                    files.push(...glob.sync(file));
+                    if (isUrl(file)) {
+                        files.push(file);
+                    } else {
+                        files.push(...glob.sync(file));
+                    }
                 }
             }
 
@@ -2211,7 +2219,7 @@ import * as outputApi from "../types/output";
             super("kubernetes:yaml:ConfigFile", name, config, opts);
             const fileId = config && config.file || name;
             let text: Promise<string>;
-            if (fileId.startsWith("http://") || fileId.startsWith("https://")) {
+            if (isUrl(fileId)) {
                 text = fetch(fileId).then(r => r.text())
             } else {
                 text = Promise.resolve(fs.readFileSync(fileId).toString());
@@ -2223,6 +2231,10 @@ import * as outputApi from "../types/output";
                 resourcePrefix: config && config.resourcePrefix || undefined
             }, {parent: this})));
         }
+    }
+
+    /** @ignore */ function isUrl(s: string): boolean {
+        return s.startsWith("http://") || s.startsWith("https://")
     }
 
     /** @ignore */ function parseYamlDocument(
@@ -2261,7 +2273,7 @@ import * as outputApi from "../types/output";
         // Create a copy of opts to pass into potentially mutating transforms that will be applied to this resource.
         opts = Object.assign({}, opts);
 
-        // Allow users to change API objects before any validation.    
+        // Allow users to change API objects before any validation.
         for (const t of transformations || []) {
             t(obj, opts);
         }
