@@ -2220,7 +2220,13 @@ import * as outputApi from "../types/output";
             const fileId = config && config.file || name;
             let text: Promise<string>;
             if (isUrl(fileId)) {
-                text = fetch(fileId).then(r => r.text())
+                text = fetch(fileId).then(r => {
+                    if (r.ok) {
+                        return r.text()
+                    } else {
+                        throw Error(`Error fetching YAML file '${fileId}': ${r.status} ${r.statusText}`);
+                    }
+                });
             } else {
                 text = Promise.resolve(fs.readFileSync(fileId).toString());
             }
