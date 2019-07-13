@@ -1,8 +1,11 @@
 package await
 
 import (
+	"fmt"
 	"reflect"
 	"time"
+
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
@@ -11,7 +14,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -426,7 +429,8 @@ func (sia *serviceInitAwaiter) checkAndLogStatus(version serverVersion) bool {
 
 	success := sia.serviceReady && sia.endpointsSettled && sia.endpointsReady
 	if success {
-		sia.config.logStatus(diag.Info, "✅ Service initialization complete")
+		sia.config.logStatus(diag.Info,
+			fmt.Sprintf("%sService initialization complete", cmdutil.EmojiOr("✅ ", "")))
 	} else if sia.endpointsSettled && sia.endpointsReady {
 		sia.config.logStatus(diag.Info, "[2/3] Attempting to allocate IP address to Service")
 	}

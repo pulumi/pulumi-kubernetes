@@ -1,5 +1,15 @@
 ## 0.25.3 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Bug fixes
+
+-   Don't render emoji on Windows. (https://github.com/pulumi/pulumi-kubernetes/pull/634)
+
 ## 0.25.2 (July 11, 2019)
 
 ### Supported Kubernetes versions
@@ -10,7 +20,7 @@
 
 ### Improvements
 
--   The Kubernetes provider can now communicate detailed information about the difference between a resource's 
+-   The Kubernetes provider can now communicate detailed information about the difference between a resource's
 desired and actual state during a Pulumi update. (https://github.com/pulumi/pulumi-kubernetes/pull/618).
 -   Refactor Pod await logic for easier testing and maintenance (https://github.com/pulumi/pulumi-kubernetes/pull/590).
 -   Update to client-go v12.0.0 (https://github.com/pulumi/pulumi-kubernetes/pull/621).
@@ -72,7 +82,7 @@ desired and actual state during a Pulumi update. (https://github.com/pulumi/pulu
 
 BREAKING: This release changes the behavior of the provider `namespace` flag introduced
 in `0.23.0`. Previously, this flag was treated as an override, which ignored namespace
-values set directly on resources. Now, the flag is a default, and will only set the 
+values set directly on resources. Now, the flag is a default, and will only set the
 namespace if one is not already set. If you have created resources using a provider
 with the `namespace` flag set, this change may cause these resources to be recreated
 on the next update.

@@ -5,6 +5,8 @@ import (
 	"reflect"
 	"time"
 
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await/states"
@@ -258,7 +260,8 @@ func (sia *statefulsetInitAwaiter) await(
 // the provider.
 func (sia *statefulsetInitAwaiter) checkAndLogStatus() bool {
 	if sia.replicasReady && sia.revisionReady {
-		sia.config.logStatus(diag.Info, "✅ StatefulSet initialization complete")
+		sia.config.logStatus(diag.Info,
+			fmt.Sprintf("%sStatefulSet initialization complete", cmdutil.EmojiOr("✅ ", "")))
 		return true
 	}
 
