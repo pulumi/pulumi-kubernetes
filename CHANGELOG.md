@@ -8,6 +8,8 @@
 
 ### Bug fixes
 
+-   Allow `yaml.ConfigGroup` to take URLs as argument
+    (https://github.com/pulumi/pulumi-kubernetes/pull/638).
 -   Don't render emoji on Windows. (https://github.com/pulumi/pulumi-kubernetes/pull/634)
 -   Emit a useful error message (rather than a useless one) if we fail to parse the YAML data in
     `kubernetes:config:kubeconfig` (https://github.com/pulumi/pulumi-kubernetes/pull/636).
