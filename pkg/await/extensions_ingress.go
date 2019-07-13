@@ -6,6 +6,8 @@ import (
 	"reflect"
 	"time"
 
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
@@ -402,7 +404,8 @@ func (iia *ingressInitAwaiter) errorMessages() []string {
 func (iia *ingressInitAwaiter) checkAndLogStatus() bool {
 	success := iia.ingressReady && iia.checkIfEndpointsReady()
 	if success {
-		iia.config.logStatus(diag.Info, "✅ Ingress initialization complete")
+		iia.config.logStatus(diag.Info,
+			fmt.Sprintf("%sIngress initialization complete", cmdutil.EmojiOr("✅ ", "")))
 	} else if iia.checkIfEndpointsReady() {
 		iia.config.logStatus(diag.Info, "[2/3] Waiting for update of .status.loadBalancer with hostname/IP")
 	}

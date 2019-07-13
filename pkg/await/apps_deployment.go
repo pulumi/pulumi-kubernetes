@@ -6,6 +6,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
+
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await/states"
@@ -342,7 +344,8 @@ func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
 				return false
 			}
 
-			dia.config.logStatus(diag.Info, "✅ Deployment initialization complete")
+			dia.config.logStatus(diag.Info,
+				fmt.Sprintf("%sDeployment initialization complete", cmdutil.EmojiOr("✅ ", "")))
 			return true
 		}
 	} else {
@@ -351,7 +354,8 @@ func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
 				return false
 			}
 
-			dia.config.logStatus(diag.Info, "✅ Deployment initialization complete")
+			dia.config.logStatus(diag.Info,
+				fmt.Sprintf("%sDeployment initialization complete", cmdutil.EmojiOr("✅ ", "")))
 			return true
 		}
 	}
