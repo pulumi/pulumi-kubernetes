@@ -16,9 +16,48 @@ class Namespace(pulumi.CustomResource):
     Namespace provides a scope for Names. Use of multiple namespaces is optional.
     """
 
-    def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    metadata: pulumi.Output[dict];
+    """
+    Standard object's metadata. More info:
+    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    """
+
+    spec: pulumi.Output[dict];
+    """
+    Spec defines the behavior of the Namespace. More info:
+    https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+    """
+
+    status: pulumi.Output[dict];
+    """
+    Status describes the current status of a Namespace. More info:
+    https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+    """
+
+    def __init__(self, resource_name, opts=None, metadata=None, spec=None, __name__=None, __opts__=None):
         """
         Create a Namespace resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
+               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+        :param pulumi.Input[dict] spec: Spec defines the behavior of the Namespace. More info:
+               https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -39,7 +78,8 @@ class Namespace(pulumi.CustomResource):
         __props__['kind'] = 'Namespace'
         __props__['metadata'] = metadata
         __props__['spec'] = spec
-        __props__['status'] = status
+
+        __props__['status'] = None
 
         if opts is None:
             opts = pulumi.ResourceOptions()

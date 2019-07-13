@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { core } from "../..";
 import * as inputs from "../../types/input";
 import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
@@ -72,10 +73,13 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.certificates.v1beta1.CertificateSigningRequestList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["apiVersion"] = "certificates.k8s.io/v1beta1";
           props["items"] = args && args.items || undefined;
+
+          props["apiVersion"] = "certificates.k8s.io/v1beta1";
           props["kind"] = "CertificateSigningRequestList";
           props["metadata"] = args && args.metadata || undefined;
+
+          props["status"] = undefined;
 
           if (!opts) {
               opts = {};

@@ -177,8 +177,8 @@ import * as outputs from "../types/output";
         {{#Versions}}
         {{#KindsAndAliases}}
         {{#Properties}}
-        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", name: string, property: "{{LanguageName}}"): pulumi.Output<{{{PropType}}}>;
-        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", namespace: string, name: string, property: "{{LanguageName}}"): pulumi.Output<{{{PropType}}}>;
+        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", name: string, property: "{{LanguageName}}"): {{{PropType}}};
+        public getResourceProperty(groupVersionKind: "{{RawAPIVersion}}/{{Kind}}", namespace: string, name: string, property: "{{LanguageName}}"): {{{PropType}}};
         {{/Properties}}
         {{/KindsAndAliases}}
         {{/Versions}}

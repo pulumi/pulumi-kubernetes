@@ -17,9 +17,123 @@ class Event(pulumi.CustomResource):
     in the system.
     """
 
-    def __init__(self, resource_name, opts=None, action=None, deprecated_count=None, deprecated_first_timestamp=None, deprecated_last_timestamp=None, deprecated_source=None, event_time=None, metadata=None, note=None, reason=None, regarding=None, related=None, reporting_controller=None, reporting_instance=None, series=None, type=None, __name__=None, __opts__=None):
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    action: pulumi.Output[str];
+    """
+    What action was taken/failed regarding to the regarding object.
+    """
+
+    deprecated_count: pulumi.Output[int];
+    """
+    Deprecated field assuring backward compatibility with core.v1 Event type
+    """
+
+    deprecated_first_timestamp: pulumi.Output[str];
+    """
+    Deprecated field assuring backward compatibility with core.v1 Event type
+    """
+
+    deprecated_last_timestamp: pulumi.Output[str];
+    """
+    Deprecated field assuring backward compatibility with core.v1 Event type
+    """
+
+    deprecated_source: pulumi.Output[dict];
+    """
+    Deprecated field assuring backward compatibility with core.v1 Event type
+    """
+
+    event_time: pulumi.Output[str];
+    """
+    Required. Time when this Event was first observed.
+    """
+
+    metadata: pulumi.Output[dict];
+    
+
+    note: pulumi.Output[str];
+    """
+    Optional. A human-readable description of the status of this operation. Maximal length of the
+    note is 1kB, but libraries should be prepared to handle values up to 64kB.
+    """
+
+    reason: pulumi.Output[str];
+    """
+    Why the action was taken.
+    """
+
+    regarding: pulumi.Output[dict];
+    """
+    The object this Event is about. In most cases it's an Object reporting controller implements.
+    E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on
+    some changes in a ReplicaSet object.
+    """
+
+    related: pulumi.Output[dict];
+    """
+    Optional secondary object for more complex actions. E.g. when regarding object triggers a
+    creation or deletion of related object.
+    """
+
+    reporting_controller: pulumi.Output[str];
+    """
+    Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+    """
+
+    reporting_instance: pulumi.Output[str];
+    """
+    ID of the controller instance, e.g. `kubelet-xyzf`.
+    """
+
+    series: pulumi.Output[dict];
+    """
+    Data about the Event series this event represents or nil if it's a singleton Event.
+    """
+
+    type: pulumi.Output[str];
+    """
+    Type of this event (Normal, Warning), new types could be added in the future.
+    """
+
+    def __init__(self, resource_name, opts=None, event_time=None, action=None, deprecated_count=None, deprecated_first_timestamp=None, deprecated_last_timestamp=None, deprecated_source=None, metadata=None, note=None, reason=None, regarding=None, related=None, reporting_controller=None, reporting_instance=None, series=None, type=None, __name__=None, __opts__=None):
         """
         Create a Event resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        :param pulumi.Input[str] event_time: Required. Time when this Event was first observed.
+        :param pulumi.Input[str] action: What action was taken/failed regarding to the regarding object.
+        :param pulumi.Input[int] deprecated_count: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] deprecated_first_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] deprecated_last_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[dict] deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[dict] metadata: 
+        :param pulumi.Input[str] note: Optional. A human-readable description of the status of this operation. Maximal
+               length of the note is 1kB, but libraries should be prepared to handle values up to
+               64kB.
+        :param pulumi.Input[str] reason: Why the action was taken.
+        :param pulumi.Input[dict] regarding: The object this Event is about. In most cases it's an Object reporting controller
+               implements. E.g. ReplicaSetController implements ReplicaSets and this event is
+               emitted because it acts on some changes in a ReplicaSet object.
+        :param pulumi.Input[dict] related: Optional secondary object for more complex actions. E.g. when regarding object
+               triggers a creation or deletion of related object.
+        :param pulumi.Input[str] reporting_controller: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+        :param pulumi.Input[str] reporting_instance: ID of the controller instance, e.g. `kubelet-xyzf`.
+        :param pulumi.Input[dict] series: Data about the Event series this event represents or nil if it's a singleton Event.
+        :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -55,6 +169,8 @@ class Event(pulumi.CustomResource):
         __props__['reportingInstance'] = reporting_instance
         __props__['series'] = series
         __props__['type'] = type
+
+        __props__['status'] = None
 
         if opts is None:
             opts = pulumi.ResourceOptions()

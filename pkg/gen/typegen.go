@@ -29,8 +29,14 @@ import (
 )
 
 const (
-	object  = "object"
-	stringT = "string"
+	tsObject  = "object"
+	tsStringT = "string"
+	pyDictT   = "dict"
+	pyStringT = "str"
+	pyIntT    = "int"
+	pyListT   = "list"
+	pyBoolT   = "bool"
+	pyAnyT    = "Any"
 )
 
 const (
@@ -126,12 +132,12 @@ func (vc *VersionConfig) RawAPIVersion() string { return vc.rawAPIVersion }
 // KindConfig represents a Kubernetes API kind (e.g., the `Deployment` type in
 // `apps/v1beta1/Deployment`).
 type KindConfig struct {
-	kind               string
-	comment            string
-	awaitComment       string
-	properties         []*Property
-	requiredProperties []*Property
-	optionalProperties []*Property
+	kind                    string
+	comment                 string
+	awaitComment            string
+	properties              []*Property
+	requiredInputProperties []*Property
+	optionalInputProperties []*Property
 
 	gvk           *schema.GroupVersionKind // Used for sorting.
 	apiVersion    string
@@ -153,15 +159,13 @@ func (kc *KindConfig) AwaitComment() string { return kc.awaitComment }
 // that we will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
 func (kc *KindConfig) Properties() []*Property { return kc.properties }
 
-// RequiredProperties returns the list of properties that are required to exist on some Kubernetes
-// API kind (i.e., things that we will want to `.` into, like `thing.apiVersion`, `thing.kind`,
-// `thing.metadata`, etc.).
-func (kc *KindConfig) RequiredProperties() []*Property { return kc.requiredProperties }
+// RequiredInputProperties returns the list of properties that are required input properties on some
+// Kubernetes API kind (i.e., things that we will want to provide, like `thing.metadata`, etc.).
+func (kc *KindConfig) RequiredInputProperties() []*Property { return kc.requiredInputProperties }
 
-// OptionalProperties returns the list of properties that are optional on some Kubernetes API kind
-// (i.e., things that we will want to `.` into, like `thing.apiVersion`, `thing.kind`,
-// `thing.metadata`, etc.).
-func (kc *KindConfig) OptionalProperties() []*Property { return kc.optionalProperties }
+// OptionalInputProperties returns the list of properties that are optional input properties on some
+// Kubernetes API kind (i.e., things that we will want to provide, like `thing.metadata`, etc.).
+func (kc *KindConfig) OptionalInputProperties() []*Property { return kc.optionalInputProperties }
 
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
@@ -184,11 +188,13 @@ func (kc *KindConfig) TypeGuard() string { return kc.typeGuard }
 // Property represents a property we want to expose on a Kubernetes API kind (i.e., things that we
 // will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
 type Property struct {
-	name         string
-	languageName string
-	comment      string
-	propType     string
-	defaultValue string
+	name                      string
+	languageName              string
+	comment                   string
+	pythonConstructorComment  string
+	propType                  string
+	pythonConstructorPropType string
+	defaultValue              string
 }
 
 // Name returns the name of the property.
@@ -200,8 +206,16 @@ func (p *Property) LanguageName() string { return p.languageName }
 // Comment returns the comments associated with some property.
 func (p *Property) Comment() string { return p.comment }
 
+// PythonConstructorComment returns the comments associated with some property, formatted for Python
+// constructor documentation.
+func (p *Property) PythonConstructorComment() string { return p.pythonConstructorComment }
+
 // PropType returns the type of the property.
 func (p *Property) PropType() string { return p.propType }
+
+// PythonConstructorPropType returns the type of the property, typed for the Python constructor
+// resource inputs.
+func (p *Property) PythonConstructorPropType() string { return p.pythonConstructorPropType }
 
 // DefaultValue returns the type of the property.
 func (p *Property) DefaultValue() string { return p.defaultValue }
@@ -279,7 +293,33 @@ func fmtComment(comment interface{}, prefix string, bareRender bool, opts groupO
 	return ""
 }
 
-func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
+const (
+	apiextensionsV1beta1          = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
+	quantity                      = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+	intOrString                   = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+	v1Fields                      = "io.k8s.apimachinery.pkg.apis.meta.v1.Fields"
+	v1Time                        = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+	v1MicroTime                   = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
+	v1beta1JSONSchemaPropsOrBool  = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
+	v1beta1JSONSchemaPropsOrArray = apiextensionsV1beta1 + ".JSONSchemaPropsOrArray"
+	v1beta1JSON                   = apiextensionsV1beta1 + ".JSON"
+	v1beta1CRSubresourceStatus    = apiextensionsV1beta1 + ".CustomResourceSubresourceStatus"
+)
+
+func makeTypescriptType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
+	wrapType := func(typ string) string {
+		switch opts.generatorType {
+		case provider:
+			return fmt.Sprintf("pulumi.Output<%s>", typ)
+		case outputsAPI:
+			return typ
+		case inputsAPI:
+			return fmt.Sprintf("pulumi.Input<%s>", typ)
+		default:
+			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+		}
+	}
+
 	refPrefix := ""
 	if opts.generatorType == provider {
 		refPrefix = "outputs"
@@ -288,16 +328,19 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
 		if tstr == "array" {
-			elemType := makeTypescriptType(prop["items"].(map[string]interface{}), opts)
+			elemType := makeTypescriptType(
+				resourceType, propName, prop["items"].(map[string]interface{}), opts)
 			switch opts.generatorType {
-			case outputsAPI, provider:
+			case provider:
+				return fmt.Sprintf("%s[]>", elemType[:len(elemType)-1])
+			case outputsAPI:
 				return fmt.Sprintf("%s[]", elemType)
 			case inputsAPI:
-				return fmt.Sprintf("pulumi.Input<%s>[]", elemType)
+				return fmt.Sprintf("pulumi.Input<%s[]>", elemType)
 			}
 		} else if tstr == "integer" {
-			return "number"
-		} else if tstr == object {
+			return wrapType("number")
+		} else if tstr == tsObject {
 			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
 			// values both have type `type`. This type is never a `$ref`.
 			if additionalProperties, exists := prop["additionalProperties"]; exists {
@@ -305,63 +348,131 @@ func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 				if ktype, exists := mapType["type"]; exists && len(mapType) == 1 {
 					switch opts.generatorType {
 					case inputsAPI:
-						return fmt.Sprintf("{[key: %s]: pulumi.Input<%s>}", ktype, ktype)
+						return fmt.Sprintf("pulumi.Input<{[key: %s]: pulumi.Input<%s>}>", ktype, ktype)
 					case outputsAPI:
 						return fmt.Sprintf("{[key: %s]: %s}", ktype, ktype)
 					case provider:
-						return fmt.Sprintf("{[key: %s]: pulumi.Output<%s>}", ktype, ktype)
+						return fmt.Sprintf("pulumi.Output<{[key: %s]: pulumi.Output<%s>}>", ktype, ktype)
 					}
 				}
 			}
+		} else if tstr == "string" && resourceType == "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" && propName == "namespace" {
+			// Special case: `.metadata.namespace` should either take a string or a namespace object
+			// itself.
+
+			switch opts.generatorType {
+			case inputsAPI:
+				// TODO: Enable metadata to take explicit namespaces, like:
+				// return "pulumi.Input<string> | Namespace"
+				return "pulumi.Input<string>"
+			case outputsAPI:
+				return "string"
+			}
 		}
-		return tstr
+
+		return wrapType(tstr)
 	}
 
 	ref := stripPrefix(prop["$ref"].(string))
-	const (
-		apiextensionsV1beta1          = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
-		quantity                      = "io.k8s.apimachinery.pkg.api.resource.Quantity"
-		intOrString                   = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
-		v1Fields                      = "io.k8s.apimachinery.pkg.apis.meta.v1.Fields"
-		v1Time                        = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
-		v1MicroTime                   = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
-		v1beta1JSONSchemaPropsOrBool  = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
-		v1beta1JSONSchemaPropsOrArray = apiextensionsV1beta1 + ".JSONSchemaPropsOrArray"
-		v1beta1JSON                   = apiextensionsV1beta1 + ".JSON"
-		v1beta1CRSubresourceStatus    = apiextensionsV1beta1 + ".CustomResourceSubresourceStatus"
-	)
 
+	isSimpleRef := true
 	switch ref {
 	case quantity:
-		return stringT
+		ref = tsStringT
 	case intOrString:
-		return "number | string"
+		ref = "number | string"
 	case v1Fields:
-		return object
+		ref = tsObject
 	case v1Time, v1MicroTime:
 		// TODO: Automatically deserialized with `DateConstructor`.
-		return stringT
+		ref = tsStringT
 	case v1beta1JSONSchemaPropsOrBool:
-		return "apiextensions.v1beta1.JSONSchemaProps | boolean"
+		ref = "apiextensions.v1beta1.JSONSchemaProps | boolean"
 	case v1beta1JSONSchemaPropsOrArray:
-		return "apiextensions.v1beta1.JSONSchemaProps | any[]"
+		ref = "apiextensions.v1beta1.JSONSchemaProps | any[]"
 	case v1beta1JSON, v1beta1CRSubresourceStatus:
-		return "any"
+		ref = "any"
+	default:
+		isSimpleRef = false
+	}
+
+	if isSimpleRef {
+		return wrapType(ref)
 	}
 
 	gvk := gvkFromRef(ref)
+	var gvkRefStr string
 	if refPrefix == "" {
-		return fmt.Sprintf("%s.%s.%s", gvk.Group, gvk.Version, gvk.Kind)
+		gvkRefStr = fmt.Sprintf("%s.%s.%s", gvk.Group, gvk.Version, gvk.Kind)
+	} else {
+		gvkRefStr = fmt.Sprintf("%s.%s.%s.%s", refPrefix, gvk.Group, gvk.Version, gvk.Kind)
 	}
-	return fmt.Sprintf("%s.%s.%s.%s", refPrefix, gvk.Group, gvk.Version, gvk.Kind)
+
+	return wrapType(gvkRefStr)
 }
 
-func makeType(prop map[string]interface{}, opts groupOpts) string {
+func makePythonType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
+	wrapType := func(typ string) string {
+		switch opts.generatorType {
+		case provider:
+			return fmt.Sprintf("pulumi.Output[%s]", typ)
+		case outputsAPI:
+			return typ
+		case inputsAPI:
+			return fmt.Sprintf("pulumi.Input[%s]", typ)
+		default:
+			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+		}
+	}
+
+	if t, exists := prop["type"]; exists {
+		tstr := t.(string)
+		if tstr == "array" {
+			return wrapType(pyListT)
+		} else if tstr == "integer" {
+			return wrapType(pyIntT)
+		} else if tstr == tsObject {
+			return wrapType(pyDictT)
+		} else if tstr == "string" {
+			return wrapType(pyStringT)
+		} else if tstr == "boolean" {
+			return wrapType(pyBoolT)
+		}
+
+		return wrapType(tstr)
+	}
+
+	ref := stripPrefix(prop["$ref"].(string))
+
+	switch ref {
+	case quantity:
+		ref = pyStringT
+	case intOrString:
+		ref = fmt.Sprintf("Union[%s, %s]", pyIntT, pyStringT)
+	case v1Fields:
+		ref = pyDictT
+	case v1Time, v1MicroTime:
+		// TODO: Automatically deserialized with `DateConstructor`.
+		ref = pyStringT
+	case v1beta1JSONSchemaPropsOrBool:
+		ref = fmt.Sprintf("Union[%s, %s]", pyDictT, pyBoolT)
+	case v1beta1JSONSchemaPropsOrArray:
+		ref = fmt.Sprintf("Union[%s, %s]", pyDictT, pyListT)
+	case v1beta1JSON, v1beta1CRSubresourceStatus:
+		ref = pyAnyT
+	default:
+		ref = pyDictT
+	}
+
+	return wrapType(ref)
+}
+
+func makeType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
 	switch opts.language {
 	case typescript:
-		return makeTypescriptType(prop, opts)
+		return makeTypescriptType(resourceType, propName, prop, opts)
 	case python:
-		panic("Python does not support output or input types")
+		return makePythonType(resourceType, propName, prop, opts)
 	default:
 		panic("Unrecognized generator type")
 	}
@@ -554,14 +665,16 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
 
 					var prefix string
-					var t string
+					var t, pyConstructorT string
 					switch opts.language {
 					case typescript:
 						prefix = "      "
-						t = makeType(prop, opts)
+						t = makeType(d.name, propName, prop, opts)
 					case python:
-						prefix = "        "
-						// Python currently does not emit types for use.
+						prefix = "    "
+						t = makeType(d.name, propName, prop, opts)
+						pyConstructorT = makeType(d.name, propName, prop,
+							groupOpts{language: python, generatorType: inputsAPI})
 					}
 
 					// `-` is invalid in TS variable names, so replace with `_`
@@ -573,21 +686,37 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					case "apiVersion":
 						defaultValue = fmt.Sprintf(`"%s"`, defaultGroupVersion)
 						if isTopLevel {
-							t = fmt.Sprintf(`"%s"`, defaultGroupVersion)
+							switch opts.generatorType {
+							case provider:
+								t = fmt.Sprintf(`pulumi.Output<"%s">`, defaultGroupVersion)
+							case outputsAPI:
+								t = fmt.Sprintf(`"%s"`, defaultGroupVersion)
+							case inputsAPI:
+								t = fmt.Sprintf(`pulumi.Input<"%s">`, defaultGroupVersion)
+							}
 						}
 					case "kind":
 						defaultValue = fmt.Sprintf(`"%s"`, d.gvk.Kind)
 						if isTopLevel {
-							t = fmt.Sprintf(`"%s"`, d.gvk.Kind)
+							switch opts.generatorType {
+							case provider:
+								t = fmt.Sprintf(`pulumi.Output<"%s">`, d.gvk.Kind)
+							case outputsAPI:
+								t = fmt.Sprintf(`"%s"`, d.gvk.Kind)
+							case inputsAPI:
+								t = fmt.Sprintf(`pulumi.Input<"%s">`, d.gvk.Kind)
+							}
 						}
 					}
 
 					return &Property{
-						comment:      fmtComment(prop["description"], prefix, false, opts),
-						propType:     t,
-						name:         propName,
-						languageName: pycodegen.PyName(propName),
-						defaultValue: defaultValue,
+						comment:                   fmtComment(prop["description"], prefix, false, opts),
+						pythonConstructorComment:  fmtComment(prop["description"], prefix+prefix+"       ", true, opts),
+						propType:                  t,
+						pythonConstructorPropType: pyConstructorT,
+						name:                      propName,
+						languageName:              pycodegen.PyName(propName),
+						defaultValue:              defaultValue,
 					}
 				})
 
@@ -603,19 +732,19 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				}
 			}
 
-			requiredProperties := []*Property{}
+			requiredInputProperties := []*Property{}
 			ps.
 				WhereT(func(p *Property) bool {
 					return reqdProps.Has(p.name)
 				}).
-				ToSlice(&requiredProperties)
+				ToSlice(&requiredInputProperties)
 
-			optionalProperties := []*Property{}
+			optionalInputProperties := []*Property{}
 			ps.
 				WhereT(func(p *Property) bool {
-					return !reqdProps.Has(p.name)
+					return !reqdProps.Has(p.name) && p.name != "status"
 				}).
-				ToSlice(&optionalProperties)
+				ToSlice(&optionalInputProperties)
 
 			if len(properties) == 0 {
 				return linq.From([]*KindConfig{})
@@ -641,15 +770,15 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:            fmtComment(d.data["description"], prefix, true, opts),
-					awaitComment:       fmtComment(AwaitComment(d.gvk.Kind), prefix, true, opts),
-					properties:         properties,
-					requiredProperties: requiredProperties,
-					optionalProperties: optionalProperties,
-					gvk:                &d.gvk,
-					apiVersion:         fqGroupVersion,
-					rawAPIVersion:      defaultGroupVersion,
-					typeGuard:          typeGuard,
+					comment:                 fmtComment(d.data["description"], "    ", true, opts),
+					awaitComment:            fmtComment(AwaitComment(d.gvk.Kind), prefix, true, opts),
+					properties:              properties,
+					requiredInputProperties: requiredInputProperties,
+					optionalInputProperties: optionalInputProperties,
+					gvk:                     &d.gvk,
+					apiVersion:              fqGroupVersion,
+					rawAPIVersion:           defaultGroupVersion,
+					typeGuard:               typeGuard,
 				},
 			})
 		}).
