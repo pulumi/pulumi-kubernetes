@@ -15,7 +15,8 @@
     server (https://github.com/pulumi/pulumi-kubernetes/pull/636).
 -   Expose all Kubernetes types through the SDK
     (https://github.com/pulumi/pulumi-kubernetes/pull/637).
-
+-   Use `opts` instead of `__opts__` and `resource_name` instead of `__name__` in Python SDK
+    (https://github.com/pulumi/pulumi-kubernetes/pull/639).
 
 ## 0.25.2 (July 11, 2019)
 

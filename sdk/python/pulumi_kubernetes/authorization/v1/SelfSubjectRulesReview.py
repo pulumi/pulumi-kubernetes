@@ -3,6 +3,7 @@
 
 import pulumi
 import pulumi.runtime
+import warnings
 
 from ... import tables, version
 
@@ -18,12 +19,18 @@ class SelfSubjectRulesReview(pulumi.CustomResource):
     SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions
     to the API server.
     """
-    def __init__(self, __name__, __opts__=None, metadata=None, spec=None, status=None):
-        if not __name__:
+    def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
+        if __name__ is not None:
+            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
+            resource_name = __name__
+        if __opts__ is not None:
+            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
+            opts = __opts__
+        if not resource_name:
             raise TypeError('Missing resource name argument (for URN creation)')
-        if not isinstance(__name__, str):
+        if not isinstance(resource_name, str):
             raise TypeError('Expected resource name to be a string')
-        if __opts__ and not isinstance(__opts__, pulumi.ResourceOptions):
+        if opts and not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
 
         __props__ = dict()
@@ -36,16 +43,16 @@ class SelfSubjectRulesReview(pulumi.CustomResource):
         __props__['metadata'] = metadata
         __props__['status'] = status
 
-        if __opts__ is None:
-            __opts__ = pulumi.ResourceOptions()
-        if __opts__.version is None:
-            __opts__.version = version.get_version()
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = version.get_version()
 
         super(SelfSubjectRulesReview, self).__init__(
             "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview",
-            __name__,
+            resource_name,
             __props__,
-            __opts__)
+            opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
