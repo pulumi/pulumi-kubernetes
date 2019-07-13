@@ -27,6 +27,7 @@ import (
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
+	"github.com/pkg/errors"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
@@ -234,7 +235,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	if configJSON, ok := vars["kubernetes:config:kubeconfig"]; ok {
 		config, err := clientcmd.Load([]byte(configJSON))
 		if err != nil {
-			return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
+			return nil, pkgerrors.Wrap(err, "failed to parse kubeconfig data in "+
+				"`kubernetes:config:kubeconfig`; this must be a YAML literal string and not "+
+				"a filename or path")
 		}
 		kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
 	} else {
