@@ -13,6 +13,8 @@
     `kubernetes:config:kubeconfig` (https://github.com/pulumi/pulumi-kubernetes/pull/636).
 -   Provide useful contexts in provider errors, particularly those that originate from the API
     server (https://github.com/pulumi/pulumi-kubernetes/pull/636).
+-   Expose all Kubernetes types through the SDK
+    (https://github.com/pulumi/pulumi-kubernetes/pull/637).
 
 
 ## 0.25.2 (July 11, 2019)
