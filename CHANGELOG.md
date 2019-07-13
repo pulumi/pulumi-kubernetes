@@ -11,6 +11,9 @@
 -   Don't render emoji on Windows. (https://github.com/pulumi/pulumi-kubernetes/pull/634)
 -   Emit a useful error message (rather than a useless one) if we fail to parse the YAML data in
     `kubernetes:config:kubeconfig` (https://github.com/pulumi/pulumi-kubernetes/pull/636).
+-   Provide useful contexts in provider errors, particularly those that originate from the API
+    server (https://github.com/pulumi/pulumi-kubernetes/pull/636).
+
 
 ## 0.25.2 (July 11, 2019)
 

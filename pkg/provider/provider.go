@@ -27,7 +27,6 @@ import (
 	"github.com/golang/glog"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	"github.com/pkg/errors"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
@@ -252,7 +251,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	conf, err := kubeconfig.ClientConfig()
 	if err != nil {
-		return nil, fmt.Errorf("unable to read kubectl config: %v", err)
+		return nil, fmt.Errorf("unable to load Kubernetes client configuration from kubeconfig file: %v", err)
 	}
 
 	cs, err := clients.NewDynamicClientSet(conf)
@@ -274,7 +273,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 	args, err := plugin.UnmarshalProperties(
 		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "failed to unmarshal %v args", tok)
+		return nil, pkgerrors.Wrapf(err, "failed to unmarshal %v args during an Invoke call", tok)
 	}
 
 	// Process Invoke call.
@@ -466,7 +465,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 				// If the schema doesn't exist, it could still be a CRD (which may not have a
 				// schema). Thus, if we are directed to check resources even if they have unknown
 				// types, we fail here.
-				return nil, fmt.Errorf("unable to fetch schema: %v", err)
+				return nil, pkgerrors.Wrapf(err, "unable to fetch schema for resource type %s/%s",
+					newInputs.GetAPIVersion(), newInputs.GetKind())
 			}
 		}
 	}
@@ -538,7 +538,9 @@ func (k *kubeProvider) Diff(
 			// required during the Create step.
 			namespacedKind = true
 		} else {
-			return nil, err
+			return nil, pkgerrors.Wrapf(err,
+				"API server returned error when asked if resource type %s/%s/%s is namespaced",
+				gvk.Group, gvk.Version, gvk.Kind)
 		}
 	}
 
@@ -571,27 +573,42 @@ func (k *kubeProvider) Diff(
 	patch, patchType, lookupPatchMeta, err := openapi.PatchForResourceUpdate(
 		k.clientSet.DiscoveryClientCached, oldInputs, newInputs, oldLiveState)
 	if err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(err,
+			"Failed to check for changes in resource %s/%s because of an error generating "+
+				"the JSON patch describing the resource changes",
+			newInputs.GetNamespace(), newInputs.GetName())
 	}
 	// If we have a strategic merge patch, apply it and create a normal merge patch from the new and old state.
 	// This allows downstream logic to deal only with the JSON merge patch format.
 	if patchType == types.StrategicMergePatchType {
 		oldLiveJSON, err := oldLiveState.MarshalJSON()
 		if err != nil {
-			return nil, err
+			return nil, pkgerrors.Wrapf(err,
+				"Failed to check for changes in resource %s/%s because of an error serializing "+
+					"the old state to generate the JSON patch describing the resource changes",
+				newInputs.GetNamespace(), newInputs.GetName())
 		}
 		newJSON, err := strategicpatch.StrategicMergePatchUsingLookupPatchMeta(oldLiveJSON, patch, lookupPatchMeta)
 		if err != nil {
-			return nil, err
+			return nil, pkgerrors.Wrapf(err,
+				"Failed to check for changes in resource %s/%s because of an error generating "+
+					"the JSON patch describing the resource changes",
+				newInputs.GetNamespace(), newInputs.GetName())
 		}
 		patch, err = jsonpatch.CreateMergePatch(oldLiveJSON, newJSON)
 		if err != nil {
-			return nil, err
+			return nil, pkgerrors.Wrapf(err,
+				"Failed to check for changes in resource %s/%s because of an error generating "+
+					"the JSON patch describing the resource changes",
+				newInputs.GetNamespace(), newInputs.GetName())
 		}
 	}
 	patchObj := map[string]interface{}{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(
+			err, "Failed to check for changes in resource %s/%s because of an error serializing "+
+				"the JSON patch describing resource changes",
+			newInputs.GetNamespace(), newInputs.GetName())
 	}
 
 	// Pack up PB, ship response back.
@@ -607,7 +624,10 @@ func (k *kubeProvider) Diff(
 		}
 
 		if detailedDiff, err = convertPatchToDiff(patchObj, oldLiveState.Object, gvk); err != nil {
-			return nil, err
+			return nil, pkgerrors.Wrapf(
+				err, "Failed to check for changes in resource %s/%s because of an error "+
+					"converting JSON patch describing resource changes to a diff",
+				newInputs.GetNamespace(), newInputs.GetName())
 		}
 
 		for k, v := range detailedDiff {
@@ -676,7 +696,10 @@ func (k *kubeProvider) Create(
 
 	annotatedInputs, err := withLastAppliedConfig(newInputs)
 	if err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(
+			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
+				"`.metadata.annotations`",
+			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
 	config := await.CreateConfig{
@@ -696,14 +719,19 @@ func (k *kubeProvider) Create(
 			// If it's a "no match" error, this is probably a CustomResource with no corresponding
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
 			// print a more useful error message in this case.
-			return nil, fmt.Errorf(
-				"the apiVersion for this resource is not registered with the Kubernetes API server. "+
-					"Verify that any required CRDs have been created: %s", awaitErr)
+			return nil, pkgerrors.Wrapf(
+				awaitErr, "creation of resource %s/%s failed because the Kubernetes API server "+
+					"reported that the apiVersion for this resource does not exist. "+
+					"Verify that any required CRDs have been created",
+				newInputs.GetNamespace(), newInputs.GetName())
 		}
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// Object creation failed.
-			return nil, awaitErr
+			return nil, pkgerrors.Wrapf(
+				awaitErr,
+				"resource %s/%s was not successfully created by the Kubernetes API server "+
+					newInputs.GetNamespace(), newInputs.GetName())
 		}
 
 		// Resource was created, but failed to become fully initialized.
@@ -721,7 +749,14 @@ func (k *kubeProvider) Create(
 	if awaitErr != nil {
 		// Resource was created but failed to initialize. Return live version of object so it can be
 		// checkpointed.
-		return nil, partialError(fqObjName(initialized), awaitErr, inputsAndComputed, nil)
+		return nil, partialError(
+			fqObjName(initialized),
+			pkgerrors.Wrapf(
+				awaitErr, "resource %s/%s was successfully created, but the Kubernetes API server "+
+					"reported that it failed to fully initialize or become live",
+				newInputs.GetNamespace(), newInputs.GetName()),
+			inputsAndComputed,
+			nil)
 	}
 
 	// Invalidate the client cache if this was a CRD. This will require subsequent CR creations to
@@ -783,7 +818,9 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	namespace, name := parseFqName(req.GetId())
 	if name == "" {
-		return nil, fmt.Errorf("failed to parse resource name from request ID: %s", req.GetId())
+		return nil, fmt.Errorf(
+			"failed to read resource because of a failure to parse resource name from request ID: %s",
+			req.GetId())
 	}
 	if oldInputs.GetName() == "" {
 		oldInputs.SetName(name)
@@ -961,7 +998,10 @@ func (k *kubeProvider) Update(
 
 	annotatedInputs, err := withLastAppliedConfig(newInputs)
 	if err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(
+			err, "Failed to update resource %s/%s because of an error generating the %s value in "+
+				"`.metadata.annotations`",
+			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
 	config := await.UpdateConfig{
@@ -982,16 +1022,21 @@ func (k *kubeProvider) Update(
 			// If it's a "no match" error, this is probably a CustomResource with no corresponding
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
 			// print a more useful error message in this case.
-			return nil, fmt.Errorf(
-				"the apiVersion for this resource is not registered with the Kubernetes API server. "+
-					"Verify that any required CRDs have been created: %s", awaitErr)
+			return nil, pkgerrors.Wrapf(
+				awaitErr, "update of resource %s/%s failed because the Kubernetes API server "+
+					"reported that the apiVersion for this resource does not exist. "+
+					"Verify that any required CRDs have been created",
+				newInputs.GetNamespace(), newInputs.GetName())
 		}
 
 		var getErr error
 		initialized, getErr = k.readLiveObject(newInputs)
 		if getErr != nil {
 			// Object update/creation failed.
-			return nil, awaitErr
+			return nil, pkgerrors.Wrapf(
+				awaitErr, "update of resource %s/%s failed because the Kubernetes API server "+
+					"reported that it failed to fully initialize or become live",
+				newInputs.GetNamespace(), newInputs.GetName())
 		}
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
