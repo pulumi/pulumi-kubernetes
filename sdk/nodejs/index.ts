@@ -33,3 +33,6 @@ import * as storage from "./storage/index";
 // Export sub-modules
 export { admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, events, extensions, meta, networking, node, policy, rbac, scheduling, settings, storage,  };
 
+// Import and export sub-modules for all Kubernetes types.
+import * as types from "./types";
+export { types };

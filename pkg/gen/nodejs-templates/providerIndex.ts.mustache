@@ -14,3 +14,6 @@ import * as {{Group}} from "./{{Group}}/index";
 // Export sub-modules
 export { {{#Groups}}{{Group}}, {{/Groups}} };
 
+// Import and export sub-modules for all Kubernetes types.
+import * as types from "./types";
+export { types };
