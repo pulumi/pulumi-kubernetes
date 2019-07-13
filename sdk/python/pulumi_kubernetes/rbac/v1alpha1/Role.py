@@ -17,9 +17,38 @@ class Role(pulumi.CustomResource):
     RoleBinding.
     """
 
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    metadata: pulumi.Output[dict];
+    """
+    Standard object's metadata.
+    """
+
+    rules: pulumi.Output[list];
+    """
+    Rules holds all the PolicyRules for this Role
+    """
+
     def __init__(self, resource_name, opts=None, metadata=None, rules=None, __name__=None, __opts__=None):
         """
         Create a Role resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        :param pulumi.Input[dict] metadata: Standard object's metadata.
+        :param pulumi.Input[list] rules: Rules holds all the PolicyRules for this Role
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -40,6 +69,8 @@ class Role(pulumi.CustomResource):
         __props__['kind'] = 'Role'
         __props__['metadata'] = metadata
         __props__['rules'] = rules
+
+        __props__['status'] = None
 
         if opts is None:
             opts = pulumi.ResourceOptions()

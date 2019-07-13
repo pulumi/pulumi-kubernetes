@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { core } from "../..";
 import * as inputs from "../../types/input";
 import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
@@ -80,11 +81,13 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.authentication.v1beta1.TokenReview, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
+          props["spec"] = args && args.spec || undefined;
+
           props["apiVersion"] = "authentication.k8s.io/v1beta1";
           props["kind"] = "TokenReview";
           props["metadata"] = args && args.metadata || undefined;
-          props["spec"] = args && args.spec || undefined;
-          props["status"] = args && args.status || undefined;
+
+          props["status"] = undefined;
 
           if (!opts) {
               opts = {};

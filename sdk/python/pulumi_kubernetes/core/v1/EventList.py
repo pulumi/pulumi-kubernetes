@@ -16,9 +16,40 @@ class EventList(pulumi.CustomResource):
     EventList is a list of events.
     """
 
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    items: pulumi.Output[list];
+    """
+    List of events
+    """
+
+    metadata: pulumi.Output[dict];
+    """
+    Standard list metadata. More info:
+    https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
     def __init__(self, resource_name, opts=None, items=None, metadata=None, __name__=None, __opts__=None):
         """
         Create a EventList resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        :param pulumi.Input[list] items: List of events
+        :param pulumi.Input[dict] metadata: Standard list metadata. More info:
+               https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -41,6 +72,8 @@ class EventList(pulumi.CustomResource):
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata
+
+        __props__['status'] = None
 
         if opts is None:
             opts = pulumi.ResourceOptions()

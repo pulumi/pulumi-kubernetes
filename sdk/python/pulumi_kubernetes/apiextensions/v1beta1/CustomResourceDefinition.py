@@ -17,9 +17,41 @@ class CustomResourceDefinition(pulumi.CustomResource):
     name MUST be in the format <.spec.name>.<.spec.group>.
     """
 
-    def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    metadata: pulumi.Output[dict];
+    
+
+    spec: pulumi.Output[dict];
+    """
+    Spec describes how the user wants the resources to appear
+    """
+
+    status: pulumi.Output[dict];
+    """
+    Status indicates the actual state of the CustomResourceDefinition
+    """
+
+    def __init__(self, resource_name, opts=None, spec=None, metadata=None, __name__=None, __opts__=None):
         """
         Create a CustomResourceDefinition resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        :param pulumi.Input[dict] spec: Spec describes how the user wants the resources to appear
+        :param pulumi.Input[dict] metadata: 
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -42,7 +74,8 @@ class CustomResourceDefinition(pulumi.CustomResource):
             raise TypeError('Missing required property spec')
         __props__['spec'] = spec
         __props__['metadata'] = metadata
-        __props__['status'] = status
+
+        __props__['status'] = None
 
         if opts is None:
             opts = pulumi.ResourceOptions()

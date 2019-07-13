@@ -19,9 +19,46 @@ class RoleBinding(pulumi.CustomResource):
     have effect in that namespace.
     """
 
-    def __init__(self, resource_name, opts=None, metadata=None, role_ref=None, subjects=None, __name__=None, __opts__=None):
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    metadata: pulumi.Output[dict];
+    """
+    Standard object's metadata.
+    """
+
+    role_ref: pulumi.Output[dict];
+    """
+    RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace.
+    If the RoleRef cannot be resolved, the Authorizer must return an error.
+    """
+
+    subjects: pulumi.Output[list];
+    """
+    Subjects holds references to the objects the role applies to.
+    """
+
+    def __init__(self, resource_name, opts=None, role_ref=None, metadata=None, subjects=None, __name__=None, __opts__=None):
         """
         Create a RoleBinding resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        :param pulumi.Input[dict] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global
+               namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        :param pulumi.Input[dict] metadata: Standard object's metadata.
+        :param pulumi.Input[list] subjects: Subjects holds references to the objects the role applies to.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -45,6 +82,8 @@ class RoleBinding(pulumi.CustomResource):
         __props__['roleRef'] = role_ref
         __props__['metadata'] = metadata
         __props__['subjects'] = subjects
+
+        __props__['status'] = None
 
         if opts is None:
             opts = pulumi.ResourceOptions()

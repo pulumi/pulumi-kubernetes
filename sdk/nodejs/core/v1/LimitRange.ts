@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { core } from "../..";
 import * as inputs from "../../types/input";
 import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
@@ -78,10 +79,13 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.core.v1.LimitRange, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
+
           props["apiVersion"] = "v1";
           props["kind"] = "LimitRange";
           props["metadata"] = args && args.metadata || undefined;
           props["spec"] = args && args.spec || undefined;
+
+          props["status"] = undefined;
 
           if (!opts) {
               opts = {};

@@ -75,13 +75,15 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 				}
 				kindts, err := mustache.RenderFile(fmt.Sprintf("%s/kind.ts.mustache", templateDir),
 					map[string]interface{}{
-						"Comment":       kind.Comment(),
-						"Group":         group.Group(),
-						"Kind":          kind.Kind(),
-						"Properties":    kind.Properties(),
-						"URNAPIVersion": kind.URNAPIVersion(),
-						"Version":       version.Version(),
-						"AwaitComment":  kind.awaitComment,
+						"Comment":                 kind.Comment(),
+						"Group":                   group.Group(),
+						"Kind":                    kind.Kind(),
+						"Properties":              kind.Properties(),
+						"RequiredInputProperties": kind.RequiredInputProperties(),
+						"OptionalInputProperties": kind.OptionalInputProperties(),
+						"URNAPIVersion":           kind.URNAPIVersion(),
+						"Version":                 version.Version(),
+						"AwaitComment":            kind.awaitComment,
 					})
 				if err != nil {
 					return "", "", "", "", "", nil, err

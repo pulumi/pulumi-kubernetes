@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { core } from "../..";
 import * as inputs from "../../types/input";
 import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
@@ -102,6 +103,7 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.meta.v1.Status, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
+
           props["apiVersion"] = "v1";
           props["code"] = args && args.code || undefined;
           props["details"] = args && args.details || undefined;
@@ -109,7 +111,8 @@ import { getVersion } from "../../version";
           props["message"] = args && args.message || undefined;
           props["metadata"] = args && args.metadata || undefined;
           props["reason"] = args && args.reason || undefined;
-          props["status"] = args && args.status || undefined;
+
+          props["status"] = undefined;
 
           if (!opts) {
               opts = {};

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { core } from "../..";
 import * as inputs from "../../types/input";
 import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
@@ -77,10 +78,13 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.storage.v1beta1.VolumeAttachmentList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["apiVersion"] = "storage.k8s.io/v1beta1";
           props["items"] = args && args.items || undefined;
+
+          props["apiVersion"] = "storage.k8s.io/v1beta1";
           props["kind"] = "VolumeAttachmentList";
           props["metadata"] = args && args.metadata || undefined;
+
+          props["status"] = undefined;
 
           if (!opts) {
               opts = {};

@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { core } from "../..";
 import * as inputs from "../../types/input";
 import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
@@ -120,6 +121,8 @@ import { getVersion } from "../../version";
        */
       constructor(name: string, args?: inputs.storage.v1.StorageClass, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
+          props["provisioner"] = args && args.provisioner || undefined;
+
           props["allowVolumeExpansion"] = args && args.allowVolumeExpansion || undefined;
           props["allowedTopologies"] = args && args.allowedTopologies || undefined;
           props["apiVersion"] = "storage.k8s.io/v1";
@@ -127,9 +130,10 @@ import { getVersion } from "../../version";
           props["metadata"] = args && args.metadata || undefined;
           props["mountOptions"] = args && args.mountOptions || undefined;
           props["parameters"] = args && args.parameters || undefined;
-          props["provisioner"] = args && args.provisioner || undefined;
           props["reclaimPolicy"] = args && args.reclaimPolicy || undefined;
           props["volumeBindingMode"] = args && args.volumeBindingMode || undefined;
+
+          props["status"] = undefined;
 
           if (!opts) {
               opts = {};

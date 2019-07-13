@@ -16,9 +16,37 @@ class {{Kind}}(pulumi.CustomResource):
     {{{Comment}}}{{{AwaitComment}}}
     """
 
-    def __init__(self, resource_name, opts=None{{#Properties}}, {{LanguageName}}=None{{/Properties}}, __name__=None, __opts__=None):
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    {{#Properties}}
+    {{LanguageName}}: {{{PropType}}};
+    {{{Comment}}}
+
+    {{/Properties}}
+    def __init__(self, resource_name, opts=None{{#RequiredInputProperties}}, {{LanguageName}}=None{{/RequiredInputProperties}}{{#OptionalInputProperties}}, {{LanguageName}}=None{{/OptionalInputProperties}}, __name__=None, __opts__=None):
         """
         Create a {{Kind}} resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        {{#RequiredInputProperties}}
+        :param {{{PythonConstructorPropType}}} {{LanguageName}}: {{{PythonConstructorComment}}}
+        {{/RequiredInputProperties}}
+        {{#OptionalInputProperties}}
+        :param {{{PythonConstructorPropType}}} {{LanguageName}}: {{{PythonConstructorComment}}}
+        {{/OptionalInputProperties}}
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -37,14 +65,16 @@ class {{Kind}}(pulumi.CustomResource):
 
         __props__['apiVersion'] = '{{RawAPIVersion}}'
         __props__['kind'] = '{{Kind}}'
-        {{#RequiredProperties}}
+        {{#RequiredInputProperties}}
         if {{LanguageName}} is None:
             raise TypeError('Missing required property {{LanguageName}}')
         __props__['{{Name}}'] = {{LanguageName}}
-        {{/RequiredProperties}}
-        {{#OptionalProperties}}
+        {{/RequiredInputProperties}}
+        {{#OptionalInputProperties}}
         __props__['{{Name}}'] = {{LanguageName}}
-        {{/OptionalProperties}}
+        {{/OptionalInputProperties}}
+
+        __props__['status'] = None
 
         if opts is None:
             opts = pulumi.ResourceOptions()
