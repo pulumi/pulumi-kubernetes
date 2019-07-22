@@ -43,11 +43,9 @@ const adminBinding = new k8s.rbac.v1.ClusterRoleBinding(
 export const istio_init = new k8s.helm.v2.Chart(
     `${appName}-init`,
     {
-        chart: "istio-init",
+        path: "charts/istio-init",
+        version: "1.1",
         namespace: namespace.metadata.name,
-        version: "1.1.0",
-        fetchOpts: { repo: "https://gcsweb.istio.io/gcs/istio-release/releases/1.1.0/charts/" },
-        // for all options check https://github.com/istio/istio/tree/master/install/kubernetes/helm/istio
         values: { kiali: { enabled: true } }
     },
     { dependsOn: [namespace, adminBinding], providers: { kubernetes: k8sProvider } }
@@ -56,11 +54,9 @@ export const istio_init = new k8s.helm.v2.Chart(
 export const istio = new k8s.helm.v2.Chart(
     appName,
     {
-        chart: "istio",
+        path: "charts/istio",
+        version: "1.1",
         namespace: namespace.metadata.name,
-        version: "1.1.0",
-        fetchOpts: { repo: "https://gcsweb.istio.io/gcs/istio-release/releases/1.1.0/charts/" },
-        // for all options check https://github.com/istio/istio/tree/master/install/kubernetes/helm/istio
         values: { kiali: { enabled: true } }
     },
     { dependsOn: [namespace, adminBinding, istio_init], providers: { kubernetes: k8sProvider } }
