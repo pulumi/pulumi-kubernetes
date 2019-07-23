@@ -1175,12 +1175,12 @@ func (k *kubeProvider) dryRunPatch(
 	oldInputs, newInputs *unstructured.Unstructured,
 ) ([]byte, *unstructured.Unstructured, error) {
 
-	client, err := k.clientSet.ResourceClient(newInputs.GroupVersionKind(), newInputs.GetNamespace())
+	client, err := k.clientSet.ResourceClient(oldInputs.GroupVersionKind(), oldInputs.GetNamespace())
 	if err != nil {
 		return nil, nil, err
 	}
 
-	liveObject, err := client.Get(newInputs.GetName(), metav1.GetOptions{})
+	liveObject, err := client.Get(oldInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return nil, nil, err
 	}
