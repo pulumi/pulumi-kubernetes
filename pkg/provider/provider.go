@@ -609,7 +609,7 @@ func (k *kubeProvider) Diff(
 			changes = append(changes, k)
 		}
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, oldLiveState.Object, newInputs.Object, gvk); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, oldLiveState.Object, newInputs.Object, oldInputs.Object, gvk); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
@@ -1374,8 +1374,10 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 }
 
 // convertPatchToDiff converts the given JSON merge patch to a Pulumi detailed diff.
-func convertPatchToDiff(patch, oldLiveState, newInputs map[string]interface{}, gvk schema.GroupVersionKind,
+func convertPatchToDiff(
+	patch, oldLiveState, newInputs, oldInputs map[string]interface{}, gvk schema.GroupVersionKind,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
+
 	contract.Require(len(patch) != 0, "len(patch) != 0")
 	contract.Require(oldLiveState != nil, "oldLiveState != nil")
 
@@ -1383,7 +1385,7 @@ func convertPatchToDiff(patch, oldLiveState, newInputs map[string]interface{}, g
 		forceNew: forceNewProperties(gvk),
 		diff:     map[string]*pulumirpc.PropertyDiff{},
 	}
-	err := pc.addPatchMapToDiff(nil, patch, oldLiveState, newInputs, false)
+	err := pc.addPatchMapToDiff(nil, patch, oldLiveState, newInputs, oldInputs, false)
 	return pc.diff, err
 }
 
@@ -1428,12 +1430,16 @@ type patchConverter struct {
 // If a difference is present at the given path and the path matches one of the patterns in the database of
 // force-new properties, the diff is amended to indicate that the resource needs to be replaced due to the change in
 // this property.
-func (pc *patchConverter) addPatchValueToDiff(path []interface{}, v, old, input interface{}, inArray bool) error {
+func (pc *patchConverter) addPatchValueToDiff(
+	path []interface{}, v, old, newInput, oldInput interface{}, inArray bool,
+) error {
+
 	contract.Assert(v != nil || old != nil)
 
-	// If there is no old input, then the only possible diff here is a delete. All other diffs must be diffs between
-	// old and new properties that are populated by the server.
-	if input == nil && v != nil {
+	// If there is no new input, then the only possible diff here is a delete. All other diffs must be diffs between
+	// old and new properties that are populated by the server. If there is also no old input, then there is no diff
+	// whatsoever.
+	if newInput == nil && (v != nil || oldInput == nil) {
 		return nil
 	}
 
@@ -1447,14 +1453,16 @@ func (pc *patchConverter) addPatchValueToDiff(path []interface{}, v, old, input 
 		switch v := v.(type) {
 		case map[string]interface{}:
 			if oldMap, ok := old.(map[string]interface{}); ok {
-				inputMap, _ := input.(map[string]interface{})
-				return pc.addPatchMapToDiff(path, v, oldMap, inputMap, inArray)
+				newInputMap, _ := newInput.(map[string]interface{})
+				oldInputMap, _ := oldInput.(map[string]interface{})
+				return pc.addPatchMapToDiff(path, v, oldMap, newInputMap, oldInputMap, inArray)
 			}
 			diffKind = pulumirpc.PropertyDiff_UPDATE
 		case []interface{}:
 			if oldArray, ok := old.([]interface{}); ok {
-				inputArray, _ := input.([]interface{})
-				return pc.addPatchArrayToDiff(path, v, oldArray, inputArray, inArray)
+				newInputArray, _ := newInput.([]interface{})
+				oldInputArray, _ := oldInput.([]interface{})
+				return pc.addPatchArrayToDiff(path, v, oldArray, newInputArray, oldInputArray, inArray)
 			}
 			diffKind = pulumirpc.PropertyDiff_UPDATE
 		default:
@@ -1514,24 +1522,29 @@ func (pc *patchConverter) addPatchValueToDiff(path []interface{}, v, old, input 
 //
 // If this map is contained within an array, we do a little bit more work to detect deletes, as they are not recorded
 // in the patch in this case (see the note in addPatchValueToDiff for more details).
-func (pc *patchConverter) addPatchMapToDiff(path []interface{}, m, old, input map[string]interface{}, inArray bool) error {
-	inputProperty := func(k string) interface{} {
-		if input != nil {
-			return input[k]
-		}
-		return nil
+func (pc *patchConverter) addPatchMapToDiff(
+	path []interface{}, m, old, newInput, oldInput map[string]interface{}, inArray bool,
+) error {
+
+	if newInput == nil {
+		newInput = map[string]interface{}{}
 	}
+	if oldInput == nil {
+		oldInput = map[string]interface{}{}
+	}
+
 	for k, v := range m {
-		if err := pc.addPatchValueToDiff(append(path, k), v, old[k], inputProperty(k), inArray); err != nil {
+		if err := pc.addPatchValueToDiff(append(path, k), v, old[k], newInput[k], oldInput[k], inArray); err != nil {
 			return err
 		}
 	}
 	if inArray {
 		for k, v := range old {
-			if _, ok := m[k]; !ok {
-				if err := pc.addPatchValueToDiff(append(path, k), nil, v, inputProperty(k), inArray); err != nil {
-					return err
-				}
+			if _, ok := m[k]; ok {
+				continue
+			}
+			if err := pc.addPatchValueToDiff(append(path, k), nil, v, newInput[k], oldInput[k], inArray); err != nil {
+				return err
 			}
 		}
 	}
@@ -1539,30 +1552,36 @@ func (pc *patchConverter) addPatchMapToDiff(path []interface{}, m, old, input ma
 }
 
 // addPatchArrayToDiff adds the diffs in the given patched array to the detailed diff.
-func (pc *patchConverter) addPatchArrayToDiff(path []interface{}, a, old, input []interface{}, inArray bool) error {
-	inputElement := func(i int) interface{} {
-		if i < len(input) {
-			return input[i]
+func (pc *patchConverter) addPatchArrayToDiff(
+	path []interface{}, a, old, newInput, oldInput []interface{}, inArray bool,
+) error {
+
+	at := func(arr []interface{}, i int) interface{} {
+		if i < len(arr) {
+			return arr[i]
 		}
 		return nil
 	}
 
 	var i int
 	for i = 0; i < len(a) && i < len(old); i++ {
-		if err := pc.addPatchValueToDiff(append(path, i), a[i], old[i], inputElement(i), true); err != nil {
+		err := pc.addPatchValueToDiff(append(path, i), a[i], old[i], at(newInput, i), at(oldInput, i), true)
+		if err != nil {
 			return err
 		}
 	}
 
 	if i < len(a) {
 		for ; i < len(a); i++ {
-			if err := pc.addPatchValueToDiff(append(path, i), a[i], nil, inputElement(i), true); err != nil {
+			err := pc.addPatchValueToDiff(append(path, i), a[i], nil, at(newInput, i), at(oldInput, i), true)
+			if err != nil {
 				return err
 			}
 		}
 	} else {
 		for ; i < len(old); i++ {
-			if err := pc.addPatchValueToDiff(append(path, i), nil, old[i], inputElement(i), true); err != nil {
+			err := pc.addPatchValueToDiff(append(path, i), nil, old[i], at(newInput, i), at(oldInput, i), true)
+			if err != nil {
 				return err
 			}
 		}
