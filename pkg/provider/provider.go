@@ -1192,9 +1192,21 @@ func (k *kubeProvider) dryRunPatch(
 		return nil, nil, err
 	}
 
-	newObject, err := client.Patch(oldInputs.GetName(), patchType, patch, metav1.PatchOptions{
-		DryRun: []string{metav1.DryRunAll},
-	})
+	// If the new resource does not exist, we need to dry-run a Create rather than a Patch.
+	var newObject *unstructured.Unstructured
+	_, err = client.Get(newInputs.GetName(), metav1.GetOptions{})
+	switch {
+	case err == nil:
+		newObject, err = client.Patch(newInputs.GetName(), patchType, patch, metav1.PatchOptions{
+			DryRun: []string{metav1.DryRunAll},
+		})
+	case errors.IsNotFound(err):
+		newObject, err = client.Create(newInputs, metav1.CreateOptions{
+			DryRun: []string{metav1.DryRunAll},
+		})
+	default:
+		return nil, nil, err
+	}
 	if err != nil {
 		return nil, nil, err
 	}
