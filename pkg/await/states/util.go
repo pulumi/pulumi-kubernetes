@@ -27,4 +27,3 @@ func fqName(obj v1.Object) string {
 	}
 	return obj.GetName()
 }
-

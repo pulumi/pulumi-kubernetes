@@ -52,11 +52,11 @@ type createAwaitConfig struct {
 }
 
 func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
-	cac.logger.LogMessage(sev, message)
+	cac.logMessage(logging.Message{S: message, Severity: sev})
 }
 
 func (cac *createAwaitConfig) logMessage(message logging.Message) {
-	cac.logger.LogMessage(message.Severity, message.S)
+	cac.logger.LogMessage(message)
 }
 
 // updateAwaitConfig specifies on which conditions we are to consider a resource "fully updated",
