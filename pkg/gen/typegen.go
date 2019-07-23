@@ -24,6 +24,8 @@ import (
 	wordwrap "github.com/mitchellh/go-wordwrap"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
+
+	pycodegen "github.com/pulumi/pulumi/pkg/codegen/python"
 )
 
 const (
@@ -574,7 +576,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						comment:      fmtComment(prop["description"], prefix, opts),
 						propType:     t,
 						name:         propName,
-						languageName: pyName(propName),
+						languageName: pycodegen.PyName(propName),
 						defaultValue: defaultValue,
 					}
 				})
