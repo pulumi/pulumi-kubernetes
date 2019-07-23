@@ -570,38 +570,24 @@ func (k *kubeProvider) Diff(
 		}
 	}
 
-	patch, patchType, lookupPatchMeta, err := openapi.PatchForResourceUpdate(
-		k.clientSet.DiscoveryClientCached, oldInputs, newInputs, oldLiveState)
+	supportsDryRun, err := openapi.SupportsDryRun(k.clientSet.DiscoveryClientCached, gvk)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err,
-			"Failed to check for changes in resource %s/%s because of an error generating "+
-				"the JSON patch describing the resource changes",
+			"Failed to check for changes in resource %s/%s because of an error communicating with the API server",
 			newInputs.GetNamespace(), newInputs.GetName())
 	}
-	// If we have a strategic merge patch, apply it and create a normal merge patch from the new and old state.
-	// This allows downstream logic to deal only with the JSON merge patch format.
-	if patchType == types.StrategicMergePatchType {
-		oldLiveJSON, err := oldLiveState.MarshalJSON()
-		if err != nil {
-			return nil, pkgerrors.Wrapf(err,
-				"Failed to check for changes in resource %s/%s because of an error serializing "+
-					"the old state to generate the JSON patch describing the resource changes",
-				newInputs.GetNamespace(), newInputs.GetName())
-		}
-		newJSON, err := strategicpatch.StrategicMergePatchUsingLookupPatchMeta(oldLiveJSON, patch, lookupPatchMeta)
-		if err != nil {
-			return nil, pkgerrors.Wrapf(err,
-				"Failed to check for changes in resource %s/%s because of an error generating "+
-					"the JSON patch describing the resource changes",
-				newInputs.GetNamespace(), newInputs.GetName())
-		}
-		patch, err = jsonpatch.CreateMergePatch(oldLiveJSON, newJSON)
-		if err != nil {
-			return nil, pkgerrors.Wrapf(err,
-				"Failed to check for changes in resource %s/%s because of an error generating "+
-					"the JSON patch describing the resource changes",
-				newInputs.GetNamespace(), newInputs.GetName())
-		}
+
+	var patch []byte
+	if supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String() {
+		patch, oldLiveState, err = k.dryRunPatch(oldInputs, newInputs)
+	} else {
+		patch, err = k.localPatch(oldInputs, newInputs, oldLiveState)
+	}
+	if err != nil {
+		return nil, pkgerrors.Wrapf(
+			err, "Failed to check for changes in resource %s/%s because of an error computing the JSON patch "+
+				"describing the resource changes",
+			newInputs.GetNamespace(), newInputs.GetName())
 	}
 	patchObj := map[string]interface{}{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
@@ -623,7 +609,7 @@ func (k *kubeProvider) Diff(
 			changes = append(changes, k)
 		}
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, oldLiveState.Object, gvk); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, oldLiveState.Object, newInputs.Object, gvk); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
@@ -1185,6 +1171,78 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 	return rc.Get(obj.GetName(), metav1.GetOptions{})
 }
 
+func (k *kubeProvider) dryRunPatch(
+	oldInputs, newInputs *unstructured.Unstructured,
+) ([]byte, *unstructured.Unstructured, error) {
+
+	client, err := k.clientSet.ResourceClient(newInputs.GroupVersionKind(), newInputs.GetNamespace())
+	if err != nil {
+		return nil, nil, err
+	}
+
+	liveObject, err := client.Get(newInputs.GetName(), metav1.GetOptions{})
+	if err != nil {
+		return nil, nil, err
+	}
+	liveInputs := parseLiveInputs(liveObject, oldInputs)
+
+	patch, patchType, _, err := openapi.PatchForResourceUpdate(
+		k.clientSet.DiscoveryClientCached, liveInputs, newInputs, liveObject)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	newObject, err := client.Patch(newInputs.GetName(), patchType, patch, metav1.PatchOptions{
+		DryRun: []string{metav1.DryRunAll},
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+
+	liveJSON, err := liveObject.MarshalJSON()
+	if err != nil {
+		return nil, nil, err
+	}
+	newJSON, err := newObject.MarshalJSON()
+	if err != nil {
+		return nil, nil, err
+	}
+
+	patch, err = jsonpatch.CreateMergePatch(liveJSON, newJSON)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return patch, liveObject, nil
+}
+
+func (k *kubeProvider) localPatch(
+	oldInputs, newInputs, oldLiveState *unstructured.Unstructured,
+) ([]byte, error) {
+	patch, patchType, lookupPatchMeta, err := openapi.PatchForResourceUpdate(
+		k.clientSet.DiscoveryClientCached, oldInputs, newInputs, oldLiveState)
+	if err != nil {
+		return nil, err
+	}
+	if patchType == types.StrategicMergePatchType {
+		// If we have a strategic merge patch, apply it and create a normal merge patch from the new and old state.
+		// This allows downstream logic to deal only with the JSON merge patch format.
+		oldLiveJSON, err := oldLiveState.MarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		newJSON, err := strategicpatch.StrategicMergePatchUsingLookupPatchMeta(oldLiveJSON, patch, lookupPatchMeta)
+		if err != nil {
+			return nil, err
+		}
+		patch, err = jsonpatch.CreateMergePatch(oldLiveJSON, newJSON)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return patch, nil
+}
+
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 	return &unstructured.Unstructured{Object: pm.Mappable()}
 }
@@ -1316,7 +1374,7 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 }
 
 // convertPatchToDiff converts the given JSON merge patch to a Pulumi detailed diff.
-func convertPatchToDiff(patch, oldLiveState map[string]interface{}, gvk schema.GroupVersionKind,
+func convertPatchToDiff(patch, oldLiveState, newInputs map[string]interface{}, gvk schema.GroupVersionKind,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
 	contract.Require(len(patch) != 0, "len(patch) != 0")
 	contract.Require(oldLiveState != nil, "oldLiveState != nil")
@@ -1325,7 +1383,7 @@ func convertPatchToDiff(patch, oldLiveState map[string]interface{}, gvk schema.G
 		forceNew: forceNewProperties(gvk),
 		diff:     map[string]*pulumirpc.PropertyDiff{},
 	}
-	err := pc.addPatchMapToDiff(nil, patch, oldLiveState, false)
+	err := pc.addPatchMapToDiff(nil, patch, oldLiveState, newInputs, false)
 	return pc.diff, err
 }
 
@@ -1370,8 +1428,14 @@ type patchConverter struct {
 // If a difference is present at the given path and the path matches one of the patterns in the database of
 // force-new properties, the diff is amended to indicate that the resource needs to be replaced due to the change in
 // this property.
-func (pc *patchConverter) addPatchValueToDiff(path []interface{}, v, old interface{}, inArray bool) error {
+func (pc *patchConverter) addPatchValueToDiff(path []interface{}, v, old, input interface{}, inArray bool) error {
 	contract.Assert(v != nil || old != nil)
+
+	// If there is no old input, then the only possible diff here is a delete. All other diffs must be diffs between
+	// old and new properties that are populated by the server.
+	if input == nil && v != nil {
+		return nil
+	}
 
 	var diffKind pulumirpc.PropertyDiff_Kind
 	inputDiff := false
@@ -1383,12 +1447,14 @@ func (pc *patchConverter) addPatchValueToDiff(path []interface{}, v, old interfa
 		switch v := v.(type) {
 		case map[string]interface{}:
 			if oldMap, ok := old.(map[string]interface{}); ok {
-				return pc.addPatchMapToDiff(path, v, oldMap, inArray)
+				inputMap, _ := input.(map[string]interface{})
+				return pc.addPatchMapToDiff(path, v, oldMap, inputMap, inArray)
 			}
 			diffKind = pulumirpc.PropertyDiff_UPDATE
 		case []interface{}:
 			if oldArray, ok := old.([]interface{}); ok {
-				return pc.addPatchArrayToDiff(path, v, oldArray, inArray)
+				inputArray, _ := input.([]interface{})
+				return pc.addPatchArrayToDiff(path, v, oldArray, inputArray, inArray)
 			}
 			diffKind = pulumirpc.PropertyDiff_UPDATE
 		default:
@@ -1448,16 +1514,22 @@ func (pc *patchConverter) addPatchValueToDiff(path []interface{}, v, old interfa
 //
 // If this map is contained within an array, we do a little bit more work to detect deletes, as they are not recorded
 // in the patch in this case (see the note in addPatchValueToDiff for more details).
-func (pc *patchConverter) addPatchMapToDiff(path []interface{}, m, old map[string]interface{}, inArray bool) error {
+func (pc *patchConverter) addPatchMapToDiff(path []interface{}, m, old, input map[string]interface{}, inArray bool) error {
+	inputProperty := func(k string) interface{} {
+		if input != nil {
+			return input[k]
+		}
+		return nil
+	}
 	for k, v := range m {
-		if err := pc.addPatchValueToDiff(append(path, k), v, old[k], inArray); err != nil {
+		if err := pc.addPatchValueToDiff(append(path, k), v, old[k], inputProperty(k), inArray); err != nil {
 			return err
 		}
 	}
 	if inArray {
 		for k, v := range old {
 			if _, ok := m[k]; !ok {
-				if err := pc.addPatchValueToDiff(append(path, k), nil, v, inArray); err != nil {
+				if err := pc.addPatchValueToDiff(append(path, k), nil, v, inputProperty(k), inArray); err != nil {
 					return err
 				}
 			}
@@ -1467,23 +1539,30 @@ func (pc *patchConverter) addPatchMapToDiff(path []interface{}, m, old map[strin
 }
 
 // addPatchArrayToDiff adds the diffs in the given patched array to the detailed diff.
-func (pc *patchConverter) addPatchArrayToDiff(path []interface{}, a []interface{}, old []interface{}, inArray bool) error {
+func (pc *patchConverter) addPatchArrayToDiff(path []interface{}, a, old, input []interface{}, inArray bool) error {
+	inputElement := func(i int) interface{} {
+		if i < len(input) {
+			return input[i]
+		}
+		return nil
+	}
+
 	var i int
 	for i = 0; i < len(a) && i < len(old); i++ {
-		if err := pc.addPatchValueToDiff(append(path, i), a[i], old[i], true); err != nil {
+		if err := pc.addPatchValueToDiff(append(path, i), a[i], old[i], inputElement(i), true); err != nil {
 			return err
 		}
 	}
 
 	if i < len(a) {
 		for ; i < len(a); i++ {
-			if err := pc.addPatchValueToDiff(append(path, i), a[i], nil, true); err != nil {
+			if err := pc.addPatchValueToDiff(append(path, i), a[i], nil, inputElement(i), true); err != nil {
 				return err
 			}
 		}
 	} else {
 		for ; i < len(old); i++ {
-			if err := pc.addPatchValueToDiff(append(path, i), nil, old[i], true); err != nil {
+			if err := pc.addPatchValueToDiff(append(path, i), nil, old[i], inputElement(i), true); err != nil {
 				return err
 			}
 		}

@@ -33,6 +33,7 @@ func TestPatchToDiff(t *testing.T) {
 		kind     string
 		old      object
 		new      object
+		inputs   object
 		expected expected
 	}{
 		{
@@ -138,6 +139,14 @@ func TestPatchToDiff(t *testing.T) {
 				"spec.containers[0].dnsPolicy": D,
 			},
 		},
+		{
+			name:  `State diffs with no corresponding input property are ignored.`,
+			group: "core", version: "v1", kind: "Pod",
+			old:      object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}, "status": object{"hostIP": "10.0.0.2"}},
+			new:      object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}, "status": object{"hostIP": "10.0.0.3"}},
+			inputs:   object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
+			expected: expected{},
+		},
 	}
 
 	for _, tt := range tests {
@@ -155,12 +164,17 @@ func TestPatchToDiff(t *testing.T) {
 			err = json.Unmarshal(patchBytes, &patch)
 			assert.NoError(t, err)
 
+			inputs := tt.inputs
+			if inputs == nil {
+				inputs = tt.new
+			}
+
 			gvk := schema.GroupVersionKind{
 				Group:   tt.group,
 				Version: tt.version,
 				Kind:    tt.kind,
 			}
-			diff, err := convertPatchToDiff(patch, tt.old, gvk)
+			diff, err := convertPatchToDiff(patch, tt.old, inputs, gvk)
 
 			assert.NoError(t, err)
 			assert.Equal(t, tt.expected, diff)
