@@ -1192,7 +1192,7 @@ func (k *kubeProvider) dryRunPatch(
 		return nil, nil, err
 	}
 
-	newObject, err := client.Patch(newInputs.GetName(), patchType, patch, metav1.PatchOptions{
+	newObject, err := client.Patch(oldInputs.GetName(), patchType, patch, metav1.PatchOptions{
 		DryRun: []string{metav1.DryRunAll},
 	})
 	if err != nil {
