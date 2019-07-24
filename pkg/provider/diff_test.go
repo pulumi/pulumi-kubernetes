@@ -27,13 +27,15 @@ func TestPatchToDiff(t *testing.T) {
 	)
 
 	tests := []struct {
-		name     string
-		group    string
-		version  string
-		kind     string
-		old      object
-		new      object
-		expected expected
+		name      string
+		group     string
+		version   string
+		kind      string
+		old       object
+		new       object
+		inputs    object
+		oldInputs object
+		expected  expected
 	}{
 		{
 			name:  "Adding spec and nested field results in correct diffs.",
@@ -138,6 +140,24 @@ func TestPatchToDiff(t *testing.T) {
 				"spec.containers[0].dnsPolicy": D,
 			},
 		},
+		{
+			name:  `State diffs with no corresponding input property are ignored.`,
+			group: "core", version: "v1", kind: "Pod",
+			old:       object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}, "status": object{"hostIP": "10.0.0.2"}},
+			new:       object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}, "status": object{"hostIP": "10.0.0.3"}},
+			inputs:    object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
+			oldInputs: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
+			expected:  expected{},
+		},
+		{
+			name:  `State deletes with no corresponding input properties are ignored.`,
+			group: "core", version: "v1", kind: "Pod",
+			old:       object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}, "status": object{"hostIP": "10.0.0.2"}},
+			new:       object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
+			inputs:    object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
+			oldInputs: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
+			expected:  expected{},
+		},
 	}
 
 	for _, tt := range tests {
@@ -155,12 +175,21 @@ func TestPatchToDiff(t *testing.T) {
 			err = json.Unmarshal(patchBytes, &patch)
 			assert.NoError(t, err)
 
+			inputs := tt.inputs
+			if inputs == nil {
+				inputs = tt.new
+			}
+			oldInputs := tt.oldInputs
+			if oldInputs == nil {
+				oldInputs = tt.old
+			}
+
 			gvk := schema.GroupVersionKind{
 				Group:   tt.group,
 				Version: tt.version,
 				Kind:    tt.kind,
 			}
-			diff, err := convertPatchToDiff(patch, tt.old, gvk)
+			diff, err := convertPatchToDiff(patch, tt.old, inputs, oldInputs, gvk)
 
 			assert.NoError(t, err)
 			assert.Equal(t, tt.expected, diff)

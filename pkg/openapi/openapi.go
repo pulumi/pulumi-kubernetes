@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/golang/glog"
+	"github.com/pulumi/pulumi/pkg/util/contract"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
@@ -118,6 +119,17 @@ func PatchForResourceUpdate(client discovery.CachedDiscoveryInterface, lastSubmi
 		gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
 	patch, patchType, err := jsonMergePatch(lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
 	return patch, patchType, nil, err
+}
+
+// SupportsDryRun returns true if the given GVK supports dry-run applies.
+func SupportsDryRun(client discovery.OpenAPISchemaInterface, gvk schema.GroupVersionKind) (bool, error) {
+	document, err := client.OpenAPISchema()
+	if err != nil {
+		return false, err
+	}
+	supportsDryRun, err := openapi.SupportsDryRun(document, gvk)
+	contract.IgnoreError(err) // Error indicates a missing GVK; we'll collapse this with !supportsDryRun
+	return supportsDryRun, nil
 }
 
 // Pluck obtains the property identified by the string components in `path`. For example,
