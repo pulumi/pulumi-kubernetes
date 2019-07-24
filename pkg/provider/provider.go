@@ -1421,6 +1421,20 @@ func makePatchSlice(path []interface{}, v interface{}) interface{} {
 	}
 }
 
+// equalNumbers returns true if both a and b are number values (int64 or float64). Note that if a this will fail if
+// either value is not representable as a float64.
+func equalNumbers(a, b interface{}) bool {
+	aKind, bKind := reflect.TypeOf(a).Kind(), reflect.TypeOf(b).Kind()
+	if aKind == bKind {
+		return reflect.DeepEqual(a, b)
+	}
+
+	if aKind == reflect.Float64 {
+		return a.(float64) == float64(b.(int64))
+	}
+	return float64(a.(int64)) == b.(float64)
+}
+
 // patchConverter carries context for convertPatchToDiff.
 type patchConverter struct {
 	forceNew []string
@@ -1478,7 +1492,7 @@ func (pc *patchConverter) addPatchValueToDiff(
 			}
 			diffKind = pulumirpc.PropertyDiff_UPDATE
 		default:
-			if reflect.DeepEqual(v, old) {
+			if reflect.DeepEqual(v, old) || equalNumbers(v, old) {
 				// From RFC 7386 (the JSON Merge Patch spec):
 				//
 				//   If the patch is anything other than an object, the result will always be to replace the entire
