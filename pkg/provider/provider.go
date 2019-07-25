@@ -578,11 +578,25 @@ func (k *kubeProvider) Diff(
 	}
 
 	var patch []byte
-	if supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String() {
-		patch, oldLiveState, err = k.dryRunPatch(oldInputs, newInputs)
+	tryDryRun := supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String()
+	if tryDryRun {
+		var live *unstructured.Unstructured
+		patch, live, err = k.dryRunPatch(oldInputs, newInputs)
+
+		// Fall back to local patch.
+		se, isStatusError := err.(*errors.StatusError)
+		if isStatusError && se.Status().Code == 400 &&
+			(se.Status().Message == "the dryRun alpha feature is disabled" ||
+				se.Status().Message == "the dryRun beta feature is disabled") {
+
+			patch, err = k.localPatch(oldInputs, newInputs, oldLiveState)
+		} else {
+			oldLiveState = live
+		}
 	} else {
 		patch, err = k.localPatch(oldInputs, newInputs, oldLiveState)
 	}
+
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s because of an error computing the JSON patch "+
