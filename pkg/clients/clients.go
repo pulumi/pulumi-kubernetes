@@ -19,6 +19,7 @@ import (
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
@@ -116,20 +117,41 @@ func (dcs *DynamicClientSet) gvkForKind(kind kinds.Kind) (*schema.GroupVersionKi
 		}
 	}
 
+	var fallbackResourceList *v1.APIResourceList
 	for _, gvResources := range resources {
-		for _, resource := range gvResources.APIResources {
-			if resource.Kind == string(kind) {
-				var gv schema.GroupVersion
-				gv, err = schema.ParseGroupVersion(gvResources.GroupVersion)
-				if err != nil {
-					return nil, err
-				}
-				return &schema.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: resource.Kind}, nil
-			}
+		// For some reason, the server is returning the old "extensions/v1beta1" GV before "apps/v1", so manually
+		// skip it and fallback to it if the Kind is not found.
+		if gvResources.GroupVersion == "extensions/v1beta1" {
+			fallbackResourceList = gvResources
+			continue
+		}
+		versionKind, err, done := dcs.searchKindInGVResources(gvResources, kind)
+		if done {
+			return versionKind, err
 		}
 	}
 
+	versionKind, err, done := dcs.searchKindInGVResources(fallbackResourceList, kind)
+	if done {
+		return versionKind, err
+	}
+
 	return nil, fmt.Errorf("failed to find gvk for Kind: %q", kind)
+}
+
+func (dcs *DynamicClientSet) searchKindInGVResources(gvResources *v1.APIResourceList, kind kinds.Kind,
+) (*schema.GroupVersionKind, error, bool) {
+	for _, resource := range gvResources.APIResources {
+		if resource.Kind == string(kind) {
+			var gv schema.GroupVersion
+			gv, err := schema.ParseGroupVersion(gvResources.GroupVersion)
+			if err != nil {
+				return nil, err, true
+			}
+			return &schema.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: resource.Kind}, nil, true
+		}
+	}
+	return nil, nil, false
 }
 
 func (dcs *DynamicClientSet) IsNamespacedKind(gvk schema.GroupVersionKind) (bool, error) {
