@@ -403,13 +403,21 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		// a resource that was created out-of-band. In this case, we do not add the `managed-by` label here, as doing
 		// so would result in a persistent failure to import due to a diff that the user cannot correct.
 		if metadata.HasManagedByLabel(oldInputs) {
-			metadata.SetManagedByLabel(newInputs)
+			_, err = metadata.TrySetManagedByLabel(newInputs)
+			if err != nil {
+				return nil, pkgerrors.Wrapf(err,
+					"Failed to create object because of a problem setting managed-by labels")
+			}
 		}
 	} else {
 		metadata.AssignNameIfAutonamable(newInputs, urn.Name())
 
 		// Set a "managed-by: pulumi" label on all created k8s resources.
-		metadata.SetManagedByLabel(newInputs)
+		_, err = metadata.TrySetManagedByLabel(newInputs)
+		if err != nil {
+			return nil, pkgerrors.Wrapf(err,
+				"Failed to create object because of a problem setting managed-by labels")
+		}
 	}
 
 	gvk, err := k.gvkFromURN(urn)
