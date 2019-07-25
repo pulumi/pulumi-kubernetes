@@ -3,6 +3,7 @@ package await
 import (
 	"fmt"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 
@@ -394,6 +395,23 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 		// No current generation, Deployment controller has not yet created a ReplicaSet. Do
 		// nothing.
 		return
+	} else {
+		if currentGenerationInt, err := strconv.Atoi(dia.currentGeneration); err == nil {
+			if int64(currentGenerationInt) != dia.deployment.GetGeneration() {
+				// If the generation is set, make sure it matches the revision annotation, otherwise, ignore this
+				// event because the status we care about may not be set yet.
+				return
+			}
+			if rawObservedGeneration, ok := openapi.Pluck(
+				deployment.Object, "status", "observedGeneration"); ok {
+				observedGeneration, _ := rawObservedGeneration.(int64)
+				if int64(currentGenerationInt) != observedGeneration {
+					// If the generation is set, make sure it matches the .status.observedGeneration, otherwise,
+					// ignore this event because the status we care about may not be set yet.
+					return
+				}
+			}
+		}
 	}
 
 	// Check Deployments conditions to see whether new ReplicaSet is available. If it is, we are
@@ -528,13 +546,15 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	var rawReadyReplicas interface{}
 	var readyReplicas int64
 	var readyReplicasExists bool
+	var unavailableReplicas int64
+	var expectedNumberOfUpdatedReplicas bool
 	// extensions/v1beta1/ReplicaSet does not include the "readyReplicas" status for rollouts,
 	// so use the Deployment "readyReplicas" status instead.
 	// Note: We must use the input apiVersion rather than the Deployment watch Event we're processing here, because
 	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
 	// regardless of what the Event apiVersion says.
-	statusUnavailable := dia.config.createAwaitConfig.currentInputs.GetAPIVersion() == "extensions/v1beta1"
-	if statusUnavailable {
+	extensionsv1beta1API := dia.config.createAwaitConfig.currentInputs.GetAPIVersion() == "extensions/v1beta1"
+	if extensionsv1beta1API {
 		rawReadyReplicas, readyReplicasExists = openapi.Pluck(dia.deployment.Object, "status", "readyReplicas")
 		readyReplicas, _ = rawReadyReplicas.(int64)
 	} else {
@@ -542,15 +562,39 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		readyReplicas, _ = rawReadyReplicas.(int64)
 	}
 
+	if rawUpdatedReplicas, ok := openapi.Pluck(dia.deployment.Object, "status", "updatedReplicas"); ok {
+		updatedReplicas, _ := rawUpdatedReplicas.(int64)
+		expectedNumberOfUpdatedReplicas = int64(updatedReplicas) == specReplicas
+	}
+
+	// Check replicas status, which is present on all apiVersions of the Deployment resource.
+	// Note that this status field does not appear immediately on update, so it's not sufficient to
+	// determine readiness by itself.
+	rawReplicas, replicasExists := openapi.Pluck(dia.deployment.Object, "status", "replicas")
+	replicas, _ := rawReplicas.(int64)
+	tooManyReplicas := replicasExists && replicas > specReplicas
+
+	// Check unavailableReplicas status, which is present on all apiVersions of the Deployment resource.
+	// Note that this status field does not appear immediately on update, so it's not sufficient to
+	// determine readiness by itself.
+	unavailableReplicasPresent := false
+	if rawUnavailableReplicas, ok := openapi.Pluck(
+		dia.deployment.Object, "status", "unavailableReplicas"); ok {
+		unavailableReplicas, _ = rawUnavailableReplicas.(int64)
+
+		unavailableReplicasPresent = unavailableReplicas != 0
+	}
+
 	glog.V(3).Infof("ReplicaSet %q requests '%v' replicas, but has '%v' ready",
 		rs.GetName(), specReplicas, readyReplicas)
 
 	if dia.changeTriggeredRollout() {
 		dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
-			readyReplicasExists && readyReplicas >= specReplicas
+			readyReplicasExists && readyReplicas >= specReplicas && !unavailableReplicasPresent && !tooManyReplicas &&
+			expectedNumberOfUpdatedReplicas
 	} else {
 		dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
-			readyReplicasExists && readyReplicas >= specReplicas
+			readyReplicasExists && readyReplicas >= specReplicas && !tooManyReplicas
 	}
 
 	if !dia.updatedReplicaSetReady {
