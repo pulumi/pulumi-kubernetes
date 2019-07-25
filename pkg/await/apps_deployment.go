@@ -564,7 +564,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 
 	if rawUpdatedReplicas, ok := openapi.Pluck(dia.deployment.Object, "status", "updatedReplicas"); ok {
 		updatedReplicas, _ := rawUpdatedReplicas.(int64)
-		expectedNumberOfUpdatedReplicas = int64(updatedReplicas) == specReplicas
+		expectedNumberOfUpdatedReplicas = updatedReplicas == specReplicas
 	}
 
 	// Check replicas status, which is present on all apiVersions of the Deployment resource.
@@ -589,12 +589,22 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		rs.GetName(), specReplicas, readyReplicas)
 
 	if dia.changeTriggeredRollout() {
-		dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
-			readyReplicasExists && readyReplicas >= specReplicas && !unavailableReplicasPresent && !tooManyReplicas &&
-			expectedNumberOfUpdatedReplicas
+	    if extensionsv1beta1API {
+			dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
+				readyReplicasExists && readyReplicas >= specReplicas && !unavailableReplicasPresent && !tooManyReplicas &&
+				expectedNumberOfUpdatedReplicas
+		} else {
+			dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
+				readyReplicasExists && readyReplicas >= specReplicas
+		}
 	} else {
-		dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
-			readyReplicasExists && readyReplicas >= specReplicas && !tooManyReplicas
+	    if extensionsv1beta1API {
+			dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
+				readyReplicasExists && readyReplicas >= specReplicas && !tooManyReplicas
+		} else {
+			dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
+				readyReplicasExists && readyReplicas >= specReplicas
+		}
 	}
 
 	if !dia.updatedReplicaSetReady {

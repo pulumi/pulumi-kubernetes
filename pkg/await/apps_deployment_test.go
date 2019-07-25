@@ -2,6 +2,7 @@ package await
 
 import (
 	"fmt"
+	"strconv"
 	"testing"
 	"time"
 
@@ -17,6 +18,8 @@ const (
 	replicaSetGeneratedName = "foo-4setj4y6-7cdf7ddc54"
 	revision1               = "1"
 	revision2               = "2"
+	revision3               = "3"
+	revision4               = "4"
 )
 
 func Test_Apps_Deployment(t *testing.T) {
@@ -62,139 +65,6 @@ func Test_Apps_Deployment(t *testing.T) {
 
 				replicaSets <- watchAddedEvent(
 					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
-
-				// Timeout. Success.
-				timeout <- time.Now()
-			},
-		},
-		{
-			description: "[Revision 1] Succeed if ReplicaSet becomes available before Deployment repots it",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
-				// API server successfully creates and initializes Deployment and ReplicaSet
-				// objects.
-				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision1))
-				deployments <- watchAddedEvent(
-					deploymentProgressing(inputNamespace, deploymentInputName, revision1))
-				deployments <- watchAddedEvent(
-					deploymentProgressingUnavailable(inputNamespace, deploymentInputName, revision1))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
-				deployments <- watchAddedEvent(
-					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1))
-
-				// Timeout. Success.
-				timeout <- time.Now()
-			},
-		},
-		{
-			description: "[Revision 2] Succeed if ReplicaSet becomes available before Deployment repots it",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
-				// API server successfully creates and initializes Deployment and ReplicaSet
-				// objects.
-				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision2))
-				deployments <- watchAddedEvent(
-					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
-				deployments <- watchAddedEvent(
-					deploymentProgressingUnavailable(inputNamespace, deploymentInputName, revision2))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
-				deployments <- watchAddedEvent(
-					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision2))
-
-				// Timeout. Success.
-				timeout <- time.Now()
-			},
-		},
-		{
-			description: "[Revision 2] Should succeed if update has rolled out",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
-				// Deployment is updated by the user. The controller creates and successfully
-				// initializes the ReplicaSet.
-				deployments <- watchAddedEvent(
-					deploymentUpdated(inputNamespace, deploymentInputName, revision2))
-				deployments <- watchAddedEvent(
-					deploymentUpdatedReplicaSetProgressing(inputNamespace, deploymentInputName, revision2))
-				deployments <- watchAddedEvent(
-					deploymentUpdatedReplicaSetProgressed(inputNamespace, deploymentInputName, revision2))
-
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
-
-				// Timeout. Success.
-				timeout <- time.Now()
-			},
-		},
-		{
-			description: "[Revision 1] Should fail if unrelated Deployment succeeds",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
-				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision1))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
-
-				deployments <- watchAddedEvent(deploymentRolloutComplete(inputNamespace, "bar", revision1))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, "bar-ablksd", "bar", revision1))
-
-				// Timeout. Failure.
-				timeout <- time.Now()
-			},
-			expectedError: &timeoutError{
-				object: deploymentAdded(inputNamespace, deploymentInputName, revision1),
-				subErrors: []string{
-					"Minimum number of live Pods was not attained",
-				}},
-		},
-		{
-			description: "[Revision 2] Should fail if unrelated Deployment succeeds",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
-				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision2))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
-
-				deployments <- watchAddedEvent(deploymentRolloutComplete(inputNamespace, "bar", revision2))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, "bar-ablksd", "bar", revision2))
-
-				// Timeout. Failure.
-				timeout <- time.Now()
-			},
-			expectedError: &timeoutError{
-				object: deploymentAdded(inputNamespace, deploymentInputName, revision2),
-				subErrors: []string{
-					"Minimum number of live Pods was not attained",
-				}},
-		},
-		{
-			description: "[Revision 1] Should succeed when unrelated deployment fails",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
-				deployments <- watchAddedEvent(
-					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision1))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
-
-				deployments <- watchAddedEvent(deploymentAdded(inputNamespace, "bar", revision1))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, "bar-ablksd", "bar", revision1))
-
-				// Timeout. Success.
-				timeout <- time.Now()
-			},
-		},
-		{
-			description: "[Revision 2] Should succeed when unrelated deployment fails",
-			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
-				deployments <- watchAddedEvent(
-					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision2))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
-
-				deployments <- watchAddedEvent(deploymentAdded(inputNamespace, "bar", revision2))
-				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, "bar-ablksd", "bar", revision2))
 
 				// Timeout. Success.
 				timeout <- time.Now()
@@ -375,7 +245,7 @@ func Test_Apps_Deployment(t *testing.T) {
 			expectedError: &timeoutError{
 				object: deploymentRevision2Created(inputNamespace, deploymentInputName),
 				subErrors: []string{
-					"Minimum number of Pods to consider the application live was not attained"}},
+					"Minimum number of live Pods was not attained"}},
 		},
 		{
 			description: "[Revision 2] Deployment should fail if Deployment reports 'Progressing' failure",
@@ -383,19 +253,19 @@ func Test_Apps_Deployment(t *testing.T) {
 				// User submits a deployment. Controller creates ReplicaSet, and it tries to
 				// progress, but it fails.
 				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision2))
+					deploymentAdded(inputNamespace, deploymentInputName, revision3))
 				deployments <- watchAddedEvent(
-					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
+					deploymentProgressing(inputNamespace, deploymentInputName, revision3))
 				deployments <- watchAddedEvent(
-					deploymentNotProgressing(inputNamespace, deploymentInputName, revision2))
+					deploymentNotProgressing(inputNamespace, deploymentInputName, revision3))
 				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision3))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				object: deploymentNotProgressing(inputNamespace, deploymentInputName, revision2),
+				object: deploymentNotProgressing(inputNamespace, deploymentInputName, revision3),
 				subErrors: []string{
 					`[ProgressDeadlineExceeded] ReplicaSet "foo-13y9rdnu-b94df86d6" has timed ` +
 						`out progressing.`,
@@ -407,19 +277,19 @@ func Test_Apps_Deployment(t *testing.T) {
 				// User submits a deployment. Controller creates ReplicaSet, and it tries to
 				// progress, but it will not, because it is using an invalid container image.
 				deployments <- watchAddedEvent(
-					deploymentAdded(inputNamespace, deploymentInputName, revision2))
+					deploymentAdded(inputNamespace, deploymentInputName, revision4))
 				deployments <- watchAddedEvent(
-					deploymentProgressing(inputNamespace, deploymentInputName, revision2))
+					deploymentProgressing(inputNamespace, deploymentInputName, revision4))
 				deployments <- watchAddedEvent(
-					deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision2))
+					deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision4))
 				replicaSets <- watchAddedEvent(
-					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision4))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				object: deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision2),
+				object: deploymentProgressingInvalidContainer(inputNamespace, deploymentInputName, revision4),
 				subErrors: []string{
 					"Minimum number of Pods to consider the application live was not attained",
 				}},
@@ -780,9 +650,9 @@ func Test_Core_Deployment_Read(t *testing.T) {
 		{
 			description:        "[Revision 2] Read should fail if Deployment Progressing status set to False",
 			deployment:         deploymentNotProgressing,
-			deploymentRevision: revision2,
+			deploymentRevision: revision3,
 			replicaset:         availableReplicaSet,
-			replicaSetRevision: revision2,
+			replicaSetRevision: revision3,
 			expectedSubErrors: []string{
 				"[ProgressDeadlineExceeded] ReplicaSet \"foo-13y9rdnu-b94df86d6\" has timed out progressing.",
 				"Minimum number of Pods to consider the application live was not attained",
@@ -791,9 +661,9 @@ func Test_Core_Deployment_Read(t *testing.T) {
 		{
 			description:        "[Revision 2] Read should fail if Deployment has invalid container",
 			deployment:         deploymentProgressingInvalidContainer,
-			deploymentRevision: revision2,
+			deploymentRevision: revision4,
 			replicaset:         availableReplicaSet,
-			replicaSetRevision: revision2,
+			replicaSetRevision: revision4,
 			expectedSubErrors: []string{
 				"Minimum number of Pods to consider the application live was not attained"},
 		},
@@ -823,7 +693,7 @@ func Test_Core_Deployment_Read(t *testing.T) {
 			replicaset:         availableReplicaSet,
 			replicaSetRevision: revision2,
 			expectedSubErrors: []string{
-				"Minimum number of Pods to consider the application live was not attained"},
+				"Minimum number of live Pods was not attained"},
 		},
 		{
 			description:        "[Revision 2] Read should succeed if rollout completes",
@@ -1179,13 +1049,14 @@ func deploymentProgressingInvalidContainer(namespace, name, revision string) *un
 }
 
 func deploymentProgressingUnavailable(namespace, name, revision string) *unstructured.Unstructured {
+    generation, _ := strconv.Atoi(revision)
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
     "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
-        "generation": 1,
+        "generation": %v,
         "labels": {
             "app": "foo"
         },
@@ -1219,7 +1090,7 @@ func deploymentProgressingUnavailable(namespace, name, revision string) *unstruc
         }
     },
     "status": {
-        "observedGeneration": 1,
+        "observedGeneration": %v,
         "replicas": 1,
         "updatedReplicas": 1,
         "unavailableReplicas": 1,
@@ -1242,7 +1113,7 @@ func deploymentProgressingUnavailable(namespace, name, revision string) *unstruc
             }
         ]
     }
-}`, namespace, name, revision))
+}`, namespace, name, int64(generation), revision, int64(generation)))
 	if err != nil {
 		panic(err)
 	}
@@ -1383,13 +1254,14 @@ func deploymentRevision2Created(namespace, name string) *unstructured.Unstructur
 }
 
 func deploymentRolloutComplete(namespace, name, revision string) *unstructured.Unstructured {
+    generation, _ := strconv.Atoi(revision)
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
     "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
-        "generation": 1,
+        "generation": %v,
         "labels": {
             "app": "foo"
         },
@@ -1423,7 +1295,7 @@ func deploymentRolloutComplete(namespace, name, revision string) *unstructured.U
         }
     },
     "status": {
-        "observedGeneration": 1,
+        "observedGeneration": %v,
         "replicas": 1,
         "updatedReplicas": 1,
         "readyReplicas": 1,
@@ -1447,7 +1319,7 @@ func deploymentRolloutComplete(namespace, name, revision string) *unstructured.U
             }
         ]
     }
-}`, namespace, name, revision))
+}`, namespace, name, int64(generation), revision, int64(generation)))
 	if err != nil {
 		panic(err)
 	}
@@ -1455,13 +1327,14 @@ func deploymentRolloutComplete(namespace, name, revision string) *unstructured.U
 }
 
 func deploymentUpdated(namespace, name, revision string) *unstructured.Unstructured {
+	generation, _ := strconv.Atoi(revision)
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
     "apiVersion": "apps/v1",
     "metadata": {
         "namespace": "%s",
         "name": "%s",
-        "generation": 2,
+        "generation": %v,
         "labels": {
             "app": "foo"
         },
@@ -1495,7 +1368,7 @@ func deploymentUpdated(namespace, name, revision string) *unstructured.Unstructu
         }
     },
     "status": {
-        "observedGeneration": 1,
+        "observedGeneration": %v,
         "replicas": 1,
         "updatedReplicas": 1,
         "readyReplicas": 1,
@@ -1519,7 +1392,7 @@ func deploymentUpdated(namespace, name, revision string) *unstructured.Unstructu
             }
         ]
     }
-}`, namespace, name, revision))
+}`, namespace, name, int64(generation), revision, int64(generation)))
 	if err != nil {
 		panic(err)
 	}
@@ -1811,11 +1684,12 @@ func deploymentWithPVCProgressing(namespace, name, revision, pvcName string) *un
 }
 
 func deploymentWithPVCNotProgressing(namespace, name, revision, pvcName string) *unstructured.Unstructured {
+    generation, _ := strconv.Atoi(revision)
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "apiVersion": "apps/v1",
     "kind": "Deployment",
     "metadata": {
-        "generation": 3,
+        "generation": %v,
         "labels": {
             "app": "foo"
         },
@@ -1884,13 +1758,13 @@ func deploymentWithPVCNotProgressing(namespace, name, revision, pvcName string) 
                 "type": "Progressing"
             }
         ],
-        "observedGeneration": 3,
+        "observedGeneration": %v,
         "readyReplicas": 1,
         "replicas": 2,
         "unavailableReplicas": 1,
         "updatedReplicas": 1
     }
-}`, namespace, name, revision, pvcName))
+}`, int64(generation), namespace, name, revision, pvcName, int64(generation)))
 	if err != nil {
 		panic(err)
 	}
@@ -2515,7 +2389,7 @@ func availableReplicaSet(namespace, name, deploymentName, revision string) *unst
         ]
     },
     "spec": {
-        "replicas": 3,
+        "replicas": 1,
         "selector": {
             "matchLabels": {
                 "app": "foo",
@@ -2565,11 +2439,11 @@ func availableReplicaSet(namespace, name, deploymentName, revision string) *unst
         }
     },
     "status": {
-        "availableReplicas": 3,
-        "fullyLabeledReplicas": 3,
+        "availableReplicas": 1,
+        "fullyLabeledReplicas": 1,
         "observedGeneration": 3,
-        "readyReplicas": 3,
-        "replicas": 3
+        "readyReplicas": 1,
+        "replicas": 1
     }
 }
 `, revision, namespace, name, deploymentName))
