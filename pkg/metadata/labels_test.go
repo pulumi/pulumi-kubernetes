@@ -15,6 +15,7 @@
 package metadata
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/resource"
@@ -33,6 +34,12 @@ func TestSetLabel(t *testing.T) {
 			},
 		},
 	}}
+	incorrectMetadataType := &unstructured.Unstructured{Object: map[string]interface{}{
+		"metadata": "badtyping",
+	}}
+	incorrectLabelsType := &unstructured.Unstructured{Object: map[string]interface{}{
+		"metadata": map[string]interface{}{"labels": "badtyping"},
+	}}
 	computedMetadataObj := &unstructured.Unstructured{Object: map[string]interface{}{
 		"metadata": resource.Computed{Element: resource.NewObjectProperty(nil)},
 	}}
@@ -44,6 +51,7 @@ func TestSetLabel(t *testing.T) {
 
 	type args struct {
 		obj         *unstructured.Unstructured
+		shouldError bool
 		key         string
 		value       string
 		expectSet   bool // True if SetLabel is expected to set the label.
@@ -58,6 +66,8 @@ func TestSetLabel(t *testing.T) {
 			obj: noLabelObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
 		{"set-with-existing-labels", args{
 			obj: existingLabelObj, key: "foo", value: "bar", expectSet: true, expectKey: "foo", expectValue: "bar"}},
+		{"fail-if-metadata-type-incorrect", args{obj: incorrectMetadataType, shouldError: true}},
+		{"fail-if-label-type-incorrect", args{obj: incorrectLabelsType, shouldError: true}},
 
 		// Computed fields cannot be set, so SetLabel is a no-op.
 		{"set-with-computed-metadata", args{
@@ -67,7 +77,12 @@ func TestSetLabel(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			SetLabel(tt.args.obj, tt.args.key, tt.args.value)
+			_, err := TrySetLabel(tt.args.obj, tt.args.key, tt.args.value)
+			assert.Equal(t, tt.args.shouldError, err != nil,
+				fmt.Sprintf("Expected error: %t, got error: %t", tt.args.shouldError, err != nil))
+			if tt.args.shouldError {
+				return
+			}
 			labels := tt.args.obj.GetLabels()
 			value, ok := labels[tt.args.expectKey]
 			assert.Equal(t, tt.args.expectSet, ok)

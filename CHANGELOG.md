@@ -26,6 +26,8 @@
 -   Properly detect failed Deployment on rollout. (https://github.com/pulumi/pulumi-kubernetes/pull/646).
 -   Use dry-run support if available when diffing the actual and desired state of a resource
     (https://github.com/pulumi/pulumi-kubernetes/pull/649)
+-   Fix panic when `.metadata.label` is mistyped
+    (https://github.com/pulumi/pulumi-kubernetes/pull/655).
 
 ## 0.25.2 (July 11, 2019)
 
