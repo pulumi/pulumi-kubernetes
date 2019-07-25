@@ -406,7 +406,10 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	}
 
 	// extensions/v1beta1 does not include the "Progressing" status for rollouts.
-	progressingStatusUnavailable := dia.deployment.GetAPIVersion() == "extensions/v1beta1"
+	// Note: We must use the input apiVersion rather than the Deployment watch Event we're processing here, because
+	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
+	// regardless of what the Event apiVersion says.
+	progressingStatusUnavailable := dia.config.createAwaitConfig.currentInputs.GetAPIVersion() == "extensions/v1beta1"
 
 	// Success occurs when the ReplicaSet of the `currentGeneration` is marked as available, and
 	// when the deployment is available.
@@ -527,7 +530,10 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	var readyReplicasExists bool
 	// extensions/v1beta1/ReplicaSet does not include the "readyReplicas" status for rollouts,
 	// so use the Deployment "readyReplicas" status instead.
-	statusUnavailable := dia.deployment.GetAPIVersion() == "extensions/v1beta1"
+	// Note: We must use the input apiVersion rather than the Deployment watch Event we're processing here, because
+	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
+	// regardless of what the Event apiVersion says.
+	statusUnavailable := dia.config.createAwaitConfig.currentInputs.GetAPIVersion() == "extensions/v1beta1"
 	if statusUnavailable {
 		rawReadyReplicas, readyReplicasExists = openapi.Pluck(dia.deployment.Object, "status", "readyReplicas")
 		readyReplicas, _ = rawReadyReplicas.(int64)
@@ -541,17 +547,17 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 
 	if dia.changeTriggeredRollout() {
 		dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
-			readyReplicasExists && readyReplicas >= int64(specReplicas)
+			readyReplicasExists && readyReplicas >= specReplicas
 	} else {
 		dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
-			readyReplicasExists && readyReplicas >= int64(specReplicas)
+			readyReplicasExists && readyReplicas >= specReplicas
 	}
 
 	if !dia.updatedReplicaSetReady {
 		dia.config.logStatus(
 			diag.Info,
 			fmt.Sprintf("[1/2] Waiting for app ReplicaSet be marked available (%d/%d Pods available)",
-				readyReplicas, int64(specReplicas)))
+				readyReplicas, specReplicas))
 	}
 }
 

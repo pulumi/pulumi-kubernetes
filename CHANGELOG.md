@@ -23,6 +23,7 @@
     (https://github.com/pulumi/pulumi-kubernetes/pull/637).
 -   Use `opts` instead of `__opts__` and `resource_name` instead of `__name__` in Python SDK
     (https://github.com/pulumi/pulumi-kubernetes/pull/639).
+-   Properly detect failed Deployment on rollout. (https://github.com/pulumi/pulumi-kubernetes/pull/646).
 -   Use dry-run support if available when diffing the actual and desired state of a resource
     (https://github.com/pulumi/pulumi-kubernetes/pull/649)
 
