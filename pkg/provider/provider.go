@@ -45,9 +45,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/sets"
-	"k8s.io/apimachinery/pkg/util/strategicpatch"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 )
@@ -522,7 +520,7 @@ func (k *kubeProvider) Diff(
 	if err != nil {
 		return nil, err
 	}
-	oldInputs, oldLiveState := parseCheckpointObject(oldState)
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// Get new resource inputs. The user is submitting these as an update.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
@@ -565,19 +563,6 @@ func (k *kubeProvider) Diff(
 		oldInputs.SetGroupVersionKind(gvk)
 	}
 
-	// We do not expose the "last applied config" field to the user via `Check`, so we want to ignore any diffs in the
-	// same. We achieve that by simply copying this field from the old state.
-	if oldAnnotations := oldLiveState.GetAnnotations(); oldAnnotations != nil {
-		if lastAppliedConfig, ok := oldAnnotations[lastAppliedConfigKey]; ok {
-			annotations := newInputs.GetAnnotations()
-			if annotations == nil {
-				annotations = make(map[string]string)
-			}
-			annotations[lastAppliedConfigKey] = lastAppliedConfig
-			newInputs.SetAnnotations(annotations)
-		}
-	}
-
 	supportsDryRun, err := openapi.SupportsDryRun(k.clientSet.DiscoveryClientCached, gvk)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err,
@@ -586,25 +571,34 @@ func (k *kubeProvider) Diff(
 	}
 
 	var patch []byte
+	var isInputPatch bool
+	var patchBase *unstructured.Unstructured
+
 	tryDryRun := supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String()
 	if tryDryRun {
-		var live *unstructured.Unstructured
-		patch, live, err = k.dryRunPatch(oldInputs, newInputs)
+		patch, patchBase, err = k.dryRunPatch(oldInputs, newInputs)
 
-		// Fall back to local patch.
+		// Fall back to input patch.
 		se, isStatusError := err.(*errors.StatusError)
 		if isStatusError && se.Status().Code == 400 &&
 			(se.Status().Message == "the dryRun alpha feature is disabled" ||
 				se.Status().Message == "the dryRun beta feature is disabled") {
 
-			patch, err = k.localPatch(oldInputs, newInputs, oldLiveState)
-		} else {
-			oldLiveState = live
+			isInputPatch = true
+			patch, err = k.inputPatch(oldInputs, newInputs)
+			patchBase = oldInputs
 		}
 	} else {
-		patch, err = k.localPatch(oldInputs, newInputs, oldLiveState)
+		isInputPatch = true
+		patch, err = k.inputPatch(oldInputs, newInputs)
+		patchBase = oldInputs
 	}
+	if isInputPatch {
+		glog.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
 
+	} else {
+		glog.V(1).Infof("calculated diffs for %s/%s using dry-run", newInputs.GetNamespace(), newInputs.GetName())
+	}
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s because of an error computing the JSON patch "+
@@ -631,11 +625,16 @@ func (k *kubeProvider) Diff(
 			changes = append(changes, k)
 		}
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, oldLiveState.Object, newInputs.Object, oldInputs.Object, gvk); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase.Object, newInputs.Object, oldInputs.Object, gvk); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
 				newInputs.GetNamespace(), newInputs.GetName())
+		}
+		if isInputPatch {
+			for _, v := range detailedDiff {
+				v.InputDiff = true
+			}
 		}
 
 		for k, v := range detailedDiff {
@@ -1250,31 +1249,18 @@ func (k *kubeProvider) dryRunPatch(
 	return patch, liveObject, nil
 }
 
-func (k *kubeProvider) localPatch(
-	oldInputs, newInputs, oldLiveState *unstructured.Unstructured,
+func (k *kubeProvider) inputPatch(
+	oldInputs, newInputs *unstructured.Unstructured,
 ) ([]byte, error) {
-	patch, patchType, lookupPatchMeta, err := openapi.PatchForResourceUpdate(
-		k.clientSet.DiscoveryClientCached, oldInputs, newInputs, oldLiveState)
+	oldInputsJSON, err := oldInputs.MarshalJSON()
 	if err != nil {
 		return nil, err
 	}
-	if patchType == types.StrategicMergePatchType {
-		// If we have a strategic merge patch, apply it and create a normal merge patch from the new and old state.
-		// This allows downstream logic to deal only with the JSON merge patch format.
-		oldLiveJSON, err := oldLiveState.MarshalJSON()
-		if err != nil {
-			return nil, err
-		}
-		newJSON, err := strategicpatch.StrategicMergePatchUsingLookupPatchMeta(oldLiveJSON, patch, lookupPatchMeta)
-		if err != nil {
-			return nil, err
-		}
-		patch, err = jsonpatch.CreateMergePatch(oldLiveJSON, newJSON)
-		if err != nil {
-			return nil, err
-		}
+	newInputsJSON, err := newInputs.MarshalJSON()
+	if err != nil {
+		return nil, err
 	}
-	return patch, nil
+	return jsonpatch.CreateMergePatch(oldInputsJSON, newInputsJSON)
 }
 
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
