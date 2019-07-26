@@ -593,6 +593,12 @@ func (k *kubeProvider) Diff(
 		patch, err = k.inputPatch(oldInputs, newInputs)
 		patchBase = oldInputs
 	}
+	if isInputPatch {
+		glog.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
+
+	} else {
+		glog.V(1).Infof("calculated diffs for %s/%s using dry-run", newInputs.GetNamespace(), newInputs.GetName())
+	}
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s because of an error computing the JSON patch "+

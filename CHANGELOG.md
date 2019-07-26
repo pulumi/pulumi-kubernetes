@@ -28,6 +28,8 @@
     (https://github.com/pulumi/pulumi-kubernetes/pull/649)
 -   Fix panic when `.metadata.label` is mistyped
     (https://github.com/pulumi/pulumi-kubernetes/pull/655).
+-   Fix unexpected diffs when running against an API server that does not support dry-run.
+    (https://github.com/pulumi/pulumi-kubernetes/pull/658)
 
 ## 0.25.2 (July 11, 2019)
 
