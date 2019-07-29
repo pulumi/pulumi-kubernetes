@@ -31,6 +31,8 @@
     (https://github.com/pulumi/pulumi-kubernetes/pull/655).
 -   Fix unexpected diffs when running against an API server that does not support dry-run.
     (https://github.com/pulumi/pulumi-kubernetes/pull/658)
+-   Fix an error message from the logging subsystem which was introduced in Pulumi v0.17.26
+    [#2989](https://github.com/pulumi/pulumi/pull/2997)
 
 ## 0.25.2 (July 11, 2019)
 

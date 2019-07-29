@@ -3,7 +3,6 @@ module github.com/pulumi/pulumi-kubernetes
 go 1.12
 
 require (
-	github.com/Nvveen/Gotty v0.0.0-20170406111628-a8b993ba6abd // indirect
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/cbroglie/mustache v1.0.1
 	github.com/docker/docker v1.13.1 // indirect
@@ -18,7 +17,7 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/pkg/errors v0.8.1
 	github.com/pulumi/glog v0.0.0-20180820174630-7eaa6ffb71e4
-	github.com/pulumi/pulumi v0.17.27
+	github.com/pulumi/pulumi v0.17.28-0.20190729195111-96d7bedce4a0
 	github.com/stretchr/testify v1.3.0
 	google.golang.org/grpc v1.20.1
 	gopkg.in/inf.v0 v0.9.1 // indirect
@@ -30,7 +29,4 @@ require (
 	k8s.io/utils v0.0.0-20190308190857-21c4ce38f2a7 // indirect
 )
 
-replace (
-	github.com/Nvveen/Gotty => github.com/ijc25/Gotty v0.0.0-20170406111628-a8b993ba6abd
-	github.com/grpc/grpc-go => google.golang.org/grpc v1.20.1
-)
+replace github.com/grpc/grpc-go => google.golang.org/grpc v1.20.1
