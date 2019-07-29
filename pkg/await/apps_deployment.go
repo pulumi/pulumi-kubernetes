@@ -589,7 +589,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		rs.GetName(), specReplicas, readyReplicas)
 
 	if dia.changeTriggeredRollout() {
-	    if extensionsv1beta1API {
+		if extensionsv1beta1API {
 			dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
 				readyReplicasExists && readyReplicas >= specReplicas && !unavailableReplicasPresent && !tooManyReplicas &&
 				expectedNumberOfUpdatedReplicas
@@ -598,7 +598,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 				readyReplicasExists && readyReplicas >= specReplicas
 		}
 	} else {
-	    if extensionsv1beta1API {
+		if extensionsv1beta1API {
 			dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
 				readyReplicasExists && readyReplicas >= specReplicas && !tooManyReplicas
 		} else {
