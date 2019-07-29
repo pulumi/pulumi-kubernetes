@@ -9,8 +9,8 @@ import (
 
 	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 
-	"github.com/golang/glog"
 	"github.com/pkg/errors"
+	"github.com/pulumi/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"

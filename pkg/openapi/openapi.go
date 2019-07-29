@@ -17,7 +17,7 @@ package openapi
 import (
 	"fmt"
 
-	"github.com/golang/glog"
+	"github.com/pulumi/glog"
 	"github.com/pulumi/pulumi/pkg/util/contract"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"

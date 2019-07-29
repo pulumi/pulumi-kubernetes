@@ -20,7 +20,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/golang/glog"
+	"github.com/pulumi/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"

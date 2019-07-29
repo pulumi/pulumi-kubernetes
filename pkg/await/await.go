@@ -18,8 +18,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/golang/glog"
 	pkgerrors "github.com/pkg/errors"
+	"github.com/pulumi/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"

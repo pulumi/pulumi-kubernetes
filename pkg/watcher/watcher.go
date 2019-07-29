@@ -20,7 +20,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/golang/glog"
+	"github.com/pulumi/glog"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
