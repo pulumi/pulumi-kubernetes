@@ -168,7 +168,14 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			"No initialization logic found for object of type %q; assuming initialization successful", id)
 	}
 
-	return client.Get(c.Inputs.GetName(), metav1.GetOptions{})
+	// If the client fails to get the live object for some reason, DO NOT return the error. This
+	// will leak the fact that the object was successfully created. Instead, fall back to the
+	// last-seen live object.
+	live, err := client.Get(c.Inputs.GetName(), metav1.GetOptions{})
+	if err != nil {
+		return outputs, nil
+	}
+	return live, nil
 }
 
 // Read checks a resource, returning the object if it was created and initialized successfully.
@@ -214,9 +221,14 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	glog.V(1).Infof(
 		"No read logic found for object of type %q; falling back to retrieving object", id)
 
-	// Get the "live" version of the last submitted object. This is necessary because the server
-	// may have populated some fields automatically, updated status fields, and so on.
-	return client.Get(c.Name, metav1.GetOptions{})
+	// If the client fails to get the live object for some reason, DO NOT return the error. This
+	// will leak the fact that the object was successfully created. Instead, fall back to the
+	// last-seen live object.
+	live, err := client.Get(c.Name, metav1.GetOptions{})
+	if err != nil {
+		return outputs, nil
+	}
+	return live, nil
 }
 
 // Update takes `lastSubmitted` (the last version of a Kubernetes API object submitted to the API
@@ -337,8 +349,14 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	glog.V(3).Infof("Resource %s/%s/%s  '%s.%s' patched and updated", gvk.Group, gvk.Version,
 		gvk.Kind, c.Inputs.GetNamespace(), c.Inputs.GetName())
 
-	// Return new, updated version of object.
-	return client.Get(c.Inputs.GetName(), metav1.GetOptions{})
+	// If the client fails to get the live object for some reason, DO NOT return the error. This
+	// will leak the fact that the object was successfully created. Instead, fall back to the
+	// last-seen live object.
+	live, err := client.Get(c.Inputs.GetName(), metav1.GetOptions{})
+	if err != nil {
+		return currentOutputs, nil
+	}
+	return live, nil
 }
 
 // Deletion (as the usage, `await.Deletion`, implies) will block until one of the following is true:
