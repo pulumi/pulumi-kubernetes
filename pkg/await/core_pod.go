@@ -56,7 +56,7 @@ import (
 // The subtlety of this that "Running" actually just means that the Pod has been bound to a node,
 // all containers have been created, and at least one is still "alive" -- a status is set once the
 // liveness and readiness probes (which usually simply ping some endpoint, and which are
-// customizable by the user) return success. Along the say several things can go wrong (e.g., image
+// customizable by the user) return success. Along the way several things can go wrong (e.g., image
 // pull error, container exits with code 1), but each of these things would prevent the probes from
 // reporting success, or they would be picked up by the Kubelet.
 //
