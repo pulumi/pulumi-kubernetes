@@ -8,15 +8,12 @@ import warnings
 from ... import tables, version
 
 
-class RuntimeClass(pulumi.CustomResource):
+class MutatingWebhookConfiguration(pulumi.CustomResource):
     """
-    RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is
-    used to determine which container runtime is used to run all containers in a pod. RuntimeClasses
-    are (currently) manually defined by a user or cluster provisioner, and referenced in the
-    PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running
-    the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+    MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or
+    reject and may change the object.
     """
-    def __init__(self, resource_name, opts=None, handler=None, metadata=None, overhead=None, scheduling=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, metadata=None, webhooks=None, __name__=None, __opts__=None):
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__
@@ -32,22 +29,18 @@ class RuntimeClass(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'node.k8s.io/v1beta1'
-        __props__['kind'] = 'RuntimeClass'
-        if handler is None:
-            raise TypeError('Missing required property handler')
-        __props__['handler'] = handler
+        __props__['apiVersion'] = 'admissionregistration.k8s.io/v1'
+        __props__['kind'] = 'MutatingWebhookConfiguration'
         __props__['metadata'] = metadata
-        __props__['overhead'] = overhead
-        __props__['scheduling'] = scheduling
+        __props__['webhooks'] = webhooks
 
         if opts is None:
             opts = pulumi.ResourceOptions()
         if opts.version is None:
             opts.version = version.get_version()
 
-        super(RuntimeClass, self).__init__(
-            "kubernetes:node.k8s.io/v1beta1:RuntimeClass",
+        super(MutatingWebhookConfiguration, self).__init__(
+            "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration",
             resource_name,
             __props__,
             opts)

@@ -2,9 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { core } from "../..";
-import * as inputs from "../../types/input";
-import * as outputs from "../../types/output";
+import * as inputApi from "../../types/input";
+import * as outputApi from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -20,7 +19,7 @@ import { getVersion } from "../../version";
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
        */
       public readonly apiVersion: pulumi.Output<"node.k8s.io/v1beta1">;
 
@@ -39,25 +38,41 @@ import { getVersion } from "../../version";
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
       public readonly kind: pulumi.Output<"RuntimeClass">;
 
       /**
-       * More info:
-       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+
+      /**
+       * Overhead represents the resource overhead associated with running a pod for a given
+       * RuntimeClass. For more details, see
+       * https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is
+       * alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the
+       * PodOverhead feature.
+       */
+      public readonly overhead: pulumi.Output<outputApi.node.v1beta1.Overhead>;
+
+      /**
+       * Scheduling holds the scheduling constraints to ensure that pods running with this
+       * RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this
+       * RuntimeClass is assumed to be supported by all nodes.
+       */
+      public readonly scheduling: pulumi.Output<outputApi.node.v1beta1.Scheduling>;
 
       /**
        * Get the state of an existing `RuntimeClass` resource, as identified by `id`.
-       * The ID is of the form `[namespace]/<name>`; if `namespace` is omitted, then (per
-       * Kubernetes convention) the ID becomes `default/<name>`.
+       * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
+       * Kubernetes convention) the ID becomes default/<name>.
        *
        * Pulumi will keep track of this resource using `name` as the Pulumi ID.
        *
        * @param name _Unique_ name used to register this resource with Pulumi.
-       * @param id An ID for the Kubernetes resource to retrieve. Takes the form `[namespace]/<name>`.
+       * @param id An ID for the Kubernetes resource to retrieve. Takes the form
+       *  <namespace>/<name> or <name>.
        * @param opts Uniquely specifies a CustomResource to select.
        */
       public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): RuntimeClass {
@@ -86,15 +101,14 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.node.v1beta1.RuntimeClass, opts?: pulumi.CustomResourceOptions) {
-          const props: pulumi.Inputs = {};
-          props["handler"] = args && args.handler || undefined;
-
-          props["apiVersion"] = "node.k8s.io/v1beta1";
-          props["kind"] = "RuntimeClass";
-          props["metadata"] = args && args.metadata || undefined;
-
-          props["status"] = undefined;
+      constructor(name: string, args?: inputApi.node.v1beta1.RuntimeClass, opts?: pulumi.CustomResourceOptions) {
+          let inputs: pulumi.Inputs = {};
+          inputs["apiVersion"] = "node.k8s.io/v1beta1";
+          inputs["handler"] = args && args.handler || undefined;
+          inputs["kind"] = "RuntimeClass";
+          inputs["metadata"] = args && args.metadata || undefined;
+          inputs["overhead"] = args && args.overhead || undefined;
+          inputs["scheduling"] = args && args.scheduling || undefined;
 
           if (!opts) {
               opts = {};
@@ -103,6 +117,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(RuntimeClass.__pulumiType, name, props, opts);
+          super(RuntimeClass.__pulumiType, name, inputs, opts);
       }
     }
