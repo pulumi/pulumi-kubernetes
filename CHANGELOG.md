@@ -1,5 +1,15 @@
 ## 0.25.4 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Improvements
+
+-   Improve error messages for StatefulSet. (https://github.com/pulumi/pulumi-kubernetes/pull/673)
+
 ## 0.25.3 (July 29, 2019)
 
 ### Supported Kubernetes versions
