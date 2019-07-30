@@ -89,7 +89,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetUpdating(inputNamespace, inputName, targetService),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
-					".status.currentRevision does not match .status.updateRevision",
+					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
 				}},
 		},
 		{
@@ -136,7 +136,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetUpdating(inputNamespace, inputName, targetService),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
-					".status.currentRevision does not match .status.updateRevision",
+					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
 				}},
 		},
 		{
@@ -184,7 +184,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				object: statefulsetUpdating(inputNamespace, inputName, targetService),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
-					".status.currentRevision does not match .status.updateRevision",
+					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
 					"containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
 				}},
 		},
@@ -294,7 +294,7 @@ func Test_Apps_StatefulSetRead(t *testing.T) {
 			statefulset: statefulsetAdded,
 			expectedSubErrors: []string{
 				"0 out of 2 replicas succeeded readiness checks",
-				".status.currentRevision does not match .status.updateRevision",
+				"StatefulSet controller failed to advance from revision \"\" to revision \"\"",
 			},
 		},
 		{

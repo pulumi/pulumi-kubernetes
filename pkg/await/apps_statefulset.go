@@ -110,6 +110,8 @@ type statefulsetInitAwaiter struct {
 	pods            map[string]*unstructured.Unstructured
 	currentReplicas int64
 	targetReplicas  int64
+	currentRevision string
+	targetRevision  string
 }
 
 func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
@@ -329,6 +331,7 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 		updateRevision = rawUpdateRevision.(string)
 	}
 	sia.revisionReady = (currentRevision != "") && (currentRevision == updateRevision)
+	sia.currentRevision, sia.targetRevision = currentRevision, updateRevision
 
 	// Check if all expected replicas are ready.
 	var replicas, statusReplicas, statusReadyReplicas, statusCurrentReplicas, statusUpdatedReplicas int64
@@ -424,7 +427,8 @@ func (sia *statefulsetInitAwaiter) errorMessages() []string {
 	}
 	if !sia.revisionReady {
 		messages = append(messages,
-			".status.currentRevision does not match .status.updateRevision")
+			fmt.Sprintf("StatefulSet controller failed to advance from revision %q to revision %q",
+				sia.currentRevision, sia.targetRevision))
 	}
 
 	errorMessages := sia.aggregatePodErrors()
