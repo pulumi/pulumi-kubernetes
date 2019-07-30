@@ -1,5 +1,12 @@
 ## 0.25.4 (Unreleased)
 
+### Bug fixes
+
+-   Remove Helm lifecycle hooks from any Helm deployment
+    (https://github.com/pulumi/pulumi-kubernetes/pull/666).
+-   Allow {yaml|helm} `transformations` API to omit/filter out resources by returning `null`.
+    (https://github.com/pulumi/pulumi-kubernetes/pull/666).
+
 ## 0.25.3 (July 29, 2019)
 
 ### Supported Kubernetes versions

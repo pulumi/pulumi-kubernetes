@@ -32,10 +32,19 @@ interface BaseChartOpts {
      */
     values?: pulumi.Inputs;
     /**
-     * Optional array of transformations to apply to resources that will be created by this chart prior to
-     * creation. Allows customization of the chart behaviour without directly modifying the chart itself.
+     * A set of transformations to apply to Kubernetes resource definitions before registering
+     * with engine. If any transformation returns `null`, the resource is dropped from the
+     * Chart, causing it to be either deleted (if it already exists) or not created
+     * at all.
      */
-    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+    transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void | null)[];
+
+    /**
+     * Set to `true` to prevent Helm's test hook resources from being stripped from the Chart. Any
+     * other value will cause resources with the annotation "helm.sh/hook" set to either
+     * "test-success" or "test-failure" to be stripped out.
+     */
+    includeTestHookResources?: boolean;
 
     /**
      * An optional prefix for the auto-generated resource names.
@@ -174,7 +183,14 @@ export class Chart extends yaml.CollectionComponentResource {
                 const yamlStream = execSync(
                     `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`
                 ).toString();
-                return this.parseTemplate(yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps);
+                return this.parseTemplate(
+                    yamlStream,
+                    config.includeTestHookResources === true
+                        ? cfg.transformations || []
+                        : [ignoreHelmTestHook, ...(cfg.transformations || [])],
+                    cfg.resourcePrefix,
+                    configDeps,
+                );
             } catch (e) {
                 // Shed stack trace, only emit the error.
                 throw new pulumi.RunError(e.toString());
@@ -188,7 +204,7 @@ export class Chart extends yaml.CollectionComponentResource {
 
     parseTemplate(
         yamlStream: string,
-        transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void)[] | undefined,
+        transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void | null)[],
         resourcePrefix: string | undefined,
         dependsOn: pulumi.Resource[],
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
@@ -212,6 +228,18 @@ export class Chart extends yaml.CollectionComponentResource {
             { parent: this, dependsOn: dependsOn }
         );
     }
+}
+
+// ignoreHelmTestHook returns `null` if a resource has an annotation that signals it's part of the
+// Helm test lifecycle hook. We use provide this by default to Chart's `transformations` API to have
+// it omit all resources that are part of the lifecycle hook.
+function ignoreHelmTestHook(o: any) {
+    const annotations = (o.metadata && o.metadata.annotations) || {};
+    const hook = annotations["helm.sh/hook"];
+    if (hook === "test-success" || hook === "test-failure") {
+        return null;
+    }
+    return o;
 }
 
 // helmSort is a JavaScript implementation of the Helm Kind sorter[1]. It provides a

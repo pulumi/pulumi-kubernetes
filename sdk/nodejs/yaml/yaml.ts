@@ -20,9 +20,11 @@ import * as outputApi from "../types/output";
 
         /**
          * A set of transformations to apply to Kubernetes resource definitions before registering
-         * with engine.
+         * with engine. If any transformation returns `null`, the resource is dropped from the
+         * ConfigGroup, causing it to not be either deleted (if it already exists) or not created
+         * at all.
          */
-        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void | null)[];
 
         /**
          * An optional prefix for the auto-generated resource names.
@@ -37,9 +39,11 @@ import * as outputApi from "../types/output";
 
         /**
          * A set of transformations to apply to Kubernetes resource definitions before registering
-         * with engine.
+         * with engine. If any transformation returns `null`, the resource is dropped from the
+         * ConfigGroup, causing it to not be either deleted (if it already exists) or not created
+         * at all.
          */
-        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void | null)[];
 
         /**
          * An optional prefix for the auto-generated resource names.
@@ -54,9 +58,11 @@ import * as outputApi from "../types/output";
 
         /**
          * A set of transformations to apply to Kubernetes resource definitions before registering
-         * with engine.
+         * with engine. If any transformation returns `null`, the resource is dropped from the
+         * ConfigGroup, causing it to not be either deleted (if it already exists) or not created
+         * at all.
          */
-        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
+        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void | null)[];
 
         /**
          * An optional prefix for the auto-generated resource names.
@@ -2282,7 +2288,7 @@ import * as outputApi from "../types/output";
 
     /** @ignore */ function parseYamlObject(
         obj: any,
-        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[],
+        transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void | null)[],
         resourcePrefix?: string,
         opts?: pulumi.CustomResourceOptions,
     ): pulumi.Output<{name: string, resource: pulumi.CustomResource}>[] {
@@ -2293,9 +2299,12 @@ import * as outputApi from "../types/output";
         // Create a copy of opts to pass into potentially mutating transforms that will be applied to this resource.
         opts = Object.assign({}, opts);
 
-        // Allow users to change API objects before any validation.
+        // Allow users to change API objects before any validation. Omit any object if any
+        // transformation returns `null`.
         for (const t of transformations || []) {
-            t(obj, opts);
+            if (t(obj, opts) === null) {
+                return [];
+            }
         }
 
         if (!("kind" in obj && "apiVersion" in obj)) {
