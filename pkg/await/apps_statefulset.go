@@ -419,7 +419,8 @@ func (sia *statefulsetInitAwaiter) errorMessages() []string {
 
 	if !sia.replicasReady {
 		messages = append(messages,
-			"Failed to observe the expected number of ready replicas")
+			fmt.Sprintf(
+				"%v out of %v replicas succeeded readiness checks", sia.currentReplicas, sia.targetReplicas))
 	}
 	if !sia.revisionReady {
 		messages = append(messages,
