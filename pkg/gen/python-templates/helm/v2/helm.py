@@ -3,9 +3,10 @@
 
 import json
 import os.path
+import shutil
 import subprocess
-from tempfile import NamedTemporaryFile, TemporaryDirectory
-from typing import Callable, List, Optional, Tuple, Union
+from tempfile import mkdtemp, mkstemp
+from typing import Callable, List, Optional, TextIO, Tuple, Union
 
 import pulumi.runtime
 import yaml
@@ -294,52 +295,72 @@ class LocalChartOpts:
         self.path = path
 
 
+def _run_helm_cmd(cmd: List[Union[str, bytes]]):
+    output = subprocess.run(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True)
+    yaml_str: str = output.stdout
+    return yaml_str
+
+
+def _cleanup_temp_dir(all_config: Tuple[TextIO, Union[bytes, str], pulumi.Output]):
+    file, chart_dir, _ = all_config
+
+    file.close()
+    shutil.rmtree(chart_dir)
+
+
 def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi.ResourceOptions]) -> pulumi.Output:
     release_name, config, opts = all_config
 
     # Create temporary directory and file to hold chart data and override values.
-    with NamedTemporaryFile() as overrides:
-        with TemporaryDirectory() as chart_dir:
-            if isinstance(config, ChartOpts):
-                chart_to_fetch = f'{config.repo}/{config.chart}' if config.repo else config.chart
+    # Note: Using context managers for this was not playing nicely with the async Outputs, so we're using
+    # the lower-level APIs and manually cleaning up once we're done.
+    overrides, overrides_filename = mkstemp()
+    chart_dir = mkdtemp()
 
-                # Configure fetch options.
-                fetch_opts_dict = {}
-                if config.fetch_opts is not None:
-                    fetch_opts_dict = {k: v for k, v in vars(config.fetch_opts).items() if v is not None}
-                fetch_opts_dict["destination"] = chart_dir
-                if config.version is not None:
-                    fetch_opts_dict["version"] = config.version
-                fetch_opts = FetchOpts(**fetch_opts_dict)
+    if isinstance(config, ChartOpts):
+        chart_to_fetch = f'{config.repo}/{config.chart}' if config.repo else config.chart
 
-                # Fetch the chart.
-                _fetch(chart_to_fetch, fetch_opts)
-                fetched_chart_name = os.listdir(chart_dir)[0]
-                chart = os.path.join(chart_dir, fetched_chart_name)
-            else:
-                chart = config.path
+        # Configure fetch options.
+        fetch_opts_dict = {}
+        if config.fetch_opts is not None:
+            fetch_opts_dict = {k: v for k, v in vars(config.fetch_opts).items() if v is not None}
+        fetch_opts_dict["destination"] = chart_dir
+        if config.version is not None:
+            fetch_opts_dict["version"] = config.version
+        fetch_opts = FetchOpts(**fetch_opts_dict)
 
-            default_values = os.path.join(chart, 'values.yaml')
+        # Fetch the chart.
+        _fetch(chart_to_fetch, fetch_opts)
+        fetched_chart_name = os.listdir(chart_dir)[0]
+        chart = os.path.join(chart_dir, fetched_chart_name)
+    else:
+        chart = config.path
 
-            # Write overrides file.
-            vals = config.values if config.values is not None else {}
-            data = json.dumps(vals).encode('utf-8')
-            overrides.write(data)
-            overrides.flush()
+    default_values = os.path.join(chart, 'values.yaml')
 
-            namespace_arg = ['--namespace', config.namespace] if config.namespace else []
+    # Write overrides file.
+    vals = config.values if config.values is not None else {}
+    data = json.dumps(vals)
+    file = open(overrides, 'w')
+    file.write(data)
+    file.flush()
 
-            # Use 'helm template' to create a combined YAML manifest.
-            cmd = ['helm', 'template', chart, '--name', release_name,
-                   '--values', default_values, '--values', overrides.name]
-            cmd.extend(namespace_arg)
+    namespace_arg = ['--namespace', config.namespace] if config.namespace else []
 
-            output = subprocess.run(
-                cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True)
-            yaml_str: str = output.stdout
+    # Use 'helm template' to create a combined YAML manifest.
+    cmd = ['helm', 'template', chart, '--name', release_name,
+           '--values', default_values, '--values', overrides_filename]
+    cmd.extend(namespace_arg)
 
-            # Parse the manifest and create the specified resources.
-            return _parse_yaml_document(yaml.safe_load_all(yaml_str), opts, config.transformations)
+    chart_resources = pulumi.Output.from_input(cmd).apply(_run_helm_cmd)
+
+    # Parse the manifest and create the specified resources.
+    resources = chart_resources.apply(
+        lambda yaml_str: _parse_yaml_document(yaml.safe_load_all(yaml_str), opts, config.transformations))
+
+    pulumi.Output.all(file, chart_dir, resources).apply(_cleanup_temp_dir)
+    return resources
 
 
 def _fetch(chart: str, opts: FetchOpts) -> None:
