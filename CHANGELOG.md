@@ -10,6 +10,7 @@
 
 -   Fall back to client-side diff if server-side diff fails. (https://github.com/pulumi/pulumi-kubernetes/pull/685).
 -   Fix namespace arg for Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/670).
+-   Detect namespace diff for first-class providers. (https://github.com/pulumi/pulumi-kubernetes/pull/674).
 -   Fix values arg for Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/678).
 
 ## 0.25.4 (August 1, 2019)

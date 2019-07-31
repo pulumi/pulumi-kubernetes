@@ -169,6 +169,9 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	if olds["cluster"] != news["cluster"] {
 		diffs = append(diffs, "cluster")
 	}
+	if olds["namespace"] != news["namespace"] {
+		diffs = append(diffs, "namespace")
+	}
 	if olds["enableDryRun"] != news["enableDryRun"] {
 		diffs = append(diffs, "enableDryRun")
 	}
