@@ -13,10 +13,13 @@
 # limitations under the License.
 from pulumi_kubernetes.core.v1 import Namespace
 from pulumi_kubernetes.helm.v2 import Chart, ChartOpts
+from pulumi_random import RandomString
 
 namespace = Namespace("test")
 
-values = {"unbound": {"image": {"pullPolicy": "Always"}}}
+rs = RandomString("random-string", length=8).result
+
+values = {"unbound": {"image": {"pullPolicy": "Always"}}, "random-string": rs}
 
 Chart("unbound", ChartOpts(
     "stable/unbound", values=values, namespace=namespace.metadata["name"]))
