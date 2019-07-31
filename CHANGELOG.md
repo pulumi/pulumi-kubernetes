@@ -1,5 +1,15 @@
 ## 0.25.4 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Bug fixes
+
+-   Properly reference override values in Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/676).
+
 ## 0.25.3 (July 29, 2019)
 
 ### Supported Kubernetes versions

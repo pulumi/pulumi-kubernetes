@@ -325,6 +325,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
             vals = config.values if config.values is not None else {}
             data = json.dumps(vals).encode('utf-8')
             overrides.write(data)
+            overrides.flush()
 
             namespace_arg = ['--namespace', config.namespace] if config.namespace else []
 
