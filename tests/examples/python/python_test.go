@@ -290,6 +290,41 @@ func TestHelm(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(cwd, "helm"),
 		ExpectRefreshChanges: true, // PodDisruptionBudget status gets updated by the Deployment.
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			assert.Equal(t, 12, len(stackInfo.Deployment.Resources))
+
+			sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
+				ri := stackInfo.Deployment.Resources[i]
+				rj := stackInfo.Deployment.Resources[j]
+				riname, _ := openapi.Pluck(ri.Outputs, "metadata", "name")
+				rinamespace, _ := openapi.Pluck(ri.Outputs, "metadata", "namespace")
+				rjname, _ := openapi.Pluck(rj.Outputs, "metadata", "name")
+				rjnamespace, _ := openapi.Pluck(rj.Outputs, "metadata", "namespace")
+				return fmt.Sprintf("%s/%s/%s", ri.URN.Type(), rinamespace, riname) <
+					fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
+			})
+
+			// Verify override value was set.
+			unboundDepl := stackInfo.Deployment.Resources[5]
+			assert.Equal(t, tokens.Type("kubernetes:extensions/v1beta1:Deployment"), unboundDepl.URN.Type())
+			containersRaw, _ := openapi.Pluck(unboundDepl.Outputs, "spec", "template", "spec", "containers")
+			containers := containersRaw.([]interface{})
+			assert.Equal(t, 2, len(containers))
+			container := containers[0].(map[string]interface{})
+			containerName, _ := openapi.Pluck(container, "name")
+			assert.True(t, strings.HasPrefix(containerName.(string), "unbound"))
+			pullPolicy, _ := openapi.Pluck(container, "imagePullPolicy")
+			assert.True(t, strings.HasPrefix(pullPolicy.(string), "Always"))
+
+			// Verify the provider resource.
+			provRes := stackInfo.Deployment.Resources[10]
+			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+			// Verify root resource.
+			stackRes := stackInfo.Deployment.Resources[11]
+			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+		},
 	})
 	integration.ProgramTest(t, &options)
 }
