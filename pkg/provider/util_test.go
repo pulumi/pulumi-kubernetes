@@ -92,6 +92,26 @@ func TestHasComputedValue(t *testing.T) {
 			}},
 			hasComputedValue: true,
 		},
+		{
+			name: "Object with nested slice of map[string]interface{} has a computed value",
+			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+				"field1": 1,
+				"field2": []map[string]interface{}{
+					{"field3": resource.Computed{}},
+				},
+			}},
+			hasComputedValue: true,
+		},
+		{
+			name: "Object with nested slice of interface{} has a computed value",
+			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+				"field1": 1,
+				"field2": []interface{}{
+					resource.Computed{},
+				},
+			}},
+			hasComputedValue: true,
+		},
 	}
 
 	for _, test := range tests {
