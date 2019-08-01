@@ -313,8 +313,10 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     release_name, config, opts = all_config
 
     # Create temporary directory and file to hold chart data and override values.
-    # Note: Using context managers for this was not playing nicely with the async Outputs, so we're using
-    # the lower-level APIs and manually cleaning up once we're done.
+    # Note: We're intentionally using the lower-level APIs here because the async Outputs are being handled in
+    # a different scope, which was causing the temporary files/directory to be deleted before they were referenced
+    # in the Output handlers. We manually clean these up once we're done with another async handler that depends
+    # on the result of the operations.
     overrides, overrides_filename = mkstemp()
     chart_dir = mkdtemp()
 
