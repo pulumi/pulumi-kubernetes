@@ -6,6 +6,10 @@
 - v1.14.x
 - v1.13.x
 
+### Improvements
+
+-   Improve error messages for StatefulSet. (https://github.com/pulumi/pulumi-kubernetes/pull/673)
+
 ### Bug fixes
 
 -   Properly reference override values in Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/676).
