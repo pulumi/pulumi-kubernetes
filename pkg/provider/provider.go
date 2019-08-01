@@ -574,7 +574,8 @@ func (k *kubeProvider) Diff(
 	var isInputPatch bool
 	var patchBase *unstructured.Unstructured
 
-	tryDryRun := supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String()
+	tryDryRun := supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String() &&
+		!hasComputedValue(newInputs) && !hasComputedValue(oldInputs)
 	if tryDryRun {
 		patch, patchBase, err = k.dryRunPatch(oldInputs, newInputs)
 

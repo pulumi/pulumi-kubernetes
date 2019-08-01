@@ -9,6 +9,7 @@
 ### Bug fixes
 
 -   Properly reference override values in Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/676).
+-   Handle Output values in diffs. (https://github.com/pulumi/pulumi-kubernetes/pull/682).
 
 ## 0.25.3 (July 29, 2019)
 
