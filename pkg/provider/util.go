@@ -25,11 +25,17 @@ func hasComputedValue(obj *unstructured.Unstructured) bool {
 		}
 		curr, objects = objects[0], objects[1:]
 		for _, v := range curr {
-			if _, isComputed := v.(resource.Computed); isComputed {
+			switch field := v.(type) {
+			case resource.Computed:
 				return true
-			}
-			if field, isMap := v.(map[string]interface{}); isMap {
+			case map[string]interface{}:
 				objects = append(objects, field)
+			case []interface{}:
+				for _, v := range field {
+					objects = append(objects, map[string]interface{}{"": v})
+				}
+			case []map[string]interface{}:
+				objects = append(objects, field...)
 			}
 			if field, isSlice := v.([]interface{}); isSlice {
 				for _, v := range field {
@@ -40,9 +46,6 @@ func hasComputedValue(obj *unstructured.Unstructured) bool {
 						objects = append(objects, field)
 					}
 				}
-			}
-			if field, isSlice := v.([]map[string]interface{}); isSlice {
-				objects = append(objects, field...)
 			}
 		}
 	}

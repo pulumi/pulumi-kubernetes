@@ -574,6 +574,9 @@ func (k *kubeProvider) Diff(
 	var isInputPatch bool
 	var patchBase *unstructured.Unstructured
 
+	// TODO: Skipping dry run entirely for resources with computed values is a hack. We will want to address this
+	// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
+	// bug.
 	tryDryRun := supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String() &&
 		!hasComputedValue(newInputs) && !hasComputedValue(oldInputs)
 	if tryDryRun {
