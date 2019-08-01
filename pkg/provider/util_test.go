@@ -124,6 +124,38 @@ func TestHasComputedValue(t *testing.T) {
 			}},
 			hasComputedValue: true,
 		},
+		{
+			name: "Complex nested object with computed value",
+			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+				"field1": 1,
+				"field2": []map[string]interface{}{
+					{"field3": []interface{}{
+						[]map[string]interface{}{
+							{"field4": []interface{}{
+								resource.Computed{},
+							}},
+						},
+					}},
+				},
+			}},
+			hasComputedValue: true,
+		},
+		{
+			name: "Complex nested object with no computed value",
+			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+				"field1": 1,
+				"field2": []map[string]interface{}{
+					{"field3": []interface{}{
+						[]map[string]interface{}{
+							{"field4": []interface{}{
+								"field5",
+							}},
+						},
+					}},
+				},
+			}},
+			hasComputedValue: false,
+		},
 	}
 
 	for _, test := range tests {
