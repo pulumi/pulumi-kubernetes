@@ -1,16 +1,17 @@
 import pulumi
-from . import tables
 
 
 class Provider(pulumi.ProviderResource):
     """
     The provider type for the kubernetes package.
     """
+
     def __init__(self,
                  __name__,
                  __opts__=None,
                  cluster=None,
                  context=None,
+                 enable_dry_run=None,
                  kubeconfig=None,
                  namespace=None):
         """
@@ -20,6 +21,9 @@ class Provider(pulumi.ProviderResource):
         :param pulumi.ResourceOptions __opts__: An optional bag of options that controls this resource's behavior.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
+        :param pulumi.Input[bool] enable_dry_run: BETA FEATURE - If present and set to True, enable server-side diff
+                                                  calculations. This feature is in developer preview, and is disabled by
+                                                  default.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file.
                                              If this is set, this config will be used instead of $KUBECONFIG.
         :param pulumi.Input[str] namespace: If present, the default namespace to use.
@@ -30,6 +34,7 @@ class Provider(pulumi.ProviderResource):
         __props__ = {
             "cluster": cluster,
             "context": context,
+            "enableDryRun": "true" if enable_dry_run else "false",
             "kubeconfig": kubeconfig,
             "namespace": namespace,
         }

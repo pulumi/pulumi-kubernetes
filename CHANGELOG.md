@@ -6,6 +6,17 @@
 - v1.14.x
 - v1.13.x
 
+### Important
+
+This release reverts the default diff behavior back to the pre-`0.25.3` behavior. A new flag has
+been added to the provider options called `enableDryRun`, that can be used to opt in to the new
+diff behavior. This will eventually become the default behavior after further testing to ensure
+that this change is not disruptive.
+
+### Major changes
+
+-   Disable dryRun diff behavior by default. (https://github.com/pulumi/pulumi-kubernetes/pull/686)
+
 ### Improvements
 
 -   Improve error messages for StatefulSet. (https://github.com/pulumi/pulumi-kubernetes/pull/673)
