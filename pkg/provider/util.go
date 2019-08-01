@@ -37,16 +37,6 @@ func hasComputedValue(obj *unstructured.Unstructured) bool {
 			case []map[string]interface{}:
 				objects = append(objects, field...)
 			}
-			if field, isSlice := v.([]interface{}); isSlice {
-				for _, v := range field {
-					if _, isComputed := v.(resource.Computed); isComputed {
-						return true
-					}
-					if field, isMap := v.(map[string]interface{}); isMap {
-						objects = append(objects, field)
-					}
-				}
-			}
 		}
 	}
 
