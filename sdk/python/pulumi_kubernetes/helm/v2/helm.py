@@ -6,7 +6,7 @@ import os.path
 import shutil
 import subprocess
 from tempfile import mkdtemp, mkstemp
-from typing import Callable, List, Optional, TextIO, Tuple, Union
+from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
 
 import pulumi.runtime
 import yaml
@@ -295,7 +295,7 @@ class LocalChartOpts:
         self.path = path
 
 
-def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], pulumi.Output]):
+def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
     cmd, _ = all_config
 
     output = subprocess.run(
@@ -304,14 +304,14 @@ def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], pulumi.Output]):
     return yaml_str
 
 
-def _write_override_file(all_config: Tuple[TextIO, pulumi.Output]):
+def _write_override_file(all_config: Tuple[TextIO, str]) -> None:
     file, data = all_config
 
     file.write(data)
     file.flush()
 
 
-def _cleanup_temp_dir(all_config: Tuple[TextIO, Union[bytes, str], pulumi.Output]):
+def _cleanup_temp_dir(all_config: Tuple[TextIO, Union[bytes, str], Any]) -> None:
     file, chart_dir, _ = all_config
 
     file.close()
