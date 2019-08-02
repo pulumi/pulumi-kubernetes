@@ -9,6 +9,7 @@
 ### Bug fixes
 
 -   Fall back to client-side diff if server-side diff fails. (https://github.com/pulumi/pulumi-kubernetes/pull/685).
+-   Fix namespace arg for Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/670).
 
 ## 0.25.4 (August 1, 2019)
 
@@ -37,7 +38,6 @@ that this change is not disruptive.
 
 -   Properly reference override values in Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/676).
 -   Handle Output values in diffs. (https://github.com/pulumi/pulumi-kubernetes/pull/682).
--   Fall back to client-side diff if server-side diff fails. (https://github.com/pulumi/pulumi-kubernetes/pull/685).
 
 ## 0.25.3 (July 29, 2019)
 
