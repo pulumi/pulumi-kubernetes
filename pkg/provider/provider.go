@@ -236,10 +236,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	enableDryRun := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
 		if enabled, exists := vars["kubernetes:config:enableDryRun"]; exists {
-			if enabled == "true" {
-				return true
-			}
-			return false
+			return enabled == "true"
 		}
 		// If the provider flag is not set, fall back to the ENV var if set.
 		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_DRY_RUN"); exists && enabled == "true" {
