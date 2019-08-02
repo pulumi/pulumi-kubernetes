@@ -609,7 +609,8 @@ func (k *kubeProvider) Diff(
 		se, isStatusError := err.(*errors.StatusError)
 		if isStatusError && se.Status().Code == 400 &&
 			(se.Status().Message == "the dryRun alpha feature is disabled" ||
-				se.Status().Message == "the dryRun beta feature is disabled") {
+				se.Status().Message == "the dryRun beta feature is disabled" ||
+				strings.Contains(se.Status().Message, "does not support dry run")) {
 
 			isInputPatch = true
 			patch, err = k.inputPatch(oldInputs, newInputs)
