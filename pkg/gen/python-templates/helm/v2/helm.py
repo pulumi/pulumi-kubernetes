@@ -6,7 +6,7 @@ import os.path
 import shutil
 import subprocess
 from tempfile import mkdtemp, mkstemp
-from typing import Callable, List, Optional, TextIO, Tuple, Union
+from typing import Any, Callable, List, Optional, TextIO, Tuple, Union
 
 import pulumi.runtime
 import yaml
@@ -295,14 +295,23 @@ class LocalChartOpts:
         self.path = path
 
 
-def _run_helm_cmd(cmd: List[Union[str, bytes]]):
+def _run_helm_cmd(all_config: Tuple[List[Union[str, bytes]], Any]) -> str:
+    cmd, _ = all_config
+
     output = subprocess.run(
         cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=True)
     yaml_str: str = output.stdout
     return yaml_str
 
 
-def _cleanup_temp_dir(all_config: Tuple[TextIO, Union[bytes, str], pulumi.Output]):
+def _write_override_file(all_config: Tuple[TextIO, str]) -> None:
+    file, data = all_config
+
+    file.write(data)
+    file.flush()
+
+
+def _cleanup_temp_dir(all_config: Tuple[TextIO, Union[bytes, str], Any]) -> None:
     file, chart_dir, _ = all_config
 
     file.close()
@@ -343,10 +352,9 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
 
     # Write overrides file.
     vals = config.values if config.values is not None else {}
-    data = json.dumps(vals)
+    data = pulumi.Output.from_input(vals).apply(lambda x: json.dumps(x))
     file = open(overrides, 'w')
-    file.write(data)
-    file.flush()
+    pulumi.Output.all(file, data).apply(_write_override_file)
 
     namespace_arg = ['--namespace', config.namespace] if config.namespace else []
 
@@ -355,7 +363,7 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
            '--values', default_values, '--values', overrides_filename]
     cmd.extend(namespace_arg)
 
-    chart_resources = pulumi.Output.from_input(cmd).apply(_run_helm_cmd)
+    chart_resources = pulumi.Output.all(cmd, data).apply(_run_helm_cmd)
 
     # Parse the manifest and create the specified resources.
     resources = chart_resources.apply(

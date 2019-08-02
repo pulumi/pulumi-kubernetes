@@ -292,7 +292,7 @@ func TestHelm(t *testing.T) {
 		ExpectRefreshChanges: true, // PodDisruptionBudget status gets updated by the Deployment.
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 13, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
 
 			sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
 				ri := stackInfo.Deployment.Resources[i]
@@ -306,7 +306,7 @@ func TestHelm(t *testing.T) {
 			})
 
 			// Verify override value was set.
-			unboundDepl := stackInfo.Deployment.Resources[5]
+			unboundDepl := stackInfo.Deployment.Resources[6]
 			assert.Equal(t, tokens.Type("kubernetes:extensions/v1beta1:Deployment"), unboundDepl.URN.Type())
 			containersRaw, _ := openapi.Pluck(unboundDepl.Outputs, "spec", "template", "spec", "containers")
 			containers := containersRaw.([]interface{})
@@ -316,14 +316,6 @@ func TestHelm(t *testing.T) {
 			assert.True(t, strings.HasPrefix(containerName.(string), "unbound"))
 			pullPolicy, _ := openapi.Pluck(container, "imagePullPolicy")
 			assert.True(t, strings.HasPrefix(pullPolicy.(string), "Always"))
-
-			// Verify the provider resource.
-			provRes := stackInfo.Deployment.Resources[11]
-			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
-
-			// Verify root resource.
-			stackRes := stackInfo.Deployment.Resources[12]
-			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 		},
 	})
 	integration.ProgramTest(t, &options)
