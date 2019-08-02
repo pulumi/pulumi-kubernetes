@@ -558,6 +558,13 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		rawReadyReplicas, readyReplicasExists = openapi.Pluck(dia.deployment.Object, "status", "readyReplicas")
 		readyReplicas, _ = rawReadyReplicas.(int64)
 
+		doneWaitingOnReplicas := func() bool {
+			if readyReplicasExists {
+				return readyReplicas >= specReplicas
+			}
+			return specReplicas == 0
+		}
+
 		if rawUpdatedReplicas, ok := openapi.Pluck(dia.deployment.Object, "status", "updatedReplicas"); ok {
 			updatedReplicas, _ := rawUpdatedReplicas.(int64)
 			expectedNumberOfUpdatedReplicas = updatedReplicas == specReplicas
@@ -583,25 +590,32 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 
 		if dia.changeTriggeredRollout() {
 			dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
-				readyReplicasExists && readyReplicas >= specReplicas && !unavailableReplicasPresent && !tooManyReplicas &&
+				doneWaitingOnReplicas() && !unavailableReplicasPresent && !tooManyReplicas &&
 				expectedNumberOfUpdatedReplicas
 		} else {
 			dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
-				readyReplicasExists && readyReplicas >= specReplicas && !tooManyReplicas
+				doneWaitingOnReplicas() && !tooManyReplicas
 		}
 	} else {
 		rawReadyReplicas, readyReplicasExists = openapi.Pluck(rs.Object, "status", "readyReplicas")
 		readyReplicas, _ = rawReadyReplicas.(int64)
+
+		doneWaitingOnReplicas := func() bool {
+			if readyReplicasExists {
+				return readyReplicas >= specReplicas
+			}
+			return specReplicas == 0
+		}
 
 		glog.V(3).Infof("ReplicaSet %q requests '%v' replicas, but has '%v' ready",
 			rs.GetName(), specReplicas, readyReplicas)
 
 		if dia.changeTriggeredRollout() {
 			dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
-				readyReplicasExists && readyReplicas >= specReplicas
+				doneWaitingOnReplicas()
 		} else {
 			dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
-				readyReplicasExists && readyReplicas >= specReplicas
+				doneWaitingOnReplicas()
 		}
 	}
 
