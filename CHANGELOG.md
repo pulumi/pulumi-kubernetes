@@ -11,6 +11,7 @@
 -   Fall back to client-side diff if server-side diff fails. (https://github.com/pulumi/pulumi-kubernetes/pull/685).
 -   Fix namespace arg for Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/670).
 -   Fix values arg for Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/678).
+-   Fix Python Helm LocalChartOpts to inherit from BaseChartOpts (https://github.com/pulumi/pulumi-kubernetes/pull/681).
 
 ## 0.25.4 (August 1, 2019)
 

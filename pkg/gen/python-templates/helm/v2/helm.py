@@ -263,7 +263,7 @@ class ChartOpts(BaseChartOpts):
         self.fetch_opts = fetch_opts
 
 
-class LocalChartOpts:
+class LocalChartOpts(BaseChartOpts):
     """
     LocalChartOpts is a bag of configuration options for a local Helm chart.
     """
