@@ -90,6 +90,7 @@ type kubeProvider struct {
 	providerPackage  string
 	opts             kubeOpts
 	defaultNamespace string
+	enableDryRun     bool
 
 	clientSet *clients.DynamicClientSet
 }
@@ -105,6 +106,7 @@ func makeKubeProvider(
 		name:            name,
 		version:         version,
 		providerPackage: name,
+		enableDryRun:    false,
 	}, nil
 }
 
@@ -167,6 +169,12 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	if olds["cluster"] != news["cluster"] {
 		diffs = append(diffs, "cluster")
 	}
+	if olds["namespace"] != news["namespace"] {
+		diffs = append(diffs, "namespace")
+	}
+	if olds["enableDryRun"] != news["enableDryRun"] {
+		diffs = append(diffs, "enableDryRun")
+	}
 
 	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
 	// changed. k8s clusters do not have a well defined identity, so the best we can do is check
@@ -226,6 +234,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
 		k.defaultNamespace = defaultNamespace
+	}
+
+	enableDryRun := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:enableDryRun"]; exists {
+			return enabled == "true"
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_DRY_RUN"); exists {
+			return enabled == "true"
+		}
+		// Default to false.
+		return false
+	}
+	if enableDryRun() {
+		k.enableDryRun = true
 	}
 
 	var kubeconfig clientcmd.ClientConfig
@@ -574,7 +598,13 @@ func (k *kubeProvider) Diff(
 	var isInputPatch bool
 	var patchBase *unstructured.Unstructured
 
-	tryDryRun := supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String()
+	// BETA FEATURE FLAG: We are disabling the dry run behavior by default using the `enableDryRun` feature flag. For
+	// now, this flag defaults to false, but will eventually be default to true.
+	tryDryRun := k.enableDryRun && supportsDryRun && oldInputs.GroupVersionKind().String() == gvk.String() &&
+		// TODO: Skipping dry run entirely for resources with computed values is a hack. We will want to address this
+		// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
+		// bug.
+		!hasComputedValue(newInputs) && !hasComputedValue(oldInputs)
 	if tryDryRun {
 		patch, patchBase, err = k.dryRunPatch(oldInputs, newInputs)
 
@@ -582,7 +612,8 @@ func (k *kubeProvider) Diff(
 		se, isStatusError := err.(*errors.StatusError)
 		if isStatusError && se.Status().Code == 400 &&
 			(se.Status().Message == "the dryRun alpha feature is disabled" ||
-				se.Status().Message == "the dryRun beta feature is disabled") {
+				se.Status().Message == "the dryRun beta feature is disabled" ||
+				strings.Contains(se.Status().Message, "does not support dry run")) {
 
 			isInputPatch = true
 			patch, err = k.inputPatch(oldInputs, newInputs)

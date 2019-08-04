@@ -70,7 +70,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 			expectedError: &timeoutError{
 				object: statefulsetCreating(inputNamespace, inputName, targetService),
 				subErrors: []string{
-					"Failed to observe the expected number of ready replicas",
+					"0 out of 2 replicas succeeded readiness checks",
 				}},
 		},
 		{
@@ -88,10 +88,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 			expectedError: &timeoutError{
 				object: statefulsetUpdating(inputNamespace, inputName, targetService),
 				subErrors: []string{
-					// TODO: update error message
-					// x of y replicas succeeded readiness checks
-					"Failed to observe the expected number of ready replicas",
-					".status.currentRevision does not match .status.updateRevision",
+					"0 out of 2 replicas succeeded readiness checks",
+					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
 				}},
 		},
 		{
@@ -114,7 +112,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 			expectedError: &timeoutError{
 				object: statefulsetProgressing(inputNamespace, inputName, targetService),
 				subErrors: []string{
-					"Failed to observe the expected number of ready replicas",
+					"1 out of 2 replicas succeeded readiness checks",
 				}},
 		},
 		{
@@ -137,8 +135,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 			expectedError: &timeoutError{
 				object: statefulsetUpdating(inputNamespace, inputName, targetService),
 				subErrors: []string{
-					"Failed to observe the expected number of ready replicas",
-					".status.currentRevision does not match .status.updateRevision",
+					"0 out of 2 replicas succeeded readiness checks",
+					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
 				}},
 		},
 		{
@@ -161,7 +159,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 			expectedError: &timeoutError{
 				object: statefulsetProgressing(inputNamespace, inputName, targetService),
 				subErrors: []string{
-					"Failed to observe the expected number of ready replicas",
+					"1 out of 2 replicas succeeded readiness checks",
 					"containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
 				}},
 		},
@@ -185,8 +183,8 @@ func Test_Apps_StatefulSet(t *testing.T) {
 			expectedError: &timeoutError{
 				object: statefulsetUpdating(inputNamespace, inputName, targetService),
 				subErrors: []string{
-					"Failed to observe the expected number of ready replicas",
-					".status.currentRevision does not match .status.updateRevision",
+					"0 out of 2 replicas succeeded readiness checks",
+					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
 					"containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
 				}},
 		},
@@ -236,7 +234,7 @@ func Test_Apps_StatefulSet_MultipleUpdates(t *testing.T) {
 			firstExpectedError: &timeoutError{
 				object: statefulsetFailed(),
 				subErrors: []string{
-					"Failed to observe the expected number of ready replicas",
+					"0 out of 2 replicas succeeded readiness checks",
 				}},
 			secondUpdate: func(statefulset, pods chan watch.Event, timeout chan time.Time) {
 				statefulset <- watchAddedEvent(statefulsetUpdatedAfterFailed())
@@ -295,15 +293,15 @@ func Test_Apps_StatefulSetRead(t *testing.T) {
 			description: "Read should fail if StatefulSet status empty",
 			statefulset: statefulsetAdded,
 			expectedSubErrors: []string{
-				"Failed to observe the expected number of ready replicas",
-				".status.currentRevision does not match .status.updateRevision",
+				"0 out of 2 replicas succeeded readiness checks",
+				"StatefulSet controller failed to advance from revision \"\" to revision \"\"",
 			},
 		},
 		{
 			description: "Read should fail if StatefulSet is progressing",
 			statefulset: statefulsetProgressing,
 			expectedSubErrors: []string{
-				"Failed to observe the expected number of ready replicas",
+				"1 out of 2 replicas succeeded readiness checks",
 			},
 		},
 		{

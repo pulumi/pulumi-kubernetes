@@ -17,6 +17,7 @@ export class Provider extends pulumi.ProviderResource {
             "context": args ? args.context : undefined,
             "kubeconfig": args ? args.kubeconfig : undefined,
             "namespace": args ? args.namespace : undefined,
+            "enableDryRun": args && args.enableDryRun ? "true" : undefined
         };
         super("kubernetes", name, inputs, opts);
     }
@@ -43,4 +44,9 @@ export interface ProviderArgs {
      * Note: if .metadata.namespace is set on a resource, that value takes precedence over the provider default.
      */
     readonly namespace?: pulumi.Input<string>;
+    /**
+     * BETA FEATURE - If present and set to true, enable server-side diff calculations.
+     * This feature is in developer preview, and is disabled by default.
+     */
+    readonly enableDryRun?: pulumi.Input<boolean>;
 }

@@ -1,4 +1,48 @@
-## 0.25.4 (Unreleased)
+## 0.25.6 (Unreleased)
+
+## 0.25.5 (August 2, 2019)
+
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Bug fixes
+
+-   Fall back to client-side diff if server-side diff fails. (https://github.com/pulumi/pulumi-kubernetes/pull/685).
+-   Fix namespace arg for Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/670).
+-   Detect namespace diff for first-class providers. (https://github.com/pulumi/pulumi-kubernetes/pull/674).
+-   Fix values arg for Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/678).
+-   Fix Python Helm LocalChartOpts to inherit from BaseChartOpts (https://github.com/pulumi/pulumi-kubernetes/pull/681).
+
+## 0.25.4 (August 1, 2019)
+
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Important
+
+This release reverts the default diff behavior back to the pre-`0.25.3` behavior. A new flag has
+been added to the provider options called `enableDryRun`, that can be used to opt in to the new
+diff behavior. This will eventually become the default behavior after further testing to ensure
+that this change is not disruptive.
+
+### Major changes
+
+-   Disable dryRun diff behavior by default. (https://github.com/pulumi/pulumi-kubernetes/pull/686)
+
+### Improvements
+
+-   Improve error messages for StatefulSet. (https://github.com/pulumi/pulumi-kubernetes/pull/673)
+
+### Bug fixes
+
+-   Properly reference override values in Python Helm SDK (https://github.com/pulumi/pulumi-kubernetes/pull/676).
+-   Handle Output values in diffs. (https://github.com/pulumi/pulumi-kubernetes/pull/682).
 
 ## 0.25.3 (July 29, 2019)
 

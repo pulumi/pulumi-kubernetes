@@ -11,20 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from pulumi_kubernetes.core.v1 import Namespace
-from pulumi_kubernetes.helm.v2 import Chart, ChartOpts
-from pulumi_random import RandomString
+from pulumi_kubernetes.helm.v2 import Chart, LocalChartOpts
 
-namespace = Namespace("test")
+values = {"unbound": {"image": {"pullPolicy": "Always"}}}
 
-rs = RandomString("random-string", length=8).result
-
-values = {"unbound": {"image": {"pullPolicy": "Always"}}, "random-string": rs}
-
-Chart("unbound", ChartOpts(
-    "stable/unbound", values=values, namespace=namespace.metadata["name"]))
+Chart("unbound", LocalChartOpts("unbound", values=values))
 
 # Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
 # can be managed in the same stack.
-Chart("unbound", ChartOpts(
-    "stable/unbound", resource_prefix="dup", values=values, namespace=namespace.metadata["name"]))
+Chart("unbound", LocalChartOpts("unbound", resource_prefix="dup", values=values))
