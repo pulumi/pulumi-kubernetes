@@ -192,15 +192,17 @@ export class Chart extends yaml.CollectionComponentResource {
         resourcePrefix: string | undefined,
         dependsOn: pulumi.Resource[],
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
-        // NOTE: We must manually split the YAML stream because of js-yaml#456. Perusing the
-        // code and the spec, it looks like a YAML stream is delimited by `^---`, though it is
-        // difficult to know for sure.
+        // NOTE: We must manually split the YAML stream because of js-yaml#456. Perusing the code
+        // and the spec, it looks like a YAML stream is delimited by `^---`, though it is difficult
+        // to know for sure.
         //
-        // NOTE: We use `{json: true}` here so that we conform to Helm's YAML parsing
-        // semantics. Specifically, a duplicate key overrides its predecessory, rather than
-        // throwing an exception.
+        // NOTE: We use `{json: true, schema: jsyaml.CORE_SCHEMA}` here so that we conform to Helm's
+        // YAML parsing semantics. Specifically, `json: true` to ensure that a duplicate key
+        // overrides its predecessory, rather than throwing an exception, and `schema:
+        // jsyaml.CORE_SCHEMA` to avoid using additional YAML parsing rules not supported by the
+        // YAML parser used by Kubernetes.
         const objs = yamlStream.split(/^---/m)
-            .map(yaml => jsyaml.safeLoad(yaml, {json: true}))
+            .map(yaml => jsyaml.safeLoad(yaml, {json: true, schema: jsyaml.CORE_SCHEMA}))
             .filter(a => a != null && "kind" in a)
             .sort(helmSort);
         return yaml.parse(

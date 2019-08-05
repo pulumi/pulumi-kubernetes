@@ -8,6 +8,7 @@
 
 ### Bug fixes
 
+-   Align YAML parsing with core Kubernetes supported YAML subset. (https://github.com/pulumi/pulumi-kubernetes/pull/690).
 -   Properly detect readiness for Deployment scaled to 0. (https://github.com/pulumi/pulumi-kubernetes/pull/688).
 
 ## 0.25.5 (August 2, 2019)
