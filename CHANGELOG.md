@@ -1,5 +1,15 @@
 ## 0.25.6 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Bug fixes
+
+-   Properly detect readiness for Deployment scaled to 0. (https://github.com/pulumi/pulumi-kubernetes/pull/688).
+
 ## 0.25.5 (August 2, 2019)
 
 ### Supported Kubernetes versions

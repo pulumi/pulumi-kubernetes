@@ -127,6 +127,21 @@ func Test_Apps_Deployment(t *testing.T) {
 			},
 		},
 		{
+			description: "Should succeed if Deployment scaled to 0",
+			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
+				// Deployment is updated by the user. The controller creates and successfully
+				// initializes the ReplicaSet.
+				deployments <- watchAddedEvent(
+					deploymentScaledToZero(inputNamespace, deploymentInputName, revision2))
+
+				replicaSets <- watchAddedEvent(
+					inactiveReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
 			description: "[Revision 1] Should fail if unrelated Deployment succeeds",
 			do: func(deployments, replicaSets, pods chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
@@ -1526,6 +1541,75 @@ func deploymentUpdated(namespace, name, revision string) *unstructured.Unstructu
 	return obj
 }
 
+func deploymentScaledToZero(namespace, name, revision string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "Deployment",
+    "apiVersion": "apps/v1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+        "generation": 2,
+        "labels": {
+            "app": "foo"
+        },
+        "annotations": {
+            "deployment.kubernetes.io/revision": "%s",
+            "pulumi.com/autonamed": "true"
+        }
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:1.15-alpine"
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "observedGeneration": 1,
+        "replicas": 0,
+        "conditions": [
+            {
+                "type": "Available",
+                "status": "True",
+                "lastUpdateTime": "2018-07-31T23:42:21Z",
+                "lastTransitionTime": "2018-07-31T23:42:21Z",
+                "reason": "MinimumReplicasAvailable",
+                "message": "Deployment has minimum availability."
+            },
+            {
+                "type": "Progressing",
+                "status": "True",
+                "lastUpdateTime": "2018-07-31T23:42:21Z",
+                "lastTransitionTime": "2018-07-31T23:42:19Z",
+                "reason": "NewReplicaSetAvailable",
+                "message": "ReplicaSet \"foo-13y9rdnu-546cb87d96\" has successfully progressed."
+            }
+        ]
+    }
+}`, namespace, name, revision))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
 func deploymentUpdatedReplicaSetProgressing(namespace, name, revision string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "Deployment",
@@ -2570,6 +2654,101 @@ func availableReplicaSet(namespace, name, deploymentName, revision string) *unst
         "observedGeneration": 3,
         "readyReplicas": 3,
         "replicas": 3
+    }
+}
+`, revision, namespace, name, deploymentName))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func inactiveReplicaSet(namespace, name, deploymentName, revision string) *unstructured.Unstructured {
+	// nolint
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "apps/v1",
+    "kind": "ReplicaSet",
+    "metadata": {
+        "annotations": {
+            "deployment.kubernetes.io/desired-replicas": "0",
+            "deployment.kubernetes.io/max-replicas": "0",
+            "deployment.kubernetes.io/revision": "%s",
+            "deployment.kubernetes.io/revision-history": "2",
+            "moolumi.com/metricsChecked": "true",
+            "pulumi.com/autonamed": "true"
+        },
+        "creationTimestamp": "2018-08-03T05:03:53Z",
+        "generation": 2,
+        "labels": {
+            "app": "foo",
+            "pod-template-hash": "3789388710"
+        },
+        "namespace": "%s",
+        "name": "%s",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "Deployment",
+                "name": "%s",
+                "uid": "e4a728af-96d9-11e8-9050-080027bd9056"
+            }
+        ]
+    },
+    "spec": {
+        "replicas": 0,
+        "selector": {
+            "matchLabels": {
+                "app": "foo",
+                "pod-template-hash": "3789388710"
+            }
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "foo",
+                    "pod-template-hash": "3789388710"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "nginx:1.15-alpine",
+                        "imagePullPolicy": "Always",
+                        "name": "nginx",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/config",
+                                "name": "config-volume"
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "terminationGracePeriodSeconds": 30,
+                "volumes": [
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "configmap-rollout-mfonkaf3"
+                        },
+                        "name": "config-volume"
+                    }
+                ]
+            }
+        }
+    },
+    "status": {
+        "observedGeneration": 2,
+        "replicas": 0
     }
 }
 `, revision, namespace, name, deploymentName))
