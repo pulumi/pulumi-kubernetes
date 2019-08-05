@@ -625,6 +625,12 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 			fmt.Sprintf("[1/2] Waiting for app ReplicaSet be marked available (%d/%d Pods available)",
 				readyReplicas, specReplicas))
 	}
+
+	if dia.updatedReplicaSetReady && specReplicasExists && specReplicas == 0 {
+		dia.config.logStatus(
+			diag.Warning,
+			fmt.Sprintf("Replicas scaled to 0 for Deployment %q", dia.deployment.GetName()))
+	}
 }
 
 func (dia *deploymentInitAwaiter) changeTriggeredRollout() bool {
