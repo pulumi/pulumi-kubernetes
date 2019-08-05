@@ -1468,10 +1468,20 @@ func equalNumbers(a, b interface{}) bool {
 		return reflect.DeepEqual(a, b)
 	}
 
-	if aKind == reflect.Float64 {
-		return a.(float64) == float64(b.(int64))
+	toFloat := func(v interface{}) (float64, bool) {
+		switch field := v.(type) {
+		case int64:
+			return float64(field), true
+		case float64:
+			return field, true
+		default:
+			return 0, false
+		}
 	}
-	return float64(a.(int64)) == b.(float64)
+
+	aVal, aOk := toFloat(a)
+	bVal, bOk := toFloat(b)
+	return aOk && bOk && aVal == bVal
 }
 
 // patchConverter carries context for convertPatchToDiff.
