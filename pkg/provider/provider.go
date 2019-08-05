@@ -1468,6 +1468,12 @@ func equalNumbers(a, b interface{}) bool {
 		return reflect.DeepEqual(a, b)
 	}
 
+	// If DeepEqual wasn't true, return false for string inputs. At least one of the inputs is likely unknown,
+	// so we'll be conservative and assume they are unequal.
+	if aKind == reflect.String || bKind == reflect.String {
+		return false
+	}
+
 	if aKind == reflect.Float64 {
 		return a.(float64) == float64(b.(int64))
 	}
