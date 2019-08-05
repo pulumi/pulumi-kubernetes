@@ -88,3 +88,33 @@ func TestRoundtripCheckpointObject(t *testing.T) {
 	assert.Equal(t, oldInputs, newInputs)
 	assert.Equal(t, oldLive, newLive)
 }
+
+func Test_equalNumbers(t *testing.T) {
+	type args struct {
+		a interface{}
+		b interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{"a = b, int64", args{a: int64(1), b: int64(1)}, true},
+		{"a = b, float64", args{a: float64(1), b: float64(1)}, true},
+		{"a = b, int64, float64", args{a: int64(1), b: float64(1)}, true},
+		{"a = b, float64, int64", args{a: float64(1), b: int64(1)}, true},
+		{"a != b, int64", args{a: int64(1), b: int64(2)}, false},
+		{"a != b, float64", args{a: float64(1), b: float64(2)}, false},
+		{"a != b, int64, float64", args{a: int64(1), b: float64(2)}, false},
+		{"a != b, float64, int64", args{a: float64(1), b: int64(2)}, false},
+		{"unsupported a", args{a: "", b: int64(1)}, false},
+		{"unsupported b", args{a: int64(1), b: ""}, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := equalNumbers(tt.args.a, tt.args.b); got != tt.want {
+				t.Errorf("equalNumbers() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

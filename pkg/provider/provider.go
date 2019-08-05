@@ -1468,16 +1468,23 @@ func equalNumbers(a, b interface{}) bool {
 		return reflect.DeepEqual(a, b)
 	}
 
-	// If DeepEqual wasn't true, return false for string inputs. At least one of the inputs is likely unknown,
-	// so we'll be conservative and assume they are unequal.
-	if aKind == reflect.String || bKind == reflect.String {
-		return false
+	toFloat := func(v interface{}) (float64, bool) {
+		switch field := v.(type) {
+		case int64:
+			return float64(field), true
+		case float64:
+			return field, true
+		default:
+			return 0, false
+		}
 	}
 
-	if aKind == reflect.Float64 {
-		return a.(float64) == float64(b.(int64))
+	aVal, aOk := toFloat(a)
+	bVal, bOk := toFloat(b)
+	if aOk && bOk {
+		return aVal == bVal
 	}
-	return float64(a.(int64)) == b.(float64)
+	return false
 }
 
 // patchConverter carries context for convertPatchToDiff.
