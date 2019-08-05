@@ -1481,10 +1481,7 @@ func equalNumbers(a, b interface{}) bool {
 
 	aVal, aOk := toFloat(a)
 	bVal, bOk := toFloat(b)
-	if aOk && bOk {
-		return aVal == bVal
-	}
-	return false
+	return aOk && bOk && aVal == bVal
 }
 
 // patchConverter carries context for convertPatchToDiff.
