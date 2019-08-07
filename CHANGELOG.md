@@ -1,4 +1,6 @@
-## 0.25.6 (Unreleased)
+## 0.25.7 (Unreleased)
+
+## 0.25.6 (August 7, 2019)
 
 ### Supported Kubernetes versions
 
