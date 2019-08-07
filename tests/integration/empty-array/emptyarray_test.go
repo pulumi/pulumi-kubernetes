@@ -31,5 +31,11 @@ func TestEmptyArray(t *testing.T) {
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
 		Dir:          "step1",
 		Dependencies: []string{"@pulumi/kubernetes"},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      "step2",
+				Additive: true,
+			},
+		},
 	})
 }
