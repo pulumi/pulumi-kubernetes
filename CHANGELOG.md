@@ -11,6 +11,7 @@
 -   Align YAML parsing with core Kubernetes supported YAML subset. (https://github.com/pulumi/pulumi-kubernetes/pull/690).
 -   Handle string values in the equalNumbers function. (https://github.com/pulumi/pulumi-kubernetes/pull/691).
 -   Properly detect readiness for Deployment scaled to 0. (https://github.com/pulumi/pulumi-kubernetes/pull/688).
+-   Fix a bug that caused crashes when empty array values were added to resource inputs. (https://github.com/pulumi/pulumi-kubernetes/pull/696)
 
 ## 0.25.5 (August 2, 2019)
 
