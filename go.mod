@@ -17,11 +17,9 @@ require (
 	github.com/json-iterator/go v1.1.6 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/pkg/errors v0.8.1
-	github.com/pulumi/pulumi v0.17.26-0.20190723034217-ed5b8437d126
+	github.com/pulumi/pulumi v0.17.29-0.20190807184240-6983e2639b4b
 	github.com/stretchr/testify v1.3.0
 	google.golang.org/grpc v1.20.1
-	gopkg.in/airbrake/gobrake.v2 v2.0.9 // indirect
-	gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	k8s.io/api v0.0.0-20190620084959-7cf5895f2711
 	k8s.io/apimachinery v0.0.0-20190612205821-1799e75a0719
