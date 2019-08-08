@@ -12,6 +12,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pulumi
+from pulumi_kubernetes.apiextensions.CustomResource import CustomResource
+from pulumi_kubernetes.apiextensions.v1beta1.CustomResourceDefinition import CustomResourceDefinition
 from pulumi_kubernetes.core.v1 import Service
+from pulumi_kubernetes.core.v1.Namespace import Namespace
 
 service = Service.get("kube-api", "kubernetes")
+
+crd = CustomResourceDefinition(
+    resource_name="foo",
+    metadata={"name": "gettests.python.test"},
+    spec={
+        "group": "python.test",
+        "version": "v1",
+        "scope": "Namespaced",
+        "names": {
+            "plural": "gettests",
+            "singular": "gettest",
+            "kind": "GetTest",
+        }
+    })
+
+ns = Namespace("ns")
+
+cr = CustomResource(
+    resource_name="foo",
+    api_version="python.test/v1",
+    kind="GetTest",
+    metadata={"namespace": ns.metadata["name"]},
+    spec={"foo": "bar"},
+    opts=pulumi.ResourceOptions(depends_on=[crd]))
+
+cr_id = pulumi.Output.concat(ns.metadata["name"], '/', cr.metadata["name"])
+cr_get = CustomResource.get(
+    resource_name="bar", api_version="python.test/v1", kind="GetTest", id=cr_id)
