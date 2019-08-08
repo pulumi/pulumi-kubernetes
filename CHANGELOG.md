@@ -8,6 +8,10 @@
 - v1.14.x
 - v1.13.x
 
+### Improvements
+
+-   Add .get() to Python SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/435).
+
 ### Bug fixes
 
 -   Align YAML parsing with core Kubernetes supported YAML subset. (https://github.com/pulumi/pulumi-kubernetes/pull/690).
