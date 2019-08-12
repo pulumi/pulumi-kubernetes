@@ -36,6 +36,8 @@ func FromUnstructured(obj *unstructured.Unstructured) (metav1.Object, error) {
 	switch kinds.Kind(obj.GetKind()) {
 	case kinds.Deployment:
 		output = new(appsv1.Deployment)
+	case kinds.Event:
+		output = new(corev1.Event)
 	case kinds.Ingress:
 		output = new(v1beta1.Ingress)
 	case kinds.PersistentVolume:
@@ -76,4 +78,22 @@ func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {
 	}
 
 	return obj.(*corev1.Pod), nil
+}
+
+func EventFromUnstructured(uns *unstructured.Unstructured) (*corev1.Event, error) {
+	const expectedApiVersion = "v1"
+
+	kind := kinds.Kind(uns.GetKind())
+	if kind != kinds.Event {
+		return nil, fmt.Errorf("expected Event, got %s", kind)
+	}
+	if version := uns.GetAPIVersion(); version != expectedApiVersion {
+		return nil, fmt.Errorf(`expected apiVersion = "%s", got %s`, expectedApiVersion, version)
+	}
+	obj, err := FromUnstructured(uns)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj.(*corev1.Event), nil
 }
