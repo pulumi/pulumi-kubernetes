@@ -56,8 +56,7 @@ func Test_Core_Service(t *testing.T) {
 			expectedError: &timeoutError{
 				object: serviceInput("default", "foo-4setj4y6"),
 				subErrors: []string{
-					"Service does not target any Pods. Selected Pods may not be ready, or " +
-						"field '.spec.selector' may not match labels on any Pods",
+					`Pods selected by Service "foo-4setj4y6" are not ready.`,
 					"Service was not allocated an IP address; does your cloud provider support this?"}},
 		},
 		{
@@ -99,30 +98,8 @@ func Test_Core_Service(t *testing.T) {
 			expectedError: &timeoutError{
 				object: serviceInput("default", "foo-4setj4y6"),
 				subErrors: []string{
-					"Service does not target any Pods. Selected Pods may not be ready, or " +
-						"field '.spec.selector' may not match labels on any Pods",
+					`Pods selected by Service "foo-4setj4y6" are not ready.`,
 					"Service was not allocated an IP address; does your cloud provider support this?"}},
-		},
-		{
-			description:  "Should fail if Endpoints have not initialized",
-			serviceInput: serviceInput,
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
-				// API server passes initialized service back.
-				services <- watchAddedEvent(initializedService("default", "foo-4setj4y6"))
-
-				// Pass uninitialized endpoint objects. Mark them as settled.
-				endpoints <- watchAddedEvent(
-					uninitializedEndpoint("default", "foo-4setj4y6"))
-				settled <- struct{}{}
-
-				// Finally, time out.
-				timeout <- time.Now()
-			},
-			expectedError: &timeoutError{
-				object: initializedService("default", "foo-4setj4y6"),
-				subErrors: []string{
-					"Service does not target any Pods. Selected Pods may not be ready, or " +
-						"field '.spec.selector' may not match labels on any Pods"}},
 		},
 		{
 			description:  "Should fail if Service is not allocated an IP address",
@@ -198,22 +175,6 @@ func Test_Core_Service(t *testing.T) {
 				timeout <- time.Now()
 			},
 		},
-		{
-			description:  "Should fail if non-empty headless service doesn't target any Pods",
-			serviceInput: headlessNonemptyServiceInput,
-			version:      serverVersion{1, 12},
-			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
-				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
-
-				// Finally, time out.
-				timeout <- time.Now()
-			},
-			expectedError: &timeoutError{
-				object: headlessNonemptyServiceOutput("default", "foo-4setj4y6"),
-				subErrors: []string{
-					"Service does not target any Pods. Selected Pods may not be ready, or " +
-						"field '.spec.selector' may not match labels on any Pods"}},
-		},
 	}
 
 	for _, test := range tests {
@@ -242,15 +203,6 @@ func Test_Core_Service_Read(t *testing.T) {
 		version           serverVersion
 		expectedSubErrors []string
 	}{
-		{
-			description:  "Read should fail if Service does not target any Pods",
-			serviceInput: serviceInput,
-			service:      initializedService,
-			endpoint:     uninitializedEndpoint,
-			expectedSubErrors: []string{
-				"Service does not target any Pods. Selected Pods may not be ready, or " +
-					"field '.spec.selector' may not match labels on any Pods"},
-		},
 		{
 			description:  "Read should succeed if Service does target Pods",
 			serviceInput: serviceInput,
@@ -281,15 +233,6 @@ func Test_Core_Service_Read(t *testing.T) {
 			serviceInput: headlessNonemptyServiceInput,
 			service:      headlessNonemptyServiceInput,
 			version:      serverVersion{1, 11},
-		},
-		{
-			description:  "Read fail if headless non-empty Service doesn't target any Pods",
-			serviceInput: headlessNonemptyServiceInput,
-			service:      headlessNonemptyServiceInput,
-			version:      serverVersion{1, 12},
-			expectedSubErrors: []string{
-				"Service does not target any Pods. Selected Pods may not be ready, or " +
-					"field '.spec.selector' may not match labels on any Pods"},
 		},
 	}
 

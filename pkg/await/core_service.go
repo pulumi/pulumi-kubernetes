@@ -53,7 +53,7 @@ import (
 // The `serviceInitAwaiter` will synchronously process events from the union of all these channels.
 // Any time the success conditions described above a reached, we will terminate the awaiter.
 //
-// The intermediate status we report tends to be related to whether endpoints are targeting > 0
+// The intermediate status we report tends to be related to whether endpoints include any unready
 // Pods. Because an external IP can take a long time to execute, we simply have to wait.
 //
 //
@@ -114,7 +114,7 @@ func (sia *serviceInitAwaiter) Await() error {
 	//   1. Service object exists.
 	//   2. Endpoint objects created. Each time we get an update, wait ~5-10 seconds
 	//      after update to wait for any stragglers.
-	//   3. The endpoints objects target some number of living objects.
+	//   3. The endpoints objects do not include any unready Pods.
 	//   4. External IP address is allocated (if we're type `LoadBalancer`).
 	//
 
@@ -324,11 +324,20 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 
 	// Update status of endpoint objects so we can check success.
 	if event.Type == watch.Added || event.Type == watch.Modified {
-		subsets, hasTargets := openapi.Pluck(endpoint.Object, "subsets")
-		targets, targetsIsSlice := subsets.([]interface{})
-		endpointTargetsPod := hasTargets && targetsIsSlice && len(targets) > 0
+		endpoints, err := clients.EndpointsFromUnstructured(endpoint)
+		if err != nil {
+			glog.V(3).Infof("Failed to deserialize Endpoints object: %v", err)
+			return
+		}
 
-		sia.endpointsReady = endpointTargetsPod
+		hasUnreadyAddresses := false
+		for _, subset := range endpoints.Subsets {
+			if len(subset.NotReadyAddresses) > 0 {
+				hasUnreadyAddresses = true
+				break
+			}
+		}
+		sia.endpointsReady = !hasUnreadyAddresses
 	} else if event.Type == watch.Deleted {
 		sia.endpointsReady = false
 	}
@@ -350,8 +359,7 @@ func (sia *serviceInitAwaiter) errorMessages() []string {
 
 	if !sia.endpointsReady {
 		messages = append(messages,
-			"Service does not target any Pods. Selected Pods may not be ready, or "+
-				"field '.spec.selector' may not match labels on any Pods")
+			fmt.Sprintf("Pods selected by Service %q are not ready.", sia.service.GetName()))
 	}
 
 	if sia.serviceType == string(v1.ServiceTypeLoadBalancer) && !sia.serviceReady {
