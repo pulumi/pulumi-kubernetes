@@ -33,8 +33,8 @@ const subnet = new gcp.compute.Subnetwork(config.appName, {
 // Create the GKE cluster and export it.
 export const k8sCluster = new gcp.container.Cluster(config.appName, {
     initialNodeCount: config.nodeCount,
-    nodeVersion: "latest",
-    minMasterVersion: "latest",
+    nodeVersion: "1.13.7-gke.8",
+    minMasterVersion: "1.13.7-gke.8",
     masterAuth: { username: config.masterUsername, password: config.masterPassword },
     network: network.name,
     subnetwork: subnet.name,
