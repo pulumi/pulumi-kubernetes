@@ -2,7 +2,6 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import warnings
-from copy import copy
 from typing import Any, Optional
 
 import pulumi
@@ -78,7 +77,7 @@ class CustomResource(pulumi.CustomResource):
                Takes the form <namespace>/<name> or <name>.
         :param Optional[ResourceOptions] opts: A bag of options that control this resource's behavior.
         """
-        opts_ = copy(opts) if opts is not None else ResourceOptions()
+        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
         return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=opts)
 
     def translate_output_property(self, prop: str) -> str:
