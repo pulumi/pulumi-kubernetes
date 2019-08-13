@@ -53,7 +53,7 @@ class ValidatingWebhookConfigurationList(pulumi.CustomResource):
 
     @staticmethod
     def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
-        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id)
+        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
         return ValidatingWebhookConfigurationList(name, opts)
 
     def translate_output_property(self, prop: str) -> str:
