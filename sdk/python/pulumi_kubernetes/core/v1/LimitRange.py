@@ -51,9 +51,8 @@ class LimitRange(pulumi.CustomResource):
 
     @staticmethod
     def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
-        opts_ = copy(opts) if opts is not None else ResourceOptions()
-        opts_.id = id
-        return LimitRange(name, opts_)
+        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id)
+        return LimitRange(name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
