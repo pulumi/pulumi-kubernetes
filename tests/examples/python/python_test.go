@@ -52,6 +52,23 @@ func TestSmoke(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
+// Smoke test for .get support.
+func TestGet(t *testing.T) {
+	kubectx := os.Getenv("KUBERNETES_CONTEXT")
+	if kubectx == "" {
+		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
+	}
+
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join(cwd, "get"),
+	})
+	integration.ProgramTest(t, &options)
+}
+
 func TestYaml(t *testing.T) {
 	kubectx := os.Getenv("KUBERNETES_CONTEXT")
 	if kubectx == "" {
