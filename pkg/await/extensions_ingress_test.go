@@ -127,9 +127,7 @@ func Test_Extensions_Ingress(t *testing.T) {
 		timeout := make(chan time.Time)
 		go test.do(ingresses, services, endpoints, settled, timeout)
 
-		err := awaiter.await(
-			&chanWatcher{results: ingresses}, &chanWatcher{results: services}, &chanWatcher{results: endpoints},
-			settled, timeout)
+		err := awaiter.await(&chanWatcher{results: ingresses}, &chanWatcher{results: services},, &chanWatcher{results: endpoints}, settled, timeout)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -203,7 +201,7 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 			service := test.service("default", "foo-4setj4y6")
 			serviceList = unstructuredList(*service)
 		}
-		err = awaiter.read(ingress, endpointList, serviceList)
+		err = awaiter.read(ingress, endpointList,, serviceList)
 
 		if test.expectedSubErrors != nil {
 			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
