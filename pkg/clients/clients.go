@@ -18,10 +18,14 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/rest"
@@ -172,6 +176,54 @@ func (dcs *DynamicClientSet) IsNamespacedKind(gvk schema.GroupVersionKind) (bool
 	}
 
 	return false, &NoNamespaceInfoErr{gvk}
+}
+
+// NamespacedKind holds the info necessary to filter a List API call for a particular resource.
+type NamespacedKind struct {
+	Namespace string     // Namespace of the resource.
+	Name      string     // [Optional] Name of the resource.
+	Kind      kinds.Kind // Kind of the resource.
+}
+
+func (nsk NamespacedKind) String() string {
+	return fmt.Sprintf(`%s "%s/%s"`, nsk.Kind, namespaceOrDefault(nsk.Namespace), nsk.Name)
+}
+
+// FieldSelector creates a selector for the NamespacedKind.
+func (nsk NamespacedKind) FieldSelector() string {
+	field := fields.Set{}
+	field["involvedObject.namespace"] = namespaceOrDefault(nsk.Namespace)
+	if len(nsk.Name) > 0 {
+		field["involvedObject.name"] = nsk.Name
+	}
+	field["involvedObject.kind"] = string(nsk.Kind)
+
+	return field.AsSelector().String()
+}
+
+// ListOptions creates a list filter for the NamespacedKind.
+func (nsk NamespacedKind) ListOptions() metav1.ListOptions {
+	return metav1.ListOptions{FieldSelector: nsk.FieldSelector()}
+}
+
+// WatchEvents sets up a watch for Events related to the NamespacedKind.
+func (nsk NamespacedKind) WatchEvents(clientset *DynamicClientSet) (watch.Interface, error) {
+	client, err := ResourceClient(kinds.Event, nsk.Namespace, clientset)
+	if err != nil {
+		return nil, errors.Wrapf(err, "Could not make client to watch Events for %s", nsk)
+	}
+
+	return client.Watch(nsk.ListOptions())
+}
+
+// ListEvents lists Events related to the NamespacedKind.
+func (nsk NamespacedKind) ListEvents(clientset *DynamicClientSet) (*unstructured.UnstructuredList, error) {
+	client, err := ResourceClient(kinds.Event, nsk.Namespace, clientset)
+	if err != nil {
+		return nil, errors.Wrapf(err, "Could not make client to list Events for %s", nsk)
+	}
+
+	return client.List(nsk.ListOptions())
 }
 
 type NoNamespaceInfoErr struct {
