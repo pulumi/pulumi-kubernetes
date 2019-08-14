@@ -77,8 +77,16 @@ class CustomResource(pulumi.CustomResource):
                Takes the form <namespace>/<name> or <name>.
         :param Optional[ResourceOptions] opts: A bag of options that control this resource's behavior.
         """
-        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
-        return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=opts)
+        _api_version = pulumi.Output.from_input(api_version)
+        _kind = pulumi.Output.from_input(kind)
+        _id = pulumi.Output.from_input(id)
+
+        def _unwrap(all_config):
+            api_version, kind, id = all_config
+            opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
+            return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=opts)
+
+        return pulumi.Output.all(_api_version, _kind, _id).apply(_unwrap)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
