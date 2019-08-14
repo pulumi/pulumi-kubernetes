@@ -178,54 +178,6 @@ func (dcs *DynamicClientSet) IsNamespacedKind(gvk schema.GroupVersionKind) (bool
 	return false, &NoNamespaceInfoErr{gvk}
 }
 
-// NamespacedKind holds the info necessary to filter a List API call for a particular resource.
-type NamespacedKind struct {
-	Namespace string     // Namespace of the resource.
-	Name      string     // [Optional] Name of the resource.
-	Kind      kinds.Kind // Kind of the resource.
-}
-
-func (nsk NamespacedKind) String() string {
-	return fmt.Sprintf(`%s "%s/%s"`, nsk.Kind, namespaceOrDefault(nsk.Namespace), nsk.Name)
-}
-
-// FieldSelector creates a selector for the NamespacedKind.
-func (nsk NamespacedKind) FieldSelector() string {
-	field := fields.Set{}
-	field["involvedObject.namespace"] = namespaceOrDefault(nsk.Namespace)
-	if len(nsk.Name) > 0 {
-		field["involvedObject.name"] = nsk.Name
-	}
-	field["involvedObject.kind"] = string(nsk.Kind)
-
-	return field.AsSelector().String()
-}
-
-// ListOptions creates a list filter for the NamespacedKind.
-func (nsk NamespacedKind) ListOptions() metav1.ListOptions {
-	return metav1.ListOptions{FieldSelector: nsk.FieldSelector()}
-}
-
-// WatchEvents sets up a watch for Events related to the NamespacedKind.
-func (nsk NamespacedKind) WatchEvents(clientset *DynamicClientSet) (watch.Interface, error) {
-	client, err := ResourceClient(kinds.Event, nsk.Namespace, clientset)
-	if err != nil {
-		return nil, errors.Wrapf(err, "Could not make client to watch Events for %s", nsk)
-	}
-
-	return client.Watch(nsk.ListOptions())
-}
-
-// ListEvents lists Events related to the NamespacedKind.
-func (nsk NamespacedKind) ListEvents(clientset *DynamicClientSet) (*unstructured.UnstructuredList, error) {
-	client, err := ResourceClient(kinds.Event, nsk.Namespace, clientset)
-	if err != nil {
-		return nil, errors.Wrapf(err, "Could not make client to list Events for %s", nsk)
-	}
-
-	return client.List(nsk.ListOptions())
-}
-
 type NoNamespaceInfoErr struct {
 	gvk schema.GroupVersionKind
 }
@@ -244,6 +196,82 @@ func IsNoNamespaceInfoErr(err error) bool {
 	default:
 		return false
 	}
+}
+
+// NamespacedKind holds the info necessary to filter a List API call for a particular resource.
+type NamespacedKind struct {
+	Namespace       string     // Namespace of the resource.
+	Name            string     // Name of the resource.
+	Kind            kinds.Kind // Kind of the resource.
+	ResourceVersion string     // [Optional] Resource version of the resource.
+}
+
+func (nsk NamespacedKind) String() string {
+	return fmt.Sprintf(`%s "%s/%s"`, nsk.Kind, namespaceOrDefault(nsk.Namespace), nsk.Name)
+}
+
+// eventFieldSelector creates a selector for the NamespacedKind.
+func (nsk NamespacedKind) eventFieldSelector() string {
+	field := fields.Set{}
+	field["involvedObject.namespace"] = namespaceOrDefault(nsk.Namespace)
+	field["involvedObject.name"] = nsk.Name
+	field["involvedObject.kind"] = string(nsk.Kind)
+	field["involvedObject.resourceVersion"] = nsk.ResourceVersion
+
+	return field.AsSelector().String()
+}
+
+// listOptions returns the required ListOptions for the NamespacedKind.
+func (nsk NamespacedKind) listOptions() metav1.ListOptions {
+	if nsk.Kind == kinds.Event {
+		return metav1.ListOptions{FieldSelector: nsk.eventFieldSelector()}
+	}
+	return metav1.ListOptions{}
+}
+
+// Watch sets up a watch for NamespacedKind events.
+func (nsk NamespacedKind) Watch(clientset *DynamicClientSet) (watch.Interface, error) {
+	client, err := ResourceClient(nsk.Kind, nsk.Namespace, clientset)
+	if err != nil {
+		return nil, errors.Wrapf(err, "Could not make client to watch %s", nsk)
+	}
+
+	return client.Watch(nsk.listOptions())
+}
+
+// Get returns the current state of the NamespacedKind.
+// IMPORTANT: Do not wrap any error returned from this method! If it is a 404, the provider need to know so that it
+// can mark the resource as having been deleted.
+func (nsk NamespacedKind) Get(clientset *DynamicClientSet) (*unstructured.Unstructured, error) {
+	client, err := ResourceClient(nsk.Kind, nsk.Namespace, clientset)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.Get(nsk.Name, metav1.GetOptions{})
+}
+
+// WatchForKind sets up a watch for kind events related to the NamespacedKind.
+// For example, nsk.WatchForKind(kinds.Deployment, cs) will return a watch.Interface for Deployment events
+// related to nsk.
+func (nsk NamespacedKind) WatchForKind(kind kinds.Kind, clientset *DynamicClientSet) (watch.Interface, error) {
+	client, err := ResourceClient(kind, nsk.Namespace, clientset)
+	if err != nil {
+		return nil, errors.Wrapf(err, "Could not make client to watch %ss related to %s", kind, nsk)
+	}
+
+	return client.Watch(nsk.listOptions())
+}
+
+// ListForKind lists kind resources related to the NamespacedKind.
+func (nsk NamespacedKind) ListForKind(kind kinds.Kind, clientset *DynamicClientSet,
+) (*unstructured.UnstructuredList, error) {
+	client, err := ResourceClient(kind, nsk.Namespace, clientset)
+	if err != nil {
+		return nil, errors.Wrapf(err, "Could not make client to list %ss related to %s", kind, nsk)
+	}
+
+	return client.List(nsk.listOptions())
 }
 
 // namespaceOrDefault returns `ns` or the the default namespace `"default"` if `ns` is empty.

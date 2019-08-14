@@ -6,22 +6,18 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/pulumi/pulumi/pkg/util/cmdutil"
-
 	"github.com/golang/glog"
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 	"k8s.io/api/extensions/v1beta1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/client-go/dynamic"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -96,43 +92,37 @@ func (iia *ingressInitAwaiter) Await() error {
 	//   3.  Ingress entry exists for .status.loadBalancer.ingress.
 	//
 
-	ingressClient, endpointsClient, servicesClient, err := iia.makeClients()
-	if err != nil {
-		return err
-	}
-
-	// Create ingress watcher.
-	ingressWatcher, err := ingressClient.Watch(metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err, "Could not set up watch for Ingress object %q",
-			iia.config.currentInputs.GetName())
-	}
-	defer ingressWatcher.Stop()
-
-	endpointWatcher, err := endpointsClient.Watch(metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Endpoint objects associated with Ingress %q",
-			iia.config.currentInputs.GetName())
-	}
-	defer endpointWatcher.Stop()
-
-	serviceWatcher, err := servicesClient.Watch(metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Service objects associated with Ingress %q",
-			iia.config.currentInputs.GetName())
-	}
-
 	nsk := clients.NamespacedKind{
 		Namespace: iia.config.currentInputs.GetNamespace(),
 		Name:      iia.config.currentInputs.GetName(),
 		Kind:      kinds.Ingress,
+		ResourceVersion: iia.config.currentInputs.GetResourceVersion(),
 	}
-	eventsWatcher, err := nsk.WatchEvents(iia.config.clientSet)
+	clientset := iia.config.clientSet
+
+	ingressWatcher, err := nsk.WatchForKind(kinds.Ingress, clientset)
 	if err != nil {
 		return err
 	}
+	defer ingressWatcher.Stop()
+
+	endpointWatcher, err := nsk.WatchForKind(kinds.Endpoints, clientset)
+	if err != nil {
+		return err
+	}
+	defer endpointWatcher.Stop()
+
+	serviceWatcher, err := nsk.WatchForKind(kinds.Service, clientset)
+	if err != nil {
+		return err
+	}
+	defer serviceWatcher.Stop()
+
+	eventsWatcher, err := nsk.WatchForKind(kinds.Event, clientset)
+	if err != nil {
+		return err
+	}
+	defer eventsWatcher.Stop()
 
 	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentInputs, DefaultIngressTimeoutMins*60)
 	return iia.await(
@@ -140,41 +130,34 @@ func (iia *ingressInitAwaiter) Await() error {
 }
 
 func (iia *ingressInitAwaiter) Read() error {
-	ingressClient, endpointsClient, servicesClient, err := iia.makeClients()
-	if err != nil {
-		return err
-	}
-
 	nsk := clients.NamespacedKind{
 		Namespace: iia.config.currentInputs.GetNamespace(),
 		Name:      iia.config.currentInputs.GetName(),
 		Kind:      kinds.Ingress,
 	}
+	clientset := iia.config.clientSet
 
 	// Get live versions of Ingress.
-	ingress, err := ingressClient.Get(iia.config.currentInputs.GetName(), metav1.GetOptions{})
+	ingress, err := nsk.Get(clientset)
 	if err != nil {
-		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
-		// can mark the deployment as having been deleted.
 		return err
 	}
 
-	// Get live version of Endpoints.
-	endpointList, err := endpointsClient.List(metav1.ListOptions{})
+	endpointList, err := nsk.ListForKind(kinds.Endpoints, clientset)
 	if err != nil {
-		glog.V(3).Infof("Failed to list endpoints needed for Ingress awaiter: %v", err)
+		glog.V(3).Infof(err.Error())
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	serviceList, err := servicesClient.List(metav1.ListOptions{})
+	serviceList, err := nsk.ListForKind(kinds.Service, clientset)
 	if err != nil {
-		glog.V(3).Infof("Failed to list services needed for Ingress awaiter: %v", err)
+		glog.V(3).Infof(err.Error())
 		serviceList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	eventsList, err := nsk.ListEvents(iia.config.clientSet)
+	eventsList, err := nsk.ListForKind(kinds.Event, iia.config.clientSet)
 	if err != nil {
-		glog.V(3).Infof("Failed to list events for %s: %v", nsk, err)
+		glog.V(3).Infof(err.Error())
 		eventsList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
@@ -345,6 +328,7 @@ func (iia *ingressInitAwaiter) processEventEvent(event watch.Event) {
 	if err != nil {
 		return
 	}
+
 	if ingressEvent.Type == "Warning" {
 		errMsg := fmt.Sprintf("Ingress %q had the following error: %s", inputIngressName, ingressEvent.Message)
 		iia.config.logStatus(diag.Error, errMsg)
@@ -474,31 +458,4 @@ func (iia *ingressInitAwaiter) checkAndLogStatus() bool {
 	}
 
 	return success
-}
-
-func (iia *ingressInitAwaiter) makeClients() (
-	ingressClient, endpointsClient, servicesClient dynamic.ResourceInterface, err error,
-) {
-	ingressClient, err = clients.ResourceClient(
-		kinds.Ingress, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
-	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Ingress %q",
-			iia.config.currentInputs.GetName())
-	}
-	endpointsClient, err = clients.ResourceClient(
-		kinds.Endpoints, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
-	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Endpoints associated with Ingress %q",
-			iia.config.currentInputs.GetName())
-	}
-	servicesClient, err = clients.ResourceClient(
-		kinds.Service, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
-	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Services associated with Ingress %q",
-			iia.config.currentInputs.GetName())
-	}
-	return
 }
