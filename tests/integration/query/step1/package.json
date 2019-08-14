@@ -2,7 +2,7 @@
     "name": "steps",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "^0.17.18"
+        "@pulumi/pulumi": "^1.0.0-beta"
     },
     "devDependencies": {
         "typescript": "^3.0.0"
