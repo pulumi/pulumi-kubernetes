@@ -106,7 +106,6 @@ PULUMI_NODE_MODULES := $(PULUMI_ROOT)/node_modules
 
 GO_TEST_FAST = go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 GO_TEST = go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
-GOPROXY = 'https://proxy.golang.org'
 
 .PHONY: default all ensure only_build only_test build lint install test_all core
 
@@ -142,8 +141,8 @@ all:: build install lint test_all
 
 ensure::
 	$(call STEP_MESSAGE)
-	@echo "GO111MODULE=on GOPROXY=$(GOPROXY) go mod tidy"; GO111MODULE=on GOPROXY=$(GOPROXY) go mod tidy
-	@echo "GO111MODULE=on GOPROXY=$(GOPROXY) go mod vendor"; GO111MODULE=on GOPROXY=$(GOPROXY) go mod vendor
+	@echo "GO111MODULE=on go mod tidy"; GO111MODULE=on go mod tidy
+	@echo "GO111MODULE=on go mod vendor"; GO111MODULE=on go mod vendor
 	@if [ -e 'package.json' ]; then echo "yarn install"; yarn install; fi
 
 build::
