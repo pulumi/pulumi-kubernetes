@@ -80,7 +80,7 @@ import { getVersion } from "../../version";
       /**
        * Create a core.v1.Service resource with the given unique name, arguments, and options.
        *
-       * Pulumi uses "await logic" to determine if a Pod is ready.
+       * Pulumi uses "await logic" to determine if a Service is ready.
        * The following conditions are considered by this logic:
        * 1. Service object exists.
        * 2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds

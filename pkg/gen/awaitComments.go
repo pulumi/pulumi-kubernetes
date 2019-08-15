@@ -20,27 +20,24 @@ import (
 
 const DeploymentAwaitComment = `Pulumi uses "await logic" to determine if a Deployment is ready.
 The following conditions are considered by this logic:
-1. '.metadata.annotations["deployment.kubernetes.io/revision"]' in the current Deployment
-  must have been incremented by the Deployment controller, i.e., it must not be equal to
-  the revision number in the previous outputs. This number is used to indicate the the
-  active ReplicaSet. Any time a change is made to the Deployment's Pod template, this
-  revision is incremented, and a new ReplicaSet is created with a corresponding revision
-  number in its own annotations. This condition overall is a test to make sure that the
-  Deployment controller is making progress in rolling forward to the new generation.
-
-2. '.status.conditions' has a status with 'type' equal to 'Progressing', a 'status' set to
-  'True', and a 'reason' set to 'NewReplicaSetAvailable'. Though the condition is called
-  "Progressing", this condition indicates that the new ReplicaSet has become healthy and
-  available, and the Deployment controller is now free to delete the old ReplicaSet.
-
-3. '.status.conditions' has a status with 'type' equal to 'Available', a 'status' equal to
-  'True'. If the Deployment is not available, we should fail the Deployment immediately.`
+1. The Deployment has begun to be updated by the Deployment controller. If the current
+   generation of the Deployment is > 1, then this means that the current generation must
+   be different from the generation reported by the last outputs.
+2. There exists a ReplicaSet whose revision is equal to the current revision of the
+   Deployment.
+3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+   member is set to 'True'.
+4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+   'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+   because it doesn't do a rollout (i.e., it simply creates the Deployment and
+   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.`
 
 const StatefulSetAwaitComment = `Pulumi uses "await logic" to determine if a StatefulSet is ready.
 The following conditions are considered by this logic:
-1. '.status.replicas', '.status.currentReplicas' and '.status.readyReplicas' match the
-   value of '.spec.replicas'.
-2. '.status.updateRevision' matches '.status.currentRevision'.`
+1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+   and '.status.readyReplicas'.
+2. The value of '.status.updateRevision' matches '.status.currentRevision'.`
 
 const PodAwaitComment = `Pulumi uses "await logic" to determine if a Pod is ready.
 The following conditions are considered by this logic:
@@ -49,7 +46,7 @@ The following conditions are considered by this logic:
 3. The Pod is ready (Ready condition is true) and the '.status.phase' is set to "Running".
 Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").`
 
-const ServiceAwaitComment = `Pulumi uses "await logic" to determine if a Pod is ready.
+const ServiceAwaitComment = `Pulumi uses "await logic" to determine if a Service is ready.
 The following conditions are considered by this logic:
 1. Service object exists.
 2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
@@ -57,7 +54,7 @@ The following conditions are considered by this logic:
 3. The endpoints objects target some number of living objects.
 4. External IP address is allocated (if Service is type 'LoadBalancer').`
 
-const IngressAwaitComment = `Pulumi uses "await logic" to determine if a Pod is ready.
+const IngressAwaitComment = `Pulumi uses "await logic" to determine if a Ingress is ready.
 The following conditions are considered by this logic:
 1.  Ingress object exists.
 2.  Endpoint objects exist with matching names for each Ingress path (except when Service

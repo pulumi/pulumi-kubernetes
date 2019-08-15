@@ -28,9 +28,9 @@ class StatefulSet(pulumi.CustomResource):
         
         Pulumi uses "await logic" to determine if a StatefulSet is ready.
         The following conditions are considered by this logic:
-        1. '.status.replicas', '.status.currentReplicas' and '.status.readyReplicas' match the
-           value of '.spec.replicas'.
-        2. '.status.updateRevision' matches '.status.currentRevision'.
+        1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+           and '.status.readyReplicas'.
+        2. The value of '.status.updateRevision' matches '.status.currentRevision'.
         
         """
         if __name__ is not None:

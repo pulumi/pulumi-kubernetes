@@ -82,7 +82,7 @@ import { getVersion } from "../../version";
       /**
        * Create a extensions.v1beta1.Ingress resource with the given unique name, arguments, and options.
        *
-       * Pulumi uses "await logic" to determine if a Pod is ready.
+       * Pulumi uses "await logic" to determine if a Ingress is ready.
        * The following conditions are considered by this logic:
        * 1.  Ingress object exists.
        * 2.  Endpoint objects exist with matching names for each Ingress path (except when Service

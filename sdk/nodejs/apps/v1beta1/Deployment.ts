@@ -79,21 +79,18 @@ import { getVersion } from "../../version";
        *
        * Pulumi uses "await logic" to determine if a Deployment is ready.
        * The following conditions are considered by this logic:
-       * 1. '.metadata.annotations["deployment.kubernetes.io/revision"]' in the current Deployment
-       *   must have been incremented by the Deployment controller, i.e., it must not be equal to
-       *   the revision number in the previous outputs. This number is used to indicate the the
-       *   active ReplicaSet. Any time a change is made to the Deployment's Pod template, this
-       *   revision is incremented, and a new ReplicaSet is created with a corresponding revision
-       *   number in its own annotations. This condition overall is a test to make sure that the
-       *   Deployment controller is making progress in rolling forward to the new generation.
-       * 
-       * 2. '.status.conditions' has a status with 'type' equal to 'Progressing', a 'status' set to
-       *   'True', and a 'reason' set to 'NewReplicaSetAvailable'. Though the condition is called
-       *   "Progressing", this condition indicates that the new ReplicaSet has become healthy and
-       *   available, and the Deployment controller is now free to delete the old ReplicaSet.
-       * 
-       * 3. '.status.conditions' has a status with 'type' equal to 'Available', a 'status' equal to
-       *   'True'. If the Deployment is not available, we should fail the Deployment immediately.
+       * 1. The Deployment has begun to be updated by the Deployment controller. If the current
+       *    generation of the Deployment is > 1, then this means that the current generation must
+       *    be different from the generation reported by the last outputs.
+       * 2. There exists a ReplicaSet whose revision is equal to the current revision of the
+       *    Deployment.
+       * 3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+       *    member is set to 'True'.
+       * 4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+       *    'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+       *    'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+       *    because it doesn't do a rollout (i.e., it simply creates the Deployment and
+       *    corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
        * 
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
