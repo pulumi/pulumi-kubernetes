@@ -22,8 +22,8 @@ class CustomResource(pulumi.CustomResource):
     def __init__(
             self,
             resource_name: str,
-            api_version: pulumi.Input[str],
-            kind: pulumi.Input[str],
+            api_version: str,
+            kind: str,
             spec: pulumi.Input[Any] = None,
             metadata: Optional[pulumi.Input[Any]] = None,
             opts: Optional[pulumi.ResourceOptions] = None,
@@ -62,8 +62,8 @@ class CustomResource(pulumi.CustomResource):
 
     @staticmethod
     def get(resource_name: str,
-            api_version: pulumi.Input[str],
-            kind: pulumi.Input[str],
+            api_version: str,
+            kind: str,
             id: pulumi.Input[str],
             opts: Optional[ResourceOptions] = None):
         """
@@ -77,16 +77,11 @@ class CustomResource(pulumi.CustomResource):
                Takes the form <namespace>/<name> or <name>.
         :param Optional[ResourceOptions] opts: A bag of options that control this resource's behavior.
         """
-        _api_version = pulumi.Output.from_input(api_version)
-        _kind = pulumi.Output.from_input(kind)
-        _id = pulumi.Output.from_input(id)
+        def _unwrap(id):
+            _opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
+            return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=_opts)
 
-        def _unwrap(all_config):
-            api_version, kind, id = all_config
-            opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
-            return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=opts)
-
-        return pulumi.Output.all(_api_version, _kind, _id).apply(_unwrap)
+        return pulumi.Output.from_input(id).apply(_unwrap)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
