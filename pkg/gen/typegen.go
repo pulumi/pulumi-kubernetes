@@ -146,6 +146,9 @@ func (kc *KindConfig) Kind() string { return kc.kind }
 // Comment returns the comments associated with some Kubernetes API kind.
 func (kc *KindConfig) Comment() string { return kc.comment }
 
+// AwaitComment returns the await logic documentation associated with some Kubernetes API kind.
+func (kc *KindConfig) AwaitComment() string { return kc.awaitComment }
+
 // Properties returns the list of properties that exist on some Kubernetes API kind (i.e., things
 // that we will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
 func (kc *KindConfig) Properties() []*Property { return kc.properties }
@@ -240,7 +243,10 @@ func fmtComment(comment interface{}, prefix string, bareRender bool, opts groupO
 		}
 		renderComment = func(lines []string) string {
 			joined := strings.Join(lines, fmt.Sprintf("\n%s", prefix))
-			return fmt.Sprintf("\"\"\"\n%s%s\n%s\"\"\"", prefix, joined, prefix)
+			if !bareRender {
+				return fmt.Sprintf("\"\"\"\n%s%s\n%s\"\"\"", prefix, joined, prefix)
+			}
+			return fmt.Sprintf("%s", joined)
 		}
 	case typescript:
 		wrapParagraph = func(paragraph string) []string {
@@ -629,13 +635,20 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
+			var awaitPrefix string
+			switch opts.language {
+			case typescript:
+				awaitPrefix = "      "
+			case python:
+				awaitPrefix = "        "
+			}
 			return linq.From([]*KindConfig{
 				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
 					comment:            fmtComment(d.data["description"], "    ", false, opts),
-					awaitComment:       fmtComment(AwaitComment(d.gvk.Kind), "      ", true, opts),
+					awaitComment:       fmtComment(AwaitComment(d.gvk.Kind, opts), awaitPrefix, true, opts),
 					properties:         properties,
 					requiredProperties: requiredProperties,
 					optionalProperties: optionalProperties,

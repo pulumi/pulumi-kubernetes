@@ -2,7 +2,6 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import warnings
-from copy import copy
 from typing import Optional
 
 import pulumi
@@ -20,6 +19,26 @@ class Deployment(pulumi.CustomResource):
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
+        """
+        Create a Deployment resource with the given unique name, arguments, and options.
+        
+        Pulumi uses "await logic" to determine if a Deployment is ready.
+        The following conditions are considered by this logic:
+        1. '.metadata.annotations["deployment.kubernetes.io/revision"]' in the current Deployment
+          must have been incremented by the Deployment controller, i.e., it must not be equal to
+          the revision number in the previous outputs. This number is used to indicate the the
+          active ReplicaSet. Any time a change is made to the Deployment's Pod template, this
+          revision is incremented, and a new ReplicaSet is created with a corresponding revision
+          number in its own annotations. This condition overall is a test to make sure that the
+          Deployment controller is making progress in rolling forward to the new generation.
+        2. '.status.conditions' has a status with 'type' equal to 'Progressing', a 'status' set to
+          'True', and a 'reason' set to 'NewReplicaSetAvailable'. Though the condition is called
+          "Progressing", this condition indicates that the new ReplicaSet has become healthy and
+          available, and the Deployment controller is now free to delete the old ReplicaSet.
+        3. '.status.conditions' has a status with 'type' equal to 'Available', a 'status' equal to
+          'True'. If the Deployment is not available, we should fail the Deployment immediately.
+        
+        """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

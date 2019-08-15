@@ -34,9 +34,16 @@ The following conditions are considered by this logic:
 3. '.status.conditions' has a status with 'type' equal to 'Available', a 'status' equal to
   'True'. If the Deployment is not available, we should fail the Deployment immediately.`
 
-func AwaitComment(kind string) string {
-	const prefix = "*\n"
+func AwaitComment(kind string, opts groupOpts) string {
+	var prefix string
 	const suffix = "\n"
+
+	switch opts.language {
+	case typescript:
+		prefix = "*\n"
+	case python:
+		prefix = "\n"
+	}
 
 	style := func(comment string) string {
 		return prefix + comment + suffix
@@ -46,6 +53,9 @@ func AwaitComment(kind string) string {
 	case kinds.Deployment:
 		return style(DeploymentAwaitComment)
 	default:
-		return "*"
+		if opts.language == typescript {
+			return "*"
+		}
+		return ""
 	}
 }
