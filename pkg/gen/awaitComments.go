@@ -43,17 +43,22 @@ const StatefulSetAwaitComment = preamble + `
 2. The value of '.status.updateRevision' matches '.status.currentRevision'.`
 
 const PodAwaitComment = preamble + `
-1. The Pod is scheduled (PodScheduled condition is true).
-2. The Pod is initialized (Initialized condition is true).
-3. The Pod is ready (Ready condition is true) and the '.status.phase' is set to "Running".
+1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+2. The Pod is initialized ("Initialized" '.status.condition' is true).
+3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+   set to "Running".
 Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").`
 
 const ServiceAwaitComment = preamble + `
 1. Service object exists.
 2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
    for any stragglers.
-3. The endpoints objects target some number of living objects.
-4. External IP address is allocated (if Service is type 'LoadBalancer').`
+3. The endpoints objects target some number of living objects (unless the Service is
+   an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+
+[1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+`
 
 const IngressAwaitComment = preamble + `
 1.  Ingress object exists.

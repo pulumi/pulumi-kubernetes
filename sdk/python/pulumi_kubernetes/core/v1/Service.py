@@ -24,8 +24,12 @@ class Service(pulumi.CustomResource):
     1. Service object exists.
     2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
        for any stragglers.
-    3. The endpoints objects target some number of living objects.
-    4. External IP address is allocated (if Service is type 'LoadBalancer').
+    3. The endpoints objects target some number of living objects (unless the Service is
+       an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+    4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+    
+    [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+    
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
