@@ -49,6 +49,14 @@ The following conditions are considered by this logic:
 3. The Pod is ready (Ready condition is true) and the '.status.phase' is set to "Running".
 Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").`
 
+const ServiceAwaitComment = `Pulumi uses "await logic" to determine if a Pod is ready.
+The following conditions are considered by this logic:
+1. Service object exists.
+2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
+   for any stragglers.
+3. The endpoints objects target some number of living objects.
+4. External IP address is allocated (if Service is type 'LoadBalancer').`
+
 func AwaitComment(kind string, opts groupOpts) string {
 	var prefix string
 	const suffix = "\n"
@@ -69,6 +77,8 @@ func AwaitComment(kind string, opts groupOpts) string {
 		return style(DeploymentAwaitComment)
 	case kinds.Pod:
 		return style(PodAwaitComment)
+	case kinds.Service:
+		return style(ServiceAwaitComment)
 	case kinds.StatefulSet:
 		return style(StatefulSetAwaitComment)
 	default:
