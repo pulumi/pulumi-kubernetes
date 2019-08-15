@@ -18,8 +18,12 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 )
 
-const DeploymentAwaitComment = `Pulumi uses "await logic" to determine if a Deployment is ready.
-The following conditions are considered by this logic:
+const preamble = `This resource waits until it is ready before registering success for
+create/update and populating output properties from the current state of the resource.
+The following conditions are used to determine whether the resource creation has
+succeeded or failed:`
+
+const DeploymentAwaitComment = preamble + `
 1. The Deployment has begun to be updated by the Deployment controller. If the current
    generation of the Deployment is > 1, then this means that the current generation must
    be different from the generation reported by the last outputs.
@@ -33,29 +37,25 @@ The following conditions are considered by this logic:
    because it doesn't do a rollout (i.e., it simply creates the Deployment and
    corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.`
 
-const StatefulSetAwaitComment = `Pulumi uses "await logic" to determine if a StatefulSet is ready.
-The following conditions are considered by this logic:
+const StatefulSetAwaitComment = preamble + `
 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
    and '.status.readyReplicas'.
 2. The value of '.status.updateRevision' matches '.status.currentRevision'.`
 
-const PodAwaitComment = `Pulumi uses "await logic" to determine if a Pod is ready.
-The following conditions are considered by this logic:
+const PodAwaitComment = preamble + `
 1. The Pod is scheduled (PodScheduled condition is true).
 2. The Pod is initialized (Initialized condition is true).
 3. The Pod is ready (Ready condition is true) and the '.status.phase' is set to "Running".
 Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").`
 
-const ServiceAwaitComment = `Pulumi uses "await logic" to determine if a Service is ready.
-The following conditions are considered by this logic:
+const ServiceAwaitComment = preamble + `
 1. Service object exists.
 2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
    for any stragglers.
 3. The endpoints objects target some number of living objects.
 4. External IP address is allocated (if Service is type 'LoadBalancer').`
 
-const IngressAwaitComment = `Pulumi uses "await logic" to determine if a Ingress is ready.
-The following conditions are considered by this logic:
+const IngressAwaitComment = preamble + `
 1.  Ingress object exists.
 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
     type is ExternalName).
@@ -63,10 +63,9 @@ The following conditions are considered by this logic:
 
 func AwaitComment(kind string) string {
 	const prefix = "\n\n"
-	const suffix = ""
 
 	style := func(comment string) string {
-		return prefix + comment + suffix
+		return prefix + comment
 	}
 
 	switch kinds.Kind(kind) {

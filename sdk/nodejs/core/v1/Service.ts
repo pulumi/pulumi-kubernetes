@@ -11,8 +11,10 @@ import { getVersion } from "../../version";
      * port (for example 3306) that the proxy listens on, and the selector that determines which
      * pods will answer requests sent through the proxy.
      * 
-     * Pulumi uses "await logic" to determine if a Service is ready.
-     * The following conditions are considered by this logic:
+     * This resource waits until it is ready before registering success for
+     * create/update and populating output properties from the current state of the resource.
+     * The following conditions are used to determine whether the resource creation has
+     * succeeded or failed:
      * 1. Service object exists.
      * 2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
      *    for any stragglers.

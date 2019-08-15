@@ -19,8 +19,10 @@ class Ingress(pulumi.CustomResource):
     version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress. See the release notes for
     more information.
     
-    Pulumi uses "await logic" to determine if a Ingress is ready.
-    The following conditions are considered by this logic:
+    This resource waits until it is ready before registering success for
+    create/update and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
     1.  Ingress object exists.
     2.  Endpoint objects exist with matching names for each Ingress path (except when Service
         type is ExternalName).

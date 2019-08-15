@@ -15,8 +15,10 @@ class Deployment(pulumi.CustomResource):
     """
     Deployment enables declarative updates for Pods and ReplicaSets.
     
-    Pulumi uses "await logic" to determine if a Deployment is ready.
-    The following conditions are considered by this logic:
+    This resource waits until it is ready before registering success for
+    create/update and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
     1. The Deployment has begun to be updated by the Deployment controller. If the current
        generation of the Deployment is > 1, then this means that the current generation must
        be different from the generation reported by the last outputs.

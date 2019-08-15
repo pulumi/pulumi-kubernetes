@@ -19,8 +19,10 @@ class StatefulSet(pulumi.CustomResource):
     The StatefulSet guarantees that a given network identity will always map to the same storage
     identity.
     
-    Pulumi uses "await logic" to determine if a StatefulSet is ready.
-    The following conditions are considered by this logic:
+    This resource waits until it is ready before registering success for
+    create/update and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
     1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
        and '.status.readyReplicas'.
     2. The value of '.status.updateRevision' matches '.status.currentRevision'.
