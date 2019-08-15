@@ -41,7 +41,7 @@ import (
 // readiness probes), the old Pods are killed and deleted.
 //
 // Because this resource abstracts over so much (it is a way to roll out, essentially, ReplicaSets,
-// which themseves are an abstraction for replicating Pods), the success conditions are fairly
+// which themselves are an abstraction for replicating Pods), the success conditions are fairly
 // complex:
 //
 //   1. `.metadata.annotations["deployment.kubernetes.io/revision"]` in the current Deployment must

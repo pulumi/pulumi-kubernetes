@@ -19,9 +19,9 @@ import (
 	"regexp"
 	"strings"
 
-	linq "github.com/ahmetb/go-linq"
+	"github.com/ahmetb/go-linq"
 	"github.com/jinzhu/copier"
-	wordwrap "github.com/mitchellh/go-wordwrap"
+	"github.com/mitchellh/go-wordwrap"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 
@@ -128,6 +128,7 @@ func (vc *VersionConfig) RawAPIVersion() string { return vc.rawAPIVersion }
 type KindConfig struct {
 	kind               string
 	comment            string
+	awaitComment       string
 	properties         []*Property
 	requiredProperties []*Property
 	optionalProperties []*Property
@@ -223,7 +224,7 @@ func stripPrefix(name string) string {
 	return strings.TrimPrefix(name, prefix)
 }
 
-func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
+func fmtComment(comment interface{}, prefix string, bareRender bool, opts groupOpts) string {
 	if comment == nil {
 		return ""
 	}
@@ -251,7 +252,10 @@ func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 		}
 		renderComment = func(lines []string) string {
 			joined := strings.Join(lines, fmt.Sprintf("\n%s * ", prefix))
-			return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
+			if !bareRender {
+				return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
+			}
+			return fmt.Sprintf("%s", joined)
 		}
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
@@ -260,7 +264,7 @@ func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 	commentstr, _ := comment.(string)
 	if len(commentstr) > 0 {
 		split := strings.Split(commentstr, "\n")
-		lines := []string{}
+		var lines []string
 		for _, paragraph := range split {
 			lines = append(lines, wrapParagraph(paragraph)...)
 		}
@@ -573,7 +577,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					}
 
 					return &Property{
-						comment:      fmtComment(prop["description"], prefix, opts),
+						comment:      fmtComment(prop["description"], prefix, false, opts),
 						propType:     t,
 						name:         propName,
 						languageName: pycodegen.PyName(propName),
@@ -630,7 +634,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:            fmtComment(d.data["description"], "    ", opts),
+					comment:            fmtComment(d.data["description"], "    ", false, opts),
+					awaitComment:       fmtComment(AwaitComment(d.gvk.Kind), "      ", true, opts),
 					properties:         properties,
 					requiredProperties: requiredProperties,
 					optionalProperties: optionalProperties,
