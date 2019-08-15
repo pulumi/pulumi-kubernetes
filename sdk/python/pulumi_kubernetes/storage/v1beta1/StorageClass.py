@@ -20,94 +20,9 @@ class StorageClass(pulumi.CustomResource):
     ObjectMeta.Name.
     """
 
-    apiVersion: pulumi.Output[str]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should
-    convert recognized schemas to the latest internal value, and may reject unrecognized values.
-    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-    """
-
-    kind: pulumi.Output[str]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer
-    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-    """
-
-    allow_volume_expansion: pulumi.Output[bool]
-    """
-    AllowVolumeExpansion shows whether the storage class allow volume expand
-    """
-
-    allowed_topologies: pulumi.Output[list]
-    """
-    Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin
-    defines its own supported topology specifications. An empty TopologySelectorTerm list means
-    there is no topology restriction. This field is only honored by servers that enable the
-    VolumeScheduling feature.
-    """
-
-    metadata: pulumi.Output[dict]
-    """
-    Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    """
-
-    mount_options: pulumi.Output[list]
-    """
-    Dynamically provisioned PersistentVolumes of this storage class are created with these
-    mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is
-    invalid.
-    """
-
-    parameters: pulumi.Output[dict]
-    """
-    Parameters holds the parameters for the provisioner that should create volumes of this storage
-    class.
-    """
-
-    provisioner: pulumi.Output[str]
-    """
-    Provisioner indicates the type of the provisioner.
-    """
-
-    reclaim_policy: pulumi.Output[str]
-    """
-    Dynamically provisioned PersistentVolumes of this storage class are created with this
-    reclaimPolicy. Defaults to Delete.
-    """
-
-    volume_binding_mode: pulumi.Output[str]
-    """
-    VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When
-    unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the
-    VolumeScheduling feature.
-    """
-
-    def __init__(self, resource_name, opts=None, provisioner=None, allow_volume_expansion=None, allowed_topologies=None, metadata=None, mount_options=None, parameters=None, reclaim_policy=None, volume_binding_mode=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, allow_volume_expansion=None, allowed_topologies=None, metadata=None, mount_options=None, parameters=None, provisioner=None, reclaim_policy=None, volume_binding_mode=None, __name__=None, __opts__=None):
         """
         Create a StorageClass resource with the given unique name, arguments, and options.
-
-        :param str resource_name: The _unique_ name of the resource.
-        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[str] provisioner: Provisioner indicates the type of the provisioner.
-        :param pulumi.Input[bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
-        :param pulumi.Input[list] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each
-               volume plugin defines its own supported topology specifications. An empty
-               TopologySelectorTerm list means there is no topology restriction. This field is only
-               honored by servers that enable the VolumeScheduling feature.
-        :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-        :param pulumi.Input[list] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with
-               these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply
-               fail if one is invalid.
-        :param pulumi.Input[dict] parameters: Parameters holds the parameters for the provisioner that should create volumes of
-               this storage class.
-        :param pulumi.Input[str] reclaim_policy: Dynamically provisioned PersistentVolumes of this storage class are created with this
-               reclaimPolicy. Defaults to Delete.
-        :param pulumi.Input[str] volume_binding_mode: VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and
-               bound.  When unset, VolumeBindingImmediate is used. This field is only honored by
-               servers that enable the VolumeScheduling feature.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -137,12 +52,7 @@ class StorageClass(pulumi.CustomResource):
         __props__['reclaimPolicy'] = reclaim_policy
         __props__['volumeBindingMode'] = volume_binding_mode
 
-        __props__['status'] = None
-
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        if opts.version is None:
-            opts.version = version.get_version()
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(StorageClass, self).__init__(
             "kubernetes:storage.k8s.io/v1beta1:StorageClass",
@@ -151,22 +61,9 @@ class StorageClass(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(resource_name, id, opts=None):
-        """
-        Get the state of an existing `StorageClass` resource, as identified by `id`.
-        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
-        then (per Kubernetes convention) the ID becomes default/[name].
-
-        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
-
-        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
-        :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
-               Takes the form [namespace]/[name] or [name].
-        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
-               resource's behavior.
-        """
-        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
-        return StorageClass(resource_name, opts)
+    def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
+        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
+        return StorageClass(name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

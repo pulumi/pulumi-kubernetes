@@ -22,38 +22,9 @@ class CSINode(pulumi.CustomResource):
     corresponding node object.
     """
 
-    apiVersion: pulumi.Output[str]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should
-    convert recognized schemas to the latest internal value, and may reject unrecognized values.
-    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-    """
-
-    kind: pulumi.Output[str]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer
-    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-    """
-
-    metadata: pulumi.Output[dict]
-    """
-    metadata.name must be the Kubernetes node name.
-    """
-
-    spec: pulumi.Output[dict]
-    """
-    spec is the specification of CSINode
-    """
-
-    def __init__(self, resource_name, opts=None, spec=None, metadata=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, metadata=None, spec=None, __name__=None, __opts__=None):
         """
         Create a CSINode resource with the given unique name, arguments, and options.
-
-        :param str resource_name: The _unique_ name of the resource.
-        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[dict] spec: spec is the specification of CSINode
-        :param pulumi.Input[dict] metadata: metadata.name must be the Kubernetes node name.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -77,12 +48,7 @@ class CSINode(pulumi.CustomResource):
         __props__['spec'] = spec
         __props__['metadata'] = metadata
 
-        __props__['status'] = None
-
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        if opts.version is None:
-            opts.version = version.get_version()
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(CSINode, self).__init__(
             "kubernetes:storage.k8s.io/v1beta1:CSINode",
@@ -91,22 +57,9 @@ class CSINode(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(resource_name, id, opts=None):
-        """
-        Get the state of an existing `CSINode` resource, as identified by `id`.
-        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
-        then (per Kubernetes convention) the ID becomes default/[name].
-
-        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
-
-        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
-        :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
-               Takes the form [namespace]/[name] or [name].
-        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
-               resource's behavior.
-        """
-        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
-        return CSINode(resource_name, opts)
+    def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
+        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
+        return CSINode(name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

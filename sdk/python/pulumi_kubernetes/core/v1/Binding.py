@@ -17,40 +17,9 @@ class Binding(pulumi.CustomResource):
     Deprecated in 1.7, please use the bindings subresource of pods instead.
     """
 
-    apiVersion: pulumi.Output[str]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should
-    convert recognized schemas to the latest internal value, and may reject unrecognized values.
-    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
-    """
-
-    kind: pulumi.Output[str]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer
-    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
-    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
-    """
-
-    metadata: pulumi.Output[dict]
-    """
-    Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-    """
-
-    target: pulumi.Output[dict]
-    """
-    The target object that you want to bind to the standard object.
-    """
-
-    def __init__(self, resource_name, opts=None, target=None, metadata=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, metadata=None, target=None, __name__=None, __opts__=None):
         """
         Create a Binding resource with the given unique name, arguments, and options.
-
-        :param str resource_name: The _unique_ name of the resource.
-        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[dict] target: The target object that you want to bind to the standard object.
-        :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -74,12 +43,7 @@ class Binding(pulumi.CustomResource):
         __props__['target'] = target
         __props__['metadata'] = metadata
 
-        __props__['status'] = None
-
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        if opts.version is None:
-            opts.version = version.get_version()
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(Binding, self).__init__(
             "kubernetes:core/v1:Binding",
@@ -88,22 +52,9 @@ class Binding(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(resource_name, id, opts=None):
-        """
-        Get the state of an existing `Binding` resource, as identified by `id`.
-        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
-        then (per Kubernetes convention) the ID becomes default/[name].
-
-        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
-
-        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
-        :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
-               Takes the form [namespace]/[name] or [name].
-        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
-               resource's behavior.
-        """
-        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
-        return Binding(resource_name, opts)
+    def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
+        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
+        return Binding(name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
