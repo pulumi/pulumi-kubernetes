@@ -20,7 +20,6 @@ class ServiceAccount(pulumi.CustomResource):
     def __init__(self, resource_name, opts=None, automount_service_account_token=None, image_pull_secrets=None, metadata=None, secrets=None, __name__=None, __opts__=None):
         """
         Create a ServiceAccount resource with the given unique name, arguments, and options.
-        
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

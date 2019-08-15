@@ -12,6 +12,12 @@ import { getVersion } from "../../version";
      *  - Storage: As many VolumeClaims as requested.
      * The StatefulSet guarantees that a given network identity will always map to the same storage
      * identity.
+     * 
+     * Pulumi uses "await logic" to determine if a StatefulSet is ready.
+     * The following conditions are considered by this logic:
+     * 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+     *    and '.status.readyReplicas'.
+     * 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
      */
     export class StatefulSet extends pulumi.CustomResource {
       /**
@@ -78,12 +84,6 @@ import { getVersion } from "../../version";
       /**
        * Create a apps.v1.StatefulSet resource with the given unique name, arguments, and options.
        *
-       * Pulumi uses "await logic" to determine if a StatefulSet is ready.
-       * The following conditions are considered by this logic:
-       * 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
-       *    and '.status.readyReplicas'.
-       * 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
-       * 
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.

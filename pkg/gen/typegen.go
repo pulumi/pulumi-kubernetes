@@ -635,20 +635,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
-			var awaitPrefix string
-			switch opts.language {
-			case typescript:
-				awaitPrefix = "      "
-			case python:
-				awaitPrefix = "        "
-			}
+			prefix := "    "
 			return linq.From([]*KindConfig{
 				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:            fmtComment(d.data["description"], "    ", false, opts),
-					awaitComment:       fmtComment(AwaitComment(d.gvk.Kind, opts), awaitPrefix, true, opts),
+					comment:            fmtComment(d.data["description"], prefix, true, opts),
+					awaitComment:       fmtComment(AwaitComment(d.gvk.Kind), prefix, true, opts),
 					properties:         properties,
 					requiredProperties: requiredProperties,
 					optionalProperties: optionalProperties,

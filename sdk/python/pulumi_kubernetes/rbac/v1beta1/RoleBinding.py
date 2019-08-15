@@ -22,7 +22,6 @@ class RoleBinding(pulumi.CustomResource):
     def __init__(self, resource_name, opts=None, metadata=None, role_ref=None, subjects=None, __name__=None, __opts__=None):
         """
         Create a RoleBinding resource with the given unique name, arguments, and options.
-        
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

@@ -5175,7 +5175,9 @@ export namespace authorization {
 
     }
 
-    
+    /**
+     * 
+     */
     export interface SelfSubjectRulesReviewSpec {
       /**
        * Namespace to evaluate rules for. Required.
@@ -5577,7 +5579,9 @@ export namespace authorization {
 
     }
 
-    
+    /**
+     * 
+     */
     export interface SelfSubjectRulesReviewSpec {
       /**
        * Namespace to evaluate rules for. Required.
@@ -7584,7 +7588,9 @@ export namespace certificates {
 
     }
 
-    
+    /**
+     * 
+     */
     export interface CertificateSigningRequestCondition {
       /**
        * timestamp for the last update to this condition
@@ -7608,7 +7614,9 @@ export namespace certificates {
 
     }
 
-    
+    /**
+     * 
+     */
     export interface CertificateSigningRequestList {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
@@ -7674,7 +7682,9 @@ export namespace certificates {
 
     }
 
-    
+    /**
+     * 
+     */
     export interface CertificateSigningRequestStatus {
       /**
        * If request was approved, the controller will place the issued certificate here.
@@ -14649,7 +14659,9 @@ export namespace extensions {
 
     }
 
-    
+    /**
+     * 
+     */
     export interface DaemonSetUpdateStrategy {
       /**
        * Rolling update config params. Present only if type = "RollingUpdate".

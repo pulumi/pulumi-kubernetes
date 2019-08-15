@@ -61,16 +61,9 @@ The following conditions are considered by this logic:
     type is ExternalName).
 3.  Ingress entry exists for '.status.loadBalancer.ingress'.`
 
-func AwaitComment(kind string, opts groupOpts) string {
-	var prefix string
-	const suffix = "\n"
-
-	switch opts.language {
-	case typescript:
-		prefix = "*\n"
-	case python:
-		prefix = "\n"
-	}
+func AwaitComment(kind string) string {
+	const prefix = "\n\n"
+	const suffix = ""
 
 	style := func(comment string) string {
 		return prefix + comment + suffix
@@ -88,9 +81,6 @@ func AwaitComment(kind string, opts groupOpts) string {
 	case kinds.StatefulSet:
 		return style(StatefulSetAwaitComment)
 	default:
-		if opts.language == typescript {
-			return "*"
-		}
 		return ""
 	}
 }

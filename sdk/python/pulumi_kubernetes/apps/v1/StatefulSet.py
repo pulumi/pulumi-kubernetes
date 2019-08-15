@@ -18,18 +18,17 @@ class StatefulSet(pulumi.CustomResource):
      - Storage: As many VolumeClaims as requested.
     The StatefulSet guarantees that a given network identity will always map to the same storage
     identity.
+    
+    Pulumi uses "await logic" to determine if a StatefulSet is ready.
+    The following conditions are considered by this logic:
+    1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+       and '.status.readyReplicas'.
+    2. The value of '.status.updateRevision' matches '.status.currentRevision'.
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
         """
         Create a StatefulSet resource with the given unique name, arguments, and options.
-        
-        Pulumi uses "await logic" to determine if a StatefulSet is ready.
-        The following conditions are considered by this logic:
-        1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
-           and '.status.readyReplicas'.
-        2. The value of '.status.updateRevision' matches '.status.currentRevision'.
-        
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

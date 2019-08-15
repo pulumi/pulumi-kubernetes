@@ -20,7 +20,6 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
     def __init__(self, resource_name, opts=None, metadata=None, webhooks=None, __name__=None, __opts__=None):
         """
         Create a MutatingWebhookConfiguration resource with the given unique name, arguments, and options.
-        
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

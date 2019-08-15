@@ -23,7 +23,6 @@ class StorageClass(pulumi.CustomResource):
     def __init__(self, resource_name, opts=None, allow_volume_expansion=None, allowed_topologies=None, metadata=None, mount_options=None, parameters=None, provisioner=None, reclaim_policy=None, volume_binding_mode=None, __name__=None, __opts__=None):
         """
         Create a StorageClass resource with the given unique name, arguments, and options.
-        
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

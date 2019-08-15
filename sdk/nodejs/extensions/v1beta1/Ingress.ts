@@ -12,6 +12,13 @@ import { getVersion } from "../../version";
      * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. DEPRECATED -
      * This group version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress. See the
      * release notes for more information.
+     * 
+     * Pulumi uses "await logic" to determine if a Ingress is ready.
+     * The following conditions are considered by this logic:
+     * 1.  Ingress object exists.
+     * 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+     *     type is ExternalName).
+     * 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
      */
     export class Ingress extends pulumi.CustomResource {
       /**
@@ -82,13 +89,6 @@ import { getVersion } from "../../version";
       /**
        * Create a extensions.v1beta1.Ingress resource with the given unique name, arguments, and options.
        *
-       * Pulumi uses "await logic" to determine if a Ingress is ready.
-       * The following conditions are considered by this logic:
-       * 1.  Ingress object exists.
-       * 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
-       *     type is ExternalName).
-       * 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
-       * 
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.

@@ -15,19 +15,18 @@ class Pod(pulumi.CustomResource):
     """
     Pod is a collection of containers that can run on a host. This resource is created by clients
     and scheduled onto hosts.
+    
+    Pulumi uses "await logic" to determine if a Pod is ready.
+    The following conditions are considered by this logic:
+    1. The Pod is scheduled (PodScheduled condition is true).
+    2. The Pod is initialized (Initialized condition is true).
+    3. The Pod is ready (Ready condition is true) and the '.status.phase' is set to "Running".
+    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
         """
         Create a Pod resource with the given unique name, arguments, and options.
-        
-        Pulumi uses "await logic" to determine if a Pod is ready.
-        The following conditions are considered by this logic:
-        1. The Pod is scheduled (PodScheduled condition is true).
-        2. The Pod is initialized (Initialized condition is true).
-        3. The Pod is ready (Ready condition is true) and the '.status.phase' is set to "Running".
-        Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
-        
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

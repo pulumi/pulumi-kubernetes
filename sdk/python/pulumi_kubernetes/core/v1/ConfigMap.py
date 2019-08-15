@@ -19,7 +19,6 @@ class ConfigMap(pulumi.CustomResource):
     def __init__(self, resource_name, opts=None, binary_data=None, data=None, metadata=None, __name__=None, __opts__=None):
         """
         Create a ConfigMap resource with the given unique name, arguments, and options.
-        
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
