@@ -31,10 +31,12 @@ class Deployment(pulumi.CustomResource):
           revision is incremented, and a new ReplicaSet is created with a corresponding revision
           number in its own annotations. This condition overall is a test to make sure that the
           Deployment controller is making progress in rolling forward to the new generation.
+        
         2. '.status.conditions' has a status with 'type' equal to 'Progressing', a 'status' set to
           'True', and a 'reason' set to 'NewReplicaSetAvailable'. Though the condition is called
           "Progressing", this condition indicates that the new ReplicaSet has become healthy and
           available, and the Deployment controller is now free to delete the old ReplicaSet.
+        
         3. '.status.conditions' has a status with 'type' equal to 'Available', a 'status' equal to
           'True'. If the Deployment is not available, we should fail the Deployment immediately.
         

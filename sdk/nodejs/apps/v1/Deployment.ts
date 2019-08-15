@@ -84,10 +84,12 @@ import { getVersion } from "../../version";
        *   revision is incremented, and a new ReplicaSet is created with a corresponding revision
        *   number in its own annotations. This condition overall is a test to make sure that the
        *   Deployment controller is making progress in rolling forward to the new generation.
+       * 
        * 2. &#39;.status.conditions&#39; has a status with &#39;type&#39; equal to &#39;Progressing&#39;, a &#39;status&#39; set to
        *   &#39;True&#39;, and a &#39;reason&#39; set to &#39;NewReplicaSetAvailable&#39;. Though the condition is called
        *   &#34;Progressing&#34;, this condition indicates that the new ReplicaSet has become healthy and
        *   available, and the Deployment controller is now free to delete the old ReplicaSet.
+       * 
        * 3. &#39;.status.conditions&#39; has a status with &#39;type&#39; equal to &#39;Available&#39;, a &#39;status&#39; equal to
        *   &#39;True&#39;. If the Deployment is not available, we should fail the Deployment immediately.
        * 
