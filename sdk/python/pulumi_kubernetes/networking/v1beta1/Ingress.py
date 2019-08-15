@@ -22,6 +22,13 @@ class Ingress(pulumi.CustomResource):
         """
         Create a Ingress resource with the given unique name, arguments, and options.
         
+        Pulumi uses "await logic" to determine if a Pod is ready.
+        The following conditions are considered by this logic:
+        1.  Ingress object exists.
+        2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+            type is ExternalName).
+        3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+        
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
