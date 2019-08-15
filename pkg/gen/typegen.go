@@ -246,7 +246,7 @@ func fmtComment(comment interface{}, prefix string, bareRender bool, opts groupO
 			if !bareRender {
 				return fmt.Sprintf("\"\"\"\n%s%s\n%s\"\"\"", prefix, joined, prefix)
 			}
-			return fmt.Sprintf("%s", joined)
+			return joined
 		}
 	case typescript:
 		wrapParagraph = func(paragraph string) []string {
@@ -261,7 +261,7 @@ func fmtComment(comment interface{}, prefix string, bareRender bool, opts groupO
 			if !bareRender {
 				return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
 			}
-			return fmt.Sprintf("%s", joined)
+			return joined
 		}
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
