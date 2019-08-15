@@ -42,6 +42,13 @@ The following conditions are considered by this logic:
    value of '.spec.replicas'.
 2. '.status.updateRevision' matches '.status.currentRevision'.`
 
+const PodAwaitComment = `Pulumi uses "await logic" to determine if a Pod is ready.
+The following conditions are considered by this logic:
+1. The Pod is scheduled (PodScheduled condition is true).
+2. The Pod is initialized (Initialized condition is true).
+3. The Pod is ready (Ready condition is true) and the '.status.phase' is set to "Running".
+Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").`
+
 func AwaitComment(kind string, opts groupOpts) string {
 	var prefix string
 	const suffix = "\n"
@@ -60,6 +67,8 @@ func AwaitComment(kind string, opts groupOpts) string {
 	switch kinds.Kind(kind) {
 	case kinds.Deployment:
 		return style(DeploymentAwaitComment)
+	case kinds.Pod:
+		return style(PodAwaitComment)
 	case kinds.StatefulSet:
 		return style(StatefulSetAwaitComment)
 	default:

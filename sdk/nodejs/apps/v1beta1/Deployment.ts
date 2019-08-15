@@ -77,23 +77,23 @@ import { getVersion } from "../../version";
       /**
        * Create a apps.v1beta1.Deployment resource with the given unique name, arguments, and options.
        *
-       * Pulumi uses &#34;await logic&#34; to determine if a Deployment is ready.
+       * Pulumi uses "await logic" to determine if a Deployment is ready.
        * The following conditions are considered by this logic:
-       * 1. &#39;.metadata.annotations[&#34;deployment.kubernetes.io/revision&#34;]&#39; in the current Deployment
+       * 1. '.metadata.annotations["deployment.kubernetes.io/revision"]' in the current Deployment
        *   must have been incremented by the Deployment controller, i.e., it must not be equal to
        *   the revision number in the previous outputs. This number is used to indicate the the
-       *   active ReplicaSet. Any time a change is made to the Deployment&#39;s Pod template, this
+       *   active ReplicaSet. Any time a change is made to the Deployment's Pod template, this
        *   revision is incremented, and a new ReplicaSet is created with a corresponding revision
        *   number in its own annotations. This condition overall is a test to make sure that the
        *   Deployment controller is making progress in rolling forward to the new generation.
        * 
-       * 2. &#39;.status.conditions&#39; has a status with &#39;type&#39; equal to &#39;Progressing&#39;, a &#39;status&#39; set to
-       *   &#39;True&#39;, and a &#39;reason&#39; set to &#39;NewReplicaSetAvailable&#39;. Though the condition is called
-       *   &#34;Progressing&#34;, this condition indicates that the new ReplicaSet has become healthy and
+       * 2. '.status.conditions' has a status with 'type' equal to 'Progressing', a 'status' set to
+       *   'True', and a 'reason' set to 'NewReplicaSetAvailable'. Though the condition is called
+       *   "Progressing", this condition indicates that the new ReplicaSet has become healthy and
        *   available, and the Deployment controller is now free to delete the old ReplicaSet.
        * 
-       * 3. &#39;.status.conditions&#39; has a status with &#39;type&#39; equal to &#39;Available&#39;, a &#39;status&#39; equal to
-       *   &#39;True&#39;. If the Deployment is not available, we should fail the Deployment immediately.
+       * 3. '.status.conditions' has a status with 'type' equal to 'Available', a 'status' equal to
+       *   'True'. If the Deployment is not available, we should fail the Deployment immediately.
        * 
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.

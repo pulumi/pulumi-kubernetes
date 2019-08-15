@@ -80,6 +80,13 @@ import { getVersion } from "../../version";
       /**
        * Create a core.v1.Pod resource with the given unique name, arguments, and options.
        *
+       * Pulumi uses "await logic" to determine if a Pod is ready.
+       * The following conditions are considered by this logic:
+       * 1. The Pod is scheduled (PodScheduled condition is true).
+       * 2. The Pod is initialized (Initialized condition is true).
+       * 3. The Pod is ready (Ready condition is true) and the '.status.phase' is set to "Running".
+       * Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+       * 
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.

@@ -80,11 +80,11 @@ import { getVersion } from "../../version";
       /**
        * Create a apps.v1beta2.StatefulSet resource with the given unique name, arguments, and options.
        *
-       * Pulumi uses &#34;await logic&#34; to determine if a StatefulSet is ready.
+       * Pulumi uses "await logic" to determine if a StatefulSet is ready.
        * The following conditions are considered by this logic:
-       * 1. &#39;.status.replicas&#39;, &#39;.status.currentReplicas&#39; and &#39;.status.readyReplicas&#39; match the
-       *    value of &#39;.spec.replicas&#39;.
-       * 2. &#39;.status.updateRevision&#39; matches &#39;.status.currentRevision&#39;.
+       * 1. '.status.replicas', '.status.currentReplicas' and '.status.readyReplicas' match the
+       *    value of '.spec.replicas'.
+       * 2. '.status.updateRevision' matches '.status.currentRevision'.
        * 
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
