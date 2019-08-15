@@ -36,6 +36,12 @@ The following conditions are considered by this logic:
 3. '.status.conditions' has a status with 'type' equal to 'Available', a 'status' equal to
   'True'. If the Deployment is not available, we should fail the Deployment immediately.`
 
+const StatefulSetAwaitComment = `Pulumi uses "await logic" to determine if a StatefulSet is ready.
+The following conditions are considered by this logic:
+1. '.status.replicas', '.status.currentReplicas' and '.status.readyReplicas' match the
+   value of '.spec.replicas'.
+2. '.status.updateRevision' matches '.status.currentRevision'.`
+
 func AwaitComment(kind string, opts groupOpts) string {
 	var prefix string
 	const suffix = "\n"
@@ -54,6 +60,8 @@ func AwaitComment(kind string, opts groupOpts) string {
 	switch kinds.Kind(kind) {
 	case kinds.Deployment:
 		return style(DeploymentAwaitComment)
+	case kinds.StatefulSet:
+		return style(StatefulSetAwaitComment)
 	default:
 		if opts.language == typescript {
 			return "*"

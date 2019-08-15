@@ -24,6 +24,12 @@ class StatefulSet(pulumi.CustomResource):
         """
         Create a StatefulSet resource with the given unique name, arguments, and options.
         
+        Pulumi uses "await logic" to determine if a StatefulSet is ready.
+        The following conditions are considered by this logic:
+        1. '.status.replicas', '.status.currentReplicas' and '.status.readyReplicas' match the
+           value of '.spec.replicas'.
+        2. '.status.updateRevision' matches '.status.currentRevision'.
+        
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
