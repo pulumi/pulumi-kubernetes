@@ -119,17 +119,17 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.storage.v1.StorageClass, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["allowVolumeExpansion"] = args && args.allowVolumeExpansion || undefined;
-          inputs["allowedTopologies"] = args && args.allowedTopologies || undefined;
-          inputs["apiVersion"] = "storage.k8s.io/v1";
-          inputs["kind"] = "StorageClass";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["mountOptions"] = args && args.mountOptions || undefined;
-          inputs["parameters"] = args && args.parameters || undefined;
-          inputs["provisioner"] = args && args.provisioner || undefined;
-          inputs["reclaimPolicy"] = args && args.reclaimPolicy || undefined;
-          inputs["volumeBindingMode"] = args && args.volumeBindingMode || undefined;
+          const props: pulumi.Inputs = {};
+          props["allowVolumeExpansion"] = args && args.allowVolumeExpansion || undefined;
+          props["allowedTopologies"] = args && args.allowedTopologies || undefined;
+          props["apiVersion"] = "storage.k8s.io/v1";
+          props["kind"] = "StorageClass";
+          props["metadata"] = args && args.metadata || undefined;
+          props["mountOptions"] = args && args.mountOptions || undefined;
+          props["parameters"] = args && args.parameters || undefined;
+          props["provisioner"] = args && args.provisioner || undefined;
+          props["reclaimPolicy"] = args && args.reclaimPolicy || undefined;
+          props["volumeBindingMode"] = args && args.volumeBindingMode || undefined;
 
           if (!opts) {
               opts = {};
@@ -138,6 +138,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(StorageClass.__pulumiType, name, inputs, opts);
+          super(StorageClass.__pulumiType, name, props, opts);
       }
     }

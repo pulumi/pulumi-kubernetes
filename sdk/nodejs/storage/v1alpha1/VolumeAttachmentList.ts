@@ -76,11 +76,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.storage.v1alpha1.VolumeAttachmentList, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
-          inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "VolumeAttachmentList";
-          inputs["metadata"] = args && args.metadata || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "storage.k8s.io/v1alpha1";
+          props["items"] = args && args.items || undefined;
+          props["kind"] = "VolumeAttachmentList";
+          props["metadata"] = args && args.metadata || undefined;
 
           if (!opts) {
               opts = {};
@@ -89,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(VolumeAttachmentList.__pulumiType, name, inputs, opts);
+          super(VolumeAttachmentList.__pulumiType, name, props, opts);
       }
     }

@@ -78,11 +78,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.extensions.v1beta1.PodSecurityPolicy, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["kind"] = "PodSecurityPolicy";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["spec"] = args && args.spec || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "extensions/v1beta1";
+          props["kind"] = "PodSecurityPolicy";
+          props["metadata"] = args && args.metadata || undefined;
+          props["spec"] = args && args.spec || undefined;
 
           if (!opts) {
               opts = {};
@@ -91,6 +91,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(PodSecurityPolicy.__pulumiType, name, inputs, opts);
+          super(PodSecurityPolicy.__pulumiType, name, props, opts);
       }
     }

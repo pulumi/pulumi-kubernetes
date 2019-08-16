@@ -77,11 +77,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.apps.v1.ReplicaSetList, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "apps/v1";
-          inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "ReplicaSetList";
-          inputs["metadata"] = args && args.metadata || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "apps/v1";
+          props["items"] = args && args.items || undefined;
+          props["kind"] = "ReplicaSetList";
+          props["metadata"] = args && args.metadata || undefined;
 
           if (!opts) {
               opts = {};
@@ -90,6 +90,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(ReplicaSetList.__pulumiType, name, inputs, opts);
+          super(ReplicaSetList.__pulumiType, name, props, opts);
       }
     }

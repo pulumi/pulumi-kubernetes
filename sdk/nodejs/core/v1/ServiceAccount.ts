@@ -94,13 +94,13 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.core.v1.ServiceAccount, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "v1";
-          inputs["automountServiceAccountToken"] = args && args.automountServiceAccountToken || undefined;
-          inputs["imagePullSecrets"] = args && args.imagePullSecrets || undefined;
-          inputs["kind"] = "ServiceAccount";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["secrets"] = args && args.secrets || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "v1";
+          props["automountServiceAccountToken"] = args && args.automountServiceAccountToken || undefined;
+          props["imagePullSecrets"] = args && args.imagePullSecrets || undefined;
+          props["kind"] = "ServiceAccount";
+          props["metadata"] = args && args.metadata || undefined;
+          props["secrets"] = args && args.secrets || undefined;
 
           if (!opts) {
               opts = {};
@@ -109,6 +109,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(ServiceAccount.__pulumiType, name, inputs, opts);
+          super(ServiceAccount.__pulumiType, name, props, opts);
       }
     }

@@ -77,11 +77,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.core.v1.PodTemplate, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "v1";
-          inputs["kind"] = "PodTemplate";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["template"] = args && args.template || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "v1";
+          props["kind"] = "PodTemplate";
+          props["metadata"] = args && args.metadata || undefined;
+          props["template"] = args && args.template || undefined;
 
           if (!opts) {
               opts = {};
@@ -90,6 +90,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(PodTemplate.__pulumiType, name, inputs, opts);
+          super(PodTemplate.__pulumiType, name, props, opts);
       }
     }

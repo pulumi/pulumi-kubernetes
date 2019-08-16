@@ -142,24 +142,24 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.core.v1.Event, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["action"] = args && args.action || undefined;
-          inputs["apiVersion"] = "v1";
-          inputs["count"] = args && args.count || undefined;
-          inputs["eventTime"] = args && args.eventTime || undefined;
-          inputs["firstTimestamp"] = args && args.firstTimestamp || undefined;
-          inputs["involvedObject"] = args && args.involvedObject || undefined;
-          inputs["kind"] = "Event";
-          inputs["lastTimestamp"] = args && args.lastTimestamp || undefined;
-          inputs["message"] = args && args.message || undefined;
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["reason"] = args && args.reason || undefined;
-          inputs["related"] = args && args.related || undefined;
-          inputs["reportingComponent"] = args && args.reportingComponent || undefined;
-          inputs["reportingInstance"] = args && args.reportingInstance || undefined;
-          inputs["series"] = args && args.series || undefined;
-          inputs["source"] = args && args.source || undefined;
-          inputs["type"] = args && args.type || undefined;
+          const props: pulumi.Inputs = {};
+          props["action"] = args && args.action || undefined;
+          props["apiVersion"] = "v1";
+          props["count"] = args && args.count || undefined;
+          props["eventTime"] = args && args.eventTime || undefined;
+          props["firstTimestamp"] = args && args.firstTimestamp || undefined;
+          props["involvedObject"] = args && args.involvedObject || undefined;
+          props["kind"] = "Event";
+          props["lastTimestamp"] = args && args.lastTimestamp || undefined;
+          props["message"] = args && args.message || undefined;
+          props["metadata"] = args && args.metadata || undefined;
+          props["reason"] = args && args.reason || undefined;
+          props["related"] = args && args.related || undefined;
+          props["reportingComponent"] = args && args.reportingComponent || undefined;
+          props["reportingInstance"] = args && args.reportingInstance || undefined;
+          props["series"] = args && args.series || undefined;
+          props["source"] = args && args.source || undefined;
+          props["type"] = args && args.type || undefined;
 
           if (!opts) {
               opts = {};
@@ -168,6 +168,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(Event.__pulumiType, name, inputs, opts);
+          super(Event.__pulumiType, name, props, opts);
       }
     }

@@ -69,11 +69,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.certificates.v1beta1.CertificateSigningRequestList, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
-          inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "CertificateSigningRequestList";
-          inputs["metadata"] = args && args.metadata || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "certificates.k8s.io/v1beta1";
+          props["items"] = args && args.items || undefined;
+          props["kind"] = "CertificateSigningRequestList";
+          props["metadata"] = args && args.metadata || undefined;
 
           if (!opts) {
               opts = {};
@@ -82,6 +82,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(CertificateSigningRequestList.__pulumiType, name, inputs, opts);
+          super(CertificateSigningRequestList.__pulumiType, name, props, opts);
       }
     }

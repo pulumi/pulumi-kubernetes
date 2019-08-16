@@ -76,11 +76,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.admissionregistration.v1beta1.MutatingWebhookConfigurationList, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
-          inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "MutatingWebhookConfigurationList";
-          inputs["metadata"] = args && args.metadata || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
+          props["items"] = args && args.items || undefined;
+          props["kind"] = "MutatingWebhookConfigurationList";
+          props["metadata"] = args && args.metadata || undefined;
 
           if (!opts) {
               opts = {};
@@ -89,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(MutatingWebhookConfigurationList.__pulumiType, name, inputs, opts);
+          super(MutatingWebhookConfigurationList.__pulumiType, name, props, opts);
       }
     }

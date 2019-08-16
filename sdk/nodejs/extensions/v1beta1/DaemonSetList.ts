@@ -76,11 +76,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.extensions.v1beta1.DaemonSetList, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "extensions/v1beta1";
-          inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "DaemonSetList";
-          inputs["metadata"] = args && args.metadata || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "extensions/v1beta1";
+          props["items"] = args && args.items || undefined;
+          props["kind"] = "DaemonSetList";
+          props["metadata"] = args && args.metadata || undefined;
 
           if (!opts) {
               opts = {};
@@ -89,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(DaemonSetList.__pulumiType, name, inputs, opts);
+          super(DaemonSetList.__pulumiType, name, props, opts);
       }
     }

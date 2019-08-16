@@ -77,11 +77,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.core.v1.Binding, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "v1";
-          inputs["kind"] = "Binding";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["target"] = args && args.target || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "v1";
+          props["kind"] = "Binding";
+          props["metadata"] = args && args.metadata || undefined;
+          props["target"] = args && args.target || undefined;
 
           if (!opts) {
               opts = {};
@@ -90,6 +90,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(Binding.__pulumiType, name, inputs, opts);
+          super(Binding.__pulumiType, name, props, opts);
       }
     }

@@ -81,11 +81,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.node.v1alpha1.RuntimeClass, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "node.k8s.io/v1alpha1";
-          inputs["kind"] = "RuntimeClass";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["spec"] = args && args.spec || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "node.k8s.io/v1alpha1";
+          props["kind"] = "RuntimeClass";
+          props["metadata"] = args && args.metadata || undefined;
+          props["spec"] = args && args.spec || undefined;
 
           if (!opts) {
               opts = {};
@@ -94,6 +94,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(RuntimeClass.__pulumiType, name, inputs, opts);
+          super(RuntimeClass.__pulumiType, name, props, opts);
       }
     }

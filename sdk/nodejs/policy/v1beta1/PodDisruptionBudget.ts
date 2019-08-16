@@ -79,12 +79,12 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "policy/v1beta1";
-          inputs["kind"] = "PodDisruptionBudget";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["spec"] = args && args.spec || undefined;
-          inputs["status"] = args && args.status || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "policy/v1beta1";
+          props["kind"] = "PodDisruptionBudget";
+          props["metadata"] = args && args.metadata || undefined;
+          props["spec"] = args && args.spec || undefined;
+          props["status"] = args && args.status || undefined;
 
           if (!opts) {
               opts = {};
@@ -93,6 +93,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(PodDisruptionBudget.__pulumiType, name, inputs, opts);
+          super(PodDisruptionBudget.__pulumiType, name, props, opts);
       }
     }

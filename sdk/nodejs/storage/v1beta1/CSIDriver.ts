@@ -85,11 +85,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.storage.v1beta1.CSIDriver, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "storage.k8s.io/v1beta1";
-          inputs["kind"] = "CSIDriver";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["spec"] = args && args.spec || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "storage.k8s.io/v1beta1";
+          props["kind"] = "CSIDriver";
+          props["metadata"] = args && args.metadata || undefined;
+          props["spec"] = args && args.spec || undefined;
 
           if (!opts) {
               opts = {};
@@ -98,6 +98,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(CSIDriver.__pulumiType, name, inputs, opts);
+          super(CSIDriver.__pulumiType, name, props, opts);
       }
     }
