@@ -50,7 +50,8 @@ var _ AggregatedError = (*timeoutError)(nil)
 var _ PartialError = (*timeoutError)(nil)
 
 func (te *timeoutError) Error() string {
-	return fmt.Sprintf("Timeout occurred for '%s'", te.object.GetName())
+	// TODO(levi): May want to add a shortlink to more detailed troubleshooting docs.
+	return fmt.Sprintf("'%s' timed out waiting to be Ready", te.object.GetName())
 }
 
 // SubErrors returns the errors that were present when timeout occurred.
