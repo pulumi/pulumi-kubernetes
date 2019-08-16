@@ -5456,7 +5456,9 @@ export namespace authorization {
       return o.apiVersion == "authorization.k8s.io/v1" && o.kind == "SelfSubjectRulesReview";
     }
 
-    
+    /**
+     * 
+     */
     export interface SelfSubjectRulesReviewSpec {
       /**
        * Namespace to evaluate rules for. Required.
@@ -5883,7 +5885,9 @@ export namespace authorization {
       return o.apiVersion == "authorization.k8s.io/v1beta1" && o.kind == "SelfSubjectRulesReview";
     }
 
-    
+    /**
+     * 
+     */
     export interface SelfSubjectRulesReviewSpec {
       /**
        * Namespace to evaluate rules for. Required.
@@ -8008,7 +8012,9 @@ export namespace certificates {
       return o.apiVersion == "certificates.k8s.io/v1beta1" && o.kind == "CertificateSigningRequest";
     }
 
-    
+    /**
+     * 
+     */
     export interface CertificateSigningRequestCondition {
       /**
        * request approval state, currently Approved or Denied.
@@ -8033,7 +8039,9 @@ export namespace certificates {
     }
 
 
-    
+    /**
+     * 
+     */
     export interface CertificateSigningRequestList {
       
       items: pulumi.Input<pulumi.Input<certificates.v1beta1.CertificateSigningRequest>[]>
@@ -8104,7 +8112,9 @@ export namespace certificates {
     }
 
 
-    
+    /**
+     * 
+     */
     export interface CertificateSigningRequestStatus {
       /**
        * If request was approved, the controller will place the issued certificate here.
@@ -15406,7 +15416,9 @@ export namespace extensions {
     }
 
 
-    
+    /**
+     * 
+     */
     export interface DaemonSetUpdateStrategy {
       /**
        * Rolling update config params. Present only if type = "RollingUpdate".

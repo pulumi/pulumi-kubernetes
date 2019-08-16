@@ -2,7 +2,6 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import warnings
-from copy import copy
 from typing import Optional
 
 import pulumi
@@ -17,9 +16,21 @@ class Ingress(pulumi.CustomResource):
     Ingress is a collection of rules that allow inbound connections to reach the endpoints defined
     by a backend. An Ingress can be configured to give services externally-reachable urls, load
     balance traffic, terminate SSL, offer name based virtual hosting etc.
+    
+    This resource waits until it is ready before registering success for
+    create/update and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
+    1.  Ingress object exists.
+    2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+        type is ExternalName).
+    3.  Ingress entry exists for '.status.loadBalancer.ingress'.
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
+        """
+        Create a Ingress resource with the given unique name, arguments, and options.
+        """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

@@ -2,7 +2,6 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import warnings
-from copy import copy
 from typing import Optional
 
 import pulumi
@@ -17,9 +16,26 @@ class Service(pulumi.CustomResource):
     Service is a named abstraction of software service (for example, mysql) consisting of local port
     (for example 3306) that the proxy listens on, and the selector that determines which pods will
     answer requests sent through the proxy.
+    
+    This resource waits until it is ready before registering success for
+    create/update and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
+    1. Service object exists.
+    2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
+       for any stragglers.
+    3. The endpoints objects target some number of living objects (unless the Service is
+       an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+    4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+    
+    [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+    
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
+        """
+        Create a Service resource with the given unique name, arguments, and options.
+        """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

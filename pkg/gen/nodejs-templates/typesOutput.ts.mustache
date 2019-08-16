@@ -6,7 +6,9 @@ export namespace {{Group}} {
   {{#Versions}}
   export namespace {{Version}} {
     {{#Kinds}}
-    {{{Comment}}}
+    /**
+     * {{{Comment}}}
+     */
     export interface {{Kind}} {
       {{#Properties}}
       {{{Comment}}}

@@ -6,7 +6,9 @@ import * as inputs from "../../types/input";
 import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
-    
+    /**
+     * 
+     */
     export class CertificateSigningRequestList extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should

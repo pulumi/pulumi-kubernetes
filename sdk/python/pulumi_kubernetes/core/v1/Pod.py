@@ -2,7 +2,6 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import warnings
-from copy import copy
 from typing import Optional
 
 import pulumi
@@ -16,9 +15,22 @@ class Pod(pulumi.CustomResource):
     """
     Pod is a collection of containers that can run on a host. This resource is created by clients
     and scheduled onto hosts.
+    
+    This resource waits until it is ready before registering success for
+    create/update and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
+    1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+    2. The Pod is initialized ("Initialized" '.status.condition' is true).
+    3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+       set to "Running".
+    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
+        """
+        Create a Pod resource with the given unique name, arguments, and options.
+        """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

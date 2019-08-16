@@ -19,9 +19,9 @@ import (
 	"regexp"
 	"strings"
 
-	linq "github.com/ahmetb/go-linq"
+	"github.com/ahmetb/go-linq"
 	"github.com/jinzhu/copier"
-	wordwrap "github.com/mitchellh/go-wordwrap"
+	"github.com/mitchellh/go-wordwrap"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 
@@ -128,6 +128,7 @@ func (vc *VersionConfig) RawAPIVersion() string { return vc.rawAPIVersion }
 type KindConfig struct {
 	kind               string
 	comment            string
+	awaitComment       string
 	properties         []*Property
 	requiredProperties []*Property
 	optionalProperties []*Property
@@ -144,6 +145,9 @@ func (kc *KindConfig) Kind() string { return kc.kind }
 
 // Comment returns the comments associated with some Kubernetes API kind.
 func (kc *KindConfig) Comment() string { return kc.comment }
+
+// AwaitComment returns the await logic documentation associated with some Kubernetes API kind.
+func (kc *KindConfig) AwaitComment() string { return kc.awaitComment }
 
 // Properties returns the list of properties that exist on some Kubernetes API kind (i.e., things
 // that we will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
@@ -223,7 +227,7 @@ func stripPrefix(name string) string {
 	return strings.TrimPrefix(name, prefix)
 }
 
-func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
+func fmtComment(comment interface{}, prefix string, bareRender bool, opts groupOpts) string {
 	if comment == nil {
 		return ""
 	}
@@ -239,7 +243,10 @@ func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 		}
 		renderComment = func(lines []string) string {
 			joined := strings.Join(lines, fmt.Sprintf("\n%s", prefix))
-			return fmt.Sprintf("\"\"\"\n%s%s\n%s\"\"\"", prefix, joined, prefix)
+			if !bareRender {
+				return fmt.Sprintf("\"\"\"\n%s%s\n%s\"\"\"", prefix, joined, prefix)
+			}
+			return joined
 		}
 	case typescript:
 		wrapParagraph = func(paragraph string) []string {
@@ -251,7 +258,10 @@ func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 		}
 		renderComment = func(lines []string) string {
 			joined := strings.Join(lines, fmt.Sprintf("\n%s * ", prefix))
-			return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
+			if !bareRender {
+				return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
+			}
+			return joined
 		}
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
@@ -260,7 +270,7 @@ func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 	commentstr, _ := comment.(string)
 	if len(commentstr) > 0 {
 		split := strings.Split(commentstr, "\n")
-		lines := []string{}
+		var lines []string
 		for _, paragraph := range split {
 			lines = append(lines, wrapParagraph(paragraph)...)
 		}
@@ -573,7 +583,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					}
 
 					return &Property{
-						comment:      fmtComment(prop["description"], prefix, opts),
+						comment:      fmtComment(prop["description"], prefix, false, opts),
 						propType:     t,
 						name:         propName,
 						languageName: pycodegen.PyName(propName),
@@ -625,12 +635,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
+			prefix := "    "
 			return linq.From([]*KindConfig{
 				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:            fmtComment(d.data["description"], "    ", opts),
+					comment:            fmtComment(d.data["description"], prefix, true, opts),
+					awaitComment:       fmtComment(AwaitComment(d.gvk.Kind), prefix, true, opts),
 					properties:         properties,
 					requiredProperties: requiredProperties,
 					optionalProperties: optionalProperties,

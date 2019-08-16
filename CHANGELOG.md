@@ -1,5 +1,15 @@
 ## 1.0.0-beta.2 (Unreleased)
 
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Improvements
+
+-   Document await logic in the SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/711).
+
 ## 1.0.0-beta.1 (August 13, 2019)
 
 ### Supported Kubernetes versions

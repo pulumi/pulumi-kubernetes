@@ -2,7 +2,6 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import warnings
-from copy import copy
 from typing import Optional
 
 import pulumi
@@ -19,9 +18,20 @@ class StatefulSet(pulumi.CustomResource):
      - Storage: As many VolumeClaims as requested.
     The StatefulSet guarantees that a given network identity will always map to the same storage
     identity.
+    
+    This resource waits until it is ready before registering success for
+    create/update and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
+    1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+       and '.status.readyReplicas'.
+    2. The value of '.status.updateRevision' matches '.status.currentRevision'.
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
+        """
+        Create a StatefulSet resource with the given unique name, arguments, and options.
+        """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__

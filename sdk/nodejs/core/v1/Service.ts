@@ -10,6 +10,20 @@ import { getVersion } from "../../version";
      * Service is a named abstraction of software service (for example, mysql) consisting of local
      * port (for example 3306) that the proxy listens on, and the selector that determines which
      * pods will answer requests sent through the proxy.
+     * 
+     * This resource waits until it is ready before registering success for
+     * create/update and populating output properties from the current state of the resource.
+     * The following conditions are used to determine whether the resource creation has
+     * succeeded or failed:
+     * 1. Service object exists.
+     * 2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
+     *    for any stragglers.
+     * 3. The endpoints objects target some number of living objects (unless the Service is
+     *    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+     * 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+     * 
+     * [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+     * 
      */
     export class Service extends pulumi.CustomResource {
       /**

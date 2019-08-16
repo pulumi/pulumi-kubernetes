@@ -2,7 +2,6 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import warnings
-from copy import copy
 from typing import Optional
 
 import pulumi
@@ -25,6 +24,9 @@ class SelfSubjectRulesReview(pulumi.CustomResource):
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):
+        """
+        Create a SelfSubjectRulesReview resource with the given unique name, arguments, and options.
+        """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__
