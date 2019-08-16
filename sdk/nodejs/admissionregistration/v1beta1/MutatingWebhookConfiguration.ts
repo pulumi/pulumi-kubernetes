@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -31,12 +31,12 @@ import { getVersion } from "../../version";
        * Standard object metadata; More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Webhooks is a list of webhooks and the affected resources and operations.
        */
-      public readonly webhooks: pulumi.Output<outputApi.admissionregistration.v1beta1.MutatingWebhook[]>;
+      public readonly webhooks: pulumi.Output<outputs.admissionregistration.v1beta1.MutatingWebhook[]>;
 
       /**
        * Get the state of an existing `MutatingWebhookConfiguration` resource, as identified by `id`.
@@ -76,7 +76,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.admissionregistration.v1beta1.MutatingWebhookConfiguration, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.admissionregistration.v1beta1.MutatingWebhookConfiguration, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
           inputs["kind"] = "MutatingWebhookConfiguration";

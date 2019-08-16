@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -28,7 +28,7 @@ import { getVersion } from "../../version";
        * This field is optional and the data returned is not guaranteed to conform to any schema
        * except that defined by the reason type.
        */
-      public readonly details: pulumi.Output<outputApi.meta.v1.StatusDetails>;
+      public readonly details: pulumi.Output<outputs.meta.v1.StatusDetails>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -47,7 +47,7 @@ import { getVersion } from "../../version";
        * Standard list metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
       /**
        * A machine-readable description of why this operation is in the "Failure" status. If this
@@ -100,7 +100,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.meta.v1.Status, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.meta.v1.Status, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["code"] = args && args.code || undefined;

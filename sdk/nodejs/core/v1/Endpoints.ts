@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -41,7 +41,7 @@ import { getVersion } from "../../version";
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * The set of all endpoints is the union of all subsets. Addresses are placed into subsets
@@ -51,7 +51,7 @@ import { getVersion } from "../../version";
        * will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses
        * and ports that comprise a service.
        */
-      public readonly subsets: pulumi.Output<outputApi.core.v1.EndpointSubset[]>;
+      public readonly subsets: pulumi.Output<outputs.core.v1.EndpointSubset[]>;
 
       /**
        * Get the state of an existing `Endpoints` resource, as identified by `id`.
@@ -91,7 +91,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.core.v1.Endpoints, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.core.v1.Endpoints, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Endpoints";

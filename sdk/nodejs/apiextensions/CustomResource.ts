@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import * as pulumi from "@pulumi/pulumi"
-import * as inputApi from "../types/input";
-import * as outputApi from "../types/output";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
 import { getVersion } from "../version";
 
 /**
@@ -48,7 +48,7 @@ export interface CustomResourceArgs {
      * Standard object metadata; More info:
      * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
      */
-    metadata?: pulumi.Input<inputApi.meta.v1.ObjectMeta>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     [othersFields: string]: pulumi.Input<any>;
 }
 
@@ -103,7 +103,7 @@ export class CustomResource extends pulumi.CustomResource {
      * Standard object metadata; More info:
      * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
      */
-    public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+    public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
     /**
      * Get the state of an existing `CustomResource`, as identified by `id`.

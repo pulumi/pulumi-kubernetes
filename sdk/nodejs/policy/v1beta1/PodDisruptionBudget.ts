@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -28,17 +28,17 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"PodDisruptionBudget">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of the PodDisruptionBudget.
        */
-      public readonly spec: pulumi.Output<outputApi.policy.v1beta1.PodDisruptionBudgetSpec>;
+      public readonly spec: pulumi.Output<outputs.policy.v1beta1.PodDisruptionBudgetSpec>;
 
       /**
        * Most recently observed status of the PodDisruptionBudget.
        */
-      public readonly status: pulumi.Output<outputApi.policy.v1beta1.PodDisruptionBudgetStatus>;
+      public readonly status: pulumi.Output<outputs.policy.v1beta1.PodDisruptionBudgetStatus>;
 
       /**
        * Get the state of an existing `PodDisruptionBudget` resource, as identified by `id`.
@@ -78,7 +78,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.policy.v1beta1.PodDisruptionBudget, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "policy/v1beta1";
           inputs["kind"] = "PodDisruptionBudget";

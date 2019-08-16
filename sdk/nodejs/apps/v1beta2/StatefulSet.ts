@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -33,18 +33,18 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"StatefulSet">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Spec defines the desired identities of pods in this set.
        */
-      public readonly spec: pulumi.Output<outputApi.apps.v1beta2.StatefulSetSpec>;
+      public readonly spec: pulumi.Output<outputs.apps.v1beta2.StatefulSetSpec>;
 
       /**
        * Status is the current status of Pods in this StatefulSet. This data may be out of date by
        * some window of time.
        */
-      public readonly status: pulumi.Output<outputApi.apps.v1beta2.StatefulSetStatus>;
+      public readonly status: pulumi.Output<outputs.apps.v1beta2.StatefulSetStatus>;
 
       /**
        * Get the state of an existing `StatefulSet` resource, as identified by `id`.
@@ -84,7 +84,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.apps.v1beta2.StatefulSet, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.apps.v1beta2.StatefulSet, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["kind"] = "StatefulSet";

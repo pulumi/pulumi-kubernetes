@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -33,19 +33,19 @@ import { getVersion } from "../../version";
        * Standard object metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes
        * system.
        */
-      public readonly spec: pulumi.Output<outputApi.storage.v1.VolumeAttachmentSpec>;
+      public readonly spec: pulumi.Output<outputs.storage.v1.VolumeAttachmentSpec>;
 
       /**
        * Status of the VolumeAttachment request. Populated by the entity completing the attach or
        * detach operation, i.e. the external-attacher.
        */
-      public readonly status: pulumi.Output<outputApi.storage.v1.VolumeAttachmentStatus>;
+      public readonly status: pulumi.Output<outputs.storage.v1.VolumeAttachmentStatus>;
 
       /**
        * Get the state of an existing `VolumeAttachment` resource, as identified by `id`.
@@ -85,7 +85,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.storage.v1.VolumeAttachment, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.storage.v1.VolumeAttachment, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1";
           inputs["kind"] = "VolumeAttachment";

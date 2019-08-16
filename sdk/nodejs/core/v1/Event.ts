@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -41,7 +41,7 @@ import { getVersion } from "../../version";
       /**
        * The object that this event is about.
        */
-      public readonly involvedObject: pulumi.Output<outputApi.core.v1.ObjectReference>;
+      public readonly involvedObject: pulumi.Output<outputs.core.v1.ObjectReference>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -65,7 +65,7 @@ import { getVersion } from "../../version";
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * This should be a short, machine understandable string that gives the reason for the
@@ -76,7 +76,7 @@ import { getVersion } from "../../version";
       /**
        * Optional secondary object for more complex actions.
        */
-      public readonly related: pulumi.Output<outputApi.core.v1.ObjectReference>;
+      public readonly related: pulumi.Output<outputs.core.v1.ObjectReference>;
 
       /**
        * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
@@ -91,12 +91,12 @@ import { getVersion } from "../../version";
       /**
        * Data about the Event series this event represents or nil if it's a singleton Event.
        */
-      public readonly series: pulumi.Output<outputApi.core.v1.EventSeries>;
+      public readonly series: pulumi.Output<outputs.core.v1.EventSeries>;
 
       /**
        * The component reporting this event. Should be a short machine understandable string.
        */
-      public readonly source: pulumi.Output<outputApi.core.v1.EventSource>;
+      public readonly source: pulumi.Output<outputs.core.v1.EventSource>;
 
       /**
        * Type of this event (Normal, Warning), new types could be added in the future
@@ -141,7 +141,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.core.v1.Event, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.core.v1.Event, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["action"] = args && args.action || undefined;
           inputs["apiVersion"] = "v1";

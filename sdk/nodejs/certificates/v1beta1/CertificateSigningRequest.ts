@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -27,17 +27,17 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"CertificateSigningRequest">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * The certificate request itself and any additional information.
        */
-      public readonly spec: pulumi.Output<outputApi.certificates.v1beta1.CertificateSigningRequestSpec>;
+      public readonly spec: pulumi.Output<outputs.certificates.v1beta1.CertificateSigningRequestSpec>;
 
       /**
        * Derived information about the request.
        */
-      public readonly status: pulumi.Output<outputApi.certificates.v1beta1.CertificateSigningRequestStatus>;
+      public readonly status: pulumi.Output<outputs.certificates.v1beta1.CertificateSigningRequestStatus>;
 
       /**
        * Get the state of an existing `CertificateSigningRequest` resource, as identified by `id`.
@@ -77,7 +77,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.certificates.v1beta1.CertificateSigningRequest, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.certificates.v1beta1.CertificateSigningRequest, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "certificates.k8s.io/v1beta1";
           inputs["kind"] = "CertificateSigningRequest";

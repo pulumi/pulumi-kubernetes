@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -30,13 +30,13 @@ import { getVersion } from "../../version";
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Template defines the pods that will be created from this pod template.
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly template: pulumi.Output<outputApi.core.v1.PodTemplateSpec>;
+      public readonly template: pulumi.Output<outputs.core.v1.PodTemplateSpec>;
 
       /**
        * Get the state of an existing `PodTemplate` resource, as identified by `id`.
@@ -76,7 +76,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.core.v1.PodTemplate, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.core.v1.PodTemplate, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "PodTemplate";

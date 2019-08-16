@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -30,19 +30,19 @@ import { getVersion } from "../../version";
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of a job. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<outputApi.batch.v1.JobSpec>;
+      public readonly spec: pulumi.Output<outputs.batch.v1.JobSpec>;
 
       /**
        * Current status of a job. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<outputApi.batch.v1.JobStatus>;
+      public readonly status: pulumi.Output<outputs.batch.v1.JobStatus>;
 
       /**
        * Get the state of an existing `Job` resource, as identified by `id`.
@@ -82,7 +82,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.batch.v1.Job, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.batch.v1.Job, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "batch/v1";
           inputs["kind"] = "Job";

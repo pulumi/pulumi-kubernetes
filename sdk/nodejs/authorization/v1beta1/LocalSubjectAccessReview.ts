@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -29,18 +29,18 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"LocalSubjectAccessReview">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated.  spec.namespace must be equal to
        * the namespace you made the request against.  If empty, it is defaulted.
        */
-      public readonly spec: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewSpec>;
+      public readonly spec: pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request is allowed or not
        */
-      public readonly status: pulumi.Output<outputApi.authorization.v1beta1.SubjectAccessReviewStatus>;
+      public readonly status: pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewStatus>;
 
       /**
        * Get the state of an existing `LocalSubjectAccessReview` resource, as identified by `id`.
@@ -80,7 +80,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.authorization.v1beta1.LocalSubjectAccessReview, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.authorization.v1beta1.LocalSubjectAccessReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authorization.k8s.io/v1beta1";
           inputs["kind"] = "LocalSubjectAccessReview";

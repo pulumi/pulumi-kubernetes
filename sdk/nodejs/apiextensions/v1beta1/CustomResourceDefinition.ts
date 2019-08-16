@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -28,17 +28,17 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"CustomResourceDefinition">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Spec describes how the user wants the resources to appear
        */
-      public readonly spec: pulumi.Output<outputApi.apiextensions.v1beta1.CustomResourceDefinitionSpec>;
+      public readonly spec: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinitionSpec>;
 
       /**
        * Status indicates the actual state of the CustomResourceDefinition
        */
-      public readonly status: pulumi.Output<outputApi.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
+      public readonly status: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
 
       /**
        * Get the state of an existing `CustomResourceDefinition` resource, as identified by `id`.
@@ -78,7 +78,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.apiextensions.v1beta1.CustomResourceDefinition, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
           inputs["kind"] = "CustomResourceDefinition";
