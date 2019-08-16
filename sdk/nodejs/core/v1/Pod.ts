@@ -19,6 +19,10 @@ import { getVersion } from "../../version";
      * 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
      *    set to "Running".
      * Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+     * 
+     * If the Pod has not reached a Ready state after 5 minutes, it will
+     * time out and mark the resource update as Failed. You can override the default timeout value
+     * by setting the 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
      */
     export class Pod extends pulumi.CustomResource {
       /**

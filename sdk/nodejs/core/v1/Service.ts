@@ -24,6 +24,9 @@ import { getVersion } from "../../version";
      * 
      * [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
      * 
+     * If the Service has not reached a Ready state after 10 minutes, it will
+     * time out and mark the resource update as Failed. You can override the default timeout value
+     * by setting the 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
      */
     export class Service extends pulumi.CustomResource {
       /**

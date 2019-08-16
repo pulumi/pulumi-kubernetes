@@ -9,6 +9,7 @@
 ### Improvements
 
 -   Document await logic in the SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/711).
+-   Document await timeouts and how to override. (https://github.com/pulumi/pulumi-kubernetes/pull/718).
 
 ## 1.0.0-beta.1 (August 13, 2019)
 

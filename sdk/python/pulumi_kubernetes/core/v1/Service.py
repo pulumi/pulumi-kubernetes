@@ -30,6 +30,9 @@ class Service(pulumi.CustomResource):
     
     [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
     
+    If the Service has not reached a Ready state after 10 minutes, it will
+    time out and mark the resource update as Failed. You can override the default timeout value
+    by setting the 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):

@@ -15,15 +15,46 @@
 package gen
 
 import (
+	"fmt"
+
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 )
 
-const preamble = `This resource waits until it is ready before registering success for
+func timeoutComment(kind kinds.Kind) string {
+	const timeoutOverride = `setting the 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.`
+
+	timeout := func(kind kinds.Kind) string {
+		switch kind {
+		case kinds.Deployment:
+			return "5 minutes"
+		case kinds.Ingress:
+			return "10 minutes"
+		case kinds.Pod:
+			return "5 minutes"
+		case kinds.Service:
+			return "10 minutes"
+		case kinds.StatefulSet:
+			return "5 minutes"
+		default:
+			panic("unhandled kind: timeoutValues")
+		}
+	}
+	return fmt.Sprintf(`
+If the %s has not reached a Ready state after %s, it will
+time out and mark the resource update as Failed. You can override the default timeout value
+by %s`, kind, timeout(kind), timeoutOverride)
+}
+
+func comments(kind kinds.Kind) string {
+	const preamble = `This resource waits until it is ready before registering success for
 create/update and populating output properties from the current state of the resource.
 The following conditions are used to determine whether the resource creation has
 succeeded or failed:`
 
-const DeploymentAwaitComment = preamble + `
+	comment := preamble
+	switch kind {
+	case kinds.Deployment:
+		comment += `
 1. The Deployment has begun to be updated by the Deployment controller. If the current
    generation of the Deployment is > 1, then this means that the current generation must
    be different from the generation reported by the last outputs.
@@ -35,21 +66,25 @@ const DeploymentAwaitComment = preamble + `
    'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
    'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
    because it doesn't do a rollout (i.e., it simply creates the Deployment and
-   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.`
-
-const StatefulSetAwaitComment = preamble + `
-1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
-   and '.status.readyReplicas'.
-2. The value of '.status.updateRevision' matches '.status.currentRevision'.`
-
-const PodAwaitComment = preamble + `
+   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+`
+	case kinds.Ingress:
+		comment += `
+1.  Ingress object exists.
+2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+    type is ExternalName).
+3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+`
+	case kinds.Pod:
+		comment += `
 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
 2. The Pod is initialized ("Initialized" '.status.condition' is true).
 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
    set to "Running".
-Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").`
-
-const ServiceAwaitComment = preamble + `
+Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+`
+	case kinds.Service:
+		comment += `
 1. Service object exists.
 2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
    for any stragglers.
@@ -59,12 +94,19 @@ const ServiceAwaitComment = preamble + `
 
 [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
 `
+	case kinds.StatefulSet:
+		comment += `
+1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+   and '.status.readyReplicas'.
+2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+`
+	default:
+		panic("unhandled kind: timeoutValues")
+	}
 
-const IngressAwaitComment = preamble + `
-1.  Ingress object exists.
-2.  Endpoint objects exist with matching names for each Ingress path (except when Service
-    type is ExternalName).
-3.  Ingress entry exists for '.status.loadBalancer.ingress'.`
+	comment += timeoutComment(kind)
+	return comment
+}
 
 func AwaitComment(kind string) string {
 	const prefix = "\n\n"
@@ -73,17 +115,10 @@ func AwaitComment(kind string) string {
 		return prefix + comment
 	}
 
-	switch kinds.Kind(kind) {
-	case kinds.Deployment:
-		return style(DeploymentAwaitComment)
-	case kinds.Ingress:
-		return style(IngressAwaitComment)
-	case kinds.Pod:
-		return style(PodAwaitComment)
-	case kinds.Service:
-		return style(ServiceAwaitComment)
-	case kinds.StatefulSet:
-		return style(StatefulSetAwaitComment)
+	k := kinds.Kind(kind)
+	switch k {
+	case kinds.Deployment, kinds.Ingress, kinds.Pod, kinds.Service, kinds.StatefulSet:
+		return style(comments(k))
 	default:
 		return ""
 	}
