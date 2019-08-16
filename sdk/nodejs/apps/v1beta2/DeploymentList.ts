@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -21,7 +21,7 @@ import { getVersion } from "../../version";
       /**
        * Items is the list of Deployments.
        */
-      public readonly items: pulumi.Output<outputApi.apps.v1beta2.Deployment[]>;
+      public readonly items: pulumi.Output<outputs.apps.v1beta2.Deployment[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -34,7 +34,7 @@ import { getVersion } from "../../version";
       /**
        * Standard list metadata.
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
       /**
        * Get the state of an existing `DeploymentList` resource, as identified by `id`.
@@ -74,7 +74,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.apps.v1beta2.DeploymentList, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.apps.v1beta2.DeploymentList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta2";
           inputs["items"] = args && args.items || undefined;

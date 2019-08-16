@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -31,20 +31,20 @@ import { getVersion } from "../../version";
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the desired behavior of the pod. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<outputApi.core.v1.PodSpec>;
+      public readonly spec: pulumi.Output<outputs.core.v1.PodSpec>;
 
       /**
        * Most recently observed status of the pod. This data may not be up to date. Populated by the
        * system. Read-only. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<outputApi.core.v1.PodStatus>;
+      public readonly status: pulumi.Output<outputs.core.v1.PodStatus>;
 
       /**
        * Get the state of an existing `Pod` resource, as identified by `id`.
@@ -84,7 +84,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.core.v1.Pod, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.core.v1.Pod, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "v1";
           inputs["kind"] = "Pod";

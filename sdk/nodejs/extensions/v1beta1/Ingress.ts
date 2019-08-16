@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -34,19 +34,19 @@ import { getVersion } from "../../version";
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Spec is the desired state of the Ingress. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<outputApi.extensions.v1beta1.IngressSpec>;
+      public readonly spec: pulumi.Output<outputs.extensions.v1beta1.IngressSpec>;
 
       /**
        * Status is the current state of the Ingress. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
-      public readonly status: pulumi.Output<outputApi.extensions.v1beta1.IngressStatus>;
+      public readonly status: pulumi.Output<outputs.extensions.v1beta1.IngressStatus>;
 
       /**
        * Get the state of an existing `Ingress` resource, as identified by `id`.
@@ -86,7 +86,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.extensions.v1beta1.Ingress, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.extensions.v1beta1.Ingress, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "extensions/v1beta1";
           inputs["kind"] = "Ingress";

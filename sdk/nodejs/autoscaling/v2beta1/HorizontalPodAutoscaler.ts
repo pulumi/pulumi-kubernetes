@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -32,18 +32,18 @@ import { getVersion } from "../../version";
        * metadata is the standard object metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * spec is the specification for the behaviour of the autoscaler. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
        */
-      public readonly spec: pulumi.Output<outputApi.autoscaling.v2beta1.HorizontalPodAutoscalerSpec>;
+      public readonly spec: pulumi.Output<outputs.autoscaling.v2beta1.HorizontalPodAutoscalerSpec>;
 
       /**
        * status is the current information about the autoscaler.
        */
-      public readonly status: pulumi.Output<outputApi.autoscaling.v2beta1.HorizontalPodAutoscalerStatus>;
+      public readonly status: pulumi.Output<outputs.autoscaling.v2beta1.HorizontalPodAutoscalerStatus>;
 
       /**
        * Get the state of an existing `HorizontalPodAutoscaler` resource, as identified by `id`.
@@ -83,7 +83,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.autoscaling.v2beta1.HorizontalPodAutoscaler, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.autoscaling.v2beta1.HorizontalPodAutoscaler, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "autoscaling/v2beta1";
           inputs["kind"] = "HorizontalPodAutoscaler";

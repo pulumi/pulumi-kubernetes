@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -42,7 +42,7 @@ import { getVersion } from "../../version";
       /**
        * Deprecated field assuring backward compatibility with core.v1 Event type
        */
-      public readonly deprecatedSource: pulumi.Output<outputApi.core.v1.EventSource>;
+      public readonly deprecatedSource: pulumi.Output<outputs.core.v1.EventSource>;
 
       /**
        * Required. Time when this Event was first observed.
@@ -58,7 +58,7 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"Event">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Optional. A human-readable description of the status of this operation. Maximal length of
@@ -76,13 +76,13 @@ import { getVersion } from "../../version";
        * implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted
        * because it acts on some changes in a ReplicaSet object.
        */
-      public readonly regarding: pulumi.Output<outputApi.core.v1.ObjectReference>;
+      public readonly regarding: pulumi.Output<outputs.core.v1.ObjectReference>;
 
       /**
        * Optional secondary object for more complex actions. E.g. when regarding object triggers a
        * creation or deletion of related object.
        */
-      public readonly related: pulumi.Output<outputApi.core.v1.ObjectReference>;
+      public readonly related: pulumi.Output<outputs.core.v1.ObjectReference>;
 
       /**
        * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
@@ -97,7 +97,7 @@ import { getVersion } from "../../version";
       /**
        * Data about the Event series this event represents or nil if it's a singleton Event.
        */
-      public readonly series: pulumi.Output<outputApi.events.v1beta1.EventSeries>;
+      public readonly series: pulumi.Output<outputs.events.v1beta1.EventSeries>;
 
       /**
        * Type of this event (Normal, Warning), new types could be added in the future.
@@ -142,7 +142,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.events.v1beta1.Event, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.events.v1beta1.Event, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["action"] = args && args.action || undefined;
           inputs["apiVersion"] = "events.k8s.io/v1beta1";

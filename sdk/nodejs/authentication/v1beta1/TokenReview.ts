@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -28,17 +28,17 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"TokenReview">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Spec holds information about the request being evaluated
        */
-      public readonly spec: pulumi.Output<outputApi.authentication.v1beta1.TokenReviewSpec>;
+      public readonly spec: pulumi.Output<outputs.authentication.v1beta1.TokenReviewSpec>;
 
       /**
        * Status is filled in by the server and indicates whether the request can be authenticated.
        */
-      public readonly status: pulumi.Output<outputApi.authentication.v1beta1.TokenReviewStatus>;
+      public readonly status: pulumi.Output<outputs.authentication.v1beta1.TokenReviewStatus>;
 
       /**
        * Get the state of an existing `TokenReview` resource, as identified by `id`.
@@ -78,7 +78,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.authentication.v1beta1.TokenReview, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.authentication.v1beta1.TokenReview, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "authentication.k8s.io/v1beta1";
           inputs["kind"] = "TokenReview";

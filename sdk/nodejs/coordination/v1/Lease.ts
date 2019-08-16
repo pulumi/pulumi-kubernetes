@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -29,13 +29,13 @@ import { getVersion } from "../../version";
       /**
        * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the Lease. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
        */
-      public readonly spec: pulumi.Output<outputApi.coordination.v1.LeaseSpec>;
+      public readonly spec: pulumi.Output<outputs.coordination.v1.LeaseSpec>;
 
       /**
        * Get the state of an existing `Lease` resource, as identified by `id`.
@@ -75,7 +75,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.coordination.v1.Lease, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.coordination.v1.Lease, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "coordination.k8s.io/v1";
           inputs["kind"] = "Lease";

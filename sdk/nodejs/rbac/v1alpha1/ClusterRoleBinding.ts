@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -30,18 +30,18 @@ import { getVersion } from "../../version";
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be
        * resolved, the Authorizer must return an error.
        */
-      public readonly roleRef: pulumi.Output<outputApi.rbac.v1alpha1.RoleRef>;
+      public readonly roleRef: pulumi.Output<outputs.rbac.v1alpha1.RoleRef>;
 
       /**
        * Subjects holds references to the objects the role applies to.
        */
-      public readonly subjects: pulumi.Output<outputApi.rbac.v1alpha1.Subject[]>;
+      public readonly subjects: pulumi.Output<outputs.rbac.v1alpha1.Subject[]>;
 
       /**
        * Get the state of an existing `ClusterRoleBinding` resource, as identified by `id`.
@@ -81,7 +81,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.rbac.v1alpha1.ClusterRoleBinding, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.rbac.v1alpha1.ClusterRoleBinding, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1alpha1";
           inputs["kind"] = "ClusterRoleBinding";

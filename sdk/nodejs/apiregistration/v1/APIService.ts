@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -27,17 +27,17 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"APIService">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Spec contains information for locating and communicating with a server
        */
-      public readonly spec: pulumi.Output<outputApi.apiregistration.v1.APIServiceSpec>;
+      public readonly spec: pulumi.Output<outputs.apiregistration.v1.APIServiceSpec>;
 
       /**
        * Status contains derived information about an API server
        */
-      public readonly status: pulumi.Output<outputApi.apiregistration.v1.APIServiceStatus>;
+      public readonly status: pulumi.Output<outputs.apiregistration.v1.APIServiceStatus>;
 
       /**
        * Get the state of an existing `APIService` resource, as identified by `id`.
@@ -77,7 +77,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.apiregistration.v1.APIService, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.apiregistration.v1.APIService, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiregistration.k8s.io/v1";
           inputs["kind"] = "APIService";

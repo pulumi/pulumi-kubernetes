@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -27,10 +27,10 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"PodPreset">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       
-      public readonly spec: pulumi.Output<outputApi.settings.v1alpha1.PodPresetSpec>;
+      public readonly spec: pulumi.Output<outputs.settings.v1alpha1.PodPresetSpec>;
 
       /**
        * Get the state of an existing `PodPreset` resource, as identified by `id`.
@@ -70,7 +70,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.settings.v1alpha1.PodPreset, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.settings.v1alpha1.PodPreset, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "settings.k8s.io/v1alpha1";
           inputs["kind"] = "PodPreset";

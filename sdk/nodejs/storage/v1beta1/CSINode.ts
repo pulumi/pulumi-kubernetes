@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -35,12 +35,12 @@ import { getVersion } from "../../version";
       /**
        * metadata.name must be the Kubernetes node name.
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * spec is the specification of CSINode
        */
-      public readonly spec: pulumi.Output<outputApi.storage.v1beta1.CSINodeSpec>;
+      public readonly spec: pulumi.Output<outputs.storage.v1beta1.CSINodeSpec>;
 
       /**
        * Get the state of an existing `CSINode` resource, as identified by `id`.
@@ -80,7 +80,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.storage.v1beta1.CSINode, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.storage.v1beta1.CSINode, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "storage.k8s.io/v1beta1";
           inputs["kind"] = "CSINode";

@@ -272,7 +272,7 @@ func fmtComment(comment interface{}, prefix string, opts groupOpts) string {
 func makeTypescriptType(prop map[string]interface{}, opts groupOpts) string {
 	refPrefix := ""
 	if opts.generatorType == provider {
-		refPrefix = "outputApi"
+		refPrefix = "outputs"
 	}
 
 	if t, exists := prop["type"]; exists {

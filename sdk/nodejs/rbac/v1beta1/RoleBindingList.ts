@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -21,7 +21,7 @@ import { getVersion } from "../../version";
       /**
        * Items is a list of RoleBindings
        */
-      public readonly items: pulumi.Output<outputApi.rbac.v1beta1.RoleBinding[]>;
+      public readonly items: pulumi.Output<outputs.rbac.v1beta1.RoleBinding[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -34,7 +34,7 @@ import { getVersion } from "../../version";
       /**
        * Standard object's metadata.
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
       /**
        * Get the state of an existing `RoleBindingList` resource, as identified by `id`.
@@ -74,7 +74,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.rbac.v1beta1.RoleBindingList, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.rbac.v1beta1.RoleBindingList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
           inputs["items"] = args && args.items || undefined;

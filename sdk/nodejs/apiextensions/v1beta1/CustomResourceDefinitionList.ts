@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -21,7 +21,7 @@ import { getVersion } from "../../version";
       /**
        * Items individual CustomResourceDefinitions
        */
-      public readonly items: pulumi.Output<outputApi.apiextensions.v1beta1.CustomResourceDefinition[]>;
+      public readonly items: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinition[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -32,7 +32,7 @@ import { getVersion } from "../../version";
       public readonly kind: pulumi.Output<"CustomResourceDefinitionList">;
 
       
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ListMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
       /**
        * Get the state of an existing `CustomResourceDefinitionList` resource, as identified by `id`.
@@ -72,7 +72,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
           inputs["items"] = args && args.items || undefined;

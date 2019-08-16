@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -25,7 +25,7 @@ import { getVersion } from "../../version";
        * list means there is no topology restriction. This field is only honored by servers that
        * enable the VolumeScheduling feature.
        */
-      public readonly allowedTopologies: pulumi.Output<outputApi.core.v1.TopologySelectorTerm[]>;
+      public readonly allowedTopologies: pulumi.Output<outputs.core.v1.TopologySelectorTerm[]>;
 
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
@@ -47,7 +47,7 @@ import { getVersion } from "../../version";
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Dynamically provisioned PersistentVolumes of this storage class are created with these
@@ -118,7 +118,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.storage.v1beta1.StorageClass, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.storage.v1beta1.StorageClass, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["allowVolumeExpansion"] = args && args.allowVolumeExpansion || undefined;
           inputs["allowedTopologies"] = args && args.allowedTopologies || undefined;

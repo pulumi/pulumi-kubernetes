@@ -2,8 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as inputApi from "../../types/input";
-import * as outputApi from "../../types/output";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
@@ -30,7 +30,7 @@ import { getVersion } from "../../version";
       /**
        * Data is the serialized representation of the state.
        */
-      public readonly data: pulumi.Output<outputApi.pkg.runtime.RawExtension>;
+      public readonly data: pulumi.Output<outputs.pkg.runtime.RawExtension>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -44,7 +44,7 @@ import { getVersion } from "../../version";
        * Standard object's metadata. More info:
        * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputApi.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Revision indicates the revision of the state represented by Data.
@@ -89,7 +89,7 @@ import { getVersion } from "../../version";
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputApi.apps.v1beta1.ControllerRevision, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.apps.v1beta1.ControllerRevision, opts?: pulumi.CustomResourceOptions) {
           let inputs: pulumi.Inputs = {};
           inputs["apiVersion"] = "apps/v1beta1";
           inputs["data"] = args && args.data || undefined;
