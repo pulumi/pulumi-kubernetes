@@ -111,14 +111,10 @@ Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 func AwaitComment(kind string) string {
 	const prefix = "\n\n"
 
-	style := func(comment string) string {
-		return prefix + comment
-	}
-
 	k := kinds.Kind(kind)
 	switch k {
 	case kinds.Deployment, kinds.Ingress, kinds.Pod, kinds.Service, kinds.StatefulSet:
-		return style(comments(k))
+		return prefix + comments(k)
 	default:
 		return ""
 	}
