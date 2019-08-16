@@ -21,7 +21,7 @@ import (
 )
 
 func timeoutComment(kind kinds.Kind) string {
-	const timeoutOverride = `setting the 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.`
+	const timeoutOverride = `setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.`
 
 	timeout := func(kind kinds.Kind) string {
 		switch kind {

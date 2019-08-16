@@ -30,7 +30,7 @@ import { getVersion } from "../../version";
      * 
      * If the Deployment has not reached a Ready state after 5 minutes, it will
      * time out and mark the resource update as Failed. You can override the default timeout value
-     * by setting the 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
+     * by setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
      */
     export class Deployment extends pulumi.CustomResource {
       /**

@@ -24,7 +24,7 @@ import { getVersion } from "../../version";
      * 
      * If the Ingress has not reached a Ready state after 10 minutes, it will
      * time out and mark the resource update as Failed. You can override the default timeout value
-     * by setting the 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
+     * by setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
      */
     export class Ingress extends pulumi.CustomResource {
       /**
