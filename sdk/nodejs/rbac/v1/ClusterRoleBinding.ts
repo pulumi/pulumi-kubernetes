@@ -82,12 +82,12 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.rbac.v1.ClusterRoleBinding, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
-          inputs["kind"] = "ClusterRoleBinding";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["roleRef"] = args && args.roleRef || undefined;
-          inputs["subjects"] = args && args.subjects || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "rbac.authorization.k8s.io/v1";
+          props["kind"] = "ClusterRoleBinding";
+          props["metadata"] = args && args.metadata || undefined;
+          props["roleRef"] = args && args.roleRef || undefined;
+          props["subjects"] = args && args.subjects || undefined;
 
           if (!opts) {
               opts = {};
@@ -96,6 +96,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(ClusterRoleBinding.__pulumiType, name, inputs, opts);
+          super(ClusterRoleBinding.__pulumiType, name, props, opts);
       }
     }

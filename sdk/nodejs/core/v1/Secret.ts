@@ -92,13 +92,13 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.core.v1.Secret, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "v1";
-          inputs["data"] = args && args.data || undefined;
-          inputs["kind"] = "Secret";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["stringData"] = args && args.stringData || undefined;
-          inputs["type"] = args && args.type || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "v1";
+          props["data"] = args && args.data || undefined;
+          props["kind"] = "Secret";
+          props["metadata"] = args && args.metadata || undefined;
+          props["stringData"] = args && args.stringData || undefined;
+          props["type"] = args && args.type || undefined;
 
           if (!opts) {
               opts = {};
@@ -107,6 +107,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(Secret.__pulumiType, name, inputs, opts);
+          super(Secret.__pulumiType, name, props, opts);
       }
     }

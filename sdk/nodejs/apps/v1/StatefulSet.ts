@@ -83,12 +83,12 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.apps.v1.StatefulSet, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "apps/v1";
-          inputs["kind"] = "StatefulSet";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["spec"] = args && args.spec || undefined;
-          inputs["status"] = args && args.status || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "apps/v1";
+          props["kind"] = "StatefulSet";
+          props["metadata"] = args && args.metadata || undefined;
+          props["spec"] = args && args.spec || undefined;
+          props["status"] = args && args.status || undefined;
 
           if (!opts) {
               opts = {};
@@ -97,6 +97,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(StatefulSet.__pulumiType, name, inputs, opts);
+          super(StatefulSet.__pulumiType, name, props, opts);
       }
     }

@@ -134,9 +134,9 @@ export class CustomResource extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args: CustomResourceArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        const props: pulumi.Inputs = {};
         for (const key of Object.keys(args)) {
-            inputs[key] = (args as any)[key];
+            props[key] = (args as any)[key];
         }
 
         if (!opts) {
@@ -145,7 +145,7 @@ export class CustomResource extends pulumi.CustomResource {
         if (!opts.version) {
             opts.version = getVersion();
         }
-        super(`kubernetes:${args.apiVersion}:${args.kind}`, name, inputs, opts);
+        super(`kubernetes:${args.apiVersion}:${args.kind}`, name, props, opts);
         this.__inputs = args;
     }
 }

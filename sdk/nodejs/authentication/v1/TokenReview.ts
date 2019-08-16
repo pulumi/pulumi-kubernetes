@@ -79,12 +79,12 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.authentication.v1.TokenReview, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "authentication.k8s.io/v1";
-          inputs["kind"] = "TokenReview";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["spec"] = args && args.spec || undefined;
-          inputs["status"] = args && args.status || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "authentication.k8s.io/v1";
+          props["kind"] = "TokenReview";
+          props["metadata"] = args && args.metadata || undefined;
+          props["spec"] = args && args.spec || undefined;
+          props["status"] = args && args.status || undefined;
 
           if (!opts) {
               opts = {};
@@ -93,6 +93,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(TokenReview.__pulumiType, name, inputs, opts);
+          super(TokenReview.__pulumiType, name, props, opts);
       }
     }

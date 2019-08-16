@@ -100,14 +100,14 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.scheduling.v1.PriorityClass, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "scheduling.k8s.io/v1";
-          inputs["description"] = args && args.description || undefined;
-          inputs["globalDefault"] = args && args.globalDefault || undefined;
-          inputs["kind"] = "PriorityClass";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["preemptionPolicy"] = args && args.preemptionPolicy || undefined;
-          inputs["value"] = args && args.value || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "scheduling.k8s.io/v1";
+          props["description"] = args && args.description || undefined;
+          props["globalDefault"] = args && args.globalDefault || undefined;
+          props["kind"] = "PriorityClass";
+          props["metadata"] = args && args.metadata || undefined;
+          props["preemptionPolicy"] = args && args.preemptionPolicy || undefined;
+          props["value"] = args && args.value || undefined;
 
           if (!opts) {
               opts = {};
@@ -116,6 +116,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(PriorityClass.__pulumiType, name, inputs, opts);
+          super(PriorityClass.__pulumiType, name, props, opts);
       }
     }

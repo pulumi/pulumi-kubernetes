@@ -83,12 +83,12 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.batch.v1beta1.CronJob, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "batch/v1beta1";
-          inputs["kind"] = "CronJob";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["spec"] = args && args.spec || undefined;
-          inputs["status"] = args && args.status || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "batch/v1beta1";
+          props["kind"] = "CronJob";
+          props["metadata"] = args && args.metadata || undefined;
+          props["spec"] = args && args.spec || undefined;
+          props["status"] = args && args.status || undefined;
 
           if (!opts) {
               opts = {};
@@ -97,6 +97,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(CronJob.__pulumiType, name, inputs, opts);
+          super(CronJob.__pulumiType, name, props, opts);
       }
     }

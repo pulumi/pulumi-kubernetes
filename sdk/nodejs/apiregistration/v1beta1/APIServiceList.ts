@@ -71,11 +71,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.apiregistration.v1beta1.APIServiceList, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "apiregistration.k8s.io/v1beta1";
-          inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "APIServiceList";
-          inputs["metadata"] = args && args.metadata || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "apiregistration.k8s.io/v1beta1";
+          props["items"] = args && args.items || undefined;
+          props["kind"] = "APIServiceList";
+          props["metadata"] = args && args.metadata || undefined;
 
           if (!opts) {
               opts = {};
@@ -84,6 +84,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(APIServiceList.__pulumiType, name, inputs, opts);
+          super(APIServiceList.__pulumiType, name, props, opts);
       }
     }

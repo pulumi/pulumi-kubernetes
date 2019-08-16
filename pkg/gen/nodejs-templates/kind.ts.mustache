@@ -52,9 +52,9 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.{{Group}}.{{Version}}.{{Kind}}, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
+          const props: pulumi.Inputs = {};
           {{#Properties}}
-          inputs["{{Name}}"] = {{{DefaultValue}}};
+          props["{{Name}}"] = {{{DefaultValue}}};
           {{/Properties}}
 
           if (!opts) {
@@ -64,6 +64,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super({{Kind}}.__pulumiType, name, inputs, opts);
+          super({{Kind}}.__pulumiType, name, props, opts);
       }
     }

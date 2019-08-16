@@ -76,11 +76,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.events.v1beta1.EventList, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "events.k8s.io/v1beta1";
-          inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "EventList";
-          inputs["metadata"] = args && args.metadata || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "events.k8s.io/v1beta1";
+          props["items"] = args && args.items || undefined;
+          props["kind"] = "EventList";
+          props["metadata"] = args && args.metadata || undefined;
 
           if (!opts) {
               opts = {};
@@ -89,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(EventList.__pulumiType, name, inputs, opts);
+          super(EventList.__pulumiType, name, props, opts);
       }
     }

@@ -12,14 +12,14 @@ export class Provider extends pulumi.ProviderResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args: ProviderArgs, opts?: pulumi.ResourceOptions) {
-        let inputs: pulumi.Inputs = {
+        const props: pulumi.Inputs = {
             "cluster": args ? args.cluster : undefined,
             "context": args ? args.context : undefined,
             "kubeconfig": args ? args.kubeconfig : undefined,
             "namespace": args ? args.namespace : undefined,
             "enableDryRun": args && args.enableDryRun ? "true" : undefined
         };
-        super("kubernetes", name, inputs, opts);
+        super("kubernetes", name, props, opts);
     }
 }
 

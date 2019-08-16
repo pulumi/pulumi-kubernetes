@@ -73,11 +73,11 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.auditregistration.v1alpha1.AuditSinkList, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "auditregistration.k8s.io/v1alpha1";
-          inputs["items"] = args && args.items || undefined;
-          inputs["kind"] = "AuditSinkList";
-          inputs["metadata"] = args && args.metadata || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "auditregistration.k8s.io/v1alpha1";
+          props["items"] = args && args.items || undefined;
+          props["kind"] = "AuditSinkList";
+          props["metadata"] = args && args.metadata || undefined;
 
           if (!opts) {
               opts = {};
@@ -86,6 +86,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(AuditSinkList.__pulumiType, name, inputs, opts);
+          super(AuditSinkList.__pulumiType, name, props, opts);
       }
     }

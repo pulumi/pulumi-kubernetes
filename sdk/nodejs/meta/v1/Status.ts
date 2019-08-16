@@ -101,15 +101,15 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.meta.v1.Status, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "v1";
-          inputs["code"] = args && args.code || undefined;
-          inputs["details"] = args && args.details || undefined;
-          inputs["kind"] = "Status";
-          inputs["message"] = args && args.message || undefined;
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["reason"] = args && args.reason || undefined;
-          inputs["status"] = args && args.status || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "v1";
+          props["code"] = args && args.code || undefined;
+          props["details"] = args && args.details || undefined;
+          props["kind"] = "Status";
+          props["message"] = args && args.message || undefined;
+          props["metadata"] = args && args.metadata || undefined;
+          props["reason"] = args && args.reason || undefined;
+          props["status"] = args && args.status || undefined;
 
           if (!opts) {
               opts = {};
@@ -118,6 +118,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(Status.__pulumiType, name, inputs, opts);
+          super(Status.__pulumiType, name, props, opts);
       }
     }

@@ -85,12 +85,12 @@ import { getVersion } from "../../version";
        * @param opts A bag of options that control this resource's behavior.
        */
       constructor(name: string, args?: inputs.core.v1.ReplicationController, opts?: pulumi.CustomResourceOptions) {
-          let inputs: pulumi.Inputs = {};
-          inputs["apiVersion"] = "v1";
-          inputs["kind"] = "ReplicationController";
-          inputs["metadata"] = args && args.metadata || undefined;
-          inputs["spec"] = args && args.spec || undefined;
-          inputs["status"] = args && args.status || undefined;
+          const props: pulumi.Inputs = {};
+          props["apiVersion"] = "v1";
+          props["kind"] = "ReplicationController";
+          props["metadata"] = args && args.metadata || undefined;
+          props["spec"] = args && args.spec || undefined;
+          props["status"] = args && args.status || undefined;
 
           if (!opts) {
               opts = {};
@@ -99,6 +99,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(ReplicationController.__pulumiType, name, inputs, opts);
+          super(ReplicationController.__pulumiType, name, props, opts);
       }
     }
