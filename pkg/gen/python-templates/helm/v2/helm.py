@@ -420,13 +420,10 @@ class Chart(pulumi.ComponentResource):
     to `--set` or having multiple `values.yml` files). Objects can be transformed arbitrarily by
     supplying callbacks to `ChartOpts.transformations`.
 
-    `Chart` does not use Tiller. The Chart specified is copied and expanded locally; any values
-    that would be retrieved in-cluster would be assigned fake values, and none of Tiller's
-    server-side validity testing is executed.
-
-    The semantics of `update` on a Chart are identical to those of Helm and kubectl; for example,
-    unlike a "normal" Pulumi program, updating a ConfigMap does not trigger a cascading update
-    among Deployments that reference it.
+    Chart does not use Tiller. The Chart specified is copied and expanded locally; the semantics
+    are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML
+    manifests. Any values that would be retrieved in-cluster are assigned fake values, and
+    none of Tiller's server-side validity testing is executed.
 
     :param str release_name: Name of the Chart (e.g., nginx-ingress).
     :param Union[ChartOpts, LocalChartOpts] config: Configuration options for the Chart.

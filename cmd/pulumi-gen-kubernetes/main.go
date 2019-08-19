@@ -131,6 +131,11 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 	if err != nil {
 		panic(err)
 	}
+
+	err = CopyDir(filepath.Join(templateDir, "helm"), filepath.Join(outdir, "helm"))
+	if err != nil {
+		panic(err)
+	}
 	fmt.Printf("%s/package.json\n", outdir)
 	fmt.Println(err)
 }
