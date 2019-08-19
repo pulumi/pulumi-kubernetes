@@ -49,6 +49,10 @@ import (
 
 // ------------------------------------------------------------------------------------------------
 
+const (
+	DefaultIngressTimeoutMins = 10
+)
+
 type ingressInitAwaiter struct {
 	config                    createAwaitConfig
 	ingress                   *unstructured.Unstructured
@@ -119,7 +123,8 @@ func (iia *ingressInitAwaiter) Await() error {
 			iia.config.currentInputs.GetName())
 	}
 
-	timeout := time.Duration(metadata.TimeoutSeconds(iia.config.currentInputs, 10*60)) * time.Second
+	timeout := time.Duration(
+		metadata.TimeoutSeconds(iia.config.currentInputs, DefaultIngressTimeoutMins*60)) * time.Second
 	return iia.await(ingressWatcher, serviceWatcher, endpointWatcher, make(chan struct{}), time.After(timeout))
 }
 

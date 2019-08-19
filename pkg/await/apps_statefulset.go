@@ -100,6 +100,10 @@ import (
 
 // ------------------------------------------------------------------------------------------------
 
+const (
+	DefaultStatefulSetTimeoutMins = 10
+)
+
 type statefulsetInitAwaiter struct {
 	config            updateAwaitConfig
 	revisionReady     bool
@@ -162,7 +166,8 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
-	timeout := time.Duration(metadata.TimeoutSeconds(sia.config.currentInputs, 5*60)) * time.Second
+	timeout := time.Duration(
+		metadata.TimeoutSeconds(sia.config.currentInputs, DefaultStatefulSetTimeoutMins*60)) * time.Second
 	return sia.await(statefulSetWatcher, podWatcher, time.After(timeout), aggregateErrorTicker.C)
 }
 

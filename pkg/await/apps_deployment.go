@@ -88,7 +88,8 @@ import (
 // ------------------------------------------------------------------------------------------------
 
 const (
-	revision = "deployment.kubernetes.io/revision"
+	revision                     = "deployment.kubernetes.io/revision"
+	DefaultDeploymentTimeoutMins = 10
 )
 
 type deploymentInitAwaiter struct {
@@ -186,7 +187,8 @@ func (dia *deploymentInitAwaiter) Await() error {
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
-	timeout := time.Duration(metadata.TimeoutSeconds(dia.config.currentInputs, 5*60)) * time.Second
+	timeout := time.Duration(
+		metadata.TimeoutSeconds(dia.config.currentInputs, DefaultDeploymentTimeoutMins*60)) * time.Second
 	return dia.await(
 		deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher, time.After(timeout), aggregateErrorTicker.C)
 }

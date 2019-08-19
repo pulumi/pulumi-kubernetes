@@ -16,7 +16,9 @@ package gen
 
 import (
 	"fmt"
+	"strconv"
 
+	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 )
 
@@ -25,26 +27,28 @@ func timeoutComment(kind kinds.Kind) string {
 This approach will be deprecated in favor of customTimeouts. See
 https://github.com/pulumi/pulumi-kubernetes/issues/672 for details.`
 
-	timeout := func(kind kinds.Kind) string {
+	timeout := func(kind kinds.Kind) int {
 		switch kind {
 		case kinds.Deployment:
-			return "5 minutes"
+			return await.DefaultDeploymentTimeoutMins
 		case kinds.Ingress:
-			return "10 minutes"
+			return await.DefaultIngressTimeoutMins
 		case kinds.Pod:
-			return "5 minutes"
+			return await.DefaultPodTimeoutMins
 		case kinds.Service:
-			return "10 minutes"
+			return await.DefaultServiceTimeoutMins
 		case kinds.StatefulSet:
-			return "5 minutes"
+			return await.DefaultStatefulSetTimeoutMins
 		default:
 			panic("unhandled kind: timeoutValues")
 		}
 	}
+	timeoutStr := strconv.Itoa(timeout(kind)) + " minutes"
+
 	return fmt.Sprintf(`
 If the %s has not reached a Ready state after %s, it will
 time out and mark the resource update as Failed. You can override the default timeout value
-by %s`, kind, timeout(kind), timeoutOverride)
+by %s`, kind, timeoutStr, timeoutOverride)
 }
 
 func comments(kind kinds.Kind) string {

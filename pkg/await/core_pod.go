@@ -84,6 +84,10 @@ import (
 
 // --------------------------------------------------------------------------
 
+const (
+	DefaultPodTimeoutMins = 10
+)
+
 type podInitAwaiter struct {
 	pod      *unstructured.Unstructured
 	config   createAwaitConfig
@@ -138,7 +142,8 @@ func (pia *podInitAwaiter) Await() error {
 	}
 	defer podWatcher.Stop()
 
-	timeout := time.Duration(metadata.TimeoutSeconds(pia.config.currentInputs, 5*60)) * time.Second
+	timeout := time.Duration(
+		metadata.TimeoutSeconds(pia.config.currentInputs, DefaultPodTimeoutMins*60)) * time.Second
 	for {
 		if pia.state.Ready() {
 			return nil
