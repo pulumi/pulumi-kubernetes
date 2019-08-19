@@ -21,7 +21,9 @@ import (
 )
 
 func timeoutComment(kind kinds.Kind) string {
-	const timeoutOverride = `setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.`
+	const timeoutOverride = `setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
+This approach will be deprecated in favor of customTimeouts. See
+https://github.com/pulumi/pulumi-kubernetes/issues/672 for details.`
 
 	timeout := func(kind kinds.Kind) string {
 		switch kind {
@@ -86,7 +88,7 @@ Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 	case kinds.Service:
 		comment += `
 1. Service object exists.
-2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
+2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
    for any stragglers.
 3. The endpoints objects target some number of living objects (unless the Service is
    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
