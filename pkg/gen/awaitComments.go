@@ -98,7 +98,14 @@ Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 
+Known limitations: 
+Services targeting ReplicaSets (and, by extension, Deployments,
+StatefulSets, etc.) with '.spec.replicas' set to 0 are not handled, and will time
+out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
+'.metadata.annotations' for the Service. Work to handle this case is in progress [2].
+
 [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+[2] https://github.com/pulumi/pulumi-kubernetes/pull/703
 `
 	case kinds.StatefulSet:
 		comment += `
