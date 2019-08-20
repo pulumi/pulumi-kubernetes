@@ -64,7 +64,8 @@ func TestGet(t *testing.T) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join(cwd, "get"),
+		ExpectRefreshChanges: true, // CRD changes on refresh
+		Dir:                  filepath.Join(cwd, "get"),
 	})
 	integration.ProgramTest(t, &options)
 }
