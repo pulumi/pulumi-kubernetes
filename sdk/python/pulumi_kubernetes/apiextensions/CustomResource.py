@@ -49,10 +49,7 @@ class CustomResource(pulumi.CustomResource):
         __props__['spec'] = spec
         __props__['metadata'] = metadata
 
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        if opts.version is None:
-            opts.version = version.get_version()
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(CustomResource, self).__init__(
             f"kubernetes:{api_version}:{kind}",
@@ -77,6 +74,7 @@ class CustomResource(pulumi.CustomResource):
                Takes the form <namespace>/<name> or <name>.
         :param Optional[ResourceOptions] opts: A bag of options that control this resource's behavior.
         """
+
         def _unwrap(id):
             _opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
             return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=_opts)
