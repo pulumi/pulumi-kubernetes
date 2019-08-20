@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "dependencies": {
     "@pulumi/pulumi": "dev",
-    "@pulumi/random": "dev"
+    "@pulumi/random": "dev",
+    "@pulumi/kubernetes": "latest"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
     "typescript": "^3.0.0"
-  },
-  "peerDependencies": {
-    "@pulumi/kubernetes": "latest"
   },
   "license": "MIT"
 }

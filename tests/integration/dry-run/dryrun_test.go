@@ -29,7 +29,8 @@ func TestDryRun(t *testing.T) {
 	}
 
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "step1",
-		Dependencies: []string{"@pulumi/kubernetes"},
+		Dir:           "step1",
+		Dependencies:  []string{"@pulumi/kubernetes"},
+		RunUpdateTest: true,
 	})
 }

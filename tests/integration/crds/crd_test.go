@@ -38,6 +38,7 @@ func TestCRDs(t *testing.T) {
 		Dependencies:         []string{"@pulumi/kubernetes"},
 		Quick:                false,
 		ExpectRefreshChanges: true,
+		RunUpdateTest:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 5, len(stackInfo.Deployment.Resources))

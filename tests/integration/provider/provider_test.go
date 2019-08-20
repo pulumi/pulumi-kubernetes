@@ -36,9 +36,10 @@ func TestProvider(t *testing.T) {
 	}
 
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "step1",
-		Dependencies: []string{"@pulumi/kubernetes"},
-		Quick:        true,
+		Dir:           "step1",
+		Dependencies:  []string{"@pulumi/kubernetes"},
+		Quick:         true,
+		RunUpdateTest: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))

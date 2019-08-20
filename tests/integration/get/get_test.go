@@ -38,6 +38,7 @@ func TestGet(t *testing.T) {
 		Dependencies:         []string{"@pulumi/kubernetes"},
 		Quick:                true,
 		ExpectRefreshChanges: true,
+		RunUpdateTest:        true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 6, len(stackInfo.Deployment.Resources))
@@ -69,13 +70,12 @@ func TestGet(t *testing.T) {
 			ct1 := stackInfo.Deployment.Resources[3]
 			assert.Equal(t, "my-new-cron-object", string(ct1.URN.Name()))
 
-
 		},
 		EditDirs: []integration.EditDir{
-            {
-            	Dir: "step2",
-            	Additive: true,
-            	ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			{
+				Dir:      "step2",
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
 					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 

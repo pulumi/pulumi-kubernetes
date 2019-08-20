@@ -22,10 +22,11 @@ func TestIstio(t *testing.T) {
 	}
 
 	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "step1",
-		Dependencies: []string{"@pulumi/kubernetes"},
-		Quick:        true,
-		SkipRefresh:  true,
+		Dir:           "step1",
+		Dependencies:  []string{"@pulumi/kubernetes"},
+		Quick:         true,
+		SkipRefresh:   true,
+		RunUpdateTest: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			frontend := stackInfo.Outputs["frontendIp"].(string)
 

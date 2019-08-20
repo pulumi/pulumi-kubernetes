@@ -47,6 +47,7 @@ func TestExamples(t *testing.T) {
 		Dependencies: []string{
 			"@pulumi/kubernetes",
 		},
+		RunUpdateTest: true,
 	}
 
 	shortTests := []integration.ProgramTestOptions{

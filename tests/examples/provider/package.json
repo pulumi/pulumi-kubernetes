@@ -2,12 +2,10 @@
     "name": "provider",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "dev"
+        "@pulumi/pulumi": "dev",
+        "@pulumi/kubernetes": "latest"
     },
     "devDependencies": {
         "typescript": "^3.0.0"
-    },
-    "peerDependencies": {
-        "@pulumi/kubernetes": "latest"
     }
 }

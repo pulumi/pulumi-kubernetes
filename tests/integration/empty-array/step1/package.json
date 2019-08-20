@@ -3,12 +3,10 @@
     "version": "0.1.0",
     "dependencies": {
         "@pulumi/pulumi": "dev",
-        "@pulumi/random": "dev"
+        "@pulumi/random": "dev",
+        "@pulumi/kubernetes": "latst"
     },
     "devDependencies": {
         "typescript": "^3.0.0"
-    },
-    "peerDependencies": {
-        "@pulumi/kubernetes": "latest"
     }
 }

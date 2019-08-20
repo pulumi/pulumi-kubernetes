@@ -38,6 +38,7 @@ func TestKubectlReplace(t *testing.T) {
 		Dependencies:  []string{"@pulumi/kubernetes"},
 		Quick:         true,
 		ExpectFailure: true,
+		RunUpdateTest: true,
 		EditDirs: []integration.EditDir{
 			{
 				Dir:      "step2",

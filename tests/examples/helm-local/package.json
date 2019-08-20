@@ -4,14 +4,12 @@
   "dependencies": {
     "@pulumi/pulumi": "dev",
     "@types/js-yaml": "^3.11.2",
-    "js-yaml": "^3.12.0"
+    "js-yaml": "^3.12.0",
+    "@pulumi/kubernetes": "latest"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
     "typescript": "^3.0.0"
-  },
-  "peerDependencies": {
-    "@pulumi/kubernetes": "latest"
   },
   "license": "MIT"
 }
