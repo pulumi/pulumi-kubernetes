@@ -16,7 +16,7 @@ import { getVersion } from "../../version";
      * The following conditions are used to determine whether the resource creation has
      * succeeded or failed:
      * 1. Service object exists.
-     * 2. Related Endpoint objects are created. Each time we get an update, wait ~5-10 seconds
+     * 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
      *    for any stragglers.
      * 3. The endpoints objects target some number of living objects (unless the Service is
      *    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
@@ -24,6 +24,11 @@ import { getVersion } from "../../version";
      * 
      * [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
      * 
+     * If the Service has not reached a Ready state after 10 minutes, it will
+     * time out and mark the resource update as Failed. You can override the default timeout value
+     * by setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
+     * This approach will be deprecated in favor of customTimeouts. See
+     * https://github.com/pulumi/pulumi-kubernetes/issues/672 for details.
      */
     export class Service extends pulumi.CustomResource {
       /**

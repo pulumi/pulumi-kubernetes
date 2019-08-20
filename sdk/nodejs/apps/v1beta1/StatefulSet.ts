@@ -22,6 +22,12 @@ import { getVersion } from "../../version";
      * 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
      *    and '.status.readyReplicas'.
      * 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+     * 
+     * If the StatefulSet has not reached a Ready state after 5 minutes, it will
+     * time out and mark the resource update as Failed. You can override the default timeout value
+     * by setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
+     * This approach will be deprecated in favor of customTimeouts. See
+     * https://github.com/pulumi/pulumi-kubernetes/issues/672 for details.
      */
     export class StatefulSet extends pulumi.CustomResource {
       /**

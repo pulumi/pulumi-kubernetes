@@ -25,6 +25,12 @@ class Ingress(pulumi.CustomResource):
     2.  Endpoint objects exist with matching names for each Ingress path (except when Service
         type is ExternalName).
     3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+    
+    If the Ingress has not reached a Ready state after 10 minutes, it will
+    time out and mark the resource update as Failed. You can override the default timeout value
+    by setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
+    This approach will be deprecated in favor of customTimeouts. See
+    https://github.com/pulumi/pulumi-kubernetes/issues/672 for details.
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):

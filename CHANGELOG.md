@@ -9,16 +9,9 @@
 ### Improvements
 
 -   Document await logic in the SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/711).
+-   Document await timeouts and how to override. (https://github.com/pulumi/pulumi-kubernetes/pull/718).
 
 ## 1.0.0-beta.1 (August 13, 2019)
-
-### Supported Kubernetes versions
-
-- v1.15.x
-- v1.14.x
-- v1.13.x
-
-## 0.25.6 (August 7, 2019)
 
 ### Supported Kubernetes versions
 
@@ -29,6 +22,14 @@
 ### Improvements
 
 -   Add .get() to Python SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/435).
+
+## 0.25.6 (August 7, 2019)
+
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
 
 ### Bug fixes
 

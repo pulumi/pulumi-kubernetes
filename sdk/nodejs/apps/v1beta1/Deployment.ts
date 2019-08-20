@@ -27,6 +27,12 @@ import { getVersion } from "../../version";
      *    'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
      *    because it doesn't do a rollout (i.e., it simply creates the Deployment and
      *    corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+     * 
+     * If the Deployment has not reached a Ready state after 5 minutes, it will
+     * time out and mark the resource update as Failed. You can override the default timeout value
+     * by setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
+     * This approach will be deprecated in favor of customTimeouts. See
+     * https://github.com/pulumi/pulumi-kubernetes/issues/672 for details.
      */
     export class Deployment extends pulumi.CustomResource {
       /**

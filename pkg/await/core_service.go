@@ -62,6 +62,10 @@ import (
 
 // ------------------------------------------------------------------------------------------------
 
+const (
+	DefaultServiceTimeoutMins = 10
+)
+
 type serviceInitAwaiter struct {
 	config           createAwaitConfig
 	service          *unstructured.Unstructured
@@ -138,7 +142,8 @@ func (sia *serviceInitAwaiter) Await() error {
 
 	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
-	timeout := time.Duration(metadata.TimeoutSeconds(sia.config.currentInputs, 10*60)) * time.Second
+	timeout := time.Duration(
+		metadata.TimeoutSeconds(sia.config.currentInputs, DefaultServiceTimeoutMins*60)) * time.Second
 	return sia.await(serviceWatcher, endpointWatcher, time.After(timeout), make(chan struct{}), version)
 }
 
