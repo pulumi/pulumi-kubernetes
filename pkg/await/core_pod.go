@@ -85,7 +85,7 @@ import (
 // --------------------------------------------------------------------------
 
 const (
-	DefaultPodTimeoutMins = 10
+	DefaultPodTimeoutMins = 5
 )
 
 type podInitAwaiter struct {

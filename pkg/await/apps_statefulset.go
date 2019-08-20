@@ -101,7 +101,7 @@ import (
 // ------------------------------------------------------------------------------------------------
 
 const (
-	DefaultStatefulSetTimeoutMins = 10
+	DefaultStatefulSetTimeoutMins = 5
 )
 
 type statefulsetInitAwaiter struct {
