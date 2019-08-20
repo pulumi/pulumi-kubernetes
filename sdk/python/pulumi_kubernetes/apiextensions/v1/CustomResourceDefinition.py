@@ -11,10 +11,10 @@ from pulumi import Input, ResourceOptions
 from ... import tables, version
 
 
-class MutatingWebhookConfiguration(pulumi.CustomResource):
+class CustomResourceDefinition(pulumi.CustomResource):
     """
-    MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or
-    reject and may change the object.
+    CustomResourceDefinition represents a resource that should be exposed on the API server.  Its
+    name MUST be in the format <.spec.name>.<.spec.group>.
     """
 
     apiVersion: pulumi.Output[str]
@@ -32,25 +32,26 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
     """
 
     metadata: pulumi.Output[dict]
+    
+
+    spec: pulumi.Output[dict]
     """
-    Standard object metadata; More info:
-    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+    Spec describes how the user wants the resources to appear
     """
 
-    webhooks: pulumi.Output[list]
+    status: pulumi.Output[dict]
     """
-    Webhooks is a list of webhooks and the affected resources and operations.
+    Status indicates the actual state of the CustomResourceDefinition
     """
 
-    def __init__(self, resource_name, opts=None, metadata=None, webhooks=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, spec=None, metadata=None, __name__=None, __opts__=None):
         """
-        Create a MutatingWebhookConfiguration resource with the given unique name, arguments, and options.
+        Create a CustomResourceDefinition resource with the given unique name, arguments, and options.
 
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[dict] metadata: Standard object metadata; More info:
-               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[list] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
+        :param pulumi.Input[dict] spec: Spec describes how the user wants the resources to appear
+        :param pulumi.Input[dict] metadata: 
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -67,17 +68,19 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'admissionregistration.k8s.io/v1'
-        __props__['kind'] = 'MutatingWebhookConfiguration'
+        __props__['apiVersion'] = 'apiextensions.k8s.io/v1'
+        __props__['kind'] = 'CustomResourceDefinition'
+        if spec is None:
+            raise TypeError('Missing required property spec')
+        __props__['spec'] = spec
         __props__['metadata'] = metadata
-        __props__['webhooks'] = webhooks
 
         __props__['status'] = None
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
-        super(MutatingWebhookConfiguration, self).__init__(
-            "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration",
+        super(CustomResourceDefinition, self).__init__(
+            "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition",
             resource_name,
             __props__,
             opts)
@@ -85,7 +88,7 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
     @staticmethod
     def get(resource_name, id, opts=None):
         """
-        Get the state of an existing `MutatingWebhookConfiguration` resource, as identified by `id`.
+        Get the state of an existing `CustomResourceDefinition` resource, as identified by `id`.
         The ID is of the form `[namespace]/[name]`; if `[namespace]` is omitted,
         then (per Kubernetes convention) the ID becomes `default/[name]`.
 
@@ -98,7 +101,7 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
                resource's behavior.
         """
         opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
-        return MutatingWebhookConfiguration(resource_name, opts)
+        return CustomResourceDefinition(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

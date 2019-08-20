@@ -8,21 +8,21 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+     * CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
      */
-    export class MutatingWebhookConfigurationList extends pulumi.CustomResource {
+    export class CustomResourceDefinitionList extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"admissionregistration.k8s.io/v1">;
+      public readonly apiVersion: pulumi.Output<"apiextensions.k8s.io/v1">;
 
       /**
-       * List of MutatingWebhookConfiguration.
+       * Items individual CustomResourceDefinitions
        */
-      public readonly items: pulumi.Output<outputs.admissionregistration.v1.MutatingWebhookConfiguration[]>;
+      public readonly items: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinition[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -30,16 +30,13 @@ import { getVersion } from "../../version";
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"MutatingWebhookConfigurationList">;
+      public readonly kind: pulumi.Output<"CustomResourceDefinitionList">;
 
-      /**
-       * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-       */
+      
       public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
       /**
-       * Get the state of an existing `MutatingWebhookConfigurationList` resource, as identified by `id`.
+       * Get the state of an existing `CustomResourceDefinitionList` resource, as identified by `id`.
        * The ID is of the form `[namespace]/<name>`; if `namespace` is omitted, then (per
        * Kubernetes convention) the ID becomes `default/<name>`.
        *
@@ -49,38 +46,38 @@ import { getVersion } from "../../version";
        * @param id An ID for the Kubernetes resource to retrieve. Takes the form `[namespace]/<name>`.
        * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): MutatingWebhookConfigurationList {
-          return new MutatingWebhookConfigurationList(name, undefined, { ...opts, id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CustomResourceDefinitionList {
+          return new CustomResourceDefinitionList(name, undefined, { ...opts, id: id });
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList";
+      private static readonly __pulumiType = "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList";
 
       /**
-       * Returns true if the given object is an instance of MutatingWebhookConfigurationList.  This is designed to work even
+       * Returns true if the given object is an instance of CustomResourceDefinitionList.  This is designed to work even
        * when multiple copies of the Pulumi SDK have been loaded into the same process.
        */
-      public static isInstance(obj: any): obj is MutatingWebhookConfigurationList {
+      public static isInstance(obj: any): obj is CustomResourceDefinitionList {
           if (obj === undefined || obj === null) {
               return false;
           }
 
-          return obj["__pulumiType"] === MutatingWebhookConfigurationList.__pulumiType;
+          return obj["__pulumiType"] === CustomResourceDefinitionList.__pulumiType;
       }
 
       /**
-       * Create a admissionregistration.v1.MutatingWebhookConfigurationList resource with the given unique name, arguments, and options.
+       * Create a apiextensions.v1.CustomResourceDefinitionList resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.admissionregistration.v1.MutatingWebhookConfigurationList, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.apiextensions.v1.CustomResourceDefinitionList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
           props["items"] = args && args.items || undefined;
 
-          props["apiVersion"] = "admissionregistration.k8s.io/v1";
-          props["kind"] = "MutatingWebhookConfigurationList";
+          props["apiVersion"] = "apiextensions.k8s.io/v1";
+          props["kind"] = "CustomResourceDefinitionList";
           props["metadata"] = args && args.metadata || undefined;
 
           props["status"] = undefined;
@@ -92,6 +89,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(MutatingWebhookConfigurationList.__pulumiType, name, props, opts);
+          super(CustomResourceDefinitionList.__pulumiType, name, props, opts);
       }
     }

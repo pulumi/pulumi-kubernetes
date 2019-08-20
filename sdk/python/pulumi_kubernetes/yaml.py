@@ -2,54 +2,14 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import json
-from copy import copy, deepcopy
+from copy import copy
 from inspect import getargspec
 from typing import Callable, Dict, List, Optional
 
 import pulumi.runtime
 import requests
 import yaml
-from pulumi_kubernetes.admissionregistration.v1 import *
-from pulumi_kubernetes.admissionregistration.v1beta1 import *
-from pulumi_kubernetes.apiextensions.v1beta1 import *
-from pulumi_kubernetes.apiregistration.v1 import *
-from pulumi_kubernetes.apiregistration.v1beta1 import *
-from pulumi_kubernetes.apps.v1 import *
-from pulumi_kubernetes.apps.v1beta1 import *
-from pulumi_kubernetes.apps.v1beta2 import *
-from pulumi_kubernetes.auditregistration.v1alpha1 import *
-from pulumi_kubernetes.authentication.v1 import *
-from pulumi_kubernetes.authentication.v1beta1 import *
-from pulumi_kubernetes.authorization.v1 import *
-from pulumi_kubernetes.authorization.v1beta1 import *
-from pulumi_kubernetes.autoscaling.v1 import *
-from pulumi_kubernetes.autoscaling.v2beta1 import *
-from pulumi_kubernetes.autoscaling.v2beta2 import *
-from pulumi_kubernetes.batch.v1 import *
-from pulumi_kubernetes.batch.v1beta1 import *
-from pulumi_kubernetes.batch.v2alpha1 import *
-from pulumi_kubernetes.certificates.v1beta1 import *
-from pulumi_kubernetes.coordination.v1 import *
-from pulumi_kubernetes.coordination.v1beta1 import *
-from pulumi_kubernetes.core.v1 import *
-from pulumi_kubernetes.events.v1beta1 import *
-from pulumi_kubernetes.extensions.v1beta1 import *
-from pulumi_kubernetes.meta.v1 import *
-from pulumi_kubernetes.networking.v1 import *
-from pulumi_kubernetes.networking.v1beta1 import *
-from pulumi_kubernetes.node.v1alpha1 import *
-from pulumi_kubernetes.node.v1beta1 import *
-from pulumi_kubernetes.policy.v1beta1 import *
-from pulumi_kubernetes.rbac.v1 import *
-from pulumi_kubernetes.rbac.v1alpha1 import *
-from pulumi_kubernetes.rbac.v1beta1 import *
-from pulumi_kubernetes.scheduling.v1 import *
-from pulumi_kubernetes.scheduling.v1alpha1 import *
-from pulumi_kubernetes.scheduling.v1beta1 import *
-from pulumi_kubernetes.settings.v1alpha1 import *
-from pulumi_kubernetes.storage.v1 import *
-from pulumi_kubernetes.storage.v1alpha1 import *
-from pulumi_kubernetes.storage.v1beta1 import *
+import pulumi_kubernetes
 from pulumi_kubernetes.apiextensions import CustomResource
 
 from . import tables
@@ -57,27 +17,25 @@ from . import tables
 
 class ConfigFile(pulumi.ComponentResource):
     """
-    ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file. If `config.name`
-    is not specified, `ConfigFile` assumes the argument `name` is the filename.
-
-    :param str name: A name for a resource.
-    :param str file_id: Path or a URL that uniquely identifies a file.
-    :param Optional[ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-    :param Optional[List[Callable]] transformations: A set of transformations to apply to Kubernetes
-           resource definitions before registering with engine.
-    :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
-           Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
-
+    ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
     """
 
-    def __init__(
-            self,
-            name: str,
-            file_id: str,
-            opts: Optional[pulumi.ResourceOptions] = None,
-            transformations: Optional[List[Callable]] = None,
-            resource_prefix: Optional[str] = None
-    ):
+    resources: pulumi.Output[dict]
+    """
+    Kubernetes resources contained in this ConfigFile.
+    """
+
+
+    def __init__(self, name, file_id, opts=None, transformations=None, resource_prefix=None):
+        """
+        :param str name: A name for a resource.
+        :param str file_id: Path or a URL that uniquely identifies a file.
+        :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
+        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: A set of
+               transformations to apply to Kubernetes resource definitions before registering with engine.
+        :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
+               Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+        """
         if not name:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(name, str):
@@ -100,17 +58,13 @@ class ConfigFile(pulumi.ComponentResource):
         else:
             text = _read_file(file_id)
 
-        if opts is not None:
-            _opts = deepcopy(opts)
-            _opts.parent = self
-        else:
-            _opts = pulumi.ResourceOptions(parent=self)
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        output = _parse_yaml_document(yaml.safe_load_all(text), _opts, transformations, resource_prefix)
-        self.register_outputs({"output": output})
+        self.resources = _parse_yaml_document(yaml.safe_load_all(text), opts, transformations, resource_prefix)
+        self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
@@ -118,6 +72,23 @@ class ConfigFile(pulumi.ComponentResource):
     def translate_input_property(self, prop: str) -> str:
         return tables._CASING_BACKWARD_TABLE.get(prop) or prop
 
+    def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
+        """
+        get_resource returns a resource defined by a built-in Kubernetes group/version/kind and
+        name. For example: `get_resource("apps/v1/Deployment", "nginx")`
+
+        :param str group_version_kind: Group/Version/Kind of the resource, e.g., `apps/v1/Deployment`
+        :param str name: Name of the resource to retrieve
+        :param str namespace: Optional namespace of the resource to retrieve
+        """
+
+        # `id` will either be `${name}` or `${namespace}/${name}`.
+        id = pulumi.Output.from_input(name)
+        if namespace != None:
+            id = pulumi.Output.concat(namespace, '/', name)
+
+        resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')
+        return resource_id.apply(lambda x: self.resources[x])
 
 def _read_url(url: str) -> str:
     response = requests.get(url)
@@ -216,714 +187,1079 @@ def _parse_yaml_object(
 
     gvk = f"{api_version}/{kind}"
     if gvk == "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1 import MutatingWebhookConfiguration
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1/MutatingWebhookConfiguration:{x}",
                        MutatingWebhookConfiguration(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1 import MutatingWebhookConfigurationList
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList:{x}",
                        MutatingWebhookConfigurationList(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1 import ValidatingWebhookConfiguration
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration:{x}",
                        ValidatingWebhookConfiguration(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1 import ValidatingWebhookConfigurationList
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList:{x}",
                        ValidatingWebhookConfigurationList(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import MutatingWebhookConfiguration
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration:{x}",
                        MutatingWebhookConfiguration(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import MutatingWebhookConfigurationList
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList:{x}",
                        MutatingWebhookConfigurationList(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingWebhookConfiguration
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration:{x}",
                        ValidatingWebhookConfiguration(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingWebhookConfigurationList
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList:{x}",
                        ValidatingWebhookConfigurationList(f"{x}", opts, **obj)))]
+    if gvk == "apiextensions.k8s.io/v1/CustomResourceDefinition":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiextensions.v1 import CustomResourceDefinition
+        return [identifier.apply(
+            lambda x: (f"apiextensions.k8s.io/v1/CustomResourceDefinition:{x}",
+                       CustomResourceDefinition(f"{x}", opts, **obj)))]
+    if gvk == "apiextensions.k8s.io/v1/CustomResourceDefinitionList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiextensions.v1 import CustomResourceDefinitionList
+        return [identifier.apply(
+            lambda x: (f"apiextensions.k8s.io/v1/CustomResourceDefinitionList:{x}",
+                       CustomResourceDefinitionList(f"{x}", opts, **obj)))]
     if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiextensions.v1beta1 import CustomResourceDefinition
         return [identifier.apply(
             lambda x: (f"apiextensions.k8s.io/v1beta1/CustomResourceDefinition:{x}",
                        CustomResourceDefinition(f"{x}", opts, **obj)))]
     if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiextensions.v1beta1 import CustomResourceDefinitionList
         return [identifier.apply(
             lambda x: (f"apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList:{x}",
                        CustomResourceDefinitionList(f"{x}", opts, **obj)))]
     if gvk == "apiregistration.k8s.io/v1/APIService":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiregistration.v1 import APIService
         return [identifier.apply(
             lambda x: (f"apiregistration.k8s.io/v1/APIService:{x}",
                        APIService(f"{x}", opts, **obj)))]
     if gvk == "apiregistration.k8s.io/v1/APIServiceList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiregistration.v1 import APIServiceList
         return [identifier.apply(
             lambda x: (f"apiregistration.k8s.io/v1/APIServiceList:{x}",
                        APIServiceList(f"{x}", opts, **obj)))]
     if gvk == "apiregistration.k8s.io/v1beta1/APIService":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiregistration.v1beta1 import APIService
         return [identifier.apply(
             lambda x: (f"apiregistration.k8s.io/v1beta1/APIService:{x}",
                        APIService(f"{x}", opts, **obj)))]
     if gvk == "apiregistration.k8s.io/v1beta1/APIServiceList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiregistration.v1beta1 import APIServiceList
         return [identifier.apply(
             lambda x: (f"apiregistration.k8s.io/v1beta1/APIServiceList:{x}",
                        APIServiceList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/ControllerRevision":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import ControllerRevision
         return [identifier.apply(
             lambda x: (f"apps/v1/ControllerRevision:{x}",
                        ControllerRevision(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/ControllerRevisionList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import ControllerRevisionList
         return [identifier.apply(
             lambda x: (f"apps/v1/ControllerRevisionList:{x}",
                        ControllerRevisionList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/DaemonSet":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import DaemonSet
         return [identifier.apply(
             lambda x: (f"apps/v1/DaemonSet:{x}",
                        DaemonSet(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/DaemonSetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import DaemonSetList
         return [identifier.apply(
             lambda x: (f"apps/v1/DaemonSetList:{x}",
                        DaemonSetList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/Deployment":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import Deployment
         return [identifier.apply(
             lambda x: (f"apps/v1/Deployment:{x}",
                        Deployment(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/DeploymentList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import DeploymentList
         return [identifier.apply(
             lambda x: (f"apps/v1/DeploymentList:{x}",
                        DeploymentList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/ReplicaSet":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import ReplicaSet
         return [identifier.apply(
             lambda x: (f"apps/v1/ReplicaSet:{x}",
                        ReplicaSet(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/ReplicaSetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import ReplicaSetList
         return [identifier.apply(
             lambda x: (f"apps/v1/ReplicaSetList:{x}",
                        ReplicaSetList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/StatefulSet":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import StatefulSet
         return [identifier.apply(
             lambda x: (f"apps/v1/StatefulSet:{x}",
                        StatefulSet(f"{x}", opts, **obj)))]
     if gvk == "apps/v1/StatefulSetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1 import StatefulSetList
         return [identifier.apply(
             lambda x: (f"apps/v1/StatefulSetList:{x}",
                        StatefulSetList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta1/ControllerRevision":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta1 import ControllerRevision
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/ControllerRevision:{x}",
                        ControllerRevision(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta1/ControllerRevisionList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta1 import ControllerRevisionList
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/ControllerRevisionList:{x}",
                        ControllerRevisionList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta1/Deployment":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta1 import Deployment
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/Deployment:{x}",
                        Deployment(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta1/DeploymentList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta1 import DeploymentList
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/DeploymentList:{x}",
                        DeploymentList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta1/StatefulSet":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta1 import StatefulSet
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/StatefulSet:{x}",
                        StatefulSet(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta1/StatefulSetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta1 import StatefulSetList
         return [identifier.apply(
             lambda x: (f"apps/v1beta1/StatefulSetList:{x}",
                        StatefulSetList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/ControllerRevision":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import ControllerRevision
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/ControllerRevision:{x}",
                        ControllerRevision(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/ControllerRevisionList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import ControllerRevisionList
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/ControllerRevisionList:{x}",
                        ControllerRevisionList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/DaemonSet":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import DaemonSet
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/DaemonSet:{x}",
                        DaemonSet(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/DaemonSetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import DaemonSetList
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/DaemonSetList:{x}",
                        DaemonSetList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/Deployment":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import Deployment
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/Deployment:{x}",
                        Deployment(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/DeploymentList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import DeploymentList
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/DeploymentList:{x}",
                        DeploymentList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/ReplicaSet":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import ReplicaSet
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/ReplicaSet:{x}",
                        ReplicaSet(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/ReplicaSetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import ReplicaSetList
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/ReplicaSetList:{x}",
                        ReplicaSetList(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/StatefulSet":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import StatefulSet
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/StatefulSet:{x}",
                        StatefulSet(f"{x}", opts, **obj)))]
     if gvk == "apps/v1beta2/StatefulSetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apps.v1beta2 import StatefulSetList
         return [identifier.apply(
             lambda x: (f"apps/v1beta2/StatefulSetList:{x}",
                        StatefulSetList(f"{x}", opts, **obj)))]
     if gvk == "auditregistration.k8s.io/v1alpha1/AuditSink":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.auditregistration.v1alpha1 import AuditSink
         return [identifier.apply(
             lambda x: (f"auditregistration.k8s.io/v1alpha1/AuditSink:{x}",
                        AuditSink(f"{x}", opts, **obj)))]
     if gvk == "auditregistration.k8s.io/v1alpha1/AuditSinkList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.auditregistration.v1alpha1 import AuditSinkList
         return [identifier.apply(
             lambda x: (f"auditregistration.k8s.io/v1alpha1/AuditSinkList:{x}",
                        AuditSinkList(f"{x}", opts, **obj)))]
     if gvk == "authentication.k8s.io/v1/TokenRequest":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authentication.v1 import TokenRequest
         return [identifier.apply(
             lambda x: (f"authentication.k8s.io/v1/TokenRequest:{x}",
                        TokenRequest(f"{x}", opts, **obj)))]
     if gvk == "authentication.k8s.io/v1/TokenReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authentication.v1 import TokenReview
         return [identifier.apply(
             lambda x: (f"authentication.k8s.io/v1/TokenReview:{x}",
                        TokenReview(f"{x}", opts, **obj)))]
     if gvk == "authentication.k8s.io/v1beta1/TokenReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authentication.v1beta1 import TokenReview
         return [identifier.apply(
             lambda x: (f"authentication.k8s.io/v1beta1/TokenReview:{x}",
                        TokenReview(f"{x}", opts, **obj)))]
     if gvk == "authorization.k8s.io/v1/LocalSubjectAccessReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authorization.v1 import LocalSubjectAccessReview
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1/LocalSubjectAccessReview:{x}",
                        LocalSubjectAccessReview(f"{x}", opts, **obj)))]
     if gvk == "authorization.k8s.io/v1/SelfSubjectAccessReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authorization.v1 import SelfSubjectAccessReview
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1/SelfSubjectAccessReview:{x}",
                        SelfSubjectAccessReview(f"{x}", opts, **obj)))]
     if gvk == "authorization.k8s.io/v1/SelfSubjectRulesReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authorization.v1 import SelfSubjectRulesReview
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1/SelfSubjectRulesReview:{x}",
                        SelfSubjectRulesReview(f"{x}", opts, **obj)))]
     if gvk == "authorization.k8s.io/v1/SubjectAccessReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authorization.v1 import SubjectAccessReview
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1/SubjectAccessReview:{x}",
                        SubjectAccessReview(f"{x}", opts, **obj)))]
     if gvk == "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authorization.v1beta1 import LocalSubjectAccessReview
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1beta1/LocalSubjectAccessReview:{x}",
                        LocalSubjectAccessReview(f"{x}", opts, **obj)))]
     if gvk == "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authorization.v1beta1 import SelfSubjectAccessReview
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1beta1/SelfSubjectAccessReview:{x}",
                        SelfSubjectAccessReview(f"{x}", opts, **obj)))]
     if gvk == "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authorization.v1beta1 import SelfSubjectRulesReview
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1beta1/SelfSubjectRulesReview:{x}",
                        SelfSubjectRulesReview(f"{x}", opts, **obj)))]
     if gvk == "authorization.k8s.io/v1beta1/SubjectAccessReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authorization.v1beta1 import SubjectAccessReview
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1beta1/SubjectAccessReview:{x}",
                        SubjectAccessReview(f"{x}", opts, **obj)))]
     if gvk == "autoscaling/v1/HorizontalPodAutoscaler":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.autoscaling.v1 import HorizontalPodAutoscaler
         return [identifier.apply(
             lambda x: (f"autoscaling/v1/HorizontalPodAutoscaler:{x}",
                        HorizontalPodAutoscaler(f"{x}", opts, **obj)))]
     if gvk == "autoscaling/v1/HorizontalPodAutoscalerList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.autoscaling.v1 import HorizontalPodAutoscalerList
         return [identifier.apply(
             lambda x: (f"autoscaling/v1/HorizontalPodAutoscalerList:{x}",
                        HorizontalPodAutoscalerList(f"{x}", opts, **obj)))]
     if gvk == "autoscaling/v2beta1/HorizontalPodAutoscaler":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.autoscaling.v2beta1 import HorizontalPodAutoscaler
         return [identifier.apply(
             lambda x: (f"autoscaling/v2beta1/HorizontalPodAutoscaler:{x}",
                        HorizontalPodAutoscaler(f"{x}", opts, **obj)))]
     if gvk == "autoscaling/v2beta1/HorizontalPodAutoscalerList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.autoscaling.v2beta1 import HorizontalPodAutoscalerList
         return [identifier.apply(
             lambda x: (f"autoscaling/v2beta1/HorizontalPodAutoscalerList:{x}",
                        HorizontalPodAutoscalerList(f"{x}", opts, **obj)))]
     if gvk == "autoscaling/v2beta2/HorizontalPodAutoscaler":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.autoscaling.v2beta2 import HorizontalPodAutoscaler
         return [identifier.apply(
             lambda x: (f"autoscaling/v2beta2/HorizontalPodAutoscaler:{x}",
                        HorizontalPodAutoscaler(f"{x}", opts, **obj)))]
     if gvk == "autoscaling/v2beta2/HorizontalPodAutoscalerList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.autoscaling.v2beta2 import HorizontalPodAutoscalerList
         return [identifier.apply(
             lambda x: (f"autoscaling/v2beta2/HorizontalPodAutoscalerList:{x}",
                        HorizontalPodAutoscalerList(f"{x}", opts, **obj)))]
     if gvk == "batch/v1/Job":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.batch.v1 import Job
         return [identifier.apply(
             lambda x: (f"batch/v1/Job:{x}",
                        Job(f"{x}", opts, **obj)))]
     if gvk == "batch/v1/JobList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.batch.v1 import JobList
         return [identifier.apply(
             lambda x: (f"batch/v1/JobList:{x}",
                        JobList(f"{x}", opts, **obj)))]
     if gvk == "batch/v1beta1/CronJob":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.batch.v1beta1 import CronJob
         return [identifier.apply(
             lambda x: (f"batch/v1beta1/CronJob:{x}",
                        CronJob(f"{x}", opts, **obj)))]
     if gvk == "batch/v1beta1/CronJobList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.batch.v1beta1 import CronJobList
         return [identifier.apply(
             lambda x: (f"batch/v1beta1/CronJobList:{x}",
                        CronJobList(f"{x}", opts, **obj)))]
     if gvk == "batch/v2alpha1/CronJob":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.batch.v2alpha1 import CronJob
         return [identifier.apply(
             lambda x: (f"batch/v2alpha1/CronJob:{x}",
                        CronJob(f"{x}", opts, **obj)))]
     if gvk == "batch/v2alpha1/CronJobList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.batch.v2alpha1 import CronJobList
         return [identifier.apply(
             lambda x: (f"batch/v2alpha1/CronJobList:{x}",
                        CronJobList(f"{x}", opts, **obj)))]
     if gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequest":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.certificates.v1beta1 import CertificateSigningRequest
         return [identifier.apply(
             lambda x: (f"certificates.k8s.io/v1beta1/CertificateSigningRequest:{x}",
                        CertificateSigningRequest(f"{x}", opts, **obj)))]
     if gvk == "certificates.k8s.io/v1beta1/CertificateSigningRequestList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.certificates.v1beta1 import CertificateSigningRequestList
         return [identifier.apply(
             lambda x: (f"certificates.k8s.io/v1beta1/CertificateSigningRequestList:{x}",
                        CertificateSigningRequestList(f"{x}", opts, **obj)))]
     if gvk == "coordination.k8s.io/v1/Lease":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.coordination.v1 import Lease
         return [identifier.apply(
             lambda x: (f"coordination.k8s.io/v1/Lease:{x}",
                        Lease(f"{x}", opts, **obj)))]
     if gvk == "coordination.k8s.io/v1/LeaseList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.coordination.v1 import LeaseList
         return [identifier.apply(
             lambda x: (f"coordination.k8s.io/v1/LeaseList:{x}",
                        LeaseList(f"{x}", opts, **obj)))]
     if gvk == "coordination.k8s.io/v1beta1/Lease":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.coordination.v1beta1 import Lease
         return [identifier.apply(
             lambda x: (f"coordination.k8s.io/v1beta1/Lease:{x}",
                        Lease(f"{x}", opts, **obj)))]
     if gvk == "coordination.k8s.io/v1beta1/LeaseList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.coordination.v1beta1 import LeaseList
         return [identifier.apply(
             lambda x: (f"coordination.k8s.io/v1beta1/LeaseList:{x}",
                        LeaseList(f"{x}", opts, **obj)))]
     if gvk == "v1/Binding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import Binding
         return [identifier.apply(
             lambda x: (f"v1/Binding:{x}",
                        Binding(f"{x}", opts, **obj)))]
     if gvk == "v1/ComponentStatus":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ComponentStatus
         return [identifier.apply(
             lambda x: (f"v1/ComponentStatus:{x}",
                        ComponentStatus(f"{x}", opts, **obj)))]
     if gvk == "v1/ComponentStatusList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ComponentStatusList
         return [identifier.apply(
             lambda x: (f"v1/ComponentStatusList:{x}",
                        ComponentStatusList(f"{x}", opts, **obj)))]
     if gvk == "v1/ConfigMap":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ConfigMap
         return [identifier.apply(
             lambda x: (f"v1/ConfigMap:{x}",
                        ConfigMap(f"{x}", opts, **obj)))]
     if gvk == "v1/ConfigMapList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ConfigMapList
         return [identifier.apply(
             lambda x: (f"v1/ConfigMapList:{x}",
                        ConfigMapList(f"{x}", opts, **obj)))]
     if gvk == "v1/Endpoints":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import Endpoints
         return [identifier.apply(
             lambda x: (f"v1/Endpoints:{x}",
                        Endpoints(f"{x}", opts, **obj)))]
     if gvk == "v1/EndpointsList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import EndpointsList
         return [identifier.apply(
             lambda x: (f"v1/EndpointsList:{x}",
                        EndpointsList(f"{x}", opts, **obj)))]
     if gvk == "v1/Event":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import Event
         return [identifier.apply(
             lambda x: (f"v1/Event:{x}",
                        Event(f"{x}", opts, **obj)))]
     if gvk == "v1/EventList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import EventList
         return [identifier.apply(
             lambda x: (f"v1/EventList:{x}",
                        EventList(f"{x}", opts, **obj)))]
     if gvk == "v1/LimitRange":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import LimitRange
         return [identifier.apply(
             lambda x: (f"v1/LimitRange:{x}",
                        LimitRange(f"{x}", opts, **obj)))]
     if gvk == "v1/LimitRangeList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import LimitRangeList
         return [identifier.apply(
             lambda x: (f"v1/LimitRangeList:{x}",
                        LimitRangeList(f"{x}", opts, **obj)))]
     if gvk == "v1/Namespace":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import Namespace
         return [identifier.apply(
             lambda x: (f"v1/Namespace:{x}",
                        Namespace(f"{x}", opts, **obj)))]
     if gvk == "v1/NamespaceList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import NamespaceList
         return [identifier.apply(
             lambda x: (f"v1/NamespaceList:{x}",
                        NamespaceList(f"{x}", opts, **obj)))]
     if gvk == "v1/Node":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import Node
         return [identifier.apply(
             lambda x: (f"v1/Node:{x}",
                        Node(f"{x}", opts, **obj)))]
     if gvk == "v1/NodeList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import NodeList
         return [identifier.apply(
             lambda x: (f"v1/NodeList:{x}",
                        NodeList(f"{x}", opts, **obj)))]
     if gvk == "v1/PersistentVolume":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import PersistentVolume
         return [identifier.apply(
             lambda x: (f"v1/PersistentVolume:{x}",
                        PersistentVolume(f"{x}", opts, **obj)))]
     if gvk == "v1/PersistentVolumeClaim":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import PersistentVolumeClaim
         return [identifier.apply(
             lambda x: (f"v1/PersistentVolumeClaim:{x}",
                        PersistentVolumeClaim(f"{x}", opts, **obj)))]
     if gvk == "v1/PersistentVolumeClaimList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import PersistentVolumeClaimList
         return [identifier.apply(
             lambda x: (f"v1/PersistentVolumeClaimList:{x}",
                        PersistentVolumeClaimList(f"{x}", opts, **obj)))]
     if gvk == "v1/PersistentVolumeList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import PersistentVolumeList
         return [identifier.apply(
             lambda x: (f"v1/PersistentVolumeList:{x}",
                        PersistentVolumeList(f"{x}", opts, **obj)))]
     if gvk == "v1/Pod":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import Pod
         return [identifier.apply(
             lambda x: (f"v1/Pod:{x}",
                        Pod(f"{x}", opts, **obj)))]
     if gvk == "v1/PodList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import PodList
         return [identifier.apply(
             lambda x: (f"v1/PodList:{x}",
                        PodList(f"{x}", opts, **obj)))]
     if gvk == "v1/PodTemplate":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import PodTemplate
         return [identifier.apply(
             lambda x: (f"v1/PodTemplate:{x}",
                        PodTemplate(f"{x}", opts, **obj)))]
     if gvk == "v1/PodTemplateList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import PodTemplateList
         return [identifier.apply(
             lambda x: (f"v1/PodTemplateList:{x}",
                        PodTemplateList(f"{x}", opts, **obj)))]
     if gvk == "v1/ReplicationController":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ReplicationController
         return [identifier.apply(
             lambda x: (f"v1/ReplicationController:{x}",
                        ReplicationController(f"{x}", opts, **obj)))]
     if gvk == "v1/ReplicationControllerList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ReplicationControllerList
         return [identifier.apply(
             lambda x: (f"v1/ReplicationControllerList:{x}",
                        ReplicationControllerList(f"{x}", opts, **obj)))]
     if gvk == "v1/ResourceQuota":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ResourceQuota
         return [identifier.apply(
             lambda x: (f"v1/ResourceQuota:{x}",
                        ResourceQuota(f"{x}", opts, **obj)))]
     if gvk == "v1/ResourceQuotaList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ResourceQuotaList
         return [identifier.apply(
             lambda x: (f"v1/ResourceQuotaList:{x}",
                        ResourceQuotaList(f"{x}", opts, **obj)))]
     if gvk == "v1/Secret":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import Secret
         return [identifier.apply(
             lambda x: (f"v1/Secret:{x}",
                        Secret(f"{x}", opts, **obj)))]
     if gvk == "v1/SecretList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import SecretList
         return [identifier.apply(
             lambda x: (f"v1/SecretList:{x}",
                        SecretList(f"{x}", opts, **obj)))]
     if gvk == "v1/Service":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import Service
         return [identifier.apply(
             lambda x: (f"v1/Service:{x}",
                        Service(f"{x}", opts, **obj)))]
     if gvk == "v1/ServiceAccount":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ServiceAccount
         return [identifier.apply(
             lambda x: (f"v1/ServiceAccount:{x}",
                        ServiceAccount(f"{x}", opts, **obj)))]
     if gvk == "v1/ServiceAccountList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ServiceAccountList
         return [identifier.apply(
             lambda x: (f"v1/ServiceAccountList:{x}",
                        ServiceAccountList(f"{x}", opts, **obj)))]
     if gvk == "v1/ServiceList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.core.v1 import ServiceList
         return [identifier.apply(
             lambda x: (f"v1/ServiceList:{x}",
                        ServiceList(f"{x}", opts, **obj)))]
     if gvk == "events.k8s.io/v1beta1/Event":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.events.v1beta1 import Event
         return [identifier.apply(
             lambda x: (f"events.k8s.io/v1beta1/Event:{x}",
                        Event(f"{x}", opts, **obj)))]
     if gvk == "events.k8s.io/v1beta1/EventList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.events.v1beta1 import EventList
         return [identifier.apply(
             lambda x: (f"events.k8s.io/v1beta1/EventList:{x}",
                        EventList(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/DaemonSet":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import DaemonSet
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/DaemonSet:{x}",
                        DaemonSet(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/DaemonSetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import DaemonSetList
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/DaemonSetList:{x}",
                        DaemonSetList(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/Deployment":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import Deployment
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/Deployment:{x}",
                        Deployment(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/DeploymentList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import DeploymentList
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/DeploymentList:{x}",
                        DeploymentList(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/Ingress":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import Ingress
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/Ingress:{x}",
                        Ingress(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/IngressList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import IngressList
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/IngressList:{x}",
                        IngressList(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/NetworkPolicy":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import NetworkPolicy
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/NetworkPolicy:{x}",
                        NetworkPolicy(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/NetworkPolicyList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import NetworkPolicyList
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/NetworkPolicyList:{x}",
                        NetworkPolicyList(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/PodSecurityPolicy":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import PodSecurityPolicy
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/PodSecurityPolicy:{x}",
                        PodSecurityPolicy(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/PodSecurityPolicyList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import PodSecurityPolicyList
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/PodSecurityPolicyList:{x}",
                        PodSecurityPolicyList(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/ReplicaSet":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import ReplicaSet
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/ReplicaSet:{x}",
                        ReplicaSet(f"{x}", opts, **obj)))]
     if gvk == "extensions/v1beta1/ReplicaSetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.extensions.v1beta1 import ReplicaSetList
         return [identifier.apply(
             lambda x: (f"extensions/v1beta1/ReplicaSetList:{x}",
                        ReplicaSetList(f"{x}", opts, **obj)))]
     if gvk == "v1/Status":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.meta.v1 import Status
         return [identifier.apply(
             lambda x: (f"v1/Status:{x}",
                        Status(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1/NetworkPolicy":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import NetworkPolicy
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1/NetworkPolicy:{x}",
                        NetworkPolicy(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1/NetworkPolicyList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1 import NetworkPolicyList
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1/NetworkPolicyList:{x}",
                        NetworkPolicyList(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1beta1/Ingress":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1beta1 import Ingress
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1beta1/Ingress:{x}",
                        Ingress(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1beta1/IngressList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1beta1 import IngressList
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1beta1/IngressList:{x}",
                        IngressList(f"{x}", opts, **obj)))]
     if gvk == "node.k8s.io/v1alpha1/RuntimeClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.node.v1alpha1 import RuntimeClass
         return [identifier.apply(
             lambda x: (f"node.k8s.io/v1alpha1/RuntimeClass:{x}",
                        RuntimeClass(f"{x}", opts, **obj)))]
     if gvk == "node.k8s.io/v1alpha1/RuntimeClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.node.v1alpha1 import RuntimeClassList
         return [identifier.apply(
             lambda x: (f"node.k8s.io/v1alpha1/RuntimeClassList:{x}",
                        RuntimeClassList(f"{x}", opts, **obj)))]
     if gvk == "node.k8s.io/v1beta1/RuntimeClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.node.v1beta1 import RuntimeClass
         return [identifier.apply(
             lambda x: (f"node.k8s.io/v1beta1/RuntimeClass:{x}",
                        RuntimeClass(f"{x}", opts, **obj)))]
     if gvk == "node.k8s.io/v1beta1/RuntimeClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.node.v1beta1 import RuntimeClassList
         return [identifier.apply(
             lambda x: (f"node.k8s.io/v1beta1/RuntimeClassList:{x}",
                        RuntimeClassList(f"{x}", opts, **obj)))]
     if gvk == "policy/v1beta1/PodDisruptionBudget":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.policy.v1beta1 import PodDisruptionBudget
         return [identifier.apply(
             lambda x: (f"policy/v1beta1/PodDisruptionBudget:{x}",
                        PodDisruptionBudget(f"{x}", opts, **obj)))]
     if gvk == "policy/v1beta1/PodDisruptionBudgetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.policy.v1beta1 import PodDisruptionBudgetList
         return [identifier.apply(
             lambda x: (f"policy/v1beta1/PodDisruptionBudgetList:{x}",
                        PodDisruptionBudgetList(f"{x}", opts, **obj)))]
     if gvk == "policy/v1beta1/PodSecurityPolicy":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.policy.v1beta1 import PodSecurityPolicy
         return [identifier.apply(
             lambda x: (f"policy/v1beta1/PodSecurityPolicy:{x}",
                        PodSecurityPolicy(f"{x}", opts, **obj)))]
     if gvk == "policy/v1beta1/PodSecurityPolicyList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.policy.v1beta1 import PodSecurityPolicyList
         return [identifier.apply(
             lambda x: (f"policy/v1beta1/PodSecurityPolicyList:{x}",
                        PodSecurityPolicyList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRole":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1 import ClusterRole
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/ClusterRole:{x}",
                        ClusterRole(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRoleBinding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1 import ClusterRoleBinding
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/ClusterRoleBinding:{x}",
                        ClusterRoleBinding(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRoleBindingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1 import ClusterRoleBindingList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/ClusterRoleBindingList:{x}",
                        ClusterRoleBindingList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/ClusterRoleList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1 import ClusterRoleList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/ClusterRoleList:{x}",
                        ClusterRoleList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/Role":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1 import Role
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/Role:{x}",
                        Role(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/RoleBinding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1 import RoleBinding
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/RoleBinding:{x}",
                        RoleBinding(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/RoleBindingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1 import RoleBindingList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/RoleBindingList:{x}",
                        RoleBindingList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1/RoleList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1 import RoleList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1/RoleList:{x}",
                        RoleList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRole":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1alpha1 import ClusterRole
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/ClusterRole:{x}",
                        ClusterRole(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1alpha1 import ClusterRoleBinding
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding:{x}",
                        ClusterRoleBinding(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1alpha1 import ClusterRoleBindingList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList:{x}",
                        ClusterRoleBindingList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1alpha1 import ClusterRoleList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/ClusterRoleList:{x}",
                        ClusterRoleList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/Role":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1alpha1 import Role
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/Role:{x}",
                        Role(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/RoleBinding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1alpha1 import RoleBinding
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/RoleBinding:{x}",
                        RoleBinding(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/RoleBindingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1alpha1 import RoleBindingList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/RoleBindingList:{x}",
                        RoleBindingList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1alpha1/RoleList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1alpha1 import RoleList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1alpha1/RoleList:{x}",
                        RoleList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRole":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1beta1 import ClusterRole
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/ClusterRole:{x}",
                        ClusterRole(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1beta1 import ClusterRoleBinding
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding:{x}",
                        ClusterRoleBinding(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1beta1 import ClusterRoleBindingList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList:{x}",
                        ClusterRoleBindingList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1beta1 import ClusterRoleList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/ClusterRoleList:{x}",
                        ClusterRoleList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/Role":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1beta1 import Role
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/Role:{x}",
                        Role(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleBinding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1beta1 import RoleBinding
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/RoleBinding:{x}",
                        RoleBinding(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleBindingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1beta1 import RoleBindingList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/RoleBindingList:{x}",
                        RoleBindingList(f"{x}", opts, **obj)))]
     if gvk == "rbac.authorization.k8s.io/v1beta1/RoleList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.rbac.v1beta1 import RoleList
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/RoleList:{x}",
                        RoleList(f"{x}", opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1/PriorityClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.scheduling.v1 import PriorityClass
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1/PriorityClass:{x}",
                        PriorityClass(f"{x}", opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1/PriorityClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.scheduling.v1 import PriorityClassList
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1/PriorityClassList:{x}",
                        PriorityClassList(f"{x}", opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1alpha1/PriorityClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.scheduling.v1alpha1 import PriorityClass
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1alpha1/PriorityClass:{x}",
                        PriorityClass(f"{x}", opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1alpha1/PriorityClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.scheduling.v1alpha1 import PriorityClassList
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1alpha1/PriorityClassList:{x}",
                        PriorityClassList(f"{x}", opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1beta1/PriorityClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.scheduling.v1beta1 import PriorityClass
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1beta1/PriorityClass:{x}",
                        PriorityClass(f"{x}", opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1beta1/PriorityClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.scheduling.v1beta1 import PriorityClassList
         return [identifier.apply(
             lambda x: (f"scheduling.k8s.io/v1beta1/PriorityClassList:{x}",
                        PriorityClassList(f"{x}", opts, **obj)))]
     if gvk == "settings.k8s.io/v1alpha1/PodPreset":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.settings.v1alpha1 import PodPreset
         return [identifier.apply(
             lambda x: (f"settings.k8s.io/v1alpha1/PodPreset:{x}",
                        PodPreset(f"{x}", opts, **obj)))]
     if gvk == "settings.k8s.io/v1alpha1/PodPresetList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.settings.v1alpha1 import PodPresetList
         return [identifier.apply(
             lambda x: (f"settings.k8s.io/v1alpha1/PodPresetList:{x}",
                        PodPresetList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1/StorageClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1 import StorageClass
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1/StorageClass:{x}",
                        StorageClass(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1/StorageClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1 import StorageClassList
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1/StorageClassList:{x}",
                        StorageClassList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1/VolumeAttachment":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1 import VolumeAttachment
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1/VolumeAttachment:{x}",
                        VolumeAttachment(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1/VolumeAttachmentList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1 import VolumeAttachmentList
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1/VolumeAttachmentList:{x}",
                        VolumeAttachmentList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1alpha1/VolumeAttachment":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1alpha1 import VolumeAttachment
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1alpha1/VolumeAttachment:{x}",
                        VolumeAttachment(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1alpha1/VolumeAttachmentList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1alpha1 import VolumeAttachmentList
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1alpha1/VolumeAttachmentList:{x}",
                        VolumeAttachmentList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/CSIDriver":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import CSIDriver
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/CSIDriver:{x}",
                        CSIDriver(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/CSIDriverList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import CSIDriverList
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/CSIDriverList:{x}",
                        CSIDriverList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/CSINode":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import CSINode
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/CSINode:{x}",
                        CSINode(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/CSINodeList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import CSINodeList
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/CSINodeList:{x}",
                        CSINodeList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/StorageClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import StorageClass
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/StorageClass:{x}",
                        StorageClass(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/StorageClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import StorageClassList
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/StorageClassList:{x}",
                        StorageClassList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/VolumeAttachment":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import VolumeAttachment
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/VolumeAttachment:{x}",
                        VolumeAttachment(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1beta1/VolumeAttachmentList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1beta1 import VolumeAttachmentList
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/VolumeAttachmentList:{x}",
                        VolumeAttachmentList(f"{x}", opts, **obj)))]
     return [identifier.apply(
         lambda x: (f"{gvk}:{x}",
-                   CustomResource(f"{x}", opts, api_version, kind, metadata, spec)))]
-
+                   CustomResource(f"{x}", api_version, kind, spec, metadata, opts)))]
