@@ -88,7 +88,7 @@ import (
 
 const (
 	revision                     = "deployment.kubernetes.io/revision"
-	DefaultDeploymentTimeoutMins = 5
+	DefaultDeploymentTimeoutMins = 10
 )
 
 type deploymentInitAwaiter struct {
