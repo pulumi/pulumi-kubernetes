@@ -14,6 +14,13 @@ from ... import tables, version
 class Job(pulumi.CustomResource):
     """
     Job represents the configuration of a single job.
+    
+    This resource currently does not wait until it is ready before registering
+    success for create/update and populating output properties from the current
+    state of the resource. Work to add readiness checks is in progress [1].
+    
+    [1] https://github.com/pulumi/pulumi-kubernetes/pull/633
+    
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, status=None, __name__=None, __opts__=None):

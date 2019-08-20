@@ -27,23 +27,23 @@ func timeoutComment(kind kinds.Kind) string {
 This approach will be deprecated in favor of customTimeouts. See
 https://github.com/pulumi/pulumi-kubernetes/issues/672 for details.`
 
-	timeout := func(kind kinds.Kind) int {
-		switch kind {
-		case kinds.Deployment:
-			return await.DefaultDeploymentTimeoutMins
-		case kinds.Ingress:
-			return await.DefaultIngressTimeoutMins
-		case kinds.Pod:
-			return await.DefaultPodTimeoutMins
-		case kinds.Service:
-			return await.DefaultServiceTimeoutMins
-		case kinds.StatefulSet:
-			return await.DefaultStatefulSetTimeoutMins
-		default:
-			panic("unhandled kind: timeoutValues")
-		}
+	var v int
+	switch kind {
+	case kinds.Deployment:
+		v = await.DefaultDeploymentTimeoutMins
+	case kinds.Ingress:
+		v = await.DefaultIngressTimeoutMins
+	case kinds.Pod:
+		v = await.DefaultPodTimeoutMins
+	case kinds.Service:
+		v = await.DefaultServiceTimeoutMins
+	case kinds.StatefulSet:
+		v = await.DefaultStatefulSetTimeoutMins
+	default:
+		// No timeout defined for other resource Kinds.
+		return ""
 	}
-	timeoutStr := strconv.Itoa(timeout(kind)) + " minutes"
+	timeoutStr := strconv.Itoa(v) + " minutes"
 
 	return fmt.Sprintf(`
 If the %s has not reached a Ready state after %s, it will
@@ -81,6 +81,13 @@ succeeded or failed:`
     type is ExternalName).
 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
 `
+	case kinds.Job:
+		comment = `This resource currently does not wait until it is ready before registering
+success for create/update and populating output properties from the current
+state of the resource. Work to add readiness checks is in progress [1].
+
+[1] https://github.com/pulumi/pulumi-kubernetes/pull/633
+`
 	case kinds.Pod:
 		comment += `
 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
@@ -107,7 +114,7 @@ Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
 `
 	default:
-		panic("unhandled kind: timeoutValues")
+		panic("comments: unhandled kind")
 	}
 
 	comment += timeoutComment(kind)
@@ -119,7 +126,7 @@ func AwaitComment(kind string) string {
 
 	k := kinds.Kind(kind)
 	switch k {
-	case kinds.Deployment, kinds.Ingress, kinds.Pod, kinds.Service, kinds.StatefulSet:
+	case kinds.Deployment, kinds.Ingress, kinds.Job, kinds.Pod, kinds.Service, kinds.StatefulSet:
 		return prefix + comments(k)
 	default:
 		return ""
