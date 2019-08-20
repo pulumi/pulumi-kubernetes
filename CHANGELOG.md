@@ -29,6 +29,12 @@
 
 ## 0.25.6 (August 7, 2019)
 
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
 ### Bug fixes
 
 -   Align YAML parsing with core Kubernetes supported YAML subset. (https://github.com/pulumi/pulumi-kubernetes/pull/690).
