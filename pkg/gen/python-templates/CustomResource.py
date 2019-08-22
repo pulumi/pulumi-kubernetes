@@ -2,7 +2,6 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import warnings
-from typing import Any, Optional
 
 import pulumi
 import pulumi.runtime
@@ -19,16 +18,21 @@ class CustomResource(pulumi.CustomResource):
     `ServiceMonitor` resource definition as an argument.
     """
 
-    def __init__(
-            self,
-            resource_name: str,
-            api_version: str,
-            kind: str,
-            spec: pulumi.Input[Any] = None,
-            metadata: Optional[pulumi.Input[Any]] = None,
-            opts: Optional[pulumi.ResourceOptions] = None,
-            __name__: str = None,
-            __opts__: pulumi.ResourceOptions = None):
+    def __init__(self, resource_name, api_version, kind, spec=None, metadata=None, opts=None,
+                 __name__=None, __opts__=None):
+        """
+        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
+        :param str api_version: The API version of the apiExtensions.CustomResource we
+               wish to select, as specified by the CustomResourceDefinition that defines it on the
+               API server.
+        :param str kind: The kind of the apiextensions.CustomResource we wish to select,
+               as specified by the CustomResourceDefinition that defines it on the API server.
+        :param pulumi.Input[Any] spec: Specification of the CustomResource.
+        :param Optional[pulumi.Input[Any]] metadata: Standard object metadata; More info:
+               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
+        """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
             resource_name = __name__
@@ -58,21 +62,18 @@ class CustomResource(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(resource_name: str,
-            api_version: str,
-            kind: str,
-            id: pulumi.Input[str],
-            opts: Optional[ResourceOptions] = None):
+    def get(resource_name, api_version, kind, id, opts=None):
         """
         :param str resource_name: _Unique_ name used to register this resource with Pulumi.
-        :param pulumi.Input[str] api_version: The API version of the apiExtensions.CustomResource we
+        :param str api_version: The API version of the apiExtensions.CustomResource we
                wish to select, as specified by the CustomResourceDefinition that defines it on the
                API server.
-        :param pulumi.Input[str] kind: The kind of the apiextensions.CustomResource we wish to select,
+        :param str kind: The kind of the apiextensions.CustomResource we wish to select,
                as specified by the CustomResourceDefinition that defines it on the API server.
         :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
                Takes the form <namespace>/<name> or <name>.
-        :param Optional[ResourceOptions] opts: A bag of options that control this resource's behavior.
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
         """
 
         opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
