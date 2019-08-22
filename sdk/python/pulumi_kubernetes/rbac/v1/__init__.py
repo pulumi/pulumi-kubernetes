@@ -3,11 +3,11 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .ClusterRole import *
-from .ClusterRoleBinding import *
-from .ClusterRoleBindingList import *
-from .ClusterRoleList import *
-from .Role import *
-from .RoleBinding import *
-from .RoleBindingList import *
-from .RoleList import *
+from .ClusterRole import (ClusterRole)
+from .ClusterRoleBinding import (ClusterRoleBinding)
+from .ClusterRoleBindingList import (ClusterRoleBindingList)
+from .ClusterRoleList import (ClusterRoleList)
+from .Role import (Role)
+from .RoleBinding import (RoleBinding)
+from .RoleBindingList import (RoleBindingList)
+from .RoleList import (RoleList)

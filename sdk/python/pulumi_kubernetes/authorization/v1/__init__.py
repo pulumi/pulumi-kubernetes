@@ -3,7 +3,7 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .LocalSubjectAccessReview import *
-from .SelfSubjectAccessReview import *
-from .SelfSubjectRulesReview import *
-from .SubjectAccessReview import *
+from .LocalSubjectAccessReview import (LocalSubjectAccessReview)
+from .SelfSubjectAccessReview import (SelfSubjectAccessReview)
+from .SelfSubjectRulesReview import (SelfSubjectRulesReview)
+from .SubjectAccessReview import (SubjectAccessReview)
