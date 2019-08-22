@@ -1,5 +1,7 @@
 ## 1.0.0-beta.2 (Unreleased)
 
+- Correctly compute version number for plugin to send with registration requests (fixes https://github.com/pulumi/pulumi-kubernetes/issues/732).
+
 ### Supported Kubernetes versions
 
 - v1.15.x
