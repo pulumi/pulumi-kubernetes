@@ -3,13 +3,13 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .ControllerRevision import *
-from .ControllerRevisionList import *
-from .DaemonSet import *
-from .DaemonSetList import *
-from .Deployment import *
-from .DeploymentList import *
-from .ReplicaSet import *
-from .ReplicaSetList import *
-from .StatefulSet import *
-from .StatefulSetList import *
+from .ControllerRevision import (ControllerRevision)
+from .ControllerRevisionList import (ControllerRevisionList)
+from .DaemonSet import (DaemonSet)
+from .DaemonSetList import (DaemonSetList)
+from .Deployment import (Deployment)
+from .DeploymentList import (DeploymentList)
+from .ReplicaSet import (ReplicaSet)
+from .ReplicaSetList import (ReplicaSetList)
+from .StatefulSet import (StatefulSet)
+from .StatefulSetList import (StatefulSetList)

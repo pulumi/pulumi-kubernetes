@@ -3,5 +3,5 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .AuditSink import *
-from .AuditSinkList import *
+from .AuditSink import (AuditSink)
+from .AuditSinkList import (AuditSinkList)

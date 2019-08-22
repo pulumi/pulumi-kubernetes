@@ -3,5 +3,5 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .RuntimeClass import *
-from .RuntimeClassList import *
+from .RuntimeClass import (RuntimeClass)
+from .RuntimeClassList import (RuntimeClassList)

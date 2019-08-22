@@ -3,7 +3,7 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .StorageClass import *
-from .StorageClassList import *
-from .VolumeAttachment import *
-from .VolumeAttachmentList import *
+from .StorageClass import (StorageClass)
+from .StorageClassList import (StorageClassList)
+from .VolumeAttachment import (VolumeAttachment)
+from .VolumeAttachmentList import (VolumeAttachmentList)
