@@ -76,7 +76,7 @@ class CustomResource(pulumi.CustomResource):
                resource's behavior.
         """
 
-        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
+        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
         return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=opts)
 
     def translate_output_property(self, prop: str) -> str:
