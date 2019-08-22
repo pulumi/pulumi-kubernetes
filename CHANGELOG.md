@@ -10,6 +10,7 @@
 
 ### Improvements
 
+-   Refactor and update the docs of the repo for 1.0. (https://github.com/pulumi/pulumi-kubernetes/pull/736).
 -   Document await logic in the SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/711).
 -   Document await timeouts and how to override. (https://github.com/pulumi/pulumi-kubernetes/pull/718).
 -   Improve CustomResource for Python SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/700).
