@@ -22,9 +22,38 @@ class CSINode(pulumi.CustomResource):
     corresponding node object.
     """
 
-    def __init__(self, resource_name, opts=None, metadata=None, spec=None, __name__=None, __opts__=None):
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    metadata: pulumi.Output[dict];
+    """
+    metadata.name must be the Kubernetes node name.
+    """
+
+    spec: pulumi.Output[dict];
+    """
+    spec is the specification of CSINode
+    """
+
+    def __init__(self, resource_name, opts=None, spec=None, metadata=None, __name__=None, __opts__=None):
         """
         Create a CSINode resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        :param pulumi.Input[dict] spec: spec is the specification of CSINode
+        :param pulumi.Input[dict] metadata: metadata.name must be the Kubernetes node name.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -47,6 +76,8 @@ class CSINode(pulumi.CustomResource):
             raise TypeError('Missing required property spec')
         __props__['spec'] = spec
         __props__['metadata'] = metadata
+
+        __props__['status'] = None
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 

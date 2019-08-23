@@ -16,9 +16,36 @@ class AuditSinkList(pulumi.CustomResource):
     AuditSinkList is a list of AuditSink items.
     """
 
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    items: pulumi.Output[list];
+    """
+    List of audit configurations.
+    """
+
+    metadata: pulumi.Output[dict];
+    
+
     def __init__(self, resource_name, opts=None, items=None, metadata=None, __name__=None, __opts__=None):
         """
         Create a AuditSinkList resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        :param pulumi.Input[list] items: List of audit configurations.
+        :param pulumi.Input[dict] metadata: 
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -41,6 +68,8 @@ class AuditSinkList(pulumi.CustomResource):
             raise TypeError('Missing required property items')
         __props__['items'] = items
         __props__['metadata'] = metadata
+
+        __props__['status'] = None
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 

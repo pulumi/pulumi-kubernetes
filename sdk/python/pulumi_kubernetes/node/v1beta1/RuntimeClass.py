@@ -20,9 +20,50 @@ class RuntimeClass(pulumi.CustomResource):
     the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
     """
 
+    apiVersion: pulumi.Output[str]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should
+    convert recognized schemas to the latest internal value, and may reject unrecognized values.
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+    """
+
+    kind: pulumi.Output[str]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer
+    this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More
+    info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    """
+
+    handler: pulumi.Output[str];
+    """
+    Handler specifies the underlying runtime and configuration that the CRI implementation will use
+    to handle pods of this class. The possible values are specific to the node & CRI configuration.
+    It is assumed that all handlers are available on every node, and handlers of the same name are
+    equivalent on every node. For example, a handler called "runc" might specify that the runc OCI
+    runtime (using native Linux containers) will be used to run the containers in a pod. The Handler
+    must conform to the DNS Label (RFC 1123) requirements, and is immutable.
+    """
+
+    metadata: pulumi.Output[dict];
+    """
+    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    """
+
     def __init__(self, resource_name, opts=None, handler=None, metadata=None, __name__=None, __opts__=None):
         """
         Create a RuntimeClass resource with the given unique name, arguments, and options.
+
+        :param str resource_name: The _unique_ name of the resource.
+        :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
+        :param pulumi.Input[str] handler: Handler specifies the underlying runtime and configuration that the CRI
+               implementation will use to handle pods of this class. The possible values are
+               specific to the node & CRI configuration.  It is assumed that all handlers are
+               available on every node, and handlers of the same name are equivalent on every node.
+               For example, a handler called "runc" might specify that the runc OCI runtime (using
+               native Linux containers) will be used to run the containers in a pod. The Handler
+               must conform to the DNS Label (RFC 1123) requirements, and is immutable.
+        :param pulumi.Input[dict] metadata: More info:
+               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -45,6 +86,8 @@ class RuntimeClass(pulumi.CustomResource):
             raise TypeError('Missing required property handler')
         __props__['handler'] = handler
         __props__['metadata'] = metadata
+
+        __props__['status'] = None
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 

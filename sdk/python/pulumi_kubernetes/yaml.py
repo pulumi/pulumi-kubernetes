@@ -900,4 +900,4 @@ def _parse_yaml_object(
                        VolumeAttachmentList(f"{x}", opts, **obj)))]
     return [identifier.apply(
         lambda x: (f"{gvk}:{x}",
-                   CustomResource(f"{x}", opts, api_version, kind, metadata, spec)))]
+                   CustomResource(f"{x}", api_version, kind, spec, metadata, opts)))]
