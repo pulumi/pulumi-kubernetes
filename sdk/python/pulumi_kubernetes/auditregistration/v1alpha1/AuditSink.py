@@ -30,10 +30,10 @@ class AuditSink(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Spec defines the audit configuration spec
     """

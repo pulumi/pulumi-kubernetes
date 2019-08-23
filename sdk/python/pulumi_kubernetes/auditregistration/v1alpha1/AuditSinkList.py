@@ -30,12 +30,12 @@ class AuditSinkList(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    items: pulumi.Output[list];
+    items: pulumi.Output[list]
     """
     List of audit configurations.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
     def __init__(self, resource_name, opts=None, items=None, metadata=None, __name__=None, __opts__=None):

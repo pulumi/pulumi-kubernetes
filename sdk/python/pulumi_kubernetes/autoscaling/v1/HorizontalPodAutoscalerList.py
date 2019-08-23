@@ -30,12 +30,12 @@ class HorizontalPodAutoscalerList(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    items: pulumi.Output[list];
+    items: pulumi.Output[list]
     """
     list of horizontal pod autoscaler objects.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard list metadata.
     """

@@ -32,13 +32,13 @@ class PriorityClass(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    description: pulumi.Output[str];
+    description: pulumi.Output[str]
     """
     description is an arbitrary string that usually provides guidelines on when this priority class
     should be used.
     """
 
-    global_default: pulumi.Output[bool];
+    global_default: pulumi.Output[bool]
     """
     globalDefault specifies whether this PriorityClass should be considered as the default priority
     for pods that do not have any priority class. Only one PriorityClass can be marked as
@@ -47,20 +47,20 @@ class PriorityClass(pulumi.CustomResource):
     default priority.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    preemption_policy: pulumi.Output[str];
+    preemption_policy: pulumi.Output[str]
     """
     PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never,
     PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and
     is only honored by servers that enable the NonPreemptingPriority feature.
     """
 
-    value: pulumi.Output[int];
+    value: pulumi.Output[int]
     """
     The value of this priority class. This is the actual priority that pods receive when they have
     the name of this class in their pod spec.

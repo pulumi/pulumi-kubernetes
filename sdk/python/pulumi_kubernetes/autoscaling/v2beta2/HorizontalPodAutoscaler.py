@@ -32,19 +32,19 @@ class HorizontalPodAutoscaler(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     metadata is the standard object metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     spec is the specification for the behaviour of the autoscaler. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     status is the current information about the autoscaler.
     """

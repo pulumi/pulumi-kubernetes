@@ -31,13 +31,13 @@ class Binding(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    target: pulumi.Output[dict];
+    target: pulumi.Output[dict]
     """
     The target object that you want to bind to the standard object.
     """

@@ -30,13 +30,13 @@ class PersistentVolumeList(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    items: pulumi.Output[list];
+    items: pulumi.Output[list]
     """
     List of persistent volumes. More info:
     https://kubernetes.io/docs/concepts/storage/persistent-volumes
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard list metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds

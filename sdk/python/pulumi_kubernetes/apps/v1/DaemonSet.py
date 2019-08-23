@@ -30,19 +30,19 @@ class DaemonSet(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     The desired behavior of this daemon set. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     The current status of this daemon set. This data may be out of date by some window of time.
     Populated by the system. Read-only. More info:

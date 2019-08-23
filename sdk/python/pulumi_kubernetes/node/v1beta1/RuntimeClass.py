@@ -34,7 +34,7 @@ class RuntimeClass(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    handler: pulumi.Output[str];
+    handler: pulumi.Output[str]
     """
     Handler specifies the underlying runtime and configuration that the CRI implementation will use
     to handle pods of this class. The possible values are specific to the node & CRI configuration.
@@ -44,7 +44,7 @@ class RuntimeClass(pulumi.CustomResource):
     must conform to the DNS Label (RFC 1123) requirements, and is immutable.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """

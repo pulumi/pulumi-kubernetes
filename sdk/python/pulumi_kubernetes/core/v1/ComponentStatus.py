@@ -30,12 +30,12 @@ class ComponentStatus(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    conditions: pulumi.Output[list];
+    conditions: pulumi.Output[list]
     """
     List of component conditions observed
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata

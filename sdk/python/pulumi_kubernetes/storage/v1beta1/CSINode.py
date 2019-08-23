@@ -36,12 +36,12 @@ class CSINode(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     metadata.name must be the Kubernetes node name.
     """
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     spec is the specification of CSINode
     """

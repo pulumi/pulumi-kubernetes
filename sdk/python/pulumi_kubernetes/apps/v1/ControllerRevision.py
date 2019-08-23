@@ -37,18 +37,18 @@ class ControllerRevision(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    data: pulumi.Output[dict];
+    data: pulumi.Output[dict]
     """
     Data is the serialized representation of the state.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    revision: pulumi.Output[int];
+    revision: pulumi.Output[int]
     """
     Revision indicates the revision of the state represented by Data.
     """

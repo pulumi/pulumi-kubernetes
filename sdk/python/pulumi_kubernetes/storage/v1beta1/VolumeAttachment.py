@@ -33,18 +33,18 @@ class VolumeAttachment(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     Status of the VolumeAttachment request. Populated by the entity completing the attach or detach
     operation, i.e. the external-attacher.

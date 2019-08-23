@@ -30,19 +30,19 @@ class CronJob(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Specification of the desired behavior of a cron job, including the schedule. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     Current status of a cron job. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status

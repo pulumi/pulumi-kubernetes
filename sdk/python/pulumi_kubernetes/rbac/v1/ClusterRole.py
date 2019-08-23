@@ -31,19 +31,19 @@ class ClusterRole(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    aggregation_rule: pulumi.Output[dict];
+    aggregation_rule: pulumi.Output[dict]
     """
     AggregationRule is an optional field that describes how to build the Rules for this ClusterRole.
     If AggregationRule is set, then the Rules are controller managed and direct changes to Rules
     will be stomped by the controller.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata.
     """
 
-    rules: pulumi.Output[list];
+    rules: pulumi.Output[list]
     """
     Rules holds all the PolicyRules for this ClusterRole
     """

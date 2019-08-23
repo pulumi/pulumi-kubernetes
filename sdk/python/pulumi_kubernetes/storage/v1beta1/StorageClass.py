@@ -34,12 +34,12 @@ class StorageClass(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    allow_volume_expansion: pulumi.Output[bool];
+    allow_volume_expansion: pulumi.Output[bool]
     """
     AllowVolumeExpansion shows whether the storage class allow volume expand
     """
 
-    allowed_topologies: pulumi.Output[list];
+    allowed_topologies: pulumi.Output[list]
     """
     Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin
     defines its own supported topology specifications. An empty TopologySelectorTerm list means
@@ -47,37 +47,37 @@ class StorageClass(pulumi.CustomResource):
     VolumeScheduling feature.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    mount_options: pulumi.Output[list];
+    mount_options: pulumi.Output[list]
     """
     Dynamically provisioned PersistentVolumes of this storage class are created with these
     mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is
     invalid.
     """
 
-    parameters: pulumi.Output[dict];
+    parameters: pulumi.Output[dict]
     """
     Parameters holds the parameters for the provisioner that should create volumes of this storage
     class.
     """
 
-    provisioner: pulumi.Output[str];
+    provisioner: pulumi.Output[str]
     """
     Provisioner indicates the type of the provisioner.
     """
 
-    reclaim_policy: pulumi.Output[str];
+    reclaim_policy: pulumi.Output[str]
     """
     Dynamically provisioned PersistentVolumes of this storage class are created with this
     reclaimPolicy. Defaults to Delete.
     """
 
-    volume_binding_mode: pulumi.Output[str];
+    volume_binding_mode: pulumi.Output[str]
     """
     VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When
     unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the

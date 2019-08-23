@@ -31,15 +31,15 @@ class PodDisruptionBudget(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Specification of the desired behavior of the PodDisruptionBudget.
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     Most recently observed status of the PodDisruptionBudget.
     """
