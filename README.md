@@ -8,7 +8,7 @@ The Kubernetes resource provider for Pulumi lets you create, deploy, and manage 
   * [Kubernetes API Version Support](#kubernetes-api-version-support)
   * [How does API support for Kubernetes work?](#how-does-api-support-for-kubernetes-work)
 * [References](#references)
-* [Pre-Requisites](#pre-requisites)
+* [Prerequisites](#prerequisites)
 * [Installing](#installing)
 * [Quick Examples](#quick-examples)
   * [Deploying a YAML Manifest](#deploying-a-yaml-manifest)
@@ -49,7 +49,7 @@ library functionality around the Kubernetes resource [OpenAPI
 spec](https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec) as soon as a
 new version is released! Ultimately, this means that Pulumi users do not have
 to learn a new Kubernetes API model, nor wait long to work with the latest
-versions available. 
+available versions.
 
 > Note: Pulumi also supports alpha and beta APIs.
 
@@ -65,9 +65,9 @@ for more details.
 * [All Examples](./examples)
 * [Tutorials](https://www.pulumi.com/docs/reference/tutorials/kubernetes/)
 
-## Pre-Requisites
+## Prerequisites
 
-See the [quickstart](https://www.pulumi.com/docs/quickstart/kubernetes/) for complete documentation.
+See the [quickstart](https://www.pulumi.com/docs/get-started/kubernetes/ ) for complete documentation.
 
 1. [Install Pulumi](https://www.pulumi.com/docs/quickstart/kubernetes/install-pulumi/)
 1. Install a language runtime such as [Node.js](https://nodejs.org/en/download) or [Python](https://www.python.org/downloads/).
@@ -110,7 +110,7 @@ pip install pulumi-kubernetes
 The following examples demonstrate how to work with `pulumi-kubernetes` in
 a couple of ways.
 
-Examples may include the creation of an AWS EKS cluster. An EKS cluster
+Examples may include the creation of an AWS EKS cluster, although an EKS cluster
 is **not** required to use `pulumi/kubernetes`. It is simply used to ensure
 we have access to a running Kubernetes cluster to deploy resources and workloads into.
 
@@ -134,7 +134,7 @@ const myApp = new k8s.yaml.ConfigFile("app", {
 
 ### Deploying a Helm Chart
 
-This example creates a EKS cluster with [`pulumi/eks`](https://github.com/pulumi/pulumi-eks),
+This example creates an EKS cluster with [`pulumi/eks`](https://github.com/pulumi/pulumi-eks),
 and then deploys a Helm chart from the stable repo using the 
 `kubeconfig` credentials from the cluster's [Pulumi provider](https://www.pulumi.com/docs/reference/programming-model/#providers).
 
@@ -225,4 +225,4 @@ You can read the code of conduct [here][code-of-conduct].
 [contributing]: CONTRIBUTING.md
 [code-of-conduct]: CODE-OF-CONDUCT.md
 [workload-example]: #deploying-a-workload-on-aws-eks
-[how-pulumi-works]: https://www.pulumi.com/docs/reference/how/
+[how-pulumi-works]: https://www.pulumi.com/docs/intro/concepts/how-pulumi-works
