@@ -90,6 +90,7 @@ type kubeProvider struct {
 	opts             kubeOpts
 	defaultNamespace string
 	enableDryRun     bool
+	enableSecrets    bool
 
 	clientSet *clients.DynamicClientSet
 }
@@ -219,6 +220,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.opts = kubeOpts{
 		rejectUnknownResources: vars["kubernetes:config:rejectUnknownResources"] == "true",
 	}
+	k.enableSecrets = req.GetAcceptSecrets()
 
 	//
 	// Configure client-go using provided or ambient kubeconfig file.
@@ -282,7 +284,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	k.clientSet = cs
 
-	return &pulumirpc.ConfigureResponse{}, nil
+	return &pulumirpc.ConfigureResponse{
+		AcceptSecrets: true,
+	}, nil
 }
 
 // Invoke dynamically executes a built-in function in the provider.
@@ -345,7 +349,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// an update.
 	oldResInputs := req.GetOlds()
 	olds, err := plugin.UnmarshalProperties(oldResInputs, plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -360,6 +364,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		KeepUnknowns: true,
 		SkipNulls:    true,
 		RejectAssets: true,
+		KeepSecrets:  true,
 	})
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs")
@@ -469,10 +474,15 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
-	autonamedInputs, err := plugin.MarshalProperties(
-		resource.NewPropertyMapFromMap(newInputs.Object), plugin.MarshalOptions{
-			Label: fmt.Sprintf("%s.autonamedInputs", label), KeepUnknowns: true, SkipNulls: true,
-		})
+	checkedInputs := resource.NewPropertyMapFromMap(newInputs.Object)
+	annotateSecrets(checkedInputs, news)
+
+	autonamedInputs, err := plugin.MarshalProperties(checkedInputs, plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.autonamedInputs", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		KeepSecrets:  k.enableSecrets,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -507,7 +517,7 @@ func (k *kubeProvider) Diff(
 	// previous resource inputs supplied by the user, and `live` is the computed state of that inputs
 	// we received back from the API server.
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -520,6 +530,7 @@ func (k *kubeProvider) Diff(
 		KeepUnknowns: true,
 		SkipNulls:    true,
 		RejectAssets: true,
+		KeepSecrets:  true,
 	})
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "diff failed because malformed resource inputs")
@@ -699,10 +710,12 @@ func (k *kubeProvider) Create(
 		KeepUnknowns: true,
 		SkipNulls:    true,
 		RejectAssets: true,
+		KeepSecrets:  true,
 	})
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "create failed because malformed resource inputs")
 	}
+
 	newInputs := propMapToUnstructured(newResInputs)
 
 	annotatedInputs, err := withLastAppliedConfig(newInputs)
@@ -749,8 +762,11 @@ func (k *kubeProvider) Create(
 	}
 
 	inputsAndComputed, err := plugin.MarshalProperties(
-		checkpointObject(newInputs, initialized), plugin.MarshalOptions{
-			Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
+		checkpointObject(newInputs, initialized, newResInputs), plugin.MarshalOptions{
+			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
+			KeepUnknowns: true,
+			SkipNulls:    true,
+			KeepSecrets:  k.enableSecrets,
 		})
 	if err != nil {
 		return nil, err
@@ -805,7 +821,13 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
 	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	oldInputsPM, err := plugin.UnmarshalProperties(req.GetInputs(), plugin.MarshalOptions{
+		Label: fmt.Sprintf("%s.oldInputs", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -892,17 +914,22 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
-		checkpointObject(liveInputs, liveObj), plugin.MarshalOptions{
-			Label: fmt.Sprintf("%s.state", label), KeepUnknowns: true, SkipNulls: true,
+		checkpointObject(liveInputs, liveObj, oldInputsPM), plugin.MarshalOptions{
+			Label:        fmt.Sprintf("%s.state", label),
+			KeepUnknowns: true,
+			SkipNulls:    true,
+			KeepSecrets:  k.enableSecrets,
 		})
 	if err != nil {
 		return nil, err
 	}
 
-	inputs, err := plugin.MarshalProperties(
-		resource.NewPropertyMapFromMap(liveInputs.Object), plugin.MarshalOptions{
-			Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true,
-		})
+	liveInputsPM := resource.NewPropertyMapFromMap(liveInputs.Object)
+	annotateSecrets(liveInputsPM, oldInputsPM)
+
+	inputs, err := plugin.MarshalProperties(liveInputsPM, plugin.MarshalOptions{
+		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: k.enableSecrets,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -988,7 +1015,7 @@ func (k *kubeProvider) Update(
 
 	// Obtain old properties, create a Kubernetes `unstructured.Unstructured`.
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -1002,6 +1029,7 @@ func (k *kubeProvider) Update(
 		KeepUnknowns: true,
 		SkipNulls:    true,
 		RejectAssets: true,
+		KeepSecrets:  true,
 	})
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
@@ -1055,8 +1083,11 @@ func (k *kubeProvider) Update(
 
 	// Return a new "checkpoint object".
 	inputsAndComputed, err := plugin.MarshalProperties(
-		checkpointObject(newInputs, initialized), plugin.MarshalOptions{
-			Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
+		checkpointObject(newInputs, initialized, newResInputs), plugin.MarshalOptions{
+			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
+			KeepUnknowns: true,
+			SkipNulls:    true,
+			KeepSecrets:  k.enableSecrets,
 		})
 	if err != nil {
 		return nil, err
@@ -1084,7 +1115,7 @@ func (k *kubeProvider) Delete(
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
 	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true,
+		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
 	})
 	if err != nil {
 		return nil, err
@@ -1122,8 +1153,11 @@ func (k *kubeProvider) Delete(
 		lastKnownState := partialErr.Object()
 
 		inputsAndComputed, err := plugin.MarshalProperties(
-			checkpointObject(current, lastKnownState), plugin.MarshalOptions{
-				Label: fmt.Sprintf("%s.inputsAndComputed", label), KeepUnknowns: true, SkipNulls: true,
+			checkpointObject(current, lastKnownState, oldState), plugin.MarshalOptions{
+				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
+				KeepUnknowns: true,
+				SkipNulls:    true,
+				KeepSecrets:  k.enableSecrets,
 			})
 		if err != nil {
 			return nil, err
@@ -1265,11 +1299,20 @@ func (k *kubeProvider) inputPatch(
 	if err != nil {
 		return nil, err
 	}
+
 	return jsonpatch.CreateMergePatch(oldInputsJSON, newInputsJSON)
 }
 
+func mapReplStripSecrets(v resource.PropertyValue) (interface{}, bool) {
+	if v.IsSecret() {
+		return v.SecretValue().Element.MapRepl(nil, mapReplStripSecrets), true
+	}
+
+	return nil, false
+}
+
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
-	return &unstructured.Unstructured{Object: pm.Mappable()}
+	return &unstructured.Unstructured{Object: pm.MapRepl(nil, mapReplStripSecrets)}
 }
 
 func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
@@ -1292,14 +1335,55 @@ func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Uns
 	return config, nil
 }
 
-func checkpointObject(inputs, live *unstructured.Unstructured) resource.PropertyMap {
+func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap) resource.PropertyMap {
 	object := resource.NewPropertyMapFromMap(live.Object)
-	object["__inputs"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(inputs.Object))
+	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
+
+	annotateSecrets(object, fromInputs)
+	annotateSecrets(inputsPM, fromInputs)
+
+	// For secrets, if `stringData` is present in the inputs, the API server will have filled in `data` based on it. By
+	// base64 encoding the secrets. We should mark any of the values which were secrets in the `stringData` object
+	// as secrets in the `data` field as well.
+	if live.GetAPIVersion() == "v1" && live.GetKind() == "Secret" {
+		stringData, hasStringData := fromInputs["stringData"]
+		data, hasData := object["data"]
+
+		if hasStringData && hasData {
+			if stringData.IsSecret() && !data.IsSecret() {
+				object["data"] = resource.MakeSecret(data)
+			}
+
+			if stringData.IsObject() && data.IsObject() {
+				annotateSecrets(data.ObjectValue(), stringData.ObjectValue())
+			}
+		}
+	}
+
+	// Ensure that the annotation we add for lastAppliedConfig is treated as a secret if any of the inputs were secret
+	// (the value of this annotation is a string-ified JSON so marking the entire thing as a secret is really the best
+	// that we can do).
+	if fromInputs.ContainsSecrets() {
+		if _, has := object["metadata"]; has && object["metadata"].IsObject() {
+			metadata := object["metadata"].ObjectValue()
+			if _, has := metadata["annotations"]; has && metadata["annotations"].IsObject() {
+				annotations := metadata["annotations"].ObjectValue()
+				if lastAppliedConfig, has := annotations[lastAppliedConfigKey]; has && !lastAppliedConfig.IsSecret() {
+					annotations[lastAppliedConfigKey] = resource.MakeSecret(lastAppliedConfig)
+				}
+			}
+		}
+	}
+
+	object["__inputs"] = resource.NewObjectProperty(inputsPM)
+
 	return object
 }
 
 func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructured.Unstructured) {
-	pm := obj.Mappable()
+	// Since we are converting everything to unstructured's, we need to strip out any secretness that
+	// may nested deep within the object.
+	pm := obj.MapRepl(nil, mapReplStripSecrets)
 
 	//
 	// NOTE: Inputs are now stored in `__inputs` to allow output properties to work. The inputs and
@@ -1636,4 +1720,35 @@ func (pc *patchConverter) addPatchArrayToDiff(
 		}
 	}
 	return nil
+}
+
+// annotateSecrets copies the "secretness" from the ins to the outs. If there are values with the same keys for the
+// outs and the ins, if they are both objects, they are transformed recursively. Otherwise, if the value in the ins
+// contains a secret, the entire out value is marked as a secret.  This is very close to how we project secrets
+// in the programming model, with one small difference, which is how we treat the case where both are objects. In the
+// programming model, we would say the entire output object is a secret. Here, we actually recur in. We do this because
+// we don't want a single secret value in a rich structure to taint the entire object. Doing so would mean things like
+// the entire value in the deployment would be encrypted instead of a small chunk. It also means the entire property
+// would be displayed as `[secret]` in the CLI instead of a small part.
+//
+// NOTE: This means that for an array, if any value in the input version is a secret, the entire output array is
+// marked as a secret. This is actually a very nice result, because often arrays are treated like sets by providers
+// and the order may not be preserved across an operation. This means we do end up encrypting the entire array
+// but that's better than accidentally leaking a value which just moved to a different location.
+func annotateSecrets(outs, ins resource.PropertyMap) {
+	if outs == nil || ins == nil {
+		return
+	}
+
+	for key, inValue := range ins {
+		outValue, has := outs[key]
+		if !has {
+			continue
+		}
+		if outValue.IsObject() && inValue.IsObject() {
+			annotateSecrets(outValue.ObjectValue(), inValue.ObjectValue())
+		} else if !outValue.IsSecret() && inValue.ContainsSecrets() {
+			outs[key] = resource.MakeSecret(outValue)
+		}
+	}
 }
