@@ -43,14 +43,9 @@ build:: $(OPENAPI_FILE)
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
+	cp README.md ${PACKDIR}/python/
 	sed -i.bak 's/$${VERSION}/$(VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
 	cd ${PACKDIR}/python/ && \
-		if [ $$(command -v pandoc) ]; then \
-			pandoc --from=markdown --to=rst --output=README.rst ../../README.md; \
-		else \
-			echo "error: pandoc is required; please install it and try again"; \
-			exit 1; \
-		fi && \
 		$(PYTHON) setup.py clean --all 2>/dev/null && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
 		sed -i.bak -e "s/\$${VERSION}/$(PYPI_VERSION)/g" -e "s/\$${PLUGIN_VERSION}/$(VERSION)/g" ./bin/setup.py && \
