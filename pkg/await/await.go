@@ -19,7 +19,6 @@ import (
 	"fmt"
 
 	"github.com/golang/glog"
-	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
@@ -79,12 +78,6 @@ type DeleteConfig struct {
 	ProviderConfig
 	Inputs *unstructured.Unstructured
 	Name   string
-}
-
-type KubectlReplaceConfig struct {
-	Context   context.Context
-	ClientSet *clients.DynamicClientSet
-	Inputs    *unstructured.Unstructured
 }
 
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
@@ -492,28 +485,6 @@ func deleteResource(name string, client dynamic.ResourceInterface, version serve
 
 	// Issue deletion request.
 	return client.Delete(name, &deleteOpts)
-}
-
-// KubectlReplace performs a `kubectl replace`, returning as soon as `kubectl` would report success
-// (_i.e._, immediately). NOTE: This is the opposite of the other functions in this package -- it
-// does not await the underlying resources to be awaited.
-func KubectlReplace(c KubectlReplaceConfig) (*unstructured.Unstructured, error) {
-	client, err := c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
-	if err != nil {
-		return nil, pkgerrors.Wrap(err, "Could not create Kubernetes client for resource")
-	}
-
-	err = deleteResource(c.Inputs.GetName(), client, ServerVersion(c.ClientSet.DiscoveryClientCached))
-	if err != nil {
-		return nil, pkgerrors.Wrap(err, "Failed to delete Kubernetes resource when replacing")
-	}
-
-	obj, err := client.Create(c.Inputs, metav1.CreateOptions{})
-	if err != nil {
-		return nil, pkgerrors.Wrap(err, "Failed to create resource during replacement")
-	}
-
-	return obj, nil
 }
 
 // checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).

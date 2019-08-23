@@ -15,6 +15,7 @@
 -   Document await timeouts and how to override. (https://github.com/pulumi/pulumi-kubernetes/pull/718).
 -   Improve CustomResource for Python SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/700).
 -   Clean up Python SDK get methods. (https://github.com/pulumi/pulumi-kubernetes/pull/740).
+-   Remove undocumented kubectl replace invoke method. (https://github.com/pulumi/pulumi-kubernetes/pull/738).
 -   Don't populate `.status` in input types (https://github.com/pulumi/pulumi-kubernetes/pull/635).
 
 ## 1.0.0-beta.1 (August 13, 2019)
