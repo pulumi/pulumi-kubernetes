@@ -7,17 +7,22 @@ The Kubernetes resource provider for Pulumi lets you create, deploy, and
 manage Kubernetes API resources and workloads in a running cluster.
 
 -  `Introduction <#introduction>`__
--  `Kubernetes API Version Support <#kubernetes-api-version-support>`__
--  `How does API support for Kubernetes
-   work? <#how-does-api-support-for-kubernetes-work>`__
+
+   -  `Kubernetes API Version
+      Support <#kubernetes-api-version-support>`__
+   -  `How does API support for Kubernetes
+      work? <#how-does-api-support-for-kubernetes-work>`__
+
 -  `References <#references>`__
 -  `Prerequisites <#prerequisites>`__
 -  `Installing <#installing>`__
 -  `Quick Examples <#quick-examples>`__
--  `Deploying a YAML Manifest <#deploying-a-yaml-manifest>`__
--  `Deploying a Helm Chart <#deploying-a-helm-chart>`__
--  `Deploying a Workload using the Resource
-   API <#deploying-a-workload-using-the-resource-api>`__
+
+   -  `Deploying a YAML Manifest <#deploying-a-yaml-manifest>`__
+   -  `Deploying a Helm Chart <#deploying-a-helm-chart>`__
+   -  `Deploying a Workload using the Resource
+      API <#deploying-a-workload-using-the-resource-api>`__
+
 -  `Contributing <#contributing>`__
 -  `Code of Conduct <#code-of-conduct>`__
 
@@ -58,7 +63,7 @@ as soon as a new version is released! Ultimately, this means that Pulumi
 users do not have to learn a new Kubernetes API model, nor wait long to
 work with the latest available versions.
 
-    Note: Pulumi also supports alpha and beta APIs.
+   Note: Pulumi also supports alpha and beta APIs.
 
 Visit the
 `FAQ <https://www.pulumi.com/docs/reference/clouds/kubernetes/faq/>`__
@@ -103,7 +108,7 @@ complete documentation.
    -  If ``kubectl`` already works for your running cluster, Pulumi
       respects and uses this configuration.
    -  If you do not have a cluster already running and available, we
-      encourage you to explore Pulumi's SDKs for AWS EKS, Azure AKS, and
+      encourage you to explore Pulumi’s SDKs for AWS EKS, Azure AKS, and
       GCP GKE. Visit the `reference
       docs <https://www.pulumi.com/docs/reference/clouds/kubernetes/>`__
       for more details.
@@ -123,19 +128,19 @@ For Node.js use either ``npm`` or ``yarn``:
 
 .. code:: bash
 
-    npm install @pulumi/kubernetes
+   npm install @pulumi/kubernetes
 
 ``yarn``:
 
 .. code:: bash
 
-    yarn add @pulumi/kubernetes
+   yarn add @pulumi/kubernetes
 
 For Python use ``pip``:
 
 .. code:: bash
 
-    pip install pulumi-kubernetes
+   pip install pulumi-kubernetes
 
 Quick Examples
 --------------
@@ -155,20 +160,20 @@ This example deploys resources from a YAML manifest file path, using the
 transient, default ``kubeconfig`` credentials on the local machine, just
 as ``kubectl`` does.
 
-    Note: This capabality is primarily targeted for experimentation and
-    transitioning to Pulumi. Pulumi's `desired state
-    model <https://www.pulumi.com/docs/intro/concepts/how-pulumi-works>`__
-    greatly benefits from having resources be directly defined in your
-    Pulumi program as demonstrated in the `workload
-    example <#deploying-a-workload-on-aws-eks>`__.
+   Note: This capabality is primarily targeted for experimentation and
+   transitioning to Pulumi. Pulumi’s `desired state
+   model <https://www.pulumi.com/docs/intro/concepts/how-pulumi-works>`__
+   greatly benefits from having resources be directly defined in your
+   Pulumi program as demonstrated in the `workload
+   example <#deploying-a-workload-on-aws-eks>`__.
 
 .. code:: typescript
 
-    import * as k8s as "@pulumi/kubernetes";
+   import * as k8s as "@pulumi/kubernetes";
 
-    const myApp = new k8s.yaml.ConfigFile("app", {
-        file: "app.yaml"
-    });
+   const myApp = new k8s.yaml.ConfigFile("app", {
+       file: "app.yaml"
+   });
 
 Deploying a Helm Chart
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -176,35 +181,35 @@ Deploying a Helm Chart
 This example creates an EKS cluster with
 ```pulumi/eks`` <https://github.com/pulumi/pulumi-eks>`__, and then
 deploys a Helm chart from the stable repo using the ``kubeconfig``
-credentials from the cluster's `Pulumi
+credentials from the cluster’s `Pulumi
 provider <https://www.pulumi.com/docs/reference/programming-model/#providers>`__.
 
-    Note: This capabality is primarily targeted for experimentation and
-    transitioning to Pulumi. Pulumi's `desired state
-    model <https://www.pulumi.com/docs/intro/concepts/how-pulumi-works>`__
-    greatly benefits from having resources be directly defined in your
-    Pulumi program as demonstrated in the `workload
-    example <#deploying-a-workload-on-aws-eks>`__.
+   Note: This capabality is primarily targeted for experimentation and
+   transitioning to Pulumi. Pulumi’s `desired state
+   model <https://www.pulumi.com/docs/intro/concepts/how-pulumi-works>`__
+   greatly benefits from having resources be directly defined in your
+   Pulumi program as demonstrated in the `workload
+   example <#deploying-a-workload-on-aws-eks>`__.
 
 .. code:: typescript
 
-    import * as eks from "@pulumi/eks";
-    import * as k8s from "@pulumi/kubernetes";
+   import * as eks from "@pulumi/eks";
+   import * as k8s from "@pulumi/kubernetes";
 
-    // Create an EKS cluster.
-    const cluster = new eks.Cluster("my-cluster");
+   // Create an EKS cluster.
+   const cluster = new eks.Cluster("my-cluster");
 
-    // Deploy Wordpress into our cluster.
-    const wordpress = new k8s.helm.v2.Chart("wordpress", {
-        repo: "stable",
-        chart: "wordpress",
-        values: {
-            wordpressBlogName: "My Cool Kubernetes Blog!",
-        },
-    }, { providers: { "kubernetes": cluster.provider } });
+   // Deploy Wordpress into our cluster.
+   const wordpress = new k8s.helm.v2.Chart("wordpress", {
+       repo: "stable",
+       chart: "wordpress",
+       values: {
+           wordpressBlogName: "My Cool Kubernetes Blog!",
+       },
+   }, { providers: { "kubernetes": cluster.provider } });
 
-    // Export the cluster's kubeconfig.
-    export const kubeconfig = cluster.kubeconfig;
+   // Export the cluster's kubeconfig.
+   export const kubeconfig = cluster.kubeconfig;
 
 Deploying a Workload using the Resource API
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -212,52 +217,52 @@ Deploying a Workload using the Resource API
 This example creates a EKS cluster with
 ```pulumi/eks`` <https://github.com/pulumi/pulumi-eks>`__, and then
 deploys an NGINX Deployment and Service using the SDK resource API, and
-the ``kubeconfig`` credentials from the cluster's `Pulumi
+the ``kubeconfig`` credentials from the cluster’s `Pulumi
 provider <https://www.pulumi.com/docs/reference/programming-model/#providers>`__.
 
 .. code:: typescript
 
-    import * as eks from "@pulumi/eks";
-    import * as k8s from "@pulumi/kubernetes";
+   import * as eks from "@pulumi/eks";
+   import * as k8s from "@pulumi/kubernetes";
 
-    // Create an EKS cluster with the default configuration.
-    const cluster = new eks.Cluster("my-cluster");
+   // Create an EKS cluster with the default configuration.
+   const cluster = new eks.Cluster("my-cluster");
 
-    // Create a NGINX Deployment and Service.
-    const appName = "my-app";
-    const appLabels = { appClass: appName };
-    const deployment = new k8s.apps.v1.Deployment(`${appName}-dep`, {
-        metadata: { labels: appLabels },
-        spec: {
-            replicas: 2,
-            selector: { matchLabels: appLabels },
-            template: {
-                metadata: { labels: appLabels },
-                spec: {
-                    containers: [{
-                        name: appName,
-                        image: "nginx",
-                        ports: [{ name: "http", containerPort: 80 }]
-                    }],
-                }
-            }
-        },
-    }, { provider: cluster.provider });
+   // Create a NGINX Deployment and Service.
+   const appName = "my-app";
+   const appLabels = { appClass: appName };
+   const deployment = new k8s.apps.v1.Deployment(`${appName}-dep`, {
+       metadata: { labels: appLabels },
+       spec: {
+           replicas: 2,
+           selector: { matchLabels: appLabels },
+           template: {
+               metadata: { labels: appLabels },
+               spec: {
+                   containers: [{
+                       name: appName,
+                       image: "nginx",
+                       ports: [{ name: "http", containerPort: 80 }]
+                   }],
+               }
+           }
+       },
+   }, { provider: cluster.provider });
 
-    const service = new k8s.core.v1.Service(`${appName}-svc`, {
-        metadata: { labels: appLabels },
-        spec: {
-            type: "LoadBalancer",
-            ports: [{ port: 80, targetPort: "http" }],
-            selector: appLabels,
-        },
-    }, { provider: cluster.provider });
+   const service = new k8s.core.v1.Service(`${appName}-svc`, {
+       metadata: { labels: appLabels },
+       spec: {
+           type: "LoadBalancer",
+           ports: [{ port: 80, targetPort: "http" }],
+           selector: appLabels,
+       },
+   }, { provider: cluster.provider });
 
-    // Export the URL for the load balanced service.
-    export const url = service.status.loadBalancer.ingress[0].hostname;
+   // Export the URL for the load balanced service.
+   export const url = service.status.loadBalancer.ingress[0].hostname;
 
-    // Export the cluster's kubeconfig.
-    export const kubeconfig = cluster.kubeconfig;
+   // Export the cluster's kubeconfig.
+   export const kubeconfig = cluster.kubeconfig;
 
 Contributing
 ------------
