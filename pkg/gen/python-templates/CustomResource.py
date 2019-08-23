@@ -64,6 +64,12 @@ class CustomResource(pulumi.CustomResource):
     @staticmethod
     def get(resource_name, api_version, kind, id, opts=None):
         """
+        Get the state of an existing `CustomResource` resource, as identified by `id`.
+        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
+        then (per Kubernetes convention) the ID becomes default/[name].
+
+        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
+
         :param str resource_name: _Unique_ name used to register this resource with Pulumi.
         :param str api_version: The API version of the apiExtensions.CustomResource we
                wish to select, as specified by the CustomResourceDefinition that defines it on the
