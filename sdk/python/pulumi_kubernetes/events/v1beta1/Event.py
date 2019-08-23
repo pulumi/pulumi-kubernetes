@@ -31,79 +31,79 @@ class Event(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    action: pulumi.Output[str];
+    action: pulumi.Output[str]
     """
     What action was taken/failed regarding to the regarding object.
     """
 
-    deprecated_count: pulumi.Output[int];
+    deprecated_count: pulumi.Output[int]
     """
     Deprecated field assuring backward compatibility with core.v1 Event type
     """
 
-    deprecated_first_timestamp: pulumi.Output[str];
+    deprecated_first_timestamp: pulumi.Output[str]
     """
     Deprecated field assuring backward compatibility with core.v1 Event type
     """
 
-    deprecated_last_timestamp: pulumi.Output[str];
+    deprecated_last_timestamp: pulumi.Output[str]
     """
     Deprecated field assuring backward compatibility with core.v1 Event type
     """
 
-    deprecated_source: pulumi.Output[dict];
+    deprecated_source: pulumi.Output[dict]
     """
     Deprecated field assuring backward compatibility with core.v1 Event type
     """
 
-    event_time: pulumi.Output[str];
+    event_time: pulumi.Output[str]
     """
     Required. Time when this Event was first observed.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
-    note: pulumi.Output[str];
+    note: pulumi.Output[str]
     """
     Optional. A human-readable description of the status of this operation. Maximal length of the
     note is 1kB, but libraries should be prepared to handle values up to 64kB.
     """
 
-    reason: pulumi.Output[str];
+    reason: pulumi.Output[str]
     """
     Why the action was taken.
     """
 
-    regarding: pulumi.Output[dict];
+    regarding: pulumi.Output[dict]
     """
     The object this Event is about. In most cases it's an Object reporting controller implements.
     E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on
     some changes in a ReplicaSet object.
     """
 
-    related: pulumi.Output[dict];
+    related: pulumi.Output[dict]
     """
     Optional secondary object for more complex actions. E.g. when regarding object triggers a
     creation or deletion of related object.
     """
 
-    reporting_controller: pulumi.Output[str];
+    reporting_controller: pulumi.Output[str]
     """
     Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
     """
 
-    reporting_instance: pulumi.Output[str];
+    reporting_instance: pulumi.Output[str]
     """
     ID of the controller instance, e.g. `kubelet-xyzf`.
     """
 
-    series: pulumi.Output[dict];
+    series: pulumi.Output[dict]
     """
     Data about the Event series this event represents or nil if it's a singleton Event.
     """
 
-    type: pulumi.Output[str];
+    type: pulumi.Output[str]
     """
     Type of this event (Normal, Warning), new types could be added in the future.
     """
@@ -181,9 +181,22 @@ class Event(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
-        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
-        return Event(name, opts)
+    def get(resource_name, id, opts=None):
+        """
+        Get the state of an existing `Event` resource, as identified by `id`.
+        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
+        then (per Kubernetes convention) the ID becomes default/[name].
+
+        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
+
+        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
+        :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
+               Takes the form [namespace]/[name] or [name].
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
+        """
+        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
+        return Event(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

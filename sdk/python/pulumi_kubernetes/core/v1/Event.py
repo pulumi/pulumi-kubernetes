@@ -30,79 +30,79 @@ class Event(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    action: pulumi.Output[str];
+    action: pulumi.Output[str]
     """
     What action was taken/failed regarding to the Regarding object.
     """
 
-    count: pulumi.Output[int];
+    count: pulumi.Output[int]
     """
     The number of times this event has occurred.
     """
 
-    event_time: pulumi.Output[str];
+    event_time: pulumi.Output[str]
     """
     Time when this Event was first observed.
     """
 
-    first_timestamp: pulumi.Output[str];
+    first_timestamp: pulumi.Output[str]
     """
     The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
     """
 
-    involved_object: pulumi.Output[dict];
+    involved_object: pulumi.Output[dict]
     """
     The object that this event is about.
     """
 
-    last_timestamp: pulumi.Output[str];
+    last_timestamp: pulumi.Output[str]
     """
     The time at which the most recent occurrence of this event was recorded.
     """
 
-    message: pulumi.Output[str];
+    message: pulumi.Output[str]
     """
     A human-readable description of the status of this operation.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    reason: pulumi.Output[str];
+    reason: pulumi.Output[str]
     """
     This should be a short, machine understandable string that gives the reason for the transition
     into the object's current status.
     """
 
-    related: pulumi.Output[dict];
+    related: pulumi.Output[dict]
     """
     Optional secondary object for more complex actions.
     """
 
-    reporting_component: pulumi.Output[str];
+    reporting_component: pulumi.Output[str]
     """
     Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
     """
 
-    reporting_instance: pulumi.Output[str];
+    reporting_instance: pulumi.Output[str]
     """
     ID of the controller instance, e.g. `kubelet-xyzf`.
     """
 
-    series: pulumi.Output[dict];
+    series: pulumi.Output[dict]
     """
     Data about the Event series this event represents or nil if it's a singleton Event.
     """
 
-    source: pulumi.Output[dict];
+    source: pulumi.Output[dict]
     """
     The component reporting this event. Should be a short machine understandable string.
     """
 
-    type: pulumi.Output[str];
+    type: pulumi.Output[str]
     """
     Type of this event (Normal, Warning), new types could be added in the future
     """
@@ -180,9 +180,22 @@ class Event(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
-        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
-        return Event(name, opts)
+    def get(resource_name, id, opts=None):
+        """
+        Get the state of an existing `Event` resource, as identified by `id`.
+        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
+        then (per Kubernetes convention) the ID becomes default/[name].
+
+        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
+
+        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
+        :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
+               Takes the form [namespace]/[name] or [name].
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
+        """
+        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
+        return Event(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

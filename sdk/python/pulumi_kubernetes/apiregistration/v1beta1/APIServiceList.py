@@ -30,10 +30,10 @@ class APIServiceList(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    items: pulumi.Output[list];
+    items: pulumi.Output[list]
     
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
     def __init__(self, resource_name, opts=None, items=None, metadata=None, __name__=None, __opts__=None):
@@ -78,9 +78,22 @@ class APIServiceList(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
-        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
-        return APIServiceList(name, opts)
+    def get(resource_name, id, opts=None):
+        """
+        Get the state of an existing `APIServiceList` resource, as identified by `id`.
+        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
+        then (per Kubernetes convention) the ID becomes default/[name].
+
+        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
+
+        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
+        :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
+               Takes the form [namespace]/[name] or [name].
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
+        """
+        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
+        return APIServiceList(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

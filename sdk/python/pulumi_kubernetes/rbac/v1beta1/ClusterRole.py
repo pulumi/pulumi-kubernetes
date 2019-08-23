@@ -31,19 +31,19 @@ class ClusterRole(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    aggregation_rule: pulumi.Output[dict];
+    aggregation_rule: pulumi.Output[dict]
     """
     AggregationRule is an optional field that describes how to build the Rules for this ClusterRole.
     If AggregationRule is set, then the Rules are controller managed and direct changes to Rules
     will be stomped by the controller.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata.
     """
 
-    rules: pulumi.Output[list];
+    rules: pulumi.Output[list]
     """
     Rules holds all the PolicyRules for this ClusterRole
     """
@@ -92,9 +92,22 @@ class ClusterRole(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
-        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
-        return ClusterRole(name, opts)
+    def get(resource_name, id, opts=None):
+        """
+        Get the state of an existing `ClusterRole` resource, as identified by `id`.
+        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
+        then (per Kubernetes convention) the ID becomes default/[name].
+
+        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
+
+        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
+        :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
+               Takes the form [namespace]/[name] or [name].
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
+        """
+        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
+        return ClusterRole(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

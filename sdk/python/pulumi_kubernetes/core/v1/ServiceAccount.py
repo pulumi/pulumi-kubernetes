@@ -31,13 +31,13 @@ class ServiceAccount(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    automount_service_account_token: pulumi.Output[bool];
+    automount_service_account_token: pulumi.Output[bool]
     """
     AutomountServiceAccountToken indicates whether pods running as this service account should have
     an API token automatically mounted. Can be overridden at the pod level.
     """
 
-    image_pull_secrets: pulumi.Output[list];
+    image_pull_secrets: pulumi.Output[list]
     """
     ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any
     images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets
@@ -46,13 +46,13 @@ class ServiceAccount(pulumi.CustomResource):
     https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    secrets: pulumi.Output[list];
+    secrets: pulumi.Output[list]
     """
     Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount.
     More info: https://kubernetes.io/docs/concepts/configuration/secret
@@ -109,9 +109,22 @@ class ServiceAccount(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
-        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
-        return ServiceAccount(name, opts)
+    def get(resource_name, id, opts=None):
+        """
+        Get the state of an existing `ServiceAccount` resource, as identified by `id`.
+        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
+        then (per Kubernetes convention) the ID becomes default/[name].
+
+        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
+
+        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
+        :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
+               Takes the form [namespace]/[name] or [name].
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
+        """
+        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
+        return ServiceAccount(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

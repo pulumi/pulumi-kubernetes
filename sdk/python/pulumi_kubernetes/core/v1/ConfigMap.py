@@ -30,7 +30,7 @@ class ConfigMap(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    binary_data: pulumi.Output[dict];
+    binary_data: pulumi.Output[dict]
     """
     BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_'
     or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored
@@ -38,7 +38,7 @@ class ConfigMap(pulumi.CustomResource):
     validation process. Using this field will require 1.10+ apiserver and kubelet.
     """
 
-    data: pulumi.Output[dict];
+    data: pulumi.Output[dict]
     """
     Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_'
     or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in
@@ -46,7 +46,7 @@ class ConfigMap(pulumi.CustomResource):
     process.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -102,9 +102,22 @@ class ConfigMap(pulumi.CustomResource):
             opts)
 
     @staticmethod
-    def get(name: str, id: Input[str], opts: Optional[ResourceOptions] = None):
-        opts = ResourceOptions(id=id) if opts is None else opts.merge(ResourceOptions(id=id))
-        return ConfigMap(name, opts)
+    def get(resource_name, id, opts=None):
+        """
+        Get the state of an existing `ConfigMap` resource, as identified by `id`.
+        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
+        then (per Kubernetes convention) the ID becomes default/[name].
+
+        Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
+
+        :param str resource_name: _Unique_ name used to register this resource with Pulumi.
+        :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
+               Takes the form [namespace]/[name] or [name].
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
+        """
+        opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
+        return ConfigMap(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
