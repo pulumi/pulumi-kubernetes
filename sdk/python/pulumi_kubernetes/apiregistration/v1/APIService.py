@@ -30,15 +30,15 @@ class APIService(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Spec contains information for locating and communicating with a server
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     Status contains derived information about an API server
     """

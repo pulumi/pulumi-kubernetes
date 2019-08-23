@@ -30,15 +30,15 @@ class CertificateSigningRequest(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     The certificate request itself and any additional information.
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     Derived information about the request.
     """

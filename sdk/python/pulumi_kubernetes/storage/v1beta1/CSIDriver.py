@@ -36,7 +36,7 @@ class CSIDriver(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object metadata. metadata.Name indicates the name of the CSI driver that this object
     refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver.
@@ -45,7 +45,7 @@ class CSIDriver(pulumi.CustomResource):
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Specification of the CSI Driver.
     """

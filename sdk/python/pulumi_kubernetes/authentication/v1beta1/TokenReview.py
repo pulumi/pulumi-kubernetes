@@ -31,15 +31,15 @@ class TokenReview(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Spec holds information about the request being evaluated
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     Status is filled in by the server and indicates whether the request can be authenticated.
     """

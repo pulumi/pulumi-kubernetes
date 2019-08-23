@@ -30,12 +30,12 @@ class LeaseList(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    items: pulumi.Output[list];
+    items: pulumi.Output[list]
     """
     Items is a list of schema objects.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard list metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata

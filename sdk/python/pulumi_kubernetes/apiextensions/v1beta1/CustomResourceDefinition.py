@@ -31,15 +31,15 @@ class CustomResourceDefinition(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Spec describes how the user wants the resources to appear
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     Status indicates the actual state of the CustomResourceDefinition
     """

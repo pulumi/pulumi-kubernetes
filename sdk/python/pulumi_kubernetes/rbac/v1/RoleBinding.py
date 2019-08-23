@@ -33,18 +33,18 @@ class RoleBinding(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata.
     """
 
-    role_ref: pulumi.Output[dict];
+    role_ref: pulumi.Output[dict]
     """
     RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace.
     If the RoleRef cannot be resolved, the Authorizer must return an error.
     """
 
-    subjects: pulumi.Output[list];
+    subjects: pulumi.Output[list]
     """
     Subjects holds references to the objects the role applies to.
     """

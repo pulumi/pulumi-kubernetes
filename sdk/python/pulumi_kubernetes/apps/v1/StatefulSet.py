@@ -48,15 +48,15 @@ class StatefulSet(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Spec defines the desired identities of pods in this set.
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     Status is the current status of Pods in this StatefulSet. This data may be out of date by some
     window of time.

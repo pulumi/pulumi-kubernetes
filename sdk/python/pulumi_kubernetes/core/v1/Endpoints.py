@@ -41,13 +41,13 @@ class Endpoints(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    subsets: pulumi.Output[list];
+    subsets: pulumi.Output[list]
     """
     The set of all endpoints is the union of all subsets. Addresses are placed into subsets
     according to the IPs they share. A single address with multiple ports, some of which are ready

@@ -31,12 +31,12 @@ class Role(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata.
     """
 
-    rules: pulumi.Output[list];
+    rules: pulumi.Output[list]
     """
     Rules holds all the PolicyRules for this Role
     """

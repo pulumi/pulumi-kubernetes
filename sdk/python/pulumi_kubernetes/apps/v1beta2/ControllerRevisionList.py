@@ -30,12 +30,12 @@ class ControllerRevisionList(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    items: pulumi.Output[list];
+    items: pulumi.Output[list]
     """
     Items is the list of ControllerRevisions
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     More info:
     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata

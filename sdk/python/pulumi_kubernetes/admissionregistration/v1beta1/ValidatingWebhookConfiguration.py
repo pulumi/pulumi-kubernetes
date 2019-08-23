@@ -31,13 +31,13 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object metadata; More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
     """
 
-    webhooks: pulumi.Output[list];
+    webhooks: pulumi.Output[list]
     """
     Webhooks is a list of webhooks and the affected resources and operations.
     """

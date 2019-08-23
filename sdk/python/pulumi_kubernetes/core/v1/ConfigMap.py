@@ -30,7 +30,7 @@ class ConfigMap(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    binary_data: pulumi.Output[dict];
+    binary_data: pulumi.Output[dict]
     """
     BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_'
     or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored
@@ -38,7 +38,7 @@ class ConfigMap(pulumi.CustomResource):
     validation process. Using this field will require 1.10+ apiserver and kubelet.
     """
 
-    data: pulumi.Output[dict];
+    data: pulumi.Output[dict]
     """
     Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_'
     or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in
@@ -46,7 +46,7 @@ class ConfigMap(pulumi.CustomResource):
     process.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata

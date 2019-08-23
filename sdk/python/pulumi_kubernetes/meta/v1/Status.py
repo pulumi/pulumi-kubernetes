@@ -30,37 +30,37 @@ class Status(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    code: pulumi.Output[int];
+    code: pulumi.Output[int]
     """
     Suggested HTTP return code for this status, 0 if not set.
     """
 
-    details: pulumi.Output[dict];
+    details: pulumi.Output[dict]
     """
     Extended data associated with the reason.  Each reason may define its own extended details. This
     field is optional and the data returned is not guaranteed to conform to any schema except that
     defined by the reason type.
     """
 
-    message: pulumi.Output[str];
+    message: pulumi.Output[str]
     """
     A human-readable description of the status of this operation.
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard list metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    reason: pulumi.Output[str];
+    reason: pulumi.Output[str]
     """
     A machine-readable description of why this operation is in the "Failure" status. If this value
     is empty there is no information available. A Reason clarifies an HTTP status code but does not
     override it.
     """
 
-    status: pulumi.Output[str];
+    status: pulumi.Output[str]
     """
     Status of the operation. One of: "Success" or "Failure". More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status

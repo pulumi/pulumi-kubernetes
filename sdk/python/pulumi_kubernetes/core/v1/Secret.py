@@ -31,7 +31,7 @@ class Secret(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    data: pulumi.Output[dict];
+    data: pulumi.Output[dict]
     """
     Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or
     '.'. The serialized form of the secret data is a base64 encoded string, representing the
@@ -39,20 +39,20 @@ class Secret(pulumi.CustomResource):
     https://tools.ietf.org/html/rfc4648#section-4
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    string_data: pulumi.Output[dict];
+    string_data: pulumi.Output[dict]
     """
     stringData allows specifying non-binary secret data in string form. It is provided as a
     write-only convenience method. All keys and values are merged into the data field on write,
     overwriting any existing values. It is never output when reading from the API.
     """
 
-    type: pulumi.Output[str];
+    type: pulumi.Output[str]
     """
     Used to facilitate programmatic handling of secret data.
     """

@@ -32,16 +32,16 @@ class LocalSubjectAccessReview(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     
 
-    spec: pulumi.Output[dict];
+    spec: pulumi.Output[dict]
     """
     Spec holds information about the request being evaluated.  spec.namespace must be equal to the
     namespace you made the request against.  If empty, it is defaulted.
     """
 
-    status: pulumi.Output[dict];
+    status: pulumi.Output[dict]
     """
     Status is filled in by the server and indicates whether the request is allowed or not
     """

@@ -30,13 +30,13 @@ class PodTemplate(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
-    metadata: pulumi.Output[dict];
+    metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
     https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
     """
 
-    template: pulumi.Output[dict];
+    template: pulumi.Output[dict]
     """
     Template defines the pods that will be created from this pod template.
     https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
