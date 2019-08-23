@@ -12,6 +12,7 @@
 
 -   Document await logic in the SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/711).
 -   Document await timeouts and how to override. (https://github.com/pulumi/pulumi-kubernetes/pull/718).
+-   Improve CustomResource for Python SDK. (https://github.com/pulumi/pulumi-kubernetes/pull/700).
 -   Don't populate `.status` in input types (https://github.com/pulumi/pulumi-kubernetes/pull/635).
 
 ## 1.0.0-beta.1 (August 13, 2019)
