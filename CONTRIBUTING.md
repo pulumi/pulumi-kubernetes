@@ -2,7 +2,7 @@
 
 ## Building Source
 
-### Pre-Requisites
+### Prerequisites
 
 1. Python: `python-setuptools`, `pip`, `pandoc`
 1. Go: [golangci-lint](https://github.com/golangci/golangci-lint)
