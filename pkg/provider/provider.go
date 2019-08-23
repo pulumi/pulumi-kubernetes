@@ -61,7 +61,6 @@ import (
 // --------------------------------------------------------------------------
 
 const (
-	invokeKubectlReplace = "kubernetes:kubernetes:kubectlReplace"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 )
 
@@ -291,44 +290,9 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 
 	// Unmarshal arguments.
 	tok := req.GetTok()
-	label := fmt.Sprintf("%s.Invoke(%s)", k.label(), tok)
-	args, err := plugin.UnmarshalProperties(
-		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
-	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "failed to unmarshal %v args during an Invoke call", tok)
-	}
 
 	// Process Invoke call.
 	switch tok {
-
-	//
-	// NOTE: Purposefully undocumented API. This flavor of `Invoke` will run the equivalent of
-	// `kubectl replace`, and return instantly. This is useful for situations where a cluster (e.g.,
-	// EKS) boots up with some number of default resources which we need to replace.
-	//
-	// We choose not to document this API to discourage use.
-	//
-	case invokeKubectlReplace:
-		config := await.KubectlReplaceConfig{
-			Context:   k.canceler.context, // TODO: should this just be ctx from the args?
-			ClientSet: k.clientSet,
-			Inputs:    propMapToUnstructured(args),
-		}
-
-		obj, err := await.KubectlReplace(config)
-		if err != nil {
-			return nil, err
-		}
-
-		objProps, err := plugin.MarshalProperties(
-			resource.NewPropertyMapFromMap(obj.Object), plugin.MarshalOptions{
-				Label: label, KeepUnknowns: true, SkipNulls: true,
-			})
-		if err != nil {
-			return nil, err
-		}
-
-		return &pulumirpc.InvokeResponse{Return: objProps}, nil
 	default:
 		return nil, fmt.Errorf("Unknown Invoke type '%s'", tok)
 	}
