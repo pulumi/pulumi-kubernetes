@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-1. Python: `python-setuptools`, `pip`, `pandoc`
+1. Python: `python-setuptools`, `pip`
 1. Go: [golangci-lint](https://github.com/golangci/golangci-lint)
 1. JS: `npm`, `yarn`
 
