@@ -36,7 +36,7 @@ $ yarn link @pulumi/kubernetes
 The examples and integration tests in this repository will create and destroy
 real Kubernetes objects while running. Before running these tests, make sure that you have
 [configured Pulumi with your Kubernetes cluster](https://pulumi.io/install/kubernetes.html)
-successfully once before.
+successfully at least once before.
 
 You can run Kubernetes tests against `minikube` or against real Kubernetes
 clusters. Since the Pulumi Kubernetes provider uses the same
