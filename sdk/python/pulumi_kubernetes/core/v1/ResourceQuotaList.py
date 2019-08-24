@@ -77,10 +77,7 @@ class ResourceQuotaList(pulumi.CustomResource):
 
         __props__['status'] = None
 
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        if opts.version is None:
-            opts.version = version.get_version()
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(ResourceQuotaList, self).__init__(
             "kubernetes:core/v1:ResourceQuotaList",

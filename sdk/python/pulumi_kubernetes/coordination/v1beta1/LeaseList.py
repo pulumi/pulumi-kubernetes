@@ -75,10 +75,7 @@ class LeaseList(pulumi.CustomResource):
 
         __props__['status'] = None
 
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        if opts.version is None:
-            opts.version = version.get_version()
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(LeaseList, self).__init__(
             "kubernetes:coordination.k8s.io/v1beta1:LeaseList",

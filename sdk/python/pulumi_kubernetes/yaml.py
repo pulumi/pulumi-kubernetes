@@ -99,16 +99,12 @@ class ConfigFile(pulumi.ComponentResource):
         else:
             text = _read_file(file_id)
 
-        if opts is not None:
-            _opts = deepcopy(opts)
-            _opts.parent = self
-        else:
-            _opts = pulumi.ResourceOptions(parent=self)
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        output = _parse_yaml_document(yaml.safe_load_all(text), _opts, transformations, resource_prefix)
+        output = _parse_yaml_document(yaml.safe_load_all(text), opts, transformations, resource_prefix)
         self.register_outputs({"output": output})
 
     def translate_output_property(self, prop: str) -> str:
@@ -905,4 +901,3 @@ def _parse_yaml_object(
     return [identifier.apply(
         lambda x: (f"{gvk}:{x}",
                    CustomResource(f"{x}", api_version, kind, spec, metadata, opts)))]
-

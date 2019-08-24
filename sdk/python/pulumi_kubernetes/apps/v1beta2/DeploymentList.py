@@ -73,10 +73,7 @@ class DeploymentList(pulumi.CustomResource):
 
         __props__['status'] = None
 
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        if opts.version is None:
-            opts.version = version.get_version()
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(DeploymentList, self).__init__(
             "kubernetes:apps/v1beta2:DeploymentList",
