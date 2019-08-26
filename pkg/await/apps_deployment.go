@@ -187,8 +187,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
-	timeout := time.Duration(
-		metadata.TimeoutSeconds(dia.config.currentInputs, DefaultDeploymentTimeoutMins*60)) * time.Second
+	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentInputs, DefaultDeploymentTimeoutMins*60)
 	return dia.await(
 		deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher, time.After(timeout), aggregateErrorTicker.C)
 }

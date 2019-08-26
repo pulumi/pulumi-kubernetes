@@ -142,8 +142,7 @@ func (pia *podInitAwaiter) Await() error {
 	}
 	defer podWatcher.Stop()
 
-	timeout := time.Duration(
-		metadata.TimeoutSeconds(pia.config.currentInputs, DefaultPodTimeoutMins*60)) * time.Second
+	timeout := metadata.TimeoutDuration(pia.config.timeout, pia.config.currentInputs, DefaultPodTimeoutMins*60)
 	for {
 		if pia.state.Ready() {
 			return nil

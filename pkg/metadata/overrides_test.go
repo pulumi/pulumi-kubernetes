@@ -16,6 +16,7 @@ package metadata
 
 import (
 	"testing"
+	"time"
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -60,22 +61,24 @@ func TestTimeoutSeconds(t *testing.T) {
 	annotatedResourceInvalid.SetAnnotations(map[string]string{AnnotationTimeoutSeconds: "foo"})
 
 	type args struct {
+		customTimeout  float64
 		obj            *unstructured.Unstructured
 		defaultSeconds int
 	}
 	tests := []struct {
 		name string
 		args args
-		want int
+		want time.Duration
 	}{
-		{"Timeout annotation unset", args{obj: resource, defaultSeconds: 300}, 300},
-		{"Timeout annotation set", args{obj: annotatedResource15, defaultSeconds: 300}, 15},
-		{"Timeout annotation invalid", args{obj: annotatedResourceInvalid, defaultSeconds: 300}, 300},
+		{"Timeout annotation unset", args{customTimeout: 0, obj: resource, defaultSeconds: 300}, 5 * time.Minute},
+		{"Timeout annotation set", args{customTimeout: 0, obj: annotatedResource15, defaultSeconds: 300}, 15 * time.Second},
+		{"Timeout annotation invalid", args{customTimeout: 0, obj: annotatedResourceInvalid, defaultSeconds: 300}, 5 * time.Minute},
+		{"Timeout from customResource", args{customTimeout: 600, obj: annotatedResource15, defaultSeconds: 300}, 10 * time.Minute},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := TimeoutSeconds(tt.args.obj, tt.args.defaultSeconds); got != tt.want {
-				t.Errorf("TimeoutSeconds() = %v, want %v", got, tt.want)
+			if got := TimeoutDuration(tt.args.customTimeout, tt.args.obj, tt.args.defaultSeconds); got != tt.want {
+				t.Errorf("TimeoutDuration() = %v, want %v", got, tt.want)
 			}
 		})
 	}

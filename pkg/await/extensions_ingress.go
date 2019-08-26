@@ -123,8 +123,7 @@ func (iia *ingressInitAwaiter) Await() error {
 			iia.config.currentInputs.GetName())
 	}
 
-	timeout := time.Duration(
-		metadata.TimeoutSeconds(iia.config.currentInputs, DefaultIngressTimeoutMins*60)) * time.Second
+	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentInputs, DefaultIngressTimeoutMins*60)
 	return iia.await(ingressWatcher, serviceWatcher, endpointWatcher, make(chan struct{}), time.After(timeout))
 }
 
