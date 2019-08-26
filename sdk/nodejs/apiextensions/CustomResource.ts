@@ -70,8 +70,8 @@ export interface CustomResourceGetOptions extends pulumi.CustomResourceOptions {
     kind: pulumi.Input<string>
 
     /**
-     * An ID for the Kubernetes resource to retrive. Takes the form <namespace>/<name> or
-     * <name>.
+     * An ID for the Kubernetes resource to retrieve. Takes the form [namespace]/[name] or
+     * [name].
      */
     id: pulumi.Input<pulumi.ID>;
 }
@@ -107,8 +107,8 @@ export class CustomResource extends pulumi.CustomResource {
 
     /**
      * Get the state of an existing `CustomResource`, as identified by `id`.
-     * Typically this ID  is of the form <namespace>/<name>; if <namespace> is omitted, then (per
-     * Kubernetes convention) the ID becomes default/<name>.
+     * Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted, then (per
+     * Kubernetes convention) the ID becomes default/[name].
      *
      * Pulumi will keep track of this resource using `name` as the Pulumi ID.
      *
