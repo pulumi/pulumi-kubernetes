@@ -28,6 +28,7 @@
 -   Remove undocumented kubectl replace invoke method. (https://github.com/pulumi/pulumi-kubernetes/pull/738).
 -   Don't populate `.status` in input types (https://github.com/pulumi/pulumi-kubernetes/pull/635).
 -   Allow a user to pass CustomTimeouts as part of ResourceOptions (fixes https://github.com/pulumi/pulumi-kubernetes/issues/672)
+-   Don't panic when an Asset or an Archive are passed into a resource definition (https://github.com/pulumi/pulumi-kubernetes/pull/751).
 
 ### Bug fixes
 
