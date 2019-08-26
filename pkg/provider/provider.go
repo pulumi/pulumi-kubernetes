@@ -533,8 +533,7 @@ func (k *kubeProvider) Diff(
 			namespacedKind = true
 		} else {
 			return nil, pkgerrors.Wrapf(err,
-				"API server returned error when asked if resource type %s/%s/%s is namespaced",
-				gvk.Group, gvk.Version, gvk.Kind)
+				"API server returned error when asked if resource type %s is namespaced", gvk)
 		}
 	}
 
@@ -554,8 +553,8 @@ func (k *kubeProvider) Diff(
 	supportsDryRun, err := openapi.SupportsDryRun(k.clientSet.DiscoveryClientCached, gvk)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err,
-			"Failed to check for changes in resource %s/%s because of an error communicating with the API server",
-			newInputs.GetNamespace(), newInputs.GetName())
+			"Failed to check for changes in resource %s because of an error communicating with the API server",
+			fqObjName(newInputs))
 	}
 
 	var patch []byte
@@ -723,18 +722,16 @@ func (k *kubeProvider) Create(
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
 			// print a more useful error message in this case.
 			return nil, pkgerrors.Wrapf(
-				awaitErr, "creation of resource %s/%s failed because the Kubernetes API server "+
+				awaitErr, "creation of resource %s failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created",
-				newInputs.GetNamespace(), newInputs.GetName())
+					"Verify that any required CRDs have been created", fqObjName(newInputs))
 		}
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// Object creation failed.
 			return nil, pkgerrors.Wrapf(
 				awaitErr,
-				"resource %s/%s was not successfully created by the Kubernetes API server "+
-					newInputs.GetNamespace(), newInputs.GetName())
+				"resource %s was not successfully created by the Kubernetes API server ", fqObjName(newInputs))
 		}
 
 		// Resource was created, but failed to become fully initialized.
@@ -755,9 +752,8 @@ func (k *kubeProvider) Create(
 		return nil, partialError(
 			fqObjName(initialized),
 			pkgerrors.Wrapf(
-				awaitErr, "resource %s/%s was successfully created, but the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live",
-				newInputs.GetNamespace(), newInputs.GetName()),
+				awaitErr, "resource %s was successfully created, but the Kubernetes API server "+
+					"reported that it failed to fully initialize or become live", fqObjName(newInputs)),
 			inputsAndComputed,
 			nil)
 	}
@@ -1027,10 +1023,9 @@ func (k *kubeProvider) Update(
 			// CustomResourceDefinition. This usually happens if the CRD was not created, and we
 			// print a more useful error message in this case.
 			return nil, pkgerrors.Wrapf(
-				awaitErr, "update of resource %s/%s failed because the Kubernetes API server "+
+				awaitErr, "update of resource %s failed because the Kubernetes API server "+
 					"reported that the apiVersion for this resource does not exist. "+
-					"Verify that any required CRDs have been created",
-				newInputs.GetNamespace(), newInputs.GetName())
+					"Verify that any required CRDs have been created", fqObjName(newInputs))
 		}
 
 		var getErr error
@@ -1038,9 +1033,8 @@ func (k *kubeProvider) Update(
 		if getErr != nil {
 			// Object update/creation failed.
 			return nil, pkgerrors.Wrapf(
-				awaitErr, "update of resource %s/%s failed because the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live",
-				newInputs.GetNamespace(), newInputs.GetName())
+				awaitErr, "update of resource %s failed because the Kubernetes API server "+
+					"reported that it failed to fully initialize or become live", fqObjName(newInputs))
 		}
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.

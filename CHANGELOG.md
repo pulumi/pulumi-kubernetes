@@ -1,9 +1,5 @@
 ## 1.0.0-beta.2 (Unreleased)
 
-- Correctly compute version number for plugin to send with registration requests (fixes https://github.com/pulumi/pulumi-kubernetes/issues/732).
-- Allow a user to pass CustomTimeouts as part of ResourceOptions (fixes https://github.com/pulumi/pulumi-kubernetes/issues/672)
-
-
 ### Supported Kubernetes versions
 
 - v1.15.x
@@ -19,6 +15,12 @@
 -   Clean up Python SDK get methods. (https://github.com/pulumi/pulumi-kubernetes/pull/740).
 -   Remove undocumented kubectl replace invoke method. (https://github.com/pulumi/pulumi-kubernetes/pull/738).
 -   Don't populate `.status` in input types (https://github.com/pulumi/pulumi-kubernetes/pull/635).
+-   Allow a user to pass CustomTimeouts as part of ResourceOptions (fixes https://github.com/pulumi/pulumi-kubernetes/issues/672)
+
+### Bug fixes
+
+-   Fix error messages for resources with default namespace. (https://github.com/pulumi/pulumi-kubernetes/pull/749).
+-   Correctly compute version number for plugin to send with registration requests (fixes https://github.com/pulumi/pulumi-kubernetes/issues/732).
 
 ## 1.0.0-beta.1 (August 13, 2019)
 
