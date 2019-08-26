@@ -23,9 +23,9 @@ import (
 )
 
 func timeoutComment(kind kinds.Kind) string {
-	const timeoutOverride = `setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
-This approach will be deprecated in favor of customTimeouts. See
-https://github.com/pulumi/pulumi-kubernetes/issues/672 for details.`
+	const timeoutOverride = `setting the 'customTimeouts' option on the resource.
+Note that the timeout value for Delete is not yet supported. See
+https://github.com/pulumi/pulumi-kubernetes/issues/746 for details.`
 
 	var v int
 	switch kind {

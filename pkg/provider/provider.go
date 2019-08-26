@@ -712,7 +712,8 @@ func (k *kubeProvider) Create(
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
 		},
-		Inputs: annotatedInputs,
+		Inputs:  annotatedInputs,
+		Timeout: req.Timeout,
 	}
 
 	initialized, awaitErr := await.Creation(config)
@@ -1016,6 +1017,7 @@ func (k *kubeProvider) Update(
 		},
 		Previous: oldInputs,
 		Inputs:   annotatedInputs,
+		Timeout:  req.Timeout,
 	}
 	// Apply update.
 	initialized, awaitErr := await.Update(config)
@@ -1091,8 +1093,9 @@ func (k *kubeProvider) Delete(
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
 		},
-		Inputs: current,
-		Name:   name,
+		Inputs:  current,
+		Name:    name,
+		Timeout: req.Timeout,
 	}
 
 	awaitErr := await.Deletion(config)

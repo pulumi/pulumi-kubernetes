@@ -49,6 +49,7 @@ type createAwaitConfig struct {
 	clientSet      *clients.DynamicClientSet
 	currentInputs  *unstructured.Unstructured
 	currentOutputs *unstructured.Unstructured
+	timeout        float64
 }
 
 func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {

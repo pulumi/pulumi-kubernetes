@@ -29,9 +29,9 @@ class StatefulSet(pulumi.CustomResource):
     
     If the StatefulSet has not reached a Ready state after 5 minutes, it will
     time out and mark the resource update as Failed. You can override the default timeout value
-    by setting 'pulumi.com/timeoutSeconds' as a '.metadata.annotation' on the resource.
-    This approach will be deprecated in favor of customTimeouts. See
-    https://github.com/pulumi/pulumi-kubernetes/issues/672 for details.
+    by setting the 'customTimeouts' option on the resource.
+    Note that the timeout value for Delete is not yet supported. See
+    https://github.com/pulumi/pulumi-kubernetes/issues/746 for details.
     """
 
     apiVersion: pulumi.Output[str]

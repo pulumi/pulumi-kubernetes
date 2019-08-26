@@ -59,7 +59,8 @@ type ProviderConfig struct {
 
 type CreateConfig struct {
 	ProviderConfig
-	Inputs *unstructured.Unstructured
+	Inputs  *unstructured.Unstructured
+	Timeout float64
 }
 
 type ReadConfig struct {
@@ -72,12 +73,14 @@ type UpdateConfig struct {
 	ProviderConfig
 	Previous *unstructured.Unstructured
 	Inputs   *unstructured.Unstructured
+	Timeout  float64
 }
 
 type DeleteConfig struct {
 	ProviderConfig
-	Inputs *unstructured.Unstructured
-	Name   string
+	Inputs  *unstructured.Unstructured
+	Name    string
+	Timeout float64
 }
 
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
@@ -149,6 +152,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					currentInputs:  c.Inputs,
 					currentOutputs: outputs,
 					logger:         c.DedupLogger,
+					timeout:        c.Timeout,
 				}
 				waitErr := awaiter.awaitCreation(conf)
 				if waitErr != nil {
@@ -324,6 +328,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						currentInputs:  c.Inputs,
 						currentOutputs: currentOutputs,
 						logger:         c.DedupLogger,
+						timeout:        c.Timeout,
 					},
 					lastInputs:  c.Previous,
 					lastOutputs: liveOldObj,

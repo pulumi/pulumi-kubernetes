@@ -1,6 +1,8 @@
 ## 1.0.0-beta.2 (Unreleased)
 
 - Correctly compute version number for plugin to send with registration requests (fixes https://github.com/pulumi/pulumi-kubernetes/issues/732).
+- Allow a user to pass CustomTimeouts as part of ResourceOptions (fixes https://github.com/pulumi/pulumi-kubernetes/issues/672)
+
 
 ### Supported Kubernetes versions
 
