@@ -132,9 +132,10 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
+		RejectAssets: true,
 	})
 	if err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(err, "diffconfig failed because malformed resource inputs")
 	}
 
 	// We can't tell for sure if a computed value has changed, so we make the conservative choice
@@ -355,10 +356,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// an update.
 	newResInputs := req.GetNews()
 	news, err := plugin.UnmarshalProperties(newResInputs, plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
+		Label:        fmt.Sprintf("%s.news", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		RejectAssets: true,
 	})
 	if err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(news)
 
@@ -512,10 +516,13 @@ func (k *kubeProvider) Diff(
 
 	// Get new resource inputs. The user is submitting these as an update.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
+		Label:        fmt.Sprintf("%s.news", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		RejectAssets: true,
 	})
 	if err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(err, "diff failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
@@ -688,10 +695,13 @@ func (k *kubeProvider) Create(
 
 	// Parse inputs
 	newResInputs, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.properties", label), KeepUnknowns: true, SkipNulls: true,
+		Label:        fmt.Sprintf("%s.properties", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		RejectAssets: true,
 	})
 	if err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(err, "create failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
@@ -988,10 +998,13 @@ func (k *kubeProvider) Update(
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.news", label), KeepUnknowns: true, SkipNulls: true,
+		Label:        fmt.Sprintf("%s.news", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		RejectAssets: true,
 	})
 	if err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 

@@ -361,8 +361,8 @@ github.com/prometheus/common v0.2.0/go.mod h1:TNfzLD0ON7rHzMJeJkieUDPYmFC7Snx/y8
 github.com/prometheus/procfs v0.0.0-20180725123919-05ee40e3a273/go.mod h1:c3At6R/oaqEKCNdg8wHV1ftS6bRYblBhIjjI8uT2IGk=
 github.com/prometheus/procfs v0.0.0-20181005140218-185b4288413d/go.mod h1:c3At6R/oaqEKCNdg8wHV1ftS6bRYblBhIjjI8uT2IGk=
 github.com/prometheus/procfs v0.0.0-20190117184657-bf6a532e95b1/go.mod h1:c3At6R/oaqEKCNdg8wHV1ftS6bRYblBhIjjI8uT2IGk=
-github.com/pulumi/pulumi v1.0.0-beta.4.0.20190824005806-5188232afad4 h1:rlLlWLCZUsGvjosGPrFVFeQrm8KYr7G+KLFIa1/aIMY=
-github.com/pulumi/pulumi v1.0.0-beta.4.0.20190824005806-5188232afad4/go.mod h1:eSrIzt/kTqyrir8kE4KnCPYbxJm1ChSg1DD7lkBw0mA=
+github.com/pulumi/pulumi v1.0.0-beta.4.0.20190826221914-99d70e4610d2 h1:7vMIliNeAaCWLhTxg5G02Fc4l1XIHL1sXftzXu/ZxHo=
+github.com/pulumi/pulumi v1.0.0-beta.4.0.20190826221914-99d70e4610d2/go.mod h1:eSrIzt/kTqyrir8kE4KnCPYbxJm1ChSg1DD7lkBw0mA=
 github.com/rcrowley/go-metrics v0.0.0-20181016184325-3113b8401b8a/go.mod h1:bCqnVzQkZxMG4s8nGwiZ5l3QUCyqpo9Y+/ZMZ9VjZe4=
 github.com/reconquest/loreley v0.0.0-20160708080500-2ab6b7470a54 h1:J2RvHxEMIzMV6XbaZIj9s5G4lG3hhqWxS7Cl1Jii44c=
 github.com/reconquest/loreley v0.0.0-20160708080500-2ab6b7470a54/go.mod h1:1NF/j951kWm+ZnRXpOkBqweImgwhlzFVwTA4A0V7TEU=

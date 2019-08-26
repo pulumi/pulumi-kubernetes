@@ -21,7 +21,7 @@ require (
 	github.com/json-iterator/go v1.1.6 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/pkg/errors v0.8.1
-	github.com/pulumi/pulumi v1.0.0-beta.4.0.20190824005806-5188232afad4
+	github.com/pulumi/pulumi v1.0.0-beta.4.0.20190826221914-99d70e4610d2
 	github.com/stretchr/testify v1.3.0
 	google.golang.org/grpc v1.20.1
 	gopkg.in/inf.v0 v0.9.1 // indirect
