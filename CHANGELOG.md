@@ -1,4 +1,16 @@
-## 1.0.0-beta.2 (Unreleased)
+## 1.0.0-beta.3 (Unreleased)
+
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Improvements
+
+### Bug fixes
+
+## 1.0.0-beta.2 (August 26,2019)
 
 ### Supported Kubernetes versions
 
