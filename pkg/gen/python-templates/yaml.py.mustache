@@ -24,7 +24,7 @@ class ConfigFile(pulumi.ComponentResource):
     ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
     """
 
-    def __init__(self, name, file_id, opts, transformations=None, resource_prefix=None):
+    def __init__(self, name, file_id, opts=None, transformations=None, resource_prefix=None):
         """
         :param str name: A name for a resource.
         :param str file_id: Path or a URL that uniquely identifies a file.
