@@ -132,6 +132,12 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 		panic(err)
 	}
 
+	err = CopyFile(
+		filepath.Join(templateDir, "CustomResource.ts"), filepath.Join(outdir, "apiextensions", "CustomResource.ts"))
+	if err != nil {
+		panic(err)
+	}
+
 	err = CopyDir(filepath.Join(templateDir, "helm"), filepath.Join(outdir, "helm"))
 	if err != nil {
 		panic(err)
