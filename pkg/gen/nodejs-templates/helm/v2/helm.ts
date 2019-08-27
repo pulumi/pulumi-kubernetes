@@ -37,6 +37,25 @@ interface BaseChartOpts {
     /**
      * Optional array of transformations to apply to resources that will be created by this chart prior to
      * creation. Allows customization of the chart behaviour without directly modifying the chart itself.
+     *
+     * @example
+     * ```typescript
+     * transformations: [
+     * (obj: any, opts: pulumi.CustomResourceOptions) => {
+     *        if (obj.kind === "Deployment" && obj.metadata.name == "cert-manager") {
+     *            opts.aliases = [
+     *                "urn:pulumi:dev::example::kubernetes:helm.sh/v2:Chart$kubernetes:apps/v1beta1:Deployment::default/cert-manager",
+     *            ];
+     *        }
+     *
+     *        if (obj.metadata) {
+     *            obj.metadata.namespace = namespaceName;
+     *        } else {
+     *            obj.metadata = {namespace: namespaceName};
+     *        }
+     *    },
+     * ]
+     * ```
      */
     transformations?: ((o: any, opts: pulumi.CustomResourceOptions) => void)[];
 
