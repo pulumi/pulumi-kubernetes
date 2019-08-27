@@ -98,7 +98,7 @@ func PythonClient(
 		}
 		if group.Group() == "apiextensions" {
 			groupInitPy += fmt.Sprint(`
-from .CustomResource import *
+from .CustomResource import (CustomResource)
 `)
 
 			crBytes, err := ioutil.ReadFile(fmt.Sprintf("%s/CustomResource.py", templateDir))
@@ -146,4 +146,3 @@ from .CustomResource import *
 
 	return nil
 }
-
