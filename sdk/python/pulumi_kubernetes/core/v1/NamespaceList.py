@@ -89,14 +89,14 @@ class NamespaceList(pulumi.CustomResource):
     def get(resource_name, id, opts=None):
         """
         Get the state of an existing `NamespaceList` resource, as identified by `id`.
-        Typically this ID  is of the form [namespace]/[name]; if [namespace] is omitted,
-        then (per Kubernetes convention) the ID becomes default/[name].
+        The ID is of the form `[namespace]/[name]`; if `[namespace]` is omitted,
+        then (per Kubernetes convention) the ID becomes `default/[name]`.
 
         Pulumi will keep track of this resource using `resource_name` as the Pulumi ID.
 
         :param str resource_name: _Unique_ name used to register this resource with Pulumi.
         :param pulumi.Input[str] id: An ID for the Kubernetes resource to retrieve.
-               Takes the form [namespace]/[name] or [name].
+               Takes the form `[namespace]/[name]` or `[name]`.
         :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
                resource's behavior.
         """
