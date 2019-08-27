@@ -2,7 +2,7 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import json
-from copy import copy, deepcopy
+from copy import copy
 from inspect import getargspec
 from typing import Callable, Dict, List, Optional
 
@@ -21,27 +21,19 @@ from . import tables
 
 class ConfigFile(pulumi.ComponentResource):
     """
-    ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file. If `config.name`
-    is not specified, `ConfigFile` assumes the argument `name` is the filename.
-
-    :param str name: A name for a resource.
-    :param str file_id: Path or a URL that uniquely identifies a file.
-    :param Optional[ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
-    :param Optional[List[Callable]] transformations: A set of transformations to apply to Kubernetes
-           resource definitions before registering with engine.
-    :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
-           Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
-
+    ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
     """
 
-    def __init__(
-            self,
-            name: str,
-            file_id: str,
-            opts: Optional[pulumi.ResourceOptions] = None,
-            transformations: Optional[List[Callable]] = None,
-            resource_prefix: Optional[str] = None
-    ):
+    def __init__(self, name, file_id, opts=None, transformations=None, resource_prefix=None):
+        """
+        :param str name: A name for a resource.
+        :param str file_id: Path or a URL that uniquely identifies a file.
+        :param Optional[pulumi.ResourceOptions] opts: A bag of optional settings that control a resource's behavior.
+        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: A set of
+               transformations to apply to Kubernetes resource definitions before registering with engine.
+        :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
+               Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+        """
         if not name:
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(name, str):

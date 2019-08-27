@@ -96,22 +96,9 @@ class FetchOpts:
     Verify the package against its signature.
     """
 
-    def __init__(self,
-                 version: Optional[pulumi.Input[str]] = None,
-                 ca_file: Optional[pulumi.Input[str]] = None,
-                 cert_file: Optional[pulumi.Input[str]] = None,
-                 key_file: Optional[pulumi.Input[str]] = None,
-                 destination: Optional[pulumi.Input[str]] = None,
-                 keyring: Optional[pulumi.Input[str]] = None,
-                 password: Optional[pulumi.Input[str]] = None,
-                 repo: Optional[pulumi.Input[str]] = None,
-                 untar_dir: Optional[pulumi.Input[str]] = None,
-                 username: Optional[pulumi.Input[str]] = None,
-                 home: Optional[pulumi.Input[str]] = None,
-                 devel: Optional[pulumi.Input[bool]] = None,
-                 prov: Optional[pulumi.Input[bool]] = None,
-                 untar: Optional[pulumi.Input[bool]] = None,
-                 verify: Optional[pulumi.Input[bool]] = None) -> None:
+    def __init__(self, version=None, ca_file=None, cert_file=None, key_file=None, destination=None, keyring=None,
+                 password=None, repo=None, untar_dir=None, username=None, home=None, devel=None, prov=None,
+                 untar=None, verify=None):
         """
         :param Optional[pulumi.Input[str]] version: Specific version of a chart. If unset,
                the latest version is fetched.
@@ -160,6 +147,10 @@ class FetchOpts:
 
 
 class BaseChartOpts:
+    """
+    BaseChartOpts is a bag of common configuration options for a Helm chart.
+    """
+
     namespace: Optional[pulumi.Input[str]]
     """
     Optional namespace to install chart resources into.
@@ -182,17 +173,13 @@ class BaseChartOpts:
     Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
     """
 
-    def __init__(self,
-                 namespace: Optional[pulumi.Input[str]] = None,
-                 values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[List[Callable]] = None,
-                 resource_prefix: Optional[str] = None) -> None:
+    def __init__(self, namespace=None, values=None, transformations=None, resource_prefix=None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
-        :param Optional[List[Callable]] transformations: Optional list of transformations to apply to
-               resources that will be created by this chart prior to creation. Allows customization of the
-               chart behaviour without directly modifying the chart itself.
+        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: Optional list
+               of transformations to apply to resources that will be created by this chart prior to creation.
+               Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         """
@@ -229,24 +216,17 @@ class ChartOpts(BaseChartOpts):
     Additional options to customize the fetching of the Helm chart.
     """
 
-    def __init__(self,
-                 chart: pulumi.Input[str],
-                 namespace: Optional[pulumi.Input[str]] = None,
-                 values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[List[Callable]] = None,
-                 resource_prefix: Optional[str] = None,
-                 repo: Optional[pulumi.Input[str]] = None,
-                 version: Optional[pulumi.Input[str]] = None,
-                 fetch_opts: Optional[pulumi.Input[FetchOpts]] = None) -> None:
+    def __init__(self, chart, namespace=None, values=None, transformations=None, resource_prefix=None, repo=None,
+                 version=None, fetch_opts=None):
         """
         :param pulumi.Input[str] chart: The chart to deploy.  If [repo] is provided, this chart name is
                looked up in the given repository. Otherwise, this chart name must be a fully qualified
                chart URL or `repo/chartname`.
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
-        :param Optional[List[Callable] transformations: Optional list of transformations to apply to
-               resources that will be created by this chart prior to creation. Allows customization of the
-               chart behaviour without directly modifying the chart itself.
+        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: Optional list of
+               transformations to apply to resources that will be created by this chart prior to creation.
+               Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         :param Optional[pulumi.Input[str]] repo: The repository containing the desired chart.  If not
@@ -273,20 +253,15 @@ class LocalChartOpts(BaseChartOpts):
     The path to the chart directory which contains the `Chart.yaml` file.
     """
 
-    def __init__(self,
-                 path: pulumi.Input[str],
-                 namespace: Optional[pulumi.Input[str]] = None,
-                 values: Optional[pulumi.Inputs] = None,
-                 transformations: Optional[List[Callable]] = None,
-                 resource_prefix: Optional[str] = None) -> None:
+    def __init__(self, path, namespace=None, values=None, transformations=None, resource_prefix=None):
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
-        :param Optional[List[Callable]] transformations: Optional list of transformations to apply to
-               resources that will be created by this chart prior to creation. Allows customization of the
-               chart behaviour without directly modifying the chart itself.
+        :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: Optional list of
+               transformations to apply to resources that will be created by this chart prior to creation.
+               Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
         """
@@ -424,16 +399,17 @@ class Chart(pulumi.ComponentResource):
     are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML
     manifests. Any values that would be retrieved in-cluster are assigned fake values, and
     none of Tiller's server-side validity testing is executed.
-
-    :param str release_name: Name of the Chart (e.g., nginx-ingress).
-    :param Union[ChartOpts, LocalChartOpts] config: Configuration options for the Chart.
-    :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
-           resource's behavior.
     """
 
-    def __init__(self, release_name: str,
-                 config: Union[ChartOpts, LocalChartOpts],
-                 opts: Optional[pulumi.ResourceOptions] = None):
+    def __init__(self, release_name, config, opts=None):
+        """
+        Create an instance of the specified Helm chart.
+
+        :param str release_name: Name of the Chart (e.g., nginx-ingress).
+        :param Union[ChartOpts, LocalChartOpts] config: Configuration options for the Chart.
+        :param Optional[pulumi.ResourceOptions] opts: A bag of options that control this
+               resource's behavior.
+        """
         if not release_name:
             raise TypeError('Missing release name argument')
         if not isinstance(release_name, str):
