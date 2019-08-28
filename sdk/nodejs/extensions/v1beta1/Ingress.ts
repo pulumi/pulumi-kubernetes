@@ -18,6 +18,7 @@ import { getVersion } from "../../version";
      * create/update and populating output properties from the current state of the resource.
      * The following conditions are used to determine whether the resource creation has
      * succeeded or failed:
+     * 
      * 1.  Ingress object exists.
      * 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
      *     type is ExternalName).

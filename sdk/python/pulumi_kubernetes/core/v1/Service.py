@@ -21,6 +21,7 @@ class Service(pulumi.CustomResource):
     create/update and populating output properties from the current state of the resource.
     The following conditions are used to determine whether the resource creation has
     succeeded or failed:
+    
     1. Service object exists.
     2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
        for any stragglers.
