@@ -10,6 +10,8 @@
 
 ### Bug fixes
 
+-   Do not leak unencrypted secret values into the state file (fixes https://github.com/pulumi/pulumi-kubernetes/issues/734).
+
 ## 1.0.0-beta.2 (August 26,2019)
 
 ### Supported Kubernetes versions
