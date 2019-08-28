@@ -1,4 +1,16 @@
-## 1.0.0-beta.3 (Unreleased)
+## HEAD (Unreleased)
+
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
+### Improvements
+
+### Bug fixes
+
+## 1.0.0-rc.1 (August 28, 2019)
 
 ### Supported Kubernetes versions
 
@@ -12,7 +24,7 @@
 
 -   Do not leak unencrypted secret values into the state file (fixes https://github.com/pulumi/pulumi-kubernetes/issues/734).
 
-## 1.0.0-beta.2 (August 26,2019)
+## 1.0.0-beta.2 (August 26, 2019)
 
 ### Supported Kubernetes versions
 
