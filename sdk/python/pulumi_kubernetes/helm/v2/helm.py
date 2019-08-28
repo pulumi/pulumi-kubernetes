@@ -401,6 +401,11 @@ class Chart(pulumi.ComponentResource):
     none of Tiller's server-side validity testing is executed.
     """
 
+    resources: pulumi.Output[dict]
+    """
+    Kubernetes resources contained in this Chart.
+    """
+
     def __init__(self, release_name, config, opts=None):
         """
         Create an instance of the specified Helm chart.
@@ -440,5 +445,23 @@ class Chart(pulumi.ComponentResource):
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this Helm chart created.
-        resources = all_config.apply(_parse_chart)
-        self.register_outputs({"output": resources})
+        self.resources = all_config.apply(_parse_chart)
+        self.register_outputs({"resources": self.resources})
+
+    def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
+        """
+        get_resource returns a resource defined by a built-in Kubernetes group/version/kind and
+        name. For example: `get_resource("apps/v1/Deployment", "nginx")`
+
+        :param str group_version_kind: Group/Version/Kind of the resource, e.g., `apps/v1/Deployment`
+        :param str name: Name of the resource to retrieve
+        :param str namespace: Optional namespace of the resource to retrieve
+        """
+
+        # `id` will either be `${name}` or `${namespace}/${name}`.
+        id = pulumi.Output.from_input(name)
+        if namespace != None:
+            id = pulumi.Output.concat(namespace, '/', name)
+
+        resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')
+        return resource_id.apply(lambda x: self.resources[x])
