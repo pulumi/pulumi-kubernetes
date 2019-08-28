@@ -39,7 +39,7 @@ class ReplicationControllerList(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard list metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
 
     def __init__(self, resource_name, opts=None, items=None, metadata=None, __name__=None, __opts__=None):
@@ -51,7 +51,7 @@ class ReplicationControllerList(pulumi.CustomResource):
         :param pulumi.Input[list] items: List of replication controllers. More info:
                https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
         :param pulumi.Input[dict] metadata: Standard list metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

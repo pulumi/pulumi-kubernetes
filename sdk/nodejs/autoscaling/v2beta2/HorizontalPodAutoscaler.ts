@@ -17,7 +17,7 @@ import { getVersion } from "../../version";
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       public readonly apiVersion: pulumi.Output<"autoscaling/v2beta2">;
 
@@ -25,19 +25,19 @@ import { getVersion } from "../../version";
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       public readonly kind: pulumi.Output<"HorizontalPodAutoscaler">;
 
       /**
        * metadata is the standard object metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * spec is the specification for the behaviour of the autoscaler. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       public readonly spec: pulumi.Output<outputs.autoscaling.v2beta2.HorizontalPodAutoscalerSpec>;
 

@@ -68,7 +68,7 @@ class Event(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     reason: pulumi.Output[str]
@@ -115,7 +115,7 @@ class Event(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
         :param pulumi.Input[dict] involved_object: The object that this event is about.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] action: What action was taken/failed regarding to the Regarding object.
         :param pulumi.Input[int] count: The number of times this event has occurred.
         :param pulumi.Input[str] event_time: Time when this Event was first observed.

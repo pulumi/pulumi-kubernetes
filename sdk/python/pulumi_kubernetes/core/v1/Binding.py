@@ -34,7 +34,7 @@ class Binding(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     target: pulumi.Output[dict]
@@ -50,7 +50,7 @@ class Binding(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
         :param pulumi.Input[dict] target: The target object that you want to bind to the standard object.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

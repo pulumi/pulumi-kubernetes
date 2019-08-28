@@ -36,13 +36,14 @@ class RuntimeClass(pulumi.CustomResource):
 
     metadata: pulumi.Output[dict]
     """
-    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    More info:
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     spec: pulumi.Output[dict]
     """
     Specification of the RuntimeClass More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
 
     def __init__(self, resource_name, opts=None, spec=None, metadata=None, __name__=None, __opts__=None):
@@ -52,9 +53,9 @@ class RuntimeClass(pulumi.CustomResource):
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
         :param pulumi.Input[dict] spec: Specification of the RuntimeClass More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input[dict] metadata: More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

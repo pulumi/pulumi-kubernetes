@@ -49,7 +49,7 @@ class ConfigMap(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     def __init__(self, resource_name, opts=None, binary_data=None, data=None, metadata=None, __name__=None, __opts__=None):
@@ -68,7 +68,7 @@ class ConfigMap(pulumi.CustomResource):
                BinaryData field. The keys stored in Data must not overlap with the keys in the
                BinaryData field, this is enforced during validation process.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

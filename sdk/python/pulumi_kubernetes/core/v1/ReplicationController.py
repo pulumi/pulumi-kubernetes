@@ -34,20 +34,20 @@ class ReplicationController(pulumi.CustomResource):
     """
     If the Labels of a ReplicationController are empty, they are defaulted to be the same as the
     Pod(s) that the replication controller manages. Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     spec: pulumi.Output[dict]
     """
     Spec defines the specification of the desired behavior of the replication controller. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
 
     status: pulumi.Output[dict]
     """
     Status is the most recently observed status of the replication controller. This data may be out
     of date by some window of time. Populated by the system. Read-only. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, __name__=None, __opts__=None):
@@ -59,10 +59,10 @@ class ReplicationController(pulumi.CustomResource):
         :param pulumi.Input[dict] metadata: If the Labels of a ReplicationController are empty, they are defaulted to be the same
                as the Pod(s) that the replication controller manages. Standard object's metadata.
                More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[dict] spec: Spec defines the specification of the desired behavior of the replication controller.
                More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

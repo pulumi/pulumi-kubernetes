@@ -34,7 +34,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object metadata; More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
 
     webhooks: pulumi.Output[list]
@@ -49,7 +49,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
         :param pulumi.Input[dict] metadata: Standard object metadata; More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         :param pulumi.Input[list] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
         """
         if __name__ is not None:

@@ -46,7 +46,8 @@ class RuntimeClass(pulumi.CustomResource):
 
     metadata: pulumi.Output[dict]
     """
-    More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    More info:
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     def __init__(self, resource_name, opts=None, handler=None, metadata=None, __name__=None, __opts__=None):
@@ -63,7 +64,7 @@ class RuntimeClass(pulumi.CustomResource):
                native Linux containers) will be used to run the containers in a pod. The Handler
                must conform to the DNS Label (RFC 1123) requirements, and is immutable.
         :param pulumi.Input[dict] metadata: More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

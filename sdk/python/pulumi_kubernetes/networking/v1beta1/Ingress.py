@@ -50,19 +50,19 @@ class Ingress(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     spec: pulumi.Output[dict]
     """
     Spec is the desired state of the Ingress. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
 
     status: pulumi.Output[dict]
     """
     Status is the current state of the Ingress. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
 
     def __init__(self, resource_name, opts=None, metadata=None, spec=None, __name__=None, __opts__=None):
@@ -72,9 +72,9 @@ class Ingress(pulumi.CustomResource):
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[dict] spec: Spec is the desired state of the Ingress. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

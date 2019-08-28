@@ -171,7 +171,7 @@ export namespace admissionregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">
 
@@ -179,13 +179,13 @@ export namespace admissionregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"MutatingWebhookConfiguration">
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -213,7 +213,7 @@ export namespace admissionregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">
 
@@ -221,13 +221,13 @@ export namespace admissionregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"MutatingWebhookConfigurationList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -459,7 +459,7 @@ export namespace admissionregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">
 
@@ -467,13 +467,13 @@ export namespace admissionregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ValidatingWebhookConfiguration">
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -501,7 +501,7 @@ export namespace admissionregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1beta1">
 
@@ -509,13 +509,13 @@ export namespace admissionregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ValidatingWebhookConfigurationList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -667,7 +667,7 @@ export namespace apiextensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apiextensions.k8s.io/v1beta1">
 
@@ -675,7 +675,7 @@ export namespace apiextensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CustomResourceDefinition">
 
@@ -734,7 +734,7 @@ export namespace apiextensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apiextensions.k8s.io/v1beta1">
 
@@ -742,7 +742,7 @@ export namespace apiextensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CustomResourceDefinitionList">
 
@@ -1267,7 +1267,7 @@ export namespace apiregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apiregistration.k8s.io/v1">
 
@@ -1275,7 +1275,7 @@ export namespace apiregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"APIService">
 
@@ -1336,7 +1336,7 @@ export namespace apiregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apiregistration.k8s.io/v1">
 
@@ -1344,7 +1344,7 @@ export namespace apiregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"APIServiceList">
 
@@ -1467,7 +1467,7 @@ export namespace apiregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apiregistration.k8s.io/v1beta1">
 
@@ -1475,7 +1475,7 @@ export namespace apiregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"APIService">
 
@@ -1536,7 +1536,7 @@ export namespace apiregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apiregistration.k8s.io/v1beta1">
 
@@ -1544,7 +1544,7 @@ export namespace apiregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"APIServiceList">
 
@@ -1682,7 +1682,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -1695,13 +1695,13 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ControllerRevision">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -1724,7 +1724,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -1732,12 +1732,13 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ControllerRevisionList">
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -1755,7 +1756,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -1763,19 +1764,19 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DaemonSet">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * The desired behavior of this daemon set. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<apps.v1.DaemonSetSpec>
 
@@ -1830,7 +1831,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -1838,13 +1839,13 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DaemonSetList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -1985,7 +1986,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -1993,7 +1994,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Deployment">
 
@@ -2063,7 +2064,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -2071,7 +2072,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DeploymentList">
 
@@ -2221,7 +2222,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -2229,20 +2230,20 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ReplicaSet">
 
       /**
        * If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s)
        * that the ReplicaSet manages. Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the specification of the desired behavior of the ReplicaSet. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<apps.v1.ReplicaSetSpec>
 
@@ -2298,7 +2299,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -2306,13 +2307,13 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ReplicaSetList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -2475,7 +2476,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -2483,7 +2484,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StatefulSet">
 
@@ -2544,7 +2545,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1">
 
@@ -2552,7 +2553,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StatefulSetList">
 
@@ -2740,7 +2741,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta1">
 
@@ -2753,13 +2754,13 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ControllerRevision">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -2782,7 +2783,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta1">
 
@@ -2790,12 +2791,13 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ControllerRevisionList">
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -2815,7 +2817,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta1">
 
@@ -2823,7 +2825,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Deployment">
 
@@ -2893,7 +2895,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta1">
 
@@ -2901,7 +2903,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DeploymentList">
 
@@ -2934,7 +2936,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -2942,7 +2944,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -3154,7 +3156,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -3162,19 +3164,19 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * defines the behavior of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       spec?: pulumi.Input<apps.v1beta1.ScaleSpec>
 
@@ -3238,7 +3240,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta1">
 
@@ -3246,7 +3248,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StatefulSet">
 
@@ -3307,7 +3309,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta1">
 
@@ -3315,7 +3317,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StatefulSetList">
 
@@ -3503,7 +3505,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -3516,7 +3518,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ControllerRevision">
 
@@ -3545,7 +3547,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -3553,7 +3555,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ControllerRevisionList">
 
@@ -3578,7 +3580,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -3586,7 +3588,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DaemonSet">
 
@@ -3653,7 +3655,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -3661,7 +3663,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DaemonSetList">
 
@@ -3810,7 +3812,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -3818,7 +3820,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Deployment">
 
@@ -3888,7 +3890,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -3896,7 +3898,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DeploymentList">
 
@@ -4048,7 +4050,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -4056,7 +4058,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ReplicaSet">
 
@@ -4125,7 +4127,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -4133,7 +4135,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ReplicaSetList">
 
@@ -4298,7 +4300,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -4306,7 +4308,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -4382,7 +4384,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -4390,7 +4392,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StatefulSet">
 
@@ -4451,7 +4453,7 @@ export namespace apps {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"apps/v1beta2">
 
@@ -4459,7 +4461,7 @@ export namespace apps {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StatefulSetList">
 
@@ -4636,7 +4638,7 @@ export namespace auditregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"auditregistration.k8s.io/v1alpha1">
 
@@ -4644,7 +4646,7 @@ export namespace auditregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"AuditSink">
 
@@ -4675,7 +4677,7 @@ export namespace auditregistration {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"auditregistration.k8s.io/v1alpha1">
 
@@ -4683,7 +4685,7 @@ export namespace auditregistration {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"AuditSinkList">
 
@@ -4858,7 +4860,7 @@ export namespace authentication {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authentication.k8s.io/v1">
 
@@ -4866,7 +4868,7 @@ export namespace authentication {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"TokenReview">
 
@@ -4977,7 +4979,7 @@ export namespace authentication {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authentication.k8s.io/v1beta1">
 
@@ -4985,7 +4987,7 @@ export namespace authentication {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"TokenReview">
 
@@ -5101,7 +5103,7 @@ export namespace authorization {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authorization.k8s.io/v1">
 
@@ -5109,7 +5111,7 @@ export namespace authorization {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"LocalSubjectAccessReview">
 
@@ -5257,7 +5259,7 @@ export namespace authorization {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authorization.k8s.io/v1">
 
@@ -5265,7 +5267,7 @@ export namespace authorization {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"SelfSubjectAccessReview">
 
@@ -5316,7 +5318,7 @@ export namespace authorization {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authorization.k8s.io/v1">
 
@@ -5324,7 +5326,7 @@ export namespace authorization {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"SelfSubjectRulesReview">
 
@@ -5362,7 +5364,7 @@ export namespace authorization {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authorization.k8s.io/v1">
 
@@ -5370,7 +5372,7 @@ export namespace authorization {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"SubjectAccessReview">
 
@@ -5510,7 +5512,7 @@ export namespace authorization {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authorization.k8s.io/v1beta1">
 
@@ -5518,7 +5520,7 @@ export namespace authorization {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"LocalSubjectAccessReview">
 
@@ -5666,7 +5668,7 @@ export namespace authorization {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authorization.k8s.io/v1beta1">
 
@@ -5674,7 +5676,7 @@ export namespace authorization {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"SelfSubjectAccessReview">
 
@@ -5725,7 +5727,7 @@ export namespace authorization {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authorization.k8s.io/v1beta1">
 
@@ -5733,7 +5735,7 @@ export namespace authorization {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"SelfSubjectRulesReview">
 
@@ -5771,7 +5773,7 @@ export namespace authorization {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"authorization.k8s.io/v1beta1">
 
@@ -5779,7 +5781,7 @@ export namespace authorization {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"SubjectAccessReview">
 
@@ -5913,7 +5915,7 @@ export namespace autoscaling {
     export interface CrossVersionObjectReference {
       /**
        * Kind of the referent; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
        */
       kind: pulumi.Input<string>
 
@@ -5941,7 +5943,7 @@ export namespace autoscaling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"autoscaling/v1">
 
@@ -5949,19 +5951,19 @@ export namespace autoscaling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"HorizontalPodAutoscaler">
 
       /**
        * Standard object metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * behaviour of autoscaler. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       spec?: pulumi.Input<autoscaling.v1.HorizontalPodAutoscalerSpec>
 
@@ -5984,7 +5986,7 @@ export namespace autoscaling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"autoscaling/v1">
 
@@ -5992,7 +5994,7 @@ export namespace autoscaling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"HorizontalPodAutoscalerList">
 
@@ -6079,7 +6081,7 @@ export namespace autoscaling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -6087,19 +6089,19 @@ export namespace autoscaling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
       /**
        * Standard object metadata; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * defines the behavior of the scale. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       spec?: pulumi.Input<autoscaling.v1.ScaleSpec>
 
@@ -6151,7 +6153,7 @@ export namespace autoscaling {
     export interface CrossVersionObjectReference {
       /**
        * Kind of the referent; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
        */
       kind: pulumi.Input<string>
 
@@ -6240,7 +6242,7 @@ export namespace autoscaling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"autoscaling/v2beta1">
 
@@ -6248,19 +6250,19 @@ export namespace autoscaling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"HorizontalPodAutoscaler">
 
       /**
        * metadata is the standard object metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * spec is the specification for the behaviour of the autoscaler. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       spec?: pulumi.Input<autoscaling.v2beta1.HorizontalPodAutoscalerSpec>
 
@@ -6316,7 +6318,7 @@ export namespace autoscaling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"autoscaling/v2beta1">
 
@@ -6324,7 +6326,7 @@ export namespace autoscaling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"HorizontalPodAutoscalerList">
 
@@ -6700,7 +6702,7 @@ export namespace autoscaling {
     export interface CrossVersionObjectReference {
       /**
        * Kind of the referent; More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
        */
       kind: pulumi.Input<string>
 
@@ -6767,7 +6769,7 @@ export namespace autoscaling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"autoscaling/v2beta2">
 
@@ -6775,19 +6777,19 @@ export namespace autoscaling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"HorizontalPodAutoscaler">
 
       /**
        * metadata is the standard object metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * spec is the specification for the behaviour of the autoscaler. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status.
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
        */
       spec?: pulumi.Input<autoscaling.v2beta2.HorizontalPodAutoscalerSpec>
 
@@ -6843,7 +6845,7 @@ export namespace autoscaling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"autoscaling/v2beta2">
 
@@ -6851,7 +6853,7 @@ export namespace autoscaling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"HorizontalPodAutoscalerList">
 
@@ -7239,7 +7241,7 @@ export namespace batch {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"batch/v1">
 
@@ -7247,19 +7249,19 @@ export namespace batch {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Job">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Specification of the desired behavior of a job. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<batch.v1.JobSpec>
 
@@ -7319,7 +7321,7 @@ export namespace batch {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"batch/v1">
 
@@ -7327,13 +7329,13 @@ export namespace batch {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"JobList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -7468,7 +7470,7 @@ export namespace batch {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"batch/v1beta1">
 
@@ -7476,19 +7478,19 @@ export namespace batch {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CronJob">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Specification of the desired behavior of a cron job, including the schedule. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<batch.v1beta1.CronJobSpec>
 
@@ -7511,7 +7513,7 @@ export namespace batch {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"batch/v1beta1">
 
@@ -7519,13 +7521,13 @@ export namespace batch {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CronJobList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -7607,13 +7609,13 @@ export namespace batch {
     export interface JobTemplateSpec {
       /**
        * Standard object's metadata of the jobs created from this template. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Specification of the desired behavior of the job. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<batch.v1.JobSpec>
 
@@ -7631,7 +7633,7 @@ export namespace batch {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"batch/v2alpha1">
 
@@ -7639,19 +7641,19 @@ export namespace batch {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CronJob">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Specification of the desired behavior of a cron job, including the schedule. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<batch.v2alpha1.CronJobSpec>
 
@@ -7674,7 +7676,7 @@ export namespace batch {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"batch/v2alpha1">
 
@@ -7682,13 +7684,13 @@ export namespace batch {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CronJobList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -7770,13 +7772,13 @@ export namespace batch {
     export interface JobTemplateSpec {
       /**
        * Standard object's metadata of the jobs created from this template. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Specification of the desired behavior of the job. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<batch.v1.JobSpec>
 
@@ -7797,7 +7799,7 @@ export namespace certificates {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"certificates.k8s.io/v1beta1">
 
@@ -7805,7 +7807,7 @@ export namespace certificates {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CertificateSigningRequest">
 
@@ -7861,7 +7863,7 @@ export namespace certificates {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"certificates.k8s.io/v1beta1">
 
@@ -7869,7 +7871,7 @@ export namespace certificates {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CertificateSigningRequestList">
 
@@ -7954,7 +7956,7 @@ export namespace coordination {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"coordination.k8s.io/v1">
 
@@ -7962,18 +7964,19 @@ export namespace coordination {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Lease">
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Specification of the Lease. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<coordination.v1.LeaseSpec>
 
@@ -7996,7 +7999,7 @@ export namespace coordination {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"coordination.k8s.io/v1">
 
@@ -8004,13 +8007,13 @@ export namespace coordination {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"LeaseList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -8064,7 +8067,7 @@ export namespace coordination {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"coordination.k8s.io/v1beta1">
 
@@ -8072,18 +8075,19 @@ export namespace coordination {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Lease">
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Specification of the Lease. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<coordination.v1beta1.LeaseSpec>
 
@@ -8106,7 +8110,7 @@ export namespace coordination {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"coordination.k8s.io/v1beta1">
 
@@ -8114,13 +8118,13 @@ export namespace coordination {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"LeaseList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -8356,7 +8360,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -8364,13 +8368,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Binding">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -8707,7 +8711,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -8720,13 +8724,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ComponentStatus">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -8749,7 +8753,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -8757,13 +8761,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ComponentStatusList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -8781,7 +8785,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -8805,13 +8809,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ConfigMap">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -8878,7 +8882,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -8886,12 +8890,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ConfigMapList">
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -9584,7 +9589,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -9592,13 +9597,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Endpoints">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -9631,7 +9636,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -9639,13 +9644,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"EndpointsList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -9744,7 +9749,7 @@ export namespace core {
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -9757,7 +9762,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -9780,7 +9785,7 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Event">
 
@@ -9849,7 +9854,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -9857,13 +9862,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"EventList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -10503,7 +10508,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -10511,19 +10516,19 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"LimitRange">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the limits enforced. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<core.v1.LimitRangeSpec>
 
@@ -10587,7 +10592,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -10595,13 +10600,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"LimitRangeList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -10724,7 +10729,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -10732,19 +10737,19 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Namespace">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the behavior of the Namespace. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<core.v1.NamespaceSpec>
 
@@ -10768,7 +10773,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -10776,13 +10781,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"NamespaceList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -10827,7 +10832,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -10835,19 +10840,19 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Node">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the behavior of a node.
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<core.v1.NodeSpec>
 
@@ -11030,7 +11035,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -11038,13 +11043,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"NodeList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -11327,7 +11332,7 @@ export namespace core {
 
       /**
        * Kind of the referent. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -11345,7 +11350,7 @@ export namespace core {
 
       /**
        * Specific resourceVersion to which this reference is made, if any. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#concurrency-control-and-consistency
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
        */
       resourceVersion?: pulumi.Input<string>
 
@@ -11370,7 +11375,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -11378,13 +11383,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PersistentVolume">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -11409,7 +11414,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -11417,13 +11422,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PersistentVolumeClaim">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -11488,7 +11493,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -11496,13 +11501,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PersistentVolumeClaimList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -11629,7 +11634,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -11637,13 +11642,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PersistentVolumeList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -11895,7 +11900,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -11903,19 +11908,19 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Pod">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Specification of the desired behavior of the pod. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<core.v1.PodSpec>
 
@@ -12098,7 +12103,8 @@ export namespace core {
      */
     export interface PodList {
       /**
-       * List of pods. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md
+       * List of pods. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md
        */
       items: pulumi.Input<pulumi.Input<core.v1.Pod>[]>
 
@@ -12106,7 +12112,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -12114,13 +12120,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -12543,7 +12549,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -12551,19 +12557,19 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodTemplate">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Template defines the pods that will be created from this pod template.
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       template?: pulumi.Input<core.v1.PodTemplateSpec>
 
@@ -12586,7 +12592,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -12594,13 +12600,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodTemplateList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -12616,13 +12622,13 @@ export namespace core {
     export interface PodTemplateSpec {
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Specification of the desired behavior of the pod. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<core.v1.PodSpec>
 
@@ -12913,7 +12919,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -12921,20 +12927,21 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ReplicationController">
 
       /**
        * If the Labels of a ReplicationController are empty, they are defaulted to be the same as
        * the Pod(s) that the replication controller manages. Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the specification of the desired behavior of the replication controller. More
-       * info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<core.v1.ReplicationControllerSpec>
 
@@ -12991,7 +12998,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -12999,13 +13006,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ReplicationControllerList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -13123,7 +13130,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -13131,19 +13138,19 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ResourceQuota">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the desired quota.
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<core.v1.ResourceQuotaSpec>
 
@@ -13167,7 +13174,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -13175,13 +13182,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ResourceQuotaList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -13456,7 +13463,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -13472,13 +13479,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Secret">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -13558,7 +13565,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -13566,13 +13573,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"SecretList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -13760,7 +13767,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -13768,19 +13775,19 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Service">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec defines the behavior of a service.
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<core.v1.ServiceSpec>
 
@@ -13800,7 +13807,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -13823,13 +13830,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ServiceAccount">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -13859,7 +13866,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -13867,13 +13874,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ServiceAccountList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -13926,7 +13933,7 @@ export namespace core {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -13934,13 +13941,13 @@ export namespace core {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ServiceList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -14747,7 +14754,7 @@ export namespace events {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"events.k8s.io/v1beta1">
 
@@ -14775,7 +14782,7 @@ export namespace events {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Event">
 
@@ -14845,7 +14852,7 @@ export namespace events {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"events.k8s.io/v1beta1">
 
@@ -14853,13 +14860,13 @@ export namespace events {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"EventList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -14957,7 +14964,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -14965,7 +14972,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DaemonSet">
 
@@ -15032,7 +15039,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -15040,7 +15047,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DaemonSetList">
 
@@ -15195,7 +15202,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -15203,7 +15210,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Deployment">
 
@@ -15273,7 +15280,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -15281,7 +15288,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"DeploymentList">
 
@@ -15314,7 +15321,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -15322,7 +15329,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -15598,7 +15605,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -15606,7 +15613,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Ingress">
 
@@ -15658,7 +15665,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -15666,7 +15673,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"IngressList">
 
@@ -15780,7 +15787,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -15788,7 +15795,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"NetworkPolicy">
 
@@ -15877,7 +15884,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -15885,7 +15892,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"NetworkPolicyList">
 
@@ -16016,7 +16023,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -16024,7 +16031,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodSecurityPolicy">
 
@@ -16059,7 +16066,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -16067,7 +16074,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodSecurityPolicyList">
 
@@ -16257,7 +16264,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -16265,7 +16272,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ReplicaSet">
 
@@ -16334,7 +16341,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"extensions/v1beta1">
 
@@ -16342,7 +16349,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ReplicaSetList">
 
@@ -16583,7 +16590,7 @@ export namespace extensions {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -16591,7 +16598,7 @@ export namespace extensions {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -16698,7 +16705,7 @@ export namespace meta {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -16706,7 +16713,7 @@ export namespace meta {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -16746,7 +16753,7 @@ export namespace meta {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -16754,7 +16761,7 @@ export namespace meta {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -16850,7 +16857,7 @@ export namespace meta {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -16858,7 +16865,7 @@ export namespace meta {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -16893,7 +16900,7 @@ export namespace meta {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -16901,7 +16908,7 @@ export namespace meta {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -16919,7 +16926,7 @@ export namespace meta {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -16942,7 +16949,7 @@ export namespace meta {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -17109,7 +17116,7 @@ export namespace meta {
        * String that identifies the server's internal version of this object that can be used by
        * clients to determine when objects have changed. Value must be treated as opaque by clients
        * and passed unmodified back to the server. Populated by the system. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#concurrency-control-and-consistency
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
        */
       resourceVersion?: pulumi.Input<string>
 
@@ -17187,7 +17194,7 @@ export namespace meta {
        * may not set this value. It is represented in RFC3339 form and is in UTC.
        * 
        * Populated by the system. Read-only. Null for lists. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       creationTimestamp?: pulumi.Input<string>
 
@@ -17215,7 +17222,7 @@ export namespace meta {
        * has not been requested.
        * 
        * Populated by the system when a graceful deletion is requested. Read-only. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       deletionTimestamp?: pulumi.Input<string>
 
@@ -17239,7 +17246,7 @@ export namespace meta {
        * (optionally after the time indicated in the Retry-After header).
        * 
        * Applied only if Name is not specified. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#idempotency
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
        */
       generateName?: pulumi.Input<string>
 
@@ -17319,7 +17326,7 @@ export namespace meta {
        * 
        * Populated by the system. Read-only. Value must be treated as opaque by clients and . More
        * info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#concurrency-control-and-consistency
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
        */
       resourceVersion?: pulumi.Input<string>
 
@@ -17353,7 +17360,7 @@ export namespace meta {
 
       /**
        * Kind of the referent. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind: pulumi.Input<string>
 
@@ -17431,7 +17438,7 @@ export namespace meta {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"v1">
 
@@ -17451,7 +17458,7 @@ export namespace meta {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Status">
 
@@ -17462,7 +17469,7 @@ export namespace meta {
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -17532,7 +17539,7 @@ export namespace meta {
       /**
        * The kind attribute of the resource associated with the status StatusReason. On some
        * operations may differ from the requested resource Kind. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -17611,7 +17618,7 @@ export namespace networking {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"networking.k8s.io/v1">
 
@@ -17619,7 +17626,7 @@ export namespace networking {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"NetworkPolicy">
 
@@ -17705,7 +17712,7 @@ export namespace networking {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"networking.k8s.io/v1">
 
@@ -17713,7 +17720,7 @@ export namespace networking {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"NetworkPolicyList">
 
@@ -17881,7 +17888,7 @@ export namespace networking {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"networking.k8s.io/v1beta1">
 
@@ -17889,19 +17896,19 @@ export namespace networking {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Ingress">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
       /**
        * Spec is the desired state of the Ingress. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec?: pulumi.Input<networking.v1beta1.IngressSpec>
 
@@ -17941,7 +17948,7 @@ export namespace networking {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"networking.k8s.io/v1beta1">
 
@@ -17949,13 +17956,13 @@ export namespace networking {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"IngressList">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -18070,7 +18077,7 @@ export namespace node {
     export interface RuntimeClass {
       /**
        * Specification of the RuntimeClass More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       spec: pulumi.Input<node.v1alpha1.RuntimeClassSpec>
 
@@ -18078,7 +18085,7 @@ export namespace node {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"node.k8s.io/v1alpha1">
 
@@ -18086,12 +18093,13 @@ export namespace node {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RuntimeClass">
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -18114,7 +18122,7 @@ export namespace node {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"node.k8s.io/v1alpha1">
 
@@ -18122,13 +18130,13 @@ export namespace node {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RuntimeClassList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -18186,7 +18194,7 @@ export namespace node {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"node.k8s.io/v1beta1">
 
@@ -18194,12 +18202,13 @@ export namespace node {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RuntimeClass">
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -18222,7 +18231,7 @@ export namespace node {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"node.k8s.io/v1beta1">
 
@@ -18230,13 +18239,13 @@ export namespace node {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RuntimeClassList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -18399,7 +18408,7 @@ export namespace policy {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<string>
 
@@ -18412,7 +18421,7 @@ export namespace policy {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<string>
 
@@ -18489,7 +18498,7 @@ export namespace policy {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"policy/v1beta1">
 
@@ -18497,7 +18506,7 @@ export namespace policy {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodDisruptionBudget">
 
@@ -18526,7 +18535,7 @@ export namespace policy {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"policy/v1beta1">
 
@@ -18534,7 +18543,7 @@ export namespace policy {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodDisruptionBudgetList">
 
@@ -18632,7 +18641,7 @@ export namespace policy {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"policy/v1beta1">
 
@@ -18640,13 +18649,13 @@ export namespace policy {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodSecurityPolicy">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -18674,7 +18683,7 @@ export namespace policy {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"policy/v1beta1">
 
@@ -18682,13 +18691,13 @@ export namespace policy {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodSecurityPolicyList">
 
       /**
        * Standard list metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -18995,7 +19004,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
@@ -19003,7 +19012,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRole">
 
@@ -19038,7 +19047,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
@@ -19046,7 +19055,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRoleBinding">
 
@@ -19079,7 +19088,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
@@ -19087,7 +19096,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRoleBindingList">
 
@@ -19115,7 +19124,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
@@ -19123,7 +19132,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRoleList">
 
@@ -19189,7 +19198,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
@@ -19197,7 +19206,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Role">
 
@@ -19234,7 +19243,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
@@ -19242,7 +19251,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RoleBinding">
 
@@ -19275,7 +19284,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
@@ -19283,7 +19292,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RoleBindingList">
 
@@ -19311,7 +19320,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">
 
@@ -19319,7 +19328,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RoleList">
 
@@ -19422,7 +19431,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
@@ -19430,7 +19439,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRole">
 
@@ -19465,7 +19474,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
@@ -19473,7 +19482,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRoleBinding">
 
@@ -19506,7 +19515,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
@@ -19514,7 +19523,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRoleBindingList">
 
@@ -19542,7 +19551,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
@@ -19550,7 +19559,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRoleList">
 
@@ -19617,7 +19626,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
@@ -19625,7 +19634,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Role">
 
@@ -19662,7 +19671,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
@@ -19670,7 +19679,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RoleBinding">
 
@@ -19703,7 +19712,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
@@ -19711,7 +19720,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RoleBindingList">
 
@@ -19739,7 +19748,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1alpha1">
 
@@ -19747,7 +19756,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RoleList">
 
@@ -19854,7 +19863,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
@@ -19862,7 +19871,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRole">
 
@@ -19897,7 +19906,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
@@ -19905,7 +19914,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRoleBinding">
 
@@ -19938,7 +19947,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
@@ -19946,7 +19955,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRoleBindingList">
 
@@ -19974,7 +19983,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
@@ -19982,7 +19991,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"ClusterRoleList">
 
@@ -20049,7 +20058,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
@@ -20057,7 +20066,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"Role">
 
@@ -20094,7 +20103,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
@@ -20102,7 +20111,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RoleBinding">
 
@@ -20135,7 +20144,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
@@ -20143,7 +20152,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RoleBindingList">
 
@@ -20171,7 +20180,7 @@ export namespace rbac {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1beta1">
 
@@ -20179,7 +20188,7 @@ export namespace rbac {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"RoleList">
 
@@ -20270,7 +20279,7 @@ export namespace scheduling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"scheduling.k8s.io/v1">
 
@@ -20293,13 +20302,13 @@ export namespace scheduling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PriorityClass">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -20329,7 +20338,7 @@ export namespace scheduling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"scheduling.k8s.io/v1">
 
@@ -20337,13 +20346,13 @@ export namespace scheduling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PriorityClassList">
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -20372,7 +20381,7 @@ export namespace scheduling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"scheduling.k8s.io/v1alpha1">
 
@@ -20395,13 +20404,13 @@ export namespace scheduling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PriorityClass">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -20431,7 +20440,7 @@ export namespace scheduling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"scheduling.k8s.io/v1alpha1">
 
@@ -20439,13 +20448,13 @@ export namespace scheduling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PriorityClassList">
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -20474,7 +20483,7 @@ export namespace scheduling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"scheduling.k8s.io/v1beta1">
 
@@ -20497,7 +20506,7 @@ export namespace scheduling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PriorityClass">
 
@@ -20533,7 +20542,7 @@ export namespace scheduling {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"scheduling.k8s.io/v1beta1">
 
@@ -20541,7 +20550,7 @@ export namespace scheduling {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PriorityClassList">
 
@@ -20571,7 +20580,7 @@ export namespace settings {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"settings.k8s.io/v1alpha1">
 
@@ -20579,7 +20588,7 @@ export namespace settings {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodPreset">
 
@@ -20608,7 +20617,7 @@ export namespace settings {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"settings.k8s.io/v1alpha1">
 
@@ -20616,7 +20625,7 @@ export namespace settings {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"PodPresetList">
 
@@ -20700,7 +20709,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1">
 
@@ -20708,13 +20717,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StorageClass">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -20763,7 +20772,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1">
 
@@ -20771,13 +20780,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StorageClassList">
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -20804,7 +20813,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1">
 
@@ -20812,13 +20821,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"VolumeAttachment">
 
       /**
        * Standard object metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -20841,7 +20850,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1">
 
@@ -20849,13 +20858,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"VolumeAttachmentList">
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -20981,7 +20990,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1alpha1">
 
@@ -20989,13 +20998,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"VolumeAttachment">
 
       /**
        * Standard object metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -21018,7 +21027,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1alpha1">
 
@@ -21026,13 +21035,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"VolumeAttachmentList">
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -21160,7 +21169,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
@@ -21168,7 +21177,7 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CSIDriver">
 
@@ -21177,7 +21186,8 @@ export namespace storage {
        * object refers to; it MUST be the same name returned by the CSI GetPluginName() call for
        * that driver. The driver name must be 63 characters or less, beginning and ending with an
        * alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between.
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -21200,7 +21210,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
@@ -21208,13 +21218,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CSIDriverList">
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -21276,7 +21286,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
@@ -21284,7 +21294,7 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CSINode">
 
@@ -21348,7 +21358,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
@@ -21356,13 +21366,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"CSINodeList">
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -21415,7 +21425,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
@@ -21423,13 +21433,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StorageClass">
 
       /**
        * Standard object's metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -21478,7 +21488,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
@@ -21486,13 +21496,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"StorageClassList">
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 
@@ -21519,7 +21529,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
@@ -21527,13 +21537,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"VolumeAttachment">
 
       /**
        * Standard object metadata. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ObjectMeta>
 
@@ -21556,7 +21566,7 @@ export namespace storage {
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">
 
@@ -21564,13 +21574,13 @@ export namespace storage {
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       kind?: pulumi.Input<"VolumeAttachmentList">
 
       /**
        * Standard list metadata More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       metadata?: pulumi.Input<meta.v1.ListMeta>
 

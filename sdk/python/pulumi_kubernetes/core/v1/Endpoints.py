@@ -44,7 +44,7 @@ class Endpoints(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     subsets: pulumi.Output[list]
@@ -64,7 +64,7 @@ class Endpoints(pulumi.CustomResource):
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[list] subsets: The set of all endpoints is the union of all subsets. Addresses are placed into
                subsets according to the IPs they share. A single address with multiple ports, some
                of which are ready and some of which are not (because they come from different

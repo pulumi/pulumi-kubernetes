@@ -38,7 +38,7 @@ class EventList(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard list metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     def __init__(self, resource_name, opts=None, items=None, metadata=None, __name__=None, __opts__=None):
@@ -49,7 +49,7 @@ class EventList(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
         :param pulumi.Input[list] items: Items is a list of schema objects.
         :param pulumi.Input[dict] metadata: Standard list metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

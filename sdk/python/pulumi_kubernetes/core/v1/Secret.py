@@ -42,7 +42,7 @@ class Secret(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     string_data: pulumi.Output[dict]
@@ -68,7 +68,7 @@ class Secret(pulumi.CustomResource):
                representing the arbitrary (possibly non-string) data value here. Described in
                https://tools.ietf.org/html/rfc4648#section-4
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[dict] string_data: stringData allows specifying non-binary secret data in string form. It is provided as
                a write-only convenience method. All keys and values are merged into the data field
                on write, overwriting any existing values. It is never output when reading from the
