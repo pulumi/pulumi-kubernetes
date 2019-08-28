@@ -15,7 +15,7 @@ import { getVersion } from "../../version";
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
       public readonly apiVersion: pulumi.Output<"coordination.k8s.io/v1beta1">;
 
@@ -23,18 +23,19 @@ import { getVersion } from "../../version";
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
       public readonly kind: pulumi.Output<"Lease">;
 
       /**
-       * More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+       * More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
       public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
        * Specification of the Lease. More info:
-       * https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
        */
       public readonly spec: pulumi.Output<outputs.coordination.v1beta1.LeaseSpec>;
 

@@ -49,7 +49,7 @@ class PriorityClass(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     preemption_policy: pulumi.Output[str]
@@ -81,7 +81,7 @@ class PriorityClass(pulumi.CustomResource):
                with their `globalDefault` field set to true, the smallest value of such global
                default PriorityClasses will be used as the default priority.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never,
                PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is
                alpha-level and is only honored by servers that enable the NonPreemptingPriority

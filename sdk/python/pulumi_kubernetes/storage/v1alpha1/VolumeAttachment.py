@@ -36,7 +36,7 @@ class VolumeAttachment(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     spec: pulumi.Output[dict]
@@ -59,7 +59,7 @@ class VolumeAttachment(pulumi.CustomResource):
         :param pulumi.Input[dict] spec: Specification of the desired attach/detach volume behavior. Populated by the
                Kubernetes system.
         :param pulumi.Input[dict] metadata: Standard object metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

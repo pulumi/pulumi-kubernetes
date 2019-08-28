@@ -42,7 +42,7 @@ class CSIDriver(pulumi.CustomResource):
     refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver.
     The driver name must be 63 characters or less, beginning and ending with an alphanumeric
     character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     spec: pulumi.Output[dict]
@@ -62,7 +62,7 @@ class CSIDriver(pulumi.CustomResource):
                call for that driver. The driver name must be 63 characters or less, beginning and
                ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and
                alphanumerics between. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)

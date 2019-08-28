@@ -34,7 +34,7 @@ class PersistentVolume(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     spec: pulumi.Output[dict]
@@ -58,7 +58,7 @@ class PersistentVolume(pulumi.CustomResource):
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[dict] spec: Spec defines a specification of a persistent volume owned by the cluster. Provisioned
                by an administrator. More info:
                https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes

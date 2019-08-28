@@ -49,7 +49,7 @@ class ServiceAccount(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     secrets: pulumi.Output[list]
@@ -72,7 +72,7 @@ class ServiceAccount(pulumi.CustomResource):
                are only accessed by the kubelet. More info:
                https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[list] secrets: Secrets is the list of secrets allowed to be used by pods running using this
                ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """

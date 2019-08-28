@@ -50,7 +50,7 @@ class Status(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard list metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
 
     reason: pulumi.Output[str]
@@ -63,7 +63,7 @@ class Status(pulumi.CustomResource):
     status: pulumi.Output[str]
     """
     Status of the operation. One of: "Success" or "Failure". More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
 
     def __init__(self, resource_name, opts=None, code=None, details=None, message=None, metadata=None, reason=None, __name__=None, __opts__=None):
@@ -78,7 +78,7 @@ class Status(pulumi.CustomResource):
                any schema except that defined by the reason type.
         :param pulumi.Input[str] message: A human-readable description of the status of this operation.
         :param pulumi.Input[dict] metadata: Standard list metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] reason: A machine-readable description of why this operation is in the "Failure" status. If
                this value is empty there is no information available. A Reason clarifies an HTTP
                status code but does not override it.

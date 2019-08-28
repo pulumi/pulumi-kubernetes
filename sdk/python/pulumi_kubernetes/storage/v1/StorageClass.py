@@ -50,7 +50,7 @@ class StorageClass(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     mount_options: pulumi.Output[list]
@@ -97,7 +97,7 @@ class StorageClass(pulumi.CustomResource):
                TopologySelectorTerm list means there is no topology restriction. This field is only
                honored by servers that enable the VolumeScheduling feature.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[list] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with
                these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply
                fail if one is invalid.

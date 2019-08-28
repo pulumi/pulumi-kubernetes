@@ -283,6 +283,17 @@ func fmtComment(comment interface{}, prefix string, bareRender bool, opts groupO
 
 	commentstr, _ := comment.(string)
 	if len(commentstr) > 0 {
+
+		// hack(levi): The OpenAPI docs currently include broken links to k8s docs. Until this is fixed
+		// upstream, manually replace these with working links.
+		// Upstream issue: https://github.com/kubernetes/kubernetes/issues/81526
+		// Upstream PR: https://github.com/kubernetes/kubernetes/pull/74245
+		commentstr = strings.Replace(
+			commentstr,
+			`https://git.k8s.io/community/contributors/devel/api-conventions.md`,
+			`https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md`,
+			-1)
+
 		split := strings.Split(commentstr, "\n")
 		var lines []string
 		for _, paragraph := range split {

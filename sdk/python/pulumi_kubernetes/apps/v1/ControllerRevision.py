@@ -45,7 +45,7 @@ class ControllerRevision(pulumi.CustomResource):
     metadata: pulumi.Output[dict]
     """
     Standard object's metadata. More info:
-    https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
     revision: pulumi.Output[int]
@@ -62,7 +62,7 @@ class ControllerRevision(pulumi.CustomResource):
         :param pulumi.Input[int] revision: Revision indicates the revision of the state represented by Data.
         :param pulumi.Input[dict] data: Data is the serialized representation of the state.
         :param pulumi.Input[dict] metadata: Standard object's metadata. More info:
-               https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
+               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
