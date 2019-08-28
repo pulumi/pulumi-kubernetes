@@ -20,6 +20,12 @@ class ConfigFile(pulumi.ComponentResource):
     ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
     """
 
+    resources: pulumi.Output[dict]
+    """
+    Kubernetes resources contained in this ConfigFile.
+    """
+
+
     def __init__(self, name, file_id, opts=None, transformations=None, resource_prefix=None):
         """
         :param str name: A name for a resource.
@@ -57,8 +63,8 @@ class ConfigFile(pulumi.ComponentResource):
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        output = _parse_yaml_document(yaml.safe_load_all(text), opts, transformations, resource_prefix)
-        self.register_outputs({"output": output})
+        self.resources = _parse_yaml_document(yaml.safe_load_all(text), opts, transformations, resource_prefix)
+        self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop
@@ -66,6 +72,23 @@ class ConfigFile(pulumi.ComponentResource):
     def translate_input_property(self, prop: str) -> str:
         return tables._CASING_BACKWARD_TABLE.get(prop) or prop
 
+    def get_resource(self, group_version_kind, name, namespace=None) -> pulumi.Output[pulumi.CustomResource]:
+        """
+        get_resource returns a resource defined by a built-in Kubernetes group/version/kind and
+        name. For example: `get_resource("apps/v1/Deployment", "nginx")`
+
+        :param str group_version_kind: Group/Version/Kind of the resource, e.g., `apps/v1/Deployment`
+        :param str name: Name of the resource to retrieve
+        :param str namespace: Optional namespace of the resource to retrieve
+        """
+
+        # `id` will either be `${name}` or `${namespace}/${name}`.
+        id = pulumi.Output.from_input(name)
+        if namespace != None:
+            id = pulumi.Output.concat(namespace, '/', name)
+
+        resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')
+        return resource_id.apply(lambda x: self.resources[x])
 
 def _read_url(url: str) -> str:
     response = requests.get(url)

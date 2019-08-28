@@ -10,6 +10,11 @@
 
 ### Bug fixes
 
+-   Fix name collisions in the Charts/YAML Python packages
+    (https://github.com/pulumi/pulumi-kubernetes/pull/771).
+-   Implement `{ConfigFile, ConfigGroup, Chart}#get_resource`
+    (https://github.com/pulumi/pulumi-kubernetes/pull/771).
+
 ## 1.0.0-rc.1 (August 28, 2019)
 
 ### Supported Kubernetes versions
