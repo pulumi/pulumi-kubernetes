@@ -21,25 +21,25 @@ const cmData = new k8s.core.v1.ConfigMap("cmdata", {
     data: {
         password: pw,
     }
-})
+});
 
 const cmBinaryData = new k8s.core.v1.ConfigMap("cmbinarydata", {
     binaryData: {
         password: pw.apply(d => new Buffer(d).toString("base64")),
     }
-})
+});
 
 const ssStringData = new k8s.core.v1.Secret("ssstringdata", {
     stringData: {
         password: pw,
     }
-})
+});
 
 const ssData = new k8s.core.v1.Secret("ssdata", {
     data: {
         password: pw.apply(d => new Buffer(d).toString("base64")),
     }
-})
+});
 
 export const cmDataData = cmData.data;
 export const cmBinaryDataData = cmBinaryData.binaryData;
