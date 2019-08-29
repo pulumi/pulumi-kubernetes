@@ -2,7 +2,13 @@
 
 # Pulumi Kubernetes Resource Provider
 
-The Kubernetes resource provider for Pulumi lets you create, deploy, and manage Kubernetes API resources and workloads in a running cluster.
+The Kubernetes resource provider for Pulumi lets you create, deploy, and manage Kubernetes API resources and workloads in a running cluster. For a streamlined Pulumi walkthrough, including language runtime installation and Kubernetes configuration, click "Get Started" below.
+
+<div>
+    <a href="https://www.pulumi.com/docs/get-started/aws" title="Get Started">
+       <img src="https://www.pulumi.com/images/get-started.svg" width="120">
+    </a>
+</div>
 
 * [Introduction](#introduction)
   * [Kubernetes API Version Support](#kubernetes-api-version-support)
@@ -67,9 +73,7 @@ for more details.
 
 ## Prerequisites
 
-See the [quickstart](https://www.pulumi.com/docs/get-started/kubernetes/ ) for complete documentation.
-
-1. [Install Pulumi](https://www.pulumi.com/docs/quickstart/kubernetes/install-pulumi/)
+1. [Install Pulumi](https://www.pulumi.com/docs/get-started/kubernetes/install-pulumi/)
 1. Install a language runtime such as [Node.js](https://nodejs.org/en/download) or [Python](https://www.python.org/downloads/).
 1. Install a package manager
     * For Node.js, use [NPM](https://www.npmjs.com/get-npm) or [Yarn](https://yarnpkg.com/lang/en/docs/install).
