@@ -5,7 +5,7 @@
 The Kubernetes resource provider for Pulumi lets you create, deploy, and manage Kubernetes API resources and workloads in a running cluster. For a streamlined Pulumi walkthrough, including language runtime installation and Kubernetes configuration, click "Get Started" below.
 
 <div>
-    <a href="https://www.pulumi.com/docs/get-started/aws" title="Get Started">
+    <a href="https://www.pulumi.com/docs/get-started/kubernetes" title="Get Started">
        <img src="https://www.pulumi.com/images/get-started.svg" width="120">
     </a>
 </div>
