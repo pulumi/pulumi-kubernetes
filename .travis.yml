@@ -34,30 +34,17 @@ before_install:
           mkdir ~/.kube && mv ./kubeconfig.yaml ~/.kube/config;
       fi
 
-    # Install istioctl for the Istio integration tests.
-    - curl -sL https://github.com/istio/istio/releases/download/1.0.1/istio-1.0.1-linux.tar.gz > istio.tar.gz
-    - tar -xzf istio.tar.gz
-    - sudo mv istio-1.0.1/bin/istioctl /usr/local/bin
-    - rm -rf istio-1.0.1 # Delete so go doesn't pick up the Istio source.
-
     - git clone https://github.com/pulumi/scripts ${GOPATH}/src/github.com/pulumi/scripts
     - source ${GOPATH}/src/github.com/pulumi/scripts/ci/prepare-environment.sh
     - source ${PULUMI_SCRIPTS}/ci/keep-failed-tests.sh
 install:
-    # Work around https://github.com/pypa/pipenv/issues/3257 until Pipenv cuts a new release with the fix
-    - mkdir -p /home/travis/.local/share/virtualenvs
     - source ${PULUMI_SCRIPTS}/ci/install-common-toolchain.sh
 
     # Install Helm CLI. Do not install Tiller.
-    - curl -LO  https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz
-    - tar -xvf helm-v2.9.1-linux-amd64.tar.gz
+    - curl -LO  https://storage.googleapis.com/kubernetes-helm/helm-v2.14.3-linux-amd64.tar.gz
+    - tar -xvf helm-v2.14.3-linux-amd64.tar.gz
     - sudo mv linux-amd64/helm /usr/local/bin
     - helm init --client-only
-
-    # Install kubectl
-    - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl
-    - sudo chmod +x kubectl
-    - sudo mv kubectl /usr/local/bin/
 
     # Install Pulumi
     - curl -L https://get.pulumi.com/ | bash
