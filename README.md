@@ -1,13 +1,19 @@
 [![Build Status](https://travis-ci.com/pulumi/pulumi-kubernetes.svg?token=eHg7Zp5zdDDJfTjY8ejq&branch=master)](https://travis-ci.com/pulumi/pulumi-kubernetes)
+[![Slack](http://www.pulumi.com/images/docs/badges/slack.svg)](https://slack.pulumi.com)
+[![NPM version](https://badge.fury.io/js/%40pulumi%2Fpulumi.svg)](https://npmjs.com/package/@pulumi/pulumi)
+[![Python version](https://badge.fury.io/py/pulumi.svg)](https://pypi.org/project/pulumi)
+[![GoDoc](https://godoc.org/github.com/pulumi/pulumi?status.svg)](https://godoc.org/github.com/pulumi/pulumi)
+[![License](https://img.shields.io/npm/l/%40pulumi%2Fpulumi.svg)](https://github.com/pulumi/pulumi/blob/master/LICENSE)
 
 # Pulumi Kubernetes Resource Provider
 
 The Kubernetes resource provider for Pulumi lets you create, deploy, and manage Kubernetes API resources and workloads in a running cluster. For a streamlined Pulumi walkthrough, including language runtime installation and Kubernetes configuration, click "Get Started" below.
-
 <div>
-    <a href="https://www.pulumi.com/docs/get-started/kubernetes" title="Get Started">
-       <img src="https://www.pulumi.com/images/get-started.svg" width="120">
-    </a>
+    <p>
+        <a href="https://www.pulumi.com/docs/get-started/kubernetes" title="Get Started">
+            <img src="https://www.pulumi.com/images/get-started.svg" width="120">
+        </a>
+    </p>  
 </div>
 
 * [Introduction](#introduction)
