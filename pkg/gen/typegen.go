@@ -241,7 +241,34 @@ func stripPrefix(name string) string {
 	return strings.TrimPrefix(name, prefix)
 }
 
-func fmtComment(comment interface{}, prefix string, bareRender bool, opts groupOpts) string {
+func replaceDeprecationComment(comment string, gvk schema.GroupVersionKind, language language) string {
+	// The deprecation warning doesn't always appear in the same place in the OpenAPI comments.
+	// Standardize the message and where it appears in our docs.
+	re1 := regexp.MustCompile(`^DEPRECATED - .* is deprecated by .* for more information\.\s*`)
+	re2 := regexp.MustCompile(`DEPRECATED - .* is deprecated by .* for more information\.\s*`)
+
+	var replacement string
+	switch language {
+	case typescript:
+		replacement = "@deprecated " + ApiVersionComment(gvk)
+	case python:
+		replacement = "DEPRECATED - " + ApiVersionComment(gvk)
+	default:
+		panic(fmt.Sprintf("Unsupported language '%s'", language))
+	}
+
+	if re1.MatchString(comment) {
+		return re1.ReplaceAllString(comment, replacement)
+	} else if re2.MatchString(comment) {
+		return ApiVersionComment(gvk) + re2.ReplaceAllString(comment, "")
+	} else {
+		return comment
+	}
+}
+
+func fmtComment(
+	comment interface{}, prefix string, bareRender bool, opts groupOpts, gvk schema.GroupVersionKind,
+) string {
 	if comment == nil {
 		return ""
 	}
@@ -293,6 +320,8 @@ func fmtComment(comment interface{}, prefix string, bareRender bool, opts groupO
 			`https://git.k8s.io/community/contributors/devel/api-conventions.md`,
 			`https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md`,
 			-1)
+
+		commentstr = replaceDeprecationComment(commentstr, gvk, opts.language)
 
 		split := strings.Split(commentstr, "\n")
 		var lines []string
@@ -721,8 +750,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					}
 
 					return &Property{
-						comment:                   fmtComment(prop["description"], prefix, false, opts),
-						pythonConstructorComment:  fmtComment(prop["description"], prefix+prefix+"       ", true, opts),
+						comment:                   fmtComment(prop["description"], prefix, false, opts, d.gvk),
+						pythonConstructorComment:  fmtComment(prop["description"], prefix+prefix+"       ", true, opts, d.gvk),
 						propType:                  t,
 						pythonConstructorPropType: pyConstructorT,
 						name:                      propName,
@@ -781,8 +810,8 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:                 fmtComment(d.data["description"], "    ", true, opts),
-					awaitComment:            fmtComment(AwaitComment(d.gvk.Kind), prefix, true, opts),
+					comment:                 fmtComment(d.data["description"], "    ", true, opts, d.gvk),
+					awaitComment:            fmtComment(AwaitComment(d.gvk.Kind), prefix, true, opts, d.gvk),
 					properties:              properties,
 					requiredInputProperties: requiredInputProperties,
 					optionalInputProperties: optionalInputProperties,

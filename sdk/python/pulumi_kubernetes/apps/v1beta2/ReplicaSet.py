@@ -13,9 +13,10 @@ from ... import tables, version
 
 class ReplicaSet(pulumi.CustomResource):
     """
-    DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the
-    release notes for more information. ReplicaSet ensures that a specified number of pod replicas
-    are running at any given time.
+    DEPRECATED - apps/v1beta2/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
+    apps/v1/ReplicaSet instead.
+    
+    ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     """
 
     apiVersion: pulumi.Output[str]

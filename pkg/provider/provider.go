@@ -30,9 +30,12 @@ import (
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/gen"
+	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
+	"github.com/pulumi/pulumi/pkg/diag"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/plugin"
 	"github.com/pulumi/pulumi/pkg/resource/provider"
@@ -418,6 +421,10 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
 		return nil, err
+	}
+
+	if kinds.DeprecatedApiVersion(gvk) {
+		_ = k.host.Log(ctx, diag.Warning, urn, gen.ApiVersionComment(gvk))
 	}
 
 	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced

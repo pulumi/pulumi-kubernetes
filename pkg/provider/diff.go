@@ -30,19 +30,19 @@ func forceNewProperties(gvk schema.GroupVersionKind) []string {
 	return props
 }
 
-type groups map[string]versions
-type versions map[string]kinds
-type kinds map[string]properties
+type _groups map[string]_versions
+type _versions map[string]_kinds
+type _kinds map[string]properties
 type properties []string
 
-var forceNew = groups{
-	"apps": versions{
+var forceNew = _groups{
+	"apps": _versions{
 		// NOTE: .spec.selector triggers a replacement in Deployment only AFTER v1beta1.
-		"v1beta1": kinds{"StatefulSet": statefulSet},
-		"v1beta2": kinds{
+		"v1beta1": _kinds{"StatefulSet": statefulSet},
+		"v1beta2": _kinds{
 			"Deployment":  deployment,
 			"StatefulSet": statefulSet},
-		"v1": kinds{
+		"v1": _kinds{
 			"Deployment":  deployment,
 			"StatefulSet": statefulSet},
 	},
@@ -50,31 +50,31 @@ var forceNew = groups{
 	// for compatibility purposes.
 	"core": core,
 	"":     core,
-	"policy": versions{
-		"v1beta1": kinds{"PodDisruptionBudget": podDisruptionBudget},
+	"policy": _versions{
+		"v1beta1": _kinds{"PodDisruptionBudget": podDisruptionBudget},
 	},
-	"rbac.authorization.k8s.io": versions{
-		"v1alpha1": kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
-		"v1beta1":  kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
-		"v1":       kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
+	"rbac.authorization.k8s.io": _versions{
+		"v1alpha1": _kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
+		"v1beta1":  _kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
+		"v1":       _kinds{"ClusterRoleBinding": roleBinding, "RoleBinding": roleBinding},
 	},
-	"storage.k8s.io": versions{
-		"v1": kinds{
+	"storage.k8s.io": _versions{
+		"v1": _kinds{
 			"StorageClass": properties{
 				".parameters",
 				".provisioner",
 			},
 		},
 	},
-	"batch": versions{
-		"v1beta1":  kinds{"Job": job},
-		"v1":       kinds{"Job": job},
-		"v2alpha1": kinds{"Job": job},
+	"batch": _versions{
+		"v1beta1":  _kinds{"Job": job},
+		"v1":       _kinds{"Job": job},
+		"v2alpha1": _kinds{"Job": job},
 	},
 }
 
-var core = versions{
-	"v1": kinds{
+var core = _versions{
+	"v1": _kinds{
 		"ConfigMap": properties{".binaryData", ".data"},
 		"PersistentVolumeClaim": append(
 			properties{
