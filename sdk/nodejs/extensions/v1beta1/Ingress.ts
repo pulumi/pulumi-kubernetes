@@ -8,7 +8,7 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * extensions/v1beta1/Ingress is not supported by Kubernetes 1.16+ clusters. Use
+     * @deprecated extensions/v1beta1/Ingress is not supported by Kubernetes 1.16+ clusters. Use
      * networking/v1beta1/Ingress instead.
      * 
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints

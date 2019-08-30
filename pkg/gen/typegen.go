@@ -247,12 +247,14 @@ func replaceDeprecationComment(comment string, gvk schema.GroupVersionKind, lang
 	re1 := regexp.MustCompile(`^DEPRECATED - .* is deprecated by .* for more information\.\s*`)
 	re2 := regexp.MustCompile(`DEPRECATED - .* is deprecated by .* for more information\.\s*`)
 
-	var replacement string
+	var prefix, replacement string
 	switch language {
 	case typescript:
-		replacement = "@deprecated " + ApiVersionComment(gvk)
+		prefix = "@deprecated "
+		replacement = prefix + ApiVersionComment(gvk)
 	case python:
-		replacement = "DEPRECATED - " + ApiVersionComment(gvk)
+		prefix = "DEPRECATED - "
+		replacement = prefix + ApiVersionComment(gvk)
 	default:
 		panic(fmt.Sprintf("Unsupported language '%s'", language))
 	}
@@ -260,7 +262,7 @@ func replaceDeprecationComment(comment string, gvk schema.GroupVersionKind, lang
 	if re1.MatchString(comment) {
 		return re1.ReplaceAllString(comment, replacement)
 	} else if re2.MatchString(comment) {
-		return ApiVersionComment(gvk) + re2.ReplaceAllString(comment, "")
+		return prefix + ApiVersionComment(gvk) + re2.ReplaceAllString(comment, "")
 	} else {
 		return comment
 	}
