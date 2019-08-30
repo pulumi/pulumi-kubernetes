@@ -15,7 +15,7 @@
 import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
 
-import { k8sConfig, k8sProvider } from "./cluster";
+import { k8sProvider } from "./cluster";
 import { istio } from "./istio";
 
 new k8s.core.v1.Namespace(
@@ -55,5 +55,3 @@ export const frontendIp = pulumi
         const port = spec.ports.filter(p => p.name == "http2")[0].port;
         return `${status.loadBalancer.ingress[0].ip}:${port}/productpage`;
     });
-
-export const kubeconfig = k8sConfig;

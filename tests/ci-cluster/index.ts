@@ -12,16 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import * as k8s from "@pulumi/kubernetes";
-import * as fs from "fs";
-import * as config from "./config";
+import * as gke from "./gke";
 
-export let k8sProvider: k8s.Provider;
-
-if (config.kubeconfigPath) {
-    const kubeconfig = fs.readFileSync(config.kubeconfigPath).toString();
-    k8sProvider = new k8s.Provider("provider", {kubeconfig: kubeconfig});
-} else {
-    k8sProvider = new k8s.Provider("provider", {});
-}
-
+// Create Kubernetes clusters.
+const gkeCluster = new gke.GkeCluster("multicloud");
+export const k8sProvider = gkeCluster.provider;
+export const kubeconfig = gkeCluster.kubeconfig;
