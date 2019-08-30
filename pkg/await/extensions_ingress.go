@@ -4,24 +4,21 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strings"
 	"time"
 
-	"github.com/pulumi/pulumi/pkg/util/cmdutil"
-
 	"github.com/golang/glog"
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/diag"
+	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 	"k8s.io/api/extensions/v1beta1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/client-go/dynamic"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -60,6 +57,8 @@ type ingressInitAwaiter struct {
 	endpointsSettled          bool
 	knownEndpointObjects      sets.String
 	knownExternalNameServices sets.String
+	eventError                string
+	nsk                       clients.NamespacedKind
 }
 
 func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
@@ -70,6 +69,12 @@ func makeIngressInitAwaiter(c createAwaitConfig) *ingressInitAwaiter {
 		endpointsSettled:          false,
 		knownEndpointObjects:      sets.NewString(),
 		knownExternalNameServices: sets.NewString(),
+		nsk: clients.NamespacedKind{
+			Namespace:       c.currentInputs.GetNamespace(),
+			Name:            c.currentInputs.GetName(),
+			Kind:            kinds.Ingress,
+			ResourceVersion: c.currentInputs.GetResourceVersion(),
+		},
 	}
 }
 
@@ -95,70 +100,69 @@ func (iia *ingressInitAwaiter) Await() error {
 	//   3.  Ingress entry exists for .status.loadBalancer.ingress.
 	//
 
-	ingressClient, endpointsClient, servicesClient, err := iia.makeClients()
+	clientset := iia.config.clientSet
+
+	ingressWatcher, err := iia.nsk.WatchForKind(kinds.Ingress, clientset)
 	if err != nil {
 		return err
-	}
-
-	// Create ingress watcher.
-	ingressWatcher, err := ingressClient.Watch(metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err, "Could not set up watch for Ingress object %q",
-			iia.config.currentInputs.GetName())
 	}
 	defer ingressWatcher.Stop()
 
-	endpointWatcher, err := endpointsClient.Watch(metav1.ListOptions{})
+	endpointWatcher, err := iia.nsk.WatchForKind(kinds.Endpoints, clientset)
 	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Endpoint objects associated with Ingress %q",
-			iia.config.currentInputs.GetName())
+		return err
 	}
 	defer endpointWatcher.Stop()
 
-	serviceWatcher, err := servicesClient.Watch(metav1.ListOptions{})
+	serviceWatcher, err := iia.nsk.WatchForKind(kinds.Service, clientset)
 	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Service objects associated with Ingress %q",
-			iia.config.currentInputs.GetName())
+		return err
 	}
+	defer serviceWatcher.Stop()
+
+	eventsWatcher, err := iia.nsk.WatchForKind(kinds.Event, clientset)
+	if err != nil {
+		return err
+	}
+	defer eventsWatcher.Stop()
 
 	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentInputs, DefaultIngressTimeoutMins*60)
-	return iia.await(ingressWatcher, serviceWatcher, endpointWatcher, make(chan struct{}), time.After(timeout))
+	return iia.await(
+		ingressWatcher, serviceWatcher, eventsWatcher, endpointWatcher, make(chan struct{}), time.After(timeout))
 }
 
 func (iia *ingressInitAwaiter) Read() error {
-	ingressClient, endpointsClient, servicesClient, err := iia.makeClients()
-	if err != nil {
-		return err
-	}
+	clientset := iia.config.clientSet
 
 	// Get live versions of Ingress.
-	ingress, err := ingressClient.Get(iia.config.currentInputs.GetName(), metav1.GetOptions{})
+	ingress, err := iia.nsk.Get(clientset)
 	if err != nil {
-		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
-		// can mark the deployment as having been deleted.
 		return err
 	}
 
-	// Get live version of Endpoints.
-	endpointList, err := endpointsClient.List(metav1.ListOptions{})
+	endpointList, err := iia.nsk.ListForKind(kinds.Endpoints, clientset)
 	if err != nil {
-		glog.V(3).Infof("Failed to list endpoints needed for Ingress awaiter: %v", err)
+		glog.V(3).Infof(err.Error())
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	serviceList, err := servicesClient.List(metav1.ListOptions{})
+	serviceList, err := iia.nsk.ListForKind(kinds.Service, clientset)
 	if err != nil {
-		glog.V(3).Infof("Failed to list services needed for Ingress awaiter: %v", err)
+		glog.V(3).Infof(err.Error())
 		serviceList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	return iia.read(ingress, endpointList, serviceList)
+	eventsList, err := iia.nsk.ListForKind(kinds.Event, iia.config.clientSet)
+	if err != nil {
+		glog.V(3).Infof(err.Error())
+		eventsList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
+	}
+
+	return iia.read(ingress, endpointList, eventsList, serviceList)
 }
 
-func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
-	services *unstructured.UnstructuredList) error {
+func (iia *ingressInitAwaiter) read(
+	ingress *unstructured.Unstructured, endpoints, events, services *unstructured.UnstructuredList) error {
 	iia.processIngressEvent(watchAddedEvent(ingress))
 
 	err := services.EachListItem(func(service runtime.Object) error {
@@ -180,6 +184,15 @@ func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoint
 		glog.V(3).Infof("Error iterating over endpoint list for ingress %q: %v", ingress.GetName(), err)
 	}
 
+	glog.V(3).Infof("Processing events list: %#v", events)
+	err = events.EachListItem(func(event runtime.Object) error {
+		iia.processEvent(watchAddedEvent(event.(*unstructured.Unstructured)))
+		return nil
+	})
+	if err != nil {
+		glog.V(3).Infof("Error iterating over event list for ingress %q: %v", ingress.GetName(), err)
+	}
+
 	iia.endpointsSettled = true
 	if iia.checkAndLogStatus() {
 		return nil
@@ -193,11 +206,12 @@ func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoint
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (iia *ingressInitAwaiter) await(
-	ingressWatcher, serviceWatcher, endpointWatcher watch.Interface,
-	settled chan struct{},
-	timeout <-chan time.Time,
-) error {
+	ingressWatcher, serviceWatcher, eventsWatcher, endpointWatcher watch.Interface,
+	settled chan struct{}, timeout <-chan time.Time) error {
 	iia.config.logStatus(diag.Info, "[1/3] Finding a matching service for each Ingress path")
+
+	// Check existing events for errors.
+	iia.updateEventError()
 
 	for {
 		// Check whether we've succeeded.
@@ -231,6 +245,8 @@ func (iia *ingressInitAwaiter) await(
 			iia.processIngressEvent(event)
 		case event := <-endpointWatcher.ResultChan():
 			iia.processEndpointEvent(event, settled)
+		case event := <-eventsWatcher.ResultChan():
+			iia.processEvent(event)
 		case event := <-serviceWatcher.ResultChan():
 			iia.processServiceEvent(event)
 		}
@@ -295,6 +311,59 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 
 	glog.V(3).Infof("Waiting for ingress %q to update .status.loadBalancer with hostname/IP",
 		inputIngressName)
+}
+
+func (iia *ingressInitAwaiter) processEvent(event watch.Event) {
+	inputIngressName := iia.config.currentInputs.GetName()
+
+	rawIngressEvent, isUnstructured := event.Object.(*unstructured.Unstructured)
+	if !isUnstructured {
+		glog.V(3).Infof("Event watch received unknown object type %q",
+			reflect.TypeOf(rawIngressEvent))
+		return
+	}
+
+	ingressEvent, err := clients.EventFromUnstructured(rawIngressEvent)
+	if err != nil {
+		glog.V(3).Infof("Unable to decode Event object from unstructured: %#v", rawIngressEvent)
+		return
+	}
+
+	if ingressEvent.Type == "Warning" {
+		activeServices, err := iia.nsk.ListForKind(kinds.Service, iia.config.clientSet)
+		if err != nil {
+			glog.V(3).Infof("Failed to list active Services: %v", err)
+		}
+		for _, service := range activeServices.Items {
+			// Events may be for old/deleted Services, so check for the relevant name before logging.
+			if serviceName := service.GetName(); strings.Contains(ingressEvent.Message, serviceName) {
+				errMsg := fmt.Sprintf(
+					"Ingress %q had the following error: %s", inputIngressName, ingressEvent.Message)
+				iia.config.logStatus(diag.Error, errMsg)
+				iia.eventError = errMsg
+				return
+			}
+		}
+	}
+	iia.config.logStatus(diag.Info, "[2/3] Waiting for update of .status.loadBalancer with hostname/IP")
+	if ingressEvent.Type == "Normal" && ingressEvent.Reason == "CREATE" {
+		iia.eventError = ""
+	}
+}
+
+func (iia *ingressInitAwaiter) updateEventError() {
+	events, err := iia.nsk.ListForKind(kinds.Event, iia.config.clientSet)
+	if err != nil {
+		glog.V(3).Infof(err.Error())
+		events = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
+	}
+	err = events.EachListItem(func(event runtime.Object) error {
+		iia.processEvent(watchAddedEvent(event.(*unstructured.Unstructured)))
+		return nil
+	})
+	if err != nil {
+		glog.V(3).Infof("Error iterating over event list for ingress %q: %v", iia.ingress.GetName(), err)
+	}
 }
 
 func decodeIngress(u *unstructured.Unstructured) (*v1beta1.Ingress, error) {
@@ -390,6 +459,10 @@ func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 func (iia *ingressInitAwaiter) errorMessages() []string {
 	messages := make([]string, 0)
 
+	if len(iia.eventError) > 0 {
+		messages = append(messages, iia.eventError)
+	}
+
 	if !iia.checkIfEndpointsReady() {
 		messages = append(messages,
 			"Ingress has at least one rule that does not target any Service. "+
@@ -406,7 +479,7 @@ func (iia *ingressInitAwaiter) errorMessages() []string {
 }
 
 func (iia *ingressInitAwaiter) checkAndLogStatus() bool {
-	success := iia.ingressReady && iia.checkIfEndpointsReady()
+	success := iia.ingressReady && iia.checkIfEndpointsReady() && len(iia.eventError) == 0
 	if success {
 		iia.config.logStatus(diag.Info,
 			fmt.Sprintf("%sIngress initialization complete", cmdutil.EmojiOr("✅ ", "")))
@@ -415,32 +488,4 @@ func (iia *ingressInitAwaiter) checkAndLogStatus() bool {
 	}
 
 	return success
-}
-
-func (iia *ingressInitAwaiter) makeClients() (
-	ingressClient, endpointsClient, servicesClient dynamic.ResourceInterface, err error,
-) {
-	ingressClient, err = clients.ResourceClient(
-		kinds.Ingress, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
-	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Ingress %q",
-			iia.config.currentInputs.GetName())
-	}
-	endpointsClient, err = clients.ResourceClient(
-		kinds.Endpoints, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
-	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Endpoints associated with Ingress %q",
-			iia.config.currentInputs.GetName())
-	}
-	servicesClient, err = clients.ResourceClient(
-		kinds.Service, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
-	if err != nil {
-		return nil, nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Services associated with Ingress %q",
-			iia.config.currentInputs.GetName())
-	}
-
-	return
 }
