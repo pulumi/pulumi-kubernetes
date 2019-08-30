@@ -1,10 +1,13 @@
 # It may be tempting to add parens around each individual clause in this expression, but Travis then builds pushes anyway
 if: branch = master OR branch =~ ^features/ OR branch =~ ^release/ OR tag IS present
 language: go
-go: 1.12.1
+go: 1.12.9
 sudo: true # give us 7.5GB and >2 bursted cores.
 git:
     depth: false
+cache:
+  directories:
+    - ${HOME}/google-cloud-sdk
 before_install:
     - export IS_EXTERNAL_PR=""
     - if [ "$TRAVIS_SECURE_ENV_VARS" = "false" ]; then
@@ -13,9 +16,7 @@ before_install:
 
     # Install gcloud CLI.
     - if [ ! -d ${HOME}/google-cloud-sdk ]; then
-          curl https://sdk.cloud.google.com > gcloud-install.sh;
-          chmod a+x ./gcloud-install.sh;
-          ./gcloud-install.sh --disable-prompts;
+          export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash;
       fi
 
     # 1. Log in to gcloud using the CI GCP service account.
@@ -30,8 +31,6 @@ before_install:
 
           gcloud auth activate-service-account --key-file client-secret.json;
           export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/client-secret.json";
-
-          mkdir ~/.kube && mv ./kubeconfig.yaml ~/.kube/config;
       fi
 
     - git clone https://github.com/pulumi/scripts ${GOPATH}/src/github.com/pulumi/scripts
@@ -50,10 +49,13 @@ install:
     - curl -L https://get.pulumi.com/ | bash
     - export PATH=$HOME/.pulumi/bin:$PATH
 before_script:
-    - "${PULUMI_SCRIPTS}/ci/ensure-dependencies"
+    - ${PULUMI_SCRIPTS}/ci/ensure-dependencies
+    - export STACK=${PULUMI_TEST_OWNER}/ci-cluster-$(head /dev/urandom | LC_CTYPE=C tr -dc '[:lower:]' | head -c5)
 script:
-    - travis_wait 60 make travis_${TRAVIS_EVENT_TYPE}
+    - scripts/ci-cluster-create.sh && echo Running tests && travis_wait 60 make travis_${TRAVIS_EVENT_TYPE}
 after_failure:
-    - "${PULUMI_SCRIPTS}/ci/upload-failed-tests"
+    - ${PULUMI_SCRIPTS}/ci/upload-failed-tests
+after_script:
+    - scripts/ci-cluster-destroy.sh
 notifications:
     webhooks: https://ufci1w66n3.execute-api.us-west-2.amazonaws.com/stage/travis
