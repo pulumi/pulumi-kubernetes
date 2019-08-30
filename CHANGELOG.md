@@ -6,6 +6,10 @@
 - v1.14.x
 - v1.13.x
 
+### Major changes
+
+-   Change Service readiness condition. (https://github.com/pulumi/pulumi-kubernetes/pull/703).
+
 ### Improvements
 
 ### Bug fixes
