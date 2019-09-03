@@ -3,4 +3,4 @@ appVersion: "0.1"
 description: Istio CoreDNS provides DNS resolution for services in multicluster setups.
 name: istiocoredns
 tillerVersion: '>=2.7.2'
-version: 1.1.0
+version: 1.2.5

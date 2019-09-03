@@ -24,4 +24,3 @@ if (config.kubeconfigPath) {
 } else {
     k8sProvider = new k8s.Provider("provider", {});
 }
-
