@@ -208,8 +208,8 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 		return
 	}
 
-	messages := pia.state.Update(pod)
-	for _, message := range messages {
+	pia.messages = pia.state.Update(pod)
+	for _, message := range pia.messages {
 		pia.config.logMessage(message)
 	}
 }

@@ -10,6 +10,9 @@
 
 ### Bug fixes
 
+-   Fix error reporting
+    (https://github.com/pulumi/pulumi-kubernetes/pull/782).
+    
 ## 1.0.0 (Septemeber 3, 2019)
 
 ### Supported Kubernetes versions

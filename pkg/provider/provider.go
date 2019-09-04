@@ -1096,7 +1096,13 @@ func (k *kubeProvider) Update(
 	if awaitErr != nil {
 		// Resource was updated/created but failed to initialize. Return live version of object so it
 		// can be checkpointed.
-		return nil, partialError(fqObjName(initialized), awaitErr, inputsAndComputed, nil)
+		return nil, partialError(
+			fqObjName(initialized),
+			pkgerrors.Wrapf(
+				awaitErr, "the Kubernetes API server reported that %q failed to fully initialize "+
+					"or become live", fqObjName(newInputs)),
+			inputsAndComputed,
+			nil)
 	}
 
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
@@ -1415,6 +1421,7 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 // The last known state of the object is included in the error so that it can be checkpointed.
 func partialError(id string, err error, state *structpb.Struct, inputs *structpb.Struct) error {
 	reasons := []string{err.Error()}
+	err = pkgerrors.Cause(err)
 	if aggregate, isAggregate := err.(await.AggregatedError); isAggregate {
 		reasons = append(reasons, aggregate.SubErrors()...)
 	}
