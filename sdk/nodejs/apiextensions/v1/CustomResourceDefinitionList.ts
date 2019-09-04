@@ -20,7 +20,7 @@ import { getVersion } from "../../version";
       public readonly apiVersion: pulumi.Output<"apiextensions.k8s.io/v1">;
 
       /**
-       * Items individual CustomResourceDefinitions
+       * items list individual CustomResourceDefinition objects
        */
       public readonly items: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinition[]>;
 

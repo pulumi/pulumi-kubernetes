@@ -14,7 +14,8 @@ from ... import tables, version
 class ValidatingWebhookConfiguration(pulumi.CustomResource):
     """
     ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept
-    or reject and object without changing it.
+    or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use
+    admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
     """
 
     apiVersion: pulumi.Output[str]

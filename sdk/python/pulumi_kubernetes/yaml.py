@@ -822,6 +822,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"v1/ServiceList:{x}",
                        ServiceList(f"{x}", opts, **obj)))]
+    if gvk == "discovery.k8s.io/v1alpha1/EndpointSlice":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.discovery.v1alpha1 import EndpointSlice
+        return [identifier.apply(
+            lambda x: (f"discovery.k8s.io/v1alpha1/EndpointSlice:{x}",
+                       EndpointSlice(f"{x}", opts, **obj)))]
+    if gvk == "discovery.k8s.io/v1alpha1/EndpointSliceList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.discovery.v1alpha1 import EndpointSliceList
+        return [identifier.apply(
+            lambda x: (f"discovery.k8s.io/v1alpha1/EndpointSliceList:{x}",
+                       EndpointSliceList(f"{x}", opts, **obj)))]
     if gvk == "events.k8s.io/v1beta1/Event":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.events.v1beta1 import Event

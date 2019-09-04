@@ -11,11 +11,11 @@ from pulumi import Input, ResourceOptions
 from ... import tables, version
 
 
-class MutatingWebhookConfiguration(pulumi.CustomResource):
+class EndpointSlice(pulumi.CustomResource):
     """
-    MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or
-    reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use
-    admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+    EndpointSlice represents a subset of the endpoints that implement a service. For a given service
+    there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce
+    the full set of endpoints.
     """
 
     apiVersion: pulumi.Output[str]
@@ -32,26 +32,46 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
     info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
     """
 
+    address_type: pulumi.Output[str]
+    """
+    addressType specifies the type of address carried by this EndpointSlice. All addresses in this
+    slice must be the same type. Default is IP
+    """
+
+    endpoints: pulumi.Output[list]
+    """
+    endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000
+    endpoints.
+    """
+
     metadata: pulumi.Output[dict]
     """
-    Standard object metadata; More info:
-    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+    Standard object's metadata.
     """
 
-    webhooks: pulumi.Output[list]
+    ports: pulumi.Output[list]
     """
-    Webhooks is a list of webhooks and the affected resources and operations.
+    ports specifies the list of network ports exposed by each endpoint in this slice. Each port must
+    have a unique name. When ports is empty, it indicates that there are no defined ports. When a
+    port is defined with a nil port value, it indicates "all ports". Each slice may include a
+    maximum of 100 ports.
     """
 
-    def __init__(self, resource_name, opts=None, metadata=None, webhooks=None, __name__=None, __opts__=None):
+    def __init__(self, resource_name, opts=None, endpoints=None, address_type=None, metadata=None, ports=None, __name__=None, __opts__=None):
         """
-        Create a MutatingWebhookConfiguration resource with the given unique name, arguments, and options.
+        Create a EndpointSlice resource with the given unique name, arguments, and options.
 
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[dict] metadata: Standard object metadata; More info:
-               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[list] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
+        :param pulumi.Input[list] endpoints: endpoints is a list of unique endpoints in this slice. Each slice may include a
+               maximum of 1000 endpoints.
+        :param pulumi.Input[str] address_type: addressType specifies the type of address carried by this EndpointSlice. All
+               addresses in this slice must be the same type. Default is IP
+        :param pulumi.Input[dict] metadata: Standard object's metadata.
+        :param pulumi.Input[list] ports: ports specifies the list of network ports exposed by each endpoint in this slice.
+               Each port must have a unique name. When ports is empty, it indicates that there are
+               no defined ports. When a port is defined with a nil port value, it indicates "all
+               ports". Each slice may include a maximum of 100 ports.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -68,17 +88,21 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'admissionregistration.k8s.io/v1beta1'
-        __props__['kind'] = 'MutatingWebhookConfiguration'
+        __props__['apiVersion'] = 'discovery.k8s.io/v1alpha1'
+        __props__['kind'] = 'EndpointSlice'
+        if endpoints is None:
+            raise TypeError('Missing required property endpoints')
+        __props__['endpoints'] = endpoints
+        __props__['addressType'] = address_type
         __props__['metadata'] = metadata
-        __props__['webhooks'] = webhooks
+        __props__['ports'] = ports
 
         __props__['status'] = None
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
-        super(MutatingWebhookConfiguration, self).__init__(
-            "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration",
+        super(EndpointSlice, self).__init__(
+            "kubernetes:discovery.k8s.io/v1alpha1:EndpointSlice",
             resource_name,
             __props__,
             opts)
@@ -86,7 +110,7 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
     @staticmethod
     def get(resource_name, id, opts=None):
         """
-        Get the state of an existing `MutatingWebhookConfiguration` resource, as identified by `id`.
+        Get the state of an existing `EndpointSlice` resource, as identified by `id`.
         The ID is of the form `[namespace]/[name]`; if `[namespace]` is omitted,
         then (per Kubernetes convention) the ID becomes `default/[name]`.
 
@@ -99,7 +123,7 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
                resource's behavior.
         """
         opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
-        return MutatingWebhookConfiguration(resource_name, opts)
+        return EndpointSlice(resource_name, opts)
 
     def translate_output_property(self, prop: str) -> str:
         return tables._CASING_FORWARD_TABLE.get(prop) or prop

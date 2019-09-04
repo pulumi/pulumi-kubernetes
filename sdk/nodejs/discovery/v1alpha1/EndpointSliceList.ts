@@ -8,17 +8,21 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * CustomResourceDefinition represents a resource that should be exposed on the API server.  Its
-     * name MUST be in the format <.spec.name>.<.spec.group>.
+     * EndpointSliceList represents a list of endpoint slices
      */
-    export class CustomResourceDefinition extends pulumi.CustomResource {
+    export class EndpointSliceList extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"apiextensions.k8s.io/v1">;
+      public readonly apiVersion: pulumi.Output<"discovery.k8s.io/v1alpha1">;
+
+      /**
+       * List of endpoint slices
+       */
+      public readonly items: pulumi.Output<outputs.discovery.v1alpha1.EndpointSlice[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -26,23 +30,15 @@ import { getVersion } from "../../version";
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"CustomResourceDefinition">;
-
-      
-      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+      public readonly kind: pulumi.Output<"EndpointSliceList">;
 
       /**
-       * spec describes how the user wants the resources to appear
+       * Standard list metadata.
        */
-      public readonly spec: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinitionSpec>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
       /**
-       * status indicates the actual state of the CustomResourceDefinition
-       */
-      public readonly status: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinitionStatus>;
-
-      /**
-       * Get the state of an existing `CustomResourceDefinition` resource, as identified by `id`.
+       * Get the state of an existing `EndpointSliceList` resource, as identified by `id`.
        * The ID is of the form `[namespace]/<name>`; if `namespace` is omitted, then (per
        * Kubernetes convention) the ID becomes `default/<name>`.
        *
@@ -52,38 +48,38 @@ import { getVersion } from "../../version";
        * @param id An ID for the Kubernetes resource to retrieve. Takes the form `[namespace]/<name>`.
        * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CustomResourceDefinition {
-          return new CustomResourceDefinition(name, undefined, { ...opts, id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): EndpointSliceList {
+          return new EndpointSliceList(name, undefined, { ...opts, id: id });
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition";
+      private static readonly __pulumiType = "kubernetes:discovery.k8s.io/v1alpha1:EndpointSliceList";
 
       /**
-       * Returns true if the given object is an instance of CustomResourceDefinition.  This is designed to work even
+       * Returns true if the given object is an instance of EndpointSliceList.  This is designed to work even
        * when multiple copies of the Pulumi SDK have been loaded into the same process.
        */
-      public static isInstance(obj: any): obj is CustomResourceDefinition {
+      public static isInstance(obj: any): obj is EndpointSliceList {
           if (obj === undefined || obj === null) {
               return false;
           }
 
-          return obj["__pulumiType"] === CustomResourceDefinition.__pulumiType;
+          return obj["__pulumiType"] === EndpointSliceList.__pulumiType;
       }
 
       /**
-       * Create a apiextensions.v1.CustomResourceDefinition resource with the given unique name, arguments, and options.
+       * Create a discovery.v1alpha1.EndpointSliceList resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.apiextensions.v1.CustomResourceDefinition, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.discovery.v1alpha1.EndpointSliceList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["spec"] = args && args.spec || undefined;
+          props["items"] = args && args.items || undefined;
 
-          props["apiVersion"] = "apiextensions.k8s.io/v1";
-          props["kind"] = "CustomResourceDefinition";
+          props["apiVersion"] = "discovery.k8s.io/v1alpha1";
+          props["kind"] = "EndpointSliceList";
           props["metadata"] = args && args.metadata || undefined;
 
           props["status"] = undefined;
@@ -95,6 +91,6 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
-          super(CustomResourceDefinition.__pulumiType, name, props, opts);
+          super(EndpointSliceList.__pulumiType, name, props, opts);
       }
     }

@@ -731,7 +731,8 @@ export namespace admissionregistration {
 
     /**
      * MutatingWebhookConfiguration describes the configuration of and admission webhook that accept
-     * or reject and may change the object.
+     * or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use
+     * admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
      */
     export interface MutatingWebhookConfiguration {
       /**
@@ -1019,7 +1020,8 @@ export namespace admissionregistration {
 
     /**
      * ValidatingWebhookConfiguration describes the configuration of and admission webhook that
-     * accept or reject and object without changing it.
+     * accept or reject and object without changing it. Deprecated in v1.16, planned for removal in
+     * v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
      */
     export interface ValidatingWebhookConfiguration {
       /**
@@ -1148,7 +1150,8 @@ export namespace apiextensions {
      */
     export interface CustomResourceColumnDefinition {
       /**
-       * JSONPath is a simple JSON path, i.e. with array notation.
+       * jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each
+       * custom resource to produce the value for this column.
        */
       jsonPath: pulumi.Input<string>
 
@@ -1160,7 +1163,7 @@ export namespace apiextensions {
       /**
        * type is an OpenAPI type definition for this column. See
        * https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for
-       * more.
+       * details.
        */
       type: pulumi.Input<string>
 
@@ -1174,14 +1177,14 @@ export namespace apiextensions {
        * to the primary identifier column to assist in clients identifying column is the resource
        * name. See
        * https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for
-       * more.
+       * details.
        */
       format?: pulumi.Input<string>
 
       /**
        * priority is an integer defining the relative importance of this column compared to others.
        * Lower numbers are considered higher priority. Columns that may be omitted in limited space
-       * scenarios should be given a higher priority.
+       * scenarios should be given a priority greater than 0.
        */
       priority?: pulumi.Input<number>
 
@@ -1193,15 +1196,18 @@ export namespace apiextensions {
      */
     export interface CustomResourceConversion {
       /**
-       * `strategy` specifies the conversion strategy. Allowed values are: - `None`: The converter
-       * only change the apiVersion and would not touch any other field in the CR. - `Webhook`: API
-       * Server will call to an external webhook to do the conversion. Additional information
-       *   is needed for this option. This requires spec.preserveUnknownFields to be false.
+       * strategy specifies how custom resources are converted between versions. Allowed values are:
+       * - `None`: The converter only change the apiVersion and would not touch any other field in
+       * the custom resource. - `Webhook`: API Server will call to an external webhook to do the
+       * conversion. Additional information
+       *   is needed for this option. This requires spec.preserveUnknownFields to be false, and
+       * spec.conversion.webhook to be set.
        */
       strategy: pulumi.Input<string>
 
       /**
-       * webhook describes how to call the conversion webhook. Required when strategy is "Webhook".
+       * webhook describes how to call the conversion webhook. Required when `strategy` is set to
+       * `Webhook`.
        */
       webhook?: pulumi.Input<apiextensions.v1.WebhookConversion>
 
@@ -1214,7 +1220,7 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinition {
       /**
-       * Spec describes how the user wants the resources to appear
+       * spec describes how the user wants the resources to appear
        */
       spec: pulumi.Input<apiextensions.v1.CustomResourceDefinitionSpec>
 
@@ -1248,28 +1254,28 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionCondition {
       /**
-       * Status is the status of the condition. Can be True, False, Unknown.
+       * status is the status of the condition. Can be True, False, Unknown.
        */
       status: pulumi.Input<string>
 
       /**
-       * Type is the type of the condition. Types include Established, NamesAccepted and
+       * type is the type of the condition. Types include Established, NamesAccepted and
        * Terminating.
        */
       type: pulumi.Input<string>
 
       /**
-       * Last time the condition transitioned from one status to another.
+       * lastTransitionTime last time the condition transitioned from one status to another.
        */
       lastTransitionTime?: pulumi.Input<string>
 
       /**
-       * Human-readable message indicating details about last transition.
+       * message is a human-readable message indicating details about last transition.
        */
       message?: pulumi.Input<string>
 
       /**
-       * Unique, one-word, CamelCase reason for the condition's last transition.
+       * reason is a unique, one-word, CamelCase reason for the condition's last transition.
        */
       reason?: pulumi.Input<string>
 
@@ -1281,7 +1287,7 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionList {
       /**
-       * Items individual CustomResourceDefinitions
+       * items list individual CustomResourceDefinition objects
        */
       items: pulumi.Input<pulumi.Input<apiextensions.v1.CustomResourceDefinition>[]>
 
@@ -1315,34 +1321,39 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionNames {
       /**
-       * Kind is the serialized kind of the resource.  It is normally CamelCase and singular.
+       * kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom
+       * resource instances will use this value as the `kind` attribute in API calls.
        */
       kind: pulumi.Input<string>
 
       /**
-       * Plural is the plural name of the resource to serve.  It must match the name of the
-       * CustomResourceDefinition-registration too: plural.group and it must be all lowercase.
+       * plural is the plural name of the resource to serve. The custom resources are served under
+       * `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition
+       * (in the form `<names.plural>.<group>`). Must be all lowercase.
        */
       plural: pulumi.Input<string>
 
       /**
-       * Categories is a list of grouped resources custom resources belong to (e.g. 'all')
+       * categories is a list of grouped resources this custom resource belongs to (e.g. 'all').
+       * This is published in API discovery documents, and used by clients to support invocations
+       * like `kubectl get all`.
        */
       categories?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
-       * ListKind is the serialized kind of the list for this resource.  Defaults to <kind>List.
+       * listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
        */
       listKind?: pulumi.Input<string>
 
       /**
-       * ShortNames are short names for the resource.  It must be all lowercase.
+       * shortNames are short names for the resource, exposed in API discovery documents, and used
+       * by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
        */
       shortNames?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
-       * Singular is the singular name of the resource.  It must be all lowercase  Defaults to
-       * lowercased <kind>
+       * singular is the singular name of the resource. It must be all lowercase. Defaults to
+       * lowercased `kind`.
        */
       singular?: pulumi.Input<string>
 
@@ -1354,42 +1365,48 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionSpec {
       /**
-       * Group is the group this resource belongs in
+       * group is the API group of the defined custom resource. The custom resources are served
+       * under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form
+       * `<names.plural>.<group>`).
        */
       group: pulumi.Input<string>
 
       /**
-       * Names are the names used to describe this custom resource
+       * names specify the resource and kind names for the custom resource.
        */
       names: pulumi.Input<apiextensions.v1.CustomResourceDefinitionNames>
 
       /**
-       * Scope indicates whether this resource is cluster or namespace scoped.
+       * scope indicates whether the defined custom resource is cluster- or namespace-scoped.
+       * Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
        */
       scope: pulumi.Input<string>
 
       /**
-       * Versions is the list of all supported versions for this resource. Order: The version name
-       * will be used to compute the order. If the version string is "kube-like", it will sort above
-       * non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions
-       * start with a "v", then are followed by a number (the major version), then optionally the
-       * string "alpha" or "beta" and another number (the minor version). These are sorted first by
-       * GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by
-       * comparing major version, then minor version. An example sorted list of versions: v10, v2,
-       * v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+       * versions is the list of all API versions of the defined custom resource. Version names are
+       * used to compute the order in which served versions are listed in API discovery. If the
+       * version string is "kube-like", it will sort above non "kube-like" version strings, which
+       * are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by
+       * a number (the major version), then optionally the string "alpha" or "beta" and another
+       * number (the minor version). These are sorted first by GA > beta > alpha (where GA is a
+       * version with no suffix such as beta or alpha), and then by comparing major version, then
+       * minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3,
+       * v3beta1, v12alpha1, v11alpha2, foo1, foo10.
        */
       versions: pulumi.Input<pulumi.Input<apiextensions.v1.CustomResourceDefinitionVersion>[]>
 
       /**
-       * `conversion` defines conversion settings for the CRD.
+       * conversion defines conversion settings for the CRD.
        */
       conversion?: pulumi.Input<apiextensions.v1.CustomResourceConversion>
 
       /**
-       * preserveUnknownFields disables pruning of object fields which are not specified in the
-       * OpenAPI schema. apiVersion, kind, metadata and known fields inside metadata are always
-       * preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true
-       * in `spec.versions[*].schema.openAPIV3Schema`.
+       * preserveUnknownFields indicates that object fields which are not specified in the OpenAPI
+       * schema should be preserved when persisting to storage. apiVersion, kind, metadata and known
+       * fields inside metadata are always preserved. This field is deprecated in favor of setting
+       * `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See
+       * https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields
+       * for details.
        */
       preserveUnknownFields?: pulumi.Input<boolean>
 
@@ -1401,24 +1418,24 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionStatus {
       /**
-       * AcceptedNames are the names that are actually being used to serve discovery They may be
+       * acceptedNames are the names that are actually being used to serve discovery. They may be
        * different than the names in spec.
        */
       acceptedNames: pulumi.Input<apiextensions.v1.CustomResourceDefinitionNames>
 
       /**
-       * Conditions indicate state for particular aspects of a CustomResourceDefinition
-       */
-      conditions: pulumi.Input<pulumi.Input<apiextensions.v1.CustomResourceDefinitionCondition>[]>
-
-      /**
-       * StoredVersions are all versions of CustomResources that were ever persisted. Tracking these
-       * versions allows a migration path for stored versions in etcd. The field is mutable so the
-       * migration controller can first finish a migration to another version (i.e. that no old
-       * objects are left in the storage), and then remove the rest of the versions from this list.
-       * None of the versions in this list can be removed from the spec.Versions field.
+       * storedVersions lists all versions of CustomResources that were ever persisted. Tracking
+       * these versions allows a migration path for stored versions in etcd. The field is mutable so
+       * a migration controller can finish a migration to another version (ensuring no old objects
+       * are left in storage), and then remove the rest of the versions from this list. Versions may
+       * not be removed from `spec.versions` while they exist in this list.
        */
       storedVersions: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * conditions indicate state for particular aspects of a CustomResourceDefinition
+       */
+      conditions?: pulumi.Input<pulumi.Input<apiextensions.v1.CustomResourceDefinitionCondition>[]>
 
     }
 
@@ -1428,34 +1445,38 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionVersion {
       /**
-       * Name is the version name, e.g. “v1”, “v2beta1”, etc.
+       * name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are
+       * served under this version at `/apis/<group>/<version>/...` if `served` is true.
        */
       name: pulumi.Input<string>
 
       /**
-       * Served is a flag enabling/disabling this version from being served via REST APIs
+       * served is a flag enabling/disabling this version from being served via REST APIs
        */
       served: pulumi.Input<boolean>
 
       /**
-       * Storage flags the version as storage version. There must be exactly one flagged as storage
-       * version.
+       * storage indicates this version should be used when persisting custom resources to storage.
+       * There must be exactly one version with storage=true.
        */
       storage: pulumi.Input<boolean>
 
       /**
-       * AdditionalPrinterColumns are additional columns shown e.g. in kubectl next to the name.
-       * Defaults to a created-at column.
+       * additionalPrinterColumns specifies additional columns returned in Table output. See
+       * https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables
+       * for details. If no columns are specified, a single column displaying the age of the custom
+       * resource is used.
        */
       additionalPrinterColumns?: pulumi.Input<pulumi.Input<apiextensions.v1.CustomResourceColumnDefinition>[]>
 
       /**
-       * Schema describes the schema for CustomResource used in validation, pruning, and defaulting.
+       * schema describes the schema used for validation, pruning, and defaulting of this version of
+       * the custom resource.
        */
       schema?: pulumi.Input<apiextensions.v1.CustomResourceValidation>
 
       /**
-       * Subresources describes the subresources for CustomResource
+       * subresources specify what subresources this version of the defined custom resource have.
        */
       subresources?: pulumi.Input<apiextensions.v1.CustomResourceSubresources>
 
@@ -1468,30 +1489,30 @@ export namespace apiextensions {
      */
     export interface CustomResourceSubresourceScale {
       /**
-       * SpecReplicasPath defines the JSON path inside of a CustomResource that corresponds to
-       * Scale.Spec.Replicas. Only JSON paths without the array notation are allowed. Must be a JSON
-       * Path under .spec. If there is no value under the given path in the CustomResource, the
-       * /scale subresource will return an error on GET.
+       * specReplicasPath defines the JSON path inside of a custom resource that corresponds to
+       * Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a
+       * JSON Path under `.spec`. If there is no value under the given path in the custom resource,
+       * the `/scale` subresource will return an error on GET.
        */
       specReplicasPath: pulumi.Input<string>
 
       /**
-       * StatusReplicasPath defines the JSON path inside of a CustomResource that corresponds to
-       * Scale.Status.Replicas. Only JSON paths without the array notation are allowed. Must be a
-       * JSON Path under .status. If there is no value under the given path in the CustomResource,
-       * the status replica value in the /scale subresource will default to 0.
+       * statusReplicasPath defines the JSON path inside of a custom resource that corresponds to
+       * Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a
+       * JSON Path under `.status`. If there is no value under the given path in the custom
+       * resource, the `status.replicas` value in the `/scale` subresource will default to 0.
        */
       statusReplicasPath: pulumi.Input<string>
 
       /**
-       * LabelSelectorPath defines the JSON path inside of a CustomResource that corresponds to
-       * Scale.Status.Selector. Only JSON paths without the array notation are allowed. Must be a
-       * JSON Path under .status or .spec. Must be set to work with HPA. The field pointed by this
-       * JSON path must be a string field (not a complex selector struct) which contains a
-       * serialized label selector in string form. More info:
+       * labelSelectorPath defines the JSON path inside of a custom resource that corresponds to
+       * Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a
+       * JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The
+       * field pointed by this JSON path must be a string field (not a complex selector struct)
+       * which contains a serialized label selector in string form. More info:
        * https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource
-       * If there is no value under the given path in the CustomResource, the status label selector
-       * value in the /scale subresource will default to the empty string.
+       * If there is no value under the given path in the custom resource, the `status.selector`
+       * value in the `/scale` subresource will default to the empty string.
        */
       labelSelectorPath?: pulumi.Input<string>
 
@@ -1503,7 +1524,8 @@ export namespace apiextensions {
      */
     export interface CustomResourceSubresources {
       /**
-       * Scale denotes the scale subresource for CustomResources
+       * scale indicates the custom resource should serve a `/scale` subresource that returns an
+       * `autoscaling/v1` Scale object.
        */
       scale?: pulumi.Input<apiextensions.v1.CustomResourceSubresourceScale>
 
@@ -1515,7 +1537,7 @@ export namespace apiextensions {
      */
     export interface CustomResourceValidation {
       /**
-       * OpenAPIV3Schema is the OpenAPI v3 schema to be validated against.
+       * openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
        */
       openAPIV3Schema?: pulumi.Input<apiextensions.v1.JSONSchemaProps>
 
@@ -1558,9 +1580,9 @@ export namespace apiextensions {
       anyOf?: pulumi.Input<pulumi.Input<apiextensions.v1.JSONSchemaProps>[]>
 
       /**
-       * default is a default value for undefined object fields. Defaulting is an alpha feature
-       * under the CustomResourceDefaulting feature gate. Defaulting requires
-       * spec.preserveUnknownFields to be false.
+       * default is a default value for undefined object fields. Defaulting is a beta feature under
+       * the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields
+       * to be false.
        */
       default?: pulumi.Input<any>
 
@@ -1680,6 +1702,34 @@ export namespace apiextensions {
       x_kubernetes_int_or_string?: pulumi.Input<boolean>
 
       /**
+       * x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by
+       * specifying the keys used as the index of the map.
+       * 
+       * This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to
+       * "map". Also, the values specified for this attribute must be a scalar typed field of the
+       * child structure (no nesting is supported).
+       */
+      x_kubernetes_list_map_keys?: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * x-kubernetes-list-type annotates an array to further describe its topology. This extension
+       * must only be used on lists and may have 3 possible values:
+       * 
+       * 1) `atomic`: the list is treated as a single entity, like a scalar.
+       *      Atomic lists will be entirely replaced when updated. This extension
+       *      may be used on any type of list (struct, scalar, ...).
+       * 2) `set`:
+       *      Sets are lists that must not have multiple items with the same value. Each
+       *      value must be a scalar (or another atomic type).
+       * 3) `map`:
+       *      These lists are like maps in that their elements have a non-index key
+       *      used to identify them. Order is preserved upon merge. The map tag
+       *      must only be used on a list with elements of type object.
+       * Defaults to atomic for arrays.
+       */
+      x_kubernetes_list_type?: pulumi.Input<string>
+
+      /**
        * x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields
        * which are not specified in the validation schema. This affects fields recursively, but
        * switches back to normal pruning behaviour if nested properties or additionalProperties are
@@ -1695,23 +1745,23 @@ export namespace apiextensions {
      */
     export interface ServiceReference {
       /**
-       * `name` is the name of the service. Required
+       * name is the name of the service. Required
        */
       name: pulumi.Input<string>
 
       /**
-       * `namespace` is the namespace of the service. Required
+       * namespace is the namespace of the service. Required
        */
       namespace: pulumi.Input<string>
 
       /**
-       * `path` is an optional URL path which will be sent in any request to this service.
+       * path is an optional URL path at which the webhook will be contacted.
        */
       path?: pulumi.Input<string>
 
       /**
-       * If specified, the port on the service that hosting webhook. Default to 443 for backward
-       * compatibility. `port` should be a valid port number (1-65535, inclusive).
+       * port is an optional service port at which the webhook will be contacted. `port` should be a
+       * valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
        */
       port?: pulumi.Input<number>
 
@@ -1719,18 +1769,17 @@ export namespace apiextensions {
 
 
     /**
-     * WebhookClientConfig contains the information to make a TLS connection with the webhook. It
-     * has the same field as admissionregistration.v1.WebhookClientConfig.
+     * WebhookClientConfig contains the information to make a TLS connection with the webhook.
      */
     export interface WebhookClientConfig {
       /**
-       * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server
+       * caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
        * certificate. If unspecified, system trust roots on the apiserver are used.
        */
       caBundle?: pulumi.Input<string>
 
       /**
-       * `service` is a reference to the service for this webhook. Either `service` or `url` must be
+       * service is a reference to the service for this webhook. Either service or url must be
        * specified.
        * 
        * If the webhook is running within the cluster, then you should use `service`.
@@ -1738,7 +1787,7 @@ export namespace apiextensions {
       service?: pulumi.Input<apiextensions.v1.ServiceReference>
 
       /**
-       * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
+       * url gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
        * Exactly one of `url` or `service` must be specified.
        * 
        * The `host` should not refer to a service running in the cluster; use the `service` field
@@ -1769,16 +1818,17 @@ export namespace apiextensions {
      */
     export interface WebhookConversion {
       /**
-       * ConversionReviewVersions is an ordered list of preferred `ConversionReview` versions the
-       * Webhook expects. API server will try to use first version in the list which it supports. If
-       * none of the versions specified in this list supported by API server, conversion will fail
-       * for this object. If a persisted Webhook configuration specifies allowed versions and does
-       * not include any versions known to the API Server, calls to the webhook will fail.
+       * conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the
+       * Webhook expects. The API server will use the first version in the list which it supports.
+       * If none of the versions specified in this list are supported by API server, conversion will
+       * fail for the custom resource. If a persisted Webhook configuration specifies allowed
+       * versions and does not include any versions known to the API Server, calls to the webhook
+       * will fail.
        */
       conversionReviewVersions: pulumi.Input<pulumi.Input<string>[]>
 
       /**
-       * `clientConfig` is the instructions for how to call the webhook if strategy is `Webhook`.
+       * clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
        */
       clientConfig?: pulumi.Input<apiextensions.v1.WebhookClientConfig>
 
@@ -1793,7 +1843,8 @@ export namespace apiextensions {
      */
     export interface CustomResourceColumnDefinition {
       /**
-       * JSONPath is a simple JSON path, i.e. with array notation.
+       * JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each
+       * custom resource to produce the value for this column.
        */
       JSONPath: pulumi.Input<string>
 
@@ -1805,7 +1856,7 @@ export namespace apiextensions {
       /**
        * type is an OpenAPI type definition for this column. See
        * https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for
-       * more.
+       * details.
        */
       type: pulumi.Input<string>
 
@@ -1819,14 +1870,14 @@ export namespace apiextensions {
        * to the primary identifier column to assist in clients identifying column is the resource
        * name. See
        * https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for
-       * more.
+       * details.
        */
       format?: pulumi.Input<string>
 
       /**
        * priority is an integer defining the relative importance of this column compared to others.
        * Lower numbers are considered higher priority. Columns that may be omitted in limited space
-       * scenarios should be given a higher priority.
+       * scenarios should be given a priority greater than 0.
        */
       priority?: pulumi.Input<number>
 
@@ -1838,27 +1889,28 @@ export namespace apiextensions {
      */
     export interface CustomResourceConversion {
       /**
-       * `strategy` specifies the conversion strategy. Allowed values are: - `None`: The converter
-       * only change the apiVersion and would not touch any other field in the CR. - `Webhook`: API
-       * Server will call to an external webhook to do the conversion. Additional information
-       *   is needed for this option. This requires spec.preserveUnknownFields to be false.
+       * strategy specifies how custom resources are converted between versions. Allowed values are:
+       * - `None`: The converter only change the apiVersion and would not touch any other field in
+       * the custom resource. - `Webhook`: API Server will call to an external webhook to do the
+       * conversion. Additional information
+       *   is needed for this option. This requires spec.preserveUnknownFields to be false, and
+       * spec.conversion.webhookClientConfig to be set.
        */
       strategy: pulumi.Input<string>
 
       /**
-       * ConversionReviewVersions is an ordered list of preferred `ConversionReview` versions the
-       * Webhook expects. API server will try to use first version in the list which it supports. If
-       * none of the versions specified in this list supported by API server, conversion will fail
-       * for this object. If a persisted Webhook configuration specifies allowed versions and does
-       * not include any versions known to the API Server, calls to the webhook will fail. Default
-       * to `['v1beta1']`.
+       * conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the
+       * Webhook expects. The API server will use the first version in the list which it supports.
+       * If none of the versions specified in this list are supported by API server, conversion will
+       * fail for the custom resource. If a persisted Webhook configuration specifies allowed
+       * versions and does not include any versions known to the API Server, calls to the webhook
+       * will fail. Defaults to `["v1beta1"]`.
        */
       conversionReviewVersions?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
-       * `webhookClientConfig` is the instructions for how to call the webhook if strategy is
-       * `Webhook`. This field is alpha-level and is only honored by servers that enable the
-       * CustomResourceWebhookConversion feature.
+       * webhookClientConfig is the instructions for how to call the webhook if strategy is
+       * `Webhook`. Required when `strategy` is set to `Webhook`.
        */
       webhookClientConfig?: pulumi.Input<apiextensions.v1beta1.WebhookClientConfig>
 
@@ -1867,11 +1919,12 @@ export namespace apiextensions {
 
     /**
      * CustomResourceDefinition represents a resource that should be exposed on the API server.  Its
-     * name MUST be in the format <.spec.name>.<.spec.group>.
+     * name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for
+     * removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
      */
     export interface CustomResourceDefinition {
       /**
-       * Spec describes how the user wants the resources to appear
+       * spec describes how the user wants the resources to appear
        */
       spec: pulumi.Input<apiextensions.v1beta1.CustomResourceDefinitionSpec>
 
@@ -1905,28 +1958,28 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionCondition {
       /**
-       * Status is the status of the condition. Can be True, False, Unknown.
+       * status is the status of the condition. Can be True, False, Unknown.
        */
       status: pulumi.Input<string>
 
       /**
-       * Type is the type of the condition. Types include Established, NamesAccepted and
+       * type is the type of the condition. Types include Established, NamesAccepted and
        * Terminating.
        */
       type: pulumi.Input<string>
 
       /**
-       * Last time the condition transitioned from one status to another.
+       * lastTransitionTime last time the condition transitioned from one status to another.
        */
       lastTransitionTime?: pulumi.Input<string>
 
       /**
-       * Human-readable message indicating details about last transition.
+       * message is a human-readable message indicating details about last transition.
        */
       message?: pulumi.Input<string>
 
       /**
-       * Unique, one-word, CamelCase reason for the condition's last transition.
+       * reason is a unique, one-word, CamelCase reason for the condition's last transition.
        */
       reason?: pulumi.Input<string>
 
@@ -1938,7 +1991,7 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionList {
       /**
-       * Items individual CustomResourceDefinitions
+       * items list individual CustomResourceDefinition objects
        */
       items: pulumi.Input<pulumi.Input<apiextensions.v1beta1.CustomResourceDefinition>[]>
 
@@ -1972,34 +2025,39 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionNames {
       /**
-       * Kind is the serialized kind of the resource.  It is normally CamelCase and singular.
+       * kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom
+       * resource instances will use this value as the `kind` attribute in API calls.
        */
       kind: pulumi.Input<string>
 
       /**
-       * Plural is the plural name of the resource to serve.  It must match the name of the
-       * CustomResourceDefinition-registration too: plural.group and it must be all lowercase.
+       * plural is the plural name of the resource to serve. The custom resources are served under
+       * `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition
+       * (in the form `<names.plural>.<group>`). Must be all lowercase.
        */
       plural: pulumi.Input<string>
 
       /**
-       * Categories is a list of grouped resources custom resources belong to (e.g. 'all')
+       * categories is a list of grouped resources this custom resource belongs to (e.g. 'all').
+       * This is published in API discovery documents, and used by clients to support invocations
+       * like `kubectl get all`.
        */
       categories?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
-       * ListKind is the serialized kind of the list for this resource.  Defaults to <kind>List.
+       * listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
        */
       listKind?: pulumi.Input<string>
 
       /**
-       * ShortNames are short names for the resource.  It must be all lowercase.
+       * shortNames are short names for the resource, exposed in API discovery documents, and used
+       * by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
        */
       shortNames?: pulumi.Input<pulumi.Input<string>[]>
 
       /**
-       * Singular is the singular name of the resource.  It must be all lowercase  Defaults to
-       * lowercased <kind>
+       * singular is the singular name of the resource. It must be all lowercase. Defaults to
+       * lowercased `kind`.
        */
       singular?: pulumi.Input<string>
 
@@ -2011,73 +2069,83 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionSpec {
       /**
-       * Group is the group this resource belongs in
+       * group is the API group of the defined custom resource. The custom resources are served
+       * under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form
+       * `<names.plural>.<group>`).
        */
       group: pulumi.Input<string>
 
       /**
-       * Names are the names used to describe this custom resource
+       * names specify the resource and kind names for the custom resource.
        */
       names: pulumi.Input<apiextensions.v1beta1.CustomResourceDefinitionNames>
 
       /**
-       * Scope indicates whether this resource is cluster or namespace scoped.  Default is
-       * namespaced
+       * scope indicates whether the defined custom resource is cluster- or namespace-scoped.
+       * Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
        */
       scope: pulumi.Input<string>
 
       /**
-       * AdditionalPrinterColumns are additional columns shown e.g. in kubectl next to the name.
-       * Defaults to a created-at column. Optional, the global columns for all versions. Top-level
-       * and per-version columns are mutually exclusive.
+       * additionalPrinterColumns specifies additional columns returned in Table output. See
+       * https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables
+       * for details. If present, this field configures columns for all versions. Top-level and
+       * per-version columns are mutually exclusive. If no top-level or per-version columns are
+       * specified, a single column displaying the age of the custom resource is used.
        */
       additionalPrinterColumns?: pulumi.Input<pulumi.Input<apiextensions.v1beta1.CustomResourceColumnDefinition>[]>
 
       /**
-       * `conversion` defines conversion settings for the CRD.
+       * conversion defines conversion settings for the CRD.
        */
       conversion?: pulumi.Input<apiextensions.v1beta1.CustomResourceConversion>
 
       /**
-       * preserveUnknownFields disables pruning of object fields which are not specified in the
-       * OpenAPI schema. apiVersion, kind, metadata and known fields inside metadata are always
-       * preserved. Defaults to true in v1beta and will default to false in v1.
+       * preserveUnknownFields indicates that object fields which are not specified in the OpenAPI
+       * schema should be preserved when persisting to storage. apiVersion, kind, metadata and known
+       * fields inside metadata are always preserved. If false, schemas must be defined for all
+       * versions. Defaults to true in v1beta for backwards compatibility. Deprecated: will be
+       * required to be false in v1. Preservation of unknown fields can be specified in the
+       * validation schema using the `x-kubernetes-preserve-unknown-fields: true` extension. See
+       * https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields
+       * for details.
        */
       preserveUnknownFields?: pulumi.Input<boolean>
 
       /**
-       * Subresources describes the subresources for CustomResource Optional, the global
-       * subresources for all versions. Top-level and per-version subresources are mutually
-       * exclusive.
+       * subresources specify what subresources the defined custom resource has. If present, this
+       * field configures subresources for all versions. Top-level and per-version subresources are
+       * mutually exclusive.
        */
       subresources?: pulumi.Input<apiextensions.v1beta1.CustomResourceSubresources>
 
       /**
-       * Validation describes the validation methods for CustomResources Optional, the global
-       * validation schema for all versions. Top-level and per-version schemas are mutually
-       * exclusive.
+       * validation describes the schema used for validation and pruning of the custom resource. If
+       * present, this validation schema is used to validate all versions. Top-level and per-version
+       * schemas are mutually exclusive.
        */
       validation?: pulumi.Input<apiextensions.v1beta1.CustomResourceValidation>
 
       /**
-       * Version is the version this resource belongs in Should be always first item in Versions
-       * field if provided. Optional, but at least one of Version or Versions must be set.
-       * Deprecated: Please use `Versions`.
+       * version is the API version of the defined custom resource. The custom resources are served
+       * under `/apis/<group>/<version>/...`. Must match the name of the first item in the
+       * `versions` list if `version` and `versions` are both specified. Optional if `versions` is
+       * specified. Deprecated: use `versions` instead.
        */
       version?: pulumi.Input<string>
 
       /**
-       * Versions is the list of all supported versions for this resource. If Version field is
-       * provided, this field is optional. Validation: All versions must use the same validation
-       * schema for now. i.e., top level Validation field is applied to all of these versions.
-       * Order: The version name will be used to compute the order. If the version string is
-       * "kube-like", it will sort above non "kube-like" version strings, which are ordered
-       * lexicographically. "Kube-like" versions start with a "v", then are followed by a number
-       * (the major version), then optionally the string "alpha" or "beta" and another number (the
-       * minor version). These are sorted first by GA > beta > alpha (where GA is a version with no
-       * suffix such as beta or alpha), and then by comparing major version, then minor version. An
-       * example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1,
-       * v11alpha2, foo1, foo10.
+       * versions is the list of all API versions of the defined custom resource. Optional if
+       * `version` is specified. The name of the first item in the `versions` list must match the
+       * `version` field if `version` and `versions` are both specified. Version names are used to
+       * compute the order in which served versions are listed in API discovery. If the version
+       * string is "kube-like", it will sort above non "kube-like" version strings, which are
+       * ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a
+       * number (the major version), then optionally the string "alpha" or "beta" and another number
+       * (the minor version). These are sorted first by GA > beta > alpha (where GA is a version
+       * with no suffix such as beta or alpha), and then by comparing major version, then minor
+       * version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1,
+       * v12alpha1, v11alpha2, foo1, foo10.
        */
       versions?: pulumi.Input<pulumi.Input<apiextensions.v1beta1.CustomResourceDefinitionVersion>[]>
 
@@ -2089,24 +2157,24 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionStatus {
       /**
-       * AcceptedNames are the names that are actually being used to serve discovery They may be
+       * acceptedNames are the names that are actually being used to serve discovery. They may be
        * different than the names in spec.
        */
       acceptedNames: pulumi.Input<apiextensions.v1beta1.CustomResourceDefinitionNames>
 
       /**
-       * Conditions indicate state for particular aspects of a CustomResourceDefinition
-       */
-      conditions: pulumi.Input<pulumi.Input<apiextensions.v1beta1.CustomResourceDefinitionCondition>[]>
-
-      /**
-       * StoredVersions are all versions of CustomResources that were ever persisted. Tracking these
-       * versions allows a migration path for stored versions in etcd. The field is mutable so the
-       * migration controller can first finish a migration to another version (i.e. that no old
-       * objects are left in the storage), and then remove the rest of the versions from this list.
-       * None of the versions in this list can be removed from the spec.Versions field.
+       * storedVersions lists all versions of CustomResources that were ever persisted. Tracking
+       * these versions allows a migration path for stored versions in etcd. The field is mutable so
+       * a migration controller can finish a migration to another version (ensuring no old objects
+       * are left in storage), and then remove the rest of the versions from this list. Versions may
+       * not be removed from `spec.versions` while they exist in this list.
        */
       storedVersions: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * conditions indicate state for particular aspects of a CustomResourceDefinition
+       */
+      conditions?: pulumi.Input<pulumi.Input<apiextensions.v1beta1.CustomResourceDefinitionCondition>[]>
 
     }
 
@@ -2116,47 +2184,44 @@ export namespace apiextensions {
      */
     export interface CustomResourceDefinitionVersion {
       /**
-       * Name is the version name, e.g. “v1”, “v2beta1”, etc.
+       * name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are
+       * served under this version at `/apis/<group>/<version>/...` if `served` is true.
        */
       name: pulumi.Input<string>
 
       /**
-       * Served is a flag enabling/disabling this version from being served via REST APIs
+       * served is a flag enabling/disabling this version from being served via REST APIs
        */
       served: pulumi.Input<boolean>
 
       /**
-       * Storage flags the version as storage version. There must be exactly one flagged as storage
-       * version.
+       * storage indicates this version should be used when persisting custom resources to storage.
+       * There must be exactly one version with storage=true.
        */
       storage: pulumi.Input<boolean>
 
       /**
-       * AdditionalPrinterColumns are additional columns shown e.g. in kubectl next to the name.
-       * Defaults to a created-at column. Top-level and per-version columns are mutually exclusive.
-       * Per-version columns must not all be set to identical values (top-level columns should be
-       * used instead) This field is alpha-level and is only honored by servers that enable the
-       * CustomResourceWebhookConversion feature. NOTE: CRDs created prior to 1.13 populated the
-       * top-level additionalPrinterColumns field by default. To apply an update that changes to
-       * per-version additionalPrinterColumns, the top-level additionalPrinterColumns field must be
-       * explicitly set to null
+       * additionalPrinterColumns specifies additional columns returned in Table output. See
+       * https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables
+       * for details. Top-level and per-version columns are mutually exclusive. Per-version columns
+       * must not all be set to identical values (top-level columns should be used instead). If no
+       * top-level or per-version columns are specified, a single column displaying the age of the
+       * custom resource is used.
        */
       additionalPrinterColumns?: pulumi.Input<pulumi.Input<apiextensions.v1beta1.CustomResourceColumnDefinition>[]>
 
       /**
-       * Schema describes the schema for CustomResource used in validation, pruning, and defaulting.
-       * Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all
-       * be set to identical values (top-level validation schema should be used instead) This field
-       * is alpha-level and is only honored by servers that enable the
-       * CustomResourceWebhookConversion feature.
+       * schema describes the schema used for validation and pruning of this version of the custom
+       * resource. Top-level and per-version schemas are mutually exclusive. Per-version schemas
+       * must not all be set to identical values (top-level validation schema should be used
+       * instead).
        */
       schema?: pulumi.Input<apiextensions.v1beta1.CustomResourceValidation>
 
       /**
-       * Subresources describes the subresources for CustomResource Top-level and per-version
-       * subresources are mutually exclusive. Per-version subresources must not all be set to
-       * identical values (top-level subresources should be used instead) This field is alpha-level
-       * and is only honored by servers that enable the CustomResourceWebhookConversion feature.
+       * subresources specify what subresources this version of the defined custom resource have.
+       * Top-level and per-version subresources are mutually exclusive. Per-version subresources
+       * must not all be set to identical values (top-level subresources should be used instead).
        */
       subresources?: pulumi.Input<apiextensions.v1beta1.CustomResourceSubresources>
 
@@ -2169,30 +2234,30 @@ export namespace apiextensions {
      */
     export interface CustomResourceSubresourceScale {
       /**
-       * SpecReplicasPath defines the JSON path inside of a CustomResource that corresponds to
-       * Scale.Spec.Replicas. Only JSON paths without the array notation are allowed. Must be a JSON
-       * Path under .spec. If there is no value under the given path in the CustomResource, the
-       * /scale subresource will return an error on GET.
+       * specReplicasPath defines the JSON path inside of a custom resource that corresponds to
+       * Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a
+       * JSON Path under `.spec`. If there is no value under the given path in the custom resource,
+       * the `/scale` subresource will return an error on GET.
        */
       specReplicasPath: pulumi.Input<string>
 
       /**
-       * StatusReplicasPath defines the JSON path inside of a CustomResource that corresponds to
-       * Scale.Status.Replicas. Only JSON paths without the array notation are allowed. Must be a
-       * JSON Path under .status. If there is no value under the given path in the CustomResource,
-       * the status replica value in the /scale subresource will default to 0.
+       * statusReplicasPath defines the JSON path inside of a custom resource that corresponds to
+       * Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a
+       * JSON Path under `.status`. If there is no value under the given path in the custom
+       * resource, the `status.replicas` value in the `/scale` subresource will default to 0.
        */
       statusReplicasPath: pulumi.Input<string>
 
       /**
-       * LabelSelectorPath defines the JSON path inside of a CustomResource that corresponds to
-       * Scale.Status.Selector. Only JSON paths without the array notation are allowed. Must be a
-       * JSON Path under .status or .spec. Must be set to work with HPA. The field pointed by this
-       * JSON path must be a string field (not a complex selector struct) which contains a
-       * serialized label selector in string form. More info:
+       * labelSelectorPath defines the JSON path inside of a custom resource that corresponds to
+       * Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a
+       * JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The
+       * field pointed by this JSON path must be a string field (not a complex selector struct)
+       * which contains a serialized label selector in string form. More info:
        * https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource
-       * If there is no value under the given path in the CustomResource, the status label selector
-       * value in the /scale subresource will default to the empty string.
+       * If there is no value under the given path in the custom resource, the `status.selector`
+       * value in the `/scale` subresource will default to the empty string.
        */
       labelSelectorPath?: pulumi.Input<string>
 
@@ -2204,7 +2269,8 @@ export namespace apiextensions {
      */
     export interface CustomResourceSubresources {
       /**
-       * Scale denotes the scale subresource for CustomResources
+       * scale indicates the custom resource should serve a `/scale` subresource that returns an
+       * `autoscaling/v1` Scale object.
        */
       scale?: pulumi.Input<apiextensions.v1beta1.CustomResourceSubresourceScale>
 
@@ -2216,7 +2282,7 @@ export namespace apiextensions {
      */
     export interface CustomResourceValidation {
       /**
-       * OpenAPIV3Schema is the OpenAPI v3 schema to be validated against.
+       * openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
        */
       openAPIV3Schema?: pulumi.Input<apiextensions.v1beta1.JSONSchemaProps>
 
@@ -2259,9 +2325,9 @@ export namespace apiextensions {
       anyOf?: pulumi.Input<pulumi.Input<apiextensions.v1beta1.JSONSchemaProps>[]>
 
       /**
-       * default is a default value for undefined object fields. Defaulting is an alpha feature
-       * under the CustomResourceDefaulting feature gate. Defaulting requires
-       * spec.preserveUnknownFields to be false.
+       * default is a default value for undefined object fields. Defaulting is a beta feature under
+       * the CustomResourceDefaulting feature gate. CustomResourceDefinitions with defaults must be
+       * created using the v1 (or newer) CustomResourceDefinition API.
        */
       default?: pulumi.Input<any>
 
@@ -2381,6 +2447,34 @@ export namespace apiextensions {
       x_kubernetes_int_or_string?: pulumi.Input<boolean>
 
       /**
+       * x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by
+       * specifying the keys used as the index of the map.
+       * 
+       * This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to
+       * "map". Also, the values specified for this attribute must be a scalar typed field of the
+       * child structure (no nesting is supported).
+       */
+      x_kubernetes_list_map_keys?: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * x-kubernetes-list-type annotates an array to further describe its topology. This extension
+       * must only be used on lists and may have 3 possible values:
+       * 
+       * 1) `atomic`: the list is treated as a single entity, like a scalar.
+       *      Atomic lists will be entirely replaced when updated. This extension
+       *      may be used on any type of list (struct, scalar, ...).
+       * 2) `set`:
+       *      Sets are lists that must not have multiple items with the same value. Each
+       *      value must be a scalar (or another atomic type).
+       * 3) `map`:
+       *      These lists are like maps in that their elements have a non-index key
+       *      used to identify them. Order is preserved upon merge. The map tag
+       *      must only be used on a list with elements of type object.
+       * Defaults to atomic for arrays.
+       */
+      x_kubernetes_list_type?: pulumi.Input<string>
+
+      /**
        * x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields
        * which are not specified in the validation schema. This affects fields recursively, but
        * switches back to normal pruning behaviour if nested properties or additionalProperties are
@@ -2396,23 +2490,23 @@ export namespace apiextensions {
      */
     export interface ServiceReference {
       /**
-       * `name` is the name of the service. Required
+       * name is the name of the service. Required
        */
       name: pulumi.Input<string>
 
       /**
-       * `namespace` is the namespace of the service. Required
+       * namespace is the namespace of the service. Required
        */
       namespace: pulumi.Input<string>
 
       /**
-       * `path` is an optional URL path which will be sent in any request to this service.
+       * path is an optional URL path at which the webhook will be contacted.
        */
       path?: pulumi.Input<string>
 
       /**
-       * If specified, the port on the service that hosting webhook. Default to 443 for backward
-       * compatibility. `port` should be a valid port number (1-65535, inclusive).
+       * port is an optional service port at which the webhook will be contacted. `port` should be a
+       * valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
        */
       port?: pulumi.Input<number>
 
@@ -2420,18 +2514,17 @@ export namespace apiextensions {
 
 
     /**
-     * WebhookClientConfig contains the information to make a TLS connection with the webhook. It
-     * has the same field as admissionregistration.v1beta1.WebhookClientConfig.
+     * WebhookClientConfig contains the information to make a TLS connection with the webhook.
      */
     export interface WebhookClientConfig {
       /**
-       * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server
+       * caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
        * certificate. If unspecified, system trust roots on the apiserver are used.
        */
       caBundle?: pulumi.Input<string>
 
       /**
-       * `service` is a reference to the service for this webhook. Either `service` or `url` must be
+       * service is a reference to the service for this webhook. Either service or url must be
        * specified.
        * 
        * If the webhook is running within the cluster, then you should use `service`.
@@ -2439,7 +2532,7 @@ export namespace apiextensions {
       service?: pulumi.Input<apiextensions.v1beta1.ServiceReference>
 
       /**
-       * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
+       * url gives the location of the webhook, in standard URL form (`scheme://host:port/path`).
        * Exactly one of `url` or `service` must be specified.
        * 
        * The `host` should not refer to a service running in the cluster; use the `service` field
@@ -2901,7 +2994,7 @@ export namespace apps {
       /**
        * Data is the serialized representation of the state.
        */
-      data?: pulumi.Input<pkg.runtime.RawExtension>
+      data?: pulumi.Input<object>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -3961,7 +4054,7 @@ export namespace apps {
       /**
        * Data is the serialized representation of the state.
        */
-      data?: pulumi.Input<pkg.runtime.RawExtension>
+      data?: pulumi.Input<object>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -4728,7 +4821,7 @@ export namespace apps {
       /**
        * Data is the serialized representation of the state.
        */
-      data?: pulumi.Input<pkg.runtime.RawExtension>
+      data?: pulumi.Input<object>
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -10456,6 +10549,17 @@ export namespace core {
       securityContext?: pulumi.Input<core.v1.SecurityContext>
 
       /**
+       * StartupProbe indicates that the Pod has successfully initialized. If specified, no other
+       * probes are executed until this completes successfully. If this probe fails, the Pod will be
+       * restarted, just as if the livenessProbe failed. This can be used to provide different probe
+       * parameters at the beginning of a Pod's lifecycle, when it might take a long time to load
+       * data or warm a cache, than during steady-state operation. This cannot be updated. This is
+       * an alpha feature enabled by the StartupProbe feature flag. More info:
+       * https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+       */
+      startupProbe?: pulumi.Input<core.v1.Probe>
+
+      /**
        * Whether this container should allocate a buffer for stdin in the container runtime. If this
        * is not set, reads from stdin in the container will always result in EOF. Default is false.
        */
@@ -10708,6 +10812,14 @@ export namespace core {
        * Details about the container's last termination condition.
        */
       lastState?: pulumi.Input<core.v1.ContainerState>
+
+      /**
+       * Specifies whether the container has passed its startup probe. Initialized as false, becomes
+       * true after startupProbe is considered successful. Resets to false when the container is
+       * restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is
+       * defined.
+       */
+      started?: pulumi.Input<boolean>
 
       /**
        * Details about the container's current condition.
@@ -11075,15 +11187,14 @@ export namespace core {
 
 
     /**
-     * An EphemeralContainer is a special type of container which doesn't come with any resource or
-     * scheduling guarantees but can be added to a pod that has already been created. They are
-     * intended for user-initiated activities such as troubleshooting a running pod. Ephemeral
-     * containers will not be restarted when they exit, and they will be killed if the pod is
-     * removed or restarted. If an ephemeral container causes a pod to exceed its resource
-     * allocation, the pod may be evicted. Ephemeral containers are added via a pod's
-     * ephemeralcontainers subresource and will appear in the pod spec once added. No fields in
-     * EphemeralContainer may be changed once added. This is an alpha feature enabled by the
-     * EphemeralContainers feature flag.
+     * An EphemeralContainer is a container that may be added temporarily to an existing pod for
+     * user-initiated activities such as debugging. Ephemeral containers have no resource or
+     * scheduling guarantees, and they will not be restarted when they exit or when a pod is removed
+     * or restarted. If an ephemeral container causes a pod to exceed its resource allocation, the
+     * pod may be evicted. Ephemeral containers may not be added by directly updating the pod spec.
+     * They must be added via the pod's ephemeralcontainers subresource, and they will appear in the
+     * pod spec once added. This is an alpha feature enabled by the EphemeralContainers feature
+     * flag.
      */
     export interface EphemeralContainer {
       /**
@@ -11170,6 +11281,11 @@ export namespace core {
        * SecurityContext is not allowed for ephemeral containers.
        */
       securityContext?: pulumi.Input<core.v1.SecurityContext>
+
+      /**
+       * Probes are not allowed for ephemeral containers.
+       */
+      startupProbe?: pulumi.Input<core.v1.Probe>
 
       /**
        * Whether this container should allocate a buffer for stdin in the container runtime. If this
@@ -11989,13 +12105,13 @@ export namespace core {
 
       /**
        * PreStop is called immediately before a container is terminated due to an API request or
-       * management event such as liveness probe failure, preemption, resource contention, etc. The
-       * handler is not called if the container crashes or exits. The reason for termination is
-       * passed to the handler. The Pod's termination grace period countdown begins before the
-       * PreStop hooked is executed. Regardless of the outcome of the handler, the container will
-       * eventually terminate within the Pod's termination grace period. Other management of the
-       * container blocks until the hook completes or until the termination grace period is reached.
-       * More info:
+       * management event such as liveness/startup probe failure, preemption, resource contention,
+       * etc. The handler is not called if the container crashes or exits. The reason for
+       * termination is passed to the handler. The Pod's termination grace period countdown begins
+       * before the PreStop hooked is executed. Regardless of the outcome of the handler, the
+       * container will eventually terminate within the Pod's termination grace period. Other
+       * management of the container blocks until the hook completes or until the termination grace
+       * period is reached. More info:
        * https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
        */
       preStop?: pulumi.Input<core.v1.Handler>
@@ -12263,6 +12379,32 @@ export namespace core {
     }
 
     /**
+     * NamespaceCondition contains details about state of namespace.
+     */
+    export interface NamespaceCondition {
+      /**
+       * Status of the condition, one of True, False, Unknown.
+       */
+      status: pulumi.Input<string>
+
+      /**
+       * Type of namespace controller condition.
+       */
+      type: pulumi.Input<string>
+
+      
+      lastTransitionTime?: pulumi.Input<string>
+
+      
+      message?: pulumi.Input<string>
+
+      
+      reason?: pulumi.Input<string>
+
+    }
+
+
+    /**
      * NamespaceList is a list of Namespaces.
      */
     export interface NamespaceList {
@@ -12317,6 +12459,11 @@ export namespace core {
      * NamespaceStatus is information about the current status of a Namespace.
      */
     export interface NamespaceStatus {
+      /**
+       * Represents the latest available observations of a namespace's current state.
+       */
+      conditions?: pulumi.Input<pulumi.Input<core.v1.NamespaceCondition>[]>
+
       /**
        * Phase is the current lifecycle phase of the namespace. More info:
        * https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
@@ -13794,13 +13941,12 @@ export namespace core {
       enableServiceLinks?: pulumi.Input<boolean>
 
       /**
-       * EphemeralContainers is the list of ephemeral containers that run in this pod. Ephemeral
-       * containers are added to an existing pod as a result of a user-initiated action such as
-       * troubleshooting. This list is read-only in the pod spec. It may not be specified in a
-       * create or modified in an update of a pod or pod template. To add an ephemeral container use
-       * the pod's ephemeralcontainers subresource, which allows update using the
-       * EphemeralContainers kind. This field is alpha-level and is only honored by servers that
-       * enable the EphemeralContainers feature.
+       * List of ephemeral containers run in this pod. Ephemeral containers may be run in an
+       * existing pod to perform user-initiated actions such as debugging. This list cannot be
+       * specified when creating a pod, and it cannot be modified by updating the pod spec. In order
+       * to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers
+       * subresource. This field is alpha-level and is only honored by servers that enable the
+       * EphemeralContainers feature.
        */
       ephemeralContainers?: pulumi.Input<pulumi.Input<core.v1.EphemeralContainer>[]>
 
@@ -13846,12 +13992,12 @@ export namespace core {
        * order prior to containers being started. If any init container fails, the pod is considered
        * to have failed and is handled according to its restartPolicy. The name for an init
        * container or normal container must be unique among all containers. Init containers may not
-       * have Lifecycle actions, Readiness probes, or Liveness probes. The resourceRequirements of
-       * an init container are taken into account during scheduling by finding the highest
-       * request/limit for each resource type, and then using the max of of that value or the sum of
-       * the normal containers. Limits are applied to init containers in a similar fashion. Init
-       * containers cannot currently be added or removed. Cannot be updated. More info:
-       * https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+       * have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The
+       * resourceRequirements of an init container are taken into account during scheduling by
+       * finding the highest request/limit for each resource type, and then using the max of of that
+       * value or the sum of the normal containers. Limits are applied to init containers in a
+       * similar fashion. Init containers cannot currently be added or removed. Cannot be updated.
+       * More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
        */
       initContainers?: pulumi.Input<pulumi.Input<core.v1.Container>[]>
 
@@ -14024,8 +14170,8 @@ export namespace core {
       containerStatuses?: pulumi.Input<pulumi.Input<core.v1.ContainerStatus>[]>
 
       /**
-       * Status for any ephemeral containers that running in this pod. This field is alpha-level and
-       * is only honored by servers that enable the EphemeralContainers feature.
+       * Status for any ephemeral containers that have run in this pod. This field is alpha-level
+       * and is only populated by servers that enable the EphemeralContainers feature.
        */
       ephemeralContainerStatuses?: pulumi.Input<pulumi.Input<core.v1.ContainerStatus>[]>
 
@@ -14284,7 +14430,7 @@ export namespace core {
 
       /**
        * Minimum consecutive successes for the probe to be considered successful after having
-       * failed. Defaults to 1. Must be 1 for liveness. Minimum value is 1.
+       * failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
        */
       successThreshold?: pulumi.Input<number>
 
@@ -15621,6 +15767,19 @@ export namespace core {
       healthCheckNodePort?: pulumi.Input<number>
 
       /**
+       * ipFamily specifies whether this Service has a preference for a particular IP family (e.g.
+       * IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be
+       * allocated from that family, if it is available in the cluster.  If no IP family is
+       * requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP,
+       * loadBalancerSourceRanges, externalIPs) and controllers which allocate external
+       * load-balancers should use the same IP family.  Endpoints for this Service will be of this
+       * family.  This field is immutable after creation. Assigning a ServiceIPFamily not available
+       * in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during
+       * clusterIP assignment.
+       */
+      ipFamily?: pulumi.Input<string>
+
+      /**
        * Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP
        * specified in this field. This feature depends on whether the underlying cloud-provider
        * supports specifying the loadBalancerIP when a load balancer is created. This field will be
@@ -16354,6 +16513,192 @@ export namespace core {
 
     }
 
+
+  }
+
+}
+
+export namespace discovery {
+  export namespace v1alpha1 {
+    /**
+     * Endpoint represents a single logical "backend" implementing a service.
+     */
+    export interface Endpoint {
+      /**
+       * addresses of this endpoint. The contents of this field are interpreted according to the
+       * corresponding EndpointSlice addressType field. This allows for cases like dual-stack (IPv4
+       * and IPv6) networking. Consumers (e.g. kube-proxy) must handle different types of addresses
+       * in the context of their own capabilities. This must contain at least one address but no
+       * more than 100.
+       */
+      addresses: pulumi.Input<pulumi.Input<string>[]>
+
+      /**
+       * conditions contains information about the current status of the endpoint.
+       */
+      conditions?: pulumi.Input<discovery.v1alpha1.EndpointConditions>
+
+      /**
+       * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish
+       * endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same
+       * hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label
+       * (RFC 1123) validation.
+       */
+      hostname?: pulumi.Input<string>
+
+      /**
+       * targetRef is a reference to a Kubernetes object that represents this endpoint.
+       */
+      targetRef?: pulumi.Input<core.v1.ObjectReference>
+
+      /**
+       * topology contains arbitrary topology information associated with the endpoint. These
+       * key/value pairs must conform with the label format.
+       * https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may
+       * include a maximum of 16 key/value pairs. This includes, but is not limited to the following
+       * well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+       *   where the endpoint is located. This should match the corresponding
+       *   node label.
+       * * topology.kubernetes.io/zone: the value indicates the zone where the
+       *   endpoint is located. This should match the corresponding node label.
+       * * topology.kubernetes.io/region: the value indicates the region where the
+       *   endpoint is located. This should match the corresponding node label.
+       */
+      topology?: pulumi.Input<{[key: string]: pulumi.Input<string>}>
+
+    }
+
+
+    /**
+     * EndpointConditions represents the current condition of an endpoint.
+     */
+    export interface EndpointConditions {
+      /**
+       * ready indicates that this endpoint is prepared to receive traffic, according to whatever
+       * system is managing the endpoint. A nil value indicates an unknown state. In most cases
+       * consumers should interpret this unknown state as ready.
+       */
+      ready?: pulumi.Input<boolean>
+
+    }
+
+
+    /**
+     * EndpointPort represents a Port used by an EndpointSlice
+     */
+    export interface EndpointPort {
+      /**
+       * The name of this port. All ports in an EndpointSlice must have a unique name. If the
+       * EndpointSlice is dervied from a Kubernetes service, this corresponds to the
+       * Service.ports[].name. Name must either be an empty string or pass IANA_SVC_NAME validation:
+       * * must be no more than 15 characters long * may contain only [-a-z0-9] * must contain at
+       * least one letter [a-z] * it must not start or end with a hyphen, nor contain adjacent
+       * hyphens Default is empty string.
+       */
+      name?: pulumi.Input<string>
+
+      /**
+       * The port number of the endpoint. If this is not specified, ports are not restricted and
+       * must be interpreted in the context of the specific consumer.
+       */
+      port?: pulumi.Input<number>
+
+      /**
+       * The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+       */
+      protocol?: pulumi.Input<string>
+
+    }
+
+
+    /**
+     * EndpointSlice represents a subset of the endpoints that implement a service. For a given
+     * service there may be multiple EndpointSlice objects, selected by labels, which must be joined
+     * to produce the full set of endpoints.
+     */
+    export interface EndpointSlice {
+      /**
+       * endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of
+       * 1000 endpoints.
+       */
+      endpoints: pulumi.Input<pulumi.Input<discovery.v1alpha1.Endpoint>[]>
+
+      /**
+       * addressType specifies the type of address carried by this EndpointSlice. All addresses in
+       * this slice must be the same type. Default is IP
+       */
+      addressType?: pulumi.Input<string>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"discovery.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"EndpointSlice">
+
+      /**
+       * Standard object's metadata.
+       */
+      metadata?: pulumi.Input<meta.v1.ObjectMeta>
+
+      /**
+       * ports specifies the list of network ports exposed by each endpoint in this slice. Each port
+       * must have a unique name. When ports is empty, it indicates that there are no defined ports.
+       * When a port is defined with a nil port value, it indicates "all ports". Each slice may
+       * include a maximum of 100 ports.
+       */
+      ports?: pulumi.Input<pulumi.Input<discovery.v1alpha1.EndpointPort>[]>
+
+    }
+
+    export function isEndpointSlice(o: any): o is EndpointSlice {
+      return o.apiVersion == "discovery.k8s.io/v1alpha1" && o.kind == "EndpointSlice";
+    }
+
+    /**
+     * EndpointSliceList represents a list of endpoint slices
+     */
+    export interface EndpointSliceList {
+      /**
+       * List of endpoint slices
+       */
+      items: pulumi.Input<pulumi.Input<discovery.v1alpha1.EndpointSlice>[]>
+
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      apiVersion?: pulumi.Input<"discovery.k8s.io/v1alpha1">
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      kind?: pulumi.Input<"EndpointSliceList">
+
+      /**
+       * Standard list metadata.
+       */
+      metadata?: pulumi.Input<meta.v1.ListMeta>
+
+    }
+
+    export function isEndpointSliceList(o: any): o is EndpointSliceList {
+      return o.apiVersion == "discovery.k8s.io/v1alpha1" && o.kind == "EndpointSliceList";
+    }
 
   }
 
@@ -17755,8 +18100,7 @@ export namespace extensions {
       /**
        * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be
        * embedded within a pod spec. An empty value indicates that any CSI driver can be used for
-       * inline ephemeral volumes. This is an alpha field, and is only honored if the API server
-       * enables the CSIInlineVolume feature gate.
+       * inline ephemeral volumes.
        */
       allowedCSIDrivers?: pulumi.Input<pulumi.Input<extensions.v1beta1.AllowedCSIDriver>[]>
 
@@ -18705,8 +19049,6 @@ export namespace meta {
        * unset and omitted during serialization. Servers older than v1.15 do not set this field. The
        * intended use of the remainingItemCount is *estimating* the size of a collection. Clients
        * should not rely on the remainingItemCount to be set or to be exact.
-       * 
-       * This field is alpha and can be changed or removed without notice.
        */
       remainingItemCount?: pulumi.Input<number>
 
@@ -18742,9 +19084,15 @@ export namespace meta {
       apiVersion?: pulumi.Input<string>
 
       /**
-       * Fields identifies a set of fields.
+       * FieldsType is the discriminator for the different fields format and version. There is
+       * currently only one possible value: "FieldsV1"
        */
-      fields?: pulumi.Input<object>
+      fieldsType?: pulumi.Input<string>
+
+      /**
+       * FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
+       */
+      fieldsV1?: pulumi.Input<object>
 
       /**
        * Manager is an identifier of the workflow managing these fields.
@@ -19165,7 +19513,7 @@ export namespace meta {
        *  * If Type is Error: *Status is recommended; other types may make sense
        *    depending on context.
        */
-      object: pulumi.Input<pkg.runtime.RawExtension>
+      object: pulumi.Input<object>
 
       
       type: pulumi.Input<string>
@@ -19949,56 +20297,6 @@ export namespace node {
 }
 
 export namespace pkg {
-  export namespace runtime {
-    /**
-     * RawExtension is used to hold extensions in external versions.
-     * 
-     * To use this, make a field which has RawExtension as its type in your external, versioned
-     * struct, and Object in your internal struct. You also need to register your various plugin
-     * types.
-     * 
-     * // Internal package: type MyAPIObject struct {
-     * 	runtime.TypeMeta `json:",inline"`
-     * 	MyPlugin runtime.Object `json:"myPlugin"`
-     * } type PluginA struct {
-     * 	AOption string `json:"aOption"`
-     * }
-     * 
-     * // External package: type MyAPIObject struct {
-     * 	runtime.TypeMeta `json:",inline"`
-     * 	MyPlugin runtime.RawExtension `json:"myPlugin"`
-     * } type PluginA struct {
-     * 	AOption string `json:"aOption"`
-     * }
-     * 
-     * // On the wire, the JSON will look something like this: {
-     * 	"kind":"MyAPIObject",
-     * 	"apiVersion":"v1",
-     * 	"myPlugin": {
-     * 		"kind":"PluginA",
-     * 		"aOption":"foo",
-     * 	},
-     * }
-     * 
-     * So what happens? Decode first uses json or yaml to unmarshal the serialized data into your
-     * external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step
-     * is to copy (using pkg/conversion) into the internal struct. The runtime package's
-     * DefaultScheme has conversion functions installed which will unpack the JSON stored in
-     * RawExtension, turning it into the correct object type, and storing it in the Object. (TODO:
-     * In the case where the object is of an unknown type, a runtime.Unknown object will be created
-     * and stored.)
-     */
-    export interface RawExtension {
-      /**
-       * Raw is the underlying serialization of this object.
-       */
-      Raw: pulumi.Input<string>
-
-    }
-
-
-  }
-
   export namespace version {
     /**
      * Info contains versioning information. how we'll want to distribute that information.
@@ -22949,9 +23247,31 @@ export namespace storage {
        * VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the
        * prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name
        * "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid":
-       * string(pod.UID)
+       * string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral
+       * inline volume
+       *                                 defined by a CSIVolumeSource, otherwise "false"
+       * 
+       * "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for
+       * drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other
+       * drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't
+       * support this field, drivers can only support one mode when deployed on such a cluster and
+       * the deployment determines which mode that is, for example via a command line parameter of
+       * the driver.
        */
       podInfoOnMount?: pulumi.Input<boolean>
+
+      /**
+       * VolumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The
+       * default if the list is empty is "Persistent", which is the usage defined by the CSI
+       * specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode
+       * is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with
+       * CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to
+       * be aware of this because it is only going to get a NodePublishVolume call for such a
+       * volume. For more information about implementing this mode, see
+       * https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one
+       * or more of these modes and more modes may be added in the future.
+       */
+      volumeLifecycleModes?: pulumi.Input<pulumi.Input<string>[]>
 
     }
 

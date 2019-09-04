@@ -32,7 +32,7 @@ class CustomResourceDefinitionList(pulumi.CustomResource):
 
     items: pulumi.Output[list]
     """
-    Items individual CustomResourceDefinitions
+    items list individual CustomResourceDefinition objects
     """
 
     metadata: pulumi.Output[dict]
@@ -44,7 +44,7 @@ class CustomResourceDefinitionList(pulumi.CustomResource):
 
         :param str resource_name: The _unique_ name of the resource.
         :param pulumi.ResourceOptions opts: A bag of options that control this resource's behavior.
-        :param pulumi.Input[list] items: Items individual CustomResourceDefinitions
+        :param pulumi.Input[list] items: items list individual CustomResourceDefinition objects
         :param pulumi.Input[dict] metadata: 
         """
         if __name__ is not None:

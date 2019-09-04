@@ -339,8 +339,10 @@ const (
 	apiextensionsV1beta1          = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
 	apiextensionsV1               = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1"
 	quantity                      = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+	rawExtension                  = "io.k8s.apimachinery.pkg.runtime.RawExtension"
 	intOrString                   = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
 	v1Fields                      = "io.k8s.apimachinery.pkg.apis.meta.v1.Fields"
+	v1FiledsV1                    = "io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1"
 	v1Time                        = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
 	v1MicroTime                   = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
 	v1beta1JSONSchemaPropsOrBool  = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
@@ -428,7 +430,7 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 		ref = tsStringT
 	case intOrString:
 		ref = "number | string"
-	case v1Fields:
+	case v1Fields, v1FiledsV1, rawExtension:
 		ref = tsObject
 	case v1Time, v1MicroTime:
 		// TODO: Automatically deserialized with `DateConstructor`.
@@ -500,7 +502,7 @@ func makePythonType(resourceType, propName string, prop map[string]interface{}, 
 		ref = pyStringT
 	case intOrString:
 		ref = fmt.Sprintf("Union[%s, %s]", pyIntT, pyStringT)
-	case v1Fields:
+	case v1Fields, v1FiledsV1, rawExtension:
 		ref = pyDictT
 	case v1Time, v1MicroTime:
 		// TODO: Automatically deserialized with `DateConstructor`.
