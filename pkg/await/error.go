@@ -26,7 +26,7 @@ var _ AggregatedError = (*cancellationError)(nil)
 var _ PartialError = (*cancellationError)(nil)
 
 func (ce *cancellationError) Error() string {
-	return fmt.Sprintf("Resource operation was cancelled for '%s'", ce.object.GetName())
+	return fmt.Sprintf("Resource operation was cancelled for %q", ce.object.GetName())
 }
 
 // SubErrors returns the errors that were present when cancellation occurred.
