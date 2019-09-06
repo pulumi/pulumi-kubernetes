@@ -23,6 +23,7 @@ require (
 	github.com/pkg/errors v0.8.1
 	github.com/pulumi/pulumi v1.0.0-beta.4.0.20190826221914-99d70e4610d2
 	github.com/stretchr/testify v1.3.0
+	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
 	google.golang.org/grpc v1.20.1
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	k8s.io/api v0.0.0-20190620084959-7cf5895f2711
