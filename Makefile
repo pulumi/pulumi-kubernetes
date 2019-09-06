@@ -85,6 +85,7 @@ publish_tgz:
 publish_packages:
 	$(call STEP_MESSAGE)
 	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/publish-tfgen-package .
+	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/build-package-docs.sh kubernetes
 
 .PHONY: check_clean_worktree
 check_clean_worktree:
