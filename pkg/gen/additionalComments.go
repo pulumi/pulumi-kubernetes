@@ -20,6 +20,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 func timeoutComment(kind kinds.Kind) string {
@@ -51,7 +52,7 @@ time out and mark the resource update as Failed. You can override the default ti
 by %s`, kind, timeoutStr, timeoutOverride)
 }
 
-func comments(kind kinds.Kind) string {
+func awaitComments(kind kinds.Kind) string {
 	const preamble = `This resource waits until it is ready before registering success for
 create/update and populating output properties from the current state of the resource.
 The following conditions are used to determine whether the resource creation has
@@ -122,7 +123,7 @@ out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
 `
 	default:
-		panic("comments: unhandled kind")
+		panic("awaitComments: unhandled kind")
 	}
 
 	comment += timeoutComment(kind)
@@ -135,8 +136,16 @@ func AwaitComment(kind string) string {
 	k := kinds.Kind(kind)
 	switch k {
 	case kinds.Deployment, kinds.Ingress, kinds.Job, kinds.Pod, kinds.Service, kinds.StatefulSet:
-		return prefix + comments(k)
+		return prefix + awaitComments(k)
 	default:
 		return ""
 	}
+}
+
+func ApiVersionComment(gvk schema.GroupVersionKind) string {
+	const template = `%s is not supported by Kubernetes 1.16+ clusters. Use %s instead.
+
+`
+	gvkStr := gvk.GroupVersion().String() + "/" + gvk.Kind
+	return fmt.Sprintf(template, gvkStr, kinds.SuggestedApiVersion(gvk))
 }

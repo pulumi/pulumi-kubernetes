@@ -8,9 +8,10 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the
-     * release notes for more information. Deployment enables declarative updates for Pods and
-     * ReplicaSets.
+     * @deprecated apps/v1beta2/Deployment is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/Deployment instead.
+     * 
+     * Deployment enables declarative updates for Pods and ReplicaSets.
      * 
      * This resource waits until it is ready before registering success for
      * create/update and populating output properties from the current state of the resource.

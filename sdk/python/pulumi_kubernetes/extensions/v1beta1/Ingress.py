@@ -13,11 +13,12 @@ from ... import tables, version
 
 class Ingress(pulumi.CustomResource):
     """
+    DEPRECATED - extensions/v1beta1/Ingress is not supported by Kubernetes 1.16+ clusters. Use
+    networking/v1beta1/Ingress instead.
+    
     Ingress is a collection of rules that allow inbound connections to reach the endpoints defined
     by a backend. An Ingress can be configured to give services externally-reachable urls, load
-    balance traffic, terminate SSL, offer name based virtual hosting etc. DEPRECATED - This group
-    version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress. See the release notes for
-    more information.
+    balance traffic, terminate SSL, offer name based virtual hosting etc. 
     
     This resource waits until it is ready before registering success for
     create/update and populating output properties from the current state of the resource.

@@ -8,8 +8,10 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * DEPRECATED - This group version of DaemonSet is deprecated by apps/v1beta2/DaemonSet. See the
-     * release notes for more information. DaemonSet represents the configuration of a daemon set.
+     * @deprecated extensions/v1beta1/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/DaemonSet instead.
+     * 
+     * DaemonSet represents the configuration of a daemon set.
      */
     export class DaemonSet extends pulumi.CustomResource {
       /**

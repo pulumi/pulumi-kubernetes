@@ -8,8 +8,9 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * DEPRECATED - This group version of ControllerRevision is deprecated by
-     * apps/v1beta2/ControllerRevision. See the release notes for more information.
+     * @deprecated apps/v1beta1/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
+     * Use apps/v1/ControllerRevision instead.
+     * 
      * ControllerRevision implements an immutable snapshot of state data. Clients are responsible
      * for serializing and deserializing the objects that contain their internal state. Once a
      * ControllerRevision has been successfully created, it can not be updated. The API Server will

@@ -8,9 +8,10 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1beta2/ReplicaSet. See
-     * the release notes for more information. ReplicaSet ensures that a specified number of pod
-     * replicas are running at any given time.
+     * @deprecated extensions/v1beta1/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/ReplicaSet instead.
+     * 
+     * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      */
     export class ReplicaSet extends pulumi.CustomResource {
       /**

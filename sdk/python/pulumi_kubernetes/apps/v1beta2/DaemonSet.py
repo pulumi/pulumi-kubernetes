@@ -13,8 +13,10 @@ from ... import tables, version
 
 class DaemonSet(pulumi.CustomResource):
     """
-    DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the release
-    notes for more information. DaemonSet represents the configuration of a daemon set.
+    DEPRECATED - apps/v1beta2/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
+    apps/v1/DaemonSet instead.
+    
+    DaemonSet represents the configuration of a daemon set.
     """
 
     apiVersion: pulumi.Output[str]

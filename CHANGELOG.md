@@ -8,6 +8,9 @@
 
 ### Improvements
 
+-   Warn for deprecated apiVersions.
+    (https://github.com/pulumi/pulumi-kubernetes/pull/779).
+
 ### Bug fixes
 
 -   Fix error reporting

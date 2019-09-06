@@ -2720,8 +2720,9 @@ export namespace apps {
 
   export namespace v1beta1 {
     /**
-     * DEPRECATED - This group version of ControllerRevision is deprecated by
-     * apps/v1beta2/ControllerRevision. See the release notes for more information.
+     * @deprecated apps/v1beta1/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
+     * Use apps/v1/ControllerRevision instead.
+     * 
      * ControllerRevision implements an immutable snapshot of state data. Clients are responsible
      * for serializing and deserializing the objects that contain their internal state. Once a
      * ControllerRevision has been successfully created, it can not be updated. The API Server will
@@ -2808,9 +2809,10 @@ export namespace apps {
     }
 
     /**
-     * DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See
-     * the release notes for more information. Deployment enables declarative updates for Pods and
-     * ReplicaSets.
+     * @deprecated apps/v1beta1/Deployment is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/Deployment instead.
+     * 
+     * Deployment enables declarative updates for Pods and ReplicaSets.
      */
     export interface Deployment {
       /**
@@ -3227,9 +3229,10 @@ export namespace apps {
 
 
     /**
-     * DEPRECATED - This group version of StatefulSet is deprecated by apps/v1beta2/StatefulSet. See
-     * the release notes for more information. StatefulSet represents a set of pods with consistent
-     * identities. Identities are defined as:
+     * @deprecated apps/v1beta1/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/StatefulSet instead.
+     * 
+     * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      *  - Network: A single stable DNS and hostname.
      *  - Storage: As many VolumeClaims as requested.
      * The StatefulSet guarantees that a given network identity will always map to the same storage
@@ -3484,16 +3487,17 @@ export namespace apps {
 
   export namespace v1beta2 {
     /**
-     * DEPRECATED - This group version of ControllerRevision is deprecated by
-     * apps/v1/ControllerRevision. See the release notes for more information. ControllerRevision
-     * implements an immutable snapshot of state data. Clients are responsible for serializing and
-     * deserializing the objects that contain their internal state. Once a ControllerRevision has
-     * been successfully created, it can not be updated. The API Server will fail validation of all
-     * requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted.
-     * Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and
-     * rollback, this object is beta. However, it may be subject to name and representation changes
-     * in future releases, and clients should not depend on its stability. It is primarily for
-     * internal use by controllers.
+     * @deprecated apps/v1beta2/ControllerRevision is not supported by Kubernetes 1.16+ clusters.
+     * Use apps/v1/ControllerRevision instead.
+     * 
+     * ControllerRevision implements an immutable snapshot of state data. Clients are responsible
+     * for serializing and deserializing the objects that contain their internal state. Once a
+     * ControllerRevision has been successfully created, it can not be updated. The API Server will
+     * fail validation of all requests that attempt to mutate the Data field. ControllerRevisions
+     * may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet
+     * controllers for update and rollback, this object is beta. However, it may be subject to name
+     * and representation changes in future releases, and clients should not depend on its
+     * stability. It is primarily for internal use by controllers.
      */
     export interface ControllerRevision {
       /**
@@ -3572,8 +3576,10 @@ export namespace apps {
     }
 
     /**
-     * DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the
-     * release notes for more information. DaemonSet represents the configuration of a daemon set.
+     * @deprecated apps/v1beta2/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/DaemonSet instead.
+     * 
+     * DaemonSet represents the configuration of a daemon set.
      */
     export interface DaemonSet {
       /**
@@ -3803,9 +3809,10 @@ export namespace apps {
 
 
     /**
-     * DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the
-     * release notes for more information. Deployment enables declarative updates for Pods and
-     * ReplicaSets.
+     * @deprecated apps/v1beta2/Deployment is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/Deployment instead.
+     * 
+     * Deployment enables declarative updates for Pods and ReplicaSets.
      */
     export interface Deployment {
       /**
@@ -4041,9 +4048,10 @@ export namespace apps {
 
 
     /**
-     * DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the
-     * release notes for more information. ReplicaSet ensures that a specified number of pod
-     * replicas are running at any given time.
+     * @deprecated apps/v1beta2/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/ReplicaSet instead.
+     * 
+     * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      */
     export interface ReplicaSet {
       /**
@@ -4371,9 +4379,10 @@ export namespace apps {
 
 
     /**
-     * DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the
-     * release notes for more information. StatefulSet represents a set of pods with consistent
-     * identities. Identities are defined as:
+     * @deprecated apps/v1beta2/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/StatefulSet instead.
+     * 
+     * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      *  - Network: A single stable DNS and hostname.
      *  - Storage: As many VolumeClaims as requested.
      * The StatefulSet guarantees that a given network identity will always map to the same storage
@@ -14956,8 +14965,10 @@ export namespace extensions {
 
 
     /**
-     * DEPRECATED - This group version of DaemonSet is deprecated by apps/v1beta2/DaemonSet. See the
-     * release notes for more information. DaemonSet represents the configuration of a daemon set.
+     * @deprecated extensions/v1beta1/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/DaemonSet instead.
+     * 
+     * DaemonSet represents the configuration of a daemon set.
      */
     export interface DaemonSet {
       /**
@@ -15193,9 +15204,10 @@ export namespace extensions {
 
 
     /**
-     * DEPRECATED - This group version of Deployment is deprecated by apps/v1beta2/Deployment. See
-     * the release notes for more information. Deployment enables declarative updates for Pods and
-     * ReplicaSets.
+     * @deprecated extensions/v1beta1/Deployment is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/Deployment instead.
+     * 
+     * Deployment enables declarative updates for Pods and ReplicaSets.
      */
     export interface Deployment {
       /**
@@ -15594,11 +15606,12 @@ export namespace extensions {
 
 
     /**
+     * @deprecated extensions/v1beta1/Ingress is not supported by Kubernetes 1.16+ clusters. Use
+     * networking/v1beta1/Ingress instead.
+     * 
      * Ingress is a collection of rules that allow inbound connections to reach the endpoints
      * defined by a backend. An Ingress can be configured to give services externally-reachable
-     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. DEPRECATED -
-     * This group version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress. See the
-     * release notes for more information.
+     * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
      */
     export interface Ingress {
       /**
@@ -16255,9 +16268,10 @@ export namespace extensions {
 
 
     /**
-     * DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1beta2/ReplicaSet. See
-     * the release notes for more information. ReplicaSet ensures that a specified number of pod
-     * replicas are running at any given time.
+     * @deprecated extensions/v1beta1/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
+     * apps/v1/ReplicaSet instead.
+     * 
+     * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      */
     export interface ReplicaSet {
       /**
