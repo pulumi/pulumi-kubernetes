@@ -86,3 +86,17 @@ func (m Messages) Errors() Messages {
 
 	return messages
 }
+
+// MessagesWithSeverity returns Messages matching any of the provided Severity levels.
+func (m Messages) MessagesWithSeverity(sev ...diag.Severity) Messages {
+	var messages Messages
+	for _, message := range m {
+		for _, s := range sev {
+			if message.Severity == s {
+				messages = append(messages, message)
+			}
+		}
+	}
+
+	return messages
+}

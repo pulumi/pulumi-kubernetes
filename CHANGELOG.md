@@ -10,6 +10,8 @@
 
 -   Warn for deprecated apiVersions.
     (https://github.com/pulumi/pulumi-kubernetes/pull/779).
+-   Add PodAggregator for use by resource awaiters
+    (https://github.com/pulumi/pulumi-kubernetes/pull/785).
 
 ### Bug fixes
 
