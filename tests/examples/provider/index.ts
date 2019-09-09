@@ -21,13 +21,14 @@ const nginxcontainer = new k8s.core.v1.Pod("nginx", {
     },
 }, { provider: myk8s });
 
-// Create a Pod using the custom provider
-const nginxcontainer2 = new k8s.core.v1.Pod("nginx2", {
-    spec: {
-        containers: [{
-            image: "nginx:1.7.9",
-            name: "nginx",
-            ports: [{ containerPort: 80 }],
-        }],
-    },
-}, { provider: myk8s2 });
+// TODO(levi): Uncomment once https://github.com/pulumi/pulumi-kubernetes/issues/792 is fixed.
+// // Create a Pod using the custom provider
+// const nginxcontainer2 = new k8s.core.v1.Pod("nginx2", {
+//     spec: {
+//         containers: [{
+//             image: "nginx:1.7.9",
+//             name: "nginx",
+//             ports: [{ containerPort: 80 }],
+//         }],
+//     },
+// }, { provider: myk8s2 });
