@@ -1,7 +1,7 @@
 # It may be tempting to add parens around each individual clause in this expression, but Travis then builds pushes anyway
 if: branch = master OR branch =~ ^features/ OR branch =~ ^release/ OR tag IS present
 language: go
-go: 1.12.9
+go: "1.12"
 sudo: true # give us 7.5GB and >2 bursted cores.
 git:
     depth: false
@@ -58,4 +58,5 @@ after_failure:
 after_script:
     - scripts/ci-cluster-destroy.sh
 notifications:
-    webhooks: https://ufci1w66n3.execute-api.us-west-2.amazonaws.com/stage/travis
+  webhooks:
+    - https://ufci1w66n3.execute-api.us-west-2.amazonaws.com/stage/travis
