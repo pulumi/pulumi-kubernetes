@@ -6,6 +6,14 @@
 - v1.14.x
 - v1.13.x
 
+## 1.0.1 (Septemeber 11, 2019)
+
+### Supported Kubernetes versions
+
+- v1.15.x
+- v1.14.x
+- v1.13.x
+
 ### Improvements
 
 -   Warn for deprecated apiVersions.
