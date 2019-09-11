@@ -103,6 +103,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(RuntimeClass.__pulumiType, name, props, opts);
       }
     }

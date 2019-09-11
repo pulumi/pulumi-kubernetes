@@ -103,6 +103,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(HorizontalPodAutoscaler.__pulumiType, name, props, opts);
       }
     }

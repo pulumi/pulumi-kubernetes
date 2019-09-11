@@ -106,6 +106,13 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              { parent: opts.parent, type: "kubernetes:apps/v1:ReplicaSet", name: name },
+              { parent: opts.parent, type: "kubernetes:apps/v1beta2:ReplicaSet", name: name },
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(ReplicaSet.__pulumiType, name, props, opts);
       }
     }

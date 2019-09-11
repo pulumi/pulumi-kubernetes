@@ -81,7 +81,12 @@ class NetworkPolicyList(pulumi.CustomResource):
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(), additional_secret_outputs=additional_secret_outputs))
 
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
+        parent = opts.parent if opts and opts.parent else None
+        aliases = [
+        ]
+
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
+            version=version.get_version(), aliases=aliases))
 
         super(NetworkPolicyList, self).__init__(
             "kubernetes:networking.k8s.io/v1:NetworkPolicyList",

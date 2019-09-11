@@ -93,7 +93,14 @@ class ReplicaSet(pulumi.CustomResource):
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(), additional_secret_outputs=additional_secret_outputs))
 
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
+        parent = opts.parent if opts and opts.parent else None
+        aliases = [
+            pulumi.Alias(parent=parent, type_="kubernetes:apps/v1:ReplicaSet", name=resource_name),
+            pulumi.Alias(parent=parent, type_="kubernetes:apps/v1beta2:ReplicaSet", name=resource_name),
+        ]
+
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
+            version=version.get_version(), aliases=aliases))
 
         super(ReplicaSet, self).__init__(
             "kubernetes:apps/v1beta2:ReplicaSet",

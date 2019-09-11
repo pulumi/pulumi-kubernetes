@@ -99,6 +99,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(PodSecurityPolicy.__pulumiType, name, props, opts);
       }
     }

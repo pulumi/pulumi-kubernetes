@@ -105,6 +105,13 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              { parent: opts.parent, type: "kubernetes:apps/v1:DaemonSet", name: name },
+              { parent: opts.parent, type: "kubernetes:apps/v1beta2:DaemonSet", name: name },
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(DaemonSet.__pulumiType, name, props, opts);
       }
     }

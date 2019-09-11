@@ -10,6 +10,7 @@
 
 -   Add logic to check for Job readiness. (https://github.com/pulumi/pulumi-kubernetes/pull/633).
 -   Automatically mark Secret data and stringData as secret. (https://github.com/pulumi/pulumi-kubernetes/pull/803).
+-   Auto-alias resource apiVersions. (https://github.com/pulumi/pulumi-kubernetes/pull/798).
 -   Provide detailed error for removed apiVersions. (https://github.com/pulumi/pulumi-kubernetes/pull/809).
 
 ## 1.1.0 (September 18, 2019)

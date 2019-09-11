@@ -94,6 +94,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(CustomResourceDefinitionList.__pulumiType, name, props, opts);
       }
     }

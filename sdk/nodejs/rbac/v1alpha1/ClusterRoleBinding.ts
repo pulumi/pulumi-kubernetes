@@ -104,6 +104,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(ClusterRoleBinding.__pulumiType, name, props, opts);
       }
     }

@@ -1,0 +1,3 @@
+name: aliases-test
+description: A program that tests apiVersion aliasing.
+runtime: nodejs

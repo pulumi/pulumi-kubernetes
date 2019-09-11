@@ -123,6 +123,13 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              { parent: opts.parent, type: "kubernetes:networking/v1beta1:Ingress", name: name },
+              { parent: opts.parent, type: "kubernetes:extensions/v1beta1:Ingress", name: name },
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(Ingress.__pulumiType, name, props, opts);
       }
     }

@@ -98,6 +98,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(MutatingWebhookConfiguration.__pulumiType, name, props, opts);
       }
     }

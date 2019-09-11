@@ -140,6 +140,7 @@ type KindConfig struct {
 	requiredInputProperties []*Property
 	optionalInputProperties []*Property
 	additionalSecretOutputs []string
+	aliases                 []string
 
 	gvk           *schema.GroupVersionKind // Used for sorting.
 	apiVersion    string
@@ -172,6 +173,10 @@ func (kc *KindConfig) OptionalInputProperties() []*Property { return kc.optional
 // AdditionalSecretOutputs returns the list of strings to set as additionalSecretOutputs on some
 // Kubernetes API kind.
 func (kc *KindConfig) AdditionalSecretOutputs() []string { return kc.additionalSecretOutputs }
+
+// Aliases returns the list of aliases for a Kubernetes API kind.
+func (kc *KindConfig) Aliases() []string { return kc.aliases }
+
 
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
@@ -835,6 +840,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					requiredInputProperties: requiredInputProperties,
 					optionalInputProperties: optionalInputProperties,
 					additionalSecretOutputs: additionalSecretOutputs(d.gvk),
+					aliases:                 aliasesForGVK(d.gvk),
 					gvk:                     &d.gvk,
 					apiVersion:              fqGroupVersion,
 					rawAPIVersion:           defaultGroupVersion,
@@ -914,6 +920,55 @@ func additionalSecretOutputs(gvk schema.GroupVersionKind) []string {
 	switch kind {
 	case kinds.Secret:
 		return []string{"data", "stringData"}
+	default:
+		return []string{}
+	}
+}
+
+func aliasesForGVK(gvk schema.GroupVersionKind) []string {
+	kind := kinds.Kind(gvk.Kind)
+
+	// It's unsafe to move between `extensions/v1beta1`, and the newer apiVersions due to differences in
+	// the behavior of the Deployment and ReplicaSet. Even if the apiVersion is changed,
+	// the resource will continue to use the old behavior, which will break the await logic. Without an
+	// alias set, the engine will recreate the resource with the newer apiVersion.
+	if gvk.GroupVersion().String() == "extensions/v1beta1" {
+		switch kind {
+		case kinds.DaemonSet, kinds.Deployment, kinds.ReplicaSet, kinds.StatefulSet:
+			return []string{}
+		}
+	}
+
+	switch kind {
+	case kinds.DaemonSet:
+		return []string{
+			"kubernetes:apps/v1:DaemonSet",
+			// For some reason, there is no `apps/v1beta1:DaemonSet`.
+			"kubernetes:apps/v1beta2:DaemonSet",
+		}
+	case kinds.Deployment:
+		return []string{
+			"kubernetes:apps/v1:Deployment",
+			"kubernetes:apps/v1beta1:Deployment",
+			"kubernetes:apps/v1beta2:Deployment",
+		}
+	case kinds.Ingress:
+		return []string{
+			"kubernetes:networking/v1beta1:Ingress",
+			"kubernetes:extensions/v1beta1:Ingress",
+		}
+	case kinds.ReplicaSet:
+		return []string{
+			"kubernetes:apps/v1:ReplicaSet",
+			// For some reason, there is no `apps/v1beta1:ReplicaSet`.
+			"kubernetes:apps/v1beta2:ReplicaSet",
+		}
+	case kinds.StatefulSet:
+		return []string{
+			"kubernetes:apps/v1:StatefulSet",
+			"kubernetes:apps/v1beta1:StatefulSet",
+			"kubernetes:apps/v1beta2:StatefulSet",
+		}
 	default:
 		return []string{}
 	}

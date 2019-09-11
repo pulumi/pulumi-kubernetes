@@ -126,6 +126,14 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              { parent: opts.parent, type: "kubernetes:apps/v1:Deployment", name: name },
+              { parent: opts.parent, type: "kubernetes:apps/v1beta1:Deployment", name: name },
+              { parent: opts.parent, type: "kubernetes:apps/v1beta2:Deployment", name: name },
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(Deployment.__pulumiType, name, props, opts);
       }
     }
