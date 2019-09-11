@@ -3,7 +3,6 @@ package await
 import (
 	"fmt"
 	"reflect"
-	"strconv"
 	"strings"
 	"time"
 
@@ -98,7 +97,7 @@ type deploymentInitAwaiter struct {
 	replicaSetAvailable    bool
 	pvcsAvailable          bool
 	updatedReplicaSetReady bool
-	currentGeneration      string
+	replicaSetGeneration   string
 
 	deploymentErrors map[string]string
 
@@ -115,7 +114,7 @@ func makeDeploymentInitAwaiter(c updateAwaitConfig) *deploymentInitAwaiter {
 		replicaSetAvailable:    false,
 		updatedReplicaSetReady: false,
 		// NOTE: Generation 0 is invalid, so this is a good sentinel value.
-		currentGeneration: "0",
+		replicaSetGeneration: "0",
 
 		deploymentErrors: map[string]string{},
 
@@ -340,7 +339,7 @@ func (dia *deploymentInitAwaiter) isEveryPVCReady() bool {
 }
 
 func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
-	if dia.currentGeneration == "1" {
+	if dia.replicaSetGeneration == "1" {
 		if dia.deploymentAvailable && dia.updatedReplicaSetReady {
 			if !dia.isEveryPVCReady() {
 				return false
@@ -396,28 +395,24 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	// regardless of what the Event apiVersion says.
 	extensionsV1Beta1API := dia.config.createAwaitConfig.currentInputs.GetAPIVersion() == "extensions/v1beta1"
 
-	// Get current generation of the Deployment.
-	dia.currentGeneration = deployment.GetAnnotations()[revision]
-	if dia.currentGeneration == "" {
+	// Get generation of the Deployment's ReplicaSet.
+	dia.replicaSetGeneration = deployment.GetAnnotations()[revision]
+	if dia.replicaSetGeneration == "" {
 		// No current generation, Deployment controller has not yet created a ReplicaSet. Do
 		// nothing.
 		return
 	} else if extensionsV1Beta1API {
-		if currentGenerationInt, err := strconv.Atoi(dia.currentGeneration); err == nil {
-			if int64(currentGenerationInt) != dia.deployment.GetGeneration() {
-				// If the generation is set, make sure it matches the revision annotation, otherwise, ignore this
-				// event because the status we care about may not be set yet.
+		if rawObservedGeneration, ok := openapi.Pluck(
+			deployment.Object, "status", "observedGeneration"); ok {
+			observedGeneration, _ := rawObservedGeneration.(int64)
+			if deployment.GetGeneration() != observedGeneration {
+				// If the generation is set, make sure it matches the .status.observedGeneration, otherwise,
+				// ignore this event because the status we care about may not be set yet.
 				return
 			}
-			if rawObservedGeneration, ok := openapi.Pluck(
-				deployment.Object, "status", "observedGeneration"); ok {
-				observedGeneration, _ := rawObservedGeneration.(int64)
-				if int64(currentGenerationInt) != observedGeneration {
-					// If the generation is set, make sure it matches the .status.observedGeneration, otherwise,
-					// ignore this event because the status we care about may not be set yet.
-					return
-				}
-			}
+		} else {
+			// Observed generation status not set yet. Do nothing.
+			return
 		}
 	}
 
@@ -430,7 +425,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 		return
 	}
 
-	// Success occurs when the ReplicaSet of the `currentGeneration` is marked as available, and
+	// Success occurs when the ReplicaSet of the `replicaSetGeneration` is marked as available, and
 	// when the deployment is available.
 	for _, rawCondition := range conditions {
 		condition, isMap := rawCondition.(map[string]interface{})
@@ -518,13 +513,13 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 
 	glog.V(3).Infof("Checking ReplicaSet status for Deployment %q", inputs.GetName())
 
-	rs, updatedReplicaSetCreated := dia.replicaSets[dia.currentGeneration]
-	if dia.currentGeneration == "0" || !updatedReplicaSetCreated {
+	rs, updatedReplicaSetCreated := dia.replicaSets[dia.replicaSetGeneration]
+	if dia.replicaSetGeneration == "0" || !updatedReplicaSetCreated {
 		return
 	}
 
 	glog.V(3).Infof("Deployment %q has generation %q, which corresponds to ReplicaSet %q",
-		inputs.GetName(), dia.currentGeneration, rs.GetName())
+		inputs.GetName(), dia.replicaSetGeneration, rs.GetName())
 
 	var lastGeneration string
 	if outputs := dia.config.lastOutputs; outputs != nil {
@@ -590,7 +585,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		}
 
 		if dia.changeTriggeredRollout() {
-			dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
+			dia.updatedReplicaSetReady = lastGeneration != dia.replicaSetGeneration && updatedReplicaSetCreated &&
 				doneWaitingOnReplicas() && !unavailableReplicasPresent && !tooManyReplicas &&
 				expectedNumberOfUpdatedReplicas
 		} else {
@@ -612,7 +607,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 			rs.GetName(), specReplicas, readyReplicas)
 
 		if dia.changeTriggeredRollout() {
-			dia.updatedReplicaSetReady = lastGeneration != dia.currentGeneration && updatedReplicaSetCreated &&
+			dia.updatedReplicaSetReady = lastGeneration != dia.replicaSetGeneration && updatedReplicaSetCreated &&
 				doneWaitingOnReplicas()
 		} else {
 			dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
@@ -687,7 +682,7 @@ func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 	}
 
 	// Check whether this Pod was created by our Deployment.
-	currentReplicaSet := dia.replicaSets[dia.currentGeneration]
+	currentReplicaSet := dia.replicaSets[dia.replicaSetGeneration]
 	if !isOwnedBy(pod, currentReplicaSet) {
 		return
 	}
@@ -739,7 +734,7 @@ func (dia *deploymentInitAwaiter) processPersistentVolumeClaimsEvent(event watch
 }
 
 func (dia *deploymentInitAwaiter) aggregatePodErrors() logging.Messages {
-	rs, exists := dia.replicaSets[dia.currentGeneration]
+	rs, exists := dia.replicaSets[dia.replicaSetGeneration]
 	if !exists {
 		return nil
 	}
@@ -785,7 +780,7 @@ func (dia *deploymentInitAwaiter) errorMessages() []string {
 		messages = append(messages, message)
 	}
 
-	if dia.currentGeneration == "1" {
+	if dia.replicaSetGeneration == "1" {
 		if !dia.isEveryPVCReady() {
 			failed := dia.getFailedPersistentValueClaims()
 			msg := fmt.Sprintf("Failed to bind PersistentVolumeClaim(s): %q", strings.Join(failed, ","))

@@ -13,6 +13,8 @@
 
 ### Bug fixes
 
+-   Fix await logic for extensions/v1beta1/Deployment
+    (https://github.com/pulumi/pulumi-kubernetes/pull/794).
 -   Fix error reporting
     (https://github.com/pulumi/pulumi-kubernetes/pull/782).
     
