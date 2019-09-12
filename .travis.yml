@@ -15,9 +15,12 @@ before_install:
       fi
 
     # Install gcloud CLI.
-    - if [ ! -d ${HOME}/google-cloud-sdk ]; then
-          export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash;
+    - if [ ! -d ${HOME}/google-cloud-sdk/bin ]; then
+          export CLOUDSDK_CORE_DISABLE_PROMPTS=1; rm -rf ${HOME}/google-cloud-sdk; curl https://sdk.cloud.google.com | bash;
       fi
+    - export CLOUDSDK_PYTHON=python3
+    - export PATH=${HOME}/google-cloud-sdk/bin:$PATH
+    - gcloud version
 
     # 1. Log in to gcloud using the CI GCP service account.
     # 2. Set up kubeconfig file so the integration tests can run.

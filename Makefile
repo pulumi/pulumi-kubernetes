@@ -19,7 +19,7 @@ VERSION_FLAGS   := -ldflags "-X github.com/pulumi/pulumi-kubernetes/pkg/version.
 
 GO              ?= go
 CURL            ?= curl
-PYTHON          ?= python
+PYTHON          ?= python3
 
 TESTPARALLELISM := 10
 TESTABLE_PKGS   := ./pkg/... ./examples/... ./tests/...
