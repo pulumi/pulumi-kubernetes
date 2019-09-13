@@ -110,6 +110,13 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
+
+          opts.additionalSecretOutputs = [
+              "data",
+              "stringData",
+              ...((opts && opts.additionalSecretOutputs) || []),
+
+          ];
           super(Secret.__pulumiType, name, props, opts);
       }
     }

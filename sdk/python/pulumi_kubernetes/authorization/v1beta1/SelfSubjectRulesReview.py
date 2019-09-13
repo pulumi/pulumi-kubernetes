@@ -83,6 +83,12 @@ class SelfSubjectRulesReview(pulumi.CustomResource):
 
         __props__['status'] = None
 
+        additional_secret_outputs = [
+        ]
+
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
+            version=version.get_version(), additional_secret_outputs=additional_secret_outputs))
+
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(SelfSubjectRulesReview, self).__init__(

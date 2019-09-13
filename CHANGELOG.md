@@ -8,6 +8,7 @@
 
 ### Improvements
 
+-   Automatically mark Secret data and stringData as secret. (https://github.com/pulumi/pulumi-kubernetes/pull/803).
 -   Provide detailed error for removed apiVersions. (https://github.com/pulumi/pulumi-kubernetes/pull/809).
 
 ## 1.1.0 (September 18, 2019)

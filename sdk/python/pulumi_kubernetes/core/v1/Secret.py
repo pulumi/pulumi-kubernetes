@@ -99,6 +99,14 @@ class Secret(pulumi.CustomResource):
 
         __props__['status'] = None
 
+        additional_secret_outputs = [
+            "data",
+            "stringData",
+        ]
+
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
+            version=version.get_version(), additional_secret_outputs=additional_secret_outputs))
+
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(Secret, self).__init__(
