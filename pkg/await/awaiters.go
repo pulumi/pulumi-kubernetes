@@ -23,6 +23,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/pkg/watcher"
 	"github.com/pulumi/pulumi/pkg/diag"
@@ -72,10 +73,15 @@ type updateAwaitConfig struct {
 	lastOutputs *unstructured.Unstructured
 }
 
+type deleteAwaitConfig struct {
+	createAwaitConfig
+	clientForResource dynamic.ResourceInterface
+}
+
 type createAwaiter func(createAwaitConfig) error
 type updateAwaiter func(updateAwaitConfig) error
 type readAwaiter func(createAwaitConfig) error
-type deletionAwaiter func(context.Context, dynamic.ResourceInterface, string) error
+type deletionAwaiter func(deleteAwaitConfig) error
 
 // --------------------------------------------------------------------------
 
@@ -243,9 +249,7 @@ func deploymentSpecReplicas(deployment *unstructured.Unstructured) (interface{},
 	return openapi.Pluck(deployment.Object, "spec", "replicas")
 }
 
-func untilAppsDeploymentDeleted(
-	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
-) error {
+func untilAppsDeploymentDeleted(config deleteAwaitConfig) error {
 	//
 	// TODO(hausdorff): Should we scale pods to 0 and then delete instead? Kubernetes should allow us
 	// to check the status after deletion, but there is some possibility if there is a long-ish
@@ -268,18 +272,19 @@ func untilAppsDeploymentDeleted(
 		specReplicas, _ := deploymentSpecReplicas(d)
 
 		return watcher.RetryableError(
-			fmt.Errorf("deployment %q still exists (%d / %d replicas exist)", name,
+			fmt.Errorf("deployment %q still exists (%d / %d replicas exist)", config.currentInputs.GetName(),
 				currReplicas, specReplicas))
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	err := watcher.ForObject(ctx, clientForResource, name).
-		RetryUntil(deploymentMissing, 10*time.Minute)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 600)
+	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+		RetryUntil(deploymentMissing, timeout)
 	if err != nil {
 		return err
 	}
 
-	glog.V(3).Infof("Deployment '%s' deleted", name)
+	glog.V(3).Infof("Deployment '%s' deleted", config.currentInputs.GetName())
 
 	return nil
 }
@@ -290,9 +295,7 @@ func untilAppsDeploymentDeleted(
 
 // --------------------------------------------------------------------------
 
-func untilAppsStatefulSetDeleted(
-	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
-) error {
+func untilAppsStatefulSetDeleted(config deleteAwaitConfig) error {
 	specReplicas := func(statefulset *unstructured.Unstructured) (interface{}, bool) {
 		return openapi.Pluck(statefulset.Object, "spec", "replicas")
 	}
@@ -312,18 +315,19 @@ func untilAppsStatefulSetDeleted(
 		specReplicas, _ := specReplicas(d)
 
 		return watcher.RetryableError(
-			fmt.Errorf("StatefulSet %q still exists (%d / %d replicas exist)", name,
+			fmt.Errorf("StatefulSet %q still exists (%d / %d replicas exist)", config.currentInputs.GetName(),
 				currReplicas, specReplicas))
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	err := watcher.ForObject(ctx, clientForResource, name).
-		RetryUntil(statefulsetmissing, 10*time.Minute)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 600)
+	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+		RetryUntil(statefulsetmissing, timeout)
 	if err != nil {
 		return err
 	}
 
-	glog.V(3).Infof("StatefulSet %q deleted", name)
+	glog.V(3).Infof("StatefulSet %q deleted", config.currentInputs.GetName())
 
 	return nil
 }
@@ -334,28 +338,29 @@ func untilAppsStatefulSetDeleted(
 
 // --------------------------------------------------------------------------
 
-func untilCoreV1NamespaceDeleted(
-	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
-) error {
+func untilCoreV1NamespaceDeleted(config deleteAwaitConfig) error {
 	namespaceMissingOrKilled := func(ns *unstructured.Unstructured, err error) error {
 		if is404(err) {
 			return nil
 		} else if err != nil {
-			glog.V(3).Infof("Received error deleting namespace %q: %#v", name, err)
+			glog.V(3).Infof("Received error deleting namespace %q: %#v",
+				config.currentInputs.GetName(), err)
 			return err
 		}
 
 		statusPhase, _ := openapi.Pluck(ns.Object, "status", "phase")
-		glog.V(3).Infof("Namespace %q status received: %#v", name, statusPhase)
+		glog.V(3).Infof("Namespace %q status received: %#v", config.currentInputs.GetName(), statusPhase)
 		if statusPhase == "" {
 			return nil
 		}
 
-		return watcher.RetryableError(fmt.Errorf("namespace %q still exists (%v)", name, statusPhase))
+		return watcher.RetryableError(fmt.Errorf("namespace %q still exists (%v)",
+			config.currentInputs.GetName(), statusPhase))
 	}
 
-	return watcher.ForObject(ctx, clientForResource, name).
-		RetryUntil(namespaceMissingOrKilled, 5*time.Minute)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 300)
+	return watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+		RetryUntil(namespaceMissingOrKilled, timeout)
 }
 
 // --------------------------------------------------------------------------
@@ -412,9 +417,7 @@ func untilCoreV1PersistentVolumeClaimBound(c createAwaitConfig) error {
 // --------------------------------------------------------------------------
 
 // TODO(lblackstone): unify the function signatures across awaiters
-func untilCoreV1PodDeleted(
-	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
-) error {
+func untilCoreV1PodDeleted(config deleteAwaitConfig) error {
 	podMissingOrKilled := func(pod *unstructured.Unstructured, err error) error {
 		if is404(err) {
 			return nil
@@ -423,13 +426,14 @@ func untilCoreV1PodDeleted(
 		}
 
 		statusPhase, _ := openapi.Pluck(pod.Object, "status", "phase")
-		glog.V(3).Infof("Current state of pod %q: %#v", name, statusPhase)
-		e := fmt.Errorf("pod %q still exists (%v)", name, statusPhase)
+		glog.V(3).Infof("Current state of pod %q: %#v", config.currentInputs.GetName(), statusPhase)
+		e := fmt.Errorf("pod %q still exists (%v)", config.currentInputs.GetName(), statusPhase)
 		return watcher.RetryableError(e)
 	}
 
-	return watcher.ForObject(ctx, clientForResource, name).
-		RetryUntil(podMissingOrKilled, 5*time.Minute)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 300)
+	return watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+		RetryUntil(podMissingOrKilled, timeout)
 }
 
 // --------------------------------------------------------------------------
@@ -479,9 +483,7 @@ func untilCoreV1ReplicationControllerUpdated(c updateAwaitConfig) error {
 	return untilCoreV1ReplicationControllerInitialized(c.createAwaitConfig)
 }
 
-func untilCoreV1ReplicationControllerDeleted(
-	ctx context.Context, clientForResource dynamic.ResourceInterface, name string,
-) error {
+func untilCoreV1ReplicationControllerDeleted(config deleteAwaitConfig) error {
 	//
 	// TODO(hausdorff): Should we scale pods to 0 and then delete instead? Kubernetes should allow us
 	// to check the status after deletion, but there is some possibility if there is a long-ish
@@ -504,18 +506,19 @@ func untilCoreV1ReplicationControllerDeleted(
 		specReplicas, _ := deploymentSpecReplicas(rc)
 
 		return watcher.RetryableError(
-			fmt.Errorf("ReplicationController %q still exists (%d / %d replicas exist)", name,
-				currReplicas, specReplicas))
+			fmt.Errorf("ReplicationController %q still exists (%d / %d replicas exist)",
+				config.currentInputs.GetName(), currReplicas, specReplicas))
 	}
 
 	// Wait until all replicas are gone. 10 minutes should be enough for ~10k replicas.
-	err := watcher.ForObject(ctx, clientForResource, name).
-		RetryUntil(rcMissing, 10*time.Minute)
+	timeout := metadata.TimeoutDuration(config.timeout, config.currentInputs, 600)
+	err := watcher.ForObject(config.ctx, config.clientForResource, config.currentInputs.GetName()).
+		RetryUntil(rcMissing, timeout)
 	if err != nil {
 		return err
 	}
 
-	glog.V(3).Infof("ReplicationController %q deleted", name)
+	glog.V(3).Infof("ReplicationController %q deleted", config.currentInputs.GetName())
 
 	return nil
 }

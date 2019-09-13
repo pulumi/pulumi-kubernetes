@@ -24,9 +24,7 @@ import (
 )
 
 func timeoutComment(kind kinds.Kind) string {
-	const timeoutOverride = `setting the 'customTimeouts' option on the resource.
-Note that the timeout value for Delete is not yet supported. See
-https://github.com/pulumi/pulumi-kubernetes/issues/746 for details.`
+	const timeoutOverride = `setting the 'customTimeouts' option on the resource.`
 
 	var v int
 	switch kind {
