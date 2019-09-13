@@ -18573,8 +18573,6 @@ export namespace meta {
        * set or understand this field. A workflow can be the user's name, a controller's name, or
        * the name of a specific apply path like "ci-cd". The set of fields is always in the version
        * that the workflow used when modifying the object.
-       * 
-       * This field is alpha and can be changed or removed without notice.
        */
       readonly managedFields: meta.v1.ManagedFieldsEntry[]
 

@@ -2,9 +2,21 @@
 
 ### Supported Kubernetes versions
 
+- v1.16.x
 - v1.15.x
 - v1.14.x
-- v1.13.x
+
+## 1.1.0 (September 18, 2019)
+
+### Supported Kubernetes versions
+
+- v1.16.x
+- v1.15.x
+- v1.14.x
+
+### Major changes
+
+-   Add support for Kubernetes v1.16.0 (https://github.com/pulumi/pulumi-kubernetes/pull/669)
 
 ### Improvements
 
@@ -12,6 +24,7 @@
 -   Increase default readiness timeouts to 10 mins. (https://github.com/pulumi/pulumi-kubernetes/pull/721).
 -   Add suppressDeprecationWarnings flag. (https://github.com/pulumi/pulumi-kubernetes/pull/808).
 -   Warn for invalid usage of Helm repo parameter. (https://github.com/pulumi/pulumi-kubernetes/pull/805).
+-   Add PodAggregator for use by resource awaiters. (https://github.com/pulumi/pulumi-kubernetes/pull/785).
 
 ## 1.0.1 (September 11, 2019)
 
@@ -25,8 +38,6 @@
 
 -   Warn for deprecated apiVersions.
     (https://github.com/pulumi/pulumi-kubernetes/pull/779).
--   Add PodAggregator for use by resource awaiters
-    (https://github.com/pulumi/pulumi-kubernetes/pull/785).
 
 ### Bug fixes
 
