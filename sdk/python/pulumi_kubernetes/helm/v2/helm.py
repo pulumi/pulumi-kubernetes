@@ -196,14 +196,15 @@ class ChartOpts(BaseChartOpts):
 
     chart: pulumi.Input[str]
     """
-    The chart to deploy.  If [repo] is provided, this chart name is looked up in the given repository.
-    Otherwise, this chart name must be a fully qualified chart URL or `repo/chartname`.
+    The name of the chart to deploy.  If `repo` is provided, this chart name will be prefixed by the repo name.
+    Example: repo: "stable", chart: "nginx-ingress" -> "stable/nginx-ingress"
+    Example: chart: "stable/nginx-ingress" -> "stable/nginx-ingress"
     """
 
     repo: Optional[pulumi.Input[str]]
     """
-    The repository containing the desired chart.  If not provided, [chart] must be a fully qualified
-    chart URL or repo/chartname.
+    The repository name of the chart to deploy. 
+    Example: "stable"
     """
 
     version: Optional[pulumi.Input[str]]
@@ -219,9 +220,10 @@ class ChartOpts(BaseChartOpts):
     def __init__(self, chart, namespace=None, values=None, transformations=None, resource_prefix=None, repo=None,
                  version=None, fetch_opts=None):
         """
-        :param pulumi.Input[str] chart: The chart to deploy.  If [repo] is provided, this chart name is
-               looked up in the given repository. Otherwise, this chart name must be a fully qualified
-               chart URL or `repo/chartname`.
+        :param pulumi.Input[str] chart: The name of the chart to deploy.  If `repo` is provided, this chart name
+               will be prefixed by the repo name.
+               Example: repo: "stable", chart: "nginx-ingress" -> "stable/nginx-ingress"
+               Example: chart: "stable/nginx-ingress" -> "stable/nginx-ingress"
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
         :param Optional[List[Tuple[Callable, Optional[pulumi.ResourceOptions]]]] transformations: Optional list of
@@ -229,8 +231,8 @@ class ChartOpts(BaseChartOpts):
                Allows customization of the chart behaviour without directly modifying the chart itself.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
-        :param Optional[pulumi.Input[str]] repo: The repository containing the desired chart.  If not
-               provided, [chart] must be a fully qualified chart URL or repo/chartname.
+        :param Optional[pulumi.Input[str]] repo: The repository name of the chart to deploy.
+               Example: "stable"
         :param Optional[pulumi.Input[str]] version: The version of the chart to deploy. If not provided,
                the latest version will be deployed.
         :param Optional[pulumi.Input[FetchOpts]] fetch_opts: Additional options to customize the

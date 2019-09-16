@@ -68,15 +68,18 @@ interface BaseChartOpts {
 
 export interface ChartOpts extends BaseChartOpts {
     /**
-     * The repository containing the desired chart.  If not provided, [chart] must be a fully qualified chart URL
-     * or repo/chartname.
+     * The repository name of the chart to deploy.
+     * Example: "stable"
      */
     repo?: pulumi.Input<string>;
+
     /**
-     * The chart to deploy.  If [repo] is provided, this chart name is looked up in the given repository.  Else
-     * this chart name must be a fully qualified chart URL or `repo/chartname`.
+     * The name of the chart to deploy.  If [repo] is provided, this chart name will be prefixed by the repo name.
+     * Example: repo: "stable", chart: "nginx-ingress" -> "stable/nginx-ingress"
+     * Example: chart: "stable/nginx-ingress" -> "stable/nginx-ingress"
      */
     chart: pulumi.Input<string>;
+
     /**
      * The version of the chart to deploy. If not provided, the latest version will be deployed.
      */
