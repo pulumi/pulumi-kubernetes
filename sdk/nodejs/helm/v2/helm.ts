@@ -152,6 +152,10 @@ export class Chart extends yaml.CollectionComponentResource {
                 let defaultValues: string;
                 if (isChartOpts(cfg)) {
                     // Fetch chart.
+                    if (cfg.repo && cfg.repo.includes("http")) {
+                        pulumi.log.error(
+                            "`repo` specifies the name of the Helm chart repo. Use `fetchOpts.repo` to specify a URL.", this);
+                    }
                     const chartToFetch = cfg.repo ? `${cfg.repo}/${cfg.chart}` : cfg.chart;
                     const fetchOpts = Object.assign({}, cfg.fetchOpts, {
                         destination: chartDir.name,

@@ -305,6 +305,9 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
     chart_dir = mkdtemp()
 
     if isinstance(config, ChartOpts):
+        if config.repo and 'http' in config.repo:
+            raise ValueError('`repo` specifies the name of the Helm chart repo.'
+                             'Use `fetch_opts.repo` to specify a URL.')
         chart_to_fetch = f'{config.repo}/{config.chart}' if config.repo else config.chart
 
         # Configure fetch options.

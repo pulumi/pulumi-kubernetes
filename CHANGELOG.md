@@ -6,7 +6,11 @@
 - v1.14.x
 - v1.13.x
 
-## 1.0.1 (Septemeber 11, 2019)
+### Improvements
+
+-   Warn for invalid usage of Helm repo parameter. (https://github.com/pulumi/pulumi-kubernetes/pull/805).
+
+## 1.0.1 (September 11, 2019)
 
 ### Supported Kubernetes versions
 
@@ -26,7 +30,7 @@
 -   Fix error reporting
     (https://github.com/pulumi/pulumi-kubernetes/pull/782).
     
-## 1.0.0 (Septemeber 3, 2019)
+## 1.0.0 (September 3, 2019)
 
 ### Supported Kubernetes versions
 
