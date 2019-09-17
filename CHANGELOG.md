@@ -11,7 +11,7 @@
 -   Implement customTimeout for resource deletion. (https://github.com/pulumi/pulumi-kubernetes/pull/802).
 -   Warn for invalid usage of Helm repo parameter. (https://github.com/pulumi/pulumi-kubernetes/pull/805).
 
-## 1.0.1 (Septemeber 11, 2019)
+## 1.0.1 (September 11, 2019)
 
 ### Supported Kubernetes versions
 
