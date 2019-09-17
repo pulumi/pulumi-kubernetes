@@ -92,8 +92,10 @@ type kubeProvider struct {
 	providerPackage  string
 	opts             kubeOpts
 	defaultNamespace string
-	enableDryRun     bool
-	enableSecrets    bool
+
+	enableDryRun                bool
+	suppressDeprecationWarnings bool
+	enableSecrets               bool
 
 	clientSet *clients.DynamicClientSet
 }
@@ -104,12 +106,14 @@ func makeKubeProvider(
 	host *provider.HostClient, name, version string,
 ) (pulumirpc.ResourceProviderServer, error) {
 	return &kubeProvider{
-		host:            host,
-		canceler:        makeCancellationContext(),
-		name:            name,
-		version:         version,
-		providerPackage: name,
-		enableDryRun:    false,
+		host:                        host,
+		canceler:                    makeCancellationContext(),
+		name:                        name,
+		version:                     version,
+		providerPackage:             name,
+		enableDryRun:                false,
+		enableSecrets:               false,
+		suppressDeprecationWarnings: false,
 	}, nil
 }
 
@@ -255,6 +259,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if enableDryRun() {
 		k.enableDryRun = true
+	}
+
+	suppressDeprecationWarnings := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:suppressDeprecationWarnings"]; exists {
+			return enabled == "true"
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS"); exists {
+			return enabled == "true"
+		}
+		// Default to false.
+		return false
+	}
+	if suppressDeprecationWarnings() {
+		k.suppressDeprecationWarnings = true
 	}
 
 	var kubeconfig clientcmd.ClientConfig
@@ -423,7 +443,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
-	if kinds.DeprecatedApiVersion(gvk) {
+	if !k.suppressDeprecationWarnings && kinds.DeprecatedApiVersion(gvk) {
 		_ = k.host.Log(ctx, diag.Warning, urn, gen.ApiVersionComment(gvk))
 	}
 

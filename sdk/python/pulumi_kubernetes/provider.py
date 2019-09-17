@@ -13,7 +13,8 @@ class Provider(pulumi.ProviderResource):
                  context=None,
                  enable_dry_run=None,
                  kubeconfig=None,
-                 namespace=None):
+                 namespace=None,
+                 suppress_deprecation_warnings=None):
         """
         Create a Provider resource with the given unique name, arguments, and options.
 
@@ -30,6 +31,8 @@ class Provider(pulumi.ProviderResource):
                                             This flag is ignored for cluster-scoped resources.
                                             Note: if .metadata.namespace is set on a resource, that value takes
                                             precedence over the provider default.
+        :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to True, suppress apiVersion
+                                                                 deprecation warnings from the CLI.
         """
         __props__ = {
             "cluster": cluster,
@@ -37,5 +40,6 @@ class Provider(pulumi.ProviderResource):
             "enableDryRun": "true" if enable_dry_run else "false",
             "kubeconfig": kubeconfig,
             "namespace": namespace,
+            "suppress_deprecation_warnings": "true" if suppress_deprecation_warnings else "false",
         }
         super(Provider, self).__init__("kubernetes", __name__, __props__, __opts__)
