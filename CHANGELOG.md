@@ -10,6 +10,7 @@
 
 -   Implement customTimeout for resource deletion. (https://github.com/pulumi/pulumi-kubernetes/pull/802).
 -   Increase default readiness timeouts to 10 mins. (https://github.com/pulumi/pulumi-kubernetes/pull/721).
+-   Add suppressDeprecationWarnings flag. (https://github.com/pulumi/pulumi-kubernetes/pull/808).
 -   Warn for invalid usage of Helm repo parameter. (https://github.com/pulumi/pulumi-kubernetes/pull/805).
 
 ## 1.0.1 (September 11, 2019)

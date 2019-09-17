@@ -17,7 +17,8 @@ export class Provider extends pulumi.ProviderResource {
             "context": args ? args.context : undefined,
             "kubeconfig": args ? args.kubeconfig : undefined,
             "namespace": args ? args.namespace : undefined,
-            "enableDryRun": args && args.enableDryRun ? "true" : undefined
+            "enableDryRun": args && args.enableDryRun ? "true" : undefined,
+            "suppressDeprecationWarnings": args && args.suppressDeprecationWarnings ? "true" : undefined
         };
         super("kubernetes", name, props, opts);
     }
@@ -49,4 +50,8 @@ export interface ProviderArgs {
      * This feature is in developer preview, and is disabled by default.
      */
     readonly enableDryRun?: pulumi.Input<boolean>;
+    /**
+     * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
+     */
+    readonly suppressDeprecationWarnings?: pulumi.Input<boolean>;
 }
