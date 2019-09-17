@@ -23,7 +23,7 @@ import { getVersion } from "../../version";
      *    and '.status.readyReplicas'.
      * 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
      * 
-     * If the StatefulSet has not reached a Ready state after 5 minutes, it will
+     * If the StatefulSet has not reached a Ready state after 10 minutes, it will
      * time out and mark the resource update as Failed. You can override the default timeout value
      * by setting the 'customTimeouts' option on the resource.
      */

@@ -36,7 +36,7 @@ class Deployment(pulumi.CustomResource):
        because it doesn't do a rollout (i.e., it simply creates the Deployment and
        corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
     
-    If the Deployment has not reached a Ready state after 5 minutes, it will
+    If the Deployment has not reached a Ready state after 10 minutes, it will
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
