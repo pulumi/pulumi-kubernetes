@@ -30,6 +30,7 @@ import (
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/pkg/gen"
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
@@ -97,7 +98,8 @@ type kubeProvider struct {
 	suppressDeprecationWarnings bool
 	enableSecrets               bool
 
-	clientSet *clients.DynamicClientSet
+	clientSet  *clients.DynamicClientSet
+	k8sVersion cluster.ServerVersion
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -307,6 +309,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	k.clientSet = cs
 
+	k.k8sVersion = cluster.GetServerVersion(cs.DiscoveryClientCached)
+
 	return &pulumirpc.ConfigureResponse{
 		AcceptSecrets: true,
 	}, nil
@@ -445,6 +449,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	if !k.suppressDeprecationWarnings && kinds.DeprecatedApiVersion(gvk) {
 		_ = k.host.Log(ctx, diag.Warning, urn, gen.ApiVersionComment(gvk))
+	}
+	if removed, version := kinds.RemovedApiVersion(gvk, k.k8sVersion); removed {
+		return nil, &kinds.RemovedApiError{GVK: gvk, Version: version}
 	}
 
 	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced

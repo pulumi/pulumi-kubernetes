@@ -15,6 +15,9 @@
 package kinds
 
 import (
+	"fmt"
+
+	"github.com/pulumi/pulumi-kubernetes/pkg/cluster"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
@@ -25,6 +28,23 @@ func gvkStr(gvk schema.GroupVersionKind) string {
 // DeprecatedApiVersion returns true if the given GVK is deprecated in the most recent k8s release.
 func DeprecatedApiVersion(gvk schema.GroupVersionKind) bool {
 	return SuggestedApiVersion(gvk) != gvkStr(gvk)
+}
+
+// RemovedApiVersion returns true if the given GVK has been removed in the given k8s version, and the corresponding
+// ServerVersion where the GVK was removed.
+func RemovedApiVersion(gvk schema.GroupVersionKind, version cluster.ServerVersion) (bool, *cluster.ServerVersion) {
+	var removedIn cluster.ServerVersion
+
+	switch gvk.GroupVersion() {
+	case schema.GroupVersion{Group: "extensions", Version: "v1beta1"},
+		schema.GroupVersion{Group: "apps", Version: "v1beta1"},
+		schema.GroupVersion{Group: "apps", Version: "v1beta2"}:
+		removedIn = cluster.ServerVersion{Major: 1, Minor: 16}
+	default:
+		return false, nil
+	}
+
+	return version.Compare(removedIn) >= 0, &removedIn
 }
 
 // SuggestedApiVersion returns a string with the suggested apiVersion for a given GVK.
@@ -48,5 +68,18 @@ func SuggestedApiVersion(gvk schema.GroupVersionKind) string {
 	default:
 		return gvkStr(gvk)
 	}
+}
 
+// RemovedApiError is returned if the provided GVK does not exist in the targeted k8s cluster because the apiVersion
+// has been deprecated and removed.
+type RemovedApiError struct {
+	GVK     schema.GroupVersionKind
+	Version *cluster.ServerVersion
+}
+
+func (e *RemovedApiError) Error() string {
+	if e.Version == nil {
+		return fmt.Sprintf("apiVersion %q was removed in a previous version of Kubernetes", gvkStr(e.GVK))
+	}
+	return fmt.Sprintf("apiVersion %q was removed in Kubernetes %s", gvkStr(e.GVK), e.Version)
 }
