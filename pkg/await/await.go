@@ -385,7 +385,8 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	timeoutSeconds := int64(300)
+	timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs, 300)
+	timeoutSeconds := int64(timeout.Seconds())
 	listOpts := metav1.ListOptions{
 		FieldSelector:  fields.OneTermEqualSelector("metadata.name", c.Name).String(),
 		TimeoutSeconds: &timeoutSeconds,
@@ -411,7 +412,18 @@ func Deletion(c DeleteConfig) error {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			glog.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
-			waitErr = awaiter.awaitDeletion(c.Context, client, c.Name)
+			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
+				createAwaitConfig: createAwaitConfig{
+					host:          c.Host,
+					ctx:           c.Context,
+					urn:           c.URN,
+					clientSet:     c.ClientSet,
+					currentInputs: c.Inputs,
+					logger:        c.DedupLogger,
+					timeout:       c.Timeout,
+				},
+				clientForResource: client,
+			})
 		}
 	} else {
 		for {
