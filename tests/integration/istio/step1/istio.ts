@@ -44,7 +44,6 @@ export const istio_init = new k8s.helm.v2.Chart(
     `${appName}-init`,
     {
         path: "charts/istio-init",
-        version: "1.1",
         namespace: namespace.metadata.name,
         values: { kiali: { enabled: true } }
     },
@@ -55,7 +54,6 @@ export const istio = new k8s.helm.v2.Chart(
     appName,
     {
         path: "charts/istio",
-        version: "1.1",
         namespace: namespace.metadata.name,
         values: { kiali: { enabled: true } }
     },
