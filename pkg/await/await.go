@@ -32,6 +32,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 )
@@ -81,6 +82,29 @@ type DeleteConfig struct {
 	Inputs  *unstructured.Unstructured
 	Name    string
 	Timeout float64
+}
+
+type ResourceId struct {
+	Name       string
+	Namespace  string // Namespace should never be "" (use "default" instead).
+	GVK        schema.GroupVersionKind
+	Generation int64
+}
+
+func (r ResourceId) String() string {
+	if len(r.Namespace) > 0 {
+		return r.Namespace + "/" + r.Name
+	}
+	return r.Name
+}
+
+func ResourceIdFromUnstructured(uns *unstructured.Unstructured) ResourceId {
+	return ResourceId{
+		Namespace:  clients.NamespaceOrDefault(uns.GetNamespace()),
+		Name:       uns.GetName(),
+		GVK:        uns.GroupVersionKind(),
+		Generation: uns.GetGeneration(),
+	}
 }
 
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:

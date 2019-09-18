@@ -93,7 +93,7 @@ func (dcs *DynamicClientSet) ResourceClient(gvk schema.GroupVersionKind, namespa
 	}
 
 	if namespaced {
-		return dcs.GenericClient.Resource(m.Resource).Namespace(namespaceOrDefault(namespace)), nil
+		return dcs.GenericClient.Resource(m.Resource).Namespace(NamespaceOrDefault(namespace)), nil
 	} else {
 		return dcs.GenericClient.Resource(m.Resource), nil
 	}
@@ -194,8 +194,8 @@ func IsNoNamespaceInfoErr(err error) bool {
 	}
 }
 
-// namespaceOrDefault returns `ns` or the the default namespace `"default"` if `ns` is empty.
-func namespaceOrDefault(ns string) string {
+// NamespaceOrDefault returns `ns` or the the default namespace `"default"` if `ns` is empty.
+func NamespaceOrDefault(ns string) string {
 	if ns == "" {
 		return "default"
 	}
