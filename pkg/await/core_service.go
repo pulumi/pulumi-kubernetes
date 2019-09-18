@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"time"
 
+	"github.com/pulumi/pulumi-kubernetes/pkg/cluster"
 	"github.com/pulumi/pulumi/pkg/util/cmdutil"
 
 	"github.com/golang/glog"
@@ -140,7 +141,7 @@ func (sia *serviceInitAwaiter) Await() error {
 	}
 	defer endpointWatcher.Stop()
 
-	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
+	version := cluster.GetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
 	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentInputs, DefaultServiceTimeoutMins*60)
 	return sia.await(serviceWatcher, endpointWatcher, time.After(timeout), make(chan struct{}), version)
@@ -175,14 +176,14 @@ func (sia *serviceInitAwaiter) Read() error {
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	version := ServerVersion(sia.config.clientSet.DiscoveryClientCached)
+	version := cluster.GetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
 	return sia.read(service, endpointList, version)
 }
 
 func (sia *serviceInitAwaiter) read(
 	service *unstructured.Unstructured, endpoints *unstructured.UnstructuredList,
-	version serverVersion,
+	version cluster.ServerVersion,
 ) error {
 	sia.processServiceEvent(watchAddedEvent(service))
 
@@ -216,7 +217,7 @@ func (sia *serviceInitAwaiter) await(
 	serviceWatcher, endpointWatcher watch.Interface,
 	timeout <-chan time.Time,
 	settled chan struct{},
-	version serverVersion,
+	version cluster.ServerVersion,
 ) error {
 	sia.config.logStatus(diag.Info, "[1/3] Finding Pods to direct traffic to")
 
@@ -394,14 +395,14 @@ func (sia *serviceInitAwaiter) emptyHeadlessOrExternalName() bool {
 //
 // [1]: https://github.com/kubernetes/dns/issues/174
 // [2]: https://github.com/kubernetes/kubernetes/commit/1c0137252465574519baf99252df8d75048f1304
-func (sia *serviceInitAwaiter) hasHeadlessServicePortBug(version serverVersion) bool {
+func (sia *serviceInitAwaiter) hasHeadlessServicePortBug(version cluster.ServerVersion) bool {
 	// This bug only affects headless or external name Services.
 	if !sia.isHeadlessService() && !sia.isExternalNameService() {
 		return false
 	}
 
 	// k8s versions < 1.12 have the bug.
-	if version.Compare(1, 12) < 0 {
+	if version.Compare(cluster.ServerVersion{Major: 1, Minor: 12}) < 0 {
 		portsI, _ := openapi.Pluck(sia.service.Object, "spec", "ports")
 		ports, _ := portsI.([]map[string]interface{})
 		hasPorts := len(ports) > 0
@@ -416,7 +417,7 @@ func (sia *serviceInitAwaiter) hasHeadlessServicePortBug(version serverVersion) 
 }
 
 // shouldWaitForPods determines whether to wait for Pods to be ready before marking the Service ready.
-func (sia *serviceInitAwaiter) shouldWaitForPods(version serverVersion) bool {
+func (sia *serviceInitAwaiter) shouldWaitForPods(version cluster.ServerVersion) bool {
 	// For these special cases, skip the wait for Pod logic.
 	if sia.emptyHeadlessOrExternalName() || sia.hasHeadlessServicePortBug(version) {
 		sia.endpointsReady = true
@@ -426,7 +427,7 @@ func (sia *serviceInitAwaiter) shouldWaitForPods(version serverVersion) bool {
 	return true
 }
 
-func (sia *serviceInitAwaiter) checkAndLogStatus(version serverVersion) bool {
+func (sia *serviceInitAwaiter) checkAndLogStatus(version cluster.ServerVersion) bool {
 	if !sia.shouldWaitForPods(version) {
 		return sia.serviceReady
 	}

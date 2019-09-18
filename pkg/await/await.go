@@ -20,6 +20,7 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
@@ -422,7 +423,7 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	err = deleteResource(c.Name, client, ServerVersion(c.ClientSet.DiscoveryClientCached))
+	err = deleteResource(c.Name, client, cluster.GetServerVersion(c.ClientSet.DiscoveryClientCached))
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
@@ -500,15 +501,15 @@ func Deletion(c DeleteConfig) error {
 	return waitErr
 }
 
-func deleteResource(name string, client dynamic.ResourceInterface, version serverVersion) error {
+func deleteResource(name string, client dynamic.ResourceInterface, version cluster.ServerVersion) error {
 	// Manually set delete propagation for Kubernetes versions < 1.6 to avoid bugs.
 	deleteOpts := metav1.DeleteOptions{}
-	if version.Compare(1, 6) < 0 {
+	if version.Compare(cluster.ServerVersion{Major: 1, Minor: 6}) < 0 {
 		// 1.5.x option.
 		boolFalse := false
 		// nolint
 		deleteOpts.OrphanDependents = &boolFalse
-	} else if version.Compare(1, 7) < 0 {
+	} else if version.Compare(cluster.ServerVersion{Major: 1, Minor: 7}) < 0 {
 		// 1.6.x option. Background delete propagation is broken in k8s v1.6.
 		fg := metav1.DeletePropagationForeground
 		deleteOpts.PropagationPolicy = &fg
