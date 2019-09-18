@@ -50,7 +50,22 @@ class RuntimeClass(pulumi.CustomResource):
     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
-    def __init__(self, resource_name, opts=None, handler=None, metadata=None, __name__=None, __opts__=None):
+    overhead: pulumi.Output[dict]
+    """
+    Overhead represents the resource overhead associated with running a pod for a given
+    RuntimeClass. For more details, see
+    https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level
+    as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+    """
+
+    scheduling: pulumi.Output[dict]
+    """
+    Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass
+    are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be
+    supported by all nodes.
+    """
+
+    def __init__(self, resource_name, opts=None, handler=None, metadata=None, overhead=None, scheduling=None, __name__=None, __opts__=None):
         """
         Create a RuntimeClass resource with the given unique name, arguments, and options.
 
@@ -65,6 +80,14 @@ class RuntimeClass(pulumi.CustomResource):
                must conform to the DNS Label (RFC 1123) requirements, and is immutable.
         :param pulumi.Input[dict] metadata: More info:
                https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[dict] overhead: Overhead represents the resource overhead associated with running a pod for a given
+               RuntimeClass. For more details, see
+               https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is
+               alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the
+               PodOverhead feature.
+        :param pulumi.Input[dict] scheduling: Scheduling holds the scheduling constraints to ensure that pods running with this
+               RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this
+               RuntimeClass is assumed to be supported by all nodes.
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -87,6 +110,8 @@ class RuntimeClass(pulumi.CustomResource):
             raise TypeError('Missing required property handler')
         __props__['handler'] = handler
         __props__['metadata'] = metadata
+        __props__['overhead'] = overhead
+        __props__['scheduling'] = scheduling
 
         __props__['status'] = None
 

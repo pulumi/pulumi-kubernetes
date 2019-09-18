@@ -32,7 +32,7 @@ import { getVersion } from "../../version";
       /**
        * Data is the serialized representation of the state.
        */
-      public readonly data: pulumi.Output<outputs.pkg.runtime.RawExtension>;
+      public readonly data: pulumi.Output<object>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may

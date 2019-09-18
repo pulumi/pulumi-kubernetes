@@ -14,8 +14,7 @@ from ... import tables, version
 class MutatingWebhookConfiguration(pulumi.CustomResource):
     """
     MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or
-    reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use
-    admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+    reject and may change the object.
     """
 
     apiVersion: pulumi.Output[str]
@@ -68,7 +67,7 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'admissionregistration.k8s.io/v1beta1'
+        __props__['apiVersion'] = 'admissionregistration.k8s.io/v1'
         __props__['kind'] = 'MutatingWebhookConfiguration'
         __props__['metadata'] = metadata
         __props__['webhooks'] = webhooks
@@ -78,7 +77,7 @@ class MutatingWebhookConfiguration(pulumi.CustomResource):
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
         super(MutatingWebhookConfiguration, self).__init__(
-            "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration",
+            "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration",
             resource_name,
             __props__,
             opts)

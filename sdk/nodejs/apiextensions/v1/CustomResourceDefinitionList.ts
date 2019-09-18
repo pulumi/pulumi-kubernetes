@@ -17,12 +17,12 @@ import { getVersion } from "../../version";
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"apiextensions.k8s.io/v1beta1">;
+      public readonly apiVersion: pulumi.Output<"apiextensions.k8s.io/v1">;
 
       /**
        * items list individual CustomResourceDefinition objects
        */
-      public readonly items: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinition[]>;
+      public readonly items: pulumi.Output<outputs.apiextensions.v1.CustomResourceDefinition[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -51,7 +51,7 @@ import { getVersion } from "../../version";
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList";
+      private static readonly __pulumiType = "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList";
 
       /**
        * Returns true if the given object is an instance of CustomResourceDefinitionList.  This is designed to work even
@@ -66,17 +66,17 @@ import { getVersion } from "../../version";
       }
 
       /**
-       * Create a apiextensions.v1beta1.CustomResourceDefinitionList resource with the given unique name, arguments, and options.
+       * Create a apiextensions.v1.CustomResourceDefinitionList resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.apiextensions.v1beta1.CustomResourceDefinitionList, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.apiextensions.v1.CustomResourceDefinitionList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
           props["items"] = args && args.items || undefined;
 
-          props["apiVersion"] = "apiextensions.k8s.io/v1beta1";
+          props["apiVersion"] = "apiextensions.k8s.io/v1";
           props["kind"] = "CustomResourceDefinitionList";
           props["metadata"] = args && args.metadata || undefined;
 

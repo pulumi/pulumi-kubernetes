@@ -16,6 +16,7 @@ __all__ = [
     "certificates",
     "coordination",
     "core",
+    "discovery",
     "events",
     "extensions",
     "meta",

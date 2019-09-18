@@ -3,5 +3,5 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
-from .TokenRequest import (TokenRequest)
-from .TokenReview import (TokenReview)
+from .EndpointSlice import (EndpointSlice)
+from .EndpointSliceList import (EndpointSliceList)

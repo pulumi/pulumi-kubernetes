@@ -9,7 +9,8 @@ import { getVersion } from "../../version";
 
     /**
      * CustomResourceDefinition represents a resource that should be exposed on the API server.  Its
-     * name MUST be in the format <.spec.name>.<.spec.group>.
+     * name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for
+     * removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
      */
     export class CustomResourceDefinition extends pulumi.CustomResource {
       /**
@@ -32,12 +33,12 @@ import { getVersion } from "../../version";
       public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
       /**
-       * Spec describes how the user wants the resources to appear
+       * spec describes how the user wants the resources to appear
        */
       public readonly spec: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinitionSpec>;
 
       /**
-       * Status indicates the actual state of the CustomResourceDefinition
+       * status indicates the actual state of the CustomResourceDefinition
        */
       public readonly status: pulumi.Output<outputs.apiextensions.v1beta1.CustomResourceDefinitionStatus>;
 

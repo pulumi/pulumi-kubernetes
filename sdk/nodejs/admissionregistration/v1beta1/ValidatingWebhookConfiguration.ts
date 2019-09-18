@@ -9,7 +9,8 @@ import { getVersion } from "../../version";
 
     /**
      * ValidatingWebhookConfiguration describes the configuration of and admission webhook that
-     * accept or reject and object without changing it.
+     * accept or reject and object without changing it. Deprecated in v1.16, planned for removal in
+     * v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
      */
     export class ValidatingWebhookConfiguration extends pulumi.CustomResource {
       /**

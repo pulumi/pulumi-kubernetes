@@ -2,9 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 // Import versions:
-import * as v1 from "./v1/index";
-import * as v1beta1 from "./v1beta1/index";
+import * as v1alpha1 from "./v1alpha1/index";
 
 // Export sub-modules
-export { v1, v1beta1,  };
+export { v1alpha1,  };
 

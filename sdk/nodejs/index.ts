@@ -19,6 +19,7 @@ import * as batch from "./batch/index";
 import * as certificates from "./certificates/index";
 import * as coordination from "./coordination/index";
 import * as core from "./core/index";
+import * as discovery from "./discovery/index";
 import * as events from "./events/index";
 import * as extensions from "./extensions/index";
 import * as meta from "./meta/index";
@@ -31,7 +32,7 @@ import * as settings from "./settings/index";
 import * as storage from "./storage/index";
 
 // Export sub-modules
-export { admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, events, extensions, meta, networking, node, policy, rbac, scheduling, settings, storage,  };
+export { admissionregistration, apiextensions, apiregistration, apps, auditregistration, authentication, authorization, autoscaling, batch, certificates, coordination, core, discovery, events, extensions, meta, networking, node, policy, rbac, scheduling, settings, storage,  };
 
 // Import and export sub-modules for all Kubernetes types.
 import * as types from "./types";

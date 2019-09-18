@@ -337,15 +337,22 @@ func fmtComment(
 
 const (
 	apiextensionsV1beta1          = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1"
+	apiextensionsV1               = "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1"
 	quantity                      = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+	rawExtension                  = "io.k8s.apimachinery.pkg.runtime.RawExtension"
 	intOrString                   = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
 	v1Fields                      = "io.k8s.apimachinery.pkg.apis.meta.v1.Fields"
+	v1FieldsV1                    = "io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1"
 	v1Time                        = "io.k8s.apimachinery.pkg.apis.meta.v1.Time"
 	v1MicroTime                   = "io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
 	v1beta1JSONSchemaPropsOrBool  = apiextensionsV1beta1 + ".JSONSchemaPropsOrBool"
 	v1beta1JSONSchemaPropsOrArray = apiextensionsV1beta1 + ".JSONSchemaPropsOrArray"
 	v1beta1JSON                   = apiextensionsV1beta1 + ".JSON"
 	v1beta1CRSubresourceStatus    = apiextensionsV1beta1 + ".CustomResourceSubresourceStatus"
+	v1JSONSchemaPropsOrBool       = apiextensionsV1 + ".JSONSchemaPropsOrBool"
+	v1JSONSchemaPropsOrArray      = apiextensionsV1 + ".JSONSchemaPropsOrArray"
+	v1JSON                        = apiextensionsV1 + ".JSON"
+	v1CRSubresourceStatus         = apiextensionsV1 + ".CustomResourceSubresourceStatus"
 )
 
 func makeTypescriptType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
@@ -423,16 +430,20 @@ func makeTypescriptType(resourceType, propName string, prop map[string]interface
 		ref = tsStringT
 	case intOrString:
 		ref = "number | string"
-	case v1Fields:
+	case v1Fields, v1FieldsV1, rawExtension:
 		ref = tsObject
 	case v1Time, v1MicroTime:
 		// TODO: Automatically deserialized with `DateConstructor`.
 		ref = tsStringT
 	case v1beta1JSONSchemaPropsOrBool:
 		ref = "apiextensions.v1beta1.JSONSchemaProps | boolean"
+	case v1JSONSchemaPropsOrBool:
+		ref = "apiextensions.v1.JSONSchemaProps | boolean"
 	case v1beta1JSONSchemaPropsOrArray:
 		ref = "apiextensions.v1beta1.JSONSchemaProps | any[]"
-	case v1beta1JSON, v1beta1CRSubresourceStatus:
+	case v1JSONSchemaPropsOrArray:
+		ref = "apiextensions.v1.JSONSchemaProps | any[]"
+	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
 		ref = "any"
 	default:
 		isSimpleRef = false
@@ -491,16 +502,16 @@ func makePythonType(resourceType, propName string, prop map[string]interface{}, 
 		ref = pyStringT
 	case intOrString:
 		ref = fmt.Sprintf("Union[%s, %s]", pyIntT, pyStringT)
-	case v1Fields:
+	case v1Fields, v1FieldsV1, rawExtension:
 		ref = pyDictT
 	case v1Time, v1MicroTime:
 		// TODO: Automatically deserialized with `DateConstructor`.
 		ref = pyStringT
-	case v1beta1JSONSchemaPropsOrBool:
+	case v1beta1JSONSchemaPropsOrBool, v1JSONSchemaPropsOrBool:
 		ref = fmt.Sprintf("Union[%s, %s]", pyDictT, pyBoolT)
-	case v1beta1JSONSchemaPropsOrArray:
+	case v1beta1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrArray:
 		ref = fmt.Sprintf("Union[%s, %s]", pyDictT, pyListT)
-	case v1beta1JSON, v1beta1CRSubresourceStatus:
+	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
 		ref = pyAnyT
 	default:
 		ref = pyDictT
