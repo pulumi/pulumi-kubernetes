@@ -70,6 +70,16 @@ func SuggestedApiVersion(gvk schema.GroupVersionKind) string {
 	}
 }
 
+// upstreamDocsLink returns a link to information about apiVersion deprecations for the given k8s version.
+func upstreamDocsLink(version cluster.ServerVersion) string {
+	switch version {
+	case cluster.ServerVersion{Major: 1, Minor: 16}:
+		return "https://git.k8s.io/kubernetes/CHANGELOG-1.16.md#deprecations-and-removals"
+	default:
+		return ""
+	}
+}
+
 // RemovedApiError is returned if the provided GVK does not exist in the targeted k8s cluster because the apiVersion
 // has been deprecated and removed.
 type RemovedApiError struct {
@@ -81,6 +91,13 @@ func (e *RemovedApiError) Error() string {
 	if e.Version == nil {
 		return fmt.Sprintf("apiVersion %q was removed in a previous version of Kubernetes", gvkStr(e.GVK))
 	}
-	return fmt.Sprintf("apiVersion %q was removed in Kubernetes %s. Use %q instead.",
+
+	link := upstreamDocsLink(*e.Version)
+	str := fmt.Sprintf("apiVersion %q was removed in Kubernetes %s. Use %q instead.",
 		gvkStr(e.GVK), e.Version, SuggestedApiVersion(e.GVK))
+
+	if len(link) > 0 {
+		str += fmt.Sprintf("\nSee %s for more information.", link)
+	}
+	return str
 }
