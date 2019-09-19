@@ -23,39 +23,38 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-func timeoutComment(kind kinds.Kind) string {
-	const timeoutOverride = `setting the 'customTimeouts' option on the resource.`
-
-	var v int
-	switch kind {
-	case kinds.Deployment:
-		v = await.DefaultDeploymentTimeoutMins
-	case kinds.Ingress:
-		v = await.DefaultIngressTimeoutMins
-	case kinds.Pod:
-		v = await.DefaultPodTimeoutMins
-	case kinds.Service:
-		v = await.DefaultServiceTimeoutMins
-	case kinds.StatefulSet:
-		v = await.DefaultStatefulSetTimeoutMins
-	default:
-		// No timeout defined for other resource Kinds.
-		return ""
-	}
-	timeoutStr := strconv.Itoa(v) + " minutes"
-
-	return fmt.Sprintf(`
-If the %s has not reached a Ready state after %s, it will
-time out and mark the resource update as Failed. You can override the default timeout value
-by %s`, kind, timeoutStr, timeoutOverride)
-}
-
 func awaitComments(kind kinds.Kind) string {
 	const preamble = `This resource waits until it is ready before registering success for
 create/update and populating output properties from the current state of the resource.
 The following conditions are used to determine whether the resource creation has
 succeeded or failed:
 `
+	timeoutComment := func(kind kinds.Kind) string {
+		const timeoutOverride = `setting the 'customTimeouts' option on the resource.`
+
+		var v int
+		switch kind {
+		case kinds.Deployment:
+			v = await.DefaultDeploymentTimeoutMins
+		case kinds.Ingress:
+			v = await.DefaultIngressTimeoutMins
+		case kinds.Pod:
+			v = await.DefaultPodTimeoutMins
+		case kinds.Service:
+			v = await.DefaultServiceTimeoutMins
+		case kinds.StatefulSet:
+			v = await.DefaultStatefulSetTimeoutMins
+		default:
+			// No timeout defined for other resource Kinds.
+			return ""
+		}
+		timeoutStr := strconv.Itoa(v) + " minutes"
+
+		return fmt.Sprintf(`
+If the %s has not reached a Ready state after %s, it will
+time out and mark the resource update as Failed. You can override the default timeout value
+by %s`, kind, timeoutStr, timeoutOverride)
+	}
 
 	comment := preamble
 	switch kind {
@@ -128,13 +127,34 @@ out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
 	return comment
 }
 
-func AwaitComment(kind string) string {
+func helpfulLinkComments(kind kinds.Kind) string {
+	switch kind {
+	case kinds.Secret:
+		return `Note: While Pulumi automatically encrypts the 'data' and 'stringData'
+fields, this encryption only applies to Pulumi's context, including the state file, 
+the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
+and the contents are visible to users with access to the Secret in Kubernetes using
+tools like 'kubectl'.
+
+For more information on securing Kubernetes Secrets, see the following links:
+https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
+https://kubernetes.io/docs/concepts/configuration/secret/#risks`
+	default:
+		return ""
+	}
+}
+
+// PulumiComment adds additional information to the docs generated automatically from the OpenAPI specs.
+// This includes information about Pulumi's await behavior, deprecation information, etc.
+func PulumiComment(kind string) string {
 	const prefix = "\n\n"
 
 	k := kinds.Kind(kind)
 	switch k {
 	case kinds.Deployment, kinds.Ingress, kinds.Job, kinds.Pod, kinds.Service, kinds.StatefulSet:
 		return prefix + awaitComments(k)
+	case kinds.Secret:
+		return prefix + helpfulLinkComments(k)
 	default:
 		return ""
 	}

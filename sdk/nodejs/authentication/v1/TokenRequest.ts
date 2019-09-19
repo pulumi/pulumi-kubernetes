@@ -90,6 +90,11 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
+
+          opts.additionalSecretOutputs = [
+              ...((opts && opts.additionalSecretOutputs) || []),
+
+          ];
           super(TokenRequest.__pulumiType, name, props, opts);
       }
     }

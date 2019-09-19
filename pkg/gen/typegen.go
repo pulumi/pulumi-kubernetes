@@ -135,7 +135,7 @@ func (vc *VersionConfig) RawAPIVersion() string { return vc.rawAPIVersion }
 type KindConfig struct {
 	kind                    string
 	comment                 string
-	awaitComment            string
+	pulumiComment           string
 	properties              []*Property
 	requiredInputProperties []*Property
 	optionalInputProperties []*Property
@@ -154,8 +154,8 @@ func (kc *KindConfig) Kind() string { return kc.kind }
 // Comment returns the comments associated with some Kubernetes API kind.
 func (kc *KindConfig) Comment() string { return kc.comment }
 
-// AwaitComment returns the await logic documentation associated with some Kubernetes API kind.
-func (kc *KindConfig) AwaitComment() string { return kc.awaitComment }
+// PulumiComment returns the await logic documentation associated with some Kubernetes API kind.
+func (kc *KindConfig) PulumiComment() string { return kc.pulumiComment }
 
 // Properties returns the list of properties that exist on some Kubernetes API kind (i.e., things
 // that we will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
@@ -830,7 +830,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
 					comment:                 fmtComment(d.data["description"], "    ", true, opts, d.gvk),
-					awaitComment:            fmtComment(AwaitComment(d.gvk.Kind), prefix, true, opts, d.gvk),
+					pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind), prefix, true, opts, d.gvk),
 					properties:              properties,
 					requiredInputProperties: requiredInputProperties,
 					optionalInputProperties: optionalInputProperties,
