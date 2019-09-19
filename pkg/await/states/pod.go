@@ -20,6 +20,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
 	"k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func NewPodChecker() *StateChecker {
@@ -33,7 +34,7 @@ func NewPodChecker() *StateChecker {
 // Conditions
 //
 
-func podScheduled(obj interface{}) Result {
+func podScheduled(obj metav1.Object) Result {
 	pod := toPod(obj)
 	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be scheduled", fqName(pod))}
 
@@ -52,7 +53,7 @@ func podScheduled(obj interface{}) Result {
 	return result
 }
 
-func podInitialized(obj interface{}) Result {
+func podInitialized(obj metav1.Object) Result {
 	pod := toPod(obj)
 	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be initialized", fqName(pod))}
 
@@ -74,7 +75,7 @@ func podInitialized(obj interface{}) Result {
 	return result
 }
 
-func podReady(obj interface{}) Result {
+func podReady(obj metav1.Object) Result {
 	pod := toPod(obj)
 	result := Result{Description: fmt.Sprintf("Waiting for Pod %q to be ready", fqName(pod))}
 
@@ -100,7 +101,7 @@ func podReady(obj interface{}) Result {
 // Helpers
 //
 
-func toPod(obj interface{}) *v1.Pod {
+func toPod(obj metav1.Object) *v1.Pod {
 	return obj.(*v1.Pod)
 }
 
