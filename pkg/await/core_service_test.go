@@ -5,6 +5,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/pulumi/pulumi-kubernetes/pkg/cluster"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
@@ -15,7 +16,7 @@ func Test_Core_Service(t *testing.T) {
 		description   string
 		serviceInput  func(namespace, name string) *unstructured.Unstructured
 		do            func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time)
-		version       serverVersion
+		version       cluster.ServerVersion
 		expectedError error
 	}{
 		{
@@ -190,7 +191,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should succeed if non-empty headless service doesn't target any Pods before k8s 1.12",
 			serviceInput: headlessNonemptyServiceInput,
-			version:      serverVersion{1, 11},
+			version:      cluster.ServerVersion{Major: 1, Minor: 11},
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 
@@ -201,7 +202,7 @@ func Test_Core_Service(t *testing.T) {
 		{
 			description:  "Should fail if non-empty headless service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
-			version:      serverVersion{1, 12},
+			version:      cluster.ServerVersion{Major: 1, Minor: 12},
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
 				services <- watchAddedEvent(headlessNonemptyServiceOutput("default", "foo-4setj4y6"))
 
@@ -239,7 +240,7 @@ func Test_Core_Service_Read(t *testing.T) {
 		serviceInput      func(namespace, name string) *unstructured.Unstructured
 		service           func(namespace, name string) *unstructured.Unstructured
 		endpoint          func(namespace, name string) *unstructured.Unstructured
-		version           serverVersion
+		version           cluster.ServerVersion
 		expectedSubErrors []string
 	}{
 		{
@@ -280,13 +281,13 @@ func Test_Core_Service_Read(t *testing.T) {
 			description:  "Read succeed if headless non-empty Service doesn't target any Pods before k8s 1.12",
 			serviceInput: headlessNonemptyServiceInput,
 			service:      headlessNonemptyServiceInput,
-			version:      serverVersion{1, 11},
+			version:      cluster.ServerVersion{Major: 1, Minor: 11},
 		},
 		{
 			description:  "Read fail if headless non-empty Service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
 			service:      headlessNonemptyServiceInput,
-			version:      serverVersion{1, 12},
+			version:      cluster.ServerVersion{Major: 1, Minor: 12},
 			expectedSubErrors: []string{
 				"Service does not target any Pods. Selected Pods may not be ready, or " +
 					"field '.spec.selector' may not match labels on any Pods"},

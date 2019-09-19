@@ -6,6 +6,10 @@
 - v1.15.x
 - v1.14.x
 
+### Improvements
+
+-   Provide detailed error for removed apiVersions. (https://github.com/pulumi/pulumi-kubernetes/pull/809).
+
 ## 1.1.0 (September 18, 2019)
 
 ### Supported Kubernetes versions
