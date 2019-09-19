@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/logging"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // Result specifies the result of a Condition applied to an input object.
@@ -38,7 +39,7 @@ func (r Result) String() string {
 }
 
 // Condition is a function that checks a state and returns a Result.
-type Condition func(s interface{}) Result
+type Condition func(s metav1.Object) Result
 
 // StateChecker holds the data required to generically implement await logic.
 type StateChecker struct {
@@ -56,7 +57,7 @@ func (s *StateChecker) Ready() bool {
 // Update runs the conditions associated with the StateChecker against the provided object. Each condition produces
 // a status message that is appended to the returned list of Messages. Iff all of the Conditions are true, the ready
 // status is set to true, otherwise, the ready condition is set to false.
-func (s *StateChecker) Update(obj interface{}) logging.Messages {
+func (s *StateChecker) Update(obj metav1.Object) logging.Messages {
 	s.ready = false
 
 	var messages logging.Messages

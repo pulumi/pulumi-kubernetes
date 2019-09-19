@@ -20,6 +20,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/pkg/await/recordings"
 	"github.com/pulumi/pulumi-kubernetes/pkg/clients"
 	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 const (
@@ -44,7 +45,7 @@ const (
 
 func Test_podInitialized(t *testing.T) {
 	type args struct {
-		obj interface{}
+		obj metav1.Object
 	}
 	tests := []struct {
 		name string
@@ -73,7 +74,7 @@ func Test_podInitialized(t *testing.T) {
 
 func Test_podReady(t *testing.T) {
 	type args struct {
-		obj interface{}
+		obj metav1.Object
 	}
 	tests := []struct {
 		name string
@@ -107,7 +108,7 @@ func Test_podReady(t *testing.T) {
 
 func Test_podScheduled(t *testing.T) {
 	type args struct {
-		obj interface{}
+		obj metav1.Object
 	}
 	tests := []struct {
 		name string

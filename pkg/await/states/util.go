@@ -15,12 +15,12 @@
 package states
 
 import (
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // fqName returns the fully qualified name of the object in the form `[namespace]/name`.
 // The namespace is omitted if it is "default" or "".
-func fqName(obj v1.Object) string {
+func fqName(obj metav1.Object) string {
 	ns := obj.GetNamespace()
 	if ns != "" && ns != "default" {
 		return obj.GetNamespace() + "/" + obj.GetName()
