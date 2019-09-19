@@ -138,6 +138,11 @@ func writeNodeJSClient(data map[string]interface{}, outdir, templateDir string) 
 		panic(err)
 	}
 
+	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(outdir, "README.md"))
+	if err != nil {
+		panic(err)
+	}
+
 	err = CopyDir(filepath.Join(templateDir, "helm"), filepath.Join(outdir, "helm"))
 	if err != nil {
 		panic(err)
@@ -202,6 +207,11 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 
 	err = CopyDir(filepath.Join(templateDir, "helm"), filepath.Join(sdkDir, "helm"))
+	if err != nil {
+		panic(err)
+	}
+
+	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(sdkDir, "README.md"))
 	if err != nil {
 		panic(err)
 	}
