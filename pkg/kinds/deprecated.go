@@ -81,5 +81,6 @@ func (e *RemovedApiError) Error() string {
 	if e.Version == nil {
 		return fmt.Sprintf("apiVersion %q was removed in a previous version of Kubernetes", gvkStr(e.GVK))
 	}
-	return fmt.Sprintf("apiVersion %q was removed in Kubernetes %s", gvkStr(e.GVK), e.Version)
+	return fmt.Sprintf("apiVersion %q was removed in Kubernetes %s. Use %q instead.",
+		gvkStr(e.GVK), e.Version, SuggestedApiVersion(e.GVK))
 }
