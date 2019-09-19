@@ -447,11 +447,11 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
-	if !k.suppressDeprecationWarnings && kinds.DeprecatedApiVersion(gvk) {
-		_ = k.host.Log(ctx, diag.Warning, urn, gen.ApiVersionComment(gvk))
-	}
 	if removed, version := kinds.RemovedApiVersion(gvk, k.k8sVersion); removed {
 		return nil, &kinds.RemovedApiError{GVK: gvk, Version: version}
+	}
+	if !k.suppressDeprecationWarnings && kinds.DeprecatedApiVersion(gvk) {
+		_ = k.host.Log(ctx, diag.Warning, urn, gen.ApiVersionComment(gvk))
 	}
 
 	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced

@@ -87,32 +87,6 @@ func TestSuggestedApiVersion(t *testing.T) {
 	}
 }
 
-// func TestRemovedApiVersion(t *testing.T) {
-// 	type args struct {
-// 		gvk     GroupVersionKind
-// 		version ServerVersion
-// 	}
-// 	tests := []struct {
-// 		name string
-// 		args args
-// 		want bool
-// 	}{
-// 		{"API exists", args{
-// 			GroupVersionKind{Group: "apps", Version: "v1", Kind: "Deployment"},
-// 			ServerVersion{Major: 1, Minor: 16}}, false},
-// 		{"API removed", args{
-// 			GroupVersionKind{Group: "extensions", Version: "v1beta1", Kind: "Deployment"},
-// 			ServerVersion{Major: 1, Minor: 16}}, true},
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			if got := RemovedApiVersion(tt.args.gvk, tt.args.version); got != tt.want {
-// 				t.Errorf("RemovedApiVersion() = %v, want %v", got, tt.want)
-// 			}
-// 		})
-// 	}
-// }
-
 func TestRemovedApiVersion(t *testing.T) {
 	type args struct {
 		gvk     GroupVersionKind
