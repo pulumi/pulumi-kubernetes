@@ -15,6 +15,16 @@ class Secret(pulumi.CustomResource):
     """
     Secret holds secret data of a certain type. The total bytes of the values in the Data field must
     be less than MaxSecretSize bytes.
+    
+    Note: While Pulumi automatically encrypts the 'data' and 'stringData'
+    fields, this encryption only applies to Pulumi's context, including the state file, 
+    the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
+    and the contents are visible to users with access to the Secret in Kubernetes using
+    tools like 'kubectl'.
+    
+    For more information on securing Kubernetes Secrets, see the following links:
+    https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
+    https://kubernetes.io/docs/concepts/configuration/secret/#risks
     """
 
     apiVersion: pulumi.Output[str]
@@ -98,6 +108,14 @@ class Secret(pulumi.CustomResource):
         __props__['type'] = type
 
         __props__['status'] = None
+
+        additional_secret_outputs = [
+            "data",
+            "stringData",
+        ]
+
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
+            version=version.get_version(), additional_secret_outputs=additional_secret_outputs))
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 

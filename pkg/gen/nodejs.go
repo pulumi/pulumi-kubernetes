@@ -81,9 +81,10 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 						"Properties":              kind.Properties(),
 						"RequiredInputProperties": kind.RequiredInputProperties(),
 						"OptionalInputProperties": kind.OptionalInputProperties(),
+						"AdditionalSecretOutputs": kind.AdditionalSecretOutputs(),
 						"URNAPIVersion":           kind.URNAPIVersion(),
 						"Version":                 version.Version(),
-						"AwaitComment":            kind.awaitComment,
+						"PulumiComment":           kind.pulumiComment,
 					})
 				if err != nil {
 					return "", "", "", "", "", nil, err

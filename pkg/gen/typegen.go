@@ -22,6 +22,7 @@ import (
 	"github.com/ahmetb/go-linq"
 	"github.com/jinzhu/copier"
 	"github.com/mitchellh/go-wordwrap"
+	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 
@@ -134,10 +135,11 @@ func (vc *VersionConfig) RawAPIVersion() string { return vc.rawAPIVersion }
 type KindConfig struct {
 	kind                    string
 	comment                 string
-	awaitComment            string
+	pulumiComment           string
 	properties              []*Property
 	requiredInputProperties []*Property
 	optionalInputProperties []*Property
+	additionalSecretOutputs []string
 
 	gvk           *schema.GroupVersionKind // Used for sorting.
 	apiVersion    string
@@ -152,8 +154,8 @@ func (kc *KindConfig) Kind() string { return kc.kind }
 // Comment returns the comments associated with some Kubernetes API kind.
 func (kc *KindConfig) Comment() string { return kc.comment }
 
-// AwaitComment returns the await logic documentation associated with some Kubernetes API kind.
-func (kc *KindConfig) AwaitComment() string { return kc.awaitComment }
+// PulumiComment returns the await logic documentation associated with some Kubernetes API kind.
+func (kc *KindConfig) PulumiComment() string { return kc.pulumiComment }
 
 // Properties returns the list of properties that exist on some Kubernetes API kind (i.e., things
 // that we will want to `.` into, like `thing.apiVersion`, `thing.kind`, `thing.metadata`, etc.).
@@ -166,6 +168,10 @@ func (kc *KindConfig) RequiredInputProperties() []*Property { return kc.required
 // OptionalInputProperties returns the list of properties that are optional input properties on some
 // Kubernetes API kind (i.e., things that we will want to provide, like `thing.metadata`, etc.).
 func (kc *KindConfig) OptionalInputProperties() []*Property { return kc.optionalInputProperties }
+
+// AdditionalSecretOutputs returns the list of strings to set as additionalSecretOutputs on some
+// Kubernetes API kind.
+func (kc *KindConfig) AdditionalSecretOutputs() []string { return kc.additionalSecretOutputs }
 
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
@@ -824,10 +830,11 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
 					comment:                 fmtComment(d.data["description"], "    ", true, opts, d.gvk),
-					awaitComment:            fmtComment(AwaitComment(d.gvk.Kind), prefix, true, opts, d.gvk),
+					pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind), prefix, true, opts, d.gvk),
 					properties:              properties,
 					requiredInputProperties: requiredInputProperties,
 					optionalInputProperties: optionalInputProperties,
+					additionalSecretOutputs: additionalSecretOutputs(d.gvk),
 					gvk:                     &d.gvk,
 					apiVersion:              fqGroupVersion,
 					rawAPIVersion:           defaultGroupVersion,
@@ -899,4 +906,15 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 		ToSlice(&groups)
 
 	return groups
+}
+
+func additionalSecretOutputs(gvk schema.GroupVersionKind) []string {
+	kind := kinds.Kind(gvk.Kind)
+
+	switch kind {
+	case kinds.Secret:
+		return []string{"data", "stringData"}
+	default:
+		return []string{}
+	}
 }

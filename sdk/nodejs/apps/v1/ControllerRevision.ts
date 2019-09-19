@@ -105,6 +105,11 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
+
+          opts.additionalSecretOutputs = [
+              ...((opts && opts.additionalSecretOutputs) || []),
+
+          ];
           super(ControllerRevision.__pulumiType, name, props, opts);
       }
     }

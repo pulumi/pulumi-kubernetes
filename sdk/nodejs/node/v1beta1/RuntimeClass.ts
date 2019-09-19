@@ -121,6 +121,11 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
+
+          opts.additionalSecretOutputs = [
+              ...((opts && opts.additionalSecretOutputs) || []),
+
+          ];
           super(RuntimeClass.__pulumiType, name, props, opts);
       }
     }

@@ -13,7 +13,7 @@ from ... import tables, version
 
 class {{Kind}}(pulumi.CustomResource):
     """
-    {{{Comment}}}{{{AwaitComment}}}
+    {{{Comment}}}{{{PulumiComment}}}
     """
 
     apiVersion: pulumi.Output[str]
@@ -75,6 +75,15 @@ class {{Kind}}(pulumi.CustomResource):
         {{/OptionalInputProperties}}
 
         __props__['status'] = None
+
+        additional_secret_outputs = [
+        {{#AdditionalSecretOutputs}}
+            "{{.}}",
+        {{/AdditionalSecretOutputs}}
+        ]
+
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
+            version=version.get_version(), additional_secret_outputs=additional_secret_outputs))
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
 
