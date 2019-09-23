@@ -48,24 +48,22 @@ func jobStarted(obj metav1.Object) Result {
 
 func jobComplete(obj metav1.Object) Result {
 	job := toJob(obj)
-	// TODO: may want to list active/succeeded/failed pods count
-	result := Result{Description: fmt.Sprintf("Waiting for Job %q to succeed", fqName(job))}
 
-	if condition, found := filterJobConditions(job.Status.Conditions, batchv1.JobFailed); found {
-		switch condition.Status {
-		case v1.ConditionTrue:
-			errs := collectJobConditionErrors(job.Status.Conditions)
-			result.Message = logging.ErrorMessage(jobError(condition, errs))
-		}
+	progressStr := fmt.Sprintf("(Active: %d | Succeeded: %d | Failed: %d)",
+		job.Status.Active, job.Status.Succeeded, job.Status.Failed)
+	result := Result{Description: fmt.Sprintf("Waiting for Job %q to succeed %s", fqName(job), progressStr)}
+
+	conditions := jobConditions{}
+	for _, condition := range job.Status.Conditions {
+		conditions[condition.Type] = condition
 	}
-	if condition, found := filterJobConditions(job.Status.Conditions, batchv1.JobComplete); found {
-		switch condition.Status {
-		case v1.ConditionTrue:
-			result.Ok = true
-		default:
-			errs := collectJobConditionErrors(job.Status.Conditions)
-			result.Message = logging.WarningMessage(jobError(condition, errs))
-		}
+
+	if err := collectJobConditionErrors(conditions); len(err) > 0 {
+		result.Message = logging.ErrorMessage(err)
+		return result
+	}
+	if condition, found := conditions[batchv1.JobComplete]; found && condition.Status == v1.ConditionTrue {
+		result.Ok = true
 	}
 
 	return result
@@ -79,73 +77,15 @@ func toJob(obj interface{}) *batchv1.Job {
 	return obj.(*batchv1.Job)
 }
 
-func filterJobConditions(conditions []batchv1.JobCondition, desired batchv1.JobConditionType,
-) (*batchv1.JobCondition, bool) {
-	for _, condition := range conditions {
-		if condition.Type == desired {
-			return &condition, true
+type jobConditions map[batchv1.JobConditionType]batchv1.JobCondition
+
+func collectJobConditionErrors(conditions jobConditions) string {
+	if condition, found := conditions[batchv1.JobFailed]; found && condition.Status == v1.ConditionTrue {
+		switch condition.Reason {
+		case "BackoffLimitExceeded", "DeadlineExceeded":
+			return fmt.Sprintf("[%s] %s", condition.Reason, condition.Message)
 		}
 	}
 
-	return nil, false
-}
-
-func collectJobConditionErrors(conditions []batchv1.JobCondition) []string {
-	var errs []string
-	for _, condition := range conditions {
-		if hasErr, jobErrs := hasJobConditionErrors(condition); hasErr {
-			errs = append(errs, jobErrs...)
-		}
-	}
-
-	return errs
-}
-
-func hasJobConditionErrors(condition batchv1.JobCondition) (bool, []string) {
-	var errs []string
-	if hasErr, err := hasJobBackoffLimitCondition(condition); hasErr {
-		errs = append(errs, err)
-	}
-	if hasErr, err := hasJobDeadlineExceededCondition(condition); hasErr {
-		errs = append(errs, err)
-	}
-
-	return len(errs) > 0, errs
-}
-
-func hasJobBackoffLimitCondition(condition batchv1.JobCondition) (bool, string) {
-	if condition.Reason == "BackoffLimitExceeded" &&
-		condition.Type == batchv1.JobFailed &&
-		condition.Status == v1.ConditionTrue {
-
-		msg := fmt.Sprintf("[%s] %s", condition.Reason, condition.Message)
-		return true, msg
-	}
-
-	return false, ""
-}
-
-func hasJobDeadlineExceededCondition(condition batchv1.JobCondition) (bool, string) {
-	if condition.Reason == "DeadlineExceeded" &&
-		condition.Type == batchv1.JobFailed &&
-		condition.Status == v1.ConditionTrue {
-
-		msg := fmt.Sprintf("[%s] %s", condition.Reason, condition.Message)
-		return true, msg
-	}
-
-	return false, ""
-}
-
-func jobError(condition *batchv1.JobCondition, errs []string) string {
-	var errMsg string
-	if len(condition.Reason) > 0 && len(condition.Message) > 0 {
-		errMsg = condition.Message
-	}
-
-	for _, err := range errs {
-		errMsg += fmt.Sprintf(" -- %s", err)
-	}
-
-	return errMsg
+	return ""
 }

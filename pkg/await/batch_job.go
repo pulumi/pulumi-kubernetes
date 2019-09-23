@@ -58,7 +58,7 @@ import (
 //   3. A timeout channel, which fires after some minutes.
 //   4. A cancellation channel, with which the user can signal cancellation (e.g., using SIGINT).
 //
-// The `deploymentInitAwaiter` will synchronously process events from the union of all these channels.
+// The `jobInitAwaiter` will synchronously process events from the union of all these channels.
 // Any time the success conditions described above are reached, we will terminate the awaiter.
 //
 // The opportunity to display intermediate results will typically appear after a container in the
