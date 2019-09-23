@@ -44,18 +44,26 @@ export const istio_init = new k8s.helm.v2.Chart(
     `${appName}-init`,
     {
         path: "charts/istio-init",
-        namespace: namespace.metadata.name,
+        // Note: had to use a hardcoded namespace name to avoid error: https://github.com/pulumi/pulumi-kubernetes/issues/814
+        // namespace: namespace.metadata.name,
+        namespace: "istio-system",
         values: { kiali: { enabled: true } }
     },
     { dependsOn: [namespace, adminBinding], providers: { kubernetes: k8sProvider } }
 );
 
+const crd10 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-10");
+const crd11 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-11");
+const crd12 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-12");
+
 export const istio = new k8s.helm.v2.Chart(
     appName,
     {
         path: "charts/istio",
-        namespace: namespace.metadata.name,
+        // Note: had to use a hardcoded namespace name to avoid error: https://github.com/pulumi/pulumi-kubernetes/issues/814
+        // namespace: namespace.metadata.name,
+        namespace: "istio-system",
         values: { kiali: { enabled: true } }
     },
-    { dependsOn: [namespace, adminBinding, istio_init], providers: { kubernetes: k8sProvider } }
+    { dependsOn: [adminBinding, crd10, crd11, crd12], providers: { kubernetes: k8sProvider } }
 );
