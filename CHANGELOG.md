@@ -10,6 +10,7 @@
 
 -   Automatically mark Secret data and stringData as secret. (https://github.com/pulumi/pulumi-kubernetes/pull/803).
 -   Provide detailed error for removed apiVersions. (https://github.com/pulumi/pulumi-kubernetes/pull/809).
+-   Increase maxBuffer for helm template exec. (https://github.com/pulumi/pulumi-kubernetes/pull/819).
 
 ## 1.1.0 (September 18, 2019)
 
