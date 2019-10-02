@@ -245,9 +245,11 @@ export class Chart extends yaml.CollectionComponentResource {
 /** @ignore */ export function helmSort(a: { kind: string }, b: { kind: string }): number {
     const installOrder = [
         "Namespace",
+        "NetworkPolicy",
         "ResourceQuota",
         "LimitRange",
         "PodSecurityPolicy",
+        "PodDisruptionBudget",
         "Secret",
         "ConfigMap",
         "StorageClass",
@@ -256,20 +258,25 @@ export class Chart extends yaml.CollectionComponentResource {
         "ServiceAccount",
         "CustomResourceDefinition",
         "ClusterRole",
+        "ClusterRoleList",
         "ClusterRoleBinding",
+        "ClusterRoleBindingList",
         "Role",
+        "RoleList",
         "RoleBinding",
+        "RoleBindingList",
         "Service",
         "DaemonSet",
         "Pod",
         "ReplicationController",
         "ReplicaSet",
         "Deployment",
+        "HorizontalPodAutoscaler",
         "StatefulSet",
         "Job",
         "CronJob",
         "Ingress",
-        "APIService"
+        "APIService",
     ];
 
     const ordering: { [key: string]: number } = {};
