@@ -177,7 +177,6 @@ func (kc *KindConfig) AdditionalSecretOutputs() []string { return kc.additionalS
 // Aliases returns the list of aliases for a Kubernetes API kind.
 func (kc *KindConfig) Aliases() []string { return kc.aliases }
 
-
 // APIVersion returns the fully-qualified apiVersion (e.g., `storage.k8s.io/v1` for storage, etc.)
 func (kc *KindConfig) APIVersion() string { return kc.apiVersion }
 
@@ -928,29 +927,19 @@ func additionalSecretOutputs(gvk schema.GroupVersionKind) []string {
 func aliasesForGVK(gvk schema.GroupVersionKind) []string {
 	kind := kinds.Kind(gvk.Kind)
 
-	// It's unsafe to move between `extensions/v1beta1`, and the newer apiVersions due to differences in
-	// the behavior of the Deployment and ReplicaSet. Even if the apiVersion is changed,
-	// the resource will continue to use the old behavior, which will break the await logic. Without an
-	// alias set, the engine will recreate the resource with the newer apiVersion.
-	if gvk.GroupVersion().String() == "extensions/v1beta1" {
-		switch kind {
-		case kinds.DaemonSet, kinds.Deployment, kinds.ReplicaSet, kinds.StatefulSet:
-			return []string{}
-		}
-	}
-
 	switch kind {
 	case kinds.DaemonSet:
 		return []string{
 			"kubernetes:apps/v1:DaemonSet",
-			// For some reason, there is no `apps/v1beta1:DaemonSet`.
 			"kubernetes:apps/v1beta2:DaemonSet",
+			"kubernetes:extensions/v1beta1:DaemonSet",
 		}
 	case kinds.Deployment:
 		return []string{
 			"kubernetes:apps/v1:Deployment",
 			"kubernetes:apps/v1beta1:Deployment",
 			"kubernetes:apps/v1beta2:Deployment",
+			"kubernetes:extensions/v1beta1:Deployment",
 		}
 	case kinds.Ingress:
 		return []string{
@@ -960,14 +949,15 @@ func aliasesForGVK(gvk schema.GroupVersionKind) []string {
 	case kinds.ReplicaSet:
 		return []string{
 			"kubernetes:apps/v1:ReplicaSet",
-			// For some reason, there is no `apps/v1beta1:ReplicaSet`.
 			"kubernetes:apps/v1beta2:ReplicaSet",
+			"kubernetes:extensions/v1beta1:ReplicaSet",
 		}
 	case kinds.StatefulSet:
 		return []string{
 			"kubernetes:apps/v1:StatefulSet",
 			"kubernetes:apps/v1beta1:StatefulSet",
 			"kubernetes:apps/v1beta2:StatefulSet",
+			"kubernetes:extensions/v1beta1:StatefulSet",
 		}
 	default:
 		return []string{}

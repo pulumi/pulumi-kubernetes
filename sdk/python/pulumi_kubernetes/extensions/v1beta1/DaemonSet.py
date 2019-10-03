@@ -93,6 +93,9 @@ class DaemonSet(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
+            pulumi.Alias(parent=parent, type_="kubernetes:apps/v1:DaemonSet", name=resource_name),
+            pulumi.Alias(parent=parent, type_="kubernetes:apps/v1beta2:DaemonSet", name=resource_name),
+            pulumi.Alias(parent=parent, type_="kubernetes:extensions/v1beta1:DaemonSet", name=resource_name),
         ]
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(

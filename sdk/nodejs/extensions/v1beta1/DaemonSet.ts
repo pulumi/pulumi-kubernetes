@@ -110,6 +110,9 @@ import { getVersion } from "../../version";
           ];
 
           opts.aliases = [
+              { parent: opts.parent, type: "kubernetes:apps/v1:DaemonSet", name: name },
+              { parent: opts.parent, type: "kubernetes:apps/v1beta2:DaemonSet", name: name },
+              { parent: opts.parent, type: "kubernetes:extensions/v1beta1:DaemonSet", name: name },
               ...((opts && opts.aliases) || []),
           ];
 

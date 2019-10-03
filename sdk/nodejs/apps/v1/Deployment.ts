@@ -128,6 +128,7 @@ import { getVersion } from "../../version";
               { parent: opts.parent, type: "kubernetes:apps/v1:Deployment", name: name },
               { parent: opts.parent, type: "kubernetes:apps/v1beta1:Deployment", name: name },
               { parent: opts.parent, type: "kubernetes:apps/v1beta2:Deployment", name: name },
+              { parent: opts.parent, type: "kubernetes:extensions/v1beta1:Deployment", name: name },
               ...((opts && opts.aliases) || []),
           ];
 

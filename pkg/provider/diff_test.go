@@ -158,6 +158,15 @@ func TestPatchToDiff(t *testing.T) {
 			oldInputs: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
 			expected:  expected{},
 		},
+		{
+			name:  "extensions/v1beta1 apiVersion change forces delete-replace",
+			group: "extensions", version: "v1beta1", kind: "Deployment",
+			old: object{"apiVersion": "extensions/v1beta1"},
+			new: object{"apiVersion": "apps/v1"},
+			expected: expected{
+				"apiVersion": UR,
+			},
+		},
 	}
 
 	for _, tt := range tests {
