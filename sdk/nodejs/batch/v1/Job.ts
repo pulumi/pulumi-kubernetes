@@ -10,8 +10,8 @@ import { getVersion } from "../../version";
     /**
      * Job represents the configuration of a single job.
      * 
-     * This resource waits until it is ready before registering success for
-     * create/update and populating output properties from the current state of the resource.
+     * This resource waits until its status is ready before registering success
+     * for create/update, and populating output properties from the current state of the resource.
      * The following conditions are used to determine whether the resource creation has
      * succeeded or failed:
      * 
