@@ -12,8 +12,8 @@ import { getVersion } from "../../version";
      * defined by a backend. An Ingress can be configured to give services externally-reachable
      * urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
      * 
-     * This resource waits until it is ready before registering success for
-     * create/update and populating output properties from the current state of the resource.
+     * This resource waits until its status is ready before registering success
+     * for create/update, and populating output properties from the current state of the resource.
      * The following conditions are used to determine whether the resource creation has
      * succeeded or failed:
      * 

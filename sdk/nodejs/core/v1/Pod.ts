@@ -11,8 +11,8 @@ import { getVersion } from "../../version";
      * Pod is a collection of containers that can run on a host. This resource is created by clients
      * and scheduled onto hosts.
      * 
-     * This resource waits until it is ready before registering success for
-     * create/update and populating output properties from the current state of the resource.
+     * This resource waits until its status is ready before registering success
+     * for create/update, and populating output properties from the current state of the resource.
      * The following conditions are used to determine whether the resource creation has
      * succeeded or failed:
      * 

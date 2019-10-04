@@ -24,8 +24,8 @@ import (
 )
 
 func awaitComments(kind kinds.Kind) string {
-	const preamble = `This resource waits until it is ready before registering success for
-create/update and populating output properties from the current state of the resource.
+	const preamble = `This resource waits until its status is ready before registering success
+for create/update, and populating output properties from the current state of the resource.
 The following conditions are used to determine whether the resource creation has
 succeeded or failed:
 `
@@ -38,8 +38,8 @@ succeeded or failed:
 			v = await.DefaultDeploymentTimeoutMins
 		case kinds.Ingress:
 			v = await.DefaultIngressTimeoutMins
-	case kinds.Job:
-		v = await.DefaultJobTimeoutMins
+		case kinds.Job:
+			v = await.DefaultJobTimeoutMins
 		case kinds.Pod:
 			v = await.DefaultPodTimeoutMins
 		case kinds.Service:
@@ -83,7 +83,7 @@ by %s`, kind, timeoutStr, timeoutOverride)
 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
 `
 	case kinds.Job:
-		comment = `
+		comment += `
 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
    to 'True'.
