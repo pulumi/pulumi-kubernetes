@@ -18,6 +18,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests"
 	"github.com/pulumi/pulumi/pkg/resource"
 	"github.com/pulumi/pulumi/pkg/resource/deploy/providers"
@@ -50,7 +51,7 @@ func TestAliases(t *testing.T) {
 
 			deployment := stackInfo.Deployment.Resources[0]
 			assert.Equal(t, "alias-test", string(deployment.URN.Name()))
-			assert.Equal(t, "kubernetes:apps/v1beta1:Deployment", string(deployment.Type))
+			assert.Equal(t, "kubernetes:extensions/v1beta1:Deployment", string(deployment.Type))
 		},
 		EditDirs: []integration.EditDir{
 			{
@@ -71,6 +72,34 @@ func TestAliases(t *testing.T) {
 					deployment := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, "alias-test", string(deployment.URN.Name()))
 					assert.Equal(t, "kubernetes:apps/v1:Deployment", string(deployment.Type))
+					containers, _ := openapi.Pluck(deployment.Outputs, "spec", "template", "spec", "containers")
+					containerStatus := containers.([]interface{})[0].(map[string]interface{})
+					image := containerStatus["image"]
+					assert.Equal(t, image.(string), "nginx:1.14")
+				},
+			},
+			{
+				Dir:      "step3",
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+
+					tests.SortResourcesByURN(stackInfo)
+
+					stackRes := stackInfo.Deployment.Resources[3]
+					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+
+					provRes := stackInfo.Deployment.Resources[2]
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+					deployment := stackInfo.Deployment.Resources[0]
+					assert.Equal(t, "alias-test", string(deployment.URN.Name()))
+					assert.Equal(t, "kubernetes:apps/v1:Deployment", string(deployment.Type))
+					containers, _ := openapi.Pluck(deployment.Outputs, "spec", "template", "spec", "containers")
+					containerStatus := containers.([]interface{})[0].(map[string]interface{})
+					image := containerStatus["image"]
+					assert.Equal(t, image.(string), "nginx:1.15")
 				},
 			},
 		},
