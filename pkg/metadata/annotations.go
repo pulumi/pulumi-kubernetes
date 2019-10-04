@@ -27,10 +27,10 @@ const (
 
 	AnnotationPrefix = "pulumi.com/"
 
-	AnnotationAutonamed        = AnnotationPrefix + "autonamed"
-	AnnotationSkipAwait        = AnnotationPrefix + "skipAwait"
-	AnnotationTimeoutSeconds   = AnnotationPrefix + "timeoutSeconds"
-	AnnotationCreateApiVersion = AnnotationPrefix + "createApiVersion"
+	AnnotationAutonamed         = AnnotationPrefix + "autonamed"
+	AnnotationSkipAwait         = AnnotationPrefix + "skipAwait"
+	AnnotationTimeoutSeconds    = AnnotationPrefix + "timeoutSeconds"
+	AnnotationInitialApiVersion = AnnotationPrefix + "initialApiVersion"
 )
 
 // Annotations for internal Pulumi use only.

@@ -409,12 +409,12 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
-	annotatedInputs, err := createApiVersion(oldInputs, newInputs)
+	annotatedInputs, err := initialApiVersion(oldInputs, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
 				"`.metadata.annotations`",
-			newInputs.GetNamespace(), newInputs.GetName(), metadata.AnnotationCreateApiVersion)
+			newInputs.GetNamespace(), newInputs.GetName(), metadata.AnnotationInitialApiVersion)
 	}
 	newInputs = annotatedInputs
 
@@ -1373,15 +1373,15 @@ func getAnnotations(config *unstructured.Unstructured) map[string]string {
 	return annotations
 }
 
-func createApiVersion(oldConfig, newConfig *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+func initialApiVersion(oldConfig, newConfig *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	oldAnnotations := getAnnotations(oldConfig)
 	newAnnotations := getAnnotations(newConfig)
 
-	apiVersion, exists := oldAnnotations[metadata.AnnotationCreateApiVersion]
+	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialApiVersion]
 	if exists {
-		newAnnotations[metadata.AnnotationCreateApiVersion] = apiVersion
+		newAnnotations[metadata.AnnotationInitialApiVersion] = apiVersion
 	} else {
-		newAnnotations[metadata.AnnotationCreateApiVersion] = newConfig.GetAPIVersion()
+		newAnnotations[metadata.AnnotationInitialApiVersion] = newConfig.GetAPIVersion()
 	}
 
 	newConfig.SetAnnotations(newAnnotations)
