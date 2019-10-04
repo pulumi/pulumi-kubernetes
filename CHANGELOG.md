@@ -6,6 +6,14 @@
 - v1.15.x
 - v1.14.x
 
+## 1.2.0 (October 4, 2019)
+
+### Supported Kubernetes versions
+
+- v1.16.x
+- v1.15.x
+- v1.14.x
+
 ### Improvements
 
 -   Add logic to check for Job readiness. (https://github.com/pulumi/pulumi-kubernetes/pull/633).
