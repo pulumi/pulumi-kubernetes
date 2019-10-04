@@ -50,14 +50,6 @@ var forceNew = _groups{
 	// for compatibility purposes.
 	"core": core,
 	"":     core,
-	"extensions": _versions{
-		"v1beta1": _kinds{
-			"DaemonSet":   incompatibleApiVersionForceNewProperties(daemonSet),
-			"Deployment":  incompatibleApiVersionForceNewProperties(deployment),
-			"ReplicaSet":  incompatibleApiVersionForceNewProperties(replicaSet),
-			"StatefulSet": incompatibleApiVersionForceNewProperties(statefulSet),
-		},
-	},
 	"policy": _versions{
 		"v1beta1": _kinds{"PodDisruptionBudget": podDisruptionBudget},
 	},
@@ -144,10 +136,6 @@ var core = _versions{
 	},
 }
 
-var daemonSet = properties{
-	".spec.selector",
-}
-
 var deployment = properties{
 	".spec.selector",
 }
@@ -163,10 +151,6 @@ var podDisruptionBudget = properties{
 	".spec",
 }
 
-var replicaSet = properties{
-	".spec.selector",
-}
-
 var roleBinding = properties{
 	".roleRef",
 }
@@ -177,10 +161,6 @@ var statefulSet = properties{
 	".spec.selector",
 	".spec.serviceName",
 	".spec.volumeClaimTemplates",
-}
-
-func incompatibleApiVersionForceNewProperties(props properties) properties {
-	return append(props, ".apiVersion")
 }
 
 func metadataForceNewProperties(prefix string) properties {
