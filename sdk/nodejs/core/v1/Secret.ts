@@ -127,6 +127,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(Secret.__pulumiType, name, props, opts);
       }
     }

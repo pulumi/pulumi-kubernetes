@@ -27,9 +27,10 @@ const (
 
 	AnnotationPrefix = "pulumi.com/"
 
-	AnnotationAutonamed      = AnnotationPrefix + "autonamed"
-	AnnotationSkipAwait      = AnnotationPrefix + "skipAwait"
-	AnnotationTimeoutSeconds = AnnotationPrefix + "timeoutSeconds"
+	AnnotationAutonamed         = AnnotationPrefix + "autonamed"
+	AnnotationSkipAwait         = AnnotationPrefix + "skipAwait"
+	AnnotationTimeoutSeconds    = AnnotationPrefix + "timeoutSeconds"
+	AnnotationInitialApiVersion = AnnotationPrefix + "initialApiVersion"
 )
 
 // Annotations for internal Pulumi use only.
@@ -47,6 +48,7 @@ func IsInternalAnnotation(key string) bool {
 }
 
 // SetAnnotation sets the specified key, value annotation on the provided Unstructured object.
+// TODO(levi): This won't work for Pulumi-computed values. https://github.com/pulumi/pulumi-kubernetes/issues/826
 func SetAnnotation(obj *unstructured.Unstructured, key, value string) {
 	// Note: Cannot use obj.GetAnnotations() here because it doesn't properly handle computed values from preview.
 	// During preview, don't set annotations if the metadata or annotation contains a computed value since there's

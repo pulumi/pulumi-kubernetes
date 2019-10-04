@@ -21,7 +21,7 @@ export const namespace = new k8s.core.v1.Namespace("test-namespace");
 //
 
 const appLabels = {app: "nginx"};
-new k8s.extensions.v1beta1.Deployment("nginx", {
+new k8s.extensions.v1beta1.Deployment("nginx-ev1b1", {
   metadata: { namespace: namespace.metadata.name },
   spec: {
     selector: {matchLabels: appLabels},

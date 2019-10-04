@@ -107,6 +107,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(VolumeAttachment.__pulumiType, name, props, opts);
       }
     }

@@ -80,6 +80,14 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+          {{#Aliases}}
+              { parent: opts.parent, type: "{{.}}", name: name },
+          {{/Aliases}}
+              ...((opts && opts.aliases) || []),
+          ];
+
           super({{Kind}}.__pulumiType, name, props, opts);
       }
     }

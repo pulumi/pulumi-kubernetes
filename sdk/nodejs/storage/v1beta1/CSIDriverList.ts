@@ -97,6 +97,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(CSIDriverList.__pulumiType, name, props, opts);
       }
     }

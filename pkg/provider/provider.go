@@ -409,6 +409,15 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
+	annotatedInputs, err := initialApiVersion(oldInputs, newInputs)
+	if err != nil {
+		return nil, pkgerrors.Wrapf(
+			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
+				"`.metadata.annotations`",
+			newInputs.GetNamespace(), newInputs.GetName(), metadata.AnnotationInitialApiVersion)
+	}
+	newInputs = annotatedInputs
+
 	// Adopt name from old object if appropriate.
 	//
 	// If the user HAS NOT assigned a name in the new inputs, we autoname it and mark the object as
@@ -1355,6 +1364,31 @@ func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 	return &unstructured.Unstructured{Object: pm.MapRepl(nil, mapReplStripSecrets)}
 }
 
+func getAnnotations(config *unstructured.Unstructured) map[string]string {
+	annotations := config.GetAnnotations()
+	if annotations == nil {
+		annotations = make(map[string]string)
+	}
+
+	return annotations
+}
+
+func initialApiVersion(oldConfig, newConfig *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	oldAnnotations := getAnnotations(oldConfig)
+	newAnnotations := getAnnotations(newConfig)
+
+	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialApiVersion]
+	if exists {
+		newAnnotations[metadata.AnnotationInitialApiVersion] = apiVersion
+	} else {
+		newAnnotations[metadata.AnnotationInitialApiVersion] = newConfig.GetAPIVersion()
+	}
+
+	newConfig.SetAnnotations(newAnnotations)
+
+	return newConfig, nil
+}
+
 func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	// Serialize the inputs and add the last-applied-configuration annotation.
 	marshaled, err := config.MarshalJSON()
@@ -1365,10 +1399,7 @@ func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Uns
 	// Deep copy the config before returning.
 	config = config.DeepCopy()
 
-	annotations := config.GetAnnotations()
-	if annotations == nil {
-		annotations = make(map[string]string)
-	}
+	annotations := getAnnotations(config)
 
 	annotations[lastAppliedConfigKey] = string(marshaled)
 	config.SetAnnotations(annotations)

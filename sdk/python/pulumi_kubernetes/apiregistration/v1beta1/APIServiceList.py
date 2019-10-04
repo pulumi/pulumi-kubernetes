@@ -75,7 +75,12 @@ class APIServiceList(pulumi.CustomResource):
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(), additional_secret_outputs=additional_secret_outputs))
 
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=version.get_version()))
+        parent = opts.parent if opts and opts.parent else None
+        aliases = [
+        ]
+
+        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
+            version=version.get_version(), aliases=aliases))
 
         super(APIServiceList, self).__init__(
             "kubernetes:apiregistration/v1beta1:APIServiceList",

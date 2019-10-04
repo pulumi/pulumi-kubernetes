@@ -1,5 +1,5 @@
 {
-    "name": "steps",
+    "name": "aliases",
     "version": "0.1.0",
     "dependencies": {
         "@pulumi/pulumi": "dev"

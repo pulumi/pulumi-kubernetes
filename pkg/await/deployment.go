@@ -390,10 +390,11 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	dia.deployment = deployment
 
 	// extensions/v1beta1 does not include the "Progressing" status for rollouts.
-	// Note: We must use the input apiVersion rather than the Deployment watch Event we're processing here, because
+	// Note: We must use the annotated creation apiVersion rather than the API-reported apiVersion, because
 	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
 	// regardless of what the Event apiVersion says.
-	extensionsV1Beta1API := dia.config.createAwaitConfig.currentInputs.GetAPIVersion() == "extensions/v1beta1"
+	extensionsV1Beta1API := metadata.GetAnnotationValue(
+		dia.config.createAwaitConfig.currentInputs, metadata.AnnotationInitialApiVersion) == "extensions/v1beta1"
 
 	// Get generation of the Deployment's ReplicaSet.
 	dia.replicaSetGeneration = deployment.GetAnnotations()[revision]
@@ -546,10 +547,11 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	var expectedNumberOfUpdatedReplicas bool
 	// extensions/v1beta1/ReplicaSet does not include the "readyReplicas" status for rollouts,
 	// so use the Deployment "readyReplicas" status instead.
-	// Note: We must use the input apiVersion rather than the Deployment watch Event we're processing here, because
+	// Note: We must use the annotated apiVersion rather than the API-reported apiVersion, because
 	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
 	// regardless of what the Event apiVersion says.
-	extensionsV1Beta1API := dia.config.createAwaitConfig.currentInputs.GetAPIVersion() == "extensions/v1beta1"
+	extensionsV1Beta1API := metadata.GetAnnotationValue(
+		dia.config.createAwaitConfig.currentInputs, metadata.AnnotationInitialApiVersion) == "extensions/v1beta1"
 	if extensionsV1Beta1API {
 		rawReadyReplicas, readyReplicasExists = openapi.Pluck(dia.deployment.Object, "status", "readyReplicas")
 		readyReplicas, _ = rawReadyReplicas.(int64)

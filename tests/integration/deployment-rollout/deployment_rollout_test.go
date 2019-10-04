@@ -107,7 +107,7 @@ func TestDeploymentRollout(t *testing.T) {
 					assert.Equal(t, image.(string), "nginx:stable")
 
 					name, _ = openapi.Pluck(extensionsv1beta1Deploy.Outputs, "metadata", "name")
-					assert.True(t, strings.Contains(name.(string), "nginx"))
+					assert.True(t, strings.Contains(name.(string), "nginx-ev1b1"))
 					containers, _ = openapi.Pluck(appsv1Deploy.Outputs, "spec", "template", "spec", "containers")
 					containerStatus = containers.([]interface{})[0].(map[string]interface{})
 					image = containerStatus["image"]

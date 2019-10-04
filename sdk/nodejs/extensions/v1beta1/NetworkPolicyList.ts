@@ -98,6 +98,11 @@ import { getVersion } from "../../version";
               ...((opts && opts.additionalSecretOutputs) || []),
 
           ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
           super(NetworkPolicyList.__pulumiType, name, props, opts);
       }
     }
