@@ -38,8 +38,8 @@ succeeded or failed:
 			v = await.DefaultDeploymentTimeoutMins
 		case kinds.Ingress:
 			v = await.DefaultIngressTimeoutMins
-	case kinds.Job:
-		v = await.DefaultJobTimeoutMins
+		case kinds.Job:
+			v = await.DefaultJobTimeoutMins
 		case kinds.Pod:
 			v = await.DefaultPodTimeoutMins
 		case kinds.Service:
@@ -83,7 +83,7 @@ by %s`, kind, timeoutStr, timeoutOverride)
 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
 `
 	case kinds.Job:
-		comment = `
+		comment += `
 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
    to 'True'.

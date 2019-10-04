@@ -15,6 +15,10 @@ class Job(pulumi.CustomResource):
     """
     Job represents the configuration of a single job.
     
+    This resource waits until it is ready before registering success for
+    create/update and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
     
     1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
     2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
