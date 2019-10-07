@@ -15,6 +15,7 @@
 package await
 
 import (
+	"strings"
 	"time"
 
 	"github.com/golang/glog"
@@ -135,10 +136,7 @@ func (jia *jobInitAwaiter) Await() error {
 				return err
 			}
 		case messages := <-podAggregator.ResultChan():
-			for _, message := range messages {
-				jia.errors.Add(message)
-				jia.config.logMessage(message)
-			}
+			jia.processPodMessages(messages)
 		}
 	}
 }
@@ -209,6 +207,19 @@ func (jia *jobInitAwaiter) processJobEvent(event watch.Event) error {
 	}
 
 	return nil
+}
+
+func (jia *jobInitAwaiter) processPodMessages(messages logging.Messages) {
+	for _, message := range messages {
+		jia.errors.Add(message)
+
+		// The unready status condition always occurs as a normal part of a Job running, so don't print
+		// this as a warning. If the Job fails to complete, this warning will be included in the subErrors.
+		if strings.Contains(message.S, "containers with unready status") {
+			continue
+		}
+		jia.config.logMessage(message)
+	}
 }
 
 func (jia *jobInitAwaiter) errorMessages() []string {
