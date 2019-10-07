@@ -119,6 +119,35 @@ func (pa *PodAggregator) run() {
 	}
 }
 
+// Read lists existing Pods and returns any related warning/error messages.
+func (pa *PodAggregator) Read() logging.Messages {
+	var messages logging.Messages
+	checkPod := func(object runtime.Object) {
+		pod, err := clients.PodFromUnstructured(object.(*unstructured.Unstructured))
+		if err != nil {
+			glog.V(3).Infof("Failed to unmarshal Pod event: %v", err)
+			return
+		}
+		if relatedResource(pa.owner, pod) {
+			messages = append(messages, pa.checker.Update(pod).MessagesWithSeverity(diag.Warning, diag.Error)...)
+		}
+	}
+
+	// Get existing Pods.
+	pods, err := pa.client.List(metav1.ListOptions{})
+	if err != nil {
+		glog.V(3).Infof("Failed to list existing Pods: %v", err)
+	} else {
+		// Log errors and move on.
+		_ = pods.EachListItem(func(object runtime.Object) error {
+			checkPod(object)
+			return nil
+		})
+	}
+
+	return messages
+}
+
 // Stop safely stops a PodAggregator and underlying watch client.
 func (pa *PodAggregator) Stop() {
 	pa.Lock()
