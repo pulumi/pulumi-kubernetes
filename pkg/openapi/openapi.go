@@ -70,7 +70,7 @@ func ValidateAgainstSchema(
 	return specValidator.ValidateBytes(bytes)
 }
 
-// PatchForResourceUpdate introspects on the gevn OpenAPI spec and attempts to generate a strategic merge patch for
+// PatchForResourceUpdate introspects on the given OpenAPI spec and attempts to generate a strategic merge patch for
 // use in a resource update. If there is no specification of how to generate a strategic merge patch, we fall back
 // to JSON merge patch.
 func PatchForResourceUpdate(
