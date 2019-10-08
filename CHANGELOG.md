@@ -9,6 +9,7 @@
 ### Improvements
 
 -   Aggregate error messages from Pods on Job Read. (https://github.com/pulumi/pulumi-kubernetes/pull/831).
+-   Improve interactive status for Jobs. (https://github.com/pulumi/pulumi-kubernetes/pull/832).
 
 ## 1.2.0 (October 4, 2019)
 
