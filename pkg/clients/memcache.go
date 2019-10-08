@@ -56,6 +56,7 @@ type memCacheClient struct {
 	delegate discovery.DiscoveryInterface
 
 	lock                   sync.RWMutex
+	schema                 *openapi_v2.Document
 	groupToServerResources map[string]*cacheEntry
 	groupList              *metav1.APIGroupList
 	cacheValid             bool
@@ -159,7 +160,18 @@ func (d *memCacheClient) ServerVersion() (*version.Info, error) {
 }
 
 func (d *memCacheClient) OpenAPISchema() (*openapi_v2.Document, error) {
-	return d.delegate.OpenAPISchema()
+	d.lock.Lock()
+	defer d.lock.Unlock()
+
+	if d.schema == nil {
+		sch, err := d.delegate.OpenAPISchema()
+		if err != nil {
+			return nil, err
+		}
+		d.schema = sch
+	}
+
+	return d.schema, nil
 }
 
 func (d *memCacheClient) Fresh() bool {
@@ -179,6 +191,7 @@ func (d *memCacheClient) Invalidate() {
 	d.cacheValid = false
 	d.groupToServerResources = nil
 	d.groupList = nil
+	d.schema = nil
 }
 
 // refreshLocked refreshes the state of cache. The caller must hold d.lock for
