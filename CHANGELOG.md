@@ -6,6 +6,8 @@
 - v1.15.x
 - v1.14.x
 
+## 1.2.1 (October 8, 2019)
+
 ### Improvements
 
 -   Cache the OpenAPI schema to improve performance. (https://github.com/pulumi/pulumi-kubernetes/pull/833).
