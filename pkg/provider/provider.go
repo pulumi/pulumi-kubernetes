@@ -52,6 +52,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
+	k8sopenapi "k8s.io/kubernetes/pkg/kubectl/cmd/util/openapi"
 )
 
 // --------------------------------------------------------------------------
@@ -100,6 +101,7 @@ type kubeProvider struct {
 
 	clientSet  *clients.DynamicClientSet
 	k8sVersion cluster.ServerVersion
+	resources  k8sopenapi.Resources
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -311,6 +313,12 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	k.k8sVersion = cluster.GetServerVersion(cs.DiscoveryClientCached)
 
+	resources, err := openapi.GetResourceSchemasForClient(cs.DiscoveryClientCached)
+	if err != nil {
+		return nil, fmt.Errorf("unable to load schema information from the API server: %v", err)
+	}
+	k.resources = resources
+
 	return &pulumirpc.ConfigureResponse{
 		AcceptSecrets: true,
 	}, nil
@@ -487,7 +495,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// does not know how to deal with the placeholder values for computed values.
 	if !hasComputedValue(newInputs) {
 		// Get OpenAPI schema for the GVK.
-		err = openapi.ValidateAgainstSchema(k.clientSet.DiscoveryClientCached, newInputs)
+		err = openapi.ValidateAgainstSchema(k.resources, newInputs)
 		// Validate the object according to the OpenAPI schema.
 		if err != nil {
 			resourceNotFound := errors.IsNotFound(err) ||
@@ -776,6 +784,7 @@ func (k *kubeProvider) Create(
 			URN:         urn,
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:   k.resources,
 		},
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
@@ -910,6 +919,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			URN:         urn,
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:   k.resources,
 		},
 		Inputs: oldInputs,
 		Name:   name,
@@ -1094,6 +1104,7 @@ func (k *kubeProvider) Update(
 			URN:         urn,
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:   k.resources,
 		},
 		Previous: oldInputs,
 		Inputs:   annotatedInputs,
@@ -1179,6 +1190,7 @@ func (k *kubeProvider) Delete(
 			URN:         urn,
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:   k.resources,
 		},
 		Inputs:  current,
 		Name:    name,
@@ -1295,8 +1307,7 @@ func (k *kubeProvider) dryRunPatch(
 	}
 	liveInputs := parseLiveInputs(liveObject, oldInputs)
 
-	patch, patchType, _, err := openapi.PatchForResourceUpdate(
-		k.clientSet.DiscoveryClientCached, liveInputs, newInputs, liveObject)
+	patch, patchType, _, err := openapi.PatchForResourceUpdate(k.resources, liveInputs, newInputs, liveObject)
 	if err != nil {
 		return nil, nil, err
 	}

@@ -46,15 +46,10 @@ import (
 
 // --------------------------------------------------------------------------
 
-// ValidateAgainstSchema validates a document against the schema.
+// ValidateAgainstSchema validates a document against the given schema.
 func ValidateAgainstSchema(
-	client discovery.OpenAPISchemaInterface, obj *unstructured.Unstructured,
+	resources openapi.Resources, obj *unstructured.Unstructured,
 ) error {
-	resources, err := getResourceSchemasForClient(client)
-	if err != nil {
-		return err
-	}
-
 	bytes, err := obj.MarshalJSON()
 	if err != nil {
 		return err
@@ -75,11 +70,11 @@ func ValidateAgainstSchema(
 	return specValidator.ValidateBytes(bytes)
 }
 
-// PatchForResourceUpdate introspects on the OpenAPI spec exposed by some client, and attempts to
-// generate a strategic merge patch for use in a resource update. If there is no specification of
-// how to generate a strategic merge patch, we fall back to JSON merge patch.
-func PatchForResourceUpdate(client discovery.CachedDiscoveryInterface, lastSubmitted, currentSubmitted,
-	liveOldObj *unstructured.Unstructured,
+// PatchForResourceUpdate introspects on the gevn OpenAPI spec and attempts to generate a strategic merge patch for
+// use in a resource update. If there is no specification of how to generate a strategic merge patch, we fall back
+// to JSON merge patch.
+func PatchForResourceUpdate(
+	resources openapi.Resources, lastSubmitted, currentSubmitted, liveOldObj *unstructured.Unstructured,
 ) ([]byte, types.PatchType, strategicpatch.LookupPatchMeta, error) {
 	// Create JSON blobs for each of these, preparing to create the three-way merge patch.
 	lastSubmittedJSON, err := lastSubmitted.MarshalJSON()
@@ -93,11 +88,6 @@ func PatchForResourceUpdate(client discovery.CachedDiscoveryInterface, lastSubmi
 	}
 
 	liveOldJSON, err := liveOldObj.MarshalJSON()
-	if err != nil {
-		return nil, "", nil, err
-	}
-
-	resources, err := getResourceSchemasForClient(client)
 	if err != nil {
 		return nil, "", nil, err
 	}
@@ -219,9 +209,9 @@ func jsonMergePatch(
 	return patch, patchType, err
 }
 
-// getResourceSchemasForClient obtains the OpenAPI schemas for all Kubernetes resources supported by
+// GetResourceSchemasForClient obtains the OpenAPI schemas for all Kubernetes resources supported by
 // client.
-func getResourceSchemasForClient(
+func GetResourceSchemasForClient(
 	client discovery.OpenAPISchemaInterface,
 ) (openapi.Resources, error) {
 	document, err := client.OpenAPISchema()
