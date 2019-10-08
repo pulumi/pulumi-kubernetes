@@ -21,6 +21,9 @@ limitations under the License.
 // mechanism, and causes unactionable error messages to appear in the CLI.
 // This error logging was disabled.
 //
+// Additionally, we improved caching of the OpenAPI schema in the OpenAPISchema method.
+// If this change merges upstream, we will reconcile those changes in a future release.
+//
 // [1] https://github.com/kubernetes/client-go/blob/2dda7ceeec102b5a60e2abf37758642118501910/discovery/cached/memcache.go
 
 package clients

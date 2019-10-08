@@ -8,6 +8,7 @@
 
 ### Improvements
 
+-   Cache the OpenAPI schema to improve performance. (https://github.com/pulumi/pulumi-kubernetes/pull/833).
 -   Aggregate error messages from Pods on Job Read. (https://github.com/pulumi/pulumi-kubernetes/pull/831).
 
 ## 1.2.0 (October 4, 2019)
