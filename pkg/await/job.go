@@ -165,9 +165,19 @@ func (jia *jobInitAwaiter) Read() error {
 		return nil
 	}
 
+	podAggregator, err := NewPodAggregator(ResourceIdFromUnstructured(jia.job), jia.config.clientSet)
+	if err != nil {
+		return errors.Wrapf(err, "Could not create PodAggregator for %s", jia.resource.GVKString())
+	}
+	messages := podAggregator.Read()
+	for _, message := range messages {
+		jia.errors.Add(message)
+		jia.config.logMessage(message)
+	}
+
 	return &initializationError{
 		subErrors: jia.errorMessages(),
-		object: job,
+		object:    job,
 	}
 }
 

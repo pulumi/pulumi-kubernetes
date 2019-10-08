@@ -6,6 +6,10 @@
 - v1.15.x
 - v1.14.x
 
+### Improvements
+
+-   Aggregate error messages from Pods on Job Read. (https://github.com/pulumi/pulumi-kubernetes/pull/831).
+
 ## 1.2.0 (October 4, 2019)
 
 ### Supported Kubernetes versions
