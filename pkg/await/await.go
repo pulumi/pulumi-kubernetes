@@ -36,6 +36,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
+	k8sopenapi "k8s.io/kubernetes/pkg/kubectl/cmd/util/openapi"
 )
 
 // --------------------------------------------------------------------------
@@ -57,6 +58,7 @@ type ProviderConfig struct {
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
+	Resources   k8sopenapi.Resources
 }
 
 type CreateConfig struct {
@@ -325,8 +327,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	}
 
 	// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
-	patch, patchType, _, err := openapi.PatchForResourceUpdate(
-		c.ClientSet.DiscoveryClientCached, c.Previous, c.Inputs, liveOldObj)
+	patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
 	if err != nil {
 		return nil, err
 	}

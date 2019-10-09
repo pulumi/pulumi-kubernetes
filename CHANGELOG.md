@@ -10,7 +10,7 @@
 
 ### Improvements
 
--   Cache the OpenAPI schema to improve performance. (https://github.com/pulumi/pulumi-kubernetes/pull/833).
+-   Cache the OpenAPI schema to improve performance. (https://github.com/pulumi/pulumi-kubernetes/pull/833, https://github.com/pulumi/pulumi-kubernetes/pull/836).
 -   Aggregate error messages from Pods on Job Read. (https://github.com/pulumi/pulumi-kubernetes/pull/831).
 -   Improve interactive status for Jobs. (https://github.com/pulumi/pulumi-kubernetes/pull/832).
 

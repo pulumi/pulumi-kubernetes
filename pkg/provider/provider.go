@@ -22,6 +22,7 @@ import (
 	"os"
 	"reflect"
 	"strings"
+	"sync"
 
 	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/golang/glog"
@@ -52,6 +53,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
+	k8sopenapi "k8s.io/kubernetes/pkg/kubectl/cmd/util/openapi"
 )
 
 // --------------------------------------------------------------------------
@@ -100,6 +102,9 @@ type kubeProvider struct {
 
 	clientSet  *clients.DynamicClientSet
 	k8sVersion cluster.ServerVersion
+
+	resources      k8sopenapi.Resources
+	resourcesMutex sync.RWMutex
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -117,6 +122,33 @@ func makeKubeProvider(
 		enableSecrets:               false,
 		suppressDeprecationWarnings: false,
 	}, nil
+}
+
+func (k *kubeProvider) getResources() (k8sopenapi.Resources, error) {
+	k.resourcesMutex.RLock()
+	rs := k.resources
+	k.resourcesMutex.RUnlock()
+
+	if rs != nil {
+		return rs, nil
+	}
+
+	k.resourcesMutex.Lock()
+	defer k.resourcesMutex.Unlock()
+
+	rs, err := openapi.GetResourceSchemasForClient(k.clientSet.DiscoveryClientCached)
+	if err != nil {
+		return nil, err
+	}
+	k.resources = rs
+	return k.resources, nil
+}
+
+func (k *kubeProvider) invalidateResources() {
+	k.resourcesMutex.Lock()
+	defer k.resourcesMutex.Unlock()
+
+	k.resources = nil
 }
 
 // CheckConfig validates the configuration for this provider.
@@ -311,6 +343,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	k.k8sVersion = cluster.GetServerVersion(cs.DiscoveryClientCached)
 
+	if _, err = k.getResources(); err != nil {
+		return nil, fmt.Errorf("unable to load schema information from the API server: %v", err)
+	}
+
 	return &pulumirpc.ConfigureResponse{
 		AcceptSecrets: true,
 	}, nil
@@ -486,9 +522,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// HACK: Do not validate against OpenAPI spec if there is a computed value. The OpenAPI spec
 	// does not know how to deal with the placeholder values for computed values.
 	if !hasComputedValue(newInputs) {
-		// Get OpenAPI schema for the GVK.
-		err = openapi.ValidateAgainstSchema(k.clientSet.DiscoveryClientCached, newInputs)
-		// Validate the object according to the OpenAPI schema.
+		resources, err := k.getResources()
+		if err != nil {
+			return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+		}
+
+		// Validate the object according to the OpenAPI schema for its GVK.
+		err = openapi.ValidateAgainstSchema(resources, newInputs)
 		if err != nil {
 			resourceNotFound := errors.IsNotFound(err) ||
 				strings.Contains(err.Error(), "is not supported by the server")
@@ -769,6 +809,10 @@ func (k *kubeProvider) Create(
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
+	resources, err := k.getResources()
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+	}
 	config := await.CreateConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:     k.canceler.context,
@@ -776,6 +820,7 @@ func (k *kubeProvider) Create(
 			URN:         urn,
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:   resources,
 		},
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
@@ -832,6 +877,7 @@ func (k *kubeProvider) Create(
 	// with an `errors.IsNotFound`.
 	if clients.IsCRD(newInputs) {
 		k.clientSet.RESTMapper.Reset()
+		k.invalidateResources()
 	}
 
 	return &pulumirpc.CreateResponse{
@@ -903,6 +949,10 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		oldInputs.SetNamespace(namespace)
 	}
 
+	resources, err := k.getResources()
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+	}
 	config := await.ReadConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:     k.canceler.context,
@@ -910,6 +960,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			URN:         urn,
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:   resources,
 		},
 		Inputs: oldInputs,
 		Name:   name,
@@ -1087,6 +1138,10 @@ func (k *kubeProvider) Update(
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
+	resources, err := k.getResources()
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+	}
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:     k.canceler.context,
@@ -1094,6 +1149,7 @@ func (k *kubeProvider) Update(
 			URN:         urn,
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:   resources,
 		},
 		Previous: oldInputs,
 		Inputs:   annotatedInputs,
@@ -1172,6 +1228,10 @@ func (k *kubeProvider) Delete(
 	_, current := parseCheckpointObject(oldState)
 	_, name := parseFqName(req.GetId())
 
+	resources, err := k.getResources()
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+	}
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:     k.canceler.context, // TODO: should this just be ctx from the args?
@@ -1179,6 +1239,7 @@ func (k *kubeProvider) Delete(
 			URN:         urn,
 			ClientSet:   k.clientSet,
 			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:   resources,
 		},
 		Inputs:  current,
 		Name:    name,
@@ -1295,8 +1356,11 @@ func (k *kubeProvider) dryRunPatch(
 	}
 	liveInputs := parseLiveInputs(liveObject, oldInputs)
 
-	patch, patchType, _, err := openapi.PatchForResourceUpdate(
-		k.clientSet.DiscoveryClientCached, liveInputs, newInputs, liveObject)
+	resources, err := k.getResources()
+	if err != nil {
+		return nil, nil, err
+	}
+	patch, patchType, _, err := openapi.PatchForResourceUpdate(resources, liveInputs, newInputs, liveObject)
 	if err != nil {
 		return nil, nil, err
 	}
