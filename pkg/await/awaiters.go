@@ -43,14 +43,15 @@ const (
 // live number of Pods reaches the minimum liveness threshold. `pool` and `disco` are provided
 // typically from a client pool so that polling is reasonably efficient.
 type createAwaitConfig struct {
-	host           *provider.HostClient
-	ctx            context.Context
-	urn            resource.URN
-	logger         *logging.DedupLogger
-	clientSet      *clients.DynamicClientSet
-	currentInputs  *unstructured.Unstructured
-	currentOutputs *unstructured.Unstructured
-	timeout        float64
+	host              *provider.HostClient
+	ctx               context.Context
+	urn               resource.URN
+	initialApiVersion string
+	logger            *logging.DedupLogger
+	clientSet         *clients.DynamicClientSet
+	currentInputs     *unstructured.Unstructured
+	currentOutputs    *unstructured.Unstructured
+	timeout           float64
 }
 
 func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {

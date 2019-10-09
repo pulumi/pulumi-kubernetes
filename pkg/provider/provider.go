@@ -68,6 +68,7 @@ import (
 
 const (
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
+	initialApiVersionKey = "__initialApiVersion"
 )
 
 type cancellationContext struct {
@@ -445,7 +446,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
-	annotatedInputs, err := initialApiVersion(oldInputs, newInputs)
+	annotatedInputs, err := legacyInitialApiVersion(oldInputs, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
@@ -809,18 +810,20 @@ func (k *kubeProvider) Create(
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
+	initialApiVersion := newInputs.GetAPIVersion()
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
 	config := await.CreateConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:     k.canceler.context,
-			Host:        k.host,
-			URN:         urn,
-			ClientSet:   k.clientSet,
-			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
-			Resources:   resources,
+			Context:           k.canceler.context,
+			Host:              k.host,
+			URN:               urn,
+			InitialApiVersion: initialApiVersion,
+			ClientSet:         k.clientSet,
+			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:         resources,
 		},
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
@@ -849,8 +852,9 @@ func (k *kubeProvider) Create(
 		initialized = partialErr.Object()
 	}
 
+	obj := checkpointObject(newInputs, initialized, newResInputs, initialApiVersion)
 	inputsAndComputed, err := plugin.MarshalProperties(
-		checkpointObject(newInputs, initialized, newResInputs), plugin.MarshalOptions{
+		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 			KeepUnknowns: true,
 			SkipNulls:    true,
@@ -949,18 +953,23 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		oldInputs.SetNamespace(namespace)
 	}
 
+	initialApiVersion, err := initialApiVersion(oldState, oldInputs)
+	if err != nil {
+		return nil, err
+	}
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
 	config := await.ReadConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:     k.canceler.context,
-			Host:        k.host,
-			URN:         urn,
-			ClientSet:   k.clientSet,
-			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
-			Resources:   resources,
+			Context:           k.canceler.context,
+			Host:              k.host,
+			URN:               urn,
+			InitialApiVersion: initialApiVersion,
+			ClientSet:         k.clientSet,
+			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:         resources,
 		},
 		Inputs: oldInputs,
 		Name:   name,
@@ -1008,7 +1017,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
-		checkpointObject(liveInputs, liveObj, oldInputsPM), plugin.MarshalOptions{
+		checkpointObject(liveInputs, liveObj, oldInputsPM, initialApiVersion), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
 			SkipNulls:    true,
@@ -1138,18 +1147,23 @@ func (k *kubeProvider) Update(
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
+	initialApiVersion, err := initialApiVersion(oldState, oldInputs)
+	if err != nil {
+		return nil, err
+	}
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
 	config := await.UpdateConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:     k.canceler.context,
-			Host:        k.host,
-			URN:         urn,
-			ClientSet:   k.clientSet,
-			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
-			Resources:   resources,
+			Context:           k.canceler.context,
+			Host:              k.host,
+			URN:               urn,
+			InitialApiVersion: initialApiVersion,
+			ClientSet:         k.clientSet,
+			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:         resources,
 		},
 		Previous: oldInputs,
 		Inputs:   annotatedInputs,
@@ -1179,10 +1193,10 @@ func (k *kubeProvider) Update(
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
 	}
-
 	// Return a new "checkpoint object".
+	obj := checkpointObject(newInputs, initialized, newResInputs, initialApiVersion)
 	inputsAndComputed, err := plugin.MarshalProperties(
-		checkpointObject(newInputs, initialized, newResInputs), plugin.MarshalOptions{
+		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 			KeepUnknowns: true,
 			SkipNulls:    true,
@@ -1228,18 +1242,23 @@ func (k *kubeProvider) Delete(
 	_, current := parseCheckpointObject(oldState)
 	_, name := parseFqName(req.GetId())
 
+	initialApiVersion, err := initialApiVersion(oldState, &unstructured.Unstructured{})
+	if err != nil {
+		return nil, err
+	}
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:     k.canceler.context, // TODO: should this just be ctx from the args?
-			Host:        k.host,
-			URN:         urn,
-			ClientSet:   k.clientSet,
-			DedupLogger: logging.NewLogger(k.canceler.context, k.host, urn),
-			Resources:   resources,
+			Context:           k.canceler.context, // TODO: should this just be ctx from the args?
+			Host:              k.host,
+			URN:               urn,
+			InitialApiVersion: initialApiVersion,
+			ClientSet:         k.clientSet,
+			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
+			Resources:         resources,
 		},
 		Inputs:  current,
 		Name:    name,
@@ -1263,7 +1282,7 @@ func (k *kubeProvider) Delete(
 		lastKnownState := partialErr.Object()
 
 		inputsAndComputed, err := plugin.MarshalProperties(
-			checkpointObject(current, lastKnownState, oldState), plugin.MarshalOptions{
+			checkpointObject(current, lastKnownState, oldState, initialApiVersion), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 				KeepUnknowns: true,
 				SkipNulls:    true,
@@ -1437,20 +1456,40 @@ func getAnnotations(config *unstructured.Unstructured) map[string]string {
 	return annotations
 }
 
-func initialApiVersion(oldConfig, newConfig *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+// legacyInitialApiVersion maintains backward compatibility with behavior introduced in the 1.2.0 release. This
+// information is now stored in the checkpoint file and the annotation is no longer used by the provider.
+func legacyInitialApiVersion(oldConfig, newConfig *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	oldAnnotations := getAnnotations(oldConfig)
 	newAnnotations := getAnnotations(newConfig)
 
 	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialApiVersion]
 	if exists {
+		// Keep the annotation if it was already created previously to minimize further disruption
+		// to existing resources.
 		newAnnotations[metadata.AnnotationInitialApiVersion] = apiVersion
-	} else {
-		newAnnotations[metadata.AnnotationInitialApiVersion] = newConfig.GetAPIVersion()
 	}
 
-	newConfig.SetAnnotations(newAnnotations)
+	if len(newConfig.GetAnnotations()) > 0 {
+		newConfig.SetAnnotations(newAnnotations)
+	}
 
 	return newConfig, nil
+}
+
+// initialApiVersion retrieves the initialApiVersion property from the checkpoint file and falls back to using
+// the `pulumi.com/initialApiVersion` annotation if that property is not present.
+func initialApiVersion(state resource.PropertyMap, oldConfig *unstructured.Unstructured) (string, error) {
+	if v, ok := state[initialApiVersionKey]; ok {
+		return v.StringValue(), nil
+	}
+
+	oldAnnotations := getAnnotations(oldConfig)
+	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialApiVersion]
+	if exists {
+		return apiVersion, nil
+	}
+
+	return oldConfig.GetAPIVersion(), nil
 }
 
 func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
@@ -1470,7 +1509,7 @@ func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Uns
 	return config, nil
 }
 
-func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap) resource.PropertyMap {
+func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap, initialApiVersion string) resource.PropertyMap {
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
 
@@ -1511,6 +1550,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	}
 
 	object["__inputs"] = resource.NewObjectProperty(inputsPM)
+	object[initialApiVersionKey] = resource.NewStringProperty(initialApiVersion)
 
 	return object
 }

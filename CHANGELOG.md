@@ -6,7 +6,17 @@
 - v1.15.x
 - v1.14.x
 
+### Improvements
+
+-   Stop using initialApiVersion annotation. (https://github.com/pulumi/pulumi-kubernetes/pull/837).
+
 ## 1.2.1 (October 8, 2019)
+
+### Supported Kubernetes versions
+
+- v1.16.x
+- v1.15.x
+- v1.14.x
 
 ### Improvements
 

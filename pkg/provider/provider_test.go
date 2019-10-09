@@ -31,6 +31,7 @@ var (
 		},
 	}
 	objLive = map[string]interface{}{
+		initialApiVersionKey: "",
 		"oof": "bar",
 		"zab": float64(4321),
 		"xuq": map[string]interface{}{
@@ -63,7 +64,7 @@ func TestCheckpointObject(t *testing.T) {
 	inputs := &unstructured.Unstructured{Object: objInputs}
 	live := &unstructured.Unstructured{Object: objLive}
 
-	obj := checkpointObject(inputs, live, nil)
+	obj := checkpointObject(inputs, live, nil, "")
 	assert.NotNil(t, obj)
 
 	oldInputs := obj["__inputs"]
@@ -81,7 +82,7 @@ func TestRoundtripCheckpointObject(t *testing.T) {
 	assert.Equal(t, objInputs, oldInputs.Object)
 	assert.Equal(t, objLive, oldLive.Object)
 
-	obj := checkpointObject(oldInputs, oldLive, nil)
+	obj := checkpointObject(oldInputs, oldLive, nil, "")
 	assert.Equal(t, old, obj)
 
 	newInputs, newLive := parseCheckpointObject(obj)
