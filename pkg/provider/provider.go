@@ -852,8 +852,7 @@ func (k *kubeProvider) Create(
 		initialized = partialErr.Object()
 	}
 
-	obj := checkpointObject(newInputs, initialized, newResInputs)
-	obj[initialApiVersionKey] = resource.NewStringProperty(initialApiVersion)
+	obj := checkpointObject(newInputs, initialized, newResInputs, initialApiVersion)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1018,7 +1017,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
-		checkpointObject(liveInputs, liveObj, oldInputsPM), plugin.MarshalOptions{
+		checkpointObject(liveInputs, liveObj, oldInputsPM, initialApiVersion), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
 			SkipNulls:    true,
@@ -1195,8 +1194,7 @@ func (k *kubeProvider) Update(
 		// initialize.
 	}
 	// Return a new "checkpoint object".
-	obj := checkpointObject(newInputs, initialized, newResInputs)
-	obj[initialApiVersionKey] = resource.NewStringProperty(initialApiVersion)
+	obj := checkpointObject(newInputs, initialized, newResInputs, initialApiVersion)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1284,7 +1282,7 @@ func (k *kubeProvider) Delete(
 		lastKnownState := partialErr.Object()
 
 		inputsAndComputed, err := plugin.MarshalProperties(
-			checkpointObject(current, lastKnownState, oldState), plugin.MarshalOptions{
+			checkpointObject(current, lastKnownState, oldState, initialApiVersion), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 				KeepUnknowns: true,
 				SkipNulls:    true,
@@ -1479,8 +1477,8 @@ func legacyInitialApiVersion(oldConfig, newConfig *unstructured.Unstructured) (*
 // initialApiVersion retrieves the initialApiVersion property from the checkpoint file and falls back to using
 // the `pulumi.com/initialApiVersion` annotation if that property is not present.
 func initialApiVersion(state resource.PropertyMap, oldConfig *unstructured.Unstructured) (string, error) {
-	if state.HasValue(initialApiVersionKey) {
-		return state.Mappable()[initialApiVersionKey].(string), nil
+	if v, ok := state[initialApiVersionKey]; ok {
+		return v.StringValue(), nil
 	}
 
 	oldAnnotations := getAnnotations(oldConfig)
@@ -1509,7 +1507,7 @@ func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Uns
 	return config, nil
 }
 
-func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap) resource.PropertyMap {
+func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap, initialApiVersion string) resource.PropertyMap {
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
 
@@ -1550,6 +1548,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	}
 
 	object["__inputs"] = resource.NewObjectProperty(inputsPM)
+	object[initialApiVersionKey] = resource.NewStringProperty(initialApiVersion)
 
 	return object
 }
