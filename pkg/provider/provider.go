@@ -1469,7 +1469,9 @@ func legacyInitialApiVersion(oldConfig, newConfig *unstructured.Unstructured) (*
 		newAnnotations[metadata.AnnotationInitialApiVersion] = apiVersion
 	}
 
-	newConfig.SetAnnotations(newAnnotations)
+	if len(newConfig.GetAnnotations()) > 0 {
+		newConfig.SetAnnotations(newAnnotations)
+	}
 
 	return newConfig, nil
 }
@@ -1487,7 +1489,7 @@ func initialApiVersion(state resource.PropertyMap, oldConfig *unstructured.Unstr
 		return apiVersion, nil
 	}
 
-	return "", fmt.Errorf("failed to find initialApiVersion information for resource: %s", oldConfig.GetName())
+	return oldConfig.GetAPIVersion(), nil
 }
 
 func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
