@@ -52,9 +52,10 @@ import (
 // --------------------------------------------------------------------------
 
 type ProviderConfig struct {
-	Context context.Context
-	Host    *pulumiprovider.HostClient
-	URN     resource.URN
+	Context           context.Context
+	Host              *pulumiprovider.HostClient
+	URN               resource.URN
+	InitialApiVersion string
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -176,14 +177,15 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		} else {
 			if awaiter.awaitCreation != nil {
 				conf := createAwaitConfig{
-					host:           c.Host,
-					ctx:            c.Context,
-					urn:            c.URN,
-					clientSet:      c.ClientSet,
-					currentInputs:  c.Inputs,
-					currentOutputs: outputs,
-					logger:         c.DedupLogger,
-					timeout:        c.Timeout,
+					host:              c.Host,
+					ctx:               c.Context,
+					urn:               c.URN,
+					initialApiVersion: c.InitialApiVersion,
+					clientSet:         c.ClientSet,
+					currentInputs:     c.Inputs,
+					currentOutputs:    outputs,
+					logger:            c.DedupLogger,
+					timeout:           c.Timeout,
 				}
 				waitErr := awaiter.awaitCreation(conf)
 				if waitErr != nil {
@@ -230,13 +232,14 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 		} else {
 			if awaiter.awaitRead != nil {
 				conf := createAwaitConfig{
-					host:           c.Host,
-					ctx:            c.Context,
-					urn:            c.URN,
-					clientSet:      c.ClientSet,
-					currentInputs:  c.Inputs,
-					currentOutputs: outputs,
-					logger:         c.DedupLogger,
+					host:              c.Host,
+					ctx:               c.Context,
+					urn:               c.URN,
+					initialApiVersion: c.InitialApiVersion,
+					clientSet:         c.ClientSet,
+					currentInputs:     c.Inputs,
+					currentOutputs:    outputs,
+					logger:            c.DedupLogger,
 				}
 				waitErr := awaiter.awaitRead(conf)
 				if waitErr != nil {
@@ -351,14 +354,15 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			if awaiter.awaitUpdate != nil {
 				conf := updateAwaitConfig{
 					createAwaitConfig: createAwaitConfig{
-						host:           c.Host,
-						ctx:            c.Context,
-						urn:            c.URN,
-						clientSet:      c.ClientSet,
-						currentInputs:  c.Inputs,
-						currentOutputs: currentOutputs,
-						logger:         c.DedupLogger,
-						timeout:        c.Timeout,
+						host:              c.Host,
+						ctx:               c.Context,
+						urn:               c.URN,
+						initialApiVersion: c.InitialApiVersion,
+						clientSet:         c.ClientSet,
+						currentInputs:     c.Inputs,
+						currentOutputs:    currentOutputs,
+						logger:            c.DedupLogger,
+						timeout:           c.Timeout,
 					},
 					lastInputs:  c.Previous,
 					lastOutputs: liveOldObj,
@@ -444,13 +448,14 @@ func Deletion(c DeleteConfig) error {
 		} else {
 			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
 				createAwaitConfig: createAwaitConfig{
-					host:          c.Host,
-					ctx:           c.Context,
-					urn:           c.URN,
-					clientSet:     c.ClientSet,
-					currentInputs: c.Inputs,
-					logger:        c.DedupLogger,
-					timeout:       c.Timeout,
+					host:              c.Host,
+					ctx:               c.Context,
+					urn:               c.URN,
+					initialApiVersion: c.InitialApiVersion,
+					clientSet:         c.ClientSet,
+					currentInputs:     c.Inputs,
+					logger:            c.DedupLogger,
+					timeout:           c.Timeout,
 				},
 				clientForResource: client,
 			})

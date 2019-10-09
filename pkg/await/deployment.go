@@ -393,8 +393,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	// Note: We must use the annotated creation apiVersion rather than the API-reported apiVersion, because
 	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
 	// regardless of what the Event apiVersion says.
-	extensionsV1Beta1API := metadata.GetAnnotationValue(
-		dia.config.createAwaitConfig.currentInputs, metadata.AnnotationInitialApiVersion) == "extensions/v1beta1"
+	extensionsV1Beta1API := dia.config.initialApiVersion == "extensions/v1beta1"
 
 	// Get generation of the Deployment's ReplicaSet.
 	dia.replicaSetGeneration = deployment.GetAnnotations()[revision]
@@ -550,8 +549,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	// Note: We must use the annotated apiVersion rather than the API-reported apiVersion, because
 	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
 	// regardless of what the Event apiVersion says.
-	extensionsV1Beta1API := metadata.GetAnnotationValue(
-		dia.config.createAwaitConfig.currentInputs, metadata.AnnotationInitialApiVersion) == "extensions/v1beta1"
+	extensionsV1Beta1API := dia.config.initialApiVersion == "extensions/v1beta1"
 	if extensionsV1Beta1API {
 		rawReadyReplicas, readyReplicasExists = openapi.Pluck(dia.deployment.Object, "status", "readyReplicas")
 		readyReplicas, _ = rawReadyReplicas.(int64)
