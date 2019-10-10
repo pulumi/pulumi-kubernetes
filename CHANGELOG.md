@@ -6,9 +6,18 @@
 - v1.15.x
 - v1.14.x
 
+## 1.2.1 (October 10, 2019)
+
+### Supported Kubernetes versions
+
+- v1.16.x
+- v1.15.x
+- v1.14.x
+
 ### Improvements
 
 -   Stop using initialApiVersion annotation. (https://github.com/pulumi/pulumi-kubernetes/pull/837).
+-   Cache the parsed OpenAPI schema to improve performance. (https://github.com/pulumi/pulumi-kubernetes/pull/836).
 
 ## 1.2.1 (October 8, 2019)
 
@@ -20,7 +29,7 @@
 
 ### Improvements
 
--   Cache the OpenAPI schema to improve performance. (https://github.com/pulumi/pulumi-kubernetes/pull/833, https://github.com/pulumi/pulumi-kubernetes/pull/836).
+-   Cache the OpenAPI schema to improve performance. (https://github.com/pulumi/pulumi-kubernetes/pull/833).
 -   Aggregate error messages from Pods on Job Read. (https://github.com/pulumi/pulumi-kubernetes/pull/831).
 -   Improve interactive status for Jobs. (https://github.com/pulumi/pulumi-kubernetes/pull/832).
 
