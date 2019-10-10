@@ -44,5 +44,4 @@ cr = CustomResource(
     spec={"foo": "bar"},
     opts=pulumi.ResourceOptions(depends_on=[crd]))
 
-cr_id = pulumi.Output.concat(ns.metadata["name"], '/', cr.metadata["name"])
-cr_get = CustomResource.get(resource_name="bar", api_version="python.test/v1", kind="GetTest", id=cr_id)
+cr_get = CustomResource.get(resource_name="bar", api_version="python.test/v1", kind="GetTest", id=cr.id)
