@@ -29,33 +29,20 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestExamples(t *testing.T) {
+func TestAccMinimal(t *testing.T) {
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir: path.Join(getCwd(t), "minimal"),
+		})
 
-	kubectx := os.Getenv("KUBERNETES_CONTEXT")
+	integration.ProgramTest(t, &test)
+}
 
-	if kubectx == "" {
-		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT variable")
-	}
-
-	cwd, err := os.Getwd()
-	if !assert.NoError(t, err, "expected a valid working directory: %v", err) {
-		return
-	}
-
-	// base options shared amongst all tests.
-	base := integration.ProgramTestOptions{
-		Dependencies: []string{
-			"@pulumi/kubernetes",
-		},
-	}
-
-	shortTests := []integration.ProgramTestOptions{
-		base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "minimal")}),
-	}
-
-	longTests := []integration.ProgramTestOptions{
-		base.With(integration.ProgramTestOptions{
-			Dir: path.Join(cwd, "guestbook"),
+func TestAccGuestbook(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir: path.Join(getCwd(t), "guestbook"),
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
@@ -136,15 +123,17 @@ func TestExamples(t *testing.T) {
 				stackRes := stackInfo.Deployment.Resources[8]
 				assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 			},
-		}),
+		})
 
-		base.With(integration.ProgramTestOptions{
-			Dir: path.Join(cwd, "provider"),
-		}),
+	integration.ProgramTest(t, &test)
+}
 
-		base.With(integration.ProgramTestOptions{
-			SkipRefresh: true, // Deployment controller changes object out-of-band.
-			Dir:         path.Join(cwd, "helm"),
+func TestAccHelm(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         path.Join(getCwd(t), "helm"),
+			SkipRefresh: true,
 			Verbose:     true,
 			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 				// Ensure that all `Services` have `status` marked as a `Secret`
@@ -160,10 +149,16 @@ func TestExamples(t *testing.T) {
 					}
 				}
 			},
-		}),
+		})
 
-		base.With(integration.ProgramTestOptions{
-			Dir:         path.Join(cwd, "helm-local"),
+	integration.ProgramTest(t, &test)
+}
+
+func TestAccHelmLocal(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         path.Join(getCwd(t), "helm-local"),
 			SkipRefresh: true, // Deployment controller changes object out-of-band.
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
@@ -171,24 +166,58 @@ func TestExamples(t *testing.T) {
 				assert.NotNil(t, stackInfo.Deployment)
 				assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
 			},
-		}),
-
-		base.With(integration.ProgramTestOptions{Dir: path.Join(cwd, "mariadb")}),
-	}
-
-	tests := shortTests
-	if !testing.Short() {
-		tests = append(tests, longTests...)
-	}
-
-	for _, ex := range tests {
-		example := ex
-		t.Run(example.Dir, func(t *testing.T) {
-			integration.ProgramTest(t, &example)
 		})
+
+	integration.ProgramTest(t, &test)
+}
+
+func TestAccMariadb(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir: path.Join(getCwd(t), "mariadb"),
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
+func TestAccProvider(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir: path.Join(getCwd(t), "provider"),
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
+func skipIfShort(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping long-running test in short mode")
 	}
 }
 
-func createEditDir(dir string) integration.EditDir {
-	return integration.EditDir{Dir: dir, ExtraRuntimeValidation: nil}
+func checkKubeCtx(t *testing.T) {
+	env := os.Getenv("KUBERNETES_CONTEXT")
+	if env == "" {
+		t.Skipf("Skipping test due to missing KUBERNETES_CONTEXT environment variable")
+	}
+}
+
+func getCwd(t *testing.T) string {
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Error("expected a valid working directory", err)
+	}
+
+	return cwd
+}
+
+func getBaseOptions(t *testing.T) integration.ProgramTestOptions {
+	checkKubeCtx(t)
+	return integration.ProgramTestOptions{
+		Dependencies: []string{
+			"@pulumi/kubernetes",
+		},
+	}
 }
