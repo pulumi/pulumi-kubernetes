@@ -62,4 +62,4 @@ after_script:
     - scripts/ci-cluster-destroy.sh
 notifications:
   webhooks:
-    - https://ufci1w66n3.execute-api.us-west-2.amazonaws.com/stage/travis
+    - https://zlmgkhmhjc.execute-api.us-west-2.amazonaws.com/stage/travis
