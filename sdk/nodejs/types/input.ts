@@ -16391,7 +16391,7 @@ export namespace core {
        * Expanded path within the volume from which the container's volume should be mounted.
        * Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded
        * using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath
-       * are mutually exclusive. This field is beta in 1.15.
+       * are mutually exclusive.
        */
       subPathExpr?: pulumi.Input<string>
 
@@ -20617,7 +20617,7 @@ export namespace policy {
 
       /**
        * Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and
-       * other status informatio is valid only if observedGeneration equals to PDB's object
+       * other status information is valid only if observedGeneration equals to PDB's object
        * generation.
        */
       observedGeneration?: pulumi.Input<number>
