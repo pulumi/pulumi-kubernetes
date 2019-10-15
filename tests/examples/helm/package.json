@@ -2,7 +2,7 @@
   "name": "nodeserver",
   "version": "0.1.0",
   "dependencies": {
-    "@pulumi/pulumi": "dev",
+    "@pulumi/pulumi": "feature-synchronousInvokes2",
     "@types/js-yaml": "^3.11.2",
     "js-yaml": "^3.12.0"
   },

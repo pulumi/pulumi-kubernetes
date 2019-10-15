@@ -6,7 +6,7 @@
     "dependencies": {
         "@pulumi/gcp": "latest",
         "@pulumi/kubernetes": "latest",
-        "@pulumi/pulumi": "latest",
-        "@pulumi/random": "latest"
+        "@pulumi/pulumi": "feature-synchronousInvokes2",
+        "@pulumi/random": "feature-synchronousInvokes2"
     }
 }

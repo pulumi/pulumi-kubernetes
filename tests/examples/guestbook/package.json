@@ -2,7 +2,7 @@
   "name": "guestbook",
   "version": "0.1.0",
   "dependencies": {
-    "@pulumi/pulumi": "dev"
+    "@pulumi/pulumi": "feature-synchronousInvokes2"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",

@@ -2,8 +2,8 @@
   "name": "mariadb",
   "version": "0.1.0",
   "dependencies": {
-    "@pulumi/pulumi": "dev",
-    "@pulumi/random": "dev"
+    "@pulumi/pulumi": "feature-synchronousInvokes2",
+    "@pulumi/random": "feature-synchronousInvokes2"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",

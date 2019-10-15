@@ -49,7 +49,7 @@ install:
     - helm init --client-only
 
     # Install Pulumi
-    - curl -L https://get.pulumi.com/ | bash
+    - curl -L https://get.pulumi.com/ | bash -s -- --version 1.4.0-alpha.1571158911
     - export PATH=$HOME/.pulumi/bin:$PATH
 before_script:
     - ${PULUMI_SCRIPTS}/ci/ensure-dependencies
