@@ -119,17 +119,15 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          opts.additionalSecretOutputs = [
-              ...((opts && opts.additionalSecretOutputs) || []),
+          const _opts = pulumi.mergeOptions(opts, {
+              additionalSecretOutputs: [
+              ],
+              aliases: [
+                  { parent: opts.parent, type: "kubernetes:networking/v1beta1:Ingress", name: name },
+                  { parent: opts.parent, type: "kubernetes:extensions/v1beta1:Ingress", name: name },
+              ]
+          });
 
-          ];
-
-          opts.aliases = [
-              { parent: opts.parent, type: "kubernetes:networking/v1beta1:Ingress", name: name },
-              { parent: opts.parent, type: "kubernetes:extensions/v1beta1:Ingress", name: name },
-              ...((opts && opts.aliases) || []),
-          ];
-
-          super(Ingress.__pulumiType, name, props, opts);
+          super(Ingress.__pulumiType, name, props, _opts);
       }
     }

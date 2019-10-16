@@ -113,15 +113,13 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          opts.additionalSecretOutputs = [
-              ...((opts && opts.additionalSecretOutputs) || []),
+          const _opts = pulumi.mergeOptions(opts, {
+              additionalSecretOutputs: [
+              ],
+              aliases: [
+              ]
+          });
 
-          ];
-
-          opts.aliases = [
-              ...((opts && opts.aliases) || []),
-          ];
-
-          super(ServiceAccount.__pulumiType, name, props, opts);
+          super(ServiceAccount.__pulumiType, name, props, _opts);
       }
     }
