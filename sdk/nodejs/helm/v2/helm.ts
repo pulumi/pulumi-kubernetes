@@ -171,7 +171,7 @@ export class Chart extends yaml.CollectionComponentResource {
                         nodepath.join(chartDir.name, fetchedChartName, "values.yaml")
                     );
                 } else {
-                    chart = path.quotePath(cfg.path);
+                    chart = cfg.path;
                     defaultValues = path.quotePath(nodepath.join(chart, "values.yaml"));
                 }
 
