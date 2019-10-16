@@ -6,8 +6,9 @@
 - v1.15.x
 - v1.14.x
 
-### Improvements
+### Bug fixes
 
+-   Correctly merge provided opts for k8s resources. (https://github.com/pulumi/pulumi-kubernetes/pull/850).
 -   Fix a bug that causes helm crash when referencing 'scoped packages' that start with '@'. (https://github.com/pulumi/pulumi-kubernetes/pull/846)
 
 ## 1.2.1 (October 10, 2019)

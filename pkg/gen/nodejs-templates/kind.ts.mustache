@@ -73,21 +73,19 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          opts.additionalSecretOutputs = [
-              {{#AdditionalSecretOutputs}}
-              "{{.}}",
-              {{/AdditionalSecretOutputs}}
-              ...((opts && opts.additionalSecretOutputs) || []),
+          const _opts = pulumi.mergeOptions(opts, {
+              additionalSecretOutputs: [
+                  {{#AdditionalSecretOutputs}}
+                  "{{.}}",
+                  {{/AdditionalSecretOutputs}}
+              ],
+              aliases: [
+                  {{#Aliases}}
+                  { parent: opts.parent, type: "{{.}}", name: name },
+                  {{/Aliases}}
+              ]
+          });
 
-          ];
-
-          opts.aliases = [
-          {{#Aliases}}
-              { parent: opts.parent, type: "{{.}}", name: name },
-          {{/Aliases}}
-              ...((opts && opts.aliases) || []),
-          ];
-
-          super({{Kind}}.__pulumiType, name, props, opts);
+          super({{Kind}}.__pulumiType, name, props, _opts);
       }
     }
