@@ -101,13 +101,6 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          const _opts = pulumi.mergeOptions(opts, {
-              additionalSecretOutputs: [
-              ],
-              aliases: [
-              ]
-          });
-
-          super(Node.__pulumiType, name, props, _opts);
+          super(Node.__pulumiType, name, props, opts);
       }
     }

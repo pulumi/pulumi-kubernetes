@@ -76,18 +76,9 @@ class SubjectAccessReview(pulumi.CustomResource):
 
         __props__['status'] = None
 
-        additional_secret_outputs = [
-        ]
-
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
-            version=version.get_version(), additional_secret_outputs=additional_secret_outputs))
-
-        parent = opts.parent if opts and opts.parent else None
-        aliases = [
-        ]
-
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
-            version=version.get_version(), aliases=aliases))
+            version=version.get_version(),
+        ))
 
         super(SubjectAccessReview, self).__init__(
             "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview",

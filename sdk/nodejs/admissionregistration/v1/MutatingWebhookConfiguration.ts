@@ -94,13 +94,6 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          const _opts = pulumi.mergeOptions(opts, {
-              additionalSecretOutputs: [
-              ],
-              aliases: [
-              ]
-          });
-
-          super(MutatingWebhookConfiguration.__pulumiType, name, props, _opts);
+          super(MutatingWebhookConfiguration.__pulumiType, name, props, opts);
       }
     }
