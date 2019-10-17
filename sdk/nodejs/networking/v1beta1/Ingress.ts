@@ -117,12 +117,10 @@ import { getVersion } from "../../version";
           }
 
           const _opts = pulumi.mergeOptions(opts, {
-              additionalSecretOutputs: [
-              ],
               aliases: [
                   { parent: opts.parent, type: "kubernetes:networking/v1beta1:Ingress", name: name },
                   { parent: opts.parent, type: "kubernetes:extensions/v1beta1:Ingress", name: name },
-              ]
+              ],
           });
 
           super(Ingress.__pulumiType, name, props, _opts);

@@ -106,13 +106,11 @@ import { getVersion } from "../../version";
           }
 
           const _opts = pulumi.mergeOptions(opts, {
-              additionalSecretOutputs: [
-              ],
               aliases: [
                   { parent: opts.parent, type: "kubernetes:apps/v1:ReplicaSet", name: name },
                   { parent: opts.parent, type: "kubernetes:apps/v1beta2:ReplicaSet", name: name },
                   { parent: opts.parent, type: "kubernetes:extensions/v1beta1:ReplicaSet", name: name },
-              ]
+              ],
           });
 
           super(ReplicaSet.__pulumiType, name, props, _opts);

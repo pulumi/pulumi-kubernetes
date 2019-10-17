@@ -130,8 +130,30 @@ from .CustomResource import (CustomResource)
 			}
 
 			for _, kind := range version.Kinds() {
+				inputMap := map[string]interface{}{
+					"RawAPIVersion":           kind.RawAPIVersion(),
+					"Comment":                 kind.Comment(),
+					"Group":                   group.Group(),
+					"Kind":                    kind.Kind(),
+					"Properties":              kind.Properties(),
+					"RequiredInputProperties": kind.RequiredInputProperties(),
+					"OptionalInputProperties": kind.OptionalInputProperties(),
+					"AdditionalSecretOutputs": kind.AdditionalSecretOutputs(),
+					"Aliases":                 kind.Aliases(),
+					"URNAPIVersion":           kind.URNAPIVersion(),
+					"Version":                 version.Version(),
+					"PulumiComment":           kind.pulumiComment,
+				}
+				// Since mustache templates are logic-less, we have to add some extra variables
+				// to selectively disable code generation for empty lists.
+				additionalSecretOutputsPresent := len(kind.AdditionalSecretOutputs()) > 0
+				aliasesPresent := len(kind.Aliases()) > 0
+				inputMap["MergeOptsRequired"] = additionalSecretOutputsPresent || aliasesPresent
+				inputMap["AdditionalSecretOutputsPresent"] = additionalSecretOutputsPresent
+				inputMap["AliasesPresent"] = aliasesPresent
+
 				kindPy, err := mustache.RenderFile(
-					fmt.Sprintf("%s/kind.py.mustache", templateDir), kind)
+					fmt.Sprintf("%s/kind.py.mustache", templateDir), inputMap)
 				if err != nil {
 					return err
 				}

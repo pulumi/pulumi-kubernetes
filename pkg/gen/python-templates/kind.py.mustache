@@ -76,24 +76,30 @@ class {{Kind}}(pulumi.CustomResource):
 
         __props__['status'] = None
 
+        {{#AdditionalSecretOutputsPresent}}
         additional_secret_outputs = [
-        {{#AdditionalSecretOutputs}}
+            {{#AdditionalSecretOutputs}}
             "{{.}}",
-        {{/AdditionalSecretOutputs}}
+            {{/AdditionalSecretOutputs}}
         ]
-
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
-            version=version.get_version(), additional_secret_outputs=additional_secret_outputs))
-
+        {{/AdditionalSecretOutputsPresent}}
+        {{#AliasesPresent}}
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-        {{#Aliases}}
+            {{#Aliases}}
             pulumi.Alias(parent=parent, type_="{{.}}", name=resource_name),
-        {{/Aliases}}
+            {{/Aliases}}
         ]
-
+        {{/AliasesPresent}}
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
-            version=version.get_version(), aliases=aliases))
+            version=version.get_version(),
+            {{#AdditionalSecretOutputsPresent}}
+            additional_secret_outputs=additional_secret_outputs,
+            {{/AdditionalSecretOutputsPresent}}
+            {{#AliasesPresent}}
+            aliases=aliases,
+            {{/AliasesPresent}}
+        ))
 
         super({{Kind}}, self).__init__(
             "kubernetes:{{URNAPIVersion}}:{{Kind}}",

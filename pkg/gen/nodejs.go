@@ -73,20 +73,28 @@ func NodeJSClient(swagger map[string]interface{}, templateDir string,
 				if versionTS.Kinds == nil {
 					versionTS.Kinds = make(map[string]string)
 				}
-				kindts, err := mustache.RenderFile(fmt.Sprintf("%s/kind.ts.mustache", templateDir),
-					map[string]interface{}{
-						"Comment":                 kind.Comment(),
-						"Group":                   group.Group(),
-						"Kind":                    kind.Kind(),
-						"Properties":              kind.Properties(),
-						"RequiredInputProperties": kind.RequiredInputProperties(),
-						"OptionalInputProperties": kind.OptionalInputProperties(),
-						"AdditionalSecretOutputs": kind.AdditionalSecretOutputs(),
-						"Aliases":                 kind.Aliases(),
-						"URNAPIVersion":           kind.URNAPIVersion(),
-						"Version":                 version.Version(),
-						"PulumiComment":           kind.pulumiComment,
-					})
+				inputMap := map[string]interface{}{
+					"Comment":                 kind.Comment(),
+					"Group":                   group.Group(),
+					"Kind":                    kind.Kind(),
+					"Properties":              kind.Properties(),
+					"RequiredInputProperties": kind.RequiredInputProperties(),
+					"OptionalInputProperties": kind.OptionalInputProperties(),
+					"AdditionalSecretOutputs": kind.AdditionalSecretOutputs(),
+					"Aliases":                 kind.Aliases(),
+					"URNAPIVersion":           kind.URNAPIVersion(),
+					"Version":                 version.Version(),
+					"PulumiComment":           kind.pulumiComment,
+				}
+				// Since mustache templates are logic-less, we have to add some extra variables
+				// to selectively disable code generation for empty lists.
+				additionalSecretOutputsPresent := len(kind.AdditionalSecretOutputs()) > 0
+				aliasesPresent := len(kind.Aliases()) > 0
+				inputMap["MergeOptsRequired"] = additionalSecretOutputsPresent || aliasesPresent
+				inputMap["AdditionalSecretOutputsPresent"] = additionalSecretOutputsPresent
+				inputMap["AliasesPresent"] = aliasesPresent
+
+				kindts, err := mustache.RenderFile(fmt.Sprintf("%s/kind.ts.mustache", templateDir), inputMap)
 				if err != nil {
 					return "", "", "", "", "", nil, err
 				}

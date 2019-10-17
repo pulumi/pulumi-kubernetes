@@ -114,14 +114,12 @@ import { getVersion } from "../../version";
           }
 
           const _opts = pulumi.mergeOptions(opts, {
-              additionalSecretOutputs: [
-              ],
               aliases: [
                   { parent: opts.parent, type: "kubernetes:apps/v1:StatefulSet", name: name },
                   { parent: opts.parent, type: "kubernetes:apps/v1beta1:StatefulSet", name: name },
                   { parent: opts.parent, type: "kubernetes:apps/v1beta2:StatefulSet", name: name },
                   { parent: opts.parent, type: "kubernetes:extensions/v1beta1:StatefulSet", name: name },
-              ]
+              ],
           });
 
           super(StatefulSet.__pulumiType, name, props, _opts);

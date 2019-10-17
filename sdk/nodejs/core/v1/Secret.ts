@@ -126,8 +126,6 @@ import { getVersion } from "../../version";
                   "data",
                   "stringData",
               ],
-              aliases: [
-              ]
           });
 
           super(Secret.__pulumiType, name, props, _opts);
