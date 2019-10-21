@@ -192,8 +192,16 @@ export class Chart extends yaml.CollectionComponentResource {
                 const namespaceArg = cfg.namespace
                     ? `--namespace ${shell.quote([cfg.namespace])}`
                     : "";
+                let cmd = `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`;
+
+                // Use the HELM_HOME environment variable value if set.
+                const home = process.env.HELM_HOME || undefined;
+                if (home !== undefined) {
+                    cmd += ` --home ${home}`;
+                }
+
                 const yamlStream = execSync(
-                    `helm template ${chart} --name-template ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`,
+                    cmd,
                     {
                         maxBuffer: 512 * 1024 * 1024 // 512 MB
                     },
@@ -394,7 +402,17 @@ export function fetch(chart: string, opts?: ResolvedFetchOpts) {
         // Untar by default.
         if(opts.untar !== false) { flags.push(`--untar`); }
 
-        // For arguments that are not paths to files, it is sufficent to use shell.quote to quote the arguments.
+        // Fallback to using the HELM_HOME environment variable if opts.home is not set.
+        if (opts.home !== undefined) {
+            flags.push(`--home ${path.quotePath(opts.home)}`);
+        } else {
+            const home = process.env.HELM_HOME || undefined;
+            if (home !== undefined) {
+                flags.push(`--home ${home}`);
+            }
+        }
+
+        // For arguments that are not paths to files, it is sufficient to use shell.quote to quote the arguments.
         // However, for arguments that are actual paths to files we use path.quotePath (note that path here is
         // not the node path builtin module). This ensures proper escaping of paths on Windows.
         if (opts.version !== undefined)     { flags.push(`--version ${shell.quote([opts.version])}`);    }
@@ -407,7 +425,6 @@ export function fetch(chart: string, opts?: ResolvedFetchOpts) {
         if (opts.repo !== undefined)        { flags.push(`--repo ${path.quotePath(opts.repo)}`);               }
         if (opts.untardir !== undefined)    { flags.push(`--untardir ${path.quotePath(opts.untardir)}`);       }
         if (opts.username !== undefined)    { flags.push(`--username ${shell.quote([opts.username])}`);  }
-        if (opts.home !== undefined)        { flags.push(`--home ${path.quotePath(opts.home)}`);               }
         if (opts.devel === true)            { flags.push(`--devel`);                                           }
         if (opts.prov === true)             { flags.push(`--prov`);                                            }
         if (opts.verify === true)           { flags.push(`--verify`);                                          }

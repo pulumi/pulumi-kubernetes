@@ -338,10 +338,14 @@ def _parse_chart(all_config: Tuple[str, Union[ChartOpts, LocalChartOpts], pulumi
 
     namespace_arg = ['--namespace', config.namespace] if config.namespace else []
 
+    home = os.environ.get('HELM_HOME')
+    home_arg = ['--home', home] if home else []
+
     # Use 'helm template' to create a combined YAML manifest.
     cmd = ['helm', 'template', chart, '--name-template', release_name,
            '--values', default_values, '--values', overrides_filename]
     cmd.extend(namespace_arg)
+    cmd.extend(home_arg)
 
     chart_resources = pulumi.Output.all(cmd, data).apply(_run_helm_cmd)
 
@@ -359,6 +363,11 @@ def _fetch(chart: str, opts: FetchOpts) -> None:
     # Untar by default.
     if opts.untar is not False:
         cmd.append('--untar')
+
+    if opts.home:
+        cmd.extend(['--home', opts.home])
+    elif os.environ.get('HELM_HOME'):
+        cmd.extend(['--home', os.environ.get('HELM_HOME')])
 
     if opts.version:
         cmd.extend(['--version', opts.version])
@@ -380,8 +389,6 @@ def _fetch(chart: str, opts: FetchOpts) -> None:
         cmd.extend(['--untardir', opts.untar_dir])
     if opts.username:
         cmd.extend(['--username', opts.username])
-    if opts.home:
-        cmd.extend(['--home', opts.home])
     if opts.devel:
         cmd.append('--devel')
     if opts.prov:
