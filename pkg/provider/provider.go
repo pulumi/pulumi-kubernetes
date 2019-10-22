@@ -67,6 +67,7 @@ import (
 // --------------------------------------------------------------------------
 
 const (
+	invokeList           = "kubernetes:kubernetes:list"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialApiVersionKey = "__initialApiVersion"
 )
@@ -359,9 +360,46 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 
 	// Unmarshal arguments.
 	tok := req.GetTok()
+	label := fmt.Sprintf("%s.Invoke(%s)", k.label(), tok)
+	args, err := plugin.UnmarshalProperties(
+		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "failed to unmarshal %v args during an Invoke call", tok)
+	}
 
 	// Process Invoke call.
 	switch tok {
+	case invokeList:
+		namespace := ""
+		if args["namespace"].HasValue() {
+			namespace = args["namespace"].StringValue()
+		}
+		cl, err := k.clientSet.ResourceClient(schema.GroupVersionKind{
+			Group:   args["group"].StringValue(),
+			Version: args["version"].StringValue(),
+			Kind:    args["kind"].StringValue(),
+		}, namespace)
+		if err != nil {
+			return nil, err
+		}
+
+		list, err := cl.List(metav1.ListOptions{})
+		if err != nil {
+			return nil, err
+		}
+
+		objects := []map[string]interface{}{}
+		for _, o := range list.Items {
+			objects = append(objects, o.Object)
+		}
+		resp, err := plugin.MarshalProperties(
+			resource.NewPropertyMapFromMap(map[string]interface{}{"items": objects}),
+			plugin.MarshalOptions{})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.InvokeResponse{Return: resp}, nil
 	default:
 		return nil, fmt.Errorf("Unknown Invoke type '%s'", tok)
 	}
