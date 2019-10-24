@@ -17,7 +17,7 @@ require (
 	github.com/jinzhu/copier v0.0.0-20180308034124-7e38e58719c3
 	github.com/mitchellh/go-wordwrap v1.0.0
 	github.com/pkg/errors v0.8.1
-	github.com/pulumi/pulumi v1.4.1
+	github.com/pulumi/pulumi v1.4.2-0.20191105213231-1fe3f0f46eb6
 	github.com/stretchr/testify v1.3.0
 	golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7 // indirect
 	google.golang.org/grpc v1.20.1
