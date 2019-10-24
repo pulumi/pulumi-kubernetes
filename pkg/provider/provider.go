@@ -68,6 +68,7 @@ import (
 
 const (
 	invokeList           = "kubernetes:kubernetes:list"
+	streamInvokeWatch    = "kubernetes:kubernetes:watch"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialApiVersionKey = "__initialApiVersion"
 )
@@ -374,6 +375,10 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		if args["namespace"].HasValue() {
 			namespace = args["namespace"].StringValue()
 		}
+		if !args["group"].HasValue() || !args["version"].HasValue() || !args["kind"].HasValue() {
+			return nil, fmt.Errorf(
+				"watch requires a group, version, and kind that uniquely specify the resource type")
+		}
 		cl, err := k.clientSet.ResourceClient(schema.GroupVersionKind{
 			Group:   args["group"].StringValue(),
 			Version: args["version"].StringValue(),
@@ -389,8 +394,10 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		}
 
 		objects := []map[string]interface{}{}
-		for _, o := range list.Items {
-			objects = append(objects, o.Object)
+		for i, o := range list.Items {
+			if i == 0 || i == 1 /*|| i == 2*/ {
+				objects = append(objects, o.Object)
+			}
 		}
 		resp, err := plugin.MarshalProperties(
 			resource.NewPropertyMapFromMap(map[string]interface{}{"items": objects}),
@@ -402,6 +409,104 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		return &pulumirpc.InvokeResponse{Return: resp}, nil
 	default:
 		return nil, fmt.Errorf("Unknown Invoke type '%s'", tok)
+	}
+}
+
+// StreamInvoke dynamically executes a built-in function in the provider. The result is streamed
+// back as a series of messages.
+func (k *kubeProvider) StreamInvoke(req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
+	// Unmarshal arguments.
+	tok := req.GetTok()
+	label := fmt.Sprintf("%s.StreamInvoke(%s)", k.label(), tok)
+	args, err := plugin.UnmarshalProperties(
+		req.GetArgs(), plugin.MarshalOptions{Label: label, KeepUnknowns: true})
+	if err != nil {
+		return pkgerrors.Wrapf(err, "failed to unmarshal %v args during an StreamInvoke call", tok)
+	}
+
+	switch tok {
+	case streamInvokeWatch:
+		//
+		// Set up resource watcher.
+		//
+
+		namespace := ""
+		if args["namespace"].HasValue() {
+			namespace = args["namespace"].StringValue()
+		}
+		if !args["group"].HasValue() || !args["version"].HasValue() || !args["kind"].HasValue() {
+			return fmt.Errorf(
+				"watch requires a group, version, and kind that uniquely specify the resource type")
+		}
+		cl, err := k.clientSet.ResourceClient(schema.GroupVersionKind{
+			Group:   args["group"].StringValue(),
+			Version: args["version"].StringValue(),
+			Kind:    args["kind"].StringValue(),
+		}, namespace)
+		if err != nil {
+			return err
+		}
+
+		watch, err := cl.Watch(metav1.ListOptions{})
+		if err != nil {
+			return err
+		}
+
+		//
+		// Watch for resource updates, and stream them back to the caller.
+		//
+
+		for {
+			select {
+			case <-k.canceler.context.Done():
+				//
+				// `kubeProvider#Cancel` was called. Terminate the `StreamInvoke` RPC, free all
+				// resources, and exit without error.
+				//
+
+				watch.Stop()
+				return nil
+			case event := <-watch.ResultChan():
+				//
+				// Kubernetes resource was updated. Publish resource update back to user.
+				//
+
+				resp, err := plugin.MarshalProperties(
+					resource.NewPropertyMapFromMap(
+						map[string]interface{}{
+							"type":   event.Type,
+							"object": event.Object.(*unstructured.Unstructured).Object,
+						}),
+					plugin.MarshalOptions{})
+				if err != nil {
+					return err
+				}
+
+				err = server.Send(&pulumirpc.InvokeResponse{Return: resp})
+				if err != nil {
+					return err
+				}
+			case <-server.Context().Done():
+				//
+				// gRPC stream was cancelled from the client that issued the `StreamInvoke` request
+				// to us. In this case, we terminate the `StreamInvoke` RPC, free all resources, and
+				// exit without error.
+				//
+				// Usually, this happens in the language provider, e.g., in the call to `cancel`
+				// below.
+				//
+				//     const deployments = await streamInvoke("kubernetes:kubernetes:watch", {
+				//         group: "apps", version: "v1", kind: "Deployment",
+				//     });
+				//     deployments.cancel();
+				//
+
+				watch.Stop()
+				return nil
+			}
+		}
+	default:
+		return fmt.Errorf("Unknown Invoke type '%s'", tok)
 	}
 }
 
