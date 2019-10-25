@@ -6,6 +6,10 @@
 - v1.15.x
 - v1.14.x
 
+### Improvements
+
+-   Use `namespace` provided by `KUBECONFIG`, provided it is not explictly set in the provider (https://github.com/pulumi/pulumi-kubernetes/pull/862).
+
 ## 1.2.3 (October 17, 2019)
 
 ### Supported Kubernetes versions
@@ -100,7 +104,7 @@
     (https://github.com/pulumi/pulumi-kubernetes/pull/794).
 -   Fix error reporting
     (https://github.com/pulumi/pulumi-kubernetes/pull/782).
-    
+
 ## 1.0.0 (September 3, 2019)
 
 ### Supported Kubernetes versions
