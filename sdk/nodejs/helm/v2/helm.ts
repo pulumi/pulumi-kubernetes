@@ -194,7 +194,9 @@ export class Chart extends yaml.CollectionComponentResource {
                     : "";
                 const yamlStream = execSync(
                     `helm template ${chart} --name ${release} --values ${defaultValues} --values ${values} ${namespaceArg}`,
-                    { maxBuffer: 512 * 1024 * 1024 },
+                    {
+                        maxBuffer: 512 * 1024 * 1024 // 512 MB
+                    },
                 ).toString();
                 return this.parseTemplate(yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps);
             } catch (e) {
