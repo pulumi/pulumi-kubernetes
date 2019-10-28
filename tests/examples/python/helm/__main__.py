@@ -19,7 +19,19 @@ namespace = Namespace("test")
 
 rs = RandomString("random-string", length=8).result
 
-values = {"unbound": {"image": {"pullPolicy": "Always"}}, "random-string": rs}
+values = {
+    "unbound": {
+        "image": {
+            "pullPolicy": "Always"
+        }
+    },
+    "healthz": {
+        "image": {
+            "repository": "gcr.io/google-containers/exechealthz"
+        }
+    },
+    "random-string": rs
+}
 
 Chart("unbound", ChartOpts(
     "stable/unbound", values=values, namespace=namespace.metadata["name"]))
