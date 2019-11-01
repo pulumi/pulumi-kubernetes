@@ -20,7 +20,10 @@ import * as k8s from "@pulumi/kubernetes";
 //
 
 pulumi.runtime
-    .listResourceOutputs(k8s.core.v1.Pod.isInstance, `moolumi/${pulumi.runtime.getStack()}`)
+    .listResourceOutputs(
+        k8s.core.v1.Pod.isInstance,
+        `moolumi/query-test-c186bcc3-1572-44d8-b7d5-1028853682c3`,
+    )
     .toArray()
     .then(pods => {
         //
