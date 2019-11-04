@@ -36,6 +36,8 @@ func TestQuery(t *testing.T) {
 		Dir:          "step1",
 		Dependencies: []string{"@pulumi/kubernetes"},
 		Quick:        true,
+		StackName:    "query-test-c186bcc3-1572-44d8-b7d5-1028853682c3", // Chosen by fair dice roll. Guaranteed to be random.
+		CloudURL:     "file://~",                                        // Required; we hard-code the stack name
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
