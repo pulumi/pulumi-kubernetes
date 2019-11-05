@@ -6,6 +6,10 @@
 - v1.15.x
 - v1.14.x
 
+### Improvements
+
+-   Increase maxBuffer for helm template exec. (https://github.com/pulumi/pulumi-kubernetes/pull/864).
+
 ## 1.2.3 (October 17, 2019)
 
 ### Supported Kubernetes versions
