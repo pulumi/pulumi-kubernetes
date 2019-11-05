@@ -12,11 +12,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
-// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlock struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
+	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
 	Cidr *string `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
+	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
 	Except []string `pulumi:"except"`
 }
 
@@ -27,11 +27,11 @@ type IPBlockInput interface {
 	ToIPBlockOutputWithContext(context.Context) IPBlockOutput
 }
 
-// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockArgs struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
+	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
 	Cidr pulumi.StringPtrInput `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
+	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
 	Except pulumi.StringArrayInput `pulumi:"except"`
 }
 
@@ -80,7 +80,7 @@ func (i *ipblockPtrType) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBl
 	return pulumi.ToOutputWithContext(ctx, i).(IPBlockPtrOutput)
 }
 
-// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockOutput struct{ *pulumi.OutputState }
 
 func (IPBlockOutput) ElementType() reflect.Type {
@@ -105,12 +105,12 @@ func (o IPBlockOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBloc
 	}).(IPBlockPtrOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
+// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
 func (o IPBlockOutput) Cidr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IPBlock) *string { return v.Cidr }).(pulumi.StringPtrOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
+// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
 }
@@ -133,12 +133,12 @@ func (o IPBlockPtrOutput) Elem() IPBlockOutput {
 	return o.ApplyT(func(v *IPBlock) IPBlock { return *v }).(IPBlockOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
+// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
 func (o IPBlockPtrOutput) Cidr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IPBlock) *string { return v.Cidr }).(pulumi.StringPtrOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
+// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
 }

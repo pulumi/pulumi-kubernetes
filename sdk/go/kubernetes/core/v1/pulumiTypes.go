@@ -2658,6 +2658,8 @@ type ConfigMapType struct {
 	BinaryData map[string]string `pulumi:"binaryData"`
 	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
 	Data map[string]string `pulumi:"data"`
+	// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+	Immutable *bool `pulumi:"immutable"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -2679,6 +2681,8 @@ type ConfigMapTypeArgs struct {
 	BinaryData pulumi.StringMapInput `pulumi:"binaryData"`
 	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
 	Data pulumi.StringMapInput `pulumi:"data"`
+	// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+	Immutable pulumi.BoolPtrInput `pulumi:"immutable"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -2746,6 +2750,11 @@ func (o ConfigMapTypeOutput) BinaryData() pulumi.StringMapOutput {
 // Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
 func (o ConfigMapTypeOutput) Data() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ConfigMapType) map[string]string { return v.Data }).(pulumi.StringMapOutput)
+}
+
+// Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+func (o ConfigMapTypeOutput) Immutable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ConfigMapType) *bool { return v.Immutable }).(pulumi.BoolPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -3655,7 +3664,7 @@ type Container struct {
 	Resources *ResourceRequirements `pulumi:"resources"`
 	// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SecurityContext *SecurityContext `pulumi:"securityContext"`
-	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is an alpha feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	StartupProbe *Probe `pulumi:"startupProbe"`
 	// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
 	Stdin *bool `pulumi:"stdin"`
@@ -3667,7 +3676,7 @@ type Container struct {
 	TerminationMessagePolicy *string `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty *bool `pulumi:"tty"`
-	// volumeDevices is the list of block devices to be used by the container. This is a beta feature.
+	// volumeDevices is the list of block devices to be used by the container.
 	VolumeDevices []VolumeDevice `pulumi:"volumeDevices"`
 	// Pod volumes to mount into the container's filesystem. Cannot be updated.
 	VolumeMounts []VolumeMount `pulumi:"volumeMounts"`
@@ -3710,7 +3719,7 @@ type ContainerArgs struct {
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
 	// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SecurityContext SecurityContextPtrInput `pulumi:"securityContext"`
-	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is an alpha feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	StartupProbe ProbePtrInput `pulumi:"startupProbe"`
 	// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
 	Stdin pulumi.BoolPtrInput `pulumi:"stdin"`
@@ -3722,7 +3731,7 @@ type ContainerArgs struct {
 	TerminationMessagePolicy pulumi.StringPtrInput `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty pulumi.BoolPtrInput `pulumi:"tty"`
-	// volumeDevices is the list of block devices to be used by the container. This is a beta feature.
+	// volumeDevices is the list of block devices to be used by the container.
 	VolumeDevices VolumeDeviceArrayInput `pulumi:"volumeDevices"`
 	// Pod volumes to mount into the container's filesystem. Cannot be updated.
 	VolumeMounts VolumeMountArrayInput `pulumi:"volumeMounts"`
@@ -3843,7 +3852,7 @@ func (o ContainerOutput) SecurityContext() SecurityContextPtrOutput {
 	return o.ApplyT(func(v Container) *SecurityContext { return v.SecurityContext }).(SecurityContextPtrOutput)
 }
 
-// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is an alpha feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 func (o ContainerOutput) StartupProbe() ProbePtrOutput {
 	return o.ApplyT(func(v Container) *Probe { return v.StartupProbe }).(ProbePtrOutput)
 }
@@ -3873,7 +3882,7 @@ func (o ContainerOutput) Tty() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v Container) *bool { return v.Tty }).(pulumi.BoolPtrOutput)
 }
 
-// volumeDevices is the list of block devices to be used by the container. This is a beta feature.
+// volumeDevices is the list of block devices to be used by the container.
 func (o ContainerOutput) VolumeDevices() VolumeDeviceArrayOutput {
 	return o.ApplyT(func(v Container) []VolumeDevice { return v.VolumeDevices }).(VolumeDeviceArrayOutput)
 }
@@ -5631,6 +5640,8 @@ func (o EndpointAddressArrayOutput) Index(i pulumi.IntInput) EndpointAddressOutp
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPort struct {
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name *string `pulumi:"name"`
 	// The port number of the endpoint.
@@ -5648,6 +5659,8 @@ type EndpointPortInput interface {
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPortArgs struct {
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// The port number of the endpoint.
@@ -5702,6 +5715,11 @@ func (o EndpointPortOutput) ToEndpointPortOutput() EndpointPortOutput {
 
 func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context) EndpointPortOutput {
 	return o
+}
+
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+func (o EndpointPortOutput) AppProtocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointPort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
 
 // The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
@@ -6521,7 +6539,7 @@ type EphemeralContainer struct {
 	TerminationMessagePolicy *string `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty *bool `pulumi:"tty"`
-	// volumeDevices is the list of block devices to be used by the container. This is a beta feature.
+	// volumeDevices is the list of block devices to be used by the container.
 	VolumeDevices []VolumeDevice `pulumi:"volumeDevices"`
 	// Pod volumes to mount into the container's filesystem. Cannot be updated.
 	VolumeMounts []VolumeMount `pulumi:"volumeMounts"`
@@ -6578,7 +6596,7 @@ type EphemeralContainerArgs struct {
 	TerminationMessagePolicy pulumi.StringPtrInput `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty pulumi.BoolPtrInput `pulumi:"tty"`
-	// volumeDevices is the list of block devices to be used by the container. This is a beta feature.
+	// volumeDevices is the list of block devices to be used by the container.
 	VolumeDevices VolumeDeviceArrayInput `pulumi:"volumeDevices"`
 	// Pod volumes to mount into the container's filesystem. Cannot be updated.
 	VolumeMounts VolumeMountArrayInput `pulumi:"volumeMounts"`
@@ -6734,7 +6752,7 @@ func (o EphemeralContainerOutput) Tty() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *bool { return v.Tty }).(pulumi.BoolPtrOutput)
 }
 
-// volumeDevices is the list of block devices to be used by the container. This is a beta feature.
+// volumeDevices is the list of block devices to be used by the container.
 func (o EphemeralContainerOutput) VolumeDevices() VolumeDeviceArrayOutput {
 	return o.ApplyT(func(v EphemeralContainer) []VolumeDevice { return v.VolumeDevices }).(VolumeDeviceArrayOutput)
 }
@@ -14742,7 +14760,7 @@ func (o PersistentVolumeClaimListTypeOutput) Metadata() metav1.ListMetaPtrOutput
 type PersistentVolumeClaimSpec struct {
 	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes []string `pulumi:"accessModes"`
-	// This field requires the VolumeSnapshotDataSource alpha feature gate to be enabled and currently VolumeSnapshot is the only supported data source. If the provisioner can support VolumeSnapshot data source, it will create a new volume and data will be restored to the volume at the same time. If the provisioner does not support VolumeSnapshot data source, volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
 	DataSource *TypedLocalObjectReference `pulumi:"dataSource"`
 	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources *ResourceRequirements `pulumi:"resources"`
@@ -14750,7 +14768,7 @@ type PersistentVolumeClaimSpec struct {
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 	StorageClassName *string `pulumi:"storageClassName"`
-	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec. This is a beta feature.
+	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode *string `pulumi:"volumeMode"`
 	// VolumeName is the binding reference to the PersistentVolume backing this claim.
 	VolumeName *string `pulumi:"volumeName"`
@@ -14767,7 +14785,7 @@ type PersistentVolumeClaimSpecInput interface {
 type PersistentVolumeClaimSpecArgs struct {
 	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// This field requires the VolumeSnapshotDataSource alpha feature gate to be enabled and currently VolumeSnapshot is the only supported data source. If the provisioner can support VolumeSnapshot data source, it will create a new volume and data will be restored to the volume at the same time. If the provisioner does not support VolumeSnapshot data source, volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
 	DataSource TypedLocalObjectReferencePtrInput `pulumi:"dataSource"`
 	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
@@ -14775,7 +14793,7 @@ type PersistentVolumeClaimSpecArgs struct {
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
-	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec. This is a beta feature.
+	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
 	// VolumeName is the binding reference to the PersistentVolume backing this claim.
 	VolumeName pulumi.StringPtrInput `pulumi:"volumeName"`
@@ -14856,7 +14874,7 @@ func (o PersistentVolumeClaimSpecOutput) AccessModes() pulumi.StringArrayOutput 
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// This field requires the VolumeSnapshotDataSource alpha feature gate to be enabled and currently VolumeSnapshot is the only supported data source. If the provisioner can support VolumeSnapshot data source, it will create a new volume and data will be restored to the volume at the same time. If the provisioner does not support VolumeSnapshot data source, volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
 func (o PersistentVolumeClaimSpecOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSource }).(TypedLocalObjectReferencePtrOutput)
 }
@@ -14876,7 +14894,7 @@ func (o PersistentVolumeClaimSpecOutput) StorageClassName() pulumi.StringPtrOutp
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *string { return v.StorageClassName }).(pulumi.StringPtrOutput)
 }
 
-// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec. This is a beta feature.
+// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 func (o PersistentVolumeClaimSpecOutput) VolumeMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
 }
@@ -14909,7 +14927,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) AccessModes() pulumi.StringArrayOutp
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// This field requires the VolumeSnapshotDataSource alpha feature gate to be enabled and currently VolumeSnapshot is the only supported data source. If the provisioner can support VolumeSnapshot data source, it will create a new volume and data will be restored to the volume at the same time. If the provisioner does not support VolumeSnapshot data source, volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
+// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change.
 func (o PersistentVolumeClaimSpecPtrOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSource }).(TypedLocalObjectReferencePtrOutput)
 }
@@ -14929,7 +14947,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) StorageClassName() pulumi.StringPtrO
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *string { return v.StorageClassName }).(pulumi.StringPtrOutput)
 }
 
-// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec. This is a beta feature.
+// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 func (o PersistentVolumeClaimSpecPtrOutput) VolumeMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
 }
@@ -15365,7 +15383,7 @@ type PersistentVolumeSpec struct {
 	StorageClassName *string `pulumi:"storageClassName"`
 	// StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos *StorageOSPersistentVolumeSource `pulumi:"storageos"`
-	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec. This is a beta feature.
+	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode *string `pulumi:"volumeMode"`
 	// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 	VsphereVolume *VsphereVirtualDiskVolumeSource `pulumi:"vsphereVolume"`
@@ -15436,7 +15454,7 @@ type PersistentVolumeSpecArgs struct {
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
 	// StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos StorageOSPersistentVolumeSourcePtrInput `pulumi:"storageos"`
-	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec. This is a beta feature.
+	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
 	// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 	VsphereVolume VsphereVirtualDiskVolumeSourcePtrInput `pulumi:"vsphereVolume"`
@@ -15652,7 +15670,7 @@ func (o PersistentVolumeSpecOutput) Storageos() StorageOSPersistentVolumeSourceP
 	return o.ApplyT(func(v PersistentVolumeSpec) *StorageOSPersistentVolumeSource { return v.Storageos }).(StorageOSPersistentVolumeSourcePtrOutput)
 }
 
-// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec. This is a beta feature.
+// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 func (o PersistentVolumeSpecOutput) VolumeMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
 }
@@ -15820,7 +15838,7 @@ func (o PersistentVolumeSpecPtrOutput) Storageos() StorageOSPersistentVolumeSour
 	return o.ApplyT(func(v PersistentVolumeSpec) *StorageOSPersistentVolumeSource { return v.Storageos }).(StorageOSPersistentVolumeSourcePtrOutput)
 }
 
-// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec. This is a beta feature.
+// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 func (o PersistentVolumeSpecPtrOutput) VolumeMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
 }
@@ -17343,6 +17361,8 @@ type PodSecurityContext struct {
 	//
 	// If unset, the Kubelet will not modify the ownership and permissions of any volume.
 	FsGroup *int `pulumi:"fsGroup"`
+	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+	FsGroupChangePolicy *string `pulumi:"fsGroupChangePolicy"`
 	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 	RunAsGroup *int `pulumi:"runAsGroup"`
 	// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
@@ -17374,6 +17394,8 @@ type PodSecurityContextArgs struct {
 	//
 	// If unset, the Kubelet will not modify the ownership and permissions of any volume.
 	FsGroup pulumi.IntPtrInput `pulumi:"fsGroup"`
+	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+	FsGroupChangePolicy pulumi.StringPtrInput `pulumi:"fsGroupChangePolicy"`
 	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 	RunAsGroup pulumi.IntPtrInput `pulumi:"runAsGroup"`
 	// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
@@ -17469,6 +17491,11 @@ func (o PodSecurityContextOutput) FsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *int { return v.FsGroup }).(pulumi.IntPtrOutput)
 }
 
+// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+func (o PodSecurityContextOutput) FsGroupChangePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodSecurityContext) *string { return v.FsGroupChangePolicy }).(pulumi.StringPtrOutput)
+}
+
 // The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
 func (o PodSecurityContextOutput) RunAsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *int { return v.RunAsGroup }).(pulumi.IntPtrOutput)
@@ -17529,6 +17556,11 @@ func (o PodSecurityContextPtrOutput) Elem() PodSecurityContextOutput {
 // If unset, the Kubelet will not modify the ownership and permissions of any volume.
 func (o PodSecurityContextPtrOutput) FsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *int { return v.FsGroup }).(pulumi.IntPtrOutput)
+}
+
+// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified defaults to "Always".
+func (o PodSecurityContextPtrOutput) FsGroupChangePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodSecurityContext) *string { return v.FsGroupChangePolicy }).(pulumi.StringPtrOutput)
 }
 
 // The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
@@ -17632,7 +17664,7 @@ type PodSpec struct {
 	TerminationGracePeriodSeconds *int `pulumi:"terminationGracePeriodSeconds"`
 	// If specified, the pod's tolerations.
 	Tolerations []Toleration `pulumi:"tolerations"`
-	// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is alpha-level and is only honored by clusters that enables the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+	// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
 	TopologySpreadConstraints []TopologySpreadConstraint `pulumi:"topologySpreadConstraints"`
 	// List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
 	Volumes []Volume `pulumi:"volumes"`
@@ -17711,7 +17743,7 @@ type PodSpecArgs struct {
 	TerminationGracePeriodSeconds pulumi.IntPtrInput `pulumi:"terminationGracePeriodSeconds"`
 	// If specified, the pod's tolerations.
 	Tolerations TolerationArrayInput `pulumi:"tolerations"`
-	// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is alpha-level and is only honored by clusters that enables the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+	// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
 	TopologySpreadConstraints TopologySpreadConstraintArrayInput `pulumi:"topologySpreadConstraints"`
 	// List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
 	Volumes VolumeArrayInput `pulumi:"volumes"`
@@ -17947,7 +17979,7 @@ func (o PodSpecOutput) Tolerations() TolerationArrayOutput {
 	return o.ApplyT(func(v PodSpec) []Toleration { return v.Tolerations }).(TolerationArrayOutput)
 }
 
-// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is alpha-level and is only honored by clusters that enables the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
 func (o PodSpecOutput) TopologySpreadConstraints() TopologySpreadConstraintArrayOutput {
 	return o.ApplyT(func(v PodSpec) []TopologySpreadConstraint { return v.TopologySpreadConstraints }).(TopologySpreadConstraintArrayOutput)
 }
@@ -18135,7 +18167,7 @@ func (o PodSpecPtrOutput) Tolerations() TolerationArrayOutput {
 	return o.ApplyT(func(v PodSpec) []Toleration { return v.Tolerations }).(TolerationArrayOutput)
 }
 
-// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is alpha-level and is only honored by clusters that enables the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
+// TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.
 func (o PodSpecPtrOutput) TopologySpreadConstraints() TopologySpreadConstraintArrayOutput {
 	return o.ApplyT(func(v PodSpec) []TopologySpreadConstraint { return v.TopologySpreadConstraints }).(TopologySpreadConstraintArrayOutput)
 }
@@ -22299,6 +22331,8 @@ type SecretType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
 	Data map[string]string `pulumi:"data"`
+	// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+	Immutable *bool `pulumi:"immutable"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -22322,6 +22356,8 @@ type SecretTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
 	Data pulumi.StringMapInput `pulumi:"data"`
+	// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+	Immutable pulumi.BoolPtrInput `pulumi:"immutable"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -22388,6 +22424,11 @@ func (o SecretTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 // Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
 func (o SecretTypeOutput) Data() pulumi.StringMapOutput {
 	return o.ApplyT(func(v SecretType) map[string]string { return v.Data }).(pulumi.StringMapOutput)
+}
+
+// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.
+func (o SecretTypeOutput) Immutable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v SecretType) *bool { return v.Immutable }).(pulumi.BoolPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -24048,6 +24089,8 @@ func (o ServiceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // ServicePort contains information on service's port.
 type ServicePort struct {
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name *string `pulumi:"name"`
 	// The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
@@ -24069,6 +24112,8 @@ type ServicePortInput interface {
 
 // ServicePort contains information on service's port.
 type ServicePortArgs struct {
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
@@ -24127,6 +24172,11 @@ func (o ServicePortOutput) ToServicePortOutput() ServicePortOutput {
 
 func (o ServicePortOutput) ToServicePortOutputWithContext(ctx context.Context) ServicePortOutput {
 	return o
+}
+
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.
+func (o ServicePortOutput) AppProtocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ServicePort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
 
 // The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
@@ -25307,7 +25357,7 @@ type Taint struct {
 	Key *string `pulumi:"key"`
 	// TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
 	TimeAdded *string `pulumi:"timeAdded"`
-	// Required. The taint value corresponding to the taint key.
+	// The taint value corresponding to the taint key.
 	Value *string `pulumi:"value"`
 }
 
@@ -25326,7 +25376,7 @@ type TaintArgs struct {
 	Key pulumi.StringPtrInput `pulumi:"key"`
 	// TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
 	TimeAdded pulumi.StringPtrInput `pulumi:"timeAdded"`
-	// Required. The taint value corresponding to the taint key.
+	// The taint value corresponding to the taint key.
 	Value pulumi.StringPtrInput `pulumi:"value"`
 }
 
@@ -25393,7 +25443,7 @@ func (o TaintOutput) TimeAdded() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Taint) *string { return v.TimeAdded }).(pulumi.StringPtrOutput)
 }
 
-// Required. The taint value corresponding to the taint key.
+// The taint value corresponding to the taint key.
 func (o TaintOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Taint) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
@@ -27083,11 +27133,11 @@ func (o WeightedPodAffinityTermArrayOutput) Index(i pulumi.IntInput) WeightedPod
 
 // WindowsSecurityContextOptions contain Windows-specific options and credentials.
 type WindowsSecurityContextOptions struct {
-	// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+	// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
 	GmsaCredentialSpec *string `pulumi:"gmsaCredentialSpec"`
-	// GMSACredentialSpecName is the name of the GMSA credential spec to use. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+	// GMSACredentialSpecName is the name of the GMSA credential spec to use.
 	GmsaCredentialSpecName *string `pulumi:"gmsaCredentialSpecName"`
-	// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. This field is beta-level and may be disabled with the WindowsRunAsUserName feature flag.
+	// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	RunAsUserName *string `pulumi:"runAsUserName"`
 }
 
@@ -27100,11 +27150,11 @@ type WindowsSecurityContextOptionsInput interface {
 
 // WindowsSecurityContextOptions contain Windows-specific options and credentials.
 type WindowsSecurityContextOptionsArgs struct {
-	// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+	// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
 	GmsaCredentialSpec pulumi.StringPtrInput `pulumi:"gmsaCredentialSpec"`
-	// GMSACredentialSpecName is the name of the GMSA credential spec to use. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+	// GMSACredentialSpecName is the name of the GMSA credential spec to use.
 	GmsaCredentialSpecName pulumi.StringPtrInput `pulumi:"gmsaCredentialSpecName"`
-	// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. This field is beta-level and may be disabled with the WindowsRunAsUserName feature flag.
+	// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	RunAsUserName pulumi.StringPtrInput `pulumi:"runAsUserName"`
 }
 
@@ -27178,17 +27228,17 @@ func (o WindowsSecurityContextOptionsOutput) ToWindowsSecurityContextOptionsPtrO
 	}).(WindowsSecurityContextOptionsPtrOutput)
 }
 
-// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
 func (o WindowsSecurityContextOptionsOutput) GmsaCredentialSpec() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WindowsSecurityContextOptions) *string { return v.GmsaCredentialSpec }).(pulumi.StringPtrOutput)
 }
 
-// GMSACredentialSpecName is the name of the GMSA credential spec to use. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+// GMSACredentialSpecName is the name of the GMSA credential spec to use.
 func (o WindowsSecurityContextOptionsOutput) GmsaCredentialSpecName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WindowsSecurityContextOptions) *string { return v.GmsaCredentialSpecName }).(pulumi.StringPtrOutput)
 }
 
-// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. This field is beta-level and may be disabled with the WindowsRunAsUserName feature flag.
+// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 func (o WindowsSecurityContextOptionsOutput) RunAsUserName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WindowsSecurityContextOptions) *string { return v.RunAsUserName }).(pulumi.StringPtrOutput)
 }
@@ -27211,17 +27261,17 @@ func (o WindowsSecurityContextOptionsPtrOutput) Elem() WindowsSecurityContextOpt
 	return o.ApplyT(func(v *WindowsSecurityContextOptions) WindowsSecurityContextOptions { return *v }).(WindowsSecurityContextOptionsOutput)
 }
 
-// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
 func (o WindowsSecurityContextOptionsPtrOutput) GmsaCredentialSpec() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WindowsSecurityContextOptions) *string { return v.GmsaCredentialSpec }).(pulumi.StringPtrOutput)
 }
 
-// GMSACredentialSpecName is the name of the GMSA credential spec to use. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.
+// GMSACredentialSpecName is the name of the GMSA credential spec to use.
 func (o WindowsSecurityContextOptionsPtrOutput) GmsaCredentialSpecName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WindowsSecurityContextOptions) *string { return v.GmsaCredentialSpecName }).(pulumi.StringPtrOutput)
 }
 
-// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. This field is beta-level and may be disabled with the WindowsRunAsUserName feature flag.
+// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 func (o WindowsSecurityContextOptionsPtrOutput) RunAsUserName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WindowsSecurityContextOptions) *string { return v.RunAsUserName }).(pulumi.StringPtrOutput)
 }

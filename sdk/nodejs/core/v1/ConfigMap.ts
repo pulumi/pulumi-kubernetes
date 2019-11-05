@@ -36,6 +36,14 @@ import { getVersion } from "../../version";
       public readonly data: pulumi.Output<{[key: string]: pulumi.Output<string>}>;
 
       /**
+       * Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated
+       * (only object metadata can be modified). If not set to true, the field can be modified at
+       * any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes
+       * feature gate.
+       */
+      public readonly immutable: pulumi.Output<boolean>;
+
+      /**
        * Kind is a string value representing the REST resource this object represents. Servers may
        * infer this from the endpoint the client submits requests to. Cannot be updated. In
        * CamelCase. More info:
@@ -92,6 +100,7 @@ import { getVersion } from "../../version";
           props["apiVersion"] = "v1";
           props["binaryData"] = args?.binaryData;
           props["data"] = args?.data;
+          props["immutable"] = args?.immutable;
           props["kind"] = "ConfigMap";
           props["metadata"] = args?.metadata;
 

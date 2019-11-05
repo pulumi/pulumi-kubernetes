@@ -13,12 +13,24 @@ import (
 	"github.com/pulumi/pulumi/sdk/go/pulumi"
 )
 
-// HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+// HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPath struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend *IngressBackend `pulumi:"backend"`
-	// Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
+	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
 	Path *string `pulumi:"path"`
+	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+	//   done on a path element by element basis. A path element refers is the
+	//   list of labels in the path split by the '/' separator. A request is a
+	//   match for path p if every p is an element-wise prefix of p of the
+	//   request path. Note that if the last element of the path is a substring
+	//   of the last element in request path, it is not a match (e.g. /foo/bar
+	//   matches /foo/bar/baz, but does not match /foo/barbaz).
+	// * ImplementationSpecific: Interpretation of the Path matching is up to
+	//   the IngressClass. Implementations can treat this as a separate PathType
+	//   or treat it identically to Prefix or Exact path types.
+	// Implementations are required to support all path types. Defaults to ImplementationSpecific.
+	PathType *string `pulumi:"pathType"`
 }
 
 type HTTPIngressPathInput interface {
@@ -28,12 +40,24 @@ type HTTPIngressPathInput interface {
 	ToHTTPIngressPathOutputWithContext(context.Context) HTTPIngressPathOutput
 }
 
-// HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+// HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPathArgs struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackendPtrInput `pulumi:"backend"`
-	// Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
+	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
 	Path pulumi.StringPtrInput `pulumi:"path"`
+	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+	//   done on a path element by element basis. A path element refers is the
+	//   list of labels in the path split by the '/' separator. A request is a
+	//   match for path p if every p is an element-wise prefix of p of the
+	//   request path. Note that if the last element of the path is a substring
+	//   of the last element in request path, it is not a match (e.g. /foo/bar
+	//   matches /foo/bar/baz, but does not match /foo/barbaz).
+	// * ImplementationSpecific: Interpretation of the Path matching is up to
+	//   the IngressClass. Implementations can treat this as a separate PathType
+	//   or treat it identically to Prefix or Exact path types.
+	// Implementations are required to support all path types. Defaults to ImplementationSpecific.
+	PathType pulumi.StringPtrInput `pulumi:"pathType"`
 }
 
 func (HTTPIngressPathArgs) ElementType() reflect.Type {
@@ -69,7 +93,7 @@ func (i HTTPIngressPathArray) ToHTTPIngressPathArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(HTTPIngressPathArrayOutput)
 }
 
-// HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
+// HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPathOutput struct{ *pulumi.OutputState }
 
 func (HTTPIngressPathOutput) ElementType() reflect.Type {
@@ -89,9 +113,24 @@ func (o HTTPIngressPathOutput) Backend() IngressBackendPtrOutput {
 	return o.ApplyT(func(v HTTPIngressPath) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
 }
 
-// Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
+// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
 func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPIngressPath) *string { return v.Path }).(pulumi.StringPtrOutput)
+}
+
+// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+//   done on a path element by element basis. A path element refers is the
+//   list of labels in the path split by the '/' separator. A request is a
+//   match for path p if every p is an element-wise prefix of p of the
+//   request path. Note that if the last element of the path is a substring
+//   of the last element in request path, it is not a match (e.g. /foo/bar
+//   matches /foo/bar/baz, but does not match /foo/barbaz).
+// * ImplementationSpecific: Interpretation of the Path matching is up to
+//   the IngressClass. Implementations can treat this as a separate PathType
+//   or treat it identically to Prefix or Exact path types.
+// Implementations are required to support all path types. Defaults to ImplementationSpecific.
+func (o HTTPIngressPathOutput) PathType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HTTPIngressPath) *string { return v.PathType }).(pulumi.StringPtrOutput)
 }
 
 type HTTPIngressPathArrayOutput struct{ *pulumi.OutputState }
@@ -361,6 +400,8 @@ func (o IngressTypeArrayOutput) Index(i pulumi.IntInput) IngressTypeOutput {
 
 // IngressBackend describes all endpoints for a given service and port.
 type IngressBackend struct {
+	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
+	Resource *corev1.TypedLocalObjectReference `pulumi:"resource"`
 	// Specifies the name of the referenced service.
 	ServiceName *string `pulumi:"serviceName"`
 	// Specifies the port of the referenced service.
@@ -376,6 +417,8 @@ type IngressBackendInput interface {
 
 // IngressBackend describes all endpoints for a given service and port.
 type IngressBackendArgs struct {
+	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
+	Resource corev1.TypedLocalObjectReferencePtrInput `pulumi:"resource"`
 	// Specifies the name of the referenced service.
 	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
 	// Specifies the port of the referenced service.
@@ -452,6 +495,11 @@ func (o IngressBackendOutput) ToIngressBackendPtrOutputWithContext(ctx context.C
 	}).(IngressBackendPtrOutput)
 }
 
+// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
+func (o IngressBackendOutput) Resource() corev1.TypedLocalObjectReferencePtrOutput {
+	return o.ApplyT(func(v IngressBackend) *corev1.TypedLocalObjectReference { return v.Resource }).(corev1.TypedLocalObjectReferencePtrOutput)
+}
+
 // Specifies the name of the referenced service.
 func (o IngressBackendOutput) ServiceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressBackend) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
@@ -480,6 +528,11 @@ func (o IngressBackendPtrOutput) Elem() IngressBackendOutput {
 	return o.ApplyT(func(v *IngressBackend) IngressBackend { return *v }).(IngressBackendOutput)
 }
 
+// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
+func (o IngressBackendPtrOutput) Resource() corev1.TypedLocalObjectReferencePtrOutput {
+	return o.ApplyT(func(v IngressBackend) *corev1.TypedLocalObjectReference { return v.Resource }).(corev1.TypedLocalObjectReferencePtrOutput)
+}
+
 // Specifies the name of the referenced service.
 func (o IngressBackendPtrOutput) ServiceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressBackend) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
@@ -488,6 +541,334 @@ func (o IngressBackendPtrOutput) ServiceName() pulumi.StringPtrOutput {
 // Specifies the port of the referenced service.
 func (o IngressBackendPtrOutput) ServicePort() pulumi.AnyOutput {
 	return o.ApplyT(func(v IngressBackend) interface{} { return v.ServicePort }).(pulumi.AnyOutput)
+}
+
+// IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+type IngressClassType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *IngressClassSpec `pulumi:"spec"`
+}
+
+type IngressClassTypeInput interface {
+	pulumi.Input
+
+	ToIngressClassTypeOutput() IngressClassTypeOutput
+	ToIngressClassTypeOutputWithContext(context.Context) IngressClassTypeOutput
+}
+
+// IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+type IngressClassTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec IngressClassSpecPtrInput `pulumi:"spec"`
+}
+
+func (IngressClassTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassType)(nil)).Elem()
+}
+
+func (i IngressClassTypeArgs) ToIngressClassTypeOutput() IngressClassTypeOutput {
+	return i.ToIngressClassTypeOutputWithContext(context.Background())
+}
+
+func (i IngressClassTypeArgs) ToIngressClassTypeOutputWithContext(ctx context.Context) IngressClassTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassTypeOutput)
+}
+
+type IngressClassTypeArrayInput interface {
+	pulumi.Input
+
+	ToIngressClassTypeArrayOutput() IngressClassTypeArrayOutput
+	ToIngressClassTypeArrayOutputWithContext(context.Context) IngressClassTypeArrayOutput
+}
+
+type IngressClassTypeArray []IngressClassTypeInput
+
+func (IngressClassTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressClassType)(nil)).Elem()
+}
+
+func (i IngressClassTypeArray) ToIngressClassTypeArrayOutput() IngressClassTypeArrayOutput {
+	return i.ToIngressClassTypeArrayOutputWithContext(context.Background())
+}
+
+func (i IngressClassTypeArray) ToIngressClassTypeArrayOutputWithContext(ctx context.Context) IngressClassTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassTypeArrayOutput)
+}
+
+// IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
+type IngressClassTypeOutput struct{ *pulumi.OutputState }
+
+func (IngressClassTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassType)(nil)).Elem()
+}
+
+func (o IngressClassTypeOutput) ToIngressClassTypeOutput() IngressClassTypeOutput {
+	return o
+}
+
+func (o IngressClassTypeOutput) ToIngressClassTypeOutputWithContext(ctx context.Context) IngressClassTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o IngressClassTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o IngressClassTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o IngressClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v IngressClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o IngressClassTypeOutput) Spec() IngressClassSpecPtrOutput {
+	return o.ApplyT(func(v IngressClassType) *IngressClassSpec { return v.Spec }).(IngressClassSpecPtrOutput)
+}
+
+type IngressClassTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (IngressClassTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressClassType)(nil)).Elem()
+}
+
+func (o IngressClassTypeArrayOutput) ToIngressClassTypeArrayOutput() IngressClassTypeArrayOutput {
+	return o
+}
+
+func (o IngressClassTypeArrayOutput) ToIngressClassTypeArrayOutputWithContext(ctx context.Context) IngressClassTypeArrayOutput {
+	return o
+}
+
+func (o IngressClassTypeArrayOutput) Index(i pulumi.IntInput) IngressClassTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressClassType {
+		return vs[0].([]IngressClassType)[vs[1].(int)]
+	}).(IngressClassTypeOutput)
+}
+
+// IngressClassList is a collection of IngressClasses.
+type IngressClassListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of IngressClasses.
+	Items []IngressClassType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata.
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+type IngressClassListTypeInput interface {
+	pulumi.Input
+
+	ToIngressClassListTypeOutput() IngressClassListTypeOutput
+	ToIngressClassListTypeOutputWithContext(context.Context) IngressClassListTypeOutput
+}
+
+// IngressClassList is a collection of IngressClasses.
+type IngressClassListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of IngressClasses.
+	Items IngressClassTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata.
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (IngressClassListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassListType)(nil)).Elem()
+}
+
+func (i IngressClassListTypeArgs) ToIngressClassListTypeOutput() IngressClassListTypeOutput {
+	return i.ToIngressClassListTypeOutputWithContext(context.Background())
+}
+
+func (i IngressClassListTypeArgs) ToIngressClassListTypeOutputWithContext(ctx context.Context) IngressClassListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassListTypeOutput)
+}
+
+// IngressClassList is a collection of IngressClasses.
+type IngressClassListTypeOutput struct{ *pulumi.OutputState }
+
+func (IngressClassListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassListType)(nil)).Elem()
+}
+
+func (o IngressClassListTypeOutput) ToIngressClassListTypeOutput() IngressClassListTypeOutput {
+	return o
+}
+
+func (o IngressClassListTypeOutput) ToIngressClassListTypeOutputWithContext(ctx context.Context) IngressClassListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o IngressClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of IngressClasses.
+func (o IngressClassListTypeOutput) Items() IngressClassTypeArrayOutput {
+	return o.ApplyT(func(v IngressClassListType) []IngressClassType { return v.Items }).(IngressClassTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o IngressClassListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata.
+func (o IngressClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v IngressClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// IngressClassSpec provides information about the class of an Ingress.
+type IngressClassSpec struct {
+	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+	Controller *string `pulumi:"controller"`
+	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+	Parameters *corev1.TypedLocalObjectReference `pulumi:"parameters"`
+}
+
+type IngressClassSpecInput interface {
+	pulumi.Input
+
+	ToIngressClassSpecOutput() IngressClassSpecOutput
+	ToIngressClassSpecOutputWithContext(context.Context) IngressClassSpecOutput
+}
+
+// IngressClassSpec provides information about the class of an Ingress.
+type IngressClassSpecArgs struct {
+	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+	Controller pulumi.StringPtrInput `pulumi:"controller"`
+	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+	Parameters corev1.TypedLocalObjectReferencePtrInput `pulumi:"parameters"`
+}
+
+func (IngressClassSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassSpec)(nil)).Elem()
+}
+
+func (i IngressClassSpecArgs) ToIngressClassSpecOutput() IngressClassSpecOutput {
+	return i.ToIngressClassSpecOutputWithContext(context.Background())
+}
+
+func (i IngressClassSpecArgs) ToIngressClassSpecOutputWithContext(ctx context.Context) IngressClassSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassSpecOutput)
+}
+
+func (i IngressClassSpecArgs) ToIngressClassSpecPtrOutput() IngressClassSpecPtrOutput {
+	return i.ToIngressClassSpecPtrOutputWithContext(context.Background())
+}
+
+func (i IngressClassSpecArgs) ToIngressClassSpecPtrOutputWithContext(ctx context.Context) IngressClassSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassSpecOutput).ToIngressClassSpecPtrOutputWithContext(ctx)
+}
+
+type IngressClassSpecPtrInput interface {
+	pulumi.Input
+
+	ToIngressClassSpecPtrOutput() IngressClassSpecPtrOutput
+	ToIngressClassSpecPtrOutputWithContext(context.Context) IngressClassSpecPtrOutput
+}
+
+type ingressClassSpecPtrType IngressClassSpecArgs
+
+func IngressClassSpecPtr(v *IngressClassSpecArgs) IngressClassSpecPtrInput {
+	return (*ingressClassSpecPtrType)(v)
+}
+
+func (*ingressClassSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressClassSpec)(nil)).Elem()
+}
+
+func (i *ingressClassSpecPtrType) ToIngressClassSpecPtrOutput() IngressClassSpecPtrOutput {
+	return i.ToIngressClassSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *ingressClassSpecPtrType) ToIngressClassSpecPtrOutputWithContext(ctx context.Context) IngressClassSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressClassSpecPtrOutput)
+}
+
+// IngressClassSpec provides information about the class of an Ingress.
+type IngressClassSpecOutput struct{ *pulumi.OutputState }
+
+func (IngressClassSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressClassSpec)(nil)).Elem()
+}
+
+func (o IngressClassSpecOutput) ToIngressClassSpecOutput() IngressClassSpecOutput {
+	return o
+}
+
+func (o IngressClassSpecOutput) ToIngressClassSpecOutputWithContext(ctx context.Context) IngressClassSpecOutput {
+	return o
+}
+
+func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutput() IngressClassSpecPtrOutput {
+	return o.ToIngressClassSpecPtrOutputWithContext(context.Background())
+}
+
+func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutputWithContext(ctx context.Context) IngressClassSpecPtrOutput {
+	return o.ApplyT(func(v IngressClassSpec) *IngressClassSpec {
+		return &v
+	}).(IngressClassSpecPtrOutput)
+}
+
+// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+func (o IngressClassSpecOutput) Controller() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassSpec) *string { return v.Controller }).(pulumi.StringPtrOutput)
+}
+
+// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+func (o IngressClassSpecOutput) Parameters() corev1.TypedLocalObjectReferencePtrOutput {
+	return o.ApplyT(func(v IngressClassSpec) *corev1.TypedLocalObjectReference { return v.Parameters }).(corev1.TypedLocalObjectReferencePtrOutput)
+}
+
+type IngressClassSpecPtrOutput struct{ *pulumi.OutputState }
+
+func (IngressClassSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressClassSpec)(nil)).Elem()
+}
+
+func (o IngressClassSpecPtrOutput) ToIngressClassSpecPtrOutput() IngressClassSpecPtrOutput {
+	return o
+}
+
+func (o IngressClassSpecPtrOutput) ToIngressClassSpecPtrOutputWithContext(ctx context.Context) IngressClassSpecPtrOutput {
+	return o
+}
+
+func (o IngressClassSpecPtrOutput) Elem() IngressClassSpecOutput {
+	return o.ApplyT(func(v *IngressClassSpec) IngressClassSpec { return *v }).(IngressClassSpecOutput)
+}
+
+// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+func (o IngressClassSpecPtrOutput) Controller() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressClassSpec) *string { return v.Controller }).(pulumi.StringPtrOutput)
+}
+
+// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+func (o IngressClassSpecPtrOutput) Parameters() corev1.TypedLocalObjectReferencePtrOutput {
+	return o.ApplyT(func(v IngressClassSpec) *corev1.TypedLocalObjectReference { return v.Parameters }).(corev1.TypedLocalObjectReferencePtrOutput)
 }
 
 // IngressList is a collection of Ingress.
@@ -570,12 +951,14 @@ func (o IngressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 type IngressRule struct {
-	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
-	// 	  IP in the Spec of the parent Ingress.
+	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+	//    the IP in the Spec of the parent Ingress.
 	// 2. The `:` delimiter is not respected because ports are not allowed.
 	// 	  Currently the port of an Ingress is implicitly :80 for http and
 	// 	  :443 for https.
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
+	//
+	// Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 	Host *string               `pulumi:"host"`
 	Http *HTTPIngressRuleValue `pulumi:"http"`
 }
@@ -589,12 +972,14 @@ type IngressRuleInput interface {
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 type IngressRuleArgs struct {
-	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
-	// 	  IP in the Spec of the parent Ingress.
+	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+	//    the IP in the Spec of the parent Ingress.
 	// 2. The `:` delimiter is not respected because ports are not allowed.
 	// 	  Currently the port of an Ingress is implicitly :80 for http and
 	// 	  :443 for https.
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
+	//
+	// Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 	Host pulumi.StringPtrInput        `pulumi:"host"`
 	Http HTTPIngressRuleValuePtrInput `pulumi:"http"`
 }
@@ -647,12 +1032,14 @@ func (o IngressRuleOutput) ToIngressRuleOutputWithContext(ctx context.Context) I
 	return o
 }
 
-// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
-// 	  IP in the Spec of the parent Ingress.
+// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+//    the IP in the Spec of the parent Ingress.
 // 2. The `:` delimiter is not respected because ports are not allowed.
 // 	  Currently the port of an Ingress is implicitly :80 for http and
 // 	  :443 for https.
 // Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
+//
+// Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 func (o IngressRuleOutput) Host() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressRule) *string { return v.Host }).(pulumi.StringPtrOutput)
 }
@@ -685,6 +1072,8 @@ func (o IngressRuleArrayOutput) Index(i pulumi.IntInput) IngressRuleOutput {
 type IngressSpec struct {
 	// A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 	Backend *IngressBackend `pulumi:"backend"`
+	// IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+	IngressClassName *string `pulumi:"ingressClassName"`
 	// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 	Rules []IngressRule `pulumi:"rules"`
 	// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
@@ -702,6 +1091,8 @@ type IngressSpecInput interface {
 type IngressSpecArgs struct {
 	// A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 	Backend IngressBackendPtrInput `pulumi:"backend"`
+	// IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+	IngressClassName pulumi.StringPtrInput `pulumi:"ingressClassName"`
 	// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 	Rules IngressRuleArrayInput `pulumi:"rules"`
 	// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
@@ -783,6 +1174,11 @@ func (o IngressSpecOutput) Backend() IngressBackendPtrOutput {
 	return o.ApplyT(func(v IngressSpec) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
 }
 
+// IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+func (o IngressSpecOutput) IngressClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressSpec) *string { return v.IngressClassName }).(pulumi.StringPtrOutput)
+}
+
 // A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 func (o IngressSpecOutput) Rules() IngressRuleArrayOutput {
 	return o.ApplyT(func(v IngressSpec) []IngressRule { return v.Rules }).(IngressRuleArrayOutput)
@@ -814,6 +1210,11 @@ func (o IngressSpecPtrOutput) Elem() IngressSpecOutput {
 // A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
 func (o IngressSpecPtrOutput) Backend() IngressBackendPtrOutput {
 	return o.ApplyT(func(v IngressSpec) *IngressBackend { return v.Backend }).(IngressBackendPtrOutput)
+}
+
+// IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+func (o IngressSpecPtrOutput) IngressClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressSpec) *string { return v.IngressClassName }).(pulumi.StringPtrOutput)
 }
 
 // A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
@@ -947,7 +1348,7 @@ func (o IngressStatusPtrOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutpu
 type IngressTLS struct {
 	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts []string `pulumi:"hosts"`
-	// SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+	// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
 	SecretName *string `pulumi:"secretName"`
 }
 
@@ -962,7 +1363,7 @@ type IngressTLSInput interface {
 type IngressTLSArgs struct {
 	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts pulumi.StringArrayInput `pulumi:"hosts"`
-	// SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+	// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
 	SecretName pulumi.StringPtrInput `pulumi:"secretName"`
 }
 
@@ -1019,7 +1420,7 @@ func (o IngressTLSOutput) Hosts() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v IngressTLS) []string { return v.Hosts }).(pulumi.StringArrayOutput)
 }
 
-// SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
 func (o IngressTLSOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressTLS) *string { return v.SecretName }).(pulumi.StringPtrOutput)
 }
@@ -1053,6 +1454,11 @@ func init() {
 	pulumi.RegisterOutputType(IngressTypeArrayOutput{})
 	pulumi.RegisterOutputType(IngressBackendOutput{})
 	pulumi.RegisterOutputType(IngressBackendPtrOutput{})
+	pulumi.RegisterOutputType(IngressClassTypeOutput{})
+	pulumi.RegisterOutputType(IngressClassTypeArrayOutput{})
+	pulumi.RegisterOutputType(IngressClassListTypeOutput{})
+	pulumi.RegisterOutputType(IngressClassSpecOutput{})
+	pulumi.RegisterOutputType(IngressClassSpecPtrOutput{})
 	pulumi.RegisterOutputType(IngressListTypeOutput{})
 	pulumi.RegisterOutputType(IngressRuleOutput{})
 	pulumi.RegisterOutputType(IngressRuleArrayOutput{})

@@ -3,6 +3,8 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
+from .CSIDriver import (CSIDriver)
+from .CSIDriverList import (CSIDriverList)
 from .CSINode import (CSINode)
 from .CSINodeList import (CSINodeList)
 from .StorageClass import (StorageClass)

@@ -1069,7 +1069,7 @@ type PodDisruptionBudgetStatus struct {
 	DisruptionsAllowed *int `pulumi:"disruptionsAllowed"`
 	// total number of pods counted by this disruption budget
 	ExpectedPods *int `pulumi:"expectedPods"`
-	// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+	// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
 }
 
@@ -1092,7 +1092,7 @@ type PodDisruptionBudgetStatusArgs struct {
 	DisruptionsAllowed pulumi.IntPtrInput `pulumi:"disruptionsAllowed"`
 	// total number of pods counted by this disruption budget
 	ExpectedPods pulumi.IntPtrInput `pulumi:"expectedPods"`
-	// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+	// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 }
 
@@ -1191,7 +1191,7 @@ func (o PodDisruptionBudgetStatusOutput) ExpectedPods() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.ExpectedPods }).(pulumi.IntPtrOutput)
 }
 
-// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 func (o PodDisruptionBudgetStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
@@ -1239,7 +1239,7 @@ func (o PodDisruptionBudgetStatusPtrOutput) ExpectedPods() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.ExpectedPods }).(pulumi.IntPtrOutput)
 }
 
-// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 func (o PodDisruptionBudgetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }

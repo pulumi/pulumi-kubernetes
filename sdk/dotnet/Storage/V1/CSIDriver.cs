@@ -5,16 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Kubernetes.Storage.V1Beta1
+namespace Pulumi.Kubernetes.Storage.V1
 {
     /// <summary>
     /// CSIDriver captures information about a Container Storage Interface (CSI) volume driver
-    /// deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly.
-    /// Instead they may use the cluster-driver-registrar sidecar container. When deployed with a
-    /// CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes
-    /// attach detach controller uses this object to determine whether attach is required. Kubelet
-    /// uses this object to determine whether pod information needs to be passed on mount. CSIDriver
-    /// objects are non-namespaced.
+    /// deployed on the cluster. Kubernetes attach detach controller uses this object to determine
+    /// whether attach is required. Kubelet uses this object to determine whether pod information
+    /// needs to be passed on mount. CSIDriver objects are non-namespaced.
     /// </summary>
     public partial class CSIDriver : KubernetesResource
     {
@@ -51,7 +48,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         /// Specification of the CSI Driver.
         /// </summary>
         [Output("spec")]
-        public Output<Types.Outputs.Storage.V1Beta1.CSIDriverSpec> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Storage.V1.CSIDriverSpec> Spec { get; private set; } = null!;
 
 
         /// <summary>
@@ -60,20 +57,20 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CSIDriver(string name, Types.Inputs.Storage.V1Beta1.CSIDriverArgs? args = null, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, SetAPIKindAndVersion(args), MakeOptions(options))
+        public CSIDriver(string name, Types.Inputs.Storage.V1.CSIDriverArgs? args = null, CustomResourceOptions? options = null)
+            : base("kubernetes:storage.k8s.io/v1:CSIDriver", name, SetAPIKindAndVersion(args), MakeOptions(options))
         {
         }
 
         internal CSIDriver(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
-            : base("kubernetes:storage.k8s.io/v1beta1:CSIDriver", name, dictionary, options)
+            : base("kubernetes:storage.k8s.io/v1:CSIDriver", name, dictionary, options)
         {
         }
 
-        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1Beta1.CSIDriverArgs? args)
+        private static ResourceArgs SetAPIKindAndVersion(Types.Inputs.Storage.V1.CSIDriverArgs? args)
         {
-            args ??= new Types.Inputs.Storage.V1Beta1.CSIDriverArgs();
-            args.ApiVersion = "storage.k8s.io/v1beta1";
+            args ??= new Types.Inputs.Storage.V1.CSIDriverArgs();
+            args.ApiVersion = "storage.k8s.io/v1";
             args.Kind = "CSIDriver";
             return args;
         }
@@ -84,7 +81,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
             {
                 Aliases =
                 {
-                    new Alias { Type = "kubernetes:storage.k8s.io/v1:CSIDriver" },
+                    new Alias { Type = "kubernetes:storage.k8s.io/v1beta1:CSIDriver" },
                 }
             };
 
@@ -99,7 +96,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public static CSIDriver Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new CSIDriver(name, default(Types.Inputs.Storage.V1Beta1.CSIDriverArgs),
+            return new CSIDriver(name, default(Types.Inputs.Storage.V1.CSIDriverArgs),
                 CustomResourceOptions.Merge(options, new CustomResourceOptions {Id = id}));
         }
     }

@@ -419,6 +419,261 @@ func (o ExternalMetricStatusPtrOutput) Metric() MetricIdentifierPtrOutput {
 	return o.ApplyT(func(v ExternalMetricStatus) *MetricIdentifier { return v.Metric }).(MetricIdentifierPtrOutput)
 }
 
+// HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+type HPAScalingPolicy struct {
+	// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+	PeriodSeconds *int `pulumi:"periodSeconds"`
+	// Type is used to specify the scaling policy.
+	Type *string `pulumi:"type"`
+	// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+	Value *int `pulumi:"value"`
+}
+
+type HPAScalingPolicyInput interface {
+	pulumi.Input
+
+	ToHPAScalingPolicyOutput() HPAScalingPolicyOutput
+	ToHPAScalingPolicyOutputWithContext(context.Context) HPAScalingPolicyOutput
+}
+
+// HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+type HPAScalingPolicyArgs struct {
+	// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+	PeriodSeconds pulumi.IntPtrInput `pulumi:"periodSeconds"`
+	// Type is used to specify the scaling policy.
+	Type pulumi.StringPtrInput `pulumi:"type"`
+	// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+	Value pulumi.IntPtrInput `pulumi:"value"`
+}
+
+func (HPAScalingPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HPAScalingPolicy)(nil)).Elem()
+}
+
+func (i HPAScalingPolicyArgs) ToHPAScalingPolicyOutput() HPAScalingPolicyOutput {
+	return i.ToHPAScalingPolicyOutputWithContext(context.Background())
+}
+
+func (i HPAScalingPolicyArgs) ToHPAScalingPolicyOutputWithContext(ctx context.Context) HPAScalingPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HPAScalingPolicyOutput)
+}
+
+type HPAScalingPolicyArrayInput interface {
+	pulumi.Input
+
+	ToHPAScalingPolicyArrayOutput() HPAScalingPolicyArrayOutput
+	ToHPAScalingPolicyArrayOutputWithContext(context.Context) HPAScalingPolicyArrayOutput
+}
+
+type HPAScalingPolicyArray []HPAScalingPolicyInput
+
+func (HPAScalingPolicyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HPAScalingPolicy)(nil)).Elem()
+}
+
+func (i HPAScalingPolicyArray) ToHPAScalingPolicyArrayOutput() HPAScalingPolicyArrayOutput {
+	return i.ToHPAScalingPolicyArrayOutputWithContext(context.Background())
+}
+
+func (i HPAScalingPolicyArray) ToHPAScalingPolicyArrayOutputWithContext(ctx context.Context) HPAScalingPolicyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HPAScalingPolicyArrayOutput)
+}
+
+// HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+type HPAScalingPolicyOutput struct{ *pulumi.OutputState }
+
+func (HPAScalingPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HPAScalingPolicy)(nil)).Elem()
+}
+
+func (o HPAScalingPolicyOutput) ToHPAScalingPolicyOutput() HPAScalingPolicyOutput {
+	return o
+}
+
+func (o HPAScalingPolicyOutput) ToHPAScalingPolicyOutputWithContext(ctx context.Context) HPAScalingPolicyOutput {
+	return o
+}
+
+// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+func (o HPAScalingPolicyOutput) PeriodSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HPAScalingPolicy) *int { return v.PeriodSeconds }).(pulumi.IntPtrOutput)
+}
+
+// Type is used to specify the scaling policy.
+func (o HPAScalingPolicyOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HPAScalingPolicy) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+func (o HPAScalingPolicyOutput) Value() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HPAScalingPolicy) *int { return v.Value }).(pulumi.IntPtrOutput)
+}
+
+type HPAScalingPolicyArrayOutput struct{ *pulumi.OutputState }
+
+func (HPAScalingPolicyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HPAScalingPolicy)(nil)).Elem()
+}
+
+func (o HPAScalingPolicyArrayOutput) ToHPAScalingPolicyArrayOutput() HPAScalingPolicyArrayOutput {
+	return o
+}
+
+func (o HPAScalingPolicyArrayOutput) ToHPAScalingPolicyArrayOutputWithContext(ctx context.Context) HPAScalingPolicyArrayOutput {
+	return o
+}
+
+func (o HPAScalingPolicyArrayOutput) Index(i pulumi.IntInput) HPAScalingPolicyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HPAScalingPolicy {
+		return vs[0].([]HPAScalingPolicy)[vs[1].(int)]
+	}).(HPAScalingPolicyOutput)
+}
+
+// HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+type HPAScalingRules struct {
+	// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+	Policies []HPAScalingPolicy `pulumi:"policies"`
+	// selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+	SelectPolicy *string `pulumi:"selectPolicy"`
+	// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+	StabilizationWindowSeconds *int `pulumi:"stabilizationWindowSeconds"`
+}
+
+type HPAScalingRulesInput interface {
+	pulumi.Input
+
+	ToHPAScalingRulesOutput() HPAScalingRulesOutput
+	ToHPAScalingRulesOutputWithContext(context.Context) HPAScalingRulesOutput
+}
+
+// HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+type HPAScalingRulesArgs struct {
+	// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+	Policies HPAScalingPolicyArrayInput `pulumi:"policies"`
+	// selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+	SelectPolicy pulumi.StringPtrInput `pulumi:"selectPolicy"`
+	// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+	StabilizationWindowSeconds pulumi.IntPtrInput `pulumi:"stabilizationWindowSeconds"`
+}
+
+func (HPAScalingRulesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HPAScalingRules)(nil)).Elem()
+}
+
+func (i HPAScalingRulesArgs) ToHPAScalingRulesOutput() HPAScalingRulesOutput {
+	return i.ToHPAScalingRulesOutputWithContext(context.Background())
+}
+
+func (i HPAScalingRulesArgs) ToHPAScalingRulesOutputWithContext(ctx context.Context) HPAScalingRulesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HPAScalingRulesOutput)
+}
+
+func (i HPAScalingRulesArgs) ToHPAScalingRulesPtrOutput() HPAScalingRulesPtrOutput {
+	return i.ToHPAScalingRulesPtrOutputWithContext(context.Background())
+}
+
+func (i HPAScalingRulesArgs) ToHPAScalingRulesPtrOutputWithContext(ctx context.Context) HPAScalingRulesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HPAScalingRulesOutput).ToHPAScalingRulesPtrOutputWithContext(ctx)
+}
+
+type HPAScalingRulesPtrInput interface {
+	pulumi.Input
+
+	ToHPAScalingRulesPtrOutput() HPAScalingRulesPtrOutput
+	ToHPAScalingRulesPtrOutputWithContext(context.Context) HPAScalingRulesPtrOutput
+}
+
+type hpascalingRulesPtrType HPAScalingRulesArgs
+
+func HPAScalingRulesPtr(v *HPAScalingRulesArgs) HPAScalingRulesPtrInput {
+	return (*hpascalingRulesPtrType)(v)
+}
+
+func (*hpascalingRulesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**HPAScalingRules)(nil)).Elem()
+}
+
+func (i *hpascalingRulesPtrType) ToHPAScalingRulesPtrOutput() HPAScalingRulesPtrOutput {
+	return i.ToHPAScalingRulesPtrOutputWithContext(context.Background())
+}
+
+func (i *hpascalingRulesPtrType) ToHPAScalingRulesPtrOutputWithContext(ctx context.Context) HPAScalingRulesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HPAScalingRulesPtrOutput)
+}
+
+// HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+type HPAScalingRulesOutput struct{ *pulumi.OutputState }
+
+func (HPAScalingRulesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HPAScalingRules)(nil)).Elem()
+}
+
+func (o HPAScalingRulesOutput) ToHPAScalingRulesOutput() HPAScalingRulesOutput {
+	return o
+}
+
+func (o HPAScalingRulesOutput) ToHPAScalingRulesOutputWithContext(ctx context.Context) HPAScalingRulesOutput {
+	return o
+}
+
+func (o HPAScalingRulesOutput) ToHPAScalingRulesPtrOutput() HPAScalingRulesPtrOutput {
+	return o.ToHPAScalingRulesPtrOutputWithContext(context.Background())
+}
+
+func (o HPAScalingRulesOutput) ToHPAScalingRulesPtrOutputWithContext(ctx context.Context) HPAScalingRulesPtrOutput {
+	return o.ApplyT(func(v HPAScalingRules) *HPAScalingRules {
+		return &v
+	}).(HPAScalingRulesPtrOutput)
+}
+
+// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+func (o HPAScalingRulesOutput) Policies() HPAScalingPolicyArrayOutput {
+	return o.ApplyT(func(v HPAScalingRules) []HPAScalingPolicy { return v.Policies }).(HPAScalingPolicyArrayOutput)
+}
+
+// selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+func (o HPAScalingRulesOutput) SelectPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HPAScalingRules) *string { return v.SelectPolicy }).(pulumi.StringPtrOutput)
+}
+
+// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+func (o HPAScalingRulesOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HPAScalingRules) *int { return v.StabilizationWindowSeconds }).(pulumi.IntPtrOutput)
+}
+
+type HPAScalingRulesPtrOutput struct{ *pulumi.OutputState }
+
+func (HPAScalingRulesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**HPAScalingRules)(nil)).Elem()
+}
+
+func (o HPAScalingRulesPtrOutput) ToHPAScalingRulesPtrOutput() HPAScalingRulesPtrOutput {
+	return o
+}
+
+func (o HPAScalingRulesPtrOutput) ToHPAScalingRulesPtrOutputWithContext(ctx context.Context) HPAScalingRulesPtrOutput {
+	return o
+}
+
+func (o HPAScalingRulesPtrOutput) Elem() HPAScalingRulesOutput {
+	return o.ApplyT(func(v *HPAScalingRules) HPAScalingRules { return *v }).(HPAScalingRulesOutput)
+}
+
+// policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+func (o HPAScalingRulesPtrOutput) Policies() HPAScalingPolicyArrayOutput {
+	return o.ApplyT(func(v HPAScalingRules) []HPAScalingPolicy { return v.Policies }).(HPAScalingPolicyArrayOutput)
+}
+
+// selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.
+func (o HPAScalingRulesPtrOutput) SelectPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HPAScalingRules) *string { return v.SelectPolicy }).(pulumi.StringPtrOutput)
+}
+
+// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+func (o HPAScalingRulesPtrOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HPAScalingRules) *int { return v.StabilizationWindowSeconds }).(pulumi.IntPtrOutput)
+}
+
 // HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
 type HorizontalPodAutoscalerType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -545,6 +800,149 @@ func (o HorizontalPodAutoscalerTypeArrayOutput) Index(i pulumi.IntInput) Horizon
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HorizontalPodAutoscalerType {
 		return vs[0].([]HorizontalPodAutoscalerType)[vs[1].(int)]
 	}).(HorizontalPodAutoscalerTypeOutput)
+}
+
+// HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+type HorizontalPodAutoscalerBehavior struct {
+	// scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
+	ScaleDown *HPAScalingRules `pulumi:"scaleDown"`
+	// scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
+	//   * increase no more than 4 pods per 60 seconds
+	//   * double the number of pods per 60 seconds
+	// No stabilization is used.
+	ScaleUp *HPAScalingRules `pulumi:"scaleUp"`
+}
+
+type HorizontalPodAutoscalerBehaviorInput interface {
+	pulumi.Input
+
+	ToHorizontalPodAutoscalerBehaviorOutput() HorizontalPodAutoscalerBehaviorOutput
+	ToHorizontalPodAutoscalerBehaviorOutputWithContext(context.Context) HorizontalPodAutoscalerBehaviorOutput
+}
+
+// HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+type HorizontalPodAutoscalerBehaviorArgs struct {
+	// scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
+	ScaleDown HPAScalingRulesPtrInput `pulumi:"scaleDown"`
+	// scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
+	//   * increase no more than 4 pods per 60 seconds
+	//   * double the number of pods per 60 seconds
+	// No stabilization is used.
+	ScaleUp HPAScalingRulesPtrInput `pulumi:"scaleUp"`
+}
+
+func (HorizontalPodAutoscalerBehaviorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HorizontalPodAutoscalerBehavior)(nil)).Elem()
+}
+
+func (i HorizontalPodAutoscalerBehaviorArgs) ToHorizontalPodAutoscalerBehaviorOutput() HorizontalPodAutoscalerBehaviorOutput {
+	return i.ToHorizontalPodAutoscalerBehaviorOutputWithContext(context.Background())
+}
+
+func (i HorizontalPodAutoscalerBehaviorArgs) ToHorizontalPodAutoscalerBehaviorOutputWithContext(ctx context.Context) HorizontalPodAutoscalerBehaviorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerBehaviorOutput)
+}
+
+func (i HorizontalPodAutoscalerBehaviorArgs) ToHorizontalPodAutoscalerBehaviorPtrOutput() HorizontalPodAutoscalerBehaviorPtrOutput {
+	return i.ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(context.Background())
+}
+
+func (i HorizontalPodAutoscalerBehaviorArgs) ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerBehaviorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerBehaviorOutput).ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(ctx)
+}
+
+type HorizontalPodAutoscalerBehaviorPtrInput interface {
+	pulumi.Input
+
+	ToHorizontalPodAutoscalerBehaviorPtrOutput() HorizontalPodAutoscalerBehaviorPtrOutput
+	ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(context.Context) HorizontalPodAutoscalerBehaviorPtrOutput
+}
+
+type horizontalPodAutoscalerBehaviorPtrType HorizontalPodAutoscalerBehaviorArgs
+
+func HorizontalPodAutoscalerBehaviorPtr(v *HorizontalPodAutoscalerBehaviorArgs) HorizontalPodAutoscalerBehaviorPtrInput {
+	return (*horizontalPodAutoscalerBehaviorPtrType)(v)
+}
+
+func (*horizontalPodAutoscalerBehaviorPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**HorizontalPodAutoscalerBehavior)(nil)).Elem()
+}
+
+func (i *horizontalPodAutoscalerBehaviorPtrType) ToHorizontalPodAutoscalerBehaviorPtrOutput() HorizontalPodAutoscalerBehaviorPtrOutput {
+	return i.ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(context.Background())
+}
+
+func (i *horizontalPodAutoscalerBehaviorPtrType) ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerBehaviorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerBehaviorPtrOutput)
+}
+
+// HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
+type HorizontalPodAutoscalerBehaviorOutput struct{ *pulumi.OutputState }
+
+func (HorizontalPodAutoscalerBehaviorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HorizontalPodAutoscalerBehavior)(nil)).Elem()
+}
+
+func (o HorizontalPodAutoscalerBehaviorOutput) ToHorizontalPodAutoscalerBehaviorOutput() HorizontalPodAutoscalerBehaviorOutput {
+	return o
+}
+
+func (o HorizontalPodAutoscalerBehaviorOutput) ToHorizontalPodAutoscalerBehaviorOutputWithContext(ctx context.Context) HorizontalPodAutoscalerBehaviorOutput {
+	return o
+}
+
+func (o HorizontalPodAutoscalerBehaviorOutput) ToHorizontalPodAutoscalerBehaviorPtrOutput() HorizontalPodAutoscalerBehaviorPtrOutput {
+	return o.ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(context.Background())
+}
+
+func (o HorizontalPodAutoscalerBehaviorOutput) ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerBehaviorPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerBehavior) *HorizontalPodAutoscalerBehavior {
+		return &v
+	}).(HorizontalPodAutoscalerBehaviorPtrOutput)
+}
+
+// scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
+func (o HorizontalPodAutoscalerBehaviorOutput) ScaleDown() HPAScalingRulesPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerBehavior) *HPAScalingRules { return v.ScaleDown }).(HPAScalingRulesPtrOutput)
+}
+
+// scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
+//   * increase no more than 4 pods per 60 seconds
+//   * double the number of pods per 60 seconds
+// No stabilization is used.
+func (o HorizontalPodAutoscalerBehaviorOutput) ScaleUp() HPAScalingRulesPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerBehavior) *HPAScalingRules { return v.ScaleUp }).(HPAScalingRulesPtrOutput)
+}
+
+type HorizontalPodAutoscalerBehaviorPtrOutput struct{ *pulumi.OutputState }
+
+func (HorizontalPodAutoscalerBehaviorPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**HorizontalPodAutoscalerBehavior)(nil)).Elem()
+}
+
+func (o HorizontalPodAutoscalerBehaviorPtrOutput) ToHorizontalPodAutoscalerBehaviorPtrOutput() HorizontalPodAutoscalerBehaviorPtrOutput {
+	return o
+}
+
+func (o HorizontalPodAutoscalerBehaviorPtrOutput) ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerBehaviorPtrOutput {
+	return o
+}
+
+func (o HorizontalPodAutoscalerBehaviorPtrOutput) Elem() HorizontalPodAutoscalerBehaviorOutput {
+	return o.ApplyT(func(v *HorizontalPodAutoscalerBehavior) HorizontalPodAutoscalerBehavior { return *v }).(HorizontalPodAutoscalerBehaviorOutput)
+}
+
+// scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
+func (o HorizontalPodAutoscalerBehaviorPtrOutput) ScaleDown() HPAScalingRulesPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerBehavior) *HPAScalingRules { return v.ScaleDown }).(HPAScalingRulesPtrOutput)
+}
+
+// scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
+//   * increase no more than 4 pods per 60 seconds
+//   * double the number of pods per 60 seconds
+// No stabilization is used.
+func (o HorizontalPodAutoscalerBehaviorPtrOutput) ScaleUp() HPAScalingRulesPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerBehavior) *HPAScalingRules { return v.ScaleUp }).(HPAScalingRulesPtrOutput)
 }
 
 // HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
@@ -755,6 +1153,8 @@ func (o HorizontalPodAutoscalerListTypeOutput) Metadata() metav1.ListMetaPtrOutp
 
 // HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
 type HorizontalPodAutoscalerSpec struct {
+	// behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
+	Behavior *HorizontalPodAutoscalerBehavior `pulumi:"behavior"`
 	// maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
 	MaxReplicas *int `pulumi:"maxReplicas"`
 	// metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
@@ -774,6 +1174,8 @@ type HorizontalPodAutoscalerSpecInput interface {
 
 // HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
 type HorizontalPodAutoscalerSpecArgs struct {
+	// behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
+	Behavior HorizontalPodAutoscalerBehaviorPtrInput `pulumi:"behavior"`
 	// maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
 	MaxReplicas pulumi.IntPtrInput `pulumi:"maxReplicas"`
 	// metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
@@ -854,6 +1256,11 @@ func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutpu
 	}).(HorizontalPodAutoscalerSpecPtrOutput)
 }
 
+// behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
+func (o HorizontalPodAutoscalerSpecOutput) Behavior() HorizontalPodAutoscalerBehaviorPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *HorizontalPodAutoscalerBehavior { return v.Behavior }).(HorizontalPodAutoscalerBehaviorPtrOutput)
+}
+
 // maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
 func (o HorizontalPodAutoscalerSpecOutput) MaxReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
@@ -890,6 +1297,11 @@ func (o HorizontalPodAutoscalerSpecPtrOutput) ToHorizontalPodAutoscalerSpecPtrOu
 
 func (o HorizontalPodAutoscalerSpecPtrOutput) Elem() HorizontalPodAutoscalerSpecOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec { return *v }).(HorizontalPodAutoscalerSpecOutput)
+}
+
+// behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
+func (o HorizontalPodAutoscalerSpecPtrOutput) Behavior() HorizontalPodAutoscalerBehaviorPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *HorizontalPodAutoscalerBehavior { return v.Behavior }).(HorizontalPodAutoscalerBehaviorPtrOutput)
 }
 
 // maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
@@ -2602,8 +3014,14 @@ func init() {
 	pulumi.RegisterOutputType(ExternalMetricSourcePtrOutput{})
 	pulumi.RegisterOutputType(ExternalMetricStatusOutput{})
 	pulumi.RegisterOutputType(ExternalMetricStatusPtrOutput{})
+	pulumi.RegisterOutputType(HPAScalingPolicyOutput{})
+	pulumi.RegisterOutputType(HPAScalingPolicyArrayOutput{})
+	pulumi.RegisterOutputType(HPAScalingRulesOutput{})
+	pulumi.RegisterOutputType(HPAScalingRulesPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerTypeOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerTypeArrayOutput{})
+	pulumi.RegisterOutputType(HorizontalPodAutoscalerBehaviorOutput{})
+	pulumi.RegisterOutputType(HorizontalPodAutoscalerBehaviorPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerConditionOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerConditionArrayOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerListTypeOutput{})

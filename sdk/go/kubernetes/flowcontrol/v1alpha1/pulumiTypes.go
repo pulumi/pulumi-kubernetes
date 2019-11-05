@@ -467,7 +467,7 @@ func (o FlowSchemaListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 type FlowSchemaSpec struct {
 	// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
 	DistinguisherMethod *FlowDistinguisherMethod `pulumi:"distinguisherMethod"`
-	// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative. Note that if the precedence is not specified or zero, it will be set to 1000 as default.
+	// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
 	MatchingPrecedence *int `pulumi:"matchingPrecedence"`
 	// `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
 	PriorityLevelConfiguration *PriorityLevelConfigurationReference `pulumi:"priorityLevelConfiguration"`
@@ -486,7 +486,7 @@ type FlowSchemaSpecInput interface {
 type FlowSchemaSpecArgs struct {
 	// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
 	DistinguisherMethod FlowDistinguisherMethodPtrInput `pulumi:"distinguisherMethod"`
-	// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative. Note that if the precedence is not specified or zero, it will be set to 1000 as default.
+	// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
 	MatchingPrecedence pulumi.IntPtrInput `pulumi:"matchingPrecedence"`
 	// `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
 	PriorityLevelConfiguration PriorityLevelConfigurationReferencePtrInput `pulumi:"priorityLevelConfiguration"`
@@ -569,7 +569,7 @@ func (o FlowSchemaSpecOutput) DistinguisherMethod() FlowDistinguisherMethodPtrOu
 	return o.ApplyT(func(v FlowSchemaSpec) *FlowDistinguisherMethod { return v.DistinguisherMethod }).(FlowDistinguisherMethodPtrOutput)
 }
 
-// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative. Note that if the precedence is not specified or zero, it will be set to 1000 as default.
+// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
 func (o FlowSchemaSpecOutput) MatchingPrecedence() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v FlowSchemaSpec) *int { return v.MatchingPrecedence }).(pulumi.IntPtrOutput)
 }
@@ -607,7 +607,7 @@ func (o FlowSchemaSpecPtrOutput) DistinguisherMethod() FlowDistinguisherMethodPt
 	return o.ApplyT(func(v FlowSchemaSpec) *FlowDistinguisherMethod { return v.DistinguisherMethod }).(FlowDistinguisherMethodPtrOutput)
 }
 
-// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative. Note that if the precedence is not specified or zero, it will be set to 1000 as default.
+// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
 func (o FlowSchemaSpecPtrOutput) MatchingPrecedence() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v FlowSchemaSpec) *int { return v.MatchingPrecedence }).(pulumi.IntPtrOutput)
 }

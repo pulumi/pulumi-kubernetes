@@ -4,4 +4,6 @@
 
 # Export this package's modules as members:
 from .Ingress import (Ingress)
+from .IngressClass import (IngressClass)
+from .IngressClassList import (IngressClassList)
 from .IngressList import (IngressList)

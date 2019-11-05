@@ -14,12 +14,9 @@ from ... import tables, version
 class CSIDriver(pulumi.CustomResource):
     """
     CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed
-    on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they
-    may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it
-    automatically creates a CSIDriver object representing the driver. Kubernetes attach detach
-    controller uses this object to determine whether attach is required. Kubelet uses this object to
-    determine whether pod information needs to be passed on mount. CSIDriver objects are
-    non-namespaced.
+    on the cluster. Kubernetes attach detach controller uses this object to determine whether attach
+    is required. Kubelet uses this object to determine whether pod information needs to be passed on
+    mount. CSIDriver objects are non-namespaced.
     """
 
     apiVersion: pulumi.Output[str]
@@ -79,7 +76,7 @@ class CSIDriver(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['apiVersion'] = 'storage.k8s.io/v1beta1'
+        __props__['apiVersion'] = 'storage.k8s.io/v1'
         __props__['kind'] = 'CSIDriver'
         if spec is None:
             raise TypeError('Missing required property spec')
@@ -90,7 +87,7 @@ class CSIDriver(pulumi.CustomResource):
 
         parent = opts.parent if opts and opts.parent else None
         aliases = [
-            pulumi.Alias(type_="kubernetes:storage.k8s.io/v1:CSIDriver"),
+            pulumi.Alias(type_="kubernetes:storage.k8s.io/v1beta1:CSIDriver"),
         ]
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(
             version=version.get_version(),
@@ -98,7 +95,7 @@ class CSIDriver(pulumi.CustomResource):
         ))
 
         super(CSIDriver, self).__init__(
-            "kubernetes:storage.k8s.io/v1beta1:CSIDriver",
+            "kubernetes:storage.k8s.io/v1:CSIDriver",
             resource_name,
             __props__,
             opts)

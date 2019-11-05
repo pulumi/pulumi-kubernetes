@@ -474,6 +474,10 @@ import * as outputs from "../types/output";
         public getResource(groupVersionKind: "networking.k8s.io/v1/NetworkPolicyList", namespace: string, name: string): pulumi.Output<k8s.networking.v1.NetworkPolicyList>;
         public getResource(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", name: string): pulumi.Output<k8s.networking.v1beta1.Ingress>;
         public getResource(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", namespace: string, name: string): pulumi.Output<k8s.networking.v1beta1.Ingress>;
+        public getResource(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", name: string): pulumi.Output<k8s.networking.v1beta1.IngressClass>;
+        public getResource(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", namespace: string, name: string): pulumi.Output<k8s.networking.v1beta1.IngressClass>;
+        public getResource(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", name: string): pulumi.Output<k8s.networking.v1beta1.IngressClassList>;
+        public getResource(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", namespace: string, name: string): pulumi.Output<k8s.networking.v1beta1.IngressClassList>;
         public getResource(groupVersionKind: "networking.k8s.io/v1beta1/IngressList", name: string): pulumi.Output<k8s.networking.v1beta1.IngressList>;
         public getResource(groupVersionKind: "networking.k8s.io/v1beta1/IngressList", namespace: string, name: string): pulumi.Output<k8s.networking.v1beta1.IngressList>;
         public getResource(groupVersionKind: "node.k8s.io/v1alpha1/RuntimeClass", name: string): pulumi.Output<k8s.node.v1alpha1.RuntimeClass>;
@@ -556,6 +560,10 @@ import * as outputs from "../types/output";
         public getResource(groupVersionKind: "settings.k8s.io/v1alpha1/PodPreset", namespace: string, name: string): pulumi.Output<k8s.settings.v1alpha1.PodPreset>;
         public getResource(groupVersionKind: "settings.k8s.io/v1alpha1/PodPresetList", name: string): pulumi.Output<k8s.settings.v1alpha1.PodPresetList>;
         public getResource(groupVersionKind: "settings.k8s.io/v1alpha1/PodPresetList", namespace: string, name: string): pulumi.Output<k8s.settings.v1alpha1.PodPresetList>;
+        public getResource(groupVersionKind: "storage.k8s.io/v1/CSIDriver", name: string): pulumi.Output<k8s.storage.v1.CSIDriver>;
+        public getResource(groupVersionKind: "storage.k8s.io/v1/CSIDriver", namespace: string, name: string): pulumi.Output<k8s.storage.v1.CSIDriver>;
+        public getResource(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", name: string): pulumi.Output<k8s.storage.v1.CSIDriverList>;
+        public getResource(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", namespace: string, name: string): pulumi.Output<k8s.storage.v1.CSIDriverList>;
         public getResource(groupVersionKind: "storage.k8s.io/v1/CSINode", name: string): pulumi.Output<k8s.storage.v1.CSINode>;
         public getResource(groupVersionKind: "storage.k8s.io/v1/CSINode", namespace: string, name: string): pulumi.Output<k8s.storage.v1.CSINode>;
         public getResource(groupVersionKind: "storage.k8s.io/v1/CSINodeList", name: string): pulumi.Output<k8s.storage.v1.CSINodeList>;
@@ -1282,6 +1290,8 @@ import * as outputs from "../types/output";
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", namespace: string, name: string, property: "binaryData"): pulumi.Output<object>;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "data"): pulumi.Output<{[key: string]: pulumi.Output<string>}>;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", namespace: string, name: string, property: "data"): pulumi.Output<{[key: string]: pulumi.Output<string>}>;
+        public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "immutable"): pulumi.Output<boolean>;
+        public getResourceProperty(groupVersionKind: "v1/ConfigMap", namespace: string, name: string, property: "immutable"): pulumi.Output<boolean>;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "kind"): pulumi.Output<"ConfigMap">;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", namespace: string, name: string, property: "kind"): pulumi.Output<"ConfigMap">;
         public getResourceProperty(groupVersionKind: "v1/ConfigMap", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
@@ -1514,6 +1524,8 @@ import * as outputs from "../types/output";
         public getResourceProperty(groupVersionKind: "v1/Secret", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"v1">;
         public getResourceProperty(groupVersionKind: "v1/Secret", name: string, property: "data"): pulumi.Output<object>;
         public getResourceProperty(groupVersionKind: "v1/Secret", namespace: string, name: string, property: "data"): pulumi.Output<object>;
+        public getResourceProperty(groupVersionKind: "v1/Secret", name: string, property: "immutable"): pulumi.Output<boolean>;
+        public getResourceProperty(groupVersionKind: "v1/Secret", namespace: string, name: string, property: "immutable"): pulumi.Output<boolean>;
         public getResourceProperty(groupVersionKind: "v1/Secret", name: string, property: "kind"): pulumi.Output<"Secret">;
         public getResourceProperty(groupVersionKind: "v1/Secret", namespace: string, name: string, property: "kind"): pulumi.Output<"Secret">;
         public getResourceProperty(groupVersionKind: "v1/Secret", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
@@ -1812,6 +1824,22 @@ import * as outputs from "../types/output";
         public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.networking.v1beta1.IngressSpec>;
         public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", name: string, property: "status"): pulumi.Output<outputs.networking.v1beta1.IngressStatus>;
         public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", namespace: string, name: string, property: "status"): pulumi.Output<outputs.networking.v1beta1.IngressStatus>;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1beta1">;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1beta1">;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", name: string, property: "kind"): pulumi.Output<"IngressClass">;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", namespace: string, name: string, property: "kind"): pulumi.Output<"IngressClass">;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", name: string, property: "spec"): pulumi.Output<outputs.networking.v1beta1.IngressClassSpec>;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.networking.v1beta1.IngressClassSpec>;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1beta1">;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1beta1">;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", name: string, property: "items"): pulumi.Output<outputs.networking.v1beta1.IngressClass[]>;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.networking.v1beta1.IngressClass[]>;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", name: string, property: "kind"): pulumi.Output<"IngressClassList">;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", namespace: string, name: string, property: "kind"): pulumi.Output<"IngressClassList">;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressClassList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressList", name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1beta1">;
         public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1beta1">;
         public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/IngressList", name: string, property: "items"): pulumi.Output<outputs.networking.v1beta1.Ingress[]>;
@@ -2182,6 +2210,22 @@ import * as outputs from "../types/output";
         public getResourceProperty(groupVersionKind: "settings.k8s.io/v1alpha1/PodPresetList", namespace: string, name: string, property: "kind"): pulumi.Output<"PodPresetList">;
         public getResourceProperty(groupVersionKind: "settings.k8s.io/v1alpha1/PodPresetList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "settings.k8s.io/v1alpha1/PodPresetList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriver", name: string, property: "apiVersion"): pulumi.Output<"storage.k8s.io/v1">;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriver", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"storage.k8s.io/v1">;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriver", name: string, property: "kind"): pulumi.Output<"CSIDriver">;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriver", namespace: string, name: string, property: "kind"): pulumi.Output<"CSIDriver">;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriver", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriver", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriver", name: string, property: "spec"): pulumi.Output<outputs.storage.v1.CSIDriverSpec>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriver", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.storage.v1.CSIDriverSpec>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", name: string, property: "apiVersion"): pulumi.Output<"storage.k8s.io/v1">;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"storage.k8s.io/v1">;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", name: string, property: "items"): pulumi.Output<outputs.storage.v1.CSIDriver[]>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.storage.v1.CSIDriver[]>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", name: string, property: "kind"): pulumi.Output<"CSIDriverList">;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", namespace: string, name: string, property: "kind"): pulumi.Output<"CSIDriverList">;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+        public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSIDriverList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSINode", name: string, property: "apiVersion"): pulumi.Output<"storage.k8s.io/v1">;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSINode", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"storage.k8s.io/v1">;
         public getResourceProperty(groupVersionKind: "storage.k8s.io/v1/CSINode", name: string, property: "kind"): pulumi.Output<"CSINode">;
@@ -2548,6 +2592,7 @@ import * as outputs from "../types/output";
             || (apiVersion == "flowcontrol.apiserver.k8s.io/v1alpha1" && kind == "FlowSchemaList")
             || (apiVersion == "flowcontrol.apiserver.k8s.io/v1alpha1" && kind == "PriorityLevelConfigurationList")
             || (apiVersion == "networking.k8s.io/v1" && kind == "NetworkPolicyList")
+            || (apiVersion == "networking.k8s.io/v1beta1" && kind == "IngressClassList")
             || (apiVersion == "networking.k8s.io/v1beta1" && kind == "IngressList")
             || (apiVersion == "node.k8s.io/v1alpha1" && kind == "RuntimeClassList")
             || (apiVersion == "node.k8s.io/v1beta1" && kind == "RuntimeClassList")
@@ -2569,6 +2614,7 @@ import * as outputs from "../types/output";
             || (apiVersion == "scheduling.k8s.io/v1alpha1" && kind == "PriorityClassList")
             || (apiVersion == "scheduling.k8s.io/v1beta1" && kind == "PriorityClassList")
             || (apiVersion == "settings.k8s.io/v1alpha1" && kind == "PodPresetList")
+            || (apiVersion == "storage.k8s.io/v1" && kind == "CSIDriverList")
             || (apiVersion == "storage.k8s.io/v1" && kind == "CSINodeList")
             || (apiVersion == "storage.k8s.io/v1" && kind == "StorageClassList")
             || (apiVersion == "storage.k8s.io/v1" && kind == "VolumeAttachmentList")
@@ -3250,6 +3296,16 @@ import * as outputs from "../types/output";
                     name: `networking.k8s.io/v1beta1/Ingress::${id}`,
                     resource: new k8s.networking.v1beta1.Ingress(id, obj, opts),
                 }))];
+            case "networking.k8s.io/v1beta1/IngressClass":
+                return [id.apply(id => ({
+                    name: `networking.k8s.io/v1beta1/IngressClass::${id}`,
+                    resource: new k8s.networking.v1beta1.IngressClass(id, obj, opts),
+                }))];
+            case "networking.k8s.io/v1beta1/IngressClassList":
+                return [id.apply(id => ({
+                    name: `networking.k8s.io/v1beta1/IngressClassList::${id}`,
+                    resource: new k8s.networking.v1beta1.IngressClassList(id, obj, opts),
+                }))];
             case "networking.k8s.io/v1beta1/IngressList":
                 return [id.apply(id => ({
                     name: `networking.k8s.io/v1beta1/IngressList::${id}`,
@@ -3454,6 +3510,16 @@ import * as outputs from "../types/output";
                 return [id.apply(id => ({
                     name: `settings.k8s.io/v1alpha1/PodPresetList::${id}`,
                     resource: new k8s.settings.v1alpha1.PodPresetList(id, obj, opts),
+                }))];
+            case "storage.k8s.io/v1/CSIDriver":
+                return [id.apply(id => ({
+                    name: `storage.k8s.io/v1/CSIDriver::${id}`,
+                    resource: new k8s.storage.v1.CSIDriver(id, obj, opts),
+                }))];
+            case "storage.k8s.io/v1/CSIDriverList":
+                return [id.apply(id => ({
+                    name: `storage.k8s.io/v1/CSIDriverList::${id}`,
+                    resource: new k8s.storage.v1.CSIDriverList(id, obj, opts),
                 }))];
             case "storage.k8s.io/v1/CSINode":
                 return [id.apply(id => ({
