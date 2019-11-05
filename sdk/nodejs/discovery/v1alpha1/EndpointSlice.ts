@@ -15,7 +15,10 @@ import { getVersion } from "../../version";
     export class EndpointSlice extends pulumi.CustomResource {
       /**
        * addressType specifies the type of address carried by this EndpointSlice. All addresses in
-       * this slice must be the same type. Default is IP
+       * this slice must be the same type. The following address types are currently supported: *
+       * IP:   Represents an IP Address. This can include both IPv4 and IPv6
+       *         addresses.
+       * * FQDN: Represents a Fully Qualified Domain Name. Default is IP
        */
       public readonly addressType: pulumi.Output<string>;
 

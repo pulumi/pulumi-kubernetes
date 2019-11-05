@@ -1341,7 +1341,7 @@ export namespace apiextensions {
 
       /**
        * scope indicates whether the defined custom resource is cluster- or namespace-scoped.
-       * Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
+       * Allowed values are `Cluster` and `Namespaced`.
        */
       readonly scope: string
 
@@ -1677,6 +1677,19 @@ export namespace apiextensions {
        * Defaults to atomic for arrays.
        */
       readonly x_kubernetes_list_type: string
+
+      /**
+       * x-kubernetes-map-type annotates an object to further describe its topology. This extension
+       * must only be used when type is object and may have 2 possible values:
+       * 
+       * 1) `granular`:
+       *      These maps are actual maps (key-value pairs) and each fields are independent
+       *      from each other (they can each be manipulated by separate actors). This is
+       *      the default behaviour for all maps.
+       * 2) `atomic`: the list is treated as a single entity, like a scalar.
+       *      Atomic maps will be entirely replaced when updated.
+       */
+      readonly x_kubernetes_map_type: string
 
       /**
        * x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields
@@ -2412,6 +2425,19 @@ export namespace apiextensions {
        * Defaults to atomic for arrays.
        */
       readonly x_kubernetes_list_type: string
+
+      /**
+       * x-kubernetes-map-type annotates an object to further describe its topology. This extension
+       * must only be used when type is object and may have 2 possible values:
+       * 
+       * 1) `granular`:
+       *      These maps are actual maps (key-value pairs) and each fields are independent
+       *      from each other (they can each be manipulated by separate actors). This is
+       *      the default behaviour for all maps.
+       * 2) `atomic`: the list is treated as a single entity, like a scalar.
+       *      Atomic maps will be entirely replaced when updated.
+       */
+      readonly x_kubernetes_map_type: string
 
       /**
        * x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields
@@ -15995,10 +16021,10 @@ export namespace discovery {
     export interface Endpoint {
       /**
        * addresses of this endpoint. The contents of this field are interpreted according to the
-       * corresponding EndpointSlice addressType field. This allows for cases like dual-stack (IPv4
-       * and IPv6) networking. Consumers (e.g. kube-proxy) must handle different types of addresses
-       * in the context of their own capabilities. This must contain at least one address but no
-       * more than 100.
+       * corresponding EndpointSlice addressType field. This allows for cases like dual-stack
+       * networking where both IPv4 and IPv6 addresses would be included with the IP addressType.
+       * Consumers (e.g. kube-proxy) must handle different types of addresses in the context of
+       * their own capabilities. This must contain at least one address but no more than 100.
        */
       readonly addresses: string[]
 
@@ -16057,10 +16083,10 @@ export namespace discovery {
       /**
        * The name of this port. All ports in an EndpointSlice must have a unique name. If the
        * EndpointSlice is dervied from a Kubernetes service, this corresponds to the
-       * Service.ports[].name. Name must either be an empty string or pass IANA_SVC_NAME validation:
-       * * must be no more than 15 characters long * may contain only [-a-z0-9] * must contain at
-       * least one letter [a-z] * it must not start or end with a hyphen, nor contain adjacent
-       * hyphens Default is empty string.
+       * Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: *
+       * must be no more than 63 characters long. * must consist of lower case alphanumeric
+       * characters or '-'. * must start and end with an alphanumeric character. Default is empty
+       * string.
        */
       readonly name: string
 
@@ -16085,7 +16111,10 @@ export namespace discovery {
     export interface EndpointSlice {
       /**
        * addressType specifies the type of address carried by this EndpointSlice. All addresses in
-       * this slice must be the same type. Default is IP
+       * this slice must be the same type. The following address types are currently supported: *
+       * IP:   Represents an IP Address. This can include both IPv4 and IPv6
+       *         addresses.
+       * * FQDN: Represents a Fully Qualified Domain Name. Default is IP
        */
       readonly addressType: string
 
@@ -21802,6 +21831,130 @@ export namespace settings {
 export namespace storage {
   export namespace v1 {
     /**
+     * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
+     * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
+     * container, the kubelet will automatically populate the CSINode object for the CSI driver as
+     * part of kubelet plugin registration. CSINode has the same name as a node. If the object is
+     * missing, it means either there are no CSI Drivers available on the node, or the Kubelet
+     * version is low enough that it doesn't create this object. CSINode has an OwnerReference that
+     * points to the corresponding node object.
+     */
+    export interface CSINode {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      readonly apiVersion: "storage.k8s.io/v1"
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      readonly kind: "CSINode"
+
+      /**
+       * metadata.name must be the Kubernetes node name.
+       */
+      readonly metadata: meta.v1.ObjectMeta
+
+      /**
+       * spec is the specification of CSINode
+       */
+      readonly spec: storage.v1.CSINodeSpec
+
+    }
+
+    /**
+     * CSINodeDriver holds information about the specification of one CSI driver installed on a node
+     */
+    export interface CSINodeDriver {
+      /**
+       * allocatable represents the volume resources of a node that are available for scheduling.
+       * This field is beta.
+       */
+      readonly allocatable: storage.v1.VolumeNodeResources
+
+      /**
+       * This is the name of the CSI driver that this object refers to. This MUST be the same name
+       * returned by the CSI GetPluginName() call for that driver.
+       */
+      readonly name: string
+
+      /**
+       * nodeID of the node from the driver point of view. This field enables Kubernetes to
+       * communicate with storage systems that do not share the same nomenclature for nodes. For
+       * example, Kubernetes may refer to a given node as "node1", but the storage system may refer
+       * to the same node as "nodeA". When Kubernetes issues a command to the storage system to
+       * attach a volume to a specific node, it can use this field to refer to the node name using
+       * the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field
+       * is required.
+       */
+      readonly nodeID: string
+
+      /**
+       * topologyKeys is the list of keys supported by the driver. When a driver is initialized on a
+       * cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone",
+       * "company.com/region"). When a driver is initialized on a node, it provides the same
+       * topology keys along with values. Kubelet will expose these topology keys as labels on its
+       * own node object. When Kubernetes does topology aware provisioning, it can use this list to
+       * determine which labels it should retrieve from the node object and pass back to the driver.
+       * It is possible for different nodes to use different topology keys. This can be empty if
+       * driver does not support topology.
+       */
+      readonly topologyKeys: string[]
+
+    }
+
+    /**
+     * CSINodeList is a collection of CSINode objects.
+     */
+    export interface CSINodeList {
+      /**
+       * APIVersion defines the versioned schema of this representation of an object. Servers should
+       * convert recognized schemas to the latest internal value, and may reject unrecognized
+       * values. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+       */
+      readonly apiVersion: "storage.k8s.io/v1"
+
+      /**
+       * items is the list of CSINode
+       */
+      readonly items: storage.v1.CSINode[]
+
+      /**
+       * Kind is a string value representing the REST resource this object represents. Servers may
+       * infer this from the endpoint the client submits requests to. Cannot be updated. In
+       * CamelCase. More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+       */
+      readonly kind: "CSINodeList"
+
+      /**
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+       */
+      readonly metadata: meta.v1.ListMeta
+
+    }
+
+    /**
+     * CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+     */
+    export interface CSINodeSpec {
+      /**
+       * drivers is a list of information of all CSI Drivers existing on a node. If all drivers in
+       * the list are uninstalled, this can become empty.
+       */
+      readonly drivers: storage.v1.CSINodeDriver[]
+
+    }
+
+    /**
      * StorageClass describes the parameters for a class of storage for which PersistentVolumes can
      * be dynamically provisioned.
      * 
@@ -22075,6 +22228,21 @@ export namespace storage {
        * Time the error was encountered.
        */
       readonly time: string
+
+    }
+
+    /**
+     * VolumeNodeResources is a set of resource limits for scheduling of volumes.
+     */
+    export interface VolumeNodeResources {
+      /**
+       * Maximum number of unique volumes managed by the CSI driver that can be used on a node. A
+       * volume that is both attached and mounted on a node is considered to be used once, not
+       * twice. The same rule applies for a unique volume that is shared among multiple pods on the
+       * same node. If this field is not specified, then the supported number of volumes on this
+       * node is unbounded.
+       */
+      readonly count: number
 
     }
 
@@ -22383,6 +22551,9 @@ export namespace storage {
     }
 
     /**
+     * @deprecated storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
+     * storage/v1beta1/CSINode instead.
+     * 
      * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
      * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
      * container, the kubelet will automatically populate the CSINode object for the CSI driver as

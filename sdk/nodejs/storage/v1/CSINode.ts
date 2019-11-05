@@ -8,9 +8,6 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * @deprecated storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
-     * storage/v1beta1/CSINode instead.
-     * 
      * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
      * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
      * container, the kubelet will automatically populate the CSINode object for the CSI driver as
@@ -26,7 +23,7 @@ import { getVersion } from "../../version";
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1beta1">;
+      public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1">;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -44,7 +41,7 @@ import { getVersion } from "../../version";
       /**
        * spec is the specification of CSINode
        */
-      public readonly spec: pulumi.Output<outputs.storage.v1beta1.CSINodeSpec>;
+      public readonly spec: pulumi.Output<outputs.storage.v1.CSINodeSpec>;
 
       /**
        * Get the state of an existing `CSINode` resource, as identified by `id`.
@@ -62,7 +59,7 @@ import { getVersion } from "../../version";
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1beta1:CSINode";
+      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1:CSINode";
 
       /**
        * Returns true if the given object is an instance of CSINode.  This is designed to work even
@@ -77,17 +74,17 @@ import { getVersion } from "../../version";
       }
 
       /**
-       * Create a storage.v1beta1.CSINode resource with the given unique name, arguments, and options.
+       * Create a storage.v1.CSINode resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.storage.v1beta1.CSINode, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.storage.v1.CSINode, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
           props["spec"] = args && args.spec || undefined;
 
-          props["apiVersion"] = "storage.k8s.io/v1beta1";
+          props["apiVersion"] = "storage.k8s.io/v1";
           props["kind"] = "CSINode";
           props["metadata"] = args && args.metadata || undefined;
 
@@ -100,6 +97,15 @@ import { getVersion } from "../../version";
           if (!opts.version) {
               opts.version = getVersion();
           }
+
+          opts.additionalSecretOutputs = [
+              ...((opts && opts.additionalSecretOutputs) || []),
+
+          ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
 
           super(CSINode.__pulumiType, name, props, opts);
       }

@@ -1188,6 +1188,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"settings.k8s.io/v1alpha1/PodPresetList:{x}",
                        PodPresetList(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1/CSINode":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1 import CSINode
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1/CSINode:{x}",
+                       CSINode(f"{x}", opts, **obj)))]
+    if gvk == "storage.k8s.io/v1/CSINodeList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.storage.v1 import CSINodeList
+        return [identifier.apply(
+            lambda x: (f"storage.k8s.io/v1/CSINodeList:{x}",
+                       CSINodeList(f"{x}", opts, **obj)))]
     if gvk == "storage.k8s.io/v1/StorageClass":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.storage.v1 import StorageClass

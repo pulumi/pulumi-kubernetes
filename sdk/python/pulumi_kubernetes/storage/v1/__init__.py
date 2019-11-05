@@ -3,6 +3,8 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
+from .CSINode import (CSINode)
+from .CSINodeList import (CSINodeList)
 from .StorageClass import (StorageClass)
 from .StorageClassList import (StorageClassList)
 from .VolumeAttachment import (VolumeAttachment)

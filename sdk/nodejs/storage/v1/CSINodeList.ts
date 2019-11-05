@@ -8,25 +8,21 @@ import * as outputs from "../../types/output";
 import { getVersion } from "../../version";
 
     /**
-     * @deprecated storage/v1beta1/CSINode is not supported by Kubernetes 1.16+ clusters. Use
-     * storage/v1beta1/CSINode instead.
-     * 
-     * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
-     * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
-     * container, the kubelet will automatically populate the CSINode object for the CSI driver as
-     * part of kubelet plugin registration. CSINode has the same name as a node. If the object is
-     * missing, it means either there are no CSI Drivers available on the node, or the Kubelet
-     * version is low enough that it doesn't create this object. CSINode has an OwnerReference that
-     * points to the corresponding node object.
+     * CSINodeList is a collection of CSINode objects.
      */
-    export class CSINode extends pulumi.CustomResource {
+    export class CSINodeList extends pulumi.CustomResource {
       /**
        * APIVersion defines the versioned schema of this representation of an object. Servers should
        * convert recognized schemas to the latest internal value, and may reject unrecognized
        * values. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
        */
-      public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1beta1">;
+      public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1">;
+
+      /**
+       * items is the list of CSINode
+       */
+      public readonly items: pulumi.Output<outputs.storage.v1.CSINode[]>;
 
       /**
        * Kind is a string value representing the REST resource this object represents. Servers may
@@ -34,20 +30,16 @@ import { getVersion } from "../../version";
        * CamelCase. More info:
        * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
        */
-      public readonly kind: pulumi.Output<"CSINode">;
+      public readonly kind: pulumi.Output<"CSINodeList">;
 
       /**
-       * metadata.name must be the Kubernetes node name.
+       * Standard list metadata More info:
+       * https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
        */
-      public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+      public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
       /**
-       * spec is the specification of CSINode
-       */
-      public readonly spec: pulumi.Output<outputs.storage.v1beta1.CSINodeSpec>;
-
-      /**
-       * Get the state of an existing `CSINode` resource, as identified by `id`.
+       * Get the state of an existing `CSINodeList` resource, as identified by `id`.
        * The ID is of the form `[namespace]/<name>`; if `namespace` is omitted, then (per
        * Kubernetes convention) the ID becomes `default/<name>`.
        *
@@ -57,38 +49,38 @@ import { getVersion } from "../../version";
        * @param id An ID for the Kubernetes resource to retrieve. Takes the form `[namespace]/<name>`.
        * @param opts Uniquely specifies a CustomResource to select.
        */
-      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CSINode {
-          return new CSINode(name, undefined, { ...opts, id: id });
+      public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): CSINodeList {
+          return new CSINodeList(name, undefined, { ...opts, id: id });
       }
 
       /** @internal */
-      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1beta1:CSINode";
+      private static readonly __pulumiType = "kubernetes:storage.k8s.io/v1:CSINodeList";
 
       /**
-       * Returns true if the given object is an instance of CSINode.  This is designed to work even
+       * Returns true if the given object is an instance of CSINodeList.  This is designed to work even
        * when multiple copies of the Pulumi SDK have been loaded into the same process.
        */
-      public static isInstance(obj: any): obj is CSINode {
+      public static isInstance(obj: any): obj is CSINodeList {
           if (obj === undefined || obj === null) {
               return false;
           }
 
-          return obj["__pulumiType"] === CSINode.__pulumiType;
+          return obj["__pulumiType"] === CSINodeList.__pulumiType;
       }
 
       /**
-       * Create a storage.v1beta1.CSINode resource with the given unique name, arguments, and options.
+       * Create a storage.v1.CSINodeList resource with the given unique name, arguments, and options.
        *
        * @param name The _unique_ name of the resource.
        * @param args The arguments to use to populate this resource's properties.
        * @param opts A bag of options that control this resource's behavior.
        */
-      constructor(name: string, args?: inputs.storage.v1beta1.CSINode, opts?: pulumi.CustomResourceOptions) {
+      constructor(name: string, args?: inputs.storage.v1.CSINodeList, opts?: pulumi.CustomResourceOptions) {
           const props: pulumi.Inputs = {};
-          props["spec"] = args && args.spec || undefined;
+          props["items"] = args && args.items || undefined;
 
-          props["apiVersion"] = "storage.k8s.io/v1beta1";
-          props["kind"] = "CSINode";
+          props["apiVersion"] = "storage.k8s.io/v1";
+          props["kind"] = "CSINodeList";
           props["metadata"] = args && args.metadata || undefined;
 
           props["status"] = undefined;
@@ -101,6 +93,15 @@ import { getVersion } from "../../version";
               opts.version = getVersion();
           }
 
-          super(CSINode.__pulumiType, name, props, opts);
+          opts.additionalSecretOutputs = [
+              ...((opts && opts.additionalSecretOutputs) || []),
+
+          ];
+
+          opts.aliases = [
+              ...((opts && opts.aliases) || []),
+          ];
+
+          super(CSINodeList.__pulumiType, name, props, opts);
       }
     }
