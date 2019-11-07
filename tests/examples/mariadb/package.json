@@ -2,7 +2,7 @@
   "name": "mariadb",
   "version": "0.1.0",
   "dependencies": {
-    "@pulumi/pulumi": "dev",
+    "@pulumi/pulumi": "latest",
     "@pulumi/random": "dev"
   },
   "devDependencies": {
