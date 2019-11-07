@@ -16,14 +16,17 @@ package clients
 
 import (
 	"fmt"
+	"io"
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/kinds"
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	corev1 "k8s.io/api/core/v1"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/restmapper"
 )
@@ -172,6 +175,26 @@ func (dcs *DynamicClientSet) IsNamespacedKind(gvk schema.GroupVersionKind) (bool
 	}
 
 	return false, &NoNamespaceInfoErr{gvk}
+}
+
+type LogClient struct {
+	clientset *kubernetes.Clientset
+}
+
+func NewLogClient(clientConfig *rest.Config) (*LogClient, error) {
+	// creates the clientset
+	clientset, err := kubernetes.NewForConfig(clientConfig)
+	if err != nil {
+		return nil, err
+	}
+
+	return &LogClient{clientset: clientset}, nil
+}
+
+func (lc *LogClient) Logs(namespace, name string) (io.ReadCloser, error) {
+	podLogOpts := corev1.PodLogOptions{Follow: true}
+	req := lc.clientset.CoreV1().Pods(namespace).GetLogs(name, &podLogOpts)
+	return req.Stream()
 }
 
 type NoNamespaceInfoErr struct {
