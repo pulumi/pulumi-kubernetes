@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"bufio"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -51,6 +52,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
+	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 	k8sopenapi "k8s.io/kubernetes/pkg/kubectl/cmd/util/openapi"
@@ -69,6 +71,7 @@ import (
 const (
 	streamInvokeList     = "kubernetes:kubernetes:list"
 	streamInvokeWatch    = "kubernetes:kubernetes:watch"
+	streamInvokePodLogs  = "kubernetes:kubernetes:podLogs"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialApiVersionKey = "__initialApiVersion"
 )
@@ -103,7 +106,10 @@ type kubeProvider struct {
 	suppressDeprecationWarnings bool
 	enableSecrets               bool
 
+	config *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
+
 	clientSet  *clients.DynamicClientSet
+	logClient  *clients.LogClient
 	k8sVersion cluster.ServerVersion
 
 	resources      k8sopenapi.Resources
@@ -333,16 +339,23 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
 	}
 
-	conf, err := kubeconfig.ClientConfig()
+	config, err := kubeconfig.ClientConfig()
 	if err != nil {
 		return nil, fmt.Errorf("unable to load Kubernetes client configuration from kubeconfig file: %v", err)
 	}
+	k.config = config
 
-	cs, err := clients.NewDynamicClientSet(conf)
+	cs, err := clients.NewDynamicClientSet(k.config)
 	if err != nil {
 		return nil, err
 	}
 	k.clientSet = cs
+
+	lc, err := clients.NewLogClient(k.config)
+	if err != nil {
+		return nil, err
+	}
+	k.logClient = lc
 
 	k.k8sVersion = cluster.GetServerVersion(cs.DiscoveryClientCached)
 
@@ -566,6 +579,102 @@ func (k *kubeProvider) StreamInvoke(
 				//
 
 				watch.Stop()
+				return nil
+			}
+		}
+	case streamInvokePodLogs:
+		//
+		// Set up log stream for Pod.
+		//
+
+		namespace := "default"
+		if args["namespace"].HasValue() {
+			namespace = args["namespace"].StringValue()
+		}
+
+		if !args["name"].HasValue() {
+			return fmt.Errorf(
+				"could not retrieve pod logs because the pod name was not present")
+		}
+		name := args["name"].StringValue()
+
+		podLogs, err := k.logClient.Logs(namespace, name)
+		if err != nil {
+			return err
+		}
+		defer podLogs.Close()
+
+		//
+		// Enumerate logs by line. Send back to the user.
+		//
+		// TODO: We send the logs back one-by-one, but we should probably batch them instead.
+		//
+
+		logLines := make(chan string)
+		defer close(logLines)
+		done := make(chan error)
+		defer close(done)
+
+		go func() {
+			podLogLines := bufio.NewScanner(podLogs)
+			for podLogLines.Scan() {
+				logLines <- podLogLines.Text()
+			}
+
+			if err := podLogLines.Err(); err != nil {
+				done <- err
+			} else {
+				done <- nil
+			}
+		}()
+
+		for {
+			select {
+			case <-k.canceler.context.Done():
+				//
+				// `kubeProvider#Cancel` was called. Terminate the `StreamInvoke` RPC, free all
+				// resources, and exit without error.
+				//
+
+				return nil
+			case err := <-done:
+				//
+				// Complete. Return the error if applicable.
+				//
+
+				return err
+			case line := <-logLines:
+				//
+				// Publish log line back to user.
+				//
+
+				resp, err := plugin.MarshalProperties(
+					resource.NewPropertyMapFromMap(
+						map[string]interface{}{"lines": []string{line}}),
+					plugin.MarshalOptions{})
+				if err != nil {
+					return err
+				}
+
+				err = server.Send(&pulumirpc.InvokeResponse{Return: resp})
+				if err != nil {
+					return err
+				}
+			case <-server.Context().Done():
+				//
+				// gRPC stream was cancelled from the client that issued the `StreamInvoke` request
+				// to us. In this case, we terminate the `StreamInvoke` RPC, free all resources, and
+				// exit without error.
+				//
+				// Usually, this happens in the language provider, e.g., in the call to `cancel`
+				// below.
+				//
+				//     const podLogLines = await streamInvoke("kubernetes:kubernetes:podLogs", {
+				//         namespace: "default", name: "nginx-f94d8bc55-xftvs",
+				//     });
+				//     podLogLines.cancel();
+				//
+
 				return nil
 			}
 		}
