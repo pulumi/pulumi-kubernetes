@@ -129,11 +129,6 @@ we have access to a running Kubernetes cluster to deploy resources and workloads
 This example deploys resources from a YAML manifest file path, using the
 transient, default `kubeconfig` credentials on the local machine, just as `kubectl` does.
 
-> Note: This capabality is primarily targeted for experimentation and transitioning 
-to Pulumi. Pulumi's [desired state model][how-pulumi-works] greatly benefits
-from having resources be directly defined in your Pulumi program as demonstrated
-in the [workload example][workload-example].
-
 ```typescript
 import * as k8s as "@pulumi/kubernetes";
 
@@ -147,11 +142,6 @@ const myApp = new k8s.yaml.ConfigFile("app", {
 This example creates an EKS cluster with [`pulumi/eks`](https://github.com/pulumi/pulumi-eks),
 and then deploys a Helm chart from the stable repo using the 
 `kubeconfig` credentials from the cluster's [Pulumi provider](https://www.pulumi.com/docs/reference/programming-model/#providers).
-
-> Note: This capabality is primarily targeted for experimentation and transitioning 
-to Pulumi. Pulumi's [desired state model][how-pulumi-works] greatly benefits
-from having resources be directly defined in your Pulumi program as demonstrated
-in the [workload example][workload-example].
 
 ```typescript
 import * as eks from "@pulumi/eks";
