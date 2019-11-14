@@ -38,7 +38,7 @@ namespace Pulumi.Kubernetes.Scheduling.V1 {
         /// `globalDefault` field set to true, the smallest value of such global default
         /// PriorityClasses will be used as the default priority.
         /// </summary>
-        public Output<boolean> GlobalDefault { get; private set; } = null!;
+        public Output<bool> GlobalDefault { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:

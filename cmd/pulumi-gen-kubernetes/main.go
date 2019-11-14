@@ -23,6 +23,7 @@ import (
 	"path/filepath"
 
 	"github.com/pulumi/pulumi-kubernetes/pkg/gen"
+	providerVersion "github.com/pulumi/pulumi-kubernetes/pkg/version"
 )
 
 func main() {
@@ -227,12 +228,17 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 		panic(err)
 	}
 
-	err = os.MkdirAll(outdir, 0700)
+	err = os.MkdirAll(sdkDir, 0700)
 	if err != nil {
 		panic(err)
 	}
 
-	typesDir := fmt.Sprintf("%s/types", outdir)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/version.txt", sdkDir), []byte(providerVersion.Version), 0777)
+	if err != nil {
+		panic(err)
+	}
+
+	typesDir := fmt.Sprintf("%s/Types", sdkDir)
 	err = os.MkdirAll(typesDir, 0700)
 	if err != nil {
 		panic(err)
@@ -261,6 +267,11 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 
 	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(sdkDir, "README.md"))
+	if err != nil {
+		panic(err)
+	}
+
+	err = CopyFile(filepath.Join(templateDir, "Pulumi.Kubernetes.csproj"), filepath.Join(sdkDir, "Pulumi.Kubernetes.csproj"))
 	if err != nil {
 		panic(err)
 	}

@@ -36,6 +36,7 @@ build:: $(OPENAPI_FILE)
 	$(GO) install $(VERSION_FLAGS) $(PROJECT)/cmd/$(CODEGEN)
 	# Delete only files and folders that are generated.
 	# rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
+	# rm -r sdk/dotnet/*
 	for LANGUAGE in "dotnet" "nodejs" "python" ; do \
 		$(CODEGEN) $$LANGUAGE $(OPENAPI_FILE) pkg/gen/$${LANGUAGE}-templates $(PACKDIR) || exit 3 ; \
 	done

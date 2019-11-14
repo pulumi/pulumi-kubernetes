@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// AutomountServiceAccountToken indicates whether pods running as this service account
         /// should have an API token automatically mounted. Can be overridden at the pod level.
         /// </summary>
-        public Output<boolean> AutomountServiceAccountToken { get; private set; } = null!;
+        public Output<bool> AutomountServiceAccountToken { get; private set; } = null!;
 
         /// <summary>
         /// ImagePullSecrets is a list of references to secrets in the same namespace to use for

@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// <summary>
         /// AllowVolumeExpansion shows whether the storage class allow volume expand
         /// </summary>
-        public Output<boolean> AllowVolumeExpansion { get; private set; } = null!;
+        public Output<bool> AllowVolumeExpansion { get; private set; } = null!;
 
         /// <summary>
         /// Restrict the node topologies where volumes can be dynamically provisioned. Each volume

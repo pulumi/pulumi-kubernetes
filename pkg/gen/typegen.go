@@ -577,6 +577,8 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 			}
 		} else if tstr == "integer" {
 			return wrapType("int")
+		} else if tstr == "boolean" {
+			return wrapType("bool")
 		} else if tstr == "object" {
 			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
 			// values both have type `type`. This type is never a `$ref`.
