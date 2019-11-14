@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// VolumeAttachmentList is a collection of VolumeAttachment objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Storage.V1 {
+    /// <summary>
+    /// VolumeAttachmentList is a collection of VolumeAttachment objects.
+    /// </summary>
     public partial class VolumeAttachmentList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

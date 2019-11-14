@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// Status is a return value for calls that don't return other objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Meta.V1 {
+    /// <summary>
+    /// Status is a return value for calls that don't return other objects.
+    /// </summary>
     public partial class Status : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

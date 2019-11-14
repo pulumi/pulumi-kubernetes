@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
-/// RoleBinding.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Rbac.V1Alpha1 {
+    /// <summary>
+    /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
+    /// RoleBinding.
+    /// </summary>
     public partial class Role : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

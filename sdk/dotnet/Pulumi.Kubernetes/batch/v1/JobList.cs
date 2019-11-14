@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// JobList is a collection of jobs.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Batch.V1 {
+    /// <summary>
+    /// JobList is a collection of jobs.
+    /// </summary>
     public partial class JobList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

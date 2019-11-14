@@ -5,13 +5,14 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// VolumeAttachment captures the intent to attach or detach the specified volume to/from the
-/// specified node.
-/// 
-/// VolumeAttachment objects are non-namespaced.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Storage.V1Alpha1 {
+    /// <summary>
+    /// VolumeAttachment captures the intent to attach or detach the specified volume to/from the
+    /// specified node.
+    /// 
+    /// VolumeAttachment objects are non-namespaced.
+    /// </summary>
     public partial class VolumeAttachment : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

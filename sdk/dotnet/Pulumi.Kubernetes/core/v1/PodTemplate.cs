@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PodTemplate describes a template for creating copies of a predefined pod.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// PodTemplate describes a template for creating copies of a predefined pod.
+    /// </summary>
     public partial class PodTemplate : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

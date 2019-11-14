@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PriorityClassList is a collection of priority classes.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Scheduling.V1Alpha1 {
+    /// <summary>
+    /// PriorityClassList is a collection of priority classes.
+    /// </summary>
     public partial class PriorityClassList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

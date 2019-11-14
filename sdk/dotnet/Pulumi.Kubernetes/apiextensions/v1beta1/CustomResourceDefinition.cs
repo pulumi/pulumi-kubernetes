@@ -5,12 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its
-/// name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;. Deprecated in v1.16, planned
-/// for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
-/// </summary>
+
 namespace Pulumi.Kubernetes.ApiExtensions.V1Beta1 {
+    /// <summary>
+    /// CustomResourceDefinition represents a resource that should be exposed on the API server.
+    /// Its name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;. Deprecated in v1.16,
+    /// planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+    /// </summary>
     public partial class CustomResourceDefinition : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

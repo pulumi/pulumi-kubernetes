@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ResourceQuotaList is a list of ResourceQuota items.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// ResourceQuotaList is a list of ResourceQuota items.
+    /// </summary>
     public partial class ResourceQuotaList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

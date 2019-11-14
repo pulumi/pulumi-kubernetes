@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.ApiExtensions.V1 {
+    /// <summary>
+    /// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+    /// </summary>
     public partial class CustomResourceDefinitionList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

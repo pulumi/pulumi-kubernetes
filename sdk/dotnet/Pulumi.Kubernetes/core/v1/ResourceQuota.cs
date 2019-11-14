@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ResourceQuota sets aggregate quota restrictions enforced per namespace
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// ResourceQuota sets aggregate quota restrictions enforced per namespace
+    /// </summary>
     public partial class ResourceQuota : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// AuditSinkList is a list of AuditSink items.
-/// </summary>
+
 namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1 {
+    /// <summary>
+    /// AuditSinkList is a list of AuditSink items.
+    /// </summary>
     public partial class AuditSinkList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

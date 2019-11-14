@@ -5,30 +5,31 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// DEPRECATED - apps/v1beta1/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
-/// apps/v1/StatefulSet instead.
-/// 
-/// StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-///  - Network: A single stable DNS and hostname.
-///  - Storage: As many VolumeClaims as requested.
-/// The StatefulSet guarantees that a given network identity will always map to the same storage
-/// identity.
-/// 
-/// This resource waits until its status is ready before registering success
-/// for create/update, and populating output properties from the current state of the resource.
-/// The following conditions are used to determine whether the resource creation has
-/// succeeded or failed:
-/// 
-/// 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
-///    and '.status.readyReplicas'.
-/// 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
-/// 
-/// If the StatefulSet has not reached a Ready state after 10 minutes, it will
-/// time out and mark the resource update as Failed. You can override the default timeout value
-/// by setting the 'customTimeouts' option on the resource.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Apps.V1Beta1 {
+    /// <summary>
+    /// DEPRECATED - apps/v1beta1/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
+    /// apps/v1/StatefulSet instead.
+    /// 
+    /// StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+    ///  - Network: A single stable DNS and hostname.
+    ///  - Storage: As many VolumeClaims as requested.
+    /// The StatefulSet guarantees that a given network identity will always map to the same storage
+    /// identity.
+    /// 
+    /// This resource waits until its status is ready before registering success
+    /// for create/update, and populating output properties from the current state of the resource.
+    /// The following conditions are used to determine whether the resource creation has
+    /// succeeded or failed:
+    /// 
+    /// 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+    ///    and '.status.readyReplicas'.
+    /// 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+    /// 
+    /// If the StatefulSet has not reached a Ready state after 10 minutes, it will
+    /// time out and mark the resource update as Failed. You can override the default timeout value
+    /// by setting the 'customTimeouts' option on the resource.
+    /// </summary>
     public partial class StatefulSet : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

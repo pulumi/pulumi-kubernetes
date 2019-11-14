@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// AuditSink represents a cluster level audit sink
-/// </summary>
+
 namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1 {
+    /// <summary>
+    /// AuditSink represents a cluster level audit sink
+    /// </summary>
     public partial class AuditSink : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

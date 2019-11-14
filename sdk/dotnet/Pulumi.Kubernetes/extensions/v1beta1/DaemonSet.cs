@@ -5,13 +5,14 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// DEPRECATED - extensions/v1beta1/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
-/// apps/v1/DaemonSet instead.
-/// 
-/// DaemonSet represents the configuration of a daemon set.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
+    /// <summary>
+    /// DEPRECATED - extensions/v1beta1/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
+    /// apps/v1/DaemonSet instead.
+    /// 
+    /// DaemonSet represents the configuration of a daemon set.
+    /// </summary>
     public partial class DaemonSet : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

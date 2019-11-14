@@ -5,16 +5,17 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed
-/// on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they
-/// may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it
-/// automatically creates a CSIDriver object representing the driver. Kubernetes attach detach
-/// controller uses this object to determine whether attach is required. Kubelet uses this object to
-/// determine whether pod information needs to be passed on mount. CSIDriver objects are
-/// non-namespaced.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Storage.V1Beta1 {
+    /// <summary>
+    /// CSIDriver captures information about a Container Storage Interface (CSI) volume driver
+    /// deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly.
+    /// Instead they may use the cluster-driver-registrar sidecar container. When deployed with a
+    /// CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes
+    /// attach detach controller uses this object to determine whether attach is required. Kubelet
+    /// uses this object to determine whether pod information needs to be passed on mount. CSIDriver
+    /// objects are non-namespaced.
+    /// </summary>
     public partial class CSIDriver : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

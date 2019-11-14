@@ -5,14 +5,16 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is
-/// used to determine which container runtime is used to run all containers in a pod. RuntimeClasses
-/// are (currently) manually defined by a user or cluster provisioner, and referenced in the
-/// PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running
-/// the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
-/// </summary>
+
 namespace Pulumi.Kubernetes.Node.V1Alpha1 {
+    /// <summary>
+    /// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass
+    /// is used to determine which container runtime is used to run all containers in a pod.
+    /// RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and
+    /// referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName
+    /// reference before running the pod.  For more details, see
+    /// https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+    /// </summary>
     public partial class RuntimeClass : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

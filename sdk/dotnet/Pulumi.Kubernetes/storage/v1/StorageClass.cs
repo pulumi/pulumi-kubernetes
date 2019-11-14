@@ -5,14 +5,15 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// StorageClass describes the parameters for a class of storage for which PersistentVolumes can be
-/// dynamically provisioned.
-/// 
-/// StorageClasses are non-namespaced; the name of the storage class according to etcd is in
-/// ObjectMeta.Name.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Storage.V1 {
+    /// <summary>
+    /// StorageClass describes the parameters for a class of storage for which PersistentVolumes can
+    /// be dynamically provisioned.
+    /// 
+    /// StorageClasses are non-namespaced; the name of the storage class according to etcd is in
+    /// ObjectMeta.Name.
+    /// </summary>
     public partial class StorageClass : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

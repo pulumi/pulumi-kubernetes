@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// APIServiceList is a list of APIService objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.ApiRegistration.V1 {
+    /// <summary>
+    /// APIServiceList is a list of APIService objects.
+    /// </summary>
     public partial class APIServiceList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

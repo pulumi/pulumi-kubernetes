@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// StatefulSetList is a collection of StatefulSets.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Apps.V1 {
+    /// <summary>
+    /// StatefulSetList is a collection of StatefulSets.
+    /// </summary>
     public partial class StatefulSetList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

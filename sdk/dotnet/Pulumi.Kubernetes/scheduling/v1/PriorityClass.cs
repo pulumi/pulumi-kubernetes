@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PriorityClass defines mapping from a priority class name to the priority integer value. The
-/// value can be any valid integer.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Scheduling.V1 {
+    /// <summary>
+    /// PriorityClass defines mapping from a priority class name to the priority integer value. The
+    /// value can be any valid integer.
+    /// </summary>
     public partial class PriorityClass : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

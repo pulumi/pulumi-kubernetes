@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// APIService represents a server for a particular GroupVersion. Name must be "version.group".
-/// </summary>
+
 namespace Pulumi.Kubernetes.ApiRegistration.V1 {
+    /// <summary>
+    /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
+    /// </summary>
     public partial class APIService : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

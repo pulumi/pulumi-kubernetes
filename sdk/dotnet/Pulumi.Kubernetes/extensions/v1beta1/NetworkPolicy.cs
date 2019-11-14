@@ -5,12 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by
-/// networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a set
-/// of Pods
-/// </summary>
+
 namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
+    /// <summary>
+    /// DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by
+    /// networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a
+    /// set of Pods
+    /// </summary>
     public partial class NetworkPolicy : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

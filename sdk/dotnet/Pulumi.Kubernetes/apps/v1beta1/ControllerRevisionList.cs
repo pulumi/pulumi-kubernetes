@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Apps.V1Beta1 {
+    /// <summary>
+    /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
+    /// </summary>
     public partial class ControllerRevisionList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

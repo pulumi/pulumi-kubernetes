@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// RuntimeClassList is a list of RuntimeClass objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Node.V1Beta1 {
+    /// <summary>
+    /// RuntimeClassList is a list of RuntimeClass objects.
+    /// </summary>
     public partial class RuntimeClassList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

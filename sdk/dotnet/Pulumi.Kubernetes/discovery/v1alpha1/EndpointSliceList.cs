@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// EndpointSliceList represents a list of endpoint slices
-/// </summary>
+
 namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
+    /// <summary>
+    /// EndpointSliceList represents a list of endpoint slices
+    /// </summary>
     public partial class EndpointSliceList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

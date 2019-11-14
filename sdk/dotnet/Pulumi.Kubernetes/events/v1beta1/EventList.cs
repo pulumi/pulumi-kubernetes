@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// EventList is a list of Event objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Events.V1Beta1 {
+    /// <summary>
+    /// EventList is a list of Event objects.
+    /// </summary>
     public partial class EventList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

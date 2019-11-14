@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to
-/// a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous
+    /// to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+    /// </summary>
     public partial class PersistentVolume : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

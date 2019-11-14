@@ -5,25 +5,26 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// Job represents the configuration of a single job.
-/// 
-/// This resource waits until its status is ready before registering success
-/// for create/update, and populating output properties from the current state of the resource.
-/// The following conditions are used to determine whether the resource creation has
-/// succeeded or failed:
-/// 
-/// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
-/// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
-///    to 'True'.
-/// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
-/// 	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
-/// 
-/// If the Job has not reached a Ready state after 10 minutes, it will
-/// time out and mark the resource update as Failed. You can override the default timeout value
-/// by setting the 'customTimeouts' option on the resource.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Batch.V1 {
+    /// <summary>
+    /// Job represents the configuration of a single job.
+    /// 
+    /// This resource waits until its status is ready before registering success
+    /// for create/update, and populating output properties from the current state of the resource.
+    /// The following conditions are used to determine whether the resource creation has
+    /// succeeded or failed:
+    /// 
+    /// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+    /// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+    ///    to 'True'.
+    /// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+    /// 	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
+    /// 
+    /// If the Job has not reached a Ready state after 10 minutes, it will
+    /// time out and mark the resource update as Failed. You can override the default timeout value
+    /// by setting the 'customTimeouts' option on the resource.
+    /// </summary>
     public partial class Job : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be
-/// cached by the webhook token authenticator plugin in the kube-apiserver.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Authentication.V1Beta1 {
+    /// <summary>
+    /// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may
+    /// be cached by the webhook token authenticator plugin in the kube-apiserver.
+    /// </summary>
     public partial class TokenReview : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

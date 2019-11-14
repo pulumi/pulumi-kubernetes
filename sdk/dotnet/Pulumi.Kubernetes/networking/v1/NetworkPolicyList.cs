@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// NetworkPolicyList is a list of NetworkPolicy objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Networking.V1 {
+    /// <summary>
+    /// NetworkPolicyList is a list of NetworkPolicy objects.
+    /// </summary>
     public partial class NetworkPolicyList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

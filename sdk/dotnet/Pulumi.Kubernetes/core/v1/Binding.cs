@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
-/// Deprecated in 1.7, please use the bindings subresource of pods instead.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
+    /// Deprecated in 1.7, please use the bindings subresource of pods instead.
+    /// </summary>
     public partial class Binding : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

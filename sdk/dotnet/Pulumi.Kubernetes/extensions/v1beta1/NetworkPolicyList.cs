@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by
-/// networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
+    /// <summary>
+    /// DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by
+    /// networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
+    /// </summary>
     public partial class NetworkPolicyList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Policy.V1Beta1 {
+    /// <summary>
+    /// PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
+    /// </summary>
     public partial class PodDisruptionBudgetList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
-/// </summary>
+
 namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1 {
+    /// <summary>
+    /// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
+    /// </summary>
     public partial class MutatingWebhookConfigurationList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

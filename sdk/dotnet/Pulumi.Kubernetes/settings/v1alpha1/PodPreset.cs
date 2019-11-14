@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
+    /// <summary>
+    /// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+    /// </summary>
     public partial class PodPreset : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

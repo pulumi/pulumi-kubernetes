@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// DeploymentList is a list of Deployments.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Apps.V1 {
+    /// <summary>
+    /// DeploymentList is a list of Deployments.
+    /// </summary>
     public partial class DeploymentList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

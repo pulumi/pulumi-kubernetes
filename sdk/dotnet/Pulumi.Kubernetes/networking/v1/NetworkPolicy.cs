@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// NetworkPolicy describes what network traffic is allowed for a set of Pods
-/// </summary>
+
 namespace Pulumi.Kubernetes.Networking.V1 {
+    /// <summary>
+    /// NetworkPolicy describes what network traffic is allowed for a set of Pods
+    /// </summary>
     public partial class NetworkPolicy : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

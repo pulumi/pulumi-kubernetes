@@ -5,12 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
-/// automatically manages the replica count of any resource implementing the scale subresource based
-/// on the metrics specified.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Autoscaling.V2Beta2 {
+    /// <summary>
+    /// HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
+    /// automatically manages the replica count of any resource implementing the scale subresource
+    /// based on the metrics specified.
+    /// </summary>
     public partial class HorizontalPodAutoscaler : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

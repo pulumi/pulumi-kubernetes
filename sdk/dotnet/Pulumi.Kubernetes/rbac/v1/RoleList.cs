@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// RoleList is a collection of Roles
-/// </summary>
+
 namespace Pulumi.Kubernetes.Rbac.V1 {
+    /// <summary>
+    /// RoleList is a collection of Roles
+    /// </summary>
     public partial class RoleList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

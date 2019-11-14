@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
-/// </summary>
+
 namespace Pulumi.Kubernetes.AdmissionRegistration.V1 {
+    /// <summary>
+    /// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
+    /// </summary>
     public partial class ValidatingWebhookConfigurationList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

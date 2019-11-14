@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// StorageClassList is a collection of storage classes.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Storage.V1Beta1 {
+    /// <summary>
+    /// StorageClassList is a collection of storage classes.
+    /// </summary>
     public partial class StorageClassList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

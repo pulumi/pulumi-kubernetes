@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// LeaseList is a list of Lease objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Coordination.V1 {
+    /// <summary>
+    /// LeaseList is a list of Lease objects.
+    /// </summary>
     public partial class LeaseList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

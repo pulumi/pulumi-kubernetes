@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole
-/// in the global namespace, and adds who information via Subject.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Rbac.V1 {
+    /// <summary>
+    /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
+    /// ClusterRole in the global namespace, and adds who information via Subject.
+    /// </summary>
     public partial class ClusterRoleBinding : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

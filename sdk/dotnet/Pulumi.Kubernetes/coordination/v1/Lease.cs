@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// Lease defines a lease concept.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Coordination.V1 {
+    /// <summary>
+    /// Lease defines a lease concept.
+    /// </summary>
     public partial class Lease : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

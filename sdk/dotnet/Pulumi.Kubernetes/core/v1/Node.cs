@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e.
-/// in etcd).
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache
+    /// (i.e. in etcd).
+    /// </summary>
     public partial class Node : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

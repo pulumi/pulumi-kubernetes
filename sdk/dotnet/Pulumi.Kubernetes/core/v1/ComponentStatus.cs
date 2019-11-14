@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
+    /// </summary>
     public partial class ComponentStatus : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ReplicaSetList is a collection of ReplicaSets.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Apps.V1Beta2 {
+    /// <summary>
+    /// ReplicaSetList is a collection of ReplicaSets.
+    /// </summary>
     public partial class ReplicaSetList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

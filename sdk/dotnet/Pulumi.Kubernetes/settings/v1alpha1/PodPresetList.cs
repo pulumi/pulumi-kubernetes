@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PodPresetList is a list of PodPreset objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
+    /// <summary>
+    /// PodPresetList is a list of PodPreset objects.
+    /// </summary>
     public partial class PodPresetList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

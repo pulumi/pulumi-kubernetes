@@ -5,12 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling
-/// in a spec.namespace means "in all namespaces".  Self is a special case, because users should
-/// always be able to check whether they can perform an action
-/// </summary>
+
 namespace Pulumi.Kubernetes.Authorization.V1Beta1 {
+    /// <summary>
+    /// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not
+    /// filling in a spec.namespace means "in all namespaces".  Self is a special case, because
+    /// users should always be able to check whether they can perform an action
+    /// </summary>
     public partial class SelfSubjectAccessReview : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept
-/// or reject and object without changing it.
-/// </summary>
+
 namespace Pulumi.Kubernetes.AdmissionRegistration.V1 {
+    /// <summary>
+    /// ValidatingWebhookConfiguration describes the configuration of and admission webhook that
+    /// accept or reject and object without changing it.
+    /// </summary>
     public partial class ValidatingWebhookConfiguration : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

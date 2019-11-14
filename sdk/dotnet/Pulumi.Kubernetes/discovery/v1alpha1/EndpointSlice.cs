@@ -5,12 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// EndpointSlice represents a subset of the endpoints that implement a service. For a given service
-/// there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce
-/// the full set of endpoints.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
+    /// <summary>
+    /// EndpointSlice represents a subset of the endpoints that implement a service. For a given
+    /// service there may be multiple EndpointSlice objects, selected by labels, which must be
+    /// joined to produce the full set of endpoints.
+    /// </summary>
     public partial class EndpointSlice : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

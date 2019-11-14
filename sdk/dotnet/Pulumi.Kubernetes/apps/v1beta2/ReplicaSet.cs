@@ -5,13 +5,14 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// DEPRECATED - apps/v1beta2/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
-/// apps/v1/ReplicaSet instead.
-/// 
-/// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Apps.V1Beta2 {
+    /// <summary>
+    /// DEPRECATED - apps/v1beta2/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
+    /// apps/v1/ReplicaSet instead.
+    /// 
+    /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+    /// </summary>
     public partial class ReplicaSet : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

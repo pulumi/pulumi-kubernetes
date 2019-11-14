@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// SubjectAccessReview checks whether or not a user or group can perform an action.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Authorization.V1Beta1 {
+    /// <summary>
+    /// SubjectAccessReview checks whether or not a user or group can perform an action.
+    /// </summary>
     public partial class SubjectAccessReview : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

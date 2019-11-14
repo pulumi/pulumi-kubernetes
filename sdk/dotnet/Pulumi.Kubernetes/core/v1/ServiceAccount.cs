@@ -5,11 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems,
-/// for an identity * a principal that can be authenticated and authorized * a set of secrets
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral
+    /// systems, for an identity * a principal that can be authenticated and authorized * a set of
+    /// secrets
+    /// </summary>
     public partial class ServiceAccount : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

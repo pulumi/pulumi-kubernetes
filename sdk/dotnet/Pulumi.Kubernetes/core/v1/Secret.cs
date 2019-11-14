@@ -5,21 +5,22 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// Secret holds secret data of a certain type. The total bytes of the values in the Data field must
-/// be less than MaxSecretSize bytes.
-/// 
-/// Note: While Pulumi automatically encrypts the 'data' and 'stringData'
-/// fields, this encryption only applies to Pulumi's context, including the state file, 
-/// the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
-/// and the contents are visible to users with access to the Secret in Kubernetes using
-/// tools like 'kubectl'.
-/// 
-/// For more information on securing Kubernetes Secrets, see the following links:
-/// https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
-/// https://kubernetes.io/docs/concepts/configuration/secret/#risks
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// Secret holds secret data of a certain type. The total bytes of the values in the Data field
+    /// must be less than MaxSecretSize bytes.
+    /// 
+    /// Note: While Pulumi automatically encrypts the 'data' and 'stringData'
+    /// fields, this encryption only applies to Pulumi's context, including the state file, 
+    /// the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
+    /// and the contents are visible to users with access to the Secret in Kubernetes using
+    /// tools like 'kubectl'.
+    /// 
+    /// For more information on securing Kubernetes Secrets, see the following links:
+    /// https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
+    /// https://kubernetes.io/docs/concepts/configuration/secret/#risks
+    /// </summary>
     public partial class Secret : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// DaemonSet represents the configuration of a daemon set.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Apps.V1 {
+    /// <summary>
+    /// DaemonSet represents the configuration of a daemon set.
+    /// </summary>
     public partial class DaemonSet : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

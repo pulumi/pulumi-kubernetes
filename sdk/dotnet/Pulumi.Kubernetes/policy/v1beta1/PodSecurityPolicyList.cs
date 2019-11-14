@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PodSecurityPolicyList is a list of PodSecurityPolicy objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Policy.V1Beta1 {
+    /// <summary>
+    /// PodSecurityPolicyList is a list of PodSecurityPolicy objects.
+    /// </summary>
     public partial class PodSecurityPolicyList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PodDisruptionBudget is an object to define the max disruption that can be caused to a collection
-/// of pods
-/// </summary>
+
 namespace Pulumi.Kubernetes.Policy.V1Beta1 {
+    /// <summary>
+    /// PodDisruptionBudget is an object to define the max disruption that can be caused to a
+    /// collection of pods
+    /// </summary>
     public partial class PodDisruptionBudget : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

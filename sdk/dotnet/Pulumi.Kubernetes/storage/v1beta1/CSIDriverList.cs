@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// CSIDriverList is a collection of CSIDriver objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Storage.V1Beta1 {
+    /// <summary>
+    /// CSIDriverList is a collection of CSIDriver objects.
+    /// </summary>
     public partial class CSIDriverList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

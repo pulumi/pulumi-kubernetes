@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or
-/// reject and may change the object.
-/// </summary>
+
 namespace Pulumi.Kubernetes.AdmissionRegistration.V1 {
+    /// <summary>
+    /// MutatingWebhookConfiguration describes the configuration of and admission webhook that
+    /// accept or reject and may change the object.
+    /// </summary>
     public partial class MutatingWebhookConfiguration : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,29 +5,30 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// DEPRECATED - extensions/v1beta1/Ingress is not supported by Kubernetes 1.16+ clusters. Use
-/// networking/v1beta1/Ingress instead.
-/// 
-/// Ingress is a collection of rules that allow inbound connections to reach the endpoints defined
-/// by a backend. An Ingress can be configured to give services externally-reachable urls, load
-/// balance traffic, terminate SSL, offer name based virtual hosting etc. 
-/// 
-/// This resource waits until its status is ready before registering success
-/// for create/update, and populating output properties from the current state of the resource.
-/// The following conditions are used to determine whether the resource creation has
-/// succeeded or failed:
-/// 
-/// 1.  Ingress object exists.
-/// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
-///     type is ExternalName).
-/// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
-/// 
-/// If the Ingress has not reached a Ready state after 10 minutes, it will
-/// time out and mark the resource update as Failed. You can override the default timeout value
-/// by setting the 'customTimeouts' option on the resource.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
+    /// <summary>
+    /// DEPRECATED - extensions/v1beta1/Ingress is not supported by Kubernetes 1.16+ clusters. Use
+    /// networking/v1beta1/Ingress instead.
+    /// 
+    /// Ingress is a collection of rules that allow inbound connections to reach the endpoints
+    /// defined by a backend. An Ingress can be configured to give services externally-reachable
+    /// urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
+    /// 
+    /// This resource waits until its status is ready before registering success
+    /// for create/update, and populating output properties from the current state of the resource.
+    /// The following conditions are used to determine whether the resource creation has
+    /// succeeded or failed:
+    /// 
+    /// 1.  Ingress object exists.
+    /// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+    ///     type is ExternalName).
+    /// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+    /// 
+    /// If the Ingress has not reached a Ready state after 10 minutes, it will
+    /// time out and mark the resource update as Failed. You can override the default timeout value
+    /// by setting the 'customTimeouts' option on the resource.
+    /// </summary>
     public partial class Ingress : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

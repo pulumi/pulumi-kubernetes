@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// CSINodeList is a collection of CSINode objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Storage.V1Beta1 {
+    /// <summary>
+    /// CSINodeList is a collection of CSINode objects.
+    /// </summary>
     public partial class CSINodeList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

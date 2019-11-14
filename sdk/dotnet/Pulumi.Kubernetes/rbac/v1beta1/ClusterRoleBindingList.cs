@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// ClusterRoleBindingList is a collection of ClusterRoleBindings
-/// </summary>
+
 namespace Pulumi.Kubernetes.Rbac.V1Beta1 {
+    /// <summary>
+    /// ClusterRoleBindingList is a collection of ClusterRoleBindings
+    /// </summary>
     public partial class ClusterRoleBindingList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

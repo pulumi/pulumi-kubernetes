@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// TokenRequest requests a token for a given service account.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Authentication.V1 {
+    /// <summary>
+    /// TokenRequest requests a token for a given service account.
+    /// </summary>
     public partial class TokenRequest : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

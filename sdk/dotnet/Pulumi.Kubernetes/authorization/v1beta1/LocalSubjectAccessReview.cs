@@ -5,12 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given
-/// namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped
-/// policy that includes permissions checking.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Authorization.V1Beta1 {
+    /// <summary>
+    /// LocalSubjectAccessReview checks whether or not a user or group can perform an action in a
+    /// given namespace. Having a namespace scoped resource makes it much easier to grant namespace
+    /// scoped policy that includes permissions checking.
+    /// </summary>
     public partial class LocalSubjectAccessReview : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

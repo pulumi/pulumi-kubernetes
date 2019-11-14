@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// CronJob represents the configuration of a single cron job.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Batch.V1Beta1 {
+    /// <summary>
+    /// CronJob represents the configuration of a single cron job.
+    /// </summary>
     public partial class CronJob : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

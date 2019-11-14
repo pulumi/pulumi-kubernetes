@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Autoscaling.V2Beta1 {
+    /// <summary>
+    /// HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.
+    /// </summary>
     public partial class HorizontalPodAutoscalerList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

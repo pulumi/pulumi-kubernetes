@@ -5,11 +5,12 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// Event is a report of an event somewhere in the cluster. It generally denotes some state change
-/// in the system.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Events.V1Beta1 {
+    /// <summary>
+    /// Event is a report of an event somewhere in the cluster. It generally denotes some state
+    /// change in the system.
+    /// </summary>
     public partial class Event : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,12 +5,13 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PodSecurityPolicy governs the ability to make requests that affect the Security Context that
-/// will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API Group
-/// instead.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
+    /// <summary>
+    /// PodSecurityPolicy governs the ability to make requests that affect the Security Context that
+    /// will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API
+    /// Group instead.
+    /// </summary>
     public partial class PodSecurityPolicy : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// 
-/// </summary>
+
 namespace Pulumi.Kubernetes.Certificates.V1Beta1 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class CertificateSigningRequestList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

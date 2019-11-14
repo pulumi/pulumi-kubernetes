@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Core.V1 {
+    /// <summary>
+    /// PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
+    /// </summary>
     public partial class PersistentVolumeClaimList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should

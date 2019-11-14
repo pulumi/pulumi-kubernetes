@@ -5,10 +5,11 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-/// <summary>
-/// CronJobList is a collection of cron jobs.
-/// </summary>
+
 namespace Pulumi.Kubernetes.Batch.V2Alpha1 {
+    /// <summary>
+    /// CronJobList is a collection of cron jobs.
+    /// </summary>
     public partial class CronJobList : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should
