@@ -262,7 +262,7 @@ func replaceDeprecationComment(comment string, gvk schema.GroupVersionKind, lang
 	case typescript:
 		prefix = "@deprecated "
 		replacement = prefix + ApiVersionComment(gvk)
-	case python:
+	case python, dotnet:
 		prefix = "DEPRECATED - "
 		replacement = prefix + ApiVersionComment(gvk)
 	default:
@@ -313,6 +313,19 @@ func fmtComment(
 			joined := strings.Join(lines, fmt.Sprintf("\n%s * ", prefix))
 			if !bareRender {
 				return fmt.Sprintf("/**\n%s * %s\n%s */", prefix, joined, prefix)
+			}
+			return joined
+		}
+	case dotnet:
+		wrapParagraph = func(paragraph string) []string {
+			borderLen := len(prefix + "/// ")
+			wrapped := wordwrap.WrapString(paragraph, 100-uint(borderLen))
+			return strings.Split(wrapped, "\n")
+		}
+		renderComment = func(lines []string) string {
+			joined := strings.Join(lines, fmt.Sprintf("\n%s/// ", prefix))
+			if !bareRender {
+				return fmt.Sprintf("/// <summary>\n%s/// %s\n%s/// </summary>", prefix, joined, prefix)
 			}
 			return joined
 		}
@@ -530,14 +543,72 @@ func makePythonType(resourceType, propName string, prop map[string]interface{}, 
 	return wrapType(ref)
 }
 
+func makeDotnetType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
+	wrapType := func(typ string) string {
+		switch opts.generatorType {
+		case provider:
+			return fmt.Sprintf("Output<%s>", typ)
+		case outputsAPI:
+			return typ
+		case inputsAPI:
+			return fmt.Sprintf("Input<%s>", typ)
+		default:
+			panic(fmt.Sprintf("unrecognized generator type %d", opts.generatorType))
+		}
+	}
+
+	if t, exists := prop["type"]; exists {
+		tstr := t.(string)
+		if tstr == "array" {
+			return wrapType(pyListT)
+		} else if tstr == "integer" {
+			return wrapType("int")
+		} else if tstr == tsObject {
+			return wrapType("Object")
+		} else if tstr == "string" {
+			return wrapType("string")
+		} else if tstr == "boolean" {
+			return wrapType("bool")
+		}
+
+		return wrapType(tstr)
+	}
+
+	ref := stripPrefix(prop["$ref"].(string))
+
+	switch ref {
+	case quantity:
+		ref = "string"
+	case intOrString:
+		ref = "string /* TODO: or int */"
+	case v1Fields, v1FieldsV1, rawExtension:
+		ref = "Dictionary<string, Object>"
+	case v1Time, v1MicroTime:
+		// TODO: Automatically deserialized with `DateConstructor`.
+		ref = "string"
+	case v1beta1JSONSchemaPropsOrBool, v1JSONSchemaPropsOrBool:
+		ref = "Dictionary<string, Object> /* TODO: or bool*/"
+	case v1beta1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrArray:
+		ref = "Dictionary<string, Object> /* TODO: or array*/"
+	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
+		ref = "Object"
+	default:
+		ref = pyDictT
+	}
+
+	return wrapType(ref)
+}
+
 func makeType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
 	switch opts.language {
 	case typescript:
 		return makeTypescriptType(resourceType, propName, prop, opts)
 	case python:
 		return makePythonType(resourceType, propName, prop, opts)
+	case dotnet:
+		return makeDotnetType(resourceType, propName, prop, opts)
 	default:
-		panic("Unrecognized generator type")
+		panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 	}
 }
 
@@ -601,6 +672,7 @@ type language string
 const (
 	python     = "python"
 	typescript = "typescript"
+	dotnet     = "dotnet"
 )
 
 type groupOpts struct {
@@ -613,6 +685,10 @@ func nodeJSOutputs() groupOpts  { return groupOpts{generatorType: outputsAPI, la
 func nodeJSProvider() groupOpts { return groupOpts{generatorType: provider, language: typescript} }
 
 func pythonProvider() groupOpts { return groupOpts{generatorType: provider, language: python} }
+
+func dotnetInputs() groupOpts   { return groupOpts{generatorType: inputsAPI, language: dotnet} }
+func dotnetOutputs() groupOpts  { return groupOpts{generatorType: outputsAPI, language: dotnet} }
+func dotnetProvider() groupOpts { return groupOpts{generatorType: provider, language: dotnet} }
 
 func allCamelCasePropertyNames(definitionsJSON map[string]interface{}, opts groupOpts) []string {
 	// Map definition JSON object -> `definition` with metadata.
@@ -718,7 +794,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				WhereT(func(kv linq.KeyValue) bool {
 					propName := kv.Key.(string)
-					if opts.language == python && (propName == "apiVersion" || propName == "kind") {
+					if (opts.language == python || opts.language == dotnet) && (propName == "apiVersion" || propName == "kind") {
 						return false
 					}
 					return true
@@ -738,6 +814,11 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						t = makeType(d.name, propName, prop, opts)
 						pyConstructorT = makeType(d.name, propName, prop,
 							groupOpts{language: python, generatorType: inputsAPI})
+					case dotnet:
+						prefix = "        "
+						t = makeType(d.name, propName, prop, opts)
+					default:
+						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
 
 					// `-` is invalid in TS variable names, so replace with `_`
@@ -772,13 +853,25 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						}
 					}
 
+					var languageName string
+					switch opts.language {
+					case typescript:
+						languageName = propName
+					case python:
+						languageName = pycodegen.PyName(propName)
+					case dotnet:
+						languageName = strings.ToUpper(propName[:1]) + propName[1:]
+					default:
+						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
+					}
+
 					return &Property{
 						comment:                   fmtComment(prop["description"], prefix, false, opts, d.gvk),
 						pythonConstructorComment:  fmtComment(prop["description"], prefix+prefix+"       ", true, opts, d.gvk),
 						propType:                  t,
 						pythonConstructorPropType: pyConstructorT,
 						name:                      propName,
-						languageName:              pycodegen.PyName(propName),
+						languageName:              languageName,
 						defaultValue:              defaultValue,
 					}
 				})
@@ -827,13 +920,21 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
     }`, d.gvk.Kind, d.gvk.Kind, defaultGroupVersion, d.gvk.Kind)
 			}
 
-			prefix := "    "
+			var prefix string
+			switch opts.language {
+			case typescript, python:
+				prefix = "    "
+			case dotnet:
+				prefix = ""
+			default:
+				panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
+			}
 			return linq.From([]*KindConfig{
 				{
 					kind: d.gvk.Kind,
 					// NOTE: This transformation assumes git users on Windows to set
 					// the "check in with UNIX line endings" setting.
-					comment:                 fmtComment(d.data["description"], "    ", true, opts, d.gvk),
+					comment:                 fmtComment(d.data["description"], prefix, true, opts, d.gvk),
 					pulumiComment:           fmtComment(PulumiComment(d.gvk.Kind), prefix, true, opts, d.gvk),
 					properties:              properties,
 					requiredInputProperties: requiredInputProperties,
