@@ -54,7 +54,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// write-only convenience method. All keys and values are merged into the data field on
         /// write, overwriting any existing values. It is never output when reading from the API.
         /// </summary>
-        public pulumi.Output<ImmutableDictionary<string, string>> StringData { get; private set; } = null!;
+        public Output<ImmutableDictionary<string, string>> StringData { get; private set; } = null!;
 
         /// <summary>
         /// Used to facilitate programmatic handling of secret data.

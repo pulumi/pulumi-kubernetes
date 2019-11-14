@@ -318,8 +318,10 @@ func fmtComment(
 		}
 	case dotnet:
 		wrapParagraph = func(paragraph string) []string {
+			escaped := strings.Replace(paragraph, "<", "&lt;", -1)
+			escaped = strings.Replace(escaped, ">", "&gt;", -1)
 			borderLen := len(prefix + "/// ")
-			wrapped := wordwrap.WrapString(paragraph, 100-uint(borderLen))
+			wrapped := wordwrap.WrapString(escaped, 100-uint(borderLen))
 			return strings.Split(wrapped, "\n")
 		}
 		renderComment = func(lines []string) string {
@@ -579,6 +581,8 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 			return wrapType("int")
 		} else if tstr == "boolean" {
 			return wrapType("bool")
+		} else if tstr == "number" {
+			return wrapType("int")
 		} else if tstr == "object" {
 			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
 			// values both have type `type`. This type is never a `$ref`.
@@ -591,7 +595,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 					case outputsAPI:
 						return fmt.Sprintf("ImmutableDictionary<%s, %s>", ktype, ktype)
 					case provider:
-						return fmt.Sprintf("pulumi.Output<ImmutableDictionary<%s, %s>>", ktype, ktype)
+						return fmt.Sprintf("Output<ImmutableDictionary<%s, %s>>", ktype, ktype)
 					}
 				}
 			}
@@ -603,7 +607,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 			case inputsAPI:
 				// TODO: Enable metadata to take explicit namespaces, like:
 				// return "pulumi.Input<string> | Namespace"
-				return "pulumi.Input<string>"
+				return "Input<string>"
 			case outputsAPI:
 				return "string"
 			}
@@ -619,7 +623,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case quantity:
 		ref = "string"
 	case intOrString:
-		ref = "number /* TODO: or string */"
+		ref = "int /* TODO: or string */"
 	case v1Fields, v1FieldsV1, rawExtension:
 		ref = tsObject
 	case v1Time, v1MicroTime:
@@ -634,7 +638,7 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 	case v1JSONSchemaPropsOrArray:
 		ref = "ApiExtensions.V1.JSONSchemaProps /* TODO: or array */"
 	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
-		ref = "Object"
+		ref = "object"
 	default:
 		isSimpleRef = false
 	}

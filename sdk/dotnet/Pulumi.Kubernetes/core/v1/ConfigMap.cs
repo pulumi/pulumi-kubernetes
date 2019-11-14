@@ -39,7 +39,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// keys stored in Data must not overlap with the keys in the BinaryData field, this is
         /// enforced during validation process.
         /// </summary>
-        public pulumi.Output<ImmutableDictionary<string, string>> Data { get; private set; } = null!;
+        public Output<ImmutableDictionary<string, string>> Data { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:

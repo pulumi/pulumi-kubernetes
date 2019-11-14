@@ -58,7 +58,7 @@ namespace Pulumi.Kubernetes.Storage.V1 {
         /// Parameters holds the parameters for the provisioner that should create volumes of this
         /// storage class.
         /// </summary>
-        public pulumi.Output<ImmutableDictionary<string, string>> Parameters { get; private set; } = null!;
+        public Output<ImmutableDictionary<string, string>> Parameters { get; private set; } = null!;
 
         /// <summary>
         /// Provisioner indicates the type of the provisioner.
