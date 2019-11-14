@@ -38,6 +38,28 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1 {
         public Output<Types.Outputs.AdmissionRegistration.V1.MutatingWebhook[]> Webhooks { get; private set; } = null!;
 
 
-        
+        /// <summary>
+        /// Create a MutatingWebhookConfiguration resource with the given unique name, arguments, and options.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resource</param>
+        /// <param name="args">The arguments used to populate this resource's properties</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public MutatingWebhookConfiguration(string name, Types.Inputs.AdmissionRegistration.V1.MutatingWebhookConfiguration args, CustomResourceOptions? options = null)
+            : base("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfiguration", name, args, MakeResourceOptions(options, ""))
+        {
+        }
+
+        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
+        {
+            var defaultOptions = new CustomResourceOptions
+            {
+            };
+            var merged = CustomResourceOptions.Merge(defaultOptions, options);
+            // Override the ID if one was specified for consistency with other language SDKs.
+            merged.Id = id ?? merged.Id;
+            return merged;
+        }
+
     }
 }

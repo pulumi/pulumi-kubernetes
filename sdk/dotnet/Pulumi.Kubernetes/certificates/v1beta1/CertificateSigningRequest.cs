@@ -39,6 +39,28 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1 {
         public Output<Types.Outputs.Certificates.V1Beta1.CertificateSigningRequestStatus> Status { get; private set; } = null!;
 
 
-        
+        /// <summary>
+        /// Create a CertificateSigningRequest resource with the given unique name, arguments, and options.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resource</param>
+        /// <param name="args">The arguments used to populate this resource's properties</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public CertificateSigningRequest(string name, Types.Inputs.Certificates.V1Beta1.CertificateSigningRequest args, CustomResourceOptions? options = null)
+            : base("kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequest", name, args, MakeResourceOptions(options, ""))
+        {
+        }
+
+        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
+        {
+            var defaultOptions = new CustomResourceOptions
+            {
+            };
+            var merged = CustomResourceOptions.Merge(defaultOptions, options);
+            // Override the ID if one was specified for consistency with other language SDKs.
+            merged.Id = id ?? merged.Id;
+            return merged;
+        }
+
     }
 }

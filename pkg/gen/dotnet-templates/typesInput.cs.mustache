@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.{{Group}} {
     /// <summary>
     /// {{{Comment}}}
     /// </summary>
-    class {{Kind}} {
+    public class {{Kind}} : Pulumi.ResourceArgs {
         {{#RequiredInputProperties}}
         {{{Comment}}}
         public {{{PropType}}} {{LanguageName}} { get; set; } = null!;

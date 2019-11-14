@@ -43,6 +43,28 @@ namespace Pulumi.Kubernetes.Node.V1Alpha1 {
         public Output<Types.Outputs.Node.V1Alpha1.RuntimeClassSpec> Spec { get; private set; } = null!;
 
 
-        
+        /// <summary>
+        /// Create a RuntimeClass resource with the given unique name, arguments, and options.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resource</param>
+        /// <param name="args">The arguments used to populate this resource's properties</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public RuntimeClass(string name, Types.Inputs.Node.V1Alpha1.RuntimeClass args, CustomResourceOptions? options = null)
+            : base("kubernetes:node.k8s.io/v1alpha1:RuntimeClass", name, args, MakeResourceOptions(options, ""))
+        {
+        }
+
+        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
+        {
+            var defaultOptions = new CustomResourceOptions
+            {
+            };
+            var merged = CustomResourceOptions.Merge(defaultOptions, options);
+            // Override the ID if one was specified for consistency with other language SDKs.
+            merged.Id = id ?? merged.Id;
+            return merged;
+        }
+
     }
 }

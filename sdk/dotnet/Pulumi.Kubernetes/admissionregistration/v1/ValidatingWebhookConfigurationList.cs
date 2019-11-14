@@ -37,6 +37,28 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1 {
         public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
-        
+        /// <summary>
+        /// Create a ValidatingWebhookConfigurationList resource with the given unique name, arguments, and options.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resource</param>
+        /// <param name="args">The arguments used to populate this resource's properties</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public ValidatingWebhookConfigurationList(string name, Types.Inputs.AdmissionRegistration.V1.ValidatingWebhookConfigurationList args, CustomResourceOptions? options = null)
+            : base("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", name, args, MakeResourceOptions(options, ""))
+        {
+        }
+
+        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
+        {
+            var defaultOptions = new CustomResourceOptions
+            {
+            };
+            var merged = CustomResourceOptions.Merge(defaultOptions, options);
+            // Override the ID if one was specified for consistency with other language SDKs.
+            merged.Id = id ?? merged.Id;
+            return merged;
+        }
+
     }
 }

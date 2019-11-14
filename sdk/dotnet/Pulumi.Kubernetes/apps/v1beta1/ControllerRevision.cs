@@ -52,6 +52,28 @@ namespace Pulumi.Kubernetes.Apps.V1Beta1 {
         public Output<int> Revision { get; private set; } = null!;
 
 
-        
+        /// <summary>
+        /// Create a ControllerRevision resource with the given unique name, arguments, and options.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resource</param>
+        /// <param name="args">The arguments used to populate this resource's properties</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public ControllerRevision(string name, Types.Inputs.Apps.V1Beta1.ControllerRevision args, CustomResourceOptions? options = null)
+            : base("kubernetes:apps/v1beta1:ControllerRevision", name, args, MakeResourceOptions(options, ""))
+        {
+        }
+
+        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
+        {
+            var defaultOptions = new CustomResourceOptions
+            {
+            };
+            var merged = CustomResourceOptions.Merge(defaultOptions, options);
+            // Override the ID if one was specified for consistency with other language SDKs.
+            merged.Id = id ?? merged.Id;
+            return merged;
+        }
+
     }
 }

@@ -55,6 +55,28 @@ namespace Pulumi.Kubernetes.Core.V1 {
         public Output<Types.Outputs.Core.V1.ObjectReference[]> Secrets { get; private set; } = null!;
 
 
-        
+        /// <summary>
+        /// Create a ServiceAccount resource with the given unique name, arguments, and options.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resource</param>
+        /// <param name="args">The arguments used to populate this resource's properties</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public ServiceAccount(string name, Types.Inputs.Core.V1.ServiceAccount args, CustomResourceOptions? options = null)
+            : base("kubernetes:core/v1:ServiceAccount", name, args, MakeResourceOptions(options, ""))
+        {
+        }
+
+        private static CustomResourceOptions MakeResourceOptions(CustomResourceOptions? options, Input<string>? id)
+        {
+            var defaultOptions = new CustomResourceOptions
+            {
+            };
+            var merged = CustomResourceOptions.Merge(defaultOptions, options);
+            // Override the ID if one was specified for consistency with other language SDKs.
+            merged.Id = id ?? merged.Id;
+            return merged;
+        }
+
     }
 }
