@@ -8999,7 +8999,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// Number of port to expose on the pod's IP address. This must be a valid port number, 0
         /// &lt; x &lt; 65536.
         /// </summary>
-      public readonly int ContainerPort;
+      public readonly int ContainerPortValue;
 
       /// <summary>
         /// What host IP to bind the external port to.
@@ -16633,7 +16633,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// Status of the operation. One of: "Success" or "Failure". More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
-      public readonly string Status;
+      public readonly string StatusValue;
 
     }
 

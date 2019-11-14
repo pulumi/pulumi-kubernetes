@@ -929,6 +929,10 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						} else {
 							languageName = strings.ToUpper(propName[:1]) + propName[1:]
 						}
+						if languageName == d.gvk.Kind {
+							// .NET does not allow properties to be the same as the enclosing class - so special case these
+							languageName = languageName + "Value"
+						}
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}

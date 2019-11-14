@@ -59,7 +59,7 @@ namespace Pulumi.Kubernetes.Meta.V1 {
         /// Status of the operation. One of: "Success" or "Failure". More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
-        public Output<string> Status { get; private set; } = null!;
+        public Output<string> StatusValue { get; private set; } = null!;
 
 
         

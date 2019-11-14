@@ -8788,7 +8788,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         /// Number of port to expose on the pod's IP address. This must be a valid port number, 0
         /// &lt; x &lt; 65536.
         /// </summary>
-        public Input<int> ContainerPort { get; set; } = null!;
+        public Input<int> ContainerPortValue { get; set; } = null!;
 
         /// <summary>
         /// What host IP to bind the external port to.
