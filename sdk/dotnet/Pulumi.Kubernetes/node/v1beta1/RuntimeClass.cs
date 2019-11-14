@@ -43,7 +43,7 @@ namespace Pulumi.Kubernetes.Node.V1Beta1 {
         /// More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Overhead represents the resource overhead associated with running a pod for a given
@@ -52,14 +52,14 @@ namespace Pulumi.Kubernetes.Node.V1Beta1 {
         /// alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the
         /// PodOverhead feature.
         /// </summary>
-        public Output<dict> Overhead { get; private set; } = null!;
+        public Output<Types.Outputs.Node.V1Beta1.Overhead> Overhead { get; private set; } = null!;
 
         /// <summary>
         /// Scheduling holds the scheduling constraints to ensure that pods running with this
         /// RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this
         /// RuntimeClass is assumed to be supported by all nodes.
         /// </summary>
-        public Output<dict> Scheduling { get; private set; } = null!;
+        public Output<Types.Outputs.Node.V1Beta1.Scheduling> Scheduling { get; private set; } = null!;
 
 
         

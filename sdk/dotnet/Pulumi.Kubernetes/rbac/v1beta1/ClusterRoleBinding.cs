@@ -28,18 +28,18 @@ namespace Pulumi.Kubernetes.Rbac.V1Beta1 {
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot
         /// be resolved, the Authorizer must return an error.
         /// </summary>
-        public Output<dict> RoleRef { get; private set; } = null!;
+        public Output<Types.Outputs.Rbac.V1Beta1.RoleRef> RoleRef { get; private set; } = null!;
 
         /// <summary>
         /// Subjects holds references to the objects the role applies to.
         /// </summary>
-        public Output<list> Subjects { get; private set; } = null!;
+        public Output<Types.Outputs.Rbac.V1Beta1.Subject[]> Subjects { get; private set; } = null!;
 
 
         

@@ -29,21 +29,21 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by
         /// an administrator. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.PersistentVolumeSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Status represents the current information/status for the persistent volume. Populated by
         /// the system. Read-only. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.PersistentVolumeStatus> Status { get; private set; } = null!;
 
 
         

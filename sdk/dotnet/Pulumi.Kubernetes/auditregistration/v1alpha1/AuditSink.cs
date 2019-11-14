@@ -25,12 +25,12 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Spec defines the audit configuration spec
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<AuditRegistraion.V1Alpha1.AuditSinkSpec> Spec { get; private set; } = null!;
 
 
         

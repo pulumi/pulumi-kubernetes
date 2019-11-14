@@ -28,13 +28,13 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// List of persistent volumes. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.PersistentVolume[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         

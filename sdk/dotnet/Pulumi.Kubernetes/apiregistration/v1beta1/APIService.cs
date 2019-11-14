@@ -25,17 +25,17 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1Beta1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Spec contains information for locating and communicating with a server
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.ApiRegistration.V1Beta1.APIServiceSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Status contains derived information about an API server
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.ApiRegistration.V1Beta1.APIServiceStatus> Status { get; private set; } = null!;
 
 
         

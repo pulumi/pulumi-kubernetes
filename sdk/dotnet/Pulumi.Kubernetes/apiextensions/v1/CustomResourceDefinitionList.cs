@@ -27,10 +27,10 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1 {
         /// <summary>
         /// items list individual CustomResourceDefinition objects
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<Types.Outputs.ApiExtensions.V1.CustomResourceDefinition[]> Items { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         

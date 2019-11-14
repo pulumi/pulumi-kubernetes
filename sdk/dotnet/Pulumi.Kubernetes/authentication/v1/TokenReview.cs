@@ -26,18 +26,18 @@ namespace Pulumi.Kubernetes.Authentication.V1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Spec holds information about the request being evaluated
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Authentication.V1.TokenReviewSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Status is filled in by the server and indicates whether the request can be
         /// authenticated.
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Authentication.V1.TokenReviewStatus> Status { get; private set; } = null!;
 
 
         

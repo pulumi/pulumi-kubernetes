@@ -25,17 +25,17 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// The certificate request itself and any additional information.
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Certificates.V1Beta1.CertificateSigningRequestSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Derived information about the request.
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Certificates.V1Beta1.CertificateSigningRequestStatus> Status { get; private set; } = null!;
 
 
         

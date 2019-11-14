@@ -25,17 +25,17 @@ namespace Pulumi.Kubernetes.Authorization.V1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Spec holds information about the request being evaluated
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Authorization.V1.SubjectAccessReviewSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Status is filled in by the server and indicates whether the request is allowed or not
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Authorization.V1.SubjectAccessReviewStatus> Status { get; private set; } = null!;
 
 
         

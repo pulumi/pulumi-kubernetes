@@ -39,7 +39,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// The set of all endpoints is the union of all subsets. Addresses are placed into subsets
@@ -49,7 +49,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of
         /// addresses and ports that comprise a service.
         /// </summary>
-        public Output<list> Subsets { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.EndpointSubset[]> Subsets { get; private set; } = null!;
 
 
         

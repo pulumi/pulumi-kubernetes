@@ -44,20 +44,20 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Specification of the desired behavior of the pod. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.PodSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Most recently observed status of the pod. This data may not be up to date. Populated by
         /// the system. Read-only. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.PodStatus> Status { get; private set; } = null!;
 
 
         

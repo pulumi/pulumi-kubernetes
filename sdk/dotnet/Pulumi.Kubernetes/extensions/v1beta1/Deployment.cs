@@ -52,17 +52,17 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
         /// <summary>
         /// Standard object metadata.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Specification of the desired behavior of the Deployment.
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Extensions.V1Beta1.DeploymentSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Most recently observed status of the Deployment.
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Extensions.V1Beta1.DeploymentStatus> Status { get; private set; } = null!;
 
 
         

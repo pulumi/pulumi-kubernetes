@@ -47,7 +47,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <summary>
         /// The object that this event is about.
         /// </summary>
-        public Output<dict> InvolvedObject { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.ObjectReference> InvolvedObject { get; private set; } = null!;
 
         /// <summary>
         /// The time at which the most recent occurrence of this event was recorded.
@@ -63,7 +63,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// This should be a short, machine understandable string that gives the reason for the
@@ -74,7 +74,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <summary>
         /// Optional secondary object for more complex actions.
         /// </summary>
-        public Output<dict> Related { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.ObjectReference> Related { get; private set; } = null!;
 
         /// <summary>
         /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
@@ -89,12 +89,12 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <summary>
         /// Data about the Event series this event represents or nil if it's a singleton Event.
         /// </summary>
-        public Output<dict> Series { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.EventSeries> Series { get; private set; } = null!;
 
         /// <summary>
         /// The component reporting this event. Should be a short machine understandable string.
         /// </summary>
-        public Output<dict> Source { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.EventSource> Source { get; private set; } = null!;
 
         /// <summary>
         /// Type of this event (Normal, Warning), new types could be added in the future

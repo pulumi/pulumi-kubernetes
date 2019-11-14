@@ -27,13 +27,13 @@ namespace Pulumi.Kubernetes.Apps.V1 {
         /// <summary>
         /// Items is the list of ControllerRevisions
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<Types.Outputs.Apps.V1.ControllerRevision[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         

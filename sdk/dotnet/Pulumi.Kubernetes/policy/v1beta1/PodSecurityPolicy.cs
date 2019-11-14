@@ -29,12 +29,12 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1 {
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// spec defines the policy enforced.
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Policy.V1Beta1.PodSecurityPolicySpec> Spec { get; private set; } = null!;
 
 
         

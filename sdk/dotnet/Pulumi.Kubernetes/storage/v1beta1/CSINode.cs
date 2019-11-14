@@ -33,12 +33,12 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// <summary>
         /// metadata.name must be the Kubernetes node name.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// spec is the specification of CSINode
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Storage.V1Beta1.CSINodeSpec> Spec { get; private set; } = null!;
 
 
         

@@ -34,13 +34,13 @@ namespace Pulumi.Kubernetes.Apps.V1 {
         /// <summary>
         /// Data is the serialized representation of the state.
         /// </summary>
-        public Output<Dictionary<string, Object>> Data { get; private set; } = null!;
+        public Output<object> Data { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Revision indicates the revision of the state represented by Data.

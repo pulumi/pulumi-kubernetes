@@ -27,13 +27,13 @@ namespace Pulumi.Kubernetes.Coordination.V1Beta1 {
         /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<Types.Outputs.Coordination.V1Beta1.Lease[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         

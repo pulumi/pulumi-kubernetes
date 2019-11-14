@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// <summary>
         /// AllowVolumeExpansion shows whether the storage class allow volume expand
         /// </summary>
-        public Output<bool> AllowVolumeExpansion { get; private set; } = null!;
+        public Output<boolean> AllowVolumeExpansion { get; private set; } = null!;
 
         /// <summary>
         /// Restrict the node topologies where volumes can be dynamically provisioned. Each volume
@@ -39,26 +39,26 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// list means there is no topology restriction. This field is only honored by servers that
         /// enable the VolumeScheduling feature.
         /// </summary>
-        public Output<list> AllowedTopologies { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.TopologySelectorTerm[]> AllowedTopologies { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Dynamically provisioned PersistentVolumes of this storage class are created with these
         /// mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if
         /// one is invalid.
         /// </summary>
-        public Output<list> MountOptions { get; private set; } = null!;
+        public Output<string[]> MountOptions { get; private set; } = null!;
 
         /// <summary>
         /// Parameters holds the parameters for the provisioner that should create volumes of this
         /// storage class.
         /// </summary>
-        public Output<Object> Parameters { get; private set; } = null!;
+        public pulumi.Output<ImmutableDictionary<string, string>> Parameters { get; private set; } = null!;
 
         /// <summary>
         /// Provisioner indicates the type of the provisioner.

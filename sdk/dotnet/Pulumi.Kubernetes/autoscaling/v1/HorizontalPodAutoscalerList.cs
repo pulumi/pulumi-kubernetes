@@ -27,12 +27,12 @@ namespace Pulumi.Kubernetes.Autoscaling.V1 {
         /// <summary>
         /// list of horizontal pod autoscaler objects.
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<Types.Outputs.Autoscaling.V1.HorizontalPodAutoscaler[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         

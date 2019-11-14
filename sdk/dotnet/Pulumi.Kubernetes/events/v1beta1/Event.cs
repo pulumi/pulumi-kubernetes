@@ -48,7 +48,7 @@ namespace Pulumi.Kubernetes.Events.V1Beta1 {
         /// <summary>
         /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
-        public Output<dict> DeprecatedSource { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.EventSource> DeprecatedSource { get; private set; } = null!;
 
         /// <summary>
         /// Required. Time when this Event was first observed.
@@ -56,7 +56,7 @@ namespace Pulumi.Kubernetes.Events.V1Beta1 {
         public Output<string> EventTime { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Optional. A human-readable description of the status of this operation. Maximal length
@@ -74,13 +74,13 @@ namespace Pulumi.Kubernetes.Events.V1Beta1 {
         /// implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted
         /// because it acts on some changes in a ReplicaSet object.
         /// </summary>
-        public Output<dict> Regarding { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.ObjectReference> Regarding { get; private set; } = null!;
 
         /// <summary>
         /// Optional secondary object for more complex actions. E.g. when regarding object triggers
         /// a creation or deletion of related object.
         /// </summary>
-        public Output<dict> Related { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.ObjectReference> Related { get; private set; } = null!;
 
         /// <summary>
         /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
@@ -95,7 +95,7 @@ namespace Pulumi.Kubernetes.Events.V1Beta1 {
         /// <summary>
         /// Data about the Event series this event represents or nil if it's a singleton Event.
         /// </summary>
-        public Output<dict> Series { get; private set; } = null!;
+        public Output<Types.Outputs.Events.V1Beta1.EventSeries> Series { get; private set; } = null!;
 
         /// <summary>
         /// Type of this event (Normal, Warning), new types could be added in the future.

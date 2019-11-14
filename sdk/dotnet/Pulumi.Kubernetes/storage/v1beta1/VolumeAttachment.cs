@@ -31,19 +31,19 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// Standard object metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes
         /// system.
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Storage.V1Beta1.VolumeAttachmentSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Status of the VolumeAttachment request. Populated by the entity completing the attach or
         /// detach operation, i.e. the external-attacher.
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Storage.V1Beta1.VolumeAttachmentStatus> Status { get; private set; } = null!;
 
 
         

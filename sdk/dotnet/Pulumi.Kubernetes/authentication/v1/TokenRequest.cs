@@ -25,13 +25,13 @@ namespace Pulumi.Kubernetes.Authentication.V1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Authentication.V1.TokenRequestSpec> Spec { get; private set; } = null!;
 
         
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Authentication.V1.TokenRequestStatus> Status { get; private set; } = null!;
 
 
         

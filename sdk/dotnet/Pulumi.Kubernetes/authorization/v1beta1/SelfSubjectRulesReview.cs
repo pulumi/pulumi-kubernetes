@@ -32,17 +32,17 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Spec holds information about the request being evaluated.
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Authorization.V1Beta1.SelfSubjectRulesReviewSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Status is filled in by the server and indicates the set of actions a user can perform.
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Authorization.V1Beta1.SubjectRulesReviewStatus> Status { get; private set; } = null!;
 
 
         

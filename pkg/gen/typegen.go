@@ -557,18 +557,54 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 		}
 	}
 
+	refPrefix := ""
+	if opts.generatorType == provider {
+		refPrefix = "Types.Outputs"
+	}
+
 	if t, exists := prop["type"]; exists {
 		tstr := t.(string)
 		if tstr == "array" {
-			return wrapType(pyListT)
+			elemType := makeDotnetType(
+				resourceType, propName, prop["items"].(map[string]interface{}), opts)
+			switch opts.generatorType {
+			case provider:
+				return fmt.Sprintf("%s[]>", elemType[:len(elemType)-1])
+			case outputsAPI:
+				return fmt.Sprintf("%s[]", elemType)
+			case inputsAPI:
+				return fmt.Sprintf("Input<%s[]>", elemType)
+			}
 		} else if tstr == "integer" {
 			return wrapType("int")
-		} else if tstr == tsObject {
-			return wrapType("Object")
-		} else if tstr == "string" {
-			return wrapType("string")
-		} else if tstr == "boolean" {
-			return wrapType("bool")
+		} else if tstr == "object" {
+			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
+			// values both have type `type`. This type is never a `$ref`.
+			if additionalProperties, exists := prop["additionalProperties"]; exists {
+				mapType := additionalProperties.(map[string]interface{})
+				if ktype, exists := mapType["type"]; exists && len(mapType) == 1 {
+					switch opts.generatorType {
+					case inputsAPI:
+						return fmt.Sprintf("InputMap<%s>", ktype)
+					case outputsAPI:
+						return fmt.Sprintf("ImmutableDictionary<%s, %s>", ktype, ktype)
+					case provider:
+						return fmt.Sprintf("pulumi.Output<ImmutableDictionary<%s, %s>>", ktype, ktype)
+					}
+				}
+			}
+		} else if tstr == "string" && resourceType == "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta" && propName == "namespace" {
+			// Special case: `.metadata.namespace` should either take a string or a namespace object
+			// itself.
+
+			switch opts.generatorType {
+			case inputsAPI:
+				// TODO: Enable metadata to take explicit namespaces, like:
+				// return "pulumi.Input<string> | Namespace"
+				return "pulumi.Input<string>"
+			case outputsAPI:
+				return "string"
+			}
 		}
 
 		return wrapType(tstr)
@@ -576,27 +612,47 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 
 	ref := stripPrefix(prop["$ref"].(string))
 
+	isSimpleRef := true
 	switch ref {
 	case quantity:
 		ref = "string"
 	case intOrString:
-		ref = "string /* TODO: or int */"
+		ref = "number /* TODO: or string */"
 	case v1Fields, v1FieldsV1, rawExtension:
-		ref = "Dictionary<string, Object>"
+		ref = tsObject
 	case v1Time, v1MicroTime:
 		// TODO: Automatically deserialized with `DateConstructor`.
 		ref = "string"
-	case v1beta1JSONSchemaPropsOrBool, v1JSONSchemaPropsOrBool:
-		ref = "Dictionary<string, Object> /* TODO: or bool*/"
-	case v1beta1JSONSchemaPropsOrArray, v1JSONSchemaPropsOrArray:
-		ref = "Dictionary<string, Object> /* TODO: or array*/"
+	case v1beta1JSONSchemaPropsOrBool:
+		ref = "ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or bool */"
+	case v1JSONSchemaPropsOrBool:
+		ref = "ApiExtensions.V1.JSONSchemaProps /* TODO: or bool */"
+	case v1beta1JSONSchemaPropsOrArray:
+		ref = "ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or array */"
+	case v1JSONSchemaPropsOrArray:
+		ref = "ApiExtensions.V1.JSONSchemaProps /* TODO: or array */"
 	case v1beta1JSON, v1beta1CRSubresourceStatus, v1JSON, v1CRSubresourceStatus:
 		ref = "Object"
 	default:
-		ref = pyDictT
+		isSimpleRef = false
 	}
 
-	return wrapType(ref)
+	if isSimpleRef {
+		return wrapType(ref)
+	}
+
+	gvk := gvkFromRef(ref)
+	group := pascalCase(gvk.Group)
+	version := pascalCase(gvk.Version)
+
+	var gvkRefStr string
+	if refPrefix == "" {
+		gvkRefStr = fmt.Sprintf("%s.%s.%s", group, version, gvk.Kind)
+	} else {
+		gvkRefStr = fmt.Sprintf("%s.%s.%s.%s", refPrefix, group, version, gvk.Kind)
+	}
+
+	return wrapType(gvkRefStr)
 }
 
 func makeType(resourceType, propName string, prop map[string]interface{}, opts groupOpts) string {
@@ -860,7 +916,13 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					case python:
 						languageName = pycodegen.PyName(propName)
 					case dotnet:
-						languageName = strings.ToUpper(propName[:1]) + propName[1:]
+						if propName[0] == '$' {
+							// $ref and $schema are property names that we want to special case into
+							// just Ref and Schema.
+							languageName = strings.ToUpper(propName[1:2]) + propName[2:]
+						} else {
+							languageName = strings.ToUpper(propName[:1]) + propName[1:]
+						}
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
@@ -970,9 +1032,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				return linq.From([]*VersionConfig{})
 			}
 
+			version := gv.Version
+			if opts.language == dotnet {
+				version = pascalCase(version)
+			}
+
 			return linq.From([]*VersionConfig{
 				{
-					version:       gv.Version,
+					version:       version,
 					kinds:         kindsGroup,
 					gv:            &gv,
 					apiVersion:    kindsGroup[0].apiVersion,    // NOTE: This is safe.
@@ -999,9 +1066,14 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 				return linq.From([]*GroupConfig{})
 			}
 
+			group := versions.Key.(string)
+			if opts.language == dotnet {
+				group = pascalCase(group)
+			}
+
 			return linq.From([]*GroupConfig{
 				{
-					group:    versions.Key.(string),
+					group:    group,
 					versions: versionsGroup,
 				},
 			})

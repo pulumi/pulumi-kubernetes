@@ -38,12 +38,12 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// between. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Specification of the CSI Driver.
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Storage.V1Beta1.CSIDriverSpec> Spec { get; private set; } = null!;
 
 
         

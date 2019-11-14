@@ -30,17 +30,17 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
         /// ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
         /// changes to Rules will be stomped by the controller.
         /// </summary>
-        public Output<dict> AggregationRule { get; private set; } = null!;
+        public Output<Types.Outputs.Rbac.V1.AggregationRule> AggregationRule { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Rules holds all the PolicyRules for this ClusterRole
         /// </summary>
-        public Output<list> Rules { get; private set; } = null!;
+        public Output<Types.Outputs.Rbac.V1.PolicyRule[]> Rules { get; private set; } = null!;
 
 
         

@@ -36,12 +36,12 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         /// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum
         /// of 1000 endpoints.
         /// </summary>
-        public Output<list> Endpoints { get; private set; } = null!;
+        public Output<Types.Outputs.Discovery.V1Alpha1.Endpoint[]> Endpoints { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// ports specifies the list of network ports exposed by each endpoint in this slice. Each
@@ -49,7 +49,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         /// defined ports. When a port is defined with a nil port value, it indicates "all ports".
         /// Each slice may include a maximum of 100 ports.
         /// </summary>
-        public Output<list> Ports { get; private set; } = null!;
+        public Output<Types.Outputs.Discovery.V1Alpha1.EndpointPort[]> Ports { get; private set; } = null!;
 
 
         

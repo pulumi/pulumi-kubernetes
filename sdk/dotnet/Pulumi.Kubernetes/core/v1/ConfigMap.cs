@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// enforced during validation process. Using this field will require 1.10+ apiserver and
         /// kubelet.
         /// </summary>
-        public Output<Object> BinaryData { get; private set; } = null!;
+        public Output<object> BinaryData { get; private set; } = null!;
 
         /// <summary>
         /// Data contains the configuration data. Each key must consist of alphanumeric characters,
@@ -39,13 +39,13 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// keys stored in Data must not overlap with the keys in the BinaryData field, this is
         /// enforced during validation process.
         /// </summary>
-        public Output<Object> Data { get; private set; } = null!;
+        public pulumi.Output<ImmutableDictionary<string, string>> Data { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
 
         

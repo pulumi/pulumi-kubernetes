@@ -45,18 +45,18 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Spec defines the desired identities of pods in this set.
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Apps.V1Beta2.StatefulSetSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Status is the current status of Pods in this StatefulSet. This data may be out of date
         /// by some window of time.
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Apps.V1Beta2.StatefulSetStatus> Status { get; private set; } = null!;
 
 
         

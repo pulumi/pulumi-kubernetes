@@ -25,10 +25,10 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Settings.V1Alpha1.PodPresetSpec> Spec { get; private set; } = null!;
 
 
         

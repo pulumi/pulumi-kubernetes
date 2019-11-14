@@ -27,13 +27,13 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1 {
         /// <summary>
         /// List of ValidatingWebhookConfiguration.
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<Types.Outputs.AdmissionRegistration.V1.ValidatingWebhookConfiguration[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         

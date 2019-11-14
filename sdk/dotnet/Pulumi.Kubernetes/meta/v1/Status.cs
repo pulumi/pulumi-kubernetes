@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Meta.V1 {
         /// details. This field is optional and the data returned is not guaranteed to conform to
         /// any schema except that defined by the reason type.
         /// </summary>
-        public Output<dict> Details { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.StatusDetails> Details { get; private set; } = null!;
 
         /// <summary>
         /// A human-readable description of the status of this operation.
@@ -45,7 +45,7 @@ namespace Pulumi.Kubernetes.Meta.V1 {
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// A machine-readable description of why this operation is in the "Failure" status. If this

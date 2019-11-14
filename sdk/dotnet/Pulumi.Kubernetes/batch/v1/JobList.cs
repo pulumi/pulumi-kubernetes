@@ -27,13 +27,13 @@ namespace Pulumi.Kubernetes.Batch.V1 {
         /// <summary>
         /// items is the list of Jobs.
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<Types.Outputs.Batch.V1.Job[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         

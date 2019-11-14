@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 
 /// <summary>
-/// configuration of a horizontal pod autoscaler.
+/// AuditSink represents a cluster level audit sink
 /// </summary>
-namespace Pulumi.Kubernetes.Autoscaling.V1 {
-    public partial class HorizontalPodAutoscaler : Pulumi.CustomResource {
+namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1 {
+    public partial class AuditSink : Pulumi.CustomResource {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should
         /// convert recognized schemas to the latest internal value, and may reject unrecognized values.
@@ -24,22 +24,13 @@ namespace Pulumi.Kubernetes.Autoscaling.V1 {
         /// </summary>
         public Output<string> Kind { get; private set; } = null!;
 
-        /// <summary>
-        /// Standard object metadata. More info:
-        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        /// </summary>
+        
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// behaviour of autoscaler. More info:
-        /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        /// Spec defines the audit configuration spec
         /// </summary>
-        public Output<Types.Outputs.Autoscaling.V1.HorizontalPodAutoscalerSpec> Spec { get; private set; } = null!;
-
-        /// <summary>
-        /// current information about the autoscaler.
-        /// </summary>
-        public Output<Types.Outputs.Autoscaling.V1.HorizontalPodAutoscalerStatus> Status { get; private set; } = null!;
+        public Output<Types.Outputs.AuditRegistraion.V1Alpha1.AuditSinkSpec> Spec { get; private set; } = null!;
 
 
         

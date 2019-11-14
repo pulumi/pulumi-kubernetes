@@ -238,12 +238,12 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/input.cs", typesDir), []byte(inputAPIcs), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/Input.cs", typesDir), []byte(inputAPIcs), 0777)
 	if err != nil {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/output.cs", typesDir), []byte(ouputAPIcs), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/Output.cs", typesDir), []byte(ouputAPIcs), 0777)
 	if err != nil {
 		panic(err)
 	}

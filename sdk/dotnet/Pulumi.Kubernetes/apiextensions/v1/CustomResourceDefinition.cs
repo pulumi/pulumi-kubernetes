@@ -26,17 +26,17 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// spec describes how the user wants the resources to appear
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.ApiExtensions.V1.CustomResourceDefinitionSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// status indicates the actual state of the CustomResourceDefinition
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.ApiExtensions.V1.CustomResourceDefinitionStatus> Status { get; private set; } = null!;
 
 
         

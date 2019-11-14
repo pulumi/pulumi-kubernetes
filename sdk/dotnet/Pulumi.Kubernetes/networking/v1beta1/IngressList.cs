@@ -27,13 +27,13 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1 {
         /// <summary>
         /// Items is the list of Ingress.
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<Types.Outputs.Networking.V1Beta1.Ingress[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         

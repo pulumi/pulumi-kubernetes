@@ -49,17 +49,17 @@ namespace Pulumi.Kubernetes.Apps.V1 {
         /// <summary>
         /// Standard object metadata.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Specification of the desired behavior of the Deployment.
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Apps.V1.DeploymentSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Most recently observed status of the Deployment.
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Apps.V1.DeploymentStatus> Status { get; private set; } = null!;
 
 
         

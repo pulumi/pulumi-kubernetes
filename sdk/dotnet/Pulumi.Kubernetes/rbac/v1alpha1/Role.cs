@@ -28,12 +28,12 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1 {
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Rules holds all the PolicyRules for this Role
         /// </summary>
-        public Output<list> Rules { get; private set; } = null!;
+        public Output<Types.Outputs.Rbac.V1Alpha1.PolicyRule[]> Rules { get; private set; } = null!;
 
 
         

@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// AutomountServiceAccountToken indicates whether pods running as this service account
         /// should have an API token automatically mounted. Can be overridden at the pod level.
         /// </summary>
-        public Output<bool> AutomountServiceAccountToken { get; private set; } = null!;
+        public Output<boolean> AutomountServiceAccountToken { get; private set; } = null!;
 
         /// <summary>
         /// ImagePullSecrets is a list of references to secrets in the same namespace to use for
@@ -38,19 +38,19 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// are only accessed by the kubelet. More info:
         /// https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
         /// </summary>
-        public Output<list> ImagePullSecrets { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.LocalObjectReference[]> ImagePullSecrets { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Secrets is the list of secrets allowed to be used by pods running using this
         /// ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
         /// </summary>
-        public Output<list> Secrets { get; private set; } = null!;
+        public Output<Types.Outputs.Core.V1.ObjectReference[]> Secrets { get; private set; } = null!;
 
 
         

@@ -30,18 +30,18 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2 {
         /// metadata is the standard object metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// spec is the specification for the behaviour of the autoscaler. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         /// </summary>
-        public Output<dict> Spec { get; private set; } = null!;
+        public Output<Types.Outputs.Autoscaling.V2Beta2.HorizontalPodAutoscalerSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// status is the current information about the autoscaler.
         /// </summary>
-        public Output<dict> Status { get; private set; } = null!;
+        public Output<Types.Outputs.Autoscaling.V2Beta2.HorizontalPodAutoscalerStatus> Status { get; private set; } = null!;
 
 
         

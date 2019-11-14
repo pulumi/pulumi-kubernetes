@@ -17,7 +17,6 @@ package gen
 import (
 	"fmt"
 	"path/filepath"
-	"strings"
 
 	"github.com/cbroglie/mustache"
 )
@@ -54,10 +53,18 @@ var pascalCaseMapping = map[string]string{
 	"v2alpha1":              "V2Alpha1",
 	"v2beta1":               "V2Beta1",
 	"v2beta2":               "V2Beta2",
+
+	// Not sure what these are - but they show up in input and output types.
+	"version": "Version",
+	"pkg":     "Pkg",
 }
 
 func pascalCase(name string) string {
-	return strings.ToUpper(name[:1]) + name[1:]
+	pascal, ok := pascalCaseMapping[name]
+	if !ok {
+		panic(fmt.Sprintf("no case mapping for %q", name))
+	}
+	return pascal
 }
 
 // --------------------------------------------------------------------------
@@ -97,24 +104,12 @@ func DotnetClient(
 	groups = make(map[string]string)
 
 	for _, group := range groupsSlice {
-
-		pascalGroup, ok := pascalCaseMapping[group.Group()]
-		if !ok {
-			return "", "", nil, fmt.Errorf("No pascal case mapping defined for %q", group.Group())
-		}
-
 		for _, version := range group.Versions() {
-
-			pascalVersion, ok := pascalCaseMapping[version.Version()]
-			if !ok {
-				return "", "", nil, fmt.Errorf("No pascal case mapping defined for %q", version.Version())
-			}
-
 			for _, kind := range version.Kinds() {
 				inputMap := map[string]interface{}{
 					"RawAPIVersion":           kind.RawAPIVersion(),
 					"Comment":                 kind.Comment(),
-					"Group":                   pascalGroup,
+					"Group":                   group.Group(),
 					"Kind":                    kind.Kind(),
 					"Properties":              kind.Properties(),
 					"RequiredInputProperties": kind.RequiredInputProperties(),
@@ -122,7 +117,7 @@ func DotnetClient(
 					"AdditionalSecretOutputs": kind.AdditionalSecretOutputs(),
 					"Aliases":                 kind.Aliases(),
 					"URNAPIVersion":           kind.URNAPIVersion(),
-					"Version":                 pascalVersion,
+					"Version":                 version.Version(),
 					"PulumiComment":           kind.pulumiComment,
 				}
 				// Since mustache templates are logic-less, we have to add some extra variables

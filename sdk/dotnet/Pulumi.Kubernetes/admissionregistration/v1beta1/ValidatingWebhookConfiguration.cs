@@ -30,12 +30,12 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1 {
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
-        public Output<list> Webhooks { get; private set; } = null!;
+        public Output<Types.Outputs.AdmissionRegistration.V1Beta1.ValidatingWebhook[]> Webhooks { get; private set; } = null!;
 
 
         

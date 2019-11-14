@@ -27,10 +27,10 @@ namespace Pulumi.Kubernetes.AuditRegistraion.V1Alpha1 {
         /// <summary>
         /// List of audit configurations.
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<AuditRegistraion.V1Alpha1.AuditSink[]> Items { get; private set; } = null!;
 
         
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         

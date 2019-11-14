@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 {{#Groups}}
-namespace {{Group}} {
+namespace Pulumi.Kubernetes.Types.Outputs.{{Group}} {
   {{#Versions}}
   namespace {{Version}} {
     {{#Kinds}}
@@ -12,7 +12,7 @@ namespace {{Group}} {
     public sealed class {{Kind}} {
       {{#Properties}}
       {{{Comment}}}
-      public readonly {{{PropType}}} {{Name}};
+      public readonly {{{PropType}}} {{LanguageName}};
 
       {{/Properties}}
     }

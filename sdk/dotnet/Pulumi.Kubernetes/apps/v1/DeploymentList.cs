@@ -27,12 +27,12 @@ namespace Pulumi.Kubernetes.Apps.V1 {
         /// <summary>
         /// Items is the list of Deployments.
         /// </summary>
-        public Output<list> Items { get; private set; } = null!;
+        public Output<Types.Outputs.Apps.V1.Deployment[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata.
         /// </summary>
-        public Output<dict> Metadata { get; private set; } = null!;
+        public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
         
