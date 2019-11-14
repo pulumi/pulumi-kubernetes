@@ -19,8 +19,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.{{Group}} {
       public readonly {{{PropType}}} {{LanguageName}};
 
       {{/Properties}}
-    }
+      [OutputConstructor]
+      private {{Kind}}(
+          {{#Properties}}
+          {{{PropType}}} {{DotnetVarName}}{{^IsLast}},{{/IsLast}}{{#IsLast}}){{/IsLast}}
+          {{/Properties}}
+      {
+          {{#Properties}}
+          {{{LanguageName}}} = {{DotnetVarName}};
+          {{/Properties}}
+      }
 
+      }
     {{/Kinds}}
   }
 

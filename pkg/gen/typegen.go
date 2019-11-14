@@ -205,6 +205,8 @@ type Property struct {
 	propType                  string
 	pythonConstructorPropType string
 	defaultValue              string
+	isLast                    bool
+	dotnetVarName             string
 }
 
 // Name returns the name of the property.
@@ -229,6 +231,12 @@ func (p *Property) PythonConstructorPropType() string { return p.pythonConstruct
 
 // DefaultValue returns the type of the property.
 func (p *Property) DefaultValue() string { return p.defaultValue }
+
+// IsLast returns whether the property is the last in the list of properties.
+func (p *Property) IsLast() bool { return p.isLast }
+
+// DotnetVarName returns a variable name safe to use in .NET (e.g. `@namespace` instead of `namespace`)
+func (p *Property) DotnetVarName() string { return p.dotnetVarName }
 
 // --------------------------------------------------------------------------
 
@@ -320,6 +328,7 @@ func fmtComment(
 		wrapParagraph = func(paragraph string) []string {
 			escaped := strings.Replace(paragraph, "<", "&lt;", -1)
 			escaped = strings.Replace(escaped, ">", "&gt;", -1)
+			escaped = strings.Replace(escaped, "&", "&amp;", -1)
 			borderLen := len(prefix + "/// ")
 			wrapped := wordwrap.WrapString(escaped, 100-uint(borderLen))
 			return strings.Split(wrapped, "\n")
@@ -916,23 +925,30 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					}
 
 					var languageName string
+					var dotnetVarName string
 					switch opts.language {
 					case typescript:
 						languageName = propName
 					case python:
 						languageName = pycodegen.PyName(propName)
 					case dotnet:
-						if propName[0] == '$' {
+						name := propName
+						if name[0] == '$' {
 							// $ref and $schema are property names that we want to special case into
 							// just Ref and Schema.
-							languageName = strings.ToUpper(propName[1:2]) + propName[2:]
-						} else {
-							languageName = strings.ToUpper(propName[:1]) + propName[1:]
+							name = name[1:]
 						}
+						languageName = strings.ToUpper(name[:1]) + name[1:]
 						if languageName == d.gvk.Kind {
 							// .NET does not allow properties to be the same as the enclosing class - so special case these
 							languageName = languageName + "Value"
 						}
+						dotnetVarName = "_" + name
+						// if name == "namespace" || name == "default" || name == "enum" || name == "ref" || name == "object" || name == "operator" || name == "continue" {
+						// 	dotnetVarName = "@" + name
+						// } else {
+						// 	dotnetVarName = name
+						// }
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
@@ -944,13 +960,18 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						pythonConstructorPropType: pyConstructorT,
 						name:                      propName,
 						languageName:              languageName,
+						dotnetVarName:             dotnetVarName,
 						defaultValue:              defaultValue,
+						isLast:                    false,
 					}
 				})
 
 			// All properties.
 			properties := []*Property{}
 			ps.ToSlice(&properties)
+			if len(properties) > 0 {
+				properties[len(properties)-1].isLast = true
+			}
 
 			// Required properties.
 			reqdProps := sets.NewString()

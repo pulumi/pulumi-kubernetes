@@ -162,8 +162,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly int TimeoutSeconds;
 
-    }
+      [OutputConstructor]
+      private MutatingWebhook(
+          string[] _admissionReviewVersions,
+          AdmissionRegistration.V1.WebhookClientConfig _clientConfig,
+          string _failurePolicy,
+          string _matchPolicy,
+          string _name,
+          Meta.V1.LabelSelector _namespaceSelector,
+          Meta.V1.LabelSelector _objectSelector,
+          string _reinvocationPolicy,
+          AdmissionRegistration.V1.RuleWithOperations[] _rules,
+          string _sideEffects,
+          int _timeoutSeconds)
+      {
+          AdmissionReviewVersions = _admissionReviewVersions;
+          ClientConfig = _clientConfig;
+          FailurePolicy = _failurePolicy;
+          MatchPolicy = _matchPolicy;
+          Name = _name;
+          NamespaceSelector = _namespaceSelector;
+          ObjectSelector = _objectSelector;
+          ReinvocationPolicy = _reinvocationPolicy;
+          Rules = _rules;
+          SideEffects = _sideEffects;
+          TimeoutSeconds = _timeoutSeconds;
+      }
 
+      }
     /// <summary>
     /// MutatingWebhookConfiguration describes the configuration of and admission webhook that
     /// accept or reject and may change the object.
@@ -180,8 +206,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly AdmissionRegistration.V1.MutatingWebhook[] Webhooks;
 
-    }
+      [OutputConstructor]
+      private MutatingWebhookConfiguration(
+          Meta.V1.ObjectMeta _metadata,
+          AdmissionRegistration.V1.MutatingWebhook[] _webhooks)
+      {
+          Metadata = _metadata;
+          Webhooks = _webhooks;
+      }
 
+      }
     /// <summary>
     /// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
     /// </summary>
@@ -197,8 +231,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private MutatingWebhookConfigurationList(
+          AdmissionRegistration.V1.MutatingWebhookConfiguration[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure
     /// that all the tuple expansions are valid.
@@ -245,8 +287,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly string Scope;
 
-    }
+      [OutputConstructor]
+      private RuleWithOperations(
+          string[] _apiGroups,
+          string[] _apiVersions,
+          string[] _operations,
+          string[] _resources,
+          string _scope)
+      {
+          ApiGroups = _apiGroups;
+          ApiVersions = _apiVersions;
+          Operations = _operations;
+          Resources = _resources;
+          Scope = _scope;
+      }
 
+      }
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
@@ -272,8 +328,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly int Port;
 
-    }
+      [OutputConstructor]
+      private ServiceReference(
+          string _name,
+          string _namespace,
+          string _path,
+          int _port)
+      {
+          Name = _name;
+          Namespace = _namespace;
+          Path = _path;
+          Port = _port;
+      }
 
+      }
     /// <summary>
     /// ValidatingWebhook describes an admission webhook and the resources and operations it applies
     /// to.
@@ -409,8 +477,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly int TimeoutSeconds;
 
-    }
+      [OutputConstructor]
+      private ValidatingWebhook(
+          string[] _admissionReviewVersions,
+          AdmissionRegistration.V1.WebhookClientConfig _clientConfig,
+          string _failurePolicy,
+          string _matchPolicy,
+          string _name,
+          Meta.V1.LabelSelector _namespaceSelector,
+          Meta.V1.LabelSelector _objectSelector,
+          AdmissionRegistration.V1.RuleWithOperations[] _rules,
+          string _sideEffects,
+          int _timeoutSeconds)
+      {
+          AdmissionReviewVersions = _admissionReviewVersions;
+          ClientConfig = _clientConfig;
+          FailurePolicy = _failurePolicy;
+          MatchPolicy = _matchPolicy;
+          Name = _name;
+          NamespaceSelector = _namespaceSelector;
+          ObjectSelector = _objectSelector;
+          Rules = _rules;
+          SideEffects = _sideEffects;
+          TimeoutSeconds = _timeoutSeconds;
+      }
 
+      }
     /// <summary>
     /// ValidatingWebhookConfiguration describes the configuration of and admission webhook that
     /// accept or reject and object without changing it.
@@ -427,8 +519,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly AdmissionRegistration.V1.ValidatingWebhook[] Webhooks;
 
-    }
+      [OutputConstructor]
+      private ValidatingWebhookConfiguration(
+          Meta.V1.ObjectMeta _metadata,
+          AdmissionRegistration.V1.ValidatingWebhook[] _webhooks)
+      {
+          Metadata = _metadata;
+          Webhooks = _webhooks;
+      }
 
+      }
     /// <summary>
     /// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
     /// </summary>
@@ -444,8 +544,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ValidatingWebhookConfigurationList(
+          AdmissionRegistration.V1.ValidatingWebhookConfiguration[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook
     /// </summary>
@@ -488,8 +596,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly string Url;
 
-    }
+      [OutputConstructor]
+      private WebhookClientConfig(
+          string _caBundle,
+          AdmissionRegistration.V1.ServiceReference _service,
+          string _url)
+      {
+          CaBundle = _caBundle;
+          Service = _service;
+          Url = _url;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -648,8 +766,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly int TimeoutSeconds;
 
-    }
+      [OutputConstructor]
+      private MutatingWebhook(
+          string[] _admissionReviewVersions,
+          AdmissionRegistration.V1Beta1.WebhookClientConfig _clientConfig,
+          string _failurePolicy,
+          string _matchPolicy,
+          string _name,
+          Meta.V1.LabelSelector _namespaceSelector,
+          Meta.V1.LabelSelector _objectSelector,
+          string _reinvocationPolicy,
+          AdmissionRegistration.V1Beta1.RuleWithOperations[] _rules,
+          string _sideEffects,
+          int _timeoutSeconds)
+      {
+          AdmissionReviewVersions = _admissionReviewVersions;
+          ClientConfig = _clientConfig;
+          FailurePolicy = _failurePolicy;
+          MatchPolicy = _matchPolicy;
+          Name = _name;
+          NamespaceSelector = _namespaceSelector;
+          ObjectSelector = _objectSelector;
+          ReinvocationPolicy = _reinvocationPolicy;
+          Rules = _rules;
+          SideEffects = _sideEffects;
+          TimeoutSeconds = _timeoutSeconds;
+      }
 
+      }
     /// <summary>
     /// MutatingWebhookConfiguration describes the configuration of and admission webhook that
     /// accept or reject and may change the object. Deprecated in v1.16, planned for removal in
@@ -667,8 +811,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly AdmissionRegistration.V1Beta1.MutatingWebhook[] Webhooks;
 
-    }
+      [OutputConstructor]
+      private MutatingWebhookConfiguration(
+          Meta.V1.ObjectMeta _metadata,
+          AdmissionRegistration.V1Beta1.MutatingWebhook[] _webhooks)
+      {
+          Metadata = _metadata;
+          Webhooks = _webhooks;
+      }
 
+      }
     /// <summary>
     /// MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
     /// </summary>
@@ -684,8 +836,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private MutatingWebhookConfigurationList(
+          AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure
     /// that all the tuple expansions are valid.
@@ -732,8 +892,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly string Scope;
 
-    }
+      [OutputConstructor]
+      private RuleWithOperations(
+          string[] _apiGroups,
+          string[] _apiVersions,
+          string[] _operations,
+          string[] _resources,
+          string _scope)
+      {
+          ApiGroups = _apiGroups;
+          ApiVersions = _apiVersions;
+          Operations = _operations;
+          Resources = _resources;
+          Scope = _scope;
+      }
 
+      }
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
@@ -759,8 +933,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly int Port;
 
-    }
+      [OutputConstructor]
+      private ServiceReference(
+          string _name,
+          string _namespace,
+          string _path,
+          int _port)
+      {
+          Name = _name;
+          Namespace = _namespace;
+          Path = _path;
+          Port = _port;
+      }
 
+      }
     /// <summary>
     /// ValidatingWebhook describes an admission webhook and the resources and operations it applies
     /// to.
@@ -896,8 +1082,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly int TimeoutSeconds;
 
-    }
+      [OutputConstructor]
+      private ValidatingWebhook(
+          string[] _admissionReviewVersions,
+          AdmissionRegistration.V1Beta1.WebhookClientConfig _clientConfig,
+          string _failurePolicy,
+          string _matchPolicy,
+          string _name,
+          Meta.V1.LabelSelector _namespaceSelector,
+          Meta.V1.LabelSelector _objectSelector,
+          AdmissionRegistration.V1Beta1.RuleWithOperations[] _rules,
+          string _sideEffects,
+          int _timeoutSeconds)
+      {
+          AdmissionReviewVersions = _admissionReviewVersions;
+          ClientConfig = _clientConfig;
+          FailurePolicy = _failurePolicy;
+          MatchPolicy = _matchPolicy;
+          Name = _name;
+          NamespaceSelector = _namespaceSelector;
+          ObjectSelector = _objectSelector;
+          Rules = _rules;
+          SideEffects = _sideEffects;
+          TimeoutSeconds = _timeoutSeconds;
+      }
 
+      }
     /// <summary>
     /// ValidatingWebhookConfiguration describes the configuration of and admission webhook that
     /// accept or reject and object without changing it. Deprecated in v1.16, planned for removal in
@@ -915,8 +1125,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly AdmissionRegistration.V1Beta1.ValidatingWebhook[] Webhooks;
 
-    }
+      [OutputConstructor]
+      private ValidatingWebhookConfiguration(
+          Meta.V1.ObjectMeta _metadata,
+          AdmissionRegistration.V1Beta1.ValidatingWebhook[] _webhooks)
+      {
+          Metadata = _metadata;
+          Webhooks = _webhooks;
+      }
 
+      }
     /// <summary>
     /// ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
     /// </summary>
@@ -932,8 +1150,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ValidatingWebhookConfigurationList(
+          AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook
     /// </summary>
@@ -976,8 +1202,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration {
         /// </summary>
       public readonly string Url;
 
-    }
+      [OutputConstructor]
+      private WebhookClientConfig(
+          string _caBundle,
+          AdmissionRegistration.V1Beta1.ServiceReference _service,
+          string _url)
+      {
+          CaBundle = _caBundle;
+          Service = _service;
+          Url = _url;
+      }
 
+      }
   }
 
 }
@@ -1027,8 +1263,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private CustomResourceColumnDefinition(
+          string _description,
+          string _format,
+          string _jsonPath,
+          string _name,
+          int _priority,
+          string _type)
+      {
+          Description = _description;
+          Format = _format;
+          JsonPath = _jsonPath;
+          Name = _name;
+          Priority = _priority;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// CustomResourceConversion describes how to convert different versions of a CR.
     /// </summary>
@@ -1049,11 +1301,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly ApiExtensions.V1.WebhookConversion Webhook;
 
-    }
+      [OutputConstructor]
+      private CustomResourceConversion(
+          string _strategy,
+          ApiExtensions.V1.WebhookConversion _webhook)
+      {
+          Strategy = _strategy;
+          Webhook = _webhook;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinition represents a resource that should be exposed on the API server.
-    /// Its name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;.
+    /// Its name MUST be in the format &amp;lt;.spec.name&amp;gt;.&amp;lt;.spec.group&amp;gt;.
     /// </summary>
     public sealed class CustomResourceDefinition {
       
@@ -1069,8 +1329,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly ApiExtensions.V1.CustomResourceDefinitionStatus Status;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinition(
+          Meta.V1.ObjectMeta _metadata,
+          ApiExtensions.V1.CustomResourceDefinitionSpec _spec,
+          ApiExtensions.V1.CustomResourceDefinitionStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionCondition contains details for the current condition of this pod.
     /// </summary>
@@ -1101,8 +1371,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
     /// </summary>
@@ -1115,8 +1399,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionList(
+          ApiExtensions.V1.CustomResourceDefinition[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
     /// </summary>
@@ -1135,16 +1427,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       /// <summary>
         /// plural is the plural name of the resource to serve. The custom resources are served
-        /// under `/apis/&lt;group&gt;/&lt;version&gt;/.../&lt;plural&gt;`. Must match the name of
-        /// the CustomResourceDefinition (in the form `&lt;names.plural&gt;.&lt;group&gt;`). Must be
-        /// all lowercase.
+        /// under `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/.../&amp;lt;plural&amp;gt;`.
+        /// Must match the name of the CustomResourceDefinition (in the form
+        /// `&amp;lt;names.plural&amp;gt;.&amp;lt;group&amp;gt;`). Must be all lowercase.
         /// </summary>
       public readonly string Plural;
 
       /// <summary>
         /// shortNames are short names for the resource, exposed in API discovery documents, and
-        /// used by clients to support invocations like `kubectl get &lt;shortname&gt;`. It must be
-        /// all lowercase.
+        /// used by clients to support invocations like `kubectl get &amp;lt;shortname&amp;gt;`. It
+        /// must be all lowercase.
         /// </summary>
       public readonly string[] ShortNames;
 
@@ -1154,8 +1446,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string Singular;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionNames(
+          string[] _categories,
+          string _listKind,
+          string _plural,
+          string[] _shortNames,
+          string _singular)
+      {
+          Categories = _categories;
+          ListKind = _listKind;
+          Plural = _plural;
+          ShortNames = _shortNames;
+          Singular = _singular;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionSpec describes how a user wants their resource to appear
     /// </summary>
@@ -1167,8 +1473,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       /// <summary>
         /// group is the API group of the defined custom resource. The custom resources are served
-        /// under `/apis/&lt;group&gt;/...`. Must match the name of the CustomResourceDefinition (in
-        /// the form `&lt;names.plural&gt;.&lt;group&gt;`).
+        /// under `/apis/&amp;lt;group&amp;gt;/...`. Must match the name of the
+        /// CustomResourceDefinition (in the form
+        /// `&amp;lt;names.plural&amp;gt;.&amp;lt;group&amp;gt;`).
         /// </summary>
       public readonly string Group;
 
@@ -1200,15 +1507,31 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// the version string is "kube-like", it will sort above non "kube-like" version strings,
         /// which are ordered lexicographically. "Kube-like" versions start with a "v", then are
         /// followed by a number (the major version), then optionally the string "alpha" or "beta"
-        /// and another number (the minor version). These are sorted first by GA &gt; beta &gt;
-        /// alpha (where GA is a version with no suffix such as beta or alpha), and then by
+        /// and another number (the minor version). These are sorted first by GA &amp;gt; beta
+        /// &amp;gt; alpha (where GA is a version with no suffix such as beta or alpha), and then by
         /// comparing major version, then minor version. An example sorted list of versions: v10,
         /// v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         /// </summary>
       public readonly ApiExtensions.V1.CustomResourceDefinitionVersion[] Versions;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionSpec(
+          ApiExtensions.V1.CustomResourceConversion _conversion,
+          string _group,
+          ApiExtensions.V1.CustomResourceDefinitionNames _names,
+          bool _preserveUnknownFields,
+          string _scope,
+          ApiExtensions.V1.CustomResourceDefinitionVersion[] _versions)
+      {
+          Conversion = _conversion;
+          Group = _group;
+          Names = _names;
+          PreserveUnknownFields = _preserveUnknownFields;
+          Scope = _scope;
+          Versions = _versions;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
     /// </summary>
@@ -1233,8 +1556,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string[] StoredVersions;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionStatus(
+          ApiExtensions.V1.CustomResourceDefinitionNames _acceptedNames,
+          ApiExtensions.V1.CustomResourceDefinitionCondition[] _conditions,
+          string[] _storedVersions)
+      {
+          AcceptedNames = _acceptedNames;
+          Conditions = _conditions;
+          StoredVersions = _storedVersions;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionVersion describes a version for CRD.
     /// </summary>
@@ -1249,8 +1582,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       /// <summary>
         /// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are
-        /// served under this version at `/apis/&lt;group&gt;/&lt;version&gt;/...` if `served` is
-        /// true.
+        /// served under this version at `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/...`
+        /// if `served` is true.
         /// </summary>
       public readonly string Name;
 
@@ -1276,8 +1609,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly ApiExtensions.V1.CustomResourceSubresources Subresources;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionVersion(
+          ApiExtensions.V1.CustomResourceColumnDefinition[] _additionalPrinterColumns,
+          string _name,
+          ApiExtensions.V1.CustomResourceValidation _schema,
+          bool _served,
+          bool _storage,
+          ApiExtensions.V1.CustomResourceSubresources _subresources)
+      {
+          AdditionalPrinterColumns = _additionalPrinterColumns;
+          Name = _name;
+          Schema = _schema;
+          Served = _served;
+          Storage = _storage;
+          Subresources = _subresources;
+      }
 
+      }
     /// <summary>
     /// CustomResourceSubresourceScale defines how to serve the scale subresource for
     /// CustomResources.
@@ -1312,8 +1661,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string StatusReplicasPath;
 
-    }
+      [OutputConstructor]
+      private CustomResourceSubresourceScale(
+          string _labelSelectorPath,
+          string _specReplicasPath,
+          string _statusReplicasPath)
+      {
+          LabelSelectorPath = _labelSelectorPath;
+          SpecReplicasPath = _specReplicasPath;
+          StatusReplicasPath = _statusReplicasPath;
+      }
 
+      }
     /// <summary>
     /// CustomResourceSubresources defines the status and scale subresources for CustomResources.
     /// </summary>
@@ -1332,8 +1691,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly object Status;
 
-    }
+      [OutputConstructor]
+      private CustomResourceSubresources(
+          ApiExtensions.V1.CustomResourceSubresourceScale _scale,
+          object _status)
+      {
+          Scale = _scale;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// CustomResourceValidation is a list of validation methods for CustomResources.
     /// </summary>
@@ -1343,8 +1710,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly ApiExtensions.V1.JSONSchemaProps OpenAPIV3Schema;
 
-    }
+      [OutputConstructor]
+      private CustomResourceValidation(
+          ApiExtensions.V1.JSONSchemaProps _openAPIV3Schema)
+      {
+          OpenAPIV3Schema = _openAPIV3Schema;
+      }
 
+      }
     /// <summary>
     /// ExternalDocumentation allows referencing an external resource for extended documentation.
     /// </summary>
@@ -1355,8 +1728,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       
       public readonly string Url;
 
-    }
+      [OutputConstructor]
+      private ExternalDocumentation(
+          string _description,
+          string _url)
+      {
+          Description = _description;
+          Url = _url;
+      }
 
+      }
     /// <summary>
     /// JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
     /// </summary>
@@ -1538,8 +1919,96 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly bool X_kubernetes_preserve_unknown_fields;
 
-    }
+      [OutputConstructor]
+      private JSONSchemaProps(
+          string _ref,
+          string _schema,
+          ApiExtensions.V1.JSONSchemaProps /* TODO: or bool */ _additionalItems,
+          ApiExtensions.V1.JSONSchemaProps /* TODO: or bool */ _additionalProperties,
+          ApiExtensions.V1.JSONSchemaProps[] _allOf,
+          ApiExtensions.V1.JSONSchemaProps[] _anyOf,
+          object _default,
+          object _definitions,
+          object _dependencies,
+          string _description,
+          object[] _enum,
+          object _example,
+          bool _exclusiveMaximum,
+          bool _exclusiveMinimum,
+          ApiExtensions.V1.ExternalDocumentation _externalDocs,
+          string _format,
+          string _id,
+          ApiExtensions.V1.JSONSchemaProps /* TODO: or array */ _items,
+          int _maxItems,
+          int _maxLength,
+          int _maxProperties,
+          int _maximum,
+          int _minItems,
+          int _minLength,
+          int _minProperties,
+          int _minimum,
+          int _multipleOf,
+          ApiExtensions.V1.JSONSchemaProps _not,
+          bool _nullable,
+          ApiExtensions.V1.JSONSchemaProps[] _oneOf,
+          string _pattern,
+          object _patternProperties,
+          object _properties,
+          string[] _required,
+          string _title,
+          string _type,
+          bool _uniqueItems,
+          bool _x_kubernetes_embedded_resource,
+          bool _x_kubernetes_int_or_string,
+          string[] _x_kubernetes_list_map_keys,
+          string _x_kubernetes_list_type,
+          bool _x_kubernetes_preserve_unknown_fields)
+      {
+          Ref = _ref;
+          Schema = _schema;
+          AdditionalItems = _additionalItems;
+          AdditionalProperties = _additionalProperties;
+          AllOf = _allOf;
+          AnyOf = _anyOf;
+          Default = _default;
+          Definitions = _definitions;
+          Dependencies = _dependencies;
+          Description = _description;
+          Enum = _enum;
+          Example = _example;
+          ExclusiveMaximum = _exclusiveMaximum;
+          ExclusiveMinimum = _exclusiveMinimum;
+          ExternalDocs = _externalDocs;
+          Format = _format;
+          Id = _id;
+          Items = _items;
+          MaxItems = _maxItems;
+          MaxLength = _maxLength;
+          MaxProperties = _maxProperties;
+          Maximum = _maximum;
+          MinItems = _minItems;
+          MinLength = _minLength;
+          MinProperties = _minProperties;
+          Minimum = _minimum;
+          MultipleOf = _multipleOf;
+          Not = _not;
+          Nullable = _nullable;
+          OneOf = _oneOf;
+          Pattern = _pattern;
+          PatternProperties = _patternProperties;
+          Properties = _properties;
+          Required = _required;
+          Title = _title;
+          Type = _type;
+          UniqueItems = _uniqueItems;
+          X_kubernetes_embedded_resource = _x_kubernetes_embedded_resource;
+          X_kubernetes_int_or_string = _x_kubernetes_int_or_string;
+          X_kubernetes_list_map_keys = _x_kubernetes_list_map_keys;
+          X_kubernetes_list_type = _x_kubernetes_list_type;
+          X_kubernetes_preserve_unknown_fields = _x_kubernetes_preserve_unknown_fields;
+      }
 
+      }
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
@@ -1565,8 +2034,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly int Port;
 
-    }
+      [OutputConstructor]
+      private ServiceReference(
+          string _name,
+          string _namespace,
+          string _path,
+          int _port)
+      {
+          Name = _name;
+          Namespace = _namespace;
+          Path = _path;
+          Port = _port;
+      }
 
+      }
     /// <summary>
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook.
     /// </summary>
@@ -1609,8 +2090,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string Url;
 
-    }
+      [OutputConstructor]
+      private WebhookClientConfig(
+          string _caBundle,
+          ApiExtensions.V1.ServiceReference _service,
+          string _url)
+      {
+          CaBundle = _caBundle;
+          Service = _service;
+          Url = _url;
+      }
 
+      }
     /// <summary>
     /// WebhookConversion describes how to call a conversion webhook
     /// </summary>
@@ -1630,8 +2121,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string[] ConversionReviewVersions;
 
-    }
+      [OutputConstructor]
+      private WebhookConversion(
+          ApiExtensions.V1.WebhookClientConfig _clientConfig,
+          string[] _conversionReviewVersions)
+      {
+          ClientConfig = _clientConfig;
+          ConversionReviewVersions = _conversionReviewVersions;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -1678,8 +2177,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private CustomResourceColumnDefinition(
+          string _JSONPath,
+          string _description,
+          string _format,
+          string _name,
+          int _priority,
+          string _type)
+      {
+          JSONPath = _JSONPath;
+          Description = _description;
+          Format = _format;
+          Name = _name;
+          Priority = _priority;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// CustomResourceConversion describes how to convert different versions of a CR.
     /// </summary>
@@ -1710,12 +2225,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly ApiExtensions.V1Beta1.WebhookClientConfig WebhookClientConfig;
 
-    }
+      [OutputConstructor]
+      private CustomResourceConversion(
+          string[] _conversionReviewVersions,
+          string _strategy,
+          ApiExtensions.V1Beta1.WebhookClientConfig _webhookClientConfig)
+      {
+          ConversionReviewVersions = _conversionReviewVersions;
+          Strategy = _strategy;
+          WebhookClientConfig = _webhookClientConfig;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinition represents a resource that should be exposed on the API server.
-    /// Its name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;. Deprecated in v1.16,
-    /// planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+    /// Its name MUST be in the format &amp;lt;.spec.name&amp;gt;.&amp;lt;.spec.group&amp;gt;.
+    /// Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1
+    /// CustomResourceDefinition instead.
     /// </summary>
     public sealed class CustomResourceDefinition {
       
@@ -1731,8 +2257,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly ApiExtensions.V1Beta1.CustomResourceDefinitionStatus Status;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinition(
+          Meta.V1.ObjectMeta _metadata,
+          ApiExtensions.V1Beta1.CustomResourceDefinitionSpec _spec,
+          ApiExtensions.V1Beta1.CustomResourceDefinitionStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionCondition contains details for the current condition of this pod.
     /// </summary>
@@ -1763,8 +2299,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
     /// </summary>
@@ -1777,8 +2327,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionList(
+          ApiExtensions.V1Beta1.CustomResourceDefinition[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
     /// </summary>
@@ -1797,16 +2355,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       /// <summary>
         /// plural is the plural name of the resource to serve. The custom resources are served
-        /// under `/apis/&lt;group&gt;/&lt;version&gt;/.../&lt;plural&gt;`. Must match the name of
-        /// the CustomResourceDefinition (in the form `&lt;names.plural&gt;.&lt;group&gt;`). Must be
-        /// all lowercase.
+        /// under `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/.../&amp;lt;plural&amp;gt;`.
+        /// Must match the name of the CustomResourceDefinition (in the form
+        /// `&amp;lt;names.plural&amp;gt;.&amp;lt;group&amp;gt;`). Must be all lowercase.
         /// </summary>
       public readonly string Plural;
 
       /// <summary>
         /// shortNames are short names for the resource, exposed in API discovery documents, and
-        /// used by clients to support invocations like `kubectl get &lt;shortname&gt;`. It must be
-        /// all lowercase.
+        /// used by clients to support invocations like `kubectl get &amp;lt;shortname&amp;gt;`. It
+        /// must be all lowercase.
         /// </summary>
       public readonly string[] ShortNames;
 
@@ -1816,8 +2374,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string Singular;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionNames(
+          string[] _categories,
+          string _listKind,
+          string _plural,
+          string[] _shortNames,
+          string _singular)
+      {
+          Categories = _categories;
+          ListKind = _listKind;
+          Plural = _plural;
+          ShortNames = _shortNames;
+          Singular = _singular;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionSpec describes how a user wants their resource to appear
     /// </summary>
@@ -1838,8 +2410,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       /// <summary>
         /// group is the API group of the defined custom resource. The custom resources are served
-        /// under `/apis/&lt;group&gt;/...`. Must match the name of the CustomResourceDefinition (in
-        /// the form `&lt;names.plural&gt;.&lt;group&gt;`).
+        /// under `/apis/&amp;lt;group&amp;gt;/...`. Must match the name of the
+        /// CustomResourceDefinition (in the form
+        /// `&amp;lt;names.plural&amp;gt;.&amp;lt;group&amp;gt;`).
         /// </summary>
       public readonly string Group;
 
@@ -1883,9 +2456,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       /// <summary>
         /// version is the API version of the defined custom resource. The custom resources are
-        /// served under `/apis/&lt;group&gt;/&lt;version&gt;/...`. Must match the name of the first
-        /// item in the `versions` list if `version` and `versions` are both specified. Optional if
-        /// `versions` is specified. Deprecated: use `versions` instead.
+        /// served under `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/...`. Must match the
+        /// name of the first item in the `versions` list if `version` and `versions` are both
+        /// specified. Optional if `versions` is specified. Deprecated: use `versions` instead.
         /// </summary>
       public readonly string Version;
 
@@ -1897,15 +2470,39 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// version string is "kube-like", it will sort above non "kube-like" version strings, which
         /// are ordered lexicographically. "Kube-like" versions start with a "v", then are followed
         /// by a number (the major version), then optionally the string "alpha" or "beta" and
-        /// another number (the minor version). These are sorted first by GA &gt; beta &gt; alpha
-        /// (where GA is a version with no suffix such as beta or alpha), and then by comparing
-        /// major version, then minor version. An example sorted list of versions: v10, v2, v1,
-        /// v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+        /// another number (the minor version). These are sorted first by GA &amp;gt; beta &amp;gt;
+        /// alpha (where GA is a version with no suffix such as beta or alpha), and then by
+        /// comparing major version, then minor version. An example sorted list of versions: v10,
+        /// v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         /// </summary>
       public readonly ApiExtensions.V1Beta1.CustomResourceDefinitionVersion[] Versions;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionSpec(
+          ApiExtensions.V1Beta1.CustomResourceColumnDefinition[] _additionalPrinterColumns,
+          ApiExtensions.V1Beta1.CustomResourceConversion _conversion,
+          string _group,
+          ApiExtensions.V1Beta1.CustomResourceDefinitionNames _names,
+          bool _preserveUnknownFields,
+          string _scope,
+          ApiExtensions.V1Beta1.CustomResourceSubresources _subresources,
+          ApiExtensions.V1Beta1.CustomResourceValidation _validation,
+          string _version,
+          ApiExtensions.V1Beta1.CustomResourceDefinitionVersion[] _versions)
+      {
+          AdditionalPrinterColumns = _additionalPrinterColumns;
+          Conversion = _conversion;
+          Group = _group;
+          Names = _names;
+          PreserveUnknownFields = _preserveUnknownFields;
+          Scope = _scope;
+          Subresources = _subresources;
+          Validation = _validation;
+          Version = _version;
+          Versions = _versions;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
     /// </summary>
@@ -1930,8 +2527,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string[] StoredVersions;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionStatus(
+          ApiExtensions.V1Beta1.CustomResourceDefinitionNames _acceptedNames,
+          ApiExtensions.V1Beta1.CustomResourceDefinitionCondition[] _conditions,
+          string[] _storedVersions)
+      {
+          AcceptedNames = _acceptedNames;
+          Conditions = _conditions;
+          StoredVersions = _storedVersions;
+      }
 
+      }
     /// <summary>
     /// CustomResourceDefinitionVersion describes a version for CRD.
     /// </summary>
@@ -1948,8 +2555,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
 
       /// <summary>
         /// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are
-        /// served under this version at `/apis/&lt;group&gt;/&lt;version&gt;/...` if `served` is
-        /// true.
+        /// served under this version at `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/...`
+        /// if `served` is true.
         /// </summary>
       public readonly string Name;
 
@@ -1979,8 +2586,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly ApiExtensions.V1Beta1.CustomResourceSubresources Subresources;
 
-    }
+      [OutputConstructor]
+      private CustomResourceDefinitionVersion(
+          ApiExtensions.V1Beta1.CustomResourceColumnDefinition[] _additionalPrinterColumns,
+          string _name,
+          ApiExtensions.V1Beta1.CustomResourceValidation _schema,
+          bool _served,
+          bool _storage,
+          ApiExtensions.V1Beta1.CustomResourceSubresources _subresources)
+      {
+          AdditionalPrinterColumns = _additionalPrinterColumns;
+          Name = _name;
+          Schema = _schema;
+          Served = _served;
+          Storage = _storage;
+          Subresources = _subresources;
+      }
 
+      }
     /// <summary>
     /// CustomResourceSubresourceScale defines how to serve the scale subresource for
     /// CustomResources.
@@ -2015,8 +2638,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string StatusReplicasPath;
 
-    }
+      [OutputConstructor]
+      private CustomResourceSubresourceScale(
+          string _labelSelectorPath,
+          string _specReplicasPath,
+          string _statusReplicasPath)
+      {
+          LabelSelectorPath = _labelSelectorPath;
+          SpecReplicasPath = _specReplicasPath;
+          StatusReplicasPath = _statusReplicasPath;
+      }
 
+      }
     /// <summary>
     /// CustomResourceSubresources defines the status and scale subresources for CustomResources.
     /// </summary>
@@ -2035,8 +2668,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly object Status;
 
-    }
+      [OutputConstructor]
+      private CustomResourceSubresources(
+          ApiExtensions.V1Beta1.CustomResourceSubresourceScale _scale,
+          object _status)
+      {
+          Scale = _scale;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// CustomResourceValidation is a list of validation methods for CustomResources.
     /// </summary>
@@ -2046,8 +2687,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly ApiExtensions.V1Beta1.JSONSchemaProps OpenAPIV3Schema;
 
-    }
+      [OutputConstructor]
+      private CustomResourceValidation(
+          ApiExtensions.V1Beta1.JSONSchemaProps _openAPIV3Schema)
+      {
+          OpenAPIV3Schema = _openAPIV3Schema;
+      }
 
+      }
     /// <summary>
     /// ExternalDocumentation allows referencing an external resource for extended documentation.
     /// </summary>
@@ -2058,8 +2705,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       
       public readonly string Url;
 
-    }
+      [OutputConstructor]
+      private ExternalDocumentation(
+          string _description,
+          string _url)
+      {
+          Description = _description;
+          Url = _url;
+      }
 
+      }
     /// <summary>
     /// JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
     /// </summary>
@@ -2241,8 +2896,96 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly bool X_kubernetes_preserve_unknown_fields;
 
-    }
+      [OutputConstructor]
+      private JSONSchemaProps(
+          string _ref,
+          string _schema,
+          ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or bool */ _additionalItems,
+          ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or bool */ _additionalProperties,
+          ApiExtensions.V1Beta1.JSONSchemaProps[] _allOf,
+          ApiExtensions.V1Beta1.JSONSchemaProps[] _anyOf,
+          object _default,
+          object _definitions,
+          object _dependencies,
+          string _description,
+          object[] _enum,
+          object _example,
+          bool _exclusiveMaximum,
+          bool _exclusiveMinimum,
+          ApiExtensions.V1Beta1.ExternalDocumentation _externalDocs,
+          string _format,
+          string _id,
+          ApiExtensions.V1Beta1.JSONSchemaProps /* TODO: or array */ _items,
+          int _maxItems,
+          int _maxLength,
+          int _maxProperties,
+          int _maximum,
+          int _minItems,
+          int _minLength,
+          int _minProperties,
+          int _minimum,
+          int _multipleOf,
+          ApiExtensions.V1Beta1.JSONSchemaProps _not,
+          bool _nullable,
+          ApiExtensions.V1Beta1.JSONSchemaProps[] _oneOf,
+          string _pattern,
+          object _patternProperties,
+          object _properties,
+          string[] _required,
+          string _title,
+          string _type,
+          bool _uniqueItems,
+          bool _x_kubernetes_embedded_resource,
+          bool _x_kubernetes_int_or_string,
+          string[] _x_kubernetes_list_map_keys,
+          string _x_kubernetes_list_type,
+          bool _x_kubernetes_preserve_unknown_fields)
+      {
+          Ref = _ref;
+          Schema = _schema;
+          AdditionalItems = _additionalItems;
+          AdditionalProperties = _additionalProperties;
+          AllOf = _allOf;
+          AnyOf = _anyOf;
+          Default = _default;
+          Definitions = _definitions;
+          Dependencies = _dependencies;
+          Description = _description;
+          Enum = _enum;
+          Example = _example;
+          ExclusiveMaximum = _exclusiveMaximum;
+          ExclusiveMinimum = _exclusiveMinimum;
+          ExternalDocs = _externalDocs;
+          Format = _format;
+          Id = _id;
+          Items = _items;
+          MaxItems = _maxItems;
+          MaxLength = _maxLength;
+          MaxProperties = _maxProperties;
+          Maximum = _maximum;
+          MinItems = _minItems;
+          MinLength = _minLength;
+          MinProperties = _minProperties;
+          Minimum = _minimum;
+          MultipleOf = _multipleOf;
+          Not = _not;
+          Nullable = _nullable;
+          OneOf = _oneOf;
+          Pattern = _pattern;
+          PatternProperties = _patternProperties;
+          Properties = _properties;
+          Required = _required;
+          Title = _title;
+          Type = _type;
+          UniqueItems = _uniqueItems;
+          X_kubernetes_embedded_resource = _x_kubernetes_embedded_resource;
+          X_kubernetes_int_or_string = _x_kubernetes_int_or_string;
+          X_kubernetes_list_map_keys = _x_kubernetes_list_map_keys;
+          X_kubernetes_list_type = _x_kubernetes_list_type;
+          X_kubernetes_preserve_unknown_fields = _x_kubernetes_preserve_unknown_fields;
+      }
 
+      }
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
@@ -2268,8 +3011,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly int Port;
 
-    }
+      [OutputConstructor]
+      private ServiceReference(
+          string _name,
+          string _namespace,
+          string _path,
+          int _port)
+      {
+          Name = _name;
+          Namespace = _namespace;
+          Path = _path;
+          Port = _port;
+      }
 
+      }
     /// <summary>
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook.
     /// </summary>
@@ -2312,8 +3067,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
         /// </summary>
       public readonly string Url;
 
-    }
+      [OutputConstructor]
+      private WebhookClientConfig(
+          string _caBundle,
+          ApiExtensions.V1Beta1.ServiceReference _service,
+          string _url)
+      {
+          CaBundle = _caBundle;
+          Service = _service;
+          Url = _url;
+      }
 
+      }
   }
 
 }
@@ -2337,8 +3102,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// </summary>
       public readonly ApiRegistration.V1.APIServiceStatus Status;
 
-    }
+      [OutputConstructor]
+      private APIService(
+          Meta.V1.ObjectMeta _metadata,
+          ApiRegistration.V1.APIServiceSpec _spec,
+          ApiRegistration.V1.APIServiceStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// APIServiceCondition describes the state of an APIService at a particular point
     /// </summary>
@@ -2368,8 +3143,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private APIServiceCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// APIServiceList is a list of APIService objects.
     /// </summary>
@@ -2380,8 +3169,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private APIServiceList(
+          ApiRegistration.V1.APIService[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// APIServiceSpec contains information for locating and communicating with a server. Only https
     /// is supported, though you are able to disable certificate verification.
@@ -2438,15 +3235,33 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// above non "kube-like" version strings, which are ordered lexicographically. "Kube-like"
         /// versions start with a "v", then are followed by a number (the major version), then
         /// optionally the string "alpha" or "beta" and another number (the minor version). These
-        /// are sorted first by GA &gt; beta &gt; alpha (where GA is a version with no suffix such
-        /// as beta or alpha), and then by comparing major version, then minor version. An example
-        /// sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2,
-        /// foo1, foo10.
+        /// are sorted first by GA &amp;gt; beta &amp;gt; alpha (where GA is a version with no
+        /// suffix such as beta or alpha), and then by comparing major version, then minor version.
+        /// An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1,
+        /// v11alpha2, foo1, foo10.
         /// </summary>
       public readonly int VersionPriority;
 
-    }
+      [OutputConstructor]
+      private APIServiceSpec(
+          string _caBundle,
+          string _group,
+          int _groupPriorityMinimum,
+          bool _insecureSkipTLSVerify,
+          ApiRegistration.V1.ServiceReference _service,
+          string _version,
+          int _versionPriority)
+      {
+          CaBundle = _caBundle;
+          Group = _group;
+          GroupPriorityMinimum = _groupPriorityMinimum;
+          InsecureSkipTLSVerify = _insecureSkipTLSVerify;
+          Service = _service;
+          Version = _version;
+          VersionPriority = _versionPriority;
+      }
 
+      }
     /// <summary>
     /// APIServiceStatus contains derived information about an API server
     /// </summary>
@@ -2456,8 +3271,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// </summary>
       public readonly ApiRegistration.V1.APIServiceCondition[] Conditions;
 
-    }
+      [OutputConstructor]
+      private APIServiceStatus(
+          ApiRegistration.V1.APIServiceCondition[] _conditions)
+      {
+          Conditions = _conditions;
+      }
 
+      }
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
@@ -2478,8 +3299,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// </summary>
       public readonly int Port;
 
-    }
+      [OutputConstructor]
+      private ServiceReference(
+          string _name,
+          string _namespace,
+          int _port)
+      {
+          Name = _name;
+          Namespace = _namespace;
+          Port = _port;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -2500,8 +3331,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// </summary>
       public readonly ApiRegistration.V1Beta1.APIServiceStatus Status;
 
-    }
+      [OutputConstructor]
+      private APIService(
+          Meta.V1.ObjectMeta _metadata,
+          ApiRegistration.V1Beta1.APIServiceSpec _spec,
+          ApiRegistration.V1Beta1.APIServiceStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// APIServiceCondition describes the state of an APIService at a particular point
     /// </summary>
@@ -2531,8 +3372,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private APIServiceCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// APIServiceList is a list of APIService objects.
     /// </summary>
@@ -2543,8 +3398,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private APIServiceList(
+          ApiRegistration.V1Beta1.APIService[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// APIServiceSpec contains information for locating and communicating with a server. Only https
     /// is supported, though you are able to disable certificate verification.
@@ -2601,15 +3464,33 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// above non "kube-like" version strings, which are ordered lexicographically. "Kube-like"
         /// versions start with a "v", then are followed by a number (the major version), then
         /// optionally the string "alpha" or "beta" and another number (the minor version). These
-        /// are sorted first by GA &gt; beta &gt; alpha (where GA is a version with no suffix such
-        /// as beta or alpha), and then by comparing major version, then minor version. An example
-        /// sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2,
-        /// foo1, foo10.
+        /// are sorted first by GA &amp;gt; beta &amp;gt; alpha (where GA is a version with no
+        /// suffix such as beta or alpha), and then by comparing major version, then minor version.
+        /// An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1,
+        /// v11alpha2, foo1, foo10.
         /// </summary>
       public readonly int VersionPriority;
 
-    }
+      [OutputConstructor]
+      private APIServiceSpec(
+          string _caBundle,
+          string _group,
+          int _groupPriorityMinimum,
+          bool _insecureSkipTLSVerify,
+          ApiRegistration.V1Beta1.ServiceReference _service,
+          string _version,
+          int _versionPriority)
+      {
+          CaBundle = _caBundle;
+          Group = _group;
+          GroupPriorityMinimum = _groupPriorityMinimum;
+          InsecureSkipTLSVerify = _insecureSkipTLSVerify;
+          Service = _service;
+          Version = _version;
+          VersionPriority = _versionPriority;
+      }
 
+      }
     /// <summary>
     /// APIServiceStatus contains derived information about an API server
     /// </summary>
@@ -2619,8 +3500,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// </summary>
       public readonly ApiRegistration.V1Beta1.APIServiceCondition[] Conditions;
 
-    }
+      [OutputConstructor]
+      private APIServiceStatus(
+          ApiRegistration.V1Beta1.APIServiceCondition[] _conditions)
+      {
+          Conditions = _conditions;
+      }
 
+      }
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
@@ -2641,8 +3528,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration {
         /// </summary>
       public readonly int Port;
 
-    }
+      [OutputConstructor]
+      private ServiceReference(
+          string _name,
+          string _namespace,
+          int _port)
+      {
+          Name = _name;
+          Namespace = _namespace;
+          Port = _port;
+      }
 
+      }
   }
 
 }
@@ -2676,8 +3573,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Revision;
 
-    }
+      [OutputConstructor]
+      private ControllerRevision(
+          object _data,
+          Meta.V1.ObjectMeta _metadata,
+          int _revision)
+      {
+          Data = _data;
+          Metadata = _metadata;
+          Revision = _revision;
+      }
 
+      }
     /// <summary>
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
@@ -2693,8 +3600,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ControllerRevisionList(
+          Apps.V1.ControllerRevision[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DaemonSet represents the configuration of a daemon set.
     /// </summary>
@@ -2718,8 +3633,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1.DaemonSetStatus Status;
 
-    }
+      [OutputConstructor]
+      private DaemonSet(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1.DaemonSetSpec _spec,
+          Apps.V1.DaemonSetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
@@ -2749,8 +3674,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DaemonSetCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
@@ -2766,8 +3705,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private DaemonSetList(
+          Apps.V1.DaemonSet[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DaemonSetSpec is the specification of a daemon set.
     /// </summary>
@@ -2805,8 +3752,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1.DaemonSetUpdateStrategy UpdateStrategy;
 
-    }
+      [OutputConstructor]
+      private DaemonSetSpec(
+          int _minReadySeconds,
+          int _revisionHistoryLimit,
+          Meta.V1.LabelSelector _selector,
+          Core.V1.PodTemplateSpec _template,
+          Apps.V1.DaemonSetUpdateStrategy _updateStrategy)
+      {
+          MinReadySeconds = _minReadySeconds;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          Selector = _selector;
+          Template = _template;
+          UpdateStrategy = _updateStrategy;
+      }
 
+      }
     /// <summary>
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
@@ -2872,8 +3833,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int UpdatedNumberScheduled;
 
-    }
+      [OutputConstructor]
+      private DaemonSetStatus(
+          int _collisionCount,
+          Apps.V1.DaemonSetCondition[] _conditions,
+          int _currentNumberScheduled,
+          int _desiredNumberScheduled,
+          int _numberAvailable,
+          int _numberMisscheduled,
+          int _numberReady,
+          int _numberUnavailable,
+          int _observedGeneration,
+          int _updatedNumberScheduled)
+      {
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          CurrentNumberScheduled = _currentNumberScheduled;
+          DesiredNumberScheduled = _desiredNumberScheduled;
+          NumberAvailable = _numberAvailable;
+          NumberMisscheduled = _numberMisscheduled;
+          NumberReady = _numberReady;
+          NumberUnavailable = _numberUnavailable;
+          ObservedGeneration = _observedGeneration;
+          UpdatedNumberScheduled = _updatedNumberScheduled;
+      }
 
+      }
     /// <summary>
     /// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
     /// </summary>
@@ -2889,8 +3874,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DaemonSetUpdateStrategy(
+          Apps.V1.RollingUpdateDaemonSet _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// Deployment enables declarative updates for Pods and ReplicaSets.
     /// </summary>
@@ -2910,8 +3903,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1.DeploymentStatus Status;
 
-    }
+      [OutputConstructor]
+      private Deployment(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1.DeploymentSpec _spec,
+          Apps.V1.DeploymentStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
@@ -2946,8 +3949,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DeploymentCondition(
+          string _lastTransitionTime,
+          string _lastUpdateTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          LastUpdateTime = _lastUpdateTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DeploymentList is a list of Deployments.
     /// </summary>
@@ -2962,8 +3981,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private DeploymentList(
+          Apps.V1.Deployment[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
@@ -3017,8 +4044,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Core.V1.PodTemplateSpec Template;
 
-    }
+      [OutputConstructor]
+      private DeploymentSpec(
+          int _minReadySeconds,
+          bool _paused,
+          int _progressDeadlineSeconds,
+          int _replicas,
+          int _revisionHistoryLimit,
+          Meta.V1.LabelSelector _selector,
+          Apps.V1.DeploymentStrategy _strategy,
+          Core.V1.PodTemplateSpec _template)
+      {
+          MinReadySeconds = _minReadySeconds;
+          Paused = _paused;
+          ProgressDeadlineSeconds = _progressDeadlineSeconds;
+          Replicas = _replicas;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          Selector = _selector;
+          Strategy = _strategy;
+          Template = _template;
+      }
 
+      }
     /// <summary>
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
@@ -3071,8 +4118,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int UpdatedReplicas;
 
-    }
+      [OutputConstructor]
+      private DeploymentStatus(
+          int _availableReplicas,
+          int _collisionCount,
+          Apps.V1.DeploymentCondition[] _conditions,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas,
+          int _unavailableReplicas,
+          int _updatedReplicas)
+      {
+          AvailableReplicas = _availableReplicas;
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+          UnavailableReplicas = _unavailableReplicas;
+          UpdatedReplicas = _updatedReplicas;
+      }
 
+      }
     /// <summary>
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
@@ -3087,8 +4154,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DeploymentStrategy(
+          Apps.V1.RollingUpdateDeployment _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     /// </summary>
@@ -3113,8 +4188,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1.ReplicaSetStatus Status;
 
-    }
+      [OutputConstructor]
+      private ReplicaSet(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1.ReplicaSetSpec _spec,
+          Apps.V1.ReplicaSetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
@@ -3144,8 +4229,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
@@ -3162,8 +4261,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetList(
+          Apps.V1.ReplicaSet[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetSpec is the specification of a ReplicaSet.
     /// </summary>
@@ -3197,8 +4304,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Core.V1.PodTemplateSpec Template;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetSpec(
+          int _minReadySeconds,
+          int _replicas,
+          Meta.V1.LabelSelector _selector,
+          Core.V1.PodTemplateSpec _template)
+      {
+          MinReadySeconds = _minReadySeconds;
+          Replicas = _replicas;
+          Selector = _selector;
+          Template = _template;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
@@ -3236,8 +4355,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Replicas;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetStatus(
+          int _availableReplicas,
+          Apps.V1.ReplicaSetCondition[] _conditions,
+          int _fullyLabeledReplicas,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas)
+      {
+          AvailableReplicas = _availableReplicas;
+          Conditions = _conditions;
+          FullyLabeledReplicas = _fullyLabeledReplicas;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+      }
 
+      }
     /// <summary>
     /// Spec to control the desired behavior of daemon set rolling update.
     /// </summary>
@@ -3256,8 +4391,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int /* TODO: or string */ MaxUnavailable;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateDaemonSet(
+          int /* TODO: or string */ _maxUnavailable)
+      {
+          MaxUnavailable = _maxUnavailable;
+      }
 
+      }
     /// <summary>
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
@@ -3286,8 +4427,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int /* TODO: or string */ MaxUnavailable;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateDeployment(
+          int /* TODO: or string */ _maxSurge,
+          int /* TODO: or string */ _maxUnavailable)
+      {
+          MaxSurge = _maxSurge;
+          MaxUnavailable = _maxUnavailable;
+      }
 
+      }
     /// <summary>
     /// RollingUpdateStatefulSetStrategy is used to communicate parameter for
     /// RollingUpdateStatefulSetStrategyType.
@@ -3299,8 +4448,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Partition;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateStatefulSetStrategy(
+          int _partition)
+      {
+          Partition = _partition;
+      }
 
+      }
     /// <summary>
     /// StatefulSet represents a set of pods with consistent identities. Identities are defined as:
     ///  - Network: A single stable DNS and hostname.
@@ -3323,8 +4478,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1.StatefulSetStatus Status;
 
-    }
+      [OutputConstructor]
+      private StatefulSet(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1.StatefulSetSpec _spec,
+          Apps.V1.StatefulSetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
@@ -3354,8 +4519,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private StatefulSetCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
@@ -3366,8 +4545,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private StatefulSetList(
+          Apps.V1.StatefulSet[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
@@ -3435,8 +4622,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Core.V1.PersistentVolumeClaim[] VolumeClaimTemplates;
 
-    }
+      [OutputConstructor]
+      private StatefulSetSpec(
+          string _podManagementPolicy,
+          int _replicas,
+          int _revisionHistoryLimit,
+          Meta.V1.LabelSelector _selector,
+          string _serviceName,
+          Core.V1.PodTemplateSpec _template,
+          Apps.V1.StatefulSetUpdateStrategy _updateStrategy,
+          Core.V1.PersistentVolumeClaim[] _volumeClaimTemplates)
+      {
+          PodManagementPolicy = _podManagementPolicy;
+          Replicas = _replicas;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          Selector = _selector;
+          ServiceName = _serviceName;
+          Template = _template;
+          UpdateStrategy = _updateStrategy;
+          VolumeClaimTemplates = _volumeClaimTemplates;
+      }
 
+      }
     /// <summary>
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
@@ -3495,8 +4702,30 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int UpdatedReplicas;
 
-    }
+      [OutputConstructor]
+      private StatefulSetStatus(
+          int _collisionCount,
+          Apps.V1.StatefulSetCondition[] _conditions,
+          int _currentReplicas,
+          string _currentRevision,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas,
+          string _updateRevision,
+          int _updatedReplicas)
+      {
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          CurrentReplicas = _currentReplicas;
+          CurrentRevision = _currentRevision;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+          UpdateRevision = _updateRevision;
+          UpdatedReplicas = _updatedReplicas;
+      }
 
+      }
     /// <summary>
     /// StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to
     /// perform updates. It includes any additional parameters necessary to perform the update for
@@ -3514,8 +4743,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private StatefulSetUpdateStrategy(
+          Apps.V1.RollingUpdateStatefulSetStrategy _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -3549,8 +4786,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Revision;
 
-    }
+      [OutputConstructor]
+      private ControllerRevision(
+          object _data,
+          Meta.V1.ObjectMeta _metadata,
+          int _revision)
+      {
+          Data = _data;
+          Metadata = _metadata;
+          Revision = _revision;
+      }
 
+      }
     /// <summary>
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
@@ -3566,8 +4813,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ControllerRevisionList(
+          Apps.V1Beta1.ControllerRevision[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - apps/v1beta1/Deployment is not supported by Kubernetes 1.16+ clusters. Use
     /// apps/v1/Deployment instead.
@@ -3590,8 +4845,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1Beta1.DeploymentStatus Status;
 
-    }
+      [OutputConstructor]
+      private Deployment(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1Beta1.DeploymentSpec _spec,
+          Apps.V1Beta1.DeploymentStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
@@ -3626,8 +4891,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DeploymentCondition(
+          string _lastTransitionTime,
+          string _lastUpdateTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          LastUpdateTime = _lastUpdateTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DeploymentList is a list of Deployments.
     /// </summary>
@@ -3642,8 +4923,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private DeploymentList(
+          Apps.V1Beta1.Deployment[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
     /// </summary>
@@ -3663,8 +4952,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly ImmutableDictionary<string, string> UpdatedAnnotations;
 
-    }
+      [OutputConstructor]
+      private DeploymentRollback(
+          string _name,
+          Apps.V1Beta1.RollbackConfig _rollbackTo,
+          ImmutableDictionary<string, string> _updatedAnnotations)
+      {
+          Name = _name;
+          RollbackTo = _rollbackTo;
+          UpdatedAnnotations = _updatedAnnotations;
+      }
 
+      }
     /// <summary>
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
@@ -3724,8 +5023,30 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Core.V1.PodTemplateSpec Template;
 
-    }
+      [OutputConstructor]
+      private DeploymentSpec(
+          int _minReadySeconds,
+          bool _paused,
+          int _progressDeadlineSeconds,
+          int _replicas,
+          int _revisionHistoryLimit,
+          Apps.V1Beta1.RollbackConfig _rollbackTo,
+          Meta.V1.LabelSelector _selector,
+          Apps.V1Beta1.DeploymentStrategy _strategy,
+          Core.V1.PodTemplateSpec _template)
+      {
+          MinReadySeconds = _minReadySeconds;
+          Paused = _paused;
+          ProgressDeadlineSeconds = _progressDeadlineSeconds;
+          Replicas = _replicas;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          RollbackTo = _rollbackTo;
+          Selector = _selector;
+          Strategy = _strategy;
+          Template = _template;
+      }
 
+      }
     /// <summary>
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
@@ -3778,8 +5099,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int UpdatedReplicas;
 
-    }
+      [OutputConstructor]
+      private DeploymentStatus(
+          int _availableReplicas,
+          int _collisionCount,
+          Apps.V1Beta1.DeploymentCondition[] _conditions,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas,
+          int _unavailableReplicas,
+          int _updatedReplicas)
+      {
+          AvailableReplicas = _availableReplicas;
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+          UnavailableReplicas = _unavailableReplicas;
+          UpdatedReplicas = _updatedReplicas;
+      }
 
+      }
     /// <summary>
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
@@ -3794,8 +5135,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DeploymentStrategy(
+          Apps.V1Beta1.RollingUpdateDeployment _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED.
     /// </summary>
@@ -3805,8 +5154,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Revision;
 
-    }
+      [OutputConstructor]
+      private RollbackConfig(
+          int _revision)
+      {
+          Revision = _revision;
+      }
 
+      }
     /// <summary>
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
@@ -3835,8 +5190,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int /* TODO: or string */ MaxUnavailable;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateDeployment(
+          int /* TODO: or string */ _maxSurge,
+          int /* TODO: or string */ _maxUnavailable)
+      {
+          MaxSurge = _maxSurge;
+          MaxUnavailable = _maxUnavailable;
+      }
 
+      }
     /// <summary>
     /// RollingUpdateStatefulSetStrategy is used to communicate parameter for
     /// RollingUpdateStatefulSetStrategyType.
@@ -3847,8 +5210,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Partition;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateStatefulSetStrategy(
+          int _partition)
+      {
+          Partition = _partition;
+      }
 
+      }
     /// <summary>
     /// Scale represents a scaling request for a resource.
     /// </summary>
@@ -3872,8 +5241,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1Beta1.ScaleStatus Status;
 
-    }
+      [OutputConstructor]
+      private Scale(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1Beta1.ScaleSpec _spec,
+          Apps.V1Beta1.ScaleStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// ScaleSpec describes the attributes of a scale subresource
     /// </summary>
@@ -3883,8 +5262,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Replicas;
 
-    }
+      [OutputConstructor]
+      private ScaleSpec(
+          int _replicas)
+      {
+          Replicas = _replicas;
+      }
 
+      }
     /// <summary>
     /// ScaleStatus represents the current status of a scale subresource.
     /// </summary>
@@ -3910,8 +5295,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string TargetSelector;
 
-    }
+      [OutputConstructor]
+      private ScaleStatus(
+          int _replicas,
+          ImmutableDictionary<string, string> _selector,
+          string _targetSelector)
+      {
+          Replicas = _replicas;
+          Selector = _selector;
+          TargetSelector = _targetSelector;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - apps/v1beta1/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
     /// apps/v1/StatefulSet instead.
@@ -3937,8 +5332,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1Beta1.StatefulSetStatus Status;
 
-    }
+      [OutputConstructor]
+      private StatefulSet(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1Beta1.StatefulSetSpec _spec,
+          Apps.V1Beta1.StatefulSetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
@@ -3968,8 +5373,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private StatefulSetCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
@@ -3980,8 +5399,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private StatefulSetList(
+          Apps.V1Beta1.StatefulSet[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
@@ -4049,8 +5476,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Core.V1.PersistentVolumeClaim[] VolumeClaimTemplates;
 
-    }
+      [OutputConstructor]
+      private StatefulSetSpec(
+          string _podManagementPolicy,
+          int _replicas,
+          int _revisionHistoryLimit,
+          Meta.V1.LabelSelector _selector,
+          string _serviceName,
+          Core.V1.PodTemplateSpec _template,
+          Apps.V1Beta1.StatefulSetUpdateStrategy _updateStrategy,
+          Core.V1.PersistentVolumeClaim[] _volumeClaimTemplates)
+      {
+          PodManagementPolicy = _podManagementPolicy;
+          Replicas = _replicas;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          Selector = _selector;
+          ServiceName = _serviceName;
+          Template = _template;
+          UpdateStrategy = _updateStrategy;
+          VolumeClaimTemplates = _volumeClaimTemplates;
+      }
 
+      }
     /// <summary>
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
@@ -4109,8 +5556,30 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int UpdatedReplicas;
 
-    }
+      [OutputConstructor]
+      private StatefulSetStatus(
+          int _collisionCount,
+          Apps.V1Beta1.StatefulSetCondition[] _conditions,
+          int _currentReplicas,
+          string _currentRevision,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas,
+          string _updateRevision,
+          int _updatedReplicas)
+      {
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          CurrentReplicas = _currentReplicas;
+          CurrentRevision = _currentRevision;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+          UpdateRevision = _updateRevision;
+          UpdatedReplicas = _updatedReplicas;
+      }
 
+      }
     /// <summary>
     /// StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to
     /// perform updates. It includes any additional parameters necessary to perform the update for
@@ -4128,8 +5597,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private StatefulSetUpdateStrategy(
+          Apps.V1Beta1.RollingUpdateStatefulSetStrategy _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
   }
 
   namespace V1Beta2 {
@@ -4163,8 +5640,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Revision;
 
-    }
+      [OutputConstructor]
+      private ControllerRevision(
+          object _data,
+          Meta.V1.ObjectMeta _metadata,
+          int _revision)
+      {
+          Data = _data;
+          Metadata = _metadata;
+          Revision = _revision;
+      }
 
+      }
     /// <summary>
     /// ControllerRevisionList is a resource containing a list of ControllerRevision objects.
     /// </summary>
@@ -4180,8 +5667,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ControllerRevisionList(
+          Apps.V1Beta2.ControllerRevision[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - apps/v1beta2/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
     /// apps/v1/DaemonSet instead.
@@ -4208,8 +5703,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1Beta2.DaemonSetStatus Status;
 
-    }
+      [OutputConstructor]
+      private DaemonSet(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1Beta2.DaemonSetSpec _spec,
+          Apps.V1Beta2.DaemonSetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
@@ -4239,8 +5744,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DaemonSetCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
@@ -4256,8 +5775,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private DaemonSetList(
+          Apps.V1Beta2.DaemonSet[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DaemonSetSpec is the specification of a daemon set.
     /// </summary>
@@ -4295,8 +5822,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1Beta2.DaemonSetUpdateStrategy UpdateStrategy;
 
-    }
+      [OutputConstructor]
+      private DaemonSetSpec(
+          int _minReadySeconds,
+          int _revisionHistoryLimit,
+          Meta.V1.LabelSelector _selector,
+          Core.V1.PodTemplateSpec _template,
+          Apps.V1Beta2.DaemonSetUpdateStrategy _updateStrategy)
+      {
+          MinReadySeconds = _minReadySeconds;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          Selector = _selector;
+          Template = _template;
+          UpdateStrategy = _updateStrategy;
+      }
 
+      }
     /// <summary>
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
@@ -4362,8 +5903,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int UpdatedNumberScheduled;
 
-    }
+      [OutputConstructor]
+      private DaemonSetStatus(
+          int _collisionCount,
+          Apps.V1Beta2.DaemonSetCondition[] _conditions,
+          int _currentNumberScheduled,
+          int _desiredNumberScheduled,
+          int _numberAvailable,
+          int _numberMisscheduled,
+          int _numberReady,
+          int _numberUnavailable,
+          int _observedGeneration,
+          int _updatedNumberScheduled)
+      {
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          CurrentNumberScheduled = _currentNumberScheduled;
+          DesiredNumberScheduled = _desiredNumberScheduled;
+          NumberAvailable = _numberAvailable;
+          NumberMisscheduled = _numberMisscheduled;
+          NumberReady = _numberReady;
+          NumberUnavailable = _numberUnavailable;
+          ObservedGeneration = _observedGeneration;
+          UpdatedNumberScheduled = _updatedNumberScheduled;
+      }
 
+      }
     /// <summary>
     /// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
     /// </summary>
@@ -4379,8 +5944,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DaemonSetUpdateStrategy(
+          Apps.V1Beta2.RollingUpdateDaemonSet _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - apps/v1beta2/Deployment is not supported by Kubernetes 1.16+ clusters. Use
     /// apps/v1/Deployment instead.
@@ -4403,8 +5976,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1Beta2.DeploymentStatus Status;
 
-    }
+      [OutputConstructor]
+      private Deployment(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1Beta2.DeploymentSpec _spec,
+          Apps.V1Beta2.DeploymentStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
@@ -4439,8 +6022,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DeploymentCondition(
+          string _lastTransitionTime,
+          string _lastUpdateTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          LastUpdateTime = _lastUpdateTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DeploymentList is a list of Deployments.
     /// </summary>
@@ -4455,8 +6054,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private DeploymentList(
+          Apps.V1Beta2.Deployment[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
@@ -4510,8 +6117,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Core.V1.PodTemplateSpec Template;
 
-    }
+      [OutputConstructor]
+      private DeploymentSpec(
+          int _minReadySeconds,
+          bool _paused,
+          int _progressDeadlineSeconds,
+          int _replicas,
+          int _revisionHistoryLimit,
+          Meta.V1.LabelSelector _selector,
+          Apps.V1Beta2.DeploymentStrategy _strategy,
+          Core.V1.PodTemplateSpec _template)
+      {
+          MinReadySeconds = _minReadySeconds;
+          Paused = _paused;
+          ProgressDeadlineSeconds = _progressDeadlineSeconds;
+          Replicas = _replicas;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          Selector = _selector;
+          Strategy = _strategy;
+          Template = _template;
+      }
 
+      }
     /// <summary>
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
@@ -4564,8 +6191,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int UpdatedReplicas;
 
-    }
+      [OutputConstructor]
+      private DeploymentStatus(
+          int _availableReplicas,
+          int _collisionCount,
+          Apps.V1Beta2.DeploymentCondition[] _conditions,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas,
+          int _unavailableReplicas,
+          int _updatedReplicas)
+      {
+          AvailableReplicas = _availableReplicas;
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+          UnavailableReplicas = _unavailableReplicas;
+          UpdatedReplicas = _updatedReplicas;
+      }
 
+      }
     /// <summary>
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
@@ -4580,8 +6227,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DeploymentStrategy(
+          Apps.V1Beta2.RollingUpdateDeployment _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - apps/v1beta2/ReplicaSet is not supported by Kubernetes 1.16+ clusters. Use
     /// apps/v1/ReplicaSet instead.
@@ -4609,8 +6264,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1Beta2.ReplicaSetStatus Status;
 
-    }
+      [OutputConstructor]
+      private ReplicaSet(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1Beta2.ReplicaSetSpec _spec,
+          Apps.V1Beta2.ReplicaSetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
@@ -4640,8 +6305,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
@@ -4658,8 +6337,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetList(
+          Apps.V1Beta2.ReplicaSet[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetSpec is the specification of a ReplicaSet.
     /// </summary>
@@ -4693,8 +6380,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Core.V1.PodTemplateSpec Template;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetSpec(
+          int _minReadySeconds,
+          int _replicas,
+          Meta.V1.LabelSelector _selector,
+          Core.V1.PodTemplateSpec _template)
+      {
+          MinReadySeconds = _minReadySeconds;
+          Replicas = _replicas;
+          Selector = _selector;
+          Template = _template;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
@@ -4732,8 +6431,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Replicas;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetStatus(
+          int _availableReplicas,
+          Apps.V1Beta2.ReplicaSetCondition[] _conditions,
+          int _fullyLabeledReplicas,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas)
+      {
+          AvailableReplicas = _availableReplicas;
+          Conditions = _conditions;
+          FullyLabeledReplicas = _fullyLabeledReplicas;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+      }
 
+      }
     /// <summary>
     /// Spec to control the desired behavior of daemon set rolling update.
     /// </summary>
@@ -4752,8 +6467,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int /* TODO: or string */ MaxUnavailable;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateDaemonSet(
+          int /* TODO: or string */ _maxUnavailable)
+      {
+          MaxUnavailable = _maxUnavailable;
+      }
 
+      }
     /// <summary>
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
@@ -4782,8 +6503,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int /* TODO: or string */ MaxUnavailable;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateDeployment(
+          int /* TODO: or string */ _maxSurge,
+          int /* TODO: or string */ _maxUnavailable)
+      {
+          MaxSurge = _maxSurge;
+          MaxUnavailable = _maxUnavailable;
+      }
 
+      }
     /// <summary>
     /// RollingUpdateStatefulSetStrategy is used to communicate parameter for
     /// RollingUpdateStatefulSetStrategyType.
@@ -4795,8 +6524,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Partition;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateStatefulSetStrategy(
+          int _partition)
+      {
+          Partition = _partition;
+      }
 
+      }
     /// <summary>
     /// Scale represents a scaling request for a resource.
     /// </summary>
@@ -4820,8 +6555,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1Beta2.ScaleStatus Status;
 
-    }
+      [OutputConstructor]
+      private Scale(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1Beta2.ScaleSpec _spec,
+          Apps.V1Beta2.ScaleStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// ScaleSpec describes the attributes of a scale subresource
     /// </summary>
@@ -4831,8 +6576,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int Replicas;
 
-    }
+      [OutputConstructor]
+      private ScaleSpec(
+          int _replicas)
+      {
+          Replicas = _replicas;
+      }
 
+      }
     /// <summary>
     /// ScaleStatus represents the current status of a scale subresource.
     /// </summary>
@@ -4858,8 +6609,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string TargetSelector;
 
-    }
+      [OutputConstructor]
+      private ScaleStatus(
+          int _replicas,
+          ImmutableDictionary<string, string> _selector,
+          string _targetSelector)
+      {
+          Replicas = _replicas;
+          Selector = _selector;
+          TargetSelector = _targetSelector;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - apps/v1beta2/StatefulSet is not supported by Kubernetes 1.16+ clusters. Use
     /// apps/v1/StatefulSet instead.
@@ -4885,8 +6646,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Apps.V1Beta2.StatefulSetStatus Status;
 
-    }
+      [OutputConstructor]
+      private StatefulSet(
+          Meta.V1.ObjectMeta _metadata,
+          Apps.V1Beta2.StatefulSetSpec _spec,
+          Apps.V1Beta2.StatefulSetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
@@ -4916,8 +6687,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private StatefulSetCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// StatefulSetList is a collection of StatefulSets.
     /// </summary>
@@ -4928,8 +6713,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private StatefulSetList(
+          Apps.V1Beta2.StatefulSet[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
@@ -4997,8 +6790,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly Core.V1.PersistentVolumeClaim[] VolumeClaimTemplates;
 
-    }
+      [OutputConstructor]
+      private StatefulSetSpec(
+          string _podManagementPolicy,
+          int _replicas,
+          int _revisionHistoryLimit,
+          Meta.V1.LabelSelector _selector,
+          string _serviceName,
+          Core.V1.PodTemplateSpec _template,
+          Apps.V1Beta2.StatefulSetUpdateStrategy _updateStrategy,
+          Core.V1.PersistentVolumeClaim[] _volumeClaimTemplates)
+      {
+          PodManagementPolicy = _podManagementPolicy;
+          Replicas = _replicas;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          Selector = _selector;
+          ServiceName = _serviceName;
+          Template = _template;
+          UpdateStrategy = _updateStrategy;
+          VolumeClaimTemplates = _volumeClaimTemplates;
+      }
 
+      }
     /// <summary>
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
@@ -5057,8 +6870,30 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly int UpdatedReplicas;
 
-    }
+      [OutputConstructor]
+      private StatefulSetStatus(
+          int _collisionCount,
+          Apps.V1Beta2.StatefulSetCondition[] _conditions,
+          int _currentReplicas,
+          string _currentRevision,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas,
+          string _updateRevision,
+          int _updatedReplicas)
+      {
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          CurrentReplicas = _currentReplicas;
+          CurrentRevision = _currentRevision;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+          UpdateRevision = _updateRevision;
+          UpdatedReplicas = _updatedReplicas;
+      }
 
+      }
     /// <summary>
     /// StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to
     /// perform updates. It includes any additional parameters necessary to perform the update for
@@ -5076,8 +6911,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private StatefulSetUpdateStrategy(
+          Apps.V1Beta2.RollingUpdateStatefulSetStrategy _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
   }
 
 }
@@ -5096,8 +6939,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
         /// </summary>
       public readonly AuditRegistraion.V1Alpha1.AuditSinkSpec Spec;
 
-    }
+      [OutputConstructor]
+      private AuditSink(
+          Meta.V1.ObjectMeta _metadata,
+          AuditRegistraion.V1Alpha1.AuditSinkSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// AuditSinkList is a list of AuditSink items.
     /// </summary>
@@ -5110,8 +6961,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private AuditSinkList(
+          AuditRegistraion.V1Alpha1.AuditSink[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// AuditSinkSpec holds the spec for the audit sink
     /// </summary>
@@ -5127,8 +6986,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
         /// </summary>
       public readonly AuditRegistraion.V1Alpha1.Webhook Webhook;
 
-    }
+      [OutputConstructor]
+      private AuditSinkSpec(
+          AuditRegistraion.V1Alpha1.Policy _policy,
+          AuditRegistraion.V1Alpha1.Webhook _webhook)
+      {
+          Policy = _policy;
+          Webhook = _webhook;
+      }
 
+      }
     /// <summary>
     /// Policy defines the configuration of how audit events are logged
     /// </summary>
@@ -5144,8 +7011,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
         /// </summary>
       public readonly string[] Stages;
 
-    }
+      [OutputConstructor]
+      private Policy(
+          string _level,
+          string[] _stages)
+      {
+          Level = _level;
+          Stages = _stages;
+      }
 
+      }
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
@@ -5171,8 +7046,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
         /// </summary>
       public readonly int Port;
 
-    }
+      [OutputConstructor]
+      private ServiceReference(
+          string _name,
+          string _namespace,
+          string _path,
+          int _port)
+      {
+          Name = _name;
+          Namespace = _namespace;
+          Path = _path;
+          Port = _port;
+      }
 
+      }
     /// <summary>
     /// Webhook holds the configuration of the webhook
     /// </summary>
@@ -5187,8 +7074,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
         /// </summary>
       public readonly AuditRegistraion.V1Alpha1.WebhookThrottleConfig Throttle;
 
-    }
+      [OutputConstructor]
+      private Webhook(
+          AuditRegistraion.V1Alpha1.WebhookClientConfig _clientConfig,
+          AuditRegistraion.V1Alpha1.WebhookThrottleConfig _throttle)
+      {
+          ClientConfig = _clientConfig;
+          Throttle = _throttle;
+      }
 
+      }
     /// <summary>
     /// WebhookClientConfig contains the information to make a connection with the webhook
     /// </summary>
@@ -5231,8 +7126,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
         /// </summary>
       public readonly string Url;
 
-    }
+      [OutputConstructor]
+      private WebhookClientConfig(
+          string _caBundle,
+          AuditRegistraion.V1Alpha1.ServiceReference _service,
+          string _url)
+      {
+          CaBundle = _caBundle;
+          Service = _service;
+          Url = _url;
+      }
 
+      }
     /// <summary>
     /// WebhookThrottleConfig holds the configuration for throttling events
     /// </summary>
@@ -5247,8 +7152,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion {
         /// </summary>
       public readonly int Qps;
 
-    }
+      [OutputConstructor]
+      private WebhookThrottleConfig(
+          int _burst,
+          int _qps)
+      {
+          Burst = _burst;
+          Qps = _qps;
+      }
 
+      }
   }
 
 }
@@ -5269,8 +7182,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly string Uid;
 
-    }
+      [OutputConstructor]
+      private BoundObjectReference(
+          string _name,
+          string _uid)
+      {
+          Name = _name;
+          Uid = _uid;
+      }
 
+      }
     /// <summary>
     /// TokenRequest requests a token for a given service account.
     /// </summary>
@@ -5284,8 +7205,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
       
       public readonly Authentication.V1.TokenRequestStatus Status;
 
-    }
+      [OutputConstructor]
+      private TokenRequest(
+          Meta.V1.ObjectMeta _metadata,
+          Authentication.V1.TokenRequestSpec _spec,
+          Authentication.V1.TokenRequestStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// TokenRequestSpec contains client provided parameters of a token request.
     /// </summary>
@@ -5314,8 +7245,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly int ExpirationSeconds;
 
-    }
+      [OutputConstructor]
+      private TokenRequestSpec(
+          string[] _audiences,
+          Authentication.V1.BoundObjectReference _boundObjectRef,
+          int _expirationSeconds)
+      {
+          Audiences = _audiences;
+          BoundObjectRef = _boundObjectRef;
+          ExpirationSeconds = _expirationSeconds;
+      }
 
+      }
     /// <summary>
     /// TokenRequestStatus is the result of a token request.
     /// </summary>
@@ -5330,8 +7271,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly string Token;
 
-    }
+      [OutputConstructor]
+      private TokenRequestStatus(
+          string _expirationTimestamp,
+          string _token)
+      {
+          ExpirationTimestamp = _expirationTimestamp;
+          Token = _token;
+      }
 
+      }
     /// <summary>
     /// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may
     /// be cached by the webhook token authenticator plugin in the kube-apiserver.
@@ -5351,8 +7300,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly Authentication.V1.TokenReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private TokenReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authentication.V1.TokenReviewSpec _spec,
+          Authentication.V1.TokenReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// TokenReviewSpec is a description of the token authentication request.
     /// </summary>
@@ -5370,8 +7329,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly string Token;
 
-    }
+      [OutputConstructor]
+      private TokenReviewSpec(
+          string[] _audiences,
+          string _token)
+      {
+          Audiences = _audiences;
+          Token = _token;
+      }
 
+      }
     /// <summary>
     /// TokenReviewStatus is the result of the token authentication request.
     /// </summary>
@@ -5403,8 +7370,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly Authentication.V1.UserInfo User;
 
-    }
+      [OutputConstructor]
+      private TokenReviewStatus(
+          string[] _audiences,
+          bool _authenticated,
+          string _error,
+          Authentication.V1.UserInfo _user)
+      {
+          Audiences = _audiences;
+          Authenticated = _authenticated;
+          Error = _error;
+          User = _user;
+      }
 
+      }
     /// <summary>
     /// UserInfo holds the information about the user needed to implement the user.Info interface.
     /// </summary>
@@ -5430,8 +7409,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly string Username;
 
-    }
+      [OutputConstructor]
+      private UserInfo(
+          object _extra,
+          string[] _groups,
+          string _uid,
+          string _username)
+      {
+          Extra = _extra;
+          Groups = _groups;
+          Uid = _uid;
+          Username = _username;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -5454,8 +7445,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly Authentication.V1Beta1.TokenReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private TokenReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authentication.V1Beta1.TokenReviewSpec _spec,
+          Authentication.V1Beta1.TokenReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// TokenReviewSpec is a description of the token authentication request.
     /// </summary>
@@ -5473,8 +7474,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly string Token;
 
-    }
+      [OutputConstructor]
+      private TokenReviewSpec(
+          string[] _audiences,
+          string _token)
+      {
+          Audiences = _audiences;
+          Token = _token;
+      }
 
+      }
     /// <summary>
     /// TokenReviewStatus is the result of the token authentication request.
     /// </summary>
@@ -5506,8 +7515,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly Authentication.V1Beta1.UserInfo User;
 
-    }
+      [OutputConstructor]
+      private TokenReviewStatus(
+          string[] _audiences,
+          bool _authenticated,
+          string _error,
+          Authentication.V1Beta1.UserInfo _user)
+      {
+          Audiences = _audiences;
+          Authenticated = _authenticated;
+          Error = _error;
+          User = _user;
+      }
 
+      }
     /// <summary>
     /// UserInfo holds the information about the user needed to implement the user.Info interface.
     /// </summary>
@@ -5533,8 +7554,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication {
         /// </summary>
       public readonly string Username;
 
-    }
+      [OutputConstructor]
+      private UserInfo(
+          object _extra,
+          string[] _groups,
+          string _uid,
+          string _username)
+      {
+          Extra = _extra;
+          Groups = _groups;
+          Uid = _uid;
+          Username = _username;
+      }
 
+      }
   }
 
 }
@@ -5561,8 +7594,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1.SubjectAccessReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private LocalSubjectAccessReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authorization.V1.SubjectAccessReviewSpec _spec,
+          Authorization.V1.SubjectAccessReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// NonResourceAttributes includes the authorization attributes available for non-resource
     /// requests to the Authorizer interface
@@ -5578,8 +7621,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string Verb;
 
-    }
+      [OutputConstructor]
+      private NonResourceAttributes(
+          string _path,
+          string _verb)
+      {
+          Path = _path;
+          Verb = _verb;
+      }
 
+      }
     /// <summary>
     /// NonResourceRule holds information that describes a rule for the non-resource
     /// </summary>
@@ -5596,8 +7647,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string[] Verbs;
 
-    }
+      [OutputConstructor]
+      private NonResourceRule(
+          string[] _nonResourceURLs,
+          string[] _verbs)
+      {
+          NonResourceURLs = _nonResourceURLs;
+          Verbs = _verbs;
+      }
 
+      }
     /// <summary>
     /// ResourceAttributes includes the authorization attributes available for resource requests to
     /// the Authorizer interface
@@ -5644,8 +7703,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string Version;
 
-    }
+      [OutputConstructor]
+      private ResourceAttributes(
+          string _group,
+          string _name,
+          string _namespace,
+          string _resource,
+          string _subresource,
+          string _verb,
+          string _version)
+      {
+          Group = _group;
+          Name = _name;
+          Namespace = _namespace;
+          Resource = _resource;
+          Subresource = _subresource;
+          Verb = _verb;
+          Version = _version;
+      }
 
+      }
     /// <summary>
     /// ResourceRule is the list of actions the subject is allowed to perform on resources. The list
     /// ordering isn't significant, may contain duplicates, and possibly be incomplete.
@@ -5677,8 +7754,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string[] Verbs;
 
-    }
+      [OutputConstructor]
+      private ResourceRule(
+          string[] _apiGroups,
+          string[] _resourceNames,
+          string[] _resources,
+          string[] _verbs)
+      {
+          ApiGroups = _apiGroups;
+          ResourceNames = _resourceNames;
+          Resources = _resources;
+          Verbs = _verbs;
+      }
 
+      }
     /// <summary>
     /// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not
     /// filling in a spec.namespace means "in all namespaces".  Self is a special case, because
@@ -5698,8 +7787,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1.SubjectAccessReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private SelfSubjectAccessReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authorization.V1.SelfSubjectAccessReviewSpec _spec,
+          Authorization.V1.SubjectAccessReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
@@ -5715,8 +7814,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1.ResourceAttributes ResourceAttributes;
 
-    }
+      [OutputConstructor]
+      private SelfSubjectAccessReviewSpec(
+          Authorization.V1.NonResourceAttributes _nonResourceAttributes,
+          Authorization.V1.ResourceAttributes _resourceAttributes)
+      {
+          NonResourceAttributes = _nonResourceAttributes;
+          ResourceAttributes = _resourceAttributes;
+      }
 
+      }
     /// <summary>
     /// SelfSubjectRulesReview enumerates the set of actions the current user can perform within a
     /// namespace. The returned list of actions may be incomplete depending on the server's
@@ -5741,8 +7848,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1.SubjectRulesReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private SelfSubjectRulesReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authorization.V1.SelfSubjectRulesReviewSpec _spec,
+          Authorization.V1.SubjectRulesReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// 
     /// </summary>
@@ -5752,8 +7869,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string Namespace;
 
-    }
+      [OutputConstructor]
+      private SelfSubjectRulesReviewSpec(
+          string _namespace)
+      {
+          Namespace = _namespace;
+      }
 
+      }
     /// <summary>
     /// SubjectAccessReview checks whether or not a user or group can perform an action.
     /// </summary>
@@ -5771,8 +7894,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1.SubjectAccessReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private SubjectAccessReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authorization.V1.SubjectAccessReviewSpec _spec,
+          Authorization.V1.SubjectAccessReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// SubjectAccessReviewSpec is a description of the access request.  Exactly one of
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
@@ -5810,8 +7943,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string User;
 
-    }
+      [OutputConstructor]
+      private SubjectAccessReviewSpec(
+          object _extra,
+          string[] _groups,
+          Authorization.V1.NonResourceAttributes _nonResourceAttributes,
+          Authorization.V1.ResourceAttributes _resourceAttributes,
+          string _uid,
+          string _user)
+      {
+          Extra = _extra;
+          Groups = _groups;
+          NonResourceAttributes = _nonResourceAttributes;
+          ResourceAttributes = _resourceAttributes;
+          Uid = _uid;
+          User = _user;
+      }
 
+      }
     /// <summary>
     /// SubjectAccessReviewStatus
     /// </summary>
@@ -5841,8 +7990,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string Reason;
 
-    }
+      [OutputConstructor]
+      private SubjectAccessReviewStatus(
+          bool _allowed,
+          bool _denied,
+          string _evaluationError,
+          string _reason)
+      {
+          Allowed = _allowed;
+          Denied = _denied;
+          EvaluationError = _evaluationError;
+          Reason = _reason;
+      }
 
+      }
     /// <summary>
     /// SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete
     /// depending on the set of authorizers the server is configured with and any errors experienced
@@ -5877,8 +8038,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1.ResourceRule[] ResourceRules;
 
-    }
+      [OutputConstructor]
+      private SubjectRulesReviewStatus(
+          string _evaluationError,
+          bool _incomplete,
+          Authorization.V1.NonResourceRule[] _nonResourceRules,
+          Authorization.V1.ResourceRule[] _resourceRules)
+      {
+          EvaluationError = _evaluationError;
+          Incomplete = _incomplete;
+          NonResourceRules = _nonResourceRules;
+          ResourceRules = _resourceRules;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -5902,8 +8075,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1Beta1.SubjectAccessReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private LocalSubjectAccessReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authorization.V1Beta1.SubjectAccessReviewSpec _spec,
+          Authorization.V1Beta1.SubjectAccessReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// NonResourceAttributes includes the authorization attributes available for non-resource
     /// requests to the Authorizer interface
@@ -5919,8 +8102,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string Verb;
 
-    }
+      [OutputConstructor]
+      private NonResourceAttributes(
+          string _path,
+          string _verb)
+      {
+          Path = _path;
+          Verb = _verb;
+      }
 
+      }
     /// <summary>
     /// NonResourceRule holds information that describes a rule for the non-resource
     /// </summary>
@@ -5937,8 +8128,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string[] Verbs;
 
-    }
+      [OutputConstructor]
+      private NonResourceRule(
+          string[] _nonResourceURLs,
+          string[] _verbs)
+      {
+          NonResourceURLs = _nonResourceURLs;
+          Verbs = _verbs;
+      }
 
+      }
     /// <summary>
     /// ResourceAttributes includes the authorization attributes available for resource requests to
     /// the Authorizer interface
@@ -5985,8 +8184,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string Version;
 
-    }
+      [OutputConstructor]
+      private ResourceAttributes(
+          string _group,
+          string _name,
+          string _namespace,
+          string _resource,
+          string _subresource,
+          string _verb,
+          string _version)
+      {
+          Group = _group;
+          Name = _name;
+          Namespace = _namespace;
+          Resource = _resource;
+          Subresource = _subresource;
+          Verb = _verb;
+          Version = _version;
+      }
 
+      }
     /// <summary>
     /// ResourceRule is the list of actions the subject is allowed to perform on resources. The list
     /// ordering isn't significant, may contain duplicates, and possibly be incomplete.
@@ -6018,8 +8235,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string[] Verbs;
 
-    }
+      [OutputConstructor]
+      private ResourceRule(
+          string[] _apiGroups,
+          string[] _resourceNames,
+          string[] _resources,
+          string[] _verbs)
+      {
+          ApiGroups = _apiGroups;
+          ResourceNames = _resourceNames;
+          Resources = _resources;
+          Verbs = _verbs;
+      }
 
+      }
     /// <summary>
     /// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not
     /// filling in a spec.namespace means "in all namespaces".  Self is a special case, because
@@ -6039,8 +8268,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1Beta1.SubjectAccessReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private SelfSubjectAccessReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authorization.V1Beta1.SelfSubjectAccessReviewSpec _spec,
+          Authorization.V1Beta1.SubjectAccessReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
@@ -6056,8 +8295,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1Beta1.ResourceAttributes ResourceAttributes;
 
-    }
+      [OutputConstructor]
+      private SelfSubjectAccessReviewSpec(
+          Authorization.V1Beta1.NonResourceAttributes _nonResourceAttributes,
+          Authorization.V1Beta1.ResourceAttributes _resourceAttributes)
+      {
+          NonResourceAttributes = _nonResourceAttributes;
+          ResourceAttributes = _resourceAttributes;
+      }
 
+      }
     /// <summary>
     /// SelfSubjectRulesReview enumerates the set of actions the current user can perform within a
     /// namespace. The returned list of actions may be incomplete depending on the server's
@@ -6082,8 +8329,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1Beta1.SubjectRulesReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private SelfSubjectRulesReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authorization.V1Beta1.SelfSubjectRulesReviewSpec _spec,
+          Authorization.V1Beta1.SubjectRulesReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// 
     /// </summary>
@@ -6093,8 +8350,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string Namespace;
 
-    }
+      [OutputConstructor]
+      private SelfSubjectRulesReviewSpec(
+          string _namespace)
+      {
+          Namespace = _namespace;
+      }
 
+      }
     /// <summary>
     /// SubjectAccessReview checks whether or not a user or group can perform an action.
     /// </summary>
@@ -6112,8 +8375,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1Beta1.SubjectAccessReviewStatus Status;
 
-    }
+      [OutputConstructor]
+      private SubjectAccessReview(
+          Meta.V1.ObjectMeta _metadata,
+          Authorization.V1Beta1.SubjectAccessReviewSpec _spec,
+          Authorization.V1Beta1.SubjectAccessReviewStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// SubjectAccessReviewSpec is a description of the access request.  Exactly one of
     /// ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
@@ -6151,8 +8424,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string User;
 
-    }
+      [OutputConstructor]
+      private SubjectAccessReviewSpec(
+          object _extra,
+          string[] _group,
+          Authorization.V1Beta1.NonResourceAttributes _nonResourceAttributes,
+          Authorization.V1Beta1.ResourceAttributes _resourceAttributes,
+          string _uid,
+          string _user)
+      {
+          Extra = _extra;
+          Group = _group;
+          NonResourceAttributes = _nonResourceAttributes;
+          ResourceAttributes = _resourceAttributes;
+          Uid = _uid;
+          User = _user;
+      }
 
+      }
     /// <summary>
     /// SubjectAccessReviewStatus
     /// </summary>
@@ -6182,8 +8471,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly string Reason;
 
-    }
+      [OutputConstructor]
+      private SubjectAccessReviewStatus(
+          bool _allowed,
+          bool _denied,
+          string _evaluationError,
+          string _reason)
+      {
+          Allowed = _allowed;
+          Denied = _denied;
+          EvaluationError = _evaluationError;
+          Reason = _reason;
+      }
 
+      }
     /// <summary>
     /// SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete
     /// depending on the set of authorizers the server is configured with and any errors experienced
@@ -6218,8 +8519,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authorization {
         /// </summary>
       public readonly Authorization.V1Beta1.ResourceRule[] ResourceRules;
 
-    }
+      [OutputConstructor]
+      private SubjectRulesReviewStatus(
+          string _evaluationError,
+          bool _incomplete,
+          Authorization.V1Beta1.NonResourceRule[] _nonResourceRules,
+          Authorization.V1Beta1.ResourceRule[] _resourceRules)
+      {
+          EvaluationError = _evaluationError;
+          Incomplete = _incomplete;
+          NonResourceRules = _nonResourceRules;
+          ResourceRules = _resourceRules;
+      }
 
+      }
   }
 
 }
@@ -6236,8 +8549,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private CrossVersionObjectReference(
+          string _name)
+      {
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// configuration of a horizontal pod autoscaler.
     /// </summary>
@@ -6259,8 +8578,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V1.HorizontalPodAutoscalerStatus Status;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscaler(
+          Meta.V1.ObjectMeta _metadata,
+          Autoscaling.V1.HorizontalPodAutoscalerSpec _spec,
+          Autoscaling.V1.HorizontalPodAutoscalerStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// list of horizontal pod autoscaler objects.
     /// </summary>
@@ -6275,8 +8604,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerList(
+          Autoscaling.V1.HorizontalPodAutoscaler[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// specification of a horizontal pod autoscaler.
     /// </summary>
@@ -6307,8 +8644,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly int TargetCPUUtilizationPercentage;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerSpec(
+          int _maxReplicas,
+          int _minReplicas,
+          Autoscaling.V1.CrossVersionObjectReference _scaleTargetRef,
+          int _targetCPUUtilizationPercentage)
+      {
+          MaxReplicas = _maxReplicas;
+          MinReplicas = _minReplicas;
+          ScaleTargetRef = _scaleTargetRef;
+          TargetCPUUtilizationPercentage = _targetCPUUtilizationPercentage;
+      }
 
+      }
     /// <summary>
     /// current status of a horizontal pod autoscaler
     /// </summary>
@@ -6340,8 +8689,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly int ObservedGeneration;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerStatus(
+          int _currentCPUUtilizationPercentage,
+          int _currentReplicas,
+          int _desiredReplicas,
+          string _lastScaleTime,
+          int _observedGeneration)
+      {
+          CurrentCPUUtilizationPercentage = _currentCPUUtilizationPercentage;
+          CurrentReplicas = _currentReplicas;
+          DesiredReplicas = _desiredReplicas;
+          LastScaleTime = _lastScaleTime;
+          ObservedGeneration = _observedGeneration;
+      }
 
+      }
     /// <summary>
     /// Scale represents a scaling request for a resource.
     /// </summary>
@@ -6365,8 +8728,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V1.ScaleStatus Status;
 
-    }
+      [OutputConstructor]
+      private Scale(
+          Meta.V1.ObjectMeta _metadata,
+          Autoscaling.V1.ScaleSpec _spec,
+          Autoscaling.V1.ScaleStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// ScaleSpec describes the attributes of a scale subresource.
     /// </summary>
@@ -6376,8 +8749,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly int Replicas;
 
-    }
+      [OutputConstructor]
+      private ScaleSpec(
+          int _replicas)
+      {
+          Replicas = _replicas;
+      }
 
+      }
     /// <summary>
     /// ScaleStatus represents the current status of a scale subresource.
     /// </summary>
@@ -6395,8 +8774,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Selector;
 
-    }
+      [OutputConstructor]
+      private ScaleStatus(
+          int _replicas,
+          string _selector)
+      {
+          Replicas = _replicas;
+          Selector = _selector;
+      }
 
+      }
   }
 
   namespace V2Beta1 {
@@ -6410,8 +8797,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private CrossVersionObjectReference(
+          string _name)
+      {
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes
     /// object (for example length of queue in cloud messaging service, or QPS from loadbalancer
@@ -6440,8 +8833,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string TargetValue;
 
-    }
+      [OutputConstructor]
+      private ExternalMetricSource(
+          string _metricName,
+          Meta.V1.LabelSelector _metricSelector,
+          string _targetAverageValue,
+          string _targetValue)
+      {
+          MetricName = _metricName;
+          MetricSelector = _metricSelector;
+          TargetAverageValue = _targetAverageValue;
+          TargetValue = _targetValue;
+      }
 
+      }
     /// <summary>
     /// ExternalMetricStatus indicates the current value of a global metric not associated with any
     /// Kubernetes object.
@@ -6467,8 +8872,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Meta.V1.LabelSelector MetricSelector;
 
-    }
+      [OutputConstructor]
+      private ExternalMetricStatus(
+          string _currentAverageValue,
+          string _currentValue,
+          string _metricName,
+          Meta.V1.LabelSelector _metricSelector)
+      {
+          CurrentAverageValue = _currentAverageValue;
+          CurrentValue = _currentValue;
+          MetricName = _metricName;
+          MetricSelector = _metricSelector;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
     /// automatically manages the replica count of any resource implementing the scale subresource
@@ -6492,8 +8909,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta1.HorizontalPodAutoscalerStatus Status;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscaler(
+          Meta.V1.ObjectMeta _metadata,
+          Autoscaling.V2Beta1.HorizontalPodAutoscalerSpec _spec,
+          Autoscaling.V2Beta1.HorizontalPodAutoscalerStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a
     /// certain point.
@@ -6525,8 +8952,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscaler is a list of horizontal pod autoscaler objects.
     /// </summary>
@@ -6541,8 +8982,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerList(
+          Autoscaling.V2Beta1.HorizontalPodAutoscaler[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscalerSpec describes the desired functionality of the
     /// HorizontalPodAutoscaler.
@@ -6578,8 +9027,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta1.CrossVersionObjectReference ScaleTargetRef;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerSpec(
+          int _maxReplicas,
+          Autoscaling.V2Beta1.MetricSpec[] _metrics,
+          int _minReplicas,
+          Autoscaling.V2Beta1.CrossVersionObjectReference _scaleTargetRef)
+      {
+          MaxReplicas = _maxReplicas;
+          Metrics = _metrics;
+          MinReplicas = _minReplicas;
+          ScaleTargetRef = _scaleTargetRef;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
     /// </summary>
@@ -6618,8 +9079,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly int ObservedGeneration;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerStatus(
+          Autoscaling.V2Beta1.HorizontalPodAutoscalerCondition[] _conditions,
+          Autoscaling.V2Beta1.MetricStatus[] _currentMetrics,
+          int _currentReplicas,
+          int _desiredReplicas,
+          string _lastScaleTime,
+          int _observedGeneration)
+      {
+          Conditions = _conditions;
+          CurrentMetrics = _currentMetrics;
+          CurrentReplicas = _currentReplicas;
+          DesiredReplicas = _desiredReplicas;
+          LastScaleTime = _lastScaleTime;
+          ObservedGeneration = _observedGeneration;
+      }
 
+      }
     /// <summary>
     /// MetricSpec specifies how to scale based on a single metric (only `type` and one other
     /// matching field should be set at once).
@@ -6660,8 +9137,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private MetricSpec(
+          Autoscaling.V2Beta1.ExternalMetricSource _external,
+          Autoscaling.V2Beta1.ObjectMetricSource _object,
+          Autoscaling.V2Beta1.PodsMetricSource _pods,
+          Autoscaling.V2Beta1.ResourceMetricSource _resource,
+          string _type)
+      {
+          External = _external;
+          Object = _object;
+          Pods = _pods;
+          Resource = _resource;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// MetricStatus describes the last-read state of a single metric.
     /// </summary>
@@ -6701,8 +9192,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private MetricStatus(
+          Autoscaling.V2Beta1.ExternalMetricStatus _external,
+          Autoscaling.V2Beta1.ObjectMetricStatus _object,
+          Autoscaling.V2Beta1.PodsMetricStatus _pods,
+          Autoscaling.V2Beta1.ResourceMetricStatus _resource,
+          string _type)
+      {
+          External = _external;
+          Object = _object;
+          Pods = _pods;
+          Resource = _resource;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for
     /// example, hits-per-second on an Ingress object).
@@ -6737,8 +9242,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string TargetValue;
 
-    }
+      [OutputConstructor]
+      private ObjectMetricSource(
+          string _averageValue,
+          string _metricName,
+          Meta.V1.LabelSelector _selector,
+          Autoscaling.V2Beta1.CrossVersionObjectReference _target,
+          string _targetValue)
+      {
+          AverageValue = _averageValue;
+          MetricName = _metricName;
+          Selector = _selector;
+          Target = _target;
+          TargetValue = _targetValue;
+      }
 
+      }
     /// <summary>
     /// ObjectMetricStatus indicates the current value of a metric describing a kubernetes object
     /// (for example, hits-per-second on an Ingress object).
@@ -6773,8 +9292,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta1.CrossVersionObjectReference Target;
 
-    }
+      [OutputConstructor]
+      private ObjectMetricStatus(
+          string _averageValue,
+          string _currentValue,
+          string _metricName,
+          Meta.V1.LabelSelector _selector,
+          Autoscaling.V2Beta1.CrossVersionObjectReference _target)
+      {
+          AverageValue = _averageValue;
+          CurrentValue = _currentValue;
+          MetricName = _metricName;
+          Selector = _selector;
+          Target = _target;
+      }
 
+      }
     /// <summary>
     /// PodsMetricSource indicates how to scale on a metric describing each pod in the current scale
     /// target (for example, transactions-processed-per-second). The values will be averaged
@@ -6800,8 +9333,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string TargetAverageValue;
 
-    }
+      [OutputConstructor]
+      private PodsMetricSource(
+          string _metricName,
+          Meta.V1.LabelSelector _selector,
+          string _targetAverageValue)
+      {
+          MetricName = _metricName;
+          Selector = _selector;
+          TargetAverageValue = _targetAverageValue;
+      }
 
+      }
     /// <summary>
     /// PodsMetricStatus indicates the current value of a metric describing each pod in the current
     /// scale target (for example, transactions-processed-per-second).
@@ -6826,8 +9369,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Meta.V1.LabelSelector Selector;
 
-    }
+      [OutputConstructor]
+      private PodsMetricStatus(
+          string _currentAverageValue,
+          string _metricName,
+          Meta.V1.LabelSelector _selector)
+      {
+          CurrentAverageValue = _currentAverageValue;
+          MetricName = _metricName;
+          Selector = _selector;
+      }
 
+      }
     /// <summary>
     /// ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as
     /// specified in requests and limits, describing each pod in the current scale target (e.g. CPU
@@ -6856,8 +9409,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string TargetAverageValue;
 
-    }
+      [OutputConstructor]
+      private ResourceMetricSource(
+          string _name,
+          int _targetAverageUtilization,
+          string _targetAverageValue)
+      {
+          Name = _name;
+          TargetAverageUtilization = _targetAverageUtilization;
+          TargetAverageValue = _targetAverageValue;
+      }
 
+      }
     /// <summary>
     /// ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes,
     /// as specified in requests and limits, describing each pod in the current scale target (e.g.
@@ -6886,8 +9449,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private ResourceMetricStatus(
+          int _currentAverageUtilization,
+          string _currentAverageValue,
+          string _name)
+      {
+          CurrentAverageUtilization = _currentAverageUtilization;
+          CurrentAverageValue = _currentAverageValue;
+          Name = _name;
+      }
 
+      }
   }
 
   namespace V2Beta2 {
@@ -6901,8 +9474,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private CrossVersionObjectReference(
+          string _name)
+      {
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes
     /// object (for example length of queue in cloud messaging service, or QPS from loadbalancer
@@ -6919,8 +9498,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta2.MetricTarget Target;
 
-    }
+      [OutputConstructor]
+      private ExternalMetricSource(
+          Autoscaling.V2Beta2.MetricIdentifier _metric,
+          Autoscaling.V2Beta2.MetricTarget _target)
+      {
+          Metric = _metric;
+          Target = _target;
+      }
 
+      }
     /// <summary>
     /// ExternalMetricStatus indicates the current value of a global metric not associated with any
     /// Kubernetes object.
@@ -6936,8 +9523,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta2.MetricIdentifier Metric;
 
-    }
+      [OutputConstructor]
+      private ExternalMetricStatus(
+          Autoscaling.V2Beta2.MetricValueStatus _current,
+          Autoscaling.V2Beta2.MetricIdentifier _metric)
+      {
+          Current = _current;
+          Metric = _metric;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
     /// automatically manages the replica count of any resource implementing the scale subresource
@@ -6961,8 +9556,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta2.HorizontalPodAutoscalerStatus Status;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscaler(
+          Meta.V1.ObjectMeta _metadata,
+          Autoscaling.V2Beta2.HorizontalPodAutoscalerSpec _spec,
+          Autoscaling.V2Beta2.HorizontalPodAutoscalerStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a
     /// certain point.
@@ -6994,8 +9599,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscalerList is a list of horizontal pod autoscaler objects.
     /// </summary>
@@ -7010,8 +9629,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerList(
+          Autoscaling.V2Beta2.HorizontalPodAutoscaler[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscalerSpec describes the desired functionality of the
     /// HorizontalPodAutoscaler.
@@ -7048,8 +9675,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta2.CrossVersionObjectReference ScaleTargetRef;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerSpec(
+          int _maxReplicas,
+          Autoscaling.V2Beta2.MetricSpec[] _metrics,
+          int _minReplicas,
+          Autoscaling.V2Beta2.CrossVersionObjectReference _scaleTargetRef)
+      {
+          MaxReplicas = _maxReplicas;
+          Metrics = _metrics;
+          MinReplicas = _minReplicas;
+          ScaleTargetRef = _scaleTargetRef;
+      }
 
+      }
     /// <summary>
     /// HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
     /// </summary>
@@ -7088,8 +9727,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly int ObservedGeneration;
 
-    }
+      [OutputConstructor]
+      private HorizontalPodAutoscalerStatus(
+          Autoscaling.V2Beta2.HorizontalPodAutoscalerCondition[] _conditions,
+          Autoscaling.V2Beta2.MetricStatus[] _currentMetrics,
+          int _currentReplicas,
+          int _desiredReplicas,
+          string _lastScaleTime,
+          int _observedGeneration)
+      {
+          Conditions = _conditions;
+          CurrentMetrics = _currentMetrics;
+          CurrentReplicas = _currentReplicas;
+          DesiredReplicas = _desiredReplicas;
+          LastScaleTime = _lastScaleTime;
+          ObservedGeneration = _observedGeneration;
+      }
 
+      }
     /// <summary>
     /// MetricIdentifier defines the name and optionally selector for a metric
     /// </summary>
@@ -7107,8 +9762,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Meta.V1.LabelSelector Selector;
 
-    }
+      [OutputConstructor]
+      private MetricIdentifier(
+          string _name,
+          Meta.V1.LabelSelector _selector)
+      {
+          Name = _name;
+          Selector = _selector;
+      }
 
+      }
     /// <summary>
     /// MetricSpec specifies how to scale based on a single metric (only `type` and one other
     /// matching field should be set at once).
@@ -7149,8 +9812,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private MetricSpec(
+          Autoscaling.V2Beta2.ExternalMetricSource _external,
+          Autoscaling.V2Beta2.ObjectMetricSource _object,
+          Autoscaling.V2Beta2.PodsMetricSource _pods,
+          Autoscaling.V2Beta2.ResourceMetricSource _resource,
+          string _type)
+      {
+          External = _external;
+          Object = _object;
+          Pods = _pods;
+          Resource = _resource;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// MetricStatus describes the last-read state of a single metric.
     /// </summary>
@@ -7190,8 +9867,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private MetricStatus(
+          Autoscaling.V2Beta2.ExternalMetricStatus _external,
+          Autoscaling.V2Beta2.ObjectMetricStatus _object,
+          Autoscaling.V2Beta2.PodsMetricStatus _pods,
+          Autoscaling.V2Beta2.ResourceMetricStatus _resource,
+          string _type)
+      {
+          External = _external;
+          Object = _object;
+          Pods = _pods;
+          Resource = _resource;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// MetricTarget defines the target value, average value, or average utilization of a specific
     /// metric
@@ -7220,8 +9911,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Value;
 
-    }
+      [OutputConstructor]
+      private MetricTarget(
+          int _averageUtilization,
+          string _averageValue,
+          string _type,
+          string _value)
+      {
+          AverageUtilization = _averageUtilization;
+          AverageValue = _averageValue;
+          Type = _type;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// MetricValueStatus holds the current value for a metric
     /// </summary>
@@ -7244,8 +9947,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Value;
 
-    }
+      [OutputConstructor]
+      private MetricValueStatus(
+          int _averageUtilization,
+          string _averageValue,
+          string _value)
+      {
+          AverageUtilization = _averageUtilization;
+          AverageValue = _averageValue;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for
     /// example, hits-per-second on an Ingress object).
@@ -7264,8 +9977,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta2.MetricTarget Target;
 
-    }
+      [OutputConstructor]
+      private ObjectMetricSource(
+          Autoscaling.V2Beta2.CrossVersionObjectReference _describedObject,
+          Autoscaling.V2Beta2.MetricIdentifier _metric,
+          Autoscaling.V2Beta2.MetricTarget _target)
+      {
+          DescribedObject = _describedObject;
+          Metric = _metric;
+          Target = _target;
+      }
 
+      }
     /// <summary>
     /// ObjectMetricStatus indicates the current value of a metric describing a kubernetes object
     /// (for example, hits-per-second on an Ingress object).
@@ -7284,8 +10007,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta2.MetricIdentifier Metric;
 
-    }
+      [OutputConstructor]
+      private ObjectMetricStatus(
+          Autoscaling.V2Beta2.MetricValueStatus _current,
+          Autoscaling.V2Beta2.CrossVersionObjectReference _describedObject,
+          Autoscaling.V2Beta2.MetricIdentifier _metric)
+      {
+          Current = _current;
+          DescribedObject = _describedObject;
+          Metric = _metric;
+      }
 
+      }
     /// <summary>
     /// PodsMetricSource indicates how to scale on a metric describing each pod in the current scale
     /// target (for example, transactions-processed-per-second). The values will be averaged
@@ -7302,8 +10035,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta2.MetricTarget Target;
 
-    }
+      [OutputConstructor]
+      private PodsMetricSource(
+          Autoscaling.V2Beta2.MetricIdentifier _metric,
+          Autoscaling.V2Beta2.MetricTarget _target)
+      {
+          Metric = _metric;
+          Target = _target;
+      }
 
+      }
     /// <summary>
     /// PodsMetricStatus indicates the current value of a metric describing each pod in the current
     /// scale target (for example, transactions-processed-per-second).
@@ -7319,8 +10060,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta2.MetricIdentifier Metric;
 
-    }
+      [OutputConstructor]
+      private PodsMetricStatus(
+          Autoscaling.V2Beta2.MetricValueStatus _current,
+          Autoscaling.V2Beta2.MetricIdentifier _metric)
+      {
+          Current = _current;
+          Metric = _metric;
+      }
 
+      }
     /// <summary>
     /// ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as
     /// specified in requests and limits, describing each pod in the current scale target (e.g. CPU
@@ -7340,8 +10089,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly Autoscaling.V2Beta2.MetricTarget Target;
 
-    }
+      [OutputConstructor]
+      private ResourceMetricSource(
+          string _name,
+          Autoscaling.V2Beta2.MetricTarget _target)
+      {
+          Name = _name;
+          Target = _target;
+      }
 
+      }
     /// <summary>
     /// ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes,
     /// as specified in requests and limits, describing each pod in the current scale target (e.g.
@@ -7359,8 +10116,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private ResourceMetricStatus(
+          Autoscaling.V2Beta2.MetricValueStatus _current,
+          string _name)
+      {
+          Current = _current;
+          Name = _name;
+      }
 
+      }
   }
 
 }
@@ -7389,8 +10154,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly Batch.V1.JobStatus Status;
 
-    }
+      [OutputConstructor]
+      private Job(
+          Meta.V1.ObjectMeta _metadata,
+          Batch.V1.JobSpec _spec,
+          Batch.V1.JobStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// JobCondition describes current state of a job.
     /// </summary>
@@ -7425,8 +10200,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private JobCondition(
+          string _lastProbeTime,
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastProbeTime = _lastProbeTime;
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// JobList is a collection of jobs.
     /// </summary>
@@ -7442,8 +10233,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private JobList(
+          Batch.V1.Job[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// JobSpec describes how the job execution will look like.
     /// </summary>
@@ -7483,8 +10282,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
       /// <summary>
         /// Specifies the maximum desired number of pods the job should run at any given time. The
         /// actual number of pods running in steady state will be less than this number when
-        /// ((.spec.completions - .status.successful) &lt; .spec.parallelism), i.e. when the work
-        /// left to do is less than max parallelism. More info:
+        /// ((.spec.completions - .status.successful) &amp;lt; .spec.parallelism), i.e. when the
+        /// work left to do is less than max parallelism. More info:
         /// https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         /// </summary>
       public readonly int Parallelism;
@@ -7513,8 +10312,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly int TtlSecondsAfterFinished;
 
-    }
+      [OutputConstructor]
+      private JobSpec(
+          int _activeDeadlineSeconds,
+          int _backoffLimit,
+          int _completions,
+          bool _manualSelector,
+          int _parallelism,
+          Meta.V1.LabelSelector _selector,
+          Core.V1.PodTemplateSpec _template,
+          int _ttlSecondsAfterFinished)
+      {
+          ActiveDeadlineSeconds = _activeDeadlineSeconds;
+          BackoffLimit = _backoffLimit;
+          Completions = _completions;
+          ManualSelector = _manualSelector;
+          Parallelism = _parallelism;
+          Selector = _selector;
+          Template = _template;
+          TtlSecondsAfterFinished = _ttlSecondsAfterFinished;
+      }
 
+      }
     /// <summary>
     /// JobStatus represents the current state of a Job.
     /// </summary>
@@ -7554,8 +10373,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly int Succeeded;
 
-    }
+      [OutputConstructor]
+      private JobStatus(
+          int _active,
+          string _completionTime,
+          Batch.V1.JobCondition[] _conditions,
+          int _failed,
+          string _startTime,
+          int _succeeded)
+      {
+          Active = _active;
+          CompletionTime = _completionTime;
+          Conditions = _conditions;
+          Failed = _failed;
+          StartTime = _startTime;
+          Succeeded = _succeeded;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -7581,8 +10416,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly Batch.V1Beta1.CronJobStatus Status;
 
-    }
+      [OutputConstructor]
+      private CronJob(
+          Meta.V1.ObjectMeta _metadata,
+          Batch.V1Beta1.CronJobSpec _spec,
+          Batch.V1Beta1.CronJobStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// CronJobList is a collection of cron jobs.
     /// </summary>
@@ -7598,8 +10443,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private CronJobList(
+          Batch.V1Beta1.CronJob[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// CronJobSpec describes how the job execution will look like and when it will actually run.
     /// </summary>
@@ -7646,8 +10499,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly bool Suspend;
 
-    }
+      [OutputConstructor]
+      private CronJobSpec(
+          string _concurrencyPolicy,
+          int _failedJobsHistoryLimit,
+          Batch.V1Beta1.JobTemplateSpec _jobTemplate,
+          string _schedule,
+          int _startingDeadlineSeconds,
+          int _successfulJobsHistoryLimit,
+          bool _suspend)
+      {
+          ConcurrencyPolicy = _concurrencyPolicy;
+          FailedJobsHistoryLimit = _failedJobsHistoryLimit;
+          JobTemplate = _jobTemplate;
+          Schedule = _schedule;
+          StartingDeadlineSeconds = _startingDeadlineSeconds;
+          SuccessfulJobsHistoryLimit = _successfulJobsHistoryLimit;
+          Suspend = _suspend;
+      }
 
+      }
     /// <summary>
     /// CronJobStatus represents the current state of a cron job.
     /// </summary>
@@ -7662,8 +10533,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly string LastScheduleTime;
 
-    }
+      [OutputConstructor]
+      private CronJobStatus(
+          Core.V1.ObjectReference[] _active,
+          string _lastScheduleTime)
+      {
+          Active = _active;
+          LastScheduleTime = _lastScheduleTime;
+      }
 
+      }
     /// <summary>
     /// JobTemplateSpec describes the data a Job should have when created from a template
     /// </summary>
@@ -7680,8 +10559,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly Batch.V1.JobSpec Spec;
 
-    }
+      [OutputConstructor]
+      private JobTemplateSpec(
+          Meta.V1.ObjectMeta _metadata,
+          Batch.V1.JobSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
   }
 
   namespace V2Alpha1 {
@@ -7707,8 +10594,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly Batch.V2Alpha1.CronJobStatus Status;
 
-    }
+      [OutputConstructor]
+      private CronJob(
+          Meta.V1.ObjectMeta _metadata,
+          Batch.V2Alpha1.CronJobSpec _spec,
+          Batch.V2Alpha1.CronJobStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// CronJobList is a collection of cron jobs.
     /// </summary>
@@ -7724,8 +10621,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private CronJobList(
+          Batch.V2Alpha1.CronJob[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// CronJobSpec describes how the job execution will look like and when it will actually run.
     /// </summary>
@@ -7772,8 +10677,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly bool Suspend;
 
-    }
+      [OutputConstructor]
+      private CronJobSpec(
+          string _concurrencyPolicy,
+          int _failedJobsHistoryLimit,
+          Batch.V2Alpha1.JobTemplateSpec _jobTemplate,
+          string _schedule,
+          int _startingDeadlineSeconds,
+          int _successfulJobsHistoryLimit,
+          bool _suspend)
+      {
+          ConcurrencyPolicy = _concurrencyPolicy;
+          FailedJobsHistoryLimit = _failedJobsHistoryLimit;
+          JobTemplate = _jobTemplate;
+          Schedule = _schedule;
+          StartingDeadlineSeconds = _startingDeadlineSeconds;
+          SuccessfulJobsHistoryLimit = _successfulJobsHistoryLimit;
+          Suspend = _suspend;
+      }
 
+      }
     /// <summary>
     /// CronJobStatus represents the current state of a cron job.
     /// </summary>
@@ -7788,8 +10711,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly string LastScheduleTime;
 
-    }
+      [OutputConstructor]
+      private CronJobStatus(
+          Core.V1.ObjectReference[] _active,
+          string _lastScheduleTime)
+      {
+          Active = _active;
+          LastScheduleTime = _lastScheduleTime;
+      }
 
+      }
     /// <summary>
     /// JobTemplateSpec describes the data a Job should have when created from a template
     /// </summary>
@@ -7806,8 +10737,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch {
         /// </summary>
       public readonly Batch.V1.JobSpec Spec;
 
-    }
+      [OutputConstructor]
+      private JobTemplateSpec(
+          Meta.V1.ObjectMeta _metadata,
+          Batch.V1.JobSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
   }
 
 }
@@ -7831,8 +10770,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
         /// </summary>
       public readonly Certificates.V1Beta1.CertificateSigningRequestStatus Status;
 
-    }
+      [OutputConstructor]
+      private CertificateSigningRequest(
+          Meta.V1.ObjectMeta _metadata,
+          Certificates.V1Beta1.CertificateSigningRequestSpec _spec,
+          Certificates.V1Beta1.CertificateSigningRequestStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// 
     /// </summary>
@@ -7857,8 +10806,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private CertificateSigningRequestCondition(
+          string _lastUpdateTime,
+          string _message,
+          string _reason,
+          string _type)
+      {
+          LastUpdateTime = _lastUpdateTime;
+          Message = _message;
+          Reason = _reason;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// 
     /// </summary>
@@ -7869,8 +10830,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private CertificateSigningRequestList(
+          Certificates.V1Beta1.CertificateSigningRequest[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// This information is immutable after the request is created. Only the Request and Usages
     /// fields can be set on creation, other fields are derived by Kubernetes and cannot be modified
@@ -7909,8 +10878,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
         /// </summary>
       public readonly string Username;
 
-    }
+      [OutputConstructor]
+      private CertificateSigningRequestSpec(
+          object _extra,
+          string[] _groups,
+          string _request,
+          string _uid,
+          string[] _usages,
+          string _username)
+      {
+          Extra = _extra;
+          Groups = _groups;
+          Request = _request;
+          Uid = _uid;
+          Usages = _usages;
+          Username = _username;
+      }
 
+      }
     /// <summary>
     /// 
     /// </summary>
@@ -7925,8 +10910,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates {
         /// </summary>
       public readonly Certificates.V1Beta1.CertificateSigningRequestCondition[] Conditions;
 
-    }
+      [OutputConstructor]
+      private CertificateSigningRequestStatus(
+          string _certificate,
+          Certificates.V1Beta1.CertificateSigningRequestCondition[] _conditions)
+      {
+          Certificate = _certificate;
+          Conditions = _conditions;
+      }
 
+      }
   }
 
 }
@@ -7949,8 +10942,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
         /// </summary>
       public readonly Coordination.V1.LeaseSpec Spec;
 
-    }
+      [OutputConstructor]
+      private Lease(
+          Meta.V1.ObjectMeta _metadata,
+          Coordination.V1.LeaseSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// LeaseList is a list of Lease objects.
     /// </summary>
@@ -7966,8 +10967,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private LeaseList(
+          Coordination.V1.Lease[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// LeaseSpec is a specification of a Lease.
     /// </summary>
@@ -7998,8 +11007,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
         /// </summary>
       public readonly string RenewTime;
 
-    }
+      [OutputConstructor]
+      private LeaseSpec(
+          string _acquireTime,
+          string _holderIdentity,
+          int _leaseDurationSeconds,
+          int _leaseTransitions,
+          string _renewTime)
+      {
+          AcquireTime = _acquireTime;
+          HolderIdentity = _holderIdentity;
+          LeaseDurationSeconds = _leaseDurationSeconds;
+          LeaseTransitions = _leaseTransitions;
+          RenewTime = _renewTime;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -8019,8 +11042,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
         /// </summary>
       public readonly Coordination.V1Beta1.LeaseSpec Spec;
 
-    }
+      [OutputConstructor]
+      private Lease(
+          Meta.V1.ObjectMeta _metadata,
+          Coordination.V1Beta1.LeaseSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// LeaseList is a list of Lease objects.
     /// </summary>
@@ -8036,8 +11067,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private LeaseList(
+          Coordination.V1Beta1.Lease[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// LeaseSpec is a specification of a Lease.
     /// </summary>
@@ -8068,8 +11107,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination {
         /// </summary>
       public readonly string RenewTime;
 
-    }
+      [OutputConstructor]
+      private LeaseSpec(
+          string _acquireTime,
+          string _holderIdentity,
+          int _leaseDurationSeconds,
+          int _leaseTransitions,
+          string _renewTime)
+      {
+          AcquireTime = _acquireTime;
+          HolderIdentity = _holderIdentity;
+          LeaseDurationSeconds = _leaseDurationSeconds;
+          LeaseTransitions = _leaseTransitions;
+          RenewTime = _renewTime;
+      }
 
+      }
   }
 
 }
@@ -8113,8 +11166,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeID;
 
-    }
+      [OutputConstructor]
+      private AWSElasticBlockStoreVolumeSource(
+          string _fsType,
+          int _partition,
+          bool _readOnly,
+          string _volumeID)
+      {
+          FsType = _fsType;
+          Partition = _partition;
+          ReadOnly = _readOnly;
+          VolumeID = _volumeID;
+      }
 
+      }
     /// <summary>
     /// Affinity is a group of affinity scheduling rules.
     /// </summary>
@@ -8136,8 +11201,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.PodAntiAffinity PodAntiAffinity;
 
-    }
+      [OutputConstructor]
+      private Affinity(
+          Core.V1.NodeAffinity _nodeAffinity,
+          Core.V1.PodAffinity _podAffinity,
+          Core.V1.PodAntiAffinity _podAntiAffinity)
+      {
+          NodeAffinity = _nodeAffinity;
+          PodAffinity = _podAffinity;
+          PodAntiAffinity = _podAntiAffinity;
+      }
 
+      }
     /// <summary>
     /// AttachedVolume describes a volume attached to a node
     /// </summary>
@@ -8152,8 +11227,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private AttachedVolume(
+          string _devicePath,
+          string _name)
+      {
+          DevicePath = _devicePath;
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
     /// </summary>
@@ -8185,8 +11268,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool ReadOnly;
 
-    }
+      [OutputConstructor]
+      private AzureDiskVolumeSource(
+          string _cachingMode,
+          string _diskName,
+          string _diskURI,
+          string _fsType,
+          bool _readOnly)
+      {
+          CachingMode = _cachingMode;
+          DiskName = _diskName;
+          DiskURI = _diskURI;
+          FsType = _fsType;
+          ReadOnly = _readOnly;
+      }
 
+      }
     /// <summary>
     /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
     /// </summary>
@@ -8213,8 +11310,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string ShareName;
 
-    }
+      [OutputConstructor]
+      private AzureFilePersistentVolumeSource(
+          bool _readOnly,
+          string _secretName,
+          string _secretNamespace,
+          string _shareName)
+      {
+          ReadOnly = _readOnly;
+          SecretName = _secretName;
+          SecretNamespace = _secretNamespace;
+          ShareName = _shareName;
+      }
 
+      }
     /// <summary>
     /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
     /// </summary>
@@ -8235,8 +11344,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string ShareName;
 
-    }
+      [OutputConstructor]
+      private AzureFileVolumeSource(
+          bool _readOnly,
+          string _secretName,
+          string _shareName)
+      {
+          ReadOnly = _readOnly;
+          SecretName = _secretName;
+          ShareName = _shareName;
+      }
 
+      }
     /// <summary>
     /// Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
     /// Deprecated in 1.7, please use the bindings subresource of pods instead.
@@ -8253,8 +11372,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ObjectReference Target;
 
-    }
+      [OutputConstructor]
+      private Binding(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.ObjectReference _target)
+      {
+          Metadata = _metadata;
+          Target = _target;
+      }
 
+      }
     /// <summary>
     /// Represents storage that is managed by an external CSI volume driver (Beta feature)
     /// </summary>
@@ -8320,8 +11447,30 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeHandle;
 
-    }
+      [OutputConstructor]
+      private CSIPersistentVolumeSource(
+          Core.V1.SecretReference _controllerExpandSecretRef,
+          Core.V1.SecretReference _controllerPublishSecretRef,
+          string _driver,
+          string _fsType,
+          Core.V1.SecretReference _nodePublishSecretRef,
+          Core.V1.SecretReference _nodeStageSecretRef,
+          bool _readOnly,
+          ImmutableDictionary<string, string> _volumeAttributes,
+          string _volumeHandle)
+      {
+          ControllerExpandSecretRef = _controllerExpandSecretRef;
+          ControllerPublishSecretRef = _controllerPublishSecretRef;
+          Driver = _driver;
+          FsType = _fsType;
+          NodePublishSecretRef = _nodePublishSecretRef;
+          NodeStageSecretRef = _nodeStageSecretRef;
+          ReadOnly = _readOnly;
+          VolumeAttributes = _volumeAttributes;
+          VolumeHandle = _volumeHandle;
+      }
 
+      }
     /// <summary>
     /// Represents a source location of a volume to mount, managed by an external CSI driver
     /// </summary>
@@ -8359,8 +11508,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly ImmutableDictionary<string, string> VolumeAttributes;
 
-    }
+      [OutputConstructor]
+      private CSIVolumeSource(
+          string _driver,
+          string _fsType,
+          Core.V1.LocalObjectReference _nodePublishSecretRef,
+          bool _readOnly,
+          ImmutableDictionary<string, string> _volumeAttributes)
+      {
+          Driver = _driver;
+          FsType = _fsType;
+          NodePublishSecretRef = _nodePublishSecretRef;
+          ReadOnly = _readOnly;
+          VolumeAttributes = _volumeAttributes;
+      }
 
+      }
     /// <summary>
     /// Adds and removes POSIX capabilities from running containers.
     /// </summary>
@@ -8375,8 +11538,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] Drop;
 
-    }
+      [OutputConstructor]
+      private Capabilities(
+          string[] _add,
+          string[] _drop)
+      {
+          Add = _add;
+          Drop = _drop;
+      }
 
+      }
     /// <summary>
     /// Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not
     /// support ownership management or SELinux relabeling.
@@ -8418,8 +11589,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string User;
 
-    }
+      [OutputConstructor]
+      private CephFSPersistentVolumeSource(
+          string[] _monitors,
+          string _path,
+          bool _readOnly,
+          string _secretFile,
+          Core.V1.SecretReference _secretRef,
+          string _user)
+      {
+          Monitors = _monitors;
+          Path = _path;
+          ReadOnly = _readOnly;
+          SecretFile = _secretFile;
+          SecretRef = _secretRef;
+          User = _user;
+      }
 
+      }
     /// <summary>
     /// Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not
     /// support ownership management or SELinux relabeling.
@@ -8461,8 +11648,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string User;
 
-    }
+      [OutputConstructor]
+      private CephFSVolumeSource(
+          string[] _monitors,
+          string _path,
+          bool _readOnly,
+          string _secretFile,
+          Core.V1.LocalObjectReference _secretRef,
+          string _user)
+      {
+          Monitors = _monitors;
+          Path = _path;
+          ReadOnly = _readOnly;
+          SecretFile = _secretFile;
+          SecretRef = _secretRef;
+          User = _user;
+      }
 
+      }
     /// <summary>
     /// Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting
     /// to a container. The volume must also be in the same region as the kubelet. Cinder volumes
@@ -8493,8 +11696,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeID;
 
-    }
+      [OutputConstructor]
+      private CinderPersistentVolumeSource(
+          string _fsType,
+          bool _readOnly,
+          Core.V1.SecretReference _secretRef,
+          string _volumeID)
+      {
+          FsType = _fsType;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          VolumeID = _volumeID;
+      }
 
+      }
     /// <summary>
     /// Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting
     /// to a container. The volume must also be in the same region as the kubelet. Cinder volumes
@@ -8525,21 +11740,39 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeID;
 
-    }
+      [OutputConstructor]
+      private CinderVolumeSource(
+          string _fsType,
+          bool _readOnly,
+          Core.V1.LocalObjectReference _secretRef,
+          string _volumeID)
+      {
+          FsType = _fsType;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          VolumeID = _volumeID;
+      }
 
+      }
     /// <summary>
     /// ClientIPConfig represents the configurations of Client IP based session affinity.
     /// </summary>
     public sealed class ClientIPConfig {
       /// <summary>
         /// timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value
-        /// must be &gt;0 && &lt;=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value
-        /// is 10800(for 3 hours).
+        /// must be &amp;gt;0 &amp;&amp; &amp;lt;=86400(for 1 day) if ServiceAffinity == "ClientIP".
+        /// Default value is 10800(for 3 hours).
         /// </summary>
       public readonly int TimeoutSeconds;
 
-    }
+      [OutputConstructor]
+      private ClientIPConfig(
+          int _timeoutSeconds)
+      {
+          TimeoutSeconds = _timeoutSeconds;
+      }
 
+      }
     /// <summary>
     /// Information about the condition of a component.
     /// </summary>
@@ -8566,8 +11799,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private ComponentCondition(
+          string _error,
+          string _message,
+          string _status,
+          string _type)
+      {
+          Error = _error;
+          Message = _message;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// ComponentStatus (and ComponentStatusList) holds the cluster validation info.
     /// </summary>
@@ -8583,8 +11828,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ObjectMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ComponentStatus(
+          Core.V1.ComponentCondition[] _conditions,
+          Meta.V1.ObjectMeta _metadata)
+      {
+          Conditions = _conditions;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// Status of all the conditions for the component as a list of ComponentStatus objects.
     /// </summary>
@@ -8600,8 +11853,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ComponentStatusList(
+          Core.V1.ComponentStatus[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ConfigMap holds configuration data for pods to consume.
     /// </summary>
@@ -8629,8 +11890,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ObjectMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ConfigMap(
+          object _binaryData,
+          ImmutableDictionary<string, string> _data,
+          Meta.V1.ObjectMeta _metadata)
+      {
+          BinaryData = _binaryData;
+          Data = _data;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
     /// 
@@ -8649,8 +11920,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool Optional;
 
-    }
+      [OutputConstructor]
+      private ConfigMapEnvSource(
+          string _name,
+          bool _optional)
+      {
+          Name = _name;
+          Optional = _optional;
+      }
 
+      }
     /// <summary>
     /// Selects a key from a ConfigMap.
     /// </summary>
@@ -8671,8 +11950,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool Optional;
 
-    }
+      [OutputConstructor]
+      private ConfigMapKeySelector(
+          string _key,
+          string _name,
+          bool _optional)
+      {
+          Key = _key;
+          Name = _name;
+          Optional = _optional;
+      }
 
+      }
     /// <summary>
     /// ConfigMapList is a resource containing a list of ConfigMap objects.
     /// </summary>
@@ -8688,8 +11977,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ConfigMapList(
+          Core.V1.ConfigMap[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config
     /// source for the Node.
@@ -8725,8 +12022,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Uid;
 
-    }
+      [OutputConstructor]
+      private ConfigMapNodeConfigSource(
+          string _kubeletConfigKey,
+          string _name,
+          string _namespace,
+          string _resourceVersion,
+          string _uid)
+      {
+          KubeletConfigKey = _kubeletConfigKey;
+          Name = _name;
+          Namespace = _namespace;
+          ResourceVersion = _resourceVersion;
+          Uid = _uid;
+      }
 
+      }
     /// <summary>
     /// Adapts a ConfigMap into a projected volume.
     /// 
@@ -8757,8 +12068,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool Optional;
 
-    }
+      [OutputConstructor]
+      private ConfigMapProjection(
+          Core.V1.KeyToPath[] _items,
+          string _name,
+          bool _optional)
+      {
+          Items = _items;
+          Name = _name;
+          Optional = _optional;
+      }
 
+      }
     /// <summary>
     /// Adapts a ConfigMap into a volume.
     /// 
@@ -8797,8 +12118,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool Optional;
 
-    }
+      [OutputConstructor]
+      private ConfigMapVolumeSource(
+          int _defaultMode,
+          Core.V1.KeyToPath[] _items,
+          string _name,
+          bool _optional)
+      {
+          DefaultMode = _defaultMode;
+          Items = _items;
+          Name = _name;
+          Optional = _optional;
+      }
 
+      }
     /// <summary>
     /// A single application container that you want to run within a pod.
     /// </summary>
@@ -8972,8 +12305,56 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string WorkingDir;
 
-    }
+      [OutputConstructor]
+      private Container(
+          string[] _args,
+          string[] _command,
+          Core.V1.EnvVar[] _env,
+          Core.V1.EnvFromSource[] _envFrom,
+          string _image,
+          string _imagePullPolicy,
+          Core.V1.Lifecycle _lifecycle,
+          Core.V1.Probe _livenessProbe,
+          string _name,
+          Core.V1.ContainerPort[] _ports,
+          Core.V1.Probe _readinessProbe,
+          Core.V1.ResourceRequirements _resources,
+          Core.V1.SecurityContext _securityContext,
+          Core.V1.Probe _startupProbe,
+          bool _stdin,
+          bool _stdinOnce,
+          string _terminationMessagePath,
+          string _terminationMessagePolicy,
+          bool _tty,
+          Core.V1.VolumeDevice[] _volumeDevices,
+          Core.V1.VolumeMount[] _volumeMounts,
+          string _workingDir)
+      {
+          Args = _args;
+          Command = _command;
+          Env = _env;
+          EnvFrom = _envFrom;
+          Image = _image;
+          ImagePullPolicy = _imagePullPolicy;
+          Lifecycle = _lifecycle;
+          LivenessProbe = _livenessProbe;
+          Name = _name;
+          Ports = _ports;
+          ReadinessProbe = _readinessProbe;
+          Resources = _resources;
+          SecurityContext = _securityContext;
+          StartupProbe = _startupProbe;
+          Stdin = _stdin;
+          StdinOnce = _stdinOnce;
+          TerminationMessagePath = _terminationMessagePath;
+          TerminationMessagePolicy = _terminationMessagePolicy;
+          Tty = _tty;
+          VolumeDevices = _volumeDevices;
+          VolumeMounts = _volumeMounts;
+          WorkingDir = _workingDir;
+      }
 
+      }
     /// <summary>
     /// Describe a container image
     /// </summary>
@@ -8989,15 +12370,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly int SizeBytes;
 
-    }
+      [OutputConstructor]
+      private ContainerImage(
+          string[] _names,
+          int _sizeBytes)
+      {
+          Names = _names;
+          SizeBytes = _sizeBytes;
+      }
 
+      }
     /// <summary>
     /// ContainerPort represents a network port in a single container.
     /// </summary>
     public sealed class ContainerPort {
       /// <summary>
         /// Number of port to expose on the pod's IP address. This must be a valid port number, 0
-        /// &lt; x &lt; 65536.
+        /// &amp;lt; x &amp;lt; 65536.
         /// </summary>
       public readonly int ContainerPortValue;
 
@@ -9008,8 +12397,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       /// <summary>
         /// Number of port to expose on the host. If specified, this must be a valid port number, 0
-        /// &lt; x &lt; 65536. If HostNetwork is specified, this must match ContainerPort. Most
-        /// containers do not need this.
+        /// &amp;lt; x &amp;lt; 65536. If HostNetwork is specified, this must match ContainerPort.
+        /// Most containers do not need this.
         /// </summary>
       public readonly int HostPort;
 
@@ -9024,8 +12413,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Protocol;
 
-    }
+      [OutputConstructor]
+      private ContainerPort(
+          int _containerPort,
+          string _hostIP,
+          int _hostPort,
+          string _name,
+          string _protocol)
+      {
+          ContainerPortValue = _containerPort;
+          HostIP = _hostIP;
+          HostPort = _hostPort;
+          Name = _name;
+          Protocol = _protocol;
+      }
 
+      }
     /// <summary>
     /// ContainerState holds a possible state of container. Only one of its members may be
     /// specified. If none of them is specified, the default one is ContainerStateWaiting.
@@ -9046,8 +12449,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ContainerStateWaiting Waiting;
 
-    }
+      [OutputConstructor]
+      private ContainerState(
+          Core.V1.ContainerStateRunning _running,
+          Core.V1.ContainerStateTerminated _terminated,
+          Core.V1.ContainerStateWaiting _waiting)
+      {
+          Running = _running;
+          Terminated = _terminated;
+          Waiting = _waiting;
+      }
 
+      }
     /// <summary>
     /// ContainerStateRunning is a running state of a container.
     /// </summary>
@@ -9057,14 +12470,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string StartedAt;
 
-    }
+      [OutputConstructor]
+      private ContainerStateRunning(
+          string _startedAt)
+      {
+          StartedAt = _startedAt;
+      }
 
+      }
     /// <summary>
     /// ContainerStateTerminated is a terminated state of a container.
     /// </summary>
     public sealed class ContainerStateTerminated {
       /// <summary>
-        /// Container's ID in the format 'docker://&lt;container_id&gt;'
+        /// Container's ID in the format 'docker://&amp;lt;container_id&amp;gt;'
         /// </summary>
       public readonly string ContainerID;
 
@@ -9098,8 +12517,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string StartedAt;
 
-    }
+      [OutputConstructor]
+      private ContainerStateTerminated(
+          string _containerID,
+          int _exitCode,
+          string _finishedAt,
+          string _message,
+          string _reason,
+          int _signal,
+          string _startedAt)
+      {
+          ContainerID = _containerID;
+          ExitCode = _exitCode;
+          FinishedAt = _finishedAt;
+          Message = _message;
+          Reason = _reason;
+          Signal = _signal;
+          StartedAt = _startedAt;
+      }
 
+      }
     /// <summary>
     /// ContainerStateWaiting is a waiting state of a container.
     /// </summary>
@@ -9114,14 +12551,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Reason;
 
-    }
+      [OutputConstructor]
+      private ContainerStateWaiting(
+          string _message,
+          string _reason)
+      {
+          Message = _message;
+          Reason = _reason;
+      }
 
+      }
     /// <summary>
     /// ContainerStatus contains details for the current status of this container.
     /// </summary>
     public sealed class ContainerStatus {
       /// <summary>
-        /// Container's ID in the format 'docker://&lt;container_id&gt;'.
+        /// Container's ID in the format 'docker://&amp;lt;container_id&amp;gt;'.
         /// </summary>
       public readonly string ContainerID;
 
@@ -9173,8 +12618,30 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ContainerState State;
 
-    }
+      [OutputConstructor]
+      private ContainerStatus(
+          string _containerID,
+          string _image,
+          string _imageID,
+          Core.V1.ContainerState _lastState,
+          string _name,
+          bool _ready,
+          int _restartCount,
+          bool _started,
+          Core.V1.ContainerState _state)
+      {
+          ContainerID = _containerID;
+          Image = _image;
+          ImageID = _imageID;
+          LastState = _lastState;
+          Name = _name;
+          Ready = _ready;
+          RestartCount = _restartCount;
+          Started = _started;
+          State = _state;
+      }
 
+      }
     /// <summary>
     /// DaemonEndpoint contains information about a single Daemon endpoint.
     /// </summary>
@@ -9184,8 +12651,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly int Port;
 
-    }
+      [OutputConstructor]
+      private DaemonEndpoint(
+          int _Port)
+      {
+          Port = _Port;
+      }
 
+      }
     /// <summary>
     /// Represents downward API info for projecting into a projected volume. Note that this is
     /// identical to a downwardAPI volume source without the default mode.
@@ -9196,8 +12669,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.DownwardAPIVolumeFile[] Items;
 
-    }
+      [OutputConstructor]
+      private DownwardAPIProjection(
+          Core.V1.DownwardAPIVolumeFile[] _items)
+      {
+          Items = _items;
+      }
 
+      }
     /// <summary>
     /// DownwardAPIVolumeFile represents information to create the file containing the pod field
     /// </summary>
@@ -9229,8 +12708,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ResourceFieldSelector ResourceFieldRef;
 
-    }
+      [OutputConstructor]
+      private DownwardAPIVolumeFile(
+          Core.V1.ObjectFieldSelector _fieldRef,
+          int _mode,
+          string _path,
+          Core.V1.ResourceFieldSelector _resourceFieldRef)
+      {
+          FieldRef = _fieldRef;
+          Mode = _mode;
+          Path = _path;
+          ResourceFieldRef = _resourceFieldRef;
+      }
 
+      }
     /// <summary>
     /// DownwardAPIVolumeSource represents a volume containing downward API info. Downward API
     /// volumes support ownership management and SELinux relabeling.
@@ -9249,8 +12740,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.DownwardAPIVolumeFile[] Items;
 
-    }
+      [OutputConstructor]
+      private DownwardAPIVolumeSource(
+          int _defaultMode,
+          Core.V1.DownwardAPIVolumeFile[] _items)
+      {
+          DefaultMode = _defaultMode;
+          Items = _items;
+      }
 
+      }
     /// <summary>
     /// Represents an empty directory for a pod. Empty directory volumes support ownership
     /// management and SELinux relabeling.
@@ -9272,8 +12771,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string SizeLimit;
 
-    }
+      [OutputConstructor]
+      private EmptyDirVolumeSource(
+          string _medium,
+          string _sizeLimit)
+      {
+          Medium = _medium;
+          SizeLimit = _sizeLimit;
+      }
 
+      }
     /// <summary>
     /// EndpointAddress is a tuple that describes single IP address.
     /// </summary>
@@ -9302,8 +12809,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ObjectReference TargetRef;
 
-    }
+      [OutputConstructor]
+      private EndpointAddress(
+          string _hostname,
+          string _ip,
+          string _nodeName,
+          Core.V1.ObjectReference _targetRef)
+      {
+          Hostname = _hostname;
+          Ip = _ip;
+          NodeName = _nodeName;
+          TargetRef = _targetRef;
+      }
 
+      }
     /// <summary>
     /// EndpointPort is a tuple that describes a single port.
     /// </summary>
@@ -9324,8 +12843,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Protocol;
 
-    }
+      [OutputConstructor]
+      private EndpointPort(
+          string _name,
+          int _port,
+          string _protocol)
+      {
+          Name = _name;
+          Port = _port;
+          Protocol = _protocol;
+      }
 
+      }
     /// <summary>
     /// EndpointSubset is a group of addresses with a common set of ports. The expanded set of
     /// endpoints is the Cartesian product of Addresses x Ports. For example, given:
@@ -9356,8 +12885,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.EndpointPort[] Ports;
 
-    }
+      [OutputConstructor]
+      private EndpointSubset(
+          Core.V1.EndpointAddress[] _addresses,
+          Core.V1.EndpointAddress[] _notReadyAddresses,
+          Core.V1.EndpointPort[] _ports)
+      {
+          Addresses = _addresses;
+          NotReadyAddresses = _notReadyAddresses;
+          Ports = _ports;
+      }
 
+      }
     /// <summary>
     /// Endpoints is a collection of endpoints that implement the actual service. Example:
     ///   Name: "mysvc",
@@ -9389,8 +12928,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.EndpointSubset[] Subsets;
 
-    }
+      [OutputConstructor]
+      private Endpoints(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.EndpointSubset[] _subsets)
+      {
+          Metadata = _metadata;
+          Subsets = _subsets;
+      }
 
+      }
     /// <summary>
     /// EndpointsList is a list of endpoints.
     /// </summary>
@@ -9406,8 +12953,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private EndpointsList(
+          Core.V1.Endpoints[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// EnvFromSource represents the source of a set of ConfigMaps
     /// </summary>
@@ -9427,8 +12982,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.SecretEnvSource SecretRef;
 
-    }
+      [OutputConstructor]
+      private EnvFromSource(
+          Core.V1.ConfigMapEnvSource _configMapRef,
+          string _prefix,
+          Core.V1.SecretEnvSource _secretRef)
+      {
+          ConfigMapRef = _configMapRef;
+          Prefix = _prefix;
+          SecretRef = _secretRef;
+      }
 
+      }
     /// <summary>
     /// EnvVar represents an environment variable present in a Container.
     /// </summary>
@@ -9452,8 +13017,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.EnvVarSource ValueFrom;
 
-    }
+      [OutputConstructor]
+      private EnvVar(
+          string _name,
+          string _value,
+          Core.V1.EnvVarSource _valueFrom)
+      {
+          Name = _name;
+          Value = _value;
+          ValueFrom = _valueFrom;
+      }
 
+      }
     /// <summary>
     /// EnvVarSource represents a source for the value of an EnvVar.
     /// </summary>
@@ -9482,8 +13057,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.SecretKeySelector SecretKeyRef;
 
-    }
+      [OutputConstructor]
+      private EnvVarSource(
+          Core.V1.ConfigMapKeySelector _configMapKeyRef,
+          Core.V1.ObjectFieldSelector _fieldRef,
+          Core.V1.ResourceFieldSelector _resourceFieldRef,
+          Core.V1.SecretKeySelector _secretKeyRef)
+      {
+          ConfigMapKeyRef = _configMapKeyRef;
+          FieldRef = _fieldRef;
+          ResourceFieldRef = _resourceFieldRef;
+          SecretKeyRef = _secretKeyRef;
+      }
 
+      }
     /// <summary>
     /// An EphemeralContainer is a container that may be added temporarily to an existing pod for
     /// user-initiated activities such as debugging. Ephemeral containers have no resource or
@@ -9653,8 +13240,58 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string WorkingDir;
 
-    }
+      [OutputConstructor]
+      private EphemeralContainer(
+          string[] _args,
+          string[] _command,
+          Core.V1.EnvVar[] _env,
+          Core.V1.EnvFromSource[] _envFrom,
+          string _image,
+          string _imagePullPolicy,
+          Core.V1.Lifecycle _lifecycle,
+          Core.V1.Probe _livenessProbe,
+          string _name,
+          Core.V1.ContainerPort[] _ports,
+          Core.V1.Probe _readinessProbe,
+          Core.V1.ResourceRequirements _resources,
+          Core.V1.SecurityContext _securityContext,
+          Core.V1.Probe _startupProbe,
+          bool _stdin,
+          bool _stdinOnce,
+          string _targetContainerName,
+          string _terminationMessagePath,
+          string _terminationMessagePolicy,
+          bool _tty,
+          Core.V1.VolumeDevice[] _volumeDevices,
+          Core.V1.VolumeMount[] _volumeMounts,
+          string _workingDir)
+      {
+          Args = _args;
+          Command = _command;
+          Env = _env;
+          EnvFrom = _envFrom;
+          Image = _image;
+          ImagePullPolicy = _imagePullPolicy;
+          Lifecycle = _lifecycle;
+          LivenessProbe = _livenessProbe;
+          Name = _name;
+          Ports = _ports;
+          ReadinessProbe = _readinessProbe;
+          Resources = _resources;
+          SecurityContext = _securityContext;
+          StartupProbe = _startupProbe;
+          Stdin = _stdin;
+          StdinOnce = _stdinOnce;
+          TargetContainerName = _targetContainerName;
+          TerminationMessagePath = _terminationMessagePath;
+          TerminationMessagePolicy = _terminationMessagePolicy;
+          Tty = _tty;
+          VolumeDevices = _volumeDevices;
+          VolumeMounts = _volumeMounts;
+          WorkingDir = _workingDir;
+      }
 
+      }
     /// <summary>
     /// Event is a report of an event somewhere in the cluster.
     /// </summary>
@@ -9736,8 +13373,42 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private Event(
+          string _action,
+          int _count,
+          string _eventTime,
+          string _firstTimestamp,
+          Core.V1.ObjectReference _involvedObject,
+          string _lastTimestamp,
+          string _message,
+          Meta.V1.ObjectMeta _metadata,
+          string _reason,
+          Core.V1.ObjectReference _related,
+          string _reportingComponent,
+          string _reportingInstance,
+          Core.V1.EventSeries _series,
+          Core.V1.EventSource _source,
+          string _type)
+      {
+          Action = _action;
+          Count = _count;
+          EventTime = _eventTime;
+          FirstTimestamp = _firstTimestamp;
+          InvolvedObject = _involvedObject;
+          LastTimestamp = _lastTimestamp;
+          Message = _message;
+          Metadata = _metadata;
+          Reason = _reason;
+          Related = _related;
+          ReportingComponent = _reportingComponent;
+          ReportingInstance = _reportingInstance;
+          Series = _series;
+          Source = _source;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// EventList is a list of events.
     /// </summary>
@@ -9753,8 +13424,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private EventList(
+          Core.V1.Event[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// EventSeries contain information on series of events, i.e. thing that was/is happening
     /// continuously for some time.
@@ -9775,8 +13454,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string State;
 
-    }
+      [OutputConstructor]
+      private EventSeries(
+          int _count,
+          string _lastObservedTime,
+          string _state)
+      {
+          Count = _count;
+          LastObservedTime = _lastObservedTime;
+          State = _state;
+      }
 
+      }
     /// <summary>
     /// EventSource contains information for an event.
     /// </summary>
@@ -9791,8 +13480,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Host;
 
-    }
+      [OutputConstructor]
+      private EventSource(
+          string _component,
+          string _host)
+      {
+          Component = _component;
+          Host = _host;
+      }
 
+      }
     /// <summary>
     /// ExecAction describes a "run in container" action.
     /// </summary>
@@ -9806,8 +13503,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] Command;
 
-    }
+      [OutputConstructor]
+      private ExecAction(
+          string[] _command)
+      {
+          Command = _command;
+      }
 
+      }
     /// <summary>
     /// Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write
     /// once. Fibre Channel volumes support ownership management and SELinux relabeling.
@@ -9841,8 +13544,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] Wwids;
 
-    }
+      [OutputConstructor]
+      private FCVolumeSource(
+          string _fsType,
+          int _lun,
+          bool _readOnly,
+          string[] _targetWWNs,
+          string[] _wwids)
+      {
+          FsType = _fsType;
+          Lun = _lun;
+          ReadOnly = _readOnly;
+          TargetWWNs = _targetWWNs;
+          Wwids = _wwids;
+      }
 
+      }
     /// <summary>
     /// FlexPersistentVolumeSource represents a generic persistent volume resource that is
     /// provisioned/attached using an exec based plugin.
@@ -9878,8 +13595,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.SecretReference SecretRef;
 
-    }
+      [OutputConstructor]
+      private FlexPersistentVolumeSource(
+          string _driver,
+          string _fsType,
+          ImmutableDictionary<string, string> _options,
+          bool _readOnly,
+          Core.V1.SecretReference _secretRef)
+      {
+          Driver = _driver;
+          FsType = _fsType;
+          Options = _options;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+      }
 
+      }
     /// <summary>
     /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec
     /// based plugin.
@@ -9915,8 +13646,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.LocalObjectReference SecretRef;
 
-    }
+      [OutputConstructor]
+      private FlexVolumeSource(
+          string _driver,
+          string _fsType,
+          ImmutableDictionary<string, string> _options,
+          bool _readOnly,
+          Core.V1.LocalObjectReference _secretRef)
+      {
+          Driver = _driver;
+          FsType = _fsType;
+          Options = _options;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+      }
 
+      }
     /// <summary>
     /// Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName
     /// and datasetUUID should be set. Flocker volumes do not support ownership management or
@@ -9924,8 +13669,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
     /// </summary>
     public sealed class FlockerVolumeSource {
       /// <summary>
-        /// Name of the dataset stored as metadata -&gt; name on the dataset for Flocker should be
-        /// considered as deprecated
+        /// Name of the dataset stored as metadata -&amp;gt; name on the dataset for Flocker should
+        /// be considered as deprecated
         /// </summary>
       public readonly string DatasetName;
 
@@ -9934,8 +13679,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string DatasetUUID;
 
-    }
+      [OutputConstructor]
+      private FlockerVolumeSource(
+          string _datasetName,
+          string _datasetUUID)
+      {
+          DatasetName = _datasetName;
+          DatasetUUID = _datasetUUID;
+      }
 
+      }
     /// <summary>
     /// Represents a Persistent Disk resource in Google Compute Engine.
     /// 
@@ -9972,8 +13725,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool ReadOnly;
 
-    }
+      [OutputConstructor]
+      private GCEPersistentDiskVolumeSource(
+          string _fsType,
+          int _partition,
+          string _pdName,
+          bool _readOnly)
+      {
+          FsType = _fsType;
+          Partition = _partition;
+          PdName = _pdName;
+          ReadOnly = _readOnly;
+      }
 
+      }
     /// <summary>
     /// Represents a volume that is populated with the contents of a git repository. Git repo
     /// volumes do not support ownership management. Git repo volumes support SELinux relabeling.
@@ -10000,8 +13765,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Revision;
 
-    }
+      [OutputConstructor]
+      private GitRepoVolumeSource(
+          string _directory,
+          string _repository,
+          string _revision)
+      {
+          Directory = _directory;
+          Repository = _repository;
+          Revision = _revision;
+      }
 
+      }
     /// <summary>
     /// Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not
     /// support ownership management or SELinux relabeling.
@@ -10033,8 +13808,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool ReadOnly;
 
-    }
+      [OutputConstructor]
+      private GlusterfsPersistentVolumeSource(
+          string _endpoints,
+          string _endpointsNamespace,
+          string _path,
+          bool _readOnly)
+      {
+          Endpoints = _endpoints;
+          EndpointsNamespace = _endpointsNamespace;
+          Path = _path;
+          ReadOnly = _readOnly;
+      }
 
+      }
     /// <summary>
     /// Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not
     /// support ownership management or SELinux relabeling.
@@ -10059,8 +13846,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool ReadOnly;
 
-    }
+      [OutputConstructor]
+      private GlusterfsVolumeSource(
+          string _endpoints,
+          string _path,
+          bool _readOnly)
+      {
+          Endpoints = _endpoints;
+          Path = _path;
+          ReadOnly = _readOnly;
+      }
 
+      }
     /// <summary>
     /// HTTPGetAction describes an action based on HTTP Get requests.
     /// </summary>
@@ -10092,8 +13889,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Scheme;
 
-    }
+      [OutputConstructor]
+      private HTTPGetAction(
+          string _host,
+          Core.V1.HTTPHeader[] _httpHeaders,
+          string _path,
+          int /* TODO: or string */ _port,
+          string _scheme)
+      {
+          Host = _host;
+          HttpHeaders = _httpHeaders;
+          Path = _path;
+          Port = _port;
+          Scheme = _scheme;
+      }
 
+      }
     /// <summary>
     /// HTTPHeader describes a custom header to be used in HTTP probes
     /// </summary>
@@ -10108,8 +13919,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Value;
 
-    }
+      [OutputConstructor]
+      private HTTPHeader(
+          string _name,
+          string _value)
+      {
+          Name = _name;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// Handler defines a specific action that should be taken
     /// </summary>
@@ -10130,8 +13949,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.TCPSocketAction TcpSocket;
 
-    }
+      [OutputConstructor]
+      private Handler(
+          Core.V1.ExecAction _exec,
+          Core.V1.HTTPGetAction _httpGet,
+          Core.V1.TCPSocketAction _tcpSocket)
+      {
+          Exec = _exec;
+          HttpGet = _httpGet;
+          TcpSocket = _tcpSocket;
+      }
 
+      }
     /// <summary>
     /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in
     /// the pod's hosts file.
@@ -10147,8 +13976,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Ip;
 
-    }
+      [OutputConstructor]
+      private HostAlias(
+          string[] _hostnames,
+          string _ip)
+      {
+          Hostnames = _hostnames;
+          Ip = _ip;
+      }
 
+      }
     /// <summary>
     /// Represents a host path mapped into a pod. Host path volumes do not support ownership
     /// management or SELinux relabeling.
@@ -10166,8 +14003,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private HostPathVolumeSource(
+          string _path,
+          string _type)
+      {
+          Path = _path;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as
     /// read/write once. ISCSI volumes support ownership management and SELinux relabeling.
@@ -10193,8 +14038,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       /// <summary>
         /// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface
-        /// simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be
-        /// created for the connection.
+        /// simultaneously, new iSCSI interface &amp;lt;target portal&amp;gt;:&amp;lt;volume
+        /// name&amp;gt; will be created for the connection.
         /// </summary>
       public readonly string InitiatorName;
 
@@ -10235,8 +14080,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string TargetPortal;
 
-    }
+      [OutputConstructor]
+      private ISCSIPersistentVolumeSource(
+          bool _chapAuthDiscovery,
+          bool _chapAuthSession,
+          string _fsType,
+          string _initiatorName,
+          string _iqn,
+          string _iscsiInterface,
+          int _lun,
+          string[] _portals,
+          bool _readOnly,
+          Core.V1.SecretReference _secretRef,
+          string _targetPortal)
+      {
+          ChapAuthDiscovery = _chapAuthDiscovery;
+          ChapAuthSession = _chapAuthSession;
+          FsType = _fsType;
+          InitiatorName = _initiatorName;
+          Iqn = _iqn;
+          IscsiInterface = _iscsiInterface;
+          Lun = _lun;
+          Portals = _portals;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          TargetPortal = _targetPortal;
+      }
 
+      }
     /// <summary>
     /// Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI
     /// volumes support ownership management and SELinux relabeling.
@@ -10262,8 +14133,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       /// <summary>
         /// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface
-        /// simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be
-        /// created for the connection.
+        /// simultaneously, new iSCSI interface &amp;lt;target portal&amp;gt;:&amp;lt;volume
+        /// name&amp;gt; will be created for the connection.
         /// </summary>
       public readonly string InitiatorName;
 
@@ -10304,8 +14175,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string TargetPortal;
 
-    }
+      [OutputConstructor]
+      private ISCSIVolumeSource(
+          bool _chapAuthDiscovery,
+          bool _chapAuthSession,
+          string _fsType,
+          string _initiatorName,
+          string _iqn,
+          string _iscsiInterface,
+          int _lun,
+          string[] _portals,
+          bool _readOnly,
+          Core.V1.LocalObjectReference _secretRef,
+          string _targetPortal)
+      {
+          ChapAuthDiscovery = _chapAuthDiscovery;
+          ChapAuthSession = _chapAuthSession;
+          FsType = _fsType;
+          InitiatorName = _initiatorName;
+          Iqn = _iqn;
+          IscsiInterface = _iscsiInterface;
+          Lun = _lun;
+          Portals = _portals;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          TargetPortal = _targetPortal;
+      }
 
+      }
     /// <summary>
     /// Maps a string key to a path within a volume.
     /// </summary>
@@ -10329,8 +14226,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Path;
 
-    }
+      [OutputConstructor]
+      private KeyToPath(
+          string _key,
+          int _mode,
+          string _path)
+      {
+          Key = _key;
+          Mode = _mode;
+          Path = _path;
+      }
 
+      }
     /// <summary>
     /// Lifecycle describes actions that the management system should take in response to container
     /// lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the
@@ -10359,8 +14266,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.Handler PreStop;
 
-    }
+      [OutputConstructor]
+      private Lifecycle(
+          Core.V1.Handler _postStart,
+          Core.V1.Handler _preStop)
+      {
+          PostStart = _postStart;
+          PreStop = _preStop;
+      }
 
+      }
     /// <summary>
     /// LimitRange sets resource usage limits for each kind of resource in a Namespace.
     /// </summary>
@@ -10377,8 +14292,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.LimitRangeSpec Spec;
 
-    }
+      [OutputConstructor]
+      private LimitRange(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.LimitRangeSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
     /// </summary>
@@ -10416,8 +14339,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private LimitRangeItem(
+          object _default,
+          object _defaultRequest,
+          object _max,
+          object _maxLimitRequestRatio,
+          object _min,
+          string _type)
+      {
+          Default = _default;
+          DefaultRequest = _defaultRequest;
+          Max = _max;
+          MaxLimitRequestRatio = _maxLimitRequestRatio;
+          Min = _min;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// LimitRangeList is a list of LimitRange items.
     /// </summary>
@@ -10434,8 +14373,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private LimitRangeList(
+          Core.V1.LimitRange[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// LimitRangeSpec defines a min/max usage limit for resources that match on kind.
     /// </summary>
@@ -10445,8 +14392,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.LimitRangeItem[] Limits;
 
-    }
+      [OutputConstructor]
+      private LimitRangeSpec(
+          Core.V1.LimitRangeItem[] _limits)
+      {
+          Limits = _limits;
+      }
 
+      }
     /// <summary>
     /// LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended
     /// for the service should be sent to an ingress point.
@@ -10464,8 +14417,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Ip;
 
-    }
+      [OutputConstructor]
+      private LoadBalancerIngress(
+          string _hostname,
+          string _ip)
+      {
+          Hostname = _hostname;
+          Ip = _ip;
+      }
 
+      }
     /// <summary>
     /// LoadBalancerStatus represents the status of a load-balancer.
     /// </summary>
@@ -10476,8 +14437,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.LoadBalancerIngress[] Ingress;
 
-    }
+      [OutputConstructor]
+      private LoadBalancerStatus(
+          Core.V1.LoadBalancerIngress[] _ingress)
+      {
+          Ingress = _ingress;
+      }
 
+      }
     /// <summary>
     /// LocalObjectReference contains enough information to let you locate the referenced object
     /// inside the same namespace.
@@ -10489,8 +14456,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private LocalObjectReference(
+          string _name)
+      {
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// Local represents directly-attached storage with node affinity (Beta feature)
     /// </summary>
@@ -10508,8 +14481,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Path;
 
-    }
+      [OutputConstructor]
+      private LocalVolumeSource(
+          string _fsType,
+          string _path)
+      {
+          FsType = _fsType;
+          Path = _path;
+      }
 
+      }
     /// <summary>
     /// Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support
     /// ownership management or SELinux relabeling.
@@ -10533,8 +14514,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Server;
 
-    }
+      [OutputConstructor]
+      private NFSVolumeSource(
+          string _path,
+          bool _readOnly,
+          string _server)
+      {
+          Path = _path;
+          ReadOnly = _readOnly;
+          Server = _server;
+      }
 
+      }
     /// <summary>
     /// Namespace provides a scope for Names. Use of multiple namespaces is optional.
     /// </summary>
@@ -10557,8 +14548,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.NamespaceStatus Status;
 
-    }
+      [OutputConstructor]
+      private Namespace(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.NamespaceSpec _spec,
+          Core.V1.NamespaceStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// NamespaceCondition contains details about state of namespace.
     /// </summary>
@@ -10582,8 +14583,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private NamespaceCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// NamespaceList is a list of Namespaces.
     /// </summary>
@@ -10600,8 +14615,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private NamespaceList(
+          Core.V1.Namespace[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// NamespaceSpec describes the attributes on a Namespace.
     /// </summary>
@@ -10612,8 +14635,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] Finalizers;
 
-    }
+      [OutputConstructor]
+      private NamespaceSpec(
+          string[] _finalizers)
+      {
+          Finalizers = _finalizers;
+      }
 
+      }
     /// <summary>
     /// NamespaceStatus is information about the current status of a Namespace.
     /// </summary>
@@ -10629,8 +14658,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Phase;
 
-    }
+      [OutputConstructor]
+      private NamespaceStatus(
+          Core.V1.NamespaceCondition[] _conditions,
+          string _phase)
+      {
+          Conditions = _conditions;
+          Phase = _phase;
+      }
 
+      }
     /// <summary>
     /// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache
     /// (i.e. in etcd).
@@ -10655,8 +14692,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.NodeStatus Status;
 
-    }
+      [OutputConstructor]
+      private Node(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.NodeSpec _spec,
+          Core.V1.NodeStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// NodeAddress contains information for the node's address.
     /// </summary>
@@ -10671,8 +14718,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private NodeAddress(
+          string _address,
+          string _type)
+      {
+          Address = _address;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// Node affinity is a group of node affinity scheduling rules.
     /// </summary>
@@ -10697,8 +14752,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.NodeSelector RequiredDuringSchedulingIgnoredDuringExecution;
 
-    }
+      [OutputConstructor]
+      private NodeAffinity(
+          Core.V1.PreferredSchedulingTerm[] _preferredDuringSchedulingIgnoredDuringExecution,
+          Core.V1.NodeSelector _requiredDuringSchedulingIgnoredDuringExecution)
+      {
+          PreferredDuringSchedulingIgnoredDuringExecution = _preferredDuringSchedulingIgnoredDuringExecution;
+          RequiredDuringSchedulingIgnoredDuringExecution = _requiredDuringSchedulingIgnoredDuringExecution;
+      }
 
+      }
     /// <summary>
     /// NodeCondition contains condition information for a node.
     /// </summary>
@@ -10733,8 +14796,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private NodeCondition(
+          string _lastHeartbeatTime,
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastHeartbeatTime = _lastHeartbeatTime;
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding
     /// metadata) must be non-nil.
@@ -10745,8 +14824,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ConfigMapNodeConfigSource ConfigMap;
 
-    }
+      [OutputConstructor]
+      private NodeConfigSource(
+          Core.V1.ConfigMapNodeConfigSource _configMap)
+      {
+          ConfigMap = _configMap;
+      }
 
+      }
     /// <summary>
     /// NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
     /// </summary>
@@ -10799,8 +14884,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.NodeConfigSource LastKnownGood;
 
-    }
+      [OutputConstructor]
+      private NodeConfigStatus(
+          Core.V1.NodeConfigSource _active,
+          Core.V1.NodeConfigSource _assigned,
+          string _error,
+          Core.V1.NodeConfigSource _lastKnownGood)
+      {
+          Active = _active;
+          Assigned = _assigned;
+          Error = _error;
+          LastKnownGood = _lastKnownGood;
+      }
 
+      }
     /// <summary>
     /// NodeDaemonEndpoints lists ports opened by daemons running on the Node.
     /// </summary>
@@ -10810,8 +14907,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.DaemonEndpoint KubeletEndpoint;
 
-    }
+      [OutputConstructor]
+      private NodeDaemonEndpoints(
+          Core.V1.DaemonEndpoint _kubeletEndpoint)
+      {
+          KubeletEndpoint = _kubeletEndpoint;
+      }
 
+      }
     /// <summary>
     /// NodeList is the whole list of all Nodes which have been registered with master.
     /// </summary>
@@ -10827,8 +14930,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private NodeList(
+          Core.V1.Node[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// A node selector represents the union of the results of one or more label queries over a set
     /// of nodes; that is, it represents the OR of the selectors represented by the node selector
@@ -10840,8 +14951,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.NodeSelectorTerm[] NodeSelectorTerms;
 
-    }
+      [OutputConstructor]
+      private NodeSelector(
+          Core.V1.NodeSelectorTerm[] _nodeSelectorTerms)
+      {
+          NodeSelectorTerms = _nodeSelectorTerms;
+      }
 
+      }
     /// <summary>
     /// A node selector requirement is a selector that contains values, a key, and an operator that
     /// relates the key and values.
@@ -10866,8 +14983,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] Values;
 
-    }
+      [OutputConstructor]
+      private NodeSelectorRequirement(
+          string _key,
+          string _operator,
+          string[] _values)
+      {
+          Key = _key;
+          Operator = _operator;
+          Values = _values;
+      }
 
+      }
     /// <summary>
     /// A null or empty node selector term matches no objects. The requirements of them are ANDed.
     /// The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
@@ -10883,8 +15010,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.NodeSelectorRequirement[] MatchFields;
 
-    }
+      [OutputConstructor]
+      private NodeSelectorTerm(
+          Core.V1.NodeSelectorRequirement[] _matchExpressions,
+          Core.V1.NodeSelectorRequirement[] _matchFields)
+      {
+          MatchExpressions = _matchExpressions;
+          MatchFields = _matchFields;
+      }
 
+      }
     /// <summary>
     /// NodeSpec describes the attributes that a node is created with.
     /// </summary>
@@ -10915,7 +15050,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       /// <summary>
         /// ID of the node assigned by the cloud provider in the format:
-        /// &lt;ProviderName&gt;://&lt;ProviderSpecificNodeID&gt;
+        /// &amp;lt;ProviderName&amp;gt;://&amp;lt;ProviderSpecificNodeID&amp;gt;
         /// </summary>
       public readonly string ProviderID;
 
@@ -10930,8 +15065,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool Unschedulable;
 
-    }
+      [OutputConstructor]
+      private NodeSpec(
+          Core.V1.NodeConfigSource _configSource,
+          string _externalID,
+          string _podCIDR,
+          string[] _podCIDRs,
+          string _providerID,
+          Core.V1.Taint[] _taints,
+          bool _unschedulable)
+      {
+          ConfigSource = _configSource;
+          ExternalID = _externalID;
+          PodCIDR = _podCIDR;
+          PodCIDRs = _podCIDRs;
+          ProviderID = _providerID;
+          Taints = _taints;
+          Unschedulable = _unschedulable;
+      }
 
+      }
     /// <summary>
     /// NodeStatus is information about the current status of a node.
     /// </summary>
@@ -11001,8 +15154,34 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] VolumesInUse;
 
-    }
+      [OutputConstructor]
+      private NodeStatus(
+          Core.V1.NodeAddress[] _addresses,
+          object _allocatable,
+          object _capacity,
+          Core.V1.NodeCondition[] _conditions,
+          Core.V1.NodeConfigStatus _config,
+          Core.V1.NodeDaemonEndpoints _daemonEndpoints,
+          Core.V1.ContainerImage[] _images,
+          Core.V1.NodeSystemInfo _nodeInfo,
+          string _phase,
+          Core.V1.AttachedVolume[] _volumesAttached,
+          string[] _volumesInUse)
+      {
+          Addresses = _addresses;
+          Allocatable = _allocatable;
+          Capacity = _capacity;
+          Conditions = _conditions;
+          Config = _config;
+          DaemonEndpoints = _daemonEndpoints;
+          Images = _images;
+          NodeInfo = _nodeInfo;
+          Phase = _phase;
+          VolumesAttached = _volumesAttached;
+          VolumesInUse = _volumesInUse;
+      }
 
+      }
     /// <summary>
     /// NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
     /// </summary>
@@ -11062,8 +15241,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string SystemUUID;
 
-    }
+      [OutputConstructor]
+      private NodeSystemInfo(
+          string _architecture,
+          string _bootID,
+          string _containerRuntimeVersion,
+          string _kernelVersion,
+          string _kubeProxyVersion,
+          string _kubeletVersion,
+          string _machineID,
+          string _operatingSystem,
+          string _osImage,
+          string _systemUUID)
+      {
+          Architecture = _architecture;
+          BootID = _bootID;
+          ContainerRuntimeVersion = _containerRuntimeVersion;
+          KernelVersion = _kernelVersion;
+          KubeProxyVersion = _kubeProxyVersion;
+          KubeletVersion = _kubeletVersion;
+          MachineID = _machineID;
+          OperatingSystem = _operatingSystem;
+          OsImage = _osImage;
+          SystemUUID = _systemUUID;
+      }
 
+      }
     /// <summary>
     /// ObjectFieldSelector selects an APIVersioned field of an object.
     /// </summary>
@@ -11073,8 +15276,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string FieldPath;
 
-    }
+      [OutputConstructor]
+      private ObjectFieldSelector(
+          string _fieldPath)
+      {
+          FieldPath = _fieldPath;
+      }
 
+      }
     /// <summary>
     /// ObjectReference contains enough information to let you inspect or modify the referred
     /// object.
@@ -11115,8 +15324,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Uid;
 
-    }
+      [OutputConstructor]
+      private ObjectReference(
+          string _fieldPath,
+          string _name,
+          string _namespace,
+          string _resourceVersion,
+          string _uid)
+      {
+          FieldPath = _fieldPath;
+          Name = _name;
+          Namespace = _namespace;
+          ResourceVersion = _resourceVersion;
+          Uid = _uid;
+      }
 
+      }
     /// <summary>
     /// PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous
     /// to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
@@ -11142,8 +15365,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.PersistentVolumeStatus Status;
 
-    }
+      [OutputConstructor]
+      private PersistentVolume(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.PersistentVolumeSpec _spec,
+          Core.V1.PersistentVolumeStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// PersistentVolumeClaim is a user's request for and claim to a persistent volume
     /// </summary>
@@ -11168,8 +15401,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.PersistentVolumeClaimStatus Status;
 
-    }
+      [OutputConstructor]
+      private PersistentVolumeClaim(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.PersistentVolumeClaimSpec _spec,
+          Core.V1.PersistentVolumeClaimStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// PersistentVolumeClaimCondition contails details about state of pvc
     /// </summary>
@@ -11202,8 +15445,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private PersistentVolumeClaimCondition(
+          string _lastProbeTime,
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastProbeTime = _lastProbeTime;
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
     /// </summary>
@@ -11220,8 +15479,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PersistentVolumeClaimList(
+          Core.V1.PersistentVolumeClaim[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a
     /// Source for provider-specific attributes
@@ -11272,8 +15539,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeName;
 
-    }
+      [OutputConstructor]
+      private PersistentVolumeClaimSpec(
+          string[] _accessModes,
+          Core.V1.TypedLocalObjectReference _dataSource,
+          Core.V1.ResourceRequirements _resources,
+          Meta.V1.LabelSelector _selector,
+          string _storageClassName,
+          string _volumeMode,
+          string _volumeName)
+      {
+          AccessModes = _accessModes;
+          DataSource = _dataSource;
+          Resources = _resources;
+          Selector = _selector;
+          StorageClassName = _storageClassName;
+          VolumeMode = _volumeMode;
+          VolumeName = _volumeName;
+      }
 
+      }
     /// <summary>
     /// PersistentVolumeClaimStatus is the current status of a persistent volume claim.
     /// </summary>
@@ -11300,8 +15585,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Phase;
 
-    }
+      [OutputConstructor]
+      private PersistentVolumeClaimStatus(
+          string[] _accessModes,
+          object _capacity,
+          Core.V1.PersistentVolumeClaimCondition[] _conditions,
+          string _phase)
+      {
+          AccessModes = _accessModes;
+          Capacity = _capacity;
+          Conditions = _conditions;
+          Phase = _phase;
+      }
 
+      }
     /// <summary>
     /// PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This
     /// volume finds the bound PV and mounts that volume for the pod. A
@@ -11321,8 +15618,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool ReadOnly;
 
-    }
+      [OutputConstructor]
+      private PersistentVolumeClaimVolumeSource(
+          string _claimName,
+          bool _readOnly)
+      {
+          ClaimName = _claimName;
+          ReadOnly = _readOnly;
+      }
 
+      }
     /// <summary>
     /// PersistentVolumeList is a list of PersistentVolume items.
     /// </summary>
@@ -11339,8 +15644,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PersistentVolumeList(
+          Core.V1.PersistentVolume[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PersistentVolumeSpec is the specification of a persistent volume.
     /// </summary>
@@ -11529,8 +15842,72 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.VsphereVirtualDiskVolumeSource VsphereVolume;
 
-    }
+      [OutputConstructor]
+      private PersistentVolumeSpec(
+          string[] _accessModes,
+          Core.V1.AWSElasticBlockStoreVolumeSource _awsElasticBlockStore,
+          Core.V1.AzureDiskVolumeSource _azureDisk,
+          Core.V1.AzureFilePersistentVolumeSource _azureFile,
+          object _capacity,
+          Core.V1.CephFSPersistentVolumeSource _cephfs,
+          Core.V1.CinderPersistentVolumeSource _cinder,
+          Core.V1.ObjectReference _claimRef,
+          Core.V1.CSIPersistentVolumeSource _csi,
+          Core.V1.FCVolumeSource _fc,
+          Core.V1.FlexPersistentVolumeSource _flexVolume,
+          Core.V1.FlockerVolumeSource _flocker,
+          Core.V1.GCEPersistentDiskVolumeSource _gcePersistentDisk,
+          Core.V1.GlusterfsPersistentVolumeSource _glusterfs,
+          Core.V1.HostPathVolumeSource _hostPath,
+          Core.V1.ISCSIPersistentVolumeSource _iscsi,
+          Core.V1.LocalVolumeSource _local,
+          string[] _mountOptions,
+          Core.V1.NFSVolumeSource _nfs,
+          Core.V1.VolumeNodeAffinity _nodeAffinity,
+          string _persistentVolumeReclaimPolicy,
+          Core.V1.PhotonPersistentDiskVolumeSource _photonPersistentDisk,
+          Core.V1.PortworxVolumeSource _portworxVolume,
+          Core.V1.QuobyteVolumeSource _quobyte,
+          Core.V1.RBDPersistentVolumeSource _rbd,
+          Core.V1.ScaleIOPersistentVolumeSource _scaleIO,
+          string _storageClassName,
+          Core.V1.StorageOSPersistentVolumeSource _storageos,
+          string _volumeMode,
+          Core.V1.VsphereVirtualDiskVolumeSource _vsphereVolume)
+      {
+          AccessModes = _accessModes;
+          AwsElasticBlockStore = _awsElasticBlockStore;
+          AzureDisk = _azureDisk;
+          AzureFile = _azureFile;
+          Capacity = _capacity;
+          Cephfs = _cephfs;
+          Cinder = _cinder;
+          ClaimRef = _claimRef;
+          Csi = _csi;
+          Fc = _fc;
+          FlexVolume = _flexVolume;
+          Flocker = _flocker;
+          GcePersistentDisk = _gcePersistentDisk;
+          Glusterfs = _glusterfs;
+          HostPath = _hostPath;
+          Iscsi = _iscsi;
+          Local = _local;
+          MountOptions = _mountOptions;
+          Nfs = _nfs;
+          NodeAffinity = _nodeAffinity;
+          PersistentVolumeReclaimPolicy = _persistentVolumeReclaimPolicy;
+          PhotonPersistentDisk = _photonPersistentDisk;
+          PortworxVolume = _portworxVolume;
+          Quobyte = _quobyte;
+          Rbd = _rbd;
+          ScaleIO = _scaleIO;
+          StorageClassName = _storageClassName;
+          Storageos = _storageos;
+          VolumeMode = _volumeMode;
+          VsphereVolume = _vsphereVolume;
+      }
 
+      }
     /// <summary>
     /// PersistentVolumeStatus is the current status of a persistent volume.
     /// </summary>
@@ -11552,8 +15929,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Reason;
 
-    }
+      [OutputConstructor]
+      private PersistentVolumeStatus(
+          string _message,
+          string _phase,
+          string _reason)
+      {
+          Message = _message;
+          Phase = _phase;
+          Reason = _reason;
+      }
 
+      }
     /// <summary>
     /// Represents a Photon Controller persistent disk resource.
     /// </summary>
@@ -11569,8 +15956,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string PdID;
 
-    }
+      [OutputConstructor]
+      private PhotonPersistentDiskVolumeSource(
+          string _fsType,
+          string _pdID)
+      {
+          FsType = _fsType;
+          PdID = _pdID;
+      }
 
+      }
     /// <summary>
     /// Pod is a collection of containers that can run on a host. This resource is created by
     /// clients and scheduled onto hosts.
@@ -11595,8 +15990,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.PodStatus Status;
 
-    }
+      [OutputConstructor]
+      private Pod(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.PodSpec _spec,
+          Core.V1.PodStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// Pod affinity is a group of inter pod affinity scheduling rules.
     /// </summary>
@@ -11623,14 +16028,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.PodAffinityTerm[] RequiredDuringSchedulingIgnoredDuringExecution;
 
-    }
+      [OutputConstructor]
+      private PodAffinity(
+          Core.V1.WeightedPodAffinityTerm[] _preferredDuringSchedulingIgnoredDuringExecution,
+          Core.V1.PodAffinityTerm[] _requiredDuringSchedulingIgnoredDuringExecution)
+      {
+          PreferredDuringSchedulingIgnoredDuringExecution = _preferredDuringSchedulingIgnoredDuringExecution;
+          RequiredDuringSchedulingIgnoredDuringExecution = _requiredDuringSchedulingIgnoredDuringExecution;
+      }
 
+      }
     /// <summary>
     /// Defines a set of pods (namely those matching the labelSelector relative to the given
     /// namespace(s)) that this pod should be co-located (affinity) or not co-located
     /// (anti-affinity) with, where co-located is defined as running on a node whose value of the
-    /// label with key &lt;topologyKey&gt; matches that of any node on which a pod of the set of
-    /// pods is running
+    /// label with key &amp;lt;topologyKey&amp;gt; matches that of any node on which a pod of the
+    /// set of pods is running
     /// </summary>
     public sealed class PodAffinityTerm {
       /// <summary>
@@ -11652,8 +16065,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string TopologyKey;
 
-    }
+      [OutputConstructor]
+      private PodAffinityTerm(
+          Meta.V1.LabelSelector _labelSelector,
+          string[] _namespaces,
+          string _topologyKey)
+      {
+          LabelSelector = _labelSelector;
+          Namespaces = _namespaces;
+          TopologyKey = _topologyKey;
+      }
 
+      }
     /// <summary>
     /// Pod anti affinity is a group of inter pod anti affinity scheduling rules.
     /// </summary>
@@ -11680,8 +16103,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.PodAffinityTerm[] RequiredDuringSchedulingIgnoredDuringExecution;
 
-    }
+      [OutputConstructor]
+      private PodAntiAffinity(
+          Core.V1.WeightedPodAffinityTerm[] _preferredDuringSchedulingIgnoredDuringExecution,
+          Core.V1.PodAffinityTerm[] _requiredDuringSchedulingIgnoredDuringExecution)
+      {
+          PreferredDuringSchedulingIgnoredDuringExecution = _preferredDuringSchedulingIgnoredDuringExecution;
+          RequiredDuringSchedulingIgnoredDuringExecution = _requiredDuringSchedulingIgnoredDuringExecution;
+      }
 
+      }
     /// <summary>
     /// PodCondition contains details for the current condition of this pod.
     /// </summary>
@@ -11718,8 +16149,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private PodCondition(
+          string _lastProbeTime,
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastProbeTime = _lastProbeTime;
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// PodDNSConfig defines the DNS parameters of a pod in addition to those generated from
     /// DNSPolicy.
@@ -11744,8 +16191,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] Searches;
 
-    }
+      [OutputConstructor]
+      private PodDNSConfig(
+          string[] _nameservers,
+          Core.V1.PodDNSConfigOption[] _options,
+          string[] _searches)
+      {
+          Nameservers = _nameservers;
+          Options = _options;
+          Searches = _searches;
+      }
 
+      }
     /// <summary>
     /// PodDNSConfigOption defines DNS resolver options of a pod.
     /// </summary>
@@ -11758,8 +16215,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
       
       public readonly string Value;
 
-    }
+      [OutputConstructor]
+      private PodDNSConfigOption(
+          string _name,
+          string _value)
+      {
+          Name = _name;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// IP address information for entries in the (plural) PodIPs field. Each entry includes:
     ///    IP: An IP address allocated to the pod. Routable at least within the cluster.
@@ -11770,8 +16235,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Ip;
 
-    }
+      [OutputConstructor]
+      private PodIP(
+          string _ip)
+      {
+          Ip = _ip;
+      }
 
+      }
     /// <summary>
     /// PodList is a list of Pods.
     /// </summary>
@@ -11788,8 +16259,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PodList(
+          Core.V1.Pod[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PodReadinessGate contains the reference to a pod condition
     /// </summary>
@@ -11799,8 +16278,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string ConditionType;
 
-    }
+      [OutputConstructor]
+      private PodReadinessGate(
+          string _conditionType)
+      {
+          ConditionType = _conditionType;
+      }
 
+      }
     /// <summary>
     /// PodSecurityContext holds pod-level security attributes and common container settings. Some
     /// fields are also present in container.securityContext.  Field values of
@@ -11870,8 +16355,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.WindowsSecurityContextOptions WindowsOptions;
 
-    }
+      [OutputConstructor]
+      private PodSecurityContext(
+          int _fsGroup,
+          int _runAsGroup,
+          bool _runAsNonRoot,
+          int _runAsUser,
+          Core.V1.SELinuxOptions _seLinuxOptions,
+          int[] _supplementalGroups,
+          Core.V1.Sysctl[] _sysctls,
+          Core.V1.WindowsSecurityContextOptions _windowsOptions)
+      {
+          FsGroup = _fsGroup;
+          RunAsGroup = _runAsGroup;
+          RunAsNonRoot = _runAsNonRoot;
+          RunAsUser = _runAsUser;
+          SeLinuxOptions = _seLinuxOptions;
+          SupplementalGroups = _supplementalGroups;
+          Sysctls = _sysctls;
+          WindowsOptions = _windowsOptions;
+      }
 
+      }
     /// <summary>
     /// PodSpec is a description of a pod.
     /// </summary>
@@ -12096,8 +16601,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       /// <summary>
         /// If specified, the fully qualified Pod hostname will be
-        /// "&lt;hostname&gt;.&lt;subdomain&gt;.&lt;pod namespace&gt;.svc.&lt;cluster domain&gt;".
-        /// If not specified, the pod will not have a domainname at all.
+        /// "&amp;lt;hostname&amp;gt;.&amp;lt;subdomain&amp;gt;.&amp;lt;pod
+        /// namespace&amp;gt;.svc.&amp;lt;cluster domain&amp;gt;". If not specified, the pod will
+        /// not have a domainname at all.
         /// </summary>
       public readonly string Subdomain;
 
@@ -12131,8 +16637,80 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.Volume[] Volumes;
 
-    }
+      [OutputConstructor]
+      private PodSpec(
+          int _activeDeadlineSeconds,
+          Core.V1.Affinity _affinity,
+          bool _automountServiceAccountToken,
+          Core.V1.Container[] _containers,
+          Core.V1.PodDNSConfig _dnsConfig,
+          string _dnsPolicy,
+          bool _enableServiceLinks,
+          Core.V1.EphemeralContainer[] _ephemeralContainers,
+          Core.V1.HostAlias[] _hostAliases,
+          bool _hostIPC,
+          bool _hostNetwork,
+          bool _hostPID,
+          string _hostname,
+          Core.V1.LocalObjectReference[] _imagePullSecrets,
+          Core.V1.Container[] _initContainers,
+          string _nodeName,
+          ImmutableDictionary<string, string> _nodeSelector,
+          object _overhead,
+          string _preemptionPolicy,
+          int _priority,
+          string _priorityClassName,
+          Core.V1.PodReadinessGate[] _readinessGates,
+          string _restartPolicy,
+          string _runtimeClassName,
+          string _schedulerName,
+          Core.V1.PodSecurityContext _securityContext,
+          string _serviceAccount,
+          string _serviceAccountName,
+          bool _shareProcessNamespace,
+          string _subdomain,
+          int _terminationGracePeriodSeconds,
+          Core.V1.Toleration[] _tolerations,
+          Core.V1.TopologySpreadConstraint[] _topologySpreadConstraints,
+          Core.V1.Volume[] _volumes)
+      {
+          ActiveDeadlineSeconds = _activeDeadlineSeconds;
+          Affinity = _affinity;
+          AutomountServiceAccountToken = _automountServiceAccountToken;
+          Containers = _containers;
+          DnsConfig = _dnsConfig;
+          DnsPolicy = _dnsPolicy;
+          EnableServiceLinks = _enableServiceLinks;
+          EphemeralContainers = _ephemeralContainers;
+          HostAliases = _hostAliases;
+          HostIPC = _hostIPC;
+          HostNetwork = _hostNetwork;
+          HostPID = _hostPID;
+          Hostname = _hostname;
+          ImagePullSecrets = _imagePullSecrets;
+          InitContainers = _initContainers;
+          NodeName = _nodeName;
+          NodeSelector = _nodeSelector;
+          Overhead = _overhead;
+          PreemptionPolicy = _preemptionPolicy;
+          Priority = _priority;
+          PriorityClassName = _priorityClassName;
+          ReadinessGates = _readinessGates;
+          RestartPolicy = _restartPolicy;
+          RuntimeClassName = _runtimeClassName;
+          SchedulerName = _schedulerName;
+          SecurityContext = _securityContext;
+          ServiceAccount = _serviceAccount;
+          ServiceAccountName = _serviceAccountName;
+          ShareProcessNamespace = _shareProcessNamespace;
+          Subdomain = _subdomain;
+          TerminationGracePeriodSeconds = _terminationGracePeriodSeconds;
+          Tolerations = _tolerations;
+          TopologySpreadConstraints = _topologySpreadConstraints;
+          Volumes = _volumes;
+      }
 
+      }
     /// <summary>
     /// PodStatus represents information about the status of a pod. Status may trail the actual
     /// state of a system, especially if the node that hosts the pod cannot contact the control
@@ -12239,8 +16817,38 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string StartTime;
 
-    }
+      [OutputConstructor]
+      private PodStatus(
+          Core.V1.PodCondition[] _conditions,
+          Core.V1.ContainerStatus[] _containerStatuses,
+          Core.V1.ContainerStatus[] _ephemeralContainerStatuses,
+          string _hostIP,
+          Core.V1.ContainerStatus[] _initContainerStatuses,
+          string _message,
+          string _nominatedNodeName,
+          string _phase,
+          string _podIP,
+          Core.V1.PodIP[] _podIPs,
+          string _qosClass,
+          string _reason,
+          string _startTime)
+      {
+          Conditions = _conditions;
+          ContainerStatuses = _containerStatuses;
+          EphemeralContainerStatuses = _ephemeralContainerStatuses;
+          HostIP = _hostIP;
+          InitContainerStatuses = _initContainerStatuses;
+          Message = _message;
+          NominatedNodeName = _nominatedNodeName;
+          Phase = _phase;
+          PodIP = _podIP;
+          PodIPs = _podIPs;
+          QosClass = _qosClass;
+          Reason = _reason;
+          StartTime = _startTime;
+      }
 
+      }
     /// <summary>
     /// PodTemplate describes a template for creating copies of a predefined pod.
     /// </summary>
@@ -12257,8 +16865,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.PodTemplateSpec Template;
 
-    }
+      [OutputConstructor]
+      private PodTemplate(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.PodTemplateSpec _template)
+      {
+          Metadata = _metadata;
+          Template = _template;
+      }
 
+      }
     /// <summary>
     /// PodTemplateList is a list of PodTemplates.
     /// </summary>
@@ -12274,8 +16890,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PodTemplateList(
+          Core.V1.PodTemplate[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PodTemplateSpec describes the data a pod should have when created from a template
     /// </summary>
@@ -12292,8 +16916,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.PodSpec Spec;
 
-    }
+      [OutputConstructor]
+      private PodTemplateSpec(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.PodSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// PortworxVolumeSource represents a Portworx volume resource.
     /// </summary>
@@ -12316,8 +16948,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeID;
 
-    }
+      [OutputConstructor]
+      private PortworxVolumeSource(
+          string _fsType,
+          bool _readOnly,
+          string _volumeID)
+      {
+          FsType = _fsType;
+          ReadOnly = _readOnly;
+          VolumeID = _volumeID;
+      }
 
+      }
     /// <summary>
     /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a
     /// no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
@@ -12333,8 +16975,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly int Weight;
 
-    }
+      [OutputConstructor]
+      private PreferredSchedulingTerm(
+          Core.V1.NodeSelectorTerm _preference,
+          int _weight)
+      {
+          Preference = _preference;
+          Weight = _weight;
+      }
 
+      }
     /// <summary>
     /// Probe describes a health check to be performed against a container to determine whether it
     /// is alive or ready to receive traffic.
@@ -12387,8 +17037,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly int TimeoutSeconds;
 
-    }
+      [OutputConstructor]
+      private Probe(
+          Core.V1.ExecAction _exec,
+          int _failureThreshold,
+          Core.V1.HTTPGetAction _httpGet,
+          int _initialDelaySeconds,
+          int _periodSeconds,
+          int _successThreshold,
+          Core.V1.TCPSocketAction _tcpSocket,
+          int _timeoutSeconds)
+      {
+          Exec = _exec;
+          FailureThreshold = _failureThreshold;
+          HttpGet = _httpGet;
+          InitialDelaySeconds = _initialDelaySeconds;
+          PeriodSeconds = _periodSeconds;
+          SuccessThreshold = _successThreshold;
+          TcpSocket = _tcpSocket;
+          TimeoutSeconds = _timeoutSeconds;
+      }
 
+      }
     /// <summary>
     /// Represents a projected volume source
     /// </summary>
@@ -12406,8 +17076,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.VolumeProjection[] Sources;
 
-    }
+      [OutputConstructor]
+      private ProjectedVolumeSource(
+          int _defaultMode,
+          Core.V1.VolumeProjection[] _sources)
+      {
+          DefaultMode = _defaultMode;
+          Sources = _sources;
+      }
 
+      }
     /// <summary>
     /// Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support
     /// ownership management or SELinux relabeling.
@@ -12447,8 +17125,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Volume;
 
-    }
+      [OutputConstructor]
+      private QuobyteVolumeSource(
+          string _group,
+          bool _readOnly,
+          string _registry,
+          string _tenant,
+          string _user,
+          string _volume)
+      {
+          Group = _group;
+          ReadOnly = _readOnly;
+          Registry = _registry;
+          Tenant = _tenant;
+          User = _user;
+          Volume = _volume;
+      }
 
+      }
     /// <summary>
     /// Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support
     /// ownership management and SELinux relabeling.
@@ -12505,8 +17199,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string User;
 
-    }
+      [OutputConstructor]
+      private RBDPersistentVolumeSource(
+          string _fsType,
+          string _image,
+          string _keyring,
+          string[] _monitors,
+          string _pool,
+          bool _readOnly,
+          Core.V1.SecretReference _secretRef,
+          string _user)
+      {
+          FsType = _fsType;
+          Image = _image;
+          Keyring = _keyring;
+          Monitors = _monitors;
+          Pool = _pool;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          User = _user;
+      }
 
+      }
     /// <summary>
     /// Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support
     /// ownership management and SELinux relabeling.
@@ -12563,8 +17277,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string User;
 
-    }
+      [OutputConstructor]
+      private RBDVolumeSource(
+          string _fsType,
+          string _image,
+          string _keyring,
+          string[] _monitors,
+          string _pool,
+          bool _readOnly,
+          Core.V1.LocalObjectReference _secretRef,
+          string _user)
+      {
+          FsType = _fsType;
+          Image = _image;
+          Keyring = _keyring;
+          Monitors = _monitors;
+          Pool = _pool;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          User = _user;
+      }
 
+      }
     /// <summary>
     /// ReplicationController represents the configuration of a replication controller.
     /// </summary>
@@ -12591,8 +17325,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ReplicationControllerStatus Status;
 
-    }
+      [OutputConstructor]
+      private ReplicationController(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.ReplicationControllerSpec _spec,
+          Core.V1.ReplicationControllerStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// ReplicationControllerCondition describes the state of a replication controller at a certain
     /// point.
@@ -12623,8 +17367,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private ReplicationControllerCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// ReplicationControllerList is a collection of replication controllers.
     /// </summary>
@@ -12641,8 +17399,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ReplicationControllerList(
+          Core.V1.ReplicationController[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ReplicationControllerSpec is the specification of a replication controller.
     /// </summary>
@@ -12677,8 +17443,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.PodTemplateSpec Template;
 
-    }
+      [OutputConstructor]
+      private ReplicationControllerSpec(
+          int _minReadySeconds,
+          int _replicas,
+          ImmutableDictionary<string, string> _selector,
+          Core.V1.PodTemplateSpec _template)
+      {
+          MinReadySeconds = _minReadySeconds;
+          Replicas = _replicas;
+          Selector = _selector;
+          Template = _template;
+      }
 
+      }
     /// <summary>
     /// ReplicationControllerStatus represents the current status of a replication controller.
     /// </summary>
@@ -12718,8 +17496,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly int Replicas;
 
-    }
+      [OutputConstructor]
+      private ReplicationControllerStatus(
+          int _availableReplicas,
+          Core.V1.ReplicationControllerCondition[] _conditions,
+          int _fullyLabeledReplicas,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas)
+      {
+          AvailableReplicas = _availableReplicas;
+          Conditions = _conditions;
+          FullyLabeledReplicas = _fullyLabeledReplicas;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+      }
 
+      }
     /// <summary>
     /// ResourceFieldSelector represents container resources (cpu, memory) and their output format
     /// </summary>
@@ -12739,8 +17533,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Resource;
 
-    }
+      [OutputConstructor]
+      private ResourceFieldSelector(
+          string _containerName,
+          string _divisor,
+          string _resource)
+      {
+          ContainerName = _containerName;
+          Divisor = _divisor;
+          Resource = _resource;
+      }
 
+      }
     /// <summary>
     /// ResourceQuota sets aggregate quota restrictions enforced per namespace
     /// </summary>
@@ -12763,8 +17567,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ResourceQuotaStatus Status;
 
-    }
+      [OutputConstructor]
+      private ResourceQuota(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.ResourceQuotaSpec _spec,
+          Core.V1.ResourceQuotaStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// ResourceQuotaList is a list of ResourceQuota items.
     /// </summary>
@@ -12781,8 +17595,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ResourceQuotaList(
+          Core.V1.ResourceQuota[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
     /// </summary>
@@ -12807,8 +17629,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] Scopes;
 
-    }
+      [OutputConstructor]
+      private ResourceQuotaSpec(
+          object _hard,
+          Core.V1.ScopeSelector _scopeSelector,
+          string[] _scopes)
+      {
+          Hard = _hard;
+          ScopeSelector = _scopeSelector;
+          Scopes = _scopes;
+      }
 
+      }
     /// <summary>
     /// ResourceQuotaStatus defines the enforced hard limits and observed use.
     /// </summary>
@@ -12824,8 +17656,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly object Used;
 
-    }
+      [OutputConstructor]
+      private ResourceQuotaStatus(
+          object _hard,
+          object _used)
+      {
+          Hard = _hard;
+          Used = _used;
+      }
 
+      }
     /// <summary>
     /// ResourceRequirements describes the compute resource requirements.
     /// </summary>
@@ -12844,8 +17684,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly object Requests;
 
-    }
+      [OutputConstructor]
+      private ResourceRequirements(
+          object _limits,
+          object _requests)
+      {
+          Limits = _limits;
+          Requests = _requests;
+      }
 
+      }
     /// <summary>
     /// SELinuxOptions are the labels to be applied to the container
     /// </summary>
@@ -12870,8 +17718,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string User;
 
-    }
+      [OutputConstructor]
+      private SELinuxOptions(
+          string _level,
+          string _role,
+          string _type,
+          string _user)
+      {
+          Level = _level;
+          Role = _role;
+          Type = _type;
+          User = _user;
+      }
 
+      }
     /// <summary>
     /// ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
     /// </summary>
@@ -12931,8 +17791,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeName;
 
-    }
+      [OutputConstructor]
+      private ScaleIOPersistentVolumeSource(
+          string _fsType,
+          string _gateway,
+          string _protectionDomain,
+          bool _readOnly,
+          Core.V1.SecretReference _secretRef,
+          bool _sslEnabled,
+          string _storageMode,
+          string _storagePool,
+          string _system,
+          string _volumeName)
+      {
+          FsType = _fsType;
+          Gateway = _gateway;
+          ProtectionDomain = _protectionDomain;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          SslEnabled = _sslEnabled;
+          StorageMode = _storageMode;
+          StoragePool = _storagePool;
+          System = _system;
+          VolumeName = _volumeName;
+      }
 
+      }
     /// <summary>
     /// ScaleIOVolumeSource represents a persistent ScaleIO volume
     /// </summary>
@@ -12992,8 +17876,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeName;
 
-    }
+      [OutputConstructor]
+      private ScaleIOVolumeSource(
+          string _fsType,
+          string _gateway,
+          string _protectionDomain,
+          bool _readOnly,
+          Core.V1.LocalObjectReference _secretRef,
+          bool _sslEnabled,
+          string _storageMode,
+          string _storagePool,
+          string _system,
+          string _volumeName)
+      {
+          FsType = _fsType;
+          Gateway = _gateway;
+          ProtectionDomain = _protectionDomain;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          SslEnabled = _sslEnabled;
+          StorageMode = _storageMode;
+          StoragePool = _storagePool;
+          System = _system;
+          VolumeName = _volumeName;
+      }
 
+      }
     /// <summary>
     /// A scope selector represents the AND of the selectors represented by the scoped-resource
     /// selector requirements.
@@ -13004,8 +17912,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ScopedResourceSelectorRequirement[] MatchExpressions;
 
-    }
+      [OutputConstructor]
+      private ScopeSelector(
+          Core.V1.ScopedResourceSelectorRequirement[] _matchExpressions)
+      {
+          MatchExpressions = _matchExpressions;
+      }
 
+      }
     /// <summary>
     /// A scoped-resource selector requirement is a selector that contains values, a scope name, and
     /// an operator that relates the scope name and values.
@@ -13029,8 +17943,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] Values;
 
-    }
+      [OutputConstructor]
+      private ScopedResourceSelectorRequirement(
+          string _operator,
+          string _scopeName,
+          string[] _values)
+      {
+          Operator = _operator;
+          ScopeName = _scopeName;
+          Values = _values;
+      }
 
+      }
     /// <summary>
     /// Secret holds secret data of a certain type. The total bytes of the values in the Data field
     /// must be less than MaxSecretSize bytes.
@@ -13062,8 +17986,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private Secret(
+          object _data,
+          Meta.V1.ObjectMeta _metadata,
+          ImmutableDictionary<string, string> _stringData,
+          string _type)
+      {
+          Data = _data;
+          Metadata = _metadata;
+          StringData = _stringData;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// SecretEnvSource selects a Secret to populate the environment variables with.
     /// 
@@ -13082,8 +18018,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool Optional;
 
-    }
+      [OutputConstructor]
+      private SecretEnvSource(
+          string _name,
+          bool _optional)
+      {
+          Name = _name;
+          Optional = _optional;
+      }
 
+      }
     /// <summary>
     /// SecretKeySelector selects a key of a Secret.
     /// </summary>
@@ -13104,8 +18048,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool Optional;
 
-    }
+      [OutputConstructor]
+      private SecretKeySelector(
+          string _key,
+          string _name,
+          bool _optional)
+      {
+          Key = _key;
+          Name = _name;
+          Optional = _optional;
+      }
 
+      }
     /// <summary>
     /// SecretList is a list of Secret.
     /// </summary>
@@ -13122,8 +18076,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private SecretList(
+          Core.V1.Secret[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// Adapts a secret into a projected volume.
     /// 
@@ -13153,8 +18115,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly bool Optional;
 
-    }
+      [OutputConstructor]
+      private SecretProjection(
+          Core.V1.KeyToPath[] _items,
+          string _name,
+          bool _optional)
+      {
+          Items = _items;
+          Name = _name;
+          Optional = _optional;
+      }
 
+      }
     /// <summary>
     /// SecretReference represents a Secret Reference. It has enough information to retrieve secret
     /// in any namespace
@@ -13170,8 +18142,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Namespace;
 
-    }
+      [OutputConstructor]
+      private SecretReference(
+          string _name,
+          string _namespace)
+      {
+          Name = _name;
+          Namespace = _namespace;
+      }
 
+      }
     /// <summary>
     /// Adapts a Secret into a volume.
     /// 
@@ -13209,8 +18189,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string SecretName;
 
-    }
+      [OutputConstructor]
+      private SecretVolumeSource(
+          int _defaultMode,
+          Core.V1.KeyToPath[] _items,
+          bool _optional,
+          string _secretName)
+      {
+          DefaultMode = _defaultMode;
+          Items = _items;
+          Optional = _optional;
+          SecretName = _secretName;
+      }
 
+      }
     /// <summary>
     /// SecurityContext holds security configuration that will be applied to a container. Some
     /// fields are present in both SecurityContext and PodSecurityContext.  When both are set, the
@@ -13288,8 +18280,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.WindowsSecurityContextOptions WindowsOptions;
 
-    }
+      [OutputConstructor]
+      private SecurityContext(
+          bool _allowPrivilegeEscalation,
+          Core.V1.Capabilities _capabilities,
+          bool _privileged,
+          string _procMount,
+          bool _readOnlyRootFilesystem,
+          int _runAsGroup,
+          bool _runAsNonRoot,
+          int _runAsUser,
+          Core.V1.SELinuxOptions _seLinuxOptions,
+          Core.V1.WindowsSecurityContextOptions _windowsOptions)
+      {
+          AllowPrivilegeEscalation = _allowPrivilegeEscalation;
+          Capabilities = _capabilities;
+          Privileged = _privileged;
+          ProcMount = _procMount;
+          ReadOnlyRootFilesystem = _readOnlyRootFilesystem;
+          RunAsGroup = _runAsGroup;
+          RunAsNonRoot = _runAsNonRoot;
+          RunAsUser = _runAsUser;
+          SeLinuxOptions = _seLinuxOptions;
+          WindowsOptions = _windowsOptions;
+      }
 
+      }
     /// <summary>
     /// Service is a named abstraction of software service (for example, mysql) consisting of local
     /// port (for example 3306) that the proxy listens on, and the selector that determines which
@@ -13315,8 +18331,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ServiceStatus Status;
 
-    }
+      [OutputConstructor]
+      private Service(
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.ServiceSpec _spec,
+          Core.V1.ServiceStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral
     /// systems, for an identity * a principal that can be authenticated and authorized * a set of
@@ -13350,8 +18376,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ObjectReference[] Secrets;
 
-    }
+      [OutputConstructor]
+      private ServiceAccount(
+          bool _automountServiceAccountToken,
+          Core.V1.LocalObjectReference[] _imagePullSecrets,
+          Meta.V1.ObjectMeta _metadata,
+          Core.V1.ObjectReference[] _secrets)
+      {
+          AutomountServiceAccountToken = _automountServiceAccountToken;
+          ImagePullSecrets = _imagePullSecrets;
+          Metadata = _metadata;
+          Secrets = _secrets;
+      }
 
+      }
     /// <summary>
     /// ServiceAccountList is a list of ServiceAccount objects
     /// </summary>
@@ -13368,8 +18406,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ServiceAccountList(
+          Core.V1.ServiceAccount[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ServiceAccountTokenProjection represents a projected service account token volume. This
     /// projection can be used to insert a service account token into the pods runtime filesystem
@@ -13397,8 +18443,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Path;
 
-    }
+      [OutputConstructor]
+      private ServiceAccountTokenProjection(
+          string _audience,
+          int _expirationSeconds,
+          string _path)
+      {
+          Audience = _audience;
+          ExpirationSeconds = _expirationSeconds;
+          Path = _path;
+      }
 
+      }
     /// <summary>
     /// ServiceList holds a list of services.
     /// </summary>
@@ -13414,8 +18470,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ServiceList(
+          Core.V1.Service[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ServicePort contains information on service's port.
     /// </summary>
@@ -13458,8 +18522,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly int /* TODO: or string */ TargetPort;
 
-    }
+      [OutputConstructor]
+      private ServicePort(
+          string _name,
+          int _nodePort,
+          int _port,
+          string _protocol,
+          int /* TODO: or string */ _targetPort)
+      {
+          Name = _name;
+          NodePort = _nodePort;
+          Port = _port;
+          Protocol = _protocol;
+          TargetPort = _targetPort;
+      }
 
+      }
     /// <summary>
     /// ServiceSpec describes the attributes that a user creates on a service.
     /// </summary>
@@ -13588,8 +18666,40 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private ServiceSpec(
+          string _clusterIP,
+          string[] _externalIPs,
+          string _externalName,
+          string _externalTrafficPolicy,
+          int _healthCheckNodePort,
+          string _ipFamily,
+          string _loadBalancerIP,
+          string[] _loadBalancerSourceRanges,
+          Core.V1.ServicePort[] _ports,
+          bool _publishNotReadyAddresses,
+          ImmutableDictionary<string, string> _selector,
+          string _sessionAffinity,
+          Core.V1.SessionAffinityConfig _sessionAffinityConfig,
+          string _type)
+      {
+          ClusterIP = _clusterIP;
+          ExternalIPs = _externalIPs;
+          ExternalName = _externalName;
+          ExternalTrafficPolicy = _externalTrafficPolicy;
+          HealthCheckNodePort = _healthCheckNodePort;
+          IpFamily = _ipFamily;
+          LoadBalancerIP = _loadBalancerIP;
+          LoadBalancerSourceRanges = _loadBalancerSourceRanges;
+          Ports = _ports;
+          PublishNotReadyAddresses = _publishNotReadyAddresses;
+          Selector = _selector;
+          SessionAffinity = _sessionAffinity;
+          SessionAffinityConfig = _sessionAffinityConfig;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// ServiceStatus represents the current status of a service.
     /// </summary>
@@ -13599,8 +18709,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.LoadBalancerStatus LoadBalancer;
 
-    }
+      [OutputConstructor]
+      private ServiceStatus(
+          Core.V1.LoadBalancerStatus _loadBalancer)
+      {
+          LoadBalancer = _loadBalancer;
+      }
 
+      }
     /// <summary>
     /// SessionAffinityConfig represents the configurations of session affinity.
     /// </summary>
@@ -13610,8 +18726,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ClientIPConfig ClientIP;
 
-    }
+      [OutputConstructor]
+      private SessionAffinityConfig(
+          Core.V1.ClientIPConfig _clientIP)
+      {
+          ClientIP = _clientIP;
+      }
 
+      }
     /// <summary>
     /// Represents a StorageOS persistent volume resource.
     /// </summary>
@@ -13649,8 +18771,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeNamespace;
 
-    }
+      [OutputConstructor]
+      private StorageOSPersistentVolumeSource(
+          string _fsType,
+          bool _readOnly,
+          Core.V1.ObjectReference _secretRef,
+          string _volumeName,
+          string _volumeNamespace)
+      {
+          FsType = _fsType;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          VolumeName = _volumeName;
+          VolumeNamespace = _volumeNamespace;
+      }
 
+      }
     /// <summary>
     /// Represents a StorageOS persistent volume resource.
     /// </summary>
@@ -13688,8 +18824,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumeNamespace;
 
-    }
+      [OutputConstructor]
+      private StorageOSVolumeSource(
+          string _fsType,
+          bool _readOnly,
+          Core.V1.LocalObjectReference _secretRef,
+          string _volumeName,
+          string _volumeNamespace)
+      {
+          FsType = _fsType;
+          ReadOnly = _readOnly;
+          SecretRef = _secretRef;
+          VolumeName = _volumeName;
+          VolumeNamespace = _volumeNamespace;
+      }
 
+      }
     /// <summary>
     /// Sysctl defines a kernel parameter to be set
     /// </summary>
@@ -13704,8 +18854,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Value;
 
-    }
+      [OutputConstructor]
+      private Sysctl(
+          string _name,
+          string _value)
+      {
+          Name = _name;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// TCPSocketAction describes an action based on opening a socket
     /// </summary>
@@ -13721,8 +18879,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly int /* TODO: or string */ Port;
 
-    }
+      [OutputConstructor]
+      private TCPSocketAction(
+          string _host,
+          int /* TODO: or string */ _port)
+      {
+          Host = _host;
+          Port = _port;
+      }
 
+      }
     /// <summary>
     /// The node this Taint is attached to has the "effect" on any pod that does not tolerate the
     /// Taint.
@@ -13750,11 +18916,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Value;
 
-    }
+      [OutputConstructor]
+      private Taint(
+          string _effect,
+          string _key,
+          string _timeAdded,
+          string _value)
+      {
+          Effect = _effect;
+          Key = _key;
+          TimeAdded = _timeAdded;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// The pod this Toleration is attached to tolerates any taint that matches the triple
-    /// &lt;key,value,effect&gt; using the matching operator &lt;operator&gt;.
+    /// &amp;lt;key,value,effect&amp;gt; using the matching operator &amp;lt;operator&amp;gt;.
     /// </summary>
     public sealed class Toleration {
       /// <summary>
@@ -13791,8 +18969,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Value;
 
-    }
+      [OutputConstructor]
+      private Toleration(
+          string _effect,
+          string _key,
+          string _operator,
+          int _tolerationSeconds,
+          string _value)
+      {
+          Effect = _effect;
+          Key = _key;
+          Operator = _operator;
+          TolerationSeconds = _tolerationSeconds;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// A topology selector requirement is a selector that matches given label. This is an alpha
     /// feature and may change in the future.
@@ -13809,8 +19001,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string[] Values;
 
-    }
+      [OutputConstructor]
+      private TopologySelectorLabelRequirement(
+          string _key,
+          string[] _values)
+      {
+          Key = _key;
+          Values = _values;
+      }
 
+      }
     /// <summary>
     /// A topology selector term represents the result of label queries. A null or empty topology
     /// selector term matches no objects. The requirements of them are ANDed. It provides a subset
@@ -13822,8 +19022,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.TopologySelectorLabelRequirement[] MatchLabelExpressions;
 
-    }
+      [OutputConstructor]
+      private TopologySelectorTerm(
+          Core.V1.TopologySelectorLabelRequirement[] _matchLabelExpressions)
+      {
+          MatchLabelExpressions = _matchLabelExpressions;
+      }
 
+      }
     /// <summary>
     /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
     /// </summary>
@@ -13848,9 +19054,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
 
       /// <summary>
         /// TopologyKey is the key of node labels. Nodes that have a label with this key and
-        /// identical values are considered to be in the same topology. We consider each &lt;key,
-        /// value&gt; as a "bucket", and try to put balanced number of pods into each bucket. It's a
-        /// required field.
+        /// identical values are considered to be in the same topology. We consider each
+        /// &amp;lt;key, value&amp;gt; as a "bucket", and try to put balanced number of pods into
+        /// each bucket. It's a required field.
         /// </summary>
       public readonly string TopologyKey;
 
@@ -13868,8 +19074,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string WhenUnsatisfiable;
 
-    }
+      [OutputConstructor]
+      private TopologySpreadConstraint(
+          Meta.V1.LabelSelector _labelSelector,
+          int _maxSkew,
+          string _topologyKey,
+          string _whenUnsatisfiable)
+      {
+          LabelSelector = _labelSelector;
+          MaxSkew = _maxSkew;
+          TopologyKey = _topologyKey;
+          WhenUnsatisfiable = _whenUnsatisfiable;
+      }
 
+      }
     /// <summary>
     /// TypedLocalObjectReference contains enough information to let you locate the typed referenced
     /// object inside the same namespace.
@@ -13887,8 +19105,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private TypedLocalObjectReference(
+          string _apiGroup,
+          string _name)
+      {
+          ApiGroup = _apiGroup;
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
     /// </summary>
@@ -14064,8 +19290,70 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.VsphereVirtualDiskVolumeSource VsphereVolume;
 
-    }
+      [OutputConstructor]
+      private Volume(
+          Core.V1.AWSElasticBlockStoreVolumeSource _awsElasticBlockStore,
+          Core.V1.AzureDiskVolumeSource _azureDisk,
+          Core.V1.AzureFileVolumeSource _azureFile,
+          Core.V1.CephFSVolumeSource _cephfs,
+          Core.V1.CinderVolumeSource _cinder,
+          Core.V1.ConfigMapVolumeSource _configMap,
+          Core.V1.CSIVolumeSource _csi,
+          Core.V1.DownwardAPIVolumeSource _downwardAPI,
+          Core.V1.EmptyDirVolumeSource _emptyDir,
+          Core.V1.FCVolumeSource _fc,
+          Core.V1.FlexVolumeSource _flexVolume,
+          Core.V1.FlockerVolumeSource _flocker,
+          Core.V1.GCEPersistentDiskVolumeSource _gcePersistentDisk,
+          Core.V1.GitRepoVolumeSource _gitRepo,
+          Core.V1.GlusterfsVolumeSource _glusterfs,
+          Core.V1.HostPathVolumeSource _hostPath,
+          Core.V1.ISCSIVolumeSource _iscsi,
+          string _name,
+          Core.V1.NFSVolumeSource _nfs,
+          Core.V1.PersistentVolumeClaimVolumeSource _persistentVolumeClaim,
+          Core.V1.PhotonPersistentDiskVolumeSource _photonPersistentDisk,
+          Core.V1.PortworxVolumeSource _portworxVolume,
+          Core.V1.ProjectedVolumeSource _projected,
+          Core.V1.QuobyteVolumeSource _quobyte,
+          Core.V1.RBDVolumeSource _rbd,
+          Core.V1.ScaleIOVolumeSource _scaleIO,
+          Core.V1.SecretVolumeSource _secret,
+          Core.V1.StorageOSVolumeSource _storageos,
+          Core.V1.VsphereVirtualDiskVolumeSource _vsphereVolume)
+      {
+          AwsElasticBlockStore = _awsElasticBlockStore;
+          AzureDisk = _azureDisk;
+          AzureFile = _azureFile;
+          Cephfs = _cephfs;
+          Cinder = _cinder;
+          ConfigMap = _configMap;
+          Csi = _csi;
+          DownwardAPI = _downwardAPI;
+          EmptyDir = _emptyDir;
+          Fc = _fc;
+          FlexVolume = _flexVolume;
+          Flocker = _flocker;
+          GcePersistentDisk = _gcePersistentDisk;
+          GitRepo = _gitRepo;
+          Glusterfs = _glusterfs;
+          HostPath = _hostPath;
+          Iscsi = _iscsi;
+          Name = _name;
+          Nfs = _nfs;
+          PersistentVolumeClaim = _persistentVolumeClaim;
+          PhotonPersistentDisk = _photonPersistentDisk;
+          PortworxVolume = _portworxVolume;
+          Projected = _projected;
+          Quobyte = _quobyte;
+          Rbd = _rbd;
+          ScaleIO = _scaleIO;
+          Secret = _secret;
+          Storageos = _storageos;
+          VsphereVolume = _vsphereVolume;
+      }
 
+      }
     /// <summary>
     /// volumeDevice describes a mapping of a raw block device within a container.
     /// </summary>
@@ -14080,8 +19368,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private VolumeDevice(
+          string _devicePath,
+          string _name)
+      {
+          DevicePath = _devicePath;
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// VolumeMount describes a mounting of a Volume within a container.
     /// </summary>
@@ -14123,8 +19419,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string SubPathExpr;
 
-    }
+      [OutputConstructor]
+      private VolumeMount(
+          string _mountPath,
+          string _mountPropagation,
+          string _name,
+          bool _readOnly,
+          string _subPath,
+          string _subPathExpr)
+      {
+          MountPath = _mountPath;
+          MountPropagation = _mountPropagation;
+          Name = _name;
+          ReadOnly = _readOnly;
+          SubPath = _subPath;
+          SubPathExpr = _subPathExpr;
+      }
 
+      }
     /// <summary>
     /// VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed
     /// from.
@@ -14135,8 +19447,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.NodeSelector Required;
 
-    }
+      [OutputConstructor]
+      private VolumeNodeAffinity(
+          Core.V1.NodeSelector _required)
+      {
+          Required = _required;
+      }
 
+      }
     /// <summary>
     /// Projection that may be projected along with other supported volume types
     /// </summary>
@@ -14161,8 +19479,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly Core.V1.ServiceAccountTokenProjection ServiceAccountToken;
 
-    }
+      [OutputConstructor]
+      private VolumeProjection(
+          Core.V1.ConfigMapProjection _configMap,
+          Core.V1.DownwardAPIProjection _downwardAPI,
+          Core.V1.SecretProjection _secret,
+          Core.V1.ServiceAccountTokenProjection _serviceAccountToken)
+      {
+          ConfigMap = _configMap;
+          DownwardAPI = _downwardAPI;
+          Secret = _secret;
+          ServiceAccountToken = _serviceAccountToken;
+      }
 
+      }
     /// <summary>
     /// Represents a vSphere volume resource.
     /// </summary>
@@ -14188,8 +19518,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string VolumePath;
 
-    }
+      [OutputConstructor]
+      private VsphereVirtualDiskVolumeSource(
+          string _fsType,
+          string _storagePolicyID,
+          string _storagePolicyName,
+          string _volumePath)
+      {
+          FsType = _fsType;
+          StoragePolicyID = _storagePolicyID;
+          StoragePolicyName = _storagePolicyName;
+          VolumePath = _volumePath;
+      }
 
+      }
     /// <summary>
     /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find
     /// the most preferred node(s)
@@ -14205,8 +19547,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly int Weight;
 
-    }
+      [OutputConstructor]
+      private WeightedPodAffinityTerm(
+          Core.V1.PodAffinityTerm _podAffinityTerm,
+          int _weight)
+      {
+          PodAffinityTerm = _podAffinityTerm;
+          Weight = _weight;
+      }
 
+      }
     /// <summary>
     /// WindowsSecurityContextOptions contain Windows-specific options and credentials.
     /// </summary>
@@ -14234,8 +19584,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core {
         /// </summary>
       public readonly string RunAsUserName;
 
-    }
+      [OutputConstructor]
+      private WindowsSecurityContextOptions(
+          string _gmsaCredentialSpec,
+          string _gmsaCredentialSpecName,
+          string _runAsUserName)
+      {
+          GmsaCredentialSpec = _gmsaCredentialSpec;
+          GmsaCredentialSpecName = _gmsaCredentialSpecName;
+          RunAsUserName = _runAsUserName;
+      }
 
+      }
   }
 
 }
@@ -14289,8 +19649,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
         /// </summary>
       public readonly ImmutableDictionary<string, string> Topology;
 
-    }
+      [OutputConstructor]
+      private Endpoint(
+          string[] _addresses,
+          Discovery.V1Alpha1.EndpointConditions _conditions,
+          string _hostname,
+          Core.V1.ObjectReference _targetRef,
+          ImmutableDictionary<string, string> _topology)
+      {
+          Addresses = _addresses;
+          Conditions = _conditions;
+          Hostname = _hostname;
+          TargetRef = _targetRef;
+          Topology = _topology;
+      }
 
+      }
     /// <summary>
     /// EndpointConditions represents the current condition of an endpoint.
     /// </summary>
@@ -14302,8 +19676,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
         /// </summary>
       public readonly bool Ready;
 
-    }
+      [OutputConstructor]
+      private EndpointConditions(
+          bool _ready)
+      {
+          Ready = _ready;
+      }
 
+      }
     /// <summary>
     /// EndpointPort represents a Port used by an EndpointSlice
     /// </summary>
@@ -14329,8 +19709,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
         /// </summary>
       public readonly string Protocol;
 
-    }
+      [OutputConstructor]
+      private EndpointPort(
+          string _name,
+          int _port,
+          string _protocol)
+      {
+          Name = _name;
+          Port = _port;
+          Protocol = _protocol;
+      }
 
+      }
     /// <summary>
     /// EndpointSlice represents a subset of the endpoints that implement a service. For a given
     /// service there may be multiple EndpointSlice objects, selected by labels, which must be
@@ -14362,8 +19752,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
         /// </summary>
       public readonly Discovery.V1Alpha1.EndpointPort[] Ports;
 
-    }
+      [OutputConstructor]
+      private EndpointSlice(
+          string _addressType,
+          Discovery.V1Alpha1.Endpoint[] _endpoints,
+          Meta.V1.ObjectMeta _metadata,
+          Discovery.V1Alpha1.EndpointPort[] _ports)
+      {
+          AddressType = _addressType;
+          Endpoints = _endpoints;
+          Metadata = _metadata;
+          Ports = _ports;
+      }
 
+      }
     /// <summary>
     /// EndpointSliceList represents a list of endpoint slices
     /// </summary>
@@ -14378,8 +19780,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private EndpointSliceList(
+          Discovery.V1Alpha1.EndpointSlice[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
   }
 
 }
@@ -14468,8 +19878,42 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private Event(
+          string _action,
+          int _deprecatedCount,
+          string _deprecatedFirstTimestamp,
+          string _deprecatedLastTimestamp,
+          Core.V1.EventSource _deprecatedSource,
+          string _eventTime,
+          Meta.V1.ObjectMeta _metadata,
+          string _note,
+          string _reason,
+          Core.V1.ObjectReference _regarding,
+          Core.V1.ObjectReference _related,
+          string _reportingController,
+          string _reportingInstance,
+          Events.V1Beta1.EventSeries _series,
+          string _type)
+      {
+          Action = _action;
+          DeprecatedCount = _deprecatedCount;
+          DeprecatedFirstTimestamp = _deprecatedFirstTimestamp;
+          DeprecatedLastTimestamp = _deprecatedLastTimestamp;
+          DeprecatedSource = _deprecatedSource;
+          EventTime = _eventTime;
+          Metadata = _metadata;
+          Note = _note;
+          Reason = _reason;
+          Regarding = _regarding;
+          Related = _related;
+          ReportingController = _reportingController;
+          ReportingInstance = _reportingInstance;
+          Series = _series;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// EventList is a list of Event objects.
     /// </summary>
@@ -14485,8 +19929,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private EventList(
+          Events.V1Beta1.Event[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// EventSeries contain information on series of events, i.e. thing that was/is happening
     /// continuously for some time.
@@ -14508,8 +19960,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Events {
         /// </summary>
       public readonly string State;
 
-    }
+      [OutputConstructor]
+      private EventSeries(
+          int _count,
+          string _lastObservedTime,
+          string _state)
+      {
+          Count = _count;
+          LastObservedTime = _lastObservedTime;
+          State = _state;
+      }
 
+      }
   }
 
 }
@@ -14525,8 +19987,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private AllowedCSIDriver(
+          string _name)
+      {
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use
     /// AllowedFlexVolume from policy API Group instead.
@@ -14537,8 +20005,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Driver;
 
-    }
+      [OutputConstructor]
+      private AllowedFlexVolume(
+          string _driver)
+      {
+          Driver = _driver;
+      }
 
+      }
     /// <summary>
     /// AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods
     /// to use. It requires the path prefix to be defined. Deprecated: use AllowedHostPath from
@@ -14560,8 +20034,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly bool ReadOnly;
 
-    }
+      [OutputConstructor]
+      private AllowedHostPath(
+          string _pathPrefix,
+          bool _readOnly)
+      {
+          PathPrefix = _pathPrefix;
+          ReadOnly = _readOnly;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - extensions/v1beta1/DaemonSet is not supported by Kubernetes 1.16+ clusters. Use
     /// apps/v1/DaemonSet instead.
@@ -14588,8 +20070,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.DaemonSetStatus Status;
 
-    }
+      [OutputConstructor]
+      private DaemonSet(
+          Meta.V1.ObjectMeta _metadata,
+          Extensions.V1Beta1.DaemonSetSpec _spec,
+          Extensions.V1Beta1.DaemonSetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
@@ -14619,8 +20111,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DaemonSetCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DaemonSetList is a collection of daemon sets.
     /// </summary>
@@ -14636,8 +20142,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private DaemonSetList(
+          Extensions.V1Beta1.DaemonSet[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DaemonSetSpec is the specification of a daemon set.
     /// </summary>
@@ -14681,8 +20195,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.DaemonSetUpdateStrategy UpdateStrategy;
 
-    }
+      [OutputConstructor]
+      private DaemonSetSpec(
+          int _minReadySeconds,
+          int _revisionHistoryLimit,
+          Meta.V1.LabelSelector _selector,
+          Core.V1.PodTemplateSpec _template,
+          int _templateGeneration,
+          Extensions.V1Beta1.DaemonSetUpdateStrategy _updateStrategy)
+      {
+          MinReadySeconds = _minReadySeconds;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          Selector = _selector;
+          Template = _template;
+          TemplateGeneration = _templateGeneration;
+          UpdateStrategy = _updateStrategy;
+      }
 
+      }
     /// <summary>
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
@@ -14748,8 +20278,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int UpdatedNumberScheduled;
 
-    }
+      [OutputConstructor]
+      private DaemonSetStatus(
+          int _collisionCount,
+          Extensions.V1Beta1.DaemonSetCondition[] _conditions,
+          int _currentNumberScheduled,
+          int _desiredNumberScheduled,
+          int _numberAvailable,
+          int _numberMisscheduled,
+          int _numberReady,
+          int _numberUnavailable,
+          int _observedGeneration,
+          int _updatedNumberScheduled)
+      {
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          CurrentNumberScheduled = _currentNumberScheduled;
+          DesiredNumberScheduled = _desiredNumberScheduled;
+          NumberAvailable = _numberAvailable;
+          NumberMisscheduled = _numberMisscheduled;
+          NumberReady = _numberReady;
+          NumberUnavailable = _numberUnavailable;
+          ObservedGeneration = _observedGeneration;
+          UpdatedNumberScheduled = _updatedNumberScheduled;
+      }
 
+      }
     /// <summary>
     /// 
     /// </summary>
@@ -14764,8 +20318,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DaemonSetUpdateStrategy(
+          Extensions.V1Beta1.RollingUpdateDaemonSet _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - extensions/v1beta1/Deployment is not supported by Kubernetes 1.16+ clusters.
     /// Use apps/v1/Deployment instead.
@@ -14788,8 +20350,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.DeploymentStatus Status;
 
-    }
+      [OutputConstructor]
+      private Deployment(
+          Meta.V1.ObjectMeta _metadata,
+          Extensions.V1Beta1.DeploymentSpec _spec,
+          Extensions.V1Beta1.DeploymentStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
@@ -14824,8 +20396,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DeploymentCondition(
+          string _lastTransitionTime,
+          string _lastUpdateTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          LastUpdateTime = _lastUpdateTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// DeploymentList is a list of Deployments.
     /// </summary>
@@ -14840,8 +20428,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private DeploymentList(
+          Extensions.V1Beta1.Deployment[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.
     /// </summary>
@@ -14861,8 +20457,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly ImmutableDictionary<string, string> UpdatedAnnotations;
 
-    }
+      [OutputConstructor]
+      private DeploymentRollback(
+          string _name,
+          Extensions.V1Beta1.RollbackConfig _rollbackTo,
+          ImmutableDictionary<string, string> _updatedAnnotations)
+      {
+          Name = _name;
+          RollbackTo = _rollbackTo;
+          UpdatedAnnotations = _updatedAnnotations;
+      }
 
+      }
     /// <summary>
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
@@ -14925,8 +20531,30 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Core.V1.PodTemplateSpec Template;
 
-    }
+      [OutputConstructor]
+      private DeploymentSpec(
+          int _minReadySeconds,
+          bool _paused,
+          int _progressDeadlineSeconds,
+          int _replicas,
+          int _revisionHistoryLimit,
+          Extensions.V1Beta1.RollbackConfig _rollbackTo,
+          Meta.V1.LabelSelector _selector,
+          Extensions.V1Beta1.DeploymentStrategy _strategy,
+          Core.V1.PodTemplateSpec _template)
+      {
+          MinReadySeconds = _minReadySeconds;
+          Paused = _paused;
+          ProgressDeadlineSeconds = _progressDeadlineSeconds;
+          Replicas = _replicas;
+          RevisionHistoryLimit = _revisionHistoryLimit;
+          RollbackTo = _rollbackTo;
+          Selector = _selector;
+          Strategy = _strategy;
+          Template = _template;
+      }
 
+      }
     /// <summary>
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
@@ -14979,8 +20607,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int UpdatedReplicas;
 
-    }
+      [OutputConstructor]
+      private DeploymentStatus(
+          int _availableReplicas,
+          int _collisionCount,
+          Extensions.V1Beta1.DeploymentCondition[] _conditions,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas,
+          int _unavailableReplicas,
+          int _updatedReplicas)
+      {
+          AvailableReplicas = _availableReplicas;
+          CollisionCount = _collisionCount;
+          Conditions = _conditions;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+          UnavailableReplicas = _unavailableReplicas;
+          UpdatedReplicas = _updatedReplicas;
+      }
 
+      }
     /// <summary>
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
@@ -14995,8 +20643,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private DeploymentStrategy(
+          Extensions.V1Beta1.RollingUpdateDeployment _rollingUpdate,
+          string _type)
+      {
+          RollingUpdate = _rollingUpdate;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
     /// Deprecated: use FSGroupStrategyOptions from policy API Group instead.
@@ -15013,8 +20669,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Rule;
 
-    }
+      [OutputConstructor]
+      private FSGroupStrategyOptions(
+          Extensions.V1Beta1.IDRange[] _ranges,
+          string _rule)
+      {
+          Ranges = _ranges;
+          Rule = _rule;
+      }
 
+      }
     /// <summary>
     /// HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are
     /// forwarded to the backend.
@@ -15035,13 +20699,21 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Path;
 
-    }
+      [OutputConstructor]
+      private HTTPIngressPath(
+          Extensions.V1Beta1.IngressBackend _backend,
+          string _path)
+      {
+          Backend = _backend;
+          Path = _path;
+      }
 
+      }
     /// <summary>
     /// HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example:
-    /// http://&lt;host&gt;/&lt;path&gt;?&lt;searchpart&gt; -&gt; backend where where parts of the
-    /// url correspond to RFC 3986, this resource will be used to match against everything after the
-    /// last '/' and before the first '?' or '#'.
+    /// http://&amp;lt;host&amp;gt;/&amp;lt;path&amp;gt;?&amp;lt;searchpart&amp;gt; -&amp;gt;
+    /// backend where where parts of the url correspond to RFC 3986, this resource will be used to
+    /// match against everything after the last '/' and before the first '?' or '#'.
     /// </summary>
     public sealed class HTTPIngressRuleValue {
       /// <summary>
@@ -15049,8 +20721,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.HTTPIngressPath[] Paths;
 
-    }
+      [OutputConstructor]
+      private HTTPIngressRuleValue(
+          Extensions.V1Beta1.HTTPIngressPath[] _paths)
+      {
+          Paths = _paths;
+      }
 
+      }
     /// <summary>
     /// HostPortRange defines a range of host ports that will be enabled by a policy for pods to
     /// use.  It requires both the start and end to be defined. Deprecated: use HostPortRange from
@@ -15067,8 +20745,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int Min;
 
-    }
+      [OutputConstructor]
+      private HostPortRange(
+          int _max,
+          int _min)
+      {
+          Max = _max;
+          Min = _min;
+      }
 
+      }
     /// <summary>
     /// IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy
     /// API Group instead.
@@ -15084,8 +20770,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int Min;
 
-    }
+      [OutputConstructor]
+      private IDRange(
+          int _max,
+          int _min)
+      {
+          Max = _max;
+          Min = _min;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock.
     /// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods
@@ -15104,8 +20798,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string[] Except;
 
-    }
+      [OutputConstructor]
+      private IPBlock(
+          string _cidr,
+          string[] _except)
+      {
+          Cidr = _cidr;
+          Except = _except;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - extensions/v1beta1/Ingress is not supported by Kubernetes 1.16+ clusters. Use
     /// networking/v1beta1/Ingress instead.
@@ -15133,8 +20835,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.IngressStatus Status;
 
-    }
+      [OutputConstructor]
+      private Ingress(
+          Meta.V1.ObjectMeta _metadata,
+          Extensions.V1Beta1.IngressSpec _spec,
+          Extensions.V1Beta1.IngressStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// IngressBackend describes all endpoints for a given service and port.
     /// </summary>
@@ -15149,8 +20861,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int /* TODO: or string */ ServicePort;
 
-    }
+      [OutputConstructor]
+      private IngressBackend(
+          string _serviceName,
+          int /* TODO: or string */ _servicePort)
+      {
+          ServiceName = _serviceName;
+          ServicePort = _servicePort;
+      }
 
+      }
     /// <summary>
     /// IngressList is a collection of Ingress.
     /// </summary>
@@ -15166,8 +20886,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private IngressList(
+          Extensions.V1Beta1.Ingress[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// IngressRule represents the rules mapping the paths under a specified host to the related
     /// backend services. Incoming requests are first evaluated for a host match, then routed to the
@@ -15191,8 +20919,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
       
       public readonly Extensions.V1Beta1.HTTPIngressRuleValue Http;
 
-    }
+      [OutputConstructor]
+      private IngressRule(
+          string _host,
+          Extensions.V1Beta1.HTTPIngressRuleValue _http)
+      {
+          Host = _host;
+          Http = _http;
+      }
 
+      }
     /// <summary>
     /// IngressSpec describes the Ingress the user wishes to exist.
     /// </summary>
@@ -15218,8 +20954,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.IngressTLS[] Tls;
 
-    }
+      [OutputConstructor]
+      private IngressSpec(
+          Extensions.V1Beta1.IngressBackend _backend,
+          Extensions.V1Beta1.IngressRule[] _rules,
+          Extensions.V1Beta1.IngressTLS[] _tls)
+      {
+          Backend = _backend;
+          Rules = _rules;
+          Tls = _tls;
+      }
 
+      }
     /// <summary>
     /// IngressStatus describe the current state of the Ingress.
     /// </summary>
@@ -15229,8 +20975,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Core.V1.LoadBalancerStatus LoadBalancer;
 
-    }
+      [OutputConstructor]
+      private IngressStatus(
+          Core.V1.LoadBalancerStatus _loadBalancer)
+      {
+          LoadBalancer = _loadBalancer;
+      }
 
+      }
     /// <summary>
     /// IngressTLS describes the transport layer security associated with an Ingress.
     /// </summary>
@@ -15250,8 +21002,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string SecretName;
 
-    }
+      [OutputConstructor]
+      private IngressTLS(
+          string[] _hosts,
+          string _secretName)
+      {
+          Hosts = _hosts;
+          SecretName = _secretName;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by
     /// networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a
@@ -15269,8 +21029,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.NetworkPolicySpec Spec;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicy(
+          Meta.V1.ObjectMeta _metadata,
+          Extensions.V1Beta1.NetworkPolicySpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyEgressRule is deprecated by
     /// networking/v1/NetworkPolicyEgressRule. NetworkPolicyEgressRule describes a particular set of
@@ -15295,8 +21063,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.NetworkPolicyPeer[] To;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyEgressRule(
+          Extensions.V1Beta1.NetworkPolicyPort[] _ports,
+          Extensions.V1Beta1.NetworkPolicyPeer[] _to)
+      {
+          Ports = _ports;
+          To = _to;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by
     /// networking/v1/NetworkPolicyIngressRule. This NetworkPolicyIngressRule matches traffic if and
@@ -15321,8 +21097,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.NetworkPolicyPort[] Ports;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyIngressRule(
+          Extensions.V1Beta1.NetworkPolicyPeer[] _from,
+          Extensions.V1Beta1.NetworkPolicyPort[] _ports)
+      {
+          From = _from;
+          Ports = _ports;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by
     /// networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
@@ -15339,8 +21123,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyList(
+          Extensions.V1Beta1.NetworkPolicy[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by
     /// networking/v1/NetworkPolicyPeer.
@@ -15372,8 +21164,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Meta.V1.LabelSelector PodSelector;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyPeer(
+          Extensions.V1Beta1.IPBlock _ipBlock,
+          Meta.V1.LabelSelector _namespaceSelector,
+          Meta.V1.LabelSelector _podSelector)
+      {
+          IpBlock = _ipBlock;
+          NamespaceSelector = _namespaceSelector;
+          PodSelector = _podSelector;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by
     /// networking/v1/NetworkPolicyPort.
@@ -15392,8 +21194,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Protocol;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyPort(
+          int /* TODO: or string */ _port,
+          string _protocol)
+      {
+          Port = _port;
+          Protocol = _protocol;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by
     /// networking/v1/NetworkPolicySpec.
@@ -15441,8 +21251,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string[] PolicyTypes;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicySpec(
+          Extensions.V1Beta1.NetworkPolicyEgressRule[] _egress,
+          Extensions.V1Beta1.NetworkPolicyIngressRule[] _ingress,
+          Meta.V1.LabelSelector _podSelector,
+          string[] _policyTypes)
+      {
+          Egress = _egress;
+          Ingress = _ingress;
+          PodSelector = _podSelector;
+          PolicyTypes = _policyTypes;
+      }
 
+      }
     /// <summary>
     /// PodSecurityPolicy governs the ability to make requests that affect the Security Context that
     /// will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API
@@ -15460,8 +21282,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.PodSecurityPolicySpec Spec;
 
-    }
+      [OutputConstructor]
+      private PodSecurityPolicy(
+          Meta.V1.ObjectMeta _metadata,
+          Extensions.V1Beta1.PodSecurityPolicySpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// PodSecurityPolicyList is a list of PodSecurityPolicy objects. Deprecated: use
     /// PodSecurityPolicyList from policy API Group instead.
@@ -15478,8 +21308,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PodSecurityPolicyList(
+          Extensions.V1Beta1.PodSecurityPolicy[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PodSecurityPolicySpec defines the policy enforced. Deprecated: use PodSecurityPolicySpec
     /// from policy API Group instead.
@@ -15642,8 +21480,60 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string[] Volumes;
 
-    }
+      [OutputConstructor]
+      private PodSecurityPolicySpec(
+          bool _allowPrivilegeEscalation,
+          Extensions.V1Beta1.AllowedCSIDriver[] _allowedCSIDrivers,
+          string[] _allowedCapabilities,
+          Extensions.V1Beta1.AllowedFlexVolume[] _allowedFlexVolumes,
+          Extensions.V1Beta1.AllowedHostPath[] _allowedHostPaths,
+          string[] _allowedProcMountTypes,
+          string[] _allowedUnsafeSysctls,
+          string[] _defaultAddCapabilities,
+          bool _defaultAllowPrivilegeEscalation,
+          string[] _forbiddenSysctls,
+          Extensions.V1Beta1.FSGroupStrategyOptions _fsGroup,
+          bool _hostIPC,
+          bool _hostNetwork,
+          bool _hostPID,
+          Extensions.V1Beta1.HostPortRange[] _hostPorts,
+          bool _privileged,
+          bool _readOnlyRootFilesystem,
+          string[] _requiredDropCapabilities,
+          Extensions.V1Beta1.RunAsGroupStrategyOptions _runAsGroup,
+          Extensions.V1Beta1.RunAsUserStrategyOptions _runAsUser,
+          Extensions.V1Beta1.RuntimeClassStrategyOptions _runtimeClass,
+          Extensions.V1Beta1.SELinuxStrategyOptions _seLinux,
+          Extensions.V1Beta1.SupplementalGroupsStrategyOptions _supplementalGroups,
+          string[] _volumes)
+      {
+          AllowPrivilegeEscalation = _allowPrivilegeEscalation;
+          AllowedCSIDrivers = _allowedCSIDrivers;
+          AllowedCapabilities = _allowedCapabilities;
+          AllowedFlexVolumes = _allowedFlexVolumes;
+          AllowedHostPaths = _allowedHostPaths;
+          AllowedProcMountTypes = _allowedProcMountTypes;
+          AllowedUnsafeSysctls = _allowedUnsafeSysctls;
+          DefaultAddCapabilities = _defaultAddCapabilities;
+          DefaultAllowPrivilegeEscalation = _defaultAllowPrivilegeEscalation;
+          ForbiddenSysctls = _forbiddenSysctls;
+          FsGroup = _fsGroup;
+          HostIPC = _hostIPC;
+          HostNetwork = _hostNetwork;
+          HostPID = _hostPID;
+          HostPorts = _hostPorts;
+          Privileged = _privileged;
+          ReadOnlyRootFilesystem = _readOnlyRootFilesystem;
+          RequiredDropCapabilities = _requiredDropCapabilities;
+          RunAsGroup = _runAsGroup;
+          RunAsUser = _runAsUser;
+          RuntimeClass = _runtimeClass;
+          SeLinux = _seLinux;
+          SupplementalGroups = _supplementalGroups;
+          Volumes = _volumes;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED - extensions/v1beta1/ReplicaSet is not supported by Kubernetes 1.16+ clusters.
     /// Use apps/v1/ReplicaSet instead.
@@ -15671,8 +21561,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.ReplicaSetStatus Status;
 
-    }
+      [OutputConstructor]
+      private ReplicaSet(
+          Meta.V1.ObjectMeta _metadata,
+          Extensions.V1Beta1.ReplicaSetSpec _spec,
+          Extensions.V1Beta1.ReplicaSetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
@@ -15702,8 +21602,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetCondition(
+          string _lastTransitionTime,
+          string _message,
+          string _reason,
+          string _status,
+          string _type)
+      {
+          LastTransitionTime = _lastTransitionTime;
+          Message = _message;
+          Reason = _reason;
+          Status = _status;
+          Type = _type;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetList is a collection of ReplicaSets.
     /// </summary>
@@ -15720,8 +21634,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetList(
+          Extensions.V1Beta1.ReplicaSet[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetSpec is the specification of a ReplicaSet.
     /// </summary>
@@ -15755,8 +21677,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Core.V1.PodTemplateSpec Template;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetSpec(
+          int _minReadySeconds,
+          int _replicas,
+          Meta.V1.LabelSelector _selector,
+          Core.V1.PodTemplateSpec _template)
+      {
+          MinReadySeconds = _minReadySeconds;
+          Replicas = _replicas;
+          Selector = _selector;
+          Template = _template;
+      }
 
+      }
     /// <summary>
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
@@ -15794,8 +21728,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int Replicas;
 
-    }
+      [OutputConstructor]
+      private ReplicaSetStatus(
+          int _availableReplicas,
+          Extensions.V1Beta1.ReplicaSetCondition[] _conditions,
+          int _fullyLabeledReplicas,
+          int _observedGeneration,
+          int _readyReplicas,
+          int _replicas)
+      {
+          AvailableReplicas = _availableReplicas;
+          Conditions = _conditions;
+          FullyLabeledReplicas = _fullyLabeledReplicas;
+          ObservedGeneration = _observedGeneration;
+          ReadyReplicas = _readyReplicas;
+          Replicas = _replicas;
+      }
 
+      }
     /// <summary>
     /// DEPRECATED.
     /// </summary>
@@ -15805,8 +21755,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int Revision;
 
-    }
+      [OutputConstructor]
+      private RollbackConfig(
+          int _revision)
+      {
+          Revision = _revision;
+      }
 
+      }
     /// <summary>
     /// Spec to control the desired behavior of daemon set rolling update.
     /// </summary>
@@ -15825,8 +21781,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int /* TODO: or string */ MaxUnavailable;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateDaemonSet(
+          int /* TODO: or string */ _maxUnavailable)
+      {
+          MaxUnavailable = _maxUnavailable;
+      }
 
+      }
     /// <summary>
     /// Spec to control the desired behavior of rolling update.
     /// </summary>
@@ -15855,8 +21817,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int /* TODO: or string */ MaxUnavailable;
 
-    }
+      [OutputConstructor]
+      private RollingUpdateDeployment(
+          int /* TODO: or string */ _maxSurge,
+          int /* TODO: or string */ _maxUnavailable)
+      {
+          MaxSurge = _maxSurge;
+          MaxUnavailable = _maxUnavailable;
+      }
 
+      }
     /// <summary>
     /// RunAsGroupStrategyOptions defines the strategy type and any options used to create the
     /// strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
@@ -15874,8 +21844,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Rule;
 
-    }
+      [OutputConstructor]
+      private RunAsGroupStrategyOptions(
+          Extensions.V1Beta1.IDRange[] _ranges,
+          string _rule)
+      {
+          Ranges = _ranges;
+          Rule = _rule;
+      }
 
+      }
     /// <summary>
     /// RunAsUserStrategyOptions defines the strategy type and any options used to create the
     /// strategy. Deprecated: use RunAsUserStrategyOptions from policy API Group instead.
@@ -15893,8 +21871,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Rule;
 
-    }
+      [OutputConstructor]
+      private RunAsUserStrategyOptions(
+          Extensions.V1Beta1.IDRange[] _ranges,
+          string _rule)
+      {
+          Ranges = _ranges;
+          Rule = _rule;
+      }
 
+      }
     /// <summary>
     /// RuntimeClassStrategyOptions define the strategy that will dictate the allowable
     /// RuntimeClasses for a pod.
@@ -15914,8 +21900,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string DefaultRuntimeClassName;
 
-    }
+      [OutputConstructor]
+      private RuntimeClassStrategyOptions(
+          string[] _allowedRuntimeClassNames,
+          string _defaultRuntimeClassName)
+      {
+          AllowedRuntimeClassNames = _allowedRuntimeClassNames;
+          DefaultRuntimeClassName = _defaultRuntimeClassName;
+      }
 
+      }
     /// <summary>
     /// SELinuxStrategyOptions defines the strategy type and any options used to create the
     /// strategy. Deprecated: use SELinuxStrategyOptions from policy API Group instead.
@@ -15932,8 +21926,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Core.V1.SELinuxOptions SeLinuxOptions;
 
-    }
+      [OutputConstructor]
+      private SELinuxStrategyOptions(
+          string _rule,
+          Core.V1.SELinuxOptions _seLinuxOptions)
+      {
+          Rule = _rule;
+          SeLinuxOptions = _seLinuxOptions;
+      }
 
+      }
     /// <summary>
     /// represents a scaling request for a resource.
     /// </summary>
@@ -15957,8 +21959,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly Extensions.V1Beta1.ScaleStatus Status;
 
-    }
+      [OutputConstructor]
+      private Scale(
+          Meta.V1.ObjectMeta _metadata,
+          Extensions.V1Beta1.ScaleSpec _spec,
+          Extensions.V1Beta1.ScaleStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// describes the attributes of a scale subresource
     /// </summary>
@@ -15968,8 +21980,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly int Replicas;
 
-    }
+      [OutputConstructor]
+      private ScaleSpec(
+          int _replicas)
+      {
+          Replicas = _replicas;
+      }
 
+      }
     /// <summary>
     /// represents the current status of a scale subresource.
     /// </summary>
@@ -15995,8 +22013,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string TargetSelector;
 
-    }
+      [OutputConstructor]
+      private ScaleStatus(
+          int _replicas,
+          ImmutableDictionary<string, string> _selector,
+          string _targetSelector)
+      {
+          Replicas = _replicas;
+          Selector = _selector;
+          TargetSelector = _targetSelector;
+      }
 
+      }
     /// <summary>
     /// SupplementalGroupsStrategyOptions defines the strategy type and options used to create the
     /// strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
@@ -16015,8 +22043,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions {
         /// </summary>
       public readonly string Rule;
 
-    }
+      [OutputConstructor]
+      private SupplementalGroupsStrategyOptions(
+          Extensions.V1Beta1.IDRange[] _ranges,
+          string _rule)
+      {
+          Ranges = _ranges;
+          Rule = _rule;
+      }
 
+      }
   }
 
 }
@@ -16055,8 +22091,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly Meta.V1.GroupVersionForDiscovery[] Versions;
 
-    }
+      [OutputConstructor]
+      private APIGroup(
+          string _name,
+          Meta.V1.GroupVersionForDiscovery _preferredVersion,
+          Meta.V1.ServerAddressByClientCIDR[] _serverAddressByClientCIDRs,
+          Meta.V1.GroupVersionForDiscovery[] _versions)
+      {
+          Name = _name;
+          PreferredVersion = _preferredVersion;
+          ServerAddressByClientCIDRs = _serverAddressByClientCIDRs;
+          Versions = _versions;
+      }
 
+      }
     /// <summary>
     /// APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
     /// </summary>
@@ -16066,8 +22114,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly Meta.V1.APIGroup[] Groups;
 
-    }
+      [OutputConstructor]
+      private APIGroupList(
+          Meta.V1.APIGroup[] _groups)
+      {
+          Groups = _groups;
+      }
 
+      }
     /// <summary>
     /// APIResource specifies the name of a resource and whether it is namespaced.
     /// </summary>
@@ -16127,8 +22181,30 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string Version;
 
-    }
+      [OutputConstructor]
+      private APIResource(
+          string[] _categories,
+          string _group,
+          string _name,
+          bool _namespaced,
+          string[] _shortNames,
+          string _singularName,
+          string _storageVersionHash,
+          string[] _verbs,
+          string _version)
+      {
+          Categories = _categories;
+          Group = _group;
+          Name = _name;
+          Namespaced = _namespaced;
+          ShortNames = _shortNames;
+          SingularName = _singularName;
+          StorageVersionHash = _storageVersionHash;
+          Verbs = _verbs;
+          Version = _version;
+      }
 
+      }
     /// <summary>
     /// APIResourceList is a list of APIResource, it is used to expose the name of the resources
     /// supported in a specific group and version, and if the resource is namespaced.
@@ -16144,8 +22220,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly Meta.V1.APIResource[] Resources;
 
-    }
+      [OutputConstructor]
+      private APIResourceList(
+          string _groupVersion,
+          Meta.V1.APIResource[] _resources)
+      {
+          GroupVersion = _groupVersion;
+          Resources = _resources;
+      }
 
+      }
     /// <summary>
     /// APIVersions lists the versions that are available, to allow clients to discover the API at
     /// /api, which is the root path of the legacy v1 API.
@@ -16168,8 +22252,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string[] Versions;
 
-    }
+      [OutputConstructor]
+      private APIVersions(
+          Meta.V1.ServerAddressByClientCIDR[] _serverAddressByClientCIDRs,
+          string[] _versions)
+      {
+          ServerAddressByClientCIDRs = _serverAddressByClientCIDRs;
+          Versions = _versions;
+      }
 
+      }
     /// <summary>
     /// DeleteOptions may be provided when deleting an API object.
     /// </summary>
@@ -16213,8 +22305,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string PropagationPolicy;
 
-    }
+      [OutputConstructor]
+      private DeleteOptions(
+          string[] _dryRun,
+          int _gracePeriodSeconds,
+          bool _orphanDependents,
+          Meta.V1.Preconditions _preconditions,
+          string _propagationPolicy)
+      {
+          DryRun = _dryRun;
+          GracePeriodSeconds = _gracePeriodSeconds;
+          OrphanDependents = _orphanDependents;
+          Preconditions = _preconditions;
+          PropagationPolicy = _propagationPolicy;
+      }
 
+      }
     /// <summary>
     /// GroupVersion contains the "group/version" and "version" string of a version. It is made a
     /// struct to keep extensibility.
@@ -16231,8 +22337,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string Version;
 
-    }
+      [OutputConstructor]
+      private GroupVersionForDiscovery(
+          string _groupVersion,
+          string _version)
+      {
+          GroupVersion = _groupVersion;
+          Version = _version;
+      }
 
+      }
     /// <summary>
     /// A label selector is a label query over a set of resources. The result of matchLabels and
     /// matchExpressions are ANDed. An empty label selector matches all objects. A null label
@@ -16251,8 +22365,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly ImmutableDictionary<string, string> MatchLabels;
 
-    }
+      [OutputConstructor]
+      private LabelSelector(
+          Meta.V1.LabelSelectorRequirement[] _matchExpressions,
+          ImmutableDictionary<string, string> _matchLabels)
+      {
+          MatchExpressions = _matchExpressions;
+          MatchLabels = _matchLabels;
+      }
 
+      }
     /// <summary>
     /// A label selector requirement is a selector that contains values, a key, and an operator that
     /// relates the key and values.
@@ -16276,8 +22398,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string[] Values;
 
-    }
+      [OutputConstructor]
+      private LabelSelectorRequirement(
+          string _key,
+          string _operator,
+          string[] _values)
+      {
+          Key = _key;
+          Operator = _operator;
+          Values = _values;
+      }
 
+      }
     /// <summary>
     /// ListMeta describes metadata that synthetic resources must have, including lists and various
     /// status objects. A resource may have only one of {ObjectMeta, ListMeta}.
@@ -16323,8 +22455,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string SelfLink;
 
-    }
+      [OutputConstructor]
+      private ListMeta(
+          string _continue,
+          int _remainingItemCount,
+          string _resourceVersion,
+          string _selfLink)
+      {
+          Continue = _continue;
+          RemainingItemCount = _remainingItemCount;
+          ResourceVersion = _resourceVersion;
+          SelfLink = _selfLink;
+      }
 
+      }
     /// <summary>
     /// ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that
     /// the fieldset applies to.
@@ -16358,8 +22502,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string Time;
 
-    }
+      [OutputConstructor]
+      private ManagedFieldsEntry(
+          string _fieldsType,
+          object _fieldsV1,
+          string _manager,
+          string _operation,
+          string _time)
+      {
+          FieldsType = _fieldsType;
+          FieldsV1 = _fieldsV1;
+          Manager = _manager;
+          Operation = _operation;
+          Time = _time;
+      }
 
+      }
     /// <summary>
     /// ObjectMeta is metadata that all persisted resources must have, which includes all objects
     /// users must create.
@@ -16527,8 +22685,44 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string Uid;
 
-    }
+      [OutputConstructor]
+      private ObjectMeta(
+          ImmutableDictionary<string, string> _annotations,
+          string _clusterName,
+          string _creationTimestamp,
+          int _deletionGracePeriodSeconds,
+          string _deletionTimestamp,
+          string[] _finalizers,
+          string _generateName,
+          int _generation,
+          ImmutableDictionary<string, string> _labels,
+          Meta.V1.ManagedFieldsEntry[] _managedFields,
+          string _name,
+          string _namespace,
+          Meta.V1.OwnerReference[] _ownerReferences,
+          string _resourceVersion,
+          string _selfLink,
+          string _uid)
+      {
+          Annotations = _annotations;
+          ClusterName = _clusterName;
+          CreationTimestamp = _creationTimestamp;
+          DeletionGracePeriodSeconds = _deletionGracePeriodSeconds;
+          DeletionTimestamp = _deletionTimestamp;
+          Finalizers = _finalizers;
+          GenerateName = _generateName;
+          Generation = _generation;
+          Labels = _labels;
+          ManagedFields = _managedFields;
+          Name = _name;
+          Namespace = _namespace;
+          OwnerReferences = _ownerReferences;
+          ResourceVersion = _resourceVersion;
+          SelfLink = _selfLink;
+          Uid = _uid;
+      }
 
+      }
     /// <summary>
     /// OwnerReference contains enough information to let you identify an owning object. An owning
     /// object must be in the same namespace as the dependent, or be cluster-scoped, so there is no
@@ -16558,8 +22752,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string Uid;
 
-    }
+      [OutputConstructor]
+      private OwnerReference(
+          bool _blockOwnerDeletion,
+          bool _controller,
+          string _name,
+          string _uid)
+      {
+          BlockOwnerDeletion = _blockOwnerDeletion;
+          Controller = _controller;
+          Name = _name;
+          Uid = _uid;
+      }
 
+      }
     /// <summary>
     /// Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
     /// </summary>
@@ -16574,8 +22780,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string Uid;
 
-    }
+      [OutputConstructor]
+      private Preconditions(
+          string _resourceVersion,
+          string _uid)
+      {
+          ResourceVersion = _resourceVersion;
+          Uid = _uid;
+      }
 
+      }
     /// <summary>
     /// ServerAddressByClientCIDR helps the client to determine the server address that they should
     /// use, depending on the clientCIDR that they match.
@@ -16593,8 +22807,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string ServerAddress;
 
-    }
+      [OutputConstructor]
+      private ServerAddressByClientCIDR(
+          string _clientCIDR,
+          string _serverAddress)
+      {
+          ClientCIDR = _clientCIDR;
+          ServerAddress = _serverAddress;
+      }
 
+      }
     /// <summary>
     /// Status is a return value for calls that don't return other objects.
     /// </summary>
@@ -16635,8 +22857,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string StatusValue;
 
-    }
+      [OutputConstructor]
+      private Status(
+          int _code,
+          Meta.V1.StatusDetails _details,
+          string _message,
+          Meta.V1.ListMeta _metadata,
+          string _reason,
+          string _status)
+      {
+          Code = _code;
+          Details = _details;
+          Message = _message;
+          Metadata = _metadata;
+          Reason = _reason;
+          StatusValue = _status;
+      }
 
+      }
     /// <summary>
     /// StatusCause provides more information about an api.Status failure, including cases when
     /// multiple errors are encountered.
@@ -16666,8 +22904,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string Reason;
 
-    }
+      [OutputConstructor]
+      private StatusCause(
+          string _field,
+          string _message,
+          string _reason)
+      {
+          Field = _field;
+          Message = _message;
+          Reason = _reason;
+      }
 
+      }
     /// <summary>
     /// StatusDetails is a set of additional properties that MAY be set by the server to provide
     /// additional information about a response. The Reason field of a Status object defines what
@@ -16706,8 +22954,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
         /// </summary>
       public readonly string Uid;
 
-    }
+      [OutputConstructor]
+      private StatusDetails(
+          Meta.V1.StatusCause[] _causes,
+          string _group,
+          string _name,
+          int _retryAfterSeconds,
+          string _uid)
+      {
+          Causes = _causes;
+          Group = _group;
+          Name = _name;
+          RetryAfterSeconds = _retryAfterSeconds;
+          Uid = _uid;
+      }
 
+      }
     /// <summary>
     /// Event represents a single event to a watched resource.
     /// </summary>
@@ -16724,8 +22986,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta {
       
       public readonly string Type;
 
-    }
+      [OutputConstructor]
+      private WatchEvent(
+          object _object,
+          string _type)
+      {
+          Object = _object;
+          Type = _type;
+      }
 
+      }
   }
 
 }
@@ -16749,8 +23019,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly string[] Except;
 
-    }
+      [OutputConstructor]
+      private IPBlock(
+          string _cidr,
+          string[] _except)
+      {
+          Cidr = _cidr;
+          Except = _except;
+      }
 
+      }
     /// <summary>
     /// NetworkPolicy describes what network traffic is allowed for a set of Pods
     /// </summary>
@@ -16766,8 +23044,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Networking.V1.NetworkPolicySpec Spec;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicy(
+          Meta.V1.ObjectMeta _metadata,
+          Networking.V1.NetworkPolicySpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods
     /// matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This
@@ -16791,8 +23077,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Networking.V1.NetworkPolicyPeer[] To;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyEgressRule(
+          Networking.V1.NetworkPolicyPort[] _ports,
+          Networking.V1.NetworkPolicyPeer[] _to)
+      {
+          Ports = _ports;
+          To = _to;
+      }
 
+      }
     /// <summary>
     /// NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods
     /// matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
@@ -16816,8 +23110,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Networking.V1.NetworkPolicyPort[] Ports;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyIngressRule(
+          Networking.V1.NetworkPolicyPeer[] _from,
+          Networking.V1.NetworkPolicyPort[] _ports)
+      {
+          From = _from;
+          Ports = _ports;
+      }
 
+      }
     /// <summary>
     /// NetworkPolicyList is a list of NetworkPolicy objects.
     /// </summary>
@@ -16833,8 +23135,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyList(
+          Networking.V1.NetworkPolicy[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// NetworkPolicyPeer describes a peer to allow traffic from. Only certain combinations of
     /// fields are allowed
@@ -16866,8 +23176,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Meta.V1.LabelSelector PodSelector;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyPeer(
+          Networking.V1.IPBlock _ipBlock,
+          Meta.V1.LabelSelector _namespaceSelector,
+          Meta.V1.LabelSelector _podSelector)
+      {
+          IpBlock = _ipBlock;
+          NamespaceSelector = _namespaceSelector;
+          PodSelector = _podSelector;
+      }
 
+      }
     /// <summary>
     /// NetworkPolicyPort describes a port to allow traffic on
     /// </summary>
@@ -16884,8 +23204,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly string Protocol;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicyPort(
+          int /* TODO: or string */ _port,
+          string _protocol)
+      {
+          Port = _port;
+          Protocol = _protocol;
+      }
 
+      }
     /// <summary>
     /// NetworkPolicySpec provides the specification of a NetworkPolicy
     /// </summary>
@@ -16932,8 +23260,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly string[] PolicyTypes;
 
-    }
+      [OutputConstructor]
+      private NetworkPolicySpec(
+          Networking.V1.NetworkPolicyEgressRule[] _egress,
+          Networking.V1.NetworkPolicyIngressRule[] _ingress,
+          Meta.V1.LabelSelector _podSelector,
+          string[] _policyTypes)
+      {
+          Egress = _egress;
+          Ingress = _ingress;
+          PodSelector = _podSelector;
+          PolicyTypes = _policyTypes;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -16957,13 +23297,21 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly string Path;
 
-    }
+      [OutputConstructor]
+      private HTTPIngressPath(
+          Networking.V1Beta1.IngressBackend _backend,
+          string _path)
+      {
+          Backend = _backend;
+          Path = _path;
+      }
 
+      }
     /// <summary>
     /// HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example:
-    /// http://&lt;host&gt;/&lt;path&gt;?&lt;searchpart&gt; -&gt; backend where where parts of the
-    /// url correspond to RFC 3986, this resource will be used to match against everything after the
-    /// last '/' and before the first '?' or '#'.
+    /// http://&amp;lt;host&amp;gt;/&amp;lt;path&amp;gt;?&amp;lt;searchpart&amp;gt; -&amp;gt;
+    /// backend where where parts of the url correspond to RFC 3986, this resource will be used to
+    /// match against everything after the last '/' and before the first '?' or '#'.
     /// </summary>
     public sealed class HTTPIngressRuleValue {
       /// <summary>
@@ -16971,8 +23319,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Networking.V1Beta1.HTTPIngressPath[] Paths;
 
-    }
+      [OutputConstructor]
+      private HTTPIngressRuleValue(
+          Networking.V1Beta1.HTTPIngressPath[] _paths)
+      {
+          Paths = _paths;
+      }
 
+      }
     /// <summary>
     /// Ingress is a collection of rules that allow inbound connections to reach the endpoints
     /// defined by a backend. An Ingress can be configured to give services externally-reachable
@@ -16997,8 +23351,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Networking.V1Beta1.IngressStatus Status;
 
-    }
+      [OutputConstructor]
+      private Ingress(
+          Meta.V1.ObjectMeta _metadata,
+          Networking.V1Beta1.IngressSpec _spec,
+          Networking.V1Beta1.IngressStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// IngressBackend describes all endpoints for a given service and port.
     /// </summary>
@@ -17013,8 +23377,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly int /* TODO: or string */ ServicePort;
 
-    }
+      [OutputConstructor]
+      private IngressBackend(
+          string _serviceName,
+          int /* TODO: or string */ _servicePort)
+      {
+          ServiceName = _serviceName;
+          ServicePort = _servicePort;
+      }
 
+      }
     /// <summary>
     /// IngressList is a collection of Ingress.
     /// </summary>
@@ -17030,8 +23402,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private IngressList(
+          Networking.V1Beta1.Ingress[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// IngressRule represents the rules mapping the paths under a specified host to the related
     /// backend services. Incoming requests are first evaluated for a host match, then routed to the
@@ -17055,8 +23435,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
       
       public readonly Networking.V1Beta1.HTTPIngressRuleValue Http;
 
-    }
+      [OutputConstructor]
+      private IngressRule(
+          string _host,
+          Networking.V1Beta1.HTTPIngressRuleValue _http)
+      {
+          Host = _host;
+          Http = _http;
+      }
 
+      }
     /// <summary>
     /// IngressSpec describes the Ingress the user wishes to exist.
     /// </summary>
@@ -17082,8 +23470,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Networking.V1Beta1.IngressTLS[] Tls;
 
-    }
+      [OutputConstructor]
+      private IngressSpec(
+          Networking.V1Beta1.IngressBackend _backend,
+          Networking.V1Beta1.IngressRule[] _rules,
+          Networking.V1Beta1.IngressTLS[] _tls)
+      {
+          Backend = _backend;
+          Rules = _rules;
+          Tls = _tls;
+      }
 
+      }
     /// <summary>
     /// IngressStatus describe the current state of the Ingress.
     /// </summary>
@@ -17093,8 +23491,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly Core.V1.LoadBalancerStatus LoadBalancer;
 
-    }
+      [OutputConstructor]
+      private IngressStatus(
+          Core.V1.LoadBalancerStatus _loadBalancer)
+      {
+          LoadBalancer = _loadBalancer;
+      }
 
+      }
     /// <summary>
     /// IngressTLS describes the transport layer security associated with an Ingress.
     /// </summary>
@@ -17114,8 +23518,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking {
         /// </summary>
       public readonly string SecretName;
 
-    }
+      [OutputConstructor]
+      private IngressTLS(
+          string[] _hosts,
+          string _secretName)
+      {
+          Hosts = _hosts;
+          SecretName = _secretName;
+      }
 
+      }
   }
 
 }
@@ -17131,8 +23543,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// </summary>
       public readonly object PodFixed;
 
-    }
+      [OutputConstructor]
+      private Overhead(
+          object _podFixed)
+      {
+          PodFixed = _podFixed;
+      }
 
+      }
     /// <summary>
     /// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass
     /// is used to determine which container runtime is used to run all containers in a pod.
@@ -17154,8 +23572,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// </summary>
       public readonly Node.V1Alpha1.RuntimeClassSpec Spec;
 
-    }
+      [OutputConstructor]
+      private RuntimeClass(
+          Meta.V1.ObjectMeta _metadata,
+          Node.V1Alpha1.RuntimeClassSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// RuntimeClassList is a list of RuntimeClass objects.
     /// </summary>
@@ -17171,8 +23597,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private RuntimeClassList(
+          Node.V1Alpha1.RuntimeClass[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are
     /// required to describe the RuntimeClass to the Container Runtime Interface (CRI)
@@ -17192,11 +23626,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
       /// <summary>
         /// RuntimeHandler specifies the underlying runtime and configuration that the CRI
         /// implementation will use to handle pods of this class. The possible values are specific
-        /// to the node & CRI configuration.  It is assumed that all handlers are available on every
-        /// node, and handlers of the same name are equivalent on every node. For example, a handler
-        /// called "runc" might specify that the runc OCI runtime (using native Linux containers)
-        /// will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS
-        /// Label (RFC 1123) requirements and is immutable.
+        /// to the node &amp; CRI configuration.  It is assumed that all handlers are available on
+        /// every node, and handlers of the same name are equivalent on every node. For example, a
+        /// handler called "runc" might specify that the runc OCI runtime (using native Linux
+        /// containers) will be used to run the containers in a pod. The RuntimeHandler must conform
+        /// to the DNS Label (RFC 1123) requirements and is immutable.
         /// </summary>
       public readonly string RuntimeHandler;
 
@@ -17207,8 +23641,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// </summary>
       public readonly Node.V1Alpha1.Scheduling Scheduling;
 
-    }
+      [OutputConstructor]
+      private RuntimeClassSpec(
+          Node.V1Alpha1.Overhead _overhead,
+          string _runtimeHandler,
+          Node.V1Alpha1.Scheduling _scheduling)
+      {
+          Overhead = _overhead;
+          RuntimeHandler = _runtimeHandler;
+          Scheduling = _scheduling;
+      }
 
+      }
     /// <summary>
     /// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     /// </summary>
@@ -17228,8 +23672,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// </summary>
       public readonly Core.V1.Toleration[] Tolerations;
 
-    }
+      [OutputConstructor]
+      private Scheduling(
+          ImmutableDictionary<string, string> _nodeSelector,
+          Core.V1.Toleration[] _tolerations)
+      {
+          NodeSelector = _nodeSelector;
+          Tolerations = _tolerations;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -17242,8 +23694,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// </summary>
       public readonly object PodFixed;
 
-    }
+      [OutputConstructor]
+      private Overhead(
+          object _podFixed)
+      {
+          PodFixed = _podFixed;
+      }
 
+      }
     /// <summary>
     /// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass
     /// is used to determine which container runtime is used to run all containers in a pod.
@@ -17255,12 +23713,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
     public sealed class RuntimeClass {
       /// <summary>
         /// Handler specifies the underlying runtime and configuration that the CRI implementation
-        /// will use to handle pods of this class. The possible values are specific to the node &
-        /// CRI configuration.  It is assumed that all handlers are available on every node, and
-        /// handlers of the same name are equivalent on every node. For example, a handler called
-        /// "runc" might specify that the runc OCI runtime (using native Linux containers) will be
-        /// used to run the containers in a pod. The Handler must conform to the DNS Label (RFC
-        /// 1123) requirements, and is immutable.
+        /// will use to handle pods of this class. The possible values are specific to the node
+        /// &amp; CRI configuration.  It is assumed that all handlers are available on every node,
+        /// and handlers of the same name are equivalent on every node. For example, a handler
+        /// called "runc" might specify that the runc OCI runtime (using native Linux containers)
+        /// will be used to run the containers in a pod. The Handler must conform to the DNS Label
+        /// (RFC 1123) requirements, and is immutable.
         /// </summary>
       public readonly string Handler;
 
@@ -17286,8 +23744,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// </summary>
       public readonly Node.V1Beta1.Scheduling Scheduling;
 
-    }
+      [OutputConstructor]
+      private RuntimeClass(
+          string _handler,
+          Meta.V1.ObjectMeta _metadata,
+          Node.V1Beta1.Overhead _overhead,
+          Node.V1Beta1.Scheduling _scheduling)
+      {
+          Handler = _handler;
+          Metadata = _metadata;
+          Overhead = _overhead;
+          Scheduling = _scheduling;
+      }
 
+      }
     /// <summary>
     /// RuntimeClassList is a list of RuntimeClass objects.
     /// </summary>
@@ -17303,8 +23773,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private RuntimeClassList(
+          Node.V1Beta1.RuntimeClass[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     /// </summary>
@@ -17324,8 +23802,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node {
         /// </summary>
       public readonly Core.V1.Toleration[] Tolerations;
 
-    }
+      [OutputConstructor]
+      private Scheduling(
+          ImmutableDictionary<string, string> _nodeSelector,
+          Core.V1.Toleration[] _tolerations)
+      {
+          NodeSelector = _nodeSelector;
+          Tolerations = _tolerations;
+      }
 
+      }
   }
 
 }
@@ -17363,8 +23849,30 @@ namespace Pulumi.Kubernetes.Types.Outputs.Pkg {
       
       public readonly string Platform;
 
-    }
+      [OutputConstructor]
+      private Info(
+          string _buildDate,
+          string _compiler,
+          string _gitCommit,
+          string _gitTreeState,
+          string _gitVersion,
+          string _goVersion,
+          string _major,
+          string _minor,
+          string _platform)
+      {
+          BuildDate = _buildDate;
+          Compiler = _compiler;
+          GitCommit = _gitCommit;
+          GitTreeState = _gitTreeState;
+          GitVersion = _gitVersion;
+          GoVersion = _goVersion;
+          Major = _major;
+          Minor = _minor;
+          Platform = _platform;
+      }
 
+      }
   }
 
 }
@@ -17380,8 +23888,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private AllowedCSIDriver(
+          string _name)
+      {
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
     /// </summary>
@@ -17391,8 +23905,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly string Driver;
 
-    }
+      [OutputConstructor]
+      private AllowedFlexVolume(
+          string _driver)
+      {
+          Driver = _driver;
+      }
 
+      }
     /// <summary>
     /// AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods
     /// to use. It requires the path prefix to be defined.
@@ -17413,12 +23933,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly bool ReadOnly;
 
-    }
+      [OutputConstructor]
+      private AllowedHostPath(
+          string _pathPrefix,
+          bool _readOnly)
+      {
+          PathPrefix = _pathPrefix;
+          ReadOnly = _readOnly;
+      }
 
+      }
     /// <summary>
     /// Eviction evicts a pod from its node subject to certain policies and safety constraints. This
     /// is a subresource of Pod.  A request to cause such an eviction is created by POSTing to
-    /// .../pods/&lt;pod name&gt;/evictions.
+    /// .../pods/&amp;lt;pod name&amp;gt;/evictions.
     /// </summary>
     public sealed class Eviction {
       /// <summary>
@@ -17431,8 +23959,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly Meta.V1.ObjectMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private Eviction(
+          Meta.V1.DeleteOptions _deleteOptions,
+          Meta.V1.ObjectMeta _metadata)
+      {
+          DeleteOptions = _deleteOptions;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
     /// </summary>
@@ -17448,8 +23984,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly string Rule;
 
-    }
+      [OutputConstructor]
+      private FSGroupStrategyOptions(
+          Policy.V1Beta1.IDRange[] _ranges,
+          string _rule)
+      {
+          Ranges = _ranges;
+          Rule = _rule;
+      }
 
+      }
     /// <summary>
     /// HostPortRange defines a range of host ports that will be enabled by a policy for pods to
     /// use.  It requires both the start and end to be defined.
@@ -17465,8 +24009,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly int Min;
 
-    }
+      [OutputConstructor]
+      private HostPortRange(
+          int _max,
+          int _min)
+      {
+          Max = _max;
+          Min = _min;
+      }
 
+      }
     /// <summary>
     /// IDRange provides a min/max of an allowed range of IDs.
     /// </summary>
@@ -17481,8 +24033,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly int Min;
 
-    }
+      [OutputConstructor]
+      private IDRange(
+          int _max,
+          int _min)
+      {
+          Max = _max;
+          Min = _min;
+      }
 
+      }
     /// <summary>
     /// PodDisruptionBudget is an object to define the max disruption that can be caused to a
     /// collection of pods
@@ -17501,8 +24061,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly Policy.V1Beta1.PodDisruptionBudgetStatus Status;
 
-    }
+      [OutputConstructor]
+      private PodDisruptionBudget(
+          Meta.V1.ObjectMeta _metadata,
+          Policy.V1Beta1.PodDisruptionBudgetSpec _spec,
+          Policy.V1Beta1.PodDisruptionBudgetStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
     /// </summary>
@@ -17513,8 +24083,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
       
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PodDisruptionBudgetList(
+          Policy.V1Beta1.PodDisruptionBudget[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
     /// </summary>
@@ -17539,8 +24117,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly Meta.V1.LabelSelector Selector;
 
-    }
+      [OutputConstructor]
+      private PodDisruptionBudgetSpec(
+          int /* TODO: or string */ _maxUnavailable,
+          int /* TODO: or string */ _minAvailable,
+          Meta.V1.LabelSelector _selector)
+      {
+          MaxUnavailable = _maxUnavailable;
+          MinAvailable = _minAvailable;
+          Selector = _selector;
+      }
 
+      }
     /// <summary>
     /// PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget.
     /// Status may trail the actual state of a system.
@@ -17587,8 +24175,24 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly int ObservedGeneration;
 
-    }
+      [OutputConstructor]
+      private PodDisruptionBudgetStatus(
+          int _currentHealthy,
+          int _desiredHealthy,
+          object _disruptedPods,
+          int _disruptionsAllowed,
+          int _expectedPods,
+          int _observedGeneration)
+      {
+          CurrentHealthy = _currentHealthy;
+          DesiredHealthy = _desiredHealthy;
+          DisruptedPods = _disruptedPods;
+          DisruptionsAllowed = _disruptionsAllowed;
+          ExpectedPods = _expectedPods;
+          ObservedGeneration = _observedGeneration;
+      }
 
+      }
     /// <summary>
     /// PodSecurityPolicy governs the ability to make requests that affect the Security Context that
     /// will be applied to a pod and container.
@@ -17605,8 +24209,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly Policy.V1Beta1.PodSecurityPolicySpec Spec;
 
-    }
+      [OutputConstructor]
+      private PodSecurityPolicy(
+          Meta.V1.ObjectMeta _metadata,
+          Policy.V1Beta1.PodSecurityPolicySpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// PodSecurityPolicyList is a list of PodSecurityPolicy objects.
     /// </summary>
@@ -17622,8 +24234,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PodSecurityPolicyList(
+          Policy.V1Beta1.PodSecurityPolicy[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PodSecurityPolicySpec defines the policy enforced.
     /// </summary>
@@ -17786,8 +24406,60 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly string[] Volumes;
 
-    }
+      [OutputConstructor]
+      private PodSecurityPolicySpec(
+          bool _allowPrivilegeEscalation,
+          Policy.V1Beta1.AllowedCSIDriver[] _allowedCSIDrivers,
+          string[] _allowedCapabilities,
+          Policy.V1Beta1.AllowedFlexVolume[] _allowedFlexVolumes,
+          Policy.V1Beta1.AllowedHostPath[] _allowedHostPaths,
+          string[] _allowedProcMountTypes,
+          string[] _allowedUnsafeSysctls,
+          string[] _defaultAddCapabilities,
+          bool _defaultAllowPrivilegeEscalation,
+          string[] _forbiddenSysctls,
+          Policy.V1Beta1.FSGroupStrategyOptions _fsGroup,
+          bool _hostIPC,
+          bool _hostNetwork,
+          bool _hostPID,
+          Policy.V1Beta1.HostPortRange[] _hostPorts,
+          bool _privileged,
+          bool _readOnlyRootFilesystem,
+          string[] _requiredDropCapabilities,
+          Policy.V1Beta1.RunAsGroupStrategyOptions _runAsGroup,
+          Policy.V1Beta1.RunAsUserStrategyOptions _runAsUser,
+          Policy.V1Beta1.RuntimeClassStrategyOptions _runtimeClass,
+          Policy.V1Beta1.SELinuxStrategyOptions _seLinux,
+          Policy.V1Beta1.SupplementalGroupsStrategyOptions _supplementalGroups,
+          string[] _volumes)
+      {
+          AllowPrivilegeEscalation = _allowPrivilegeEscalation;
+          AllowedCSIDrivers = _allowedCSIDrivers;
+          AllowedCapabilities = _allowedCapabilities;
+          AllowedFlexVolumes = _allowedFlexVolumes;
+          AllowedHostPaths = _allowedHostPaths;
+          AllowedProcMountTypes = _allowedProcMountTypes;
+          AllowedUnsafeSysctls = _allowedUnsafeSysctls;
+          DefaultAddCapabilities = _defaultAddCapabilities;
+          DefaultAllowPrivilegeEscalation = _defaultAllowPrivilegeEscalation;
+          ForbiddenSysctls = _forbiddenSysctls;
+          FsGroup = _fsGroup;
+          HostIPC = _hostIPC;
+          HostNetwork = _hostNetwork;
+          HostPID = _hostPID;
+          HostPorts = _hostPorts;
+          Privileged = _privileged;
+          ReadOnlyRootFilesystem = _readOnlyRootFilesystem;
+          RequiredDropCapabilities = _requiredDropCapabilities;
+          RunAsGroup = _runAsGroup;
+          RunAsUser = _runAsUser;
+          RuntimeClass = _runtimeClass;
+          SeLinux = _seLinux;
+          SupplementalGroups = _supplementalGroups;
+          Volumes = _volumes;
+      }
 
+      }
     /// <summary>
     /// RunAsGroupStrategyOptions defines the strategy type and any options used to create the
     /// strategy.
@@ -17805,8 +24477,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly string Rule;
 
-    }
+      [OutputConstructor]
+      private RunAsGroupStrategyOptions(
+          Policy.V1Beta1.IDRange[] _ranges,
+          string _rule)
+      {
+          Ranges = _ranges;
+          Rule = _rule;
+      }
 
+      }
     /// <summary>
     /// RunAsUserStrategyOptions defines the strategy type and any options used to create the
     /// strategy.
@@ -17824,8 +24504,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly string Rule;
 
-    }
+      [OutputConstructor]
+      private RunAsUserStrategyOptions(
+          Policy.V1Beta1.IDRange[] _ranges,
+          string _rule)
+      {
+          Ranges = _ranges;
+          Rule = _rule;
+      }
 
+      }
     /// <summary>
     /// RuntimeClassStrategyOptions define the strategy that will dictate the allowable
     /// RuntimeClasses for a pod.
@@ -17845,8 +24533,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly string DefaultRuntimeClassName;
 
-    }
+      [OutputConstructor]
+      private RuntimeClassStrategyOptions(
+          string[] _allowedRuntimeClassNames,
+          string _defaultRuntimeClassName)
+      {
+          AllowedRuntimeClassNames = _allowedRuntimeClassNames;
+          DefaultRuntimeClassName = _defaultRuntimeClassName;
+      }
 
+      }
     /// <summary>
     /// SELinuxStrategyOptions defines the strategy type and any options used to create the
     /// strategy.
@@ -17863,8 +24559,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly Core.V1.SELinuxOptions SeLinuxOptions;
 
-    }
+      [OutputConstructor]
+      private SELinuxStrategyOptions(
+          string _rule,
+          Core.V1.SELinuxOptions _seLinuxOptions)
+      {
+          Rule = _rule;
+          SeLinuxOptions = _seLinuxOptions;
+      }
 
+      }
     /// <summary>
     /// SupplementalGroupsStrategyOptions defines the strategy type and options used to create the
     /// strategy.
@@ -17883,8 +24587,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy {
         /// </summary>
       public readonly string Rule;
 
-    }
+      [OutputConstructor]
+      private SupplementalGroupsStrategyOptions(
+          Policy.V1Beta1.IDRange[] _ranges,
+          string _rule)
+      {
+          Ranges = _ranges;
+          Rule = _rule;
+      }
 
+      }
   }
 
 }
@@ -17902,8 +24614,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.LabelSelector[] ClusterRoleSelectors;
 
-    }
+      [OutputConstructor]
+      private AggregationRule(
+          Meta.V1.LabelSelector[] _clusterRoleSelectors)
+      {
+          ClusterRoleSelectors = _clusterRoleSelectors;
+      }
 
+      }
     /// <summary>
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
     /// unit by a RoleBinding or ClusterRoleBinding.
@@ -17926,8 +24644,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1.PolicyRule[] Rules;
 
-    }
+      [OutputConstructor]
+      private ClusterRole(
+          Rbac.V1.AggregationRule _aggregationRule,
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1.PolicyRule[] _rules)
+      {
+          AggregationRule = _aggregationRule;
+          Metadata = _metadata;
+          Rules = _rules;
+      }
 
+      }
     /// <summary>
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
     /// ClusterRole in the global namespace, and adds who information via Subject.
@@ -17949,8 +24677,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1.Subject[] Subjects;
 
-    }
+      [OutputConstructor]
+      private ClusterRoleBinding(
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1.RoleRef _roleRef,
+          Rbac.V1.Subject[] _subjects)
+      {
+          Metadata = _metadata;
+          RoleRef = _roleRef;
+          Subjects = _subjects;
+      }
 
+      }
     /// <summary>
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
@@ -17965,8 +24703,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ClusterRoleBindingList(
+          Rbac.V1.ClusterRoleBinding[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ClusterRoleList is a collection of ClusterRoles
     /// </summary>
@@ -17981,8 +24727,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ClusterRoleList(
+          Rbac.V1.ClusterRole[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PolicyRule holds information that describes a policy rule, but does not contain information
     /// about who the rule applies to or which namespace the rule applies to.
@@ -18022,8 +24776,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly string[] Verbs;
 
-    }
+      [OutputConstructor]
+      private PolicyRule(
+          string[] _apiGroups,
+          string[] _nonResourceURLs,
+          string[] _resourceNames,
+          string[] _resources,
+          string[] _verbs)
+      {
+          ApiGroups = _apiGroups;
+          NonResourceURLs = _nonResourceURLs;
+          ResourceNames = _resourceNames;
+          Resources = _resources;
+          Verbs = _verbs;
+      }
 
+      }
     /// <summary>
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
     /// RoleBinding.
@@ -18039,8 +24807,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1.PolicyRule[] Rules;
 
-    }
+      [OutputConstructor]
+      private Role(
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1.PolicyRule[] _rules)
+      {
+          Metadata = _metadata;
+          Rules = _rules;
+      }
 
+      }
     /// <summary>
     /// RoleBinding references a role, but does not contain it.  It can reference a Role in the same
     /// namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
@@ -18064,8 +24840,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1.Subject[] Subjects;
 
-    }
+      [OutputConstructor]
+      private RoleBinding(
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1.RoleRef _roleRef,
+          Rbac.V1.Subject[] _subjects)
+      {
+          Metadata = _metadata;
+          RoleRef = _roleRef;
+          Subjects = _subjects;
+      }
 
+      }
     /// <summary>
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
@@ -18080,8 +24866,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private RoleBindingList(
+          Rbac.V1.RoleBinding[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// RoleList is a collection of Roles
     /// </summary>
@@ -18096,8 +24890,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private RoleList(
+          Rbac.V1.Role[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// RoleRef contains information that points to the role being used
     /// </summary>
@@ -18112,8 +24914,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private RoleRef(
+          string _apiGroup,
+          string _name)
+      {
+          ApiGroup = _apiGroup;
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// Subject contains a reference to the object or user identities a role binding applies to.
     /// This can either hold a direct API object reference, or a value for non-objects such as user
@@ -18138,8 +24948,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly string Namespace;
 
-    }
+      [OutputConstructor]
+      private Subject(
+          string _apiGroup,
+          string _name,
+          string _namespace)
+      {
+          ApiGroup = _apiGroup;
+          Name = _name;
+          Namespace = _namespace;
+      }
 
+      }
   }
 
   namespace V1Alpha1 {
@@ -18154,8 +24974,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.LabelSelector[] ClusterRoleSelectors;
 
-    }
+      [OutputConstructor]
+      private AggregationRule(
+          Meta.V1.LabelSelector[] _clusterRoleSelectors)
+      {
+          ClusterRoleSelectors = _clusterRoleSelectors;
+      }
 
+      }
     /// <summary>
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
     /// unit by a RoleBinding or ClusterRoleBinding.
@@ -18178,8 +25004,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1Alpha1.PolicyRule[] Rules;
 
-    }
+      [OutputConstructor]
+      private ClusterRole(
+          Rbac.V1Alpha1.AggregationRule _aggregationRule,
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1Alpha1.PolicyRule[] _rules)
+      {
+          AggregationRule = _aggregationRule;
+          Metadata = _metadata;
+          Rules = _rules;
+      }
 
+      }
     /// <summary>
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
     /// ClusterRole in the global namespace, and adds who information via Subject.
@@ -18201,8 +25037,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1Alpha1.Subject[] Subjects;
 
-    }
+      [OutputConstructor]
+      private ClusterRoleBinding(
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1Alpha1.RoleRef _roleRef,
+          Rbac.V1Alpha1.Subject[] _subjects)
+      {
+          Metadata = _metadata;
+          RoleRef = _roleRef;
+          Subjects = _subjects;
+      }
 
+      }
     /// <summary>
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
@@ -18217,8 +25063,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ClusterRoleBindingList(
+          Rbac.V1Alpha1.ClusterRoleBinding[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ClusterRoleList is a collection of ClusterRoles
     /// </summary>
@@ -18233,8 +25087,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ClusterRoleList(
+          Rbac.V1Alpha1.ClusterRole[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PolicyRule holds information that describes a policy rule, but does not contain information
     /// about who the rule applies to or which namespace the rule applies to.
@@ -18276,8 +25138,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly string[] Verbs;
 
-    }
+      [OutputConstructor]
+      private PolicyRule(
+          string[] _apiGroups,
+          string[] _nonResourceURLs,
+          string[] _resourceNames,
+          string[] _resources,
+          string[] _verbs)
+      {
+          ApiGroups = _apiGroups;
+          NonResourceURLs = _nonResourceURLs;
+          ResourceNames = _resourceNames;
+          Resources = _resources;
+          Verbs = _verbs;
+      }
 
+      }
     /// <summary>
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
     /// RoleBinding.
@@ -18293,8 +25169,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1Alpha1.PolicyRule[] Rules;
 
-    }
+      [OutputConstructor]
+      private Role(
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1Alpha1.PolicyRule[] _rules)
+      {
+          Metadata = _metadata;
+          Rules = _rules;
+      }
 
+      }
     /// <summary>
     /// RoleBinding references a role, but does not contain it.  It can reference a Role in the same
     /// namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
@@ -18318,8 +25202,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1Alpha1.Subject[] Subjects;
 
-    }
+      [OutputConstructor]
+      private RoleBinding(
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1Alpha1.RoleRef _roleRef,
+          Rbac.V1Alpha1.Subject[] _subjects)
+      {
+          Metadata = _metadata;
+          RoleRef = _roleRef;
+          Subjects = _subjects;
+      }
 
+      }
     /// <summary>
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
@@ -18334,8 +25228,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private RoleBindingList(
+          Rbac.V1Alpha1.RoleBinding[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// RoleList is a collection of Roles
     /// </summary>
@@ -18350,8 +25252,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private RoleList(
+          Rbac.V1Alpha1.Role[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// RoleRef contains information that points to the role being used
     /// </summary>
@@ -18366,8 +25276,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private RoleRef(
+          string _apiGroup,
+          string _name)
+      {
+          ApiGroup = _apiGroup;
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// Subject contains a reference to the object or user identities a role binding applies to.
     /// This can either hold a direct API object reference, or a value for non-objects such as user
@@ -18385,8 +25303,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly string Namespace;
 
-    }
+      [OutputConstructor]
+      private Subject(
+          string _name,
+          string _namespace)
+      {
+          Name = _name;
+          Namespace = _namespace;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -18401,8 +25327,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.LabelSelector[] ClusterRoleSelectors;
 
-    }
+      [OutputConstructor]
+      private AggregationRule(
+          Meta.V1.LabelSelector[] _clusterRoleSelectors)
+      {
+          ClusterRoleSelectors = _clusterRoleSelectors;
+      }
 
+      }
     /// <summary>
     /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a
     /// unit by a RoleBinding or ClusterRoleBinding.
@@ -18425,8 +25357,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1Beta1.PolicyRule[] Rules;
 
-    }
+      [OutputConstructor]
+      private ClusterRole(
+          Rbac.V1Beta1.AggregationRule _aggregationRule,
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1Beta1.PolicyRule[] _rules)
+      {
+          AggregationRule = _aggregationRule;
+          Metadata = _metadata;
+          Rules = _rules;
+      }
 
+      }
     /// <summary>
     /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a
     /// ClusterRole in the global namespace, and adds who information via Subject.
@@ -18448,8 +25390,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1Beta1.Subject[] Subjects;
 
-    }
+      [OutputConstructor]
+      private ClusterRoleBinding(
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1Beta1.RoleRef _roleRef,
+          Rbac.V1Beta1.Subject[] _subjects)
+      {
+          Metadata = _metadata;
+          RoleRef = _roleRef;
+          Subjects = _subjects;
+      }
 
+      }
     /// <summary>
     /// ClusterRoleBindingList is a collection of ClusterRoleBindings
     /// </summary>
@@ -18464,8 +25416,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ClusterRoleBindingList(
+          Rbac.V1Beta1.ClusterRoleBinding[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// ClusterRoleList is a collection of ClusterRoles
     /// </summary>
@@ -18480,8 +25440,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private ClusterRoleList(
+          Rbac.V1Beta1.ClusterRole[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PolicyRule holds information that describes a policy rule, but does not contain information
     /// about who the rule applies to or which namespace the rule applies to.
@@ -18522,8 +25490,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly string[] Verbs;
 
-    }
+      [OutputConstructor]
+      private PolicyRule(
+          string[] _apiGroups,
+          string[] _nonResourceURLs,
+          string[] _resourceNames,
+          string[] _resources,
+          string[] _verbs)
+      {
+          ApiGroups = _apiGroups;
+          NonResourceURLs = _nonResourceURLs;
+          ResourceNames = _resourceNames;
+          Resources = _resources;
+          Verbs = _verbs;
+      }
 
+      }
     /// <summary>
     /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a
     /// RoleBinding.
@@ -18539,8 +25521,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1Beta1.PolicyRule[] Rules;
 
-    }
+      [OutputConstructor]
+      private Role(
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1Beta1.PolicyRule[] _rules)
+      {
+          Metadata = _metadata;
+          Rules = _rules;
+      }
 
+      }
     /// <summary>
     /// RoleBinding references a role, but does not contain it.  It can reference a Role in the same
     /// namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
@@ -18564,8 +25554,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Rbac.V1Beta1.Subject[] Subjects;
 
-    }
+      [OutputConstructor]
+      private RoleBinding(
+          Meta.V1.ObjectMeta _metadata,
+          Rbac.V1Beta1.RoleRef _roleRef,
+          Rbac.V1Beta1.Subject[] _subjects)
+      {
+          Metadata = _metadata;
+          RoleRef = _roleRef;
+          Subjects = _subjects;
+      }
 
+      }
     /// <summary>
     /// RoleBindingList is a collection of RoleBindings
     /// </summary>
@@ -18580,8 +25580,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private RoleBindingList(
+          Rbac.V1Beta1.RoleBinding[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// RoleList is a collection of Roles
     /// </summary>
@@ -18596,8 +25604,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private RoleList(
+          Rbac.V1Beta1.Role[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// RoleRef contains information that points to the role being used
     /// </summary>
@@ -18612,8 +25628,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly string Name;
 
-    }
+      [OutputConstructor]
+      private RoleRef(
+          string _apiGroup,
+          string _name)
+      {
+          ApiGroup = _apiGroup;
+          Name = _name;
+      }
 
+      }
     /// <summary>
     /// Subject contains a reference to the object or user identities a role binding applies to.
     /// This can either hold a direct API object reference, or a value for non-objects such as user
@@ -18638,8 +25662,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac {
         /// </summary>
       public readonly string Namespace;
 
-    }
+      [OutputConstructor]
+      private Subject(
+          string _apiGroup,
+          string _name,
+          string _namespace)
+      {
+          ApiGroup = _apiGroup;
+          Name = _name;
+          Namespace = _namespace;
+      }
 
+      }
   }
 
 }
@@ -18686,8 +25720,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
         /// </summary>
       public readonly int Value;
 
-    }
+      [OutputConstructor]
+      private PriorityClass(
+          string _description,
+          bool _globalDefault,
+          Meta.V1.ObjectMeta _metadata,
+          string _preemptionPolicy,
+          int _value)
+      {
+          Description = _description;
+          GlobalDefault = _globalDefault;
+          Metadata = _metadata;
+          PreemptionPolicy = _preemptionPolicy;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
@@ -18703,8 +25751,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PriorityClassList(
+          Scheduling.V1.PriorityClass[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
   }
 
   namespace V1Alpha1 {
@@ -18749,8 +25805,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
         /// </summary>
       public readonly int Value;
 
-    }
+      [OutputConstructor]
+      private PriorityClass(
+          string _description,
+          bool _globalDefault,
+          Meta.V1.ObjectMeta _metadata,
+          string _preemptionPolicy,
+          int _value)
+      {
+          Description = _description;
+          GlobalDefault = _globalDefault;
+          Metadata = _metadata;
+          PreemptionPolicy = _preemptionPolicy;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
@@ -18766,8 +25836,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PriorityClassList(
+          Scheduling.V1Alpha1.PriorityClass[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -18812,8 +25890,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
         /// </summary>
       public readonly int Value;
 
-    }
+      [OutputConstructor]
+      private PriorityClass(
+          string _description,
+          bool _globalDefault,
+          Meta.V1.ObjectMeta _metadata,
+          string _preemptionPolicy,
+          int _value)
+      {
+          Description = _description;
+          GlobalDefault = _globalDefault;
+          Metadata = _metadata;
+          PreemptionPolicy = _preemptionPolicy;
+          Value = _value;
+      }
 
+      }
     /// <summary>
     /// PriorityClassList is a collection of priority classes.
     /// </summary>
@@ -18829,8 +25921,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PriorityClassList(
+          Scheduling.V1Beta1.PriorityClass[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
   }
 
 }
@@ -18847,8 +25947,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
       
       public readonly Settings.V1Alpha1.PodPresetSpec Spec;
 
-    }
+      [OutputConstructor]
+      private PodPreset(
+          Meta.V1.ObjectMeta _metadata,
+          Settings.V1Alpha1.PodPresetSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// PodPresetList is a list of PodPreset objects.
     /// </summary>
@@ -18864,8 +25972,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private PodPresetList(
+          Settings.V1Alpha1.PodPreset[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// PodPresetSpec is a description of a pod preset.
     /// </summary>
@@ -18895,8 +26011,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Settings {
         /// </summary>
       public readonly Core.V1.Volume[] Volumes;
 
-    }
+      [OutputConstructor]
+      private PodPresetSpec(
+          Core.V1.EnvVar[] _env,
+          Core.V1.EnvFromSource[] _envFrom,
+          Meta.V1.LabelSelector _selector,
+          Core.V1.VolumeMount[] _volumeMounts,
+          Core.V1.Volume[] _volumes)
+      {
+          Env = _env;
+          EnvFrom = _envFrom;
+          Selector = _selector;
+          VolumeMounts = _volumeMounts;
+          Volumes = _volumes;
+      }
 
+      }
   }
 
 }
@@ -18961,8 +26091,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string VolumeBindingMode;
 
-    }
+      [OutputConstructor]
+      private StorageClass(
+          bool _allowVolumeExpansion,
+          Core.V1.TopologySelectorTerm[] _allowedTopologies,
+          Meta.V1.ObjectMeta _metadata,
+          string[] _mountOptions,
+          ImmutableDictionary<string, string> _parameters,
+          string _provisioner,
+          string _reclaimPolicy,
+          string _volumeBindingMode)
+      {
+          AllowVolumeExpansion = _allowVolumeExpansion;
+          AllowedTopologies = _allowedTopologies;
+          Metadata = _metadata;
+          MountOptions = _mountOptions;
+          Parameters = _parameters;
+          Provisioner = _provisioner;
+          ReclaimPolicy = _reclaimPolicy;
+          VolumeBindingMode = _volumeBindingMode;
+      }
 
+      }
     /// <summary>
     /// StorageClassList is a collection of storage classes.
     /// </summary>
@@ -18978,8 +26128,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private StorageClassList(
+          Storage.V1.StorageClass[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachment captures the intent to attach or detach the specified volume to/from the
     /// specified node.
@@ -19005,8 +26163,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1.VolumeAttachmentStatus Status;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachment(
+          Meta.V1.ObjectMeta _metadata,
+          Storage.V1.VolumeAttachmentSpec _spec,
+          Storage.V1.VolumeAttachmentStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
@@ -19022,8 +26190,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentList(
+          Storage.V1.VolumeAttachment[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentSource represents a volume that should be attached. Right now only
     /// PersistenVolumes can be attached via external attacher, in future we may allow also inline
@@ -19044,8 +26220,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string PersistentVolumeName;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentSource(
+          Core.V1.PersistentVolumeSpec _inlineVolumeSpec,
+          string _persistentVolumeName)
+      {
+          InlineVolumeSpec = _inlineVolumeSpec;
+          PersistentVolumeName = _persistentVolumeName;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
@@ -19066,8 +26250,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1.VolumeAttachmentSource Source;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentSpec(
+          string _attacher,
+          string _nodeName,
+          Storage.V1.VolumeAttachmentSource _source)
+      {
+          Attacher = _attacher;
+          NodeName = _nodeName;
+          Source = _source;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
@@ -19098,8 +26292,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1.VolumeError DetachError;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentStatus(
+          Storage.V1.VolumeError _attachError,
+          bool _attached,
+          ImmutableDictionary<string, string> _attachmentMetadata,
+          Storage.V1.VolumeError _detachError)
+      {
+          AttachError = _attachError;
+          Attached = _attached;
+          AttachmentMetadata = _attachmentMetadata;
+          DetachError = _detachError;
+      }
 
+      }
     /// <summary>
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
@@ -19115,8 +26321,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string Time;
 
-    }
+      [OutputConstructor]
+      private VolumeError(
+          string _message,
+          string _time)
+      {
+          Message = _message;
+          Time = _time;
+      }
 
+      }
   }
 
   namespace V1Alpha1 {
@@ -19145,8 +26359,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1Alpha1.VolumeAttachmentStatus Status;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachment(
+          Meta.V1.ObjectMeta _metadata,
+          Storage.V1Alpha1.VolumeAttachmentSpec _spec,
+          Storage.V1Alpha1.VolumeAttachmentStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
@@ -19162,8 +26386,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentList(
+          Storage.V1Alpha1.VolumeAttachment[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentSource represents a volume that should be attached. Right now only
     /// PersistenVolumes can be attached via external attacher, in future we may allow also inline
@@ -19184,8 +26416,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string PersistentVolumeName;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentSource(
+          Core.V1.PersistentVolumeSpec _inlineVolumeSpec,
+          string _persistentVolumeName)
+      {
+          InlineVolumeSpec = _inlineVolumeSpec;
+          PersistentVolumeName = _persistentVolumeName;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
@@ -19206,8 +26446,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1Alpha1.VolumeAttachmentSource Source;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentSpec(
+          string _attacher,
+          string _nodeName,
+          Storage.V1Alpha1.VolumeAttachmentSource _source)
+      {
+          Attacher = _attacher;
+          NodeName = _nodeName;
+          Source = _source;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
@@ -19238,8 +26488,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1Alpha1.VolumeError DetachError;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentStatus(
+          Storage.V1Alpha1.VolumeError _attachError,
+          bool _attached,
+          ImmutableDictionary<string, string> _attachmentMetadata,
+          Storage.V1Alpha1.VolumeError _detachError)
+      {
+          AttachError = _attachError;
+          Attached = _attached;
+          AttachmentMetadata = _attachmentMetadata;
+          DetachError = _detachError;
+      }
 
+      }
     /// <summary>
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
@@ -19255,8 +26517,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string Time;
 
-    }
+      [OutputConstructor]
+      private VolumeError(
+          string _message,
+          string _time)
+      {
+          Message = _message;
+          Time = _time;
+      }
 
+      }
   }
 
   namespace V1Beta1 {
@@ -19285,8 +26555,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1Beta1.CSIDriverSpec Spec;
 
-    }
+      [OutputConstructor]
+      private CSIDriver(
+          Meta.V1.ObjectMeta _metadata,
+          Storage.V1Beta1.CSIDriverSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// CSIDriverList is a collection of CSIDriver objects.
     /// </summary>
@@ -19302,8 +26580,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private CSIDriverList(
+          Storage.V1Beta1.CSIDriver[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// CSIDriverSpec is the specification of a CSIDriver.
     /// </summary>
@@ -19356,8 +26642,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string[] VolumeLifecycleModes;
 
-    }
+      [OutputConstructor]
+      private CSIDriverSpec(
+          bool _attachRequired,
+          bool _podInfoOnMount,
+          string[] _volumeLifecycleModes)
+      {
+          AttachRequired = _attachRequired;
+          PodInfoOnMount = _podInfoOnMount;
+          VolumeLifecycleModes = _volumeLifecycleModes;
+      }
 
+      }
     /// <summary>
     /// CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
     /// to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
@@ -19378,8 +26674,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1Beta1.CSINodeSpec Spec;
 
-    }
+      [OutputConstructor]
+      private CSINode(
+          Meta.V1.ObjectMeta _metadata,
+          Storage.V1Beta1.CSINodeSpec _spec)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+      }
 
+      }
     /// <summary>
     /// CSINodeDriver holds information about the specification of one CSI driver installed on a
     /// node
@@ -19419,8 +26723,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string[] TopologyKeys;
 
-    }
+      [OutputConstructor]
+      private CSINodeDriver(
+          Storage.V1Beta1.VolumeNodeResources _allocatable,
+          string _name,
+          string _nodeID,
+          string[] _topologyKeys)
+      {
+          Allocatable = _allocatable;
+          Name = _name;
+          NodeID = _nodeID;
+          TopologyKeys = _topologyKeys;
+      }
 
+      }
     /// <summary>
     /// CSINodeList is a collection of CSINode objects.
     /// </summary>
@@ -19436,8 +26752,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private CSINodeList(
+          Storage.V1Beta1.CSINode[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
     /// </summary>
@@ -19448,8 +26772,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1Beta1.CSINodeDriver[] Drivers;
 
-    }
+      [OutputConstructor]
+      private CSINodeSpec(
+          Storage.V1Beta1.CSINodeDriver[] _drivers)
+      {
+          Drivers = _drivers;
+      }
 
+      }
     /// <summary>
     /// StorageClass describes the parameters for a class of storage for which PersistentVolumes can
     /// be dynamically provisioned.
@@ -19508,8 +26838,28 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string VolumeBindingMode;
 
-    }
+      [OutputConstructor]
+      private StorageClass(
+          bool _allowVolumeExpansion,
+          Core.V1.TopologySelectorTerm[] _allowedTopologies,
+          Meta.V1.ObjectMeta _metadata,
+          string[] _mountOptions,
+          ImmutableDictionary<string, string> _parameters,
+          string _provisioner,
+          string _reclaimPolicy,
+          string _volumeBindingMode)
+      {
+          AllowVolumeExpansion = _allowVolumeExpansion;
+          AllowedTopologies = _allowedTopologies;
+          Metadata = _metadata;
+          MountOptions = _mountOptions;
+          Parameters = _parameters;
+          Provisioner = _provisioner;
+          ReclaimPolicy = _reclaimPolicy;
+          VolumeBindingMode = _volumeBindingMode;
+      }
 
+      }
     /// <summary>
     /// StorageClassList is a collection of storage classes.
     /// </summary>
@@ -19525,8 +26875,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private StorageClassList(
+          Storage.V1Beta1.StorageClass[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachment captures the intent to attach or detach the specified volume to/from the
     /// specified node.
@@ -19552,8 +26910,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1Beta1.VolumeAttachmentStatus Status;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachment(
+          Meta.V1.ObjectMeta _metadata,
+          Storage.V1Beta1.VolumeAttachmentSpec _spec,
+          Storage.V1Beta1.VolumeAttachmentStatus _status)
+      {
+          Metadata = _metadata;
+          Spec = _spec;
+          Status = _status;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentList is a collection of VolumeAttachment objects.
     /// </summary>
@@ -19569,8 +26937,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Meta.V1.ListMeta Metadata;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentList(
+          Storage.V1Beta1.VolumeAttachment[] _items,
+          Meta.V1.ListMeta _metadata)
+      {
+          Items = _items;
+          Metadata = _metadata;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentSource represents a volume that should be attached. Right now only
     /// PersistenVolumes can be attached via external attacher, in future we may allow also inline
@@ -19591,8 +26967,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string PersistentVolumeName;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentSource(
+          Core.V1.PersistentVolumeSpec _inlineVolumeSpec,
+          string _persistentVolumeName)
+      {
+          InlineVolumeSpec = _inlineVolumeSpec;
+          PersistentVolumeName = _persistentVolumeName;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
@@ -19613,8 +26997,18 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1Beta1.VolumeAttachmentSource Source;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentSpec(
+          string _attacher,
+          string _nodeName,
+          Storage.V1Beta1.VolumeAttachmentSource _source)
+      {
+          Attacher = _attacher;
+          NodeName = _nodeName;
+          Source = _source;
+      }
 
+      }
     /// <summary>
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
@@ -19645,8 +27039,20 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly Storage.V1Beta1.VolumeError DetachError;
 
-    }
+      [OutputConstructor]
+      private VolumeAttachmentStatus(
+          Storage.V1Beta1.VolumeError _attachError,
+          bool _attached,
+          ImmutableDictionary<string, string> _attachmentMetadata,
+          Storage.V1Beta1.VolumeError _detachError)
+      {
+          AttachError = _attachError;
+          Attached = _attached;
+          AttachmentMetadata = _attachmentMetadata;
+          DetachError = _detachError;
+      }
 
+      }
     /// <summary>
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
@@ -19662,8 +27068,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly string Time;
 
-    }
+      [OutputConstructor]
+      private VolumeError(
+          string _message,
+          string _time)
+      {
+          Message = _message;
+          Time = _time;
+      }
 
+      }
     /// <summary>
     /// VolumeNodeResources is a set of resource limits for scheduling of volumes.
     /// </summary>
@@ -19677,8 +27091,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage {
         /// </summary>
       public readonly int Count;
 
-    }
+      [OutputConstructor]
+      private VolumeNodeResources(
+          int _count)
+      {
+          Count = _count;
+      }
 
+      }
   }
 
 }

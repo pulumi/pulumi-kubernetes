@@ -1053,7 +1053,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
     /// <summary>
     /// CustomResourceDefinition represents a resource that should be exposed on the API server.
-    /// Its name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;.
+    /// Its name MUST be in the format &amp;lt;.spec.name&amp;gt;.&amp;lt;.spec.group&amp;gt;.
     /// </summary>
     public class CustomResourceDefinition : Pulumi.ResourceArgs {
         /// <summary>
@@ -1118,9 +1118,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
     public class CustomResourceDefinitionNames : Pulumi.ResourceArgs {
         /// <summary>
         /// plural is the plural name of the resource to serve. The custom resources are served
-        /// under `/apis/&lt;group&gt;/&lt;version&gt;/.../&lt;plural&gt;`. Must match the name of
-        /// the CustomResourceDefinition (in the form `&lt;names.plural&gt;.&lt;group&gt;`). Must be
-        /// all lowercase.
+        /// under `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/.../&amp;lt;plural&amp;gt;`.
+        /// Must match the name of the CustomResourceDefinition (in the form
+        /// `&amp;lt;names.plural&amp;gt;.&amp;lt;group&amp;gt;`). Must be all lowercase.
         /// </summary>
         public Input<string> Plural { get; set; } = null!;
 
@@ -1138,8 +1138,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
         /// <summary>
         /// shortNames are short names for the resource, exposed in API discovery documents, and
-        /// used by clients to support invocations like `kubectl get &lt;shortname&gt;`. It must be
-        /// all lowercase.
+        /// used by clients to support invocations like `kubectl get &amp;lt;shortname&amp;gt;`. It
+        /// must be all lowercase.
         /// </summary>
         public Input<Input<string>[]>? ShortNames { get; set; }
 
@@ -1157,8 +1157,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
     public class CustomResourceDefinitionSpec : Pulumi.ResourceArgs {
         /// <summary>
         /// group is the API group of the defined custom resource. The custom resources are served
-        /// under `/apis/&lt;group&gt;/...`. Must match the name of the CustomResourceDefinition (in
-        /// the form `&lt;names.plural&gt;.&lt;group&gt;`).
+        /// under `/apis/&amp;lt;group&amp;gt;/...`. Must match the name of the
+        /// CustomResourceDefinition (in the form
+        /// `&amp;lt;names.plural&amp;gt;.&amp;lt;group&amp;gt;`).
         /// </summary>
         public Input<string> Group { get; set; } = null!;
 
@@ -1179,8 +1180,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         /// the version string is "kube-like", it will sort above non "kube-like" version strings,
         /// which are ordered lexicographically. "Kube-like" versions start with a "v", then are
         /// followed by a number (the major version), then optionally the string "alpha" or "beta"
-        /// and another number (the minor version). These are sorted first by GA &gt; beta &gt;
-        /// alpha (where GA is a version with no suffix such as beta or alpha), and then by
+        /// and another number (the minor version). These are sorted first by GA &amp;gt; beta
+        /// &amp;gt; alpha (where GA is a version with no suffix such as beta or alpha), and then by
         /// comparing major version, then minor version. An example sorted list of versions: v10,
         /// v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         /// </summary>
@@ -1236,8 +1237,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
     public class CustomResourceDefinitionVersion : Pulumi.ResourceArgs {
         /// <summary>
         /// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are
-        /// served under this version at `/apis/&lt;group&gt;/&lt;version&gt;/...` if `served` is
-        /// true.
+        /// served under this version at `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/...`
+        /// if `served` is true.
         /// </summary>
         public Input<string> Name { get; set; } = null!;
 
@@ -1701,8 +1702,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
     /// <summary>
     /// CustomResourceDefinition represents a resource that should be exposed on the API server.
-    /// Its name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;. Deprecated in v1.16,
-    /// planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+    /// Its name MUST be in the format &amp;lt;.spec.name&amp;gt;.&amp;lt;.spec.group&amp;gt;.
+    /// Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1
+    /// CustomResourceDefinition instead.
     /// </summary>
     public class CustomResourceDefinition : Pulumi.ResourceArgs {
         /// <summary>
@@ -1767,9 +1769,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
     public class CustomResourceDefinitionNames : Pulumi.ResourceArgs {
         /// <summary>
         /// plural is the plural name of the resource to serve. The custom resources are served
-        /// under `/apis/&lt;group&gt;/&lt;version&gt;/.../&lt;plural&gt;`. Must match the name of
-        /// the CustomResourceDefinition (in the form `&lt;names.plural&gt;.&lt;group&gt;`). Must be
-        /// all lowercase.
+        /// under `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/.../&amp;lt;plural&amp;gt;`.
+        /// Must match the name of the CustomResourceDefinition (in the form
+        /// `&amp;lt;names.plural&amp;gt;.&amp;lt;group&amp;gt;`). Must be all lowercase.
         /// </summary>
         public Input<string> Plural { get; set; } = null!;
 
@@ -1787,8 +1789,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
         /// <summary>
         /// shortNames are short names for the resource, exposed in API discovery documents, and
-        /// used by clients to support invocations like `kubectl get &lt;shortname&gt;`. It must be
-        /// all lowercase.
+        /// used by clients to support invocations like `kubectl get &amp;lt;shortname&amp;gt;`. It
+        /// must be all lowercase.
         /// </summary>
         public Input<Input<string>[]>? ShortNames { get; set; }
 
@@ -1806,8 +1808,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
     public class CustomResourceDefinitionSpec : Pulumi.ResourceArgs {
         /// <summary>
         /// group is the API group of the defined custom resource. The custom resources are served
-        /// under `/apis/&lt;group&gt;/...`. Must match the name of the CustomResourceDefinition (in
-        /// the form `&lt;names.plural&gt;.&lt;group&gt;`).
+        /// under `/apis/&amp;lt;group&amp;gt;/...`. Must match the name of the
+        /// CustomResourceDefinition (in the form
+        /// `&amp;lt;names.plural&amp;gt;.&amp;lt;group&amp;gt;`).
         /// </summary>
         public Input<string> Group { get; set; } = null!;
 
@@ -1865,9 +1868,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
 
         /// <summary>
         /// version is the API version of the defined custom resource. The custom resources are
-        /// served under `/apis/&lt;group&gt;/&lt;version&gt;/...`. Must match the name of the first
-        /// item in the `versions` list if `version` and `versions` are both specified. Optional if
-        /// `versions` is specified. Deprecated: use `versions` instead.
+        /// served under `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/...`. Must match the
+        /// name of the first item in the `versions` list if `version` and `versions` are both
+        /// specified. Optional if `versions` is specified. Deprecated: use `versions` instead.
         /// </summary>
         public Input<string>? Version { get; set; }
 
@@ -1879,10 +1882,10 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
         /// version string is "kube-like", it will sort above non "kube-like" version strings, which
         /// are ordered lexicographically. "Kube-like" versions start with a "v", then are followed
         /// by a number (the major version), then optionally the string "alpha" or "beta" and
-        /// another number (the minor version). These are sorted first by GA &gt; beta &gt; alpha
-        /// (where GA is a version with no suffix such as beta or alpha), and then by comparing
-        /// major version, then minor version. An example sorted list of versions: v10, v2, v1,
-        /// v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+        /// another number (the minor version). These are sorted first by GA &amp;gt; beta &amp;gt;
+        /// alpha (where GA is a version with no suffix such as beta or alpha), and then by
+        /// comparing major version, then minor version. An example sorted list of versions: v10,
+        /// v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         /// </summary>
         public Input<Input<ApiExtensions.V1Beta1.CustomResourceDefinitionVersion>[]>? Versions { get; set; }
 
@@ -1920,8 +1923,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions {
     public class CustomResourceDefinitionVersion : Pulumi.ResourceArgs {
         /// <summary>
         /// name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are
-        /// served under this version at `/apis/&lt;group&gt;/&lt;version&gt;/...` if `served` is
-        /// true.
+        /// served under this version at `/apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/...`
+        /// if `served` is true.
         /// </summary>
         public Input<string> Name { get; set; } = null!;
 
@@ -2385,10 +2388,10 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration {
         /// above non "kube-like" version strings, which are ordered lexicographically. "Kube-like"
         /// versions start with a "v", then are followed by a number (the major version), then
         /// optionally the string "alpha" or "beta" and another number (the minor version). These
-        /// are sorted first by GA &gt; beta &gt; alpha (where GA is a version with no suffix such
-        /// as beta or alpha), and then by comparing major version, then minor version. An example
-        /// sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2,
-        /// foo1, foo10.
+        /// are sorted first by GA &amp;gt; beta &amp;gt; alpha (where GA is a version with no
+        /// suffix such as beta or alpha), and then by comparing major version, then minor version.
+        /// An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1,
+        /// v11alpha2, foo1, foo10.
         /// </summary>
         public Input<int> VersionPriority { get; set; } = null!;
 
@@ -2543,10 +2546,10 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration {
         /// above non "kube-like" version strings, which are ordered lexicographically. "Kube-like"
         /// versions start with a "v", then are followed by a number (the major version), then
         /// optionally the string "alpha" or "beta" and another number (the minor version). These
-        /// are sorted first by GA &gt; beta &gt; alpha (where GA is a version with no suffix such
-        /// as beta or alpha), and then by comparing major version, then minor version. An example
-        /// sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2,
-        /// foo1, foo10.
+        /// are sorted first by GA &amp;gt; beta &amp;gt; alpha (where GA is a version with no
+        /// suffix such as beta or alpha), and then by comparing major version, then minor version.
+        /// An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1,
+        /// v11alpha2, foo1, foo10.
         /// </summary>
         public Input<int> VersionPriority { get; set; } = null!;
 
@@ -7295,8 +7298,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch {
         /// <summary>
         /// Specifies the maximum desired number of pods the job should run at any given time. The
         /// actual number of pods running in steady state will be less than this number when
-        /// ((.spec.completions - .status.successful) &lt; .spec.parallelism), i.e. when the work
-        /// left to do is less than max parallelism. More info:
+        /// ((.spec.completions - .status.successful) &amp;lt; .spec.parallelism), i.e. when the
+        /// work left to do is less than max parallelism. More info:
         /// https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         /// </summary>
         public Input<int>? Parallelism { get; set; }
@@ -8322,8 +8325,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
     public class ClientIPConfig : Pulumi.ResourceArgs {
         /// <summary>
         /// timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value
-        /// must be &gt;0 && &lt;=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value
-        /// is 10800(for 3 hours).
+        /// must be &amp;gt;0 &amp;&amp; &amp;lt;=86400(for 1 day) if ServiceAffinity == "ClientIP".
+        /// Default value is 10800(for 3 hours).
         /// </summary>
         public Input<int>? TimeoutSeconds { get; set; }
 
@@ -8786,7 +8789,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
     public class ContainerPort : Pulumi.ResourceArgs {
         /// <summary>
         /// Number of port to expose on the pod's IP address. This must be a valid port number, 0
-        /// &lt; x &lt; 65536.
+        /// &amp;lt; x &amp;lt; 65536.
         /// </summary>
         public Input<int> ContainerPortValue { get; set; } = null!;
 
@@ -8797,8 +8800,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
 
         /// <summary>
         /// Number of port to expose on the host. If specified, this must be a valid port number, 0
-        /// &lt; x &lt; 65536. If HostNetwork is specified, this must match ContainerPort. Most
-        /// containers do not need this.
+        /// &amp;lt; x &amp;lt; 65536. If HostNetwork is specified, this must match ContainerPort.
+        /// Most containers do not need this.
         /// </summary>
         public Input<int>? HostPort { get; set; }
 
@@ -8858,7 +8861,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         public Input<int> ExitCode { get; set; } = null!;
 
         /// <summary>
-        /// Container's ID in the format 'docker://&lt;container_id&gt;'
+        /// Container's ID in the format 'docker://&amp;lt;container_id&amp;gt;'
         /// </summary>
         public Input<string>? ContainerID { get; set; }
 
@@ -8940,7 +8943,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
         public Input<int> RestartCount { get; set; } = null!;
 
         /// <summary>
-        /// Container's ID in the format 'docker://&lt;container_id&gt;'.
+        /// Container's ID in the format 'docker://&amp;lt;container_id&amp;gt;'.
         /// </summary>
         public Input<string>? ContainerID { get; set; }
 
@@ -9713,8 +9716,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
     /// </summary>
     public class FlockerVolumeSource : Pulumi.ResourceArgs {
         /// <summary>
-        /// Name of the dataset stored as metadata -&gt; name on the dataset for Flocker should be
-        /// considered as deprecated
+        /// Name of the dataset stored as metadata -&amp;gt; name on the dataset for Flocker should
+        /// be considered as deprecated
         /// </summary>
         public Input<string>? DatasetName { get; set; }
 
@@ -9998,8 +10001,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
 
         /// <summary>
         /// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface
-        /// simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be
-        /// created for the connection.
+        /// simultaneously, new iSCSI interface &amp;lt;target portal&amp;gt;:&amp;lt;volume
+        /// name&amp;gt; will be created for the connection.
         /// </summary>
         public Input<string>? InitiatorName { get; set; }
 
@@ -10067,8 +10070,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
 
         /// <summary>
         /// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface
-        /// simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be
-        /// created for the connection.
+        /// simultaneously, new iSCSI interface &amp;lt;target portal&amp;gt;:&amp;lt;volume
+        /// name&amp;gt; will be created for the connection.
         /// </summary>
         public Input<string>? InitiatorName { get; set; }
 
@@ -10691,7 +10694,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
 
         /// <summary>
         /// ID of the node assigned by the cloud provider in the format:
-        /// &lt;ProviderName&gt;://&lt;ProviderSpecificNodeID&gt;
+        /// &amp;lt;ProviderName&amp;gt;://&amp;lt;ProviderSpecificNodeID&amp;gt;
         /// </summary>
         public Input<string>? ProviderID { get; set; }
 
@@ -11384,8 +11387,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
     /// Defines a set of pods (namely those matching the labelSelector relative to the given
     /// namespace(s)) that this pod should be co-located (affinity) or not co-located
     /// (anti-affinity) with, where co-located is defined as running on a node whose value of the
-    /// label with key &lt;topologyKey&gt; matches that of any node on which a pod of the set of
-    /// pods is running
+    /// label with key &amp;lt;topologyKey&amp;gt; matches that of any node on which a pod of the
+    /// set of pods is running
     /// </summary>
     public class PodAffinityTerm : Pulumi.ResourceArgs {
         /// <summary>
@@ -11851,8 +11854,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
 
         /// <summary>
         /// If specified, the fully qualified Pod hostname will be
-        /// "&lt;hostname&gt;.&lt;subdomain&gt;.&lt;pod namespace&gt;.svc.&lt;cluster domain&gt;".
-        /// If not specified, the pod will not have a domainname at all.
+        /// "&amp;lt;hostname&amp;gt;.&amp;lt;subdomain&amp;gt;.&amp;lt;pod
+        /// namespace&amp;gt;.svc.&amp;lt;cluster domain&amp;gt;". If not specified, the pod will
+        /// not have a domainname at all.
         /// </summary>
         public Input<string>? Subdomain { get; set; }
 
@@ -13489,7 +13493,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
 
     /// <summary>
     /// The pod this Toleration is attached to tolerates any taint that matches the triple
-    /// &lt;key,value,effect&gt; using the matching operator &lt;operator&gt;.
+    /// &amp;lt;key,value,effect&amp;gt; using the matching operator &amp;lt;operator&amp;gt;.
     /// </summary>
     public class Toleration : Pulumi.ResourceArgs {
         /// <summary>
@@ -13577,9 +13581,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core {
 
         /// <summary>
         /// TopologyKey is the key of node labels. Nodes that have a label with this key and
-        /// identical values are considered to be in the same topology. We consider each &lt;key,
-        /// value&gt; as a "bucket", and try to put balanced number of pods into each bucket. It's a
-        /// required field.
+        /// identical values are considered to be in the same topology. We consider each
+        /// &amp;lt;key, value&amp;gt; as a "bucket", and try to put balanced number of pods into
+        /// each bucket. It's a required field.
         /// </summary>
         public Input<string> TopologyKey { get; set; } = null!;
 
@@ -14762,9 +14766,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions {
 
     /// <summary>
     /// HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example:
-    /// http://&lt;host&gt;/&lt;path&gt;?&lt;searchpart&gt; -&gt; backend where where parts of the
-    /// url correspond to RFC 3986, this resource will be used to match against everything after the
-    /// last '/' and before the first '?' or '#'.
+    /// http://&amp;lt;host&amp;gt;/&amp;lt;path&amp;gt;?&amp;lt;searchpart&amp;gt; -&amp;gt;
+    /// backend where where parts of the url correspond to RFC 3986, this resource will be used to
+    /// match against everything after the last '/' and before the first '?' or '#'.
     /// </summary>
     public class HTTPIngressRuleValue : Pulumi.ResourceArgs {
         /// <summary>
@@ -16658,9 +16662,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking {
 
     /// <summary>
     /// HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example:
-    /// http://&lt;host&gt;/&lt;path&gt;?&lt;searchpart&gt; -&gt; backend where where parts of the
-    /// url correspond to RFC 3986, this resource will be used to match against everything after the
-    /// last '/' and before the first '?' or '#'.
+    /// http://&amp;lt;host&amp;gt;/&amp;lt;path&amp;gt;?&amp;lt;searchpart&amp;gt; -&amp;gt;
+    /// backend where where parts of the url correspond to RFC 3986, this resource will be used to
+    /// match against everything after the last '/' and before the first '?' or '#'.
     /// </summary>
     public class HTTPIngressRuleValue : Pulumi.ResourceArgs {
         /// <summary>
@@ -16874,11 +16878,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node {
         /// <summary>
         /// RuntimeHandler specifies the underlying runtime and configuration that the CRI
         /// implementation will use to handle pods of this class. The possible values are specific
-        /// to the node & CRI configuration.  It is assumed that all handlers are available on every
-        /// node, and handlers of the same name are equivalent on every node. For example, a handler
-        /// called "runc" might specify that the runc OCI runtime (using native Linux containers)
-        /// will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS
-        /// Label (RFC 1123) requirements and is immutable.
+        /// to the node &amp; CRI configuration.  It is assumed that all handlers are available on
+        /// every node, and handlers of the same name are equivalent on every node. For example, a
+        /// handler called "runc" might specify that the runc OCI runtime (using native Linux
+        /// containers) will be used to run the containers in a pod. The RuntimeHandler must conform
+        /// to the DNS Label (RFC 1123) requirements and is immutable.
         /// </summary>
         public Input<string> RuntimeHandler { get; set; } = null!;
 
@@ -16946,12 +16950,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node {
     public class RuntimeClass : Pulumi.ResourceArgs {
         /// <summary>
         /// Handler specifies the underlying runtime and configuration that the CRI implementation
-        /// will use to handle pods of this class. The possible values are specific to the node &
-        /// CRI configuration.  It is assumed that all handlers are available on every node, and
-        /// handlers of the same name are equivalent on every node. For example, a handler called
-        /// "runc" might specify that the runc OCI runtime (using native Linux containers) will be
-        /// used to run the containers in a pod. The Handler must conform to the DNS Label (RFC
-        /// 1123) requirements, and is immutable.
+        /// will use to handle pods of this class. The possible values are specific to the node
+        /// &amp; CRI configuration.  It is assumed that all handlers are available on every node,
+        /// and handlers of the same name are equivalent on every node. For example, a handler
+        /// called "runc" might specify that the runc OCI runtime (using native Linux containers)
+        /// will be used to run the containers in a pod. The Handler must conform to the DNS Label
+        /// (RFC 1123) requirements, and is immutable.
         /// </summary>
         public Input<string> Handler { get; set; } = null!;
 
@@ -17109,7 +17113,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy {
     /// <summary>
     /// Eviction evicts a pod from its node subject to certain policies and safety constraints. This
     /// is a subresource of Pod.  A request to cause such an eviction is created by POSTing to
-    /// .../pods/&lt;pod name&gt;/evictions.
+    /// .../pods/&amp;lt;pod name&amp;gt;/evictions.
     /// </summary>
     public class Eviction : Pulumi.ResourceArgs {
         /// <summary>

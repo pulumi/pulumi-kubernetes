@@ -9,7 +9,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.ApiExtensions.V1 {
     /// <summary>
     /// CustomResourceDefinition represents a resource that should be exposed on the API server.
-    /// Its name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;.
+    /// Its name MUST be in the format &amp;lt;.spec.name&amp;gt;.&amp;lt;.spec.group&amp;gt;.
     /// </summary>
     public partial class CustomResourceDefinition : Pulumi.CustomResource {
         /// <summary>
