@@ -221,24 +221,23 @@ func writePythonClient(data map[string]interface{}, outdir, templateDir string) 
 }
 
 func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) {
-	sdkDir := filepath.Join(outdir, "Pulumi.Kubernetes")
 
 	inputAPIcs, ouputAPIcs, kindsCs, err := gen.DotnetClient(data, templateDir)
 	if err != nil {
 		panic(err)
 	}
 
-	err = os.MkdirAll(sdkDir, 0700)
+	err = os.MkdirAll(outdir, 0700)
 	if err != nil {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(fmt.Sprintf("%s/version.txt", sdkDir), []byte(providerVersion.Version), 0777)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/version.txt", outdir), []byte(providerVersion.Version), 0777)
 	if err != nil {
 		panic(err)
 	}
 
-	typesDir := fmt.Sprintf("%s/Types", sdkDir)
+	typesDir := fmt.Sprintf("%s/Types", outdir)
 	err = os.MkdirAll(typesDir, 0700)
 	if err != nil {
 		panic(err)
@@ -255,7 +254,7 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 	}
 
 	for path, contents := range kindsCs {
-		filename := filepath.Join(sdkDir, path)
+		filename := filepath.Join(outdir, path)
 		err := os.MkdirAll(filepath.Dir(filename), 0700)
 		if err != nil {
 			panic(err)
@@ -266,12 +265,12 @@ func writeDotnetClient(data map[string]interface{}, outdir, templateDir string) 
 		}
 	}
 
-	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(sdkDir, "README.md"))
+	err = CopyFile(filepath.Join(templateDir, "README.md"), filepath.Join(outdir, "README.md"))
 	if err != nil {
 		panic(err)
 	}
 
-	err = CopyFile(filepath.Join(templateDir, "Pulumi.Kubernetes.csproj"), filepath.Join(sdkDir, "Pulumi.Kubernetes.csproj"))
+	err = CopyFile(filepath.Join(templateDir, "Pulumi.Kubernetes.csproj"), filepath.Join(outdir, "Pulumi.Kubernetes.csproj"))
 	if err != nil {
 		panic(err)
 	}

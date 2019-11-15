@@ -1,0 +1,10 @@
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/obj/Debug/netcoreapp3.0/Pulumi.Kubernetes.csprojAssemblyReference.cache
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/obj/Debug/netcoreapp3.0/Pulumi.Kubernetes.AssemblyInfoInputs.cache
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/obj/Debug/netcoreapp3.0/Pulumi.Kubernetes.AssemblyInfo.cs
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/bin/Debug/netcoreapp3.0/Pulumi.Kubernetes.deps.json
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/bin/Debug/netcoreapp3.0/Pulumi.Kubernetes.dll
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/bin/Debug/netcoreapp3.0/Pulumi.Kubernetes.pdb
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/bin/Debug/netcoreapp3.0/Pulumi.Kubernetes.xml
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/obj/Debug/netcoreapp3.0/Pulumi.Kubernetes.dll
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/obj/Debug/netcoreapp3.0/Pulumi.Kubernetes.xml
+/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/obj/Debug/netcoreapp3.0/Pulumi.Kubernetes.pdb

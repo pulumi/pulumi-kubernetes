@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Pulumi.Kubernetes</id>
+    <version>1.3.0-preview-alpha.1573767577+gff34ca08.dirty</version>
+    <authors>Pulumi Corp.</authors>
+    <owners>Pulumi Corp.</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0</license>
+    <licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
+    <projectUrl>https://pulumi.com/</projectUrl>
+    <description>A Pulumi package for creating and managing Kubernetes resources.</description>
+    <repository url="https://github.com/pulumi/pulumi-kubernetes" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.0">
+        <dependency id="Pulumi" version="1.5.0-preview" exclude="Build,Analyzers" />
+        <dependency id="System.Collections.Immutable" version="1.6.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <contentFiles>
+      <files include="any/netcoreapp3.0/version.txt" buildAction="Content" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/bin/Debug/netcoreapp3.0/Pulumi.Kubernetes.dll" target="lib/netcoreapp3.0/Pulumi.Kubernetes.dll" />
+    <file src="/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/bin/Debug/netcoreapp3.0/Pulumi.Kubernetes.xml" target="lib/netcoreapp3.0/Pulumi.Kubernetes.xml" />
+    <file src="/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/version.txt" target="content/version.txt" />
+    <file src="/Users/luke/go/src/github.com/pulumi/pulumi-kubernetes/sdk/dotnet/version.txt" target="contentFiles/any/netcoreapp3.0/version.txt" />
+  </files>
+</package>
