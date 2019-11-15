@@ -207,6 +207,7 @@ type Property struct {
 	defaultValue              string
 	isLast                    bool
 	dotnetVarName             string
+	dotnetIsListOrMap         bool
 }
 
 // Name returns the name of the property.
@@ -237,6 +238,9 @@ func (p *Property) IsLast() bool { return p.isLast }
 
 // DotnetVarName returns a variable name safe to use in .NET (e.g. `@namespace` instead of `namespace`)
 func (p *Property) DotnetVarName() string { return p.dotnetVarName }
+
+// DotnetIsListOrMap returns whether the property type is a List or map
+func (p *Property) DotnetIsListOrMap() bool { return p.dotnetIsListOrMap }
 
 // --------------------------------------------------------------------------
 
@@ -584,14 +588,14 @@ func makeDotnetType(resourceType, propName string, prop map[string]interface{}, 
 			case outputsAPI:
 				return fmt.Sprintf("%s[]", elemType)
 			case inputsAPI:
-				return fmt.Sprintf("Input<%s[]>", elemType)
+				return fmt.Sprintf("InputList<%s>", elemType)
 			}
 		} else if tstr == "integer" {
 			return wrapType("int")
 		} else if tstr == "boolean" {
 			return wrapType("bool")
 		} else if tstr == "number" {
-			return wrapType("int")
+			return wrapType("double")
 		} else if tstr == "object" {
 			// `additionalProperties` with a single member, `type`, denotes a map whose keys and
 			// values both have type `type`. This type is never a `$ref`.
@@ -876,6 +880,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 
 					var prefix string
 					var t, pyConstructorT string
+					isListOrMap := false
 					switch opts.language {
 					case typescript:
 						prefix = "      "
@@ -888,6 +893,9 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 					case dotnet:
 						prefix = "        "
 						t = makeType(d.name, propName, prop, opts)
+						if strings.HasPrefix(t, "InputList") || strings.HasPrefix(t, "InputMap") {
+							isListOrMap = true
+						}
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}
@@ -958,6 +966,7 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 						dotnetVarName:             dotnetVarName,
 						defaultValue:              defaultValue,
 						isLast:                    false,
+						dotnetIsListOrMap:         isListOrMap,
 					}
 				})
 

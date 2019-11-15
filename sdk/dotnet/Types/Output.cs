@@ -1810,7 +1810,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly int MaxProperties;
 
       
-      public readonly int Maximum;
+      public readonly double Maximum;
 
       
       public readonly int MinItems;
@@ -1822,10 +1822,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly int MinProperties;
 
       
-      public readonly int Minimum;
+      public readonly double Minimum;
 
       
-      public readonly int MultipleOf;
+      public readonly double MultipleOf;
 
       
       public readonly ApiExtensions.V1.JSONSchemaProps Not;
@@ -1942,12 +1942,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           int _maxItems,
           int _maxLength,
           int _maxProperties,
-          int _maximum,
+          double _maximum,
           int _minItems,
           int _minLength,
           int _minProperties,
-          int _minimum,
-          int _multipleOf,
+          double _minimum,
+          double _multipleOf,
           ApiExtensions.V1.JSONSchemaProps _not,
           bool _nullable,
           ApiExtensions.V1.JSONSchemaProps[] _oneOf,
@@ -2787,7 +2787,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly int MaxProperties;
 
       
-      public readonly int Maximum;
+      public readonly double Maximum;
 
       
       public readonly int MinItems;
@@ -2799,10 +2799,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
       public readonly int MinProperties;
 
       
-      public readonly int Minimum;
+      public readonly double Minimum;
 
       
-      public readonly int MultipleOf;
+      public readonly double MultipleOf;
 
       
       public readonly ApiExtensions.V1Beta1.JSONSchemaProps Not;
@@ -2919,12 +2919,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions {
           int _maxItems,
           int _maxLength,
           int _maxProperties,
-          int _maximum,
+          double _maximum,
           int _minItems,
           int _minLength,
           int _minProperties,
-          int _minimum,
-          int _multipleOf,
+          double _minimum,
+          double _multipleOf,
           ApiExtensions.V1Beta1.JSONSchemaProps _not,
           bool _nullable,
           ApiExtensions.V1Beta1.JSONSchemaProps[] _oneOf,

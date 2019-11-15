@@ -15,13 +15,41 @@ namespace Pulumi.Kubernetes.Types.Inputs.{{Group}} {
     /// </summary>
     public class {{Kind}} : Pulumi.ResourceArgs {
         {{#RequiredInputProperties}}
+        {{#DotnetIsListOrMap}}
+        [Input("{{Name}}")]
+        private {{{PropType}}}? _{{Name}};
+
         {{{Comment}}}
+        public {{{PropType}}} {{LanguageName}}
+        {
+            get => _{{Name}} ?? (_{{Name}} = new {{{PropType}}}());
+            set => _{{Name}} = value;
+        }
+        {{/DotnetIsListOrMap}}
+        {{^DotnetIsListOrMap}}
+        {{{Comment}}}
+        [Input("{{Name}}")]
         public {{{PropType}}} {{LanguageName}} { get; set; } = null!;
+        {{/DotnetIsListOrMap}}
 
         {{/RequiredInputProperties}}
         {{#OptionalInputProperties}}
+        {{#DotnetIsListOrMap}}
+        [Input("{{Name}}")]
+        private {{{PropType}}}? _{{Name}};
+
         {{{Comment}}}
+        public {{{PropType}}} {{LanguageName}}
+        {
+            get => _{{Name}} ?? (_{{Name}} = new {{{PropType}}}());
+            set => _{{Name}} = value;
+        }
+        {{/DotnetIsListOrMap}}
+        {{^DotnetIsListOrMap}}
+        {{{Comment}}}
+        [Input("{{Name}}")]
         public {{{PropType}}}? {{LanguageName}} { get; set; }
+        {{/DotnetIsListOrMap}}
 
         {{/OptionalInputProperties}}
     }
