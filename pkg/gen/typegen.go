@@ -944,11 +944,6 @@ func createGroups(definitionsJSON map[string]interface{}, opts groupOpts) []*Gro
 							languageName = languageName + "Value"
 						}
 						dotnetVarName = "_" + name
-						// if name == "namespace" || name == "default" || name == "enum" || name == "ref" || name == "object" || name == "operator" || name == "continue" {
-						// 	dotnetVarName = "@" + name
-						// } else {
-						// 	dotnetVarName = name
-						// }
 					default:
 						panic(fmt.Sprintf("Unsupported language '%s'", opts.language))
 					}

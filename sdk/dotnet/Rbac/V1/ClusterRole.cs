@@ -31,16 +31,19 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
         /// ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct
         /// changes to Rules will be stomped by the controller.
         /// </summary>
+        [Output("aggregationRule")]
         public Output<Types.Outputs.Rbac.V1.AggregationRule> AggregationRule { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Rules holds all the PolicyRules for this ClusterRole
         /// </summary>
+        [Output("rules")]
         public Output<Types.Outputs.Rbac.V1.PolicyRule[]> Rules { get; private set; } = null!;
 
 
@@ -51,7 +54,7 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public ClusterRole(string name, Types.Inputs.Rbac.V1.ClusterRole args, CustomResourceOptions? options = null)
+        public ClusterRole(string name, Types.Inputs.Rbac.V1.ClusterRole? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -65,6 +68,21 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing ClusterRole resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static ClusterRole Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new ClusterRole(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

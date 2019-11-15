@@ -34,11 +34,13 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// <summary>
         /// metadata.name must be the Kubernetes node name.
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// spec is the specification of CSINode
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.Storage.V1Beta1.CSINodeSpec> Spec { get; private set; } = null!;
 
 
@@ -49,7 +51,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CSINode(string name, Types.Inputs.Storage.V1Beta1.CSINode args, CustomResourceOptions? options = null)
+        public CSINode(string name, Types.Inputs.Storage.V1Beta1.CSINode? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:storage.k8s.io/v1beta1:CSINode", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -63,6 +65,21 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing CSINode resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static CSINode Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new CSINode(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

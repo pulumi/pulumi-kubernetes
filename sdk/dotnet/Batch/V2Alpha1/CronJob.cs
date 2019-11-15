@@ -29,18 +29,21 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1 {
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Specification of the desired behavior of a cron job, including the schedule. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.Batch.V2Alpha1.CronJobSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Current status of a cron job. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
+        [Output("status")]
         public Output<Types.Outputs.Batch.V2Alpha1.CronJobStatus> Status { get; private set; } = null!;
 
 
@@ -51,7 +54,7 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CronJob(string name, Types.Inputs.Batch.V2Alpha1.CronJob args, CustomResourceOptions? options = null)
+        public CronJob(string name, Types.Inputs.Batch.V2Alpha1.CronJob? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:batch/v2alpha1:CronJob", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -65,6 +68,21 @@ namespace Pulumi.Kubernetes.Batch.V2Alpha1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing CronJob resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static CronJob Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new CronJob(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

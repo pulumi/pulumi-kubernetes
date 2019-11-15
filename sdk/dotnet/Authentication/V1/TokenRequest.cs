@@ -26,12 +26,15 @@ namespace Pulumi.Kubernetes.Authentication.V1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         
+        [Output("spec")]
         public Output<Types.Outputs.Authentication.V1.TokenRequestSpec> Spec { get; private set; } = null!;
 
         
+        [Output("status")]
         public Output<Types.Outputs.Authentication.V1.TokenRequestStatus> Status { get; private set; } = null!;
 
 
@@ -42,7 +45,7 @@ namespace Pulumi.Kubernetes.Authentication.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public TokenRequest(string name, Types.Inputs.Authentication.V1.TokenRequest args, CustomResourceOptions? options = null)
+        public TokenRequest(string name, Types.Inputs.Authentication.V1.TokenRequest? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:authentication.k8s.io/v1:TokenRequest", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -56,6 +59,21 @@ namespace Pulumi.Kubernetes.Authentication.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing TokenRequest resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static TokenRequest Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new TokenRequest(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

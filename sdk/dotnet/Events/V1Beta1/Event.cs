@@ -29,45 +29,54 @@ namespace Pulumi.Kubernetes.Events.V1Beta1 {
         /// <summary>
         /// What action was taken/failed regarding to the regarding object.
         /// </summary>
+        [Output("action")]
         public Output<string> Action { get; private set; } = null!;
 
         /// <summary>
         /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
+        [Output("deprecatedCount")]
         public Output<int> DeprecatedCount { get; private set; } = null!;
 
         /// <summary>
         /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
+        [Output("deprecatedFirstTimestamp")]
         public Output<string> DeprecatedFirstTimestamp { get; private set; } = null!;
 
         /// <summary>
         /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
+        [Output("deprecatedLastTimestamp")]
         public Output<string> DeprecatedLastTimestamp { get; private set; } = null!;
 
         /// <summary>
         /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
+        [Output("deprecatedSource")]
         public Output<Types.Outputs.Core.V1.EventSource> DeprecatedSource { get; private set; } = null!;
 
         /// <summary>
         /// Required. Time when this Event was first observed.
         /// </summary>
+        [Output("eventTime")]
         public Output<string> EventTime { get; private set; } = null!;
 
         
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Optional. A human-readable description of the status of this operation. Maximal length
         /// of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         /// </summary>
+        [Output("note")]
         public Output<string> Note { get; private set; } = null!;
 
         /// <summary>
         /// Why the action was taken.
         /// </summary>
+        [Output("reason")]
         public Output<string> Reason { get; private set; } = null!;
 
         /// <summary>
@@ -75,32 +84,38 @@ namespace Pulumi.Kubernetes.Events.V1Beta1 {
         /// implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted
         /// because it acts on some changes in a ReplicaSet object.
         /// </summary>
+        [Output("regarding")]
         public Output<Types.Outputs.Core.V1.ObjectReference> Regarding { get; private set; } = null!;
 
         /// <summary>
         /// Optional secondary object for more complex actions. E.g. when regarding object triggers
         /// a creation or deletion of related object.
         /// </summary>
+        [Output("related")]
         public Output<Types.Outputs.Core.V1.ObjectReference> Related { get; private set; } = null!;
 
         /// <summary>
         /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         /// </summary>
+        [Output("reportingController")]
         public Output<string> ReportingController { get; private set; } = null!;
 
         /// <summary>
         /// ID of the controller instance, e.g. `kubelet-xyzf`.
         /// </summary>
+        [Output("reportingInstance")]
         public Output<string> ReportingInstance { get; private set; } = null!;
 
         /// <summary>
         /// Data about the Event series this event represents or nil if it's a singleton Event.
         /// </summary>
+        [Output("series")]
         public Output<Types.Outputs.Events.V1Beta1.EventSeries> Series { get; private set; } = null!;
 
         /// <summary>
         /// Type of this event (Normal, Warning), new types could be added in the future.
         /// </summary>
+        [Output("type")]
         public Output<string> Type { get; private set; } = null!;
 
 
@@ -111,7 +126,7 @@ namespace Pulumi.Kubernetes.Events.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Event(string name, Types.Inputs.Events.V1Beta1.Event args, CustomResourceOptions? options = null)
+        public Event(string name, Types.Inputs.Events.V1Beta1.Event? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:events.k8s.io/v1beta1:Event", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -125,6 +140,21 @@ namespace Pulumi.Kubernetes.Events.V1Beta1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing Event resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static Event Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new Event(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

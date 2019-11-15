@@ -44,18 +44,21 @@ namespace Pulumi.Kubernetes.Batch.V1 {
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Specification of the desired behavior of a job. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.Batch.V1.JobSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Current status of a job. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
+        [Output("status")]
         public Output<Types.Outputs.Batch.V1.JobStatus> Status { get; private set; } = null!;
 
 
@@ -66,7 +69,7 @@ namespace Pulumi.Kubernetes.Batch.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Job(string name, Types.Inputs.Batch.V1.Job args, CustomResourceOptions? options = null)
+        public Job(string name, Types.Inputs.Batch.V1.Job? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:batch/v1:Job", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -80,6 +83,21 @@ namespace Pulumi.Kubernetes.Batch.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing Job resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static Job Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new Job(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

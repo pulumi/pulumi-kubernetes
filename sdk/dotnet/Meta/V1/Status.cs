@@ -28,6 +28,7 @@ namespace Pulumi.Kubernetes.Meta.V1 {
         /// <summary>
         /// Suggested HTTP return code for this status, 0 if not set.
         /// </summary>
+        [Output("code")]
         public Output<int> Code { get; private set; } = null!;
 
         /// <summary>
@@ -35,17 +36,20 @@ namespace Pulumi.Kubernetes.Meta.V1 {
         /// details. This field is optional and the data returned is not guaranteed to conform to
         /// any schema except that defined by the reason type.
         /// </summary>
+        [Output("details")]
         public Output<Types.Outputs.Meta.V1.StatusDetails> Details { get; private set; } = null!;
 
         /// <summary>
         /// A human-readable description of the status of this operation.
         /// </summary>
+        [Output("message")]
         public Output<string> Message { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
@@ -53,12 +57,14 @@ namespace Pulumi.Kubernetes.Meta.V1 {
         /// value is empty there is no information available. A Reason clarifies an HTTP status code
         /// but does not override it.
         /// </summary>
+        [Output("reason")]
         public Output<string> Reason { get; private set; } = null!;
 
         /// <summary>
         /// Status of the operation. One of: "Success" or "Failure". More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
+        [Output("status")]
         public Output<string> StatusValue { get; private set; } = null!;
 
 
@@ -69,7 +75,7 @@ namespace Pulumi.Kubernetes.Meta.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Status(string name, Types.Inputs.Meta.V1.Status args, CustomResourceOptions? options = null)
+        public Status(string name, Types.Inputs.Meta.V1.Status? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:core/v1:Status", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -83,6 +89,21 @@ namespace Pulumi.Kubernetes.Meta.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing Status resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static Status Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new Status(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

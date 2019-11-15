@@ -31,11 +31,13 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Specification of the desired behavior for this NetworkPolicy.
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.Extensions.V1Beta1.NetworkPolicySpec> Spec { get; private set; } = null!;
 
 
@@ -46,7 +48,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public NetworkPolicy(string name, Types.Inputs.Extensions.V1Beta1.NetworkPolicy args, CustomResourceOptions? options = null)
+        public NetworkPolicy(string name, Types.Inputs.Extensions.V1Beta1.NetworkPolicy? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:extensions/v1beta1:NetworkPolicy", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -60,6 +62,21 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing NetworkPolicy resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static NetworkPolicy Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new NetworkPolicy(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

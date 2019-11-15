@@ -39,12 +39,14 @@ namespace Pulumi.Kubernetes.Node.V1Beta1 {
         /// will be used to run the containers in a pod. The Handler must conform to the DNS Label
         /// (RFC 1123) requirements, and is immutable.
         /// </summary>
+        [Output("handler")]
         public Output<string> Handler { get; private set; } = null!;
 
         /// <summary>
         /// More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
@@ -54,6 +56,7 @@ namespace Pulumi.Kubernetes.Node.V1Beta1 {
         /// alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the
         /// PodOverhead feature.
         /// </summary>
+        [Output("overhead")]
         public Output<Types.Outputs.Node.V1Beta1.Overhead> Overhead { get; private set; } = null!;
 
         /// <summary>
@@ -61,6 +64,7 @@ namespace Pulumi.Kubernetes.Node.V1Beta1 {
         /// RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this
         /// RuntimeClass is assumed to be supported by all nodes.
         /// </summary>
+        [Output("scheduling")]
         public Output<Types.Outputs.Node.V1Beta1.Scheduling> Scheduling { get; private set; } = null!;
 
 
@@ -71,7 +75,7 @@ namespace Pulumi.Kubernetes.Node.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public RuntimeClass(string name, Types.Inputs.Node.V1Beta1.RuntimeClass args, CustomResourceOptions? options = null)
+        public RuntimeClass(string name, Types.Inputs.Node.V1Beta1.RuntimeClass? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:node.k8s.io/v1beta1:RuntimeClass", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -85,6 +89,21 @@ namespace Pulumi.Kubernetes.Node.V1Beta1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing RuntimeClass resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static RuntimeClass Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new RuntimeClass(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

@@ -29,12 +29,14 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// List of persistent volumes. More info:
         /// https://kubernetes.io/docs/concepts/storage/persistent-volumes
         /// </summary>
+        [Output("items")]
         public Output<Types.Outputs.Core.V1.PersistentVolume[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
@@ -45,7 +47,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PersistentVolumeList(string name, Types.Inputs.Core.V1.PersistentVolumeList args, CustomResourceOptions? options = null)
+        public PersistentVolumeList(string name, Types.Inputs.Core.V1.PersistentVolumeList? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:core/v1:PersistentVolumeList", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -59,6 +61,21 @@ namespace Pulumi.Kubernetes.Core.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing PersistentVolumeList resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static PersistentVolumeList Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new PersistentVolumeList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

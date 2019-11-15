@@ -29,11 +29,13 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1 {
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Rules holds all the PolicyRules for this Role
         /// </summary>
+        [Output("rules")]
         public Output<Types.Outputs.Rbac.V1Alpha1.PolicyRule[]> Rules { get; private set; } = null!;
 
 
@@ -44,7 +46,7 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Role(string name, Types.Inputs.Rbac.V1Alpha1.Role args, CustomResourceOptions? options = null)
+        public Role(string name, Types.Inputs.Rbac.V1Alpha1.Role? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:rbac.authorization.k8s.io/v1alpha1:Role", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -58,6 +60,21 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing Role resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static Role Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new Role(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

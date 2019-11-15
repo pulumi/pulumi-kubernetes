@@ -31,17 +31,20 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// RoleRef can reference a Role in the current namespace or a ClusterRole in the global
         /// namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
         /// </summary>
+        [Output("roleRef")]
         public Output<Types.Outputs.Rbac.V1.RoleRef> RoleRef { get; private set; } = null!;
 
         /// <summary>
         /// Subjects holds references to the objects the role applies to.
         /// </summary>
+        [Output("subjects")]
         public Output<Types.Outputs.Rbac.V1.Subject[]> Subjects { get; private set; } = null!;
 
 
@@ -52,7 +55,7 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public RoleBinding(string name, Types.Inputs.Rbac.V1.RoleBinding args, CustomResourceOptions? options = null)
+        public RoleBinding(string name, Types.Inputs.Rbac.V1.RoleBinding? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:rbac.authorization.k8s.io/v1:RoleBinding", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -66,6 +69,21 @@ namespace Pulumi.Kubernetes.Rbac.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing RoleBinding resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static RoleBinding Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new RoleBinding(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

@@ -27,16 +27,19 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Specification of the desired behavior of the PodDisruptionBudget.
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.Policy.V1Beta1.PodDisruptionBudgetSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Most recently observed status of the PodDisruptionBudget.
         /// </summary>
+        [Output("status")]
         public Output<Types.Outputs.Policy.V1Beta1.PodDisruptionBudgetStatus> Status { get; private set; } = null!;
 
 
@@ -47,7 +50,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PodDisruptionBudget(string name, Types.Inputs.Policy.V1Beta1.PodDisruptionBudget args, CustomResourceOptions? options = null)
+        public PodDisruptionBudget(string name, Types.Inputs.Policy.V1Beta1.PodDisruptionBudget? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:policy/v1beta1:PodDisruptionBudget", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -61,6 +64,21 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing PodDisruptionBudget resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static PodDisruptionBudget Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new PodDisruptionBudget(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

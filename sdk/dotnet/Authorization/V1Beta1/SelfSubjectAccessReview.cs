@@ -28,16 +28,19 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Spec holds information about the request being evaluated.  user and groups must be empty
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.Authorization.V1Beta1.SelfSubjectAccessReviewSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Status is filled in by the server and indicates whether the request is allowed or not
         /// </summary>
+        [Output("status")]
         public Output<Types.Outputs.Authorization.V1Beta1.SubjectAccessReviewStatus> Status { get; private set; } = null!;
 
 
@@ -48,7 +51,7 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public SelfSubjectAccessReview(string name, Types.Inputs.Authorization.V1Beta1.SelfSubjectAccessReview args, CustomResourceOptions? options = null)
+        public SelfSubjectAccessReview(string name, Types.Inputs.Authorization.V1Beta1.SelfSubjectAccessReview? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -62,6 +65,21 @@ namespace Pulumi.Kubernetes.Authorization.V1Beta1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing SelfSubjectAccessReview resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static SelfSubjectAccessReview Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new SelfSubjectAccessReview(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

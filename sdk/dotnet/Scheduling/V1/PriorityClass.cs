@@ -30,6 +30,7 @@ namespace Pulumi.Kubernetes.Scheduling.V1 {
         /// description is an arbitrary string that usually provides guidelines on when this
         /// priority class should be used.
         /// </summary>
+        [Output("description")]
         public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
@@ -39,12 +40,14 @@ namespace Pulumi.Kubernetes.Scheduling.V1 {
         /// `globalDefault` field set to true, the smallest value of such global default
         /// PriorityClasses will be used as the default priority.
         /// </summary>
+        [Output("globalDefault")]
         public Output<bool> GlobalDefault { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
@@ -53,12 +56,14 @@ namespace Pulumi.Kubernetes.Scheduling.V1 {
         /// alpha-level and is only honored by servers that enable the NonPreemptingPriority
         /// feature.
         /// </summary>
+        [Output("preemptionPolicy")]
         public Output<string> PreemptionPolicy { get; private set; } = null!;
 
         /// <summary>
         /// The value of this priority class. This is the actual priority that pods receive when
         /// they have the name of this class in their pod spec.
         /// </summary>
+        [Output("value")]
         public Output<int> Value { get; private set; } = null!;
 
 
@@ -69,7 +74,7 @@ namespace Pulumi.Kubernetes.Scheduling.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PriorityClass(string name, Types.Inputs.Scheduling.V1.PriorityClass args, CustomResourceOptions? options = null)
+        public PriorityClass(string name, Types.Inputs.Scheduling.V1.PriorityClass? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:scheduling.k8s.io/v1:PriorityClass", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -83,6 +88,21 @@ namespace Pulumi.Kubernetes.Scheduling.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing PriorityClass resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static PriorityClass Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new PriorityClass(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

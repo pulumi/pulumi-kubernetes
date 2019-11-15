@@ -29,12 +29,14 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// Items is a list of secret objects. More info:
         /// https://kubernetes.io/docs/concepts/configuration/secret
         /// </summary>
+        [Output("items")]
         public Output<Types.Outputs.Core.V1.Secret[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
@@ -45,7 +47,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public SecretList(string name, Types.Inputs.Core.V1.SecretList args, CustomResourceOptions? options = null)
+        public SecretList(string name, Types.Inputs.Core.V1.SecretList? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:core/v1:SecretList", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -59,6 +61,21 @@ namespace Pulumi.Kubernetes.Core.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing SecretList resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static SecretList Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new SecretList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

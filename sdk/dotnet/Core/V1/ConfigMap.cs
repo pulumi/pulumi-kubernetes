@@ -32,6 +32,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// enforced during validation process. Using this field will require 1.10+ apiserver and
         /// kubelet.
         /// </summary>
+        [Output("binaryData")]
         public Output<object> BinaryData { get; private set; } = null!;
 
         /// <summary>
@@ -40,12 +41,14 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// keys stored in Data must not overlap with the keys in the BinaryData field, this is
         /// enforced during validation process.
         /// </summary>
+        [Output("data")]
         public Output<ImmutableDictionary<string, string>> Data { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
 
@@ -56,7 +59,7 @@ namespace Pulumi.Kubernetes.Core.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public ConfigMap(string name, Types.Inputs.Core.V1.ConfigMap args, CustomResourceOptions? options = null)
+        public ConfigMap(string name, Types.Inputs.Core.V1.ConfigMap? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:core/v1:ConfigMap", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -70,6 +73,21 @@ namespace Pulumi.Kubernetes.Core.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing ConfigMap resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static ConfigMap Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new ConfigMap(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

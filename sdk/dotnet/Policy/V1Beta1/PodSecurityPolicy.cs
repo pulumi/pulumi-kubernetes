@@ -30,11 +30,13 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1 {
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// spec defines the policy enforced.
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.Policy.V1Beta1.PodSecurityPolicySpec> Spec { get; private set; } = null!;
 
 
@@ -45,7 +47,7 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PodSecurityPolicy(string name, Types.Inputs.Policy.V1Beta1.PodSecurityPolicy args, CustomResourceOptions? options = null)
+        public PodSecurityPolicy(string name, Types.Inputs.Policy.V1Beta1.PodSecurityPolicy? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:policy/v1beta1:PodSecurityPolicy", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -59,6 +61,21 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing PodSecurityPolicy resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static PodSecurityPolicy Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new PodSecurityPolicy(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

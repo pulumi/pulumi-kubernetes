@@ -32,6 +32,7 @@ namespace Pulumi.Kubernetes.Storage.V1 {
         /// <summary>
         /// AllowVolumeExpansion shows whether the storage class allow volume expand
         /// </summary>
+        [Output("allowVolumeExpansion")]
         public Output<bool> AllowVolumeExpansion { get; private set; } = null!;
 
         /// <summary>
@@ -40,12 +41,14 @@ namespace Pulumi.Kubernetes.Storage.V1 {
         /// list means there is no topology restriction. This field is only honored by servers that
         /// enable the VolumeScheduling feature.
         /// </summary>
+        [Output("allowedTopologies")]
         public Output<Types.Outputs.Core.V1.TopologySelectorTerm[]> AllowedTopologies { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
@@ -53,23 +56,27 @@ namespace Pulumi.Kubernetes.Storage.V1 {
         /// mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if
         /// one is invalid.
         /// </summary>
+        [Output("mountOptions")]
         public Output<string[]> MountOptions { get; private set; } = null!;
 
         /// <summary>
         /// Parameters holds the parameters for the provisioner that should create volumes of this
         /// storage class.
         /// </summary>
+        [Output("parameters")]
         public Output<ImmutableDictionary<string, string>> Parameters { get; private set; } = null!;
 
         /// <summary>
         /// Provisioner indicates the type of the provisioner.
         /// </summary>
+        [Output("provisioner")]
         public Output<string> Provisioner { get; private set; } = null!;
 
         /// <summary>
         /// Dynamically provisioned PersistentVolumes of this storage class are created with this
         /// reclaimPolicy. Defaults to Delete.
         /// </summary>
+        [Output("reclaimPolicy")]
         public Output<string> ReclaimPolicy { get; private set; } = null!;
 
         /// <summary>
@@ -77,6 +84,7 @@ namespace Pulumi.Kubernetes.Storage.V1 {
         /// When unset, VolumeBindingImmediate is used. This field is only honored by servers that
         /// enable the VolumeScheduling feature.
         /// </summary>
+        [Output("volumeBindingMode")]
         public Output<string> VolumeBindingMode { get; private set; } = null!;
 
 
@@ -87,7 +95,7 @@ namespace Pulumi.Kubernetes.Storage.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public StorageClass(string name, Types.Inputs.Storage.V1.StorageClass args, CustomResourceOptions? options = null)
+        public StorageClass(string name, Types.Inputs.Storage.V1.StorageClass? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:storage.k8s.io/v1:StorageClass", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -101,6 +109,21 @@ namespace Pulumi.Kubernetes.Storage.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing StorageClass resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static StorageClass Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new StorageClass(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

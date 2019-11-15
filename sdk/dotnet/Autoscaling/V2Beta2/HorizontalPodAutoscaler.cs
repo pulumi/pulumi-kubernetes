@@ -31,17 +31,20 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2 {
         /// metadata is the standard object metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// spec is the specification for the behaviour of the autoscaler. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.Autoscaling.V2Beta2.HorizontalPodAutoscalerSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// status is the current information about the autoscaler.
         /// </summary>
+        [Output("status")]
         public Output<Types.Outputs.Autoscaling.V2Beta2.HorizontalPodAutoscalerStatus> Status { get; private set; } = null!;
 
 
@@ -52,7 +55,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public HorizontalPodAutoscaler(string name, Types.Inputs.Autoscaling.V2Beta2.HorizontalPodAutoscaler args, CustomResourceOptions? options = null)
+        public HorizontalPodAutoscaler(string name, Types.Inputs.Autoscaling.V2Beta2.HorizontalPodAutoscaler? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -66,6 +69,21 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing HorizontalPodAutoscaler resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static HorizontalPodAutoscaler Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new HorizontalPodAutoscaler(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

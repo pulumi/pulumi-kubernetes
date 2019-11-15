@@ -26,9 +26,11 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
+        [Output("items")]
         public Output<Types.Outputs.ApiRegistration.V1.APIService[]> Items { get; private set; } = null!;
 
         
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
@@ -39,7 +41,7 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public APIServiceList(string name, Types.Inputs.ApiRegistration.V1.APIServiceList args, CustomResourceOptions? options = null)
+        public APIServiceList(string name, Types.Inputs.ApiRegistration.V1.APIServiceList? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:apiregistration/v1:APIServiceList", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -53,6 +55,21 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing APIServiceList resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static APIServiceList Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new APIServiceList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

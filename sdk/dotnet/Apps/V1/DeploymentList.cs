@@ -28,11 +28,13 @@ namespace Pulumi.Kubernetes.Apps.V1 {
         /// <summary>
         /// Items is the list of Deployments.
         /// </summary>
+        [Output("items")]
         public Output<Types.Outputs.Apps.V1.Deployment[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata.
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
@@ -43,7 +45,7 @@ namespace Pulumi.Kubernetes.Apps.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public DeploymentList(string name, Types.Inputs.Apps.V1.DeploymentList args, CustomResourceOptions? options = null)
+        public DeploymentList(string name, Types.Inputs.Apps.V1.DeploymentList? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:apps/v1:DeploymentList", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -57,6 +59,21 @@ namespace Pulumi.Kubernetes.Apps.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing DeploymentList resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static DeploymentList Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new DeploymentList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

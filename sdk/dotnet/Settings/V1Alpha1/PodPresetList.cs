@@ -28,12 +28,14 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
         /// <summary>
         /// Items is a list of schema objects.
         /// </summary>
+        [Output("items")]
         public Output<Types.Outputs.Settings.V1Alpha1.PodPreset[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
@@ -44,7 +46,7 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PodPresetList(string name, Types.Inputs.Settings.V1Alpha1.PodPresetList args, CustomResourceOptions? options = null)
+        public PodPresetList(string name, Types.Inputs.Settings.V1Alpha1.PodPresetList? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:settings.k8s.io/v1alpha1:PodPresetList", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -58,6 +60,21 @@ namespace Pulumi.Kubernetes.Settings.V1Alpha1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing PodPresetList resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static PodPresetList Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new PodPresetList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

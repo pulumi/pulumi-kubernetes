@@ -27,16 +27,19 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1 {
         public Output<string> Kind { get; private set; } = null!;
 
         
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// spec describes how the user wants the resources to appear
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.ApiExtensions.V1.CustomResourceDefinitionSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// status indicates the actual state of the CustomResourceDefinition
         /// </summary>
+        [Output("status")]
         public Output<Types.Outputs.ApiExtensions.V1.CustomResourceDefinitionStatus> Status { get; private set; } = null!;
 
 
@@ -47,7 +50,7 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public CustomResourceDefinition(string name, Types.Inputs.ApiExtensions.V1.CustomResourceDefinition args, CustomResourceOptions? options = null)
+        public CustomResourceDefinition(string name, Types.Inputs.ApiExtensions.V1.CustomResourceDefinition? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -61,6 +64,21 @@ namespace Pulumi.Kubernetes.ApiExtensions.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing CustomResourceDefinition resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static CustomResourceDefinition Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new CustomResourceDefinition(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

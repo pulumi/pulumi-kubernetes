@@ -27,6 +27,7 @@ namespace Pulumi.Kubernetes.{{Group}}.{{Version}} {
 
         {{#Properties}}
         {{{Comment}}}
+        [Output("{{Name}}")]
         public {{{PropType}}} {{LanguageName}} { get; private set; } = null!;
 
         {{/Properties}}
@@ -38,7 +39,7 @@ namespace Pulumi.Kubernetes.{{Group}}.{{Version}} {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public {{Kind}}(string name, Types.Inputs.{{Group}}.{{Version}}.{{Kind}} args, CustomResourceOptions? options = null)
+        public {{Kind}}(string name, Types.Inputs.{{Group}}.{{Version}}.{{Kind}}? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:{{URNAPIVersion}}:{{Kind}}", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -53,6 +54,21 @@ namespace Pulumi.Kubernetes.{{Group}}.{{Version}} {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing {{Kind}} resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static {{Kind}} Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new {{Kind}}(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

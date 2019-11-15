@@ -31,11 +31,13 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1 {
         /// Standard object metadata; More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Webhooks is a list of webhooks and the affected resources and operations.
         /// </summary>
+        [Output("webhooks")]
         public Output<Types.Outputs.AdmissionRegistration.V1Beta1.MutatingWebhook[]> Webhooks { get; private set; } = null!;
 
 
@@ -46,7 +48,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public MutatingWebhookConfiguration(string name, Types.Inputs.AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration args, CustomResourceOptions? options = null)
+        public MutatingWebhookConfiguration(string name, Types.Inputs.AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -60,6 +62,21 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Beta1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing MutatingWebhookConfiguration resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static MutatingWebhookConfiguration Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new MutatingWebhookConfiguration(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

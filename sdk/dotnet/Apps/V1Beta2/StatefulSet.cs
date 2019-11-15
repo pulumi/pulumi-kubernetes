@@ -46,17 +46,20 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2 {
         public Output<string> Kind { get; private set; } = null!;
 
         
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Spec defines the desired identities of pods in this set.
         /// </summary>
+        [Output("spec")]
         public Output<Types.Outputs.Apps.V1Beta2.StatefulSetSpec> Spec { get; private set; } = null!;
 
         /// <summary>
         /// Status is the current status of Pods in this StatefulSet. This data may be out of date
         /// by some window of time.
         /// </summary>
+        [Output("status")]
         public Output<Types.Outputs.Apps.V1Beta2.StatefulSetStatus> Status { get; private set; } = null!;
 
 
@@ -67,7 +70,7 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public StatefulSet(string name, Types.Inputs.Apps.V1Beta2.StatefulSet args, CustomResourceOptions? options = null)
+        public StatefulSet(string name, Types.Inputs.Apps.V1Beta2.StatefulSet? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:apps/v1beta2:StatefulSet", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -81,6 +84,21 @@ namespace Pulumi.Kubernetes.Apps.V1Beta2 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing StatefulSet resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static StatefulSet Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new StatefulSet(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

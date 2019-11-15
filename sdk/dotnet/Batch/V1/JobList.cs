@@ -28,12 +28,14 @@ namespace Pulumi.Kubernetes.Batch.V1 {
         /// <summary>
         /// items is the list of Jobs.
         /// </summary>
+        [Output("items")]
         public Output<Types.Outputs.Batch.V1.Job[]> Items { get; private set; } = null!;
 
         /// <summary>
         /// Standard list metadata. More info:
         /// https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
 
@@ -44,7 +46,7 @@ namespace Pulumi.Kubernetes.Batch.V1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public JobList(string name, Types.Inputs.Batch.V1.JobList args, CustomResourceOptions? options = null)
+        public JobList(string name, Types.Inputs.Batch.V1.JobList? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:batch/v1:JobList", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -58,6 +60,21 @@ namespace Pulumi.Kubernetes.Batch.V1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing JobList resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static JobList Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new JobList(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }

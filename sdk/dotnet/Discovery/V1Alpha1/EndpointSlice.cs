@@ -31,17 +31,20 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses
         /// in this slice must be the same type. Default is IP
         /// </summary>
+        [Output("addressType")]
         public Output<string> AddressType { get; private set; } = null!;
 
         /// <summary>
         /// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum
         /// of 1000 endpoints.
         /// </summary>
+        [Output("endpoints")]
         public Output<Types.Outputs.Discovery.V1Alpha1.Endpoint[]> Endpoints { get; private set; } = null!;
 
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
+        [Output("metadata")]
         public Output<Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
@@ -50,6 +53,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         /// defined ports. When a port is defined with a nil port value, it indicates "all ports".
         /// Each slice may include a maximum of 100 ports.
         /// </summary>
+        [Output("ports")]
         public Output<Types.Outputs.Discovery.V1Alpha1.EndpointPort[]> Ports { get; private set; } = null!;
 
 
@@ -60,7 +64,7 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public EndpointSlice(string name, Types.Inputs.Discovery.V1Alpha1.EndpointSlice args, CustomResourceOptions? options = null)
+        public EndpointSlice(string name, Types.Inputs.Discovery.V1Alpha1.EndpointSlice? args = null, CustomResourceOptions? options = null)
             : base("kubernetes:discovery.k8s.io/v1alpha1:EndpointSlice", name, args, MakeResourceOptions(options, ""))
         {
         }
@@ -74,6 +78,21 @@ namespace Pulumi.Kubernetes.Discovery.V1Alpha1 {
             // Override the ID if one was specified for consistency with other language SDKs.
             merged.Id = id ?? merged.Id;
             return merged;
+        }
+
+        /// <summary>
+        /// Get an existing EndpointSlice resource's state with the given name and ID.
+        /// </summary>
+        ///
+        /// <param name="name">The unique name of the resulting resource.</param>
+        /// <param name="id">The unique provider ID of the resource to lookup.</param>
+        /// <param name="options">A bag of options that control this resource's behavior</param>
+        public static EndpointSlice Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        {
+            return new EndpointSlice(name, null, CustomResourceOptions.Merge(options, new CustomResourceOptions
+            {
+                Id = id,
+            }));
         }
 
     }
