@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.{{Group}} {
     public class {{Kind}} : Pulumi.ResourceArgs {
         {{#RequiredInputProperties}}
         {{#DotnetIsListOrMap}}
-        [Input("{{Name}}")]
+        [Input("{{Name}}", required: true)]
         private {{{PropType}}}? _{{Name}};
 
         {{{Comment}}}
@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.{{Group}} {
         {{/DotnetIsListOrMap}}
         {{^DotnetIsListOrMap}}
         {{{Comment}}}
-        [Input("{{Name}}")]
+        [Input("{{Name}}", required: true)]
         public {{{PropType}}} {{LanguageName}} { get; set; } = null!;
         {{/DotnetIsListOrMap}}
 
